@@ -1,0 +1,49 @@
+NAME
+
+gcloud alpha spanner instance-configs delete - delete a Cloud Spanner instance configuration
+
+SYNOPSIS
+
+`  gcloud alpha spanner instance-configs delete  ` `  INSTANCE_CONFIG  ` \[ `  --etag  ` = `  ETAG  ` \] \[ `  --validate-only  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+
+DESCRIPTION
+
+`  (ALPHA)  ` Delete a Cloud Spanner instance configuration.
+
+EXAMPLES
+
+To delete a custom Cloud Spanner instance configuration, run:
+
+``` text
+gcloud alpha spanner instance-configs delete custom-instance-config
+```
+
+POSITIONAL ARGUMENTS
+
+  - `  INSTANCE_CONFIG  `  
+    Cloud Spanner instance config.
+
+FLAGS
+
+  - `  --etag  ` = `  ETAG  `  
+    Used for optimistic concurrency control as a way to help prevent simultaneous deletes of an instance config from overwriting each other.
+  - `  --validate-only  `  
+    If specified, validate that the deletion will succeed without deleting the instance config.
+
+GCLOUD WIDE FLAGS
+
+These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+
+Run `  $ gcloud help  ` for details.
+
+NOTES
+
+This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
+
+``` text
+gcloud spanner instance-configs delete
+```
+
+``` text
+gcloud beta spanner instance-configs delete
+```

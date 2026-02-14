@@ -1,0 +1,44 @@
+  - [HTTP request](#body.HTTP_TEMPLATE)
+  - [Path parameters](#body.PATH_PARAMETERS)
+  - [Request body](#body.request_body)
+  - [Response body](#body.response_body)
+  - [Authorization scopes](#body.aspect)
+  - [Try it\!](#try-it)
+
+Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `  google.rpc.Code.UNIMPLEMENTED  ` .
+
+### HTTP request
+
+Choose a location:
+
+  
+`  DELETE https://spanner.googleapis.com/v1/{name=projects/*/instanceConfigs/*/operations/*}  `
+
+The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
+
+### Path parameters
+
+Parameters
+
+`  name  `
+
+`  string  `
+
+The name of the operation resource to be deleted.
+
+### Request body
+
+The request body must be empty.
+
+### Response body
+
+If successful, the response body is an empty JSON object.
+
+### Authorization scopes
+
+Requires one of the following OAuth scopes:
+
+  - `  https://www.googleapis.com/auth/spanner.admin  `
+  - `  https://www.googleapis.com/auth/cloud-platform  `
+
+For more information, see the [Authentication Overview](/docs/authentication#authorization-gcp) .

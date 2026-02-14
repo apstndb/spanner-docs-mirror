@@ -1,0 +1,25 @@
+# settings.toml: Configuration for Spanner documentation mirror
+
+# Discovery entry points
+seeds = [
+    "https://cloud.google.com/spanner/docs",
+    "https://cloud.google.com/sdk/gcloud/reference/spanner",
+    "https://cloud.google.com/spanner/docs/samples/spanner-add-column"
+]
+
+# Path prefixes to mirror
+prefixes = [
+    "/spanner/",
+    "/sdk/gcloud/reference/spanner/",
+    "/sdk/gcloud/reference/alpha/spanner/",
+    "/sdk/gcloud/reference/beta/spanner/"
+]
+
+# Recursive discovery from Markdown content
+recursive = true
+
+# Rate limiting: requests per minute
+qpm = 50.0
+
+# Wait duration when quota is exceeded
+qw = "70s"

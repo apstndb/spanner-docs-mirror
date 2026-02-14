@@ -1,0 +1,17 @@
+https://docs.cloud.google.com/spanner/docs/change-streams/fgac-about
+https://docs.cloud.google.com/spanner/docs/change-streams/fgac-change-streams
+https://docs.cloud.google.com/spanner/docs/databoost/export
+https://docs.cloud.google.com/spanner/docs/databoost/iam
+https://docs.cloud.google.com/spanner/docs/databoost/reads
+https://docs.cloud.google.com/spanner/docs/key-visualizer/fgac-about
+https://docs.cloud.google.com/spanner/docs/key-visualizer/fgac-system-roles
+https://docs.cloud.google.com/spanner/docs/key-visualizer/iam
+https://docs.cloud.google.com/spanner/docs/reference/change-streams/details
+https://docs.cloud.google.com/spanner/docs/reference/dml-versus-mutations
+https://docs.cloud.google.com/spanner/docs/reference/fgac-about
+https://docs.cloud.google.com/spanner/docs/reference/secondary-indexes
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/rest/v1/ResultSetMetadata
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/rpc/google.spanner.v1
+https://docs.cloud.google.com/spanner/docs/reference/views
+https://docs.cloud.google.com/spanner/docs/ttl/reference/standard-sql/data-definition-language
+https://docs.cloud.google.com/spanner/kubernetes-engine/docs/how-to/workload-identity

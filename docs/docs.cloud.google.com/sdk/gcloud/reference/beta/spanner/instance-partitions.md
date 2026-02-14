@@ -1,0 +1,44 @@
+NAME
+
+gcloud beta spanner instance-partitions - manage Spanner instance partitions
+
+SYNOPSIS
+
+`  gcloud beta spanner instance-partitions  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+
+DESCRIPTION
+
+`  (BETA)  ` Manage Spanner instance partitions.
+
+GCLOUD WIDE FLAGS
+
+These flags are available to all commands: `  --help  ` .
+
+Run `  $ gcloud help  ` for details.
+
+COMMANDS
+
+`  COMMAND  ` is one of the following:
+
+  - `  create  `  
+    `  (BETA)  ` Create a Spanner instance partition.
+  - `  delete  `  
+    `  (BETA)  ` Delete a Spanner instance partition. You can't delete the default instance partition using this command.
+  - `  describe  `  
+    `  (BETA)  ` Describe a Spanner instance partition.
+  - `  list  `  
+    `  (BETA)  ` List the Spanner instance partitions contained within the given instance.
+  - `  update  `  
+    `  (BETA)  ` Update a Spanner instance partition. You can't update the default instance partition using this command.
+
+NOTES
+
+This command is currently in beta and might change without notice. These variants are also available:
+
+``` text
+gcloud spanner instance-partitions
+```
+
+``` text
+gcloud alpha spanner instance-partitions
+```

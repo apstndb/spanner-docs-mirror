@@ -1,0 +1,132 @@
+NAME
+
+gcloud alpha spanner operations list - list the Cloud Spanner operations
+
+SYNOPSIS
+
+`  gcloud alpha spanner operations list  ` ( `  --instance  ` = `  INSTANCE  ` | `  --instance-config  ` = `  INSTANCE_CONFIG  ` ) \[ `  --backup  ` = `  BACKUP  ` \] \[ `  --database  ` = `  DATABASE  ` \] \[ `  --instance-partition  ` = `  INSTANCE_PARTITION  ` \] \[ `  --type  ` = `  TYPE  ` \] \[ `  --filter  ` = `  EXPRESSION  ` \] \[ `  --limit  ` = `  LIMIT  ` \] \[ `  --page-size  ` = `  PAGE_SIZE  ` \] \[ `  --sort-by  ` =\[ `  FIELD  ` , …\]\] \[ `  --uri  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+
+DESCRIPTION
+
+`  (ALPHA)  ` List the Cloud Spanner operations.
+
+EXAMPLES
+
+To list Cloud Spanner instance operations for an instance, run:
+
+``` text
+gcloud alpha spanner operations list --instance=my-instance-id --type=INSTANCE
+```
+
+To list Cloud Spanner backup operations for an instance, run:
+
+``` text
+gcloud alpha spanner operations list --instance=my-instance-id --type=BACKUP
+```
+
+To list Cloud Spanner database operations for an instance, run:
+
+``` text
+gcloud alpha spanner operations list --instance=my-instance-id --type=DATABASE
+```
+
+To list Cloud Spanner database operations for a database, run:
+
+``` text
+gcloud alpha spanner operations list --instance=my-instance-id --database=my-database-id --type=DATABASE
+```
+
+To list Cloud Spanner backup operations for a database, run:
+
+``` text
+gcloud alpha spanner operations list --instance=my-instance-id --database=my-database-id --type=BACKUP
+```
+
+To list Cloud Spanner backup operations for a backup, run:
+
+``` text
+gcloud alpha spanner operations list --instance=my-instance-id --backup=my-backup-id --type=BACKUP
+```
+
+To list instance partition operations for an instance partition, run:
+
+``` text
+gcloud alpha spanner operations list --instance=my-instance-id --instance-partition=my-partition-id --type=INSTANCE_PARTITION
+```
+
+To list instance partition operations for all instance partitions belonging to this instance, run:
+
+``` text
+gcloud alpha spanner operations list --instance=my-instance-id --type=INSTANCE_PARTITION
+```
+
+REQUIRED FLAGS
+
+Exactly one of these must be specified:
+
+  - `  --instance  ` = `  INSTANCE  `  
+    The ID of the instance the operation is executing on.
+  - `  --instance-config  ` = `  INSTANCE_CONFIG  `  
+    The ID of the instance configuration the operation is executing on.
+
+FLAGS
+
+  - `  --backup  ` = `  BACKUP  `  
+    For backup operations, the name of the backup the operations are executing on.
+  - `  --database  ` = `  DATABASE  `  
+    For database operations, the name of the database the operations are executing on.
+  - `  --instance-partition  ` = `  INSTANCE_PARTITION  `  
+    For instance partition operations, the name of the instance partition the operation is executing on.
+  - `  --type  ` = `  TYPE  `  
+    (optional) List only the operations of the given type. `  TYPE  ` must be one of:
+      - `  BACKUP  `  
+        If only the instance is specified (--instance), returns all backup operations associated with backups in the instance. When a backup is specified (--backup), only the backup operations for the given backup are returned.
+      - `  DATABASE  `  
+        If only the instance is specified (--instance), returns all database operations associated with the databases in the instance. When a database is specified (--database), the command would return database operations for the given database.
+      - `  DATABASE_CHANGE_QUORUM  `  
+        Database change quorum operations are returned for all databases in the given instance (--instance only) or only those associated with the given database (--database).
+      - `  DATABASE_CREATE  `  
+        Database create operations are returned for all databases in the given instance (--instance only) or only those associated with the given database (--database)
+      - `  DATABASE_RESTORE  `  
+        Database restore operations are returned for all databases in the given instance (--instance only) or only those associated with the given database (--database)
+      - `  DATABASE_UPDATE_DDL  `  
+        Database update DDL operations are returned for all databases in the given instance (--instance only) or only those associated with the given database (--database)
+      - `  INSTANCE  `  
+        Returns instance operations for the given instance. Note, type=INSTANCE does not work with --database or --backup.
+      - `  INSTANCE_CONFIG_CREATE  `  
+        Instance configuration create operations are returned for the given instance configuration (--instance-config).
+      - `  INSTANCE_CONFIG_UPDATE  `  
+        Instance configuration update operations are returned for the given instance configuration (--instance-config).
+      - `  INSTANCE_PARTITION  `  
+        If only the instance is specified (--instance), returns all instance partition operations associated with instance partitions in the instance. When an instance partition is specified (--instance-partition), only the instance partition operations for the given instance partition are returned.
+
+LIST COMMAND FLAGS
+
+  - `  --filter  ` = `  EXPRESSION  `  
+    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
+  - `  --limit  ` = `  LIMIT  `  
+    Maximum number of resources to list. The default is `  unlimited  ` . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
+  - `  --page-size  ` = `  PAGE_SIZE  `  
+    Some services group resource list output into pages. This flag specifies the maximum number of resources per page. The default is determined by the service if it supports paging, otherwise it is `  unlimited  ` (no paging). Paging may be applied before or after `  --filter  ` and `  --limit  ` depending on the service.
+  - `  --sort-by  ` =\[ `  FIELD  ` ,…\]  
+    Comma-separated list of resource field key names to sort by. The default order is ascending. Prefix a field with \`\`\~´´ for descending order on that field. This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
+  - `  --uri  `  
+    Print a list of resource URIs instead of the default output, and change the command output to a list of URIs. If this flag is used with `  --format  ` , the formatting is applied on this URI list. To display URIs alongside other keys instead, use the `  uri()  ` transform.
+
+GCLOUD WIDE FLAGS
+
+These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+
+Run `  $ gcloud help  ` for details.
+
+NOTES
+
+This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
+
+``` text
+gcloud spanner operations list
+```
+
+``` text
+gcloud beta spanner operations list
+```

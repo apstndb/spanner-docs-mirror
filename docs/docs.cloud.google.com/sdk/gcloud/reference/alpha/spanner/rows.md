@@ -1,0 +1,40 @@
+NAME
+
+gcloud alpha spanner rows - manage the rows in Cloud Spanner databases
+
+SYNOPSIS
+
+`  gcloud alpha spanner rows  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+
+DESCRIPTION
+
+`  (ALPHA)  ` Manage the rows in Cloud Spanner databases.
+
+GCLOUD WIDE FLAGS
+
+These flags are available to all commands: `  --help  ` .
+
+Run `  $ gcloud help  ` for details.
+
+COMMANDS
+
+`  COMMAND  ` is one of the following:
+
+  - `  delete  `  
+    `  (ALPHA)  ` Delete a row in a Cloud Spanner database.
+  - `  insert  `  
+    `  (ALPHA)  ` Insert a row in a Cloud Spanner database.
+  - `  update  `  
+    `  (ALPHA)  ` Update a row in a Cloud Spanner database.
+
+NOTES
+
+This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
+
+``` text
+gcloud spanner rows
+```
+
+``` text
+gcloud beta spanner rows
+```

@@ -1,0 +1,59 @@
+NAME
+
+gcloud spanner - command groups for Cloud Spanner
+
+SYNOPSIS
+
+`  gcloud spanner  ` `  GROUP  ` | `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+
+DESCRIPTION
+
+Command groups for Cloud Spanner.
+
+GCLOUD WIDE FLAGS
+
+These flags are available to all commands: `  --help  ` .
+
+Run `  $ gcloud help  ` for details.
+
+GROUPS
+
+`  GROUP  ` is one of the following:
+
+  - `  backup-schedules  `  
+    Manage Cloud Spanner backup schedules.
+  - `  backups  `  
+    Manage Cloud Spanner backups.
+  - `  databases  `  
+    Manage Cloud Spanner databases.
+  - `  instance-configs  `  
+    Manage Cloud Spanner instance configs.
+  - `  instance-partitions  `  
+    Manage Spanner instance partitions.
+  - `  instances  `  
+    Manage Cloud Spanner instances.
+  - `  operations  `  
+    Manage Cloud Spanner operations.
+  - `  rows  `  
+    Manage the rows in Cloud Spanner databases.
+  - `  samples  `  
+    Cloud Spanner sample apps.
+
+COMMANDS
+
+`  COMMAND  ` is one of the following:
+
+  - `  cli  `  
+    An interactive shell for Spanner.
+
+NOTES
+
+These variants are also available:
+
+``` text
+gcloud alpha spanner
+```
+
+``` text
+gcloud beta spanner
+```

@@ -1,0 +1,126 @@
+NAME
+
+gcloud alpha spanner instance-partitions update - update a Spanner instance partition. You can't update the default instance partition using this command
+
+SYNOPSIS
+
+`  gcloud alpha spanner instance-partitions update  ` ( `  INSTANCE_PARTITION  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  --async  ` \] \[ `  --description  ` = `  DESCRIPTION  ` \] \[ `  --nodes  ` = `  NODES  ` | `  --processing-units  ` = `  PROCESSING_UNITS  ` | `  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  ` `  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  ` `  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  ` `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  ` `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  ` | `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  ` `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+
+DESCRIPTION
+
+`  (ALPHA)  ` Update a Spanner instance partition. You can't update the default instance partition using this command.
+
+EXAMPLES
+
+To update the display name of a Spanner instance partition, run:
+
+``` text
+gcloud alpha spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --description=my-new-display-name
+```
+
+To update the node count of a Spanner instance partition, run:
+
+``` text
+gcloud alpha spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --nodes=1
+```
+
+POSITIONAL ARGUMENTS
+
+Instance partition resource - The Spanner instance partition to update. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
+
+To set the `  project  ` attribute:
+
+  - provide the argument `  instance_partition  ` on the command line with a fully specified name;
+  - provide the argument `  --project  ` on the command line;
+  - set the property `  core/project  ` .
+
+This must be specified.
+
+  - `  INSTANCE_PARTITION  `  
+    ID of the instance partition or fully qualified identifier for the instance partition.
+    
+    To set the `  instance partition  ` attribute:
+    
+      - provide the argument `  instance_partition  ` on the command line.
+    
+    This positional argument must be specified if any of the other arguments in this group are specified.
+
+  - `  --instance  ` = `  INSTANCE  `  
+    The Cloud Spanner instance for the instance partition.
+    
+    To set the `  instance  ` attribute:
+    
+      - provide the argument `  instance_partition  ` on the command line with a fully specified name;
+      - provide the argument `  --instance  ` on the command line;
+      - set the property `  spanner/instance  ` .
+
+FLAGS
+
+`  --async  `
+
+Return immediately, without waiting for the operation in progress to complete.
+
+`  --description  ` = `  DESCRIPTION  `
+
+Description of the instance partition.
+
+At most one of these can be specified:
+
+`  --nodes  ` = `  NODES  `
+
+Number of nodes for the instance partition.
+
+`  --processing-units  ` = `  PROCESSING_UNITS  `
+
+Number of processing units for the instance partition.
+
+Or at least one of these can be specified:
+
+Autoscaling
+
+`  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  `
+
+Specifies the target percentage of storage the autoscaled instance can utilize.
+
+Autoscaling CPU targets.
+
+`  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  `
+
+Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
+
+`  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  `
+
+Specifies the target percentage of total CPU the autoscaled instance can utilize.
+
+Autoscaling limits can be defined in either nodes or processing units.
+
+At most one of these can be specified:
+
+  - Autoscaling limits in nodes:  
+    `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  `  
+    Maximum number of nodes for the autoscaled instance.
+  - `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  `  
+    Minimum number of nodes for the autoscaled instance.
+  - Autoscaling limits in processing units:  
+    `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  `  
+    Maximum number of processing units for the autoscaled instance.
+  - `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  `  
+    Minimum number of processing units for the autoscaled instance.
+
+GCLOUD WIDE FLAGS
+
+These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+
+Run `  $ gcloud help  ` for details.
+
+NOTES
+
+This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
+
+``` text
+gcloud spanner instance-partitions update
+```
+
+``` text
+gcloud beta spanner instance-partitions update
+```

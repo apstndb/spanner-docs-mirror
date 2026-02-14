@@ -1,0 +1,63 @@
+NAME
+
+gcloud alpha spanner instances - manage Cloud Spanner instances
+
+SYNOPSIS
+
+`  gcloud alpha spanner instances  ` `  GROUP  ` | `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+
+DESCRIPTION
+
+`  (ALPHA)  ` Manage Cloud Spanner instances.
+
+GCLOUD WIDE FLAGS
+
+These flags are available to all commands: `  --help  ` .
+
+Run `  $ gcloud help  ` for details.
+
+GROUPS
+
+`  GROUP  ` is one of the following:
+
+  - `  config  `  
+    `  (ALPHA)  ` Manage Spanner instance configurations.
+
+COMMANDS
+
+`  COMMAND  ` is one of the following:
+
+  - `  add-iam-policy-binding  `  
+    `  (ALPHA)  ` Add IAM policy binding to a Cloud Spanner instance.
+  - `  create  `  
+    `  (ALPHA)  ` Create a Cloud Spanner instance.
+  - `  delete  `  
+    `  (ALPHA)  ` Delete a Cloud Spanner instance.
+  - `  describe  `  
+    `  (ALPHA)  ` Describe a Cloud Spanner instance.
+  - `  get-iam-policy  `  
+    `  (ALPHA)  ` Get the IAM policy for a Cloud Spanner instance.
+  - `  get-locations  `  
+    `  (ALPHA)  ` Get the location of every replica in a Cloud Spanner instance.
+  - `  list  `  
+    `  (ALPHA)  ` List the Cloud Spanner instances in this project.
+  - `  move  `  
+    `  (ALPHA)  ` Move the Cloud Spanner instance to the specified instance configuration.
+  - `  remove-iam-policy-binding  `  
+    `  (ALPHA)  ` Remove IAM policy binding of a Cloud Spanner instance.
+  - `  set-iam-policy  `  
+    `  (ALPHA)  ` Set the IAM policy for a Cloud Spanner instance.
+  - `  update  `  
+    `  (ALPHA)  ` Update a Cloud Spanner instance.
+
+NOTES
+
+This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
+
+``` text
+gcloud spanner instances
+```
+
+``` text
+gcloud beta spanner instances
+```
