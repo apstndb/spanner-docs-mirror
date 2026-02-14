@@ -5,7 +5,7 @@ set -e
 
 # 1. Configuration
 # Allow overriding the version (stable tag, commit hash, or 'latest') via first argument
-VERSION=${1:-v0.1.0}
+VERSION=${1:-v0.1.1}
 MIRROR_TOOL="github.com/apstndb/gcp-docs-mirror-tools@$VERSION"
 
 # 2. Cleanup

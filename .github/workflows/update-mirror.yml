@@ -35,4 +35,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "docs: auto-update ${{ env.TODAY }} [skip ci]"
-          file_pattern: 'docs/ metadata.yaml urls.txt redirect_cache.txt failed_urls.txt'
+          file_pattern: 'docs/ metadata.yaml logs/'
