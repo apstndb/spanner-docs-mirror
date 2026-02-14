@@ -19,7 +19,5 @@ prefixes = [
 recursive = true
 
 # Rate limiting: requests per minute
-qpm = 50.0
 
 # Wait duration when quota is exceeded
-qw = "70s"
