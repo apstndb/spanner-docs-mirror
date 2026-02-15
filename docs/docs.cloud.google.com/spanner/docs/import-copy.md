@@ -1,1 +1,0 @@
-You can use the PostgreSQL `  COPY FROM STDIN  ` command to import data into a PostgreSQL-dialect database. For details, see [COPY command for importing data](/spanner/docs/psql-commands#copy_command_for_importing_data) in the `  psql  ` command-line tool reference.
