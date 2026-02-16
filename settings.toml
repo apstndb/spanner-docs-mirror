@@ -7,6 +7,9 @@ seeds = [
     "https://cloud.google.com/spanner/docs/samples/spanner-add-column"
 ]
 
+# Sitemap URL(s) to discover links
+# sitemaps = ["https://cloud.google.com/sitemap.xml"]
+
 # Path prefixes to mirror
 prefixes = [
     "/spanner/",
@@ -18,6 +21,11 @@ prefixes = [
 # Recursive discovery from Markdown content
 recursive = true
 
-# Rate limiting: requests per minute
+# Resume from existing progress in logs (default: false)
+# resume = false
 
-# Wait duration when quota is exceeded
+# Rate limiting: requests per minute (default: 50.0)
+# qpm = 50.0
+
+# Wait duration when quota is exceeded (default: 1m10s)
+# qw = "1m10s"
