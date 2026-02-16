@@ -1,0 +1,56 @@
+NAME
+
+gcloud spanner instances - manage Cloud Spanner instances
+
+SYNOPSIS
+
+`  gcloud spanner instances  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+
+DESCRIPTION
+
+Manage Cloud Spanner instances.
+
+GCLOUD WIDE FLAGS
+
+These flags are available to all commands: `  --help  ` .
+
+Run `  $ gcloud help  ` for details.
+
+COMMANDS
+
+`  COMMAND  ` is one of the following:
+
+  - `  add-iam-policy-binding  `  
+    Add IAM policy binding to a Cloud Spanner instance.
+  - `  create  `  
+    Create a Cloud Spanner instance.
+  - `  delete  `  
+    Delete a Cloud Spanner instance.
+  - `  describe  `  
+    Describe a Cloud Spanner instance.
+  - `  get-iam-policy  `  
+    Get the IAM policy for a Cloud Spanner instance.
+  - `  get-locations  `  
+    Get the location of every replica in a Cloud Spanner instance.
+  - `  list  `  
+    List the Cloud Spanner instances in this project.
+  - `  move  `  
+    Move the Cloud Spanner instance to the specified instance configuration.
+  - `  remove-iam-policy-binding  `  
+    Remove IAM policy binding of a Cloud Spanner instance.
+  - `  set-iam-policy  `  
+    Set the IAM policy for a Cloud Spanner instance.
+  - `  update  `  
+    Update a Cloud Spanner instance.
+
+NOTES
+
+These variants are also available:
+
+``` text
+gcloud alpha spanner instances
+```
+
+``` text
+gcloud beta spanner instances
+```

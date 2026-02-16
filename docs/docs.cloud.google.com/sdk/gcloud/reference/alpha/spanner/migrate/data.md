@@ -1,0 +1,59 @@
+NAME
+
+gcloud alpha spanner migrate data - migrate data from a source database to Cloud Spanner given a schema
+
+SYNOPSIS
+
+`  gcloud alpha spanner migrate data  ` `  --session  ` = `  SESSION  ` `  --source  ` = `  SOURCE  ` `  --target-profile  ` = `  TARGET_PROFILE  ` \[ `  --dataflow-template  ` = `  DATAFLOW_TEMPLATE  ` \] \[ `  --dry-run  ` \] \[ `  --log-level  ` = `  LOG_LEVEL  ` \] \[ `  --prefix  ` = `  PREFIX  ` \] \[ `  --project  ` = `  PROJECT  ` \] \[ `  --skip-foreign-keys  ` \] \[ `  --source-profile  ` = `  SOURCE_PROFILE  ` \] \[ `  --target  ` = `  TARGET  ` \] \[ `  --write-limit  ` = `  WRITE_LIMIT  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+
+DESCRIPTION
+
+`  (ALPHA)  ` Migrate data from a source database to Cloud Spanner given a schema.
+
+EXAMPLES
+
+To copy data to Cloud Spanner given a session file:
+
+``` text
+gcloud alpha spanner migrate data --session=./session.json --source=postgresql < ~/cart.pg_dump --target-profile='instance=spanner-instance'
+```
+
+REQUIRED FLAGS
+
+  - `  --session  ` = `  SESSION  `  
+    Specifies the file that you restore session state from.
+  - `  --source  ` = `  SOURCE  `  
+    Flag for specifying source database (e.g., PostgreSQL, MySQL, DynamoDB).
+  - `  --target-profile  ` = `  TARGET_PROFILE  `  
+    Flag for specifying connection profile for target database (e.g., "dialect=postgresql)".
+
+OPTIONAL FLAGS
+
+  - `  --dataflow-template  ` = `  DATAFLOW_TEMPLATE  `  
+    The google cloud storage path of the minimal downtime migration template to use to run the migration job.
+  - `  --dry-run  `  
+    Flag for generating DDL and schema conversion report without creating a Cloud Spanner database.
+  - `  --log-level  ` = `  LOG_LEVEL  `  
+    To configure the log level for the execution (INFO, VERBOSE).
+  - `  --prefix  ` = `  PREFIX  `  
+    File prefix for generated files.
+  - `  --project  ` = `  PROJECT  `  
+    The project in which the migration job and its resources will be created.
+  - `  --skip-foreign-keys  `  
+    Skip creating foreign keys after data migration is complete.
+  - `  --source-profile  ` = `  SOURCE_PROFILE  `  
+    Flag for specifying connection profile for source database (e.g., "file=\<path\>,format=dump").
+  - `  --target  ` = `  TARGET  `  
+    Specifies the target database, defaults to Spanner (accepted values: Spanner) (default "Spanner").
+  - `  --write-limit  ` = `  WRITE_LIMIT  `  
+    Number of parallel writers to Cloud Spanner during bulk data migrations (default 40).
+
+GCLOUD WIDE FLAGS
+
+These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+
+Run `  $ gcloud help  ` for details.
+
+NOTES
+
+This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist.
