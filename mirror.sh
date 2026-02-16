@@ -11,7 +11,7 @@ MIRROR_TOOL="github.com/apstndb/gcp-docs-mirror-tools@$VERSION"
 # 2. Cleanup
 # Ensure a clean state to avoid "ghost files" from deleted documentation.
 echo "--- Cleaning up old mirror state ---"
-rm -rf docs/ urls.txt redirect_cache.txt failed_urls.txt metadata.yaml
+rm -rf docs/ logs/ metadata.yaml
 
 # 3. Execution
 echo "--- Starting full Spanner documentation mirror rebuild via go run ($MIRROR_TOOL) ---"
@@ -20,4 +20,4 @@ echo "--- Starting full Spanner documentation mirror rebuild via go run ($MIRROR
 GOPROXY=direct go run "$MIRROR_TOOL" -config settings.toml
 
 echo "--- Rebuild complete ---"
-echo "Check metadata.yaml, urls.txt, redirect_cache.txt, and failed_urls.txt for changes."
+echo "Check metadata.yaml, logs/* for changes."
