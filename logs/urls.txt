@@ -462,7 +462,6 @@ https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat
 https://docs.cloud.google.com/spanner/docs/key-visualizer
 https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps
 https://docs.cloud.google.com/spanner/docs/key-visualizer/getting-started
-https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics
 https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns
 https://docs.cloud.google.com/spanner/docs/labs
 https://docs.cloud.google.com/spanner/docs/langchain
@@ -809,7 +808,6 @@ https://docs.cloud.google.com/spanner/docs/release-notes
 https://docs.cloud.google.com/spanner/docs/replication
 https://docs.cloud.google.com/spanner/docs/resources
 https://docs.cloud.google.com/spanner/docs/rest-endpoints
-https://docs.cloud.google.com/spanner/docs/rpc-endpoints
 https://docs.cloud.google.com/spanner/docs/samples
 https://docs.cloud.google.com/spanner/docs/samples/spanner-add-column
 https://docs.cloud.google.com/spanner/docs/samples/spanner-add-numeric-column
@@ -959,7 +957,6 @@ https://docs.cloud.google.com/spanner/docs/use-oss-jdbc
 https://docs.cloud.google.com/spanner/docs/use-oss-r2dbc
 https://docs.cloud.google.com/spanner/docs/use-pitr
 https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation
-https://docs.cloud.google.com/spanner/docs/use-select-for-update
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable
 https://docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema
