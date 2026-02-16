@@ -1,3 +1,11 @@
+https://cloud.google.com/sdk/gcloud/reference/spanner
+https://cloud.google.com/spanner
+https://cloud.google.com/spanner/docs
+https://cloud.google.com/spanner/docs/samples/spanner-add-column
+https://cloud.google.com/spanner/pricing
+https://cloud.google.com/spanner/sla
+https://docs.cloud.google.com/spanner/docs/backup#how-backup-copy-works
+https://docs.cloud.google.com/spanner/docs/backup#how-backup-creation-works
 https://docs.cloud.google.com/spanner/docs/change-streams/fgac-about
 https://docs.cloud.google.com/spanner/docs/change-streams/fgac-change-streams
 https://docs.cloud.google.com/spanner/docs/databoost/export
