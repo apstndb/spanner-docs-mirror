@@ -104,7 +104,7 @@ This section explains how to use the Spanner JDBC driver to connect to a Postgre
         <dependency>
           <groupId>com.google.cloud</groupId>
           <artifactId>libraries-bom</artifactId>
-          <version>26.74.0</version>
+          <version>26.75.0</version>
           <type>pom</type>
           <scope>import</scope>
         </dependency>
