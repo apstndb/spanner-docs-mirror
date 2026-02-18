@@ -1,3 +1,5 @@
 200 https://cloud.google.com/spanner/pricing
 200 https://cloud.google.com/spanner/sla
+200 https://docs.cloud.google.com/spanner/docs/secure-agent-interactions-mcp
+200 https://docs.cloud.google.com/spanner/docs/shared-responsibility-model
 200 https://docs.cloud.google.com/spanner/docs/vector-search-overview
