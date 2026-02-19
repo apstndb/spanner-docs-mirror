@@ -39,7 +39,6 @@ https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/list
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/remove-iam-policy-binding
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/restore
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/roles
-https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/roles/list
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/sessions
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/sessions/delete
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/sessions/list
@@ -485,7 +484,6 @@ https://docs.cloud.google.com/spanner/docs/migrating-mysql-to-spanner
 https://docs.cloud.google.com/spanner/docs/migrating-oracle-to-cloud-spanner
 https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner
 https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner-pgcompat
-https://docs.cloud.google.com/spanner/docs/migrating-primary-keys
 https://docs.cloud.google.com/spanner/docs/migration-overview
 https://docs.cloud.google.com/spanner/docs/migration-tools
 https://docs.cloud.google.com/spanner/docs/ml
@@ -812,7 +810,6 @@ https://docs.cloud.google.com/spanner/docs/samples
 https://docs.cloud.google.com/spanner/docs/samples/spanner-add-column
 https://docs.cloud.google.com/spanner/docs/samples/spanner-add-numeric-column
 https://docs.cloud.google.com/spanner/docs/samples/spanner-add-timestamp-column
-https://docs.cloud.google.com/spanner/docs/samples/spanner-batch-client
 https://docs.cloud.google.com/spanner/docs/samples/spanner-cancel-backup-create
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-array-of-struct-with-data
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-backup
@@ -884,7 +881,6 @@ https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-int-parame
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-numeric-parameter
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-parameter
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-query-options
-https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-string-parameter
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-timestamp-parameter
 https://docs.cloud.google.com/spanner/docs/samples/spanner-quickstart
 https://docs.cloud.google.com/spanner/docs/samples/spanner-read-data
