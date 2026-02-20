@@ -12,7 +12,7 @@ Follow the steps in [Spanner client libraries](/spanner/docs/reference/libraries
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>libraries-bom</artifactId>
-      <version>26.75.0</version>
+      <version>26.76.0</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>

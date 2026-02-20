@@ -19,7 +19,7 @@ SET SPANNER.READONLY {TO|=} { true | false }
 
 You can change the value of this property only while there is no active transaction.
 
-##### ▶ Example: Read-only transaction (Click to expand)
+##### Example: Read-only transaction (Click to expand)
 
 The following example shows how to use this property to execute read-only transactions in Spanner.
 
@@ -58,9 +58,9 @@ You can change the value of this property only when there is no active transacti
 
 When `  AUTOCOMMIT  ` is set to false, a new transaction is initiated automatically after you execute `  COMMIT  ` or `  ROLLBACK  ` . The first statement that you execute starts the transaction.
 
-##### ▶ Example: Autocommit (Click to expand)
+##### Example: Autocommit (Click to expand)
 
-The following example shows how to use the `  autocommit  ` property.
+The following example shows how to use the \`autocommit\` property.
 
 ``` text
 -- The default value for AUTOCOMMIT is true.
@@ -124,9 +124,9 @@ The possible values are:
 
 The default is `  TRANSACTIONAL  ` .
 
-##### ▶ Example: Partitioned DML (Click to expand)
+##### Example: Partitioned DML (Click to expand)
 
-The following example shows how to execute [Partitioned DML](/spanner/docs/dml-partitioned) using the Spanner JDBC driver.
+The following example shows how to execute \[Partitioned DML\](/spanner/docs/dml-partitioned) using the Spanner JDBC driver.
 
 ``` text
 -- Change autocommit DML mode to use Partitioned DML.
@@ -210,7 +210,7 @@ You can modify the value of this property only while there is no active transact
 
 **Note:** You can use the values `  MIN_READ_TIMESTAMP  ` and `  MAX_STALENESS  ` only for queries in `  AUTOCOMMIT  ` mode.
 
-##### ▶ Example: Read-only staleness (Click to expand)
+##### Example: Read-only staleness (Click to expand)
 
 The following example shows how to execute queries using a custom staleness value with the Spanner JDBC driver.
 
@@ -262,9 +262,9 @@ Sets the version of the optimizer to be used for all the following statements on
 
 The default is `  ''  ` .
 
-##### ▶ Example: Optimizer version (Click to expand)
+##### Example: Optimizer version (Click to expand)
 
-The following example shows how to execute queries using a specific [optimizer version](/spanner/docs/query-optimizer/versions) with the Spanner JDBC driver.
+The following example shows how to execute queries using a specific \[optimizer version\](/spanner/docs/query-optimizer/versions) with the Spanner JDBC driver.
 
 ``` text
 -- Set the optimizer version to 5 and execute a query.
@@ -303,9 +303,9 @@ Sets the optimizer statistics package to use for all following statements on the
 
 The default is `  ''  ` .
 
-##### ▶ Example: Optimizer statistics package (Click to expand)
+##### Example: Optimizer statistics package (Click to expand)
 
-The following example shows how to execute queries using a specific [optimizer statistics package](/spanner/docs/query-optimizer/versions) with the Spanner JDBC driver.
+The following example shows how to execute queries using a specific \[optimizer statistics package\](/spanner/docs/query-optimizer/versions) with the Spanner JDBC driver.
 
 ``` text
 -- Show the available optimizer statistics packages in this database.
@@ -337,7 +337,7 @@ SET SPANNER.RETURN_COMMIT_STATS {TO|=} { true | false }
 
 The default is `  false  ` .
 
-##### ▶ Example: Commit statistics (Click to expand)
+##### Example: Commit statistics (Click to expand)
 
 The following example shows how to view commit statistics for a transaction with the Spanner JDBC driver.
 
@@ -404,7 +404,7 @@ You can also use a statement hint to add a statement tag:
 
 For more information, see [Troubleshoot with request tags and transaction tags](/spanner/docs/introspection/troubleshooting-with-tags) .
 
-##### ▶ Example: Statement tags (Click to expand)
+##### Example: Statement tags (Click to expand)
 
 The following example shows how to set statement tags with the Spanner JDBC driver.
 
@@ -448,7 +448,7 @@ You can set both transaction tags and statement tags for the same statement.
 
 For more information, see [Troubleshoot with request tags and transaction tags](/spanner/docs/introspection/troubleshooting-with-tags) .
 
-##### ▶ Example: Transaction tags (Click to expand)
+##### Example: Transaction tags (Click to expand)
 
 The following example shows how to set transaction tags with the Spanner JDBC driver.
 
@@ -498,7 +498,7 @@ SHOW [VARIABLE] SPANNER.READ_TIMESTAMP
 
 Returns a result set with one row and one column of type `  TIMESTAMP  ` containing the read timestamp of the most recent read-only transaction. This statement returns a timestamp only when either a read-only transaction is still active and has executed at least one query, or immediately after a read-only transaction is committed and before a new transaction starts. Otherwise, the result is `  NULL  ` .
 
-##### ▶ Example: Read timestamp (Click to expand)
+##### Example: Read timestamp (Click to expand)
 
 The following example shows how to view the last read timestamp for a read-only operation with the Spanner JDBC driver.
 
@@ -556,7 +556,7 @@ SHOW [VARIABLE] SPANNER.COMMIT_TIMESTAMP
 
 Returns a result set with one row and one column of type `  TIMESTAMP  ` containing the commit timestamp of the last read-write transaction that Spanner committed. This statement returns a timestamp only when you execute it after you commit a read-write transaction and before you execute any subsequent `  SELECT  ` , `  DML  ` , or schema change statements. Otherwise, the result is `  NULL  ` .
 
-##### ▶ Example: Commit timestamp (Click to expand)
+##### Example: Commit timestamp (Click to expand)
 
 The following example shows how to view the last commit timestamp for a write operation with the Spanner JDBC driver.
 
@@ -582,7 +582,7 @@ Returns a result set with one row and two columns:
 
 The mutation count is available only if `  SET SPANNER.RETURN_COMMIT_STATS  ` was set to `  true  ` prior to the transaction commit.
 
-##### ▶ Example: Commit response (Click to expand)
+##### Example: Commit response (Click to expand)
 
 The following example shows how to view the last commit response for a write operation with the Spanner JDBC driver.
 
@@ -612,7 +612,7 @@ Starts a new transaction. The keywords `  TRANSACTION  ` and `  WORK  ` are opti
 
 You can execute this statement only while there is no active transaction.
 
-##### ▶ Example: BEGIN TRANSACTION (Click to expand)
+##### Example: BEGIN TRANSACTION (Click to expand)
 
 The following example shows how to start different types of transactions with the Spanner JDBC driver.
 
@@ -659,7 +659,7 @@ Commits the current transaction. The keywords `  TRANSACTION  ` and `  WORK  ` a
 
 You can execute this statement only while there is an active transaction.
 
-##### ▶ Example: COMMIT TRANSACTION (Click to expand)
+##### Example: COMMIT TRANSACTION (Click to expand)
 
 The following example shows how to commit a transaction with the Spanner JDBC driver.
 
@@ -693,7 +693,7 @@ Performs a `  ROLLBACK  ` of the current transaction. The keywords `  TRANSACTIO
 
 You can execute this statement only while there is an active transaction.
 
-##### ▶ Example: ROLLBACK TRANSACTION (Click to expand)
+##### Example: ROLLBACK TRANSACTION (Click to expand)
 
 The following example shows how to rollback a transaction with the Spanner JDBC driver.
 
@@ -730,7 +730,7 @@ This statement sets the transaction mode for the current transaction only. When 
 
 **Note:** You can't set the transaction mode to `  READ WRITE  ` if the connection is in `  READ ONLY  ` mode.
 
-##### ▶ Example: SET TRANSACTION (Click to expand)
+##### Example: SET TRANSACTION (Click to expand)
 
 The following example shows how to set transaction characteristics with the Spanner JDBC driver.
 
@@ -780,7 +780,7 @@ Starts a batch of DDL statements on the connection. All subsequent statements du
 
 You can execute this statement only while there is no active transaction.
 
-##### ▶ Example: DDL batch (Click to expand)
+##### Example: DDL batch (Click to expand)
 
 The following example shows how to execute a DDL batch with the Spanner JDBC driver.
 
@@ -829,7 +829,7 @@ Clears all buffered DDL statements in the current DDL batch and ends the batch.
 
 You can execute this statement only when a DDL batch is active. You can use `  ABORT BATCH  ` regardless of whether or not the batch has buffered DDL statements. All preceding DDL statements in the batch will be aborted.
 
-##### ▶ Example: Abort DDL batch (Click to expand)
+##### Example: Abort DDL batch (Click to expand)
 
 The following example shows how to abort a DDL batch with the Spanner JDBC driver.
 
@@ -867,7 +867,7 @@ INSERT INTO MYTABLE (ID, NAME) VALUES (2, 'TWO');
 RUN BATCH;
 ```
 
-##### ▶ Example: DML batch (Click to expand)
+##### Example: DML batch (Click to expand)
 
 The following example shows how to execute a DML batch with the Spanner JDBC driver.
 
@@ -927,7 +927,7 @@ Sets whether this connection should use [Data Boost](/spanner/docs/databoost/dat
 
 The default is `  false  ` .
 
-##### ▶ Example: Execute a query using Data Boost (Click to expand)
+##### Example: Execute a query using Data Boost (Click to expand)
 
 The following example shows how to a query using Data Boost with the Spanner JDBC driver.
 
@@ -955,9 +955,9 @@ SET SPANNER.AUTO_PARTITION_MODE {TO|=} { true | false}
 
 The default is `  false  ` .
 
-##### ▶ Example: Execute (Click to expand)
+##### Example: Execute (Click to expand)
 
-This example executes two queries with the Spanner JDBC driver using [Data Boost](/spanner/docs/databoost/databoost-overview)
+This example executes two queries with the Spanner JDBC driver using \[Data Boost\](/spanner/docs/databoost/databoost-overview)
 
 ``` text
 SET SPANNER.AUTO_PARTITION_MODE = true
@@ -993,7 +993,7 @@ PARTITION <sql>
 
 Creates a list of partitions to execute a query against Spanner and returns these a list of partition tokens. Each partition token can be executed on a separate JDBC connection on the same or another host using the `  RUN PARTITION 'partition-token'  ` command.
 
-##### ▶ Example: Partition query (Click to expand)
+##### Example: Partition query (Click to expand)
 
 The following example shows how to partition a query and then execute each partition separately using the Spanner JDBC driver.
 
@@ -1061,7 +1061,7 @@ The default value is `  FAIL_AFTER_ROLLBACK  ` .
 
 You can change the value of this variable only while there is no active transaction.
 
-##### ▶ Example: Savepoint support (Click to expand)
+##### Example: Savepoint support (Click to expand)
 
 The following example shows how to enable and disable savepoints support in the Spanner JDBC driver.
 

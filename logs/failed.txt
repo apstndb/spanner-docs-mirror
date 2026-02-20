@@ -1,9 +1,2 @@
 200 https://cloud.google.com/spanner/pricing
 200 https://cloud.google.com/spanner/sla
-200 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/roles/list
-200 https://docs.cloud.google.com/spanner/docs/migrating-primary-keys
-200 https://docs.cloud.google.com/spanner/docs/samples/spanner-batch-client
-200 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-string-parameter
-200 https://docs.cloud.google.com/spanner/docs/secure-agent-interactions-mcp
-200 https://docs.cloud.google.com/spanner/docs/shared-responsibility-model
-200 https://docs.cloud.google.com/spanner/docs/vector-search-overview
