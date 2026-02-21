@@ -147,7 +147,7 @@ You can also insert UUID values you've generated elsewhere, such as your backend
 INSERT INTO
   UserAccessLogs (LogEntryId, LastAccess, UserId)
 VALUES
-  ('4192bff0-e1e0-43ce-a4db-912808c32493', '2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+  ('4192bff0-e1e0-43ce-a4db-912808c32493', '2016-01-25 10:10:10.555555-05:00';, 'TomSmith');
 ```
 
 ### PostgreSQL
@@ -156,7 +156,7 @@ VALUES
 INSERT INTO
   useraccesslogs (logentryid, lastaccess, userid)
 VALUES
-  ('4192bff0-e1e0-43ce-a4db-912808c32493','2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+  ('4192bff0-e1e0-43ce-a4db-912808c32493','2016-01-25 10:10:10.555555-05:00';, 'TomSmith');
 ```
 
 ### Bit-reverse sequential values

@@ -135,17 +135,15 @@ When you have entered a value into each field, the equivalent YAML configuration
 To create a custom constraint, create a YAML file using the following format:
 
 ``` text
-      name: organizations/ORGANIZATION_ID/customConstraints/CONSTRAINT_NAME
-      resourceTypes:
-      - RESOURCE_NAME
-      methodTypes:
-      - CREATE
+name: organizations/ORGANIZATION_ID/customConstraints/CONSTRAINT_NAME
+resourceTypes: RESOURCE_NAME
+methodTypes:
+  - CREATE
 - UPDATE 
-      condition: "CONDITION"
-      actionType: ACTION
-      displayName: DISPLAY_NAME
-      description: DESCRIPTION
-      
+condition: "CONDITION"
+actionType: ACTION
+displayName: DISPLAY_NAME
+description: DESCRIPTION
 ```
 
 Replace the following:
@@ -161,8 +159,7 @@ Replace the following:
 After you have created the YAML file for a new custom constraint, you must set it up to make it available for organization policies in your organization. To set up a custom constraint, use the [`  gcloud org-policies set-custom-constraint  `](/sdk/gcloud/reference/org-policies/set-custom-constraint) command:
 
 ``` text
-        gcloud org-policies set-custom-constraint CONSTRAINT_PATH
-      
+gcloud org-policies set-custom-constraint CONSTRAINT_PATH
 ```
 
 Replace `  CONSTRAINT_PATH  ` with the full path to your custom constraint file. For example, `  /home/user/customconstraint.yaml  ` .
@@ -172,8 +169,7 @@ After this operation is complete, your custom constraints are available as organ
 To verify that the custom constraint exists, use the [`  gcloud org-policies list-custom-constraints  `](/sdk/gcloud/reference/org-policies/list-custom-constraints) command:
 
 ``` text
-      gcloud org-policies list-custom-constraints --organization=ORGANIZATION_ID
-      
+gcloud org-policies list-custom-constraints --organization=ORGANIZATION_ID
 ```
 
 Replace `  ORGANIZATION_ID  ` with the ID of your organization resource.
@@ -203,16 +199,14 @@ You can enforce a constraint by creating an organization policy that references 
 To create an organization policy with boolean rules, create a policy YAML file that references the constraint:
 
 ``` text
-        name: projects/PROJECT_ID/policies/CONSTRAINT_NAME
-        spec:
-          rules:
-          - enforce: true
-        
-        dryRunSpec:
-          rules:
-          - enforce: true
-        
-      
+name: projects/PROJECT_ID/policies/CONSTRAINT_NAME
+spec:
+  rules:
+  - enforce: true
+
+dryRunSpec:
+  rules:
+  - enforce: true
 ```
 
 Replace the following:
@@ -223,9 +217,7 @@ Replace the following:
 To enforce the organization policy in [dry-run mode](/resource-manager/docs/organization-policy/dry-run-policy) , run the following command with the `  dryRunSpec  ` flag:
 
 ``` text
-        gcloud org-policies set-policy POLICY_PATH \
-          --update-mask=dryRunSpec
-      
+gcloud org-policies set-policy POLICY_PATH --update-mask=dryRunSpec
 ```
 
 Replace `  POLICY_PATH  ` with the full path to your organization policy YAML file. The policy requires up to 15 minutes to take effect.
@@ -233,9 +225,7 @@ Replace `  POLICY_PATH  ` with the full path to your organization policy YAML fi
 After you verify that the organization policy in dry-run mode works as intended, set the live policy with the `  org-policies set-policy  ` command and the `  spec  ` flag:
 
 ``` text
-        gcloud org-policies set-policy POLICY_PATH \
-          --update-mask=spec
-      
+gcloud org-policies set-policy POLICY_PATH --update-mask=spec
 ```
 
 Replace `  POLICY_PATH  ` with the full path to your organization policy YAML file. The policy requires up to 15 minutes to take effect.

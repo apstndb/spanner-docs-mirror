@@ -124,6 +124,8 @@ You might also be able to get these permissions with [custom roles](/iam/docs/cr
 
 ## Enable or disable the Spanner MCP server
 
+**Note:** After March 17, 2026, the Spanner remote MCP server is automatically enabled when you enable Spanner.
+
 You can enable or disable the Spanner MCP server in a project with the `  gcloud beta services mcp enable  ` command. For more information, see the following sections.
 
 ### Enable the Spanner MCP server in a project
@@ -363,9 +365,17 @@ Replace `  PROJECT_ID  ` with the Google Cloud project ID.
 
 Model Armor won't scan MCP traffic on Google Cloud.
 
-### Organization level MCP control
+### Control MCP use with IAM deny policies
 
-You can create custom organization policies to control the use of MCP servers in your Google Cloud organization using the `  gcp.managed.allowedMCPService  ` constraint. For more information and usage examples, see [Google Cloud MCP servers Access control with IAM](/mcp/access-control) .
+[Identity and Access Management (IAM) deny policies](/iam/docs/deny-overview) help you secure Google Cloud remote MCP servers. Configure these policies to block unwanted MCP tool access.
+
+For example, you can deny or allow access based on:
+
+  - The principal.
+  - Tool properties like read-only.
+  - The application's OAuth client ID.
+
+For more information, see [Control MCP use with Identity and Access Management](/mcp/control-mcp-use-iam)
 
 ## What's next
 

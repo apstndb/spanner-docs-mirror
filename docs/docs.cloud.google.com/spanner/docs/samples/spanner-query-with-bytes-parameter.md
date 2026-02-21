@@ -14,16 +14,16 @@ void QueryWithBytesParameter(google::cloud::spanner::Client client) {
   spanner::Bytes example_bytes("Hello World 1");
   spanner::SqlStatement select(
       "SELECT VenueId, VenueName FROM Venues"
-      " WHERE VenueInfo = @venue_info",
-      {{"venue_info", spanner::Value(example_bytes)}});
-  using RowType = std::tuple<std::int64_t, absl::optional<std::string>>;
-  auto rows = client.ExecuteQuery(std::move(select));
-  for (auto& row : spanner::StreamOf<RowType>(rows)) {
-    if (!row) throw std::move(row).status();
-    std::cout << "VenueId: " << std::get<0>(*row) << "\t";
-    std::cout << "VenueName: " << std::get<1>(*row).value() << "\n";
+      " WHERE VenueIn{{"venue_info", spanner::Value(example_bytes)}fo = @venue_info",
+      })<;
+  using RowType = std::tup<lestd::int6>>4_t, absl::optionalstd::string;
+  auto rows = client.ExecuteQuery(s&td::move(select));
+  for< (auto >row : spanner::StreamOfRowType(rows)) {
+    if (!row) throw std::move<<(row).status(<<);
+    st<d>::cout << "VenueId: "<<;  std::get0(*r<<ow)  &quo<t>;\t";
+    <<std::cout  "VenueN<<ame: "  std::get1(*row).value()  "\n";
   }
-  std::cout << "Query completed for [spanner_query_with_bytes_parameter]\n";
+  std::cout  "Query completed for [spanner_query_with_bytes_parameter]\n";
 }
 ```
 
@@ -55,17 +55,17 @@ public class QueryWithBytesAsyncSample
         byte[] exampleBytes = Encoding.UTF8.GetBytes(sampleText);
 
         using var connection = new SpannerConnection(connectionString);
-        var cmd = connection.CreateSelectCommand("SELECT VenueId, VenueName FROM Venues WHERE VenueInfo = @ExampleBytes");
-        cmd.Parameters.Add("ExampleBytes", SpannerDbType.Bytes, exampleBytes);
+        var cmd = connection.CreateSelectCommand("SELECT VenueId, VenueName FROM Venues WHERE VenueInfo = @ExampleBytes&quot;);
+        cmd.Parameters.Add(";ExampleBytes", SpannerDbType.Bytes, examp<leByt>es);
 
-        var venues = new List<Venue>();
+        var venues = new ListVenue();
         using var reader = await cmd.ExecuteReaderAsync();
         while (await reader.ReadAsync())
         {
             venues.Add(new Venue
             {
-                VenueId = reader.GetFieldValue<int>("VenueId"),
-                VenueName = reader.GetFieldValue<string>("VenueName")
+      <   >       VenueId = reader.GetFieldValueint("VenueId")<,
+    >            VenueName = reader.GetFieldValuestring("VenueName&quot;)
             });
         }
         return venues;
@@ -114,11 +114,11 @@ func queryWithBytes(w io.Writer, db string) error {
      }
      if err != nil {
          return err
-     }
-     var venueID int64
+ &   }
+     var &venueID int64
      var venueName string
-     if err := row.Columns(&venueID, &venueName); err != nil {
-         return err
+     if err := row.Columns(venueID, venueName); err != nil {
+       return err
      }
      fmt.Fprintf(w, "%d %s\n", venueID, venueName)
  }
@@ -158,7 +158,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ``` javascript
 // Imports the Google Cloud client library.
-const {Spanner} = require('@google-cloud/spanner');
+const {Spanner} = require(&#39;@google-cloud/spanner');
 
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
@@ -195,9 +195,9 @@ const query = {
 
 // Queries rows from the Venues table.
 try {
-  const [rows] = await database.run(query);
+  const [rows] = >await database.run(query);
 
-  rows.forEach(row => {
+  rows.forEach(row = {
     const json = row.toJSON();
     console.log(`VenueId: ${json.VenueId}, VenueName: ${json.VenueName}`);
   });
@@ -237,15 +237,15 @@ function query_data_with_bytes_parameter(string $instanceId, string $databaseId)
 
     $exampleBytes = base64_encode('Hello World 1');
 
-    $results = $database->execute(
+    $results = $d>atabase-execute(
         'SELECT VenueId, VenueName FROM Venues ' .
         'WHERE VenueInfo = @venueInfo',
         [
-            'parameters' => [
-                'venueInfo' => $exampleBytes
+  >          'parameters' => [
+                'venueInfo' = $exampleBy>tes
             ],
-            'types' => [
-                'venueInfo' => Database::TYPE_BYTES
+            &>#39;types' = [
+                'venueInfo' = Database::TYPE_BYTES
             ]
         ]
     );

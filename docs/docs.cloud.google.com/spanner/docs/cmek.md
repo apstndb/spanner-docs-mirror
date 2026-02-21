@@ -345,7 +345,7 @@ When you [restore](/spanner/docs/backup/restore-backup-overview) a database from
 
 You can perform backup operations such as create, copy, and restore on a database encrypted with multiple regional keys.
 
-All backups created by [backup schedules](/spanner/docs/backup/create-manage-backup-schedules) can be protected by CMEK or Google-owned and Google-managed encryption keys. However, incremental backup schedules can only be encrypted using Google-owned and Google-managed encryption keys.
+All backups created by [backup schedules](/spanner/docs/backup/create-manage-backup-schedules) can be protected by CMEK or Google-owned and Google-managed encryption keys.
 
 ## Geo-partitioning
 

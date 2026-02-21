@@ -4,6 +4,14 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## February 17, 2026
+
+Announcement
+
+New best practices are available for securing generative AI agents using Model Context Protocol (MCP) with Google Cloud databases. This guide covers key security measures like least privilege, native database controls, and secure agent design to help you build safer AI applications. For more information, see [Best practices for securing agent interactions with Model Context Protocol](/spanner/docs/secure-agent-interactions-mcp) .
+
+This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
+
 ## February 10, 2026
 
 Feature
