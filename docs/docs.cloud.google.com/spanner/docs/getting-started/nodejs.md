@@ -1443,7 +1443,7 @@ AlbumId: 1, AlbumTitle: Total Junk, MarketingBudget: 300000
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data.Use [`  Database.runTransaction()  `](https://googleapis.dev/nodejs/spanner/latest/Database.html#runTransaction) for executing read-only transactions.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use [`  Database.runTransaction()  `](https://googleapis.dev/nodejs/spanner/latest/Database.html#runTransaction) for executing read-only transactions.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 

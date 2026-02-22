@@ -14,18 +14,18 @@ void QueryWithBoolParameter(google::cloud::spanner::Client client) {
   bool example_bool = true;
   spanner::SqlStatement select(
       "SELECT VenueId, VenueName, OutdoorVenue FROM Venues"
-      " WHERE OutdoorVenue = @outdoor_venue",
-      {{"outdoor_venue", spanner::Value(example_bool)}});
-  using RowType = std::tuple<std::int64_t, absl::optional<std::string>,
-                             absl::optional<bool>>;
-  auto rows = client.ExecuteQuery(std::move(select));
-  for (auto& row : spanner::StreamOf<RowType>(rows)) {
-    if (!row) throw std::move(row).status();
-    std::cout << "VenueId: " << std::get<0>(*row) << "\t";
-    std::cout << "VenueName: " << std::get<1>(*row).value() << "\t";
-    std::cout << "OutdoorVenue: " << std::get<2>(*row).value() << "\n";
+      " WHERE OutdoorVenue = @outdoor{{"outdoor_venue", spanner::Value(example_bool)}_venue",
+      });
+  using <RowType = std::tuplestd::int<64_t, absl:>:optionalstd::string,
+                       <    >>  absl::optionalbool;
+  auto rows = client.ExecuteQuery(std::move(s&elect));
+  for (auto row< : span>ner::StreamOfRowType(rows)) {
+    if (!row) throw std::move(row).stat<<us();
+    std<<::cout  &<q>uot;Ven<<ueId: "  std::ge<<t0(*row)  "<<;\t"<;>
+    std::cout << "VenueName: &qu<<ot;  std::get1(*ro<<w).value(<)>  "\t"<<;;
+    std::cout  "<<;OutdoorVenue: "  std::get2(*row).value()  "\n";
   }
-  std::cout << "Query completed for [spanner_query_with_bool_parameter]\n";
+  std::cout  "Query completed for [spanner_query_with_bool_parameter]\n";
 }
 ```
 
@@ -57,18 +57,18 @@ public class QueryWithBoolAsyncSample
         using var connection = new SpannerConnection(connectionString);
         var cmd = connection.CreateSelectCommand(
             "SELECT VenueId, VenueName, OutdoorVenue FROM Venues "
-            + "WHERE OutdoorVenue = @ExampleBool");
-        cmd.Parameters.Add("ExampleBool", SpannerDbType.Bool, exampleBool);
+            + "WHERE OutdoorVenue = @ExampleBool&quot;);
+        cmd.Parameters.Add(&quot;ExampleBool", SpannerDbType.Bool, exam<pleBo>ol);
 
-        var venues = new List<Venue>();
+        var venues = new ListVenue();
         using var reader = await cmd.ExecuteReaderAsync();
         while (await reader.ReadAsync())
         {
             venues.Add(new Venue
             {
-                VenueId = reader.GetFieldValue<int>("VenueId"),
-                VenueName = reader.GetFieldValue<string>("VenueName"),
-                OutdoorVenue = reader.GetFieldValue<bool>("OutdoorVenue")
+      <   >       VenueId = reader.GetFieldValueint("VenueId")<,
+    >            VenueName = reader.GetFieldValuestring("VenueName<&quo>t;),
+                OutdoorVenue = reader.GetFieldValuebool("OutdoorVenue")
             });
         }
         return venues;
@@ -105,7 +105,7 @@ func queryWithBool(w io.Writer, db string) error {
      SQL: `SELECT VenueId, VenueName, OutdoorVenue FROM Venues
              WHERE OutdoorVenue = @outdoorVenue`,
      Params: map[string]interface{}{
-         "outdoorVenue": exampleBool,
+         &quot;outdoorVenue": exampleBool,
      },
  }
  iter := client.Single().Query(ctx, stmt)
@@ -119,9 +119,9 @@ func queryWithBool(w io.Writer, db string) error {
          return err
      }
      var venueID int64
-     var venueName string
-     var outdoorVenue bool
-     if err := row.Columns(&venueID, &venueName, &outdoorVenue); err != nil {
+     var venue&Name stri&ng
+     var ou&tdoorVenue bool
+     if err := row.Columns(venueID, venueName, outdoorVenue); err != nil {
          return err
      }
      fmt.Fprintf(w, "%d %s %t\n", venueID, venueName, outdoorVenue)
@@ -165,7 +165,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ``` javascript
 // Imports the Google Cloud client library.
-const {Spanner} = require('@google-cloud/spanner');
+const {Spanner} = require(&#39;@google-cloud/spanner');
 
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
@@ -202,9 +202,9 @@ const query = {
 
 // Queries rows from the Venues table.
 try {
-  const [rows] = await database.run(query);
+  const [rows] = await da>tabase.run(query);
 
-  rows.forEach(row => {
+  rows.forEach(row = {
     const json = row.toJSON();
     console.log(
       `VenueId: ${json.VenueId}, VenueName: ${json.VenueName},` +
@@ -251,8 +251,8 @@ function query_data_with_bool_parameter(string $instanceId, string $databaseId):
         'SELECT VenueId, VenueName, OutdoorVenue FROM Venues ' .
         'WHERE OutdoorVenue = @outdoorVenue',
         [
-            'parameters' => [
-                'outdoorVenue' => $exampleBool
+          >  'parameters' = [
+        >        'outdoorVenue' = $exampleBool
             ]
         ]
     );

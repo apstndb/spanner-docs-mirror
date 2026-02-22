@@ -1712,7 +1712,7 @@ go run getting_started_guide.go tagspg projects/PROJECT_ID/instances/test-instan
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data.Set the [`  TxOptions.ReadOnly  `](https://pkg.go.dev/database/sql#TxOptions) field to `  true  ` to execute a read-only transaction.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Set the [`  TxOptions.ReadOnly  `](https://pkg.go.dev/database/sql#TxOptions) field to `  true  ` to execute a read-only transaction.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 

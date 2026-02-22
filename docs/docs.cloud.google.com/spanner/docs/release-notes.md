@@ -12,6 +12,16 @@ New best practices are available for securing generative AI agents using Model C
 
 This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
 
+Change
+
+After March 17, 2026, when you enable Spanner, the Spanner MCP server is automatically enabled.
+
+Deprecated
+
+Control of MCP use with organization policies is deprecated. After March 17, 2026, organization policies that use the `  gcp.managed.allowedMCPServices  ` constraint won't work, and you can control MCP use with IAM deny policies.
+
+For more information about controlling MCP use, see [Control MCP use with IAM](/mcp/control-mcp-use-iam) .
+
 ## February 10, 2026
 
 Feature

@@ -4249,7 +4249,7 @@ php tags.php example-db
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data.Set the connection to read-only or use the `  SET TRANSACTION READ ONLY  ` SQL statement to execute a read-only transaction.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Set the connection to read-only or use the `  SET TRANSACTION READ ONLY  ` SQL statement to execute a read-only transaction.
 
 **Tip:** PGAdapter supports multiple additional SQL statements for executing specific types of transactions and batches, and for accessing specific Spanner features. For a full list of supported statements, see [PGAdapter session management commands](/spanner/docs/pgadapter-session-mgmt-commands)
 

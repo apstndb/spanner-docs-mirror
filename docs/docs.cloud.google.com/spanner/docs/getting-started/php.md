@@ -1302,7 +1302,7 @@ AlbumId: 1, AlbumTitle: Total Junk, MarketingBudget: 300000
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data.Use a [`  Snapshot  `](/php/docs/reference/cloud-spanner/latest/snapshot) object for executing read-only transactions. Use the [`  Database::snapshot  `](/php/docs/reference/cloud-spanner/latest/database?method=snapshot) method to get a `  Snapshot  ` object.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use a [`  Snapshot  `](/php/docs/reference/cloud-spanner/latest/snapshot) object for executing read-only transactions. Use the [`  Database::snapshot  `](/php/docs/reference/cloud-spanner/latest/database?method=snapshot) method to get a `  Snapshot  ` object.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 

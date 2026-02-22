@@ -34,33 +34,9 @@ To learn more about Data Catalog see [What is Data Catalog](/data-catalog/docs/c
 
 ## Before you begin
 
-1.  Sign in to your Google Cloud account. If you're new to Google Cloud, [create an account](https://console.cloud.google.com/freetrial) to evaluate how our products perform in real-world scenarios. New customers also get $300 in free credits to run, test, and deploy workloads.
+1.  Enable the Data Catalog API for the project.
 
-2.  In the Google Cloud console, on the project selector page, select or create a Google Cloud project.
-    
-    **Roles required to select or create a project**
-    
-      - **Select a project** : Selecting a project doesn't require a specific IAM role—you can select any project that you've been granted a role on.
-      - **Create a project** : To create a project, you need the Project Creator role ( `  roles/resourcemanager.projectCreator  ` ), which contains the `  resourcemanager.projects.create  ` permission. [Learn how to grant roles](/iam/docs/granting-changing-revoking-access) .
-    
-    **Note** : If you don't plan to keep the resources that you create in this procedure, create a project instead of selecting an existing project. After you finish these steps, you can delete the project, removing all resources associated with the project.
-
-3.  [Verify that billing is enabled for your Google Cloud project](/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project) .
-
-4.  In the Google Cloud console, on the project selector page, select or create a Google Cloud project.
-    
-    **Roles required to select or create a project**
-    
-      - **Select a project** : Selecting a project doesn't require a specific IAM role—you can select any project that you've been granted a role on.
-      - **Create a project** : To create a project, you need the Project Creator role ( `  roles/resourcemanager.projectCreator  ` ), which contains the `  resourcemanager.projects.create  ` permission. [Learn how to grant roles](/iam/docs/granting-changing-revoking-access) .
-    
-    **Note** : If you don't plan to keep the resources that you create in this procedure, create a project instead of selecting an existing project. After you finish these steps, you can delete the project, removing all resources associated with the project.
-
-5.  [Verify that billing is enabled for your Google Cloud project](/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project) .
-
-6.  Enable the Data Catalog API for the project.
-
-7.  Check permissions.
+2.  Check permissions.
     
     You need certain Identity and Access Management (IAM) roles and permissions to search for and attach tags to Spanner assets. For details, see [Required IAM roles and permissions for Data Catalog](#iam-permissions) .
 

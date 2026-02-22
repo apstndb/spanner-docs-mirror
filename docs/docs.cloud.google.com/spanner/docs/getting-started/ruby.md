@@ -956,7 +956,7 @@ You should see output similar to:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data.Use a [`  Snapshot  `](/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Snapshot) object for executing read-only transactions. Use the [`  snapshot  `](/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#snapshot-instance_method) method of the [`  Client  `](/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class to get a `  Snapshot  ` object.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use a [`  Snapshot  `](/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Snapshot) object for executing read-only transactions. Use the [`  snapshot  `](/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#snapshot-instance_method) method of the [`  Client  `](/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class to get a `  Snapshot  ` object.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 

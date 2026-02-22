@@ -986,7 +986,7 @@ AlbumId: 1, AlbumTitle: Total Junk, MarketingBudget: 300000
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data.Use a [`  Snapshot  `](/python/docs/reference/spanner/latest/snapshot-api) object for executing read-only transactions. To get a `  Snapshot  ` object, call the [`  snapshot()  `](/python/docs/reference/spanner/latest/database-api#google.cloud.spanner_v1.database.Database.snapshot) method of the [`  Database  `](/python/docs/reference/spanner/latest/database-api) class in a `  with  ` statement.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use a [`  Snapshot  `](/python/docs/reference/spanner/latest/snapshot-api) object for executing read-only transactions. To get a `  Snapshot  ` object, call the [`  snapshot()  `](/python/docs/reference/spanner/latest/database-api#google.cloud.spanner_v1.database.Database.snapshot) method of the [`  Database  `](/python/docs/reference/spanner/latest/database-api) class in a `  with  ` statement.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
