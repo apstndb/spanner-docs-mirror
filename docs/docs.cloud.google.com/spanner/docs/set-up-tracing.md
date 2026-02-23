@@ -2,7 +2,7 @@ This document shows you how to set up client-side and end-to-end tracing using O
 
 ## Before you begin
 
-  - To ensure that the service account your application uses has the necessary permissions to set up trace collection, ask your administrator to grant the service account your application uses the [Cloud Trace Agent](/iam/docs/roles-permissions/cloudtrace#cloudtrace.agent) ( `  roles/cloudtrace.agent  ` ) IAM role on your project.
+  - To ensure that the service account your application uses has the necessary permissions to set up trace collection, ask your administrator to grant the [Cloud Trace Agent](/iam/docs/roles-permissions/cloudtrace#cloudtrace.agent) ( `  roles/cloudtrace.agent  ` ) IAM role to the service account your application uses on your project.
     
     **Important:** You must grant this role to the service account your application uses, *not* to your user account. Failure to grant the role to the correct principal might result in permission errors.
 

@@ -487,7 +487,7 @@ Dual Region Quorum Availability
 *Quorum availability signal for dual region instance configs. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  quorum_availability  ` : Quorum availability level.
 
-`  instance/edition/feature_usage  ` <sup>BETA</sup> ***(project)***  
+`  instance/edition/feature_usage  ` <sup>GA</sup> ***(project)***  
 Feature usage
 
 `  GAUGE  ` , `  BOOL  ` , `  1  `  
@@ -1094,7 +1094,7 @@ Transaction latencies
 *Distribution of total seconds takenfrom the first operation of the transaction to commit or abort. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
 
-<span class="small">Table generated at 2026-02-12 22:12:11 UTC.</span>
+<span class="small">Table generated at 2026-02-20 00:02:33 UTC.</span>
 
 ## What's next
 

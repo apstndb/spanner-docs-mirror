@@ -54,7 +54,7 @@ The backfill migration terraform template performs the backfill migration from y
 
   - Create a service account to run the live data migration. For more information about creating a service account, see [Create service accounts](/iam/docs/service-accounts-create) .
 
-  - To ensure that the service account has the necessary permissions to perform live migration, ask your administrator to grant the service account the following IAM roles on your project:
+  - To ensure that the service account has the necessary permissions to perform live migration, ask your administrator to grant the following IAM roles to the service account on your project:
     
     **Important:** You must grant these roles to the service account, *not* to your user account. Failure to grant the roles to the correct principal might result in permission errors.
     

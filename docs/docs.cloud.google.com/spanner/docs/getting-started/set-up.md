@@ -4,7 +4,7 @@ If you want to use Spanner with the Google Cloud console, see [Quickstart using 
 
 ## Required roles
 
-To get the permissions that you need to use and interact with Spanner databases, ask your administrator to grant you the following IAM roles:
+To get the permissions that you need to use and interact with Spanner databases, ask your administrator to grant you the following IAM roles :
 
   - Read and write data: [Cloud Spanner Database User](/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `  roles/spanner.databaseUser  ` ) on the instance
   - Read-only access to databases: [Cloud Spanner Database Reader](/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` ) on the instance

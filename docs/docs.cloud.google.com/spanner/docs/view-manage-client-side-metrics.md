@@ -8,7 +8,7 @@ Client-side metrics are measured from the time a request leaves your application
 
 1.  Client-side metrics are available after you enable the Cloud Monitoring API.
 
-2.  To ensure that your service account has the necessary permission to access client-side metrics, ask your administrator to grant your service account the [Monitoring Metric Writer](/iam/docs/roles-permissions/monitoring#monitoring.metricWriter) ( `  roles/monitoring.metricWriter  ` ) IAM role on the project.
+2.  To ensure that your service account has the necessary permission to access client-side metrics, ask your administrator to grant the [Monitoring Metric Writer](/iam/docs/roles-permissions/monitoring#monitoring.metricWriter) ( `  roles/monitoring.metricWriter  ` ) IAM role to your service account on the project.
     
     **Important:** You must grant this role to your service account, *not* to your user account. Failure to grant the role to the correct principal might result in permission errors.
     

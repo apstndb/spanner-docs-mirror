@@ -51,7 +51,7 @@ You can configure the Dataflow job that performs the reverse replication to run 
 
 <!-- end list -->
 
-  - To ensure that the compute engine service account has the necessary permissions to launch the reverse replication, ask your administrator to grant the compute engine service account the following IAM roles on the instance:
+  - To ensure that the compute engine service account has the necessary permissions to launch the reverse replication, ask your administrator to grant the following IAM roles to the compute engine service account on the instance:
     
     **Important:** You must grant these roles to the compute engine service account, *not* to your user account. Failure to grant the roles to the correct principal might result in permission errors.
     

@@ -10,7 +10,7 @@ To learn how to use manually-created CMEKs to protect your Spanner resources, se
 
 ## CMEK with Cloud KMS Autokey
 
-You can either create CMEKs manually to protect your Spanner resources or use Cloud KMS Autokey. With Autokey, key rings and keys are generated on demand as part of resource creation in Spanner. Service agents that use the keys for encrypt and decrypt operations are created if they don't already exist and are granted the required Identity and Access Management (IAM) roles. For more information, see [Autokey overview](/kms/docs/autokey-overview) .
+You can either create CMEKs manually to protect your Spanner resources or use Cloud KMS Autokey. With Autokey, key rings and keys are generated on demand to support resource creation in Spanner. Service agents that use the keys for encrypt and decrypt operations are created if they don't already exist and are granted the required Identity and Access Management (IAM) roles. For more information, see [Autokey overview](/kms/docs/autokey-overview) .
 
 Spanner is only compatible with Cloud KMS Autokey when creating resources using Terraform or the REST API. You can't use Cloud KMS Autokey to create multiple regional (single-region) Cloud KMS keys for a Spanner database.
 

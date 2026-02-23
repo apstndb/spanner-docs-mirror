@@ -16,7 +16,7 @@ A typical remote function deployment has the following steps:
 
 ## Required roles
 
-To ensure that your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) has the necessary permissions to use Spanner remote functions, ask your administrator to grant your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) the [Spanner API Service Agent](/iam/docs/roles-permissions/spanner#spanner.serviceAgent) ( `  roles/spanner.serviceAgent  ` ) IAM role on the project.
+To ensure that your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) has the necessary permissions to use Spanner remote functions, ask your administrator to grant the [Spanner API Service Agent](/iam/docs/roles-permissions/spanner#spanner.serviceAgent) ( `  roles/spanner.serviceAgent  ` ) IAM role to your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) on the project.
 
 **Important:** You must grant this role to your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com), *not* to your user account. Failure to grant the role to the correct principal might result in permission errors.
 

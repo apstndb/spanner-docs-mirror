@@ -23,7 +23,7 @@ By default, organization policies are inherited by the descendants of the resour
 
 ### Required roles
 
-To get the permissions that you need to manage organization policies, ask your administrator to grant you the following IAM roles:
+To get the permissions that you need to manage organization policies, ask your administrator to grant you the following IAM roles :
 
   - [Organization Policy Administrator](/iam/docs/roles-permissions/orgpolicy#orgpolicy.policyAdmin) ( `  roles/orgpolicy.policyAdmin  ` ) on the organization resource
   - To create or update a Spanner database: ( `  roles/spanner.admin  ` ) on the project resource
