@@ -1261,7 +1261,8 @@ public class InsertUsingDmlReturningSample {
       // It is also possible to return all columns of all the
       // inserted records by using ‘THEN RETURN *’.
       dbClient
-          .readWritreadWriteTransaction     .run(
+          .readWriteTransaction()
+          .run(
               transaction -> {
                 String sql =
                     "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES "
@@ -1272,7 +1273,7 @@ public class InsertUsingDmlReturningSample {
 
                 // readWriteTransaction.executeQuery(..) API should be used for executing
                 // DML statements with RETURNING clause.
-                try (ResultSeResultSetet = transaction.executeQuery(StatemenStatement)) {
+                try (ResultSet resultSet = transaction.executeQuery(Statement.of(sql))) {
                   while (resultSet.next()) {
                     System.out.println(resultSet.getString(0));
                   }
@@ -1618,7 +1619,8 @@ public class PgInsertUsingDmlReturningSample {
       // It is also possible to return all columns of all the
       // inserted records by using ‘RETURNING *’.
       dbClient
-          .readWritreadWriteTransaction     .run(
+          .readWriteTransaction()
+          .run(
               transaction -> {
                 String sql =
                     "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES "
@@ -1629,7 +1631,7 @@ public class PgInsertUsingDmlReturningSample {
 
                 // readWriteTransaction.executeQuery(..) API should be used for executing
                 // DML statements with RETURNING clause.
-                try (ResultSeResultSetet = transaction.executeQuery(StatemenStatement)) {
+                try (ResultSet resultSet = transaction.executeQuery(Statement.of(sql))) {
                   while (resultSet.next()) {
                     System.out.println(resultSet.getString(0));
                   }
@@ -1979,7 +1981,8 @@ public class UpdateUsingDmlReturningSample {
       // It is also possible to return all columns of all the
       // updated records by using ‘THEN RETURN *’.
       dbClient
-          .readWritreadWriteTransaction     .run(
+          .readWriteTransaction()
+          .run(
               transaction -> {
                 String sql =
                     "UPDATE Albums "
@@ -1989,7 +1992,7 @@ public class UpdateUsingDmlReturningSample {
 
                 // readWriteTransaction.executeQuery(..) API should be used for executing
                 // DML statements with RETURNING clause.
-                try (ResultSeResultSetet = transaction.executeQuery(StatemenStatement)) {
+                try (ResultSet resultSet = transaction.executeQuery(Statement.of(sql))) {
                   while (resultSet.next()) {
                     System.out.printf("%d\n", resultSet.getLong(0));
                   }
@@ -2327,7 +2330,8 @@ public class PgUpdateUsingDmlReturningSample {
       // It is also possible to return all columns of all the
       // updated records by using ‘RETURNING *’.
       dbClient
-          .readWritreadWriteTransaction     .run(
+          .readWriteTransaction()
+          .run(
               transaction -> {
                 String sql =
                     "UPDATE Albums "
@@ -2337,7 +2341,7 @@ public class PgUpdateUsingDmlReturningSample {
 
                 // readWriteTransaction.executeQuery(..) API should be used for executing
                 // DML statements with RETURNING clause.
-                try (ResultSeResultSetet = transaction.executeQuery(StatemenStatement)) {
+                try (ResultSet resultSet = transaction.executeQuery(Statement.of(sql))) {
                   while (resultSet.next()) {
                     System.out.printf("%d\n", resultSet.getLong(0));
                   }
@@ -2681,14 +2685,15 @@ public class DeleteUsingDmlReturningSample {
       // It is also possible to return all columns of all the
       // deleted records by using ‘THEN RETURN *’.
       dbClient
-          .readWritreadWriteTransaction     .run(
+          .readWriteTransaction()
+          .run(
               transaction -> {
                 String sql =
                     "DELETE FROM Singers WHERE FirstName = 'Alice' THEN RETURN SingerId, FullName";
 
                 // readWriteTransaction.executeQuery(..) API should be used for executing
                 // DML statements with RETURNING clause.
-                try (ResultSeResultSetet = transaction.executeQuery(StatemenStatement)) {
+                try (ResultSet resultSet = transaction.executeQuery(Statement.of(sql))) {
                   while (resultSet.next()) {
                     System.out.printf("%d %s\n", resultSet.getLong(0), resultSet.getString(1));
                   }
@@ -3019,14 +3024,15 @@ public class PgDeleteUsingDmlReturningSample {
       // It is also possible to return all columns of all the
       // deleted records by using ‘RETURNING *’.
       dbClient
-          .readWritreadWriteTransaction     .run(
+          .readWriteTransaction()
+          .run(
               transaction -> {
                 String sql =
                     "DELETE FROM Singers WHERE FirstName = 'Alice' RETURNING SingerId, FullName";
 
                 // readWriteTransaction.executeQuery(..) API should be used for executing
                 // DML statements with RETURNING clause.
-                try (ResultSeResultSetet = transaction.executeQuery(StatemenStatement)) {
+                try (ResultSet resultSet = transaction.executeQuery(Statement.of(sql))) {
                   while (resultSet.next()) {
                     System.out.printf("%d %s\n", resultSet.getLong(0), resultSet.getString(1));
                   }
