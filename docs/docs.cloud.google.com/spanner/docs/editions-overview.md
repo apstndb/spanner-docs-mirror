@@ -128,9 +128,47 @@ In general:
 
 If you are a Spanner customer under Google Cloud commitments with discounts on legacy SKUs, **no action is required on your part.** You can continue to use legacy SKUs until the expiration of your contract. You also have the option to upgrade to Spanner editions. We recommend contacting your sales team to understand your existing contractual obligation and renew your contracts to include the new editions SKUs, so you can optimize your total cost of ownership and get access to new capabilities that are only offered in editions.
 
+## Monitor edition feature usage
+
+You can monitor the usage of Enterprise edition and Enterprise Plus edition edition features in your instance. To do so, use the [Feature usage](/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `  instance/edition/feature_usage  ` ) monitoring metric. The following features are shown in this metric when you use them in your instance.
+
+  - Asymmetric autoscaling
+  - Columnar engine
+  - Full-text search
+  - Geo-partitioning
+  - Incremental backups
+  - KNN vector search: includes use of the KNN vector distance functions
+  - Managed autoscaler
+  - Scheduled backups
+  - Spanner Graph
+  - Tiered storage
+  - Vector search: includes use of the ANN vector distance functions and vector index
+
+**Note:** The Feature usage metric is sampled every 60 seconds, and might take up to 120 seconds to become visible.
+
+To view the edition feature usage metric in the Google Cloud console, follow these steps:
+
+1.  In the Google Cloud console, go to **Monitoring** :
+
+2.  In the navigation menu, select **Metrics explorer** .
+
+3.  In the **Metric** field, click the **Select a metric** drop-down.
+
+4.  In the **Filter by resource or metric name** field, select **Cloud Spanner Instance \> Instance \> Feature usage** , and then click **Apply** .
+
+5.  In the **Aggregation** field, select **Unaggregated** .
+
+6.  Select **Table** or **Both** as the table type instead of Chart.
+    
+    The table lists each higher-tier edition feature that is being used by your instance and database.
+    
+    Optionally, you can click view\_column **Column display options** to display or hide columns to display in the table. The `  name  ` column should generally be ignored in favor of `  instance_id  ` , `  instance_config  ` , `  database  ` and `  feature  ` .
+
+To see a full list of Google Cloud metrics, see [Google Cloud metrics](/monitoring/api/metrics_gcp) .
+
 ## Pricing
 
-For information about Spanner editions pricing, see [Spanner pricing](https://cloud.google.com/spanner/pricing) .
+For information about Spanner editions pricing, see [Spanner pricing](https://cloud.google.com/spanner/pricing) . To help control cost, it is possible to prevent specific Spanner editions from being created by using an [organization policy constraint](/spanner/docs/spanner-custom-constraints) .
 
 ## Frequently asked questions
 

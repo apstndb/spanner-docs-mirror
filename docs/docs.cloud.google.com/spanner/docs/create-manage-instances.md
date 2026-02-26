@@ -53,7 +53,8 @@ You can create an instance with the Google Cloud console, the [Google Cloud CLI]
         
           - **Minimum** indicates the minimum limit to scale down to, depending on the measurement unit that you choose for **Compute capacity** . For more information, see [Determine the minimum limit](/spanner/docs/managed-autoscaler#determine-minimum) .
           - **Maximum** indicates the maximum limit to scale up to, depending on the measurement unit that you choose for **Compute capacity** . For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
-          - **High priority CPU utilization target** indicates the target percentage of high priority CPU to use. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-cpu) .
+          - **High priority CPU utilization target** indicates the target percentage of CPU to use for high priority tasks. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .
+          - **Total CPU utilization target** indicates the target percentage of CPU to use for all low, medium, and high priority tasks. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
           - **Storage utilization target** indicates the target percentage of storage to use. For more information, see [Determine the Storage Utilization Target](/spanner/docs/managed-autoscaler#determine-storage) .
 
 14. Optional: If you select **Autoscaling** as the scaling mode, you can click the **Show asymmetric autoscaling options** dropdown to autoscale your read-only replicas independently from other replicas. For more information, see [Asymmetric read-only autoscaling](/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
@@ -64,7 +65,10 @@ You can create an instance with the Google Cloud console, the [Google Cloud CLI]
         
           - **Minimum** indicates the minimum limit to scale down to, depending on the measurement unit that you choose for **Compute capacity** . For more information, see [Determine the minimum limit](/spanner/docs/managed-autoscaler#determine-minimum) .
           - **Maximum** indicates the maximum limit to scale up to, depending on the measurement unit that you choose for **Compute capacity** . For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
-          - **High priority CPU utilization target** indicates the target percentage of high priority CPU to use. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-cpu) .
+          - **High priority CPU utilization target** indicates the target percentage of CPU to use for [high priority tasks](/spanner/docs/cpu-utilization#task-priority) . For more information, see [Determine the high priority CPU utilization target](/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .
+          - **Total CPU utilization target** indicates the target percentage of CPU to use for all [low, medium, and high priority tasks](/spanner/docs/cpu-utilization#task-priority) . The CPU percentage can range from 10 to 90%. The total CPU target has to be greater than the high priority CPU target. If you're optimizing for cost, then use a higher percentage. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
+          - **Disable total CPU** indicates that the autoscaler should explicitly ignore the total CPU target.
+          - **Disable high priority CPU** indicates that the autoscaler should explicitly ignore the CPU target for high priority tasks.
 
 15. Under **Backups** , the **Enable default backup schedules** checkbox is checked by default. To disable default backup schedules, uncheck the checkbox. When enabled, all new databases in the instance have full backups created every 24 hours. These backups are retained for 7 days. You can edit or delete the default backup schedules at any time. For more information, see [Default backup schedules](/spanner/docs/backup#default-backup-schedules) .
 
@@ -124,11 +128,18 @@ Use the following command to create an instance with managed autoscaler.
     --description=INSTANCE_DESCRIPTION \
     --autoscaling-min-processing-units=MINIMUM_PROCESSING_UNITS \
     --autoscaling-max-processing-units=MAXIMUM_PROCESSING_UNITS \
-    --autoscaling-high-priority-cpu-target=CPU_PERCENTAGE \
+    --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
+    --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
     --autoscaling-storage-target=STORAGE_PERCENTAGE \
     [--asymmetric-autoscaling-option \
-       location=ASYMMETRIC_AUTOSCALING_LOCATION,min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
-       max_nodes=ASYMMETRIC_AUTOSCALING_MAX,high_priority_cpu_target=ASYMMETRIC_CPU_TARGET]
+       location=ASYMMETRIC_AUTOSCALING_LOCATION,\
+       min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
+       max_nodes=ASYMMETRIC_AUTOSCALING_MAX,\
+       high_priority_cpu_target=ASYMMETRIC_HIGH_PRIORITY_CPU_TARGET,\
+       total_cpu_target=ASYMMETRIC_TOTAL_CPU_TARGET \
+       [,disable_total_cpu_autoscaling=TRUE|FALSE \
+       | disable_high_priority_cpu_autoscaling=TRUE|FALSE]
+    ]
 ```
 
 or
@@ -140,11 +151,18 @@ or
     --description=INSTANCE_DESCRIPTION \
     --autoscaling-min-nodes=MINIMUM_NODES \
     --autoscaling-max-nodes=MAXIMUM_NODES \
-    --autoscaling-high-priority-cpu-target=CPU_PERCENTAGE \
+    --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
+    --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
     --autoscaling-storage-target=STORAGE_PERCENTAGE \
     [--asymmetric-autoscaling-option \
-       location=ASYMMETRIC_AUTOSCALING_LOCATION,min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
-       max_nodes=ASYMMETRIC_AUTOSCALING_MAX,high_priority_cpu_target=ASYMMETRIC_CPU_TARGET]
+       location=ASYMMETRIC_AUTOSCALING_LOCATION,\
+       min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
+       max_nodes=ASYMMETRIC_AUTOSCALING_MAX,\
+       high_priority_cpu_target=ASYMMETRIC_HIGH_PRIORITY_CPU_TARGET, \
+       total_cpu_target=ASYMMETRIC_TOTAL_CPU_TARGET, \
+       [,disable_total_cpu_autoscaling=TRUE|FALSE \
+       | disable_high_priority_cpu_autoscaling=TRUE|FALSE]
+    ]
 ```
 
 Replace the following:
@@ -154,7 +172,8 @@ Replace the following:
   - INSTANCE-DESCRIPTION : the name to display for the instance in the Google Cloud console. The instance name must be unique within your Google Cloud project.
   - MINIMUM\_PROCESSING\_UNITS , MINIMUM\_NODES : the minimum number of processing units or nodes when scaling down. For more information, see [Determine the minimum limit](/spanner/docs/managed-autoscaler#determine-minimum) .
   - MAXIMUM\_PROCESSING\_UNITS , MAXIMUM\_NODES : the maximum number of processing units or nodes when scaling up. For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
-  - CPU\_PERCENTAGE : the target percentage of high priority CPU to use, from 10 to 90%. If you're optimizing for cost, then use a higher percentage. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-cpu) .
+  - HIGH\_PRIORITY\_CPU\_PERCENTAGE : the target percentage of high priority CPU to use, based on the [priority of the task](/spanner/docs/cpu-utilization#task-priority) . The CPU percentage can range from 10 to 90%. If you're optimizing for cost, then use a higher percentage. For more information, see [Determine the high priority CPU utilization target](/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .
+  - TOTAL\_CPU\_PERCENTAGE : the target percentage of total priority CPU to use. The total CPU target has to be greater than the high priority CPU target. The CPU percentage can range from 10 to 90%. If you're optimizing for cost, then use a higher percentage. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
   - STORAGE\_PERCENTAGE : the target percentage of storage to use, from 10 to 99%. For more information, see [Determine the storage utilization target](/spanner/docs/managed-autoscaler#determine-storage) .
 
 Optional flags:
@@ -162,9 +181,12 @@ Optional flags:
   - `  --asymmetric-autoscaling-option  ` : use this flag to enable [asymmetric autoscaling](/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) . Replace the following parameters:
     
       - ASYMMETRIC\_AUTOSCALING\_LOCATION : if the flag is used, then this parameter is required. The location of the read-only region that you want to scale asymmetrically.
-      - ASYMMETRIC\_AUTOSCALING\_MIN : optional parameter. The minimum number of nodes when scaling down.
-      - ASYMMETRIC\_AUTOSCALING\_MAX : optional parameter. The maximum number of nodes when scaling up.
-      - ASYMMETRIC\_CPU\_TARGET : optional parameter. The target percentage of high priority CPU to use, from 10 to 90%. If you're optimizing for cost, then use a higher percentage.
+      - ASYMMETRIC\_AUTOSCALING\_MIN : optional parameter. The minimum number of nodes when scaling down. If not specified, this value is inherited from the base instance configuration.
+      - ASYMMETRIC\_AUTOSCALING\_MAX : optional parameter. The maximum number of nodes when scaling up. If not specified, this value is inherited from the base instance configuration.
+      - ASYMMETRIC\_HIGH\_PRIORITY\_CPU\_TARGET : optional parameter. The target percentage of CPU to use, based on the [priority of the task](/spanner/docs/cpu-utilization#task-priority) . If not specified, this value is inherited from the base instance configuration. If you're optimizing for cost, then use a higher percentage. Replicas can have a different target percentage than the base instance and from other replicas, but for failover scenarios, we recommend that replicas use consistent targets across different replicas. For more information, see [Failover concerns](/spanner/docs/managed-autoscaler#failover-concerns) .
+      - ASYMMETRIC\_TOTAL\_CPU\_TARGET : optional parameter. Set the target from 10 to 90% for the [total CPU](/spanner/docs/managed-autoscaler#determine-total-cpu) . If not specified, this value is inherited from the base instance configuration. If you're optimizing for cost, then use a higher percentage. Replicas can have a different target percentage than the base instance and from other replicas, but for failover scenarios, we recommend that replicas use consistent targets across different replicas. For more information, see [Asymmetric read-only autoscaling](/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
+      - `  disable_total_cpu_autoscaling  ` : set this parameter to `  TRUE  ` if you don't want the autoscaler to autoscale total CPU on replicas. Don't specify this parameter if you want the instance to inherit the `  total_cpu_autoscaling  ` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
+      - `  disable_high_priority_cpu_autoscaling  ` : set the `  disable_high_priority_cpu_autoscaling  ` to `  TRUE  ` if you don't want the autoscaler to autoscale the high priority CPU on replicas. Don't specify this parameter if you want the instance to inherit the `  high_priority_cpu_autoscaling  ` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
 
 ### Examples for using custom configurations
 
@@ -1384,7 +1406,7 @@ The following sections explain how to upgrade the edition of your instance, and 
 
 ### Upgrade the edition
 
-You can upgrade your Standard edition instances to a higher-tier edition. Standard edition instances can be upgraded to the Enterprise edition or Enterprise Plus edition. Enterprise edition instances can be upgraded to the Enterprise Plus edition. The edition upgrade takes approximately 10 minutes to complete with zero downtime.
+You can upgrade your Standard edition instances to a higher-tier edition. Standard edition instances can be upgraded to the Enterprise edition or Enterprise Plus edition as long as they have not been prevented by an [organization policy constraint](/spanner/docs/spanner-custom-constraints) . Enterprise edition instances can be upgraded to the Enterprise Plus edition. The edition upgrade takes approximately 10 minutes to complete with zero downtime.
 
 ### Console
 
@@ -1628,6 +1650,20 @@ def update_instance(instance_id):
 
 You can downgrade your Spanner instances to a lower-tier edition. You must stop using the higher-tier edition features in order to downgrade. Enterprise edition instances can be downgraded to the Standard edition. Enterprise Plus edition instances can be downgraded to the Enterprise edition or Standard edition. The edition downgrade takes approximately 10 minutes to complete with zero downtime.
 
+To monitor the usage of Enterprise edition and Enterprise Plus edition edition features in your instance, use the [Feature usage](/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `  instance/edition/feature_usage  ` ) monitoring metric. For more information, see [Monitor edition usage](/spanner/docs/editions-overview#monitor-edition-usage)
+
+### Console
+
+1.  Go to the **Spanner Instances** page in the Google Cloud console.
+
+2.  Click the name of the instance that you want to downgrade.
+
+3.  In the **Instance overview** page, click **Edit instance** .
+
+4.  On the **Edit instance** page under **Choose a Spanner edition** , select the lower-tier edition.
+
+5.  Click **Update instance** .
+
 ### gcloud
 
 Use the [`  gcloud spanner instances update  `](/sdk/gcloud/reference/spanner/instances/update) command to downgrade your instance's edition:
@@ -1748,11 +1784,13 @@ You can enable or modify autoscaling on a Spanner instance using the Google Clou
 
 6.  For **Maximum** , select the maximum limit to use when scaling up. For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
 
-7.  For **High priority CPU utilization target** , select the percentage of high priority CPU to use. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-cpu) .
+7.  For **High priority CPU utilization target** , select the percentage of CPU to use for high priority tasks. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .
 
-8.  For **Storage utilization target** , select the percentage of storage to use. For more information, see [Determine the storage utilization target](/spanner/docs/managed-autoscaler#determine-storage) .
+8.  For **Total CPU utilization target** , select the target CPU percentage to use for all [low, medium, and high priority tasks](/spanner/docs/cpu-utilization#task-priority) . The CPU percentage can range from 10 to 90%. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
 
-9.  Optional: If you select **Autoscaling** as the scaling mode, then you can click the **Show asymmetric autoscaling options** dropdown to autoscale your read-only replicas independently from other replicas.
+9.  For **Storage utilization target** , select the percentage of storage to use. For more information, see [Determine the storage utilization target](/spanner/docs/managed-autoscaler#determine-storage) .
+
+10. Optional: If you select **Autoscaling** as the scaling mode, then you can click the **Show asymmetric autoscaling options** dropdown to autoscale your read-only replicas independently from other replicas.
     
     1.  Select the read-only replica you want to asymmetrically autoscale.
     
@@ -1760,9 +1798,10 @@ You can enable or modify autoscaling on a Spanner instance using the Google Clou
         
           - **Minimum** indicates the minimum limit to scale down to, depending on the measurement unit that you choose for **Compute capacity** . For more information, see [Determine the minimum limit](/spanner/docs/managed-autoscaler#determine-minimum) .
           - **Maximum** indicates the maximum limit to scale up to, depending on the measurement unit that you choose for **Compute capacity** . For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
-          - **High priority CPU utilization target** indicates the target percentage of high priority CPU to use. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-cpu) .
+          - **High priority CPU utilization target** indicates the target percentage of CPU to use for high priority tasks. For more information, see [Determine the high priority CPU utilization target](/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .
+          - **Total CPU utilization target** indicates the target percentage of CPU to use for all [low, medium, and high priority tasks](/spanner/docs/cpu-utilization#task-priority) . The CPU percentage can range from 10 to 90%. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
 
-10. Click **Save** .
+11. Click **Save** .
 
 ### gcloud
 
@@ -1774,11 +1813,17 @@ You can add the managed autoscaler with the following command:
   gcloud spanner instances update INSTANCE_ID \
     --autoscaling-min-processing-units=MINIMUM_PROCESSING_UNITS \
     --autoscaling-max-processing-units=MAXIMUM_PROCESSING_UNITS \
-    --autoscaling-high-priority-cpu-target=CPU_PERCENTAGE \
+    --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
+    --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
     --autoscaling-storage-target=STORAGE_PERCENTAGE \
     [--asymmetric-autoscaling-option \
-       location=ASYMMETRIC_AUTOSCALING_LOCATION,min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
-       max_nodes=ASYMMETRIC_AUTOSCALING_MAX,high_priority_cpu_target=ASYMMETRIC_CPU_TARGET]
+       location=ASYMMETRIC_AUTOSCALING_LOCATION,\
+       min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
+       max_nodes=ASYMMETRIC_AUTOSCALING_MAX,\
+       high_priority_cpu_target=ASYMMETRIC_HIGH_PRIORITY_CPU_TARGET,\
+       total_cpu_target=ASYMMETRIC_TOTAL_CPU_TARGET,\
+       disable_total_cpu_autoscaling=TRUE|FALSE
+       | disable_high_priority_cpu_autoscaling=TRUE|FALSE]
 ```
 
 or
@@ -1787,11 +1832,17 @@ or
   gcloud spanner instances update INSTANCE_ID \
     --autoscaling-min-processing-units=MINIMUM_NODES \
     --autoscaling-max-processing-units=MAXIMUM_NODES \
-    --autoscaling-high-priority-cpu-target=CPU_PERCENTAGE \
+    --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
+    --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
     --autoscaling-storage-target=STORAGE_PERCENTAGE \
     [--asymmetric-autoscaling-option \
-       location=ASYMMETRIC_AUTOSCALING_LOCATION,min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
-       max_nodes=ASYMMETRIC_AUTOSCALING_MAX,high_priority_cpu_target=ASYMMETRIC_CPU_TARGET]
+       location=ASYMMETRIC_AUTOSCALING_LOCATION,\
+       min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
+       max_nodes=ASYMMETRIC_AUTOSCALING_MAX,\
+       high_priority_cpu_target=ASYMMETRIC_HIGH_PRIORITY_CPU_TARGET,\
+       total_cpu_target=ASYMMETRIC_TOTAL_CPU_TARGET,\
+       disable_total_cpu_autoscaling=TRUE|FALSE
+       | disable_high_priority_cpu_autoscaling=TRUE|FALSE]
 ```
 
 Replace the following:
@@ -1799,17 +1850,23 @@ Replace the following:
   - INSTANCE\_ID : the permanent identifier for the instance.
   - MINIMUM\_PROCESSING\_UNITS , MINIMUM\_NODES : the minimum number of processing units or nodes to use when scaling down. For more information, see [Determine the minimum limit](/spanner/docs/managed-autoscaler#determine-minimum) .
   - MAXIMUM\_PROCESSING\_UNITS , MAXIMUM\_NODES : the maximum number of processing units or nodes to use when scaling up. For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
-  - CPU\_PERCENTAGE : the target percentage of high priority CPU to use, from 10% to 90%. If you're optimizing for cost and don't require low latency on all requests, then use a higher percentage. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-cpu) .
-  - STORAGE\_PERCENTAGE : the target percentage of storage to use, from 10% to 99%. For more information, see [Determine the Storage Utilization Target](/spanner/docs/managed-autoscaler#determine-storage) .
+  - HIGH\_PRIORITY\_CPU\_PERCENTAGE : the target percentage of high priority CPU to use, based on the [priority of the task](/spanner/docs/cpu-utilization#task-priority) . The CPU percentage can range from 10 to 90%. If you're optimizing for cost, then use a higher percentage. For more information, see [Determine the high priority CPU utilization target](/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .
+  - TOTAL\_CPU\_PERCENTAGE : the target percentage of total priority CPU to use. The total CPU target has to be greater than the high priority CPU target. The CPU percentage can range from 10 to 90%. If you're optimizing for cost, then use a higher percentage. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
+  - STORAGE\_PERCENTAGE : the target percentage of storage to use, from 10% to 99%. For more information, see [Determine the storage utilization target](/spanner/docs/managed-autoscaler#determine-storage) .
 
 Optional flags:
 
-  - `  --asymmetric-autoscaling-option  ` : Use this flag to enable [asymmetric autoscaling](/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) . Replace the following parameters:
+  - `  --asymmetric-autoscaling-option  ` : Use this flag to enable [asymmetric autoscaling](/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
     
-      - ASYMMETRIC\_AUTOSCALING\_LOCATION : if the flag is used, then this parameter is required. The location of the read-only region that you want to scale asymmetrically.
-      - ASYMMETRIC\_AUTOSCALING\_MIN : optional parameter. The minimum number of nodes when scaling down.
-      - ASYMMETRIC\_AUTOSCALING\_MAX : optional parameter. The maximum number of nodes when scaling up.
-      - ASYMMETRIC\_CPU\_TARGET : optional parameter. The target percentage of high priority CPU to use, from 10 to 90%. If you're optimizing for cost, then use a higher percentage.
+    Replace the following parameters:
+    
+      - ASYMMETRIC\_AUTOSCALING\_LOCATION : if the asymmetric autoscaling flag is used, then this parameter is required. The location of the read-only region that you want to scale asymmetrically.
+      - ASYMMETRIC\_AUTOSCALING\_MIN : optional parameter. The minimum number of nodes when scaling down. If not specified, this value is inherited from the base instance configuration.
+      - ASYMMETRIC\_AUTOSCALING\_MAX : optional parameter. The maximum number of nodes when scaling up. If not specified, this value is inherited from the base instance configuration.
+      - ASYMMETRIC\_HIGH\_PRIORITY\_CPU\_TARGET : optional parameter. The target percentage of CPU to use, based on the [priority of the task](/spanner/docs/cpu-utilization#task-priority) . If not specified, this value is inherited from the base instance configuration. If you're optimizing for cost, then use a higher percentage. Replicas can have a different target percentage than the base instance and from other replicas, but for failover scenarios, we recommend that replicas use consistent targets across different replicas. For more information, see [Failover concerns](/spanner/docs/managed-autoscaler#failover-concerns) .
+      - ASYMMETRIC\_TOTAL\_CPU\_TARGET : optional parameter. Set the target from 10 to 90% for the [total CPU](/spanner/docs/managed-autoscaler#determine-total-cpu) . If not specified, this value is inherited from the base instance configuration. If you're optimizing for cost, then use a higher percentage. Replicas can have a different target percentage than the base instance and from other replicas, but for failover scenarios, we recommend that replicas use consistent targets across different replicas. For more information, see [Asymmetric read-only autoscaling](/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
+      - `  disable_total_cpu_autoscaling  ` : set this parameter to `  TRUE  ` if you don't want the autoscaler to autoscale total CPU on replicas. Don't specify this parameter if you want the instance to inherit the `  total_cpu_autoscaling  ` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
+      - `  disable_high_priority_cpu_autoscaling  ` : set the `  disable_high_priority_cpu_autoscaling  ` to `  TRUE  ` if you don't want the autoscaler to autoscale the high priority CPU on replicas. Don't specify this parameter if you want the instance to inherit the `  high_priority_cpu_autoscaling  ` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
 
 After you add the managed autoscaler to an instance, you can also modify the managed autoscaler settings. For example, if you want to increase the maximum number of processing units to 10000, run the following command:
 
@@ -1876,13 +1933,12 @@ Default backup schedules are automatically enabled for all new instances. You ca
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
 
-2.  Click the name of the instance that you want to edit the default backup schedule.
+<!-- end list -->
 
-3.  Click **Edit instance** .
-
-4.  Under **Backups** , the **Enable default backup schedules** checkbox determines whether default backup schedules are enabled or not. When enabled, all new databases in this instance have a default backup schedule created.
-
-5.  Click **Save** .
+1.  Click the name of the instance that you want to edit the default backup schedule.
+2.  Click **Edit instance** .
+3.  Under **Backups** , the **Enable default backup schedules** checkbox determines whether default backup schedules are enabled or not. When enabled, all new databases in this instance have a default backup schedule created.
+4.  Click **Save** .
 
 ### gcloud
 

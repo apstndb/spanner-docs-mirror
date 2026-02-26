@@ -55,7 +55,8 @@ A backup of a Cloud Spanner database.
     {
       object (BackupInstancePartition)
     }
-  ]
+  ],
+  &quot;minimumRestorableEdition&quot;: enum (Edition)
 }</code></pre></td>
 </tr>
 </tbody>
@@ -196,6 +197,12 @@ Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 
 Output only. The instance partition storing the backup.
 
 This is the same as the list of the instance partitions that the database recorded at the backup's `  versionTime  ` .
+
+`  minimumRestorableEdition  `
+
+`  enum ( Edition  ` )
+
+Output only. The minimum edition required to successfully restore the backup. Populated only if the edition is Enterprise or Enterprise Plus.
 
 ## State
 

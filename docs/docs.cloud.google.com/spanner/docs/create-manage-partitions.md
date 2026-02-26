@@ -18,29 +18,41 @@ This page describes how to create and manage Spanner [instance partitions](/span
 
 4.  Click **Create instance partition** .
 
-5.  Enter a **Partition ID** to permanently identify your instance partition. The instance partition ID must also be unique within your Google Cloud project. You can't change the instance partition ID later.
+5.  Enter an **Instance partition ID** to permanently identify your instance partition. The instance partition ID must also be unique within your instance. You can't change the instance partition ID later.
 
 6.  In the **Choose a configuration** section, select **Regional** or **Multi-region** . Alternatively, if you want to compare the specifications between the regions, then click **Compare region configurations** .
 
 7.  Select a configuration from the drop-down menu.
 
-8.  In the **Allocate compute capacity** section, under **Unit** , click one of the following:
+8.  In the **Configure compute capacity** section, under **Select unit** , click one of the following:
     
-      - **Processing units** for small instance partitions.
       - **Nodes** for large instances. A node is 1000 processing units.
-
-9.  Enter a value for the unit selected.
+      - **Processing units** for small instance partitions.
     
-    Your instance partition must have at least one node or 1000 processing units.
+    For more information, see [Compute capacity, nodes, and processing units](/spanner/docs/compute-capacity) .
+
+9.  Under **Choose a scaling mode** , click one of the following:
+    
+      - **Manual allocation** if you want to manually set compute capacity for fixed compute resources and costs.
+        
+          - **Quantity** indicates the number of processing units or nodes to use for this instance.
+    
+      - **Autoscaling** to let Spanner automatically add and remove compute capacity. Managed autoscaler is available in the [Spanner Enterprise edition and Enterprise Plus edition](/spanner/docs/editions-overview) . For more information about the managed autoscaler, see [Managed autoscaler for Spanner](/spanner/docs/managed-autoscaler) . Configure the following managed autoscaler options:
+        
+          - **Minimum** indicates the minimum limit to scale down to, depending on the measurement unit that you choose for **Compute capacity** . For more information, see [Determine the minimum limit](/spanner/docs/managed-autoscaler#determine-minimum) .
+          - **Maximum** indicates the maximum limit to scale up to, depending on the measurement unit that you choose for **Compute capacity** . For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
+          - **High priority CPU utilization target** indicates the target percentage of CPU to use for high priority tasks. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .
+          - **Total CPU utilization target** indicates the target percentage of CPU to use for all low, medium, and high priority tasks. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
+          - **Storage utilization target** indicates the target percentage of storage to use. For more information, see [Determine the Storage Utilization Target](/spanner/docs/managed-autoscaler#determine-storage) .
 
 10. Click **Create** to create the instance partition.
 
 ### gcloud
 
-To create an instance partition, use [`  gcloud beta spanner instance-partitions create  `](/sdk/gcloud/reference/beta/spanner/instance-partitions/create) .
+To create an instance partition, use [`  gcloud spanner instance-partitions create  `](/sdk/gcloud/reference/spanner/instance-partitions/create) .
 
 ``` text
-gcloud beta spanner instance-partitions create INSTANCE_PARTITION_ID \
+gcloud spanner instance-partitions create INSTANCE_PARTITION_ID \
   --config=INSTANCE_PARTITION_CONFIG \
   --description="INSTANCE_PARTITION_DESCRIPTION" \
   --instance=INSTANCE_ID \
@@ -49,9 +61,9 @@ gcloud beta spanner instance-partitions create INSTANCE_PARTITION_ID \
 
 Replace the following:
 
-  - INSTANCE\_PARTITION\_ID : the permanent instance partition identifier that is unique within your Google Cloud project. You can't change the instance partition ID later.
+  - INSTANCE\_PARTITION\_ID : the permanent instance partition identifier that is unique within your instance. You can't change the instance partition ID later.
   - INSTANCE\_PARTITION\_CONFIG : the permanent identifier of your instance partition configuration, which defines the geographic location of the instance partition and affects where data is stored.
-  - INSTANCE\_PARTITION\_DESCRIPTION : the name to display for the instance partition in the Google Cloud console. The instance partition name must be unique within your Google Cloud project.
+  - INSTANCE\_PARTITION\_DESCRIPTION : the name to display for the instance partition in the Google Cloud console. The instance partition name must be unique within your instance.
   - INSTANCE\_ID : the permanent identifier for your Spanner instance where this instance partition resides.
   - NODE\_COUNT : the compute capacity of the instance partition, expressed as a number of nodes. One node equals 1000 processing units.
   - PROCESSING\_UNIT\_COUNT : the compute capacity of the instance, expressed as a number of processing units. Your instance partition must have at least 1000 processing units. Enter quantities in multiples of 1000 (1000, 2000, 3000 and so on).
@@ -59,9 +71,54 @@ Replace the following:
 For example, to create an instance partition `  europe-partition  ` in `  eur3  ` with 5 nodes, run the following:
 
 ``` text
-  gcloud beta spanner instance-partitions create europe-partition --config=eur3 \
+  gcloud spanner instance-partitions create europe-partition --config=eur3 \
     --description="europe-partition" --instance=test-instance --nodes=5
 ```
+
+### Use managed autoscaling
+
+You can use managed autoscaling with the [`  gcloud spanner instance-partitions create  `](/sdk/gcloud/reference/spanner/instance-partitions/create) command. For more information, see [Managed autoscaler](/spanner/docs/managed-autoscaler) .
+
+Use the following command to create an instance partition with managed autoscaler:
+
+``` text
+  gcloud 
+  spanner instance-partitions create INSTANCE_PARTITION_ID \
+    --config=INSTANCE_PARTITION_CONFIG \
+    --description="INSTANCE_PARTITION_DESCRIPTION" \
+    --instance=INSTANCE_ID \
+    --autoscaling-min-processing-units=MINIMUM_PROCESSING_UNITS \
+    --autoscaling-max-processing-units=MAXIMUM_PROCESSING_UNITS \
+    --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
+    --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
+    --autoscaling-storage-target=STORAGE_PERCENTAGE
+```
+
+or
+
+``` text
+  gcloud spanner instance-partitions create INSTANCE_PARTITION_ID \
+    --config=INSTANCE_PARTITION_CONFIG \
+    --description="INSTANCE_PARTITION_DESCRIPTION" \
+    --instance=INSTANCE_ID \
+    --autoscaling-min-nodes=MINIMUM_NODES \
+    --autoscaling-max-nodes=MAXIMUM_NODES \
+    --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
+    --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE
+    --autoscaling-storage-target=STORAGE_PERCENTAGE
+```
+
+Replace the following:
+
+  - INSTANCE\_PARTITION\_ID : the permanent instance partition identifier that is unique within your instance. You can't change the instance partition ID later.
+  - INSTANCE\_PARTITION\_CONFIG : the permanent identifier of your instance partition configuration, which defines the geographic location of the instance partition and affects where data is stored.
+  - INSTANCE\_PARTITION\_DESCRIPTION : the name to display for the instance partition in the Google Cloud console. The instance partition name must be unique within your instance.
+  - INSTANCE\_ID : the permanent identifier for your Spanner instance where this instance partition resides.
+  - MINIMUM\_PROCESSING\_UNITS or MINIMUM\_NODES : the minimum number of processing units or nodes when scaling down. For more information, see [Determine the minimum limit](/spanner/docs/managed-autoscaler#determine-minimum) .
+  - MAXIMUM\_PROCESSING\_UNITS or MAXIMUM\_NODES : the maximum number of processing units or nodes when scaling up. For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
+  - HIGH\_PRIORITY\_CPU\_PERCENTAGE : the target percentage of high priority CPU to use, based on the [priority of the task](/spanner/docs/cpu-utilization#task-priority) . The CPU percentage can range from 10 to 90%. For more information, see [Determine the high priority CPU utilization target](/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .
+  - TOTAL\_CPU\_PERCENTAGE : the target percentage of total priority CPU to use. The total CPU target has to be greater than the high priority CPU target. The CPU percentage can range from 10 to 90%. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
+  - STORAGE\_PERCENTAGE : the target percentage of storage to use, from 10 to 99%. For more information, see [Determine the storage utilization target](/spanner/docs/managed-autoscaler#determine-storage) .
 
 ### Client libraries
 
@@ -395,10 +452,10 @@ def create_instance_partition(instance_id, instance_partition_id):
 
 ### gcloud
 
-To describe an instance partition, use [`  gcloud beta spanner instance-partitions describe  `](/sdk/gcloud/reference/beta/spanner/instance-partitions/describe) .
+To describe an instance partition, use [`  gcloud spanner instance-partitions describe  `](/sdk/gcloud/reference/spanner/instance-partitions/describe) .
 
 ``` text
-gcloud beta spanner instance-partitions describe PARTITION_ID \
+gcloud spanner instance-partitions describe PARTITION_ID \
   --instance=INSTANCE_ID
 ```
 
@@ -410,7 +467,7 @@ Replace the following:
 For example, to describe the instance partition `  europe-partition  ` , run the following:
 
 ``` text
-  gcloud beta spanner instance-partitions describe europe-partition
+  gcloud spanner instance-partitions describe europe-partition
     --instance=test-instance
 ```
 
@@ -428,10 +485,10 @@ For example, to describe the instance partition `  europe-partition  ` , run the
 
 ### gcloud
 
-To list your instance partitions, use [`  gcloud beta spanner instance-partitions list  `](/sdk/gcloud/reference/beta/spanner/instance-partitions/list) .
+To list your instance partitions, use [`  gcloud spanner instance-partitions list  `](/sdk/gcloud/reference/spanner/instance-partitions/list) .
 
 ``` text
-gcloud beta spanner instance-partitions list --instance=INSTANCE_ID
+gcloud spanner instance-partitions list --instance=INSTANCE_ID
 ```
 
 The gcloud CLI prints a list of your Spanner instance partitions, along with each instance partition's ID, display name, configuration, and compute capacity.
@@ -466,10 +523,10 @@ If you want to increase the compute capacity of an instance partition, your Goog
 
 ### gcloud
 
-To change the compute capacity of your instance partition, use [`  gcloud beta spanner instance-partitions update  `](/sdk/gcloud/reference/spanner/instances/update) . When using this command, specify the [compute capacity](/spanner/docs/compute-capacity) as a number of nodes or processing units.
+To change the compute capacity of your instance partition, use [`  gcloud spanner instance-partitions update  `](/sdk/gcloud/reference/spanner/instance-partitions/update) . When using this command, specify the [compute capacity](/spanner/docs/compute-capacity) as a number of nodes or processing units.
 
 ``` text
-gcloud beta spanner instance-partitions update INSTANCE_PARTITION_ID \
+gcloud spanner instance-partitions update INSTANCE_PARTITION_ID \
   --instance=INSTANCE_ID \
   [--nodes=NODE_COUNT | --processing-units=PROCESSING_UNIT_COUNT]
   [--async]
@@ -487,6 +544,125 @@ Optional flags:
   - `  --async  ` : Use this flag if you want your request to return immediately, without waiting for the operation in progress to complete.
 
 You can check the status of your request by running [`  gcloud spanner operations describe  `](/sdk/gcloud/reference/spanner/operations/describe) .
+
+### Enable or modify the managed autoscaler on an instance partition
+
+The following limitations apply when you enable or change the managed autoscaling feature on an existing instance partition:
+
+  - You can't [move an instance](/spanner/docs/move-instance) while the managed autoscaler is enabled.
+
+### Console
+
+1.  In the Google Cloud console, open the **Spanner** page.
+
+2.  Select an instance from the list.
+
+3.  In the navigation menu, select **Instance partitions** .
+
+4.  In the list of instance partitions, under the **Actions** column, click **More Actions** and select **Edit** .
+
+5.  Under **Configure compute capacity** , click **Autoscaling** .
+
+6.  For **Minimum** , select the minimum limit to use when scaling down. For more information, see [Determine the minimum limit](/spanner/docs/managed-autoscaler#determine-minimum) .
+
+7.  For **Maximum** , select the maximum limit to use when scaling up. For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
+
+8.  For **High priority CPU utilization target** , enter the percentage of CPU to use for high priority tasks. For more information, see [Determine the CPU utilization target](/spanner/docs/managed-autoscaler#determine-cpu) .
+
+9.  For **Total CPU utilization target** , enter the target CPU percentage to use for all [low, medium, and high priority tasks](/spanner/docs/cpu-utilization#task-priority) . The CPU percentage can range from 10 to 90%. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
+
+10. For **Storage utilization target** , enter the percentage of storage to use. For more information, see [Determine the storage utilization target](/spanner/docs/managed-autoscaler#determine-storage) .
+
+11. Click **Save** .
+
+### gcloud
+
+Use the [`  gcloud spanner instance-partitions update  `](/sdk/gcloud/reference/spanner/instance-partitions/update) command to enable the managed autoscaler on an instance partition. For more information and limitations, see [`  Google Cloud CLI  ` flags and limitations](/spanner/docs/managed-autoscaler#flags_and_limitations) .
+
+You can add the managed autoscaler with the following command:
+
+``` text
+  gcloud spanner instance-partitions update INSTANCE_PARTITION_ID \
+    --instance=INSTANCE_ID \
+    --autoscaling-min-processing-units=MINIMUM_PROCESSING_UNITS \
+    --autoscaling-max-processing-units=MAXIMUM_PROCESSING_UNITS \
+    --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
+    --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
+    --autoscaling-storage-target=STORAGE_PERCENTAGE
+```
+
+or
+
+``` text
+  gcloud spanner instance-partitions update INSTANCE_PARTITION_ID \
+    --instance=INSTANCE_ID \
+    --autoscaling-min-nodes=MINIMUM_NODES \
+    --autoscaling-max-nodes=MAXIMUM_NODES \
+    --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
+    --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
+    --autoscaling-storage-target=STORAGE_PERCENTAGE
+```
+
+Replace the following:
+
+  - INSTANCE\_PARTITION\_ID : the permanent identifier for the instance partition.
+  - INSTANCE\_ID : the permanent identifier for the instance.
+  - MINIMUM\_PROCESSING\_UNITS or MINIMUM\_NODES : the minimum number of processing units or nodes to use when scaling down. For more information, see [Determine the minimum limit](/spanner/docs/managed-autoscaler#determine-minimum) .
+  - MAXIMUM\_PROCESSING\_UNITS or MAXIMUM\_NODES : the maximum number of processing units or nodes to use when scaling up. For more information, see [Determine the maximum limit](/spanner/docs/managed-autoscaler#determine-maximum) .
+  - HIGH\_PRIORITY\_CPU\_PERCENTAGE : the target percentage of high priority CPU to use, based on the [priority of the task](/spanner/docs/cpu-utilization#task-priority) . The CPU percentage can range from 10 to 90%. For more information, see [Determine the high priority CPU utilization target](/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .
+  - TOTAL\_CPU\_PERCENTAGE : the target percentage of total priority CPU to use. The total CPU target has to be greater than the high priority CPU target. The CPU percentage can range from 10 to 90%. For more information, see [Determine the total CPU utilization target](/spanner/docs/managed-autoscaler#determine-total-cpu) .
+  - STORAGE\_PERCENTAGE : the target percentage of storage to use, from 10% to 99%. For more information, see [Determine the Storage Utilization Target](/spanner/docs/managed-autoscaler#determine-storage) .
+
+After you enable the managed autoscaler on an instance partition, you can also modify the managed autoscaler settings. For example, if you want to increase the maximum number of processing units to 10000, run the following command:
+
+``` text
+gcloud spanner instance-partitions update test-instance-partition \
+     --instance=test-instance
+     --autoscaling-max-processing-units=10000
+```
+
+### Change an instance partition from using managed autoscaler to manual scaling
+
+### Console
+
+1.  Go to the **Spanner Instances** page in the Google Cloud console.
+
+2.  Select an instance from the list.
+
+3.  In the navigation menu, select **Instance partitions** .
+
+4.  In the list of instance partitions, under the **Actions** column, click **More Actions** and select **Edit** .
+
+5.  Under **Choose a scaling mode** , check the **Manual allocation** box.
+
+6.  Click **Save** .
+
+### gcloud
+
+Use the [`  gcloud spanner instance-partitions update  `](/sdk/gcloud/reference/spanner/instance-partitions/update) command to update the instance partition.
+
+Use the following command to change an instance partition from using the managed autoscaler to manual scaling:
+
+``` text
+  gcloud spanner instance-partitions update INSTANCE_PARTITION_ID \
+    --instance=INSTANCE_ID \
+  --processing-units=PROCESSING_UNIT_COUNT
+```
+
+or
+
+``` text
+  gcloud spanner instance-partitions update INSTANCE_PARTITION_ID \
+    --instance=INSTANCE_ID \
+  --nodes=NODE_COUNT
+```
+
+Replace the following:
+
+  - INSTANCE\_PARTITION\_ID : the permanent identifier for the instance partition.
+  - INSTANCE\_ID : the permanent identifier for the instance.
+  - NODE\_COUNT : the compute capacity of the instance, expressed as a number of nodes. Each node equals 1000 processing units.
+  - PROCESSING\_UNIT\_COUNT : the compute capacity of the instance, expressed as a number of processing units. The minimum processing units for an instance partition is 1000.
 
 ## Delete an instance partition
 
@@ -508,10 +684,10 @@ You can't delete an instance partition while it's associated with any placements
 
 ### gcloud
 
-Use the [`  gcloud beta spanner instance-partitions delete  `](/sdk/gcloud/reference/spanner/instances/delete) command.
+Use the [`  gcloud spanner instance-partitions delete  `](/sdk/gcloud/reference/spanner/instances/delete) command.
 
 ``` text
-gcloud beta spanner instance-partitions delete INSTANCE_PARTITION_ID
+gcloud spanner instance-partitions delete INSTANCE_PARTITION_ID
   --instance=INSTANCE_ID
 ```
 

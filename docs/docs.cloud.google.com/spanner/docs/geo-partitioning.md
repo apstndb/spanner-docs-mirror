@@ -66,7 +66,7 @@ The following limitations apply during the [Preview](https://cloud.google.com/pr
   - For every node in your instance partition, you can place a maximum of 100 million placement rows. You can view the number of placement rows that have been placed in each of your instance partitions on the Instance partitions page of the Google Cloud console.
   - For every node in your destination instance partition, Spanner can [move](/spanner/docs/create-manage-data-placements#move-row) around 10 placement rows per second.
   - You can't create [incremental backups](/spanner/docs/backup#incremental-backups) or [copy the backup](/spanner/docs/backup#how-backup-copy-works) .
-  - You can't create instance partitions in an instance with [managed autoscaler](/spanner/docs/managed-autoscaler) enabled.
+  - You can't enable [asymmetric read-only autoscaling](/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) on non-default instance partitions.
   - You can't move the instance partition to a different instance configuration.
   - You can't move an instance that has instance partitions. (You can move individual rows into different instance partitions so you don't need to move the instance.)
   - Using instance partitions doesn't guarantee compliance and regulatory requirements.
@@ -103,6 +103,10 @@ Usage notes:
     
       - The destination instance must use the same instance partition names as the original backup.
       - Each instance partition in the destination instance must use the same instance configuration as the original backup.
+
+## Managed autoscaler
+
+You can enable the [managed autoscaler](/spanner/docs/managed-autoscaler) on instance partitions. When you enable the managed autoscaler, Spanner automatically adjusts the size of your instance partition for you. The managed autoscaler reacts to changes in your instance partition's workload or storage needs as your load increases or decreases. The managed autoscaler either scales up, adding compute capacity to the instance partition, or it scales down, removing compute capacity from the instance partition.
 
 ## Pricing
 

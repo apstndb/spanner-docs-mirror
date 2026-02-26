@@ -2,24 +2,11 @@
       - [JSON representation](#Instance.SCHEMA_REPRESENTATION)
   - [ReplicaComputeCapacity](#ReplicaComputeCapacity)
       - [JSON representation](#ReplicaComputeCapacity.SCHEMA_REPRESENTATION)
-  - [ReplicaSelection](#ReplicaSelection)
-      - [JSON representation](#ReplicaSelection.SCHEMA_REPRESENTATION)
-  - [AutoscalingConfig](#AutoscalingConfig)
-      - [JSON representation](#AutoscalingConfig.SCHEMA_REPRESENTATION)
-  - [AutoscalingLimits](#AutoscalingLimits)
-      - [JSON representation](#AutoscalingLimits.SCHEMA_REPRESENTATION)
-  - [AutoscalingTargets](#AutoscalingTargets)
-      - [JSON representation](#AutoscalingTargets.SCHEMA_REPRESENTATION)
-  - [AsymmetricAutoscalingOption](#AsymmetricAutoscalingOption)
-      - [JSON representation](#AsymmetricAutoscalingOption.SCHEMA_REPRESENTATION)
-  - [AutoscalingConfigOverrides](#AutoscalingConfigOverrides)
-      - [JSON representation](#AutoscalingConfigOverrides.SCHEMA_REPRESENTATION)
   - [State](#State)
   - [InstanceType](#InstanceType)
   - [FreeInstanceMetadata](#FreeInstanceMetadata)
       - [JSON representation](#FreeInstanceMetadata.SCHEMA_REPRESENTATION)
   - [ExpireBehavior](#ExpireBehavior)
-  - [Edition](#Edition)
   - [DefaultBackupScheduleType](#DefaultBackupScheduleType)
   - [Methods](#METHODS_SUMMARY)
 
@@ -175,7 +162,7 @@ Deprecated. This field is not populated.
 
 Output only. The time at which the instance was created.
 
-Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
 
 `  updateTime  `
 
@@ -183,7 +170,7 @@ Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3,
 
 Output only. The time at which the instance was most recently updated.
 
-Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
 
 `  freeInstanceMetadata  `
 
@@ -262,268 +249,6 @@ The number of processing units allocated to each replica.
 
 This may be zero in API responses for instances that are not yet in state `  READY  ` .
 
-## ReplicaSelection
-
-ReplicaSelection identifies replicas with common properties.
-
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;location&quot;: string
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
-
-Fields
-
-`  location  `
-
-`  string  `
-
-Required. Name of the location of the replicas (for example, "us-central1").
-
-## AutoscalingConfig
-
-Autoscaling configuration for an instance.
-
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;autoscalingLimits&quot;: {
-    object (AutoscalingLimits)
-  },
-  &quot;autoscalingTargets&quot;: {
-    object (AutoscalingTargets)
-  },
-  &quot;asymmetricAutoscalingOptions&quot;: [
-    {
-      object (AsymmetricAutoscalingOption)
-    }
-  ]
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
-
-Fields
-
-`  autoscalingLimits  `
-
-`  object ( AutoscalingLimits  ` )
-
-Required. Autoscaling limits for an instance.
-
-`  autoscalingTargets  `
-
-`  object ( AutoscalingTargets  ` )
-
-Required. The autoscaling targets for an instance.
-
-`  asymmetricAutoscalingOptions[]  `
-
-`  object ( AsymmetricAutoscalingOption  ` )
-
-Optional. Optional asymmetric autoscaling options. Replicas matching the replica selection criteria will be autoscaled independently from other replicas. The autoscaler will scale the replicas based on the utilization of replicas identified by the replica selection. Replica selections should not overlap with each other.
-
-Other replicas (those do not match any replica selection) will be autoscaled together and will have the same compute capacity allocated to them.
-
-## AutoscalingLimits
-
-The autoscaling limits for the instance. Users can define the minimum and maximum compute capacity allocated to the instance, and the autoscaler will only scale within that range. Users can either use nodes or processing units to specify the limits, but should use the same unit to set both the min\_limit and maxLimit.
-
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-
-  // Union field min_limit can be only one of the following:
-  &quot;minNodes&quot;: integer,
-  &quot;minProcessingUnits&quot;: integer
-  // End of list of possible types for union field min_limit.
-
-  // Union field max_limit can be only one of the following:
-  &quot;maxNodes&quot;: integer,
-  &quot;maxProcessingUnits&quot;: integer
-  // End of list of possible types for union field max_limit.
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
-
-Fields
-
-Union field `  min_limit  ` . The minimum compute capacity for the instance. `  min_limit  ` can be only one of the following:
-
-`  minNodes  `
-
-`  integer  `
-
-Minimum number of nodes allocated to the instance. If set, this number should be greater than or equal to 1.
-
-`  minProcessingUnits  `
-
-`  integer  `
-
-Minimum number of processing units allocated to the instance. If set, this number should be multiples of 1000.
-
-Union field `  max_limit  ` . The maximum compute capacity for the instance. The maximum compute capacity should be less than or equal to 10X the minimum compute capacity. `  max_limit  ` can be only one of the following:
-
-`  maxNodes  `
-
-`  integer  `
-
-Maximum number of nodes allocated to the instance. If set, this number should be greater than or equal to minNodes.
-
-`  maxProcessingUnits  `
-
-`  integer  `
-
-Maximum number of processing units allocated to the instance. If set, this number should be multiples of 1000 and be greater than or equal to minProcessingUnits.
-
-## AutoscalingTargets
-
-The autoscaling targets for an instance.
-
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;highPriorityCpuUtilizationPercent&quot;: integer,
-  &quot;storageUtilizationPercent&quot;: integer
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
-
-Fields
-
-`  highPriorityCpuUtilizationPercent  `
-
-`  integer  `
-
-Required. The target high priority cpu utilization percentage that the autoscaler should be trying to achieve for the instance. This number is on a scale from 0 (no utilization) to 100 (full utilization). The valid range is \[10, 90\] inclusive.
-
-`  storageUtilizationPercent  `
-
-`  integer  `
-
-Required. The target storage utilization percentage that the autoscaler should be trying to achieve for the instance. This number is on a scale from 0 (no utilization) to 100 (full utilization). The valid range is \[10, 99\] inclusive.
-
-## AsymmetricAutoscalingOption
-
-AsymmetricAutoscalingOption specifies the scaling of replicas identified by the given selection.
-
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;replicaSelection&quot;: {
-    object (ReplicaSelection)
-  },
-  &quot;overrides&quot;: {
-    object (AutoscalingConfigOverrides)
-  }
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
-
-Fields
-
-`  replicaSelection  `
-
-`  object ( ReplicaSelection  ` )
-
-Required. Selects the replicas to which this AsymmetricAutoscalingOption applies. Only read-only replicas are supported.
-
-`  overrides  `
-
-`  object ( AutoscalingConfigOverrides  ` )
-
-Optional. Overrides applied to the top-level autoscaling configuration for the selected replicas.
-
-## AutoscalingConfigOverrides
-
-Overrides the top-level autoscaling configuration for the replicas identified by `  replicaSelection  ` . All fields in this message are optional. Any unspecified fields will use the corresponding values from the top-level autoscaling configuration.
-
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;autoscalingLimits&quot;: {
-    object (AutoscalingLimits)
-  },
-  &quot;autoscalingTargetHighPriorityCpuUtilizationPercent&quot;: integer
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
-
-Fields
-
-`  autoscalingLimits  `
-
-`  object ( AutoscalingLimits  ` )
-
-Optional. If specified, overrides the min/max limit in the top-level autoscaling configuration for the selected replicas.
-
-`  autoscalingTargetHighPriorityCpuUtilizationPercent  `
-
-`  integer  `
-
-Optional. If specified, overrides the autoscaling target highPriorityCpuUtilizationPercent in the top-level autoscaling configuration for the selected replicas.
-
 ## State
 
 Indicates the current state of the instance.
@@ -592,7 +317,7 @@ Fields
 
 Output only. Timestamp after which the instance will either be upgraded or scheduled for deletion after a grace period. ExpireBehavior is used to choose between upgrading or scheduling the free instance for deletion. This timestamp is set during the creation of a free instance.
 
-Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
 
 `  upgradeTime  `
 
@@ -600,7 +325,7 @@ Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3,
 
 Output only. If present, the timestamp at which the free instance was upgraded to a provisioned instance.
 
-Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
 
 `  expireBehavior  `
 
@@ -625,28 +350,6 @@ When the free instance expires, upgrade the instance to a provisioned instance.
 `  REMOVE_AFTER_GRACE_PERIOD  `
 
 When the free instance expires, disable the instance, and delete it after the grace period passes if it has not been upgraded.
-
-## Edition
-
-The edition selected for this instance. Different editions provide different capabilities at different price points.
-
-Enums
-
-`  EDITION_UNSPECIFIED  `
-
-Edition not specified.
-
-`  STANDARD  `
-
-Standard edition.
-
-`  ENTERPRISE  `
-
-Enterprise edition.
-
-`  ENTERPRISE_PLUS  `
-
-Enterprise Plus edition.
 
 ## DefaultBackupScheduleType
 

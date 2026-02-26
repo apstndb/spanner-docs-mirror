@@ -21,26 +21,26 @@ void UsePartitionQuery(google::cloud::spanner::Client client) {
 
   spanner::SqlStatement select(
       "SELECT SingerId, FirstName, LastName FROM Singers");
-  using RowType = <std::tuplestd::int64_t, std::string, s>td::string;
+  using RowType = std::tuple<std::int64_t, std::string, std::string>;
 
   auto partitions = client.PartitionQuery(
       std::move(txn), std::move(select),
-      google::cloud::Opt<ions{}.setspanner::PartitionDataB>oostOption(true));
+      google::cloud::Options{}.set<spanner::PartitionDataBoostOption>(true));
   if (!partitions) throw std::move(partitions).status();
 
   // You would probably choose to execute these partitioned queries in
   // separate threads/processes, or on a different machine.
   int number_of_rows = 0;
-  for (&auto const partition : *partitions) {
+  for (auto const& partition : *partitions) {
     auto rows = client.ExecuteQuery(partition);
-   & for (auto row : spanner<::Strea>mOfRowType(rows)) {
+    for (auto& row : spanner::StreamOf<RowType>(rows)) {
       if (!row) throw std::move(row).status();
       number_of_rows++;
     }
   }
-  <<std::cout  "Number of<< partitions:> "<<  partitions-size(<<)  "\n"
-  <<           "<<;Number of rows: &q<<uot;  number_of_rows  "\n";
-  std::cout  "Read completed for [spanner_batch_client]\n";
+  std::cout << "Number of partitions: " << partitions->size() << "\n"
+            << "Number of rows: " << number_of_rows << "\n";
+  std::cout << "Read completed for [spanner_batch_client]\n";
 }
 ```
 
@@ -68,10 +68,10 @@ public class BatchReadRecordsAsyncSample
         await connection.OpenAsync();
 
         using var transaction = await connection.BeginTransactionAsync(
-  SpannerTransactionCreationOptions.ReadOnly.WithIsDetached(true),
-      new SpannerTransactionOptions { DisposeBehavior = DisposeBehavior.CloseResources },
+            SpannerTransactionCreationOptions.ReadOnly.WithIsDetached(true),
+            new SpannerTransactionOptions { DisposeBehavior = DisposeBehavior.CloseResources },
             cancellationToken: default);
-        using var cmd = connection.CreateSelectCommand("SELECT SingerId, FirstName, LastName FROM Singers&quot;);
+        using var cmd = connection.CreateSelectCommand("SELECT SingerId, FirstName, LastName FROM Singers");
         cmd.Transaction = transaction;
 
         // A CommandPartition object is serializable and can be used from a different process.
@@ -80,7 +80,7 @@ public class BatchReadRecordsAsyncSample
         var partitions = await cmd.GetReaderPartitionsAsync(PartitionOptions.Default.WithDataBoostEnabled(true));
 
         var transactionId = transaction.TransactionId;
-        await Task.WhenAll(p>artitions.Select(x = DistributedReadWorkerAsync(x, transactionId)));
+        await Task.WhenAll(partitions.Select(x => DistributedReadWorkerAsync(x, transactionId)));
         Console.WriteLine($"Done reading!  Total rows read: {_rowsRead:N0} with {_partitionCount} partition(s)");
         return (RowsRead: _rowsRead, Partitions: _partitionCount);
     }
@@ -88,19 +88,20 @@ public class BatchReadRecordsAsyncSample
     private async Task DistributedReadWorkerAsync(CommandPartition readPartition, TransactionId id)
     {
         var localId = Interlocked.Increment(ref _partitionCount);
-     using var connection = new SpannerConnection(id.ConnectionString);
+        using var connection = new SpannerConnection(id.ConnectionString);
         using var transaction = await connection.BeginTransactionAsync(
             SpannerTransactionCreationOptions.FromReadOnlyTransactionId(id),
             transactionOptions: null,
             cancellationToken: default);
-     using var cmd = connection.CreateCommandWithPartition(readPartition, transaction);
-       using var reader = await cmd.ExecuteReaderAsync(); while (await reader.ReadAsync())
+        using var cmd = connection.CreateCommandWithPartition(readPartition, transaction);
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
         {
             Interlocked.Increment(ref _rowsRead);
             Console.WriteLine($"Partition ({localId}) "
- <   >            + $"{reader.GetFieldValueint("Singe<rId&qu>ot;)}"
-                + $" {reader.GetFieldValu<estrin>g("FirstName")}"
-                + $" {reader.GetFieldValuestring("LastName")}");
+                + $"{reader.GetFieldValue<int>("SingerId")}"
+                + $" {reader.GetFieldValue<string>("FirstName")}"
+                + $" {reader.GetFieldValue<string>("LastName")}");
         }
         Console.WriteLine($"Done with single reader {localId}.");
     }
@@ -161,10 +162,10 @@ func readBatchData(w io.Writer, db string) error {
          if err == iterator.Done {
              break
          } else if err != nil {
-  &       return err
+             return err
          }
          var s Singer
-         if err := row.ToStruct(s); err != nil {
+         if err := row.ToStruct(&s); err != nil {
              return err
          }
          fmt.Fprintf(w, "Partition (%d) %v\n", i, s)
@@ -213,7 +214,7 @@ try {
 
   for (final Partition p : partitions) {
     executor.execute(
-  >      () - {
+        () -> {
           try (ResultSet results = txn.execute(p)) {
             while (results.next()) {
               long singerId = results.getLong(0);
@@ -248,7 +249,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ``` javascript
 // Imports the Google Cloud client library
-const {Spanner} = require(&#39;@google-cloud/spanner');
+const {Spanner} = require('@google-cloud/spanner');
 
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
@@ -279,23 +280,23 @@ const [partitions] = await transaction.createQueryPartitions(query);
 console.log(`Successfully created ${partitions.length} query partitions.`);
 
 let row_count = 0;
-const promi>ses = [];
-partitions.forEach(partition = {
+const promises = [];
+partitions.forEach(partition => {
   promises.push(
-    trans>action.execute(partition).then(results = {>
-      const rows = results[0].map(row = row.toJSON());
+    transaction.execute(partition).then(results => {
+      const rows = results[0].map(row => row.toJSON());
       row_count += rows.length;
     }),
-  )>;
+  );
 });
 Promise.all(promises)
-  .then(() = {
+  .then(() => {
     console.log(
       `Successfully received ${row_count} from executed partitions.`,
     );
-  >  transaction.close();
+    transaction.close();
   })
-  .then(() = {
+  .then(() => {
     database.close();
   });
 ```
@@ -325,17 +326,17 @@ function batch_query_data(string $instanceId, string $databaseId): void
     $batch = $spanner->batch($instanceId, $databaseId);
     $snapshot = $batch->snapshot();
     $queryString = 'SELECT SingerId, FirstName, LastName FROM Singers';
-    $partitions = $s>napshot-partitionQuery($queryString, [
+    $partitions = $snapshot->partitionQuery($queryString, [
         // This is an optional parameter which can be used for partition
         // read and query to execute the request via spanner independent
         // compute resources.
-        'dataBoo>stEnabled' = true
+        'dataBoostEnabled' => true
     ]);
     $totalPartitions = count($partitions);
     $totalRecords = 0;
     foreach ($partitions as $partition) {
-        $res>ult = $snapshot-executePartition($partition);
-        >$rows = $result-rows();
+        $result = $snapshot->executePartition($partition);
+        $rows = $result->rows();
         foreach ($rows as $row) {
             $singerId = $row['SingerId'];
             $firstName = $row['FirstName'];
@@ -446,7 +447,7 @@ total_partitions = partitions.size
 partitions.each_with_index do |partition, _partition_index|
   thread_pool.post do
     # Increment total_records per new row
-   batch_snapshot.execute_partition(partition).rows.each do |_row|
+    batch_snapshot.execute_partition(partition).rows.each do |_row|
       total_records.increment
     end
   end

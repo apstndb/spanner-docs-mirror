@@ -1,5 +1,7 @@
 This page describes Spanner restoration operations and explains how to restore a database. For more information about database restoration in Spanner, see [Restore overview](/spanner/docs/backup/restore-backup-overview) .
 
+You can restore the backup to the destination instance if it uses the same or a higher-tier [edition](/spanner/docs/editions-overview) as the source backup instance. Alternatively, you can restore it to any instance with the same instance configuration and an edition that is the same or higher-tier than the source instance.
+
 You can restore a Spanner database by using the following:
 
   - In the Google Cloud console.
@@ -48,7 +50,9 @@ You can restore a Spanner database by using the following:
 
 4.  Click the **Actions** button for your selected backup, then select **Restore** .
 
-5.  Fill out the form and click the **Restore** button.
+5.  Select a compatible destination instance and name your new database.
+
+6.  Click the **Restore** button.
 
 To check the progress of the operation, see the progress indicator, as shown in the operations page:
 
@@ -62,9 +66,9 @@ To restore a database, use [`  gcloud spanner databases restore  `](/sdk/gcloud/
 
 ``` text
 gcloud spanner databases restore --async \
---destination-instance=test-instance --destination-database=example-db-restored \
---source-instance=test-instance --source-backup=example-db-backup-6 \
---encryption_type=google-managed-encryption
+  --destination-instance=test-instance --destination-database=example-db-restored \
+  --source-instance=test-instance --source-backup=example-db-backup-6 \
+  --encryption_type=google-managed-encryption
 ```
 
 Usage notes:

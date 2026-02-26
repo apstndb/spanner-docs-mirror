@@ -22,6 +22,9 @@ An isolated set of Cloud Spanner resources that databases can define placements 
   &quot;name&quot;: string,
   &quot;config&quot;: string,
   &quot;displayName&quot;: string,
+  &quot;autoscalingConfig&quot;: {
+    object (AutoscalingConfig)
+  },
   &quot;state&quot;: enum (State),
   &quot;createTime&quot;: string,
   &quot;updateTime&quot;: string,
@@ -62,6 +65,12 @@ Required. The name of the instance partition's configuration. Values are of the 
 
 Required. The descriptive name for this instance partition as it appears in UIs. Must be unique per project and between 4 and 30 characters in length.
 
+`  autoscalingConfig  `
+
+`  object ( AutoscalingConfig  ` )
+
+Optional. The autoscaling configuration. Autoscaling is enabled if this field is set. When autoscaling is enabled, fields in compute\_capacity are treated as OUTPUT\_ONLY fields and reflect the current compute capacity allocated to the instance partition.
+
 `  state  `
 
 `  enum ( State  ` )
@@ -74,7 +83,7 @@ Output only. The current instance partition state.
 
 Output only. The time at which the instance partition was created.
 
-Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
 
 `  updateTime  `
 
@@ -82,7 +91,7 @@ Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3,
 
 Output only. The time at which the instance partition was most recently updated.
 
-Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
 
 `  referencingDatabases[]  `
 

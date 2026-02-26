@@ -66,7 +66,7 @@ To connect a data application to the data agent, you need the agent's context ID
 
 5.  Click **Edit agent** .
 
-6.  Note the context ID in **Agent context ID** . The agent context ID format is similar to `  projects/cloud-db-nl2sql/locations/us-east1/contextSets/bdf_pg_all_templates  ` .
+6.  Note the context ID in **Agent context ID** . The agent context ID format is similar to `  projects/data-agents-project/locations/us-east1/contextSets/bdf_pg_all_templates  ` .
 
 ## Connect the data agent to application
 
@@ -80,7 +80,7 @@ The following example shows a `  QueryData  ` request using `  spanner_reference
 
 ``` text
 {
-  "parent": "projects/cloud-db-nl2sql/locations/us-central1",
+  "parent": "projects/data-agents-project/locations/us-central1",
   "prompt": "How many accounts in the Prague region are eligible for loans? A3 contains the data of region.",
   "context": {
     "datasource_references": [
@@ -88,13 +88,13 @@ The following example shows a `  QueryData  ` request using `  spanner_reference
         "spanner_reference" {
           "database_reference" {
             "engine": "GOOGLE_SQL"
-            "project_id": "cloud-db-nl2sql"
+            "project_id": "data-agents-project"
             "region": "us-central1"
             "instance_id": "evalbench"
             "database_id": "financial"
           },
           "agent_context_reference": {
-            "context_set_id": "projects/cloud-db-nl2sql/locations/us-east1/contextSets/bdf_pg_all_templates"
+            "context_set_id": "projects/data-agents-project/locations/us-east1/contextSets/bdf_pg_all_templates"
           }
         }
       }
@@ -122,7 +122,7 @@ The request body contains the following fields:
                   - `  instance_id  ` : The instance ID of the Spanner instance.
                   - `  database_id  ` : The ID of the database.
               - `  agent_context_reference  ` : Links to authored context in the database.
-                  - `  context_set_id  ` : The complete agent context ID of the context stored in the database. For example, `  projects/cloud-db-nl2sql/locations/us-east1/contextSets/bdf_gsql_gemini_all_templates  ` .
+                  - `  context_set_id  ` : The complete agent context ID of the context stored in the database. For example, `  projects/data-agents-project/locations/us-east1/contextSets/bdf_gsql_gemini_all_templates  ` .
   - `  generationOptions  ` : Configures the type of output to generate.
       - `  generate_query_result  ` : Set to true to generate and return the query results.
       - `  generate_natural_language_answer  ` : Optional. If set to true, generates a natural language answer.

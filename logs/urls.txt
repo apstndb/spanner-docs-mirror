@@ -585,6 +585,7 @@ https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries
 https://docs.cloud.google.com/spanner/docs/reference/rest
+https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ChangeQuorumMetadata
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Code
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CompactDatabaseMetadata
@@ -616,6 +617,7 @@ https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Policy
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryOptions
+https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ReplicaSelection
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSet

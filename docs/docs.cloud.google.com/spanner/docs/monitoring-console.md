@@ -1,6 +1,6 @@
 This document describes how to use the system insights dashboard to monitor Spanner instances and databases.
 
-## About system insights
+## System insights overview
 
 The system insights dashboard displays scorecards and charts with respect to a selected instance or database, and provides measures of latencies, CPU utilization, storage, throughput, and other performance statistics. You can view charts for selectable time periods, ranging from the past 1 hour to the past 30 days.
 
@@ -167,7 +167,7 @@ CPU utilization by priority<br />
 <br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/cpu/utilization_by_priority</a></td>
 <td><br />
-The percentage of the instance's CPU resources for high, medium, low, or all tasks by priority. These tasks include requests that you initiate and maintenance tasks that Spanner must complete promptly.<br />
+The percentage of the instance's CPU resources for high, medium, or low tasks by priority. These tasks include requests that you initiate and maintenance tasks that Spanner must complete promptly.<br />
 <br />
 For dual-region or multi-region instances, metrics are grouped by the region and priority.<br />
 <br />
@@ -743,8 +743,6 @@ This chart obtains its data by querying the table operations statistics tables. 
 
 #### Managed autoscaler charts and metrics
 
-In addition to the options shown in the previous section, when an instance has managed autoscaler enabled, the compute capacity chart has the **View Logs** button. When you click this button, it displays logs from the managed autoscaler.
-
 The following metrics are available for instances that have the managed autoscaler enabled.
 
 <table>
@@ -760,69 +758,82 @@ The following metrics are available for instances that have the managed autoscal
 </thead>
 <tbody>
 <tr class="odd">
+<td><strong>CPU utilization by autoscaling configs</strong></td>
+<td>Real-time and target CPU utilization percentages for the base instance configuration, and read-only replicas and instance partitions with autoscaler enabled.<br />
+<br />
+You can use the drop-down selectors to select the specific database, instance partition, and region that populate the chart. The chart shows the CPU utilization targets as dashed lines. Solid lines show real-time utilization percentages.</td>
+</tr>
+<tr class="even">
 <td><strong>Compute capacity</strong></td>
 <td>With nodes selected.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/min_node_count</a></td>
 <td><br />
 Minimum number of nodes autoscaler is configured to allocate to the instance.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/max_node_count</a></td>
 <td>Maximum number of nodes autoscaler is configured to allocate to the instance.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/recommended_node_count_for_cpu</a></td>
 <td><br />
 Recommended number of nodes based on the CPU usage of the instance.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/recommended_node_count_for_storage</a></td>
 <td><br />
 Recommended number of nodes based on the storage usage of the instance.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>Compute capacity</strong></td>
 <td>With processing units selected.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/min_processing_units</a></td>
 <td><br />
 Minimum number of processing units autoscaler is configured to allocate to the instance.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/max_processing_units</a></td>
 <td><br />
 Maximum number of processing units autoscaler is configured to allocate to the instance.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/recommended_processing_units_for_cpu</a></td>
 <td><br />
 Recommended number of processing units. This recommendation is based on the previous CPU usage of the instance.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/recommended_processing_units_for_storage</a></td>
 <td><br />
 Recommended number of processing units to use. This recommendation is based on the previous storage usage of the instance.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><strong>CPU utilization by priority</strong></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 <a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/high_priority_cpu_utilization_target</a></td>
 <td><br />
 High priority CPU utilization target to use for autoscaling.</td>
+</tr>
+<tr class="even">
+<td><br />
+<a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/autoscaling/total_cpu_utilization_target</a><br />
+<a href="/monitoring/api/metrics_gcp_p_z#gcp-spanner">replica/autoscaling/total_cpu_utilization_target</a></td>
+<td><br />
+Total CPU utilization target to use for autoscaling. Total CPU includes all low, medium, and high priority tasks.</td>
 </tr>
 <tr class="odd">
 <td><strong>Total storage</strong></td>

@@ -853,6 +853,36 @@ Optional. If specified, overrides the min/max limit in the top-level autoscaling
 
 Optional. If specified, overrides the autoscaling target high\_priority\_cpu\_utilization\_percent in the top-level autoscaling configuration for the selected replicas.
 
+`  autoscaling_target_total_cpu_utilization_percent  `
+
+`  int32  `
+
+Optional. If specified, overrides the autoscaling target `  total_cpu_utilization_percent  ` in the top-level autoscaling configuration for the selected replicas.
+
+`  disable_high_priority_cpu_autoscaling  `
+
+`  bool  `
+
+Optional. If true, disables high priority CPU autoscaling for the selected replicas and ignores `  high_priority_cpu_utilization_percent  ` in the top-level autoscaling configuration.
+
+When setting this field to true, setting `  autoscaling_target_high_priority_cpu_utilization_percent  ` field to a non-zero value for the same replica is not supported.
+
+If false, the `  autoscaling_target_high_priority_cpu_utilization_percent  ` field in the replica will be used if set to a non-zero value. Otherwise, the `  high_priority_cpu_utilization_percent  ` field in the top-level autoscaling configuration will be used.
+
+Setting both `  disable_high_priority_cpu_autoscaling  ` and `  disable_total_cpu_autoscaling  ` to true for the same replica is not supported.
+
+`  disable_total_cpu_autoscaling  `
+
+`  bool  `
+
+Optional. If true, disables total CPU autoscaling for the selected replicas and ignores `  total_cpu_utilization_percent  ` in the top-level autoscaling configuration.
+
+When setting this field to true, setting `  autoscaling_target_total_cpu_utilization_percent  ` field to a non-zero value for the same replica is not supported.
+
+If false, the `  autoscaling_target_total_cpu_utilization_percent  ` field in the replica will be used if set to a non-zero value. Otherwise, the `  total_cpu_utilization_percent  ` field in the top-level autoscaling configuration will be used.
+
+Setting both `  disable_high_priority_cpu_autoscaling  ` and `  disable_total_cpu_autoscaling  ` to true for the same replica is not supported.
+
 ## AutoscalingLimits
 
 The autoscaling limits for the instance. Users can define the minimum and maximum compute capacity allocated to the instance, and the autoscaler will only scale within that range. Users can either use nodes or processing units to specify the limits, but should use the same unit to set both the min\_limit and max\_limit.
@@ -897,7 +927,13 @@ Fields
 
 `  int32  `
 
-Required. The target high priority cpu utilization percentage that the autoscaler should be trying to achieve for the instance. This number is on a scale from 0 (no utilization) to 100 (full utilization). The valid range is \[10, 90\] inclusive.
+Optional. The target high priority cpu utilization percentage that the autoscaler should be trying to achieve for the instance. This number is on a scale from 0 (no utilization) to 100 (full utilization). The valid range is \[10, 90\] inclusive. If not specified or set to 0, the autoscaler skips scaling based on high priority CPU utilization.
+
+`  total_cpu_utilization_percent  `
+
+`  int32  `
+
+Optional. The target total CPU utilization percentage that the autoscaler should be trying to achieve for the instance. This number is on a scale from 0 (no utilization) to 100 (full utilization). The valid range is \[10, 90\] inclusive. If not specified or set to 0, the autoscaler skips scaling based on total CPU utilization. If both `  high_priority_cpu_utilization_percent  ` and `  total_cpu_utilization_percent  ` are specified, the autoscaler provisions the larger of the two required compute capacities to satisfy both targets.
 
 `  storage_utilization_percent  `
 
@@ -1712,6 +1748,12 @@ Required. The name of the instance partition's configuration. Values are of the 
 `  string  `
 
 Required. The descriptive name for this instance partition as it appears in UIs. Must be unique per project and between 4 and 30 characters in length.
+
+`  autoscaling_config  `
+
+`  AutoscalingConfig  `
+
+Optional. The autoscaling configuration. Autoscaling is enabled if this field is set. When autoscaling is enabled, fields in compute\_capacity are treated as OUTPUT\_ONLY fields and reflect the current compute capacity allocated to the instance partition.
 
 `  state  `
 

@@ -36,6 +36,7 @@ Authorization requires `  spanner.instances.update  ` permission on the resource
 Choose a location:
 
   
+`  PATCH https://spanner.googleapis.com/v1/{instance.name=projects/*/instances/*}  `
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -217,7 +218,7 @@ Deprecated. This field is not populated.
 
 Output only. The time at which the instance was created.
 
-Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
 
 `  instance.updateTime  `
 
@@ -225,7 +226,7 @@ Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3,
 
 Output only. The time at which the instance was most recently updated.
 
-Uses RFC 3339, where generated output will always be Z-normalized and uses 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
 
 `  instance.freeInstanceMetadata  `
 

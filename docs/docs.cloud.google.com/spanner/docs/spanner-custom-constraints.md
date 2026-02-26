@@ -197,94 +197,115 @@ Before you begin, you must know the following:
 
 ### Create the constraint
 
-Save the following file as `  databasecustomconstraint.yaml  ` :
+1.  Save the following file as `  databasecustomconstraint.yaml  ` :
+    
+    ``` text
+      name: organizations/ORGANIZATION_ID/customConstraints/custom.spannerDatabase
+      resourceTypes:
+      - spanner.googleapis.com/Database
+      methodTypes:
+      - CREATE
+      condition: "resource.name.contains('denied-database-name')"
+      actionType: DENY
+      displayName: spannerDatabaseConstraint
+      description: Database resource name contains "denied-database-name"
+    ```
+    
+    This defines a constraint where for every new database, if the database name contains "denied-database-name", the operation is denied.
 
-``` text
-  name: organizations/ORGANIZATION_ID/customConstraints/custom.spannerDatabase
-  resourceTypes:
-  - spanner.googleapis.com/Database
-  methodTypes:
-  - CREATE
-  condition: "resource.name.contains('denied-database-name')"
-  actionType: DENY
-  displayName: spannerDatabaseConstraint
-  description: Database resource name contains "denied-database-name"
-```
+2.  Apply the constraint:
+    
+    ``` text
+      gcloud org-policies set-custom-constraint ~/databasecustomconstraint.yaml
+    ```
 
-This defines a constraint where for every new database, if the database name contains "denied-database-name", the operation is denied.
+3.  Verify that the constraint exists:
+    
+    ``` text
+      gcloud org-policies list-custom-constraints \
+      --organization=ORGANIZATION_ID
+    ```
+    
+    The output is similar to the following:
+    
+    ``` text
+      CUSTOM_CONSTRAINT       ACTION_TYPE  METHOD_TYPES  RESOURCE_TYPES                   DISPLAY_NAME
+      custom.spannerDatabase  DENY         CREATE        spanner.googleapis.com/Database  spannerDatabaseConstraint
+      ...
+    ```
+    
+    ### Create the policy
 
-Apply the constraint:
+4.  Save the following file as `  databaseorgpolicy.yaml  ` :
+    
+    ``` text
+      name: projects/PROJECT_ID/policies/custom.spannerDatabase
+      spec:
+        rules:
+        - enforce: true
+    ```
+    
+    Replace `  PROJECT_ID  ` with your project ID.
 
-``` text
-  gcloud org-policies set-custom-constraint ~/databasecustomconstraint.yaml
-```
+5.  Apply the policy:
+    
+    ``` text
+      gcloud org-policies set-policy ~/databaseorgpolicy.yaml
+    ```
 
-Verify that the constraint exists:
+6.  Verify that the policy exists:
+    
+    ``` text
+      gcloud org-policies list --project=PROJECT_ID
+    ```
+    
+    The output is similar to the following:
+    
+    ``` text
+      CONSTRAINT              LIST_POLICY  BOOLEAN_POLICY  ETAG
+      custom.spannerDatabase  -            SET             COCsm5QGENiXi2E=
+    ```
+    
+    After you apply the policy, wait for about two minutes for Google Cloud to start enforcing the policy.
+    
+    ### Test the policy
+    
+    Try to create a Spanner database in the project:
+    
+    ``` text
+    gcloud spanner databases create denied-database-name100 \
+      --instance=INSTANCE_NAME \
+    ```
+    
+    The output is the following:
+    
+    ``` text
+    PERMISSION_DENIED: Either caller is missing IAM permission
+    spanner.databases.create on resource or the
+    CreateDatabaseRequest.create_statement field is malformed and the database
+    name could not be identified to verify Cloud IAM Conditions.
+    ```
 
-``` text
-  gcloud org-policies list-custom-constraints \
-  --organization=ORGANIZATION_ID
-```
+## Google-managed constraints
 
-The output is similar to the following:
+In addition to the custom constraints described on this page, Google Cloud also provides a set of Google-managed constraints.
 
-``` text
-  CUSTOM_CONSTRAINT       ACTION_TYPE  METHOD_TYPES  RESOURCE_TYPES                   DISPLAY_NAME
-  custom.spannerDatabase  DENY         CREATE        spanner.googleapis.com/Database  spannerDatabaseConstraint
-  ...
-```
+In the case of Spanner, the `  spanner.managed.restrictCloudSpannerEditions  ` constraint limits which Spanner editions may be created. This can be helpful to control costs and prevent users in your organization from using unintended editions.
 
-### Create the policy
+### Impact on instance updates
 
-Save the following file as `  databaseorgpolicy.yaml  ` :
+Once a policy is enforced, you cannot create Spanner instances with editions that are blocked. Additionally, all updates to existing Spanner instances with prohibited editions are blocked.
 
-``` text
-  name: projects/PROJECT_ID/policies/custom.spannerDatabase
-  spec:
-    rules:
-    - enforce: true
-```
+Any customer-managed or open-source autoscalers will be blocked from updating violating instances. However, the Spanner [managed autoscaler](/spanner/docs/managed-autoscaler) feature *can* still make updates to instances that are in violation of the policy.
 
-Replace `  PROJECT_ID  ` with your project ID.
+### Safe deployment practices
 
-Apply the policy:
+To avoid disruptive restrictions on production workloads, use the following tools to validate your organization policy changes:
 
-``` text
-  gcloud org-policies set-policy ~/databaseorgpolicy.yaml
-```
+  - **Test policies:** Use the [Policy Simulator](/policy-intelligence/docs/test-organization-policies) to analyze the potential impact of a new organization policy.
+  - **Dry-run mode:** You can [create organization policies in dry-run mode](/resource-manager/docs/organization-policy/dry-run-policy) to monitor the effects of a constraint without actively blocking resource creation or updates.
 
-Verify that the policy exists:
-
-``` text
-  gcloud org-policies list --project=PROJECT_ID
-```
-
-The output is similar to the following:
-
-``` text
-  CONSTRAINT              LIST_POLICY  BOOLEAN_POLICY  ETAG
-  custom.spannerDatabase  -            SET             COCsm5QGENiXi2E=
-```
-
-After you apply the policy, wait for about two minutes for Google Cloud to start enforcing the policy.
-
-### Test the policy
-
-Try to create a Spanner database in the project:
-
-``` text
-gcloud spanner databases create denied-database-name100 \
-  --instance=INSTANCE_NAME \
-```
-
-The output is the following:
-
-``` text
-PERMISSION_DENIED: Either caller is missing IAM permission
-spanner.databases.create on resource or the
-CreateDatabaseRequest.create_statement field is malformed and the database
-name could not be identified to verify Cloud IAM Conditions.
-```
+For more information about Google-managed constraints, see [Organization policy constraints](/resource-manager/docs/organization-policy/org-policy-constraints) .
 
 ## Spanner supported resources
 
