@@ -1,20 +1,20 @@
-This page describes how to detect and debug hotspots in your database. You can access statistics about hotspots in splits with both GoogleSQL and PostgreSQL.
+This document describes how to detect and debug hotspots in your database. You can access statistics about hotspots in splits with both GoogleSQL and PostgreSQL.
 
 Spanner stores your data as a contiguous key space, ordered by the primary keys of your tables and indexes. A split is a range of rows from a set of tables or an index. The split's start is called the *split start* . The *split limit* sets the end of the split. The split includes the split start, but not the split limit.
 
-In Spanner, *hotspots* are situations where too many requests are sent to the same server which saturates the resources of the server and potentially causes high latencies. The splits affected by hotspots are known as *hot* or *warm* splits.
+In Spanner, *hotspots* are situations where too many requests are sent to the same server, which saturates the resources of the server and potentially causes high latencies. The splits affected by hotspots are known as *hot* or *warm* splits.
 
-A split's hotspot statistic (identified in the system as `  CPU_USAGE_SCORE  ` ) is a measurement of the load on a split that's constrained by the resources available on the server. This measurement is given as a percentage. If more than 50% of the load on a split is constrained by the available resources, then the split is considered warm. If 100% of the load on a split is constrained, then the split is considered hot. Such hot splits might also have an effect on the latency of the requests served by them.
+A split's hotspot statistic (identified in the system as `  CPU_USAGE_SCORE  ` ) is a measurement of the load on a split that's constrained by the resources available on the server. This measurement is given as a percentage. If more than 50% of the load on a split is constrained by the available resources, then the split is considered warm. If 100% of the load on a split is constrained, then the split is considered hot. Such hot splits might also affect the latency of the requests served by them.
 
 The `  CPU_USAGE_SCORE  ` of a split can remain constant or vary over time based on the workload accessing the split and changes in the split boundaries.
 
-Based on the warm and hot split resource constraints, Spanner might use [load-based splitting](/spanner/docs/schema-and-data-model#load-based_splitting) to evenly distribute the load across the key space. The warm and hot splits can be moved across the instance's servers for load balancing. Spanner performs load-based splitting in the background, minimizing the impact on the latencies. However, Spanner might not be able to balance the load, even after multiple attempts at splitting, due to [anti-patterns](/spanner/docs/whitepapers/optimizing-schema-design#anti-patterns) in the application. Hence, persistent warm or hot splits that last at least 10 minutes might need further troubleshooting and potential application changes.
+Based on the warm and hot split resource constraints, Spanner might use [load-based splitting](/spanner/docs/schema-and-data-model#load-based_splitting) to evenly distribute the load across the key space. The warm and hot splits can be moved across the instance's servers for load balancing. Spanner performs load-based splitting in the background, minimizing the impact on latency. However, Spanner might not be able to balance the load, even after multiple attempts at splitting, due to [anti-patterns](/spanner/docs/whitepapers/optimizing-schema-design#anti-patterns) in the application. The `  UNSPLITTABLE_REASONS  ` column in the statistics views provides specific reasons why a hot or warm split couldn't be divided further. Hence, persistent warm or hot splits that last at least 10 minutes might need further troubleshooting and potential application changes, especially when `  UNSPLITTABLE_REASONS  ` are present.
 
-The Spanner hot split statistics help you identify the splits where hotspots occur. You can then make changes to your application or schema, as needed. You can retrieve these statistics from the `  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  ` system tables using SQL statements.
+The Spanner hot split statistics help you identify the splits where hotspots occur and understand why they may persist. These statistics, combined with `  UNSPLITTABLE_REASONS  ` codes, can help you diagnose what actions you need to take to resolve hotspots. You can then make changes to your application or schema, as needed.
 
-## Access hot split statistics
+## How to access hot split statistics
 
-Spanner provides the hot split statistics in the `  SPANNER_SYS  ` schema. `  SPANNER_SYS  ` data is available only through GoogleSQL and PostgreSQL interfaces. You can use the following ways to access this data:
+Spanner provides the hot split statistics in the `  SPANNER_SYS  ` schema. `  SPANNER_SYS  ` data is available through GoogleSQL and PostgreSQL interfaces. You can access this data in the following ways:
 
   - A database's [Spanner Studio page](/spanner/docs/manage-data-using-console) in the Google Cloud console.
   - The [`  gcloud spanner databases execute-sql  `](/sdk/gcloud/reference/spanner/databases/execute-sql) command.
@@ -28,35 +28,45 @@ The following single read methods that Spanner provides don't support `  SPANNER
 
 ## Hot split statistics
 
-You use the following table to track hot splits:
+You use the following views to track hot splits:
 
   - `  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  ` : shows splits that are hot during 1-minute intervals.
+  - `  SPANNER_SYS.SPLIT_STATS_TOP_10MINUTE  ` : shows splits that are hot during any part of a 10-minute interval.
+  - `  SPANNER_SYS.SPLIT_STATS_TOP_HOUR  ` : shows splits that are hot during any part of a 1-hour interval.
 
-These tables have the following properties:
+These views have the following properties:
 
-  - Each table contains data for non-overlapping time intervals of the duration the table name specifies.
-
+  - Each view contains data for non-overlapping time intervals of the duration the view name specifies.
   - Intervals are based on clock times:
-    
       - 1-minute intervals end on the minute.
-
-  - After each interval, Spanner collects data from all servers and then makes the data available in the `  SPANNER_SYS  ` tables shortly thereafter.
-    
-    For example, at 11:59:30 AM, the most recent intervals available to SQL queries are:
-    
+      - 10-minute intervals end on the 10th minute of the hour, for example, 11:10:00, 11:20:00.
+      - 1-hour intervals end on the hour.
+  - After each interval, Spanner collects data from all servers and then makes the data available in the `  SPANNER_SYS  ` views shortly thereafter. For example, at 11:59:30 AM, the most recent intervals available to SQL queries are:
       - 1 minute: 11:58:00-11:58:59 AM
-
+      - 10 minutes: 11:40:00-11:49:59 AM
+      - 1 hour: 10:00:00-10:59:59 AM
   - Spanner groups the statistics by splits.
+  - Each row contains statistics, including the `  CPU_USAGE_SCORE  ` percentage which indicates how hot or warm a split is, for each split that Spanner captures statistics for during the specified interval.
+  - The `  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  ` view offers the granular split statistics for every minute. Use this view for detailed debugging of recent events.
+  - The `  SPANNER_SYS.SPLIT_STATS_TOP_10MINUTE  ` and `  SPANNER_SYS.SPLIT_STATS_TOP_HOUR  ` views provide an aggregated view within 10-minute and hour intervals, respectively. Use these views for trend analysis or investigating issues over the past few days or weeks. For more information on aggregation, see [View event aggregation](#view-event-aggregation) .
+  - If Spanner is unable to store all the hot splits during the interval, the system prioritizes the splits with the highest `  CPU_USAGE_SCORE  ` percentage during the specified interval. If there are no splits returned, it's an indication of the absence of any hot splits.
 
-  - Each row contains a percentage that indicates how hot or warm a split is, for each split that Spanner captures statistics for during the specified interval.
+## Data retention
 
-  - If less than 50% of the load on a split is constrained by the available resources, then Spanner doesn't capture the statistic. If Spanner is unable to store all the hot splits during the interval, the system prioritizes the splits with the highest `  CPU_USAGE_SCORE  ` percentage during the specified interval. If there are no splits returned, it's an indication of the absence of any hotspots.
+The maximum amount of data that Spanner retains for each view, at any point in time, is as follows:
 
-## Table schema
+  - **`  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  `** : intervals covering the previous 24 hours.
+  - **`  SPANNER_SYS.SPLIT_STATS_TOP_10MINUTE  `** : intervals covering the previous 4 days.
+  - **`  SPANNER_SYS.SPLIT_STATS_TOP_HOUR  `** : intervals covering the previous 30 days.
 
-The following table shows the table schema for the following stats:
+These retention periods cannot be increased or decreased, and you can't prevent Spanner from collecting hot split statistics.
 
-  - `  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  `
+  - To delete statistics data, you must either delete the database being tracked or wait until the statistics data rolls out of retention.
+  - To retain statistics data for longer periods, periodically copy data out of the hot split statistics views.
+
+## View schema
+
+The following table shows the schema for hot split statistics:
 
 <table>
 <thead>
@@ -70,32 +80,37 @@ The following table shows the table schema for the following stats:
 <tr class="odd">
 <td><code dir="ltr" translate="no">       INTERVAL_END      </code></td>
 <td><code dir="ltr" translate="no">       TIMESTAMP      </code></td>
-<td>End of the time interval during which the split was hot</td>
+<td>End of the time interval during which the split was warm or hot.</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       SPLIT_START      </code></td>
 <td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>The starting key of the range of rows in the split. The split start might also be <code dir="ltr" translate="no">       &lt;begin&gt;      </code> , indicating the beginning of the key space</td>
+<td>The starting key of the range of rows in the split. The split start might also be &lt;begin&gt;, indicating the beginning of the key space.</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></td>
 <td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>The limit key for the range of rows in the split. The limit: key might also be <code dir="ltr" translate="no">       &lt;end&gt;      </code> , indicating the end of the key space|</td>
+<td>The limit key for the range of rows in the split. The limit key might also be &lt;end&gt;, indicating the end of the key space.</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></td>
 <td><code dir="ltr" translate="no">       INT64      </code></td>
-<td>The <code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code> percentage of the splits. A <code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code> percentage of 50% indicates the presence of warm or hot | splits |</td>
+<td>The <code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code> percentage of the splits. A <code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code> percentage of 50% indicates the presence of warm or hot splits.</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></td>
 <td><code dir="ltr" translate="no">       STRING ARRAY      </code></td>
-<td>The tables whose rows might be in the split</td>
+<td>The tables whose rows might be in the split.</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></td>
+<td><code dir="ltr" translate="no">       STRING ARRAY      </code></td>
+<td>Identifies the type of hotspots present that load-based splitting cannot mitigate, often due to anti-patterns. The presence of any reason indicates user intervention, such as schema or workload adjustments, is likely needed. An empty array means either no unsplittable conditions were detected during this interval or the high load was too short-lived for Spanner to determine if it was unsplittable. See <a href="#unsplit-reason-types"><code dir="ltr" translate="no">        UNSPLITTABLE_REASONS       </code> types</a> for more details.</td>
 </tr>
 </tbody>
 </table>
 
-**Note:** Splits with `  CPU_USAGE_SCORE  ` percentages that are less than 100% can be used t0 track trends over time. Spanner uses load-based splitting to balance the load across servers and hence you might see the splits change or shrink over time. However, Spanner might not be able to balance the load due to problematic patterns in the application and hot splits might remain after several iterations of Spanner load-based splitting. Hence, the presence of hot splits for over 10 minutes is an indication that you might need to investigate further.
+**Note:** Splits with `  CPU_USAGE_SCORE  ` percentages that are less than 100% can be used to track trends over time. Spanner uses load-based splitting to balance the load across servers, and hence you might see the splits change or shrink over time. However, Spanner might not be able to balance the load due to problematic patterns in the application, and hot splits might persist and result in `  UNSPLITTABLE_REASONS  ` . We recommend looking for schema or workload issues if you observe hot splits with unsplittable reasons persisting for longer than 10 minutes.
 
 ## Split start and split limit keys
 
@@ -300,40 +315,221 @@ The `  SPLIT_START  ` and `  SPLIT_LIMIT  ` might indicate the row of a table or
 
 **Note:** `  SPLIT_LIMIT  ` is greater than the `  SPLIT_START  ` . However, lexicographical comparisons of the split start and limit might not work across splits.
 
-### Example queries to find hot splits
+## `     UNSPLITTABLE_REASONS    ` types
 
-The following example shows a SQL statement that you can use to retrieve the hot split statistics. You can run these SQL statements using the client libraries, gcloud, or the Google Cloud console.
+When Spanner cannot mitigate a hotspot through load-based splitting, the `  UNSPLITTABLE_REASONS  ` column in the `  SPLIT_STATS_TOP_*  ` views cites one or more of the following reasons:
 
-### GoogleSQL
+### `     HOT_ROW    `
+
+**Description:** High load is concentrated on a single row. Spanner cannot add split points within an individual row.
+
+**Common Causes:**
+
+  - Frequent high-volume operations (reads, writes, or updates) on a single key.
+  - Schema designs that centralize access to a single row.
+
+**Mitigation Strategies:**
+
+  - Reduce QPS to the hot split.
+  - Redesign schema to distribute load. For example, shard counters across multiple rows.
+  - Review [Schema design best practices](https://cloud.google.com/spanner/docs/schema-design) .
+
+### `     MOVING_HOT_SPOT    `
+
+**Description:** The key range experiencing high load shifts over time, often sequentially. Load-based splitting is ineffective as the hotspot relocates before Spanner can split the previously affected range.
+
+**Common Causes:**
+
+  - Inserts with a monotonically increasing or decreasing leading key part, such as a commit timestamp.
+  - Sequential point reads across the keyspace of a table.
+
+**Mitigation Strategies:**
+
+  - Avoid monotonically increasing or decreasing keys for the first part of the primary key in write-intensive workloads. For detailed mitigation strategies, see [Schema design best practices](https://cloud.google.com/spanner/docs/schema-design#timestamp-based-keys) . Techniques include using UUIDs or prepending a hash of the key.
+
+### `     LARGE_SCAN_HOT_SPOT    `
+
+**Description:** The split experiences high load due to frequent or resource-intensive operations that scan across a key range. This can include range reads (including reads issued as part of a transaction) or queries. Spanner refrains from excessively splitting the ranges covered by such operations to avoid potential performance degradation for these scans, which can occur if the data becomes too fragmented across many small splits.
+
+**Common Causes:**
+
+  - Queries or read operations executing broad range scans on frequently accessed data.
+  - DML statements ( `  UPDATE  ` , `  DELETE  ` ) with WHERE clauses that require scanning ranges.
+  - Absence of suitable indexes, leading to base table scans.
+
+**Mitigation Strategies:**
+
+  - Optimize SQL statements ( `  SELECT  ` , `  UPDATE  ` , `  DELETE  ` ) to reduce the number of rows scanned.
+  - Create appropriate indexes to support common query and DML predicates, minimizing the number of rows scanned.
+
+### `     UNISOLATABLE_HOT_ROW    `
+
+**Description:** Spanner identifies a narrow, high-load key but cannot isolate it by inserting new split points, due to the unavailability of a suitable split point. This case is similar to `  HOT_ROW  ` , but the `  SPLIT_START  ` and `  SPLIT_LIMIT  ` don't completely isolate the hotspot.
+
+**Common Causes:**
+
+  - Intense, localized load on one row or adjacent rows sharing a key prefix.
+
+**Mitigation Strategies:**
+
+  - Analyze application access patterns for the keys within the reported `  SPLIT_START  ` and `  SPLIT_LIMIT  ` .
+  - Mitigation strategies often overlap with `  HOT_ROW  ` , focusing on reducing direct operational load on the problematic narrow key range.
+
+### `     UNSPECIFIED    `
+
+**Description** : The split is experiencing high load and cannot be split, but the cause does not fall under the other specific categories. This can happen in complex load scenarios or due to internal system behavior.
+
+**Mitigation Strategies:**
+
+  - Investigate application workloads, queries, or transactions accessing the tables within the hot split (listed in `  AFFECTED_TABLES  ` ) that have shown increased load.
+  - Use tools like Query Insights and Transaction Insights to identify expensive operations.
+  - Evaluate the workload and ensure that you are using the [Schema design best practices](/spanner/docs/schema-design) and [SQL best practices](/spanner/docs/sql-best-practices) .
+  - If the hotspot persists for more than 10 minutes despite the prior optimizations, [open a support case](/spanner/docs/getting-support) .
+
+## View event aggregation
+
+Entries in the `  SPANNER_SYS.SPLIT_STATS_TOP_10MINUTE  ` and `  SPANNER_SYS.SPLIT_STATS_TOP_HOUR  ` views represent an aggregation of the 1-minute intervals within their respective windows:
+
+**`  CPU_USAGE_SCORE  `** : This shows the maximum `  CPU_USAGE_SCORE  ` recorded for the split in any 1-minute interval within the 10-minute or 1-hour window.
+
+**`  UNSPLITTABLE_REASONS  `** : This array is a union of all unique `  UNSPLITTABLE_REASONS  ` observed for the split across all 1-minute intervals within the window.
+
+A split appears in these views if its `  CPU_USAGE_SCORE  ` was 50% or higher in at least one of the constituent 1-minute intervals.
+
+### Example of aggregation
+
+Examine the split from `  Users(101)  ` to `  Users(102)  ` . The following table shows its potential entries in the `  MINUTE  ` view over a 10-minute period from 10:00:00 to 10:10:00:
+
+<table>
+<thead>
+<tr class="header">
+<th><code dir="ltr" translate="no">       INTERVAL_END      </code></th>
+<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
+<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
+<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
+<th><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></th>
+<th><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10:01:00</td>
+<td>Users(101)</td>
+<td>Users(102)</td>
+<td>60</td>
+<td>[Messages,Users,Threads]</td>
+<td>[]</td>
+</tr>
+<tr class="even">
+<td>10:02:00</td>
+<td>Users(101)</td>
+<td>Users(102)</td>
+<td>95</td>
+<td>[Messages,Users,Threads]</td>
+<td>[HOT_ROW]</td>
+</tr>
+<tr class="odd">
+<td>10:03:00</td>
+<td>Users(101)</td>
+<td>Users(102)</td>
+<td>80</td>
+<td>[Messages,Users,Threads]</td>
+<td>[HOT_ROW]</td>
+</tr>
+<tr class="even">
+<td>10:04:00</td>
+<td>Users(101)</td>
+<td>Users(102)</td>
+<td>55</td>
+<td>[Users,Threads]</td>
+<td>[]</td>
+</tr>
+<tr class="odd">
+<td>10:06:00</td>
+<td>Users(101)</td>
+<td>Users(102)</td>
+<td>70</td>
+<td>[Users,Threads]</td>
+<td>[LARGE_SCAN_HOT_SPOT]</td>
+</tr>
+<tr class="even">
+<td>10:07:00</td>
+<td>Users(101)</td>
+<td>Users(102)</td>
+<td>65</td>
+<td>[Users,Threads]</td>
+<td>[LARGE_SCAN_HOT_SPOT]</td>
+</tr>
+<tr class="odd">
+<td>10:09:00</td>
+<td>Users(101)</td>
+<td>Users(102)</td>
+<td>52</td>
+<td>[Users,Threads]</td>
+<td>[]</td>
+</tr>
+</tbody>
+</table>
+
+The corresponding aggregated entry in `  10MINUTE  ` for the interval ending at 10:10:00 for this split would be:
+
+<table>
+<thead>
+<tr class="header">
+<th><code dir="ltr" translate="no">       INTERVAL_END      </code></th>
+<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
+<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
+<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
+<th><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></th>
+<th><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10:10:00</td>
+<td>Users(101)</td>
+<td>Users(102)</td>
+<td>95</td>
+<td>[Messages,Users,Threads]</td>
+<td>[HOT_ROW, LARGE_SCAN_HOT_SPOT]</td>
+</tr>
+</tbody>
+</table>
+
+  - **`  CPU_USAGE_SCORE  `** : 95 is the maximum value from the `  CPU_USAGE_SCORE  ` column in the 1-minute view for this split within the window.
+  - **`  UNSPLITTABLE_REASONS  `** : `  [HOT_ROW, LARGE_SCAN_HOT_SPOT]  ` is the union of all unique reasons present in the `  UNSPLITTABLE_REASONS  ` column in the 1-minute view.
+
+This example shows how the `  10MINUTE  ` view summarizes the most intense load and all types of unsplittable issues encountered during the period. The `  HOUR  ` view follows the same aggregation logic over a 60-minute window.
+
+## Find hot splits
+
+You can use the following SQL statement to retrieve hot split statistics. You can run these SQL statements using the client libraries, Google Cloud CLI, or the Google Cloud console.
 
 ``` text
-SELECT t.split_start,
-       t.split_limit,
-       t.cpu_usage_score,
-       t.affected_tables,
-FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
-WHERE  t.interval_end =
-  (SELECT MAX(interval_end)
-  FROM    SPANNER_SYS.SPLIT_STATS_TOP_MINUTE)
-ORDER BY  t.cpu_usage_score DESC;
+SELECT
+  t.interval_end,
+  t.split_start,
+  t.split_limit,
+  t.cpu_usage_score,
+  t.affected_tables,
+  t.unsplittable_reasons
+FROM
+  SPANNER_SYS.SPLIT_STATS_TOP_DURATION AS t
+WHERE
+  -- Optional: Filter by a specific interval end time
+  -- t.interval_end = 'INTERVAL_END_TIME'
+ORDER BY
+  t.interval_end DESC, t.cpu_usage_score DESC;
 ```
 
-### PostgreSQL
+Replace the following:
 
-``` text
-SELECT t.split_start,
-       t.split_limit,
-       t.cpu_usage_score,
-       t.affected_tables
-FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
-WHERE  t.interval_end = (
-  SELECT MAX(interval_end)
-  FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE
-)
-ORDER BY t.cpu_usage_score DESC;
-```
+  - `  DURATION  ` : choose `  MINUTE  ` , `  10MINUTE  ` , or `  HOUR  ` , based on the observation period. For example, `  SPANNER_SYS.SPLIT_STATS_TOP_HOUR  ` .
+  - `  INTERVAL_END_TIME  ` : Replace with a `  TIMESTAMP  ` of the end time of your observation period. For example, `  2072-06-08 08:30:00Z  ` .
 
-The query output looks like the following:
+### Interpret query results
+
+For a complete list of `  UNSPLITTABLE_REASONS  ` codes and their possible diagnoses, see [`  UNSPLITTABLE_REASONS  ` types](#unsplit-reason-types) . For example, your query output might look like the following:
 
 <table>
 <thead>
@@ -342,55 +538,63 @@ The query output looks like the following:
 <th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
 <th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
 <th><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></th>
+<th><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       Users(13)      </code></td>
-<td><code dir="ltr" translate="no">       Users(76)      </code></td>
-<td><code dir="ltr" translate="no">       82      </code></td>
-<td><code dir="ltr" translate="no">       Messages,Users,Threads      </code></td>
+<td>Threads(10)</td>
+<td>Threads(10, "aa")</td>
+<td>100</td>
+<td>Messages,Threads</td>
+<td>[UNISOLATABLE_HOT_ROW]</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       Users(101)      </code></td>
-<td><code dir="ltr" translate="no">       Users(102)      </code></td>
-<td><code dir="ltr" translate="no">       90      </code></td>
-<td><code dir="ltr" translate="no">       Messages,Users,Threads      </code></td>
+<td>Messages(631, "abc", 1)</td>
+<td>Messages(631, "abc", 3)</td>
+<td>100</td>
+<td>Messages</td>
+<td>[HOT_ROW]</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       Threads(10, "a")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10, "aa")      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-<td><code dir="ltr" translate="no">       Messages,Threads      </code></td>
+<td>Users(620)</td>
+<td>&lt;end&gt;</td>
+<td>100</td>
+<td>Messages,Users,Threads</td>
+<td>[MOVING_HOT_SPOT]</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       Messages(631, "abc", 1)      </code></td>
-<td><code dir="ltr" translate="no">       Messages(631, "abc", 3)      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-<td><code dir="ltr" translate="no">       Messages      </code></td>
+<td>Users(101)</td>
+<td>Users(102)</td>
+<td>90</td>
+<td>Messages,Users,Threads</td>
+<td>[HOT_ROW]</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       Threads(12, "zebra")      </code></td>
-<td><code dir="ltr" translate="no">       Users(14)      </code></td>
-<td><code dir="ltr" translate="no">       76      </code></td>
-<td><code dir="ltr" translate="no">       Messages,Users,Threads      </code></td>
+<td>Users(13)</td>
+<td>Users(76)</td>
+<td>82</td>
+<td>Messages,Users,Threads</td>
+<td>[LARGE_SCAN_HOT_SPOT]</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       Users(620)      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-<td><code dir="ltr" translate="no">       Messages,Users,Threads      </code></td>
+<td>Threads(12, "zebra")</td>
+<td>Users(14)</td>
+<td>76</td>
+<td>Messages,Users,Threads</td>
+<td>[]</td>
 </tr>
 </tbody>
 </table>
 
-## Data retention for the hot split statistics
+From these results, you could infer the following issues:
 
-At a minimum, Spanner keeps data for each table for the following time period:
-
-  - `  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  ` : Intervals that cover the previous 6 hours.
-
-**Note:** You can't prevent Spanner from collecting the hot split statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically. The retention period for these tables is fixed. If you want to keep statistics for longer periods of time, we recommend that you periodically copy data out of these tables.
+  - **Threads(10) to Threads(10, "aa"):** Hot at 100% with `  [UNISOLATABLE_HOT_ROW]  ` . A single key, a key range prefix in the `  Threads  ` table, or an interleaved table is hot, and Spanner cannot split the range further.
+  - **Messages(631, "abc", 1) to Messages(631, "abc", 3):** Hot at 100% with `  [HOT_ROW]  ` . Load is concentrated on MessageId 1 and 2 for this User and Thread.
+  - **Users(620) to `  <end>  ` :** Hot at 100% with `  [MOVING_HOT_SPOT]  ` . This often indicates a pattern of inserts with monotonically increasing or decreasing User IDs, causing the end of the key space to be persistently hot.
+  - **Users(101) to Users(102):** Hot at 90% with `  [HOT_ROW]  ` . The load is concentrated on the single Users row UserId = 101 and its interleaved children.
+  - **Users(13) to Users(76):** Hot at 82% with `  [LARGE_SCAN_HOT_SPOT]  ` . This suggests frequent or expensive scans across this range of User IDs.
+  - **Threads(12, "zebra") to Users(14):** Warm at 76% usage. No unsplittable reasons were detected in this interval. Spanner might still be able to split this if the load persists or increases.
 
 ## Troubleshoot hotspots using hot split statistics
 
@@ -398,69 +602,69 @@ This section describes how to detect and troubleshoot hotspots.
 
 ### Select a time period to investigate
 
-Check the [latency metrics](/spanner/docs/latency-metrics) for your Spanner database to find the time period when your application experienced high latency and CPU usage. For example, it might show you that an issue started around 10:50 PM on May 18, 2024.
+Check the [latency metrics](/spanner/docs/latency-metrics) for your Spanner database to find the time period when your application experienced high latency and CPU usage. For example, it might show you that an issue started around 10:50 PM on May 18, 2072.
 
-### Find persistent hotspotting
+### Check for unsplittable reasons
 
-As Spanner balances your load with [load-based splitting](/spanner/docs/schema-and-data-model#load-based_splitting) , we recommend that you investigate if hotspotting has continued for more than 10 minutes. You can do so by querying the `  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  ` table, as shown in the following example:
+As Spanner balances load with [load-based splitting](/spanner/docs/schema-and-data-model#load-based_splitting) , we recommend that you investigate hotspots that continue for more than 10 minutes, especially if they have `  UNSPLITTABLE_REASONS  ` . The presence of `  UNSPLITTABLE_REASONS  ` indicates that Spanner cannot split the hot split, and schema or workload changes might be needed to mitigate the hotspot.
 
-### GoogleSQL
-
-``` text
-SELECT Count(DISTINCT t.interval_end)
-FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
-WHERE  t.cpu_usage_score >= 50
-  AND  t.interval_end >= "interval_end_date_time"
-  AND  t.interval_end <= "interval_end_date_time";
-```
-
-Replace interval\_end\_date\_time with the date and time for the interval, using the format `  2024-05-18T17:40:00Z  ` .
-
-### PostgreSQL
+You can query for `  UNSPLITTABLE_REASONS  ` as shown in the following example query:
 
 ``` text
-SELECT COUNT(DISTINCT t.interval_end)
-FROM   SPLIT_STATS_TOP_MINUTE t
-WHERE  t.cpu_usage_score >= 50
-  AND  t.interval_end >= 'interval_end_date_time'::timestamptz
-  AND  t.interval_end <= 'interval_end_date_time'::timestamptz;
+SELECT
+  reason,
+  COUNT(*) AS occurrences
+FROM
+  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE AS t,
+  UNNEST(t.unsplittable_reasons) AS reason
+WHERE
+  t.cpu_usage_score >= 50
+  AND ARRAY_LENGTH(t.unsplittable_reasons) > 0
+  AND t.interval_end >= "2072-05-18T17:40:00Z"  -- Start of window
+  AND t.interval_end <= "2072-05-18T17:50:00Z"  -- End of window
+GROUP BY
+  reason
+ORDER BY
+  occurrences DESC;
 ```
 
-Replace interval\_end\_date\_time with the date and time for the interval, using the format `  2024-05-18T17:40:00Z  ` .
+The presence of `  UNSPLITTABLE_REASONS  ` indicates a need for further debugging.
 
-If the previous query result is equal to 10, it means that your database is experiencing hotspotting that might need further debugging.
+You can also monitor unsplittable reasons using Cloud Monitoring. The metric to use is `  unsplittable_reason_count  ` . For more information, see [Spanner metrics](/spanner/docs/metrics) .
 
-### Find the splits with the highest `     CPU_USAGE_SCORE    ` level
+### Find the splits with the highest `     CPU_USAGE_SCORE    ` and their `     UNSPLITTABLE_REASONS    `
 
-For this example, we run the following SQL to find the row ranges with the highest `  CPU_USAGE_SCORE  ` level:
+For this example, we run the following SQL to find the row ranges with the highest `  CPU_USAGE_SCORE  ` level and their corresponding `  UNSPLITTABLE_REASONS  ` :
 
 ### GoogleSQL
 
 ``` text
 SELECT t.split_start,
-       t.split_limit,
-       t.affected_tables,
-       t.cpu_usage_score
+     t.split_limit,
+     t.cpu_usage_score,
+     t.affected_tables,
+     t.unsplittable_reasons
 FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
 WHERE  t.cpu_usage_score >= 50
-  AND  t.interval_end = "interval_end_date_time";
+AND  t.interval_end = "interval_end_date_time";
 ```
 
-Replace interval\_end\_date\_time with the date and time for the interval, using the format `  2024-05-18T17:40:00Z  ` .
+Replace interval\_end\_date\_time with the date and time for the interval, using the format YYYY-MM-DDTHH:MM:SSZ. For example, `  2072-05-18T17:40:00Z  ` .
 
 ### PostgreSQL
 
 ``` text
 SELECT t.split_start,
-       t.split_limit,
-       t.affected_tables,
-       t.cpu_usage_score
-FROM   SPLIT_STATS_TOP_MINUTE t
-WHERE  t.cpu_usage_score = 100
-  AND  t.interval_end = 'interval_end_date_time'::timestamptz;
+     t.split_limit,
+     t.cpu_usage_score,
+     t.affected_tables,
+     t.unsplittable_reasons
+FROM   spanner_sys.split_stats_top_minute t
+WHERE  t.cpu_usage_score >= 50
+AND  t.interval_end = 'interval_end_date_time'::timestamptz;
 ```
 
-Replace interval\_end\_date\_time with the date and time for the interval, using the format `  2024-05-18T17:40:00Z  ` .
+Replace interval\_end\_date\_time with the date and time for the interval, using the format YYYY-MM-DDTHH:MM:SSZ. For example, `  2072-05-18T17:40:00Z  ` .
 
 The previous SQL outputs the following:
 
@@ -471,6 +675,7 @@ The previous SQL outputs the following:
 <th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
 <th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
 <th><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></th>
+<th><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></th>
 </tr>
 </thead>
 <tbody>
@@ -479,343 +684,38 @@ The previous SQL outputs the following:
 <td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
 <td><code dir="ltr" translate="no">       85      </code></td>
 <td><code dir="ltr" translate="no">       Messages,Users,Threads      </code></td>
+<td><code dir="ltr" translate="no">       [MOVING_HOT_SPOT]      </code></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       Users(24)      </code></td>
 <td><code dir="ltr" translate="no">       Users(76)      </code></td>
 <td><code dir="ltr" translate="no">       76      </code></td>
 <td><code dir="ltr" translate="no">       Messages,Users,Threads      </code></td>
+<td><code dir="ltr" translate="no">       [HOT_ROW, LARGE_SCAN_HOT_SPOT]      </code></td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       Threads(10)      </code></td>
+<td><code dir="ltr" translate="no">       UsersByFirstName("abc")      </code></td>
+<td><code dir="ltr" translate="no">       100      </code></td>
+<td><code dir="ltr" translate="no">       UsersByFirstName, Users, Threads, Messages, MessagesIdx      </code></td>
+<td><code dir="ltr" translate="no">       []      </code></td>
 </tr>
 </tbody>
 </table>
 
-From this table of results, we can see that hotspots occurred on two splits. Spanner [load-based splitting](/spanner/docs/schema-and-data-model#load-based_splitting) might try to resolve hotspots on these splits. However, it might not be able to do so if there are problematic patterns in the schema or workload. To detect if there are splits that need your intervention, we recommend tracking the splits for at least 10 minutes. For example, the following SQL tracks the first split over the last ten minutes.
-
-### GoogleSQL
-
-``` text
-SELECT t.interval_end,
-       t.split_start,
-       t.split_limit,
-       t.cpu_usage_score
-FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
-WHERE  t.split_start = "users(180)"
-  AND  t.split_limit = "<end>"
-  AND  t.interval_end >= "interval_end_date_time"
-  AND  t.interval_end <= "interval_end_date_time";
-```
-
-Replace interval\_end\_date\_time with the date and time for the interval, using the format `  2024-05-18T17:40:00Z  ` .
-
-### PostgreSQL
-
-``` text
-SELECT t.interval_end,
-       t.split_start,
-       t.split_limit,
-       t.cpu_usage_score
-FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
-WHERE  t.split_start = 'users(180)'
-  AND  t.split_limit = ''
-  AND  t.interval_end >= 'interval_end_date_time'::timestamptz
-  AND  t.interval_end <= 'interval_end_date_time'::timestamptz;
-```
-
-Replace interval\_end\_date\_time with the date and time for the interval, using the format `  2024-05-18T17:40:00Z  ` .
-
-The previous SQL outputs the following:
-
-<table>
-<thead>
-<tr class="header">
-<th><code dir="ltr" translate="no">       INTERVAL_END      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
-<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-18T17:46:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Users(180)      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       85      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-18T17:47:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Users(180)      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       85      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-18T17:48:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Users(180)      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       85      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-18T17:49:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Users(180)      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       85      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-18T17:50:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Users(180)      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       85      </code></td>
-</tr>
-</tbody>
-</table>
-
-The split seems to have been hot for the past few minutes. You might observe the split for longer to determine that the Spanner load-based splitting mitigates the hotspot. There might be cases wherein Spanner can't load balance any further.
-
-For example, query the `  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  ` table. See the following example scenarios.
-
-### GoogleSQL
-
-``` text
-SELECT t.interval_end,
-      t.split_start,
-      t.split_limit,
-      t.cpu_usage_score
-FROM  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
-WHERE t.interval_end >= "interval_end_date_time"
-      AND t.interval_end <= "interval_end_date_time";
-```
-
-Replace interval\_end\_date\_time with the date and time for the interval, using the format `  2024-05-18T17:40:00Z  ` .
-
-### PostgreSQL
-
-``` text
-SELECT t.interval_end,
-       t.split_start,
-       t.split_limit,
-       t._cpu_usage
-FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
-WHERE  t.interval_end >= 'interval_end_date_time'::timestamptz
-  AND  t.interval_end <= 'interval_end_date_time'::timestamptz;
-```
-
-Replace interval\_end\_date\_time with the date and time for the interval, using the format `  2024-05-18T17:40:00Z  ` .
-
-### Single hot row
-
-In the following example, it looks like `  Threads(10,"spanner")  ` is in a single row split which remained hot for over 10 minutes. This could happen when there's a persistent load on a popular row.
-
-<table>
-<thead>
-<tr class="header">
-<th><code dir="ltr" translate="no">       INTERVAL_END      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
-<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:40:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       62      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:41:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       62      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:42:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       62      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:43:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       62      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:44:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       62      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:45:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       62      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:46:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       80      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:47:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       80      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:48:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       80      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:49:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:50:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10,"spanner1")      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-</tr>
-</tbody>
-</table>
-
-Spanner can't balance the load for this single key as it can't be split further.
-
-### Moving hotspot
-
-In the following example, the load moves through contiguous splits over time, moving to a new split across time intervals.
-
-<table>
-<thead>
-<tr class="header">
-<th><code dir="ltr" translate="no">       INTERVAL_END      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
-<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:40:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1,"a")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1,"aa")      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:41:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1,"aa")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1,"ab")      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:42:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1,"ab")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1,"c")      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:43:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1,"c")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1,"ca")      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-</tr>
-</tbody>
-</table>
-
-This could occur, for example, due to a workload that reads or writes keys in monotonically increasing order. Spanner can't balance the load to mitigate the effects of this application behavior.
-
-### Normal load balancing
-
-Spanner tries to balance the load by adding more splits or moving splits around. The following example shows what that might look like.
-
-<table>
-<thead>
-<tr class="header">
-<th><code dir="ltr" translate="no">       INTERVAL_END      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
-<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:40:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1000,"zebra")      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       82      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:41:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1000,"zebra")      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       90      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:42:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1000,"zebra")      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:43:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1000,"zebra")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(2000,"spanner")      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:44:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1200,"c")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(2000)      </code></td>
-<td><code dir="ltr" translate="no">       92      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:45:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1500,"c")      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1700,"zach")      </code></td>
-<td><code dir="ltr" translate="no">       76      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:46:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1700)      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1700,"c")      </code></td>
-<td><code dir="ltr" translate="no">       76      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       2024-05-16T20:47:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1700)      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1700,"c")      </code></td>
-<td><code dir="ltr" translate="no">       50      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2024-05-16T20:48:00Z      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1700)      </code></td>
-<td><code dir="ltr" translate="no">       Threads(1700,"c")      </code></td>
-<td><code dir="ltr" translate="no">       39      </code></td>
-</tr>
-</tbody>
-</table>
-
-Here, the larger split at 2024-05-16T17:40:00Z was split further into a smaller split and as a result, the `  CPU_USAGE_SCORE  ` statistic decreased. Spanner might not create splits into individual rows. The splits mirror the workload causing the high `  CPU_USAGE_SCORE  ` statistic.
-
-If you have observed a persistent hot split for over 10 minutes, see [Best practices to mitigate hotspots](#best_practices_to_mitigate_hotspots) .
+From this table of results, we can see that there are three hot splits and two of them are unsplittable. Hotspots with `  UNSPLITTABLE_REASONS  ` that persist over time warrant further investigation. To understand what each reason means and how to mitigate it, see [`  UNSPLITTABLE_REASONS  ` types](#unsplit-reason-types) .
 
 ## Best practices to mitigate hotspots
 
 **Note:** If you've had an increase in your load and have recently upscaled your instance, Spanner might take a few minutes to perform its load-balancing operations before your latency decreases.
 
-If load-balancing doesn't decrease latency, the next step is to identify the cause of the hotspots. After that, options are to either reduce the hotspotting workload, or optimize the application schema and logic to avoid hotspots.
+If load-balancing doesn't decrease latency, the next step is to identify the cause of the hotspots. After that, options are to either reduce the hotspot workload, or optimize the application schema and logic to avoid hotspots.
 
 #### Identify the cause
 
   - Use [Lock & Transaction Insights](/spanner/docs/use-lock-and-transaction-insights) to look for transactions that have high lock wait time where the row range start key is within the hot split.
-
   - Use [Query Insights](/spanner/docs/using-query-insights) to look for queries that read from the table that contains the hot split, and have recently increased latency, or a higher ratio of latency to CPU.
-
-  - Use [Oldest Active Queries](/spanner/docs/introspection/oldest-active-queries) to look for queries that read from the table that contains the hot split, and that have higher than expected latency.
+  - Use [Oldest Active Queries](/spanner/docs/introspection/oldest-active-queries) to look for queries that read from the table that contains the hot split, and have higher than expected latency.
 
 Some special cases to watch for:
 

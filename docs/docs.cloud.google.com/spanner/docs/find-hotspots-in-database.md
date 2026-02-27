@@ -1,12 +1,12 @@
-This document describes how to use the Hotspot insights dashboard to detect hotspots in your Spanner database. Identifying and resolving hotspots is crucial for improving database performance by reducing latency and high CPU usage on specific database splits.
+This document describes how to use the Hotspot insights dashboard to detect hotspots in your Spanner database.
 
 ## Hotspot insights overview
 
-Hotspots cause latency in your Spanner database. The Hotspot insights dashboard helps you detect the splits affected by hotspots. Use the following steps to determine if hotspots are causing latency and if they are, how to resolve the issue:
+Hotspots cause latency in your Spanner database. The Hotspot insights dashboard helps you detect the splits affected by hotspots. Use the following steps to determine if hotspots are causing latency and if so, how to resolve the issue:
 
 1.  [Open the dashboard.](/spanner/docs/find-hotspots-in-database#dashboard)
-2.  [Determine whether hotspots need your intervention.](#determine-intervention)
-3.  [Identify problematic hot splits.](#identify-hot-splits)
+2.  [Determine whether hotspots need your intervention.](/spanner/docs/find-hotspots-in-database#determine-intervention)
+3.  [Identify problematic hot splits.](/spanner/docs/find-hotspots-in-database#identify-hot-splits)
 
 Hotspot insights is available in single-region, multi-region, and dual-region configurations.
 
@@ -16,9 +16,7 @@ There is no additional cost for Hotspot insights.
 
 ## Data retention
 
-The maximum data retention for the Hotspot insights chart and table is 6 hours.
-
-For the hottest splits table, data is taken from the `  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  ` table, which has a maximum retention of 6 hours. For more information, see [Data retention](/spanner/docs/introspection/hot-split-statistics#data_retention_for_the_hot_split_statistics) .
+Data retention policies for the Hotspot insights charts and the TopN splits table are based on the underlying `  SPANNER_SYS.SPLIT_STATS_TOP_*  ` tables. For specific retention policies, see [Hot split statistics data retention](/spanner/docs/introspection/hot-split-statistics#data_retention) .
 
 ## Required roles
 
@@ -28,8 +26,9 @@ You might need different IAM roles and permissions, depending on whether you are
 
 To get the permissions that you need to view the **Hotspot insights** page, ask your administrator to grant you the following IAM roles on the instance:
 
-  - [Cloud Spanner Viewer](/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-  - [Cloud Spanner Database Reader](/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
+  - All:
+      - Cloud Spanner Viewer ( `  roles/spanner.viewer  ` )
+      - [Cloud Spanner Database Reader](/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
 
 The following permissions in the [Cloud Spanner Database Reader](/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` ) role are required to view the **Hotspot insights** page:
 
@@ -41,7 +40,7 @@ The following permissions in the [Cloud Spanner Database Reader](/iam/docs/roles
 
 If you are a fine-grained access control user, ensure that you:
 
-  - Have the [Cloud Spanner Viewer](/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
+  - Have the [Cloud Spanner Viewer](/iam/docs/understanding-roles#spanner.viewer) ( `  roles/spanner.viewer  ` )
   - Have fine-grained access control privileges and are granted the `  spanner_sys_reader  ` system role or one of its member roles.
   - Select the `  spanner_sys_reader  ` or a member role as your current system role on the database **Overview** page.
 
@@ -55,7 +54,7 @@ The **Hotspot insights** dashboard shows the peak split CPU usage percentage. Th
 
 To view the **Hotspot insights** dashboard for a database, do the following:
 
-1.  In Google Cloud console, open the **Spanner** page.
+1.  In the Google Cloud console, open the **Spanner** page.
 
 2.  Select an instance from the list.
 
@@ -63,12 +62,16 @@ To view the **Hotspot insights** dashboard for a database, do the following:
 
 4.  In the **database** field, select a database from the list. The dashboard shows the peak split CPU usage score for the database.
 
-The areas of the dashboard include:
+The dashboard includes the following elements:
 
   - **Peak split CPU usage score** graph: a higher CPU usage score (such as near 100) indicates that the split is hot and very likely causing a hotspot on the server compared to lower scores.
   - **Database field** : filters the hot splits information on a specific database or all databases.
   - **Time range filter** : filters the peak splits CPU usage by 1-minute increments up to a total of 6 hours.
   - **TopN splits table** : displays the list of top splits sorted by split CPU usage scores.
+
+**Understanding data in the TopN Splits Table:** The **TopN splits** table populates data from the underlying `  SPANNER_SYS.SPLIT_STATS_TOP_*  ` tables based on the time range you select. For more information, see [Hot split statistics data retention](/spanner/docs/introspection/hot-split-statistics#data-retention) .
+
+**Interpreting Rows from `  10MINUTE  ` or `  HOUR  ` tables:** Rows sourced from `  SPANNER_SYS.SPLIT_STATS_TOP_10MINUTE  ` or `  SPANNER_SYS.SPLIT_STATS_TOP_HOUR  ` represent aggregated data over their respective intervals. As described in [Table event aggregation](/spanner/docs/introspection/hot-split-statistics#view-event-aggregation) , the `  CPU_USAGE_SCORE  ` in these rows is the *maximum* score seen in any underlying 1-minute sub-interval, and `  UNSPLITTABLE_REASONS  ` is a *union* of reasons.
 
 ## Determine if hotspots need intervention
 
@@ -99,6 +102,25 @@ The table shows the following properties:
   - **Split limit** : the limit key of the range of rows in the split. If the limit key is \<end\>, it indicates the end of the key range of the database.
   - **Split CPU usage score** : an abstract score of between 0 and 100 that reflects the amount of CPU used by accesses to the rows within the split on a single server. Use the CPU usage score to help evaluate whether you have hotspots.
   - **Affected tables** : the tables whose rows might be in the split.
+  - **Unsplittable reasons** : An array of reasons why Spanner cannot split a hot split further. The presence of values here indicates that load-based splitting is unable to mitigate the hotspot for the reasons listed. For more information, see [`  UNSPLITTABLE_REASONS  ` types](/spanner/docs/introspection/hot-split-statistics#unsplit-reason-types) .
+
+### Analyze unsplittable reasons
+
+The **TopN splits** table lets you drill down into *which specific splits* are affected by these reasons at particular times, as shown in the **Unsplittable reasons** column.
+
+### Example diagnosis workflow
+
+Here's a typical workflow for debugging hotspots using the dashboard:
+
+1.  **Observe the performance issue:** Notice increased latency or errors in your application.
+2.  **Open Hotspot insights:** Navigate to the Hotspot insights dashboard in the Google Cloud console for the relevant Spanner database. Select the time range corresponding to the issue.
+3.  **Examine graph:**
+      - Check the **Peak split CPU usage score** graph for sustained high values, for example, \>50%, especially approaching 100% lasting for at least 10 minutes.
+4.  **Identify affected splits and correlate findings:** If CPU usage is high, go to the **TopN splits** table. Filter or sort to find the splits with the highest **Split CPU usage score** during the impact time. Examine the `  UNSPLITTABLE_REASONS  ` column for these top splits:
+      - **High split CPU usage score and unsplittable reasons:** This is a strong signal that the performance issue is related to hotspots that Spanner cannot automatically resolve. The type of reason, such as `  HOT_ROW  ` or `  MOVING_HOT_SPOT  ` , provides a crucial clue.
+      - **High split CPU usage score and no unsplittable reasons:** The hotspot might be new, and Spanner might still be in the process of splitting. Alternatively, the issue might be responding to changes in the workload, which requires no action from you.
+5.  **Understand the reasons:** Note the specific codes in the `  UNSPLITTABLE_REASONS  ` array.
+6.  **Mitigate:** Based on the identified reasons, refer to [`  UNSPLITTABLE_REASONS  ` types](/spanner/docs/introspection/hot-split-statistics#unsplit-reason-types) for detailed explanations and recommended mitigation strategies, which usually involve schema design changes or workload adjustments.
 
 ## What's next
 

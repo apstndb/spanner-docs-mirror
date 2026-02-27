@@ -11,6 +11,7 @@
   - `  BackupScheduleSpec  ` (message)
   - `  ChangeQuorumMetadata  ` (message)
   - `  ChangeQuorumRequest  ` (message)
+  - `  CompactDatabaseMetadata  ` (message)
   - `  CopyBackupEncryptionConfig  ` (message)
   - `  CopyBackupEncryptionConfig.EncryptionType  ` (enum)
   - `  CopyBackupMetadata  ` (message)
@@ -1028,6 +1029,12 @@ Output only. The instance partition storing the backup.
 
 This is the same as the list of the instance partitions that the database recorded at the backup's `  version_time  ` .
 
+`  minimum_restorable_edition  `
+
+`  Edition  `
+
+Output only. The minimum edition required to successfully restore the backup. Populated only if the edition is Enterprise or Enterprise Plus.
+
 ## State
 
 Indicates the current state of the backup.
@@ -1205,6 +1212,30 @@ Required. The type of this quorum.
 Optional. The etag is the hash of the `  QuorumInfo  ` . The `  ChangeQuorum  ` operation is only performed if the etag matches that of the `  QuorumInfo  ` in the current database resource. Otherwise the API returns an `  ABORTED  ` error.
 
 The etag is used for optimistic concurrency control as a way to help prevent simultaneous change quorum requests that could create a race condition.
+
+## CompactDatabaseMetadata
+
+Metadata type for the long-running operation returned by `  CALL compact_all()  ` , which can be executed using `  ExecuteSql  ` or `  ExecuteStreamingSql  ` APIs.
+
+Fields
+
+`  database  `
+
+`  string  `
+
+Output only. The database being compacted.
+
+`  progress  `
+
+`  OperationProgress  `
+
+Output only. The progress of the compaction operation.
+
+`  cancel_time  `
+
+`  Timestamp  `
+
+Output only. The time at which cancellation of this operation was received. `  Operations.CancelOperation  ` starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients can use `  Operations.GetOperation  ` or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a `  google.rpc.Status.code  ` of 1, corresponding to `  Code.CANCELLED  ` .
 
 ## CopyBackupEncryptionConfig
 

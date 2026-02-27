@@ -598,6 +598,7 @@ https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CreateInstanceParti
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DatabaseDialect
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DdlStatementActionInfo
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions
+https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Edition
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/EncryptionInfo
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ErrorInfo
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/FulfillmentPeriod

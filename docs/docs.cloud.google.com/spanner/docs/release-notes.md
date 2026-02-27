@@ -4,6 +4,14 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## February 24, 2026
+
+Feature
+
+Spanner provides `  UNSPLITTABLE_REASONS  ` in hotspot insights and split statistics views to detect when splits can't be split further. Unsplittable reasons can help you identify schema anti-patterns that require intervention. For more information, see [Find hotspots in your database](/spanner/docs/find-hotspots-in-database) and [Split statistics](/spanner/docs/introspection/hot-split-statistics) .
+
+This feature is [generally available (GA)](/products#product-launch-stages) .
+
 ## February 17, 2026
 
 Announcement

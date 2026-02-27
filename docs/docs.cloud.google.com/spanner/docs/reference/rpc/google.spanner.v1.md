@@ -47,6 +47,7 @@
   - `  QueryPlan  ` (message)
   - `  ReadRequest  ` (message)
   - `  RequestOptions  ` (message)
+  - `  RequestOptions.ClientContext  ` (message)
   - `  RequestOptions.Priority  ` (enum)
   - `  ResultSet  ` (message)
   - `  ResultSetMetadata  ` (message)
@@ -548,7 +549,7 @@ Parameters to apply to each created session.
 
 `  int32  `
 
-Required. The number of sessions to be created in this batch call. The API can return fewer than the requested number of sessions. If a specific number of sessions are desired, the client can make additional calls to `  BatchCreateSessions  ` (adjusting `  session_count  ` as necessary).
+Required. The number of sessions to be created in this batch call. At least one session is created. The API can return fewer than the requested number of sessions. If a specific number of sessions are desired, the client can make additional calls to `  BatchCreateSessions  ` (adjusting `  session_count  ` as necessary).
 
 ## BatchCreateSessionsResponse
 
@@ -630,7 +631,9 @@ An `  OK  ` status indicates success. Any other status indicates a failure.
 
 `  Timestamp  `
 
-The commit timestamp of the transaction that applied this batch. Present if `  status  ` is `  OK  ` , absent otherwise.
+The commit timestamp of the transaction that applied this batch. Present if status is OK and the mutation groups were applied, absent otherwise.
+
+For mutation groups with conditions, a status=OK and missing commit\_timestamp means that the mutation groups were not applied due to the condition not being satisfied after evaluation.
 
 ## BeginTransactionRequest
 
@@ -1723,7 +1726,7 @@ The query request must not contain DML commands, such as `  INSERT  ` , `  UPDAT
 
 `  Struct  `
 
-Parameter names and values that bind to placeholders in the SQL string.
+Optional. Parameter names and values that bind to placeholders in the SQL string.
 
 A parameter placeholder consists of the `  @  ` character followed by the parameter name (for example, `  @firstName  ` ). Parameter names can contain letters, numbers, and underscores.
 
@@ -1737,7 +1740,7 @@ It's an error to execute a SQL statement with unbound parameters.
 
 `  map<string, Type  ` \>
 
-It isn't always possible for Cloud Spanner to infer the right SQL type from a JSON value. For example, values of type `  BYTES  ` and values of type `  STRING  ` both appear in `  params  ` as JSON strings.
+Optional. It isn't always possible for Cloud Spanner to infer the right SQL type from a JSON value. For example, values of type `  BYTES  ` and values of type `  STRING  ` both appear in `  params  ` as JSON strings.
 
 In these cases, `  param_types  ` can be used to specify the exact SQL type for some or all of the SQL query parameters. See the definition of `  Type  ` for more information about SQL types.
 
@@ -2092,7 +2095,25 @@ A per-request tag which can be applied to queries or reads, used for statistics 
 
 `  string  `
 
-A tag used for statistics collection about this transaction. Both `  request_tag  ` and `  transaction_tag  ` can be specified for a read or query that belongs to a transaction. The value of transaction\_tag should be the same for all requests belonging to the same transaction. If this request doesn't belong to any transaction, `  transaction_tag  ` is ignored. Legal characters for `  transaction_tag  ` values are all printable characters (ASCII 32 - 126) and the length of a `  transaction_tag  ` is limited to 50 characters. Values that exceed this limit are truncated. Any leading underscore (\_) characters are removed from the string.
+A tag used for statistics collection about this transaction. Both `  request_tag  ` and `  transaction_tag  ` can be specified for a read or query that belongs to a transaction. To enable tagging on a transaction, `  transaction_tag  ` must be set to the same value for all requests belonging to the same transaction, including `  BeginTransaction  ` . If this request doesn't belong to any transaction, `  transaction_tag  ` is ignored. Legal characters for `  transaction_tag  ` values are all printable characters (ASCII 32 - 126) and the length of a `  transaction_tag  ` is limited to 50 characters. Values that exceed this limit are truncated. Any leading underscore (\_) characters are removed from the string.
+
+`  client_context  `
+
+`  ClientContext  `
+
+Optional. Optional context that may be needed for some requests.
+
+## ClientContext
+
+Container for various pieces of client-owned context attached to a request.
+
+Fields
+
+`  secure_context  `
+
+`  map<string, Value  ` \>
+
+Optional. Map of parameter name to value for this request. These values will be returned by any SECURE\_CONTEXT() calls invoked by this request (e.g., by queries against Parameterized Secure Views).
 
 ## Priority
 
@@ -2297,7 +2318,7 @@ The database role which created this session.
 
 `  bool  `
 
-Optional. If `  true  ` , specifies a multiplexed session. Use a multiplexed session for multiple, concurrent read-only operations. Don't use them for read-write transactions, partitioned reads, or partitioned queries. Use `  sessions.create  ` to create multiplexed sessions. Don't use `  BatchCreateSessions  ` to create a multiplexed session. You can't delete or list multiplexed sessions.
+Optional. If `  true  ` , specifies a multiplexed session. Use a multiplexed session for multiple, concurrent operations including any combination of read-only and read-write transactions. Use `  sessions.create  ` to create multiplexed sessions. Don't use `  BatchCreateSessions  ` to create a multiplexed session. You can't delete or list multiplexed sessions.
 
 ## StructType
 
@@ -2411,7 +2432,7 @@ Authorization to begin a read-only transaction requires `  spanner.databases.beg
 
 ## IsolationLevel
 
-`  IsolationLevel  ` is used when setting the [isolation level](/spanner/docs/isolation-levels) for a transaction.
+`  IsolationLevel  ` is used when setting the [isolation level](https://cloud.google.com/spanner/docs/isolation-levels) for a transaction.
 
 Enums
 
@@ -2675,3 +2696,7 @@ Encoded as a base64-encoded `  string  ` , as described in RFC 4648, section 4.
 `  ENUM  `
 
 Encoded as `  string  ` , in decimal format.
+
+`  UUID  `
+
+Encoded as `  string  ` , in lower-case hexa-decimal format, as described in RFC 9562, section 4.
