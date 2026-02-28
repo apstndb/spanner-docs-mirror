@@ -159,8 +159,6 @@ For more general guidance, see the following resources:
 
 ## Available tools
 
-MCP Tools that are read-only have the MCP attribute `  mcp.tool.isReadOnly  ` set to `  true  ` . You might want to only allow read-only tools in certain environments through your [organization policy](#organization-level-mcp-control) .
-
 To view details of available MCP tools and their descriptions for the Spanner MCP server, see the [Spanner MCP reference](/spanner/docs/reference/mcp) .
 
 ### List tools
@@ -218,92 +216,104 @@ MCP introduces new security risks and considerations due to the wide variety of 
 
 For more information about MCP security and governance, see [AI security and safety](/mcp/ai-security-safety) .
 
-### Model Armor
+### Use Model Armor
 
 [Model Armor](/model-armor/overview) is a Google Cloud service designed to enhance the security and safety of your AI applications. It works by proactively screening LLM prompts and responses, protecting against various risks and supporting responsible AI practices. Whether you are deploying AI in your cloud environment, or on external cloud providers, Model Armor can help you prevent malicious input, verify content safety, protect sensitive data, maintain compliance, and enforce your AI safety and security policies consistently across your diverse AI landscape.
 
-Model Armor is only available in specific regional locations. If Model Armor is enabled for a project, and a call to that project comes from an unsupported region, Model Armor makes a cross-regional call. For more information, see [Model Armor locations](/security-command-center/docs/regional-endpoints#locations-model-armor) .
+Model Armor is only available in specific regional locations. If Model Armor is enabled for a project, and a call to that project comes from an unsupported region, Model Armor makes a cross-regional call. For more information, see [Model Armor locations](/model-armor/locations) .
 
 **Caution:** Model Armor logs the entire payload if a request fails. This might expose sensitive information in the logs.
 
 #### Enable Model Armor
 
-To enable Model Armor, complete the following steps:
+You must enable Model Armor APIs before you can use Model Armor.
 
-1.  To enable Model Armor on your Google Cloud project, run the following gcloud CLI command:
+### Console
+
+1.  Enable the Model Armor API.
+    
+    **Roles required to enable APIs**
+    
+    To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](/iam/docs/granting-changing-revoking-access) .
+
+2.  Select the project where you want to activate Model Armor.
+
+### gcloud
+
+Before you begin, follow these steps using the Google Cloud CLI with the Model Armor API:
+
+1.  In the Google Cloud console, activate Cloud Shell.
+    
+    At the bottom of the Google Cloud console, a [Cloud Shell](/shell/docs/how-cloud-shell-works) session starts and displays a command-line prompt. Cloud Shell is a shell environment with the Google Cloud CLI already installed and with values already set for your current project. It can take a few seconds for the session to initialize.
+
+2.  Run the following command to set the API endpoint for the Model Armor service.
     
     ``` text
-    gcloud services enable modelarmor.googleapis.com \
-        --project=PROJECT_ID
+    gcloud config set api_endpoint_overrides/modelarmor "https://modelarmor.LOCATION.rep.googleapis.com/"
     ```
     
-    Replace `  PROJECT_ID  ` with your Google Cloud project ID.
+    Replace `  LOCATION  ` with the region where you want to use Model Armor.
 
-2.  To configure the recommended [floor settings for Model Armor](/security-command-center/docs/configure-model-armor-floor-settings) , run the following gcloud CLI command:
+#### Configure protection for Google and Google Cloud remote MCP servers
+
+To protect your MCP tool calls and responses, you create a Model Armor floor setting and then enable MCP content security for your project. A floor setting defines the minimum security filters that apply across the project. This configuration applies a consistent set of filters to all MCP tool calls and responses within the project.
+
+**Tip:** Don't enable the prompt injection and jailbreak filter unless your MCP traffic carries natural language data.
+
+1.  Set up a Model Armor floor setting with MCP sanitization enabled. For more information, see [Configure Model Armor floor settings](https://docs.cloud.google.com/model-armor/configure-floor-settings) .
+    
+    **Note:** If the agent and the MCP server are in different projects, you can create floor settings in both projects (the client project and the resource project). In this case, Model Armor is invoked twice, once for each project.
+    
+    See the following example command:
     
     ``` text
     gcloud model-armor floorsettings update \
-        --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
-        --mcp-sanitization=ENABLED \
-        --malicious-uri-filter-settings-enforcement=ENABLED \
-        --pi-and-jailbreak-filter-settings-enforcement=ENABLED \
-        --pi-and-jailbreak-filter-settings-confidence-level=MEDIUM_AND_ABOVE
+    --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
+    --enable-floor-setting-enforcement=TRUE \
+    --add-integrated-services=GOOGLE_MCP_SERVER \
+    --google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
+    --enable-google-mcp-server-cloud-logging \
+    --malicious-uri-filter-settings-enforcement=ENABLED \
+    --add-rai-settings-filters='[{"confidenceLevel": "HIGH", "filterType": "DANGEROUS"}]'
     ```
     
     Replace `  PROJECT_ID  ` with your Google Cloud project ID.
     
-    Model Armor is configured to scan for [malicious URLs](/security-command-center/docs/model-armor-overview#ma-malicious-url-detection) and [prompt injection and jailbreak](/security-command-center/docs/model-armor-overview#ma-prompt-injection) attempts.
+    Note the following settings:
     
-    For more information about configurable Model Armor filters, see [Model Armor filters](/security-command-center/docs/model-armor-overview#ma-filters) .
+      - `  INSPECT_AND_BLOCK  ` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
+      - `  ENABLED  ` : The setting that enables a filter or enforcement.
+      - `  HIGH  ` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Configure floor settings](https://docs.cloud.google.com/model-armor/configure-floor-settings) .
 
-3.  To add Model Armor as a content security provider for MCP services, run the following gcloud CLI command:
+2.  For your project, enable Model Armor protection for remote MCP servers.
     
     ``` text
-    gcloud beta services mcp content-security add modelarmor.googleapis.com \
-        --project=PROJECT_ID
+    gcloud beta services mcp content-security add modelarmor.googleapis.com --project=PROJECT_ID
+    ```
+    
+    Replace `  PROJECT_ID  ` with your Google Cloud project ID. After you run this command, Model Armor sanitizes all MCP tool calls and responses from the project, regardless of where the calls and responses originate.
+
+3.  To confirm that Google MCP traffic is sent to Model Armor, run the following command:
+    
+    ``` text
+    gcloud beta services mcp content-security get --project=PROJECT_ID
     ```
     
     Replace `  PROJECT_ID  ` with the Google Cloud project ID.
-
-4.  To confirm that MCP traffic is sent to Model Armor, run the following command:
-    
-    ``` text
-    gcloud beta services mcp content-security get \
-        --project=PROJECT_ID
-    ```
-    
-    Replace `  PROJECT_ID  ` with the Google Cloud project ID.
-
-#### Model Armor logging
-
-For information about Model Armor audit and platform logs, see [Model Armor audit logging](/security-command-center/docs/audit-logging-model-armor) .
-
-#### Disable Model Armor in a project
-
-To disable Model Armor on a Google Cloud project, run the following command:
-
-``` text
-gcloud beta services mcp content-security remove modelarmor.googleapis.com \
-    --project=PROJECT_ID
-```
-
-Replace `  PROJECT_ID  ` with the Google Cloud project ID.
-
-MCP traffic on Google Cloud won't be scanned by Model Armor for the specified project.
 
 #### Disable scanning MCP traffic with Model Armor
 
-If you still want to use Model Armor in a project, but you want to stop scanning MCP traffic with Model Armor, then run the following command:
+If you want to use Model Armor in a project, and you want to stop scanning Google MCP traffic with Model Armor, run the following command:
 
 ``` text
 gcloud model-armor floorsettings update \
   --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
-  --mcp-sanitization=DISABLED
+  --remove-integrated-services=GOOGLE_MCP_SERVER
 ```
 
 Replace `  PROJECT_ID  ` with the Google Cloud project ID.
 
-Model Armor won't scan MCP traffic on Google Cloud.
+Model Armor won't scan MCP traffic in the project.
 
 ### Control MCP use with IAM deny policies
 

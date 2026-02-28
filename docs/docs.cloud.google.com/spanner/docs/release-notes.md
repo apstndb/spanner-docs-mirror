@@ -4,6 +4,26 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## February 25, 2026
+
+Feature
+
+Spanner supports the following:
+
+  - [Monitor the usage of Enterprise edition and Enterprise Plus edition features](/spanner/docs/editions-overview#monitor-edition-feature-usage) in your Spanner instance.
+  - [Downgrade the instance's edition using the Google Cloud console](/spanner/docs/create-manage-instances#downgrade-edition) .
+  - [Verify edition compatibility when restoring from a backup](/spanner/docs/backup/restore-backups) . If the database uses higher-tier features, you must restore the backup to a destination instance that uses the same or a higher-tier edition.
+  - [Set custom edition constraints within your organization policies](/spanner/docs/spanner-custom-constraints#google-managed_constraints) , limiting the edition of your instance that your users can create.
+
+Feature
+
+Spanner supports the following [managed autoscaler](/spanner/docs/managed-autoscaler) features:
+
+  - Autoscaling based on [total CPU utilization target](/spanner/docs/managed-autoscaler#how_managed_autoscaler_works) . When an instance's total CPU utilization exceeds or falls below the target that you have set, Spanner adds or removes compute capacity.
+  - Autoscaling for [instance partitions (in Preview)](/spanner/docs/geo-partitioning) .
+
+For more information, see [Managed autoscaler](/spanner/docs/managed-autoscaler) .
+
 ## February 24, 2026
 
 Feature
