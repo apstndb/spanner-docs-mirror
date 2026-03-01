@@ -1,4 +1,4 @@
-Spanner provides lock statistics that enable you to identify the row key and table column(s) that were the main sources of transaction lock conflicts in your database during a particular time period. You can retrieve these statistics from the `  SPANNER_SYS.LOCK_STATS*  ` system tables using SQL statements.
+This document describes how to use Spanner lock statistics built-in tables to identify the row keys and table columns that caused transaction lock conflicts in your database during a specific time period. You can retrieve statistics from these `  SPANNER_SYS.LOCK_STATS*  ` tables using SQL statements.
 
 ## Access lock statistics
 
@@ -83,7 +83,7 @@ These tables have the following properties:
 <td><code dir="ltr" translate="no">       SAMPLE_LOCK_REQUESTS      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&lt;              column STRING,              lock_mode STRING,              transaction_tag STRING&gt;&gt;      </code></td>
 <td>Each entry in this array corresponds to a sample lock request that contributed to the lock conflict by either waiting for a lock or blocking other transactions from taking the lock, on the given row key (range). The maximum number of samples in this array is 20.
-<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column.
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <a href="#sample-lock-requests"><code dir="ltr" translate="no">          SAMPLE_LOCK_REQUESTS_JSON_STRING         </code></a> column instead for PostgreSQL-dialect databases.
 Each sample contains the following three fields:
 <ul>
 <li><code dir="ltr" translate="no">         lock_mode        </code> : The lock mode that was requested. For more information, see <a href="#explain-lock-modes">Lock modes</a> .</li>
@@ -91,6 +91,12 @@ Each sample contains the following three fields:
 <li><code dir="ltr" translate="no">         transaction_tag        </code> : The tag of the transaction that issued the request. For more information about using tags, see <a href="/spanner/docs/introspection/troubleshooting-with-tags#transaction_tags">Troubleshooting with transaction tags</a> .</li>
 </ul>
 All lock requests that contributed to lock conflicts are sampled uniformly at random, so it's possible that only one half of a conflict (either the holder or the waiter) is recorded in this array.</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       SAMPLE_LOCK_REQUESTS_JSON_STRING      </code></td>
+<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td>A JSON-compatible string representation of the <a href="#sample-lock-requests"><code dir="ltr" translate="no">        SAMPLE_LOCK_REQUESTS       </code></a> column. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="#sample-lock-requests"><code dir="ltr" translate="no">        SAMPLE_LOCK_REQUESTS       </code></a> column.
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p></td>
 </tr>
 </tbody>
 </table>

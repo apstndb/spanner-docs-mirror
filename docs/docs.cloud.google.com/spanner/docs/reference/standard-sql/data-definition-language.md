@@ -2546,7 +2546,7 @@ where action is:
       SET OPTIONS ( options_def ) }
 
 and options_def is:
-    { disable_search = { true | false } }
+    { disable_search = { true | false | null } }
 ```
 
 #### Parameters

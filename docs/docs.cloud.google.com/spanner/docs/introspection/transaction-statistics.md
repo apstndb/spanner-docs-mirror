@@ -1,18 +1,18 @@
-Spanner provides built-in tables that store statistics about transactions. You can retrieve statistics from these `  SPANNER_SYS.TXN_STATS*  ` tables using SQL statements.
+This document describes the transaction statistics Spanner offers as built-in tables. You can retrieve statistics from these `  SPANNER_SYS.TXN_STATS*  ` tables using SQL statements.
 
 ## When to use transaction statistics
 
 Transaction statistics are useful when investigating performance issues. For example, you can check whether there are any slow running transactions that might be impacting performance or Queries Per Second (QPS) in your database. Another scenario is when your client applications are experiencing high transaction execution latency. Analyzing transaction statistics may help to discover potential bottlenecks, such as large volumes of updates to a particular column, which might be impacting latency.
 
-## Access transaction statistics
+## How to access transaction statistics
 
 **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](/spanner/docs/manage-data-using-console) .
 
 Spanner provides the table transaction statistics in the `  SPANNER_SYS  ` schema. You can use the following ways to access `  SPANNER_SYS  ` data:
 
-  - A database's Spanner Studio page in the Google Cloud console.
+  - A database's [Spanner Studio page](/spanner/docs/manage-data-using-console) in the Google Cloud console.
 
-  - The `  gcloud spanner databases execute-sql  ` command.
+  - The [`  gcloud spanner databases execute-sql  `](/sdk/gcloud/reference/spanner/databases/execute-sql) command.
 
   - The [Transaction insights](/spanner/docs/use-lock-and-transaction-insights#txn-insights) dashboard.
 
@@ -28,17 +28,21 @@ The following single read methods that Spanner provides don't support `  SPANNER
 
 The following tables track the statistics for `  TOP  ` resource consuming transactions during a specific time period.
 
-  - `  SPANNER_SYS.TXN_STATS_TOP_MINUTE  ` : Transaction statistics aggregated across 1 minute intervals.
+  - `  SPANNER_SYS.TXN_STATS_TOP_MINUTE  ` : transaction statistics aggregated across 1-minute intervals.
 
-  - `  SPANNER_SYS.TXN_STATS_TOP_10MINUTE  ` : Transaction statistics aggregated across 10 minute intervals.
+  - `  SPANNER_SYS.TXN_STATS_TOP_10MINUTE  ` : transaction statistics aggregated across 10-minute intervals.
 
-  - `  SPANNER_SYS.TXN_STATS_TOP_HOUR  ` : Transaction statistics aggregated across 1 hour intervals.
+  - `  SPANNER_SYS.TXN_STATS_TOP_HOUR  ` : transaction statistics aggregated across 1-hour intervals.
 
 These tables have the following properties:
 
-  - Each table contains data for non-overlapping time intervals of the length the table name specifies.
+  - Each table contains data for non-overlapping time intervals of the duration the table name specifies.
 
-  - Intervals are based on clock times. 1 minute intervals end on the minute, 10 minute intervals end every 10 minutes starting on the hour, and 1 hour intervals end on the hour.
+  - Intervals are based on clock times
+    
+      - 1 minute intervals end on the minute.
+      - 10 minute intervals end every 10 minutes starting on the hour.
+      - 1 hour intervals end on the hour.
     
     For example, at 11:59:30 AM, the most recent intervals available to SQL queries are:
     
@@ -48,7 +52,7 @@ These tables have the following properties:
 
   - Spanner groups the statistics by **FPRINT** (Fingerprint) of the transactions. If a transaction tag is present, **FPRINT** is the hash of the tag. Otherwise, it is the hash calculated based on the operations involved in the transaction.
 
-  - Since statistics are grouped based on **FPRINT** , if the same transaction is executed multiple times within any time interval, we still see only one entry for that transaction in these tables.
+  - Since statistics are grouped based on **FPRINT** , if the same transaction is executed multiple times within any time interval, only one entry appears for that transaction in these tables.
 
   - Each row contains statistics for all executions of a particular transaction that Spanner captures statistics for during the specified interval.
 
@@ -95,9 +99,9 @@ These tables have the following properties:
 <tr class="odd">
 <td><code dir="ltr" translate="no">       WRITE_CONSTRUCTIVE_COLUMNS      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRING&gt;      </code></td>
-<td>The set of columns that were constructively written (i.e. assigned to new values) by the transaction.<br />
+<td>The set of columns that were constructively written, that is assigned to new values, by the transaction.<br />
 <br />
-For change streams, if the transaction involved writes to columns and tables watched by a change stream, <code dir="ltr" translate="no">       WRITE_CONSTRUCTIVE_COLUMNS      </code> will contain two columns - <code dir="ltr" translate="no">       .data      </code> and <code dir="ltr" translate="no">       ._exists      </code> <sup>1</sup> , prefixed with a change stream name.</td>
+For change streams, if the transaction involved writes to columns and tables watched by a change stream, <code dir="ltr" translate="no">       WRITE_CONSTRUCTIVE_COLUMNS      </code> contains two columns - <code dir="ltr" translate="no">       .data      </code> and <code dir="ltr" translate="no">       ._exists      </code> , prefixed with a change stream name. <code dir="ltr" translate="no">       _exists      </code> is an field that is used to check whether a certain row exists or not.</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       WRITE_DELETE_TABLES      </code></td>
@@ -127,7 +131,7 @@ For change streams, if the transaction involved writes to columns and tables wat
 <tr class="odd">
 <td><code dir="ltr" translate="no">       COMMIT_FAILED_PRECONDITION_COUNT      </code></td>
 <td><code dir="ltr" translate="no">       INT64      </code></td>
-<td>Total number of transaction commit attempts that returned failed precondition errors, such as <code dir="ltr" translate="no">       UNIQUE      </code> index violations, row already exists, row not found, and so on.</td>
+<td>Total number of transaction commit attempts that returned failed precondition errors, such as <code dir="ltr" translate="no">       UNIQUE      </code> index violations, row already exists, or row not found.</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       SERIALIZABLE_PESSIMISTIC_TXN_COUNT      </code></td>
@@ -163,27 +167,43 @@ For change streams, if the transaction involved writes to columns and tables wat
 <td><code dir="ltr" translate="no">       TOTAL_LATENCY_DISTRIBUTION      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&gt;      </code></td>
 <td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time, for all attempts of a transaction.</p>
-<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases do not support this column.
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">         TOTAL_LATENCY_DISTRIBUTION_JSON_STRING        </code> column instead for PostgreSQL-dialect databases.
 <p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
 <p>The array contains a single element and has the following type:<br />
 <code dir="ltr" translate="no">        ARRAY&lt;STRUCT&lt;                COUNT INT64,                MEAN FLOAT64,                SUM_OF_SQUARED_DEVIATION FLOAT64,                NUM_FINITE_BUCKETS INT64,                GROWTH_FACTOR FLOAT64,                SCALE FLOAT64,                BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;       </code><br />
 For more information about the values, see <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
-<p>To calculate the desired percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="#example-percentile-latency">Find the 99th percentile latency for transactions</a> .</p>
+<p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="#example-percentile-latency">Find the 99th percentile latency for transactions</a> .</p>
 <p>For more information, see <a href="/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       OPERATIONS_BY_TABLE      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&gt;      </code></td>
 <td><p>Impact of <code dir="ltr" translate="no">        INSERT       </code> or <code dir="ltr" translate="no">        UPDATE       </code> operations by the transaction on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
-<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases do not support this column.
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">         OPERATIONS_BY_TABLE_JSON_STRING        </code> column instead for PostgreSQL-dialect databases.
 <p>This column helps visualize the load on tables and provides insights into the rate at which a transaction writes to tables.</p>
 <p>Specify the array as follows:<br />
 <code dir="ltr" translate="no">        ARRAY&lt;STRUCT&lt;                TABLE STRING(MAX),                INSERT_OR_UPDATE_COUNT INT64,                INSERT_OR_UPDATE_BYTES INT64&gt;&gt;       </code></p></td>
 </tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">       TOTAL_LATENCY_DISTRIBUTION_JSON_STRING      </code></td>
+<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time, for all attempts of a transaction.</p>
+<p>A JSON-compatible string representation of the <a href="#latency-distribution"><code dir="ltr" translate="no">         TOTAL_LATENCY_DISTRIBUTION        </code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in <code dir="ltr" translate="no">        TOTAL_LATENCY_DISTRIBUTION       </code> .</p>
+<p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases. This column contains the <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> .</p>
+<p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="#example-percentile-latency">Find the 99th percentile latency for transactions using the <code dir="ltr" translate="no">         TOTAL_LATENCY_DISTRIBUTION_JSON_STRING        </code></a> column.</p>
+<p>For more information, see <a href="/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       OPERATIONS_BY_TABLE_JSON_STRING      </code></td>
+<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><p>Impact of <code dir="ltr" translate="no">        INSERT       </code> or <code dir="ltr" translate="no">        UPDATE       </code> operations by the transaction on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
+<p>A JSON-compatible string representation of the <code dir="ltr" translate="no">        OPERATIONS_BY_TABLE       </code> column. The JSON string is a JSON object with the same structure as the STRUCT defined in the <code dir="ltr" translate="no">        OPERATIONS_BY_TABLE       </code> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>This column helps visualize the load on tables and provides insights into the rate at which a transaction writes to tables.</p></td>
+</tr>
 </tbody>
 </table>
-
-<sup>1</sup> `  _exists  ` is an internal field that is used to check whether a certain row exists or not.
 
 ### Example queries
 
@@ -495,7 +515,7 @@ Aggregate statistics tables have the following properties:
 <tr class="even">
 <td><code dir="ltr" translate="no">       COMMIT_FAILED_PRECONDITION_COUNT      </code></td>
 <td><code dir="ltr" translate="no">       INT64      </code></td>
-<td>Total number of transaction commit attempts that returned failed precondition errors, such as <code dir="ltr" translate="no">       UNIQUE      </code> index violations, row already exists, row not found, and so on.</td>
+<td>Total number of transaction commit attempts that returned failed precondition errors, such as <code dir="ltr" translate="no">       UNIQUE      </code> index violations, row already exists, or row not found.</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       SERIALIZABLE_PESSIMISTIC_TXN_COUNT      </code></td>
@@ -531,22 +551,40 @@ Aggregate statistics tables have the following properties:
 <td><code dir="ltr" translate="no">       TOTAL_LATENCY_DISTRIBUTION      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&gt;      </code></td>
 <td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time for all transaction attempts.</p>
-<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases do not support this column.
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">         TOTAL_LATENCY_DISTRIBUTION_JSON_STRING        </code> column instead for PostgreSQL-dialect databases.
 <p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
 <p>The array contains a single element and has the following type:<br />
 <code dir="ltr" translate="no">        ARRAY&lt;STRUCT&lt;                COUNT INT64,                MEAN FLOAT64,                SUM_OF_SQUARED_DEVIATION FLOAT64,                NUM_FINITE_BUCKETS INT64,                GROWTH_FACTOR FLOAT64,                SCALE FLOAT64,                BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;       </code><br />
 For more information about the values, see <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
-<p>To calculate the desired percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For an example, see <a href="#example-percentile-latency">Find the 99th percentile latency for transactions</a> .</p>
+<p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For an example, see <a href="#example-percentile-latency">Find the 99th percentile latency for transactions</a> .</p>
 <p>For more information, see <a href="/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       OPERATIONS_BY_TABLE      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&gt;      </code></td>
 <td><p>Impact of <code dir="ltr" translate="no">        INSERT       </code> or <code dir="ltr" translate="no">        UPDATE       </code> operations by all transactions on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
-<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases do not support this column.
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">         OPERATIONS_BY_TABLE_JSON_STRING        </code> column instead for PostgreSQL-dialect databases.
 <p>This column helps visualize the load on tables and provides insights into the rate at which the transactions write to tables.</p>
 <p>Specify the array as follows:<br />
 <code dir="ltr" translate="no">        ARRAY&lt;STRUCT&lt;                TABLE STRING(MAX),                INSERT_OR_UPDATE_COUNT INT64,                INSERT_OR_UPDATE_BYTES INT64&gt;&gt;       </code></p></td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       TOTAL_LATENCY_DISTRIBUTION_JSON_STRING      </code></td>
+<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time, for all attempts of a transaction.</p>
+<p>A JSON-compatible string representation of the <a href="#latency-distribution"><code dir="ltr" translate="no">         TOTAL_LATENCY_DISTRIBUTION        </code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in <code dir="ltr" translate="no">        TOTAL_LATENCY_DISTRIBUTION       </code> .</p>
+<p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases. This column contains the <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> .</p>
+<p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="#example-percentile-latency">Find the 99th percentile latency for transactions using the <code dir="ltr" translate="no">         TOTAL_LATENCY_DISTRIBUTION_JSON_STRING        </code></a> column.</p>
+<p>For more information, see <a href="/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">       OPERATIONS_BY_TABLE_JSON_STRING      </code></td>
+<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><p>Impact of <code dir="ltr" translate="no">        INSERT       </code> or <code dir="ltr" translate="no">        UPDATE       </code> operations by the transaction on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
+<p>A JSON-compatible string representation of the <code dir="ltr" translate="no">        OPERATIONS_BY_TABLE       </code> column. The JSON string is a JSON object with the same structure as the STRUCT defined in the <code dir="ltr" translate="no">        OPERATIONS_BY_TABLE       </code> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>This column helps visualize the load on tables and provides insights into the rate at which a transaction writes to tables.</p></td>
 </tr>
 </tbody>
 </table>
@@ -620,11 +658,26 @@ Note that there is only one row in the result because aggregated stats have only
 
 #### Find the 99th percentile latency for transactions
 
-The following query returns the 99th percentile latency for transactions ran in the previous 10 minutes:
+The following queries return the 99th percentile of execution time across queries run in the previous 10 minutes.
+
+For GoogleSQL-dialect databases, you can use the `  TOTAL_LATENCY_DISTRIBUTION  ` column:
 
 ``` text
 SELECT interval_end, avg_total_latency_seconds,
        SPANNER_SYS.DISTRIBUTION_PERCENTILE(total_latency_distribution[OFFSET(0)], 99.0)
+  AS percentile_latency
+FROM spanner_sys.txn_stats_total_10minute
+WHERE interval_end =
+  (SELECT MAX(interval_end)
+   FROM spanner_sys.txn_stats_total_10minute)
+ORDER BY interval_end;
+```
+
+For PostgreSQL-dialect databases, use the `  TOTAL_LATENCY_JSON_DISTRIBUTION_JSON_STRING  ` column instead:
+
+``` text
+SELECT interval_end, avg_total_latency_seconds,
+       SPANNER_SYS.DISTRIBUTION_PERCENTILE(total_latency_distribution_json_string, 99.0)
   AS percentile_latency
 FROM spanner_sys.txn_stats_total_10minute
 WHERE interval_end =
@@ -668,11 +721,11 @@ At a minimum, Spanner keeps data for each table for the following time periods:
 
 **Note:** You cannot prevent Spanner from collecting transaction statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically. You can't extend the retention period for these tables.
 
-Transaction statistics in Spanner give insight into how an application is using the database, and are useful when investigating performance issues. For example, you can check whether there are any slow running transactions that might be causing contention, or you can identify potential sources of high load, such as large volumes of updates to a particular column. Using the following steps, we'll show you how to use transaction statistics to investigate contentions in your database.
+Transaction statistics in Spanner give insight into how an application is using the database, and are useful when investigating performance issues. For example, you can check whether there are any slow running transactions that might be causing contention, or you can identify potential sources of high load, such as large volumes of updates to a particular column.
 
 ## Understand transactions and commit counts
 
-A Spanner transaction may have to be tried multiple times before it commits. This most commonly occurs when two transactions attempt to work on the same data at the same time, and one of the transactions needs to be aborted to preserve the [isolation property](/spanner/docs/transactions#isolation) of the transaction. Some other transient events which can also cause a transaction to be aborted include:
+A Spanner transaction might have to be tried multiple times before it commits. This most commonly occurs when two transactions attempt to work on the same data at the same time, and one of the transactions needs to be aborted to preserve the [isolation property](/spanner/docs/transactions#isolation) of the transaction. Some other transient events which can also cause a transaction to be aborted include:
 
   - Transient network issues.
 
@@ -682,7 +735,7 @@ A Spanner transaction may have to be tried multiple times before it commits. Thi
 
 In such scenarios, a client should retry the aborted transaction until it commits successfully or times out. For users of the official Spanner [client libraries](/spanner/docs/reference/libraries) , each library has implemented an automatic retry mechanism. If you are using a custom version of the client code, wrap your transaction commits in a retry loop.
 
-A Spanner transaction may also be aborted due to a non-retriable error such as a transaction timeout, permission issues, or an invalid table/column name. There is no need to retry such transactions and the Spanner client library will return the error immediately.
+A Spanner transaction may also be aborted due to a non-retriable error such as a transaction timeout, permission issues, or an invalid table or column name. There is no need to retry such transactions and the Spanner client library will return the error immediately.
 
 The following table describes some examples of how `  COMMIT_ATTEMPT_COUNT  ` , `  COMMIT_ABORT_COUNT  ` , and `  COMMIT_RETRY_COUNT  ` are logged in different scenarios.
 
@@ -740,13 +793,13 @@ The following topics show how you can investigate such transactions by using SQL
 
 This can be found from the application which is using Spanner.
 
-For the purposes of this exercise, let's say that the issue started occurring at around 5:20pm on the 17th May, 2020.
+For the purposes of this exercise, assume that the issue started occurring at around 5:20pm on the 17th May, 2020.
 
 You can use Transaction Tags to identify the source of the transaction and correlate between Transaction Statistics Table and Lock Statistics tables for effective lock contention troubleshooting. Read more at [Troubleshooting with transaction tags](/spanner/docs/introspection/troubleshooting-with-tags#transaction_tags) .
 
 ### Gather transaction statistics for the selected time period
 
-To start our investigation, we'll query the `  TXN_STATS_TOTAL_10MINUTE  ` table around the start of the issue. The results of this query will show us how latency and other transaction statistics changed over that period of time.
+To start the investigation, query the `  TXN_STATS_TOTAL_10MINUTE  ` table around the start of the issue. The results of this query show how latency and other transaction statistics changed over that period of time.
 
 For example, the following query returns the aggregated transaction statistics from `  4:30 pm  ` to `  7:40 pm  ` (inclusive).
 
@@ -763,7 +816,7 @@ WHERE
 ORDER BY interval_end;
 ```
 
-The following table lists example data returned from our query.
+The following table lists example data returned from the query.
 
 <table>
 <thead>
@@ -892,13 +945,13 @@ The following table lists example data returned from our query.
 </tbody>
 </table>
 
-Here we see that aggregated latency and abort count is higher in the **highlighted** periods. We can pick any 10 minute interval where aggregated latency and/or abort count are high. Let's choose the interval ending at `  2020-05-17T18:40:00  ` and use it in the next step to identify which transactions are contributing to high latency and abort count.
+The aggregated latency and abort count are higher in the **highlighted** periods. Pick any 10 minute interval where aggregated latency and abort count or both are high. The interval ending at `  2020-05-17T18:40:00  ` is used in the next step to identify which transactions are contributing to high latency and abort count.
 
 ### Identify transactions that are experiencing high latency
 
-Let's now query the `  TXN_STATS_TOP_10MINUTE  ` table for the interval which was picked in the previous step. Using this data, we can start to identify which transactions are experiencing high latency and/or high abort count.
+Query the `  TXN_STATS_TOP_10MINUTE  ` table for the interval which was picked in the previous step. Using this data, you can start to identify which transactions are experiencing high latency or high abort count or both.
 
-Execute the following query to get top performance-impacting transactions in descending order of total latency for our example interval ending at `  2020-05-17T18:40:00  ` .
+Execute the following query to get top performance-impacting transactions in descending order of total latency for the example interval ending at `  2020-05-17T18:40:00  ` .
 
 ``` text
 SELECT
@@ -1048,11 +1101,11 @@ ORDER BY avg_total_latency_seconds DESC;
 </tbody>
 </table>
 
-We can see clearly that the first row ( **highlighted** ) in the preceding table shows a transaction experiencing high latency because of a high number of commit aborts. We can also see a high number of commit retries which indicates the aborted commits were subsequently retried. In the next step, we'll investigate further to see what is causing this issue.
+The first row ( **highlighted** ) in the preceding table shows a transaction experiencing high latency because of a high number of commit aborts. There is also a high number of commit retries which indicates the aborted commits were subsequently retried. The next step investigates further to see what is causing this issue.
 
 ### Identify the columns involved in a transaction experiencing high latency
 
-In this step, we'll check whether high latency transactions are operating on the same set of columns by fetching `  read_columns  ` , `  write_constructive_columns  ` and `  write_delete_tables  ` data for transactions with high abort count. The `  FPRINT  ` value will also be useful in the next step.
+In this step, check whether high latency transactions are operating on the same set of columns by fetching `  read_columns  ` , `  write_constructive_columns  ` and `  write_delete_tables  ` data for transactions with high abort count. The `  FPRINT  ` value will also be useful in the next step.
 
 ``` text
 SELECT
@@ -1097,11 +1150,11 @@ ORDER BY avg_total_latency_seconds DESC LIMIT 3;
 </tbody>
 </table>
 
-As the output shows in the preceding table, the transactions with the highest average total latency are reading the same columns. We can also observe some write contention since the transactions are writing to the same column, that is to say, `  TestHigherLatency._exists  ` .
+As the output shows in the preceding table, the transactions with the highest average total latency are reading the same columns. There is also some write contention since the transactions are writing to the same column, that is, `  TestHigherLatency._exists  ` .
 
 ### Determine how the transaction performance has changed over time
 
-We can see how the statistics associated with this transaction shape have changed over a period of time. Use the following query, where $FPRINT is the fingerprint of the high latency transaction from the previous step.
+You can see how the statistics associated with this transaction shape have changed over a period of time. Use the following query, where $FPRINT is the fingerprint of the high latency transaction from the previous step.
 
 ``` text
 SELECT
@@ -1328,11 +1381,11 @@ ORDER BY interval_end;
 </tbody>
 </table>
 
-In above output we can observe that total latency is high for the highlighted period of time. And, wherever total latency is high, `  commit_attempt_count  ` `  commit_abort_count  ` , and `  commit_retry_count  ` are also high even though commit latency ( `  commit_latency  ` ) has not changed very much. Since transaction commits are getting aborted more frequently, commit attempts are also high because of commit retries.
+In this output observe that total latency is high for the highlighted period of time. And, wherever total latency is high, `  commit_attempt_count  ` `  commit_abort_count  ` , and `  commit_retry_count  ` are also high even though commit latency ( `  commit_latency  ` ) has not changed very much. Since transaction commits are getting aborted more frequently, commit attempts are also high because of commit retries.
 
 ### Conclusion
 
-In this example, we saw that high commit abort count was the cause of high latency. The next step is to look at the commit abort error messages received by the application to know the reason for aborts. By inspecting logs in the application, we see the application actually changed its workload during this time, i.e. some other transaction shape showed up with high `  attempts_per_second  ` , and that different transaction (maybe a nightly cleanup job) was responsible for the additional lock conflicts.
+In this example, the high commit abort count was the cause of high latency. The next step is to look at the commit abort error messages received by the application to know the reason for aborts. By inspecting logs in the application, you can see the application actually changed its workload during this time, that is, some other transaction shape showed up with high `  attempts_per_second  ` , and that different transaction (maybe a nightly cleanup job) was responsible for the additional lock conflicts.
 
 ## Identify transactions that were not retried correctly
 
@@ -1383,7 +1436,7 @@ ORDER BY
 </tbody>
 </table>
 
-We can see that the transaction with fprint **1557557373282541312** was aborted 44232 times, but it was never retried. This looks suspicious because the abort count is high and it is unlikely that every abort was caused by a non-retriable error. On the other hand, for the transaction with fprint **5776062322886969344** , it is less suspicious because the total abort count is not that high.
+The transaction with fprint **1557557373282541312** was aborted 44232 times, but it was never retried. This looks suspicious because the abort count is high and it is unlikely that every abort was caused by a non-retriable error. On the other hand, for the transaction with fprint **5776062322886969344** , it is less suspicious because the total abort count is not that high.
 
 The following query returns more details about the transaction with fprint **1557557373282541312** including the `  read_columns  ` , `  write_constructive_columns  ` , and `  write_delete_tables  ` . This information helps to identify the transaction in client code, where the retry logic can be reviewed for this scenario.
 
@@ -1462,11 +1515,11 @@ ORDER BY
 </tbody>
 </table>
 
-We can see that the transaction involves a read to the `  Singers._exists  ` hidden column to check the existence of a row. The transaction also writes to the `  Singers.FirstName  ` and `  Singer.LastName  ` columns. This information can help determine whether the transaction retry mechanism implemented in your custom client library is working as expected.
+The transaction involves a read to the `  Singers._exists  ` hidden column to check the existence of a row. The transaction also writes to the `  Singers.FirstName  ` and `  Singer.LastName  ` columns. This information can help determine whether the transaction retry mechanism implemented in your custom client library is working as expected.
 
 ## What's next
 
   - Learn about other [Introspection tools](/spanner/docs/introspection) .
-  - Learn about other information Spanner stores for each database in the database's [information schema](/spanner/docs/information-schema) tables.
+  - Learn about other information Spanner stores for each database in the database [information schema](/spanner/docs/information-schema) tables.
   - Learn more about [SQL best practices](/spanner/docs/sql-best-practices) for Spanner.
   - Learn more about [Investigating high CPU utilization](/spanner/docs/introspection/investigate-cpu-utilization) .

@@ -1,6 +1,10 @@
-Spanner provides built-in tables that keep many statistics for the queries and data manipulation language (DML) statements that used the most CPU, and all queries in aggregate (including [change stream](/spanner/docs/change-streams) queries).
+This document describes the query statistics Spanner offers as built-in tables. You can retrieve statistics from the `  SPANNER_SYS.QUERY_STATS*  ` tables using SQL statements.
 
-## Access query statistics
+## When to use query statistics
+
+Query statistics are useful when you need to investigate performance issues or optimize queries on your Spanner database. You can use query statistics to investigate high CPU usage, troubleshoot elevated query latency, or reduce memory usage.
+
+## How to access query statistics
 
 **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](/spanner/docs/manage-data-using-console) .
 
@@ -8,9 +12,9 @@ Spanner provides the query statistics in the `  SPANNER_SYS  ` schema. You can u
 
   - A database's [Spanner Studio page](/spanner/docs/tune-query-with-visualizer#running-a-query) in the Google Cloud console.
 
-  - The `  gcloud spanner databases execute-sql  ` command.
+  - The [`  gcloud spanner databases execute-sql  `](/sdk/gcloud/reference/spanner/databases/execute-sql) command.
 
-  - [Query insights](/spanner/docs/using-query-insights#the_dashboard) dashboards.
+  - The [Query insights](/spanner/docs/using-query-insights#the_dashboard) dashboard.
 
   - The [`  executeSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
 
@@ -28,15 +32,19 @@ For more information, see [Single read methods](/spanner/docs/reads#single_read_
 
 The following tables track the queries with the highest CPU usage during a specific time period:
 
-  - `  SPANNER_SYS.QUERY_STATS_TOP_MINUTE  ` : Queries during 1 minute intervals
-  - `  SPANNER_SYS.QUERY_STATS_TOP_10MINUTE  ` : Queries during 10 minute intervals
-  - `  SPANNER_SYS.QUERY_STATS_TOP_HOUR  ` : Queries during 1 hour intervals
+  - `  SPANNER_SYS.QUERY_STATS_TOP_MINUTE  ` : queries during 1 minute intervals
+  - `  SPANNER_SYS.QUERY_STATS_TOP_10MINUTE  ` : queries during 10 minute intervals
+  - `  SPANNER_SYS.QUERY_STATS_TOP_HOUR  ` : queries during 1 hour intervals
 
 These tables have the following properties:
 
-  - Each table contains data for non-overlapping time intervals of the length the table name specifies.
+  - Each table contains data for non-overlapping time intervals of the duration the table name specifies.
 
-  - Intervals are based on clock times. 1 minute intervals end on the minute, 10 minute intervals end every 10 minutes starting on the hour, and 1 hour intervals end on the hour.
+  - Intervals are based on clock times
+    
+      - 1 minute intervals end on the minute.
+      - 10 minute intervals end every 10 minutes starting on the hour.
+      - 1 hour intervals end on the hour.
     
     For example, at 11:59:30 AM, the most recent intervals available to SQL queries are:
     
@@ -46,7 +54,7 @@ These tables have the following properties:
 
   - Spanner groups the statistics by the text of the SQL query. If a query uses [query parameters](/spanner/docs/sql-best-practices#use_query_parameters_to_speed_up_frequently_executed_queries) , Spanner groups all executions of that query into one row. If the query uses string literals, Spanner only groups the statistics if the full query text is identical; when any text differs, each query appears as a separate row. For batch DML, Spanner normalizes the batch by deduplicating consecutive identical statements prior to generating the fingerprint.
 
-  - If a request tag is present, **FPRINT** is the hash of the request tag. Otherwise, it is the hash of the `  TEXT  ` value. For partitioned DMLs, **FPRINT** is always the hash of the `  TEXT  ` value.
+  - If a request tag is present, **TEXT\_FINGERPRINT** is the hash of the request tag. Otherwise, it is the hash of the `  TEXT  ` value. For partitioned DMLs, **TEXT\_FINGERPRINT** is always the hash of the `  TEXT  ` value.
 
   - Each row contains statistics for all executions of a particular SQL query that Spanner captures statistics for during the specified interval.
 
@@ -194,7 +202,7 @@ Statistics for multiple queries that have the same tag string are grouped in a s
 <td><code dir="ltr" translate="no">       LATENCY_DISTRIBUTION      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&gt;      </code></td>
 <td><p>A histogram of the query execution time. The values are measured in seconds.</p>
-<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column.
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">         LATENCY_DISTRIBUTION_JSON_STRING        </code> column instead for PostgreSQL-dialect databases.
 <p>The array contains a single element and has the following type:<br />
 <code dir="ltr" translate="no">        ARRAY&lt;STRUCT&lt;                COUNT INT64,                MEAN FLOAT64,                SUM_OF_SQUARED_DEVIATION FLOAT64,                NUM_FINITE_BUCKETS INT64,                GROWTH_FACTOR FLOAT64,                SCALE FLOAT64,                BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;       </code><br />
 For more information about the values, see <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
@@ -245,10 +253,19 @@ For more information about the values, see <a href="/monitoring/api/ref_v3/rest/
 <p>Use this value to make relative HDD I/O cost comparisons between reads that you run in the database. Querying data on HDD storage incurs a charge against the HDD disk load capacity of the instance. A higher value indicates that you are using more HDD disk load and your query might be slower than if it was running on SSD. Furthermore, if your HDD disk load is at capacity, the performance of your queries might be further impacted. You can monitor the total <a href="/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load">HDD disk load</a> capacity of the instance as a percentage. To add more HDD disk load capacity, you can add more processing units or nodes to your instance. For more information, see <a href="/spanner/docs/create-manage-instances#change-compute-capacity">Change the compute capacity</a> . To improve query performance, also consider moving some data to SSD.</p>
 <p>For workloads that consume a lot of disk I/O, we recommend that you store frequently accessed data on SSD storage. Data accessed from SSD doesn't consume HDD disk load capacity. You can store selective tables, columns, or secondary indexes on SSD storage as needed, while keeping infrequently accessed data on HDD storage. For more information, see <a href="/spanner/docs/tiered-storage">Tiered storage overview</a> .</p></td>
 </tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       LATENCY_DISTRIBUTION_JSON_STRING      </code></td>
+<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><p>A histogram of the query execution time. The values are measured in seconds.</p>
+<p>A JSON-compatible string representation of the <a href="#latency-distribution"><code dir="ltr" translate="no">         LATENCY_DISTRIBUTION        </code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="#latency-distribution"><code dir="ltr" translate="no">         LATENCY_DISTRIBUTION        </code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases. This column contains the <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> .</p>
+<p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="#example-percentile-latency">Find the 99th percentile latency for queries using the <code dir="ltr" translate="no">         LATENCY_DISTRIBUTION_JSON_STRING        </code> column</a> .</p>
+<p>For more information, see <a href="/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
+</tr>
 </tbody>
 </table>
 
-`  EXECUTION_COUNT  ` , `  AVG_LATENCY_SECONDS  ` , and `  LATENCY_DISTRIBUTION  ` for failed queries include queries that failed due to incorrect syntax or encountered a transient error but succeeded on retrying. These statistics don't track failed and cancelled partitioned DML statements.
+`  EXECUTION_COUNT  ` , `  AVG_LATENCY_SECONDS  ` , `  LATENCY_DISTRIBUTION  ` , and `  LATENCY_DISTRIBUTION_JSON_STRING  ` for failed queries include queries that failed due to incorrect syntax or encountered a transient error but succeeded on retrying. These statistics don't track failed and canceled partitioned DML statements.
 
 ## Aggregate statistics
 
@@ -376,11 +393,20 @@ These tables have the following properties:
 <td><code dir="ltr" translate="no">       LATENCY_DISTRIBUTION      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&gt;      </code></td>
 <td><p>A histogram of the execution time across queries. The values are measured in seconds.</p>
-<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column.
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">         LATENCY_DISTRIBUTION_JSON_STRING        </code> column instead for PostgreSQL-dialect databases.
 <p>Specify the array as follows:<br />
 <code dir="ltr" translate="no">        ARRAY&lt;STRUCT&lt;                COUNT INT64,                MEAN FLOAT64,                SUM_OF_SQUARED_DEVIATION FLOAT64,                NUM_FINITE_BUCKETS INT64,                GROWTH_FACTOR FLOAT64,                SCALE FLOAT64,                BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;       </code><br />
 For more information about the values, see <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
 <p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="#example-percentile-latency">Find the 99th percentile latency for queries</a> .</p>
+<p>For more information, see <a href="/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">       LATENCY_DISTRIBUTION_JSON_STRING      </code></td>
+<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><p>A histogram of the query execution time. The values are measured in seconds.</p>
+<p>A JSON-compatible string representation of the <a href="#aggregate-latency-distribution"><code dir="ltr" translate="no">         LATENCY_DISTRIBUTION        </code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="#aggregate-latency-distribution"><code dir="ltr" translate="no">         LATENCY_DISTRIBUTION        </code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases. This column contains the <a href="/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> .</p>
+<p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="#example-percentile-latency">Find the 99th percentile latency for queries using the <code dir="ltr" translate="no">         LATENCY_DISTRIBUTION_JSON_STRING        </code> column</a> .</p>
 <p>For more information, see <a href="/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
 </tr>
 </tbody>
@@ -428,7 +454,7 @@ The following query returns the execution count and average rows written by the 
 SELECT text,
        request_tag,
        interval_end,
-       sum(execution_count) as execution_count
+       sum(execution_count) as execution_count,
        sum(avg_rows_written*execution_count)/sum(execution_count) as avg_rows_written
 FROM spanner_sys.query_stats_top_hour
 WHERE starts_with(text, "UPDATE") AND query_type = "PARTITIONED_QUERY"
@@ -479,7 +505,11 @@ WHERE text LIKE "SELECT x FROM table WHERE x=@foo;";
 
 ### Find the 99th percentile latency for queries
 
-The following query returns the 99th percentile of execution time across queries ran in the previous 10 minutes:
+Comparing the average latency with the 99th percentile latency helps identify possible outlier queries with high execution times.
+
+The following queries return the 99th percentile of execution time across queries run in the previous 10 minutes.
+
+For GoogleSQL-dialect databases, you can use the `  LATENCY_DISTRIBUTION  ` column:
 
 ``` text
 SELECT interval_end, avg_latency_seconds, SPANNER_SYS.DISTRIBUTION_PERCENTILE(latency_distribution[OFFSET(0)], 99.0)
@@ -491,7 +521,17 @@ WHERE interval_end =
 ORDER BY interval_end;
 ```
 
-Comparing the Average latency with the 99th percentile latency helps identify possible outlier queries with high execution times.
+For PostgreSQL-dialect databases, you use the `  LATENCY_DISTRIBUTION_JSON_STRING  ` column instead:
+
+``` text
+SELECT interval_end, avg_latency_seconds, SPANNER_SYS.DISTRIBUTION_PERCENTILE(latency_distribution_json_string, 99.0)
+  AS percentile_latency
+FROM spanner_sys.query_stats_total_10minute
+WHERE interval_end =
+  (SELECT MAX(interval_end)
+   FROM spanner_sys.query_stats_total_10minute)
+ORDER BY interval_end;
+```
 
 ### Find the queries that scan the most data
 
@@ -538,7 +578,7 @@ WHERE interval_end =
 
 ### List the queries that have failed in a given time period
 
-The following query returns the raw data including execution count and average latency of failed queries for the top queries in the previous minute. These statistics don't track failed and cancelled partitioned DML statements.
+The following query returns the raw data including execution count and average latency of failed queries for the top queries in the previous minute. These statistics don't track failed and canceled partitioned DML statements.
 
 ``` text
 SELECT text,
@@ -559,7 +599,7 @@ ORDER BY interval_end;
 
 ### Find the total error count in a given time period
 
-The following query returns the total number of queries that failed to execute in the most recent complete 1 minute interval. These statistics don't track failed and cancelled partitioned DML statements.
+The following query returns the total number of queries that failed to execute in the most recent complete 1 minute interval. These statistics don't track failed and canceled partitioned DML statements.
 
 ``` text
 SELECT interval_end,
@@ -610,7 +650,7 @@ Query statistics are useful when you need to investigate high CPU usage on your 
 
 You can use SQL code or the [Query insights](/spanner/docs/using-query-insights#the_dashboard) dashboard to investigate problematic queries in your database. The following topics show how you can investigate such queries by using SQL code.
 
-While the following example focuses on CPU usage, similar steps can be followed to troubleshoot elevated query latency and find the queries with the highest latencies. Simply select time intervals and queries by latency instead of CPU usage.
+While the following example focuses on CPU usage, similar steps can be followed to troubleshoot elevated query latency and find the queries with the highest latencies. Select time intervals and queries by latency instead of CPU usage.
 
 ### Select a time period to investigate
 
@@ -618,9 +658,9 @@ Start your investigation by looking for a time when your application began to ex
 
 ### Gather query statistics for the selected time period
 
-Having selected a time period to start our investigation, we'll look at statistics gathered in the `  QUERY_STATS_TOTAL_10MINUTE  ` table around that time. The results of this query might indicate how CPU and other query statistics changed over that period of time.
+After selecting a time period to start your investigation, look at statistics gathered in the `  QUERY_STATS_TOTAL_10MINUTE  ` table around that time. The results of this query might indicate how CPU and other query statistics changed over that period of time.
 
-The following query returns the aggregated query statistics from **16:30** to **17:30** UTC inclusive. We are using [`  ROUND  `](/spanner/docs/reference/standard-sql/mathematical_functions#round) in our query to restrict the number of decimal places for display purposes.
+The following query returns the aggregated query statistics from **16:30** to **17:30** UTC inclusive. The query uses [`  ROUND  `](/spanner/docs/reference/standard-sql/mathematical_functions#round) to restrict the number of decimal places for display purposes.
 
 ``` text
 SELECT interval_end,
@@ -718,11 +758,11 @@ Running the query produced the following results.
 </tbody>
 </table>
 
-In the preceding table we see that average CPU time, the **avg\_cpu** column in the results table, is highest in the highlighted intervals ending at 17:00. We also see a much higher number of rows scanned on average. This indicates that more expensive queries ran between 16:50 and 17:00. Choose that interval to investigate further in the next step.
+In the preceding table, notice that average CPU time, the **avg\_cpu** column in the results table, is highest in the highlighted intervals ending at 17:00. Also, notice a much higher number of rows scanned on average. This indicates that more expensive queries ran between 16:50 and 17:00. Choose that interval to investigate further in the next step.
 
 ### Find the queries that are causing high CPU usage
 
-With a time interval to investigate selected, we now query the `  QUERY_STATS_TOP_10MINUTE  ` table. The results of this query can help indicate which queries cause high CPU usage.
+With a time interval to investigate selected, query the `  QUERY_STATS_TOP_10MINUTE  ` table. The results of this query can help indicate which queries cause high CPU usage.
 
 ``` text
 SELECT text_fingerprint AS fingerprint,
@@ -730,7 +770,7 @@ SELECT text_fingerprint AS fingerprint,
        ROUND(avg_latency_seconds,2) AS latency,
        ROUND(avg_cpu_seconds,3) AS cpu,
        ROUND(execution_count * avg_cpu_seconds,3) AS total_cpu
-FROM spanner_sys.query_stats_top_10MINUTE
+FROM spanner_sys.query_stats_top_10minute
 WHERE
   interval_end = "2020-07-24T17:00:00Z"
 ORDER BY total_cpu DESC;
@@ -826,7 +866,7 @@ The top 2 queries, highlighted in the results table, are outliers in terms of av
 
 ### Compare query runs over time
 
-Having narrowed down the investigation, we can turn our attention to the `  QUERY_STATS_TOP_MINUTE  ` table. By comparing runs over time for a particular query, we can look for correlations between the number of rows or bytes returned, or the number of rows scanned and elevated CPU or latency. A deviation may indicate non-uniformity in the data. Consistently high numbers of rows scanned may indicate the lack of appropriate indexes or sub-optimal join ordering.
+Having narrowed down the investigation, check the `  QUERY_STATS_TOP_MINUTE  ` table. By comparing runs over time for a particular query, you can look for correlations between the number of rows or bytes returned, or the number of rows scanned and elevated CPU or latency. A deviation may indicate non-uniformity in the data. Consistently high numbers of rows scanned may indicate the lack of appropriate indexes or sub-optimal join ordering.
 
 Investigate the query exhibiting highest average CPU usage and highest latency by running the following statement which filters on the text\_fingerprint of that query.
 
@@ -947,9 +987,9 @@ Running this query returns the following results.
 </tbody>
 </table>
 
-Examining the preceding results, we see that the number of rows scanned, CPU used, and latency all changed significantly around 9:00 am. To understand why these numbers increased so dramatically, we'll examine the query text and see whether any changes in the schema might have impacted the query.
+Examining the preceding results, notice that the number of rows scanned, CPU used, and latency all changed significantly around 9:00 am. To understand why these numbers increased so dramatically, examine the query text and see whether any changes in the schema might have impacted the query.
 
-Use the following query to retrieve the query text for the query we are investigating.
+Use the following query to retrieve the query text for the query you are investigating.
 
 ``` text
 SELECT text,
@@ -976,15 +1016,15 @@ This returns the following result.
 </tbody>
 </table>
 
-Examining the query text which is returned, we realize that the query is filtering on a field called `  o_custkey  ` . This is a non-key column on the `  orders  ` table. As it happens, there used to be an index on that column that was dropped around 9 am. This explains the change in cost for this query. We can add the index back in or, if the query is infrequently run, decide to not have the index and accept the higher read cost.
+Examining the returned query text, notice that the query is filtering on a field called `  o_custkey  ` . This is a non-key column on the `  orders  ` table. As it happens, there used to be an index on that column that was dropped around 9 am. This explains the change in cost for this query. You can add the index back in or, if the query is infrequently run, decide to not have the index and accept the higher read cost.
 
-Our investigation focused so far on queries that completed successfully and we found one reason why the database was experiencing some performance degradation. In the next step, we'll focus on failed or canceled queries and show how to examine that data for more insights.
+The investigation so far focused on queries that completed successfully and identified one reason why the database was experiencing some performance degradation. In the next step, focus on failed or canceled queries and examine that data for more insights.
 
 ### Investigate failed queries
 
-Queries that don't complete successfully still consume resources before they time out, are cancelled, or otherwise fail. Spanner tracks the execution count and resources consumed by failed queries along with successful ones. These statistics don't track failed and cancelled partitioned DML statements.
+Queries that don't complete successfully still consume resources before they time out, are canceled, or otherwise fail. Spanner tracks the execution count and resources consumed by failed queries along with successful ones. These statistics don't track failed and cancelled partitioned DML statements.
 
-To check whether failed queries are a significant contributor to system utilization we can first check how many queries failed in the time interval of interest.
+To check whether failed queries are a significant contributor to system utilization, first check how many queries failed in the time interval of interest.
 
 ``` text
 SELECT interval_end,
@@ -1019,7 +1059,7 @@ ORDER BY interval_end;
 </tbody>
 </table>
 
-Investigating further, we can look for queries that are most likely to fail using the following query.
+Investigating further, look for queries that are most likely to fail using the following query.
 
 ``` text
 SELECT interval_end,
@@ -1109,7 +1149,7 @@ WHERE  text_fingerprint = 5505124206529314852;
 
 ### Apply best practices
 
-Having identified a candidate query for optimization, we can next look at the query profile and try to optimize using [SQL best practices](/spanner/docs/sql-best-practices) .
+Having identified a candidate query for optimization, next look at the query profile and try to optimize using [SQL best practices](/spanner/docs/sql-best-practices) .
 
 ## What's next
 

@@ -4,6 +4,19 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## February 26, 2026
+
+Feature
+
+Spanner provides JSON string versions of the following statistics columns for PostgreSQL-dialect databases:
+
+  - `  TOTAL_LATENCY_DISTRIBUTION_JSON_STRING  ` in [Transaction statistics](/spanner/docs/introspection/transaction-statistics)
+  - `  OPERATIONS_BY_TABLE_JSON_STRING  ` in [Transaction statistics](/spanner/docs/introspection/transaction-statistics)
+  - `  LATENCY_DISTRIBUTION_JSON_STRING  ` in [Query statistics](/spanner/docs/introspection/query-statistics)
+  - `  SAMPLE_LOCK_REQUESTS_JSON_STRING  ` in [Lock statistics](/spanner/docs/introspection/lock-statistics)
+
+You can use these columns to retrieve statistics in JSON format from the `  SPANNER_SYS  ` tables.
+
 ## February 25, 2026
 
 Feature

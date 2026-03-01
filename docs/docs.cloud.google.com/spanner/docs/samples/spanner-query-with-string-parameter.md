@@ -100,7 +100,7 @@ func queryWithString(w io.Writer, db string) error {
      SQL: `SELECT VenueId, VenueName FROM Venues
              WHERE VenueName = @venueName`,
      Params: map[string]interface{}{
-      "venueName": exampleString,
+         "venueName": exampleString,
      },
  }
  iter := client.Single().Query(ctx, stmt)
@@ -112,11 +112,11 @@ func queryWithString(w io.Writer, db string) error {
      }
      if err != nil {
          return err
- &   }
-     var &venueID int64
+     }
+     var venueID int64
      var venueName string
-     if err := row.Columns(venueID, venueName); err != nil {
-       return err
+     if err := row.Columns(&venueID, &venueName); err != nil {
+         return err
      }
      fmt.Fprintf(w, "%d %s\n", venueID, venueName)
  }
@@ -155,7 +155,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ``` javascript
 // Imports the Google Cloud client library.
-const {Spanner} = require(&#39;@google-cloud/spanner');
+const {Spanner} = require('@google-cloud/spanner');
 
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
@@ -192,9 +192,9 @@ const query = {
 
 // Queries rows from the Venues table.
 try {
-  const [rows] = >await database.run(query);
+  const [rows] = await database.run(query);
 
-  rows.forEach(row = {
+  rows.forEach(row => {
     const json = row.toJSON();
     console.log(`VenueId: ${json.VenueId}, VenueName: ${json.VenueName}`);
   });
@@ -234,12 +234,12 @@ function query_data_with_string_parameter(string $instanceId, string $databaseId
 
     $exampleString = 'Venue 42';
 
-    $results = $d>atabase-execute(
+    $results = $database->execute(
         'SELECT VenueId, VenueName FROM Venues ' .
         'WHERE VenueName = @venueName',
         [
-  >          'parameters' => [
-                'venueName' = $exampleString
+            'parameters' => [
+                'venueName' => $exampleString
             ]
         ]
     );

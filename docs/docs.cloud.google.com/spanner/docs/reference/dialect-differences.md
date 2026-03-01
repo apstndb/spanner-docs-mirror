@@ -117,7 +117,11 @@ The following columns in the `  SPANNER_SYS  ` statistics tables:
   - [Query statistics](/spanner/docs/introspection/query-statistics) : `  LATENCY_DISTRIBUTION  `
   - [Lock Statistics](/spanner/docs/introspection/lock-statistics) : `  SAMPLE_LOCK_REQUESTS  `
 
-No recommendation available.
+We recommend using the following JSON-compatible string representation columns instead:
+
+  - [Transaction statistics](/spanner/docs/introspection/transaction-statistics) : `  TOTAL_LATENCY_DISTRIBUTION_JSON_STRING  ` and `  OPERATIONS_BY_TABLE_JSON_STRING  `
+  - [Query statistics](/spanner/docs/introspection/query-statistics) : `  LATENCY_DISTRIBUTION_JSON_STRING  `
+  - [Lock Statistics](/spanner/docs/introspection/lock-statistics) : `  SAMPLE_LOCK_REQUESTS_JSON_STRING  `
 
 [`  TABLESAMPLE  `](/spanner/docs/reference/standard-sql/query-syntax#tablesample_operator)
 
