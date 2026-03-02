@@ -420,9 +420,9 @@ PENDING_COMMIT_TIMESTAMP()
 
 **Description**
 
-Use the `  PENDING_COMMIT_TIMESTAMP()  ` function in a DML `  INSERT  ` or `  UPDATE  ` statement to write the pending commit timestamp, that is, the commit timestamp of the write when it commits, into a column of type `  TIMESTAMP  ` .
+Use the `  PENDING_COMMIT_TIMESTAMP  ` function in a DML `  INSERT  ` or `  UPDATE  ` statement to write the pending commit timestamp, that is, the commit timestamp of the write when it commits, into a column of type `  TIMESTAMP  ` . You can also use this function as a default value and `  ON UPDATE  ` value, but only if you use the `  allow_commit_timestamp=true  ` column option with it.
 
-Spanner selects the commit timestamp when the transaction commits. The `  PENDING_COMMIT_TIMESTAMP  ` function may only be used as a value for INSERT or UPDATE of an appropriately typed column. It can't be used in SELECT, or as the input to any other scalar expression.
+selects the commit timestamp when the transaction commits. You can use the `  PENDING_COMMIT_TIMESTAMP  ` function as a value only when inserting or updating an appropriately typed column. It can't be used in a `  SELECT  ` statement, or as the input to any other scalar expression.
 
 **Note:** After you call the `  PENDING_COMMIT_TIMESTAMP  ` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the column is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then GoogleSQL produces an error.
 
@@ -432,11 +432,32 @@ TIMESTAMP
 
 **Example**
 
-The following DML statement updates the `  LastUpdated  ` column in the Singers table with the commit timestamp.
+The following DML statement updates the `  LastUpdatedTime  ` column in the `  Singers  ` table with the commit timestamp.
 
 ``` text
-UPDATE Performances SET LastUpdated = PENDING_COMMIT_TIMESTAMP()
+UPDATE Performances SET LastUpdatedTime = PENDING_COMMIT_TIMESTAMP()
    WHERE SingerId=1 AND VenueId=2 AND EventDate="2015-10-21"
+```
+
+The following DML statement creates a table with the `  PENDING_COMMIT_TIMESTAMP  ` function used in the following ways:
+
+  - As the default value for the `  CreatedTime  ` column.
+  - As the default value for the `  LastUpdatedTime  ` column.
+  - As the `  ON UPDATE  ` value for the `  LastUpdatedTime  ` column.
+
+If no value is provided for the `  CreatedTime  ` or `  LastUpdatedTime  ` column in an `  INSERT  ` command, then this default value is used. If no value is provided for the `  LastUpdatedTime  ` column in an `  UPDATE  ` command, then this `  ON UPDATE  ` value is used.
+
+``` text
+CREATE TABLE Performances (
+    SingerId        INT64 NOT NULL,
+    VenueId         INT64 NOT NULL,
+    EventDate       DATE,
+    Revenue         INT64,
+    CreatedTime     NOT NULL DEFAULT (PENDING_COMMIT_TIMESTAMP()) OPTIONS (allow_commit_timestamp=true)
+    LastUpdatedTime  NOT NULL DEFAULT (PENDING_COMMIT_TIMESTAMP()) ON UPDATE (PENDING_COMMIT_TIMESTAMP())
+      OPTIONS (allow_commit_timestamp=true)
+) PRIMARY KEY (SingerId, VenueId, EventDate),
+  INTERLEAVE IN PARENT Singers ON DELETE CASCADE
 ```
 
 ## `     STRING    `

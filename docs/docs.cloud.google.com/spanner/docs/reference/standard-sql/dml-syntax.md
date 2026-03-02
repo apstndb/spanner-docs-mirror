@@ -11,7 +11,9 @@ CREATE TABLE Singers (
   LastName    STRING(1024),
   BirthDate   DATE,
   Status      STRING(1024),
-  LastUpdated TIMESTAMP,
+  LastUpdated TIMESTAMP DEFAULT (PENDING_COMMIT_TIMESTAMP())
+    ON UPDATE (PENDING_COMMIT_TIMESTAMP())
+    OPTIONS (allow_commit_timestamp = true),
   SingerInfo  googlesql.example.SingerInfo,
   AlbumInfo   googlesql.example.Album,
 ) PRIMARY KEY(SingerId);
@@ -187,9 +189,11 @@ You can use `  INSERT OR IGNORE  ` in single or batch DML requests using the [` 
 
 ### INSERT OR UPDATE
 
-Use the `  INSERT OR UPDATE  ` clause to insert or update a row. If the primary key is not found, a new row is inserted. If a row with the primary key already exists in the table, then it is updated with the values that you specify in the statement.
+Use the `  INSERT OR UPDATE  ` clause to insert or update a row. If the primary key is not found, a new row is inserted. If a row with the primary key already exists in the table, then it is updated with the values that you specify in the statement. If the row is updated, any column that you don't specify remains unchanged.
 
-For example, in the following statement, `  INSERT OR UPDATE  ` modifies the column value of `  Status  ` from `  active  ` to `  inactive  ` in the existing table with the primary key `  SingerId  ` of `  5  ` .
+An exception to these rules is columns with `  ON UPDATE  ` expressions. These columns have their value automatically set to the `  ON UPDATE  ` expression if the statement column list includes any non-key columns.
+
+In the following statement, `  INSERT OR UPDATE  ` modifies the column value of `  Status  ` from `  active  ` to `  inactive  ` in the existing table with the primary key `  SingerId  ` of `  5  ` . It also automatically updates the column value of `  LastUpdatedTime  ` to the `  ON UPDATE  ` expression, `  PENDING_COMMIT_TIMESTAMP()  ` .
 
 ``` text
 INSERT OR UPDATE INTO Singers
@@ -197,7 +201,7 @@ INSERT OR UPDATE INTO Singers
 VALUES (5, "inactive");
 ```
 
-If the row does not exist, the previous statement inserts a new row with values in the specified fields.
+If the row does not exist, the previous statement inserts a new row with values in the specified fields and `  PENDING_COMMIT_TIMESTAMP()  ` as the default value for `  LastUpdatedTime  ` .
 
 You can use `  INSERT OR UPDATE  ` in single or batch DML requests using the [`  executeBatchDml  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml) API.
 
@@ -1138,6 +1142,24 @@ UPDATE T SET col_a = DEFAULT WHERE id=3;
 For more information about default column values, see the `  DEFAULT ( expression )  ` clause in `  CREATE TABLE  ` .
 
 For more information about mutations, see [What are mutations?](../../dml-versus-mutations.md#mutations-concept) .
+
+### `     ON UPDATE    `
+
+If the target table includes an `  ON UPDATE  ` expression for a column, that column's value is set to the expression if the column isn't explicitly set in the `  UPDATE  ` statement. The column is automatically updated whether or not the values in the other columns changed.
+
+The following example automatically sets the `  LastUpdated  ` column in the `  Singers  ` table to the commit timestamp, whether or not the value of `  Status  ` changed.
+
+``` text
+UPDATE Singers SET Status = 'inactive' WHERE SingerId = 10;
+```
+
+The following example doesn't trigger `  ON UPDATE  ` for the `  LastUpdated  ` column because an explicit value has been provided.
+
+``` text
+UPDATE Singers
+SET Status = 'active', LastUpdated = TIMESTAMP ("2025-07-15 15:30:00+00")
+WHERE SingerId = 10;
+```
 
 ### WHERE clause
 

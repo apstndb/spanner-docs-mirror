@@ -448,6 +448,11 @@ This row-filtered table lists the columns in a table. Principals with database-l
 <td><code dir="ltr" translate="no">       STRING      </code></td>
 <td>The maximum value of a skipped range after transforming.</td>
 </tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       ON_UPDATE_EXPRESSION      </code></td>
+<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td>A STRING with the SQL representation of the `ON UPDATE` expression for a column. If the column does not have an `ON UPDATE` value, the value is `NULL`.</td>
+</tr>
 </tbody>
 </table>
 

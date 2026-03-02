@@ -67,6 +67,8 @@ The `  ON CONFLICT DO NOTHING  ` clause indicates that if the row that you're in
 
 The `  ON CONFLICT DO UPDATE SET  ` clause indicates that if the row that you're inserting already exists in the table, `  INSERT  ` doesn't throw a unique constraint violation of the primary key, and the row is updated.
 
+If the row is updated, any column that you don't specify remains unchanged. An exception to this rule is columns with ON UPDATE expressions. These columns have their value automatically set to the ON UPDATE expression if the statement column list includes any non-key columns.
+
 This clause has a few differences from PostgreSQL, resulting in the following restrictions:
 
   - Only permits primary key columns as the ***conflict\_target*** .
@@ -97,7 +99,9 @@ CREATE TABLE Singers (
   LastName varchar(64),
   Birthdate date,
   Status varchar(64),
-  SingerInfo varchar(64)
+  SingerInfo varchar(64),
+  LastUpdatedTime SPANNER.COMMIT_TIMESTAMP DEFAULT SPANNER.PENDING_COMMIT_TIMESTAMP()
+    ON UPDATE SPANNER.PENDING_COMMIT_TIMESTAMP()
 );
 ```
 
@@ -126,6 +130,8 @@ VALUES (5, 'Sterling'),
 ON CONFLICT (SingerId)
 DO UPDATE SET SingerId=excluded.SingerId, LastName=excluded.LastName;
 ```
+
+In both cases, `  LastUpdatedTime  ` will automatically be set to `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` .
 
 ### RETURNING
 
@@ -301,9 +307,29 @@ UPDATE T SET col_a = 1000 WHERE id=1;
 UPDATE T SET col_a = DEFAULT WHERE id=3;
 ```
 
-For more information about default column values, see the `  DEFAULT ( expression )  ` clause in `  CREATE TABLE  ` .
+For more information about default column values, see the `  DEFAULT expression  ` clause in `  CREATE TABLE  ` .
 
 For more information about mutations, see [What are mutations?](../../dml-versus-mutations.md#mutations-concept) .
+
+### `     ON UPDATE    `
+
+If the target table includes an `  ON UPDATE  ` expression for a column, that column's value is set to the expression if the column isn't explicitly set in the `  UPDATE  ` statement. The column is automatically updated whether or not the values in the other columns changed.
+
+The following example automatically sets the `  LastUpdated  ` column in the `  Singers  ` table to the commit timestamp, whether or not the value of `  Status  ` changed.
+
+``` text
+UPDATE Singers SET Status = 'inactive' WHERE SingerId = 10;
+```
+
+The following example doesn't trigger `  ON UPDATE  ` for the `  LastUpdated  ` column because an explicit value has been provided.
+
+``` text
+UPDATE Singers
+SET Status = 'active', LastUpdated = TIMESTAMP ("2025-07-15 15:30:00+00")
+WHERE SingerId = 10;
+```
+
+For more information about `  ON UPDATE  ` column values, see the `  ON UPDATE expression  ` clause in `  CREATE TABLE  ` .
 
 ### WHERE clause
 

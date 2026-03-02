@@ -650,11 +650,18 @@ Spanner has several functions that perform date or time math that accept `  INTE
 <td>Bins input into a specified interval aligned with a specified origin.</td>
 </tr>
 <tr class="odd">
+<td><code dir="ltr" translate="no">       spanner.pending_commit_timestamp()      </code></td>
+<td><code dir="ltr" translate="no">       UPDATE Performances SET LastUpdated = spanner.pending_commit_timestamp()      </code></td>
+<td>Uses the <code dir="ltr" translate="no">       PENDING_COMMIT_TIMESTAMP()      </code> function in a DML <code dir="ltr" translate="no">       INSERT      </code> or <code dir="ltr" translate="no">       UPDATE      </code> statement to write the pending commit timestamp of the write when it commits into a column type <code dir="ltr" translate="no">       SPANNER.COMMIT_TIMESTAMP      </code> .<br />
+<br />
+You can also use <code dir="ltr" translate="no">       SPANNER.PENDING_COMMIT_TIMESTAMP()      </code> as a default value and <code dir="ltr" translate="no">       ON UPDATE      </code> value, but only if you use <code dir="ltr" translate="no">       SPANNER.COMMIT_TIMESTAMP      </code> with it. If you set <code dir="ltr" translate="no">       SPANNER.PENDING_COMMIT_TIMESTAMP()      </code> as the default value, its value is used in the insert statement if no value is provided. If you also set <code dir="ltr" translate="no">       SPANNER.PENDING_COMMIT_TIMESTAMP()      </code> as the <code dir="ltr" translate="no">       ON UPDATE      </code> value, its value is used in the update statement if no value is provided.</td>
+</tr>
+<tr class="even">
 <td><code dir="ltr" translate="no">       spanner.timestamptz_add(timestamptz, text)      </code></td>
 <td><code dir="ltr" translate="no">       spanner.timestamptz_add(timestamptz '2001-02-16 20:38:40Z', '1 day 3min') -&gt; 2001-02-17 20:41:40Z      </code></td>
 <td>Adds an interval to a <code dir="ltr" translate="no">       timestamptz      </code> . To be more consistent with the PostgreSQL language, we recommend using the <a href="/spanner/docs/reference/postgresql/data-types#interval-type"><code dir="ltr" translate="no">        INTERVAL       </code></a> type with the addition operator ( <code dir="ltr" translate="no">       +      </code> ) instead.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">       spanner.timestamptz_subtract(timestamptz, text)      </code></td>
 <td><code dir="ltr" translate="no">       spanner.timestamptz_subtract(timestamptz '2001-02-16 20:38:40Z', '1 month 2 hours') -&gt; 2001-01-16 18:38:40Z      </code></td>
 <td>Subtracts an interval from a <code dir="ltr" translate="no">       timestamptz      </code> . To be more consistent with the PostgreSQL language, we recommend using the <a href="/spanner/docs/reference/postgresql/data-types#interval-type"><code dir="ltr" translate="no">        INTERVAL       </code></a> type with the subtraction operator ( <code dir="ltr" translate="no">       -      </code> ) instead.</td>

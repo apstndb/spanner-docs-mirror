@@ -837,6 +837,11 @@ For all other data types the value is <code dir="ltr" translate="no">       NULL
 <li><code dir="ltr" translate="no">         NULL        </code> : Used for columns in system schemas.</li>
 </ul></td>
 </tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">       on_update_expression      </code></td>
+<td><code dir="ltr" translate="no">       character varying      </code></td>
+<td>A string representation of the `ON UPDATE` expression for a column. If the column does not have an `ON UPDATE` expression, the value is `NULL`.</td>
+</tr>
 </tbody>
 </table>
 
