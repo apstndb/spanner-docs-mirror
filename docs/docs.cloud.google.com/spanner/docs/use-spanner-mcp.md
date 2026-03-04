@@ -274,7 +274,7 @@ To protect your MCP tool calls and responses, you create a Model Armor floor set
     --google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
     --enable-google-mcp-server-cloud-logging \
     --malicious-uri-filter-settings-enforcement=ENABLED \
-    --add-rai-settings-filters='[{"confidenceLevel": "HIGH", "filterType": "DANGEROUS"}]'
+    --add-rai-settings-filters='[{"confidenceLevel": "MEDIUM_AND_ABOVE", "filterType": "DANGEROUS"}]'
     ```
     
     Replace `  PROJECT_ID  ` with your Google Cloud project ID.
@@ -283,7 +283,7 @@ To protect your MCP tool calls and responses, you create a Model Armor floor set
     
       - `  INSPECT_AND_BLOCK  ` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
       - `  ENABLED  ` : The setting that enables a filter or enforcement.
-      - `  HIGH  ` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Configure floor settings](https://docs.cloud.google.com/model-armor/configure-floor-settings) .
+      - `  MEDIUM_AND_ABOVE  ` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Model Armor confidence levels](https://docs.cloud.google.com/model-armor/overview#ma-confidence-levels) .
 
 2.  For your project, enable Model Armor protection for remote MCP servers.
     
