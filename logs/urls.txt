@@ -455,6 +455,7 @@ https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statis
 https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics
 https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics
 https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags
+https://docs.cloud.google.com/spanner/docs/introspection/vector-index-statistics
 https://docs.cloud.google.com/spanner/docs/isolation-levels
 https://docs.cloud.google.com/spanner/docs/jdbc-drivers
 https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands
@@ -539,6 +540,14 @@ https://docs.cloud.google.com/spanner/docs/psql-connect
 https://docs.cloud.google.com/spanner/docs/query-columnar-data
 https://docs.cloud.google.com/spanner/docs/query-execution-operators
 https://docs.cloud.google.com/spanner/docs/query-execution-plans
+https://docs.cloud.google.com/spanner/docs/query-operators-array-subqueries
+https://docs.cloud.google.com/spanner/docs/query-operators-binary
+https://docs.cloud.google.com/spanner/docs/query-operators-distributed
+https://docs.cloud.google.com/spanner/docs/query-operators-leaf
+https://docs.cloud.google.com/spanner/docs/query-operators-n-ary
+https://docs.cloud.google.com/spanner/docs/query-operators-scalar-subqueries
+https://docs.cloud.google.com/spanner/docs/query-operators-struct-constructor
+https://docs.cloud.google.com/spanner/docs/query-operators-unary
 https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer
 https://docs.cloud.google.com/spanner/docs/query-optimizer/overview
 https://docs.cloud.google.com/spanner/docs/query-optimizer/version-statistics

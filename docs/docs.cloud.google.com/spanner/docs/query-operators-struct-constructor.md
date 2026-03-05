@@ -1,0 +1,169 @@
+**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+
+## Database schema
+
+The queries and execution plans on this page are based on the following database schema:
+
+``` text
+CREATE TABLE Singers (
+  SingerId   INT64 NOT NULL,
+  FirstName  STRING(1024),
+  LastName   STRING(1024),
+  SingerInfo BYTES(MAX),
+  BirthDate  DATE
+) PRIMARY KEY(SingerId);
+
+CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
+
+CREATE TABLE Albums (
+  SingerId        INT64 NOT NULL,
+  AlbumId         INT64 NOT NULL,
+  AlbumTitle      STRING(MAX),
+  MarketingBudget INT64
+) PRIMARY KEY(SingerId, AlbumId),
+  INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+
+CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
+
+CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget);
+
+CREATE TABLE Songs (
+  SingerId  INT64 NOT NULL,
+  AlbumId   INT64 NOT NULL,
+  TrackId   INT64 NOT NULL,
+  SongName  STRING(MAX),
+  Duration  INT64,
+  SongGenre STRING(25)
+) PRIMARY KEY(SingerId, AlbumId, TrackId),
+  INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
+
+CREATE INDEX SongsBySingerAlbumSongNameDesc ON Songs(SingerId, AlbumId, SongName DESC), INTERLEAVE IN Albums;
+
+CREATE INDEX SongsBySongName ON Songs(SongName);
+
+CREATE TABLE Concerts (
+  VenueId      INT64 NOT NULL,
+  SingerId     INT64 NOT NULL,
+  ConcertDate  DATE NOT NULL,
+  BeginTime    TIMESTAMP,
+  EndTime      TIMESTAMP,
+  TicketPrices ARRAY<INT64>
+) PRIMARY KEY(VenueId, SingerId, ConcertDate);
+```
+
+You can use the following Data Manipulation Language (DML) statements to add data to these tables:
+
+``` text
+INSERT INTO Singers (SingerId, FirstName, LastName, BirthDate)
+VALUES (1, "Marc", "Richards", "1970-09-03"),
+       (2, "Catalina", "Smith", "1990-08-17"),
+       (3, "Alice", "Trentor", "1991-10-02"),
+       (4, "Lea", "Martin", "1991-11-09"),
+       (5, "David", "Lomond", "1977-01-29");
+
+INSERT INTO Albums (SingerId, AlbumId, AlbumTitle)
+VALUES (1, 1, "Total Junk"),
+       (1, 2, "Go, Go, Go"),
+       (2, 1, "Green"),
+       (2, 2, "Forever Hold Your Peace"),
+       (2, 3, "Terrified"),
+       (3, 1, "Nothing To Do With Me"),
+       (4, 1, "Play");
+
+INSERT INTO Songs (SingerId, AlbumId, TrackId, SongName, Duration, SongGenre)
+VALUES (2, 1, 1, "Let's Get Back Together", 182, "COUNTRY"),
+       (2, 1, 2, "Starting Again", 156, "ROCK"),
+       (2, 1, 3, "I Knew You Were Magic", 294, "BLUES"),
+       (2, 1, 4, "42", 185, "CLASSICAL"),
+       (2, 1, 5, "Blue", 238, "BLUES"),
+       (2, 1, 6, "Nothing Is The Same", 303, "BLUES"),
+       (2, 1, 7, "The Second Time", 255, "ROCK"),
+       (2, 3, 1, "Fight Story", 194, "ROCK"),
+       (3, 1, 1, "Not About The Guitar", 278, "BLUES");
+```
+
+**Note:** You can run queries and retrieve execution plans even if the tables have no data.
+
+A *struct constructor* creates a *struct* , or a collection of fields. It creates a struct for rows resulting from a compute operation. A struct constructor isn't a standalone operator. Instead, it appears in [compute struct](/spanner/docs/query-operators-unary#compute_struct) operators or [serialize result](/spanner/docs/query-operators-unary#serialize_result) operators.
+
+In a compute struct operation, the struct constructor creates a struct so columns for the computed rows can use a single variable reference to the struct.
+
+In a serialize result operation, the struct constructor creates a struct to serialize the results.
+
+The following query demonstrates this operator:
+
+``` text
+SELECT IF(TRUE, struct(1 AS A, 1 AS B), struct(2 AS A , 2 AS B)).A;
+
+/*---+
+ | A |
+ +---+
+ | 1 |
+ +---*/
+```
+
+The execution plan appears as follows:
+
+In the execution plan, struct constructors appear inside a serialize result operator.
+
+#### Properties and execution statistics
+
+A property of an operator describes a trait that is used when the operator is executed. An execution statistic is a value collected during query execution to help you assess performance of the operator.
+
+Properties
+
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Execution method</td>
+<td>In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once.</td>
+</tr>
+</tbody>
+</table>
+
+Execution statistics
+
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Latency</td>
+<td>Elapsed time of all the executions done in the operator.</td>
+</tr>
+<tr class="even">
+<td>Cumulative latency</td>
+<td>The total time of the current operator and its descendants.</td>
+</tr>
+<tr class="odd">
+<td>CPU time</td>
+<td>Sum of CPU time spent executing the operator.</td>
+</tr>
+<tr class="even">
+<td>Cumulative CPU time</td>
+<td>The total CPU time spent executing the operator and its descendants.</td>
+</tr>
+<tr class="odd">
+<td>Execution time</td>
+<td>The total amount of time taken to run the query and process results.</td>
+</tr>
+<tr class="even">
+<td>Rows returned</td>
+<td>The number of rows output by this operator</td>
+</tr>
+<tr class="odd">
+<td>Number of executions</td>
+<td>The number of times the operator was executed. Some executions can run in parallel.</td>
+</tr>
+</tbody>
+</table>

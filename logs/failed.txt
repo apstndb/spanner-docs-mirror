@@ -1,11 +1,2 @@
 200 https://cloud.google.com/spanner/pricing
 200 https://cloud.google.com/spanner/sla
-200 https://docs.cloud.google.com/spanner/docs/introspection/vector-index-statistics
-200 https://docs.cloud.google.com/spanner/docs/query-operators-array-subqueries
-200 https://docs.cloud.google.com/spanner/docs/query-operators-binary
-200 https://docs.cloud.google.com/spanner/docs/query-operators-distributed
-200 https://docs.cloud.google.com/spanner/docs/query-operators-leaf
-200 https://docs.cloud.google.com/spanner/docs/query-operators-n-ary
-200 https://docs.cloud.google.com/spanner/docs/query-operators-scalar-subqueries
-200 https://docs.cloud.google.com/spanner/docs/query-operators-struct-constructor
-200 https://docs.cloud.google.com/spanner/docs/query-operators-unary

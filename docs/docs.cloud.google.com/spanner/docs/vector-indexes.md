@@ -27,6 +27,8 @@ To optimize the recall and performance of a vector index, we recommend that you:
 
   - Use the `  STORING  ` clause to store a copy of a column in the vector index. If a column value is stored in the vector index, then Spanner performs filtering at the index's leaf level to improve query performance. We recommend that you store a column if it's used in a filtering condition. For more information about using `  STORING  ` in an index, see [Create an index for index-only scans](/spanner/docs/secondary-indexes#storing-clause) .
 
+  - Use non-embedding key columns in the vector index. Key columns are similar to `  STORING  ` columns, but allow the query engine to perform filtering more efficiently during vector search. For more information, see [Create vector index](/spanner/docs/reference/standard-sql/data-definition-language#create_vector_index) .
+
 When you create your table, the embedding column must be an array of the `  FLOAT32  ` (recommended) or `  FLOAT64  ` data type, and have a *vector\_length* annotation, indicating the dimension of the vectors. The optimal vector length depends on your workload, dataset size, and available computational resources. Experiment with different dimensions to find the smallest size that maintains accuracy and performance for your application.
 
 The following DDL statement creates a `  Documents  ` table with an embedding column `  DocEmbedding  ` with a vector length:
@@ -39,7 +41,7 @@ CREATE TABLE Documents (
   DocContents Bytes(MAX),
   DocEmbedding ARRAY<FLOAT32>(vector_length=>128) NOT NULL,
   NullableDocEmbedding ARRAY<FLOAT32>(vector_length=>128),
-  WordCount INT64,
+  WordCount INT64
 ) PRIMARY KEY (DocId);
 ```
 
@@ -62,7 +64,7 @@ CREATE VECTOR INDEX DocEmbeddingThreeLevelIndex
   OPTIONS (distance_type = 'COSINE', tree_depth = 3, num_branches=1000, num_leaves = 1000000);
 ```
 
-#### Filter a vector index
+### Filter a vector index
 
 You can also create a filtered vector index to find the most similar items in your database that match the filter condition. A filtered vector index selectively indexes rows that satisfy the specified filter conditions, improving search performance.
 
@@ -70,10 +72,14 @@ In the following example, the table `  Documents2  ` has a column called `  Cate
 
 ``` text
 CREATE TABLE Documents2 (
+  UserId INT64 NOT NULL,
   DocId INT64 NOT NULL,
+  DocName STRING (1024),
+  Author STRING (1024),
+  DocContents Bytes(MAX),
   Category STRING(MAX),
   NullIfFiltered BOOL AS (IF(Category = 'Tech', TRUE, NULL)) HIDDEN,
-  DocEmbedding ARRAY<FLOAT32>(vector_length=>128),
+  DocEmbedding ARRAY<FLOAT32>(vector_length=>128)
 ) PRIMARY KEY (DocId);
 ```
 
@@ -98,6 +104,18 @@ LIMIT 10;
 ```
 
 **Note:** In this query, if you replace `  NullIfFiltered IS NOT NULL  ` with `  Category = 'Tech'  ` , then the query won't match the vector index `  TechDocEmbeddingIndex  ` .
+
+To improve query performance, you can include non-embedding key columns in your vector index. This allows the query engine to more efficiently perform filtering during vector search.
+
+In the `  CREATE VECTOR INDEX  ` statement, you must list these additional key columns after the embedding column. For example, the following statement creates a vector index that includes the `  DocName  ` and `  Author  ` key columns for more efficient filtering:
+
+``` text
+CREATE VECTOR INDEX DocEmbeddingIndexWithKeys
+  ON Documents2(DocEmbedding, DocName, Author)
+  STORING(NullIfFiltered)
+  WHERE DocEmbedding IS NOT NULL AND NullIfFiltered IS NOT NULL
+  OPTIONS (...);
+```
 
 ## What's next
 

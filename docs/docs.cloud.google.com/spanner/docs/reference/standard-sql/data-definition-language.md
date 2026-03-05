@@ -2455,7 +2455,7 @@ After you delete a model definition, all SQL queries referencing the deleted mod
 
 ## VECTOR INDEX statements
 
-If you have a table with a large amount of vector data, you can use a vector index to perform similarity searches and nearest neighbor queries efficiently, with the trade-off of reduced [recall](https://developers.google.com/machine-learning/crash-course/classification/precision-and-recall#recall) and more approximate results.
+If you have a table with a large amount of vector data, you can use a vector index to perform similarity searches and [approximate nearest neighbor (ANN)](/spanner/docs/find-approximate-nearest-neighbors) queries efficiently, with the trade-off of reduced [recall](https://developers.google.com/machine-learning/crash-course/classification/precision-and-recall#recall) and more approximate results.
 
 ### CREATE VECTOR INDEX
 
@@ -2465,7 +2465,7 @@ Creates a new vector index on a column of a table.
 
 ``` text
 CREATE VECTOR INDEX [ IF NOT EXISTS ] index_name
-ON table_name(column_name)
+ON table_name (column_name [, extra_key_column_name, ...] )
 [ STORING ( column_name [, ...] ) ]
 [ WHERE column_name IS NOT NULL ]
 OPTIONS(index_option_list)
@@ -2487,7 +2487,15 @@ OPTIONS(index_option_list)
 
 `  column_name  `
 
-  - The name of a column with a type of `  ARRAY<FLOAT64>(vector_length=>INT)  ` or `  ARRAY<FLOAT32>(vector_length=>INT)  ` . The column can't have any child fields. All elements in the array must be non- `  NULL  ` , and all values in the column must have the same array dimensions as defined by `  vector_length  ` . If the embedding column is not defined as `  NOT NULL  ` , then use the `  WHERE column_name IS NOT NULL  ` clause when creating the vector index.
+  - The name of an embedding column with a type of `  ARRAY<FLOAT64>(vector_length=>INT)  ` or `  ARRAY<FLOAT32>(vector_length=>INT)  ` . The column can't have any child fields. All elements in the array must be non- `  NULL  ` , and all values in the column must have the same array dimensions as defined by `  vector_length  ` . If the embedding column isn't defined as `  NOT NULL  ` , then use the `  WHERE column_name IS NOT NULL  ` clause when creating the vector index. If you include additional `  extra_key_column_name  ` in the vector index, the embedding column must be the first column listed.
+
+`  extra_key_column_name  `
+
+  - The name of one or more non-embedding columns that you use as keys in the index. These columns must appear after `  column_name  ` . Extra keys are arranged as actual keys within the underlying Spanner data structure supporting the index. These extra keys help the query engine speed up ANN queries, similar to how keys are used in [secondary indexes](/spanner/docs/secondary-indexes) . Compared to using `  STORING  ` columns, key columns have the following characteristics:
+    
+      - They must be [valid key types](/spanner/docs/reference/standard-sql/data-types#valid_key_column_types) .
+      - They incur slightly more processing cost than using storing columns.
+      - You can't add or drop key columns.
 
 `  WHERE IS NOT NULL  `
 
