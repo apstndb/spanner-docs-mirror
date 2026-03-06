@@ -73,7 +73,7 @@ implementation 'com.google.cloud:google-cloud-spanner'
 If you are using [sbt](https://www.scala-sbt.org/) , add the following to your dependencies:
 
 ``` markdown
-libraryDependencies += "com.google.cloud" % "google-cloud-spanner" % "6.111.0"
+libraryDependencies += "com.google.cloud" % "google-cloud-spanner" % "6.111.1"
 ```
 
 If you're using Visual Studio Code or IntelliJ, you can add client libraries to your project using the following IDE plugins:

@@ -115,14 +115,54 @@ Use the `  INSERT  ` statement to add new rows to a table. The `  INSERT  ` stat
 INSERT [[OR] IGNORE | UPDATE]
 [INTO] table_name
  (column_name_1 [, ..., column_name_n] )
- input [return_clause]
+ input [ASSERT_ROWS_MODIFIED number_rows] [return_clause]
+
+ON CONFLICT syntax:
+
+ INSERT [INTO] target_name [AS table-alias]
+ (column[, ...])
+ on_conflict_input
+ ON CONFLICT [conflict_target]
+ conflict_action [ASSERT_ROWS_MODIFIED number_rows]
+ [return_clause]
 
 input:
+  {
+    value_list | SELECT_QUERY
+  }
+
+on_conflict_input:
+{
+    value_list | (SELECT_QUERY)
+}
+
+value_list:
  VALUES (row_1_column_1_expr [, ..., row_1_column_n_expr ] )
         [, ..., (row_k_column_1_expr [, ..., row_k_column_n_expr ] ) ]
-| select_query
 
 expr: value_expression | DEFAULT
+
+conflict_target:
+  {
+    (column_name [,..]) | ON UNIQUE CONSTRAINT index_constraint_name
+  }
+
+conflict_action:
+  {
+    DO NOTHING | DO UPDATE SET set_clause [ WHERE update_condition ]
+  }
+
+set_clause:
+  update_item[, ...]
+
+update_item:
+  {
+    path_expression = expression
+    | path_expression = DEFAULT
+  }
+
+update_condition:
+  bool_expression
 
 return_clause:
   THEN RETURN [ WITH ACTION [ AS alias ]  ] { select_all | expression [  [ AS ] alias ] } [, ...]
@@ -142,6 +182,7 @@ select_all:
   - Each value must be type compatible with its associated column.
   - The values must comply with any constraints in the schema, for example, unique secondary indexes.
   - All non-null columns must appear in the column list, and have a non-null value specified.
+  - `  INSERT OR  ` and `  ON CONFLICT  ` clauses aren't allowed in the same statement.
 
 If a statement does not comply with the rules, Spanner raises an error and the entire statement fails.
 
@@ -205,6 +246,52 @@ If the row does not exist, the previous statement inserts a new row with values 
 
 You can use `  INSERT OR UPDATE  ` in single or batch DML requests using the [`  executeBatchDml  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml) API.
 
+### `     ON CONFLICT DO NOTHING    `
+
+Use the `  ON CONFLICT DO NOTHING  ` clause to attempt an `  INSERT  ` and if the row exists, Spanner doesn't perform the `  INSERT  ` on that row. This prevents duplicates in Spanner. The [`  conflict_target  `](#conflict-conflict_target) is optional for this clause. When used, it specifies the table constraint to use for conflicts. When not used, the row is ignored if the insert row violates any unique constraint on the table, such as the primary key or unique indexes.
+
+The `  ON CONFLICT DO NOTHING  ` clause has the following behavior:
+
+  - For an `  INSERT OR IGNORE  ` query that inserts multiple rows or inserts from a subquery, only the new rows are inserted.
+  - If the input is ordered, Spanner inserts the first row in that order. If unordered, Spanner inserts an arbitrary row.
+  - If the input uses `  DO NOTHING  ` with a `  THEN RETURN  ` clause and an insert row is ignored, Spanner doesn't return any columns for that ignored row. This behavior is consistent with `  INSERT OR IGNORE  ` .
+
+### `     ON CONFLICT DO UPDATE    `
+
+Use the `  ON CONFLICT DO UPDATE  ` clause to perform an `  INSERT  ` and if the unique constraint specified by the `  conflict_target  ` is violated, Spanner updates the existing row. If a `  WHERE  ` clause is present, the row is updated only if the `  WHERE  ` condition is `  true  ` or satisfied. The [`  conflict_target  `](#conflict-conflict_target) clause specifies the table constraint to use for conflicts and is required for this clause.
+
+If there's a conflict, the `  SET  ` clause specifies the updates to apply to the existing row.
+
+The `  SET  ` clause has the following behavior:
+
+  - The columns specified for update in the `  SET  ` clause don't need to be present in the `  INSERT  ` column list.
+  - Columns can be updated to arbitrary value expressions. These expressions can reference values from both the existing row in the table and the new values from the `  INSERT  ` statement.
+  - To reference existing row column values, prefix the column with the table name as the alias.
+  - For the insert row column values, prefix the column name with the `  EXCLUDED  ` alias (that is, `  EXCLUDED.column_name  ` ). This ensures that the incoming value from the attempted insert is being used.
+
+Like expressions in the `  SET  ` clause, expressions in a `  WHERE  ` clause can also reference the existing row and the insert row in input. It follows the same rules to alias the column with a table name or with `  EXCLUDED  ` respectively to prevent ambiguity.
+
+Any column, including generated columns, can be accessed using the `  EXCLUDED  ` alias. If a column isn't explicitly in the `  INSERT  ` column list (and thus has no value from the input), it defaults to its `  DEFAULT  ` value when referenced with `  EXCLUDED  ` . Dependent columns of generated columns use the value from the `  EXCLUDED  ` row; otherwise, they use their `  DEFAULT  ` or `  NULL  ` values if not listed.
+
+### `     conflict_target    ` parameter
+
+Both `  ON CONFLICT DO NOTHING  ` and `  ON CONFLICT DO UPDATE  ` use the `  conflict_target  ` parameter to specify the table constraint that the query uses to evaluate if the insert row is duplicate. If the `  conflict_target  ` key column values already exist in the table, then the insert row is considered a duplicate.
+
+There are two primary ways to specify the `  conflict_target  ` :
+
+  - Use a list of columns in a primary key or key columns of a `  UNIQUE  ` index.
+  - Use an `  ON UNIQUE CONSTRAINT  ` clause, for example, `  ON CONFLICT ON UNIQUE CONSTRAINT unique_index_name  ` .
+
+**Note:** Unique indexes with null filtered key columns aren't supported.
+
+The `  conflict_target  ` must comply with the following rules:
+
+  - Only primary key or a unique index can be specified as the `  conflict_target  ` .
+  - A statement can list only one table constraint as the `  conflict_target  ` .
+  - Default or generated columns can be a `  conflict_target  ` if they belong to a primary key or key columns of a `  UNIQUE  ` index.
+  - A `  conflict_target  ` must include all columns covered by the chosen constraint. The set of columns in the conflict target identifies the primary key or unique constraint.
+  - You must use the [`  SELECT  ` privilege ( `  spanner.databases.select  ` )](/spanner/docs/iam#roles) on the `  conflict_target  ` columns.
+
 ### THEN RETURN
 
 Use the `  THEN RETURN  ` clause to return the results of the `  INSERT  ` operation and selected data from the newly inserted rows. This clause is especially useful for retrieving values of columns with default values, generated columns, and auto-generated keys, without having to use additional `  SELECT  ` statements.
@@ -219,9 +306,13 @@ Use the `  THEN RETURN  ` clause to capture expressions based on newly inserted 
   - `  expression  ` : Represents a column name of the table specified by `  table_name  ` or an expression that uses any combination of such column names. Column names are valid if they belong to columns of the `  table_name  ` . Excluded expressions include aggregate and analytic functions.
   - `  alias  ` : Represents a temporary name for an expression in the query.
 
+When using `  THEN RETURN  ` with `  ON CONFLICT DO UPDATE  ` , only table columns are returned; `  EXCLUDED.column_name  ` can't be used in a `  THEN RETURN  ` clause.
+
 For instructions and code samples, see [Modify data with the returning DML statements](/spanner/docs/dml-tasks#client-library-dml-return) .
 
 ## INSERT examples
+
+The section provides code examples for `  INSERT  ` statements.
 
 ### INSERT using literal values examples
 
@@ -640,6 +731,82 @@ INSERT OR IGNORE INTO Singers (
     AND id < 100);
 ```
 
+### INSERT with ON CONFLICT DO UPDATE examples
+
+The following example checks for a UNIQUE constraint on a list of the `  (FirstName, LastName)  ` columns:
+
+``` text
+INSERT INTO Singers (SingerId, FirstName, LastName) excluded
+ON CONFLICT(FirstName, LastName) DO UPDATE SET SingerId = excluded.SingerId;
+```
+
+The following example checks for a conflict on the `  UNIQUE CONSTRAINT UniqueIndex_SingerName  ` .
+
+``` text
+INSERT INTO Singers (SingerId, FirstName, LastName, BirthDate, Status, LastUpdated)
+VALUES (101, 'Adele', 'Adkins', '1988-05-05', 'Active', CURRENT_TIMESTAMP())
+ON CONFLICT ON UNIQUE CONSTRAINT UniqueIndex_SingerName
+DO UPDATE SET Status = excluded.Status, LastUpdated = Singers.LastUpdated;
+```
+
+The following example checks for a conflict on the `  PRIMARY KEY (SingerId)  ` :
+
+``` text
+INSERT INTO Singers (SingerId, FirstName, LastName) excluded
+ON CONFLICT(SingerId)
+DO UPDATE SET FirstName = excluded.FirstName;
+```
+
+For the following unique index:
+
+``` text
+CREATE UNIQUE INDEX Index_AlbumInfo_SingerAlbum ON AlbumInfo (SingerId, AlbumId);
+```
+
+The following shows an example for updating a table where the primary key is `  (SingerId, AlbumId)  ` , using a unique index.
+
+``` text
+INSERT INTO AlbumInfo (SingerId, AlbumId, AlbumTitle, MarketingBudget)
+VALUES (10, 1, 'My New Album', 750000)
+ON CONFLICT(SingerId, AlbumId)
+DO UPDATE SET AlbumTitle = EXCLUDED.AlbumTitle, MarketingBudget = EXCLUDED.MarketingBudget;
+```
+
+For the next example, imagine the `  AlbumInfo  ` table has a default value for `  LastReviewScore INT64 DEFAULT 75  ` , and a generated column `  EstimatedProfit INT64 AS (MarketingBudget * 2) STORED  ` :
+
+``` text
+INSERT INTO AlbumInfo (SingerId, AlbumId, AlbumTitle, MarketingBudget)
+VALUES (10, 2, 'The Second Album', 600000)
+ON CONFLICT(SingerId, AlbumId)
+DO UPDATE SET LastReviewScore = EXCLUDED.LastReviewScore, EstimatedProfit = EXCLUDED.EstimatedProfit + 10000;
+```
+
+The following example updates only a subset of columns while others remain unchanged:
+
+``` text
+INSERT INTO AlbumInfo (SingerId, AlbumId, AlbumTitle, MarketingBudget)
+VALUES (10, 1, 'Brand New Album Title', 800000)
+ON CONFLICT(SingerId, AlbumId)
+DO UPDATE SET AlbumTitle = EXCLUDED.AlbumTitle;
+```
+
+### INSERT with ON CONFLICT DO NOTHING examples
+
+The following example ignores the row if `  SingerId  ` , `  AlbumId  ` , or `  MarketingBudget  ` has duplicates.
+
+``` text
+INSERT INTO Singers (SingerId, FirstName)
+VALUES (1, 'John')
+ON CONFLICT DO NOTHING;
+```
+
+The following example checks for a conflict on the `  PRIMARY KEY (SingerId)  ` :
+
+``` text
+INSERT INTO Singers (SingerId, FirstName, LastName) excluded
+ON CONFLICT(SingerId) DO NOTHING;
+```
+
 ## DELETE statement
 
 Use the `  DELETE  ` statement to delete rows from a table.
@@ -738,6 +905,8 @@ This hint is only valid with <a href="/spanner/docs/dml-partitioned">Partitioned
 </table>
 
 ## DELETE examples
+
+This section contains code examples for `  DELETE  ` examples.
 
 ### DELETE with WHERE clause example
 
@@ -1184,6 +1353,8 @@ WHERE FirstName = 'Marc' AND LastName = 'Richards';
 You can also create an explicit alias using the optional `  AS  ` keyword. For more details on aliases, see [Query syntax](/spanner/docs/reference/standard-sql/query-syntax#aliases_2) .
 
 ## UPDATE examples
+
+This section contains code examples for `  UPDATE  ` statements.
 
 ### UPDATE with literal values example
 

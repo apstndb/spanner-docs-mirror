@@ -83,8 +83,12 @@ Replace the following:
 Schema object drop protection isn't activated in the following scenarios:
 
 1.  You created the database within the last hour.
-2.  You created the schema object within the inactivity duration.
-3.  The object has low-frequency read accesses (fewer than 10 per hour).
+
+2.  The object has low-frequency read accesses (fewer than 10 per hour).
+
+3.  You created the schema object within the inactivity duration. This means that if a schema object was created more recently than the duration specified in `  schema_drop_protection_inactivity_period  ` , it is not protected from deletion. For example, if `  schema_drop_protection_inactivity_period  ` is `  7d  ` , any table created in the last 7 days can be dropped even if it has been recently accessed.
+    
+    This behavior facilitates testing: if protection applied to recently created objects, you would be unable to create, test, and immediately drop a temporary table, instead being forced to wait 7 days for the inactivity period to elapse before cleanup was possible.
 
 The default read access threshold is 10 per hour, but you can override the default using the following database option:
 
