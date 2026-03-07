@@ -3305,8 +3305,30 @@ To execute a hash join between two tables, Spanner first scans rows from the bui
 
 ### Group hints
 
-The following group hints are supported: | Group hint key | Group hint values | Description | | -------- | -------- | -------- | | `  GROUP_METHOD  ` | `  HASH_GROUP  `  
-`  STREAM_GROUP  ` | Specifies an alternative to choose when implementing a `  GROUP BY  ` operator.
+The following group hints are supported:
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group hint key</th>
+<th>Group hint values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       GROUP_METHOD      </code></td>
+<td><code dir="ltr" translate="no">       HASH_GROUP      </code><br />
+<code dir="ltr" translate="no">       STREAM_GROUP      </code></td>
+<td>Specifies an alternative to choose when implementing a <code dir="ltr" translate="no">       GROUP BY      </code> operator.</td>
+</tr>
+</tbody>
+</table>
 
 ### Graph hints
 

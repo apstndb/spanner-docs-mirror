@@ -293,7 +293,6 @@ https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry
 https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum
 https://docs.cloud.google.com/spanner/docs/change-streams
 https://docs.cloud.google.com/spanner/docs/change-streams/details
-https://docs.cloud.google.com/spanner/docs/change-streams/manage
 https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow
 https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka
 https://docs.cloud.google.com/spanner/docs/check-constraint/how-to
@@ -361,7 +360,6 @@ https://docs.cloud.google.com/spanner/docs/fgac-privileges
 https://docs.cloud.google.com/spanner/docs/fgac-sequences
 https://docs.cloud.google.com/spanner/docs/fgac-system-roles
 https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors
-https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database
 https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors
 https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to
 https://docs.cloud.google.com/spanner/docs/foreign-keys/overview

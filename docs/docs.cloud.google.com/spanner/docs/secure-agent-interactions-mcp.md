@@ -107,6 +107,18 @@ Agents must only call tools that are necessary for the task. Make sure that your
   - **Dynamic tools:** the agent must not be able to dynamically register new tools or change the permissions of existing tools.
   - **Allowlist enforcement:** declare an allowlist of functions or database tables that the agent can access in its initial system prompt and backend code. For a Gemini CLI example, see [Restricting Tool Access](https://google-gemini.github.io/gemini-cli/docs/cli/enterprise.html#restricting-tool-access) .
 
+### Limit data access in multi-tenant databases
+
+A general tool like `  execute_sql  ` lets the caller execute database queries that can read any data that IAM and database permissions allow access to. When you create an agent that accesses data in a multi-tenant application without a trusted human in the loop, you might need to limit data access further.
+
+To make sure that the agent can only read subsets of the data that it has access to, we recommend that you create custom tools using a framework like [MCP Toolbox for Databases](https://github.com/googleapis/genai-toolbox) . For more information, see [Prebuilt vs. Custom Tools](https://googleapis.github.io/genai-toolbox/resources/tools/#prebuilt-vs-custom-tools) .
+
+For example, imagine that your database stores orders for all end users in the `  Orders  ` table. You're developing a chat agent that interacts with users and can look up their orders. The chat agent has permission to read the entire `  Orders  ` table, but one end user must not be able to request information about another user's orders.
+
+In an unsafe scenario, you equip the agent with only an `  execute_sql  ` tool, creating a risk for a data leak. A malicious user can trick the agent into reading and returning other users' orders. Instructing the agent to enforce the access rules is typically not sufficient to protect the data.
+
+In a safe scenario, you give the agent a more specific custom tool—like `  lookup_active_order  ` —where the identity of the user in the query filter is set outside of the agent's control.
+
 ## Security and safety configurations
 
 Spanner provides Model Armor to enforce safety boundaries at the platform level. You must enable and configure these settings.
