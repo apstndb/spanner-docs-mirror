@@ -103,13 +103,13 @@ To add a new node and a new edge definition, follow these steps:
     
     ``` text
     CREATE TABLE Company (
-      id INT64 NOT NULL,
-      name STRING(MAX)
+      id               INT64 NOT NULL,
+      name             STRING(MAX),
     ) PRIMARY KEY (id);
     
     CREATE TABLE PersonInvestCompany (
-      id INT64 NOT NULL,
-      company_id INT64 NOT NULL,
+      id               INT64 NOT NULL,
+      company_id       INT64 NOT NULL,
       FOREIGN KEY (company_id) REFERENCES Company (id)
     ) PRIMARY KEY (id, company_id),
       INTERLEAVE IN PARENT Person ON DELETE CASCADE;
@@ -200,6 +200,52 @@ The following code drops the `  FinGraph  ` property graph schema:
 
 ``` text
 DROP PROPERTY GRAPH FinGraph;
+```
+
+## Create a property graph in a named schema
+
+Spanner Graph supports creating property graphs within a [named schema](/spanner/docs/schema-and-data-model#named-schemas) .
+
+The following example creates two named schemas `  sch1  ` and `  sch2  ` , a node and edge table in the `  sch1  ` schema, and a node and property graph in the `  sch2  ` schema:
+
+``` text
+CREATE SCHEMA sch1;
+CREATE SCHEMA sch2;
+
+CREATE TABLE sch1.Person (
+  id               INT64 NOT NULL,
+  name             STRING(MAX),
+  birthday         TIMESTAMP,
+  country          STRING(MAX),
+  city             STRING(MAX),
+) PRIMARY KEY (id);
+
+CREATE TABLE sch2.Account (
+  id               INT64 NOT NULL,
+  create_time      TIMESTAMP,
+  is_blocked       BOOL,
+  nick_name        STRING(MAX),
+) PRIMARY KEY (id);
+
+CREATE TABLE sch1.PersonOwnAccount (
+  id               INT64 NOT NULL,
+  account_id       INT64 NOT NULL,
+  create_time      TIMESTAMP,
+  FOREIGN KEY (account_id) REFERENCES sch2.Account (id)
+) PRIMARY KEY (id, account_id),
+  INTERLEAVE IN PARENT sch1.Person ON DELETE CASCADE;
+
+CREATE OR REPLACE PROPERTY GRAPH sch2.FinGraph
+  NODE TABLES (
+    sch1.Person,
+    sch2.Account
+  )
+  EDGE TABLES (
+    sch1.PersonOwnAccount
+      SOURCE KEY (id) REFERENCES Person (id)
+      DESTINATION KEY (account_id) REFERENCES Account (id)
+      LABEL Owns
+  );
 ```
 
 ## What's next

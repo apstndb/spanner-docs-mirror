@@ -4,6 +4,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## March 03, 2026
+
+Feature
+
+Spanner supports the `  ON CONFLICT  ` clause for GoogleSQL `  INSERT  ` statements to handle unique constraint violations. For more information, see [`  ON CONFLICT DO NOTHING  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-nothing) and [`  ON CONFLICT DO UPDATE  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-update) .
+
 ## February 26, 2026
 
 Feature

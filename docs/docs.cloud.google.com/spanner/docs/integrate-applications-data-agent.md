@@ -934,7 +934,6 @@ In this section, you create a data agent for a flight-finding application. This 
               databaseReference:
                 engine: "GOOGLE_SQL"
                 projectId: "PROJECT_ID"
-                region: "REGION_ID"
                 instanceId: "INSTANCE_ID"
                 databaseId: "DATABASE_ID"
               agentContextReference:
