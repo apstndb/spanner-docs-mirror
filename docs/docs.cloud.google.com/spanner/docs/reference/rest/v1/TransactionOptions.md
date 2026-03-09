@@ -1,6 +1,7 @@
   - [JSON representation](#SCHEMA_REPRESENTATION)
   - [ReadWrite](#ReadWrite)
       - [JSON representation](#ReadWrite.SCHEMA_REPRESENTATION)
+  - [ReadLockMode](#ReadLockMode)
   - [PartitionedDml](#PartitionedDml)
   - [ReadOnly](#ReadOnly)
       - [JSON representation](#ReadOnly.SCHEMA_REPRESENTATION)
@@ -103,6 +104,7 @@ Message type to initiate a read-write transaction. Currently this transaction ty
 <tbody>
 <tr class="odd">
 <td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+  &quot;readLockMode&quot;: enum (ReadLockMode),
   &quot;multiplexedSessionPreviousTransactionId&quot;: string
 }</code></pre></td>
 </tr>
@@ -111,6 +113,12 @@ Message type to initiate a read-write transaction. Currently this transaction ty
 
 Fields
 
+`  readLockMode  `
+
+`  enum ( ReadLockMode  ` )
+
+The read lock mode for the transaction.
+
 `  multiplexedSessionPreviousTransactionId  `
 
 `  string ( bytes format)  `
@@ -118,6 +126,32 @@ Fields
 Optional. Clients should pass the transaction ID of the previous transaction attempt that was aborted if this transaction is being executed on a multiplexed session.
 
 A base64-encoded string.
+
+## ReadLockMode
+
+`  ReadLockMode  ` is used to set the read lock mode for read-write transactions.
+
+Enums
+
+`  READ_LOCK_MODE_UNSPECIFIED  `
+
+Default value.
+
+  - If isolation level is `  SERIALIZABLE  ` , locking semantics default to `  PESSIMISTIC  ` .
+  - If isolation level is `  REPEATABLE_READ  ` , locking semantics default to `  OPTIMISTIC  ` .
+  - See [Concurrency control](https://cloud.google.com/spanner/docs/concurrency-control) for more details.
+
+`  PESSIMISTIC  `
+
+Pessimistic lock mode.
+
+Lock acquisition behavior depends on the isolation level in use. In `  SERIALIZABLE  ` isolation, reads and writes acquire necessary locks during transaction statement execution. In `  REPEATABLE_READ  ` isolation, reads that explicitly request to be locked and writes acquire locks. See [Concurrency control](https://cloud.google.com/spanner/docs/concurrency-control) for details on the types of locks acquired at each transaction step.
+
+`  OPTIMISTIC  `
+
+Optimistic lock mode.
+
+Lock acquisition behavior depends on the isolation level in use. In both `  SERIALIZABLE  ` and `  REPEATABLE_READ  ` isolation, reads and writes do not acquire locks during transaction statement execution. See [Concurrency control](https://cloud.google.com/spanner/docs/concurrency-control) for details on how the guarantees of each isolation level are provided at commit time.
 
 ## PartitionedDml
 

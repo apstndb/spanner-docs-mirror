@@ -72,7 +72,7 @@ Required. A unique identifier for the instance, which cannot be changed after th
 
 `  string  `
 
-Required. The name of the instance's configuration. Values are of the form `  projects/<project>/instanceConfigs/<configuration>  ` . See also `  InstanceConfig  ` and `  instanceConfigs.list  ` .
+Required. The name of the instance's configuration. Values are of the form `  projects/<project>/instanceConfigs/<configuration>  ` . See also `  InstanceConfig  ` and `  ListInstanceConfigs  ` .
 
 `  displayName  `
 

@@ -47,7 +47,6 @@
   - `  QueryPlan  ` (message)
   - `  ReadRequest  ` (message)
   - `  RequestOptions  ` (message)
-  - `  RequestOptions.ClientContext  ` (message)
   - `  RequestOptions.Priority  ` (enum)
   - `  ResultSet  ` (message)
   - `  ResultSetMetadata  ` (message)
@@ -62,6 +61,7 @@
   - `  TransactionOptions.PartitionedDml  ` (message)
   - `  TransactionOptions.ReadOnly  ` (message)
   - `  TransactionOptions.ReadWrite  ` (message)
+  - `  TransactionOptions.ReadWrite.ReadLockMode  ` (enum)
   - `  TransactionSelector  ` (message)
   - `  Type  ` (message)
   - `  TypeAnnotationCode  ` (enum)
@@ -2097,24 +2097,6 @@ A per-request tag which can be applied to queries or reads, used for statistics 
 
 A tag used for statistics collection about this transaction. Both `  request_tag  ` and `  transaction_tag  ` can be specified for a read or query that belongs to a transaction. To enable tagging on a transaction, `  transaction_tag  ` must be set to the same value for all requests belonging to the same transaction, including `  BeginTransaction  ` . If this request doesn't belong to any transaction, `  transaction_tag  ` is ignored. Legal characters for `  transaction_tag  ` values are all printable characters (ASCII 32 - 126) and the length of a `  transaction_tag  ` is limited to 50 characters. Values that exceed this limit are truncated. Any leading underscore (\_) characters are removed from the string.
 
-`  client_context  `
-
-`  ClientContext  `
-
-Optional. Optional context that may be needed for some requests.
-
-## ClientContext
-
-Container for various pieces of client-owned context attached to a request.
-
-Fields
-
-`  secure_context  `
-
-`  map<string, Value  ` \>
-
-Optional. Map of parameter name to value for this request. These values will be returned by any SECURE\_CONTEXT() calls invoked by this request (e.g., by queries against Parameterized Secure Views).
-
 ## Priority
 
 The relative priority for requests. Note that priority isn't applicable for `  BeginTransaction  ` .
@@ -2528,11 +2510,43 @@ Message type to initiate a read-write transaction. Currently this transaction ty
 
 Fields
 
+`  read_lock_mode  `
+
+`  ReadLockMode  `
+
+The read lock mode for the transaction.
+
 `  multiplexed_session_previous_transaction_id  `
 
 `  bytes  `
 
 Optional. Clients should pass the transaction ID of the previous transaction attempt that was aborted if this transaction is being executed on a multiplexed session.
+
+## ReadLockMode
+
+`  ReadLockMode  ` is used to set the read lock mode for read-write transactions.
+
+Enums
+
+`  READ_LOCK_MODE_UNSPECIFIED  `
+
+Default value.
+
+  - If isolation level is `  SERIALIZABLE  ` , locking semantics default to `  PESSIMISTIC  ` .
+  - If isolation level is `  REPEATABLE_READ  ` , locking semantics default to `  OPTIMISTIC  ` .
+  - See [Concurrency control](https://cloud.google.com/spanner/docs/concurrency-control) for more details.
+
+`  PESSIMISTIC  `
+
+Pessimistic lock mode.
+
+Lock acquisition behavior depends on the isolation level in use. In `  SERIALIZABLE  ` isolation, reads and writes acquire necessary locks during transaction statement execution. In `  REPEATABLE_READ  ` isolation, reads that explicitly request to be locked and writes acquire locks. See [Concurrency control](https://cloud.google.com/spanner/docs/concurrency-control) for details on the types of locks acquired at each transaction step.
+
+`  OPTIMISTIC  `
+
+Optimistic lock mode.
+
+Lock acquisition behavior depends on the isolation level in use. In both `  SERIALIZABLE  ` and `  REPEATABLE_READ  ` isolation, reads and writes do not acquire locks during transaction statement execution. See [Concurrency control](https://cloud.google.com/spanner/docs/concurrency-control) for details on how the guarantees of each isolation level are provided at commit time.
 
 ## TransactionSelector
 

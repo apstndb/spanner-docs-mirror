@@ -106,7 +106,7 @@ Fields
 
 `  string  `
 
-Required. The name of the instance partition's configuration. Values are of the form `  projects/<project>/instanceConfigs/<configuration>  ` . See also `  InstanceConfig  ` and `  instanceConfigs.list  ` .
+Required. The name of the instance partition's configuration. Values are of the form `  projects/<project>/instanceConfigs/<configuration>  ` . See also `  InstanceConfig  ` and `  ListInstanceConfigs  ` .
 
 `  instancePartition.displayName  `
 
