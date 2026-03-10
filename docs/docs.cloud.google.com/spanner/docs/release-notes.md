@@ -4,11 +4,23 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## March 04, 2026
+
+Feature
+
+You can use [continuous queries to stream BigQuery data to Spanner in real time](/bigquery/docs/export-to-spanner#export_continuously) . This feature is [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) .
+
 ## March 03, 2026
 
 Feature
 
 Spanner supports the `  ON CONFLICT  ` clause for GoogleSQL `  INSERT  ` statements to handle unique constraint violations. For more information, see [`  ON CONFLICT DO NOTHING  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-nothing) and [`  ON CONFLICT DO UPDATE  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-update) .
+
+## February 27, 2026
+
+Feature
+
+Spanner supports using the pending commit timestamp function as a default value and an `  ON UPDATE  ` expression for column definitions. For more information, see the GoogleSQL [`  ON UPDATE  ` clause](/spanner/docs/reference/standard-sql/data-definition-language#spanner-on-update) and the PostgreSQL [`  ON UPDATE  ` clause](/spanner/docs/reference/postgresql/data-definition-language#postgresql-on-update) .
 
 ## February 26, 2026
 
