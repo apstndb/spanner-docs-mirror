@@ -981,10 +981,12 @@ The following table lists the access control with IAM predefined roles, includin
 <p><code dir="ltr" translate="no">         logging.logEntries.create        </code></p>
 <p><code dir="ltr" translate="no">         run.jobs.run        </code></p>
 <p><code dir="ltr" translate="no">         run.routes.invoke        </code></p>
+<p><code dir="ltr" translate="no">         spanner.                  databases.                  beginOrRollbackReadWriteTransaction        </code></p>
 <p><code dir="ltr" translate="no">         spanner.                  databases.                  beginReadOnlyTransaction        </code></p>
 <p><code dir="ltr" translate="no">         spanner.                  databases.                  partitionQuery        </code></p>
 <p><code dir="ltr" translate="no">         spanner.databases.select        </code></p>
 <p><code dir="ltr" translate="no">         spanner.databases.useDataBoost        </code></p>
+<p><code dir="ltr" translate="no">         spanner.databases.write        </code></p>
 <p><code dir="ltr" translate="no">         spanner.sessions.create        </code></p>
 <p><code dir="ltr" translate="no">         storage.buckets.create        </code></p>
 <p><code dir="ltr" translate="no">         storage.buckets.get        </code></p>

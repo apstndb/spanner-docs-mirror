@@ -256,54 +256,38 @@ Before you begin, follow these steps using the Google Cloud CLI with the Model A
 
 #### Configure protection for Google and Google Cloud remote MCP servers
 
-To protect your MCP tool calls and responses, you create a Model Armor floor setting and then enable MCP content security for your project. A floor setting defines the minimum security filters that apply across the project. This configuration applies a consistent set of filters to all MCP tool calls and responses within the project.
+You can protect your MCP tool calls and responses by using Model Armor floor settings. A floor setting defines the minimum security filters that apply across the project. This configuration applies a consistent set of filters to all MCP tool calls and responses within the project.
 
 **Tip:** Don't enable the prompt injection and jailbreak filter unless your MCP traffic carries natural language data.
 
-1.  Set up a Model Armor floor setting with MCP sanitization enabled. For more information, see [Configure Model Armor floor settings](https://docs.cloud.google.com/model-armor/configure-floor-settings) .
-    
-    **Note:** If the agent and the MCP server are in different projects, you can create floor settings in both projects (the client project and the resource project). In this case, Model Armor is invoked twice, once for each project.
-    
-    See the following example command:
-    
-    ``` text
-    gcloud model-armor floorsettings update \
-    --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
-    --enable-floor-setting-enforcement=TRUE \
-    --add-integrated-services=GOOGLE_MCP_SERVER \
-    --google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
-    --enable-google-mcp-server-cloud-logging \
-    --malicious-uri-filter-settings-enforcement=ENABLED \
-    --add-rai-settings-filters='[{"confidenceLevel": "MEDIUM_AND_ABOVE", "filterType": "DANGEROUS"}]'
-    ```
-    
-    Replace `  PROJECT_ID  ` with your Google Cloud project ID.
-    
-    Note the following settings:
-    
-      - `  INSPECT_AND_BLOCK  ` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
-      - `  ENABLED  ` : The setting that enables a filter or enforcement.
-      - `  MEDIUM_AND_ABOVE  ` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Model Armor confidence levels](https://docs.cloud.google.com/model-armor/overview#ma-confidence-levels) .
+Set up a Model Armor floor setting with MCP sanitization enabled. For more information, see [Configure Model Armor floor settings](https://docs.cloud.google.com/model-armor/configure-floor-settings) .
 
-2.  For your project, enable Model Armor protection for remote MCP servers.
-    
-    ``` text
-    gcloud beta services mcp content-security add modelarmor.googleapis.com --project=PROJECT_ID
-    ```
-    
-    Replace `  PROJECT_ID  ` with your Google Cloud project ID. After you run this command, Model Armor sanitizes all MCP tool calls and responses from the project, regardless of where the calls and responses originate.
+**Note:** If the agent and the MCP server are in different projects, you can create floor settings in both projects (the client project and the resource project). In this case, Model Armor is invoked twice, once for each project.
 
-3.  To confirm that Google MCP traffic is sent to Model Armor, run the following command:
-    
-    ``` text
-    gcloud beta services mcp content-security get --project=PROJECT_ID
-    ```
-    
-    Replace `  PROJECT_ID  ` with the Google Cloud project ID.
+See the following example command:
+
+``` text
+gcloud model-armor floorsettings update \
+--full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
+--enable-floor-setting-enforcement=TRUE \
+--add-integrated-services=GOOGLE_MCP_SERVER \
+--google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
+--enable-google-mcp-server-cloud-logging \
+--malicious-uri-filter-settings-enforcement=ENABLED \
+--add-rai-settings-filters='[{"confidenceLevel": "MEDIUM_AND_ABOVE", "filterType": "DANGEROUS"}]'
+```
+
+Replace `  PROJECT_ID  ` with your Google Cloud project ID.
+
+Note the following settings:
+
+  - `  INSPECT_AND_BLOCK  ` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
+  - `  ENABLED  ` : The setting that enables a filter or enforcement.
+  - `  MEDIUM_AND_ABOVE  ` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Model Armor confidence levels](https://docs.cloud.google.com/model-armor/overview#ma-confidence-levels) .
 
 #### Disable scanning MCP traffic with Model Armor
 
-If you want to use Model Armor in a project, and you want to stop scanning Google MCP traffic with Model Armor, run the following command:
+If you want to stop scanning Google MCP traffic with Model Armor, run the following command:
 
 ``` text
 gcloud model-armor floorsettings update \

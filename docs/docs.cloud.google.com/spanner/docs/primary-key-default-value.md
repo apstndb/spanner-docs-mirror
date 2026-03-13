@@ -181,7 +181,7 @@ In Spanner, you use `  SEQUENCE  ` DDL statements along with the `  bit_reversed
 
 Each sequence maintains a set of internal counters and uses them to generate a value. The sequence counter provides the input to the bit-reversing algorithm.
 
-When you define a column with a `  DEFAULT  ` expression that uses the GoogleSQL `  GET-NEXT-SEQUENCE-VALUE  ` or the PostgreSQL `  nextval  ` function as its default value, Spanner automatically calls the function and puts the bit-reversed output values into the column. Bit-reversed sequences are especially useful for primary keys, because bit-reversed values are evenly distributed across the key space so that they don't cause hotspots.
+When you define a column with a `  DEFAULT  ` expression that uses the GoogleSQL `  GET_NEXT_SEQUENCE_VALUE  ` or the PostgreSQL `  nextval  ` function as its default value, Spanner automatically calls the function and puts the bit-reversed output values into the column. Bit-reversed sequences are especially useful for primary keys, because bit-reversed values are evenly distributed across the key space so that they don't cause hotspots.
 
 The following example shows how to create a bit-reversed sequence and a table where its key column uses the sequence as the default value:
 
