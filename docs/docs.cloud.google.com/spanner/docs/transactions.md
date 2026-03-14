@@ -24,7 +24,7 @@ A read-write transaction consists of zero or more reads or query statements foll
 
 ### Serializable isolation
 
-Using the default serializable isolation level, read-write transactions atomically read, modify, and write data. This type of transaction is [externally consistent](/spanner/docs/true-time-external-consistency) .
+Using the default serializable isolation level with [pessimistic concurrency](/spanner/docs/concurrency-control#pessimistic_concurrency_control) , read-write transactions atomically read, modify, and write data. This type of transaction is [externally consistent](/spanner/docs/true-time-external-consistency) .
 
 When you use read-write transactions, we recommend that you minimize the time that a transaction is active. Shorter transaction durations result in locks being held for less time, which increases the probability of a successful commit and reduces contention. This is because long-held locks can lead to deadlocks and transaction aborts. Spanner attempts to keep read locks active as long as the transaction continues to perform reads and the transaction has not terminated through commit or roll back. If the client remains inactive for long periods of time, Spanner might release the transaction's locks and abort the transaction.
 
@@ -38,15 +38,19 @@ To perform read operations, use a single read method or read-only transaction:
 
   - If you're only performing read operations, and you can express the read operation using a [single read method](/spanner/docs/reads#single_read_methods) , use the single read method or a read-only transaction. Unlike read-write transactions, single reads don't acquire locks.
 
+Alternatively, you can also configure serializable isolation to use [optimistic concurrency](/spanner/docs/concurrency-control#optimistic_concurrency_control) . Optimistic concurrency control assumes conflicts are rare. Reads and queries even within a read-write transaction proceed without acquiring locks. With serializable isolation, reads are validated at commit time. This ensures that no other concurrently committed transaction modified the data previously read by the transaction.
+
 ### Repeatable read isolation
 
 **Preview — Repeatable read isolation**
 
 This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
+**Note:** Spanner doesn't support using pessimistic concurrency control with repeatable read isolation.
+
 In Spanner, [repeatable read isolation](/spanner/docs/isolation-levels#repeatable-read) is implemented using a technique known as snapshot isolation. Repeatable read isolation ensures that all read operations within a transaction are consistent with the database as it existed at the start of the transaction. It also guarantees that concurrent writes on the same data only succeed if there are no conflicts.
 
-With its default optimistic locking, no locks are acquired until commit time if data needs to be written. If there is a conflict with the written data or due to transient events within Spanner like a server restart, Spanner might still abort transactions. Because reads in read-write transactions don't acquire locks in repeatable read isolation, there is no difference between executing read-only operations within a read-only transaction or read-write transaction.
+With its default [optimistic concurrency](/spanner/docs/concurrency-control#optimistic_concurrency_control) , no locks are acquired until commit time if data needs to be written. If there is a conflict with the written data or due to transient events within Spanner like a server restart, Spanner might still abort transactions. Because reads in read-write transactions don't acquire locks in repeatable read isolation, there is no difference between executing read-only operations within a read-only transaction or read-write transaction.
 
 Consider using read-write transactions in repeatable read isolation in the following scenarios:
 

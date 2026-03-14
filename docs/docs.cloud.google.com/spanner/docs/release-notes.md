@@ -4,6 +4,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## March 10, 2026
+
+Feature
+
+Spanner supports the optimistic concurrency control mode. Optimistic concurrency control is suitable for transactional workloads with low read-write contention. It assumes that conflicts in transactions are rare. Reads and queries within a read-write transaction proceed without acquiring locks. For more information, see [Concurrency control](/spanner/docs/concurrency-control) .
+
 ## March 04, 2026
 
 Feature

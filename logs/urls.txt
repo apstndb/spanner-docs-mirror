@@ -308,6 +308,7 @@ https://docs.cloud.google.com/spanner/docs/commit-statistics
 https://docs.cloud.google.com/spanner/docs/commit-timestamp
 https://docs.cloud.google.com/spanner/docs/commit-timestamp-postgresql
 https://docs.cloud.google.com/spanner/docs/compute-capacity
+https://docs.cloud.google.com/spanner/docs/concurrency-control
 https://docs.cloud.google.com/spanner/docs/configure-columnar-engine
 https://docs.cloud.google.com/spanner/docs/configure-fgac
 https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance

@@ -1,5 +1,7 @@
 This document describes how to use Spanner lock statistics built-in tables to identify the row keys and table columns that caused transaction lock conflicts in your database during a specific time period. You can retrieve statistics from these `  SPANNER_SYS.LOCK_STATS*  ` tables using SQL statements.
 
+If your transactions use [optimistic concurrency control](/spanner/docs/concurrency-control) , then lock statistics aren't available because locks aren't acquired during the execution of the transaction.
+
 ## Access lock statistics
 
 Spanner provides the lock statistics in the `  SPANNER_SYS  ` schema. You can use the following ways to access `  SPANNER_SYS  ` data:
@@ -627,7 +629,7 @@ To resolve the lock conflict, you can do the following:
 
 ### Apply best practices to reduce lock contention
 
-In our example scenario, we were able to use lock statistics and transaction statistics to narrow down our problem to a transaction that wasn't using the primary key of our table when making updates. We came up with ideas to improve the transaction based on whether we knew the keys of the rows we wanted to update beforehand or not.
+In our example scenario, we used lock statistics and transaction statistics to narrow down our problem to a transaction that wasn't using the primary key our table when making updates. We came up with ideas to improve the transaction based on whether we knew the keys of the rows we wanted to update beforehand or not.
 
 When looking at potential issues in your solution, or even when designing your solution, consider these best practices to reduce the number of lock conflicts in your database.
 
@@ -648,6 +650,8 @@ When looking at potential issues in your solution, or even when designing your s
   - Minimize API calls in a read-write transaction. The latency of API calls might lead to lock contention in Spanner, as API calls are subject to network delays as well as service-side delays. We recommend making API calls outside of read-write transactions whenever possible. If you must execute API calls inside a read-write transaction, make sure to monitor the latency of your API calls to minimize the impact on the lock acquisition period.
 
   - Follow [schema design best practices](/spanner/docs/schema-design) .
+
+  - Consider using optimistic concurrency control for transactional workloads with low read-write contention. For more information about the suitability of your workload for using optimistic locking, see [Optimistic concurrency control](/spanner/docs/concurrency-control#optimistic_concurrency_control) .
 
 ## What's next
 

@@ -139,31 +139,36 @@ For change streams, if the transaction involved writes to columns and tables wat
 <td>Total number of transaction attempts initiated with the <a href="/spanner/docs/isolation-levels#serializable"><code dir="ltr" translate="no">        SERIALIZABLE       </code> isolation level</a> and <code dir="ltr" translate="no">       PESSIMISTIC      </code> locking. It's a subset of <code dir="ltr" translate="no">       ATTEMPT_COUNT      </code> .</td>
 </tr>
 <tr class="odd">
+<td><code dir="ltr" translate="no">       SERIALIZABLE_OPTIMISTIC_TXN_COUNT      </code></td>
+<td><code dir="ltr" translate="no">       INT64      </code></td>
+<td>Total number of transaction attempts initiated with the <a href="/spanner/docs/isolation-levels#serializable"><code dir="ltr" translate="no">        SERIALIZABLE       </code> isolation level</a> and <code dir="ltr" translate="no">       OPTIMISTIC      </code> locking. It's a subset of <code dir="ltr" translate="no">       ATTEMPT_COUNT      </code> .</td>
+</tr>
+<tr class="even">
 <td><code dir="ltr" translate="no">       REPEATABLE_READ_OPTIMISTIC_TXN_COUNT      </code></td>
 <td><code dir="ltr" translate="no">       INT64      </code></td>
 <td>Total number of transaction attempts initiated with the <a href="/spanner/docs/isolation-levels#repeatable-read"><code dir="ltr" translate="no">        REPEATABLE READ       </code> isolation level</a> and <code dir="ltr" translate="no">       OPTIMISTIC      </code> locking. It's a subset of <code dir="ltr" translate="no">       ATTEMPT_COUNT      </code> .</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">       AVG_PARTICIPANTS      </code></td>
 <td><code dir="ltr" translate="no">       FLOAT64      </code></td>
 <td>Average number of participants in each commit attempt. To learn more about participants, see <a href="/spanner/docs/whitepapers/life-of-reads-and-writes">Life of Spanner Reads &amp; Writes</a> .</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">       AVG_TOTAL_LATENCY_SECONDS      </code></td>
 <td><code dir="ltr" translate="no">       FLOAT64      </code></td>
 <td>Average seconds taken from the first operation of the transaction to commit/abort.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">       AVG_COMMIT_LATENCY_SECONDS      </code></td>
 <td><code dir="ltr" translate="no">       FLOAT64      </code></td>
 <td>Average seconds taken to perform the commit operation.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">       AVG_BYTES      </code></td>
 <td><code dir="ltr" translate="no">       FLOAT64      </code></td>
 <td>Average number of bytes written by the transaction.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">       TOTAL_LATENCY_DISTRIBUTION      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&gt;      </code></td>
 <td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time, for all attempts of a transaction.</p>
@@ -175,7 +180,7 @@ For more information about the values, see <a href="/monitoring/api/ref_v3/rest/
 <p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="#example-percentile-latency">Find the 99th percentile latency for transactions</a> .</p>
 <p>For more information, see <a href="/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">       OPERATIONS_BY_TABLE      </code></td>
 <td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&gt;      </code></td>
 <td><p>Impact of <code dir="ltr" translate="no">        INSERT       </code> or <code dir="ltr" translate="no">        UPDATE       </code> operations by the transaction on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
@@ -184,7 +189,7 @@ For more information about the values, see <a href="/monitoring/api/ref_v3/rest/
 <p>Specify the array as follows:<br />
 <code dir="ltr" translate="no">        ARRAY&lt;STRUCT&lt;                TABLE STRING(MAX),                INSERT_OR_UPDATE_COUNT INT64,                INSERT_OR_UPDATE_BYTES INT64&gt;&gt;       </code></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">       TOTAL_LATENCY_DISTRIBUTION_JSON_STRING      </code></td>
 <td><code dir="ltr" translate="no">       STRING      </code></td>
 <td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time, for all attempts of a transaction.</p>
@@ -194,7 +199,7 @@ For more information about the values, see <a href="/monitoring/api/ref_v3/rest/
 <p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">        SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)       </code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="#example-percentile-latency">Find the 99th percentile latency for transactions using the <code dir="ltr" translate="no">         TOTAL_LATENCY_DISTRIBUTION_JSON_STRING        </code></a> column.</p>
 <p>For more information, see <a href="/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">       OPERATIONS_BY_TABLE_JSON_STRING      </code></td>
 <td><code dir="ltr" translate="no">       STRING      </code></td>
 <td><p>Impact of <code dir="ltr" translate="no">        INSERT       </code> or <code dir="ltr" translate="no">        UPDATE       </code> operations by the transaction on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
