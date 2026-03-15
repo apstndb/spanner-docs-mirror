@@ -71,21 +71,21 @@ This feature is [generally available (GA)](/products#product-launch-stages) .
 
 ## February 17, 2026
 
-Announcement
-
-New best practices are available for securing generative AI agents using Model Context Protocol (MCP) with Google Cloud databases. This guide covers key security measures like least privilege, native database controls, and secure agent design to help you build safer AI applications. For more information, see [Best practices for securing agent interactions with Model Context Protocol](/spanner/docs/secure-agent-interactions-mcp) .
-
-This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
-
-Change
-
-After March 17, 2026, when you enable Spanner, the Spanner MCP server is automatically enabled.
-
 Deprecated
 
 Control of MCP use with organization policies is deprecated. After March 17, 2026, organization policies that use the `  gcp.managed.allowedMCPServices  ` constraint won't work, and you can control MCP use with IAM deny policies.
 
 For more information about controlling MCP use, see [Control MCP use with IAM](/mcp/control-mcp-use-iam) .
+
+Change
+
+After March 17, 2026, when you enable Spanner, the Spanner MCP server is automatically enabled.
+
+Announcement
+
+New best practices are available for securing generative AI agents using Model Context Protocol (MCP) with Google Cloud databases. This guide covers key security measures like least privilege, native database controls, and secure agent design to help you build safer AI applications. For more information, see [Best practices for securing agent interactions with Model Context Protocol](/spanner/docs/secure-agent-interactions-mcp) .
+
+This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
 
 ## February 10, 2026
 
@@ -1160,6 +1160,10 @@ Spanner Graph lets you model schemaless data with a dynamic label and properties
 
 ## April 30, 2025
 
+Feature
+
+The `  enhance_query  ` option on the [`  SEARCH  `](/spanner/docs/reference/standard-sql/search_functions#search_fulltext) , [`  SCORE  `](/spanner/docs/reference/standard-sql/search_functions#score) , and [`  SNIPPET  `](/spanner/docs/reference/standard-sql/search_functions#snippet) functions provides automatic synonym matching and spell correction of single words, by default. Previously, if you provided a single word as the search string it likely didn't return any matches and required a phrase with context to perform the enhanced search.
+
 Libraries
 
 A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
@@ -1263,10 +1267,6 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
   - Adding span attributes for request tag and transaction tag ( [\#2236](https://github.com/googleapis/nodejs-spanner/issues/2236) ) ( [3f69dad](https://github.com/googleapis/nodejs-spanner/commit/3f69dad36cfdeb4effd191e0d38079ead1bd6654) )
 
-Feature
-
-The `  enhance_query  ` option on the [`  SEARCH  `](/spanner/docs/reference/standard-sql/search_functions#search_fulltext) , [`  SCORE  `](/spanner/docs/reference/standard-sql/search_functions#score) , and [`  SNIPPET  `](/spanner/docs/reference/standard-sql/search_functions#snippet) functions provides automatic synonym matching and spell correction of single words, by default. Previously, if you provided a single word as the search string it likely didn't return any matches and required a phrase with context to perform the enhanced search.
-
 ## April 28, 2025
 
 Feature
@@ -1291,11 +1291,11 @@ End-to-end tracing is generally available ( [GA](https://cloud.google.com/produc
 
 Feature
 
-Spanner offers Cassandra compatibility with API support and migration tools allowing seamless lift-and-shift migrations of Cassandra applications. For more information, see [Migrate from Cassandra to Spanner](/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) .
+You can use Gemini assistance to help you use system insights to optimize and troubleshoot Spanner resources. For more information, see [Optimize and troubleshoot with Gemini assistance](/spanner/docs/observe-troubleshoot-with-gemini) .
 
 Feature
 
-You can use Gemini assistance to help you use system insights to optimize and troubleshoot Spanner resources. For more information, see [Optimize and troubleshoot with Gemini assistance](/spanner/docs/observe-troubleshoot-with-gemini) .
+Spanner offers Cassandra compatibility with API support and migration tools allowing seamless lift-and-shift migrations of Cassandra applications. For more information, see [Migrate from Cassandra to Spanner](/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) .
 
 ## April 04, 2025
 
@@ -1550,10 +1550,6 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner ANN indexes are supported in Langchain. For more information, see [LangChain Quickstart for Spanner](https://github.com/googleapis/langchain-google-spanner-python/blob/main/samples/langchain_quick_start.ipynb) .
-
-Feature
-
 Spanner vector index and approximate nearest neighbor (ANN) distance functions in the GoogleSQL-dialect are Generally Available. If you have a table with a large amount of vector data, you can use a vector index to accelerate similarity searches and nearest neighbor queries. Spanner also supports the following:
 
   - [`  ALTER VECTOR INDEX  `](/spanner/docs/reference/standard-sql/data-definition-language#alter-vector-index) DDL syntax
@@ -1562,6 +1558,10 @@ Spanner vector index and approximate nearest neighbor (ANN) distance functions i
   - Use ANN in instances smaller than one node or 1000 processing units
 
 For more information, see [Find approximate nearest neighbors, create vector indexes, and query vector embeddings](/spanner/docs/find-approximate-nearest-neighbors) .
+
+Feature
+
+Spanner ANN indexes are supported in Langchain. For more information, see [LangChain Quickstart for Spanner](https://github.com/googleapis/langchain-google-spanner-python/blob/main/samples/langchain_quick_start.ipynb) .
 
 ## March 27, 2025
 
@@ -1589,14 +1589,14 @@ You can use [`  EXPORT DATA  ` statements](/bigquery/docs/reference/standard-sql
 
 Feature
 
+Tiered storage is Generally Available in Spanner. Tiered storage is a fully-managed feature that lets you store your data across solid-state drives (SSD) or hard disk drives (HDD). Using tiered storage lets you take advantage of both SSD storage, which supports the high performance of active data, and HDD storage, which supports infrequent data access at a lower cost. For more information, see [Tiered storage](/spanner/docs/tiered-storage) .
+
+Feature
+
 The following LangChain solutions can be used with Spanner Graph:
 
   - Graph store for Spanner: Use to retrieve and store nodes and edges from a graph database. For more information, see [Graph store for Spanner](/spanner/docs/langchain#graph-store) .
   - Graph QA chain for Spanner: Uses a graph to answer questions. For more information, see [Graph QA chain for Spanner](/spanner/docs/langchain#graph-qa) .
-
-Feature
-
-Tiered storage is Generally Available in Spanner. Tiered storage is a fully-managed feature that lets you store your data across solid-state drives (SSD) or hard disk drives (HDD). Using tiered storage lets you take advantage of both SSD storage, which supports the high performance of active data, and HDD storage, which supports infrequent data access at a lower cost. For more information, see [Tiered storage](/spanner/docs/tiered-storage) .
 
 ## March 04, 2025
 
@@ -1895,11 +1895,11 @@ A fix for this issue has been included in version [7.17.1](https://github.com/go
 
 Feature
 
-Spanner supports [`  SERIAL  `](/spanner/docs/reference/postgresql/data-types#serial-types) and [`  AUTO_INCREMENT  `](/spanner/docs/reference/standard-sql/data-definition-language#table_statements) DDL syntax. `  SERIAL  ` is available in PostgreSQL-dialect databases and `  AUTO_INCREMENT  ` is available in GoogleSQL. They streamline the ability to generate `  IDENTITY  ` columns as primary keys. For more information, see [`  SERIAL  ` and `  AUTO_INCREMENT  `](/spanner/docs/primary-key-default-value#serial-auto-increment) .
+The Spanner index advisor is Generally Available in GoogleSQL and PostgreSQL-dialect databases. The index advisor analyzes your queries to recommend new indexes or changes to existing indexes to improve the performance of your queries. For more information, see [Use the Spanner index advisor](/spanner/docs/index-advisor) .
 
 Feature
 
-The Spanner index advisor is Generally Available in GoogleSQL and PostgreSQL-dialect databases. The index advisor analyzes your queries to recommend new indexes or changes to existing indexes to improve the performance of your queries. For more information, see [Use the Spanner index advisor](/spanner/docs/index-advisor) .
+Spanner supports [`  SERIAL  `](/spanner/docs/reference/postgresql/data-types#serial-types) and [`  AUTO_INCREMENT  `](/spanner/docs/reference/standard-sql/data-definition-language#table_statements) DDL syntax. `  SERIAL  ` is available in PostgreSQL-dialect databases and `  AUTO_INCREMENT  ` is available in GoogleSQL. They streamline the ability to generate `  IDENTITY  ` columns as primary keys. For more information, see [`  SERIAL  ` and `  AUTO_INCREMENT  `](/spanner/docs/primary-key-default-value#serial-auto-increment) .
 
 ## January 28, 2025
 
@@ -2442,10 +2442,6 @@ You can create an [external dataset](/bigquery/docs/spanner-external-datasets) i
 
 Feature
 
-The `  FLOAT32  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](/spanner/docs/reference/postgresql/data-types#supported) ) data types are Generally Available.
-
-Feature
-
 You can perform vector similarity search using the Generally Available K-nearest neighbors (KNN) vector distance functions:
 
   - `  COSINE_DISTANCE()  `
@@ -2453,6 +2449,10 @@ You can perform vector similarity search using the Generally Available K-nearest
   - `  DOT_PRODUCT()  `
 
 For more information, see [Perform vector similarity search in Spanner by finding the K-nearest neighbors](/spanner/docs/find-k-nearest-neighbors) .
+
+Feature
+
+The `  FLOAT32  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](/spanner/docs/reference/postgresql/data-types#supported) ) data types are Generally Available.
 
 ## October 01, 2024
 
@@ -2747,15 +2747,15 @@ The following [multi-region instance configuration](/spanner/docs/instance-confi
 
 Feature
 
-Spanner full-text search ( [Preview](https://cloud.google.com/products#product-launch-stages) ) lets you search a table to find words, phrases, or integers, instead of just searching for exact matches in structured fields. Spanner full-text search capabilities also include making spelling corrections, automating language detection of search input, and ranking search results. To learn more, see the [Full-text search overview](/spanner/docs/full-text-search) .
-
-Feature
-
 Spanner offers Spanner Graph in [Preview](https://cloud.google.com/products#product-launch-stages) , which unites purpose-built graph database capabilities with Spanner. Spanner Graph includes a graph query interface compatible with the ISO Spanner Graph Language (GQL) standards, and interoperability between relational and graph models. For more information, see the following:
 
   - [Set up and query Spanner Graph using the Google Cloud console](/spanner/docs/graph/set-up)
   - [Spanner Graph overview](/spanner/docs/graph/overview)
   - [Spanner Graph Language reference](/spanner/docs/reference/standard-sql/graph-intro)
+
+Feature
+
+Spanner full-text search ( [Preview](https://cloud.google.com/products#product-launch-stages) ) lets you search a table to find words, phrases, or integers, instead of just searching for exact matches in structured fields. Spanner full-text search capabilities also include making spelling corrections, automating language detection of search input, and ranking search results. To learn more, see the [Full-text search overview](/spanner/docs/full-text-search) .
 
 ## July 31, 2024
 
@@ -2859,7 +2859,14 @@ Spanner includes the `  JSON_ARRAY()  ` and `  JSON_OBJECT()  ` functions for bu
 
 Feature
 
-Spanner supports the GoogleSQL `  PDML_MAX_PARALLELISM  ` statement-level hint. For more information, see [Statement hints](/spanner/docs/reference/standard-sql/dml-syntax#statement_hints) .
+Spanner supports the following GoogleSQL JSON functions:
+
+  - [`  BOOL_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json) : Converts a JSON array of booleans to a SQL `  ARRAY<BOOL>  ` value.
+  - [`  FLOAT32  `](/spanner/docs/reference/standard-sql/json_functions#float_for_json) : Converts a JSON number to a SQL `  FLOAT32  ` value.
+  - [`  FLOAT32_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#float_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT32>  ` value.
+  - [`  FLOAT64_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#double_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT64>  ` value.
+  - [`  INT64_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json) : Converts a JSON array of numbers to a SQL `  INT64_ARRAY  ` value.
+  - [`  STRING_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#string_array_for_json) : Converts a JSON array of strings to a SQL `  ARRAY<STRING>  ` value.
 
 Feature
 
@@ -2876,14 +2883,7 @@ For more information, see [JSONB functions](/spanner/docs/reference/postgresql/f
 
 Feature
 
-Spanner supports the following GoogleSQL JSON functions:
-
-  - [`  BOOL_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json) : Converts a JSON array of booleans to a SQL `  ARRAY<BOOL>  ` value.
-  - [`  FLOAT32  `](/spanner/docs/reference/standard-sql/json_functions#float_for_json) : Converts a JSON number to a SQL `  FLOAT32  ` value.
-  - [`  FLOAT32_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#float_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT32>  ` value.
-  - [`  FLOAT64_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#double_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT64>  ` value.
-  - [`  INT64_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json) : Converts a JSON array of numbers to a SQL `  INT64_ARRAY  ` value.
-  - [`  STRING_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#string_array_for_json) : Converts a JSON array of strings to a SQL `  ARRAY<STRING>  ` value.
+Spanner supports the GoogleSQL `  PDML_MAX_PARALLELISM  ` statement-level hint. For more information, see [Statement hints](/spanner/docs/reference/standard-sql/dml-syntax#statement_hints) .
 
 Feature
 
@@ -2917,11 +2917,11 @@ You can use [`  EXPORT DATA  `](/bigquery/docs/reference/standard-sql/other-stat
 
 Feature
 
-Spanner allows privileged users to cancel long-running queries. For more information, see [GoogleSQL Query cancellation](/spanner/docs/reference/standard-sql/stored-procedures#query-cancellation) or [PostgreSQL Query cancellation](/spanner/docs/reference/postgresql/stored-procedures-pg#query-cancellation) .
+Multiplexed sessions are generally available. Multiplexed session is a new session management model which simplifies the pool management in clients. For more information, see [Multiplexed sessions](/spanner/docs/sessions#multiplexed_sessions) .
 
 Feature
 
-Multiplexed sessions are generally available. Multiplexed session is a new session management model which simplifies the pool management in clients. For more information, see [Multiplexed sessions](/spanner/docs/sessions#multiplexed_sessions) .
+Spanner allows privileged users to cancel long-running queries. For more information, see [GoogleSQL Query cancellation](/spanner/docs/reference/standard-sql/stored-procedures#query-cancellation) or [PostgreSQL Query cancellation](/spanner/docs/reference/postgresql/stored-procedures-pg#query-cancellation) .
 
 ## June 28, 2024
 
@@ -3132,17 +3132,13 @@ Spanner supports the following columns in the `  SPANNER_SYS  ` [query statistic
 
 Feature
 
-Spanner supports the `  read_request_latencies_by_change_stream  ` metric in Cloud Monitoring. Use this metric to view all read latencies and filter latencies by change stream or non-change stream reads. For more information, see [Available charts and metrics](/spanner/docs/monitoring-console#charts-metrics) .
-
-Feature
-
 Vector length annotation is generally available. For more information, see the [PostgreSQL vector length parameter](/spanner/docs/reference/postgresql/data-types#array-extensions) or the [GoogleSQL `  vector_length  ` parameter](/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
 
-## April 30, 2024
-
 Feature
 
-Through self-service and with zero downtime, you can add and remove read-only replicas in base instance configurations and move your Spanner instance to a different instance configuration. For more information, see [Move an instance](/spanner/docs/move-instance) .
+Spanner supports the `  read_request_latencies_by_change_stream  ` metric in Cloud Monitoring. Use this metric to view all read latencies and filter latencies by change stream or non-change stream reads. For more information, see [Available charts and metrics](/spanner/docs/monitoring-console#charts-metrics) .
+
+## April 30, 2024
 
 Feature
 
@@ -3152,6 +3148,10 @@ Spanner supports the following for PostgreSQL arrays:
   - [Array slices](/spanner/docs/reference/postgresql/data-types#array_slices)
   - [`  ANY  ` , `  SOME  ` , and `  ALL  ` array comparison operators](/spanner/docs/reference/postgresql/functions-and-operators#array_comparisons)
   - [`  arrayoverlap  ` , `  arraycontains  ` , and `  arraycontained  ` functions and their operators](/spanner/docs/reference/postgresql/functions-and-operators#array_operators)
+
+Feature
+
+Through self-service and with zero downtime, you can add and remove read-only replicas in base instance configurations and move your Spanner instance to a different instance configuration. For more information, see [Move an instance](/spanner/docs/move-instance) .
 
 Libraries
 
@@ -3272,6 +3272,42 @@ To learn how to enable and activate Gemini in Databases, see [Set up Gemini in D
 
 Feature
 
+Spanner supports using LangChain with the vector store, document loader, and chat message history objects. For more information, see [Build LLM-powered applications using LangChain](/spanner/docs/langchain) .
+
+Feature
+
+Spanner supports the `  dot_product()  ` function (in [Preview](https://cloud.google.com/products#product-launch-stages) ). For more information, see [Choose among vector distance functions to measure vector embeddings similarity](/spanner/docs/choose-vector-distance-function) .
+
+Feature
+
+Spanner GoogleSQL supports [`  SAFE.ML.PREDICT()  `](/spanner/docs/ml#ml-functions) , which lets you to return a `  null  ` instead of an error in your predictions.
+
+Feature
+
+Spanner supports the use of [Gemini](/gemini/docs/databases/overview) models with GoogleSQL and PostgreSQL [machine learning prediction functions](/spanner/docs/ml#ml-functions) (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
+
+Feature
+
+Spanner supports the `  float32  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](/spanner/docs/reference/postgresql/data-types#supported) ) data type (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
+
+Feature
+
+Spanner has extended the array data type with the `  VECTOR LENGTH  ` parameter (in [Preview](https://cloud.google.com/products#product-launch-stages) ). This optional parameter sets an array to a fixed size for use in a vector search. For more information, see the [PostgreSQL `  array  ` data type](/spanner/docs/reference/postgresql/data-types#array) or the [GoogleSQL `  array  ` data type](/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
+
+Feature
+
+You can [generate ML predictions using the Spanner emulator](/spanner/docs/ml-emulator) with GoogleSQL and PostgreSQL.
+
+Feature
+
+Spanner supports the `  ML_PREDICT_ROW()  ` function for PostgreSQL. You can use this function to generate predictions using SQL. To learn more about this function and how to use it, see [Using Spanner Vertex AI integration functions](/spanner/docs/ml#ml-functions) .
+
+Feature
+
+You can generate and backfill vector embeddings for textual data ( `  STRING  ` or `  JSON  ` ) stored in Spanner using GoogleSQL partitioned DML and the Vertex AI `  textembedding-gecko  ` model. For more information, see [Generate vector embeddings for textual data in bulk using partitioned DML](/spanner/docs/backfill-embeddings) .
+
+Feature
+
 Spanner supports the following PostgreSQL `  JSONB  ` functions:
 
   - `  spanner.jsonb_query_array()  `
@@ -3282,47 +3318,11 @@ The PostgreSQL `  CONCAT()  ` function also supports more than 4 arguments.
 
 For more information, see [Supported PostgreSQL functions](/spanner/docs/reference/postgresql/functions-and-operators#jsonb) .
 
-Feature
-
-You can generate and backfill vector embeddings for textual data ( `  STRING  ` or `  JSON  ` ) stored in Spanner using GoogleSQL partitioned DML and the Vertex AI `  textembedding-gecko  ` model. For more information, see [Generate vector embeddings for textual data in bulk using partitioned DML](/spanner/docs/backfill-embeddings) .
-
-Feature
-
-Spanner supports the `  ML_PREDICT_ROW()  ` function for PostgreSQL. You can use this function to generate predictions using SQL. To learn more about this function and how to use it, see [Using Spanner Vertex AI integration functions](/spanner/docs/ml#ml-functions) .
-
-Feature
-
-You can [generate ML predictions using the Spanner emulator](/spanner/docs/ml-emulator) with GoogleSQL and PostgreSQL.
-
-Feature
-
-Spanner has extended the array data type with the `  VECTOR LENGTH  ` parameter (in [Preview](https://cloud.google.com/products#product-launch-stages) ). This optional parameter sets an array to a fixed size for use in a vector search. For more information, see the [PostgreSQL `  array  ` data type](/spanner/docs/reference/postgresql/data-types#array) or the [GoogleSQL `  array  ` data type](/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
-
-Feature
-
-Spanner supports the `  float32  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](/spanner/docs/reference/postgresql/data-types#supported) ) data type (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
-
-Feature
-
-Spanner supports the use of [Gemini](/gemini/docs/databases/overview) models with GoogleSQL and PostgreSQL [machine learning prediction functions](/spanner/docs/ml#ml-functions) (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
-
-Feature
-
-Spanner GoogleSQL supports [`  SAFE.ML.PREDICT()  `](/spanner/docs/ml#ml-functions) , which lets you to return a `  null  ` instead of an error in your predictions.
-
-Feature
-
-Spanner supports the `  dot_product()  ` function (in [Preview](https://cloud.google.com/products#product-launch-stages) ). For more information, see [Choose among vector distance functions to measure vector embeddings similarity](/spanner/docs/choose-vector-distance-function) .
-
-Feature
-
-Spanner supports using LangChain with the vector store, document loader, and chat message history objects. For more information, see [Build LLM-powered applications using LangChain](/spanner/docs/langchain) .
-
 ## April 08, 2024
 
 Feature
 
-You can add a [table modification type filter](/spanner/docs/change-streams#mod-type-filter) to your Spanner [change streams](/spanner/docs/change-streams) to exclude `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` table modifications.
+You can add a [time to live (TTL)-based deletes filter](/spanner/docs/change-streams#ttl-filter) to your Spanner [change streams](/spanner/docs/change-streams) using the `  exclude_ttl_deletes  ` option.
 
 Feature
 
@@ -3330,7 +3330,7 @@ Spanner [change streams](/spanner/docs/change-streams) support a [value capture 
 
 Feature
 
-You can add a [time to live (TTL)-based deletes filter](/spanner/docs/change-streams#ttl-filter) to your Spanner [change streams](/spanner/docs/change-streams) using the `  exclude_ttl_deletes  ` option.
+You can add a [table modification type filter](/spanner/docs/change-streams#mod-type-filter) to your Spanner [change streams](/spanner/docs/change-streams) to exclude `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` table modifications.
 
 ## March 29, 2024
 
@@ -3471,13 +3471,13 @@ A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
 
 ## March 26, 2024
 
-Feature
-
-You can optimize your writes by setting the maximum delay time of your Spanner write requests between 0 and 500 milliseconds. For more information, see [Throughput optimized writes](/spanner/docs/throughput-optimized-writes) .
-
 Announcement
 
 Duet AI in Google Cloud is now Gemini. See our [blog post](https://blog.google/technology/ai/google-gemini-update-sundar-pichai-2024/) for more information.
+
+Feature
+
+You can optimize your writes by setting the maximum delay time of your Spanner write requests between 0 and 500 milliseconds. For more information, see [Throughput optimized writes](/spanner/docs/throughput-optimized-writes) .
 
 ## March 20, 2024
 
@@ -3725,10 +3725,6 @@ The `  information_schema.columns.spanner_type  ` and `  information_schema.inde
 
 ## January 31, 2024
 
-Feature
-
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Johannesburg, South Africa ( `  africa-south1  ` ).
-
 Libraries
 
 A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
@@ -3813,6 +3809,10 @@ A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
 ##### Documentation
 
   - Minor formatting ( [498dba2](https://github.com/googleapis/python-spanner/commit/498dba26a7c1a1cb710a92c0167272ff5c0eef27) )
+
+Feature
+
+You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Johannesburg, South Africa ( `  africa-south1  ` ).
 
 ## January 30, 2024
 
@@ -4030,11 +4030,11 @@ Spanner emulator support for the PostgreSQL dialect is generally available. To l
 
 Feature
 
-Spanner supports Hibernate ORM 6.3 in GoogleSQL Hibernate dialect. For more information, see [Integrate Spanner with Hibernate ORM (GoogleSQL dialect)](/spanner/docs/use-hibernate) .
+Spanner supports automatic cleanup of long running transactions (in Preview). To enhable this feature, use the Java or Go client library to automatically remove long running transactions that might cause session leaks and receive warning logs about problematic transactions. For more information, see [Automatic cleanup of session leaks](/spanner/docs/sessions#automatic_cleanup_of_session_leaks) .
 
 Feature
 
-Spanner supports automatic cleanup of long running transactions (in Preview). To enhable this feature, use the Java or Go client library to automatically remove long running transactions that might cause session leaks and receive warning logs about problematic transactions. For more information, see [Automatic cleanup of session leaks](/spanner/docs/sessions#automatic_cleanup_of_session_leaks) .
+Spanner supports Hibernate ORM 6.3 in GoogleSQL Hibernate dialect. For more information, see [Integrate Spanner with Hibernate ORM (GoogleSQL dialect)](/spanner/docs/use-hibernate) .
 
 ## November 15, 2023
 
@@ -4902,11 +4902,11 @@ Spanner sampled query plans are available in Preview. You can view samples of hi
 
 Feature
 
-The following [multi-region instance configurations](/spanner/docs/instance-configurations#available-configurations-multi-region) are available in North America: `  nam14  ` (Northern Virginia/Montréal/South Carolina) and `  nam15  ` (Dallas/Northern Virginia/Iowa).
+The number of indexes per table that Spanner supports increased from 32 to 128. For more information, see [Quotas & limits](/spanner/quotas#indexes) .
 
 Feature
 
-The number of indexes per table that Spanner supports increased from 32 to 128. For more information, see [Quotas & limits](/spanner/quotas#indexes) .
+The following [multi-region instance configurations](/spanner/docs/instance-configurations#available-configurations-multi-region) are available in North America: `  nam14  ` (Northern Virginia/Montréal/South Carolina) and `  nam15  ` (Dallas/Northern Virginia/Iowa).
 
 ## April 24, 2023
 
@@ -5142,16 +5142,16 @@ You can use Google Cloud tags to group and organize your Spanner instances, and 
 
 Feature
 
-Support for the GoogleSQL-dialect `  THEN RETURN  ` clause and the PostgreSQL-dialect `  RETURNING  ` clause is generally available. For more information, see [`  THEN RETURN  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) and [`  RETURNING  `](/spanner/docs/reference/postgresql/dml-syntax#insert-returning) .
-
-Feature
-
 The following functions have been added to the GoogleSQL dialect:
 
   - [`  ARRAY_INCLUDES_ALL  ` function](/spanner/docs/reference/standard-sql/array_functions#array_includes_all)
   - [`  ARRAY_INCLUDES_ANY  ` function](/spanner/docs/reference/standard-sql/array_functions#array_includes_any)
   - [`  ARRAY_MIN  ` function](/spanner/docs/reference/standard-sql/array_functions#array_min)
   - [`  ARRAY_MAX  ` function](/spanner/docs/reference/standard-sql/array_functions#array_max)
+
+Feature
+
+Support for the GoogleSQL-dialect `  THEN RETURN  ` clause and the PostgreSQL-dialect `  RETURNING  ` clause is generally available. For more information, see [`  THEN RETURN  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) and [`  RETURNING  `](/spanner/docs/reference/postgresql/dml-syntax#insert-returning) .
 
 ## March 09, 2023
 
@@ -5172,10 +5172,6 @@ Feature
 Change streams are supported for PostgreSQL-dialect databases.
 
 ## February 27, 2023
-
-Feature
-
-The system insights dashboard displays metrics and scorecards for the resources that your instance or database uses and helps you get a high-level view of your system's performance. For more information, see [Monitor instances with system insights](/spanner/docs/monitoring-console) .
 
 Libraries
 
@@ -5260,6 +5256,10 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 ##### Documentation
 
   - Add documentation for enums ( [830f325](https://github.com/googleapis/python-spanner/commit/830f325c4ab9ab1eb8d53edca723d000c23ee0d7) )
+
+Feature
+
+The system insights dashboard displays metrics and scorecards for the resources that your instance or database uses and helps you get a high-level view of your system's performance. For more information, see [Monitor instances with system insights](/spanner/docs/monitoring-console) .
 
 ## February 16, 2023
 
@@ -5420,16 +5420,16 @@ You can create a custom instance configuration and add optional read-only replic
 
 Feature
 
+Support for moving a Spanner instance is generally available. You can request to move your Spanner instance from any instance configuration to any other instance configuration, including between regional and multi-region configurations. For more information, see [Move an instance](/spanner/docs/move-instance) .
+
+Feature
+
 An update to Spanner change streams provides two new data capture types for change records:
 
   - `  NEW_VALUES  ` mode captures only new values in non-key columns, and no old values. Keys are always captured.
   - `  NEW_ROW  ` mode captures the full new row, including columns that aren't included in updates. No old values are captured.
 
 Note that existing change streams remain set to `  OLD_AND_NEW_VALUES  ` .
-
-Feature
-
-Support for moving a Spanner instance is generally available. You can request to move your Spanner instance from any instance configuration to any other instance configuration, including between regional and multi-region configurations. For more information, see [Move an instance](/spanner/docs/move-instance) .
 
 ## December 06, 2022
 
@@ -5461,11 +5461,11 @@ The number of concurrent database restore operations per instance that Spanner s
 
 Feature
 
-[Time to live (TTL)](/spanner/docs/ttl) is supported in PostgreSQL-dialect databases. With TTL, you can reduce storage costs, improve query performance, and simplify data retention by automatically removing unneeded data based on user-defined policies.
+Added support for the `  JSONB  ` data type in the Spanner PostgreSQL dialect. For more information, see [Work with JSONB data](/spanner/docs/working-with-jsonb) .
 
 Feature
 
-Added support for the `  JSONB  ` data type in the Spanner PostgreSQL dialect. For more information, see [Work with JSONB data](/spanner/docs/working-with-jsonb) .
+[Time to live (TTL)](/spanner/docs/ttl) is supported in PostgreSQL-dialect databases. With TTL, you can reduce storage costs, improve query performance, and simplify data retention by automatically removing unneeded data based on user-defined policies.
 
 ## November 08, 2022
 
@@ -5755,11 +5755,11 @@ A weekly digest of client library updates from across the [Google Cloud SDK](/sd
 
 Feature
 
-The Spanner Golang database/sql driver is generally available. Add the driver to your application to enable the use of the database/sql package with Spanner. For more information, see the [Spanner blog](https://cloud.google.com/blog/topics/developers-practitioners/golangs-databasesql-driver-support-cloud-spanner-now-generally-available) and the [package documentation](https://pkg.go.dev/github.com/googleapis/go-sql-spanner) .
+Fine-grained access control for Spanner is available in public preview. fine-grained access control control lets you secure your Spanner databases at the table and column level by using new RDBMS-style roles and `  GRANT  ` / `  REVOKE  ` SQL statements. With fine-grained access control, you can protect your transactional data and ensure that the right controls are in place when granting access to data. For more information, see [About fine-grained access control](/spanner/docs/fgac-about) .
 
 Feature
 
-Fine-grained access control for Spanner is available in public preview. fine-grained access control control lets you secure your Spanner databases at the table and column level by using new RDBMS-style roles and `  GRANT  ` / `  REVOKE  ` SQL statements. With fine-grained access control, you can protect your transactional data and ensure that the right controls are in place when granting access to data. For more information, see [About fine-grained access control](/spanner/docs/fgac-about) .
+The Spanner Golang database/sql driver is generally available. Add the driver to your application to enable the use of the database/sql package with Spanner. For more information, see the [Spanner blog](https://cloud.google.com/blog/topics/developers-practitioners/golangs-databasesql-driver-support-cloud-spanner-now-generally-available) and the [package documentation](https://pkg.go.dev/github.com/googleapis/go-sql-spanner) .
 
 ## September 13, 2022
 
@@ -5857,11 +5857,11 @@ You can create Spanner [regional instances](/spanner/docs/instances#available-co
 
 Feature
 
-[Query Optimizer version 4](/spanner/docs/query-optimizer/overview#version-history) is generally available, and is the default optimizer version.
+You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Paris ( `  europe-west9  ` ).
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Paris ( `  europe-west9  ` ).
+[Query Optimizer version 4](/spanner/docs/query-optimizer/overview#version-history) is generally available, and is the default optimizer version.
 
 ## April 20, 2022
 
@@ -5873,11 +5873,11 @@ Spanner [regional instances](/spanner/docs/instance-configurations#regional_conf
 
 Feature
 
-A new three-continent, nine-replica [multi-region instance configuration](/spanner/docs/instance-configurations#configs-multi-region) is available for Spanner: `  nam-eur-asia3  ` (Iowa/South Carolina/Belgium/Netherlands/Taiwan/Oklahoma).
+You can define a default value for a non-key table column when creating or altering a table. Using the `  DEFAULT  ` keyword, a schema author can provide a fallback for a column when an insert statement or mutation doesn't explicitly specify a value.
 
 Feature
 
-You can define a default value for a non-key table column when creating or altering a table. Using the `  DEFAULT  ` keyword, a schema author can provide a fallback for a column when an insert statement or mutation doesn't explicitly specify a value.
+A new three-continent, nine-replica [multi-region instance configuration](/spanner/docs/instance-configurations#configs-multi-region) is available for Spanner: `  nam-eur-asia3  ` (Iowa/South Carolina/Belgium/Netherlands/Taiwan/Oklahoma).
 
 ## April 05, 2022
 
@@ -5919,11 +5919,11 @@ You can view aggregated Spanner statistics related to [transactions](/spanner/do
 
 Feature
 
-The following [multi-region instance configuration](/spanner/docs/instance-configurations#configs-multi-region) is available in North America - `  nam13  ` (Iowa/Oklahoma/Salt Lake City).
+Released [Query Optimizer version 4](/spanner/docs/query-optimizer/overview#version-history) . Version 3 remains the default optimizer version in production.
 
 Feature
 
-Released [Query Optimizer version 4](/spanner/docs/query-optimizer/overview#version-history) . Version 3 remains the default optimizer version in production.
+The following [multi-region instance configuration](/spanner/docs/instance-configurations#configs-multi-region) is available in North America - `  nam13  ` (Iowa/Oklahoma/Salt Lake City).
 
 ## February 11, 2022
 
@@ -6009,7 +6009,7 @@ The [R2DBC driver](/spanner/docs/use-oss-r2dbc) for Spanner is available in [Pre
 
 Feature
 
-Added support for [changing the leader region location](/spanner/docs/modifying-leader-region) of a Spanner database.
+Added support for the JSON data type. For more information, see [Working with JSON data](/spanner/docs/working-with-json) .
 
 Feature
 
@@ -6017,17 +6017,17 @@ In the Google Cloud console, a database's **Query** page supports multiple query
 
 Feature
 
-Added support for the JSON data type. For more information, see [Working with JSON data](/spanner/docs/working-with-json) .
+Added support for [changing the leader region location](/spanner/docs/modifying-leader-region) of a Spanner database.
 
 ## August 20, 2021
-
-Change
-
-Spanner creates dedicated backup jobs to take backups instead of using an instance's server resources. As a result, backup time is reduced and backup operations do not affect instance performance.
 
 Feature
 
 Views are supported in Spanner databases. Use views to provide logical data-modeling to applications, to centralize query definitions and simplify maintenance, and to ensure stability of query definitions across schema changes. [Learn more](/spanner/docs/views) .
+
+Change
+
+Spanner creates dedicated backup jobs to take backups instead of using an instance's server resources. As a result, backup time is reduced and backup operations do not affect instance performance.
 
 ## August 17, 2021
 
@@ -6043,13 +6043,13 @@ Spanner has an [end-to-end latency guide](/spanner/docs/latency-guide) . This gu
 
 ## August 03, 2021
 
-Announcement
-
-Spanner [regional instances](/spanner/docs/instance-configurations#regional_configurations) can be created in Toronto ( `  northamerica-northeast2  ` ).
-
 Feature
 
 Added support for [changing instance configuration](/spanner/docs/instance-configurations#moving_an_instance_to_a_different_configuration) (Preview).
+
+Announcement
+
+Spanner [regional instances](/spanner/docs/instance-configurations#regional_configurations) can be created in Toronto ( `  northamerica-northeast2  ` ).
 
 ## July 21, 2021
 
@@ -6135,13 +6135,13 @@ Feature
 
 You can use Customer-Managed Encryption Keys (CMEK) to protect databases in Spanner. CMEK in Spanner is generally available. For more information, see [CMEK](/spanner/docs/cmek) .
 
-Feature
-
-You can optionally specify the priority of data requests. For more information, see [CPU utilization and task priority](/spanner/docs/cpu-utilization#task-priority) .
-
 Change
 
 The maximum number of JOIN statements allowed in a query has increased from 15 to 20. [Query limits](/spanner/quotas#query_limits) .
+
+Feature
+
+You can optionally specify the priority of data requests. For more information, see [CPU utilization and task priority](/spanner/docs/cpu-utilization#task-priority) .
 
 ## March 24, 2021
 
@@ -6195,11 +6195,11 @@ Feature
 
 Feature
 
-A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur6  ` (Netherlands/Frankfurt/Zurich).
+A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam12  ` (Iowa/Northern Virginia/Oregon/Oklahoma).
 
 Feature
 
-A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam12  ` (Iowa/Northern Virginia/Oregon/Oklahoma).
+A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur6  ` (Netherlands/Frankfurt/Zurich).
 
 ## December 07, 2020
 
@@ -6239,11 +6239,11 @@ A [multi-region instance configuration](/spanner/docs/instances#available-config
 
 Feature
 
-`  CHECK  ` constraints are [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define a boolean expression on the columns of a table and require that all rows in the table satisfy the expression. For more information, see [Creating and managing check constraints](/spanner/docs/check-constraint/how-to) .
+Generated columns support is [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define columns that are computed from other columns in a row. For more information, see [Creating and managing generated columns](/spanner/docs/generated-column/how-to) .
 
 Feature
 
-Generated columns support is [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define columns that are computed from other columns in a row. For more information, see [Creating and managing generated columns](/spanner/docs/generated-column/how-to) .
+`  CHECK  ` constraints are [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define a boolean expression on the columns of a table and require that all rows in the table satisfy the expression. For more information, see [Creating and managing check constraints](/spanner/docs/check-constraint/how-to) .
 
 ## October 08, 2020
 
@@ -6294,11 +6294,11 @@ You can run SQL queries to retrieve [read statistics](/spanner/docs/introspectio
 
 Feature
 
-A second [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur5  ` (London/Belgium).
+A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in Asia - `  asia1  ` (Tokyo/Osaka).
 
 Feature
 
-A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in Asia - `  asia1  ` (Tokyo/Osaka).
+A second [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur5  ` (London/Belgium).
 
 Feature
 
@@ -6406,13 +6406,13 @@ Spanner [regional instances](/spanner/docs/instances#available-configurations-re
 
 ## June 26, 2019
 
-Feature
-
-You can [import and export Spanner data in CSV format](/spanner/docs/import-export-csv) . You can use this feature to copy CSV data between Spanner and traditional relational database management systems, in combination with tools such as the `  mysqldump  ` tool for MySQL, the `  COPY  ` statement for PostgreSQL, or the `  bcp  ` tool for Microsoft SQL Server.
-
 Change
 
 If you write your applications in Java with the [Spring Framework](https://spring.io/projects/spring-framework) , we provide a guide to help you [add Spring Data Spanner to your application](/spanner/docs/adding-spring) . Spring Data Spanner can make it easier and more efficient to work with Spanner.
+
+Feature
+
+You can [import and export Spanner data in CSV format](/spanner/docs/import-export-csv) . You can use this feature to copy CSV data between Spanner and traditional relational database management systems, in combination with tools such as the `  mysqldump  ` tool for MySQL, the `  COPY  ` statement for PostgreSQL, or the `  bcp  ` tool for Microsoft SQL Server.
 
 ## June 21, 2019
 
@@ -6467,11 +6467,11 @@ Published new documentation for migrating data to Spanner:
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in London ( `  europe-west2  ` ).
+Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Sydney ( `  australia-southeast1  ` ).
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Sydney ( `  australia-southeast1  ` ).
+Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in London ( `  europe-west2  ` ).
 
 ## January 11, 2019
 
@@ -6565,11 +6565,11 @@ Spanner [regional instances](/spanner/docs/instances#available-configurations-re
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Oregon ( `  us-west1  ` ).
+Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in South Carolina ( `  us-east1  ` ).
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in South Carolina ( `  us-east1  ` ).
+Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Oregon ( `  us-west1  ` ).
 
 ## April 24, 2018
 
@@ -6599,11 +6599,11 @@ Spanner supports [reading and querying data in parallel](/spanner/docs/reads#rea
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Montréal ( `  northamerica-northeast1  ` ).
+Spanner supports [reading and querying data in parallel](/spanner/docs/reads#read_data_in_parallel) with multiple workers using the client libraries for C\#, Go, Java, and PHP.
 
 Feature
 
-Spanner supports [reading and querying data in parallel](/spanner/docs/reads#read_data_in_parallel) with multiple workers using the client libraries for C\#, Go, Java, and PHP.
+Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Montréal ( `  northamerica-northeast1  ` ).
 
 ## February 20, 2018
 
@@ -6639,17 +6639,17 @@ Spanner [regional instances](/spanner/docs/instances#available-configurations-re
 
 Feature
 
-The following documentation is available: [SQL best practices](/spanner/docs/sql-best-practices) , [Working with arrays in SQL](/spanner/docs/arrays) , [Using Spanner with Cloud Run functions](/spanner/docs/use-cloud-functions) , [Monitoring using Cloud Monitoring](/spanner/docs/monitoring) , [Applying IAM roles for databases, instances, and projects](/spanner/docs/grant-permissions) , [Integrating with other Google Cloud services](/spanner/docs/integrate-google-cloud-platform) .
+Announced general availability of the Cloud Spanner API.
 
 Feature
 
-Announced general availability of the Cloud Spanner API.
+The following documentation is available: [SQL best practices](/spanner/docs/sql-best-practices) , [Working with arrays in SQL](/spanner/docs/arrays) , [Using Spanner with Cloud Run functions](/spanner/docs/use-cloud-functions) , [Monitoring using Cloud Monitoring](/spanner/docs/monitoring) , [Applying IAM roles for databases, instances, and projects](/spanner/docs/grant-permissions) , [Integrating with other Google Cloud services](/spanner/docs/integrate-google-cloud-platform) .
 
 ## February 14, 2017
 
 Issue
 
-The version of the Google Cloud CLI command-line tool that supports Spanner is being rolled out. It is expected to be completely available by February 16, 2017.
+The Spanner Studio in the Google Cloud console is available.
 
 Feature
 
@@ -6657,4 +6657,4 @@ Initial Beta release of Cloud Spanner API.
 
 Issue
 
-The Spanner Studio in the Google Cloud console is available.
+The version of the Google Cloud CLI command-line tool that supports Spanner is being rolled out. It is expected to be completely available by February 16, 2017.

@@ -27,7 +27,7 @@ This page explains how to get the PGAdapter binary. PGAdapter is used with Postg
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-spanner-pgadapter</artifactId>
-      <version>0.53.1</version>
+      <version>0.53.2</version>
     </dependency>
     ```
 
