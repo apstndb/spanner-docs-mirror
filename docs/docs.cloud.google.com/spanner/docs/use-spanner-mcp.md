@@ -64,7 +64,7 @@ You might also be able to get these permissions with [custom roles](/iam/docs/cr
 
 ## Enable or disable the Spanner MCP server
 
-**Note:** After March 17, 2026, the Spanner remote MCP server is automatically enabled when you enable Spanner.
+**Note:** Starting on March 17, 2026, separate enablement for MCP servers will be removed. When the Spanner API is enabled in a project, you can use Spanner through its remote MCP endpoint. This update will be released gradually across different regions.
 
 You can enable or disable the Spanner MCP server in a project with the `  gcloud beta services mcp enable  ` command. For more information, see the following sections.
 
@@ -305,9 +305,9 @@ Model Armor won't scan MCP traffic in the project.
 
 For example, you can deny or allow access based on:
 
-  - The principal.
-  - Tool properties like read-only.
-  - The application's OAuth client ID.
+  - The principal
+  - Tool properties like read-only
+  - The application's OAuth client ID
 
 For more information, see [Control MCP use with Identity and Access Management](/mcp/control-mcp-use-iam) .
 

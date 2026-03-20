@@ -27,7 +27,7 @@ This document is intended for database administrators and data engineers who are
 
 6.  In the navigation menu, click **Spanner Studio** .
 
-7.  In the taskbar, click pen\_spark **Gemini** to view Gemini features in Spanner.
+7.  In Spanner Studio, click the settings\_suggestion **Gemini Code Assist** button to view Gemini features in Spanner.
 
 8.  Select the Gemini features that you want to enable—for example, [**Comment-to-query generation**](#generate-sql-queries-using-natural-language-prompts) . You can select and try features for yourself without affecting others working in your project.
 

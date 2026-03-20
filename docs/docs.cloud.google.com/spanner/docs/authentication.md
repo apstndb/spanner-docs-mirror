@@ -74,8 +74,6 @@ Set up [Application Default Credentials (ADC)](/docs/authentication/application-
     gcloud auth application-default set-quota-project PROJECT_ID
     ```
     
-    If an authentication error is returned, and you are using an external identity provider (IdP), confirm that you have [signed in to the gcloud CLI with your federated identity](/iam/docs/workforce-log-in-gcloud) .
-    
     A sign-in screen appears. After you sign in, your credentials are stored in the [local credential file used by ADC](/docs/authentication/application-default-credentials#personal) .
 
 For more information about working with ADC in a local environment, see [Set up ADC for a local development environment](/docs/authentication/set-up-adc-local-dev-environment) .

@@ -744,6 +744,7 @@ https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions/list
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions/patch
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations
+https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/cancel
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/delete
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/get
 https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/list
