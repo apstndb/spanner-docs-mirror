@@ -73,7 +73,7 @@ implementation 'com.google.cloud:google-cloud-spanner'
 If you are using [sbt](https://www.scala-sbt.org/) , add the following to your dependencies:
 
 ``` markdown
-libraryDependencies += "com.google.cloud" % "google-cloud-spanner" % "6.111.1"
+libraryDependencies += "com.google.cloud" % "google-cloud-spanner" % "6.112.0"
 ```
 
 If you're using Visual Studio Code or IntelliJ, you can add client libraries to your project using the following IDE plugins:
@@ -144,8 +144,6 @@ For a local development environment, you can set up ADC with the credentials tha
     ```
     
     You don't need to do this if you're using Cloud Shell.
-    
-    If an authentication error is returned, and you are using an external identity provider (IdP), confirm that you have [signed in to the gcloud CLI with your federated identity](/iam/docs/workforce-log-in-gcloud) .
     
     A sign-in screen appears. After you sign in, your credentials are stored in the [local credential file used by ADC](/docs/authentication/application-default-credentials#personal) .
 

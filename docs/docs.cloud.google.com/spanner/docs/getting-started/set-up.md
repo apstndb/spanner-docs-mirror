@@ -4,7 +4,7 @@ If you want to use Spanner with the Google Cloud console, see [Quickstart using 
 
 ## Required roles
 
-To get the permissions that you need to use and interact with Spanner databases, ask your administrator to grant you the following IAM roles :
+To get the permissions that you need to use and interact with Spanner databases, ask your administrator to grant you the following IAM roles:
 
   - Read and write data: [Cloud Spanner Database User](/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `  roles/spanner.databaseUser  ` ) on the instance
   - Read-only access to databases: [Cloud Spanner Database Reader](/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` ) on the instance
@@ -25,7 +25,9 @@ You might also be able to get the required permissions through [custom roles](/i
     gcloud config set project MY_PROJECT_ID
     ```
 
-4.  Enable the Cloud Spanner API for the project.
+4.  [Verify that billing is enabled for your Google Cloud project](/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project) .
+
+5.  Enable the Cloud Spanner API for the project.
     
     Note: If you use a service account in a different project to access your Spanner instance, you need to enable the Spanner API in both projects.
 

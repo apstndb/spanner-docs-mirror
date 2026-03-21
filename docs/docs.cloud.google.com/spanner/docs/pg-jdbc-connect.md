@@ -13,12 +13,12 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>0.53.2</version>
+      <version>0.53.3</version>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-spanner-pgadapter</artifactId>
-      <version>0.53.2</version>
+      <version>0.53.3</version>
     </dependency>
     ```
 

@@ -922,6 +922,7 @@ https://docs.cloud.google.com/spanner/docs/schema-migration
 https://docs.cloud.google.com/spanner/docs/schema-updates
 https://docs.cloud.google.com/spanner/docs/secondary-indexes
 https://docs.cloud.google.com/spanner/docs/secure-agent-interactions-mcp
+https://docs.cloud.google.com/spanner/docs/security-privacy-compliance
 https://docs.cloud.google.com/spanner/docs/sequence-tasks
 https://docs.cloud.google.com/spanner/docs/sessions
 https://docs.cloud.google.com/spanner/docs/set-default-time-zone

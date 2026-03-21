@@ -5,17 +5,17 @@ This page shows you how to use Organization Policy Service custom constraints to
   - `  spanner.googleapis.com/Instance  `
   - `  spanner.googleapis.com/InstanceConfig  `
 
-To learn more about Organization Policy, see [Custom organization policies](/resource-manager/docs/organization-policy/overview#custom-organization-policies) .
+To learn more about Organization Policy, see [Custom organization policies](/organization-policy/overview#custom-organization-policies) .
 
 ## About organization policies and constraints
 
 The Google Cloud Organization Policy Service gives you centralized, programmatic control over your organization's resources. As the [organization policy administrator](/iam/docs/roles-permissions/orgpolicy#orgpolicy.policyAdmin) , you can define an organization policy, which is a set of restrictions called *constraints* that apply to Google Cloud resources and descendants of those resources in the [Google Cloud resource hierarchy](/resource-manager/docs/cloud-platform-resource-hierarchy) . You can enforce organization policies at the organization, folder, or project level.
 
-Organization Policy provides built-in [managed constraints](/resource-manager/docs/organization-policy/org-policy-constraints) for various Google Cloud services. However, if you want more granular, customizable control over the specific fields that are restricted in your organization policies, you can also create *custom constraints* and use those custom constraints in an organization policy.
+Organization Policy provides built-in [managed constraints](/organization-policy/reference/org-policy-constraints) for various Google Cloud services. However, if you want more granular, customizable control over the specific fields that are restricted in your organization policies, you can also create *custom constraints* and use those custom constraints in an organization policy.
 
 ### Policy inheritance
 
-By default, organization policies are inherited by the descendants of the resources on which you enforce the policy. For example, if you enforce a policy on a folder, Google Cloud enforces the policy on all projects in the folder. To learn more about this behavior and how to change it, refer to [Hierarchy evaluation rules](/resource-manager/docs/organization-policy/understanding-hierarchy#disallow_inheritance) .
+By default, organization policies are inherited by the descendants of the resources on which you enforce the policy. For example, if you enforce a policy on a folder, Google Cloud enforces the policy on all projects in the folder. To learn more about this behavior and how to change it, refer to [Hierarchy evaluation rules](/organization-policy/hierarchy-evaluation#disallow_inheritance) .
 
 ## Before you begin
 
@@ -23,7 +23,7 @@ By default, organization policies are inherited by the descendants of the resour
 
 ### Required roles
 
-To get the permissions that you need to manage organization policies, ask your administrator to grant you the following IAM roles :
+To get the permissions that you need to manage organization policies, ask your administrator to grant you the following IAM roles:
 
   - [Organization Policy Administrator](/iam/docs/roles-permissions/orgpolicy#orgpolicy.policyAdmin) ( `  roles/orgpolicy.policyAdmin  ` ) on the organization resource
   - To create or update a Spanner database: ( `  roles/spanner.admin  ` ) on the project resource
@@ -47,7 +47,7 @@ You might also be able to get these permissions with [custom roles](/iam/docs/cr
 
 ## Set up a custom constraint
 
-A custom constraint is defined in a YAML file by the resources, methods, conditions, and actions that are supported by the service on which you are enforcing the organization policy. Conditions for your custom constraints are defined using [Common Expression Language (CEL)](https://github.com/google/cel-spec/blob/master/doc/intro.md) . For more information about how to build conditions in custom constraints using CEL, see the CEL section of [Creating and managing custom constraints](/resource-manager/docs/organization-policy/creating-managing-custom-constraints#common_expression_language) .
+A custom constraint is defined in a YAML file by the resources, methods, conditions, and actions that are supported by the service on which you are enforcing the organization policy. Conditions for your custom constraints are defined using [Common Expression Language (CEL)](https://github.com/google/cel-spec/blob/master/doc/intro.md) . For more information about how to build conditions in custom constraints using CEL, see the CEL section of [Creating and managing custom constraints](/organization-policy/create-custom-constraints#common_expression_language) .
 
 ### Console
 
@@ -69,7 +69,7 @@ In the **Resource type** box, select the name of the Google Cloud REST resource 
 
 Under **Enforcement method** , select whether to enforce the constraint on a REST **CREATE** method or on both **CREATE** and **UPDATE** methods. If you enforce the constraint with the **UPDATE** method on a resource that violates the constraint, changes to that resource are blocked by the organization policy unless the change resolves the violation.
 
-Not all Google Cloud services support both methods. To see supported methods for each service, find the service in [Supported services](/resource-manager/docs/organization-policy/custom-constraint-supported-services) .
+Not all Google Cloud services support both methods. To see supported methods for each service, find the service in [Services that support custom constraints](/organization-policy/reference/custom-constraint-supported-services) .
 
 To define a condition, click edit **Edit condition** .
 
@@ -145,9 +145,9 @@ You can enforce a constraint by creating an organization policy that references 
 5.  On the **Edit policy** page, select **Override parent's policy** .
 6.  Click **Add a rule** .
 7.  In the **Enforcement** section, select whether this organization policy is enforced or not.
-8.  Optional: To make the organization policy conditional on a tag, click **Add condition** . Note that if you add a conditional rule to an organization policy, you must add at least one unconditional rule or the policy cannot be saved. For more information, see [Setting an organization policy with tags](/resource-manager/docs/organization-policy/tags-organization-policy) .
+8.  Optional: To make the organization policy conditional on a tag, click **Add condition** . Note that if you add a conditional rule to an organization policy, you must add at least one unconditional rule or the policy cannot be saved. For more information, see [Scope organization policies with tags](/organization-policy/scope-policies) .
 9.  Click **Test changes** to simulate the effect of the organization policy. For more information, see [Test organization policy changes with Policy Simulator](/policy-intelligence/docs/test-organization-policies) .
-10. To enforce the organization policy in dry-run mode, click **Set dry run policy** . For more information, see [Create an organization policy in dry-run mode](/resource-manager/docs/organization-policy/dry-run-policy) .
+10. To enforce the organization policy in dry-run mode, click **Set dry run policy** . For more information, see [Test organization policies](/organization-policy/test-policies) .
 11. After you verify that the organization policy in dry-run mode works as intended, set the live policy by clicking **Set policy** .
 
 ### gcloud
@@ -170,7 +170,7 @@ Replace the following:
   - `  PROJECT_ID  ` : the project that you want to enforce your constraint on.
   - `  CONSTRAINT_NAME  ` : the name you defined for your custom constraint. For example, `  custom.spannerDatabase  ` .
 
-To enforce the organization policy in [dry-run mode](/resource-manager/docs/organization-policy/dry-run-policy) , run the following command with the `  dryRunSpec  ` flag:
+To enforce the organization policy in [dry-run mode](/organization-policy/test-policies) , run the following command with the `  dryRunSpec  ` flag:
 
 ``` text
 gcloud org-policies set-policy POLICY_PATH --update-mask=dryRunSpec
@@ -377,6 +377,6 @@ spanner.googleapis.com/InstanceConfig
 
 ## What's next
 
-  - Learn more about [Organization Policy Service](/resource-manager/docs/organization-policy/overview) .
-  - Learn more about how to [create and manage organization policies](/resource-manager/docs/organization-policy/using-constraints) .
-  - See the full list of managed [organization policy constraints](/resource-manager/docs/organization-policy/org-policy-constraints) .
+  - Learn more about [Organization Policy Service](/organization-policy/overview) .
+  - Learn more about how to [create and manage organization policies](/organization-policy/create-organization-policies) .
+  - See the full list of managed [organization policy constraints](/organization-policy/reference/org-policy-constraints) .
