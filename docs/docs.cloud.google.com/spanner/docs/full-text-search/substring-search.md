@@ -77,6 +77,8 @@ AlbumId STRING(MAX) NOT NULL,
 AlbumTitle STRING(MAX),
 AlbumTitle_Tokens TOKENLIST AS (TOKENIZE_SUBSTRING(AlbumTitle)) HIDDEN
 ) PRIMARY KEY(AlbumId);
+
+CREATE SEARCH INDEX AlbumsTitleIndex ON Albums(AlbumTitle_Tokens);
 ```
 
 ### PostgreSQL
@@ -90,6 +92,8 @@ albumtitle character varying,
 albumtitle_tokens spanner.tokenlist
     GENERATED ALWAYS AS (spanner.tokenize_substring(albumtitle)) VIRTUAL HIDDEN,
 PRIMARY KEY(albumid));
+
+CREATE SEARCH INDEX albumstitleindex ON albums(albumtitle_tokens);
 ```
 
 In the SQL query, use the [`  SEARCH_SUBSTRING  `](/spanner/docs/reference/standard-sql/search_functions#search_substring) function in the `  WHERE  ` clause. For example, the following query matches an album with title "happy" from the table created in the previous example:
@@ -97,7 +101,7 @@ In the SQL query, use the [`  SEARCH_SUBSTRING  `](/spanner/docs/reference/stand
 ### GoogleSQL
 
 ``` text
-SELECT Album
+SELECT AlbumId
 FROM Albums
 WHERE SEARCH_SUBSTRING(AlbumTitle_Tokens, 'happ');
 ```
@@ -107,7 +111,7 @@ WHERE SEARCH_SUBSTRING(AlbumTitle_Tokens, 'happ');
 This example uses [`  spanner.search_substring  `](/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
 
 ``` text
-SELECT album
+SELECT albumid
 FROM albums
 WHERE spanner.search_substring(albumtitle_tokens, 'happ');
 ```

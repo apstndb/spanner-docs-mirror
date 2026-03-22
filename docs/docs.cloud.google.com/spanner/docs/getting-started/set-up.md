@@ -61,11 +61,39 @@ For more information, see [Service account impersonation](/spanner/docs/authenti
 
 To use Terraform code in a local development environment, install and initialize the gcloud CLI, and then set up Application Default Credentials with your user credentials.
 
+1.  [Install](/sdk/docs/install) the Google Cloud CLI.
+
+2.  If you're using an external identity provider (IdP), you must first [sign in to the gcloud CLI with your federated identity](/iam/docs/workforce-log-in-gcloud) .
+
+3.  If you're using a local shell, then create local authentication credentials for your user account:
+    
+    ``` text
+    gcloud auth application-default login
+    ```
+    
+    You don't need to do this if you're using Cloud Shell.
+    
+    If an authentication error is returned, and you are using an external identity provider (IdP), confirm that you have [signed in to the gcloud CLI with your federated identity](/iam/docs/workforce-log-in-gcloud) .
+
 For more information, see [Set up authentication for a local development environment](/spanner/docs/authentication#local-development) .
 
 ### Client libraries
 
 To use client libraries in a local development environment, install and initialize the gcloud CLI, and then set up Application Default Credentials with your user credentials.
+
+1.  [Install](/sdk/docs/install) the Google Cloud CLI.
+
+2.  If you're using an external identity provider (IdP), you must first [sign in to the gcloud CLI with your federated identity](/iam/docs/workforce-log-in-gcloud) .
+
+3.  If you're using a local shell, then create local authentication credentials for your user account:
+    
+    ``` text
+    gcloud auth application-default login
+    ```
+    
+    You don't need to do this if you're using Cloud Shell.
+    
+    If an authentication error is returned, and you are using an external identity provider (IdP), confirm that you have [signed in to the gcloud CLI with your federated identity](/iam/docs/workforce-log-in-gcloud) .
 
 For more information, see [Set up authentication for a local development environment](/spanner/docs/authentication#local-development) .
 

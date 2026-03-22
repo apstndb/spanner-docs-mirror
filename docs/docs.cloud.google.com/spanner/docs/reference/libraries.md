@@ -145,6 +145,8 @@ For a local development environment, you can set up ADC with the credentials tha
     
     You don't need to do this if you're using Cloud Shell.
     
+    If an authentication error is returned, and you are using an external identity provider (IdP), confirm that you have [signed in to the gcloud CLI with your federated identity](/iam/docs/workforce-log-in-gcloud) .
+    
     A sign-in screen appears. After you sign in, your credentials are stored in the [local credential file used by ADC](/docs/authentication/application-default-credentials#personal) .
 
 ## Use the client library

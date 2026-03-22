@@ -4,6 +4,16 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## March 19, 2026
+
+Feature
+
+Spanner now offers [AI functions](/spanner/docs/reference/standard-sql/ml-functions) , as a part of machine learning functions, that help you perform semantic operations using Large Language Models (LLMs) in SQL to classify, evaluate, and rank your data:
+
+  - [`  AI.CLASSIFY  `](/spanner/docs/reference/standard-sql/ml-functions#aiclassify) : Classify a natural language input into user-defined categories.
+  - [`  AI.IF  `](/spanner/docs/reference/standard-sql/ml-functions#aiif) : Evaluate a condition described in natural language.
+  - [`  AI.SCORE  `](/spanner/docs/reference/standard-sql/ml-functions#aiscore) : Rate natural language input and assign it a score.
+
 ## March 10, 2026
 
 Feature

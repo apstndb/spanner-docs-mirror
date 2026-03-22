@@ -256,7 +256,7 @@ Before you begin, follow these steps using the Google Cloud CLI with the Model A
 
 #### Configure protection for Google and Google Cloud remote MCP servers
 
-You can protect your MCP tool calls and responses by using Model Armor floor settings. A floor setting defines the minimum security filters that apply across the project. This configuration applies a consistent set of filters to all MCP tool calls and responses within the project.
+To help protect your MCP tool calls and responses you can use Model Armor floor settings. A floor setting defines the minimum security filters that apply across the project. This configuration applies a consistent set of filters to all MCP tool calls and responses within the project.
 
 **Tip:** Don't enable the prompt injection and jailbreak filter unless your MCP traffic carries natural language data.
 

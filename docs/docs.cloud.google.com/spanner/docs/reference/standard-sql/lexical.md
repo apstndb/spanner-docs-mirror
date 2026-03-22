@@ -370,8 +370,8 @@ Examples:
 [1, 2, 3]
 ['x', 'y', 'xy']
 ARRAY[1, 2, 3]
-ARRAY<string>['x', 'y', 'xy']
-ARRAY<int64>[]
+ARRAY<STRING>['x', 'y', 'xy']
+ARRAY<INT64>[]
 ```
 
 An array literal represents a constant value of the [array data type](/spanner/docs/reference/standard-sql/data-types#array_type) .
