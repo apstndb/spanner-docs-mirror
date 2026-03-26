@@ -15,7 +15,7 @@ WITH
     SELECT [2, 4, 8, 16, 32] UNION ALL
     SELECT [5, 10]
   )
-SELECT * FROM Sequences
+SELECT * FROM Sequences;
 
 /*---------------------+
  | some_numbers        |
@@ -26,16 +26,14 @@ SELECT * FROM Sequences
  +---------------------*/
 ```
 
-To access array elements in the `  some_numbers  ` column, specify which type of indexing you want to use: either [`  OFFSET(index)  `](/spanner/docs/reference/standard-sql/operators#array_subscript_operator) for zero-based indexes, or [`  ORDINAL(index)  `](/spanner/docs/reference/standard-sql/operators#array_subscript_operator) for one-based indexes.
-
-For example:
+To access array elements in the `  some_numbers  ` column, specify which type of indexing you want to use: either [`  OFFSET(index)  `](/spanner/docs/reference/standard-sql/operators#array_subscript_operator) for zero-based indexes, or [`  ORDINAL(index)  `](/spanner/docs/reference/standard-sql/operators#array_subscript_operator) for one-based indexes:
 
 ``` text
 SELECT
   some_numbers,
   some_numbers[OFFSET(1)] AS offset_1,
   some_numbers[ORDINAL(1)] AS ordinal_1
-FROM Sequences
+FROM Sequences;
 
 /*--------------------+----------+-----------+
  | some_numbers       | offset_1 | ordinal_1 |
@@ -48,9 +46,65 @@ FROM Sequences
 
 **Note:** `  OFFSET  ` and `  ORDINAL  ` will raise errors if the index is out of range. To avoid this, you can use `  SAFE_OFFSET  ` or `  SAFE_ORDINAL  ` to return `  NULL  ` instead of raising an error.
 
+To access the first or last element in an array, use the [`  ARRAY_FIRST  `](/spanner/docs/reference/standard-sql/array_functions#array_first) or [`  ARRAY_LAST  `](/spanner/docs/reference/standard-sql/array_functions#array_last) function:
+
+``` text
+SELECT
+  some_numbers,
+  ARRAY_FIRST(some_numbers) AS first_element,
+  ARRAY_LAST(some_numbers) AS last_element
+FROM Sequences;
+
+/*--------------------+---------------+--------------+
+ | some_numbers       | first_element | last_element |
+ +--------------------+---------------+--------------+
+ | [0, 1, 1, 2, 3, 5] | 0             | 5            |
+ | [2, 4, 8, 16, 32]  | 2             | 32           |
+ | [5, 10]            | 5             | 10           |
+ +--------------------+---------------+--------------*/
+```
+
+With the `  ARRAY_FIRST  ` and `  ARRAY_LAST  ` functions, if an array is empty, the function produces an error:
+
+``` text
+WITH
+  Sequences AS (
+    SELECT [0, 1, 1, 2, 3, 5] AS some_numbers
+    UNION ALL
+    SELECT [2, 4, 8, 16, 32]
+    UNION ALL
+    SELECT [] -- Empty array
+  )
+SELECT
+  some_numbers,
+  ARRAY_LAST(some_numbers) AS last_element
+FROM Sequences;
+
+-- Error: ARRAY_LAST can't get the last element of an empty array.
+```
+
+To handle empty arrays when accessing first and last elements, you can use the [`  ARRAY_LENGTH  `](/spanner/docs/reference/standard-sql/array_functions#array_length) function within a `  SAFE_OFFSET  ` of `  -1  ` . The query returns `  NULL  ` values for any empty arrays instead of an error:
+
+``` text
+SELECT
+  some_numbers,
+  some_numbers[SAFE_OFFSET(ARRAY_LENGTH(some_numbers) - 1)] AS last_element
+FROM Sequences;
+
+/*--------------------+--------------+
+ | some_numbers       | last_element |
+ +--------------------+--------------+
+ | [0, 1, 1, 2, 3, 5] | 5            |
+ | [2, 4, 8, 16, 32]  | 32           |
+ | []                 | NULL         |
+ +--------------------+--------------*/
+```
+
+`  ARRAY_LENGTH(array)  ` returns the number of elements in the array. Because array offsets are 0-based, `  ARRAY_LENGTH(array) - 1  ` gives the offset of the last element. If the array is empty, `  ARRAY_LENGTH  ` is 0, and the offset becomes -1. `  SAFE_OFFSET(-1)  ` returns `  NULL  ` , so this approach safely handles empty arrays.
+
 ## Finding lengths
 
-The `  ARRAY_LENGTH  ` function returns the length of an array.
+The [`  ARRAY_LENGTH  `](/spanner/docs/reference/standard-sql/array_functions#array_length) function returns the length of an array.
 
 ``` text
 WITH Sequences AS

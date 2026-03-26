@@ -2692,6 +2692,7 @@ Here are some general rules and constraints to consider when working with CTEs:
   - A CTE defined in a `  WITH  ` clause is only visible to other CTEs in the same `  WITH  ` clause that were defined after it.
   - A local CTE overrides an outer CTE or table with the same name.
   - A CTE on a subquery may not reference correlated columns from the outer query.
+  - `  UNION DISTINCT  ` isn't allowed inside a `  WITH RECURSIVE  ` clause.
 
 ### CTE visibility
 

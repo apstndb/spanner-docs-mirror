@@ -1890,14 +1890,14 @@ IS operators return TRUE or FALSE for the condition they are testing. They never
 ### `     LIKE    ` operator
 
 ``` text
-expression_1 [NOT] LIKE expression_2
+expression [NOT] LIKE pattern
 ```
 
 **Description**
 
-`  LIKE  ` returns `  TRUE  ` if the string in the first operand `  expression_1  ` matches a pattern specified by the second operand `  expression_2  ` , otherwise returns `  FALSE  ` .
+`  LIKE  ` returns `  TRUE  ` if the string in the first operand `  expression  ` matches a pattern specified by the second operand `  pattern  ` , otherwise returns `  FALSE  ` .
 
-`  NOT LIKE  ` returns `  TRUE  ` if the string in the first operand `  expression_1  ` doesn't match a pattern specified by the second operand `  expression_2  ` , otherwise returns `  FALSE  ` .
+`  NOT LIKE  ` returns `  TRUE  ` if the string in the first operand `  expression  ` doesn't match a pattern specified by the second operand `  pattern  ` , otherwise returns `  FALSE  ` .
 
 Expressions can contain these characters:
 
