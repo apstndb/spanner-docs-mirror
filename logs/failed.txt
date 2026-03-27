@@ -1,4 +1,4 @@
 200 https://cloud.google.com/spanner/pricing
 200 https://cloud.google.com/spanner/sla
-404 https://docs.cloud.google.com/spanner/docs/getting-started/ado_net
-404 https://docs.cloud.google.com/spanner/docs/use-ado-net
+200 https://docs.cloud.google.com/spanner/docs/getting-started/ado_net
+200 https://docs.cloud.google.com/spanner/docs/use-ado-net
