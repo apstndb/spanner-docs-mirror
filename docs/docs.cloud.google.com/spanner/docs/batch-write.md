@@ -1,7 +1,3 @@
-**Preview — [Batch write](/spanner/docs/batch-write)**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 This page describes Spanner batch write requests and how you can use them to modify your Spanner data.
 
 You can use Spanner batch write to insert, update, or delete multiple rows in your Spanner tables. Spanner batch write supports low latency writes without a read operation, and returns responses as mutations are applied in batches. To use batch write, you group related mutations together, and all mutations in a group are committed atomically. The mutations across groups are applied in an unspecified order and are independent of one another (non-atomic). Spanner doesn't need to wait for all mutations to be applied before sending a response, which means that batch write allows for partial failure. You can also execute multiple batch writes at a time. For more information, see [How to use batch write](#how-to) .
@@ -39,6 +35,211 @@ You should group the following mutation types together when using batch write:
 You can also batch write using the Spanner client libraries. The following code example updates the `  Singers  ` table with new rows.
 
 ### Client libraries
+
+### C++
+
+``` cpp
+namespace spanner = ::google::cloud::spanner;
+// Use upserts as mutation groups are not replay protected.
+auto commit_results = client.CommitAtLeastOnce({
+    // group #0
+    spanner::Mutations{
+        spanner::InsertOrUpdateMutationBuilder(
+            "Singers", {"SingerId", "FirstName", "LastName"})
+            .EmplaceRow(16, "Scarlet", "Terry")
+            .Build(),
+    },
+    // group #1
+    spanner::Mutations{
+        spanner::InsertOrUpdateMutationBuilder(
+            "Singers", {"SingerId", "FirstName", "LastName"})
+            .EmplaceRow(17, "Marc", "")
+            .EmplaceRow(18, "Catalina", "Smith")
+            .Build(),
+        spanner::InsertOrUpdateMutationBuilder(
+            "Albums", {"SingerId", "AlbumId", "AlbumTitle"})
+            .EmplaceRow(17, 1, "Total Junk")
+            .EmplaceRow(18, 2, "Go, Go, Go")
+            .Build(),
+    },
+});
+for (auto& commit_result : commit_results) {
+  if (!commit_result) throw std::move(commit_result).status();
+  std::cout << "Mutation group indexes [";
+  for (auto index : commit_result->indexes) std::cout << " " << index;
+  std::cout << " ]: ";
+  if (commit_result->commit_timestamp) {
+    auto const& ts = *commit_result->commit_timestamp;
+    std::cout << "Committed at " << ts.get<absl::Time>().value();
+  } else {
+    std::cout << commit_result->commit_timestamp.status();
+  }
+  std::cout << "\n";
+}
+```
+
+### C\#
+
+``` csharp
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+
+using Google.Cloud.Spanner.Data;
+using Google.Rpc;
+using Google.Cloud.Spanner.V1;
+using Google.Protobuf.WellKnownTypes;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class BatchWriteAtLeastOnceAsyncSample
+{
+    public async Task BatchWriteAtLeastOnceAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        // 1. Create a SpannerBatchWriteCommand.
+        var cmd = connection.CreateBatchWriteCommand();
+
+        // 2. Create and add mutation groups.
+        // Mutation group 1: Insert or update a singer (16).
+        var cmdSinger1 = connection.CreateInsertOrUpdateCommand("Singers", new SpannerParameterCollection
+        {
+            { "SingerId", SpannerDbType.Int64, 16 },
+            { "FirstName", SpannerDbType.String, "Scarlet" },
+            { "LastName", SpannerDbType.String, "Terry" }
+        });
+        cmd.Add(cmdSinger1);
+
+        // Mutation group 2: Insert or update multiple singers and albums together.
+        var cmdSinger2 = connection.CreateInsertOrUpdateCommand("Singers", new SpannerParameterCollection
+        {
+            { "SingerId", SpannerDbType.Int64, 17 },
+            { "FirstName", SpannerDbType.String, "Marc" },
+            { "LastName", SpannerDbType.String, "Smith" }
+        });
+
+        var cmdSinger3 = connection.CreateInsertOrUpdateCommand("Singers", new SpannerParameterCollection
+        {
+            { "SingerId", SpannerDbType.Int64, 18 },
+            { "FirstName", SpannerDbType.String, "Catalina" },
+            { "LastName", SpannerDbType.String, "Smith" }
+        });
+
+        var cmdAlbum1 = connection.CreateInsertOrUpdateCommand("Albums", new SpannerParameterCollection
+        {
+            { "SingerId", SpannerDbType.Int64, 17 },
+            { "AlbumId", SpannerDbType.Int64, 1 },
+            { "AlbumTitle", SpannerDbType.String, "Total Junk" }
+        });
+
+        var cmdAlbum2 = connection.CreateInsertOrUpdateCommand("Albums", new SpannerParameterCollection
+        {
+            { "SingerId", SpannerDbType.Int64, 18 },
+            { "AlbumId", SpannerDbType.Int64, 2 },
+            { "AlbumTitle", SpannerDbType.String, "Go, Go, Go" }
+        });
+
+        // Add multiple commands to the same group.
+        cmd.Add(cmdSinger2, cmdSinger3, cmdAlbum1, cmdAlbum2);
+
+        // 3. Execute the batch write request.
+        try
+        {
+            // ExecuteNonQueryAsync returns an IAsyncEnumerable of BatchWriteResponse.
+            await foreach (var response in cmd.ExecuteNonQueryAsync())
+            {
+                if (response.Status?.Code == (int)Code.Ok)
+                {
+                    Console.WriteLine($"Mutation group indexes {string.Join(", ", response.Indexes)} have been applied with commit timestamp {response.CommitTimestamp}");
+                }
+                else
+                {
+                    Console.WriteLine($"Mutation group indexes {string.Join(", ", response.Indexes)} could not be applied with error code {response.Status?.Code}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error executing batch write: {ex.Message}");
+            throw;
+        }
+    }
+}
+```
+
+### Go
+
+``` go
+import (
+ "context"
+ "fmt"
+ "io"
+
+ "cloud.google.com/go/spanner"
+ sppb "cloud.google.com/go/spanner/apiv1/spannerpb"
+ "google.golang.org/grpc/status"
+)
+
+// batchWrite demonstrates writing mutations to a Spanner database through
+// BatchWrite API - https://pkg.go.dev/cloud.google.com/go/spanner#Client.BatchWrite
+func batchWrite(w io.Writer, db string) error {
+ // db := "projects/my-project/instances/my-instance/databases/my-database"
+ ctx := context.Background()
+ client, err := spanner.NewClient(ctx, db)
+ if err != nil {
+     return err
+ }
+ defer client.Close()
+
+ // Database is assumed to exist - https://cloud.google.com/spanner/docs/getting-started/go#create_a_database
+ singerColumns := []string{"SingerId", "FirstName", "LastName"}
+ albumColumns := []string{"SingerId", "AlbumId", "AlbumTitle"}
+ mutationGroups := make([]*spanner.MutationGroup, 2)
+
+ mutationGroup1 := []*spanner.Mutation{
+     spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{16, "Scarlet", "Terry"}),
+ }
+ mutationGroups[0] = &spanner.MutationGroup{Mutations: mutationGroup1}
+
+ mutationGroup2 := []*spanner.Mutation{
+     spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{17, "Marc", ""}),
+     spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{18, "Catalina", "Smith"}),
+     spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{17, 1, "Total Junk"}),
+     spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{18, 2, "Go, Go, Go"}),
+ }
+ mutationGroups[1] = &spanner.MutationGroup{Mutations: mutationGroup2}
+ iter := client.BatchWrite(ctx, mutationGroups)
+ // See https://pkg.go.dev/cloud.google.com/go/spanner#BatchWriteResponseIterator.Do
+ doFunc := func(response *sppb.BatchWriteResponse) error {
+     if err = status.ErrorProto(response.GetStatus()); err == nil {
+         fmt.Fprintf(w, "Mutation group indexes %v have been applied with commit timestamp %v",
+             response.GetIndexes(), response.GetCommitTimestamp())
+     } else {
+         fmt.Fprintf(w, "Mutation group indexes %v could not be applied with error %v",
+             response.GetIndexes(), err)
+     }
+     // Return an actual error as needed.
+     return nil
+ }
+ return iter.Do(doFunc)
+}
+```
 
 ### Java
 
@@ -158,64 +359,6 @@ public class BatchWriteAtLeastOnceSample {
 }
 ```
 
-### Go
-
-``` go
-import (
- "context"
- "fmt"
- "io"
-
- "cloud.google.com/go/spanner"
- sppb "cloud.google.com/go/spanner/apiv1/spannerpb"
- "google.golang.org/grpc/status"
-)
-
-// batchWrite demonstrates writing mutations to a Spanner database through
-// BatchWrite API - https://pkg.go.dev/cloud.google.com/go/spanner#Client.BatchWrite
-func batchWrite(w io.Writer, db string) error {
- // db := "projects/my-project/instances/my-instance/databases/my-database"
- ctx := context.Background()
- client, err := spanner.NewClient(ctx, db)
- if err != nil {
-     return err
- }
- defer client.Close()
-
- // Database is assumed to exist - https://cloud.google.com/spanner/docs/getting-started/go#create_a_database
- singerColumns := []string{"SingerId", "FirstName", "LastName"}
- albumColumns := []string{"SingerId", "AlbumId", "AlbumTitle"}
- mutationGroups := make([]*spanner.MutationGroup, 2)
-
- mutationGroup1 := []*spanner.Mutation{
-     spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{16, "Scarlet", "Terry"}),
- }
- mutationGroups[0] = &spanner.MutationGroup{Mutations: mutationGroup1}
-
- mutationGroup2 := []*spanner.Mutation{
-     spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{17, "Marc", ""}),
-     spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{18, "Catalina", "Smith"}),
-     spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{17, 1, "Total Junk"}),
-     spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{18, 2, "Go, Go, Go"}),
- }
- mutationGroups[1] = &spanner.MutationGroup{Mutations: mutationGroup2}
- iter := client.BatchWrite(ctx, mutationGroups)
- // See https://pkg.go.dev/cloud.google.com/go/spanner#BatchWriteResponseIterator.Do
- doFunc := func(response *sppb.BatchWriteResponse) error {
-     if err = status.ErrorProto(response.GetStatus()); err == nil {
-         fmt.Fprintf(w, "Mutation group indexes %v have been applied with commit timestamp %v",
-             response.GetIndexes(), response.GetCommitTimestamp())
-     } else {
-         fmt.Fprintf(w, "Mutation group indexes %v could not be applied with error %v",
-             response.GetIndexes(), err)
-     }
-     // Return an actual error as needed.
-     return nil
- }
- return iter.Do(doFunc)
-}
-```
-
 ### Node
 
 ``` javascript
@@ -307,6 +450,111 @@ try {
 }
 ```
 
+### PHP
+
+```` php
+<?php
+/**
+ * Copyright 2026 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * For instructions on how to run the full sample:
+ *
+ * @see https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/README.md
+ */
+
+namespace Google\Cloud\Samples\Spanner;
+
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Inserts sample data into the given database via BatchWrite API.
+ * The database and table must already exist and can be created using `create_database`.
+ *
+ * Example:
+ * ```
+ * batch_write($projectId, $instanceId, $databaseId);
+ * ```
+ *
+ * @param string $projectId The Google Cloud project ID.
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function batch_write(string $projectId, string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient(['projectId' => $projectId]);
+    $database = $spanner->instance($instanceId)->database($databaseId);
+
+    // Create Mutation Groups
+    // All mutations within a single group are applied atomically.
+    // Mutations across groups are applied non-atomically.
+
+    // Group 1: Single mutation
+    $mutationGroup1 = $database->mutationGroup();
+    $mutationGroup1->insertOrUpdate('Singers', [
+        'SingerId' => 16,
+        'FirstName' => 'Scarlet',
+        'LastName' => 'Terry'
+    ]);
+
+    // Group 2: Multiple mutations
+    $mutationGroup2 = $database->mutationGroup();
+    $mutationGroup2->insertOrUpdateBatch('Singers', [
+        ['SingerId' => 17, 'FirstName' => 'Marc'],
+        ['SingerId' => 18, 'FirstName' => 'Catalina', 'LastName' => 'Smith']
+    ]);
+    $mutationGroup2->insertOrUpdateBatch('Albums', [
+        ['SingerId' => 17, 'AlbumId' => 1, 'AlbumTitle' => 'Total Junk'],
+        ['SingerId' => 18, 'AlbumId' => 2, 'AlbumTitle' => 'Go, Go, Go']
+    ]);
+
+    // Call batchWrite on the high-level Database client.
+    // Equivalent to batchWriteAtLeastOnce in other languages.
+    $responses = $database->batchWrite([$mutationGroup1, $mutationGroup2], [
+        'requestOptions' => ['transactionTag' => 'batch-write-tag']
+    ]);
+
+    // Check the response code of each response to determine whether the mutation group(s) were applied successfully.
+    // $responses is a Generator yielding V1\BatchWriteResponse items.
+    // Check the response code of each response to determine whether the mutation group(s) were applied successfully.
+    // $responses is a Generator yielding response arrays.
+    foreach ($responses as $response) {
+        $status = $response['status'];
+        $indexes = implode(', ', $response['indexes']);
+        if ($status['code'] === 0) {
+            $timestamp = $response['commitTimestamp'] ?? 'Unknown';
+            printf('Mutation group indexes [%s] have been applied with commit timestamp %s' . PHP_EOL,
+                $indexes,
+                $timestamp
+            );
+        } else {
+            printf('Mutation group indexes [%s] could not be applied with error code %s and error message %s' . PHP_EOL,
+                $indexes,
+                $status['code'],
+                $status['message']
+            );
+        }
+    }
+}
+
+// The following 2 lines are only needed to run the samples
+require_once __DIR__ . '/../../testing/sample_helpers.php';
+\Google\Cloud\Samples\execute_sample(__FILE__, __NAMESPACE__, $argv);
+````
+
 ### Python
 
 ``` python
@@ -365,46 +613,51 @@ def batch_write(instance_id, database_id):
                 )
 ```
 
-### C++
+### Ruby
 
-``` cpp
-namespace spanner = ::google::cloud::spanner;
-// Use upserts as mutation groups are not replay protected.
-auto commit_results = client.CommitAtLeastOnce({
-    // group #0
-    spanner::Mutations{
-        spanner::InsertOrUpdateMutationBuilder(
-            "Singers", {"SingerId", "FirstName", "LastName"})
-            .EmplaceRow(16, "Scarlet", "Terry")
-            .Build(),
-    },
-    // group #1
-    spanner::Mutations{
-        spanner::InsertOrUpdateMutationBuilder(
-            "Singers", {"SingerId", "FirstName", "LastName"})
-            .EmplaceRow(17, "Marc", "")
-            .EmplaceRow(18, "Catalina", "Smith")
-            .Build(),
-        spanner::InsertOrUpdateMutationBuilder(
-            "Albums", {"SingerId", "AlbumId", "AlbumTitle"})
-            .EmplaceRow(17, 1, "Total Junk")
-            .EmplaceRow(18, 2, "Go, Go, Go")
-            .Build(),
-    },
-});
-for (auto& commit_result : commit_results) {
-  if (!commit_result) throw std::move(commit_result).status();
-  std::cout << "Mutation group indexes [";
-  for (auto index : commit_result->indexes) std::cout << " " << index;
-  std::cout << " ]: ";
-  if (commit_result->commit_timestamp) {
-    auto const& ts = *commit_result->commit_timestamp;
-    std::cout << "Committed at " << ts.get<absl::Time>().value();
-  } else {
-    std::cout << commit_result->commit_timestamp.status();
-  }
-  std::cout << "\n";
-}
+``` ruby
+require "google/cloud/spanner"
+
+##
+# This is a snippet for showcasing how to apply a batch of mutations groups.
+# All mutations in a group are applied atomically.
+#
+# @param project_id  [String] The ID of the Google Cloud project.
+# @param instance_id [String] The ID of the spanner instance.
+# @param database_id [String] The ID of the database.
+#
+def spanner_batch_write project_id:, instance_id:, database_id:
+  spanner = Google::Cloud::Spanner.new project: project_id
+  client  = spanner.client instance_id, database_id
+
+  results = client.batch_write do |b|
+    # First mutation group
+    b.mutation_group do |mg|
+      mg.upsert "Singers", [{ SingerId: 16, FirstName: "Scarlet", LastName: "Terry" }]
+    end
+
+    # Second mutation group
+    b.mutation_group do |mg|
+      mg.upsert "Singers", [
+        { SingerId: 17, FirstName: "Marc" },
+        { SingerId: 18, FirstName: "Catalina", LastName: "Smith" }
+      ]
+      mg.upsert "Albums", [
+        { SingerId: 17, AlbumId: 1, AlbumTitle: "Total Junk" },
+        { SingerId: 18, AlbumId: 2, AlbumTitle: "Go, Go, Go" }
+      ]
+    end
+  end
+
+  results.each do |response|
+    if response.ok?
+      puts "Mutation group indexes applied: #{response.indexes}"
+    else
+      puts "Mutation group failed to apply: #{response.indexes}"
+      puts "Error: #{response.status.message}"
+    end
+  end
+end
 ```
 
 ## What's next

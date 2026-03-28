@@ -156,6 +156,8 @@ If the expression doesn't have an explicit alias, it receives an implicit alias 
 
 An item in a `  SELECT  ` list can also take the form of `  expression.*  ` . This produces one output column for each column or top-level field of `  expression  ` . The expression must either be a table alias or evaluate to a single value of a data type with fields, such as a STRUCT.
 
+**Note:** The `  *  ` or `  .*  ` wildcard preserves the order of the fields in the data structure on which they're operating.
+
 The following query produces one output column for each column in the table `  groceries  ` , aliased as `  g  ` .
 
 ``` text

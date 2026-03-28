@@ -98,7 +98,7 @@ This data can only be accessed by Spanner instances.
 
 You can enable [customer-managed encryption keys (CMEK)](/spanner/docs/cmek) to encrypt your data at rest. With CMEK, keys are stored in Cloud Key Management Service (Cloud KMS) as software-protected keys or hardware-protected keys with Cloud HSM, but they are managed by you. To provision encryption keys automatically, you can enable [Cloud KMS Autokey](/kms/docs/autokey-overview) . When you enable Autokey, a developer can request a key from Cloud KMS, and the service agent provisions a key that matches the developer's intent. With Cloud KMS Autokey, keys are available on demand, are consistent, and follow industry-standard practices.
 
-In addition, Spanner supports [Cloud External Key Manager (Cloud EKM)](/spanner/docs/cmek) , which lets you store your keys in an external key manager outside of Google Cloud.
+In addition, Spanner supports Cloud External Key Manager (Cloud EKM), which lets you store your keys in an external key manager outside of Google Cloud. For more information, see [Customer-managed encryption keys (CMEK) overview](/spanner/docs/cmek) .
 
 ### Where data is processed
 
