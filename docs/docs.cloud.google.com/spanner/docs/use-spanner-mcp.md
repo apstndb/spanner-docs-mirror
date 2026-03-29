@@ -2,13 +2,22 @@
 
 This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-[Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) (MCP) standardizes the way large language models (LLMs) and AI applications or agents connect to outside data sources. MCP servers let you use their tools, resources, and prompts to take actions and get updated data from their backend service.
+This document shows you how to use the Spanner remote Model Context Protocol (MCP) server to connect with AI applications including Gemini CLI, ChatGPT, Claude, and custom applications you are developing. The Spanner MCP server lets you access and run Spanner tools to create, manage, and query Spanner resources from your AI-enabled development environments and AI agent platforms. .
 
-Local MCP servers typically run on your local machine and use the standard input and output streams (stdio) for communication between services on the same device. Remote MCP servers run on the service's infrastructure and offer an HTTP endpoint to AI applications for communication between the AI MCP client and the MCP server. For more information on MCP architecture, see [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) .
+The Spanner remote MCP server is enabled when you enable the Spanner API.
 
-This document describes how to use the Spanner remote Model Context Protocol (MCP) server to connect to Spanner from AI applications such as Gemini CLI, agent mode in Gemini Code Assist, Claude Code, or from AI applications you're developing.
+[Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) (MCP) standardizes how large language models (LLMs) and AI applications or agents connect to external data sources. MCP servers let you use their tools, resources, and prompts to take actions and get updated data from their backend service.
+
+## What's the difference between local and remote MCP servers?
+
+  - Local MCP servers  
+    Typically run on your local machine and use the standard input and output streams (stdio) for communication between services on the same device.
+  - Remote MCP servers  
+    Run on the service's infrastructure and offer an HTTP endpoint to AI applications for communication between the AI MCP client and the MCP server. For more information about MCP architecture, see [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) .
 
 For information on the Spanner local MCP server, see [Spanner MCP server on GitHub](https://googleapis.github.io/genai-toolbox/resources/sources/spanner/) .
+
+## Google and Google Cloud remote MCP servers
 
 Google and Google Cloud remote MCP servers have the following features and benefits:
 
@@ -18,7 +27,7 @@ Google and Google Cloud remote MCP servers have the following features and benef
   - Optional prompt and response security with Model Armor protection.
   - Centralized audit logging.
 
-For information about other MCP servers and information about security and governance controls available for Google Cloud MCP servers, see [Google Cloud MCP servers overview](/mcp/overview) .
+For information about other MCP servers and information about security and governance controls available for Google Cloud MCP servers, see [Google Cloud MCP servers overview](https://docs.cloud.google.com/mcp/overview) .
 
 ## Before you begin
 
@@ -32,22 +41,19 @@ For information about other MCP servers and information about security and gover
 
 ### Required roles
 
-To get the permissions that you need to enable the Spanner MCP server, ask your administrator to grant you the following IAM roles on the project where you want to enable the Spanner MCP server:
+To get the permissions that you need to use the Spanner MCP server, ask your administrator to grant you the following IAM roles on the project where you want to use the Spanner MCP server:
 
-  - [Service Usage Admin](/iam/docs/roles-permissions/serviceusage#serviceusage.serviceUsageAdmin) ( `  roles/serviceusage.serviceUsageAdmin  ` )
   - Make MCP tool calls: [MCP Tool User](/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `  roles/mcp.toolUser  ` )
   - Use Spanner MCP tools: [Cloud Spanner Admin](/iam/docs/roles-permissions/spanner#spanner.admin) ( `  roles/spanner.admin  ` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](/iam/docs/granting-changing-revoking-access) .
 
-These predefined roles contain the permissions required to enable the Spanner MCP server. To see the exact permissions that are required, expand the **Required permissions** section:
+These predefined roles contain the permissions required to use the Spanner MCP server. To see the exact permissions that are required, expand the **Required permissions** section:
 
 #### Required permissions
 
-The following permissions are required to enable the Spanner MCP server:
+The following permissions are required to use the Spanner MCP server:
 
-  - `  serviceusage.mcppolicy.get  `
-  - `  serviceusage.mcppolicy.update  `
   - Make MCP tool calls: `  mcp.tools.call  `
   - Use Spanner MCP tools:
       - `  spanner.instances.create  `
@@ -61,42 +67,6 @@ The following permissions are required to enable the Spanner MCP server:
       - `  spanner.databases.write  `
 
 You might also be able to get these permissions with [custom roles](/iam/docs/creating-custom-roles) or other [predefined roles](/iam/docs/roles-overview#predefined) .
-
-## Enable or disable the Spanner MCP server
-
-**Note:** Starting on March 17, 2026, separate enablement for MCP servers will be removed. When the Spanner API is enabled in a project, you can use Spanner through its remote MCP endpoint. This update will be released gradually across different regions.
-
-You can enable or disable the Spanner MCP server in a project with the `  gcloud beta services mcp enable  ` command. For more information, see the following sections.
-
-### Enable the Spanner MCP server in a project
-
-If you are using different projects for your client credentials, such as service account keys, OAuth client ID or API keys, and for hosting your resources, then you must enable the Spanner service and the Spanner remote MCP server on both projects.
-
-To enable the Spanner MCP server in your Google Cloud project, run the following command:
-
-``` text
-gcloud beta services mcp enable spanner.googleapis.com \
-    --project=PROJECT_ID
-```
-
-Replace the following:
-
-  - `  PROJECT_ID  ` : the Google Cloud project ID.
-
-The Spanner remote MCP server is enabled for use in your Google Cloud Project. If the Spanner service isn't enabled for your Google Cloud project, you are prompted to enable the service before enabling the Spanner remote MCP server.
-
-As a security best practice, we recommend that you enable MCP servers only for the services required for your AI application to function.
-
-### Disable the Spanner MCP server in a project
-
-To disable the Spanner MCP server in your Google Cloud project, run the following command:
-
-``` text
-gcloud beta services mcp disable spanner.googleapis.com \
-    --project=PROJECT_ID
-```
-
-The Spanner MCP server is disabled for use in your Google Cloud Project.
 
 ## Authentication and authorization
 
@@ -142,7 +112,7 @@ In your AI application, look for a way to connect to a remote MCP server. You ar
 For the Spanner MCP server, enter the following as required:
 
   - **Server name** : Spanner MCP server
-  - **Server URL** or **Endpoint** : spanner.googleapis.com/mcp
+  - **Server URL** or **Endpoint** : `  https://spanner.googleapis.com/mcp  `
   - **Transport** : HTTP
   - **Authentication details** : Depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information on authentication, see [Authenticate to MCP servers](/mcp/authenticate-mcp) .
   - **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Spanner MCP server.
@@ -220,9 +190,9 @@ For more information about MCP security and governance, see [AI security and saf
 
 [Model Armor](/model-armor/overview) is a Google Cloud service designed to enhance the security and safety of your AI applications. It works by proactively screening LLM prompts and responses, protecting against various risks and supporting responsible AI practices. Whether you are deploying AI in your cloud environment, or on external cloud providers, Model Armor can help you prevent malicious input, verify content safety, protect sensitive data, maintain compliance, and enforce your AI safety and security policies consistently across your diverse AI landscape.
 
-Model Armor is only available in specific regional locations. If Model Armor is enabled for a project, and a call to that project comes from an unsupported region, Model Armor makes a cross-regional call. For more information, see [Model Armor locations](/model-armor/locations) .
+Model Armor is only available in specific regional locations. If Model Armor is enabled for a project, and a call to that project comes from an unsupported region, then Model Armor makes a cross-regional call. For more information, see [Model Armor locations](/model-armor/locations) .
 
-**Caution:** Model Armor logs the entire payload if a request fails. This might expose sensitive information in the logs.
+**Caution:** If a request fails, Model Armor logs the entire payload. This might expose sensitive information in the logs.
 
 #### Enable Model Armor
 

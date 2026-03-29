@@ -18,6 +18,7 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <th><a href="/spanner/docs/use-hibernate">Hibernate</a></th>
 <th><a href="/spanner/docs/adding-spring">Spring Data</a></th>
 <th><a href="/spanner/docs/use-oss-r2dbc">R2DBC</a> *</th>
+<th><a href="/spanner/docs/use-ado-net">ADO.NET</a></th>
 <th><a href="/spanner/docs/use-entity-framework">Entity Framework</a></th>
 <th><a href="/spanner/docs/use-active-record">Active Record</a></th>
 <th><a href="/spanner/docs/use-sqlalchemy">SQLAlchemy</a></th>
@@ -33,6 +34,7 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <td>Java</td>
 <td>Java</td>
 <td>Java</td>
+<td>C#</td>
 <td>C#</td>
 <td>Ruby</td>
 <td>Python</td>
@@ -50,9 +52,11 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td><a href="/spanner/docs/modify-mutation-api">Mutations</a></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -76,9 +80,11 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td><a href="/spanner/docs/schema-updates#order_of_execution_of_statements_in_batches">Batch DDL</a></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -102,9 +108,11 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td><a href="/spanner/docs/schema-and-data-model#parent-child">Interleaved tables</a></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -128,9 +136,11 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td><a href="/spanner/docs/sessions">Session labeling</a></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -154,9 +164,11 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td><a href="/spanner/docs/working-with-json">JSON type</a></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -180,9 +192,11 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td><a href="/spanner/docs/reference/standard-sql/overview">Google SQL dialect</a></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -206,6 +220,7 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <td></td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr class="odd">
 <td>Limitations</td>
@@ -213,6 +228,7 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 <td><a href="https://github.com/googleapis/go-gorm-spanner/blob/main/docs/limitations.md">View</a></td>
 <td></td>
 <td><a href="https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate#cloud-spanner-hibernate-orm-limitations">View</a></td>
+<td></td>
 <td></td>
 <td></td>
 <td><a href="https://github.com/googleapis/dotnet-spanner-entity-framework#limitations">View</a></td>

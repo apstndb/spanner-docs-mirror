@@ -327,9 +327,9 @@ This section has information about `  INDEX  ` statements.
 CREATE [ UNIQUE ] INDEX [ IF NOT EXISTS ] name ] ON table_name
     ( { column_name } [ ASC | DESC ] [ NULLS { FIRST | LAST } ] [, ...] )
     [ INCLUDE ( column_name [, ...] ) ]
+    [ LOCALITY GROUP locality_group_name ]
     [ INTERLEAVE IN parent_table_name ]
     [ WHERE predicate ]
-    [ LOCALITY GROUP locality_group_name ]
 
 where predicate is:
 
@@ -712,10 +712,10 @@ CREATE TABLE [ IF NOT EXISTS ] table_name (
       } [, ... ],
       PRIMARY KEY (column_name)
     )
-    [ { LOCALITY GROUP locality_group_name
-    | INTERLEAVE IN [ PARENT ] parent_table_name
+    [ LOCALITY GROUP locality_group_name ]
+    [ INTERLEAVE IN [ PARENT ] parent_table_name ]
     [ ON DELETE ( CASCADE | NO ACTION ) ]
-    | TTL INTERVAL interval_spec ON timestamp_column_name } ]
+    [ TTL INTERVAL interval_spec ON timestamp_column_name ]
 
 where column_constraint is:
 
@@ -877,7 +877,7 @@ Spanner extends open source PostgreSQL with the following:
     
       - *`  interval_spec  `* is the number of days past the timestamp in the `  timestamp_column_name  ` in which Spanner marks the row for deletion. You must use a non-negative integer for the value and it must evaluate to a whole number of days. For example, `  '3 days'  ` is allowed, but `  '3 days - 2 minutes'  ` returns an error.
     
-      - `  locality_group_name  ` is the name of the locality group.
+      - `  timestamp_column_name  ` is the name of the timestamp column.
 
 `  LOCALITY GROUP locality_group_name  `
 

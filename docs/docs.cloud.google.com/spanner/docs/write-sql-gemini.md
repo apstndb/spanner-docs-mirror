@@ -107,9 +107,9 @@ You can use Gemini in Spanner to explain SQL queries in natural language. This e
 
 6.  In the query editor, paste the query.
 
-7.  Highlight the query that you want Gemini to explain, and then click spark **Explain this query** .
+7.  Highlight the query that you want Gemini to explain, and then click astrophotography\_mode **Explain this selected query** .
     
-    The SQL explanation appears in the **Gemini** pane.
+    The SQL explanation appears in the Gemini Cloud Assist pane.
 
 ## What's next
 

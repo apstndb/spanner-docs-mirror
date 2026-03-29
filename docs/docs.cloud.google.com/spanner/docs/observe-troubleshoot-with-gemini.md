@@ -8,7 +8,7 @@ To improve system performance for Spanner using Gemini Cloud Assist, follow thes
 
 2.  To open the **Overview** page of an instance, click the instance name.
 
-3.  To open Gemini, click spark **Gemini** .
+3.  To open Gemini, click settings\_suggestion **Gemini** .
 
 4.  In the Gemini pane, enter a prompt that describes the information you're interested in. The prompt must request information about system insights—for example:
     

@@ -1843,27 +1843,30 @@ Grants privileges that allow database roles to access database objects.
 #### Syntax
 
 ``` text
-GRANT { SELECT | INSERT | UPDATE | DELETE } ON TABLE table_list TO ROLE role_list
-
-GRANT { SELECT | INSERT | UPDATE }(column_list)
+GRANT { SELECT | INSERT | UPDATE | DELETE }
    ON TABLE table_list | ON ALL TABLES IN SCHEMA schema_name [, ...]
+   TO ROLE role_list
+
+GRANT { SELECT | INSERT | UPDATE } (column_list)
+   ON TABLE table_list
    TO ROLE role_list
 
 GRANT SELECT
     ON CHANGE STREAM change_stream_list
-        | ON ALL CHANGE STREAMS IN SCHEMA schema_name [, ...] }
+    | ON ALL CHANGE STREAMS IN SCHEMA schema_name [, ...]
     TO ROLE role_list
 
 GRANT SELECT ON VIEW view_list | ON ALL VIEWS IN SCHEMA schema_name [, ...]
     TO ROLE role_list
 
 GRANT EXECUTE ON TABLE FUNCTION function_list
-    TO ROLE role_list.
+    TO ROLE role_list
 
 GRANT ROLE role_list
     TO ROLE role_list
 
-GRANT USAGE ON SCHEMA [DEFAULT | schema_name_list] TO ROLE role_list
+GRANT USAGE ON SCHEMA [DEFAULT | schema_name_list]
+    TO ROLE role_list
 
 where table_list is:
       table_name [, ...]
@@ -1980,17 +1983,28 @@ Revokes privileges that allow database roles access to database objects.
 #### Syntax
 
 ``` text
-REVOKE { SELECT | INSERT | UPDATE | DELETE } ON TABLE table_list FROM ROLE role_list
+REVOKE { SELECT | INSERT | UPDATE | DELETE }
+    ON TABLE table_list | ON ALL TABLES IN SCHEMA schema_name [, ...]
+    FROM ROLE role_list
 
-REVOKE { SELECT | INSERT | UPDATE }(column_list) ON TABLE table_list FROM ROLE role_list
+REVOKE { SELECT | INSERT | UPDATE }(column_list)
+    ON TABLE table_list
+    FROM ROLE role_list
 
-REVOKE SELECT ON VIEW view_list FROM ROLE role_list
+REVOKE SELECT
+    ON VIEW view_list
+    FROM ROLE role_list
 
-REVOKE SELECT ON CHANGE STREAM change_stream_list FROM ROLE role_list
+REVOKE SELECT
+    ON CHANGE STREAM change_stream_list
+    FROM ROLE role_list
 
-REVOKE EXECUTE ON TABLE FUNCTION function_list FROM ROLE role_list
+REVOKE EXECUTE
+    ON TABLE FUNCTION function_list
+    FROM ROLE role_list
 
-REVOKE ROLE role_list FROM ROLE role_list
+REVOKE ROLE role_list
+    FROM ROLE role_list
 
 and table_list is:
     table_name [, ...]

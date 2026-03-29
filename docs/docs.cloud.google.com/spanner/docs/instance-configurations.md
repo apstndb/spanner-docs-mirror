@@ -282,18 +282,24 @@ Spanner offers the following base dual-region instance configurations:
 Melbourne: <code dir="ltr" translate="no">         australia-southeast2        </code> <a href="#2RW"><em>2RW+1W</em></a></td>
 </tr>
 <tr class="even">
+<td><code dir="ltr" translate="no">         dual-region-canada1        </code></td>
+<td>ca (Canada)</td>
+<td>Toronto: <code dir="ltr" translate="no">         northamerica-northeast2        </code> <a href="#L"><em>L</em></a> , <a href="#2RW"><em>2RW+1W</em></a><br />
+Montréal: <code dir="ltr" translate="no">         northamerica-northeast1        </code> <a href="#2RW"><em>2RW+1W</em></a></td>
+</tr>
+<tr class="odd">
 <td><code dir="ltr" translate="no">         dual-region-germany1        </code></td>
 <td>de (Germany)</td>
 <td>Berlin: <code dir="ltr" translate="no">         europe-west10        </code> <a href="#L"><em>L</em></a> , <a href="#2RW"><em>2RW+1W</em></a><br />
 Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="#2RW"><em>2RW+1W</em></a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">         dual-region-india1        </code></td>
 <td>in (India)</td>
 <td>Mumbai: <code dir="ltr" translate="no">         asia-south1        </code> <a href="#L"><em>L</em></a> , <a href="#2RW"><em>2RW+1W</em></a><br />
 Delhi: <code dir="ltr" translate="no">         asia-south2        </code> <a href="#2RW"><em>2RW+1W</em></a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">         dual-region-japan1        </code></td>
 <td>jp (Japan)</td>
 <td>Tokyo: <code dir="ltr" translate="no">         asia-northeast1        </code> <a href="#L"><em>L</em></a> , <a href="#2RW"><em>2RW+1W</em></a><br />
