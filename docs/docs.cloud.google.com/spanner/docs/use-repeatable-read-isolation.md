@@ -1,6 +1,6 @@
-****
+**Preview — Repeatable read isolation**
 
-This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) . Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 This page describes how to use repeatable read isolation in Spanner.
 
@@ -110,10 +110,11 @@ static void isolationLevelSetting(DatabaseId db) {
         // Read an AlbumTitle.
         String selectSql =
             "SELECT AlbumTitle from Albums WHERE SingerId = 1 and AlbumId = 1";
-        ResultSet resultSet = transaction.executeQuery(Statement.of(selectSql));
         String title = null;
-        while (resultSet.next()) {
-          title = resultSet.getString("AlbumTitle");
+        try (ResultSet resultSet = transaction.executeQuery(Statement.of(selectSql))) {
+          if (resultSet.next()) {
+            title = resultSet.getString("AlbumTitle");
+          }
         }
         System.out.printf("Current album title: %s\n", title);
 
@@ -202,6 +203,7 @@ runTransactionWithIsolationLevel();
 ``` python
 # instance_id = "your-spanner-instance"
 # database_id = "your-spanner-db-id"
+from google.cloud.spanner_v1 import TransactionOptions, DefaultTransactionOptions
 
 # The isolation level specified at the client-level will be applied to all RW transactions.
 isolation_options_for_client = TransactionOptions.IsolationLevel.SERIALIZABLE

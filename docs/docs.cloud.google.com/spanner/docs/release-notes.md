@@ -4,6 +4,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## March 25, 2026
+
+Feature
+
+The Spark Spanner connector supports writing a Spark Dataframe to a Spanner table using the Spark data source API. For more information, see [Use the Spark Spanner connector](/dataproc/docs/tutorials/spanner-connector-spark-example#write-spanner-tables) .
+
 ## March 19, 2026
 
 Feature

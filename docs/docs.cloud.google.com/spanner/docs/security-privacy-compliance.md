@@ -45,7 +45,7 @@ To enable Spanner to access your resources on your behalf, Google Cloud creates 
 When you enable Spanner, the following Spanner service agent is created:
 
 ``` text
-service-PROJECT_NUMBER@gcp-sa-spanner.iam.gserviceaccount.com
+service-PROJECT_ID@gcp-sa-spanner.iam.gserviceaccount.com
 ```
 
 ## Policies for Spanner
@@ -126,7 +126,7 @@ For more information, see [Audit logging](/spanner/docs/audit-logging) .
 
 ## Access transparency
 
-You can use [Access Approval](/access-approval/docs/overview) and [Access Transparency](/access-transparency/docs/overview) to control access to Spanner instances by Google personnel who support the service. Access Approval lets you approve or dismiss requests for access by Google employees. Access Transparency logs offer near real-time insight when Google Cloud administrators access the resources.
+You can use [Access Approval](/assured-workloads/access-approval/docs/overview) and [Access Transparency](/assured-workloads/access-transparency/docs/overview) to control access to Spanner instances by Google personnel who support the service. Access Approval lets you approve or dismiss requests for access by Google employees. Access Transparency logs offer near real-time insight when Google Cloud administrators access the resources.
 
 ## Monitoring and incident response
 

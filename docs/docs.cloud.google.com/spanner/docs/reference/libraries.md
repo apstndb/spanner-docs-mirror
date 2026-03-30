@@ -48,7 +48,7 @@ If you are using [Maven](https://maven.apache.org/) , add the following to your 
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>libraries-bom</artifactId>
-      <version>26.76.0</version>
+      <version>26.78.0</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -65,7 +65,7 @@ If you are using [Maven](https://maven.apache.org/) , add the following to your 
 If you are using [Gradle](https://gradle.org/) , add the following to your dependencies:
 
 ``` markdown
-implementation platform('com.google.cloud:libraries-bom:26.76.0')
+implementation platform('com.google.cloud:libraries-bom:26.78.0')
 
 implementation 'com.google.cloud:google-cloud-spanner'
 ```
@@ -73,7 +73,7 @@ implementation 'com.google.cloud:google-cloud-spanner'
 If you are using [sbt](https://www.scala-sbt.org/) , add the following to your dependencies:
 
 ``` markdown
-libraryDependencies += "com.google.cloud" % "google-cloud-spanner" % "6.112.0"
+libraryDependencies += "com.google.cloud" % "google-cloud-spanner" % "6.113.0"
 ```
 
 If you're using Visual Studio Code or IntelliJ, you can add client libraries to your project using the following IDE plugins:

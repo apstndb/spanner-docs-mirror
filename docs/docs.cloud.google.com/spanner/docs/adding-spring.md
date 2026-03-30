@@ -46,7 +46,7 @@ For more information, see the instructions for [setting up a Java development en
 
 ## Configure the module
 
-This section describes some of the most commonly used configuration settings for Spring Data Spanner. For a complete list of settings, see the [reference documentation](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/#cloud-spanner-settings) .
+This section describes some of the most commonly used configuration settings for Spring Data Spanner. For a complete list of settings, see the [reference documentation](reference/html/#cloud-spanner-settings) .
 
 ### Specify an instance and database
 
@@ -242,11 +242,11 @@ public class SpannerTemplateSample {
 }
 ```
 
-You can use the `  SpannerTemplate  ` bean to execute [read-only transactions](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/#read-only-transaction) and [read-write transactions](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/#readwrite-transaction) . In addition, you can use the [`  @Transactional  `](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/#declarative-transactions-with-transactional-annotation) annotation to create declarative transactions.
+You can use the `  SpannerTemplate  ` bean to execute [read-only transactions](reference/html/#read-only-transaction) and [read-write transactions](reference/html/#readwrite-transaction) . In addition, you can use the [`  @Transactional  `](reference/html/#declarative-transactions-with-transactional-annotation) annotation to create declarative transactions.
 
 ### Acquire a repository bean
 
-If you use a `  SpannerRepository  ` , you can use the `  @Autowired  ` annotation to acquire a bean that implements your repository's interface. A repository includes methods for running Java functions as [read-only transactions](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/#read-only-transaction) and [read-write transactions](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/#readwrite-transaction) . For lower-level operations, you can get the template bean that the repository uses.
+If you use a `  SpannerRepository  ` , you can use the `  @Autowired  ` annotation to acquire a bean that implements your repository's interface. A repository includes methods for running Java functions as [read-only transactions](reference/html/#read-only-transaction) and [read-write transactions](reference/html/#readwrite-transaction) . For lower-level operations, you can get the template bean that the repository uses.
 
 The following examples show the interface for a repository and a class that acquires and uses the bean:
 
