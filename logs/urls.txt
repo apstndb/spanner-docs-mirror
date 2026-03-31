@@ -28,6 +28,7 @@ https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/confi
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/config/export
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/create
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/ddl
+https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/ddl/describe
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/ddl/update
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/delete
 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/describe
@@ -100,6 +101,7 @@ https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/backup-schedules
 https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/backup-schedules/delete
 https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/backup-schedules/describe
 https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/backup-schedules/get-iam-policy
+https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/backup-schedules/list
 https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/backup-schedules/remove-iam-policy-binding
 https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/backup-schedules/set-iam-policy
 https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/backup-schedules/update

@@ -53,7 +53,7 @@ GROUP
 Fully qualified names (FQNs) combine the schema name and the object name to identify a database object, for example, `  sales.customers  ` . When you add an FQN in DDL, it requires quotes around each part of the name:
 
 ``` text
-"foo"."Group"
+"foo";."Group"
 ```
 
 ## Case sensitivity

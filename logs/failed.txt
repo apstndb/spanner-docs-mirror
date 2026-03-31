@@ -1,4 +1,2 @@
 200 https://cloud.google.com/spanner/pricing
 200 https://cloud.google.com/spanner/sla
-200 https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/ddl/describe
-200 https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/backup-schedules/list
