@@ -641,10 +641,6 @@ When you create the external datasets with a `  CLOUD_RESOURCE  ` connection, yo
 
 ### Create a non-incremental materialized view based on tables from an external dataset
 
-**Preview**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 Before you proceed, you must create the underlying Spanner external dataset using a [`  CLOUD_RESOURCE  ` connection](/bigquery/docs/spanner-external-datasets#use_a_cloud_resource_connection) .
 
 You can create non-incremental materialized views that reference [Spanner external dataset tables](/bigquery/docs/spanner-external-datasets) by using the `  allow_non_incremental_definition  ` option. The following example uses a base Spanner external dataset table:

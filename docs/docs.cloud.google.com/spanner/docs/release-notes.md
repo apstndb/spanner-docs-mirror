@@ -4,6 +4,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## March 30, 2026
+
+Feature
+
+Spanner offers conversational analytics, which lets users query their operational data using natural language. This feature is powered by the [Conversational Analytics API](https://docs.cloud.google.com/gemini/data-agents/conversational-analytics-api/overview) , which can help you translate complex human dialog into precise database queries to provide actionable insights. This feature is in [Preview](/products#product-launch-stages) . For more information, see [Conversational analytics for Spanner overview](/gemini/data-agents/conversational-analytics/spanner) .
+
 ## March 25, 2026
 
 Feature
