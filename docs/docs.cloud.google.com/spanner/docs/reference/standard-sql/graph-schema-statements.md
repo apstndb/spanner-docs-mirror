@@ -31,6 +31,7 @@ CREATE
   PROPERTY GRAPH
   [ IF NOT EXISTS ]
   property_graph_name
+  [ OPTIONS (key=value, ...) ]
   property_graph_content;
 
 property_graph_content:
@@ -400,13 +401,11 @@ Specifies a column that holds dynamic properties values.
     
       - If the names of a defined property and dynamic property overlap, the defined property takes precedence over the dynamic one.
 
-### `     FinGraph    ` Examples
-
-#### `     FinGraph    ` with defined labels and defined properties
+### `     FinGraph    ` example
 
 The following property graph, `  FinGraph  ` , contains two node definitions ( `  Account  ` and `  Person  ` ) and two edge definitions ( `  PersonOwnAccount  ` and `  AccountTransferAccount  ` ).
 
-**Note:** all GQL examples in the GQL reference use the [`  FinGraph  `](#fin_graph) property graph example. To set up this property graph, see [Set up and query Spanner Graph](https://cloud.google.com/spanner/docs/graph/set-up) .
+**Note:** all GQL examples in the GQL reference use the `  FinGraph  ` property graph example. To set up this property graph, see [Set up and query Spanner Graph](https://cloud.google.com/spanner/docs/graph/set-up) .
 
 ``` text
 CREATE OR REPLACE PROPERTY GRAPH FinGraph

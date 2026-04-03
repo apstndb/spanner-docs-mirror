@@ -87,7 +87,7 @@ DESTINATION_NODE_ID(edge_element)
 
 Gets a unique identifier of a graph edge's destination node. The unique identifier is only valid for the scope of the query where it's obtained.
 
-**Arguments**
+**Definitions**
 
   - `  edge_element  ` : A `  GRAPH_ELEMENT  ` value that represents an edge.
 
@@ -166,6 +166,13 @@ RETURN ARRAY_CONCAT(ARRAY_TRANSFORM(es, e -> e.Id), [dst.Id]) as ids_in_path
  +-------------*/
 ```
 
+``` text
+GRAPH FinGraph
+MATCH p=(src:Account)-[t1:Transfers]->(mid:Account)-[t2:Transfers]->(dst:Account)
+LET es = EDGES(p)
+RETURN TO_JSON(es) AS edges
+```
+
 ## `     ELEMENT_DEFINITION_NAME    `
 
 ``` text
@@ -217,7 +224,7 @@ ELEMENT_ID(element)
 
 Gets a graph element's unique identifier. The unique identifier is only valid for the scope of the query where it's obtained.
 
-**Arguments**
+**Definitions**
 
   - `  element  ` : A `  GRAPH_ELEMENT  ` value.
 
@@ -413,7 +420,7 @@ LABELS(element)
 
 Gets the labels associated with a graph element and preserves the original case of each label.
 
-**Arguments**
+**Definitions**
 
   - `  element  ` : A `  GRAPH_ELEMENT  ` value that represents the graph element to extract labels from.
 
@@ -748,7 +755,7 @@ SOURCE_NODE_ID(edge_element)
 
 Gets a unique identifier of a graph edge's source node. The unique identifier is only valid for the scope of the query where it's obtained.
 
-**Arguments**
+**Definitions**
 
   - `  edge_element  ` : A `  GRAPH_ELEMENT  ` value that represents an edge.
 

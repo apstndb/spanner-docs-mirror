@@ -1,6 +1,6 @@
 Graph Query Language (GQL) lets you execute multiple linear graph queries in one query. Each linear graph query generates results (the working table) and then passes those results to the next.
 
-GQL supports the following building blocks, which can be composited into a GQL query based on the [syntax rules](/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax) .
+GQL supports the following building blocks, which can be composed into a GQL query based on the [syntax rules](/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax) .
 
 ## Language list
 
@@ -543,13 +543,10 @@ Unnests an `  ARRAY  ` -typed expression and joins the result with the current w
 
 The `  FOR  ` statement expands the working table by defining a new column for the elements of `  array_expression  ` , with an optional offset column. The cardinality of the working table might change as a result.
 
-The `  FOR  ` statement can reference columns in the working table.
-
-The `  FOR  ` statement evaluation is similar to the [`  UNNEST  `](/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) operator.
-
-The `  FOR  ` statement doesn't preserve order.
-
-And empty or `  NULL  ` `  array_expression  ` produces zero rows.
+  - The `  FOR  ` statement can reference columns in the working table.
+  - The `  FOR  ` statement evaluation is similar to the [`  UNNEST  `](/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) operator.
+  - The `  FOR  ` statement doesn't preserve order.
+  - An empty or `  NULL  ` `  array_expression  ` produces zero rows.
 
 The keyword `  WITH  ` following the `  FOR  ` statement is always interpreted as the beginning of `  with_offset_clause  ` . If you want to use the `  WITH  ` statement following the `  FOR  ` statement, you should fully qualify the `  FOR  ` statement with `  with_offset_clause  ` , or use the `  RETURN  ` statement instead of the `  WITH  ` statement.
 
@@ -669,13 +666,10 @@ Defines variables and assigns values to them for later use in the current linear
 
 `  LET  ` doesn't change the cardinality of the working table nor modify its existing columns.
 
-The variable can only be used in the current linear query statement. To use it in a following linear query statement, you must include it in the `  RETURN  ` statement as a column.
-
-You can't define and reference a variable within the same `  LET  ` statement.
-
-You can't redefine a variable with the same name.
-
-You can use horizontal aggregate functions in this statement. To learn more, see [Horizontal aggregate function calls in GQL](/spanner/docs/reference/standard-sql/graph-gql-functions) .
+  - The variable can only be used in the current linear query statement. To use it in a following linear query statement, you must include it in the `  RETURN  ` statement as a column.
+  - You can't define and reference a variable within the same `  LET  ` statement.
+  - You can't redefine a variable with the same name.
+  - You can use horizontal aggregate functions in this statement. To learn more, see [Horizontal aggregate function calls in GQL](/spanner/docs/reference/standard-sql/graph-gql-functions#gql-horiz-agg-func-calls) .
 
 #### Examples
 
@@ -905,18 +899,18 @@ Matches data described by a graph pattern. You can have zero or more `  MATCH  `
 
 The `  MATCH  ` statement joins the incoming working table with the matched result with either `  INNER JOIN  ` or `  CROSS JOIN  ` semantics.
 
-The `  INNER JOIN  ` semantics is used when the working table and matched result have variables in common. In the following example, the `  INNER JOIN  ` semantics is used because `  friend  ` is produced by both `  MATCH  ` statements:
+The `  INNER JOIN  ` semantics is used when the working table and matched result have variables in common. In the following example, the `  INNER JOIN  ` semantics is used because `  account  ` is produced by both `  MATCH  ` statements:
 
 ``` text
-MATCH (person:Person)-[:knows]->(friend:Person)
-MATCH (friend)-[:knows]->(otherFriend:Person)
+MATCH (person:Person)-[:Owns]->(account:Account)
+MATCH (account)-[:Transfers]->(otherAcct:Account)
 ```
 
-The `  CROSS JOIN  ` semantics is used when the incoming working table and matched result have no variables in common. In the following example, the `  CROSS JOIN  ` semantics is used because `  person1  ` and `  friend  ` exist in the result of the first `  MATCH  ` statement, but not the second one:
+The `  CROSS JOIN  ` semantics is used when the incoming working table and matched result have no variables in common. In the following example, the `  CROSS JOIN  ` semantics is used because `  person1  ` and `  account  ` exist in the result of the first `  MATCH  ` statement, but not the second one:
 
 ``` text
-MATCH (person1:Person)-[:knows]->(friend:Person)
-MATCH (person2:Person)-[:knows]->(otherFriend:Person)
+MATCH (person1:Person)-[:Owns]->(account:Account)
+MATCH (person2:Person)-[:Owns]->(otherAcct:Account)
 ```
 
 #### Examples
@@ -1131,7 +1125,7 @@ RETURN n.name, a.id AS blocked_account_id
 NEXT
 ```
 
-##### Description
+#### Description
 
 Chains multiple linear query statements together.
 
@@ -1366,6 +1360,8 @@ Marks the end of a linear query statement and returns the results. Only one `  R
 
 #### Details
 
+You can return graph elements to make them visible from one linear query statement to the next, but the final `  RETURN  ` statement in a graph query can't contain a graph element on its own. Instead, you can return a property of a graph element.
+
 If any expression performs aggregation, and no `  GROUP BY  ` clause is specified, all groupable items from the return list are used implicitly as grouping keys.
 
 Ordinals aren't supported in the `  ORDER BY  ` and `  GROUP BY  ` clauses.
@@ -1388,6 +1384,15 @@ RETURN p.name, p.id
  | Dana | 2  |
  | Lee  | 3  |
  +-----------*/
+```
+
+The following query fails because you can't return a graph element from a query:
+
+``` text
+-- Error: You can't return a graph element
+GRAPH FinGraph
+MATCH (p:Person)
+RETURN p
 ```
 
 In the following example, the first linear query statement returns all columns including `  p  ` , `  a  ` , `  b  ` , and `  c  ` . The second linear query statement returns the specified `  p.name  ` and `  d  ` columns:

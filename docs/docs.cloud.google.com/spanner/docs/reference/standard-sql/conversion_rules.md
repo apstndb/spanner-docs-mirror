@@ -241,17 +241,18 @@ A supertype is a common type to which two or more expressions can be coerced. Su
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       GRAPH_ELEMENT      </code></td>
-<td><code dir="ltr" translate="no">       GRAPH_ELEMENT      </code> . A graph element can be a supertype of another graph element if the following is true:
+<td><code dir="ltr" translate="no">       GRAPH_ELEMENT      </code> . Graph element <code dir="ltr" translate="no">       a      </code> is a supertype of graph element <code dir="ltr" translate="no">       b      </code> if the following are true:
 <ul>
-<li>Graph element <code dir="ltr" translate="no">         a        </code> is a supertype of graph element <code dir="ltr" translate="no">         b        </code> and they're the same element kind.</li>
+<li>Graph element <code dir="ltr" translate="no">         a        </code> and <code dir="ltr" translate="no">         b        </code> are the same element kind.</li>
 <li>Graph element <code dir="ltr" translate="no">         a        </code> 's property type list is a compatible superset of graph element <code dir="ltr" translate="no">         b        </code> 's property type list. This means that properties with the same name must also have the same type.</li>
 </ul></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       GRAPH_PATH      </code></td>
-<td><code dir="ltr" translate="no">       GRAPH_PATH      </code> . A graph path can be a supertype of another graph path if the following is true:
+<td><code dir="ltr" translate="no">       GRAPH_PATH      </code> . Graph path <code dir="ltr" translate="no">       a      </code> is a supertype of graph path <code dir="ltr" translate="no">       b      </code> if the following are true:
 <ul>
-<li>Graph path <code dir="ltr" translate="no">         a        </code> is a supertype of graph path <code dir="ltr" translate="no">         b        </code> if the node type for <code dir="ltr" translate="no">         a        </code> is a supertype of the node type for <code dir="ltr" translate="no">         b        </code> . In addition, the edge type for <code dir="ltr" translate="no">         a        </code> must be a supertype of the edge type for <code dir="ltr" translate="no">         b        </code> .</li>
+<li>The node type for <code dir="ltr" translate="no">         a        </code> is a supertype of the node type for <code dir="ltr" translate="no">         b        </code> .</li>
+<li>The edge type for <code dir="ltr" translate="no">         a        </code> is a supertype of the edge type for <code dir="ltr" translate="no">         b        </code> .</li>
 <li>Graph path <code dir="ltr" translate="no">         a        </code> 's property type list is a compatible superset of graph path <code dir="ltr" translate="no">         b        </code> 's property type list. This means that properties with the same name must also have the same type.</li>
 </ul></td>
 </tr>

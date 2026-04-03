@@ -3965,6 +3965,10 @@ SELECT SAFE_TO_JSON([
  +------------*/
 ```
 
+**Caveats**
+
+The output of `  SAFE_TO_JSON  ` may change over time: If JSON support is added to a formerly unsupported type, then `  SAFE_TO_JSON  ` starts producing the type's JSON representation instead of `  null  ` .
+
 ## `     STRING    `
 
 ``` text
@@ -4228,6 +4232,41 @@ RETURN TO_JSON(p) AS json_array
  |  ...                                                               |
  | ]                                                                  |
  +--------------------------------------------------------------------/*
+```
+
+In the following example, each graph node called `  src  ` is converted into a JSON object:
+
+``` text
+GRAPH FinGraph
+MATCH (src:Account {id: 7})-[t1:Transfers]->(dst:Account)
+RETURN TO_JSON(src) AS json_array
+
+/*--------------------------------------------------------------------+
+ | json_array                                                         |
+ +--------------------------------------------------------------------+
+ | {                                                                  |
+ |   "identifier":"rhYAAAANAAAApgAAAAAAAAAApgcAAAAAAAAA",             |
+ |   "kind":"node",                                                   |
+ |   "labels":["Account"],                                            |
+ |   "properties":{                                                   |
+ |     "create_time":"2020-01-10T06:22:20.222Z",                      |
+ |     "id":7,                                                        |
+ |     "is_blocked":false,                                            |
+ |     "nick_name":"Vacation Fund"                                    |
+ |   }                                                                |
+ | }                                                                  |
+ | {                                                                  |
+ |   "identifier":"rhYAAAANAAAApgAAAAAAAAAApgcAAAAAAAAA",             |
+ |   "kind":"node",                                                   |
+ |   "labels":["Account"],                                            |
+ |   "properties":{                                                   |
+ |     "create_time":"2020-01-10T06:22:20.222Z",                      |
+ |     "id":7,                                                        |
+ |     "is_blocked":false,                                            |
+ |     "nick_name":"Vacation Fund"                                    |
+ |   }                                                                |
+ | }                                                                  |
+ +--------------------------------------------------------------------*/
 ```
 
 ## `     TO_JSON_STRING    `
@@ -4554,7 +4593,8 @@ JSON output: <code dir="ltr" translate="no">       {"purchases":12,"inStock": tr
 </tr>
 <tr class="odd">
 <td>GRAPH_ELEMENT</td>
-<td><p>object</p>
+<td><p>( <code dir="ltr" translate="no">        TO_JSON       </code> only)</p>
+<p>object</p>
 <p>The object can contain zero or more key-value pairs. Each value is formatted according to its type.</p>
 <p>For <code dir="ltr" translate="no">        TO_JSON       </code> , graph element (node or edge) objects are supported.</p>
 <ul>
@@ -4575,7 +4615,8 @@ JSON output (truncated):<br />
 </tr>
 <tr class="even">
 <td>GRAPH_PATH</td>
-<td><p>array</p>
+<td><p>( <code dir="ltr" translate="no">        TO_JSON       </code> only)</p>
+<p>array</p>
 <p>The array can contain one or more objects that represent graph elements in a graph path.</p></td>
 <td>SQL:<br />
 

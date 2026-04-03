@@ -74,7 +74,7 @@ where_clause:
 
 #### Description
 
-A graph pattern consists of a list path patterns. You can optionally include a `  WHERE  ` clause. For example:
+A graph pattern consists of a list of path patterns. You can optionally include a `  WHERE  ` clause. For example:
 
 ``` text
   (a:Account)-[e:Transfers]->(b:Account)          -- path pattern
@@ -294,7 +294,7 @@ An element pattern is either a node pattern or an edge pattern.
     ```
     
     ``` text
-    (c:City)            -- Matches all City nodes in a property graph.
+    (a:Account)            -- Matches all Account nodes in a property graph.
     ```
     
     ``` text
@@ -304,7 +304,7 @@ An element pattern is either a node pattern or an edge pattern.
   - `  edge_pattern  ` : a pattern to match edges in a property graph. For example:
     
     ``` text
-    -[LivesIn]->        -- Matches all LivesIn edges in a property graph.
+    -[Transfers]->        -- Matches all Transfers edges in a property graph.
     ```
     
     ``` text
@@ -312,7 +312,7 @@ An element pattern is either a node pattern or an edge pattern.
     ```
     
     ``` text
-    (n:Person)-(c:City) -- Matches edges between Person and City nodes in any direction.
+    (n:Person)-(a:Account) -- Matches edges between Person and Account nodes in any direction.
     ```
     
     There are several types of edge patterns:
@@ -323,7 +323,7 @@ An element pattern is either a node pattern or an edge pattern.
     <!-- end list -->
     
     ``` text
-    -[e:Located_In]-     -- Any-direction full edge with filler.
+    -[e:Transfers]-     -- Any-direction full edge with filler.
     -[]-                 -- Any-direction full edge, no filler.
     -                    -- Any-direction abbreviated edge.
     ```
@@ -334,7 +334,7 @@ An element pattern is either a node pattern or an edge pattern.
     <!-- end list -->
     
     ``` text
-    <-[e:Located_In]-  -- Left full edge with filler.
+    <-[e:Transfers]-  -- Left full edge with filler.
     <-[]-              -- Left full edge, no filler.
     <-                 -- Left abbreviated edge.
     ```
@@ -345,7 +345,7 @@ An element pattern is either a node pattern or an edge pattern.
     <!-- end list -->
     
     ``` text
-    -[e:Located_In]->  -- Right full edge with filler.
+    -[e:Transfers]->  -- Right full edge with filler.
     -[]->              -- Right full edge, no filler.
     ->                 -- Right abbreviated edge.
     ```
@@ -355,18 +355,18 @@ An element pattern is either a node pattern or an edge pattern.
     `  where_clause  ` or `  property_filters  ` , and a cost expression . For example:
     
     ``` text
-    (p:Person WHERE p.name = 'Kai')
+    (p:Person WHERE p.name = 'Alex')
     ```
 
 <!-- end list -->
 
   - `  graph_pattern_variable  ` : A variable for the pattern filler. You can use a graph pattern variable to reference the element it's bound to in a linear graph query.
     
-    `  p  ` is the variable for the graph pattern element `  p:Person  ` in the following example:
+    `  a  ` is the variable for the graph pattern element `  a:Account  ` in the following example:
     
     ``` text
-    (p:Person)-[:Located_In]->(c:City),
-    (p)-[:Knows]->(p:Person WHERE p.name = 'Kai')
+    (p:Person)-[:Owns]->(a:Account),
+    (a)-[:Transfers]->(a2:Account WHERE a2.nick_name = 'Vacation Fund')
     ```
 
   - `  is_label_condition  ` : A `  label expression  ` that the matched nodes and edges must satisfy. This condition includes `  label expression  ` . You can use either `  IS  ` or `  :  ` to begin a condition. For example, these are the same:
@@ -380,11 +380,11 @@ An element pattern is either a node pattern or an edge pattern.
     ```
     
     ``` text
-    -[IS Knows]->
+    -[IS Transfers]->
     ```
     
     ``` text
-    -[:Knows]->
+    -[:Transfers]->
     ```
 
   - `  label_expression  ` : The expression for the label. For more information, see [Label expression definition](#label_expression_definition) .
@@ -400,17 +400,17 @@ An element pattern is either a node pattern or an edge pattern.
     Examples:
     
     ``` text
-    (m:MusicCreator WHERE m.name = 'Cruz Richards')
+    (p:Person WHERE p.name = 'Dana')
     ```
     
     ``` text
-    (s:Singer)->(album:Album)<-(s2)
-    WHERE s.name != s2.name
+    (p:Person)->(a:Account)<-(p2)
+    WHERE p.name != p2.name
     ```
     
     ``` text
-    (s:Singer)-[has_friend:Knows]->
-    (s2:Singer WHERE s2.singer_name = 'Mahan Lomond')
+    (p:Person)-[o:Owns]->
+    (a:Account WHERE a.nick_name = 'Rainy Day Fund')
     ```
 
   - `  cost_expression  ` : An optional expression for an edge pattern. This expression is used to calculate the total compute cost of a path when used with the `  ANY CHEAPEST  ` path search prefixes. The expression must evaluate to a finite positive number. `  COST  ` can be applied only to edge patterns. For more information, see [Path search prefix](#search_prefix) .
@@ -430,11 +430,11 @@ An element pattern is either a node pattern or an edge pattern.
     Examples:
     
     ``` text
-    {name: 'Cruz Richards'}
+    {name: 'Dana'}
     ```
     
     ``` text
-    {last_name: 'Richards', albums: 2}
+    {nick_name: 'Vacation Fund', is_blocked: false}
     ```
 
   - `  element_property  ` : An element property in `  property_filters  ` . The same element property can be included more than once in the same property filter list. Element properties can be included in any order in a property filter list.
@@ -446,77 +446,66 @@ An element pattern is either a node pattern or an edge pattern.
     Examples:
     
     ``` text
-    (n:Person {age: 20})
+    (n:Person {name: 'Dana'})
     ```
     
     ``` text
-    (n:Person {id: n.age})
+    (t:Transfers {id: t.to_id})
     ```
     
     ``` text
-    (n1:Person)-[e: Owns {since: 2023}]->(n2:Account)
+    (n1:Person)-[e: Owns {account_id: 16}]->(n2:Account)
     ```
     
     ``` text
-    (:Person {id: 100, age: 20})-[e:Knows]->(n2:Person)
+    (:Person {name: 'Alex'})-[o:owns]->(a:Account)
     ```
     
     ``` text
-    (n:Person|Student {id: n.age + n.student_id})
+    (n:Person|Account {id: 16})
     ```
     
     ``` text
-    (n:Person {age: 20, id: 30})
+    (a:Account {is_blocked: false, nick_name: 'Vacation Fund'})
     ```
     
     ``` text
-    (n {id: 100, age: 20})
+    (a {is_blocked: false, nick_name: 'Vacation Fund'})
     ```
     
     ``` text
-    (n:Person {id: 10 + n.age})-[e:Knows {since: 2023 + e.id}]->
-    ```
-    
-    The following are equivalent:
-    
-    ``` text
-    (n:Person WHERE n.id = 100 AND n.age = 20)
-    ```
-    
-    ``` text
-    (n:Person {id: 100, age: 20})
+    (a:Account {id: 7})-[t:Transfers {to_id: 9 + t.id}]->
     ```
     
     The following are equivalent:
     
     ``` text
-    (a:Employee {employee_id: 10})->(:University)<-(a:Alumni {alumni_id: 20})
+    (a:Account WHERE a.id = 100 AND a.is_blocked = true)
     ```
     
     ``` text
-    (a:Employee&Alumni {employee_id: 10, alumni_id: 20})->
-    (:University)<-(a:Employee&Alumni {employee_id: 10, alumni_id: 20})
+    (a:Account {id: 100, is_blocked: true})
     ```
     
     Although a `  NULL  ` literal can be used as property value in the property filter, the semantics is `  = NULL  ` , not `  IS NULL  ` . This distinction is important when you create an element pattern:
     
     ``` text
-    (n:Person {age: NULL})          -- '= NULL'
-    (n:Person WHERE n.age = NULL)   -- '= NULL'
-    (n:Person WHERE n.age IS NULL)  -- 'IS NULL'
+    (n:Person {id: NULL})          -- '= NULL'
+    (n:Person WHERE n.id = NULL)   -- '= NULL'
+    (n:Person WHERE n.id IS NULL)  -- 'IS NULL'
     ```
     
     The following produce errors:
     
     ``` text
-    -- Error: The property specification for n2 can't reference properties in
-    -- e and n1.
-    (n1:Person)-[e:Knows]->(n2:Person {id: e.since+n1.age})
+    -- Error: The property specification for a2 can't reference properties in
+    -- t and a1.
+    (a1:Account)-[t:transfers]->(a2:Account {id: a1.id})
     ```
     
     ``` text
     -- Error: Aggregate expressions aren't allowed.
-    (n:Person {id: SUM(n.age)})
+    (n:Person {id: SUM(n.id)})
     ```
     
     ``` text
@@ -526,7 +515,7 @@ An element pattern is either a node pattern or an edge pattern.
 
 #### Details
 
-Nodes and edges matched by `  element pattern  ` are referred to as graph elements. Graph elements can be used in GQL [predicates](/spanner/docs/reference/standard-sql/operators#graph_predicates) , [functions](/spanner/docs/reference/standard-sql/graph-gql-functions) and subqueries within GQL.
+Nodes and edges matched by `  element_pattern  ` are referred to as graph elements. Graph elements can be used in GQL [predicates](/spanner/docs/reference/standard-sql/operators#graph_predicates) , [functions](/spanner/docs/reference/standard-sql/graph-gql-functions) and subqueries within GQL.
 
 Set operations support graph elements that have a common [supertype](/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
 
@@ -858,67 +847,67 @@ If this results in two node patterns that are next to each other or a node patte
 The following are examples of subpath patterns:
 
 ``` text
-  -- Success: e and p are both declared within the same subpath pattern and
+  -- Success: t and a are both declared within the same subpath pattern and
   -- can be referenced in that subpath pattern.
-  (-[e:LocatedIn]->(p:Person)->(c:City) WHERE p.id = e.id)
+  (-[t:Transfers]->(a:Account)->(b:Account) WHERE t.id > a.id)
 ```
 
 ``` text
-  -- Success: e and p are both declared within the same subpath pattern
+  -- Success: t and a are both declared within the same subpath pattern
   -- hierarchy and can be referenced inside of that subpath pattern hierarchy.
-  (-[e:LocatedIn]->((p:Person)->(c:City)) WHERE p.id = e.id)
+  (-[t:Transfers]->((a:Account)->(b:Account)) WHERE t.id > a.id)
 ```
 
 ``` text
-  -- Error: e is declared outside of the inner subpath pattern and therefore
+  -- Error: t is declared outside of the inner subpath pattern and therefore
   -- can't be referenced inside of the inner subpath pattern.
-  (-[e:LocatedIn]->((p:Person)->(c:City) WHERE p.id = e.id))
+  (-[t:Transfers]->((a:Account)->(b:Account) WHERE a.id = t.id))
 ```
 
 ``` text
-  -- Success: e and p are declared in a subpath pattern and can be used outside
+  -- Success: t and a are declared in a subpath pattern and can be used outside
   -- of the subpath pattern.
-  (-[e:LocatedIn]->(p:Person))->(c:City) WHERE p.id = e.id
+  (-[t:Transfers]->(a:Account))->(b:Account) WHERE a.id = t.id
 ```
 
 ``` text
   -- No subpath patterns:
-  (p:Person)-[e:LocatedIn]->(c:City)-[s:StudyAt]->(u:School)
+  (a:Account)-[t:Transfers]->(b:Account)-[u:Transfers]->(c:Account)
 ```
 
 ``` text
   -- One subpath pattern on the left:
-  ((p:Person)-[e:LocatedIn]->(c:City))-[s:StudyAt]->(u:School)
+  ((a:Account)-[t:Transfers]->(b:Account))-[u:Transfers]->(c:Account)
 ```
 
 ``` text
   -- One subpath pattern on the right:
-  (p:Person)-[e:LocatedIn]->((c:City)-[s:StudyAt]->(u:School))
+  (a:Account)-[t:Transfers]->((b:Account)-[u:Transfers]->(c:Account))
 ```
 
 ``` text
   -- One subpath pattern around the entire path pattern:
-  ((p:Person)-[e:LocatedIn]->(c:City)-[s:StudyAt]->(u:School))
+  ((a:Account)-[t:Transfers]->(b:Account)-[u:Transfers]->(c:Account))
 ```
 
 ``` text
   -- One subpath pattern that contains only a node pattern:
-  ((p:Person))-[e:LocatedIn]->(c:City)-[s:StudyAt]->(u:School)
+  ((a:Account))-[t:Transfers]->(b:Account)-[u:Transfers]->(c:Account)
 ```
 
 ``` text
   -- One subpath pattern that contains only an edge pattern:
-  (p:Person)(-[e:LocatedIn]->)(c:City)-[s:StudyAt]->(u:School)
+  (a:Account)(-[t:Transfers]->)(b:Account)-[u:Transfers]->(c:Account)
 ```
 
 ``` text
   -- Two subpath patterns, one inside the other:
-  ((p:Person)(-[e:LocatedIn]->(c:City)))-[s:StudyAt]->(u:School)
+  ((a:Account)(-[t:Transfers]->(b:Account)))-[u:Transfers]->(c:Account)
 ```
 
 ``` text
   -- Three consecutive subpath patterns:
-  ((p:Person))(-[e:LocatedIn]->(c:City))(-[s:StudyAt]->(u:School))
+  ((a:Account))(-[t:Transfers]->(b:Account))(-[u:Transfers]->(c:Account))
 ```
 
 #### Examples
@@ -969,6 +958,10 @@ bounded_quantifier:
 #### Description
 
 A quantified path pattern is a path pattern with a portion that can repeat within a specified range. You can specify the range, using a quantifier. A quantified path pattern is commonly used to match variable-length paths.
+
+A graph pattern variable declared in a quantified pattern becomes a *group variable* when accessed outside that pattern. It binds to an array of matched graph elements.
+
+You can access a group variable as an array. Its graph elements are preserved in the order of their appearance along the matched paths. You can aggregate a group variable using [horizontal aggregation](/spanner/docs/reference/standard-sql/graph-gql-functions#gql-horiz-agg-func-calls) .
 
 #### Definitions
 
@@ -1058,90 +1051,94 @@ A quantified path pattern is a path pattern with a portion that can repeat withi
 
   - Only singleton variables can be multiply-declared. A singleton variable is a variable that binds exactly to one node or edge.
     
-    In the following `  MATCH  ` statement, the variables `  p  ` , `  knows  ` , and `  f  ` are singleton variables, which bind exactly to one element each.
+    In the following `  MATCH  ` statement, the variables `  p  ` , `  t  ` , and `  f  ` are singleton variables, which bind exactly to one element each.
     
     ``` text
-    MATCH (p)-[knows]->(f)
+    MATCH (p)-[t]->(f)
     ```
 
   - Variables defined within a quantified path pattern bind to an array of elements outside of the quantified path pattern and are called group variables.
     
-    In the following `  MATCH  ` statement, the path pattern has the quantifier `  {1, 3}  ` . The variables `  p  ` , `  knows  ` , and `  f  ` are each bind to an array of elements in the `  MATCH  ` statement result and are considered group variables:
+    In the following `  MATCH  ` statement, the path pattern has the quantifier `  {1, 3}  ` . The variables `  p  ` , `  t  ` , and `  f  ` each bind to an array of elements in the `  MATCH  ` statement result and are considered group variables:
     
     ``` text
-    MATCH ((p)-[knows]->(f)){1, 3}
+    MATCH ((p)-[t]->(f)){1, 3}
     ```
     
-    Within the quantified pattern, before the quantifier is applied, `  p  ` , `  knows  ` , and `  f  ` each bind to exactly one element and are considered singleton variables.
+    Within the quantified pattern, before the quantifier is applied, `  p  ` , `  t  ` , and `  f  ` each bind to exactly one element and are considered singleton variables.
 
 The following are other syntax examples of a quantified path pattern:
 
 ``` text
 -- Quantified path pattern with a fixed quantifier:
-MATCH ((p:Person)-[k:Knows]->(f:Person)){2}
+MATCH ((a:Account)-[t:Transfers]->(b:Account)){2}
 
 -- Equivalent:
-MATCH ((p0:Person)-[k0:Knows]->(f0:Person)(p1:Person)-[k1:Knows]->(f1:Person))
+MATCH ((a0:Account)-[t0:Transfers]->(b0:Account)(a1:Account)-[t1:Transfers]->(b1:Account))
 ```
 
 ``` text
 -- Quantified path pattern with a bounded quantifier:
-MATCH ((p:Person)-[k:Knows]->(f:Person)){1,3}
+MATCH ((a:Account)-[t:Transfers]->(b:Account)){1,3}
+RETURN return_statement
 
 -- Equivalent:
-MATCH ((p:Person)-[k:Knows]->(f:Person)){1}
+MATCH ((a:Account)-[t:Transfers]->(b:Account)){1}
+RETURN return_statement
 UNION ALL
-MATCH ((p:Person)-[k:Knows]->(f:Person)){2}
+MATCH ((a:Account)-[t:Transfers]->(b:Account)){2}
+RETURN return_statement
 UNION ALL
-MATCH ((p:Person)-[k:Knows]->(f:Person)){3}
+MATCH ((a:Account)-[t:Transfers]->(b:Account)){3}
+RETURN return_statement
 ```
 
 ``` text
 -- Quantified subpath with default lower bound (0) and an upper bound.
 -- When subpath is repeated 0 times, the path pattern is semantically equivalent
--- to (source_person:Person)(dest_person:Person).
-MATCH (source_person:Person)((p:Person)-[k:Knows]->(f:Person)){, 4}(dest_person:Person)
+-- to (source_acct:Account)(dest_acct:Account).
+MATCH (source_acct:Account)((a:Account)-[t:Transfers]->(b:Account)){, 4}(dest_acct:Account)
 ```
 
 ``` text
 -- Edge quantification is canonicalized into subpath quantification:
-MATCH (p:Person)-[k:Knows]->{1,2}(f:Person)
+MATCH (a:Account)-[t:Transfers]->{1,2}(b:Account)
 
 -- Equivalent:
-MATCH (p:Person)(()-[k:Knows]->()){1,2}(f:Person)
+MATCH (a:Account)(()-[t:Transfers]->()){1,2}(b:Account)
 ```
 
 ``` text
 -- ERROR: Minimum path length for the quantified path is 0.
-MATCH (p:Person){1, 3}
+MATCH (a:Account){1, 3}
 ```
 
 ``` text
 -- ERROR: Minimum node count and minimum path length for the entire path is 0.
-MATCH ((p:Person)-[k:Knows]->(f:Person)){0}
+MATCH ((a:Account)-[t:Transfers]->(b:Account)){0}
 ```
 
 ``` text
 -- ERROR: Minimum path length for the entire path is 0 when quantified portion
 -- is repeated 0 times.
-MATCH (:Person)((p:Person)-[k:Knows]->(f:Person)){0, 3}
+MATCH (:Person)((a:Account)-[t:Transfers]->(b:Account)){0, 3}
 ```
 
 ``` text
--- ERROR: `p` is declared once as a group variable and once as a singleton
+-- ERROR: `a` is declared once as a group variable and once as a singleton
 -- variable.
-MATCH (s:Person) ((p:Person)-[k:Knows]->(f:Person)){1, 3}->(p:Person)
+MATCH (c:Account) ((a:Account)-[t:Transfers]->(b:Account)){1, 3}->(a:Account)
 ```
 
 ``` text
--- ERROR: `p` is declared twice as a group variable.
-MATCH ((p:Person)-[k:Knows]->(f:Person)){1, 3}-[x.Knows]->((p:Person)-[z:Knows]-(d:Person)){2}
+-- ERROR: `a` is declared twice as a group variable.
+MATCH ((a:Account)-[t:Transfers]->(b:Account)){1, 3}-[u:Transfers]->((a:Account)-[v:Transfers]-(c:Account)){2}
 ```
 
 ``` text
--- Since both declarations of `p` are within the quantifier’s pattern,
+-- Since both declarations of `a` are within the quantifier’s pattern,
 -- they are treated as singleton variables and can be multiply-declared.
-MATCH (s:person)((p:Person)-[k:Knows]->(p:Person)){1, 3}
+MATCH (b:Account)((a:Account)-[t:Transfers]->(a:Account)){1, 3}
 ```
 
 #### Examples
@@ -1187,7 +1184,7 @@ RETURN src.id AS src_account_id, dst.id AS dst_account_id
  +---------------------------------*/
 ```
 
-In the following query, `  e  ` is declared in a quantified path pattern. When referenced outside of that pattern, `  e  ` is a group variable bound to an array of `  Transfers  ` . You can use the group variable in aggregate functions such as `  SUM  ` and `  ARRAY_LENGTH  ` :
+In the following query, `  e  ` is declared in a quantified path pattern. When referenced outside of that pattern, `  e  ` is a group variable bound to an array of `  Transfers  ` . You can use the group variable in aggregate functions such as `  SUM  ` and `  ARRAY_LENGTH  ` inside of a `  LET  ` , `  WHERE  ` , or `  FILTER  ` clause:
 
 ``` text
 GRAPH FinGraph
@@ -1261,43 +1258,43 @@ A label expression is formed by combining one or more labels with logical operat
   - `  or_expression  ` : [GQL logical `  OR  ` operation](/spanner/docs/reference/standard-sql/operators#graph_logical_operators) for label expressions. For example:
     
     ``` text
-    (p:(Singer|Writer))
+    (p:(Person|Account))
     ```
     
     ``` text
-    (p:(Singer|(Producer|Writer)))
+    (p:(Person|(Account|Loan)))
     ```
     
     ``` text
-    (p:(Singer|(Producer&Writer)))
+    (p:(Person|(Account&Loan)))
     ```
 
   - `  and_expression  ` : [GQL logical `  AND  ` operation](/spanner/docs/reference/standard-sql/operators#graph_logical_operators) for label expressions. For example:
     
     ``` text
-    (p:(Singer&Producer))
+    (p:(Person&Account))
     ```
     
     ``` text
-    (p:(Singer&(Writer|Producer)))
+    (p:(Person&(Account|Loan)))
     ```
     
     ``` text
-    (p:(Singer&(Writer&Producer)))
+    (p:(Person&(Account&Loan)))
     ```
 
   - `  not_expression  ` : [GQL logical `  NOT  ` operation](/spanner/docs/reference/standard-sql/operators#graph_logical_operators) for label expressions. For example:
     
     ``` text
-    (p:!Singer)
+    (p:!Person)
     ```
     
     ``` text
-    (p:(!Singer&!Writer))
+    (p:(!Person&!Account))
     ```
     
     ``` text
-    (p:(Singer|(!Writer&!Producer)))
+    (p:(Person|(!Account&!Loan)))
     ```
 
 #### Details
@@ -1386,7 +1383,7 @@ To use `  ANY CHEAPEST  ` in a query:
   - All quantified edge patterns within the path pattern must include a `  COST  ` expression.
   - The `  COST  ` expression must be used only on edge patterns.
   - All variables used by `  <expr>  ` must be local to the edge pattern.
-  - `  <expr>  ` must be a numeric type: `  INT32  ` , `  INT64  ` , `  UINT32  ` , `  UINT64  ` , `  FLOAT  ` , `  DOUBLE  ` , `  NUMERIC  ` , or `  BIGNUMERIC  ` .
+  - `  <expr>  ` must be a [numeric](/spanner/docs/reference/standard-sql/data-types#numeric_types) type
   - `  <expr>  ` must evaluate to a finite positive number. `  NULL  ` , zero, negative values, `  Inf  ` , and `  NaN  ` produce a runtime error.
 
 #### Examples

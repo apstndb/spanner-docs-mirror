@@ -91,7 +91,7 @@ FROM GRAPH_TABLE(
 );
 ```
 
-The following query produces an error because directly outputting the graph element `  n  ` is not supported. Convert `  n  ` to its JSON representation using the `  SAFE_TO_JSON  ` for successful output.
+The following query produces an error because directly outputting the graph element `  n  ` is not supported. Convert `  n  ` to its JSON representation using the `  SAFE_TO_JSON  ` function for successful output.
 
 ``` text
 -- Error

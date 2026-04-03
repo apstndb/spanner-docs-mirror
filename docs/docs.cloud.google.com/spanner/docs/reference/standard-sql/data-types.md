@@ -42,7 +42,7 @@ SQL type name: <code dir="ltr" translate="no">       ENUM      </code></td>
 </tr>
 <tr class="even">
 <td><a href="#graph_element_type">Graph element type</a></td>
-<td>An element in a property graph.<br />
+<td>An element in a property graph. Can be a <code dir="ltr" translate="no">       GRAPH_NODE      </code> or <code dir="ltr" translate="no">       GRAPH_EDGE      </code> .<br />
 SQL type name: <code dir="ltr" translate="no">       GRAPH_ELEMENT      </code></td>
 </tr>
 <tr class="odd">

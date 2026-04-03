@@ -12,246 +12,291 @@ When Spanner runs an operator, the operator is treated as a function. Because of
 
 The following table lists all GoogleSQL operators from highest to lowest precedence, i.e., the order in which they will be evaluated within a statement.
 
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Order of Precedence</th>
-<th>Operator</th>
-<th>Input Data Types</th>
-<th>Name</th>
-<th>Operator Arity</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>Field access operator</td>
-<td><code dir="ltr" translate="no">        STRUCT       </code><br />
-<code dir="ltr" translate="no">        PROTO       </code><br />
-<code dir="ltr" translate="no">        JSON       </code><br />
-</td>
-<td>Field access operator</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Array subscript operator</td>
-<td><code dir="ltr" translate="no">       ARRAY      </code></td>
-<td>Array position. Must be used with <code dir="ltr" translate="no">       OFFSET      </code> or <code dir="ltr" translate="no">       ORDINAL      </code> —see <a href="/spanner/docs/reference/standard-sql/array_functions">Array Functions</a> .</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>JSON subscript operator</td>
-<td><code dir="ltr" translate="no">       JSON      </code></td>
-<td>Field name or array position in JSON.</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><code dir="ltr" translate="no">       +      </code></td>
-<td>All numeric types</td>
-<td>Unary plus</td>
-<td>Unary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><code dir="ltr" translate="no">       -      </code></td>
-<td>All numeric types</td>
-<td>Unary minus</td>
-<td>Unary</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><code dir="ltr" translate="no">       ~      </code></td>
-<td>Integer or <code dir="ltr" translate="no">       BYTES      </code></td>
-<td>Bitwise not</td>
-<td>Unary</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><code dir="ltr" translate="no">       *      </code></td>
-<td>All numeric types</td>
-<td>Multiplication</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><code dir="ltr" translate="no">       /      </code></td>
-<td>All numeric types</td>
-<td>Division</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><code dir="ltr" translate="no">       ||      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> , <code dir="ltr" translate="no">       BYTES      </code> , or <code dir="ltr" translate="no">       ARRAY&lt;T&gt;      </code></td>
-<td>Concatenation operator</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td><code dir="ltr" translate="no">       +      </code></td>
-<td>All numeric types , <code dir="ltr" translate="no">       INTERVAL      </code></td>
-<td>Addition</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><code dir="ltr" translate="no">       -      </code></td>
-<td>All numeric types , <code dir="ltr" translate="no">       INTERVAL      </code></td>
-<td>Subtraction</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td>5</td>
-<td><code dir="ltr" translate="no">       &lt;&lt;      </code></td>
-<td>Integer or <code dir="ltr" translate="no">       BYTES      </code></td>
-<td>Bitwise left-shift</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><code dir="ltr" translate="no">       &gt;&gt;      </code></td>
-<td>Integer or <code dir="ltr" translate="no">       BYTES      </code></td>
-<td>Bitwise right-shift</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td><code dir="ltr" translate="no">       &amp;      </code></td>
-<td>Integer or <code dir="ltr" translate="no">       BYTES      </code></td>
-<td>Bitwise and</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td><code dir="ltr" translate="no">       ^      </code></td>
-<td>Integer or <code dir="ltr" translate="no">       BYTES      </code></td>
-<td>Bitwise xor</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td><code dir="ltr" translate="no">       |      </code></td>
-<td>Integer or <code dir="ltr" translate="no">       BYTES      </code></td>
-<td>Bitwise or</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td>9 (Comparison Operators)</td>
-<td><code dir="ltr" translate="no">       =      </code></td>
-<td>Any comparable type. See <a href="/spanner/docs/reference/standard-sql/data-types">Data Types</a> for a complete list.</td>
-<td>Equal</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><code dir="ltr" translate="no">       &lt;      </code></td>
-<td>Any comparable type. See <a href="/spanner/docs/reference/standard-sql/data-types">Data Types</a> for a complete list.</td>
-<td>Less than</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><code dir="ltr" translate="no">       &gt;      </code></td>
-<td>Any comparable type. See <a href="/spanner/docs/reference/standard-sql/data-types">Data Types</a> for a complete list.</td>
-<td>Greater than</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><code dir="ltr" translate="no">       &lt;=      </code></td>
-<td>Any comparable type. See <a href="/spanner/docs/reference/standard-sql/data-types">Data Types</a> for a complete list.</td>
-<td>Less than or equal to</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><code dir="ltr" translate="no">       &gt;=      </code></td>
-<td>Any comparable type. See <a href="/spanner/docs/reference/standard-sql/data-types">Data Types</a> for a complete list.</td>
-<td>Greater than or equal to</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><code dir="ltr" translate="no">       !=      </code> , <code dir="ltr" translate="no">       &lt;&gt;      </code></td>
-<td>Any comparable type. See <a href="/spanner/docs/reference/standard-sql/data-types">Data Types</a> for a complete list.</td>
-<td>Not equal</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><code dir="ltr" translate="no">       [NOT] LIKE      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> and <code dir="ltr" translate="no">       BYTES      </code></td>
-<td>Value does [not] match the pattern specified</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><code dir="ltr" translate="no">       [NOT] BETWEEN      </code></td>
-<td>Any comparable types. See <a href="/spanner/docs/reference/standard-sql/data-types">Data Types</a> for a complete list.</td>
-<td>Value is [not] within the range specified</td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><code dir="ltr" translate="no">       [NOT] IN      </code></td>
-<td>Any comparable types. See <a href="/spanner/docs/reference/standard-sql/data-types">Data Types</a> for a complete list.</td>
-<td>Value is [not] in the set of values specified</td>
-<td>Binary</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><code dir="ltr" translate="no">       IS [NOT] NULL      </code></td>
-<td>All</td>
-<td>Value is [not] <code dir="ltr" translate="no">       NULL      </code></td>
-<td>Unary</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><code dir="ltr" translate="no">       IS [NOT] TRUE      </code></td>
-<td><code dir="ltr" translate="no">       BOOL      </code></td>
-<td>Value is [not] <code dir="ltr" translate="no">       TRUE      </code> .</td>
-<td>Unary</td>
-</tr>
-<tr class="even">
-<td></td>
-<td><code dir="ltr" translate="no">       IS [NOT] FALSE      </code></td>
-<td><code dir="ltr" translate="no">       BOOL      </code></td>
-<td>Value is [not] <code dir="ltr" translate="no">       FALSE      </code> .</td>
-<td>Unary</td>
-</tr>
-<tr class="odd">
-<td>10</td>
-<td><code dir="ltr" translate="no">       NOT      </code></td>
-<td><code dir="ltr" translate="no">       BOOL      </code></td>
-<td>Logical <code dir="ltr" translate="no">       NOT      </code></td>
-<td>Unary</td>
-</tr>
-<tr class="even">
-<td>11</td>
-<td><code dir="ltr" translate="no">       AND      </code></td>
-<td><code dir="ltr" translate="no">       BOOL      </code></td>
-<td>Logical <code dir="ltr" translate="no">       AND      </code></td>
-<td>Binary</td>
-</tr>
-<tr class="odd">
-<td>12</td>
-<td><code dir="ltr" translate="no">       OR      </code></td>
-<td><code dir="ltr" translate="no">       BOOL      </code></td>
-<td>Logical <code dir="ltr" translate="no">       OR      </code></td>
-<td>Binary</td>
-</tr>
-</tbody>
-</table>
+Order of Precedence
+
+Operator
+
+Input Data Types
+
+Name
+
+Operator Arity
+
+1
+
+Field access operator
+
+`  STRUCT  `  
+`  PROTO  `  
+`  JSON  `  
+
+Field access operator
+
+Binary
+
+Array subscript operator
+
+`  ARRAY  `
+
+Array position. Must be used with `  OFFSET  ` or `  ORDINAL  ` —see [Array Functions](/spanner/docs/reference/standard-sql/array_functions) .
+
+Binary
+
+JSON subscript operator
+
+`  JSON  `
+
+Field name or array position in JSON.
+
+Binary
+
+2
+
+`  +  `
+
+All numeric types
+
+Unary plus
+
+Unary
+
+`  -  `
+
+All numeric types
+
+Unary minus
+
+Unary
+
+`  ~  `
+
+Integer or `  BYTES  `
+
+Bitwise not
+
+Unary
+
+3
+
+`  *  `
+
+All numeric types
+
+Multiplication
+
+Binary
+
+`  /  `
+
+All numeric types
+
+Division
+
+Binary
+
+`  ||  `
+
+`  STRING  ` , `  BYTES  ` , or `  ARRAY<T>  `
+
+Concatenation operator
+
+Binary
+
+4
+
+`  +  `
+
+All numeric types , `  INTERVAL  `
+
+Addition
+
+Binary
+
+`  -  `
+
+All numeric types , `  INTERVAL  `
+
+Subtraction
+
+Binary
+
+5
+
+`  <<  `
+
+Integer or `  BYTES  `
+
+Bitwise left-shift
+
+Binary
+
+`  >>  `
+
+Integer or `  BYTES  `
+
+Bitwise right-shift
+
+Binary
+
+6
+
+`  &  `
+
+Integer or `  BYTES  `
+
+Bitwise and
+
+Binary
+
+7
+
+`  ^  `
+
+Integer or `  BYTES  `
+
+Bitwise xor
+
+Binary
+
+8
+
+`  |  `
+
+Integer or `  BYTES  `
+
+Bitwise or
+
+Binary
+
+9 (Comparison Operators)
+
+`  =  `
+
+Any comparable type. See [Data Types](/spanner/docs/reference/standard-sql/data-types) for a complete list.
+
+Equal
+
+Binary
+
+`  <  `
+
+Any comparable type. See [Data Types](/spanner/docs/reference/standard-sql/data-types) for a complete list.
+
+Less than
+
+Binary
+
+`  >  `
+
+Any comparable type. See [Data Types](/spanner/docs/reference/standard-sql/data-types) for a complete list.
+
+Greater than
+
+Binary
+
+`  <=  `
+
+Any comparable type. See [Data Types](/spanner/docs/reference/standard-sql/data-types) for a complete list.
+
+Less than or equal to
+
+Binary
+
+`  >=  `
+
+Any comparable type. See [Data Types](/spanner/docs/reference/standard-sql/data-types) for a complete list.
+
+Greater than or equal to
+
+Binary
+
+`  !=  ` , `  <>  `
+
+Any comparable type. See [Data Types](/spanner/docs/reference/standard-sql/data-types) for a complete list.
+
+Not equal
+
+Binary
+
+`  [NOT] LIKE  `
+
+`  STRING  ` and `  BYTES  `
+
+Value does \[not\] match the pattern specified
+
+Binary
+
+`  [NOT] BETWEEN  `
+
+Any comparable types. See [Data Types](/spanner/docs/reference/standard-sql/data-types) for a complete list.
+
+Value is \[not\] within the range specified
+
+\-03-25-234
+
+Binary
+
+`  [NOT] IN  `
+
+Any comparable types. See [Data Types](/spanner/docs/reference/standard-sql/data-types) for a complete list.
+
+Value is \[not\] in the set of values specified
+
+Binary
+
+`  IS [NOT] NULL  `
+
+All
+
+Value is \[not\] `  NULL  `
+
+Unary
+
+`  IS [NOT] TRUE  `
+
+`  BOOL  `
+
+Value is \[not\] `  TRUE  ` .
+
+Unary
+
+`  IS [NOT] FALSE  `
+
+`  BOOL  `
+
+Value is \[not\] `  FALSE  ` .
+
+Unary
+
+10
+
+`  NOT  `
+
+`  BOOL  `
+
+Logical `  NOT  `
+
+Unary
+
+11
+
+`  AND  `
+
+`  BOOL  `
+
+Logical `  AND  `
+
+Binary
+
+12
+
+`  OR  `
+
+`  BOOL  `
+
+Logical `  OR  `
+
+Binary
 
 For example, the logical expression:
 
@@ -329,7 +374,7 @@ All comparison operators have the same priority, but comparison operators aren't
 </tr>
 <tr class="even">
 <td><a href="#graph_logical_operators">Graph logical operators</a></td>
-<td>Tests for the truth of a condition in a graph and produces either <code dir="ltr" translate="no">       TRUE      </code> or <code dir="ltr" translate="no">       FALSE      </code> .</td>
+<td>Tests for the truth of a condition in a graph label and produces either <code dir="ltr" translate="no">       TRUE      </code> or <code dir="ltr" translate="no">       FALSE      </code> .</td>
 </tr>
 <tr class="odd">
 <td><a href="#graph_predicates">Graph predicates</a></td>
@@ -337,7 +382,7 @@ All comparison operators have the same priority, but comparison operators aren't
 </tr>
 <tr class="even">
 <td><a href="#all_different_predicate"><code dir="ltr" translate="no">        ALL_DIFFERENT       </code> predicate</a></td>
-<td>In a graph, checks to see if the elements in a list are mutually distinct.</td>
+<td>In a graph, checks to see if the elements in a list are all different.</td>
 </tr>
 <tr class="odd">
 <td><a href="#is_destination_predicate"><code dir="ltr" translate="no">        IS DESTINATION       </code> predicate</a></td>
@@ -1174,7 +1219,7 @@ ALL_DIFFERENT(element, element[, ...])
 
 **Description**
 
-In a graph, checks to see if the elements in a list are mutually distinct. Returns `  TRUE  ` if the elements are distinct, otherwise `  FALSE  ` .
+In a graph, checks to see if the elements in a list are all different. Returns `  TRUE  ` if none of the elements in the list equal one another, otherwise `  FALSE  ` .
 
 **Definitions**
 
@@ -1435,7 +1480,7 @@ Produces an error if `  element  ` is `  NULL  ` .
 
 **Example**
 
-The following query checks to see if `  a  ` and `  b  ` aren't the same person.
+The following query returns the source and destination IDs for transfers between different accounts:
 
 ``` text
 GRAPH FinGraph
@@ -1511,12 +1556,12 @@ Compares operands and produces the results of the comparison as a `  BOOL  ` val
 <tr class="even">
 <td><code dir="ltr" translate="no">       LIKE      </code></td>
 <td><code dir="ltr" translate="no">       X [NOT] LIKE Y      </code></td>
-<td>See the <a href="#like_operator">`LIKE` operator</a> for details.</td>
+<td>See the <a href="#like_operator"><code dir="ltr" translate="no">        LIKE       </code> operator</a> for details.</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       IN      </code></td>
 <td>Multiple</td>
-<td>See the <a href="#in_operator">`IN` operator</a> for details.</td>
+<td>See the <a href="#in_operator"><code dir="ltr" translate="no">        IN       </code> operator</a> for details.</td>
 </tr>
 </tbody>
 </table>

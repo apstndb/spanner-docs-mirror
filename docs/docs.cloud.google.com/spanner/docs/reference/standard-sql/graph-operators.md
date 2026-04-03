@@ -16,7 +16,7 @@ Graph Query Language (GQL) supports all GoogleSQL [operators](/spanner/docs/refe
 </tr>
 <tr class="even">
 <td><a href="#graph_logical_operators">Graph logical operators</a></td>
-<td>Tests for the truth of a condition in a graph and produces either <code dir="ltr" translate="no">       TRUE      </code> or <code dir="ltr" translate="no">       FALSE      </code> .</td>
+<td>Tests for the truth of a condition in a graph label and produces either <code dir="ltr" translate="no">       TRUE      </code> or <code dir="ltr" translate="no">       FALSE      </code> .</td>
 </tr>
 <tr class="odd">
 <td><a href="#graph_predicates">Graph predicates</a></td>
@@ -24,7 +24,7 @@ Graph Query Language (GQL) supports all GoogleSQL [operators](/spanner/docs/refe
 </tr>
 <tr class="even">
 <td><a href="#all_different_predicate"><code dir="ltr" translate="no">        ALL_DIFFERENT       </code> predicate</a></td>
-<td>In a graph, checks to see if the elements in a list are mutually distinct.</td>
+<td>In a graph, checks to see if the elements in a list are all different.</td>
 </tr>
 <tr class="odd">
 <td><a href="#is_destination_predicate"><code dir="ltr" translate="no">        IS DESTINATION       </code> predicate</a></td>
@@ -197,7 +197,7 @@ ALL_DIFFERENT(element, element[, ...])
 
 **Description**
 
-In a graph, checks to see if the elements in a list are mutually distinct. Returns `  TRUE  ` if the elements are distinct, otherwise `  FALSE  ` .
+In a graph, checks to see if the elements in a list are all different. Returns `  TRUE  ` if none of the elements in the list equal one another, otherwise `  FALSE  ` .
 
 **Definitions**
 
@@ -458,7 +458,7 @@ Produces an error if `  element  ` is `  NULL  ` .
 
 **Example**
 
-The following query checks to see if `  a  ` and `  b  ` aren't the same person.
+The following query returns the source and destination IDs for transfers between different accounts:
 
 ``` text
 GRAPH FinGraph

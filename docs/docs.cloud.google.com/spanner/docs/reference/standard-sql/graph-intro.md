@@ -70,7 +70,7 @@ The final linear query statement must produce non-GQL data types, but linear que
 
 #### Examples
 
-The following is an example of a graph query chaining multiple linear query statements using `  NEXT  ` .
+The following is an example of a graph query chaining multiple linear query statements using `  NEXT  ` :
 
 ``` text
 GRAPH FinGraph
