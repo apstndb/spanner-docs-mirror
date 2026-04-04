@@ -243,26 +243,37 @@ Array types are declared using the angle brackets ( `  <  ` and `  >  ` ). The t
 
 **Examples**
 
-Type Declaration
-
-Meaning
-
-`  ARRAY<INT64>  `
-
-Simple array of 64-bit integers.
-
-`  ARRAY<STRUCT<INT64, INT64>>  `
-
-An array of structs, each of which contains two 64-bit integers.
-
-`  ARRAY<ARRAY<INT64>>  `  
-(not supported)
-
-This is an **invalid** type declaration which is included here just in case you came looking for how to create a multi-level array. Arrays can't contain arrays directly. Instead see the next example.
-
-`  ARRAY<STRUCT<ARRAY<INT64>>>  `
-
-An array of arrays of 64-bit integers. Notice that there is a struct between the two arrays because arrays can't hold other arrays directly.
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type Declaration</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       ARRAY&lt;INT64&gt;      </code></td>
+<td>Simple array of 64-bit integers.</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&lt;INT64, INT64&gt;&gt;      </code></td>
+<td>An array of structs, each of which contains two 64-bit integers.</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       ARRAY&lt;ARRAY&lt;INT64&gt;&gt;      </code><br />
+(not supported)</td>
+<td>This is an <strong>invalid</strong> type declaration which is included here just in case you came looking for how to create a multi-level array. Arrays can't contain arrays directly. Instead see the next example.</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">       ARRAY&lt;STRUCT&lt;ARRAY&lt;INT64&gt;&gt;&gt;      </code></td>
+<td>An array of arrays of 64-bit integers. Notice that there is a struct between the two arrays because arrays can't hold other arrays directly.</td>
+</tr>
+</tbody>
+</table>
 
 ### Constructing an array
 
@@ -1263,21 +1274,28 @@ Struct types are declared using the angle brackets ( `  <  ` and `  >  ` ). The 
 
 **Examples**
 
-Type Declaration
-
-Meaning
-
-`  STRUCT<INT64>  `
-
-Simple struct with a single unnamed 64-bit integer field.
-
-`  STRUCT<x STRUCT<y INT64, z INT64>>  `
-
-A struct with a nested struct named `  x  ` inside it. The struct `  x  ` has two fields, `  y  ` and `  z  ` , both of which are 64-bit integers.
-
-`  STRUCT<inner_array ARRAY<INT64>>  `
-
-A struct containing an array named `  inner_array  ` that holds 64-bit integer elements.
+<table>
+<thead>
+<tr class="header">
+<th>Type Declaration</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       STRUCT&lt;INT64&gt;      </code></td>
+<td>Simple struct with a single unnamed 64-bit integer field.</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">       STRUCT&lt;x STRUCT&lt;y INT64, z INT64&gt;&gt;      </code></td>
+<td>A struct with a nested struct named <code dir="ltr" translate="no">       x      </code> inside it. The struct <code dir="ltr" translate="no">       x      </code> has two fields, <code dir="ltr" translate="no">       y      </code> and <code dir="ltr" translate="no">       z      </code> , both of which are 64-bit integers.</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">       STRUCT&lt;inner_array ARRAY&lt;INT64&gt;&gt;      </code></td>
+<td>A struct containing an array named <code dir="ltr" translate="no">       inner_array      </code> that holds 64-bit integer elements.</td>
+</tr>
+</tbody>
+</table>
 
 ### Constructing a struct
 

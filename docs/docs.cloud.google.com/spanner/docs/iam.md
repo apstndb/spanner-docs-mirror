@@ -597,6 +597,7 @@ The following table lists the access control with IAM predefined roles, includin
 <li><code dir="ltr" translate="no">           spanner.                      databases.                      partitionQuery          </code></li>
 <li><code dir="ltr" translate="no">           spanner.                      databases.                      partitionRead          </code></li>
 <li><code dir="ltr" translate="no">           spanner.databases.read          </code></li>
+<li><code dir="ltr" translate="no">           spanner.                      databases.                      runGraphAlgorithms          </code></li>
 <li><code dir="ltr" translate="no">           spanner.databases.select          </code></li>
 <li><code dir="ltr" translate="no">           spanner.databases.setIamPolicy          </code></li>
 <li><code dir="ltr" translate="no">           spanner.databases.update          </code></li>
@@ -767,6 +768,7 @@ The following table lists the access control with IAM predefined roles, includin
 <p><code dir="ltr" translate="no">         spanner.                  databases.                  partitionQuery        </code></p>
 <p><code dir="ltr" translate="no">         spanner.                  databases.                  partitionRead        </code></p>
 <p><code dir="ltr" translate="no">         spanner.databases.read        </code></p>
+<p><code dir="ltr" translate="no">         spanner.                  databases.                  runGraphAlgorithms        </code></p>
 <p><code dir="ltr" translate="no">         spanner.databases.select        </code></p>
 <p><code dir="ltr" translate="no">         spanner.databases.setIamPolicy        </code></p>
 <p><code dir="ltr" translate="no">         spanner.databases.update        </code></p>
@@ -919,6 +921,30 @@ The following table lists the access control with IAM predefined roles, includin
 <p><code dir="ltr" translate="no">         spanner.                  databases.                  useRoleBasedAccess        </code></p></td>
 </tr>
 <tr class="even">
+<td><h4 id="spanner.graphIntelligenceUser" class="role-title add-link" data-text="Cloud Spanner Database Graph Intelligence features user" tabindex="-1">Cloud Spanner Database Graph Intelligence features user</h4>
+<p>( <code dir="ltr" translate="no">         roles/                  spanner.graphIntelligenceUser        </code> )</p>
+<p>Access to Graph Intelligence features.</p></td>
+<td><p><code dir="ltr" translate="no">         monitoring.timeSeries.create        </code></p>
+<p><code dir="ltr" translate="no">         spanner.                  databases.                  beginReadOnlyTransaction        </code></p>
+<p><code dir="ltr" translate="no">         spanner.databases.get        </code></p>
+<p><code dir="ltr" translate="no">         spanner.databases.getDdl        </code></p>
+<p><code dir="ltr" translate="no">         spanner.                  databases.                  partitionQuery        </code></p>
+<p><code dir="ltr" translate="no">         spanner.                  databases.                  partitionRead        </code></p>
+<p><code dir="ltr" translate="no">         spanner.databases.read        </code></p>
+<p><code dir="ltr" translate="no">         spanner.                  databases.                  runGraphAlgorithms        </code></p>
+<p><code dir="ltr" translate="no">         spanner.databases.select        </code></p>
+<p><code dir="ltr" translate="no">         spanner.databases.useDataBoost        </code></p>
+<p><code dir="ltr" translate="no">         spanner.instancePartitions.get        </code></p>
+<p><code dir="ltr" translate="no">         spanner.instances.get        </code></p>
+<p><code dir="ltr" translate="no">           spanner.sessions.*          </code></p>
+<ul>
+<li><code dir="ltr" translate="no">           spanner.sessions.create          </code></li>
+<li><code dir="ltr" translate="no">           spanner.sessions.delete          </code></li>
+<li><code dir="ltr" translate="no">           spanner.sessions.get          </code></li>
+<li><code dir="ltr" translate="no">           spanner.sessions.list          </code></li>
+</ul></td>
+</tr>
+<tr class="odd">
 <td><h4 id="spanner.restoreAdmin" class="role-title add-link" data-text="Cloud Spanner Restore Admin" tabindex="-1">Cloud Spanner Restore Admin</h4>
 <p>( <code dir="ltr" translate="no">         roles/                  spanner.restoreAdmin        </code> )</p>
 <p>A principal with this role can restore databases from backups.</p>
@@ -952,7 +978,7 @@ The following table lists the access control with IAM predefined roles, includin
 <p><code dir="ltr" translate="no">         spanner.                  instances.                  listEffectiveTags        </code></p>
 <p><code dir="ltr" translate="no">         spanner.                  instances.                  listTagBindings        </code></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><h4 id="spanner.serviceAgent" class="role-title add-link" data-text="Cloud Spanner API Service Agent" tabindex="-1">Cloud Spanner API Service Agent</h4>
 <p>( <code dir="ltr" translate="no">         roles/                  spanner.serviceAgent        </code> )</p>
 <p>Cloud Spanner API Service Agent</p>
@@ -996,7 +1022,7 @@ The following table lists the access control with IAM predefined roles, includin
 <p><code dir="ltr" translate="no">         storage.objects.get        </code></p>
 <p><code dir="ltr" translate="no">         storage.objects.list        </code></p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><h4 id="spanner.viewer" class="role-title add-link" data-text="Cloud Spanner Viewer" tabindex="-1">Cloud Spanner Viewer</h4>
 <p>( <code dir="ltr" translate="no">         roles/                  spanner.viewer        </code> )</p>
 <p>A principal with this role can:</p>

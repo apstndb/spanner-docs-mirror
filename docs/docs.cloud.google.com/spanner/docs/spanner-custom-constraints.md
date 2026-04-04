@@ -59,17 +59,17 @@ From the project picker, select the project that you want to set the organizatio
 
 Click add **Custom constraint** .
 
-In the **Display name** box, enter a human-readable name for the constraint. This name is used in error messages and can be used for identification and debugging. Don't use PII or sensitive data in display names because this name could be exposed in error messages. This field can contain up to 200 characters.
+In the **Display name** box, enter a human-readable name for the constraint. This name is used in error messages and can be used for identification and debugging. Don't use personally identifiable information (PII) or sensitive data in display names because this name could be exposed in error messages. This field can contain up to 200 characters.
 
-In the **Constraint ID** box, enter the name that you want for your new custom constraint. A custom constraint can only contain letters (including upper and lowercase) or numbers, for example `  custom.disableGkeAutoUpgrade  ` . This field can contain up to 70 characters, not counting the prefix ( `  custom.  ` ), for example, `  organizations/123456789/customConstraints/custom  ` . Don't include PII or sensitive data in your constraint ID, because it could be exposed in error messages.
+In the **Constraint ID** box, enter the ID that you want for your new custom constraint. A custom constraint can only contain letters (including upper and lowercase) or numbers, for example `  custom.spannerDatabase  ` . This field can contain up to 70 characters, not counting the prefix ( `  custom.  ` ), for example, `  organizations/123456789/customConstraints/custom  ` . Don't include PII or sensitive data in your constraint ID, because it could be exposed in error messages.
 
 In the **Description** box, enter a human-readable description of the constraint. This description is used as an error message when the policy is violated. Include details about why the policy violation occurred and how to resolve the policy violation. Don't include PII or sensitive data in your description, because it could be exposed in error messages. This field can contain up to 2000 characters.
 
 In the **Resource type** box, select the name of the Google Cloud REST resource containing the object and field that you want to restrict—for example, `  container.googleapis.com/NodePool  ` . Most resource types support up to 20 custom constraints. If you attempt to create more custom constraints, the operation fails.
 
-Under **Enforcement method** , select whether to enforce the constraint on a REST **CREATE** method or on both **CREATE** and **UPDATE** methods. If you enforce the constraint with the **UPDATE** method on a resource that violates the constraint, changes to that resource are blocked by the organization policy unless the change resolves the violation.
+Under **Enforcement method** , select whether to enforce the constraint on a REST `  CREATE  ` method or both `  CREATE  ` and `  UPDATE  ` methods. If you enforce the constraint with the `  UPDATE  ` method on a resource that violates the constraint, changes to that resource are blocked by the organization policy unless the change resolves the violation.
 
-Not all Google Cloud services support both methods. To see supported methods for each service, find the service in [Services that support custom constraints](/organization-policy/reference/custom-constraint-supported-services) .
+To see supported methods for each service, find the service in [Services that support custom constraints](/organization-policy/reference/custom-constraint-supported-services) .
 
 To define a condition, click edit **Edit condition** .
 
@@ -80,7 +80,7 @@ Under **Action** , select whether to allow or deny the evaluated method if the c
 
 The deny action means that the operation to create or update the resource is blocked if the condition evaluates to true.
 
-The allow action means that the operation to create or update the resource is permitted only if the condition evaluates to true. Every other case except ones explicitly listed in the condition is blocked.
+The allow action means that the operation to create or update the resource is permitted only if the condition evaluates to true. Every other case except those explicitly listed in the condition is blocked.
 
 Click **Create constraint** .
 
@@ -95,7 +95,7 @@ name: organizations/ORGANIZATION_ID/customConstraints/CONSTRAINT_NAME
 resourceTypes: RESOURCE_NAME
 methodTypes:
   - CREATE
-- UPDATE 
+  - UPDATE 
 condition: "CONDITION"
 actionType: ACTION
 displayName: DISPLAY_NAME
@@ -105,11 +105,12 @@ description: DESCRIPTION
 Replace the following:
 
   - `  ORGANIZATION_ID  ` : your organization ID, such as `  123456789  ` .
-  - `  CONSTRAINT_NAME  ` : the name that you want for your new custom constraint. A custom constraint can only contain letters (including upper and lowercase) or numbers, for example, `  custom.spannerDatabase  ` . This field can contain up to 70 characters.
-  - `  RESOURCE_NAME  ` : the fully qualified name of the Google Cloud resource containing the object and field that you want to restrict. For example, `  spanner.googleapis.com/Database  ` .
+  - `  CONSTRAINT_NAME  ` : the name that you want for your new custom constraint. A custom constraint can only contain letters (including upper and lowercase) or numbers, for example, `  custom.spannerDatabase  ` . This field can contain up to 70 characters, not counting the prefix ( `  custom.  ` )— for example, `  organizations/123456789/customConstraints/custom  ` . Don't include PII or sensitive data in your constraint ID, because it could be exposed in error messages.
+  - `  RESOURCE_NAME  ` : the fully qualified name of the Google Cloud resource containing the object and field that you want to restrict. For example, `  spanner.googleapis.com/Database  ` . Most resource types support up to 20 custom constraints. If you attempt to create more custom constraints, the operation fails.
+  - `  methodTypes  ` : the REST methods that the constraint is enforced on. Can be `  CREATE  ` or both `  CREATE  ` and `  UPDATE  ` . If you enforce the constraint with the `  UPDATE  ` method on a resource that violates the constraint, changes to that resource are blocked by the organization policy unless the change resolves the violation.
   - `  CONDITION  ` : a [CEL condition](/resource-manager/docs/organization-policy/creating-managing-custom-constraints#common_expression_language) that is written against a representation of a supported service resource. This field can contain up to 1000 characters. For example, `  "resource.name.contains('denied-database-name')"  ` .
   - `  ACTION  ` : the action to take if the `  condition  ` is met. Possible values are `  ALLOW  ` and `  DENY  ` .
-  - `  DISPLAY_NAME  ` : a human-friendly name for the constraint. This field can contain up to 200 characters.
+  - `  DISPLAY_NAME  ` : a human-readable name for the constraint. This name is used in error messages and can be used for identification and debugging. Don't use PII or sensitive data in display names because this name could be exposed in error messages. This field can contain up to 200 characters.
   - `  DESCRIPTION  ` : a human-friendly description of the constraint to display as an error message when the policy is violated. This field can contain up to 2000 characters.
 
 After you have created the YAML file for a new custom constraint, you must set it up to make it available for organization policies in your organization. To set up a custom constraint, use the [`  gcloud org-policies set-custom-constraint  `](/sdk/gcloud/reference/org-policies/set-custom-constraint) command:
