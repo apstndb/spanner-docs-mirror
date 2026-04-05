@@ -125,7 +125,7 @@ EXPORT DATA OPTIONS (
     format='CLOUD_SPANNER',
     spanner_options="""{
       "table": "Person",
-      "priority": "HIGH",
+      "priority": "LOW",
       "tag" : "graph_data_load_person"
     }"""
   ) AS
@@ -140,7 +140,7 @@ EXPORT DATA OPTIONS (
   format='CLOUD_SPANNER',
   spanner_options="""{
     "table": "Account",
-    "priority": "HIGH",
+    "priority": "LOW",
     "tag" : "graph_data_load_account"
   }"""
 ) AS
@@ -157,7 +157,7 @@ EXPORT DATA OPTIONS (
   format='CLOUD_SPANNER',
   spanner_options="""{
     "table": "PersonOwnAccount",
-    "priority": "HIGH",
+    "priority": "LOW",
     "tag" : "graph_data_load_person_own_account"
   }"""
 ) AS
@@ -235,7 +235,7 @@ EXPORT DATA OPTIONS (
   format='CLOUD_SPANNER',
     spanner_options="""{
       "table": "PersonOwnAccount",
-      "priority": "HIGH",
+      "priority": "LOW",
       "tag" : "graph_data_load_person_own_account"
     }"""
   ) AS
@@ -319,7 +319,7 @@ EXPORT DATA OPTIONS (
     format='CLOUD_SPANNER',
     spanner_options="""{
       "table": "PersonOwnAccount",
-      "priority": "HIGH",
+      "priority": "LOW",
       "tag" : "graph_data_delete_via_reverse_etl"
     }"""
   ) AS
@@ -403,7 +403,7 @@ EXPORT DATA OPTIONS ( uri="https://spanner.googleapis.com/projects/PROJECT_ID/in
   format="CLOUD_SPANNER",
   spanner_options="""{
       "table": "PersonOwnAccount",
-      "priority": "HIGH",
+      "priority": "LOW",
       "tag": "reverse-etl-continuous",
       "change_timestamp_column": "create_time"
    }"""
@@ -446,7 +446,7 @@ For the best results, do the following.
 
   - For large data loads, add indexes and [foreign key](/spanner/docs/foreign-keys/overview) constraints after the initial bulk data load is complete. This practice improves data loading performance because foreign key constraints require extra reads for validation and indexes require additional writes. These operations increase the number of transaction participants, which can slow down the data loading process.
 
-  - Enable autoscaling in Spanner to speed up data load times into an instance. Then, configure the Spanner `  priority  ` parameter in the `  spanner_options  ` section of the BigQuery `  EXPORT DATA  ` command to `  HIGH  ` . For more information, see [Spanner autoscaling overview](/spanner/docs/autoscaling-overview) , [Configure exports with `  spanner_options  ` option](/bigquery/docs/export-to-spanner) , and [`  RequestOptions.priority  `](/spanner/docs/reference/rest/v1/RequestOptions#Priority) .
+  - Enable autoscaling in Spanner to speed up data load times into an instance. For more information, see [Spanner autoscaling overview](/spanner/docs/autoscaling-overview) , [Configure exports with `  spanner_options  ` option](/bigquery/docs/export-to-spanner) , and [`  RequestOptions.priority  `](/spanner/docs/reference/rest/v1/RequestOptions#Priority) .
 
   - For large data loads, [create split points](/spanner/docs/create-manage-split-points) to pre-split your database. This prepares Spanner for increased throughput.
 

@@ -286,6 +286,37 @@ Operation Latencies
 `  directpath_enabled  ` : (BOOL) True if directpath is enabled.  
 `  directpath_used  ` : (BOOL) True if directpath is used for the RPC request.
 
+`  graph_algorithm_stat/total/execution_count  ` <sup>GA</sup> ***(project)***  
+Graph algorithm execution count
+
+`  DELTA  ` , `  INT64  ` , `  1  `  
+**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+
+*Total graph algorithm requests received by Cloud Spanner during the time interval. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
+`  database  ` : Target database.  
+`  algorithm  ` : Graph algorithm executed.
+
+`  graph_algorithm_stat/total/execution_durations  ` <sup>GA</sup> ***(project)***  
+Graph algorithm durations
+
+`  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
+**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+
+*Distribution of graph algorithm execution times (in seconds) within the database. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
+`  database  ` : Target database.  
+`  algorithm  ` : Graph algorithm executed.
+
+`  graph_algorithm_stat/total/failed_execution_count  ` <sup>GA</sup> ***(project)***  
+Graph algorithm failed count
+
+`  DELTA  ` , `  INT64  ` , `  1  `  
+**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+
+*Total failed graph algorithm requests in Cloud Spanner during the time interval. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
+`  database  ` : Target database.  
+`  algorithm  ` : Graph algorithm executed.  
+`  status  ` : failed status, one of \[cancelled, timeout, error\].
+
 `  graph_query_stat/total/bytes_returned_count  ` <sup>GA</sup> ***(project)***  
 Graph query bytes returned count
 
@@ -1094,7 +1125,7 @@ Transaction latencies
 *Distribution of total seconds takenfrom the first operation of the transaction to commit or abort. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
 
-<span class="small">Table generated at 2026-03-27 03:31:46 UTC.</span>
+<span class="small">Table generated at 2026-04-02 02:29:29 UTC.</span>
 
 ## What's next
 

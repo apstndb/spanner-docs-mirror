@@ -176,6 +176,33 @@ Select one of the following options:
 
 10. In the **Connection info** pane, copy the service account ID for use in a later step.
 
+### SQL
+
+Use the [`  CREATE CONNECTION  ` statement](/bigquery/docs/reference/standard-sql/data-definition-language#create_connection_statement) :
+
+1.  In the Google Cloud console, go to the **BigQuery** page.
+
+2.  In the query editor, enter the following statement:
+    
+    ``` text
+    CREATE CONNECTION [IF NOT EXISTS] `CONNECTION_NAME`
+    OPTIONS (
+      connection_type = "CLOUD_RESOURCE",
+      friendly_name = "FRIENDLY_NAME",
+      description = "DESCRIPTION"
+      );
+    ```
+    
+    Replace the following:
+    
+      - `  CONNECTION_NAME  ` : the name of the connection in either the `  PROJECT_ID . LOCATION . CONNECTION_ID  ` , `  LOCATION . CONNECTION_ID  ` , or `  CONNECTION_ID  ` format. If the project or location are omitted, then they are inferred from the project and location where the statement is run.
+      - `  FRIENDLY_NAME  ` (optional): a descriptive name for the connection.
+      - `  DESCRIPTION  ` (optional): a description of the connection.
+
+3.  Click play\_circle **Run** .
+
+For more information about how to run queries, see [Run an interactive query](/bigquery/docs/running-queries#queries) .
+
 ### bq
 
 1.  In a command-line environment, create a connection:
