@@ -1707,6 +1707,6 @@ client.execute(
   "IN UNNEST(@song_info.ArtistNames)",
   params: { song_info: song_info_struct }
 ).rows.each do |row|
-  puts (row[:SingerId]), (row[:SongName])
+  puts row[:SingerId], row[:SongName]
 end
 ```

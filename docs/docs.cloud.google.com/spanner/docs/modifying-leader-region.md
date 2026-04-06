@@ -839,7 +839,7 @@ require "google/cloud/spanner/admin/database"
 
 db_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin project_id: project_id
 
-instance_path = \
+instance_path =
   db_admin_client.instance_path project: project_id, instance: instance_id
 statements = [
   "CREATE TABLE Singers (
