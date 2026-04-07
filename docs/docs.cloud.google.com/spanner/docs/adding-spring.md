@@ -6,11 +6,11 @@ Like all [Spring Data](https://spring.io/projects/spring-data) modules, Spring D
 
 If you're already familiar with Spring, then Spring Data Spanner can make it easier to work with Spanner in your application and reduce the amount of code that you need to write.
 
-This page explains how to add Spring Data Spanner to a Java application. For detailed information about the module, see the [Spring Data Spanner reference](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/spanner.html) .
+This page explains how to add Spring Data Spanner to a Java application. For detailed information about the module, see the [Spring Data Spanner reference](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/spanner.html) .
 
 ## Install the module
 
-If you use Maven, add the [Spring Cloud GCP Bill of Materials (BOM)](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/index.html#bill-of-materials) and Spring Data Spanner to your `  pom.xml  ` file. These dependencies provide the Spring Data Spanner components to your Spring [`  ApplicationContext  `](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html) :
+If you use Maven, add the [Spring Cloud GCP Bill of Materials (BOM)](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#bill-of-materials) and Spring Data Spanner to your `  pom.xml  ` file. These dependencies provide the Spring Data Spanner components to your Spring [`  ApplicationContext  `](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html) :
 
 ``` xml
 <dependencyManagement>
@@ -46,7 +46,7 @@ For more information, see the instructions for [setting up a Java development en
 
 ## Configure the module
 
-This section describes some of the most commonly used configuration settings for Spring Data Spanner. For a complete list of settings, see the [reference documentation](reference/html/#cloud-spanner-settings) .
+This section describes some of the most commonly used configuration settings for Spring Data Spanner. For a complete list of settings, see the [reference documentation](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#cloud-spanner-settings) .
 
 ### Specify an instance and database
 
@@ -123,7 +123,7 @@ The table that the entity models. Each instance of the entity represents a recor
 
 Example: `  @Table(name = "Singers")  `
 
-If you need to model more complex relationships, see the [Spring Data Spanner reference](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/spanner.html) for details about other annotations that the module supports.
+If you need to model more complex relationships, see the [Spring Data Spanner reference](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/spanner.html) for details about other annotations that the module supports.
 
 The following examples show one way to model the `  Singers  ` and `  Albums  ` tables for Spring Data Spanner:
 
@@ -242,11 +242,11 @@ public class SpannerTemplateSample {
 }
 ```
 
-You can use the `  SpannerTemplate  ` bean to execute [read-only transactions](reference/html/#read-only-transaction) and [read-write transactions](reference/html/#readwrite-transaction) . In addition, you can use the [`  @Transactional  `](reference/html/#declarative-transactions-with-transactional-annotation) annotation to create declarative transactions.
+You can use the `  SpannerTemplate  ` bean to execute [read-only transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#read-only-transaction) and [read-write transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#readwrite-transaction) . In addition, you can use the [`  @Transactional  `](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#declarative-transactions-with-transactional-annotation) annotation to create declarative transactions.
 
 ### Acquire a repository bean
 
-If you use a `  SpannerRepository  ` , you can use the `  @Autowired  ` annotation to acquire a bean that implements your repository's interface. A repository includes methods for running Java functions as [read-only transactions](reference/html/#read-only-transaction) and [read-write transactions](reference/html/#readwrite-transaction) . For lower-level operations, you can get the template bean that the repository uses.
+If you use a `  SpannerRepository  ` , you can use the `  @Autowired  ` annotation to acquire a bean that implements your repository's interface. A repository includes methods for running Java functions as [read-only transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#read-only-transaction) and [read-write transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#readwrite-transaction) . For lower-level operations, you can get the template bean that the repository uses.
 
 The following examples show the interface for a repository and a class that acquires and uses the bean:
 
@@ -363,7 +363,7 @@ public class SpannerSchemaToolsSample {
 ## What's next
 
   - Get started with [Spring Cloud GCP](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/#getting-started) .
-  - Learn more about [using Spring Data Spanner in your applications](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/spanner.html) .
+  - Learn more about [using Spring Data Spanner in your applications](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/spanner.html) .
   - [File a GitHub issue](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/issues) to report a bug or ask a question about the module.
   - Get more information about [Spring Framework support on Google Cloud](/java/docs/reference/spring) .
   - Try a codelab to [deploy and run an application that uses Spring Cloud GCP](https://codelabs.developers.google.com/spring/) .
