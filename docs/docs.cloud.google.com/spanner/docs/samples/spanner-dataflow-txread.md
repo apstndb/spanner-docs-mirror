@@ -28,7 +28,7 @@ PCollection<Struct> singers =
             .withSpannerConfig(spannerConfig)
             .withQuery("SELECT SingerID, FirstName, LastName FROM Singers")
             .withTransaction(tx));
-P<Collec>tionStruct albums =
+PCollection<Struct> albums =
     pipeline.apply(
         SpannerIO.read()
             .withSpannerConfig(spannerConfig)

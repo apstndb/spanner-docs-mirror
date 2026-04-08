@@ -1,4 +1,3 @@
 200 https://cloud.google.com/spanner/pricing
 200 https://cloud.google.com/spanner/sla
-200 https://docs.cloud.google.com/spanner/docs/dml-versus-mutations
-200 https://docs.cloud.google.com/spanner/docs/fgac-sequences
+200 https://docs.cloud.google.com/spanner/docs/context-sets-overview

@@ -1,4 +1,4 @@
-**Preview — Data agents**
+**Preview**
 
 This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
@@ -6,17 +6,17 @@ For information about access to this release, see the [access request page](http
 
 **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
-This document describes how to inspect an agent and update the agent's context file. You can inspect an agent to test its ability to generate SQL queries from natural language questions. If a generated query is not accurate, you can update the agent's context.
+This document describes how to test a context set and update the context set file. You can test a context set's ability to generate SQL queries from natural language questions. If a generated query is not accurate, you can update the context set file.
 
-To learn about data agents, see [Data agents overview](/spanner/docs/data-agent-overview) .
+To learn about context sets, see [Context sets overview](/spanner/docs/data-agent-overview) .
 
 ## Before you begin
 
-Make sure that a data agent is already created and agent context is uploaded to the data agent. For more information, see [Manage data agents in Spanner Studio](/spanner/docs/manage-data-agents) .
+Make sure that a context set is already created and the context set file is uploaded to the QueryData agent. For more information, see [Manage context sets in Spanner Studio](/spanner/docs/manage-data-agents)
 
-## Inspect a data agent
+## Test a context set
 
-To inspect a data agent, perform the following steps:
+To test a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
 
@@ -24,9 +24,9 @@ To inspect a data agent, perform the following steps:
 
 3.  In the navigation menu, click **Spanner Studio** .
 
-4.  In the **Explorer pane** , click **View actions** next to the data agent you're using.
+4.  In the **Explorer pane** , click **View actions** next to the context set you're using.
 
-5.  Click **Inspect agent** .
+5.  Click **Test context set** .
 
 6.  In the query editor, click **Generate SQL** to open the **Help me code** panel.
 
@@ -34,27 +34,27 @@ To inspect a data agent, perform the following steps:
 
 8.  Review the SQL query for accuracy.
 
-## Download and update context for a data agent
+## Download and update a context set
 
-If you are not satisfied with the generated SQL query for a natural language question, download the existing agent context file. You can then review and update the query template, and reupload the updated context file to the agent.
+If you are not satisfied with the generated SQL query for a natural language question, download the existing context set file. You can then review and update the query template, and reupload the updated context file to the agent.
 
-To download and update context for a data agent, perform the following steps:
+To download and update a context set, perform the following steps:
 
 1.  In the **Explorer pane** , click **View actions** .
-2.  Click **Download agent context file** .
+2.  Click **Download context file** .
 3.  Follow steps in [Build contexts using Gemini CLI](/spanner/docs/build-context-gemini-cli) to update context with additional query pairs.
-4.  In the **Explorer pane** , click **View actions** next to the data agent you're using.
-5.  Click **Edit agent** .
-6.  Click **Browse** in the **Upload agent context file** section, and select the updated agent context file.
-7.  Click **Save** to update the agent context.
+4.  In the **Explorer pane** , click **View actions** next to the context set you're using.
+5.  Click **Edit context set** .
+6.  Click **Browse** in the **Upload context set file** section, and select the updated context set file.
+7.  Click **Save** to update the context set.
 
-After you are satisfied with the accuracy of your responses, you can use the `  QueryData  ` endpoint to connect your application to the data agent.
+After you are satisfied with the accuracy of your responses, you can use the `  QueryData  ` endpoint to connect your application to the context set.
 
-**Note:** After you upload the updated context file, it overwrites the existing context.
+**Note:** After you upload the updated context set file, it overwrites the existing context set.
 
-## Find the agent context ID
+## Find the context set ID
 
-To connect a data application to the data agent, you need the agent's context ID.
+To connect a data application to the QueryData agent, you need the context set's ID.
 
 1.  In the Google Cloud console, go to the Spanner page.
 
@@ -62,17 +62,17 @@ To connect a data application to the data agent, you need the agent's context ID
 
 3.  In the navigation menu, click **Spanner Studio** .
 
-4.  In the **Explorer pane** , click **View actions** next to the data agent you're using.
+4.  In the **Explorer pane** , click **View actions** next to the context set you're using.
 
-5.  Click **Edit agent** .
+5.  Click **Edit context set** .
 
-6.  Note the context ID in **Agent context ID** . The agent context ID format is similar to `  projects/data-agents-project/locations/us-east1/contextSets/bdf_pg_all_templates  ` .
+6.  Note the context ID in **Context set ID** . The context set ID format is similar to `  projects/data-agents-project/locations/us-east1/contextSets/bdf_pg_all_templates  ` .
 
-## Connect the data agent to application
+## Connect the context set to application
 
-Set the agent context ID in the `  QueryData  ` method call to provide authored context for database data sources such as AlloyDB, Spanner, Cloud SQL, and Cloud SQL for PostgreSQL. For more information, see [Define data agent context for database data sources](/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases)
+Set the context set ID in the `  QueryData  ` method call to provide authored context for database data sources such as AlloyDB, Spanner, Cloud SQL, and Cloud SQL for PostgreSQL. For more information, see [Define data agent context for database data sources](/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases)
 
-After inspecting the data agent, you can reference the database data source in your `  QueryData  ` call.
+After testing the context set, you can reference the database data source in your `  QueryData  ` call.
 
 ### Example `     QueryData    ` request with authored context
 
@@ -80,7 +80,7 @@ The following example shows a `  QueryData  ` request using `  spanner_reference
 
 ``` text
 {
-  "parent": "projects/data-agents-project/locations/us-central1",
+  "parent": "projects/context-set-project/locations/us-central1",
   "prompt": "How many accounts in the Prague region are eligible for loans? A3 contains the data of region.",
   "context": {
     "datasource_references": [
@@ -88,13 +88,13 @@ The following example shows a `  QueryData  ` request using `  spanner_reference
         "spanner_reference" {
           "database_reference" {
             "engine": "GOOGLE_SQL"
-            "project_id": "data-agents-project"
+            "project_id": "context-set-project"
             "region": "us-central1"
             "instance_id": "evalbench"
             "database_id": "financial"
           },
           "agent_context_reference": {
-            "context_set_id": "projects/data-agents-project/locations/us-east1/contextSets/bdf_pg_all_templates"
+            "context_set_id": "projects/context-set-project/locations/us-east1/contextSets/bdf_pg_all_templates"
           }
         }
       }
@@ -122,7 +122,7 @@ The request body contains the following fields:
                   - `  instance_id  ` : The instance ID of the Spanner instance.
                   - `  database_id  ` : The ID of the database.
               - `  agent_context_reference  ` : Links to authored context in the database.
-                  - `  context_set_id  ` : The complete agent context ID of the context stored in the database. For example, `  projects/data-agents-project/locations/us-east1/contextSets/bdf_gsql_gemini_all_templates  ` .
+                  - `  context_set_id  ` : The complete context set ID of the context stored in the database. For example, `  projects/context-set-project/locations/us-east1/contextSets/bdf_gsql_gemini_all_templates  ` .
   - `  generationOptions  ` : Configures the type of output to generate.
       - `  generate_query_result  ` : Set to true to generate and return the query results.
       - `  generate_natural_language_answer  ` : Optional. If set to true, generates a natural language answer.
@@ -160,6 +160,6 @@ Here is an example of a successful response from a `  QueryData  ` call:
 
 ## What's next
 
-  - Learn more about [data agents](/spanner/docs/data-agent-overview) .
+  - Learn more about [context sets](/spanner/docs/data-agent-overview) .
   - Learn how to [build contexts using Gemini CLI](/spanner/docs/build-context-gemini-cli)
-  - Learn how to [Manage data agents in Spanner Studio](/spanner/docs/manage-data-agents) .
+  - Learn how to [Manage context sets in Spanner Studio](/spanner/docs/manage-data-agents)

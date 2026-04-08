@@ -1,4 +1,4 @@
-**Preview — Data agents**
+**Preview**
 
 This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
@@ -6,9 +6,9 @@ For information about access to this release, see the [access request page](http
 
 **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
-This document describes how to create a data agent in Spanner Studio using an agent context file. A data agent is associated with a single agent context file.
+This document describes how to create context sets in Spanner Studio using a context set file. Context set names must be unique within a database.
 
-To learn about data agents, see [Data agents overview](/spanner/docs/data-agent-overview) .
+To learn about context sets, see [Context sets overview](/spanner/docs/data-agent-overview) .
 
 ## Before you begin
 
@@ -18,56 +18,27 @@ Complete the following prerequisites before creating an agent.
 
 Enable the following services for your project:
 
-  - [Gemini Data Analytics API](https://console.cloud.google.com/apis/library/geminidataanalytics.googleapis.com)
+  - [Data Analytics API with Gemini](https://console.cloud.google.com/apis/library/geminidataanalytics.googleapis.com)
   - [Gemini for Google Cloud API](https://console.cloud.google.com/apis/library/cloudaicompanion.googleapis.com)
+  - [Dataplex Universal Catalog API](https://console.cloud.google.com/apis/library/dataplex.googleapis.com)
 
 ### Prepare a Spanner instance
 
   - Make sure that a Spanner instance is available. For more information, see [Create an instance](/spanner/docs/create-manage-instances) .
   - Ensure that you create a database in your instance where you will create the tables. For more information, see [Create a database on the Spanner instance](/spanner/docs/create-manage-databases#create-database)
 
+  
+This tutorial requires you to have a database in your Spanner instance. For more information, see [Create a database](/spanner/docs/create-manage-databases#create-database) .
+
 ### Required roles and permissions
 
   - Add an IAM user or service account to the cluster. For more information, see [Apply IAM roles](/spanner/docs/grant-permissions) .
-  - Grant the `  spanner.databaseReader  ` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](/sdk/gcloud/reference/projects/add-iam-policy-binding) .
+  - Grant the `  spanner.databaseReader  ` and `  geminidataanalytics.queryDataUser  ` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](/sdk/gcloud/reference/projects/add-iam-policy-binding) .
   - [Grant roles and permissions](/spanner/docs/grant-permissions#project-level_permissions) to the IAM user at the project-level for the required databases.
 
-## Create a data agent
+## Create a context set
 
-To create a data agent, perform the following steps:
-
-1.  In the Google Cloud console, go to the Spanner page.
-
-2.  Select an instance from the list, and then select a database.
-
-3.  In the navigation menu, click **Spanner Studio** .
-
-4.  In the **Explorer pane** , next to **Data Agents** , click **View actions** .
-
-5.  Click **Create agent** .
-
-6.  In **Agent name** , provide a unique agent name. The agent name is case-sensitive and can contain letters, numbers, hyphens, and underscores.
-
-7.  Optional. In **Agent description** , add a description for your agent.
-
-8.  Optional. Click **Show Advanced Options** and in **Select a location** , select a region for storing agent context. You can select from the following list of supported regions:
-    
-      - `  us-central1  `
-      - `  us-east1  `
-      - `  europe-west4  `
-      - `  asia-southeast1  `
-
-9.  Click **Create** .
-
-**Note:** Creating the first agent in a project can take several minutes.
-
-## Build agent context
-
-After creating an agent, follow the steps in [Build contexts using Gemini CLI](/spanner/docs/build-context-gemini-cli) to create an agent context file. You can then edit your agent to upload the context file.
-
-## Edit an agent
-
-To edit a data agent, perform the following steps:
+To create a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
 
@@ -75,19 +46,45 @@ To edit a data agent, perform the following steps:
 
 3.  In the navigation menu, click **Spanner Studio** .
 
-4.  In the **Explorer pane** , next to **Data Agents** , click **View actions** .
+4.  In the **Explorer pane** , next to **Context sets** , click **View actions** .
 
-5.  Click **Edit agent** .
+5.  Click **Create context set** .
 
-6.  Optional: Edit **Agent description** .
+6.  In **Context set name** , provide a unique context set name. The context set name is case-sensitive and can contain letters, numbers, hyphens, and underscores.
 
-7.  Click **Browse** in the **Upload agent context file** section, and select the agent context file.
+7.  Optional. In **Context set description** , add a description for your context set.
+
+8.  Click **Create** .
+
+**Note:** Creating the first context set in a project can take several minutes.
+
+## Build context sets
+
+After creating a context set, follow the steps in [Build contexts using Gemini CLI](/spanner/docs/build-context-gemini-cli) to create a context set file. You can then edit your context set to upload the context set file.
+
+## Edit a context set
+
+To edit a context set, perform the following steps:
+
+1.  In the Google Cloud console, go to the Spanner page.
+
+2.  Select an instance from the list, and then select a database.
+
+3.  In the navigation menu, click **Spanner Studio** .
+
+4.  In the **Explorer pane** , next to **Context sets** , click **View actions** .
+
+5.  Click **Edit context set** .
+
+6.  Optional: Edit **Context set description** .
+
+7.  Click **Browse** in the **Upload context set file** section, and select the context set file.
 
 8.  Click **Save** .
 
-## Delete a data agent
+## Delete a context set
 
-To delete a data agent, perform the following steps:
+To delete a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
 
@@ -95,17 +92,18 @@ To delete a data agent, perform the following steps:
 
 3.  In the navigation menu, click **Spanner Studio** .
 
-4.  In the **Explorer pane** , next to **Data Agents** , click **View actions** .
+4.  In the **Explorer pane** , next to **Context sets** , click **View actions** .
 
-5.  Click **Delete agent** .
+5.  Click **Delete context set** .
 
-6.  In the **Delete agent** confirmation dialog, enter the name of the agent.
+6.  In the **Delete context set** confirmation dialog, enter the name of the context set.
 
-7.  Click **Confirm** to delete the agent.
+7.  Click **Confirm** to delete the context set.
 
-**Note:** Before you delete a database, you must delete all agents associated with that database.
+**Note:** Before you delete a database, you must delete all context sets associated with that database.
 
 ## What's next
 
-  - Learn more about [data agents](/spanner/docs/data-agent-overview) .
-  - Learn how to [inspect and call a data agent](/spanner/docs/inspect-data-agent) .
+  - Learn more about [context sets](/spanner/docs/data-agent-overview) .
+  - Learn how to [test a context set](/spanner/docs/test-context-set) .
+  - Learn how to [build contexts using Gemini CLI](/spanner/docs/build-context-gemini-cli) .

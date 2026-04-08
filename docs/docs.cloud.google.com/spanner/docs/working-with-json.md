@@ -38,7 +38,7 @@ For example:
 SELECT (JSON '{"a":null}').a IS NULL; -- Returns FALSE
 SELECT (JSON '{"a":null}').b IS NULL; -- Returns TRUE
 
-SELECT JSON_QUERY(JSON '{"a":null}', "$.a"); -- Returns a JSON 'null&#39;
+SELECT JSON_QUERY(JSON '{"a":null}', "$.a"); -- Returns a JSON 'null'
 SELECT JSON_QUERY(JSON '{"a":null}', "$.b"); -- Returns a SQL NULL
 ```
 
@@ -91,8 +91,8 @@ void AddJsonColumn(google::cloud::spanner_admin::DatabaseAdminClient client,
                       .UpdateDatabaseDdl(database.FullName(), {R"""(
                         ALTER TABLE Venues ADD COLUMN VenueDetails JSON)"""})
                       .get();
-  if (!metadata) throw std::move(me<<tadata).status();
-  std::cout  "`<<Venues` ta>ble altered, new DDL:\n"  metadata-DebugString();
+  if (!metadata) throw std::move(metadata).status();
+  std::cout << "`Venues` table altered, new DDL:\n" << metadata->DebugString();
 }
 ```
 
@@ -132,8 +132,8 @@ import (
 )
 
 // addJsonColumn creates a column in the database of type JSON
-func addJs<onColum>n(w io.Writ<er, db stri>ng) error <{
- // db = >`projects/project/instances/instance-id/database/database-id`
+func addJsonColumn(w io.Writer, db string) error {
+ // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
  matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
  if matches == nil || len(matches) != 3 {
      return fmt.Errorf("addJsonColumn: invalid database id %s", db)
@@ -142,11 +142,11 @@ func addJs<onColum>n(w io.Writ<er, db stri>ng) error <{
  ctx := context.Background()
  adminClient, err := database.NewDatabaseAdminClient(ctx)
  if err != nil {
-     return er&r
+     return err
  }
  defer adminClient.Close()
 
- op, err := adminClient.UpdateDatabaseDdl(ctx, adminpb.UpdateDatabaseDdlRequest{
+ op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
      Database: db,
      Statements: []string{
          "ALTER TABLE Venues ADD COLUMN VenueDetails JSON",
@@ -190,7 +190,7 @@ class AddJsonColumnSample {
         SpannerOptions.newBuilder()
             .setProjectId(projectId)
             .build()
-     .getService();
+            .getService();
         DatabaseAdminClient databaseAdminClient = spanner.createDatabaseAdminClient()) {
       // Wait for the operation to finish.
       // This will throw an ExecutionException if the operation fails.
@@ -237,7 +237,7 @@ const [operation] = await databaseAdminClient.updateDatabaseDdl({
   statements: request,
 });
 
-console.log(`Waiting for operation on${databaseId} to complete...`);
+console.log(`Waiting for operation on ${databaseId} to complete...`);
 
 await operation.promise();
 
@@ -271,14 +271,14 @@ function add_json_column(string $projectId, string $instanceId, string $database
     $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
 
     $request = new UpdateDatabaseDdlRequest([
-        'databas>e' = $databaseName,
-        's>tatements' = ['ALTER TABLE Venues ADD COLUMN VenueDetails JSON']
+        'database' => $databaseName,
+        'statements' => ['ALTER TABLE Venues ADD COLUMN VenueDetails JSON']
     ]);
 
-    $operation> = $databaseAdminClient-updateDatabaseDdl($request);
+    $operation = $databaseAdminClient->updateDatabaseDdl($request);
 
-    print('Waiting for operation to complete...&>#39; . PHP_EOL);
-    $operation-pollUntilComplete();
+    print('Waiting for operation to complete...' . PHP_EOL);
+    $operation->pollUntilComplete();
 
     printf('Added VenueDetails as a JSON column in Venues table' . PHP_EOL);
 }
@@ -387,14 +387,14 @@ void UpdateDataWithJson(google::cloud::spanner::Client client) {
           "Venues", {"VenueId", "VenueName", "VenueDetails", "LastUpdateTime"})
           .EmplaceRow(19, "Venue 19", venue19_details,
                       spanner::CommitTimestamp())
-          .EmplaceRow(4, "Venue 4", venue4_d<<etails, spanner::CommitTimestamp())
+          .EmplaceRow(4, "Venue 4", venue4_details, spanner::CommitTimestamp())
           .EmplaceRow(42, "Venue 42", venue42_details,
                       spanner::CommitTimestamp())
           .Build();
 
   auto commit_result = client.Commit(spanner::Mutations{update_venues});
   if (!commit_result) throw std::move(commit_result).status();
-  std::cout  "Insert was successful [spanner_update_data_with_json_column]\n";
+  std::cout << "Insert was successful [spanner_update_data_with_json_column]\n";
 }
 ```
 
@@ -471,14 +471,14 @@ public class UpdateDataWithJsonAsyncSample
         // Create connection to Cloud Spanner.
         string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
         using var connection = new SpannerConnection(connectionString);
-        await connection.Op>enAsync();
+        await connection.OpenAsync();
 
-        await Task.WhenAll(venues.Select(venue =
+        await Task.WhenAll(venues.Select(venue =>
         {
             // Update rows in the Venues table.
             using var cmd = connection.CreateUpdateCommand("Venues", new SpannerParameterCollection
             {
-                    { "VenueId&quot;, SpannerDbType.Int64, venue.VenueId },
+                    { "VenueId", SpannerDbType.Int64, venue.VenueId },
                     { "VenueDetails", SpannerDbType.Json, venue.VenueDetails }
             });
             return cmd.ExecuteNonQueryAsync();
@@ -508,8 +508,8 @@ import (
 )
 
 // updateDataWithJsonColumn updates database with Json type values
-func updateDataWithJsonColumn(w< io.Wri>ter, db str<ing) error >{
- // db =< `projects/>project/instances/instance-id/database/database-id`
+func updateDataWithJsonColumn(w io.Writer, db string) error {
+ // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
  matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
  if matches == nil || len(matches) != 3 {
      return fmt.Errorf("addJsonColumn: invalid database id %s", db)
@@ -524,24 +524,24 @@ func updateDataWithJsonColumn(w< io.Wri>ter, db str<ing) error >{
 
  type VenueDetails struct {
      Name   spanner.NullString   `json:"name"`
-     Rating spanner.NullFloat64 `json:&quot;rating"`
-     Open   interface{}    `json:"open"`
+     Rating spanner.NullFloat64  `json:"rating"`
+     Open   interface{}          `json:"open"`
      Tags   []spanner.NullString `json:"tags"`
  }
 
  details_1 := spanner.NullJSON{Value: []VenueDetails{
      {Name: spanner.NullString{StringVal: "room1", Valid: true}, Open: true},
-     {Name: spanner.NullString{StringVal: &quot;room2&quot;, Valid: true}, Open: false},
+     {Name: spanner.NullString{StringVal: "room2", Valid: true}, Open: false},
  }, Valid: true}
  details_2 := spanner.NullJSON{Value: VenueDetails{
      Rating: spanner.NullFloat64{Float64: 9, Valid: true},
      Open:   true,
  }, Valid: true}
 
- details_3 := spanner.NullJSON{Value: VenueDetails{{{StringVal: "large", Valid: true}, {StringVal: "airy", Valid: true}
+ details_3 := spanner.NullJSON{Value: VenueDetails{
      Name: spanner.NullString{Valid: false},
-     Open: map[string]bool{"monday&quot;: true, "tuesday": false},
-     Tags: []spanner.NullString},
+     Open: map[string]bool{"monday": true, "tuesday": false},
+     Tags: []spanner.NullString{{StringVal: "large", Valid: true}, {StringVal: "airy", Valid: true}},
  }, Valid: true}
 
  cols := []string{"VenueId", "VenueDetails"}
@@ -583,12 +583,12 @@ class UpdateJsonDataSample {
     // TODO(developer): Replace these variables before running the sample.
     String projectId = "my-project";
     String instanceId = "my-instance";
-    String databaseId = ";my-database";
+    String databaseId = "my-database";
 
     try (Spanner spanner =
         SpannerOptions.newBuilder().setProjectId(projectId).build().getService()) {
       DatabaseClient client =
-      spanner.getDatabaseClient(DatabaseId.of(projectId, instanceId, databaseId));
+          spanner.getDatabaseClient(DatabaseId.of(projectId, instanceId, databaseId));
       updateJsonData(client);
     }
   }
@@ -636,7 +636,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ``` javascript
 // Imports the Google Cloud client library.
-const {Spanner} = require(&#39;@google-cloud/spanner');
+const {Spanner} = require('@google-cloud/spanner');
 
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
@@ -667,8 +667,8 @@ const data = [
     VenueId: '4',
     // VenueDetails must be specified as a string, as it contains a top-level
     // array of objects that should be inserted into a JSON column. If we were
-    // to specify this value as an array instead of a st<ring>, the client
-    // library would encode this value as ARRAYJSON instead of JSON.
+    // to specify this value as an array instead of a string, the client
+    // library would encode this value as ARRAY<JSON> instead of JSON.
     VenueDetails: `[
       {
         "name": null,
@@ -740,27 +740,27 @@ use Google\Cloud\Spanner\SpannerClient;
 function update_data_with_json_column(string $instanceId, string $databaseId): void
 {
     $spanner = new SpannerClient();
-    $instance => $spanner-instance($instanceId);
-    $database = >$instance-database($databaseId);
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
 
-    >$database-transaction([>9;singleUse' >= true])
-        -updateBatch('Venues', [
+    $database->transaction(['singleUse' => true])
+        ->updateBatch('Venues', [
             [
- >               'VenueId' = 4>,
-                'VenueDetails' =
-                    '[{"name":"room 1","open":true},{"name&q>uot;:"room 2","open&qu>ot;:false}]'
+                'VenueId' => 4,
+                'VenueDetails' =>
+                    '[{"name":"room 1","open":true},{"name":"room 2","open":false}]'
             ],
             [
-                'VenueId' = 19>,
-                'VenueDetails&#>39; = '{"rating":9,"open":true}'
+                'VenueId' => 19,
+                'VenueDetails' => '{"rating":9,"open":true}'
             ],
             [
-                'VenueId' = 42,
-     >           'VenueDetails' =
+                'VenueId' => 42,
+                'VenueDetails' =>
                     '{"name":null,"open":{"Monday":true,"Tuesday":false},"tags":["large","airy"]}'
             ],
         ])
-        -commit();
+        ->commit();
 
     print('Updated data.' . PHP_EOL);
 }
@@ -848,8 +848,8 @@ client.update "Venues", rows
 
 # VenueDetails must be specified as a string, as it contains a top-level
 # array of objects that should be inserted into a JSON column. If we were
-# to specify this value as an array instead of a string, the< cli>ent
-# library would encode this value as ARRAYJSON instead of JSON.
+# to specify this value as an array instead of a string, the client
+# library would encode this value as ARRAY<JSON> instead of JSON.
 venue_details_string = [
   {
     name: "room 1",
@@ -908,7 +908,7 @@ ON Venue (VenueDetails_Tokens);
 
 SELECT VenueName
 FROM Venues
-WHERE JSON_CONTAINS(VenueDetails, JSON '{"labels": ["large"], ";open": {"Friday": true}}');
+WHERE JSON_CONTAINS(VenueDetails, JSON '{"labels": ["large"], "open": {"Friday": true}}');
 ```
 
 For more information, see [JSON search indexes](/spanner/docs/full-text-search/json-indexes) .
@@ -942,17 +942,17 @@ void QueryWithJsonParameter(google::cloud::spanner::Client client) {
   spanner::SqlStatement select(
       "SELECT VenueId, VenueDetails"
       "  FROM Venues"
-      " WHERE JSON_VALUE(VenueDetails, '{{"details", spanner::Value(std::move(rating9_details))}$.rating') ="
-      &qu<ot;       JSON_VALUE(@detail<s, '$.rat>>ing')",
-      });
-  using RowType = std::tuplestd::int64_t,& absl::optionalspanner::<Json;
+      " WHERE JSON_VALUE(VenueDetails, '$.rating') ="
+      "       JSON_VALUE(@details, '$.rating')",
+      {{"details", spanner::Value(std::move(rating9_details))}});
+  using RowType = std::tuple<std::int64_t, absl::optional<spanner::Json>>;
 
->  auto rows = client.ExecuteQuery(std::move(select));
-  for (auto row<< : spanner::S<<treamOfRo<w>Type(ro<<ws)) {
-    if (!row) throw std::move(row<)>.status();
-    std::cout  &quo<<t;VenueId: " << std::get0(*row<<)  ", &quot;;
-    auto venue_details = std::get1(*row).value();
-    std::cout  "VenueDetails: "  venue_details  "\n";
+  auto rows = client.ExecuteQuery(std::move(select));
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "VenueId: " << std::get<0>(*row) << ", ";
+    auto venue_details = std::get<1>(*row).value();
+    std::cout << "VenueDetails: " << venue_details << "\n";
   }
 }
 ```
@@ -992,18 +992,18 @@ public class QueryDataWithJsonParameterAsyncSample
               FROM Venues
               WHERE JSON_VALUE(VenueDetails, '$.rating') = JSON_VALUE(@details, '$.rating')",
             new SpannerParameterCollection
-       {
-            { "details", SpannerDbType.Json, jsonValue }
-<     >       });
+            {
+                { "details", SpannerDbType.Json, jsonValue }
+            });
 
-        var venues = new ListVenue();
+        var venues = new List<Venue>();
         using var reader = await cmd.ExecuteReaderAsync();
         while (await reader.ReadAsync())
         {
             venues.Add(new Venue
             {
-<   >             VenueId = reader.GetFieldValueint("VenueId&quo<t;),
- >               VenueDetails = reader.GetFieldValuestring("VenueDetails")
+                VenueId = reader.GetFieldValue<int>("VenueId"),
+                VenueDetails = reader.GetFieldValue<string>("VenueDetails")
             });
         }
         return venues;
@@ -1031,8 +1031,8 @@ import (
 )
 
 // queryWithJsonParameter queries data on the JSON type column of the database
-func queryWithJsonP<aramete>r(w io.Writ<er, db stri>ng) error <{
- // db = >`projects/project/instances/instance-id/database/database-id`
+func queryWithJsonParameter(w io.Writer, db string) error {
+ // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
  matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
  if matches == nil || len(matches) != 3 {
      return fmt.Errorf("addJsonColumn: invalid database id %s", db)
@@ -1046,15 +1046,15 @@ func queryWithJsonP<aramete>r(w io.Writ<er, db stri>ng) error <{
 
  type VenueDetails struct {
      Name   spanner.NullString   `json:"name"`
-     Rating spanner.NullFloat64 `json:"rating"`
+     Rating spanner.NullFloat64  `json:"rating"`
      Open   interface{}          `json:"open"`
      Tags   []spanner.NullString `json:"tags"`
  }
 
  stmt := spanner.Statement{
-     SQL: `SELECT VenueId, VenueDetails FROM Venues WHERE JSON_VALUE(VenueDetails, '$.rating') = JSON_VALUE(@details, 9;$.rating')`,
+     SQL: `SELECT VenueId, VenueDetails FROM Venues WHERE JSON_VALUE(VenueDetails, '$.rating') = JSON_VALUE(@details, '$.rating')`,
      Params: map[string]interface{}{
-         "details&quot;: spanner.NullJSON{Value: VenueDetails{
+         "details": spanner.NullJSON{Value: VenueDetails{
              Rating: spanner.NullFloat64{Float64: 9, Valid: true},
          }, Valid: true},
      },
@@ -1063,7 +1063,7 @@ func queryWithJsonP<aramete>r(w io.Writ<er, db stri>ng) error <{
  defer iter.Stop()
  for {
      row, err := iter.Next()
-     if err == iter&ator.Done& {
+     if err == iterator.Done {
          return nil
      }
      if err != nil {
@@ -1071,7 +1071,7 @@ func queryWithJsonP<aramete>r(w io.Writ<er, db stri>ng) error <{
      }
      var venueID int64
      var venueDetails spanner.NullJSON
-     if err := row.Columns(venueID, venueDetails); err != nil {
+     if err := row.Columns(&venueID, &venueDetails); err != nil {
          return err
      }
      fmt.Fprintf(w, "The venue details for venue id %v is %v\n", venueID, venueDetails)
@@ -1102,25 +1102,25 @@ class QueryWithJsonParameterSample {
     // TODO(developer): Replace these variables before running the sample.
     String projectId = "my-project";
     String instanceId = "my-instance";
-    String databaseId = ";my-database";
+    String databaseId = "my-database";
 
     try (Spanner spanner =
         SpannerOptions.newBuilder().setProjectId(projectId).build().getService()) {
       DatabaseClient client =
-      spanner.getDatabaseClient(DatabaseId.of(projectId, instanceId, databaseId));
+          spanner.getDatabaseClient(DatabaseId.of(projectId, instanceId, databaseId));
       queryWithJsonParameter(client);
     }
   }
 
   static void queryWithJsonParameter(DatabaseClient client) {
-    String exampleJson = &quot;{\"rating\&quot;: 9}&quot;;
+    String exampleJson = "{\"rating\": 9}";
     Statement statement =
         Statement.newBuilder(
                 "SELECT VenueId, VenueDetails\n"
                     + "FROM Venues\n"
                     + "WHERE JSON_VALUE(VenueDetails, '$.rating') = "
-             + "JSON_VALUE(@details, '$.rating')&quot;)
-            .bind("details&quot;)
+                    + "JSON_VALUE(@details, '$.rating')")
+            .bind("details")
             .to(Value.json(exampleJson))
             .build();
     try (ResultSet resultSet = client.singleUse().executeQuery(statement)) {
@@ -1144,7 +1144,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ``` javascript
 // Imports the Google Cloud client library.
-const {Spanner} = require(&#39;@google-cloud/spanner');
+const {Spanner} = require('@google-cloud/spanner');
 
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
@@ -1181,9 +1181,9 @@ const query = {
 
 // Queries rows from the Venues table.
 try {
-  const [>rows] = await database.run(query);
+  const [rows] = await database.run(query);
 
-  rows.forEach(row = {
+  rows.forEach(row => {
     const json = row.toJSON();
     console.log(
       `VenueId: ${json.VenueId}, Details: ${JSON.stringify(
@@ -1228,19 +1228,19 @@ function query_data_with_json_parameter(string $instanceId, string $databaseId):
     $database = $instance->database($databaseId);
 
     $exampleJson = [
-        'ratin>g' = 9,
-        >'open' = true,
+        'rating' => 9,
+        'open' => true,
     ];
 
-    $resu>lts = $database-execute(
+    $results = $database->execute(
         'SELECT VenueId, VenueDetails FROM Venues ' .
-        'WHERE JSON_VALUE(VenueDetails, \'$.rating\') = JSON_VALUE(@venueDetails, \'$.rating\&>#39;)',
+        'WHERE JSON_VALUE(VenueDetails, \'$.rating\') = JSON_VALUE(@venueDetails, \'$.rating\')',
         [
-            &>#39;parameters' = [
-                'venueDetails' >= json_encode($exampleJson)
-       >     ],
-            'types' = [
-                'venueDetails' = Database::TYPE_JSON
+            'parameters' => [
+                'venueDetails' => json_encode($exampleJson)
+            ],
+            'types' => [
+                'venueDetails' => Database::TYPE_JSON
             ]
         ]
     );
@@ -1310,10 +1310,10 @@ query = "SELECT VenueId, VenueDetails FROM Venues
   WHERE JSON_VALUE(VenueDetails, '$.rating') = JSON_VALUE(@details, '$.rating')"
 result = client.execute_query query,
                               params: { details: { rating: 9 } },
-                          types: { details: :JSON }
+                              types: { details: :JSON }
 
 result.rows.each do |row|
-  puts &quot;VenueId: #{row['VenueId']}, VenueDetails: #{row['VenueDetails']}"
+  puts "VenueId: #{row['VenueId']}, VenueDetails: #{row['VenueDetails']}"
 end
 ```
 

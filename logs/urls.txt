@@ -347,6 +347,7 @@ https://docs.cloud.google.com/spanner/docs/django-orm
 https://docs.cloud.google.com/spanner/docs/dml-best-practices
 https://docs.cloud.google.com/spanner/docs/dml-partitioned
 https://docs.cloud.google.com/spanner/docs/dml-tasks
+https://docs.cloud.google.com/spanner/docs/dml-versus-mutations
 https://docs.cloud.google.com/spanner/docs/drivers-overview
 https://docs.cloud.google.com/spanner/docs/editions-overview
 https://docs.cloud.google.com/spanner/docs/emulator
@@ -358,6 +359,7 @@ https://docs.cloud.google.com/spanner/docs/fgac-about
 https://docs.cloud.google.com/spanner/docs/fgac-change-streams
 https://docs.cloud.google.com/spanner/docs/fgac-models
 https://docs.cloud.google.com/spanner/docs/fgac-privileges
+https://docs.cloud.google.com/spanner/docs/fgac-sequences
 https://docs.cloud.google.com/spanner/docs/fgac-system-roles
 https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors
 https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database
