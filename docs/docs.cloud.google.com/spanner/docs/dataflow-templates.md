@@ -4,29 +4,29 @@ Google Cloud provides [open source Dataflow templates](https://github.com/Google
 
 Use the following templates to process data in bulk:
 
-  - [Any source database to Spanner](/dataflow/docs/guides/templates/provided/sourcedb-to-spanner)
-  - [Cloud Storage Avro to Spanner](/dataflow/docs/guides/templates/provided/avro-to-cloud-spanner)
-  - [Cloud Storage Text to Spanner](/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner)
-  - [Spanner to BigQuery](/dataflow/docs/guides/templates/provided/cloud-spanner-to-bigquery)
-  - [Spanner to Cloud Storage Avro](/dataflow/docs/guides/templates/provided/cloud-spanner-to-avro)
-  - [Spanner to Cloud Storage Text](/dataflow/docs/guides/templates/provided/cloud-spanner-to-cloud-storage)
-  - [Spanner to Vertex AI Vector Search files on Cloud Storage](/dataflow/docs/guides/templates/provided/cloud-spanner-to-vertex-vector-search)
+  - [Any source database to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/sourcedb-to-spanner)
+  - [Cloud Storage Avro to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/avro-to-cloud-spanner)
+  - [Cloud Storage Text to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner)
+  - [Spanner to BigQuery](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-bigquery)
+  - [Spanner to Cloud Storage Avro](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-avro)
+  - [Spanner to Cloud Storage Text](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-cloud-storage)
+  - [Spanner to Vertex AI Vector Search files on Cloud Storage](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-vertex-vector-search)
 
-For more information about using these templates, see [Import, export, and modify data using Dataflow](/spanner/docs/dataflow-connector) .
+For more information about using these templates, see [Import, export, and modify data using Dataflow](https://docs.cloud.google.com/spanner/docs/dataflow-connector) .
 
 ## Streaming templates
 
 Use the following templates to process data continuously:
 
-  - [Datastream to Spanner](/dataflow/docs/guides/templates/provided/datastream-to-cloud-spanner)
-  - [Spanner change streams to any source database](/dataflow/docs/guides/templates/provided/spanner-to-sourcedb)
-  - [Spanner change streams to BigQuery](/dataflow/docs/guides/templates/provided/cloud-spanner-change-streams-to-bigquery)
-  - [Spanner change streams to Cloud Storage](/dataflow/docs/guides/templates/provided/cloud-spanner-change-streams-to-cloud-storage)
-  - [Spanner change streams to Pub/Sub](/dataflow/docs/guides/templates/provided/cloud-spanner-change-streams-to-pubsub)
+  - [Datastream to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/datastream-to-cloud-spanner)
+  - [Spanner change streams to any source database](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/spanner-to-sourcedb)
+  - [Spanner change streams to BigQuery](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-change-streams-to-bigquery)
+  - [Spanner change streams to Cloud Storage](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-change-streams-to-cloud-storage)
+  - [Spanner change streams to Pub/Sub](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-change-streams-to-pubsub)
 
-For more information about using these templates, see [Build change streams connections using Dataflow](/spanner/docs/change-streams/use-dataflow) .
+For more information about using these templates, see [Build change streams connections using Dataflow](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow) .
 
 ## What's next
 
-  - [View the complete list of Google-provided templates.](/dataflow/docs/guides/templates/provided-templates)
-  - [Learn more about Spanner change streams.](/spanner/docs/change-streams)
+  - [View the complete list of Google-provided templates.](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-templates)
+  - [Learn more about Spanner change streams.](https://docs.cloud.google.com/spanner/docs/change-streams)

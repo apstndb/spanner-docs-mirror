@@ -14,49 +14,49 @@ EXAMPLES
 
 To list Cloud Spanner instance operations for an instance, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner operations list --instance=my-instance-id --type=INSTANCE
 ```
 
 To list Cloud Spanner backup operations for an instance, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner operations list --instance=my-instance-id --type=BACKUP
 ```
 
 To list Cloud Spanner database operations for an instance, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner operations list --instance=my-instance-id --type=DATABASE
 ```
 
 To list Cloud Spanner database operations for a database, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner operations list --instance=my-instance-id --database=my-database-id --type=DATABASE
 ```
 
 To list Cloud Spanner backup operations for a database, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner operations list --instance=my-instance-id --database=my-database-id --type=BACKUP
 ```
 
 To list Cloud Spanner backup operations for a backup, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner operations list --instance=my-instance-id --backup=my-backup-id --type=BACKUP
 ```
 
 To list instance partition operations for an instance partition, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner operations list --instance=my-instance-id --instance-partition=my-partition-id --type=INSTANCE_PARTITION
 ```
 
 To list instance partition operations for all instance partitions belonging to this instance, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner operations list --instance=my-instance-id --type=INSTANCE_PARTITION
 ```
 
@@ -103,7 +103,7 @@ FLAGS
 LIST COMMAND FLAGS
 
   - `  --filter  ` = `  EXPRESSION  `  
-    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
+    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --limit  ` = `  LIMIT  `  
     Maximum number of resources to list. The default is `  unlimited  ` . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --page-size  ` = `  PAGE_SIZE  `  
@@ -123,10 +123,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner operations list
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner operations list
 ```

@@ -1,6 +1,6 @@
-  - [Resource: Operation](#Operation)
-      - [JSON representation](#Operation.SCHEMA_REPRESENTATION)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource: Operation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations#Operation)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations#Operation.SCHEMA_REPRESENTATION)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations#METHODS_SUMMARY)
 
 ## Resource: Operation
 
@@ -17,7 +17,7 @@ This resource represents a long-running operation that is the result of a networ
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;metadata&quot;: {
     &quot;@type&quot;: string,

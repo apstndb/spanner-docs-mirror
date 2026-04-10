@@ -10,44 +10,15 @@ This section lists the columns that are missing and other differences between th
 
 Spanner doesn't support every column in its implementation of PostgreSQL system catalog tables. The following columns aren't supported and therefore don't show up in the table.
 
-<table>
-<thead>
-<tr class="header">
-<th>Catalog table name</th>
-<th>Missing column names</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       pg_am      </code></td>
-<td><code dir="ltr" translate="no">       amhandler      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       pg_attribute      </code></td>
-<td><code dir="ltr" translate="no">       attacl      </code> , <code dir="ltr" translate="no">       attmissingval      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       pg_class      </code></td>
-<td><code dir="ltr" translate="no">       relacl      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       pg_namespace      </code></td>
-<td><code dir="ltr" translate="no">       nspacl      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       pg_proc      </code></td>
-<td><code dir="ltr" translate="no">       prosupport      </code> , <code dir="ltr" translate="no">       proacl      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       pg_sequences      </code></td>
-<td><code dir="ltr" translate="no">       data_type      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       pg_type      </code></td>
-<td><code dir="ltr" translate="no">       typsubscript      </code> , <code dir="ltr" translate="no">       typinput      </code> , <code dir="ltr" translate="no">       typoutput      </code> , <code dir="ltr" translate="no">       typreceive      </code> , <code dir="ltr" translate="no">       typsend      </code> , <code dir="ltr" translate="no">       typmodin      </code> , <code dir="ltr" translate="no">       typmodout      </code> , <code dir="ltr" translate="no">       typanalyze      </code> , <code dir="ltr" translate="no">       typacl      </code></td>
-</tr>
-</tbody>
-</table>
+| Catalog table name            | Missing column names                                                                                                                                                                                                                                             |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        pg_am       `        | `        amhandler       `                                                                                                                                                                                                                                       |
+| `        pg_attribute       ` | `        attacl       ` , `        attmissingval       `                                                                                                                                                                                                         |
+| `        pg_class       `     | `        relacl       `                                                                                                                                                                                                                                          |
+| `        pg_namespace       ` | `        nspacl       `                                                                                                                                                                                                                                          |
+| `        pg_proc       `      | `        prosupport       ` , `        proacl       `                                                                                                                                                                                                            |
+| `        pg_sequences       ` | `        data_type       `                                                                                                                                                                                                                                       |
+| `        pg_type       `      | `        typsubscript       ` , `        typinput       ` , `        typoutput       ` , `        typreceive       ` , `        typsend       ` , `        typmodin       ` , `        typmodout       ` , `        typanalyze       ` , `        typacl       ` |
 
 ### Empty columns
 
@@ -83,32 +54,11 @@ The [`  pg_am  `](https://www.postgresql.org/docs/current/catalog-pg-am.html) ta
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       amname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       amtype      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-</tbody>
-</table>
+| Column name             | Type                  | Has content |
+| ----------------------- | --------------------- | ----------- |
+| `        oid       `    | `        oid       `  | Y           |
+| `        amname       ` | `        text       ` | Y           |
+| `        amtype       ` | `        char       ` | Y           |
 
 ### `     pg_attrdef    `
 
@@ -116,37 +66,12 @@ The [`  pg_attrdef  `](https://www.postgresql.org/docs/current/catalog-pg-attrde
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       adrelid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       adnum      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       adbin      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-</tbody>
-</table>
+| Column name              | Type                  | Has content |
+| ------------------------ | --------------------- | ----------- |
+| `        oid       `     | `        oid       `  | Y           |
+| `        adrelid       ` | `        oid       `  | Y           |
+| `        adnum       `   | `        int8       ` | Y           |
+| `        adbin       `   | `        text       ` | Y           |
 
 The `  adbin  ` column should contain a `  text  ` value that represents the serialized value of the default value.
 
@@ -156,137 +81,32 @@ The [`  pg_attribute  `](https://www.postgresql.org/docs/current/catalog-pg-attr
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       attrelid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       atttypid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attstattarget      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       attlen      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attnum      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       attndims      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attcacheoff      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       atttypmod      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attbyval      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       attalign      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attstorage      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       attcompression      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attnotnull      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       atthasdef      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       atthasmissing      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       attidentity      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attgenerated      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       attisdropped      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attislocal      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       attinhcount      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attcollation      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       attoptions      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attfdwoptions      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                     | Type                    | Has content |
+| ------------------------------- | ----------------------- | ----------- |
+| `        attrelid       `       | `        oid       `    | Y           |
+| `        attname       `        | `        text       `   | Y           |
+| `        atttypid       `       | `        oid       `    | Y           |
+| `        attstattarget       `  | `        int8       `   | N           |
+| `        attlen       `         | `        int8       `   | N           |
+| `        attnum       `         | `        int8       `   | Y           |
+| `        attndims       `       | `        int8       `   | Y           |
+| `        attcacheoff       `    | `        int8       `   | Y           |
+| `        atttypmod       `      | `        int8       `   | N           |
+| `        attbyval       `       | `        bool       `   | N           |
+| `        attalign       `       | `        char       `   | N           |
+| `        attstorage       `     | `        char       `   | N           |
+| `        attcompression       ` | `        char       `   | Y           |
+| `        attnotnull       `     | `        bool       `   | Y           |
+| `        atthasdef       `      | `        bool       `   | Y           |
+| `        atthasmissing       `  | `        bool       `   | Y           |
+| `        attidentity       `    | `        char       `   | Y           |
+| `        attgenerated       `   | `        char       `   | Y           |
+| `        attisdropped       `   | `        bool       `   | Y           |
+| `        attislocal       `     | `        bool       `   | Y           |
+| `        attinhcount       `    | `        int8       `   | Y           |
+| `        attcollation       `   | `        oid       `    | N           |
+| `        attoptions       `     | `        text[]       ` | N           |
+| `        attfdwoptions       `  | `        text[]       ` | N           |
 
 ### `     pg_class    `
 
@@ -296,177 +116,40 @@ has content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relnamespace      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       reltype      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       reloftype      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relowner      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relam      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relfilenode      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       reltablespace      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relpages      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       reltuples      </code></td>
-<td><code dir="ltr" translate="no">       float8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relallvisible      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       reltoastrelid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relhasindex      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relisshared      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relpersistence      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relkind      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relnatts      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relchecks      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relhasrules      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relhastriggers      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relhassubclass      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relrowsecurity      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relforcerowsecurity      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relispopulated      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relreplident      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relispartition      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relrewrite      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       relfrozenxid      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relminmxid      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       reloptions      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relpartbound      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                          | Type                    | Has content |
+| ------------------------------------ | ----------------------- | ----------- |
+| `        oid       `                 | `        oid       `    | Y           |
+| `        relname       `             | `        text       `   | Y           |
+| `        relnamespace       `        | `        oid       `    | Y           |
+| `        reltype       `             | `        oid       `    | N           |
+| `        reloftype       `           | `        oid       `    | N           |
+| `        relowner       `            | `        oid       `    | N           |
+| `        relam       `               | `        oid       `    | Y           |
+| `        relfilenode       `         | `        oid       `    | N           |
+| `        reltablespace       `       | `        oid       `    | N           |
+| `        relpages       `            | `        int8       `   | N           |
+| `        reltuples       `           | `        float8       ` | N           |
+| `        relallvisible       `       | `        int8       `   | N           |
+| `        reltoastrelid       `       | `        oid       `    | N           |
+| `        relhasindex       `         | `        bool       `   | Y           |
+| `        relisshared       `         | `        bool       `   | N           |
+| `        relpersistence       `      | `        char       `   | Y           |
+| `        relkind       `             | `        char       `   | Y           |
+| `        relnatts       `            | `        int8       `   | Y           |
+| `        relchecks       `           | `        int8       `   | Y           |
+| `        relhasrules       `         | `        bool       `   | N           |
+| `        relhastriggers       `      | `        bool       `   | N           |
+| `        relhassubclass       `      | `        bool       `   | N           |
+| `        relrowsecurity       `      | `        bool       `   | N           |
+| `        relforcerowsecurity       ` | `        bool       `   | N           |
+| `        relispopulated       `      | `        bool       `   | Y           |
+| `        relreplident       `        | `        char       `   | N           |
+| `        relispartition       `      | `        bool       `   | N           |
+| `        relrewrite       `          | `        oid       `    | N           |
+| `        relfrozenxid       `        | `        int8       `   | N           |
+| `        relminmxid       `          | `        int8       `   | N           |
+| `        reloptions       `          | `        text[]       ` | N           |
+| `        relpartbound       `        | `        text       `   | N           |
 
 ### `     pg_collation    `
 
@@ -474,72 +157,19 @@ The [`  pg_collation  `](https://www.postgresql.org/docs/current/catalog-pg-coll
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       collname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       collnamespace      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       collowner      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       collprovider      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       collisdeterministic      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       collencoding      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       collcollate      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       collctype      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       colliculocale      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       collversion      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                          | Type                  | Has content |
+| ------------------------------------ | --------------------- | ----------- |
+| `        oid       `                 | `        oid       `  | Y           |
+| `        collname       `            | `        text       ` | Y           |
+| `        collnamespace       `       | `        oid       `  | Y           |
+| `        collowner       `           | `        oid       `  | N           |
+| `        collprovider       `        | `        char       ` | Y           |
+| `        collisdeterministic       ` | `        bool       ` | Y           |
+| `        collencoding       `        | `        int8       ` | Y           |
+| `        collcollate       `         | `        text       ` | N           |
+| `        collctype       `           | `        text       ` | N           |
+| `        colliculocale       `       | `        text       ` | N           |
+| `        collversion       `         | `        text       ` | N           |
 
 ### `     pg_constraint    `
 
@@ -547,147 +177,34 @@ The [`  pg_constraint  `](https://www.postgresql.org/docs/current/catalog-pg-con
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       conname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       connamespace      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       contype      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       condeferrable      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       condeferred      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       convalidated      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       conrelid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       contypid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       conindid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       conparentid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       confrelid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       confupdtype      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       confdeltype      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       confmatchtype      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       conislocal      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       coninhcount      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       connoinherit      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       conkey      </code></td>
-<td><code dir="ltr" translate="no">       int8[]      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       confkey      </code></td>
-<td><code dir="ltr" translate="no">       int8[]      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       conpfeqop      </code></td>
-<td><code dir="ltr" translate="no">       oid[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       conppeqop      </code></td>
-<td><code dir="ltr" translate="no">       oid[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       conffeqop      </code></td>
-<td><code dir="ltr" translate="no">       oid[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       conexclop      </code></td>
-<td><code dir="ltr" translate="no">       oid[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       confdelsetcols      </code></td>
-<td><code dir="ltr" translate="no">       int8[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       conbin      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                     | Type                    | Has content |
+| ------------------------------- | ----------------------- | ----------- |
+| `        oid       `            | `        oid       `    | Y           |
+| `        conname       `        | `        text       `   | Y           |
+| `        connamespace       `   | `        oid       `    | Y           |
+| `        contype       `        | `        char       `   | Y           |
+| `        condeferrable       `  | `        bool       `   | N           |
+| `        condeferred       `    | `        bool       `   | N           |
+| `        convalidated       `   | `        bool       `   | Y           |
+| `        conrelid       `       | `        oid       `    | Y           |
+| `        contypid       `       | `        oid       `    | N           |
+| `        conindid       `       | `        oid       `    | N           |
+| `        conparentid       `    | `        oid       `    | N           |
+| `        confrelid       `      | `        oid       `    | Y           |
+| `        confupdtype       `    | `        char       `   | Y           |
+| `        confdeltype       `    | `        char       `   | Y           |
+| `        confmatchtype       `  | `        char       `   | N           |
+| `        conislocal       `     | `        bool       `   | N           |
+| `        coninhcount       `    | `        int8       `   | N           |
+| `        connoinherit       `   | `        bool       `   | N           |
+| `        conkey       `         | `        int8[]       ` | Y           |
+| `        confkey       `        | `        int8[]       ` | Y           |
+| `        conpfeqop       `      | `        oid[]       `  | N           |
+| `        conppeqop       `      | `        oid[]       `  | N           |
+| `        conffeqop       `      | `        oid[]       `  | N           |
+| `        conexclop       `      | `        oid[]       `  | N           |
+| `        confdelsetcols       ` | `        int8[]       ` | N           |
+| `        conbin       `         | `        text       `   | N           |
 
 ### `     pg_description    `
 
@@ -695,37 +212,12 @@ The [`  pg_description  `](https://www.postgresql.org/docs/current/catalog-pg-de
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       objoid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       classoid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       objsubid      </code></td>
-<td><code dir="ltr" translate="no">       int64      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       description      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                  | Type                   | Has content |
+| ---------------------------- | ---------------------- | ----------- |
+| `        objoid       `      | `        oid       `   | N           |
+| `        classoid       `    | `        oid       `   | N           |
+| `        objsubid       `    | `        int64       ` | N           |
+| `        description       ` | `        text       `  | N           |
 
 ### `     pg_enum    `
 
@@ -735,37 +227,12 @@ table has no content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       enumtypid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       collnamespace      </code></td>
-<td><code dir="ltr" translate="no">       float8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       enumlabel      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                    | Type                    | Has content |
+| ------------------------------ | ----------------------- | ----------- |
+| `        oid       `           | `        oid       `    | N           |
+| `        enumtypid       `     | `        oid       `    | N           |
+| `        collnamespace       ` | `        float8       ` | N           |
+| `        enumlabel       `     | `        text       `   | N           |
 
 ### `     pg_index    `
 
@@ -775,122 +242,29 @@ table has content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indexrelid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indrelid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indnatts      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indnkeyatts      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indisunique      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indnullsnotdistinct      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indisprimary      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indisexclusion      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indimmediate      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indisclustered      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indisvalid      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indcheckxmin      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indisready      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indislive      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indisreplident      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indkey      </code></td>
-<td><code dir="ltr" translate="no">       int8[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indcollation      </code></td>
-<td><code dir="ltr" translate="no">       oid[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indclass      </code></td>
-<td><code dir="ltr" translate="no">       oid[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indoption      </code></td>
-<td><code dir="ltr" translate="no">       int8[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       indexprs      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indpred      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                          | Type                    | Has content |
+| ------------------------------------ | ----------------------- | ----------- |
+| `        indexrelid       `          | `        oid       `    | Y           |
+| `        indrelid       `            | `        oid       `    | Y           |
+| `        indnatts       `            | `        int8       `   | Y           |
+| `        indnkeyatts       `         | `        int8       `   | Y           |
+| `        indisunique       `         | `        bool       `   | Y           |
+| `        indnullsnotdistinct       ` | `        bool       `   | N           |
+| `        indisprimary       `        | `        bool       `   | Y           |
+| `        indisexclusion       `      | `        bool       `   | Y           |
+| `        indimmediate       `        | `        bool       `   | N           |
+| `        indisclustered       `      | `        bool       `   | Y           |
+| `        indisvalid       `          | `        bool       `   | Y           |
+| `        indcheckxmin       `        | `        bool       `   | Y           |
+| `        indisready       `          | `        bool       `   | Y           |
+| `        indislive       `           | `        bool       `   | Y           |
+| `        indisreplident       `      | `        bool       `   | Y           |
+| `        indkey       `              | `        int8[]       ` | N           |
+| `        indcollation       `        | `        oid[]       `  | N           |
+| `        indclass       `            | `        oid[]       `  | N           |
+| `        indoption       `           | `        int8[]       ` | N           |
+| `        indexprs       `            | `        text       `   | N           |
+| `        indpred       `             | `        text       `   | N           |
 
 ### `     pg_namespace    `
 
@@ -898,32 +272,11 @@ The [`  pg_namespace  `](https://www.postgresql.org/docs/current/catalog-pg-name
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       nspname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       nspowner      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name               | Type                  | Has content |
+| ------------------------- | --------------------- | ----------- |
+| `        oid       `      | `        oid       `  | Y           |
+| `        nspname       `  | `        text       ` | Y           |
+| `        nspowner       ` | `        oid       `  | N           |
 
 ### `     pg_proc    `
 
@@ -931,152 +284,35 @@ The [`  pg_proc  `](https://www.postgresql.org/docs/current/catalog-pg-proc.html
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       proname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       pronamespace      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       proowner      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       prolang      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       procost      </code></td>
-<td><code dir="ltr" translate="no">       float8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       prorows      </code></td>
-<td><code dir="ltr" translate="no">       float8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       provariadic      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       prokind      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       prosecdef      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       proleakproof      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       proisstrict      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       proretset      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       provolatile      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       proparallel      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       pronargs      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       pronargdefaults      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       prorettype      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       proargtypes      </code></td>
-<td><code dir="ltr" translate="no">       oid[]      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       proallargtypes      </code></td>
-<td><code dir="ltr" translate="no">       oid[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       proargmodes      </code></td>
-<td><code dir="ltr" translate="no">       char[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       proargdefaults      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       protrftypes      </code></td>
-<td><code dir="ltr" translate="no">       oid[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       prosrc      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       probin      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       prosqlbody      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       proconfig      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                      | Type                    | Has content |
+| -------------------------------- | ----------------------- | ----------- |
+| `        oid       `             | `        oid       `    | Y           |
+| `        proname       `         | `        text       `   | Y           |
+| `        pronamespace       `    | `        oid       `    | Y           |
+| `        proowner       `        | `        oid       `    | N           |
+| `        prolang       `         | `        oid       `    | N           |
+| `        procost       `         | `        float8       ` | N           |
+| `        prorows       `         | `        float8       ` | N           |
+| `        provariadic       `     | `        oid       `    | Y           |
+| `        prokind       `         | `        char       `   | Y           |
+| `        prosecdef       `       | `        bool       `   | N           |
+| `        proleakproof       `    | `        bool       `   | N           |
+| `        proisstrict       `     | `        bool       `   | N           |
+| `        proretset       `       | `        bool       `   | Y           |
+| `        provolatile       `     | `        char       `   | N           |
+| `        proparallel       `     | `        char       `   | N           |
+| `        pronargs       `        | `        int8       `   | Y           |
+| `        pronargdefaults       ` | `        int8       `   | Y           |
+| `        prorettype       `      | `        oid       `    | Y           |
+| `        proargtypes       `     | `        oid[]       `  | Y           |
+| `        proallargtypes       `  | `        oid[]       `  | N           |
+| `        proargmodes       `     | `        char[]       ` | N           |
+| `        proargdefaults       `  | `        text       `   | N           |
+| `        protrftypes       `     | `        oid[]       `  | N           |
+| `        prosrc       `          | `        text[]       ` | N           |
+| `        probin       `          | `        text[]       ` | N           |
+| `        prosqlbody       `      | `        text       `   | Y           |
+| `        proconfig       `       | `        text[]       ` | N           |
 
 ### `     pg_sequence    `
 
@@ -1084,57 +320,16 @@ The [`  pg_sequence  `](https://www.postgresql.org/docs/current/catalog-pg-seque
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       seqrelid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       seqtypid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       seqstart      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       seqincrement      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       seqmax      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       seqmin      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td>seqcache</td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       seqcycle      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-</tbody>
-</table>
+| Column name                   | Type                  | Has content |
+| ----------------------------- | --------------------- | ----------- |
+| `        seqrelid       `     | `        oid       `  | Y           |
+| `        seqtypid       `     | `        oid       `  | Y           |
+| `        seqstart       `     | `        int8       ` | Y           |
+| `        seqincrement       ` | `        int8       ` | N           |
+| `        seqmax       `       | `        int8       ` | N           |
+| `        seqmin       `       | `        int8       ` | N           |
+| `        seqcache       `     | `        int8       ` | Y           |
+| `        seqcycle       `     | `        bool       ` | Y           |
 
 ### `     pg_type    `
 
@@ -1142,133 +337,32 @@ The [`  pg_type  `](https://www.postgresql.org/docs/current/catalog-pg-type.html
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typnamespace      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typowner      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typlen      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typbyval      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typtype      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typcategory      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typispreferred      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typisdefined      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typdelim      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typrelid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typelem      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typarray      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typalign      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typstorage      </code></td>
-<td><code dir="ltr" translate="no">       char      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typnotnull      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typbasetype      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typtypmod      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typndims      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typcollation      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       typdeafultbin      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       typdefault      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                     | Type                  | Has content |
+| ------------------------------- | --------------------- | ----------- |
+| `        oid       `            | `        oid       `  | Y           |
+| `        typname       `        | `        text       ` | Y           |
+| `        typnamespace       `   | `        oid       `  | Y           |
+| `        typowner       `       | `        oid       `  | N           |
+| `        typlen       `         | `        int8       ` | Y           |
+| `        typbyval       `       | `        bool       ` | Y           |
+| `        typtype       `        | `        char       ` | Y           |
+| `        typcategory       `    | `        char       ` | Y           |
+| `        typispreferred       ` | `        bool       ` | Y           |
+| `        typisdefined       `   | `        bool       ` | Y           |
+| `        typdelim       `       | `        char       ` | Y           |
+| `        typrelid       `       | `        oid       `  | Y           |
+| `        typelem       `        | `        oid       `  | Y           |
+| `        typarray       `       | `        oid       `  | Y           |
+| `        typalign       `       | `        char       ` | N           |
+| `        typstorage       `     | `        char       ` | N           |
+| `        typnotnull       `     | `        bool       ` | N           |
+| `        typbasetype       `    | `        oid       `  | N           |
+| `        typtypmod       `      | `        int8       ` | N           |
+| `        typndims       `       | `        int8       ` | N           |
+| `        typcollation       `   | `        oid       `  | N           |
+| `        typdeafultbin       `  | `        text       ` | N           |
+| `        typdefault       `     | `        text       ` | N           |
 
 ## What's next
 
-  - [System views](/spanner/docs/reference/postgresql/pg-system-catalog-views)
+  - [System views](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views)

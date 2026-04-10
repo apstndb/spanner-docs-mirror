@@ -6,62 +6,17 @@ The [`  pg_available_extension_versions  `](https://www.postgresql.org/docs/curr
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       name      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       version      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       installed      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       superuser      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       trusted      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       relocatable      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       schema      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       requires      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       comment      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                  | Type                    | Has content |
+| ---------------------------- | ----------------------- | ----------- |
+| `        name       `        | `        text       `   | N           |
+| `        version       `     | `        text       `   | N           |
+| `        installed       `   | `        bool       `   | N           |
+| `        superuser       `   | `        bool       `   | N           |
+| `        trusted       `     | `        bool       `   | N           |
+| `        relocatable       ` | `        bool       `   | N           |
+| `        schema       `      | `        text       `   | N           |
+| `        requires       `    | `        text[]       ` | N           |
+| `        comment       `     | `        text       `   | N           |
 
 ### pg\_available\_extensions
 
@@ -69,37 +24,12 @@ The [`  pg_available_extensions  `](https://www.postgresql.org/docs/current/view
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       name      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       default_version      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       installed_version      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       comment      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                        | Type                  | Has content |
+| ---------------------------------- | --------------------- | ----------- |
+| `        name       `              | `        text       ` | N           |
+| `        default_version       `   | `        text       ` | N           |
+| `        installed_version       ` | `        text       ` | N           |
+| `        comment       `           | `        text       ` | N           |
 
 ### pg\_config
 
@@ -109,27 +39,10 @@ view has no content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       name      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       setting      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name              | Type                  | Has content |
+| ------------------------ | --------------------- | ----------- |
+| `        name       `    | `        text       ` | N           |
+| `        setting       ` | `        text       ` | N           |
 
 ### pg\_cursors
 
@@ -139,47 +52,14 @@ view has no content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       name      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       statement      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       is_holdable      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       is_binary      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       is_scrollable      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       creation_time      </code></td>
-<td><code dir="ltr" translate="no">       timestamptz      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                    | Type                         | Has content |
+| ------------------------------ | ---------------------------- | ----------- |
+| `        name       `          | `        text       `        | N           |
+| `        statement       `     | `        text       `        | N           |
+| `        is_holdable       `   | `        bool       `        | N           |
+| `        is_binary       `     | `        bool       `        | N           |
+| `        is_scrollable       ` | `        bool       `        | N           |
+| `        creation_time       ` | `        timestamptz       ` | N           |
 
 ### pg\_file\_settings
 
@@ -187,52 +67,15 @@ The [`  pg_file_settings  `](https://www.postgresql.org/docs/current/view-pg-fil
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       sourcefile      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       sourceline      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       seqno      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       name      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       setting      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       applied      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       error      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                 | Type                  | Has content |
+| --------------------------- | --------------------- | ----------- |
+| `        sourcefile       ` | `        text       ` | N           |
+| `        sourceline       ` | `        int8       ` | N           |
+| `        seqno       `      | `        int8       ` | N           |
+| `        name       `       | `        text       ` | N           |
+| `        setting       `    | `        text       ` | N           |
+| `        applied       `    | `        bool       ` | N           |
+| `        error       `      | `        text       ` | N           |
 
 ### pg\_hba\_file\_rules
 
@@ -240,72 +83,19 @@ The [`  pg_hba_file_rules  `](https://www.postgresql.org/docs/current/view-pg-hb
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       rule_number      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       file_name      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       line_number      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       type      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       database      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       user_name      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       address      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       netmask      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       auth_method      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       options      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       error      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                  | Type                    | Has content |
+| ---------------------------- | ----------------------- | ----------- |
+| `        rule_number       ` | `        int8       `   | N           |
+| `        file_name       `   | `        text       `   | N           |
+| `        line_number       ` | `        int8       `   | N           |
+| `        type       `        | `        text       `   | N           |
+| `        database       `    | `        text[]       ` | N           |
+| `        user_name       `   | `        text[]       ` | N           |
+| `        address       `     | `        text       `   | N           |
+| `        netmask       `     | `        text       `   | N           |
+| `        auth_method       ` | `        text       `   | N           |
+| `        options       `     | `        text[]       ` | N           |
+| `        error       `       | `        text       `   | N           |
 
 ### pg\_indexes
 
@@ -315,42 +105,13 @@ view has content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       schemaname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       tablename      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indexname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       tablespace      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       indexdef      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                 | Type                  | Has content |
+| --------------------------- | --------------------- | ----------- |
+| `        schemaname       ` | `        text       ` | Y           |
+| `        tablename       `  | `        text       ` | Y           |
+| `        indexname       `  | `        text       ` | Y           |
+| `        tablespace       ` | `        text       ` | N           |
+| `        indexdef       `   | `        text       ` | N           |
 
 ### pg\_matviews
 
@@ -360,52 +121,15 @@ view has no content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       schemaname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       matviewname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       matviewowner      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       tablespace      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       hasindexes      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       ispopulated      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       definition      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                   | Type                  | Has content |
+| ----------------------------- | --------------------- | ----------- |
+| `        schemaname       `   | `        text       ` | N           |
+| `        matviewname       `  | `        text       ` | N           |
+| `        matviewowner       ` | `        text       ` | N           |
+| `        tablespace       `   | `        text       ` | N           |
+| `        hasindexes       `   | `        bool       ` | N           |
+| `        ispopulated       `  | `        bool       ` | N           |
+| `        definition       `   | `        text       ` | N           |
 
 ### pg\_policies
 
@@ -415,57 +139,16 @@ view has no content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       schemaname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       tablename      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       policyname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       permissive      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       roles      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       cmd      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       qual      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       with_check      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                 | Type                    | Has content |
+| --------------------------- | ----------------------- | ----------- |
+| `        schemaname       ` | `        text       `   | N           |
+| `        tablename       `  | `        text       `   | N           |
+| `        policyname       ` | `        text       `   | N           |
+| `        permissive       ` | `        text       `   | N           |
+| `        roles       `      | `        text[]       ` | N           |
+| `        cmd       `        | `        text       `   | N           |
+| `        qual       `       | `        text       `   | N           |
+| `        with_check       ` | `        text       `   | N           |
 
 ### pg\_prepared\_xacts
 
@@ -473,42 +156,13 @@ The [`  pg_prepared_xacts  `](https://www.postgresql.org/docs/current/view-pg-pr
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       transaction      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       gid      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       prepared      </code></td>
-<td><code dir="ltr" translate="no">       timestamptz      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       owner      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       database      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                  | Type                         | Has content |
+| ---------------------------- | ---------------------------- | ----------- |
+| `        transaction       ` | `        int8       `        | N           |
+| `        gid       `         | `        text       `        | N           |
+| `        prepared       `    | `        timestamptz       ` | N           |
+| `        owner       `       | `        text       `        | N           |
+| `        database       `    | `        text       `        | N           |
 
 ### pg\_publication\_tables
 
@@ -516,42 +170,13 @@ The [`  pg_publication_tables  `](https://www.postgresql.org/docs/current/view-p
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       pubname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       schemaname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       tablename      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       attnames      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       rowfilter      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                 | Type                    | Has content |
+| --------------------------- | ----------------------- | ----------- |
+| `        pubname       `    | `        text       `   | N           |
+| `        schemaname       ` | `        text       `   | N           |
+| `        tablename       `  | `        text       `   | N           |
+| `        attnames       `   | `        text[]       ` | N           |
+| `        rowfilter       `  | `        text       `   | N           |
 
 ### pg\_roles
 
@@ -559,82 +184,21 @@ The [`  pg_roles  `](https://www.postgresql.org/docs/current/view-pg-roles.html)
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       rolname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       rolsuper      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       rolinherit      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       rolcreaterole      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       rolcreatedb      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       rolcanlogin      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       rolreplication      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       rolconnlimit      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       rolpassword      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       rolvaliduntil      </code></td>
-<td><code dir="ltr" translate="no">       timestamptz      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       rolbypassrls bool      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       rolconfig      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td><code dir="ltr" translate="no">       oid      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                        | Type                         | Has content |
+| ---------------------------------- | ---------------------------- | ----------- |
+| `        rolname       `           | `        text       `        | N           |
+| `        rolsuper       `          | `        bool       `        | N           |
+| `        rolinherit       `        | `        bool       `        | N           |
+| `        rolcreaterole       `     | `        bool       `        | N           |
+| `        rolcreatedb       `       | `        bool       `        | N           |
+| `        rolcanlogin       `       | `        bool       `        | N           |
+| `        rolreplication       `    | `        bool       `        | N           |
+| `        rolconnlimit       `      | `        int8       `        | N           |
+| `        rolpassword       `       | `        text       `        | N           |
+| `        rolvaliduntil       `     | `        timestamptz       ` | N           |
+| `        rolbypassrls bool       ` | `        bool       `        | N           |
+| `        rolconfig       `         | `        text[]       `      | N           |
+| `        oid       `               | `        oid       `         | N           |
 
 ### pg\_rules
 
@@ -642,37 +206,12 @@ The [`  pg_rules  `](https://www.postgresql.org/docs/current/view-pg-rules.html)
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       schemaname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       tablename      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       rulename      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       definition      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                 | Type                  | Has content |
+| --------------------------- | --------------------- | ----------- |
+| `        schemaname       ` | `        text       ` | N           |
+| `        tablename       `  | `        text       ` | N           |
+| `        rulename       `   | `        text       ` | N           |
+| `        definition       ` | `        text       ` | N           |
 
 ### pg\_sequences
 
@@ -682,67 +221,18 @@ view has content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       schemaname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       sequencename      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       sequenceowner      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       start_value      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       min_value      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       max_value      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       increment_by      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       cycle      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       cache_size      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       last_value      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                    | Type                  | Has content |
+| ------------------------------ | --------------------- | ----------- |
+| `        schemaname       `    | `        text       ` | Y           |
+| `        sequencename       `  | `        text       ` | Y           |
+| `        sequenceowner       ` | `        text       ` | N           |
+| `        start_value       `   | `        int8       ` | Y           |
+| `        min_value       `     | `        int8       ` | N           |
+| `        max_value       `     | `        int8       ` | N           |
+| `        increment_by       `  | `        int8       ` | N           |
+| `        cycle       `         | `        bool       ` | Y           |
+| `        cache_size       `    | `        int8       ` | Y           |
+| `        last_value       `    | `        int8       ` | N           |
 
 ### pg\_settings
 
@@ -752,102 +242,25 @@ view has content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       name      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       setting      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       unit      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       category      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       short_desc      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       extra_desc      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       context      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       vartype      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       source      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       min_val      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       max_val      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       enumvals      </code></td>
-<td><code dir="ltr" translate="no">       text[]      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       boot_val      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       reset_val      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       sourcefile      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       sourceline      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       pending_restart      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-</tbody>
-</table>
+| Column name                      | Type                    | Has content |
+| -------------------------------- | ----------------------- | ----------- |
+| `        name       `            | `        text       `   | Y           |
+| `        setting       `         | `        text       `   | Y           |
+| `        unit       `            | `        text       `   | N           |
+| `        category       `        | `        text       `   | Y           |
+| `        short_desc       `      | `        text       `   | Y           |
+| `        extra_desc       `      | `        text       `   | N           |
+| `        context       `         | `        text       `   | Y           |
+| `        vartype       `         | `        text       `   | Y           |
+| `        source       `          | `        text       `   | Y           |
+| `        min_val       `         | `        text       `   | Y           |
+| `        max_val       `         | `        text       `   | Y           |
+| `        enumvals       `        | `        text[]       ` | N           |
+| `        boot_val       `        | `        text       `   | Y           |
+| `        reset_val       `       | `        text       `   | Y           |
+| `        sourcefile       `      | `        text       `   | N           |
+| `        sourceline       `      | `        int8       `   | N           |
+| `        pending_restart       ` | `        bool       `   | Y           |
 
 ### pg\_shmem\_allocations
 
@@ -855,37 +268,12 @@ The [`  pg_shmem_allocations  `](https://www.postgresql.org/docs/current/view-pg
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       name      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       off      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       size      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       allocated_size      </code></td>
-<td><code dir="ltr" translate="no">       int8      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                     | Type                  | Has content |
+| ------------------------------- | --------------------- | ----------- |
+| `        name       `           | `        text       ` | N           |
+| `        off       `            | `        int8       ` | N           |
+| `        size       `           | `        int8       ` | N           |
+| `        allocated_size       ` | `        int8       ` | N           |
 
 ### pg\_tables
 
@@ -895,57 +283,16 @@ view has content.
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       schemaname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       tablename      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       tableowner      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       tablespace      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       hasindexes      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       hasrules      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       hastriggers      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       rowsecurity      </code></td>
-<td><code dir="ltr" translate="no">       bool      </code></td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
+| Column name                  | Type                  | Has content |
+| ---------------------------- | --------------------- | ----------- |
+| `        schemaname       `  | `        text       ` | Y           |
+| `        tablename       `   | `        text       ` | Y           |
+| `        tableowner       `  | `        text       ` | N           |
+| `        tablespace       `  | `        text       ` | N           |
+| `        hasindexes       `  | `        bool       ` | Y           |
+| `        hasrules       `    | `        bool       ` | N           |
+| `        hastriggers       ` | `        bool       ` | N           |
+| `        rowsecurity       ` | `        bool       ` | N           |
 
 ### pg\_views
 
@@ -953,38 +300,13 @@ The [`  pg_views  `](https://www.postgresql.org/docs/current/view-pg-views.html)
 
 The following table shows whether columns have content.
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Has content</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       schemaname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       viewname      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       viewowner      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>N</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       definition      </code></td>
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td>Y</td>
-</tr>
-</tbody>
-</table>
+| Column name                 | Type                  | Has content |
+| --------------------------- | --------------------- | ----------- |
+| `        schemaname       ` | `        text       ` | Y           |
+| `        viewname       `   | `        text       ` | Y           |
+| `        viewowner       `  | `        text       ` | N           |
+| `        definition       ` | `        text       ` | Y           |
 
 ## What's next
 
-  - [System catalogs](/spanner/docs/reference/postgresql/pg-system-catalog-tables)
+  - [System catalogs](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables)

@@ -1,6 +1,6 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [ChangeQuorumRequest](#ChangeQuorumRequest)
-      - [JSON representation](#ChangeQuorumRequest.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ChangeQuorumMetadata#SCHEMA_REPRESENTATION)
+  - [ChangeQuorumRequest](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ChangeQuorumMetadata#ChangeQuorumRequest)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ChangeQuorumMetadata#ChangeQuorumRequest.SCHEMA_REPRESENTATION)
 
 Metadata type for the long-running operation returned by `  databases.changequorum  ` .
 
@@ -15,7 +15,7 @@ Metadata type for the long-running operation returned by `  databases.changequor
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;request&quot;: {
     object (ChangeQuorumRequest)
   },
@@ -65,7 +65,7 @@ The request for `  databases.changequorum  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;quorumType&quot;: {
     object (QuorumType)

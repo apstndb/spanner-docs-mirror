@@ -1,6 +1,6 @@
 **Preview**
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 Model Context Protocol (MCP) standardizes how generative AI agents connect to Spanner. Due to the inherent risks of autonomous agents, mitigating vulnerabilities like prompt injection requires a shared responsibility model, combining platform controls with secure application design.  
 To design and deploy AI applications that use Google Cloud Model Context Protocol (MCP) tools, follow the best practices in this guide.
@@ -87,7 +87,7 @@ Bigtable offers granular control through IAM roles at the project, instance, and
 
 ## Secure agent design
 
-Agent-Only models require robust application-level defenses against prompt injection attacks, which attempt to override the system prompt. For more information, see [AI safety and security](/mcp/ai-security-safety) .
+Agent-Only models require robust application-level defenses against prompt injection attacks, which attempt to override the system prompt. For more information, see [AI safety and security](https://docs.cloud.google.com/mcp/ai-security-safety) .
 
 ### Treat data and user inputs as untrusted
 
@@ -129,14 +129,12 @@ Use the Google Cloud CLI to enable Model Armor on your model deployment. This ac
 
 The following example enables Model Armor on a Vertex AI endpoint.
 
-``` text
-# Example: Enable Model Armor on a Vertex AI endpoint
-gcloud ai endpoints update ENDPOINT_ID \
-    --region=REGION \
-    --enable-model-armor
-```
+    # Example: Enable Model Armor on a Vertex AI endpoint
+    gcloud ai endpoints update ENDPOINT_ID \
+        --region=REGION \
+        --enable-model-armor
 
-For more information and examples, see [Configure Model Armor protection for MCP on Google Cloud](/model-armor/model-armor-mcp-google-cloud-integration#:~:text=To%20protect%20your%20MCP%20tool,See%20the%20following%20example%20command:) .
+For more information and examples, see [Configure Model Armor protection for MCP on Google Cloud](https://docs.cloud.google.com/model-armor/model-armor-mcp-google-cloud-integration#:~:text=To%20protect%20your%20MCP%20tool,See%20the%20following%20example%20command:) .
 
 ### Enforce minimum safety thresholds for sensitive data operations
 
@@ -144,7 +142,7 @@ Model Armor lets you enforce a minimum safety threshold for sensitive data opera
 
 The following is a conceptual example for configuration:
 
-``` text
+``` 
   # Example: Apply a DeidentifyTemplate to filter PII
 gcloud ai endpoints update ENDPOINT_ID \
     --region=REGION \
@@ -153,17 +151,15 @@ gcloud ai endpoints update ENDPOINT_ID \
 
 In the following example, `  model_armor_config.json  ` might reference a DLP template:
 
-``` text
-{
-  "safety_thresholds": {
-    "injection": "HIGH",
-    "harmful_content": "MEDIUM"
-  },
-  "data_protection_config": {
-    "dlp_deidentify_template": "projects/PROJECT_NUMBER/locations/LOCATION/deidentifyTemplates/DLP_TEMPLATE_ID"
-  }
-}
-```
+    {
+      "safety_thresholds": {
+        "injection": "HIGH",
+        "harmful_content": "MEDIUM"
+      },
+      "data_protection_config": {
+        "dlp_deidentify_template": "projects/PROJECT_NUMBER/locations/LOCATION/deidentifyTemplates/DLP_TEMPLATE_ID"
+      }
+    }
 
 ## Auditing and observability
 
@@ -177,58 +173,30 @@ Your primary defense against this scenario is a robust recovery strategy.
 
 Nearly all Data Cloud products provide features for data recovery, either through traditional backups, point-in-time recovery (PITR), or data snapshots. You are responsible for enabling and configuring these features.
 
-<table>
-<thead>
-<tr class="header">
-<th><strong>Product</strong></th>
-<th><strong>Backup and recovery mechanisms</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Cloud SQL</td>
-<td>Supports both on-demand and automated backups, allowing you to restore an instance to a previous state. It also supports Point-in-Time Recovery (PITR).</td>
-</tr>
-<tr class="even">
-<td>AlloyDB</td>
-<td>Provides continuous backup and recovery by default. This enables PITR with microsecond granularity, allowing you to restore a cluster to any time in your retention window.</td>
-</tr>
-<tr class="odd">
-<td>BigQuery</td>
-<td>Data recovery is achieved using "Time Travel," which lets you access and restore data from any point in the last 7 days. For longer-term retention, you can create Table Snapshots.</td>
-</tr>
-<tr class="even">
-<td>Spanner</td>
-<td>Supports both on-demand backups and PITR.</td>
-</tr>
-<tr class="odd">
-<td>Firestore</td>
-<td>Supports automated backups that let you restore a database to a previous state. It also offers PITR to protect against accidental deletions or writes. Both of these features are disabled by default.</td>
-</tr>
-<tr class="even">
-<td>Bigtable</td>
-<td>Supports on-demand and automated backups. These backups are fully managed and can be restored to a new table.</td>
-</tr>
-</tbody>
-</table>
+| **Product** | **Backup and recovery mechanisms**                                                                                                                                                                     |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Cloud SQL   | Supports both on-demand and automated backups, allowing you to restore an instance to a previous state. It also supports Point-in-Time Recovery (PITR).                                                |
+| AlloyDB     | Provides continuous backup and recovery by default. This enables PITR with microsecond granularity, allowing you to restore a cluster to any time in your retention window.                            |
+| BigQuery    | Data recovery is achieved using "Time Travel," which lets you access and restore data from any point in the last 7 days. For longer-term retention, you can create Table Snapshots.                    |
+| Spanner     | Supports both on-demand backups and PITR.                                                                                                                                                              |
+| Firestore   | Supports automated backups that let you restore a database to a previous state. It also offers PITR to protect against accidental deletions or writes. Both of these features are disabled by default. |
+| Bigtable    | Supports on-demand and automated backups. These backups are fully managed and can be restored to a new table.                                                                                          |
 
 ### Enable Cloud Audit Logs
 
-Make sure that [Data Access audit logs](/logging/docs/audit#data-access) are enabled for MCP as well as all relevant Google Cloud services like BigQuery, Cloud SQL, AlloyDB, Firestore, and Spanner. By default, only [Admin Activity audit logs](/logging/docs/audit#admin-activity) are enabled. Data Access audit logs record every read and write operation performed by the agent. For more information, see [Data access audit logs for MCP](/mcp/audit-logging#data-access-audit-logs-for-mcp) .
+Make sure that [Data Access audit logs](https://docs.cloud.google.com/logging/docs/audit#data-access) are enabled for MCP as well as all relevant Google Cloud services like BigQuery, Cloud SQL, AlloyDB, Firestore, and Spanner. By default, only [Admin Activity audit logs](https://docs.cloud.google.com/logging/docs/audit#admin-activity) are enabled. Data Access audit logs record every read and write operation performed by the agent. For more information, see [Data access audit logs for MCP](https://docs.cloud.google.com/mcp/audit-logging#data-access-audit-logs-for-mcp) .
 
 ### Audit sensitive actions
 
-[Configure alerts in Cloud Logging](/logging/docs/alerting/log-based-alerts) to detect anomalous or high-risk actions. The Logs Explorer query identifies service accounts performing *data write* operations in Firestore, for example, which is a common target for exfiltration or destructive attacks:
+[Configure alerts in Cloud Logging](https://docs.cloud.google.com/logging/docs/alerting/log-based-alerts) to detect anomalous or high-risk actions. The Logs Explorer query identifies service accounts performing *data write* operations in Firestore, for example, which is a common target for exfiltration or destructive attacks:
 
-``` text
-resource.type="firestore_database"
-# Filter for data write operations
-AND protoPayload.methodName="google.firestore.v1.Firestore.Commit"
-# Ensure the caller is an agent service account (modify regex as needed)
-AND protoPayload.authenticationInfo.principalEmail=~".*@.*.gserviceaccount.com"
-# Exclude expected system calls to reduce noise
-AND NOT protoPayload.authenticationInfo.principalEmail=~"system-managed-service-account"
-```
+    resource.type="firestore_database"
+    # Filter for data write operations
+    AND protoPayload.methodName="google.firestore.v1.Firestore.Commit"
+    # Ensure the caller is an agent service account (modify regex as needed)
+    AND protoPayload.authenticationInfo.principalEmail=~".*@.*.gserviceaccount.com"
+    # Exclude expected system calls to reduce noise
+    AND NOT protoPayload.authenticationInfo.principalEmail=~"system-managed-service-account"
 
 ### Use agent-specific logging
 
@@ -236,5 +204,5 @@ In addition to Cloud Audit Logs, make sure that your application code logs the f
 
   - **Tool execution:** the MCP tool that was called.
   - **Raw command:** the exact command—for example, a `  SQL  ` query or document path—generated by the LLM.
-  - **Final action:** whether the action is executed (Agent-Only model) or approved (Human-in-the-Middle). For more information, see [Understand agent use](/mcp/ai-security-safety#understand-agent-use) .
+  - **Final action:** whether the action is executed (Agent-Only model) or approved (Human-in-the-Middle). For more information, see [Understand agent use](https://docs.cloud.google.com/mcp/ai-security-safety#understand-agent-use) .
   - **User and session ID:** the identifier for the end user who initiated the request.

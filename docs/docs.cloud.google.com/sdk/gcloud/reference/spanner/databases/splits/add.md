@@ -14,7 +14,7 @@ EXAMPLES
 
 To add split points to the given Spanner database, run:
 
-``` text
+``` wrap-code
 gcloud spanner databases splits add my-database-id --instance=my-instance-id --splits-file=path/to/splits.txt --initiator=my-initiator-string --split-expiration-date=2024-08-15T15:55:10Z
 ```
 
@@ -70,10 +70,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases splits add
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases splits add
 ```

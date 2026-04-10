@@ -1,13 +1,13 @@
-  - [HTTP request](#body.HTTP_TEMPLATE)
-  - [Path parameters](#body.PATH_PARAMETERS)
-  - [Request body](#body.request_body)
-      - [JSON representation](#body.request_body.SCHEMA_REPRESENTATION)
-  - [Response body](#body.response_body)
-      - [JSON representation](#body.CommitResponse.SCHEMA_REPRESENTATION)
-  - [Authorization scopes](#body.aspect)
-  - [CommitStats](#CommitStats)
-      - [JSON representation](#CommitStats.SCHEMA_REPRESENTATION)
-  - [Try it\!](#try-it)
+  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#body.HTTP_TEMPLATE)
+  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#body.PATH_PARAMETERS)
+  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#body.request_body)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#body.request_body.SCHEMA_REPRESENTATION)
+  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#body.response_body)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#body.CommitResponse.SCHEMA_REPRESENTATION)
+  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#body.aspect)
+  - [CommitStats](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#CommitStats)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#CommitStats.SCHEMA_REPRESENTATION)
+  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#try-it)
 
 Commits a transaction. The request includes the mutations to be applied to rows in the database.
 
@@ -18,6 +18,36 @@ On very rare occasions, `  sessions.commit  ` might return `  UNKNOWN  ` . This 
 ### HTTP request
 
 Choose a location:
+
+global
+
+europe-west8
+
+me-central2
+
+us-central1
+
+us-central2
+
+us-east1
+
+us-east4
+
+us-east5
+
+us-south1
+
+us-west1
+
+us-west2
+
+us-west3
+
+us-west4
+
+us-west8
+
+us-east7
 
   
 `  POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:commit  `
@@ -53,7 +83,7 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;mutations&quot;: [
     {
       object (Mutation)
@@ -146,7 +176,7 @@ If successful, the response body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;commitTimestamp&quot;: string,
   &quot;commitStats&quot;: {
     object (CommitStats)
@@ -193,7 +223,7 @@ Requires one of the following OAuth scopes:
   - `  https://www.googleapis.com/auth/spanner.data  `
   - `  https://www.googleapis.com/auth/cloud-platform  `
 
-For more information, see the [Authentication Overview](/docs/authentication#authorization-gcp) .
+For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
 ## CommitStats
 
@@ -210,7 +240,7 @@ Additional statistics about a commit.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;mutationCount&quot;: string
 }</code></pre></td>
 </tr>

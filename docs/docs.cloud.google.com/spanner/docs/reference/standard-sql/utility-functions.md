@@ -2,30 +2,14 @@ GoogleSQL for Spanner supports the following utility functions.
 
 ## Function list
 
-<table>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/utility-functions#generate_uuid"><code dir="ltr" translate="no">        GENERATE_UUID       </code></a></td>
-<td>Produces a random universally unique identifier (UUID) as a <code dir="ltr" translate="no">       STRING      </code> value.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/utility-functions#new_uuid"><code dir="ltr" translate="no">        NEW_UUID       </code></a></td>
-<td>Produces a random universally unique identifier (UUID) as a <code dir="ltr" translate="no">       UUID      </code> value.</td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                                  | Summary                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| [`         GENERATE_UUID        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) | Produces a random universally unique identifier (UUID) as a `        STRING       ` value. |
+| [`         NEW_UUID        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid)           | Produces a random universally unique identifier (UUID) as a `        UUID       ` value.   |
 
 ## `     GENERATE_UUID    `
 
-``` text
-GENERATE_UUID()
-```
+    GENERATE_UUID()
 
 **Description**
 
@@ -39,21 +23,17 @@ STRING
 
 The following query generates a random UUID.
 
-``` text
-SELECT GENERATE_UUID() AS uuid;
-
-/*--------------------------------------+
- | uuid                                 |
- +--------------------------------------+
- | 4192bff0-e1e0-43ce-a4db-912808c32493 |
- +--------------------------------------*/
-```
+    SELECT GENERATE_UUID() AS uuid;
+    
+    /*--------------------------------------+
+     | uuid                                 |
+     +--------------------------------------+
+     | 4192bff0-e1e0-43ce-a4db-912808c32493 |
+     +--------------------------------------*/
 
 ## `     NEW_UUID    `
 
-``` text
-NEW_UUID()
-```
+    NEW_UUID()
 
 **Description**
 
@@ -72,12 +52,10 @@ UUID
 
 The following query generates a random UUID.
 
-``` text
-SELECT NEW_UUID() AS uuid;
-
-/*--------------------------------------+
- | uuid                                 |
- +--------------------------------------+
- | 4192bff0-e1e0-43ce-a4db-912808c32493 |
- +--------------------------------------*/
-```
+    SELECT NEW_UUID() AS uuid;
+    
+    /*--------------------------------------+
+     | uuid                                 |
+     +--------------------------------------+
+     | 4192bff0-e1e0-43ce-a4db-912808c32493 |
+     +--------------------------------------*/

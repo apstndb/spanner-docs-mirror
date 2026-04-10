@@ -1,31 +1,15 @@
-Spanner supports the following JSON MySQL functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](/spanner/docs/install-mysql-functions) .
+Spanner supports the following JSON MySQL functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](https://docs.cloud.google.com/spanner/docs/install-mysql-functions) .
 
 ## Function list
 
-<table>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#json_quote"><code dir="ltr" translate="no">        mysql.JSON_QUOTE       </code></a></td>
-<td>Quotes a string as a JSON string literal.</td>
-</tr>
-<tr class="even">
-<td><a href="#json_unquote"><code dir="ltr" translate="no">        mysql.JSON_UNQUOTE       </code></a></td>
-<td>Unquotes a JSON string literal.</td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                            | Summary                                   |
+| ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| [`         mysql.JSON_QUOTE        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/json_functions#json_quote)     | Quotes a string as a JSON string literal. |
+| [`         mysql.JSON_UNQUOTE        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/json_functions#json_unquote) | Unquotes a JSON string literal.           |
 
 ## `     mysql.JSON_QUOTE    `
 
-``` text
-mysql.JSON_QUOTE(string_expression)
-```
+    mysql.JSON_QUOTE(string_expression)
 
 **Description**
 
@@ -43,7 +27,7 @@ This function supports the following argument:
 
 The following example quotes an input string to make it a valid JSON string literal:
 
-``` text
+``` 
   SELECT mysql.JSON_QUOTE('test') as json_quoted;
 
 /*
@@ -57,9 +41,7 @@ The following example quotes an input string to make it a valid JSON string lite
 
 ## `     mysql.JSON_UNQUOTE    `
 
-``` text
-mysql.JSON_UNQUOTE(json_string_expression)
-```
+    mysql.JSON_UNQUOTE(json_string_expression)
 
 **Description**
 
@@ -81,14 +63,12 @@ If the input string is not a valid JSON string literal (for example, it is not e
 
 The following example unquotes a JSON string literal:
 
-``` text
-SELECT mysql.JSON_UNQUOTE('\"test\"') as json_unquoted;
-
-/*
-+----------------------------------------------------------------------------+
-| json_unquoted                                                              |
-+----------------------------------------------------------------------------+
-| test                                                                       |
-+----------------------------------------------------------------------------+
-*/
-```
+    SELECT mysql.JSON_UNQUOTE('\"test\"') as json_unquoted;
+    
+    /*
+    +----------------------------------------------------------------------------+
+    | json_unquoted                                                              |
+    +----------------------------------------------------------------------------+
+    | test                                                                       |
+    +----------------------------------------------------------------------------+
+    */

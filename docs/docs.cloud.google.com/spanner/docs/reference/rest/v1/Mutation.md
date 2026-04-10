@@ -1,8 +1,8 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [Write](#Write)
-      - [JSON representation](#Write.SCHEMA_REPRESENTATION)
-  - [Delete](#Delete)
-      - [JSON representation](#Delete.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation#SCHEMA_REPRESENTATION)
+  - [Write](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation#Write)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation#Write.SCHEMA_REPRESENTATION)
+  - [Delete](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation#Delete)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation#Delete.SCHEMA_REPRESENTATION)
 
 A modification to one or more Cloud Spanner rows. Mutations can be applied to a Cloud Spanner database by sending them in a `  Commit  ` call.
 
@@ -17,7 +17,7 @@ A modification to one or more Cloud Spanner rows. Mutations can be applied to a 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field operation can be only one of the following:
   &quot;insert&quot;: {
@@ -94,7 +94,7 @@ Arguments to `  insert  ` , `  update  ` , `  insertOrUpdate  ` , and `  replace
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;table&quot;: string,
   &quot;columns&quot;: [
     string
@@ -144,7 +144,7 @@ Arguments to `  delete  ` operations.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;table&quot;: string,
   &quot;keySet&quot;: {
     object (KeySet)

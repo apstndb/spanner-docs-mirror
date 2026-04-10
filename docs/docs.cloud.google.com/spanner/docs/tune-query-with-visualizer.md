@@ -1,14 +1,16 @@
-The query plan visualizer lets you quickly understand the structure of the [query plan](/spanner/docs/query-execution-plans) chosen by Spanner to evaluate a query. This guide describes how you can use a query plan to help you understand the execution of your queries.
+The query plan visualizer lets you quickly understand the structure of the [query plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) chosen by Spanner to evaluate a query. This guide describes how you can use a query plan to help you understand the execution of your queries.
 
 ## Before you begin
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](/spanner/docs/manage-data-using-console) .
+**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 To familiarize yourself with the parts of the Google Cloud console user interface mentioned in this guide, read the following:
 
 ### Run a query in Google Cloud console
 
 1.  Go to the Spanner **Instances** page in Google Cloud console.
+    
+    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the name of the instance containing the database you want to query.
     
@@ -34,11 +36,11 @@ To familiarize yourself with the parts of the Google Cloud console user interfac
 
 The Spanner Studio page provides query tabs that let you type or paste SQL query and DML statements, run them against your database, and view their results and query execution plans. The key components of the Spanner Studio page are numbered in the following screenshot.
 
-**Figure 7.** Annotated query editor page.
+![**Figure 7.** Annotated query editor page.](https://docs.cloud.google.com/static/spanner/docs/images/console/annotated-query-editor.png)
 
 1.  The *tab bar* shows the query tabs you have open. To create a new tab, click add **New tab** .
     
-    You can also use Gemini Code Assist to get AI-powered assistance. For more information, see [Write SQL with Gemini assistance](/spanner/docs/write-sql-gemini) .
+    You can also use Gemini Code Assist to get AI-powered assistance. For more information, see [Write SQL with Gemini assistance](https://docs.cloud.google.com/spanner/docs/write-sql-gemini) .
 
 2.  The *editor commands bar* provides these options:
     
@@ -46,7 +48,7 @@ The Spanner Studio page provides query tabs that let you type or paste SQL query
         
         Highlighting something in the editor changes the **Run** command to **Run selected** , allowing you to execute what you have selected.
     
-      - The **Save** command lets you create, save, and manage SQL scripts as saved queries. For more information, see [Saved queries overview](/spanner/docs/saved-queries) .
+      - The **Save** command lets you create, save, and manage SQL scripts as saved queries. For more information, see [Saved queries overview](https://docs.cloud.google.com/spanner/docs/saved-queries) .
     
       - The **Format** command formats statements in the editor so that they are easier to read.
     
@@ -58,7 +60,7 @@ The Spanner Studio page provides query tabs that let you type or paste SQL query
 
 3.  The *editor* is where you enter SQL query and DML statements. Inputs are color-coded and line numbers are automatically added for multi-line statements.
     
-    If you enter more than one statement in the editor, you must use a [terminating semicolon](/spanner/docs/reference/standard-sql/lexical#terminating_semicolons) after each statement except the last one.
+    If you enter more than one statement in the editor, you must use a [terminating semicolon](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#terminating_semicolons) after each statement except the last one.
 
 4.  The *bottom pane* of a query tab provides the following subtabs:
     
@@ -78,6 +80,8 @@ The Spanner Studio page provides query tabs that let you type or paste SQL query
 ### View sampled query plans
 
 1.  Go to the Spanner **Instances** page in Google Cloud console.
+    
+    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance with the queries that you want to investigate.
     
@@ -93,11 +97,11 @@ The Spanner Studio page provides query tabs that let you type or paste SQL query
 
 5.  Find the query with high CPU utilization for which you want to view sampled query plans. Click the **FPRINT** value of that query.
     
-    The **Query details** page shows a **Query plans samples** graph for your query over time. You can zoom out to a maximum of seven days prior to the current time. Note: Query plans are not supported for queries with partitionTokens obtained from the PartitionQuery API and [Partitioned DML](/spanner/docs/dml-partitioned) queries.
+    The **Query details** page shows a **Query plans samples** graph for your query over time. You can zoom out to a maximum of seven days prior to the current time. Note: Query plans are not supported for queries with partitionTokens obtained from the PartitionQuery API and [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) queries.
 
 6.  Click one of the dots in the graph to see an older query plan and visualize the steps taken during the query execution. You can also click any operator to see expanded information about the operator.
     
-    **Figure 8.** Query plan samples graph.
+    ![**Figure 8.** Query plan samples graph.](https://docs.cloud.google.com/static/spanner/docs/images/sampled-query-plan-1.png)
 
 ### Take a tour of the query plan visualizer
 
@@ -105,13 +109,15 @@ The key components of the visualizer are annotated in the following screenshot a
 
 The data flow in the following diagram is bottom-up, that is, all the tables and indexes are at the bottom of the diagram and the final output is at the top.
 
-**Figure 9.** Annotated query plan visualizer.
+![**Figure 9.** Annotated query plan visualizer.](https://docs.cloud.google.com/static/spanner/docs/images/console/query-plan-visualizer-with-callouts.png)
 
 1.  The visualization of your plan can be large, depending on the query you executed. To hide and show details toggle the **EXPANDED/COMPACT** view selector. You can customize how much of the plan you see at any one time using the zoom control.
 
 2.  The algebra that explains how Spanner runs the query is drawn as an acyclic graph, where each node corresponds to an iterator that consumes rows from its inputs and produces rows to its parent. A sample plan is shown in **Figure 9** . Click the diagram to see an expanded view of some of the details of the plan.
     
-    **Figure 9.** Sample visual plan ( **Click to zoom in** ).
+    ![**Figure 9.** Sample visual plan ( **Click to zoom in** ).](https://docs.cloud.google.com/static/spanner/docs/images/console/plan-thumb.png)
+    
+    ![Visual plan zoomed-in screenshot](https://docs.cloud.google.com/static/spanner/docs/images/console/plan-large.png)
     
     Each node, or *card* , on the graph represents an iterator and contains the following information:
     
@@ -125,7 +131,7 @@ The data flow in the following diagram is bottom-up, that is, all the tables and
 
 3.  The execution plan mini-map shows a zoomed-out view of the full plan and is useful for determining the overall shape of the execution plan and for navigating to different parts of the plan quickly. Drag directly on the mini-map or click where you'd like to focus, in order to go to another part of the visual plan.
 
-4.  Select **DOWNLOAD JSON** to download a JSON version of the execution plan, which is useful for troubleshooting. You can also share it when contacting the Spanner team for [support](/spanner/docs/getting-support) . Saving the JSON doesn't save the result of the query.
+4.  Select **DOWNLOAD JSON** to download a JSON version of the execution plan, which is useful for troubleshooting. You can also share it when contacting the Spanner team for [support](https://docs.cloud.google.com/spanner/docs/getting-support) . Saving the JSON doesn't save the result of the query.
     
     To download and save a JSON version of the execution plan to visualize later:
     
@@ -141,7 +147,7 @@ The data flow in the following diagram is bottom-up, that is, all the tables and
     
     6.  In the editor tab, enter:
         
-        ``` text
+        ``` 
           PROTO:
           CONTENT_OF_JSON
         ```
@@ -160,28 +166,26 @@ The data flow in the following diagram is bottom-up, that is, all the tables and
 
 Imagine your company runs an online movie database that contains information about movies such as cast, production companies, movie details, and more. The service runs on Spanner, but has been experiencing some performance issues lately.
 
-As lead developer for the service, you are asked to investigate these performance issues because they are causing poor ratings for the service. You open the Google Cloud console, go to your database instance and then open the [query editor](#query-editor-tour) . You enter the following query into the editor and run it.
+As lead developer for the service, you are asked to investigate these performance issues because they are causing poor ratings for the service. You open the Google Cloud console, go to your database instance and then open the [query editor](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer#query-editor-tour) . You enter the following query into the editor and run it.
 
-``` text
-SELECT
-  t.title,
-  MIN(t.production_year) AS year,
-  ANY_VALUE(mc.note HAVING MIN t.production_year) AS note
-FROM
-  title AS t
-JOIN
-  movie_companies AS mc
-ON
-  t.id = mc.movie_id
-WHERE
-  t.title LIKE '% the %'
-GROUP BY
-  title;
-```
+    SELECT
+      t.title,
+      MIN(t.production_year) AS year,
+      ANY_VALUE(mc.note HAVING MIN t.production_year) AS note
+    FROM
+      title AS t
+    JOIN
+      movie_companies AS mc
+    ON
+      t.id = mc.movie_id
+    WHERE
+      t.title LIKE '% the %'
+    GROUP BY
+      title;
 
 The result of running this query is shown in the following screenshot. We formatted the query in the editor by selecting **FORMAT QUERY** . There is also a note in the top right of the screen telling us that the query is valid.
 
-**Figure 1.** Query editor displaying the original query.
+![**Figure 1.** Query editor displaying the original query.](https://docs.cloud.google.com/static/spanner/docs/images/console/query-plan-visualizer-demo-original-query.png)
 
 The **RESULTS** tab below the query editor shows that the query completed in just over two minutes. You decide to look closer at the query to see whether the query is efficient.
 
@@ -197,40 +201,40 @@ The plan shown in the following screenshot is relatively large but, even at this
 
   - We can also see from the **Query execution timeline** panel that 4 machine groups were involved in the query. A machine group is responsible for the execution of a portion of the query. Operators may execute on one or more machines. Selecting a machine group in the timeline highlights on the visual plan what part of the query was executed on that group.
 
-**Figure 2.** Query plan visualizer showing the visual plan of the original query.
+![**Figure 2.** Query plan visualizer showing the visual plan of the original query.](https://docs.cloud.google.com/static/spanner/docs/images/console/query-plan-visualizer-demo-original-query-explain.png)
 
-Because of these factors, you decide that an improvement in performance may be possible by changing the join from an apply join, which Spanner chose by default, to a [hash join](/spanner/docs/reference/standard-sql/query-syntax#join-methods) .
+Because of these factors, you decide that an improvement in performance may be possible by changing the join from an apply join, which Spanner chose by default, to a [hash join](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join-methods) .
 
 ### Improve the query
 
-To improve the performance of the query, you use a [join hint](/spanner/docs/reference/standard-sql/query-syntax#join-hints) to change the join method to a hash join. This join implementation executes set-based processing.
+To improve the performance of the query, you use a [join hint](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join-hints) to change the join method to a hash join. This join implementation executes set-based processing.
 
 Here's the updated query:
 
-``` text
-SELECT
-  t.title,
-  MIN(t.production_year) AS year,
-  ANY_VALUE(mc.note HAVING MIN t.production_year) AS note
-FROM
-  title AS t
-JOIN
-  @{join_method=hash_join} movie_companies AS mc
-ON
-  t.id = mc.movie_id
-WHERE
-  t.title LIKE '% the %'
-GROUP BY
-  title;
-```
+    SELECT
+      t.title,
+      MIN(t.production_year) AS year,
+      ANY_VALUE(mc.note HAVING MIN t.production_year) AS note
+    FROM
+      title AS t
+    JOIN
+      @{join_method=hash_join} movie_companies AS mc
+    ON
+      t.id = mc.movie_id
+    WHERE
+      t.title LIKE '% the %'
+    GROUP BY
+      title;
 
 The following screenshot illustrates the updated query. As shown in the screenshot, the query completed in less than 5 seconds, a significant improvement over 120 seconds runtime before this change.
 
-**Figure 3.** Query editor displaying the improved query.
+![**Figure 3.** Query editor displaying the improved query.](https://docs.cloud.google.com/static/spanner/docs/images/console/query-plan-visualizer-demo-improved-query.png)
 
 Examine the new visual plan, shown in the following diagram, to see what it tells us about this improvement.
 
-**Figure 4.** Query plan visualization after the query improvements ( **Click to zoom in** ).
+![**Figure 4.** Query plan visualization after the query improvements ( **Click to zoom in** ).](https://docs.cloud.google.com/static/spanner/docs/images/console/query-plan-visualizer-demo-improved-query-explain.png)
+
+![Visual plan zoomed-in screenshot](https://docs.cloud.google.com/static/spanner/docs/images/console/plan-visual-after-expanded.png)
 
 Immediately, you notice some differences:
 
@@ -244,54 +248,50 @@ In this scenario, we ran a slow query and looked at its visual plan to look for 
 
 ### Before
 
-``` text
-SELECT
-  t.title,
-  MIN(t.production_year) AS year,
-  ANY_VALUE(mc.note
-  HAVING
-    MIN t.production_year) AS note
-FROM
-  title AS t
-JOIN
-  movie_companies AS mc
-ON
-  t.id = mc.movie_id
-WHERE
-  t.title LIKE '% the %'
-GROUP BY
-  title;
-```
+    SELECT
+      t.title,
+      MIN(t.production_year) AS year,
+      ANY_VALUE(mc.note
+      HAVING
+        MIN t.production_year) AS note
+    FROM
+      title AS t
+    JOIN
+      movie_companies AS mc
+    ON
+      t.id = mc.movie_id
+    WHERE
+      t.title LIKE '% the %'
+    GROUP BY
+      title;
 
-**Figure 5.** Compact view of the visual plan before improvements.
+![**Figure 5.** Compact view of the visual plan before improvements.](https://docs.cloud.google.com/static/spanner/docs/images/console/plan-visual-compact-before.png)
 
 ### After
 
-``` text
-SELECT
-  t.title,
-  MIN(t.production_year) AS year,
-  ANY_VALUE(mc.note
-  HAVING
-    MIN t.production_year) AS note
-FROM
-  title AS t
-JOIN
-  @{join_method=hash_join} movie_companies AS mc
-ON
-  t.id = mc.movie_id
-WHERE
-  t.title LIKE '% the %'
-GROUP BY
-  title;
-```
+    SELECT
+      t.title,
+      MIN(t.production_year) AS year,
+      ANY_VALUE(mc.note
+      HAVING
+        MIN t.production_year) AS note
+    FROM
+      title AS t
+    JOIN
+      @{join_method=hash_join} movie_companies AS mc
+    ON
+      t.id = mc.movie_id
+    WHERE
+      t.title LIKE '% the %'
+    GROUP BY
+      title;
 
-**Figure 6.** Compact view of the visual plan after improvements.
+![**Figure 6.** Compact view of the visual plan after improvements.](https://docs.cloud.google.com/static/spanner/docs/images/console/plan-visual-compact-after.png)
 
 An indicator that something could be improved in this scenario was that a large proportion of the rows from the table **title** qualified the filter `  LIKE '% the %'  ` . Seeking into another table with so many rows is likely to be expensive. Changing our join implementation to a hash join improved performance significantly.
 
 ## What's next
 
-  - For the complete query plan reference, refer to [Query execution plans](/spanner/docs/query-execution-plans) .
+  - For the complete query plan reference, refer to [Query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) .
 
-  - For the complete operator reference, refer to [Query execution operators](/spanner/docs/query-execution-operators) .
+  - For the complete operator reference, refer to [Query execution operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators) .

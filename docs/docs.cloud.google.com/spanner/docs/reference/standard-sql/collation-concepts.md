@@ -1,4 +1,4 @@
-GoogleSQL for Spanner supports collation. Collation defines rules to sort and compare strings in an [`  ORDER BY  ` operation](/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
+GoogleSQL for Spanner supports collation. Collation defines rules to sort and compare strings in an [`  ORDER BY  ` operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
 
 By default, GoogleSQL sorts strings case-sensitively. This means that `  a  ` and `  A  ` are treated as different letters, and `  Z  ` would come before `  a  ` .
 
@@ -8,7 +8,7 @@ By contrast, collation lets you sort and compare strings case-insensitively or a
 
 **Example case-insensitive collation:** Apple, apple, Zebra
 
-To customize collation in the operation, include the [`  COLLATE  ` clause](/spanner/docs/reference/standard-sql/query-syntax#collate_clause) with a [collation specification](#collate_spec_details) .
+To customize collation in the operation, include the [`  COLLATE  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#collate_clause) with a [collation specification](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#collate_spec_details) .
 
 Collation is useful when you need fine-tuned control over how values are sorted, joined, or grouped in tables.
 
@@ -18,49 +18,34 @@ In the `  ORDER BY  ` clause, you can specify a collation specification for a co
 
 For example:
 
-``` text
-SELECT Place
-FROM Locations
-ORDER BY Place COLLATE "und:ci"
-```
+    SELECT Place
+    FROM Locations
+    ORDER BY Place COLLATE "und:ci"
 
 ### Query statements
 
 You can assign a collation specification to the following query statements.
 
-<table>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Support</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Sorting</td>
-<td><a href="/spanner/docs/reference/standard-sql/query-syntax#order_by_clause"><code dir="ltr" translate="no">        ORDER BY       </code> clause</a></td>
-</tr>
-</tbody>
-</table>
+| Type    | Support                                                                                                                              |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Sorting | [`         ORDER BY        ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) |
 
 ## Collation specification details
 
-A collation specification determines how strings are sorted and compared in [collation-supported operations](#collate_operations) . You can define a collation specification for [collation-supported types](#collate_define) . These types of collation specifications are available:
+A collation specification determines how strings are sorted and compared in [collation-supported operations](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#collate_operations) . You can define a collation specification for [collation-supported types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#collate_define) . These types of collation specifications are available:
 
-  - [Unicode collation specification](#unicode_collation)
+  - [Unicode collation specification](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#unicode_collation)
 
 If a collation specification isn't defined, the default collation specification is used. To learn more, see the next section.
 
 ### Default collation specification
 
-When a collation specification isn't assigned or is empty, the ordering behavior is identical to `  'unicode'  ` collation, which you can learn about in the [Unicode collation specification](#unicode_collation) .
+When a collation specification isn't assigned or is empty, the ordering behavior is identical to `  'unicode'  ` collation, which you can learn about in the [Unicode collation specification](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#unicode_collation) .
 
 ### Unicode collation specification
 
-``` text
-collation_specification:
-  'language_tag[:collation_attribute]'
-```
+    collation_specification:
+      'language_tag[:collation_attribute]'
 
 A unicode collation specification indicates that the operation should use the [Unicode Collation Algorithm](http://www.unicode.org/reports/tr10/) to sort and compare strings. The collation specification can be a `  STRING  ` literal or a query parameter.
 
@@ -88,11 +73,9 @@ If you're using the `  unicode  ` language tag with a collation attribute, these
 
 This is what the `  ci  ` collation attribute looks like when used with the `  und  ` language tag in the `  ORDER BY  ` clause:
 
-``` text
-SELECT Place
-FROM Locations
-ORDER BY Place COLLATE 'und:ci'
-```
+    SELECT Place
+    FROM Locations
+    ORDER BY Place COLLATE 'und:ci'
 
 #### Caveats
 
@@ -107,22 +90,20 @@ ORDER BY Place COLLATE 'und:ci'
 
   - There are a wide range of unicode code points (punctuation, symbols, etc), that are treated as if they aren't there. So strings with and without them are sorted identically. For example, the format control code point `  U+2060  ` is ignored when the following strings are sorted:
     
-    ``` text
-    SELECT *
-    FROM UNNEST([
-      'oran\u2060ge1',
-      '\u2060orange2',
-      'orange3'
-    ]) AS fruit
-    ORDER BY fruit COLLATE 'und'
-    
-    /*---------+
-    | fruit   |
-    +---------+
-    | orange1 |
-    | orange2 |
-    | orange3 |
-    +---------*/
-    ```
+        SELECT *
+        FROM UNNEST([
+          'oran\u2060ge1',
+          '\u2060orange2',
+          'orange3'
+        ]) AS fruit
+        ORDER BY fruit COLLATE 'und'
+        
+        /*---------+
+        | fruit   |
+        +---------+
+        | orange1 |
+        | orange2 |
+        | orange3 |
+        +---------*/
 
   - Ordering *may* change. The Unicode specification of the `  und  ` collation can change occasionally, which can affect sorting order. If you need a stable sort order that's guaranteed to never change, use `  unicode  ` collation.

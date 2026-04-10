@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryOptions#SCHEMA_REPRESENTATION)
 
 Query optimizer configuration.
 
@@ -13,7 +13,7 @@ Query optimizer configuration.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;optimizerVersion&quot;: string,
   &quot;optimizerStatisticsPackage&quot;: string
 }</code></pre></td>
@@ -53,9 +53,7 @@ Specifying `  latest  ` as a value instructs Cloud Spanner to use the latest gen
 
 The statistics package requested by the query has to be exempt from garbage collection. This can be achieved with the following DDL statement:
 
-``` text
-ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
-```
+    ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
 
 The list of available statistics packages can be queried from `  INFORMATION_SCHEMA.SPANNER_STATISTICS  ` .
 

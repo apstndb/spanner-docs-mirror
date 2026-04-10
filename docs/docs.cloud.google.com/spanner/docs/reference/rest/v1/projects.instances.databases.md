@@ -1,22 +1,22 @@
-  - [Resource: Database](#Database)
-      - [JSON representation](#Database.SCHEMA_REPRESENTATION)
-  - [State](#State)
-  - [RestoreInfo](#RestoreInfo)
-      - [JSON representation](#RestoreInfo.SCHEMA_REPRESENTATION)
-  - [RestoreSourceType](#RestoreSourceType)
-  - [BackupInfo](#BackupInfo)
-      - [JSON representation](#BackupInfo.SCHEMA_REPRESENTATION)
-  - [EncryptionConfig](#EncryptionConfig)
-      - [JSON representation](#EncryptionConfig.SCHEMA_REPRESENTATION)
-  - [QuorumInfo](#QuorumInfo)
-      - [JSON representation](#QuorumInfo.SCHEMA_REPRESENTATION)
-  - [QuorumType](#QuorumType)
-      - [JSON representation](#QuorumType.SCHEMA_REPRESENTATION)
-  - [SingleRegionQuorum](#SingleRegionQuorum)
-      - [JSON representation](#SingleRegionQuorum.SCHEMA_REPRESENTATION)
-  - [DualRegionQuorum](#DualRegionQuorum)
-  - [Initiator](#Initiator)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource: Database](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.SCHEMA_REPRESENTATION)
+  - [State](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#State)
+  - [RestoreInfo](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#RestoreInfo)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#RestoreInfo.SCHEMA_REPRESENTATION)
+  - [RestoreSourceType](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#RestoreSourceType)
+  - [BackupInfo](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#BackupInfo)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#BackupInfo.SCHEMA_REPRESENTATION)
+  - [EncryptionConfig](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#EncryptionConfig)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#EncryptionConfig.SCHEMA_REPRESENTATION)
+  - [QuorumInfo](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#QuorumInfo)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#QuorumInfo.SCHEMA_REPRESENTATION)
+  - [QuorumType](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#QuorumType)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#QuorumType.SCHEMA_REPRESENTATION)
+  - [SingleRegionQuorum](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#SingleRegionQuorum)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#SingleRegionQuorum.SCHEMA_REPRESENTATION)
+  - [DualRegionQuorum](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#DualRegionQuorum)
+  - [Initiator](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Initiator)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#METHODS_SUMMARY)
 
 ## Resource: Database
 
@@ -33,7 +33,7 @@ A Cloud Spanner database.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;state&quot;: enum (State),
   &quot;createTime&quot;: string,
@@ -191,7 +191,7 @@ Information about the database restore.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;sourceType&quot;: enum (RestoreSourceType),
 
   // Union field source_info can be only one of the following:
@@ -249,7 +249,7 @@ Information about a backup.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;backup&quot;: string,
   &quot;versionTime&quot;: string,
   &quot;createTime&quot;: string,
@@ -304,7 +304,7 @@ Encryption configuration for a Cloud Spanner database.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;kmsKeyName&quot;: string,
   &quot;kmsKeyNames&quot;: [
     string
@@ -349,7 +349,7 @@ Information about the dual-region quorum.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;quorumType&quot;: {
     object (QuorumType)
   },
@@ -404,7 +404,7 @@ Information about the database quorum type. This only applies to dual-region ins
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field type can be only one of the following:
   &quot;singleRegion&quot;: {
@@ -450,7 +450,7 @@ Message type for a single-region quorum.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;servingLocation&quot;: string
 }</code></pre></td>
 </tr>

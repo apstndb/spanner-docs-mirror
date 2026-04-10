@@ -14,7 +14,7 @@ These sample apps are open source and available at <https://github.com/GoogleClo
 
 To see a list of available sample apps, run:
 
-``` text
+``` wrap-code
 gcloud spanner samples list
 ```
 
@@ -43,10 +43,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner samples
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner samples
 ```

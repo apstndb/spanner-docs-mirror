@@ -1,6 +1,6 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [Link](#Link)
-      - [JSON representation](#Link.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#SCHEMA_REPRESENTATION)
+  - [Link](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#Link)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#Link.SCHEMA_REPRESENTATION)
 
 Provides links to documentation or for performing an out of band action.
 
@@ -17,7 +17,7 @@ For example, if a quota check failed with an error indicating the calling projec
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;links&quot;: [
     {
       object (Link)
@@ -51,7 +51,7 @@ Describes a URL link.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;description&quot;: string,
   &quot;url&quot;: string
 }</code></pre></td>

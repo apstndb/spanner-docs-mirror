@@ -1,5 +1,7 @@
 # Spanner documentation
 
+[Read product documentation](https://docs.cloud.google.com/spanner/docs/getting-started/set-up)
+
 Spanner is a fully managed, mission-critical database service that brings together relational, graph, key-value, and search. It offers transactional consistency at global scale, automatic, synchronous replication for high availability, and support for two SQL dialects: GoogleSQL (ANSI 2011 with extensions) and PostgreSQL.
 
 [Go to the Spanner product page for more.](https://cloud.google.com/spanner)
@@ -14,63 +16,63 @@ format\_list\_numbered
 
 ### Guides
 
-  - [Quickstart: Create and query a database by using the Google Cloud console](/spanner/docs/create-query-database-console)
+  - [Quickstart: Create and query a database by using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console)
 
-  - [Create and manage instances](/spanner/docs/create-manage-instances)
+  - [Create and manage instances](https://docs.cloud.google.com/spanner/docs/create-manage-instances)
 
-  - [Choose GoogleSQL or PostgreSQL Google Cloud console](/spanner/docs/choose-googlesql-or-postgres)
+  - [Choose GoogleSQL or PostgreSQL Google Cloud console](https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres)
 
-  - [Import and export data in CSV format](/spanner/docs/import-export-csv)
+  - [Import and export data in CSV format](https://docs.cloud.google.com/spanner/docs/import-export-csv)
 
-  - [Create and manage foreign key relationships](/spanner/docs/foreign-keys/how-to)
+  - [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to)
 
-  - [Insert, update, and delete data using Data Manipulation Language (DML)](/spanner/docs/dml-tasks)
+  - [Insert, update, and delete data using Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/dml-tasks)
 
-  - [Insert, update, and delete data using mutations](/spanner/docs/modify-mutation-api)
+  - [Insert, update, and delete data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api)
 
-  - [Use the Dataflow connector](/spanner/docs/dataflow-connector)
+  - [Use the Dataflow connector](https://docs.cloud.google.com/spanner/docs/dataflow-connector)
 
-  - [Set up and query Spanner Graph using the Google Cloud console](/spanner/docs/graph/set-up)
+  - [Set up and query Spanner Graph using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/graph/set-up)
 
-  - [Monitor instances with Cloud Monitoring](/spanner/docs/monitoring-cloud)
+  - [Monitor instances with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud)
 
-  - [Emulate Spanner locally](/spanner/docs/emulator)
+  - [Emulate Spanner locally](https://docs.cloud.google.com/spanner/docs/emulator)
 
-  - [Troubleshoot performance regressions](/spanner/docs/troubleshooting-performance-regressions)
+  - [Troubleshoot performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions)
 
 find\_in\_page
 
 ### Reference
 
-  - [Client libraries and drivers](/spanner/docs/reference/libraries)
+  - [Client libraries and drivers](https://docs.cloud.google.com/spanner/docs/reference/libraries)
 
-  - [REST API](/spanner/docs/reference/rest)
+  - [REST API](https://docs.cloud.google.com/spanner/docs/reference/rest)
 
-  - [RPC API](/spanner/docs/reference/rpc)
+  - [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc)
 
-  - [GoogleSQL](/spanner/docs/reference/standard-sql/lexical)
+  - [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical)
 
-  - [PostgreSQL](/spanner/docs/reference/postgresql/overview)
+  - [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview)
 
-  - [Graph Query Language](/spanner/docs/reference/standard-sql/graph-intro)
+  - [Graph Query Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro)
 
-  - [Information schema](/spanner/docs/information-schema)
+  - [Information schema](https://docs.cloud.google.com/spanner/docs/information-schema)
 
-  - [Query execution operators](/spanner/docs/query-execution-operators)
+  - [Query execution operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators)
 
-  - [gcloud command-line tool](/sdk/gcloud/reference/spanner)
+  - [gcloud command-line tool](https://docs.cloud.google.com/sdk/gcloud/reference/spanner)
 
 info
 
 ### Resources
 
-  - [Pricing](/spanner/pricing)
+  - [Pricing](https://docs.cloud.google.com/spanner/pricing)
 
-  - [Quotas and limits](/spanner/quotas)
+  - [Quotas and limits](https://docs.cloud.google.com/spanner/quotas)
 
-  - [Release notes](/spanner/docs/release-notes)
+  - [Release notes](https://docs.cloud.google.com/spanner/docs/release-notes)
 
-  - [Get support](/spanner/docs/getting-support)
+  - [Get support](https://docs.cloud.google.com/spanner/docs/getting-support)
 
 ## Related resources
 
@@ -86,7 +88,7 @@ Training
 
 Training and tutorials
 
-### [Google Cloud Fundamentals: Core Infrastructure](/training/course/core-infrastructure)
+### [Google Cloud Fundamentals: Core Infrastructure](https://docs.cloud.google.com/training/course/core-infrastructure)
 
 These lectures, demos, and hands-on labs give you an overview of Google Cloud products and services so that you can learn the value of Google Cloud and how to incorporate cloud-based solutions into your business strategies.
 
@@ -94,7 +96,7 @@ Training
 
 Training and tutorials
 
-### [Architecting with Google Cloud: Design and Process](/training/course/architecting-design-process)
+### [Architecting with Google Cloud: Design and Process](https://docs.cloud.google.com/training/course/architecting-design-process)
 
 This course features a combination of lectures, design activities, and hands-on labs to show you how to use proven design patterns on Google Cloud to build highly reliable and efficient solutions and operate deployments that are highly available and cost-effective.
 
@@ -110,7 +112,7 @@ Use case
 
 Use cases
 
-### [Architecting disaster recovery for locality-restricted workloads](/solutions/architecting-disaster-recovery-for-locality-restricted-workloads)
+### [Architecting disaster recovery for locality-restricted workloads](https://docs.cloud.google.com/solutions/architecting-disaster-recovery-for-locality-restricted-workloads)
 
 Discusses how to use Google Cloud to architect for disaster recovery (DR) to meet location-specific requirements.
 
@@ -120,7 +122,7 @@ Use case
 
 Use cases
 
-### [Continuous data replication to Spanner using Striim](/solutions/partners/continuous-data-replication-cloud-spanner-striim)
+### [Continuous data replication to Spanner using Striim](https://docs.cloud.google.com/solutions/partners/continuous-data-replication-cloud-spanner-striim)
 
 Demonstrates migrating a MySQL database to Spanner using Striim.
 
@@ -130,7 +132,7 @@ Use case
 
 Use cases
 
-### [Database migration: Concepts and principles (Part 1)](/solutions/database-migration-concepts-principles-part-1)
+### [Database migration: Concepts and principles (Part 1)](https://docs.cloud.google.com/solutions/database-migration-concepts-principles-part-1)
 
 Introduces concepts, principles, terminology, and architecture of near-zero downtime database migrations to Google Cloud.
 
@@ -140,7 +142,7 @@ Use case
 
 Use cases
 
-### [Creating a change log with JDBC using the commit timestamp feature of Spanner](/solutions/using-spanner-commit-timestamp)
+### [Creating a change log with JDBC using the commit timestamp feature of Spanner](https://docs.cloud.google.com/solutions/using-spanner-commit-timestamp)
 
 Shows how to use the commit timestamp feature to track the date and time when changes are made to your database records.
 
@@ -150,7 +152,7 @@ Use case
 
 Use cases
 
-### [Best practices for using Spanner as a gaming database](/solutions/best-practices-cloud-spanner-gaming-database)
+### [Best practices for using Spanner as a gaming database](https://docs.cloud.google.com/solutions/best-practices-cloud-spanner-gaming-database)
 
 Describes best practices for using Spanner as the primary backend database for game state storage.
 
@@ -160,7 +162,7 @@ Code sample
 
 Code Samples
 
-### [Getting started with Spanner in Python](/spanner/docs/getting-started/python)
+### [Getting started with Spanner in Python](https://docs.cloud.google.com/spanner/docs/getting-started/python)
 
 First steps using Spanner with Python
 
@@ -168,7 +170,7 @@ Code sample
 
 Code Samples
 
-### [Getting started with Spanner in Node.js](/spanner/docs/getting-started/nodejs)
+### [Getting started with Spanner in Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs)
 
 First steps using Spanner with Nde.js
 
@@ -176,7 +178,7 @@ Code sample
 
 Code Samples
 
-### [Getting started with Spanner in Java](/spanner/docs/getting-started/java)
+### [Getting started with Spanner in Java](https://docs.cloud.google.com/spanner/docs/getting-started/java)
 
 First steps using Spanner with Java
 
@@ -184,7 +186,7 @@ Code sample
 
 Code Samples
 
-### [Getting started with Spanner in PHP](/spanner/docs/getting-started/php)
+### [Getting started with Spanner in PHP](https://docs.cloud.google.com/spanner/docs/getting-started/php)
 
 First steps using Spanner with PHP
 
@@ -192,7 +194,7 @@ Code sample
 
 Code Samples
 
-### [Getting started with Spanner in C\#](/spanner/docs/getting-started/csharp)
+### [Getting started with Spanner in C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
 
 First steps using Spanner with C\#
 
@@ -200,7 +202,7 @@ Code sample
 
 Code Samples
 
-### [Getting started with Spanner in Ruby](/spanner/docs/getting-started/ruby)
+### [Getting started with Spanner in Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby)
 
 First steps using Spanner with Ruby
 
@@ -208,7 +210,7 @@ Code sample
 
 Code Samples
 
-### [Getting started with Spanner in C++](/spanner/docs/getting-started/cpp)
+### [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
 
 First steps using Spanner with C++
 

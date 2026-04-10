@@ -1,6 +1,6 @@
 This document provides a quick reference (also known as a *cheat sheet* ) for SQL syntax used in Spanner documentation code examples.
 
-For a more comprehensive reference of SQL query syntax in Spanner, see [Query syntax in GoogleSQL](/spanner/docs/reference/standard-sql/query-syntax) .
+For a more comprehensive reference of SQL query syntax in Spanner, see [Query syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) .
 
 ## SQL syntax notation rules
 
@@ -68,13 +68,13 @@ Single quotes
 
 `  ''  `
 
-Indicates a literal single quote mark. Used to define [string literals](/spanner/docs/reference/standard-sql/lexical#string_and_bytes_literals) in your query. Include the single quote marks in your query.
+Indicates a literal single quote mark. Used to define [string literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#string_and_bytes_literals) in your query. Include the single quote marks in your query.
 
 Double quotes or Backticks
 
 `  ""  ` or `  ``  `
 
-Indicates literal double quote marks or backticks. Used to enclose [quoted identifiers](/spanner/docs/reference/standard-sql/lexical#quoted_identifiers) in your query. Include the double quote marks or backticks in your query.
+Indicates literal double quote marks or backticks. Used to enclose [quoted identifiers](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#quoted_identifiers) in your query. Include the double quote marks or backticks in your query.
 
 Angle brackets
 

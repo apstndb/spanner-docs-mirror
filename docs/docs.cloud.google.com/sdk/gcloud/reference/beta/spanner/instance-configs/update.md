@@ -14,25 +14,25 @@ EXAMPLES
 
 To update display name of a custom Cloud Spanner instance configuration 'custom-instance-config', run:
 
-``` text
+``` wrap-code
 gcloud beta spanner instance-configs update custom-instance-config --display-name=nam3-RO-us-central1
 ```
 
 To modify the instance config 'custom-instance-config' by adding label 'k0', with value 'value1' and label 'k1' with value 'value2' and removing labels with key 'k3', run:
 
-``` text
+``` wrap-code
 gcloud beta spanner instance-configs update custom-instance-config --update-labels=k0=value1,k1=value2 --remove-labels=k3
 ```
 
 To clear all labels of a custom Cloud Spanner instance configuration 'custom-instance-config', run:
 
-``` text
+``` wrap-code
 gcloud beta spanner instance-configs update custom-instance-config --clear-labels
 ```
 
 To remove an existing label of a custom Cloud Spanner instance configuration 'custom-instance-config', run:
 
-``` text
+``` wrap-code
 gcloud beta spanner instance-configs update custom-instance-config --remove-labels=KEY1,KEY2
 ```
 
@@ -72,13 +72,13 @@ At most one of these can be specified:
     
     For example, to remove all labels:
     
-    ``` text
+    ``` wrap-code
     gcloud beta spanner instance-configs update --clear-labels
     ```
     
     To remove all existing labels and create two new labels, `  foo  ` and `  baz  ` :
     
-    ``` text
+    ``` wrap-code
     gcloud beta spanner instance-configs update --clear-labels --update-labels foo=bar,baz=qux
     ```
 
@@ -95,10 +95,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner instance-configs update
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner instance-configs update
 ```

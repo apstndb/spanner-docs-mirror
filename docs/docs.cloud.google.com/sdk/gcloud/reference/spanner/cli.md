@@ -14,7 +14,7 @@ EXAMPLES
 
 To start an interactive shell with your Spanner example database, run the following command:
 
-``` text
+``` wrap-code
 gcloud spanner cli example-database --instance=example-instance
 ```
 
@@ -99,6 +99,6 @@ NOTES
 
 This variant is also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner cli
 ```

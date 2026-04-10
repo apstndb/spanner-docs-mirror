@@ -1,8 +1,8 @@
 This page describes how you can use Google Cloud tags to manage access to your Spanner instances.
 
-A [Google Cloud tag](/resource-manager/docs/tags/tags-overview) is a key-value pair that you can attach to your Google Cloud resources, such as projects or Spanner instances. You can use tags to group and organize your instances, and to conditionally set [Identity and Access Management (IAM) access policies](/iam/docs/policies) based on whether an instance has a specific tag. You can create and manage Spanner instance tags using the Google Cloud CLI or Google Cloud console. After you create your tags, you can create a tag binding to attach the tag to your Google Cloud resources. Tag bindings are inherited by children of the resource according to the [Google Cloud resource hierarchy](/resource-manager/docs/cloud-platform-resource-hierarchy) . For example, if you attach a tag to your project, all instances in that project inherit the tag. You can also use [labels](/resource-manager/docs/creating-managing-labels#what-are-labels) to organize your Google Cloud resources, but you can't use labels to set conditions on IAM policies.
+A [Google Cloud tag](https://docs.cloud.google.com/resource-manager/docs/tags/tags-overview) is a key-value pair that you can attach to your Google Cloud resources, such as projects or Spanner instances. You can use tags to group and organize your instances, and to conditionally set [Identity and Access Management (IAM) access policies](https://docs.cloud.google.com/iam/docs/policies) based on whether an instance has a specific tag. You can create and manage Spanner instance tags using the Google Cloud CLI or Google Cloud console. After you create your tags, you can create a tag binding to attach the tag to your Google Cloud resources. Tag bindings are inherited by children of the resource according to the [Google Cloud resource hierarchy](https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy) . For example, if you attach a tag to your project, all instances in that project inherit the tag. You can also use [labels](https://docs.cloud.google.com/resource-manager/docs/creating-managing-labels#what-are-labels) to organize your Google Cloud resources, but you can't use labels to set conditions on IAM policies.
 
-To learn more about tags, see [Tags overview](/resource-manager/docs/tags/tags-overview) .
+To learn more about tags, see [Tags overview](https://docs.cloud.google.com/resource-manager/docs/tags/tags-overview) .
 
 ## Common use cases for Spanner instance tags
 
@@ -20,11 +20,11 @@ Tags are structured as key-value pairs. You create a tag key under your organiza
 
 ### Required permissions
 
-The permissions you need depend on the action you need to perform. For more information, see [Required permissions](/resource-manager/docs/tags/tags-creating-and-managing#required-permissions) in the Resource Manager documentation.
+The permissions you need depend on the action you need to perform. For more information, see [Required permissions](https://docs.cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#required-permissions) in the Resource Manager documentation.
 
 ### Create tag keys and values
 
-Before you can attach a tag to your instance, you must create the tag and assign its value. To create tag keys and tag values, see [Creating a tag](/resource-manager/docs/tags/tags-creating-and-managing#creating_tag) and [Adding a tag value](/resource-manager/docs/tags/tags-creating-and-managing#adding_tag_values) .
+Before you can attach a tag to your instance, you must create the tag and assign its value. To create tag keys and tag values, see [Creating a tag](https://docs.cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#creating_tag) and [Adding a tag value](https://docs.cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#adding_tag_values) .
 
 ### Attach a tag to an instance
 
@@ -33,6 +33,8 @@ After you create your tag key-value pairs, you can create a tag binding and atta
 ### Console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
+    
+    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the checkbox next to the instance for which you would like to attach a tag.
 
@@ -58,12 +60,10 @@ After you create your tag key-value pairs, you can create a tag binding and atta
 
 To create a tag binding and attach it to your instance, run the following command:
 
-``` text
-gcloud resource-manager tags bindings create
---parent=//spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID
---tag-value=TAG_VALUE_NAME
---location=LOCATION
-```
+    gcloud resource-manager tags bindings create
+    --parent=//spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID
+    --tag-value=TAG_VALUE_NAME
+    --location=LOCATION
 
   - `  PROJECT_ID  ` : The ID of the project.
   - `  INSTANCE_ID  ` : The ID of the instance.
@@ -78,38 +78,34 @@ gcloud resource-manager tags bindings create
 
 For example, to create a tag binding on your Spanner instance `  my-instance  ` with the tag key-value pair `  env:prod  ` , run the following command:
 
-``` text
-gcloud resource-manager tags bindings create
---parent=//spanner.googleapis.com/projects/my-project/instances/my-instance
---tag-value=123456789012/env/prod
---location=us-east1
-```
+    gcloud resource-manager tags bindings create
+    --parent=//spanner.googleapis.com/projects/my-project/instances/my-instance
+    --tag-value=123456789012/env/prod
+    --location=us-east1
 
 ### API
 
-To create a tag binding and attach it to your Spanner instance using REST or RPC API, see [Attaching tags to resources](/resource-manager/docs/tags/tags-creating-and-managing#api_8) .
+To create a tag binding and attach it to your Spanner instance using REST or RPC API, see [Attaching tags to resources](https://docs.cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#api_8) .
 
 ### IAM conditions and tags
 
 You can use tags and IAM conditions to conditionally grant role bindings to users. If an IAM policy with conditional role bindings is applied, changing or deleting the tag attached to a resource might remove user access to that resource.
 
-**Note:** When managing access for users in [external identity providers](/iam/docs/workforce-identity-federation) , replace instances of Google Account principal identifiers—like `  user:kiran@example.com  ` , `  group:support@example.com  ` , and `  domain:example.com  ` —with appropriate [Workforce Identity Federation principal identifiers](/iam/docs/principal-identifiers) .
+**Note:** When managing access for users in [external identity providers](https://docs.cloud.google.com/iam/docs/workforce-identity-federation) , replace instances of Google Account principal identifiers—like `  user:kiran@example.com  ` , `  group:support@example.com  ` , and `  domain:example.com  ` —with appropriate [Workforce Identity Federation principal identifiers](https://docs.cloud.google.com/iam/docs/principal-identifiers) .
 
-For more information, see [Overview of IAM Conditions](/iam/docs/conditions-overview) .
+For more information, see [Overview of IAM Conditions](https://docs.cloud.google.com/iam/docs/conditions-overview) .
 
 ### Console
 
-To use tags to conditionally grant role bindings to users, see [Managing access to tags](/resource-manager/docs/tags/tags-creating-and-managing#managing_access) .
+To use tags to conditionally grant role bindings to users, see [Managing access to tags](https://docs.cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#managing_access) .
 
 ### gcloud
 
 To apply a tag-based condition to an IAM policy, make sure you have the required permissions, then run the following command:
 
-``` text
-gcloud organizations add-iam-policy-binding ORG_ID
---role=roles/ROLE --member=PRINCIPAL
---condition=resource.matchTag('PROJECT_ID/KEY_NAME', 'VALUE_NAME')
-```
+    gcloud organizations add-iam-policy-binding ORG_ID
+    --role=roles/ROLE --member=PRINCIPAL
+    --condition=resource.matchTag('PROJECT_ID/KEY_NAME', 'VALUE_NAME')
 
   - `  ORG_ID  ` : The ID of the organization.
   - `  ROLE  ` : The role name to assign to the principal. The role name is the complete path of a predefined role, such as `  roles/logging.viewer  ` , or the role ID for a custom role, such as `  organizations/{ORG_ID}/roles/logging.viewer  ` .
@@ -122,11 +118,9 @@ This command adds an IAM policy binding to the IAM policy of an organization. A 
 
 For example, to conditionally grant `  user1@example.com  ` the `  spanner.backupAdmin  ` role in all `  123456789012  ` project resources with the tag `  env:prod  ` , run the command:
 
-``` text
-gcloud organizations add-iam-policy-binding my-organization
---member=user1@example.com --role=roles/spanner.backupAdmin
---condition=resource.matchTag('123456789012/env', 'prod')
-```
+    gcloud organizations add-iam-policy-binding my-organization
+    --member=user1@example.com --role=roles/spanner.backupAdmin
+    --condition=resource.matchTag('123456789012/env', 'prod')
 
 ### List tags attached to an instance
 
@@ -135,6 +129,8 @@ You can view a list of tag bindings directly attached to or inherited by the ins
 ### Console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
+    
+    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Under the list of instances, look for the **Tags** column. Tags are shown in the `  key:value  ` format.
 
@@ -144,12 +140,10 @@ To get a list of tag bindings directly attached to a resource, use the `  gcloud
 
 To list all tag bindings attached to an instance, run the following command:
 
-``` text
-gcloud resource-manager tags bindings list
---parent=//spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID
---location=LOCATION
---effective
-```
+    gcloud resource-manager tags bindings list
+    --parent=//spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID
+    --location=LOCATION
+    --effective
 
   - `  PROJECT_ID  ` : The ID of the project.
   - `  INSTANCE_ID  ` : The ID of the instance.
@@ -160,7 +154,7 @@ gcloud resource-manager tags bindings list
 
 ### API
 
-To view a list of tag bindings directly attached to or inherited by the instance using REST or RPC API, see [Listing all tags attached to a resource](/resource-manager/docs/tags/tags-creating-and-managing#api_9) .
+To view a list of tag bindings directly attached to or inherited by the instance using REST or RPC API, see [Listing all tags attached to a resource](https://docs.cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#api_9) .
 
 ### Delete a tag binding
 
@@ -169,6 +163,8 @@ When removing a tag key or value definition, ensure the tag is detached from the
 ### Console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
+    
+    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the checkbox next to the instance for which you would like to delete a tag binding.
 
@@ -186,12 +182,10 @@ When removing a tag key or value definition, ensure the tag is detached from the
 
 To delete a tag binding, run the following command:
 
-``` text
-gcloud resource-manager tags bindings delete
---parent=//spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID
---tag-value=TAG_VALUE_NAME
---location=LOCATION
-```
+    gcloud resource-manager tags bindings delete
+    --parent=//spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID
+    --tag-value=TAG_VALUE_NAME
+    --location=LOCATION
 
   - `  PROJECT_ID  ` : The ID of the project.
   - `  INSTANCE_ID  ` : The ID of the instance.
@@ -206,18 +200,18 @@ gcloud resource-manager tags bindings delete
 
 ### API
 
-To detach a tag from a resource by deleting the tag binding resource using REST or RPC API, see [Detaching a tag from a resource](/resource-manager/docs/tags/tags-creating-and-managing#api_10) .
+To detach a tag from a resource by deleting the tag binding resource using REST or RPC API, see [Detaching a tag from a resource](https://docs.cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#api_10) .
 
 ### Delete a tag
 
-After you have deleted your tag binding, you can delete your tag. To delete tag keys and tag values, see [Deleting tags](/resource-manager/docs/tags/tags-creating-and-managing#deleting) .
+After you have deleted your tag binding, you can delete your tag. To delete tag keys and tag values, see [Deleting tags](https://docs.cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#deleting) .
 
 ## What's next
 
-  - Learn more about Google Cloud [tags](/resource-manager/docs/tags/tags-overview) .
+  - Learn more about Google Cloud [tags](https://docs.cloud.google.com/resource-manager/docs/tags/tags-overview) .
 
-  - Learn more about how to [create and manage tags using Resource Manager](/resource-manager/docs/tags/tags-creating-and-managing) .
+  - Learn more about how to [create and manage tags using Resource Manager](https://docs.cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing) .
 
-  - Learn more about [labels](/resource-manager/docs/creating-managing-labels#what-are-labels) , another way to organize your Google Cloud resources.
+  - Learn more about [labels](https://docs.cloud.google.com/resource-manager/docs/creating-managing-labels#what-are-labels) , another way to organize your Google Cloud resources.
 
-  - Learn more about [creating IAM allow policies with conditions](/iam/docs/conditions-overview) .
+  - Learn more about [creating IAM allow policies with conditions](https://docs.cloud.google.com/iam/docs/conditions-overview) .

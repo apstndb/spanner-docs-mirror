@@ -1,139 +1,42 @@
-Spanner supports the following MySQL date and time functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](/spanner/docs/install-mysql-functions) .
+Spanner supports the following MySQL date and time functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](https://docs.cloud.google.com/spanner/docs/install-mysql-functions) .
 
 ## Function list
 
-<table>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#date_format"><code dir="ltr" translate="no">        mysql.DATE_FORMAT       </code></a></td>
-<td>Formats a date as specified.</td>
-</tr>
-<tr class="even">
-<td><a href="#day"><code dir="ltr" translate="no">        mysql.DAY       </code></a></td>
-<td>Alias for the <code dir="ltr" translate="no">       DAYOFMONTH      </code> function. Returns the day of the month (1-31) from a <code dir="ltr" translate="no">       TIMESTAMP      </code> value.</td>
-</tr>
-<tr class="odd">
-<td><a href="#dayname"><code dir="ltr" translate="no">        mysql.DAYNAME       </code></a></td>
-<td>Returns the name of the weekday.</td>
-</tr>
-<tr class="even">
-<td><a href="#dayofmonth"><code dir="ltr" translate="no">        mysql.DAYOFMONTH       </code></a></td>
-<td>Returns the day of the month (1-31).</td>
-</tr>
-<tr class="odd">
-<td><a href="#dayofweek"><code dir="ltr" translate="no">        mysql.DAYOFWEEK       </code></a></td>
-<td>Returns the weekday index (1-7) of the input parameter.</td>
-</tr>
-<tr class="even">
-<td><a href="#dayofyear"><code dir="ltr" translate="no">        mysql.DAYOFYEAR       </code></a></td>
-<td>Returns the day of the year (1-366).</td>
-</tr>
-<tr class="odd">
-<td><a href="#from_days"><code dir="ltr" translate="no">        mysql.FROM_DAYS       </code></a></td>
-<td>Converts a day number to a date.</td>
-</tr>
-<tr class="even">
-<td><a href="#from_unixtime"><code dir="ltr" translate="no">        mysql.FROM_UNIXTIME       </code></a></td>
-<td>Formats Unix timestamp as a date.</td>
-</tr>
-<tr class="odd">
-<td><a href="#hour"><code dir="ltr" translate="no">        mysql.HOUR       </code></a></td>
-<td>Returns the hour.</td>
-</tr>
-<tr class="even">
-<td><a href="#makedate"><code dir="ltr" translate="no">        mysql.MAKEDATE       </code></a></td>
-<td>Creates a <code dir="ltr" translate="no">       DATE      </code> value from a specified year and day of the year.</td>
-</tr>
-<tr class="odd">
-<td><a href="#microsecond"><code dir="ltr" translate="no">        mysql.MICROSECOND       </code></a></td>
-<td>Returns the microseconds from the input parameter.</td>
-</tr>
-<tr class="even">
-<td><a href="#minute"><code dir="ltr" translate="no">        mysql.MINUTE       </code></a></td>
-<td>Returns the minute from the input parameter.</td>
-</tr>
-<tr class="odd">
-<td><a href="#month"><code dir="ltr" translate="no">        mysql.MONTH       </code></a></td>
-<td>Returns the month from the date passed.</td>
-</tr>
-<tr class="even">
-<td><a href="#monthname"><code dir="ltr" translate="no">        mysql.MONTHNAME       </code></a></td>
-<td>Returns the name of the month.</td>
-</tr>
-<tr class="odd">
-<td><a href="#period_add"><code dir="ltr" translate="no">        mysql.PERIOD_ADD       </code></a></td>
-<td>Adds a specified number of months to a period of time.</td>
-</tr>
-<tr class="even">
-<td><a href="#period_diff"><code dir="ltr" translate="no">        mysql.PERIOD_DIFF       </code></a></td>
-<td>Returns the number of months between two periods.</td>
-</tr>
-<tr class="odd">
-<td><a href="#quarter"><code dir="ltr" translate="no">        mysql.QUARTER       </code></a></td>
-<td>Returns the quarter from a date input parameter.</td>
-</tr>
-<tr class="even">
-<td><a href="#second"><code dir="ltr" translate="no">        mysql.SECOND       </code></a></td>
-<td>Returns the second (0-59).</td>
-</tr>
-<tr class="odd">
-<td><a href="#str_to_date"><code dir="ltr" translate="no">        mysql.STR_TO_DATE       </code></a></td>
-<td>Converts a string to a date.</td>
-</tr>
-<tr class="even">
-<td><a href="#sysdate"><code dir="ltr" translate="no">        mysql.SYSDATE       </code></a></td>
-<td>Returns the <code dir="ltr" translate="no">       TIMESTAMP      </code> at which the query statement that contains this function started to run.</td>
-</tr>
-<tr class="odd">
-<td><a href="#time"><code dir="ltr" translate="no">        mysql.TIME       </code></a></td>
-<td>Extracts the time portion of the expression passed.</td>
-</tr>
-<tr class="even">
-<td><a href="#to_days"><code dir="ltr" translate="no">        mysql.TO_DAYS       </code></a></td>
-<td>Returns the date input parameter converted to days.</td>
-</tr>
-<tr class="odd">
-<td><a href="#to_seconds"><code dir="ltr" translate="no">        mysql.TO_SECONDS       </code></a></td>
-<td>Returns the date or datetime input parameter converted to seconds since year zero.</td>
-</tr>
-<tr class="even">
-<td><a href="#unix_timestamp"><code dir="ltr" translate="no">        mysql.UNIX_TIMESTAMP       </code></a></td>
-<td>Returns a Unix timestamp.</td>
-</tr>
-<tr class="odd">
-<td><a href="#utc_date"><code dir="ltr" translate="no">        mysql.UTC_DATE       </code></a></td>
-<td>Returns the current UTC date.</td>
-</tr>
-<tr class="even">
-<td><a href="#week"><code dir="ltr" translate="no">        mysql.WEEK       </code></a></td>
-<td>Returns the week number (1-53).</td>
-</tr>
-<tr class="odd">
-<td><a href="#weekday"><code dir="ltr" translate="no">        mysql.WEEKDAY       </code></a></td>
-<td>Returns the weekday index (0-6).</td>
-</tr>
-<tr class="even">
-<td><a href="#weekofyear"><code dir="ltr" translate="no">        mysql.WEEKOFYEAR       </code></a></td>
-<td>Returns the calendar week of the date (1-53).</td>
-</tr>
-<tr class="odd">
-<td><a href="#year"><code dir="ltr" translate="no">        mysql.YEAR       </code></a></td>
-<td>Returns the year.</td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                                     | Summary                                                                                                                          |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| [`         mysql.DATE_FORMAT        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#date_format)       | Formats a date as specified.                                                                                                     |
+| [`         mysql.DAY        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#day)                       | Alias for the `        DAYOFMONTH       ` function. Returns the day of the month (1-31) from a `        TIMESTAMP       ` value. |
+| [`         mysql.DAYNAME        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#dayname)               | Returns the name of the weekday.                                                                                                 |
+| [`         mysql.DAYOFMONTH        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#dayofmonth)         | Returns the day of the month (1-31).                                                                                             |
+| [`         mysql.DAYOFWEEK        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#dayofweek)           | Returns the weekday index (1-7) of the input parameter.                                                                          |
+| [`         mysql.DAYOFYEAR        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#dayofyear)           | Returns the day of the year (1-366).                                                                                             |
+| [`         mysql.FROM_DAYS        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#from_days)           | Converts a day number to a date.                                                                                                 |
+| [`         mysql.FROM_UNIXTIME        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#from_unixtime)   | Formats Unix timestamp as a date.                                                                                                |
+| [`         mysql.HOUR        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#hour)                     | Returns the hour.                                                                                                                |
+| [`         mysql.MAKEDATE        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#makedate)             | Creates a `        DATE       ` value from a specified year and day of the year.                                                 |
+| [`         mysql.MICROSECOND        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#microsecond)       | Returns the microseconds from the input parameter.                                                                               |
+| [`         mysql.MINUTE        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#minute)                 | Returns the minute from the input parameter.                                                                                     |
+| [`         mysql.MONTH        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#month)                   | Returns the month from the date passed.                                                                                          |
+| [`         mysql.MONTHNAME        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#monthname)           | Returns the name of the month.                                                                                                   |
+| [`         mysql.PERIOD_ADD        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#period_add)         | Adds a specified number of months to a period of time.                                                                           |
+| [`         mysql.PERIOD_DIFF        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#period_diff)       | Returns the number of months between two periods.                                                                                |
+| [`         mysql.QUARTER        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#quarter)               | Returns the quarter from a date input parameter.                                                                                 |
+| [`         mysql.SECOND        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#second)                 | Returns the second (0-59).                                                                                                       |
+| [`         mysql.STR_TO_DATE        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#str_to_date)       | Converts a string to a date.                                                                                                     |
+| [`         mysql.SYSDATE        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#sysdate)               | Returns the `        TIMESTAMP       ` at which the query statement that contains this function started to run.                  |
+| [`         mysql.TIME        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#time)                     | Extracts the time portion of the expression passed.                                                                              |
+| [`         mysql.TO_DAYS        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#to_days)               | Returns the date input parameter converted to days.                                                                              |
+| [`         mysql.TO_SECONDS        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#to_seconds)         | Returns the date or datetime input parameter converted to seconds since year zero.                                               |
+| [`         mysql.UNIX_TIMESTAMP        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#unix_timestamp) | Returns a Unix timestamp.                                                                                                        |
+| [`         mysql.UTC_DATE        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#utc_date)             | Returns the current UTC date.                                                                                                    |
+| [`         mysql.WEEK        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#week)                     | Returns the week number (1-53).                                                                                                  |
+| [`         mysql.WEEKDAY        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#weekday)               | Returns the weekday index (0-6).                                                                                                 |
+| [`         mysql.WEEKOFYEAR        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#weekofyear)         | Returns the calendar week of the date (1-53).                                                                                    |
+| [`         mysql.YEAR        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions#year)                     | Returns the year.                                                                                                                |
 
 ## `     mysql.DATE_FORMAT    `
 
-``` text
-mysql.DATE_FORMAT(timestamp_expression, format_string)
-```
+    mysql.DATE_FORMAT(timestamp_expression, format_string)
 
 **Description**
 
@@ -142,7 +45,7 @@ Formats a `  TIMESTAMP  ` value according to a specified format string.
 This function supports the following arguments:
 
   - `  timestamp_expression  ` : The `  TIMESTAMP  ` value to format.
-  - `  format_string  ` : A `  STRING  ` value that contains [format elements](/spanner/docs/reference/standard-sql/format-elements#format_elements_date_time) to use with `  timestamp_expression  ` .
+  - `  format_string  ` : A `  STRING  ` value that contains [format elements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/format-elements#format_elements_date_time) to use with `  timestamp_expression  ` .
 
 **Return data type**
 
@@ -161,23 +64,19 @@ This function accepts only `  TIMESTAMP  ` values, while the MySQL version also 
 
 The following example formats a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.DATE_FORMAT(TIMESTAMP '2023-10-27', '%Y-%d-%m') as formatted_date;
-
-/*
-+----------------+
-| formatted_date |
-+----------------+
-| 2023-27-10     |
-+----------------+
-*/
-```
+    SELECT mysql.DATE_FORMAT(TIMESTAMP '2023-10-27', '%Y-%d-%m') as formatted_date;
+    
+    /*
+    +----------------+
+    | formatted_date |
+    +----------------+
+    | 2023-27-10     |
+    +----------------+
+    */
 
 ## `     mysql.DAY    `
 
-``` text
-mysql.DAY(timestamp_expression)
-```
+    mysql.DAY(timestamp_expression)
 
 **Description**
 
@@ -204,23 +103,19 @@ This function only accepts `  TIMESTAMP  ` values. The MySQL version also accept
 
 The following example gets the day of the month from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.DAY(TIMESTAMP '2025-05-30') AS day_of_month;
-
-/*
-+--------------+
-| day_of_month |
-+--------------+
-| 30           |
-+--------------+
-*/
-```
+    SELECT mysql.DAY(TIMESTAMP '2025-05-30') AS day_of_month;
+    
+    /*
+    +--------------+
+    | day_of_month |
+    +--------------+
+    | 30           |
+    +--------------+
+    */
 
 ## `     mysql.DAYNAME    `
 
-``` text
-mysql.DAYNAME(timestamp_expression)
-```
+    mysql.DAYNAME(timestamp_expression)
 
 **Description**
 
@@ -246,23 +141,19 @@ This function has no direct limitations. However, if you provide the timestamp a
 
 The following example returns the name of the weekday from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.DAYNAME(TIMESTAMP '2025-05-30') as day_name;
-
-/*
-+----------+
-| day_name |
-+----------+
-| Friday   |
-+----------+
-*/
-```
+    SELECT mysql.DAYNAME(TIMESTAMP '2025-05-30') as day_name;
+    
+    /*
+    +----------+
+    | day_name |
+    +----------+
+    | Friday   |
+    +----------+
+    */
 
 ## `     mysql.DAYOFMONTH    `
 
-``` text
-mysql.DAYOFMONTH(timestamp_expression)
-```
+    mysql.DAYOFMONTH(timestamp_expression)
 
 **Description**
 
@@ -288,23 +179,19 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example returns the day of the month from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.DAYOFMONTH(TIMESTAMP '2025-05-30') as dayofmonth;
-
-/*
-+------------------+
-| dayofmonth       |
-+------------------+
-| 30               |
-+------------------+
-*/
-```
+    SELECT mysql.DAYOFMONTH(TIMESTAMP '2025-05-30') as dayofmonth;
+    
+    /*
+    +------------------+
+    | dayofmonth       |
+    +------------------+
+    | 30               |
+    +------------------+
+    */
 
 ## `     mysql.DAYOFWEEK    `
 
-``` text
-mysql.DAYOFWEEK(timestamp_expression)
-```
+    mysql.DAYOFWEEK(timestamp_expression)
 
 **Description**
 
@@ -330,23 +217,19 @@ This function has no direct limitations. However, if you provide the timestamp a
 
 The following example returns the weekday index for a given timestamp:
 
-``` text
-SELECT mysql.DAYOFWEEK(TIMESTAMP '2025-05-30') AS day_of_week;
-
-/*
-+-------------+
-| day_of_week |
-+-------------+
-| 6           |
-+-------------+
-*/
-```
+    SELECT mysql.DAYOFWEEK(TIMESTAMP '2025-05-30') AS day_of_week;
+    
+    /*
+    +-------------+
+    | day_of_week |
+    +-------------+
+    | 6           |
+    +-------------+
+    */
 
 ## `     mysql.DAYOFYEAR    `
 
-``` text
-mysql.DAYOFYEAR(timestamp_expression)
-```
+    mysql.DAYOFYEAR(timestamp_expression)
 
 **Description**
 
@@ -372,23 +255,19 @@ This function has no direct limitations. However, if you provide the timestamp a
 
 The following example returns the day of the year from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.DAYOFYEAR(TIMESTAMP '2025-05-30') AS day_of_year;
-
-/*
-+-------------+
-| day_of_year |
-+-------------+
-| 150         |
-+-------------+
-*/
-```
+    SELECT mysql.DAYOFYEAR(TIMESTAMP '2025-05-30') AS day_of_year;
+    
+    /*
+    +-------------+
+    | day_of_year |
+    +-------------+
+    | 150         |
+    +-------------+
+    */
 
 ## `     mysql.FROM_DAYS    `
 
-``` text
-mysql.FROM_DAYS(day_number)
-```
+    mysql.FROM_DAYS(day_number)
 
 **Description**
 
@@ -412,23 +291,19 @@ This function supports the following argument:
 
 The following example converts a day number to a `  DATE  ` value:
 
-``` text
-SELECT mysql.FROM_DAYS(739765) AS date_from_days;
-
-/*
-+----------------+
-| date_from_days |
-+----------------+
-| 2025-05-29     |
-+----------------+
-*/
-```
+    SELECT mysql.FROM_DAYS(739765) AS date_from_days;
+    
+    /*
+    +----------------+
+    | date_from_days |
+    +----------------+
+    | 2025-05-29     |
+    +----------------+
+    */
 
 ## `     mysql.FROM_UNIXTIME    `
 
-``` text
-mysql.FROM_UNIXTIME(unix_timestamp)
-```
+    mysql.FROM_UNIXTIME(unix_timestamp)
 
 **Description**
 
@@ -454,23 +329,19 @@ This function only supports the single-argument version of `  FROM_UNIXTIME  ` .
 
 The following example converts a Unix timestamp to a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.FROM_UNIXTIME(1748601000) AS timestamp_from_unix;
-
-/*
-+------------------------+
-| timestamp_from_unix    |
-+------------------------+
-| 2025-05-30 10:30:00+00 |
-+------------------------+
-*/
-```
+    SELECT mysql.FROM_UNIXTIME(1748601000) AS timestamp_from_unix;
+    
+    /*
+    +------------------------+
+    | timestamp_from_unix    |
+    +------------------------+
+    | 2025-05-30 10:30:00+00 |
+    +------------------------+
+    */
 
 ## `     mysql.HOUR    `
 
-``` text
-mysql.HOUR(timestamp_expression)
-```
+    mysql.HOUR(timestamp_expression)
 
 **Description**
 
@@ -496,23 +367,19 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example gets the hour from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.HOUR(TIMESTAMP '2025-05-30 14:30:45.123456') as hour;
-
-/*
-+------+
-| hour |
-+------+
-| 14   |
-+------+
-*/
-```
+    SELECT mysql.HOUR(TIMESTAMP '2025-05-30 14:30:45.123456') as hour;
+    
+    /*
+    +------+
+    | hour |
+    +------+
+    | 14   |
+    +------+
+    */
 
 ## `     mysql.MAKEDATE    `
 
-``` text
-mysql.MAKEDATE(year, day_of_year)
-```
+    mysql.MAKEDATE(year, day_of_year)
 
 **Description**
 
@@ -531,23 +398,19 @@ This function supports the following argument:
 
 The following example creates a `  DATE  ` value from the input parameters provided:
 
-``` text
-SELECT mysql.MAKEDATE(2025, 150) AS date_from_year_day;
-
-/*
-+--------------------+
-| date_from_year_day |
-+--------------------+
-| 2025-05-30         |
-+--------------------+
-*/
-```
+    SELECT mysql.MAKEDATE(2025, 150) AS date_from_year_day;
+    
+    /*
+    +--------------------+
+    | date_from_year_day |
+    +--------------------+
+    | 2025-05-30         |
+    +--------------------+
+    */
 
 ## `     mysql.MICROSECOND    `
 
-``` text
-mysql.MICROSECOND(timestamp_expression)
-```
+    mysql.MICROSECOND(timestamp_expression)
 
 **Description**
 
@@ -573,23 +436,19 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example returns the microsecond from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.MICROSECOND(TIMESTAMP '2025-05-30 14:30:45.123456') as microsecond;
-
-/*
-+-------------+
-| microsecond |
-+-------------+
-| 123456      |
-+-------------+
-*/
-```
+    SELECT mysql.MICROSECOND(TIMESTAMP '2025-05-30 14:30:45.123456') as microsecond;
+    
+    /*
+    +-------------+
+    | microsecond |
+    +-------------+
+    | 123456      |
+    +-------------+
+    */
 
 ## `     mysql.MINUTE    `
 
-``` text
-mysql.MINUTE(timestamp_expression)
-```
+    mysql.MINUTE(timestamp_expression)
 
 **Description**
 
@@ -615,23 +474,19 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example returns the minute from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.MINUTE(TIMESTAMP '2025-05-30 14:30:45.123456') as minute;
-
-/*
-+--------+
-| minute |
-+--------+
-| 30     |
-+--------+
-*/
-```
+    SELECT mysql.MINUTE(TIMESTAMP '2025-05-30 14:30:45.123456') as minute;
+    
+    /*
+    +--------+
+    | minute |
+    +--------+
+    | 30     |
+    +--------+
+    */
 
 ## `     mysql.MONTH    `
 
-``` text
-mysql.MONTH(timestamp_expression)
-```
+    mysql.MONTH(timestamp_expression)
 
 **Description**
 
@@ -657,23 +512,19 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example returns the month from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.MONTH(TIMESTAMP '2025-05-30') as month_num;
-
-/*
-+-----------+
-| month_num |
-+-----------+
-| 5         |
-+-----------+
-*/
-```
+    SELECT mysql.MONTH(TIMESTAMP '2025-05-30') as month_num;
+    
+    /*
+    +-----------+
+    | month_num |
+    +-----------+
+    | 5         |
+    +-----------+
+    */
 
 ## `     mysql.MONTHNAME    `
 
-``` text
-mysql.MONTHNAME(timestamp_expression)
-```
+    mysql.MONTHNAME(timestamp_expression)
 
 **Description**
 
@@ -699,23 +550,19 @@ This function has no direct limitations. However, if you provide the timestamp a
 
 The following example returns the month name from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.MONTHNAME(TIMESTAMP '2025-05-30') AS month_name;
-
-/*
-+------------+
-| month_name |
-+------------+
-| May        |
-+------------+
-*/
-```
+    SELECT mysql.MONTHNAME(TIMESTAMP '2025-05-30') AS month_name;
+    
+    /*
+    +------------+
+    | month_name |
+    +------------+
+    | May        |
+    +------------+
+    */
 
 ## `     mysql.PERIOD_ADD    `
 
-``` text
-mysql.PERIOD_ADD(period, months_to_add)
-```
+    mysql.PERIOD_ADD(period, months_to_add)
 
 **Description**
 
@@ -734,23 +581,19 @@ This function supports the following arguments:
 
 The following example adds 3 months to the period `  202505  ` :
 
-``` text
-SELECT mysql.PERIOD_ADD(202505, 3) AS period_plus_3_months;
-
-/*
-+----------------------+
-| period_plus_3_months |
-+----------------------+
-| 202508               |
-+----------------------+
-*/
-```
+    SELECT mysql.PERIOD_ADD(202505, 3) AS period_plus_3_months;
+    
+    /*
+    +----------------------+
+    | period_plus_3_months |
+    +----------------------+
+    | 202508               |
+    +----------------------+
+    */
 
 ## `     mysql.PERIOD_DIFF    `
 
-``` text
-mysql.PERIOD_DIFF(period1, period2)
-```
+    mysql.PERIOD_DIFF(period1, period2)
 
 **Description**
 
@@ -769,23 +612,19 @@ This function supports the following arguments:
 
 The following example returns the difference in months between two periods:
 
-``` text
-SELECT mysql.PERIOD_DIFF(202508, 202505) as months_diff;
-
-/*
-+-------------+
-| months_diff |
-+-------------+
-| 3           |
-+-------------+
-*/
-```
+    SELECT mysql.PERIOD_DIFF(202508, 202505) as months_diff;
+    
+    /*
+    +-------------+
+    | months_diff |
+    +-------------+
+    | 3           |
+    +-------------+
+    */
 
 ## `     mysql.QUARTER    `
 
-``` text
-mysql.QUARTER(timestamp_expression)
-```
+    mysql.QUARTER(timestamp_expression)
 
 **Description**
 
@@ -811,23 +650,19 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example returns the quarter of the year from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.QUARTER(TIMESTAMP '2025-05-30') as quarter_of_year;
-
-/*
-+-----------------+
-| quarter_of_year |
-+-----------------+
-| 2               |
-+-----------------+
-*/
-```
+    SELECT mysql.QUARTER(TIMESTAMP '2025-05-30') as quarter_of_year;
+    
+    /*
+    +-----------------+
+    | quarter_of_year |
+    +-----------------+
+    | 2               |
+    +-----------------+
+    */
 
 ## `     mysql.SECOND    `
 
-``` text
-mysql.SECOND(timestamp_expression)
-```
+    mysql.SECOND(timestamp_expression)
 
 **Description**
 
@@ -853,23 +688,19 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example returns the second from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.SECOND(TIMESTAMP '2025-05-30 14:30:45.123456') as second;
-
-/*
-+--------+
-| second |
-+--------+
-| 45     |
-+--------+
-*/
-```
+    SELECT mysql.SECOND(TIMESTAMP '2025-05-30 14:30:45.123456') as second;
+    
+    /*
+    +--------+
+    | second |
+    +--------+
+    | 45     |
+    +--------+
+    */
 
 ## `     mysql.STR_TO_DATE    `
 
-``` text
-mysql.STR_TO_DATE(string_expression, format_string)
-```
+    mysql.STR_TO_DATE(string_expression, format_string)
 
 **Description**
 
@@ -878,7 +709,7 @@ Converts a string into a `  TIMESTAMP  ` value based on a specified format strin
 This function supports the following argument:
 
   - `  string_expression  ` : The date string.
-  - `  format_string  ` : A `  STRING  ` value that contains [format elements](/spanner/docs/reference/standard-sql/format-elements#format_elements_date_time) to use with `  timestamp_expression  ` .
+  - `  format_string  ` : A `  STRING  ` value that contains [format elements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/format-elements#format_elements_date_time) to use with `  timestamp_expression  ` .
 
 **Return data type**
 
@@ -897,23 +728,19 @@ This function supports a wider range of timestamps than the MySQL version.
 
 The following example converts a string to a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.STR_TO_DATE('May 30, 2025', '%M %e, %Y') as date_from_string;
-
-/*
-+------------------------+
-| date_from_string       |
-+------------------------+
-| 2025-05-30 00:00:00+00 |
-+------------------------+
-*/
-```
+    SELECT mysql.STR_TO_DATE('May 30, 2025', '%M %e, %Y') as date_from_string;
+    
+    /*
+    +------------------------+
+    | date_from_string       |
+    +------------------------+
+    | 2025-05-30 00:00:00+00 |
+    +------------------------+
+    */
 
 ## `     mysql.SYSDATE    `
 
-``` text
-mysql.SYSDATE()
-```
+    mysql.SYSDATE()
 
 **Description**
 
@@ -933,23 +760,19 @@ This function is not an exact match for MySQL's `  SYSDATE()  ` . This function 
 
 The following example returns the current query's start timestamp:
 
-``` text
-SELECT mysql.SYSDATE() AS start_time;
-
-/*
-+------------------------+
-| start_time             |
-+------------------------+
-| 2025-06-03 12:12:33+00 |
-+------------------------+
-*/
-```
+    SELECT mysql.SYSDATE() AS start_time;
+    
+    /*
+    +------------------------+
+    | start_time             |
+    +------------------------+
+    | 2025-06-03 12:12:33+00 |
+    +------------------------+
+    */
 
 ## `     mysql.TIME    `
 
-``` text
-mysql.TIME(timestamp_expression)
-```
+    mysql.TIME(timestamp_expression)
 
 **Description**
 
@@ -971,23 +794,19 @@ This function only accepts `  TIMESTAMP  ` values.
 
 The following example extracts the time from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.TIME(TIMESTAMP '2025-05-30 14:30:45.123') AS time_part;
-
-/*
-+-----------------+
-| time_part       |
-+-----------------+
-| 14:30:45.123000 |
-+-----------------+
-*/
-```
+    SELECT mysql.TIME(TIMESTAMP '2025-05-30 14:30:45.123') AS time_part;
+    
+    /*
+    +-----------------+
+    | time_part       |
+    +-----------------+
+    | 14:30:45.123000 |
+    +-----------------+
+    */
 
 ## `     mysql.TO_DAYS    `
 
-``` text
-mysql.TO_DAYS(date_expression)
-```
+    mysql.TO_DAYS(date_expression)
 
 **Description**
 
@@ -1013,23 +832,19 @@ Use this function with caution for dates that precede 1970-01-01, as behavior ma
 
 The following example converts a `  DATE  ` value to a number of days:
 
-``` text
-SELECT mysql.TO_DAYS(DATE '2025-05-30') as days_since_year_0;
-
-/*
-+-------------------+
-| days_since_year_0 |
-+-------------------+
-| 739765            |
-+-------------------+
-*/
-```
+    SELECT mysql.TO_DAYS(DATE '2025-05-30') as days_since_year_0;
+    
+    /*
+    +-------------------+
+    | days_since_year_0 |
+    +-------------------+
+    | 739765            |
+    +-------------------+
+    */
 
 ## `     mysql.TO_SECONDS    `
 
-``` text
-mysql.TO_SECONDS(timestamp_expression)
-```
+    mysql.TO_SECONDS(timestamp_expression)
 
 **Description**
 
@@ -1051,23 +866,19 @@ Use this function with caution on dates before the year 1901.
 
 The following example converts a `  TIMESTAMP  ` to a number of seconds:
 
-``` text
-SELECT mysql.TO_SECONDS(TIMESTAMP '2025-05-30 00:00:00') AS seconds_since_day_0;
-
-/*
-+----------------------+
-| seconds_since_day_0  |
-+----------------------+
-| 63915807600          |
-+----------------------+
-*/
-```
+    SELECT mysql.TO_SECONDS(TIMESTAMP '2025-05-30 00:00:00') AS seconds_since_day_0;
+    
+    /*
+    +----------------------+
+    | seconds_since_day_0  |
+    +----------------------+
+    | 63915807600          |
+    +----------------------+
+    */
 
 ## `     mysql.UNIX_TIMESTAMP    `
 
-``` text
-mysql.UNIX_TIMESTAMP(timestamp_expression)
-```
+    mysql.UNIX_TIMESTAMP(timestamp_expression)
 
 **Description**
 
@@ -1093,23 +904,19 @@ The zero-argument version of `  UNIX_TIMESTAMP()  ` is not supported.
 
 The following example returns a Unix timestamp:
 
-``` text
-SELECT mysql.UNIX_TIMESTAMP(TIMESTAMP '2025-05-30 14:30:00') AS unix_ts;
-
-/*
-+------------+
-| unix_ts    |
-+------------+
-| 1748640600 |
-+------------+
-*/
-```
+    SELECT mysql.UNIX_TIMESTAMP(TIMESTAMP '2025-05-30 14:30:00') AS unix_ts;
+    
+    /*
+    +------------+
+    | unix_ts    |
+    +------------+
+    | 1748640600 |
+    +------------+
+    */
 
 ## `     mysql.UTC_DATE    `
 
-``` text
-mysql.UTC_DATE()
-```
+    mysql.UTC_DATE()
 
 **Description**
 
@@ -1125,23 +932,19 @@ This function doesn't support any arguments.
 
 The following example returns the current UTC date:
 
-``` text
-SELECT mysql.UTC_DATE() AS current_utc_date;
-
-/*
-+------------------+
-| current_utc_date |
-+------------------+
-| 2025-06-03       |
-+------------------+
-*/
-```
+    SELECT mysql.UTC_DATE() AS current_utc_date;
+    
+    /*
+    +------------------+
+    | current_utc_date |
+    +------------------+
+    | 2025-06-03       |
+    +------------------+
+    */
 
 ## `     mysql.WEEK    `
 
-``` text
-mysql.WEEK(timestamp_expression)
-```
+    mysql.WEEK(timestamp_expression)
 
 **Description**
 
@@ -1167,23 +970,19 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example returns the week number from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.WEEK(TIMESTAMP '2025-05-30') as week_num;
-
-/*
-+----------+
-| week_num |
-+----------+
-| 21       |
-+----------+
-*/
-```
+    SELECT mysql.WEEK(TIMESTAMP '2025-05-30') as week_num;
+    
+    /*
+    +----------+
+    | week_num |
+    +----------+
+    | 21       |
+    +----------+
+    */
 
 ## `     mysql.WEEKDAY    `
 
-``` text
-mysql.WEEKDAY(timestamp_expression)
-```
+    mysql.WEEKDAY(timestamp_expression)
 
 **Description**
 
@@ -1205,23 +1004,19 @@ This function only accepts `  TIMESTAMP  ` values. The MySQL version also accept
 
 The following example returns the weekday index for a given timestamp:
 
-``` text
-SELECT mysql.WEEKDAY(TIMESTAMP '2025-05-30') as weekday_index;
-
-/*
-+---------------+
-| weekday_index |
-+---------------+
-| 4             |
-+---------------+
-*/
-```
+    SELECT mysql.WEEKDAY(TIMESTAMP '2025-05-30') as weekday_index;
+    
+    /*
+    +---------------+
+    | weekday_index |
+    +---------------+
+    | 4             |
+    +---------------+
+    */
 
 ## `     mysql.WEEKOFYEAR    `
 
-``` text
-mysql.WEEKOFYEAR(timestamp_expression)
-```
+    mysql.WEEKOFYEAR(timestamp_expression)
 
 **Description**
 
@@ -1247,23 +1042,19 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example returns the week of the year from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.WEEKOFYEAR(TIMESTAMP '2025-05-30') as weekofyear_iso;
-
-/*
-+----------------+
-| weekofyear_iso |
-+----------------+
-| 22             |
-+----------------+
-*/
-```
+    SELECT mysql.WEEKOFYEAR(TIMESTAMP '2025-05-30') as weekofyear_iso;
+    
+    /*
+    +----------------+
+    | weekofyear_iso |
+    +----------------+
+    | 22             |
+    +----------------+
+    */
 
 ## `     mysql.YEAR    `
 
-``` text
-mysql.YEAR(timestamp_expression)
-```
+    mysql.YEAR(timestamp_expression)
 
 **Description**
 
@@ -1289,14 +1080,12 @@ If you provide an invalid timestamp, this function returns an error. In contrast
 
 The following example returns the year from a `  TIMESTAMP  ` value:
 
-``` text
-SELECT mysql.YEAR(TIMESTAMP '2025-05-30') as year_value;
-
-/*
-+------------+
-| year_value |
-+------------+
-| 2025       |
-+------------+
-*/
-```
+    SELECT mysql.YEAR(TIMESTAMP '2025-05-30') as year_value;
+    
+    /*
+    +------------+
+    | year_value |
+    +------------+
+    | 2025       |
+    +------------+
+    */

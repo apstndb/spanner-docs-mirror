@@ -1,7 +1,7 @@
-  - [Resource: InstancePartition](#InstancePartition)
-      - [JSON representation](#InstancePartition.SCHEMA_REPRESENTATION)
-  - [State](#State)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource: InstancePartition](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions#InstancePartition)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions#InstancePartition.SCHEMA_REPRESENTATION)
+  - [State](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions#State)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions#METHODS_SUMMARY)
 
 ## Resource: InstancePartition
 
@@ -18,7 +18,7 @@ An isolated set of Cloud Spanner resources that databases can define placements 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;config&quot;: string,
   &quot;displayName&quot;: string,

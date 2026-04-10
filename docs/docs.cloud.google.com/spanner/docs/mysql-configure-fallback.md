@@ -4,7 +4,7 @@ Reverse replication is useful when you encounter unexpected issues and need to f
 
 The reverse replication flow involves the following steps, performed by the [`  Spanner_to_SourceDb  ` Dataflow template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/spanner-to-sourcedb) :
 
-1.  Read changes from Spanner using [Spanner change streams](/spanner/docs/change-streams) .
+1.  Read changes from Spanner using [Spanner change streams](https://docs.cloud.google.com/spanner/docs/change-streams) .
 
 2.  Ensure the mode of filtration is `  forward_migration  ` .
 
@@ -38,7 +38,7 @@ You can configure the Dataflow job that performs the reverse replication to run 
 
   - Verify that the MySQL user has `  INSERT  ` , `  UPDATE  ` , and `  DELETE  ` privileges on the MySQL database.
 
-  - Verify that you have the required IAM permissions to run a Dataflow flex template. For more information, see [Build and run a flex template](/dataflow/docs/guides/templates/using-flex-templates#before-you-begin) .
+  - Verify that you have the required IAM permissions to run a Dataflow flex template. For more information, see [Build and run a flex template](https://docs.cloud.google.com/dataflow/docs/guides/templates/using-flex-templates#before-you-begin) .
 
   - Verify that the port `  12345  ` is open for communication between the Dataflow worker VMs.
 
@@ -46,8 +46,8 @@ You can configure the Dataflow job that performs the reverse replication to run 
 
   - To get the permissions that you need to launch the reverse replication, ask your administrator to grant you the following IAM roles on the instance:
     
-      - [Cloud Spanner Database User](/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `  roles/spanner.databaseUser  ` )
-      - [Dataflow Developer](/iam/docs/roles-permissions/dataflow#dataflow.developer) ( `  roles/dataflow.developer  ` )
+      - [Cloud Spanner Database User](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `  roles/spanner.databaseUser  ` )
+      - [Dataflow Developer](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.developer) ( `  roles/dataflow.developer  ` )
 
 <!-- end list -->
 
@@ -55,9 +55,9 @@ You can configure the Dataflow job that performs the reverse replication to run 
     
     **Important:** You must grant these roles to the compute engine service account, *not* to your user account. Failure to grant the roles to the correct principal might result in permission errors.
     
-      - [Cloud Spanner Database User](/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `  roles/spanner.databaseUser  ` )
-      - [Secret Manager Secret Accessor](/iam/docs/roles-permissions/secretmanager#secretmanager.secretAccessor) ( `  roles/secretmanager.secretAccessor  ` )
-      - [Secret Manager Viewer](/iam/docs/roles-permissions/secretmanager#secretmanager.viewer) ( `  roles/secretmanager.viewer  ` )
+      - [Cloud Spanner Database User](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `  roles/spanner.databaseUser  ` )
+      - [Secret Manager Secret Accessor](https://docs.cloud.google.com/iam/docs/roles-permissions/secretmanager#secretmanager.secretAccessor) ( `  roles/secretmanager.secretAccessor  ` )
+      - [Secret Manager Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/secretmanager#secretmanager.viewer) ( `  roles/secretmanager.viewer  ` )
 
 ## Run reverse replication
 
@@ -65,13 +65,13 @@ To run the reverse replication, use the following steps:
 
 1.  Upload the [session file](https://googlecloudplatform.github.io/spanner-migration-tool/reports.html#session-file-ending-in-sessionjson) to the Cloud Storage bucket.
 
-2.  Create a Pub/Sub notification for the `  retry  ` folder of the DLQ directory. You can do this by creating a [Pub/Sub topic](/pubsub/docs/create-topic) and a [Pub/Sub subscription](/pubsub/docs/create-subscription) for that topic.
+2.  Create a Pub/Sub notification for the `  retry  ` folder of the DLQ directory. You can do this by creating a [Pub/Sub topic](https://docs.cloud.google.com/pubsub/docs/create-topic) and a [Pub/Sub subscription](https://docs.cloud.google.com/pubsub/docs/create-subscription) for that topic.
 
 3.  Build and stage the Dataflow template. For more information, see [Building template](https://github.com/GoogleCloudPlatform/DataflowTemplates/blob/main/v2/spanner-to-sourcedb/README_Spanner_to_SourceDb.md#building-template) .
 
 4.  Run the reverse replication Dataflow template using the following Google Cloud CLI command:
     
-    ``` text
+    ``` 
       gcloud dataflow flex-template run "spanner-to-sourcedb-job" \
       --project "PROJECT" \
       --region "REGION" \

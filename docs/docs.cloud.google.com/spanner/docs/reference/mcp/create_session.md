@@ -15,7 +15,7 @@ The following sample demonstrate how to use `  curl  ` to invoke the `  create_s
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
 curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 --header &#39;content-type: application/json&#39; \
 --header &#39;accept: application/json, text/event-stream&#39; \
@@ -52,7 +52,7 @@ The request for `  CreateSession  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;database&quot;: string
 }</code></pre></td>
 </tr>
@@ -84,7 +84,7 @@ A session for Spanner API.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string
 }</code></pre></td>
 </tr>

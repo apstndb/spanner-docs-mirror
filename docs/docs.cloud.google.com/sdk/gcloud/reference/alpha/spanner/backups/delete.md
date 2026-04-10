@@ -14,7 +14,7 @@ EXAMPLES
 
 To delete a backup, run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner backups delete BACKUP_NAME --instance=INSTANCE_NAME
 ```
 
@@ -60,10 +60,10 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner backups delete
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner backups delete
 ```

@@ -2,7 +2,7 @@ This page describes the Spanner JDBC driver, which is recommended and authored b
 
 Google offers an open-source JDBC driver for Spanner. The open-source driver enables applications to access Spanner through the Java Database Connectivity (JDBC) API.
 
-This page answers frequently asked questions about the Spanner JDBC driver. To learn how to use the driver, see [Connect JDBC to a GoogleSQL-dialect database](/spanner/docs/use-oss-jdbc) .
+This page answers frequently asked questions about the Spanner JDBC driver. To learn how to use the driver, see [Connect JDBC to a GoogleSQL-dialect database](https://docs.cloud.google.com/spanner/docs/use-oss-jdbc) .
 
 ## Data Manipulation Language (DML) and Data Definition Language (DDL) support
 
@@ -10,7 +10,7 @@ The Spanner JDBC driver driver supports DML and DDL statements.
 
 ## Parent-child and interleaved table relationships
 
-Interleaved table relationships are mapped to foreign key relationships in JDBC. In Spanner, a record in the child table interleaved with a parent has its primary key dependent on the associated parent table record's primary key. Spanner defines the child table's *parent primary key* portion of its primary key as the foreign key, referencing the parent table's primary key. Thus you can navigate the interleaved table relationships using the foreign key metadata calls in `  DatabaseMetaData  ` . You can read more details in [About schemas](/spanner/docs/schema-and-data-model) .
+Interleaved table relationships are mapped to foreign key relationships in JDBC. In Spanner, a record in the child table interleaved with a parent has its primary key dependent on the associated parent table record's primary key. Spanner defines the child table's *parent primary key* portion of its primary key as the foreign key, referencing the parent table's primary key. Thus you can navigate the interleaved table relationships using the foreign key metadata calls in `  DatabaseMetaData  ` . You can read more details in [About schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
 
 ## Data types support
 
@@ -18,7 +18,7 @@ The Spanner JDBC driver doesn't support Spanner's `  STRUCT  ` data type. All ot
 
 ## Index support
 
-You can use indexes in `  SELECT  ` queries using the appropriate [query syntax](/spanner/docs/reference/standard-sql/query-syntax) . The open-source driver can also create and modify indexes as DDL statements. You can access information about particular indexes using the `  DatabaseMetaData.getIndexInfo()  ` method.
+You can use indexes in `  SELECT  ` queries using the appropriate [query syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) . The open-source driver can also create and modify indexes as DDL statements. You can access information about particular indexes using the `  DatabaseMetaData.getIndexInfo()  ` method.
 
 ## Parameterized query support
 
@@ -32,12 +32,12 @@ If you want to provide your own pool, you can use any standard JDBC connection p
 
 ## Limitations
 
-This driver's capabilities have limits defined by the underlying system. See the [quotas and limits](/spanner/quotas) for Spanner.
+This driver's capabilities have limits defined by the underlying system. See the [quotas and limits](https://docs.cloud.google.com/spanner/quotas) for Spanner.
 
 ## Support
 
-Consult our [support page](/spanner/docs/getting-support) for support options.
+Consult our [support page](https://docs.cloud.google.com/spanner/docs/getting-support) for support options.
 
 ## What's next
 
-Learn how to [Connect JDBC to a GoogleSQL-dialect database](/spanner/docs/use-oss-jdbc) .
+Learn how to [Connect JDBC to a GoogleSQL-dialect database](https://docs.cloud.google.com/spanner/docs/use-oss-jdbc) .

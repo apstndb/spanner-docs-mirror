@@ -53,7 +53,7 @@ Map the following list of MySQL data types to their Spanner equivalent:
 <td><code dir="ltr" translate="no">       DECIMAL      </code> , <code dir="ltr" translate="no">       NUMERIC      </code></td>
 <td><code dir="ltr" translate="no">       NUMERIC      </code></td>
 <td>In MySQL, the <code dir="ltr" translate="no">       NUMERIC      </code> and <code dir="ltr" translate="no">       DECIMAL      </code> data types support up to a total 65 digits of precision and scale, as defined in the column declaration. The Spanner <code dir="ltr" translate="no">       NUMERIC      </code> data type supports up to 38 digits of precision and 9 decimal digits of scale.<br />
-If you require greater precision, see <a href="/spanner/docs/storing-numeric-data">Store arbitrary precision numeric data</a> for alternative mechanisms.</td>
+If you require greater precision, see <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">Store arbitrary precision numeric data</a> for alternative mechanisms.</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       BINARY      </code> , <code dir="ltr" translate="no">       VARBINARY      </code> , <code dir="ltr" translate="no">       TINYBLOB      </code> , <code dir="ltr" translate="no">       BLOB      </code> , <code dir="ltr" translate="no">       MEDIUMBLOB      </code> , <code dir="ltr" translate="no">       LONGBLOB      </code></td>
@@ -120,11 +120,11 @@ Spanner doesn't support geospatial types. You can store values of these types by
 
 ## Queries
 
-Spanner uses the [ANSI 2011 dialect of SQL with extensions](/spanner/docs/query-syntax) , and has many functions and operators to help translate and aggregate your data. Any SQL queries using MySQL-specific dialect, functions, and types need to be converted to be compatible with Spanner.
+Spanner uses the [ANSI 2011 dialect of SQL with extensions](https://docs.cloud.google.com/spanner/docs/query-syntax) , and has many functions and operators to help translate and aggregate your data. Any SQL queries using MySQL-specific dialect, functions, and types need to be converted to be compatible with Spanner.
 
-Although Spanner doesn't support structured data as column definitions, you can use structured data in SQL queries using `  ARRAY<>  ` and `  STRUCT<>  ` types. For example, you can write a query that returns all Albums for an artist using an `  ARRAY  ` of `  STRUCT  ` s (taking advantage of the pre-joined data). For more information see the [Subqueries](/spanner/docs/query-syntax#subqueries) section of the documentation.
+Although Spanner doesn't support structured data as column definitions, you can use structured data in SQL queries using `  ARRAY<>  ` and `  STRUCT<>  ` types. For example, you can write a query that returns all Albums for an artist using an `  ARRAY  ` of `  STRUCT  ` s (taking advantage of the pre-joined data). For more information see the [Subqueries](https://docs.cloud.google.com/spanner/docs/query-syntax#subqueries) section of the documentation.
 
-You can run SQL queries on the Spanner Studio page in the Google Cloud console. In general, queries that perform full table scans on large tables are very expensive, and should be used sparingly. For more information on optimizing SQL queries, see the [SQL best practices](/spanner/docs/sql-best-practices) documentation.
+You can run SQL queries on the Spanner Studio page in the Google Cloud console. In general, queries that perform full table scans on large tables are very expensive, and should be used sparingly. For more information on optimizing SQL queries, see the [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) documentation.
 
 ## Stored procedures and triggers
 
@@ -132,12 +132,12 @@ Spanner doesn't support running user code at the database level. As part of the 
 
 ## Sequences
 
-Spanner recommends using UUID Version 4 as the default method to generate primary key values. The [`  GENERATE_UUID()  `](/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) function returns UUID Version 4 values represented as `  STRING  ` type.
+Spanner recommends using UUID Version 4 as the default method to generate primary key values. The [`  GENERATE_UUID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) function returns UUID Version 4 values represented as `  STRING  ` type.
 
-If you need to generate integer values, Spanner supports [bit-reversed positive sequences](/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , which produce values that distribute evenly across the positive 64-bit number space. You can use these numbers to avoid hot spotting issues.
+If you need to generate integer values, Spanner supports [bit-reversed positive sequences](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , which produce values that distribute evenly across the positive 64-bit number space. You can use these numbers to avoid hot spotting issues.
 
-For more information, see [primary key default value strategies](/spanner/docs/primary-key-default-value) .
+For more information, see [primary key default value strategies](https://docs.cloud.google.com/spanner/docs/primary-key-default-value) .
 
 ## What's next
 
-  - [Use SMT to migrate schema from MySQL](/spanner/docs/use-smt-migrate-mysql-schema) .
+  - [Use SMT to migrate schema from MySQL](https://docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema) .

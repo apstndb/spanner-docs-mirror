@@ -22,59 +22,59 @@ The spanner.googleapis.com MCP server has the following tools:
 
 MCP Tools
 
-[get\_instance](/spanner/docs/reference/mcp/get_instance)
+[get\_instance](https://docs.cloud.google.com/spanner/docs/reference/mcp/get_instance)
 
 Get information about a Spanner instance
 
-[list\_instances](/spanner/docs/reference/mcp/list_instances)
+[list\_instances](https://docs.cloud.google.com/spanner/docs/reference/mcp/list_instances)
 
 List Spanner instances in a given project. \* Response may include next\_page\_token to fetch additional instances using list\_instances tool with page\_token set.
 
-[list\_configs](/spanner/docs/reference/mcp/list_configs)
+[list\_configs](https://docs.cloud.google.com/spanner/docs/reference/mcp/list_configs)
 
 List instance configs in a given project. \* Response may include next\_page\_token to fetch additional configs using list\_configs tool with page\_token set.
 
-[create\_instance](/spanner/docs/reference/mcp/create_instance)
+[create\_instance](https://docs.cloud.google.com/spanner/docs/reference/mcp/create_instance)
 
 Create a Spanner instance in a given project.
 
-[delete\_instance](/spanner/docs/reference/mcp/delete_instance)
+[delete\_instance](https://docs.cloud.google.com/spanner/docs/reference/mcp/delete_instance)
 
 Delete a Spanner instance.
 
-[create\_database](/spanner/docs/reference/mcp/create_database)
+[create\_database](https://docs.cloud.google.com/spanner/docs/reference/mcp/create_database)
 
 Create a Spanner database in a given instance.
 
-[drop\_database](/spanner/docs/reference/mcp/drop_database)
+[drop\_database](https://docs.cloud.google.com/spanner/docs/reference/mcp/drop_database)
 
 Drops a Spanner database.
 
-[get\_database\_ddl](/spanner/docs/reference/mcp/get_database_ddl)
+[get\_database\_ddl](https://docs.cloud.google.com/spanner/docs/reference/mcp/get_database_ddl)
 
 Get database schema for a given database.
 
-[list\_databases](/spanner/docs/reference/mcp/list_databases)
+[list\_databases](https://docs.cloud.google.com/spanner/docs/reference/mcp/list_databases)
 
 List Spanner databases in a given spanner instance. \* Response may include next\_page\_token to fetch additional databases using list\_databases tool with page\_token set.
 
-[create\_session](/spanner/docs/reference/mcp/create_session)
+[create\_session](https://docs.cloud.google.com/spanner/docs/reference/mcp/create_session)
 
 Create a session in a given database for query executions using execute\_sql tool. \* Session can be reused to execute multiple concurrent operations.
 
-[execute\_sql](/spanner/docs/reference/mcp/execute_sql)
+[execute\_sql](https://docs.cloud.google.com/spanner/docs/reference/mcp/execute_sql)
 
 Execute SQL statement using a given session. \* execute\_sql tool can be used to execute DQL as well as DML statements. \* Use commit tool to commit result of a DML statement. \* DDL statements are only supported using update\_database\_schema tool.
 
-[commit](/spanner/docs/reference/mcp/commit)
+[commit](https://docs.cloud.google.com/spanner/docs/reference/mcp/commit)
 
 Commit a transaction in a given session. \* If commit is finalizing the result of a DML statement then commit request should include latest precommit\_token returned by execute\_sql tool. \* If response to commit includes another precommit\_token then issue another commit call to finalize the transaction with the latest precommit\_token.
 
-[update\_database\_schema](/spanner/docs/reference/mcp/update_database_schema)
+[update\_database\_schema](https://docs.cloud.google.com/spanner/docs/reference/mcp/update_database_schema)
 
 Update schema for a given database.
 
-[get\_operation](/spanner/docs/reference/mcp/get_operation)
+[get\_operation](https://docs.cloud.google.com/spanner/docs/reference/mcp/get_operation)
 
 Get status of a long-running operation. \* Long running operation may take several minutes to complete. get\_operation tool can be used to poll the status of a long running operation.
 
@@ -93,7 +93,7 @@ To get the MCP tool specifications for all tools in an MCP server, use the `  to
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                      
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                      
 curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 --header &#39;content-type: application/json&#39; \
 --header &#39;accept: application/json, text/event-stream&#39; \

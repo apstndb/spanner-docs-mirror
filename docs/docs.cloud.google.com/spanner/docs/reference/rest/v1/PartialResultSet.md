@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartialResultSet#SCHEMA_REPRESENTATION)
 
 Partial results from a streaming read or SQL query. Streaming reads and SQL queries better tolerate large result sets, large rows, and large values, but are a little trickier to consume.
 
@@ -13,7 +13,7 @@ Partial results from a streaming read or SQL query. Streaming reads and SQL quer
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;metadata&quot;: {
     object (ResultSetMetadata)
   },
@@ -59,50 +59,46 @@ It's possible that the last value in values is "chunked", meaning that the rest 
 
 Some examples of merging:
 
-``` text
-Strings are concatenated.
-"foo", "bar" => "foobar"
-
-Lists of non-strings are concatenated.
-[2, 3], [4] => [2, 3, 4]
-
-Lists are concatenated, but the last and first elements are merged
-because they are strings.
-["a", "b"], ["c", "d"] => ["a", "bc", "d"]
-
-Lists are concatenated, but the last and first elements are merged
-because they are lists. Recursively, the last and first elements
-of the inner lists are merged because they are strings.
-["a", ["b", "c"]], [["d"], "e"] => ["a", ["b", "cd"], "e"]
-
-Non-overlapping object fields are combined.
-{"a": "1"}, {"b": "2"} => {"a": "1", "b": 2"}
-
-Overlapping object fields are merged.
-{"a": "1"}, {"a": "2"} => {"a": "12"}
-
-Examples of merging objects containing lists of strings.
-{"a": ["1"]}, {"a": ["2"]} => {"a": ["12"]}
-```
+    Strings are concatenated.
+    "foo", "bar" => "foobar"
+    
+    Lists of non-strings are concatenated.
+    [2, 3], [4] => [2, 3, 4]
+    
+    Lists are concatenated, but the last and first elements are merged
+    because they are strings.
+    ["a", "b"], ["c", "d"] => ["a", "bc", "d"]
+    
+    Lists are concatenated, but the last and first elements are merged
+    because they are lists. Recursively, the last and first elements
+    of the inner lists are merged because they are strings.
+    ["a", ["b", "c"]], [["d"], "e"] => ["a", ["b", "cd"], "e"]
+    
+    Non-overlapping object fields are combined.
+    {"a": "1"}, {"b": "2"} => {"a": "1", "b": 2"}
+    
+    Overlapping object fields are merged.
+    {"a": "1"}, {"a": "2"} => {"a": "12"}
+    
+    Examples of merging objects containing lists of strings.
+    {"a": ["1"]}, {"a": ["2"]} => {"a": ["12"]}
 
 For a more complete example, suppose a streaming SQL query is yielding a result set whose rows contain a single string field. The following `  PartialResultSet  ` s might be yielded:
 
-``` text
-{
-  "metadata": { ... }
-  "values": ["Hello", "W"]
-  "chunkedValue": true
-  "resumeToken": "Af65..."
-}
-{
-  "values": ["orl"]
-  "chunkedValue": true
-}
-{
-  "values": ["d"]
-  "resumeToken": "Zx1B..."
-}
-```
+    {
+      "metadata": { ... }
+      "values": ["Hello", "W"]
+      "chunkedValue": true
+      "resumeToken": "Af65..."
+    }
+    {
+      "values": ["orl"]
+      "chunkedValue": true
+    }
+    {
+      "values": ["d"]
+      "resumeToken": "Zx1B..."
+    }
 
 This sequence of `  PartialResultSet  ` s encodes two rows, one containing the field value `  "Hello"  ` , and a second containing the field value `  "World" = "W" + "orl" + "d"  ` .
 

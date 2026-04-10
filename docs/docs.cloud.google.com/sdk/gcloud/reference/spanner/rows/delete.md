@@ -10,7 +10,7 @@ EXAMPLES
 
 To delete a row with primary keys of SingerId=1,SingName=abc in table Singers under my-database and my-instance, run:
 
-``` text
+``` wrap-code
 gcloud spanner rows delete --table=Singers --database=my-database --instance=my-instance --keys=1,abc
 ```
 
@@ -62,10 +62,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner rows delete
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner rows delete
 ```

@@ -2,14 +2,16 @@ This page shows examples of patterns that you might see in a Key Visualizer heat
 
 Some issues that are exposed in Key Visualizer relate to your primary key definition. Because a primary key is immutable, these issues are best discovered during the design, or proof of concept, stage.
 
-Other issues may relate to your instance's node allocation. You may need to provision additional capacity, either overall or possibly at certain times of day. To change the number of nodes associated with your instance, see [Changing the number of nodes](/spanner/docs/create-manage-instances#change-compute-capacity) .
+Other issues may relate to your instance's node allocation. You may need to provision additional capacity, either overall or possibly at certain times of day. To change the number of nodes associated with your instance, see [Changing the number of nodes](https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity) .
 
-  - To learn how to open a Key Visualizer scan, see [Viewing the scan for a time period](/spanner/docs/key-visualizer/getting-started#viewing-scan) .
-  - To find out how to explore a Key Visualizer scan in detail, see [Exploring Heatmaps](/spanner/docs/key-visualizer/exploring-heatmaps) .
+  - To learn how to open a Key Visualizer scan, see [Viewing the scan for a time period](https://docs.cloud.google.com/spanner/docs/key-visualizer/getting-started#viewing-scan) .
+  - To find out how to explore a Key Visualizer scan in detail, see [Exploring Heatmaps](https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps) .
 
-Before you read this page, you should be familiar with the [overview of Key Visualizer](/spanner/docs/key-visualizer) .
+Before you read this page, you should be familiar with the [overview of Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer) .
 
 ## Evenly distributed reads and writes
+
+![Example heatmap showing evenly distributed areas of hot and cold](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/ideal-heatmap.png)
 
 If a heatmap shows a fine-grained mix of dark and bright colors, then reads and writes are evenly distributed throughout the database. This heatmap represents an effective usage pattern for Spanner, so you do not need to take any action.
 
@@ -17,9 +19,13 @@ Your own heatmap may not be as evenly distributed as this but still illustrate a
 
 ## Monotonically increasing keys
 
-A heatmap with a single bright diagonal line, or a triangle with a flat top, can indicate a database that uses sequential keys. Sequential keys are an anti-pattern in Spanner; see the [Schema design best practices](/spanner/docs/schema-design) page for why sequential keys cause hotspots.
+![Example heatmap showing a diagonal (falling from left to right) hot band](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/monotonically-increasing-keys.png)
+
+A heatmap with a single bright diagonal line, or a triangle with a flat top, can indicate a database that uses sequential keys. Sequential keys are an anti-pattern in Spanner; see the [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) page for why sequential keys cause hotspots.
 
 ## Persistently hot key ranges
+
+![Example heatmap showing multiple hot horizontal bands](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/hot-key-ranges.png)
 
 If a heatmap shows horizontal bands of bright color, separated by dark colors, it indicates that specific row ranges are consistently being more heavily accessed over time.
 
@@ -27,23 +33,29 @@ To address this issue, consider changing your schema design or your application 
 
 ## Single hot table
 
+![Example heatmap showing a single hot horizontal band](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/single-hot-table.png)
+
 If a heatmap shows a band of bright color in a single table, it indicates heavy access of that table over time.
 
 This pattern by itself is not necessarily problematic. If you're seeing this pattern in combination with performance issues, you're likely running out of compute capacity. Some things to consider:
 
   - Your application may be requesting a full table scan, which will show in Key Visualizer as a bright band of the whole table. Instead, consider a more restrictive query, or query against the index to reduce the number of rows being scanned.
 
-  - [Increase the number of nodes](/spanner/docs/create-manage-instances#change-compute-capacity) for this instance.
+  - [Increase the number of nodes](https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity) for this instance.
 
 ## Roving reads and writes over times
 
+![Example heatmap showing diagonal (rising from left to right) hot bands](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/roving-reads-and-writes.png)
+
 A heatmap showing multiple diagonal bright lines (rising or falling) usually indicates sequential reads or writes to rows in a short period of time.
 
-If the lines correspond with read activity, such as a table export, no action is required. If you're experiencing performance issues during these reads, consider [increasing the number of nodes](/spanner/docs/create-manage-instances#change-compute-capacity) for your instance during these time periods. You can decrease the node number between periods.
+If the lines correspond with read activity, such as a table export, no action is required. If you're experiencing performance issues during these reads, consider [increasing the number of nodes](https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity) for your instance during these time periods. You can decrease the node number between periods.
 
 If the lines correspond with write activity, and you're experiencing performance issues, you should consider changing your workload to a random write instead of a sequential write.
 
 ## Sudden traffic increase
+
+![Example heatmap showing two hot horizontal bands that begin halfway across the heatmap](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/sudden-traffic-increase.png)
 
 A heatmap showing bright horizontal bands that appear partway across the heatmap indicate a sudden change in the usage pattern of a database. This can be a rogue query or an unexpected surge in activity for certain rows.
 
@@ -81,6 +93,6 @@ For example, a database with hundreds or over a thousand tables, regardless of s
 
 ## What's next
 
-  - Learn how to [get started with Key Visualizer](/spanner/docs/key-visualizer/getting-started) .
-  - Find out how to [explore a heatmap in detail](/spanner/docs/key-visualizer/exploring-heatmaps) .
-  - Read about the [metrics you can view in a heatmap](/spanner/docs/key-visualizer/metrics) .
+  - Learn how to [get started with Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer/getting-started) .
+  - Find out how to [explore a heatmap in detail](https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps) .
+  - Read about the [metrics you can view in a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics) .

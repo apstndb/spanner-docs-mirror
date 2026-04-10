@@ -14,7 +14,7 @@ EXAMPLES
 
 To print the IAM policy for a given Cloud Spanner database, run:
 
-``` text
+``` wrap-code
 gcloud spanner databases get-iam-policy my-database-id
 ```
 
@@ -51,7 +51,7 @@ This must be specified.
 LIST COMMAND FLAGS
 
   - `  --filter  ` = `  EXPRESSION  `  
-    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
+    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --limit  ` = `  LIMIT  `  
     Maximum number of resources to list. The default is `  unlimited  ` . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --page-size  ` = `  PAGE_SIZE  `  
@@ -69,10 +69,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases get-iam-policy
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases get-iam-policy
 ```

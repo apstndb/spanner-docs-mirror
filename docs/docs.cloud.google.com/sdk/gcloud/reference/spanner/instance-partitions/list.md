@@ -14,7 +14,7 @@ EXAMPLES
 
 To list all Spanner instances partitions in an instance, run:
 
-``` text
+``` wrap-code
 gcloud spanner instance-partitions list --instance=my-instance-id
 ```
 
@@ -59,10 +59,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instance-partitions list
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner instance-partitions list
 ```

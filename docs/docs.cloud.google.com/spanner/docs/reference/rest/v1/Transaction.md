@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Transaction#SCHEMA_REPRESENTATION)
 
 A transaction.
 
@@ -13,7 +13,7 @@ A transaction.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;id&quot;: string,
   &quot;readTimestamp&quot;: string,
   &quot;precommitToken&quot;: {

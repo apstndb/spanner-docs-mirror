@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionOptions#SCHEMA_REPRESENTATION)
 
 Options for a `  PartitionQueryRequest  ` and `  PartitionReadRequest  ` .
 
@@ -13,7 +13,7 @@ Options for a `  PartitionQueryRequest  ` and `  PartitionReadRequest  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;partitionSizeBytes&quot;: string,
   &quot;maxPartitions&quot;: string
 }</code></pre></td>

@@ -14,7 +14,7 @@ EXAMPLES
 
 To delete a Cloud Spanner session, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner databases sessions delete my-session-id --instance=my-instance-id --database=my-database-id
 ```
 
@@ -66,10 +66,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner databases sessions delete
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases sessions delete
 ```

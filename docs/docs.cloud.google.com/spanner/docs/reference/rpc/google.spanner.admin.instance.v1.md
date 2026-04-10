@@ -108,7 +108,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -151,7 +151,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -196,7 +196,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -231,7 +231,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -260,7 +260,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -288,7 +288,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -316,7 +316,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -343,7 +343,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -370,7 +370,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -397,7 +397,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -424,7 +424,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -452,7 +452,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -480,7 +480,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -507,7 +507,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -534,7 +534,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -567,7 +567,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li>All other attempts to modify the instance, including changes to its compute capacity, are rejected.</li>
 <li>The following database and backup admin operations are rejected:</li>
 </ul>
-<pre class="text" dir="ltr" data-is-upgraded="" translate="no"><code>* `DatabaseAdmin.CreateDatabase`
+<pre dir="ltr" data-is-upgraded="" translate="no"><code>* `DatabaseAdmin.CreateDatabase`
 * `DatabaseAdmin.UpdateDatabaseDdl` (disabled if default_leader is
    specified in the request.)
 * `DatabaseAdmin.RestoreDatabase`
@@ -592,7 +592,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -620,7 +620,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -648,7 +648,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -693,7 +693,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -739,7 +739,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -784,7 +784,7 @@ Cloud Spanner billing is based on the instances that exist and their sizes. Afte
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>

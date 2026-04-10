@@ -10,19 +10,19 @@ DESCRIPTION
 
 This command starts the backend gRPC service for the given sample application. Before starting the service, create the database and load any initial data with:
 
-``` text
+``` wrap-code
 gcloud spanner samples init APPNAME --instance-id=INSTANCE_ID
 ```
 
 After starting the service, generate traffic with:
 
-``` text
+``` wrap-code
 gcloud spanner samples workload APPNAME
 ```
 
 To run all three steps together, use:
 
-``` text
+``` wrap-code
 gcloud spanner samples run APPNAME --instance-id=INSTANCE_ID
 ```
 
@@ -30,7 +30,7 @@ EXAMPLES
 
 To run the backend gRPC service for the 'finance' sample app using instance 'my-instance', run:
 
-``` text
+``` wrap-code
 gcloud spanner samples backend finance --instance-id=my-instance
 ```
 
@@ -63,10 +63,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner samples backend
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner samples backend
 ```

@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes the built-in Spanner table that stores statistics about your vector indexes. You can use vector index statistics to review the performance of your vector index, identify areas for improvement, and tune your index based on the metrics.
 
@@ -8,9 +8,9 @@ Spanner provides the vector index statistics in the `  SPANNER_SYS  ` schema. Yo
 
   - A database's Spanner Studio page in the Google Cloud console.
 
-  - The [`  gcloud spanner databases execute-sql  `](/sdk/gcloud/reference/spanner/databases/execute-sql) command.
+  - The [`  gcloud spanner databases execute-sql  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command.
 
-  - The [`  executeSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
+  - The [`  executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
 
 ## Vector index statistics
 
@@ -54,12 +54,12 @@ Spanner provides the vector index statistics in the `  SPANNER_SYS  ` schema. Yo
 <tr class="odd">
 <td><code dir="ltr" translate="no">       CLUSTER_SIZE_PERCENTILES      </code></td>
 <td>A vector index divides the indexed embeddings into clusters of nearby vectors. This distribution column gives some percentile values of the sizes of these clusters.</td>
-<td>The K-means clustering process, which powers vector indexing, typically produces clusters of varying size. As a result, some imbalance is expected. If there are severe deviations in cluster size, query performance becomes slower when searching the larger clusters. Deviations are severe if the 99th percentile cluster size is at least 8 times larger than the 50th percentile cluster size. See <a href="#example-query-1">example query 1</a> .</td>
+<td>The K-means clustering process, which powers vector indexing, typically produces clusters of varying size. As a result, some imbalance is expected. If there are severe deviations in cluster size, query performance becomes slower when searching the larger clusters. Deviations are severe if the 99th percentile cluster size is at least 8 times larger than the 50th percentile cluster size. See <a href="https://docs.cloud.google.com/spanner/docs/introspection/vector-index-statistics#example-query-1">example query 1</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       CLUSTER_AVERAGE_DISTANCE_TO_CENTROID_PERCENTILES      </code></td>
 <td>Each cluster has a center point, or <em>centroid</em> . To achieve good recall, vectors are generally assigned to a nearby centroid, according to the configuration you chose during index creation. For each cluster, Spanner computes the estimated average distance from the centroid to all assigned vectors. Due to natural variance among clusters, Spanner reports this metric as a distribution, given as a list of percentile values.</td>
-<td>This metric is not comparable between vector indexes (in particular, Euclidean indexes and cosine indexes are scaled differently). Track this metric over time for each vector index individually. If the 99th percentile value doubles from its historical low, consider rebuilding the index to bring it back down. See <a href="#example-query-2">example query 2</a> .</td>
+<td>This metric is not comparable between vector indexes (in particular, Euclidean indexes and cosine indexes are scaled differently). Track this metric over time for each vector index individually. If the 99th percentile value doubles from its historical low, consider rebuilding the index to bring it back down. See <a href="https://docs.cloud.google.com/spanner/docs/introspection/vector-index-statistics#example-query-2">example query 2</a> .</td>
 </tr>
 </tbody>
 </table>
@@ -68,7 +68,7 @@ Spanner provides the vector index statistics in the `  SPANNER_SYS  ` schema. Yo
 
 The following query reports the 99th percentile cluster size divided by the median cluster size for a specific vector index, over time. If the 99th percentile cluster size is at least 8 times larger than the 50th percentile cluster size, consider rebuilding your index."
 
-``` text
+``` 
  SELECT VECTOR_INDEX_NAME,
         START_TIME,
         SUM(CASE WHEN percentile = 99 THEN value_at_percentile ELSE 0 END)
@@ -86,95 +86,35 @@ GROUP BY 1, 2;
 
 **Query output**
 
-<table>
-<thead>
-<tr class="header">
-<th>VECTOR_INDEX_NAME</th>
-<th>START_TIME</th>
-<th>cluster_size_imbalance</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>VecIndex2</td>
-<td>2025-12-10 10:09:55.322415+00:00</td>
-<td>3.288</td>
-</tr>
-<tr class="even">
-<td>VecIndex2</td>
-<td>2025-12-07 10:10:02.362223+00:00</td>
-<td>3.11</td>
-</tr>
-<tr class="odd">
-<td>VecIndex2</td>
-<td>2025-12-04 10:09:55.180895+00:00</td>
-<td>2.98</td>
-</tr>
-<tr class="even">
-<td>VecIndex2</td>
-<td>2025-12-01 10:10:01.680543+00:00</td>
-<td>3.01</td>
-</tr>
-<tr class="odd">
-<td>VecIndex2</td>
-<td>2025-11-28 10:10:02.130079+00:00</td>
-<td>2.99</td>
-</tr>
-</tbody>
-</table>
+| VECTOR\_INDEX\_NAME | START\_TIME                      | cluster\_size\_imbalance |
+| ------------------- | -------------------------------- | ------------------------ |
+| VecIndex2           | 2025-12-10 10:09:55.322415+00:00 | 3.288                    |
+| VecIndex2           | 2025-12-07 10:10:02.362223+00:00 | 3.11                     |
+| VecIndex2           | 2025-12-04 10:09:55.180895+00:00 | 2.98                     |
+| VecIndex2           | 2025-12-01 10:10:01.680543+00:00 | 3.01                     |
+| VecIndex2           | 2025-11-28 10:10:02.130079+00:00 | 2.99                     |
 
 ### Example query 2
 
 The following query reports the 99th percentile distance to centroid for each vector index, over time. This metric is an indirect indication of recall performance. The exact meaning of the values depends on your embeddings. Track each vector index individually, and as a time series. If the 99th percentile value doubles from its historical low for a given index, consider rebuilding the index.
 
-``` text
-SELECT v.VECTOR_INDEX_NAME,
-       v.START_TIME,
-       d.value_at_percentile AS distance_to_centroid_99p
-FROM SPANNER_SYS.VECTOR_INDEX_METRICS_HISTORY AS v,
-UNNEST(v.CLUSTER_AVERAGE_DISTANCE_TO_CENTROID_PERCENTILES) AS d
-WHERE d.percentile=99
-ORDER BY VECTOR_INDEX_NAME, START_TIME DESC;
-```
+    SELECT v.VECTOR_INDEX_NAME,
+           v.START_TIME,
+           d.value_at_percentile AS distance_to_centroid_99p
+    FROM SPANNER_SYS.VECTOR_INDEX_METRICS_HISTORY AS v,
+    UNNEST(v.CLUSTER_AVERAGE_DISTANCE_TO_CENTROID_PERCENTILES) AS d
+    WHERE d.percentile=99
+    ORDER BY VECTOR_INDEX_NAME, START_TIME DESC;
 
 **Query output**
 
-<table>
-<thead>
-<tr class="header">
-<th>VECTOR_INDEX_NAME</th>
-<th>START_TIME</th>
-<th>distance_to_centroid_99p</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>ANNVectorBase_VI</td>
-<td>2025-12-10 10:09:55.322415+00:00</td>
-<td>1.109</td>
-</tr>
-<tr class="even">
-<td>ANNVectorBase_VI</td>
-<td>2025-12-07 10:10:02.362223+00:00</td>
-<td>1.11</td>
-</tr>
-<tr class="odd">
-<td>ANNVectorBase_VI</td>
-<td>2025-12-04 10:09:55.180895+00:00</td>
-<td>1.18</td>
-</tr>
-<tr class="even">
-<td>ANNVectorBase_VI</td>
-<td>2025-12-01 10:10:01.680543+00:00</td>
-<td>1.11</td>
-</tr>
-<tr class="odd">
-<td>ANNVectorBase_VI</td>
-<td>2025-11-28 10:10:02.130079+00:00</td>
-<td>1.04</td>
-</tr>
-</tbody>
-</table>
+| VECTOR\_INDEX\_NAME | START\_TIME                      | distance\_to\_centroid\_99p |
+| ------------------- | -------------------------------- | --------------------------- |
+| ANNVectorBase\_VI   | 2025-12-10 10:09:55.322415+00:00 | 1.109                       |
+| ANNVectorBase\_VI   | 2025-12-07 10:10:02.362223+00:00 | 1.11                        |
+| ANNVectorBase\_VI   | 2025-12-04 10:09:55.180895+00:00 | 1.18                        |
+| ANNVectorBase\_VI   | 2025-12-01 10:10:01.680543+00:00 | 1.11                        |
+| ANNVectorBase\_VI   | 2025-11-28 10:10:02.130079+00:00 | 1.04                        |
 
 ## Data retention
 
@@ -182,4 +122,4 @@ The `  SPANNER_SYS.VECTOR_INDEX_METRICS_HISTORY  ` system table retains data cov
 
 ## What's next
 
-  - Learn how to [rebuild a vector index](/spanner/docs/find-approximate-nearest-neighbors#rebuild) .
+  - Learn how to [rebuild a vector index](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#rebuild) .

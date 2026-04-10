@@ -1,13 +1,13 @@
-  - [Resource: InstanceConfig](#InstanceConfig)
-      - [JSON representation](#InstanceConfig.SCHEMA_REPRESENTATION)
-  - [Type](#Type)
-  - [ReplicaInfo](#ReplicaInfo)
-      - [JSON representation](#ReplicaInfo.SCHEMA_REPRESENTATION)
-  - [ReplicaType](#ReplicaType)
-  - [State](#State)
-  - [FreeInstanceAvailability](#FreeInstanceAvailability)
-  - [QuorumType](#QuorumType)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource: InstanceConfig](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#InstanceConfig)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#InstanceConfig.SCHEMA_REPRESENTATION)
+  - [Type](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#Type)
+  - [ReplicaInfo](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#ReplicaInfo)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#ReplicaInfo.SCHEMA_REPRESENTATION)
+  - [ReplicaType](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#ReplicaType)
+  - [State](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#State)
+  - [FreeInstanceAvailability](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#FreeInstanceAvailability)
+  - [QuorumType](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#QuorumType)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs#METHODS_SUMMARY)
 
 ## Resource: InstanceConfig
 
@@ -24,7 +24,7 @@ A possible configuration for a Cloud Spanner instance. Configurations define the
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;displayName&quot;: string,
   &quot;configType&quot;: enum (Type),
@@ -186,7 +186,7 @@ User-managed configuration.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;location&quot;: string,
   &quot;type&quot;: enum (ReplicaType),
   &quot;defaultLeaderLocation&quot;: boolean

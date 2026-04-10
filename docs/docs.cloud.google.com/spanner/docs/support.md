@@ -1,4 +1,4 @@
-  - [](/spanner/docs/getting-support)
+  - [](https://docs.cloud.google.com/spanner/docs/getting-support)
     
     ### Get support
     

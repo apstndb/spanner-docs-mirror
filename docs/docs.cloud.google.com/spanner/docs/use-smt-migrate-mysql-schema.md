@@ -2,7 +2,7 @@ This document describes how to use the Spanner migration tool (SMT) to migrate y
 
 ## Before you begin
 
-Ensure you've installed and set up SMT. For more information, see [Set up Spanner migration tool](/spanner/docs/set-up-spanner-migration-tool) .
+Ensure you've installed and set up SMT. For more information, see [Set up Spanner migration tool](https://docs.cloud.google.com/spanner/docs/set-up-spanner-migration-tool) .
 
 ## Configure schema
 
@@ -50,8 +50,8 @@ You can view and edit the table's primary key from the **Primary key** tab in th
 
 You can also use auto-generated columns for primary keys. You can choose one of the following to create auto-generated columns.
 
-  - **[UUID function](/spanner/docs/reference/standard-sql/utility-functions#generate_uuid)** : generate a UUID v4 as part of the table's primary key `  default  ` expression.
-  - **[Bit-reverse function](/spanner/docs/reference/standard-sql/bit_functions#bit_reverse)** : map existing integer keys as a bit-reversed sequence.
+  - **[UUID function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid)** : generate a UUID v4 as part of the table's primary key `  default  ` expression.
+  - **[Bit-reverse function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions#bit_reverse)** : map existing integer keys as a bit-reversed sequence.
 
 #### Foreign key
 

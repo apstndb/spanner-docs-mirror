@@ -2,7 +2,7 @@ This page explains how autoscaling works in Spanner, and introduces the two type
 
 ## Scaling Spanner
 
-When you create a [Spanner instance](/spanner/docs/instances) , you choose the number of [compute capacity nodes or processing units](/spanner/docs/compute-capacity) to use when serving your data. However, there are times when the workload might increase or decrease. *Scaling* an instance is the process of adding or removing compute capacity in response to changes in the instance's workload or data storage needs.
+When you create a [Spanner instance](https://docs.cloud.google.com/spanner/docs/instances) , you choose the number of [compute capacity nodes or processing units](https://docs.cloud.google.com/spanner/docs/compute-capacity) to use when serving your data. However, there are times when the workload might increase or decrease. *Scaling* an instance is the process of adding or removing compute capacity in response to changes in the instance's workload or data storage needs.
 
 It can be useful to scale your Spanner instance based on metrics such as the instance's CPU usage. For example, if your instance is under a heavy load and its CPU utilization is high, you can temporarily add compute capacity and remove it again when its CPU usage drops. Removing compute capacity from the instance when it doesn't have heavy usage lowers costs.
 
@@ -15,8 +15,8 @@ There are two ways that you can scale your Spanner instance to meet workload cha
 
 For autoscaling, you have the following options:
 
-  - Configure [Spanner managed autoscaling](/spanner/docs/managed-autoscaler) .
-  - Set up the open source [Autoscaler tool for Spanner](/spanner/docs/autoscaler-tool-overview) .
+  - Configure [Spanner managed autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) .
+  - Set up the open source [Autoscaler tool for Spanner](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview) .
 
 Requirements on this page apply to both the managed autoscaling feature and the open source Autoscaler tool.
 
@@ -38,8 +38,8 @@ Although Spanner quickly adds compute capacity when traffic increases, it can ta
 
 ## What's next
 
-  - Learn more about [Managed autoscaler for Spanner](/spanner/docs/managed-autoscaler)
-      - Learn how to [create an instance with the managed autoscaler enabled](/spanner/docs/create-manage-instances#create-instance)
-      - Learn how to [modify an instance to add autoscaling or change autoscaling settings](/spanner/docs/create-manage-instances#modify-managed-autoscaler)
-      - Learn how to [change an instance from using autoscaling to manual scaling](/spanner/docs/create-manage-instances#remove-managed-autoscaler)
-  - Learn more about the [Autoscaler tool for Spanner](/spanner/docs/autoscaler-tool-overview)
+  - Learn more about [Managed autoscaler for Spanner](https://docs.cloud.google.com/spanner/docs/managed-autoscaler)
+      - Learn how to [create an instance with the managed autoscaler enabled](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance)
+      - Learn how to [modify an instance to add autoscaling or change autoscaling settings](https://docs.cloud.google.com/spanner/docs/create-manage-instances#modify-managed-autoscaler)
+      - Learn how to [change an instance from using autoscaling to manual scaling](https://docs.cloud.google.com/spanner/docs/create-manage-instances#remove-managed-autoscaler)
+  - Learn more about the [Autoscaler tool for Spanner](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview)

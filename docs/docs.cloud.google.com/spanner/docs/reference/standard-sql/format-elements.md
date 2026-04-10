@@ -6,10 +6,10 @@ Many GoogleSQL parsing and formatting functions rely on a format string to descr
 
 These functions use format strings:
 
-  - [`  FORMAT_DATE  `](/spanner/docs/reference/standard-sql/date_functions#format_date)
-  - [`  FORMAT_TIMESTAMP  `](/spanner/docs/reference/standard-sql/timestamp_functions#format_timestamp)
-  - [`  PARSE_DATE  `](/spanner/docs/reference/standard-sql/date_functions#parse_date)
-  - [`  PARSE_TIMESTAMP  `](/spanner/docs/reference/standard-sql/timestamp_functions#parse_timestamp)
+  - [`  FORMAT_DATE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#format_date)
+  - [`  FORMAT_TIMESTAMP  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#format_timestamp)
+  - [`  PARSE_DATE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#parse_date)
+  - [`  PARSE_TIMESTAMP  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#parse_timestamp)
 
 Format strings generally support the following elements:
 
@@ -374,45 +374,37 @@ When parsing, this can be used with am, pm, AM, or PM.<br />
 
 Examples:
 
-``` text
-SELECT FORMAT_DATE("%b-%d-%Y", DATE "2008-12-25") AS formatted;
+    SELECT FORMAT_DATE("%b-%d-%Y", DATE "2008-12-25") AS formatted;
+    
+    /*-------------+
+     | formatted   |
+     +-------------+
+     | Dec-25-2008 |
+     +-------------*/
 
-/*-------------+
- | formatted   |
- +-------------+
- | Dec-25-2008 |
- +-------------*/
-```
+    SELECT FORMAT_TIMESTAMP("%b %Y %Ez", TIMESTAMP "2008-12-25 15:30:00+00")
+      AS formatted;
+    
+    /*-----------------+
+     | formatted       |
+     +-----------------+
+     | Dec 2008 +00:00 |
+     +-----------------*/
 
-``` text
-SELECT FORMAT_TIMESTAMP("%b %Y %Ez", TIMESTAMP "2008-12-25 15:30:00+00")
-  AS formatted;
+    SELECT PARSE_DATE("%Y%m%d", "20081225") AS parsed;
+    
+    /*------------+
+     | parsed     |
+     +------------+
+     | 2008-12-25 |
+     +------------*/
 
-/*-----------------+
- | formatted       |
- +-----------------+
- | Dec 2008 +00:00 |
- +-----------------*/
-```
-
-``` text
-SELECT PARSE_DATE("%Y%m%d", "20081225") AS parsed;
-
-/*------------+
- | parsed     |
- +------------+
- | 2008-12-25 |
- +------------*/
-```
-
-``` text
-SELECT PARSE_TIMESTAMP("%c", "Thu Dec 25 07:30:00 2008") AS parsed;
-
--- Display of results may differ, depending upon the environment and
--- time zone where this query was executed.
-/*------------------------+
- | parsed                 |
- +------------------------+
- | 2008-12-25T15:30:00Z   |
- +------------------------*/
-```
+    SELECT PARSE_TIMESTAMP("%c", "Thu Dec 25 07:30:00 2008") AS parsed;
+    
+    -- Display of results may differ, depending upon the environment and
+    -- time zone where this query was executed.
+    /*------------------------+
+     | parsed                 |
+     +------------------------+
+     | 2008-12-25T15:30:00Z   |
+     +------------------------*/

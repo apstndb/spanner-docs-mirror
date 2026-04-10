@@ -1,6 +1,6 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-This page describes how to use facets for a [full-text search](/spanner/docs/full-text-search) . As part of interactive filtering, a facet is a potential filter value, and the count of matches for that filter. On websites with this capability, when you enter a search phrase, you get a list of results in the navigation menu, and there's a list of facets that you can use to narrow the search results, along with the number of results that fit into each category.
+This page describes how to use facets for a [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) . As part of interactive filtering, a facet is a potential filter value, and the count of matches for that filter. On websites with this capability, when you enter a search phrase, you get a list of results in the navigation menu, and there's a list of facets that you can use to narrow the search results, along with the number of results that fit into each category.
 
 For example, if you use the query "foo" to search for albums, you might get hundreds of results. If there's a facet of genres, you could select by genres like "rock (250)," "r\&b (50)," or "pop (150)".
 
@@ -12,69 +12,57 @@ The following example creates a table for albums and tokenizes the title for eac
 
 ### GoogleSQL
 
-``` text
-CREATE TABLE Albums (
-  AlbumId INT64 NOT NULL,
-  Title STRING(MAX),
-  Rating INT64,
-  Genres ARRAY<STRING(MAX)>,
-  Likes INT64 NOT NULL,
-  Title_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(Title)) HIDDEN,
-) PRIMARY KEY(AlbumId);
-```
+    CREATE TABLE Albums (
+      AlbumId INT64 NOT NULL,
+      Title STRING(MAX),
+      Rating INT64,
+      Genres ARRAY<STRING(MAX)>,
+      Likes INT64 NOT NULL,
+      Title_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(Title)) HIDDEN,
+    ) PRIMARY KEY(AlbumId);
 
 ### PostgreSQL
 
-``` text
-CREATE TABLE albums (
-  albumid bigint NOT NULL,
-  title text,
-  rating bigint,
-  genres text[],
-  likes bigint NOT NULL,
-  title_tokens spanner.TOKENLIST GENERATED ALWAYS AS (spanner.TOKENIZE_FULLTEXT(Title)) VIRTUAL HIDDEN,
-PRIMARY KEY(albumid));
-```
+    CREATE TABLE albums (
+      albumid bigint NOT NULL,
+      title text,
+      rating bigint,
+      genres text[],
+      likes bigint NOT NULL,
+      title_tokens spanner.TOKENLIST GENERATED ALWAYS AS (spanner.TOKENIZE_FULLTEXT(Title)) VIRTUAL HIDDEN,
+    PRIMARY KEY(albumid));
 
 Create a search index on `  Title_Tokens  ` . Optionally, you can store `  Title  ` , `  Genres  ` and `  Rating  ` in the search index to avoid a backjoin to the base table while computing facets.
 
 ### GoogleSQL
 
-``` text
-CREATE SEARCH INDEX AlbumsIndex
-ON Albums (Title_Tokens)
-STORING (Title, Genres, Rating)
-ORDER BY Likes DESC;
-```
+    CREATE SEARCH INDEX AlbumsIndex
+    ON Albums (Title_Tokens)
+    STORING (Title, Genres, Rating)
+    ORDER BY Likes DESC;
 
 ### PostgreSQL
 
-``` text
-CREATE SEARCH INDEX albumsindex
-ON albums (title_tokens)
-INCLUDE (title, genres, rating)
-ORDER BY likes DESC
-```
+    CREATE SEARCH INDEX albumsindex
+    ON albums (title_tokens)
+    INCLUDE (title, genres, rating)
+    ORDER BY likes DESC
 
 For this example, insert the following data into the table.
 
 ### GoogleSQL
 
-``` text
-INSERT INTO Albums (AlbumId, Title, Rating, Genres, Likes) VALUES
-(1, "The Foo Strike Again", 5, ["Rock", "Alternative"], 600),
-(2, "Who are the Who?", 5, ["Progressive", "Indie"], 200),
-(3, "No Foo For You", 4, ["Metal", "Alternative"], 50)
-```
+    INSERT INTO Albums (AlbumId, Title, Rating, Genres, Likes) VALUES
+    (1, "The Foo Strike Again", 5, ["Rock", "Alternative"], 600),
+    (2, "Who are the Who?", 5, ["Progressive", "Indie"], 200),
+    (3, "No Foo For You", 4, ["Metal", "Alternative"], 50)
 
 ### PostgreSQL
 
-``` text
-INSERT INTO albums (albumid, title, rating, genres, likes) VALUES
-(1, 'The Foo Strike Again', 5,'{"Rock", "Alternative"}', 600),
-(2, 'Who are the Who?', 5,'{"Progressive", "Indie"}', 200),
-(3, 'No Foo For You', 4,'{"Metal", "Alternative"}', 50)
-```
+    INSERT INTO albums (albumid, title, rating, genres, likes) VALUES
+    (1, 'The Foo Strike Again', 5,'{"Rock", "Alternative"}', 600),
+    (2, 'Who are the Who?', 5,'{"Progressive", "Indie"}', 200),
+    (3, 'No Foo For You', 4,'{"Metal", "Alternative"}', 50)
 
 ## Retrieve count values for a single facet
 
@@ -82,33 +70,29 @@ This example shows how to perform a facet count on a Rating facet. It performs a
 
 ### GoogleSQL
 
-``` text
-SELECT Rating, COUNT(*) AS result_count
-FROM Albums
-WHERE SEARCH(Title_Tokens, "foo")
-GROUP BY Rating
-ORDER BY Rating DESC
-
-| Rating | result_count |
-|--------|--------------|
-| 5      | 1            |
-| 4      | 1            |
-```
+    SELECT Rating, COUNT(*) AS result_count
+    FROM Albums
+    WHERE SEARCH(Title_Tokens, "foo")
+    GROUP BY Rating
+    ORDER BY Rating DESC
+    
+    | Rating | result_count |
+    |--------|--------------|
+    | 5      | 1            |
+    | 4      | 1            |
 
 ### PostgreSQL
 
-``` text
-SELECT rating, COUNT(*) AS result_count
-FROM albums
-WHERE spanner.SEARCH(title_tokens, 'foo')
-GROUP BY rating
-ORDER BY rating DESC;
-
-| rating | result_count |
-|--------|--------------|
-| 5      | 1            |
-| 4      | 1            |
-```
+    SELECT rating, COUNT(*) AS result_count
+    FROM albums
+    WHERE spanner.SEARCH(title_tokens, 'foo')
+    GROUP BY rating
+    ORDER BY rating DESC;
+    
+    | rating | result_count |
+    |--------|--------------|
+    | 5      | 1            |
+    | 4      | 1            |
 
 ## Retrieve count values for multiple facets
 
@@ -119,92 +103,88 @@ This example shows the steps for performing facet counting on multiple facets. I
 
 ### GoogleSQL
 
-``` text
-WITH search_results AS (
-  SELECT AlbumId, Title, Genres, Rating, Likes
-  FROM Albums
-  WHERE SEARCH(Title_Tokens, "foo")
-  ORDER BY Likes DESC, AlbumId
-  LIMIT 10000
-)
-
-SELECT
--- Result set #1: First page of search results
-ARRAY(
-  SELECT AS STRUCT *
-  FROM search_results
-  ORDER BY Likes DESC, AlbumId
-  LIMIT 50
-) as result_page,
--- Result set #2: Number of results by rating
-ARRAY(
-  SELECT AS STRUCT Rating, COUNT(*) as result_count
-  FROM search_results
-  GROUP BY Rating
-  ORDER BY result_count DESC, Rating DESC
-) as rating_counts,
--- Result set #3: Number of results for top 5 genres
-ARRAY(
-  SELECT AS STRUCT genre, COUNT(*) as result_count
-  FROM search_results
-  JOIN UNNEST(Genres) genre
-  GROUP BY genre
-  ORDER BY result_count DESC, genre
-  LIMIT 5
-) as genres_counts
-```
+    WITH search_results AS (
+      SELECT AlbumId, Title, Genres, Rating, Likes
+      FROM Albums
+      WHERE SEARCH(Title_Tokens, "foo")
+      ORDER BY Likes DESC, AlbumId
+      LIMIT 10000
+    )
+    
+    SELECT
+    -- Result set #1: First page of search results
+    ARRAY(
+      SELECT AS STRUCT *
+      FROM search_results
+      ORDER BY Likes DESC, AlbumId
+      LIMIT 50
+    ) as result_page,
+    -- Result set #2: Number of results by rating
+    ARRAY(
+      SELECT AS STRUCT Rating, COUNT(*) as result_count
+      FROM search_results
+      GROUP BY Rating
+      ORDER BY result_count DESC, Rating DESC
+    ) as rating_counts,
+    -- Result set #3: Number of results for top 5 genres
+    ARRAY(
+      SELECT AS STRUCT genre, COUNT(*) as result_count
+      FROM search_results
+      JOIN UNNEST(Genres) genre
+      GROUP BY genre
+      ORDER BY result_count DESC, genre
+      LIMIT 5
+    ) as genres_counts
 
 ### PostgreSQL
 
-``` text
-WITH search_results AS (
-  SELECT albumid, title, genres, rating, likes
-  FROM albums
-  WHERE spanner.SEARCH(title_tokens, 'foo')
-  ORDER BY likes DESC, albumid
-  LIMIT 10000
-)
-
--- The pattern ARRAY(SELECT TO_JSONB ...) enables returning multiple nested
--- result sets in the same query.
-SELECT
-  -- Result set #1: First page of search results
-  ARRAY(
-  SELECT JSONB_BUILD_OBJECT(
-    'albumid', albumid,
-    'title', title,
-    'genres', genres,
-    'rating', rating,
-    'likes', likes
+    WITH search_results AS (
+      SELECT albumid, title, genres, rating, likes
+      FROM albums
+      WHERE spanner.SEARCH(title_tokens, 'foo')
+      ORDER BY likes DESC, albumid
+      LIMIT 10000
     )
-  FROM search_results
-  ORDER BY likes DESC, albumid
-  LIMIT 50
-) as result_page,
--- Result set #2: Number of results by rating
-ARRAY(
-  SELECT JSONB_BUILD_OBJECT(
-    'rating', rating,
-    'result_count', COUNT(*)
-    )
-  FROM search_results
-  GROUP BY rating
-  ORDER BY COUNT(*) DESC, rating DESC
-) as rating_counts,
--- Result set #3: Number of results for top 5 genres
-ARRAY(
-  SELECT JSONB_BUILD_OBJECT(
-    'genre', genre,
-    'result_count', COUNT(*)
-    )
-  FROM
-    search_results,
-    UNNEST(genres) AS genre
-  GROUP BY genre
-  ORDER BY COUNT(*) DESC, genre
-  LIMIT 5
-) as genres_counts
-```
+    
+    -- The pattern ARRAY(SELECT TO_JSONB ...) enables returning multiple nested
+    -- result sets in the same query.
+    SELECT
+      -- Result set #1: First page of search results
+      ARRAY(
+      SELECT JSONB_BUILD_OBJECT(
+        'albumid', albumid,
+        'title', title,
+        'genres', genres,
+        'rating', rating,
+        'likes', likes
+        )
+      FROM search_results
+      ORDER BY likes DESC, albumid
+      LIMIT 50
+    ) as result_page,
+    -- Result set #2: Number of results by rating
+    ARRAY(
+      SELECT JSONB_BUILD_OBJECT(
+        'rating', rating,
+        'result_count', COUNT(*)
+        )
+      FROM search_results
+      GROUP BY rating
+      ORDER BY COUNT(*) DESC, rating DESC
+    ) as rating_counts,
+    -- Result set #3: Number of results for top 5 genres
+    ARRAY(
+      SELECT JSONB_BUILD_OBJECT(
+        'genre', genre,
+        'result_count', COUNT(*)
+        )
+      FROM
+        search_results,
+        UNNEST(genres) AS genre
+      GROUP BY genre
+      ORDER BY COUNT(*) DESC, genre
+      LIMIT 5
+    ) as genres_counts
 
 Specifically, this example does the following:
 
@@ -219,4 +199,4 @@ Specifically, this example does the following:
 
 When you query for successive pages after the initial facet query, you can reuse the facet counts returned from the first page.
 
-For more information on how to paginate, see [Use key-based pagination](/spanner/docs/full-text-search/paginate-search-results#use_key-based_pagination) .
+For more information on how to paginate, see [Use key-based pagination](https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results#use_key-based_pagination) .

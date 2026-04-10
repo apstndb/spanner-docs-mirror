@@ -6,7 +6,7 @@ Spanner provides built-in tables that record read, query, and write operation st
 
 When you query or write to a column, Spanner increments the corresponding operation count for that column increments by one, regardless of the number of rows accessed.
 
-You can monitor a database's overall using metrics that measure operations-per-second, operations per second by API method, and other related metrics within your [System Insights](/spanner/docs/monitoring-console) charts.
+You can monitor a database's overall using metrics that measure operations-per-second, operations per second by API method, and other related metrics within your [System Insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) charts.
 
 ## Access column operations statistics
 
@@ -14,9 +14,9 @@ Spanner provides the column operations statistics in the `  SPANNER_SYS  ` schem
 
   - A database's Spanner Studio page in the Google Cloud console
 
-  - The [`  gcloud spanner databases execute-sql  `](/sdk/gcloud/reference/spanner/databases/execute-sql) command
+  - The [`  gcloud spanner databases execute-sql  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command
 
-  - The [`  executeSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
+  - The [`  executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
 
 The following single read methods that Spanner provides don't support `  SPANNER_SYS  ` :
 
@@ -24,7 +24,7 @@ The following single read methods that Spanner provides don't support `  SPANNER
   - Performing a stale read from a single row or multiple rows in a table.
   - Reading from a single row or multiple rows in a secondary index.
 
-For more information, see [Single read methods](/spanner/docs/reads#single_read_methods) .
+For more information, see [Single read methods](https://docs.cloud.google.com/spanner/docs/reads#single_read_methods) .
 
 ## Column operations statistics
 
@@ -48,57 +48,15 @@ These tables have the following properties:
 
 ### Schema for all column operations statistics tables
 
-<table>
-<colgroup>
-<col style="width: 40%" />
-<col style="width: 10%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       INTERVAL_END      </code></td>
-<td><code dir="ltr" translate="no">       TIMESTAMP      </code></td>
-<td>End of time interval in which the column usage statistics were collected.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       TABLE_NAME      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>Name of the table or the index.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       COLUMN_NAME      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>Name of the column.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       READ_COUNT      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
-<td>Number of reads from the column.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       QUERY_COUNT      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
-<td>Number of queries reading from the column.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       WRITE_COUNT      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
-<td>Number of queries writing to the table.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       IS_QUERY_CACHE_MEMORY_CAPPED      </code></td>
-<td><code dir="ltr" translate="no">       BOOL      </code></td>
-<td>Whether the statistics collection was capped due to memory pressure.</td>
-</tr>
-</tbody>
-</table>
+| Column name                                   | Type                       | Description                                                               |
+| --------------------------------------------- | -------------------------- | ------------------------------------------------------------------------- |
+| `        INTERVAL_END       `                 | `        TIMESTAMP       ` | End of time interval in which the column usage statistics were collected. |
+| `        TABLE_NAME       `                   | `        STRING       `    | Name of the table or the index.                                           |
+| `        COLUMN_NAME       `                  | `        STRING       `    | Name of the column.                                                       |
+| `        READ_COUNT       `                   | `        INT64       `     | Number of reads from the column.                                          |
+| `        QUERY_COUNT       `                  | `        INT64       `     | Number of queries reading from the column.                                |
+| `        WRITE_COUNT       `                  | `        INT64       `     | Number of queries writing to the table.                                   |
+| `        IS_QUERY_CACHE_MEMORY_CAPPED       ` | `        BOOL       `      | Whether the statistics collection was capped due to memory pressure.      |
 
 If you insert data into your database using mutations, Spanner increments the `  WRITE_COUNT  ` by 1 for each table that the insert statement accesses. In addition, a query that accesses an index without scanning the underlying table only increments the `  QUERY_COUNT  ` on the index.
 
@@ -116,13 +74,13 @@ At a minimum, Spanner keeps data for each table for the following time periods:
 
 ### Example queries
 
-This section includes several example SQL statements that retrieve aggregate column operations statistics. You can run these SQL statements using the [client libraries](/spanner/docs/reference/libraries) or the [Google Cloud CLI](/spanner/docs/gcloud-spanner#execute_sql_statements) .
+This section includes several example SQL statements that retrieve aggregate column operations statistics. You can run these SQL statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) or the [Google Cloud CLI](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#execute_sql_statements) .
 
 #### Query the table columns with the most write operations for the most recent interval
 
 ### GoogleSQL
 
-``` text
+``` 
     SELECT interval_end,
           table_name,
           column_name,
@@ -136,7 +94,7 @@ This section includes several example SQL statements that retrieve aggregate col
 
 ### PostgreSQL
 
-``` text
+``` 
     SELECT interval_end,
           table_name,
           column_name,
@@ -152,7 +110,7 @@ This section includes several example SQL statements that retrieve aggregate col
 
 ### GoogleSQL
 
-``` text
+``` 
     SELECT interval_end,
           table_name,
           column_name,
@@ -166,7 +124,7 @@ This section includes several example SQL statements that retrieve aggregate col
 
 ### PostgreSQL
 
-``` text
+``` 
     SELECT interval_end,
           table_name,
           column_name,
@@ -182,7 +140,7 @@ This section includes several example SQL statements that retrieve aggregate col
 
 ### GoogleSQL
 
-``` text
+``` 
     SELECT interval_end,
           read_count,
           query_count,
@@ -201,7 +159,7 @@ Where:
 
 ### PostgreSQL
 
-``` text
+``` 
     SELECT interval_end,
           read_count,
           query_count,
@@ -222,17 +180,15 @@ Where:
 
 ### GoogleSQL
 
-``` text
-SELECT interval_end,
-       read_count,
-       query_count,
-       write_count
-FROM spanner_sys.column_operations_stats_hour
-WHERE interval_end > TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -14 DAY)
-      AND table_name = "table_name"
-      AND column_name = "column_name"
-ORDER BY interval_end DESC;
-```
+    SELECT interval_end,
+           read_count,
+           query_count,
+           write_count
+    FROM spanner_sys.column_operations_stats_hour
+    WHERE interval_end > TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -14 DAY)
+          AND table_name = "table_name"
+          AND column_name = "column_name"
+    ORDER BY interval_end DESC;
 
 Make the following replacements:
 
@@ -241,17 +197,15 @@ Make the following replacements:
 
 ### PostgreSQL
 
-``` text
-SELECT interval_end,
-   read_count,
-   query_count,
-   write_count
-FROM spanner_sys.column_operations_stats_hour
-WHERE interval_end > spanner.timestamptz_subtract(now(), '14 DAY')
-  AND table_name = 'table_name'
-  AND column_name = 'column_name'
-ORDER BY interval_end DESC;
-```
+    SELECT interval_end,
+       read_count,
+       query_count,
+       write_count
+    FROM spanner_sys.column_operations_stats_hour
+    WHERE interval_end > spanner.timestamptz_subtract(now(), '14 DAY')
+      AND table_name = 'table_name'
+      AND column_name = 'column_name'
+    ORDER BY interval_end DESC;
 
 Make the following replacements:
 
@@ -260,6 +214,6 @@ Make the following replacements:
 
 ## What's next
 
-  - Learn about other [Built-in statistics tables](/spanner/docs/introspection) .
+  - Learn about other [Built-in statistics tables](https://docs.cloud.google.com/spanner/docs/introspection) .
 
-  - Learn more about [SQL best practices](/spanner/docs/sql-best-practices) for Spanner.
+  - Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) for Spanner.

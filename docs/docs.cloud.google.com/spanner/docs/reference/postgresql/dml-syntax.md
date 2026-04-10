@@ -18,30 +18,28 @@ This page defines the syntax of the SQL data manipulation language (DML) stateme
 
 Use the `  INSERT  ` statement to add new rows to a table.
 
-``` text
-INSERT INTO table_name [ AS alias ]
-    [ ( column_name [, ...] ) ]
-    { VALUES ( { expression | DEFAULT } [, ...] ) [, ...] | query }
-    [ ON CONFLICT (conflict_target) conflict_action ]
-    [ RETURNING select-list ]
+    INSERT INTO table_name [ AS alias ]
+        [ ( column_name [, ...] ) ]
+        { VALUES ( { expression | DEFAULT } [, ...] ) [, ...] | query }
+        [ ON CONFLICT (conflict_target) conflict_action ]
+        [ RETURNING select-list ]
+    
+    where conflict_target must be the primary key column(s) in order
+    and separated by columns.
+    
+    and conflict_action is one of:
+    
+        DO NOTHING
+        DO UPDATE SET { column_name [, ...] = excluded.column_name [, ...] }
+    
+    and where query is:
+        a query (SELECT statement) that supplies the rows to be inserted.
+    
+    and select-list is:
+    
+        { * | expression [ [ AS ] output_name ] [, ...] }
 
-where conflict_target must be the primary key column(s) in order
-and separated by columns.
-
-and conflict_action is one of:
-
-    DO NOTHING
-    DO UPDATE SET { column_name [, ...] = excluded.column_name [, ...] }
-
-and where query is:
-    a query (SELECT statement) that supplies the rows to be inserted.
-
-and select-list is:
-
-    { * | expression [ [ AS ] output_name ] [, ...] }
-```
-
-See [PostgreSQL queries](/spanner/docs/reference/postgresql/query-syntax) for a description of the `  SELECT  ` syntax.
+See [PostgreSQL queries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax) for a description of the `  SELECT  ` syntax.
 
 **Note:** Hints are not supported for ***query*** in an `  INSERT  ` statement.
 
@@ -51,15 +49,13 @@ Use the `  DEFAULT  ` keyword to insert the default value of a column. If a colu
 
 The use of default values is subject to current Spanner limits, including the mutation limit. If a column has a default value and it is used in an insert or update, the column is counted as one mutation. For example, assuming that table `  T  ` has three columns and that `  col_a  ` has a default value, the following inserts each result in three mutations:
 
-``` text
-INSERT INTO T (id, col_a, col_b) VALUES (1, DEFAULT, 1);
-INSERT INTO T (id, col_a, col_b) VALUES (2, 200, 2);
-INSERT INTO T (id, col_b) VALUES (3, 3);
-```
+    INSERT INTO T (id, col_a, col_b) VALUES (1, DEFAULT, 1);
+    INSERT INTO T (id, col_a, col_b) VALUES (2, 200, 2);
+    INSERT INTO T (id, col_b) VALUES (3, 3);
 
 For more information about default column values, see the `  DEFAULT ( expression )  ` clause in `  CREATE TABLE  ` .
 
-For more information about mutations, see [What are mutations?](../../dml-versus-mutations.md#mutations-concept) .
+For more information about mutations, see [What are mutations?](https://docs.cloud.google.com/spanner/docs/dml-versus-mutations.md#mutations-concept) .
 
 ### `     ON CONFLICT    ` clause
 
@@ -79,12 +75,10 @@ This clause has a few differences from PostgreSQL, resulting in the following re
 
   - For `  DO UPDATE SET  ` , the update value must be set to the insert value in the query using the PostgreSQL special alias `  excluded  ` . For example:
     
-    ``` text
-    INSERT INTO singers (SingerId, FirstName, LastName)
-    VALUES (1, 'Marc', 'Richards')
-    ON CONFLICT (SingerId)
-    DO UPDATE SET SingerId = excluded.SingerId, FirstName = excluded.FirstName, LastName = excluded.LastName;
-    ```
+        INSERT INTO singers (SingerId, FirstName, LastName)
+        VALUES (1, 'Marc', 'Richards')
+        ON CONFLICT (SingerId)
+        DO UPDATE SET SingerId = excluded.SingerId, FirstName = excluded.FirstName, LastName = excluded.LastName;
 
   - The `  WHERE  ` clause in `  ON CONFLICT DO UPDATE  ` clause isn't supported.
 
@@ -92,44 +86,38 @@ This clause has a few differences from PostgreSQL, resulting in the following re
 
 For the following table:
 
-``` text
-CREATE TABLE Singers (
-  SingerId int primary key,
-  FirstName varchar(64),
-  LastName varchar(64),
-  Birthdate date,
-  Status varchar(64),
-  SingerInfo varchar(64),
-  LastUpdatedTime SPANNER.COMMIT_TIMESTAMP DEFAULT SPANNER.PENDING_COMMIT_TIMESTAMP()
-    ON UPDATE SPANNER.PENDING_COMMIT_TIMESTAMP()
-);
-```
+    CREATE TABLE Singers (
+      SingerId int primary key,
+      FirstName varchar(64),
+      LastName varchar(64),
+      Birthdate date,
+      Status varchar(64),
+      SingerInfo varchar(64),
+      LastUpdatedTime SPANNER.COMMIT_TIMESTAMP DEFAULT SPANNER.PENDING_COMMIT_TIMESTAMP()
+        ON UPDATE SPANNER.PENDING_COMMIT_TIMESTAMP()
+    );
 
 You can use the following query without a columns list:
 
-``` text
-INSERT INTO Singers
-VALUES (5, 'Zak', 'Sterling', '1996-03-12', 'active', 'nationality:"U.S.A."'),
-       (7, 'Edie', 'Silver', '1998-01-23', 'active', 'nationality:"U.S.A."')
-ON CONFLICT (SingerId)
-DO UPDATE SET SingerId=excluded.SingerId,
-              FirstName=excluded.FirstName,
-              LastName=excluded.LastName,
-              Birthdate=excluded.Birthdate,
-              Status=excluded.Status,
-              SingerInfo=excluded.SingerInfo;
-```
+    INSERT INTO Singers
+    VALUES (5, 'Zak', 'Sterling', '1996-03-12', 'active', 'nationality:"U.S.A."'),
+           (7, 'Edie', 'Silver', '1998-01-23', 'active', 'nationality:"U.S.A."')
+    ON CONFLICT (SingerId)
+    DO UPDATE SET SingerId=excluded.SingerId,
+                  FirstName=excluded.FirstName,
+                  LastName=excluded.LastName,
+                  Birthdate=excluded.Birthdate,
+                  Status=excluded.Status,
+                  SingerInfo=excluded.SingerInfo;
 
 Or you can use the following query with a columns list:
 
-``` text
-INSERT INTO Singers
-    (SingerId, LastName)
-VALUES (5, 'Sterling'),
-       (7, 'Silver')
-ON CONFLICT (SingerId)
-DO UPDATE SET SingerId=excluded.SingerId, LastName=excluded.LastName;
-```
+    INSERT INTO Singers
+        (SingerId, LastName)
+    VALUES (5, 'Sterling'),
+           (7, 'Silver')
+    ON CONFLICT (SingerId)
+    DO UPDATE SET SingerId=excluded.SingerId, LastName=excluded.LastName;
 
 In both cases, `  LastUpdatedTime  ` will automatically be set to `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` .
 
@@ -145,90 +133,80 @@ The `  RETURNING  ` clause can capture expressions based on newly inserted rows 
 
 For example, the following query inserts two rows into the `  Singers  ` table, uses `  RETURNING  ` to fetch the SingerId column from these rows, and computes a new column called `  FullName  ` .
 
-``` text
-INSERT INTO singers (SingerId, FirstName, LastName)
-VALUES
-    (7, 'Melissa', 'Garcia'),
-    (8, 'Russell', 'Morales')
-RETURNING SingerId, FirstName || ' ' || LastName AS FullName;
-```
+    INSERT INTO singers (SingerId, FirstName, LastName)
+    VALUES
+        (7, 'Melissa', 'Garcia'),
+        (8, 'Russell', 'Morales')
+    RETURNING SingerId, FirstName || ' ' || LastName AS FullName;
 
 In the following query, we use `  ON CONFLICT DO UPDATE SET  ` is used to update existing rows if there is a conflict for `  SingerId  ` .
 
-``` text
-INSERT INTO singers (SingerId, FirstName, LastName)
-VALUES
-    (7, 'Melissa', 'Garcia'),
-    (8, 'Russell', 'Morales')
-ON CONFLICT (SingerId) DO UPDATE SET
-    SingerId = EXCLUDED.SingerId,
-    FirstName = EXCLUDED.FirstName,
-    LastName = EXCLUDED.LastName
-RETURNING SingerId, FirstName || ' ' || LastName AS FullName;
-```
+    INSERT INTO singers (SingerId, FirstName, LastName)
+    VALUES
+        (7, 'Melissa', 'Garcia'),
+        (8, 'Russell', 'Morales')
+    ON CONFLICT (SingerId) DO UPDATE SET
+        SingerId = EXCLUDED.SingerId,
+        FirstName = EXCLUDED.FirstName,
+        LastName = EXCLUDED.LastName
+    RETURNING SingerId, FirstName || ' ' || LastName AS FullName;
 
-For instructions and code samples, see [Modify data with the returning DML statements](/spanner/docs/dml-tasks#client-library-dml-return) .
+For instructions and code samples, see [Modify data with the returning DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks#client-library-dml-return) .
 
 ## DELETE statement
 
 Use the `  DELETE  ` statement to delete rows from a table.
 
-``` text
-[ /* @statement_hint_expr [, ...] */ ] DELETE FROM table_name [ /* @table_hint_expr [, ...] */ ]
-    [ [ AS ] alias ]
-    [ WHERE condition ]
-    [ RETURNING select-list ]
-
-where select-list is:
-    { * | expression [ [ AS ] output_name ] [, ...] }
-
-
-and statement_hint_expr is:
-
-    statement_hint_key = statement_hint_value
-
-and table_hint_expr is:
-
-    table_hint_key = table_hint_value
-```
+    [ /* @statement_hint_expr [, ...] */ ] DELETE FROM table_name [ /* @table_hint_expr [, ...] */ ]
+        [ [ AS ] alias ]
+        [ WHERE condition ]
+        [ RETURNING select-list ]
+    
+    where select-list is:
+        { * | expression [ [ AS ] output_name ] [, ...] }
+    
+    
+    and statement_hint_expr is:
+    
+        statement_hint_key = statement_hint_value
+    
+    and table_hint_expr is:
+    
+        table_hint_key = table_hint_value
 
 ### RETURNING
 
 With the optional `  RETURNING  ` clause, you can obtain data from rows that are being deleted in a table. For example, the following query deletes all rows in the `  Singers  ` table that contains a singer called `  Melissa  ` and returns the deleted rows.
 
-``` text
-DELETE FROM Singers WHERE Firstname = 'Melissa'
-RETURNING *;
-```
+    DELETE FROM Singers WHERE Firstname = 'Melissa'
+    RETURNING *;
 
-To learn more about the values that you can use in this clause, see [INSERT RETURNING](#insert-returning) .
+To learn more about the values that you can use in this clause, see [INSERT RETURNING](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) .
 
 ## UPDATE statement
 
 Use the `  UPDATE  ` statement to update existing rows in a table.
 
-``` text
-[ /* @statement_hint_expr [, ...] */ ] UPDATE [ ONLY ] table_name [ /* @table_hint_expr [, ...] */ ] [ * ]
-    [ [ AS ] alias ]
-    SET {
-        column_name = { expression | DEFAULT } |
-        ( column_name [, ...] ) = [ ROW ] ( { expression | DEFAULT } [, ...] )
-    } [, ...]
-    [ WHERE condition ]
-    [ RETURNING select-list ]
-
-where select-list is:
-    { * | expression [ [ AS ] output_name ] [, ...] }
-
-
-and statement_hint_expr is:
-
-    statement_hint_key = statement_hint_value
-
-and table_hint_expr is:
-
-    table_hint_key = table_hint_value
-```
+    [ /* @statement_hint_expr [, ...] */ ] UPDATE [ ONLY ] table_name [ /* @table_hint_expr [, ...] */ ] [ * ]
+        [ [ AS ] alias ]
+        SET {
+            column_name = { expression | DEFAULT } |
+            ( column_name [, ...] ) = [ ROW ] ( { expression | DEFAULT } [, ...] )
+        } [, ...]
+        [ WHERE condition ]
+        [ RETURNING select-list ]
+    
+    where select-list is:
+        { * | expression [ [ AS ] output_name ] [, ...] }
+    
+    
+    and statement_hint_expr is:
+    
+        statement_hint_key = statement_hint_value
+    
+    and table_hint_expr is:
+    
+        table_hint_key = table_hint_value
 
 Where:
 
@@ -257,35 +235,19 @@ Where:
     <tr class="odd">
     <td>PDML_MAX_PARALLELISM</td>
     <td>An integer between 1 to 1000</td>
-    <td>Sets the maximum parallelism for <a href="/spanner/docs/dml-partitioned">Partitioned DML</a> queries.<br />
-    This hint is only valid with the <a href="/spanner/docs/dml-partitioned">Partitioned DML</a> query execution mode.</td>
+    <td>Sets the maximum parallelism for <a href="https://docs.cloud.google.com/spanner/docs/dml-partitioned">Partitioned DML</a> queries.<br />
+    This hint is only valid with the <a href="https://docs.cloud.google.com/spanner/docs/dml-partitioned">Partitioned DML</a> query execution mode.</td>
     </tr>
     </tbody>
     </table>
 
   - `  table_hint_expr  ` is a hint for accessing the table. The following hints are supported:
     
-    <table>
-    <thead>
-    <tr class="header">
-    <th><code dir="ltr" translate="no">         table_hint_key        </code></th>
-    <th><code dir="ltr" translate="no">         table_hint_value        </code></th>
-    <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="odd">
-    <td>FORCE_INDEX</td>
-    <td>Index name</td>
-    <td>Use specified index when querying rows to be updated.</td>
-    </tr>
-    <tr class="even">
-    <td>FORCE_INDEX</td>
-    <td>_BASE_TABLE</td>
-    <td>Don't use an index when querying. Instead, scan the base table.</td>
-    </tr>
-    </tbody>
-    </table>
+    | `          table_hint_key         ` | `          table_hint_value         ` | Description                                                     |
+    | ----------------------------------- | ------------------------------------- | --------------------------------------------------------------- |
+    | FORCE\_INDEX                        | Index name                            | Use specified index when querying rows to be updated.           |
+    | FORCE\_INDEX                        | \_BASE\_TABLE                         | Don't use an index when querying. Instead, scan the base table. |
+    
 
 `  UPDATE  ` statements must comply with the following rules:
 
@@ -302,14 +264,12 @@ The `  DEFAULT  ` keyword sets the value of a column to its default value. If th
 
 The use of default values is subject to current Spanner limits, including the mutation limit. If a column has a default value and it is used in an insert or update, the column is counted as one mutation. For example, assume that in table `  T  ` , `  col_a  ` has a default value. The following updates each result in two mutations. One comes from the primary key, and another comes from either the explicit value (1000) or the default value.
 
-``` text
-UPDATE T SET col_a = 1000 WHERE id=1;
-UPDATE T SET col_a = DEFAULT WHERE id=3;
-```
+    UPDATE T SET col_a = 1000 WHERE id=1;
+    UPDATE T SET col_a = DEFAULT WHERE id=3;
 
 For more information about default column values, see the `  DEFAULT expression  ` clause in `  CREATE TABLE  ` .
 
-For more information about mutations, see [What are mutations?](../../dml-versus-mutations.md#mutations-concept) .
+For more information about mutations, see [What are mutations?](https://docs.cloud.google.com/spanner/docs/dml-versus-mutations.md#mutations-concept) .
 
 ### `     ON UPDATE    `
 
@@ -317,17 +277,13 @@ If the target table includes an `  ON UPDATE  ` expression for a column, that co
 
 The following example automatically sets the `  LastUpdated  ` column in the `  Singers  ` table to the commit timestamp, whether or not the value of `  Status  ` changed.
 
-``` text
-UPDATE Singers SET Status = 'inactive' WHERE SingerId = 10;
-```
+    UPDATE Singers SET Status = 'inactive' WHERE SingerId = 10;
 
 The following example doesn't trigger `  ON UPDATE  ` for the `  LastUpdated  ` column because an explicit value has been provided.
 
-``` text
-UPDATE Singers
-SET Status = 'active', LastUpdated = TIMESTAMP ("2025-07-15 15:30:00+00")
-WHERE SingerId = 10;
-```
+    UPDATE Singers
+    SET Status = 'active', LastUpdated = TIMESTAMP ("2025-07-15 15:30:00+00")
+    WHERE SingerId = 10;
 
 For more information about `  ON UPDATE  ` column values, see the `  ON UPDATE expression  ` clause in `  CREATE TABLE  ` .
 
@@ -341,11 +297,9 @@ The `  WHERE  ` clause can contain any valid SQL boolean expression, including a
 
 The `  WHERE  ` clause has an implicit alias to `  target_name  ` . This alias lets you reference columns in `  target_name  ` without qualifying them with `  target_name  ` . For example, if your statement starts with `  UPDATE Singers  ` , then you can access any columns of `  Singers  ` in the `  WHERE  ` clause. In this example, `  FirstName  ` and `  LastName  ` are columns in the `  Singers  ` table:
 
-``` text
-UPDATE singers
-SET birthdate = '1990-10-10'
-WHERE firstname = 'Marc' AND lastname = 'Richards';
-```
+    UPDATE singers
+    SET birthdate = '1990-10-10'
+    WHERE firstname = 'Marc' AND lastname = 'Richards';
 
 You can also create an explicit alias using the optional `  AS  ` keyword.
 
@@ -353,11 +307,9 @@ You can also create an explicit alias using the optional `  AS  ` keyword.
 
 With the optional `  RETURNING  ` clause, you can obtain data from rows that are being updated in a table. For example, the following query updates all rows where the singer first name is equal to `  Russell  ` and returns the updated rows.
 
-``` text
-UPDATE Singers
-SET BirthDate = '1990-10-10'
-WHERE FirstName = 'Russell'
-RETURNING *;
-```
+    UPDATE Singers
+    SET BirthDate = '1990-10-10'
+    WHERE FirstName = 'Russell'
+    RETURNING *;
 
-To learn more about the values that you can use in this clause, see [INSERT RETURNING](#insert-returning) .
+To learn more about the values that you can use in this clause, see [INSERT RETURNING](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) .

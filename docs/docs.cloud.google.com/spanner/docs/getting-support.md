@@ -1,6 +1,6 @@
 ## Get a Google support package
 
-Google Cloud offers different support packages to meet different needs, such as 24/7 coverage, phone support, and access to a technical support manager. For more information, see [Cloud Customer Care](/support) .
+Google Cloud offers different support packages to meet different needs, such as 24/7 coverage, phone support, and access to a technical support manager. For more information, see [Cloud Customer Care](https://docs.cloud.google.com/support) .
 
 ## Ask a question on Stack Overflow
 

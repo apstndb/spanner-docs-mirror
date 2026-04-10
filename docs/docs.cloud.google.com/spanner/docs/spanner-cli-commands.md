@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
+**PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](https://docs.cloud.google.com/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
 
 This page summarizes the Spanner CLI supported commands.
 
@@ -12,7 +12,7 @@ List databases.
 
 `  USE database_name  ` \[ROLE `  role_name  ` \];
 
-Switch database. The role you set is used for [fine-grained access control](/spanner/docs/fgac-about) .
+Switch database. The role you set is used for [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
 
 `  CREATE DATABASE database_name  ` ;
 
@@ -52,7 +52,7 @@ Delete table.
 
 `  TRUNCATE TABLE table_name  ` ;
 
-Truncate table. Only delete rows. This command is non-atomic because it's executed as a [partitioned DML statement](/spanner/docs/dml-partitioned) .
+Truncate table. Only delete rows. This command is non-atomic because it's executed as a [partitioned DML statement](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
 
 `  CREATE INDEX ...;  `
 
@@ -64,7 +64,7 @@ Delete index.
 
 `  CREATE ROLE ...;  `
 
-Create role. For more information, see Spanner [IAM overview](/spanner/docs/iam) .
+Create role. For more information, see Spanner [IAM overview](https://docs.cloud.google.com/spanner/docs/iam) .
 
 `  DROP ROLE ...;  `
 
@@ -92,7 +92,7 @@ Execute a partitioned DML statement. This command is non-atomic.
 
 `  EXPLAIN SELECT ...;  `
 
-Show a query execution plan. For more information, see [Query execution plans](/spanner/docs/query-execution-plans) .
+Show a query execution plan. For more information, see [Query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) .
 
 `  EXPLAIN {INSERT|UPDATE|DELETE} ...;  `
 
@@ -100,11 +100,11 @@ Show the DML execution plan.
 
 `  EXPLAIN ANALYZE SELECT ...;  `
 
-Show query execution plan with optimizer statistics. For more information, see [Optimizer statistics packages](/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) .
+Show query execution plan with optimizer statistics. For more information, see [Optimizer statistics packages](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) .
 
 `  EXPLAIN ANALYZE {INSERT|UPDATE|DELETE} ...;  `
 
-Show the DML execution plan with optimizer statistics. For more information, see [Optimizer statistics packages](/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) .
+Show the DML execution plan with optimizer statistics. For more information, see [Optimizer statistics packages](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) .
 
 `  DESCRIBE SELECT ...;  `
 
@@ -132,7 +132,7 @@ Abort batch commands.
 
 `  BEGIN [RW] [ISOLATION LEVEL {SERIALIZABLE|REPEATABLE READ}] [PRIORITY {HIGH|MEDIUM|LOW}] [TAG tag_name  ` \];
 
-Start a read-write transaction. For more information, see [Transaction commands](#transaction-commands) .
+Start a read-write transaction. For more information, see [Transaction commands](https://docs.cloud.google.com/spanner/docs/spanner-cli-commands#transaction-commands) .
 
 `  COMMIT;  `
 
@@ -144,7 +144,7 @@ Rollback (undo) a read-write transaction.
 
 `  BEGIN RO [{ seconds  ` | `  RFC 3339-formatted_time  ` }\] \[PRIORITY {HIGH|MEDIUM|LOW}\] \[TAG `  tag_name  ` \];
 
-Start a read-only transaction. seconds and RFC 3339-formatted\_time are used for stale reads. For more information, see [Transaction commands](#transaction-commands) .
+Start a read-only transaction. seconds and RFC 3339-formatted\_time are used for stale reads. For more information, see [Transaction commands](https://docs.cloud.google.com/spanner/docs/spanner-cli-commands#transaction-commands) .
 
 `  CLOSE;  `
 
@@ -182,7 +182,7 @@ Start a transaction. You can configure these options:
 
   - Stale reads time: Set the time, in seconds or RFC 3339-formatted, to read data from a specific timestamp.
 
-  - Isolation level: Set the isolation level for read-write transactions. By default, serializable isolation is used. For more information, see [Isolation levels overview](/spanner/docs/isolation-levels) .
+  - Isolation level: Set the isolation level for read-write transactions. By default, serializable isolation is used. For more information, see [Isolation levels overview](https://docs.cloud.google.com/spanner/docs/isolation-levels) .
 
   - Priority: Set the request priority for the transaction. Medium priority is set by default.
 
@@ -205,4 +205,4 @@ Rollback (undo) a read-write transaction.
 
 ## What's next
 
-  - Learn more about the [Spanner CLI](/spanner/docs/spanner-cli) .
+  - Learn more about the [Spanner CLI](https://docs.cloud.google.com/spanner/docs/spanner-cli) .

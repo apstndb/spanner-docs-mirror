@@ -3,25 +3,27 @@ This document describes how to use the Cloud Monitoring console to monitor your 
 The Cloud Monitoring console provides several monitoring tools for Spanner:
 
   - A *curated dashboard* , which shows pre-made charts for your Spanner resources
-  - *Custom charts* , including [ad-hoc charts in the Metrics Explorer](/monitoring/charts/metrics-explorer) as well as [charts in custom dashboards](/monitoring/charts)
+  - *Custom charts* , including [ad-hoc charts in the Metrics Explorer](https://docs.cloud.google.com/monitoring/charts/metrics-explorer) as well as [charts in custom dashboards](https://docs.cloud.google.com/monitoring/charts)
   - *Alerts* , which notify you if a metric exceeds a threshold that you specify
 
-If you prefer to monitor Spanner programmatically, use the [Cloud Client Libraries for Cloud Monitoring](/monitoring/docs/reference/libraries) to retrieve metrics.
+If you prefer to monitor Spanner programmatically, use the [Cloud Client Libraries for Cloud Monitoring](https://docs.cloud.google.com/monitoring/docs/reference/libraries) to retrieve metrics.
 
-**Note:** You can also monitor your instances by [viewing charts in the Google Cloud console](/spanner/docs/monitoring-console) . Use the Google Cloud console to get a quick view of the most important metrics for your instance.
+**Note:** You can also monitor your instances by [viewing charts in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) . Use the Google Cloud console to get a quick view of the most important metrics for your instance.
 
 ## Use the Cloud Monitoring curated dashboard
 
 Cloud Monitoring provides you with a curated dashboard that summarizes key information about your Spanner instances, including:
 
   - *Incidents* : User-created monitoring alerts that are open, active, or resolved
-  - *Events* : A list of Spanner [audit logs](/spanner/docs/logs) (if enabled and available)
-  - *Instances* : A high-level summary of your Spanner instances, including [compute capacity](/spanner/docs/compute-capacity) , database count, and instance health
+  - *Events* : A list of Spanner [audit logs](https://docs.cloud.google.com/spanner/docs/logs) (if enabled and available)
+  - *Instances* : A high-level summary of your Spanner instances, including [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) , database count, and instance health
   - *Aggregated charts* of throughput and storage use
 
 To view the Spanner dashboard, do the following:
 
 1.  In the Google Cloud console, select **Monitoring** , or use the following button:
+    
+    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  If **Resources** is shown in the navigation pane, then select **Resources** and then select **Cloud Spanner** . Otherwise, select **Dashboards** and then select the dashboard named **Cloud Spanner** .
 
@@ -43,11 +45,13 @@ From the instance dashboard page, you can also see charts for a specific databas
 
 You can use Cloud Monitoring to create custom charts for Spanner metrics. You can use the Metrics Explorer to create temporary, ad-hoc charts, or you can create charts that appear on custom dashboards.
 
-In particular, Cloud Monitoring lets you create a custom chart that shows whether two or more metrics are correlated with each other. For example, you can check for a correlation between [CPU utilization](/spanner/docs/cpu-utilization) and [latency](/spanner/docs/latency-guide) in a Spanner instance, which might indicate that your instance needs more [compute capacity](/spanner/docs/compute-capacity) or that some of your queries are causing high CPU utilization.
+In particular, Cloud Monitoring lets you create a custom chart that shows whether two or more metrics are correlated with each other. For example, you can check for a correlation between [CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization) and [latency](https://docs.cloud.google.com/spanner/docs/latency-guide) in a Spanner instance, which might indicate that your instance needs more [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) or that some of your queries are causing high CPU utilization.
 
 To get started with this example, follow these steps:
 
 1.  In the Google Cloud console, select **Monitoring** , or use the following button:
+    
+    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  If **Metrics Explorer** is shown in the navigation pane, select it. Otherwise, select **Resources** and then select **Metrics Explorer** .
 
@@ -79,25 +83,27 @@ To add CPU utilization metrics to the chart, follow these steps:
 3.  In the **Filter** box, enter the value `  instance_id  ` , then enter the instance ID you want to examine and click **Apply** .
 4.  In the **Aggregator** drop-down list, click **max** .
 
-You now have a chart that shows the CPU utilization and latency metrics for a Spanner instance. If both metrics are higher than expected at the same time, you can [take additional steps to correct the issue](/spanner/docs/latency-metrics) .
+You now have a chart that shows the CPU utilization and latency metrics for a Spanner instance. If both metrics are higher than expected at the same time, you can [take additional steps to correct the issue](https://docs.cloud.google.com/spanner/docs/latency-metrics) .
 
-For more information about creating custom charts, see the [Cloud Monitoring documentation](/monitoring/charts) .
+For more information about creating custom charts, see the [Cloud Monitoring documentation](https://docs.cloud.google.com/monitoring/charts) .
 
 ## Create alerts for Spanner metrics
 
-When you create a Spanner [instance](/spanner/docs/instances) , you choose the [compute capacity](/spanner/docs/compute-capacity) for the instance. As the instance's workload changes, Spanner does not automatically adjust compute capacity of the instance. As a result, you need to set up several alerts to ensure that the instance stays within the [recommended maximums for CPU utilization](/spanner/docs/cpu-utilization#recommended-max) and the [recommended limit for storage](/spanner/docs/limits) .
+When you create a Spanner [instance](https://docs.cloud.google.com/spanner/docs/instances) , you choose the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) for the instance. As the instance's workload changes, Spanner does not automatically adjust compute capacity of the instance. As a result, you need to set up several alerts to ensure that the instance stays within the [recommended maximums for CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization#recommended-max) and the [recommended limit for storage](https://docs.cloud.google.com/spanner/docs/limits) .
 
-The following examples show how to set up alerting policies for some Spanner metrics. For a full list of available metrics, see [metrics list for Spanner](/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
+The following examples show how to set up alerting policies for some Spanner metrics. For a full list of available metrics, see [metrics list for Spanner](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
 
 ### High-priority CPU
 
-To create an alerting policy that triggers when your high priority cpu utilization for [Spanner](/spanner/docs) is above a recommended threshold, use the following settings.
+To create an alerting policy that triggers when your high priority cpu utilization for [Spanner](https://docs.cloud.google.com/spanner/docs) is above a recommended threshold, use the following settings.
 
-#### Steps to create an [alerting policy](/monitoring/alerts/using-alerting-ui#create-policy) .
+#### Steps to create an [alerting policy](https://docs.cloud.google.com/monitoring/alerts/using-alerting-ui#create-policy) .
 
 To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
+    
+    [Go to **Alerting**](https://console.cloud.google.com/monitoring/alerting)
     
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
@@ -220,13 +226,15 @@ Value</th>
 
 ### 24 hour rolling average CPU
 
-To create an alerting policy that triggers when the 24 hour rolling average of your cpu utilization for [Spanner](/spanner/docs) is above a recommended threshold, use the following settings.
+To create an alerting policy that triggers when the 24 hour rolling average of your cpu utilization for [Spanner](https://docs.cloud.google.com/spanner/docs) is above a recommended threshold, use the following settings.
 
-#### Steps to create an [alerting policy](/monitoring/alerts/using-alerting-ui#create-policy) .
+#### Steps to create an [alerting policy](https://docs.cloud.google.com/monitoring/alerts/using-alerting-ui#create-policy) .
 
 To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
+    
+    [Go to **Alerting**](https://console.cloud.google.com/monitoring/alerting)
     
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
@@ -341,13 +349,15 @@ Value</th>
 
 ### Storage
 
-To create an alerting policy that triggers when your storage for your [Spanner](/spanner/docs) instance is above a recommended threshold, use the following settings.
+To create an alerting policy that triggers when your storage for your [Spanner](https://docs.cloud.google.com/spanner/docs) instance is above a recommended threshold, use the following settings.
 
-#### Steps to create an [alerting policy](/monitoring/alerts/using-alerting-ui#create-policy) .
+#### Steps to create an [alerting policy](https://docs.cloud.google.com/monitoring/alerts/using-alerting-ui#create-policy) .
 
 To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
+    
+    [Go to **Alerting**](https://console.cloud.google.com/monitoring/alerting)
     
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
@@ -451,7 +461,7 @@ Value</th>
 </tr>
 <tr class="even">
 <td><strong>Threshold value</strong></td>
-<td>You don't need to set a specific threshold for the maximum storage per node. However, we recommended that you set up an alert for when you are approaching the maximum storage limit. To learn more, see <a href="/spanner/docs/storage-utilization#recommended-max">Storage utilization metrics</a> .</td>
+<td>You don't need to set a specific threshold for the maximum storage per node. However, we recommended that you set up an alert for when you are approaching the maximum storage limit. To learn more, see <a href="https://docs.cloud.google.com/spanner/docs/storage-utilization#recommended-max">Storage utilization metrics</a> .</td>
 </tr>
 <tr class="odd">
 <td><strong>Retest window</strong></td>
@@ -464,6 +474,6 @@ Value</th>
 
 ## What's next
 
-  - Understand the [CPU utilization](/spanner/docs/cpu-utilization) and [latency](/spanner/docs/latency-guide) metrics for Spanner.
-  - [Use the Google Cloud console](/spanner/docs/monitoring-console) to get a quick view of the most important metrics for your instance.
-  - Learn more about [Cloud Monitoring](/monitoring/docs) .
+  - Understand the [CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization) and [latency](https://docs.cloud.google.com/spanner/docs/latency-guide) metrics for Spanner.
+  - [Use the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) to get a quick view of the most important metrics for your instance.
+  - Learn more about [Cloud Monitoring](https://docs.cloud.google.com/monitoring/docs) .

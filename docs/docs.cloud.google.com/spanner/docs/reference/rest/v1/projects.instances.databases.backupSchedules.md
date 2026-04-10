@@ -1,15 +1,15 @@
-  - [Resource: BackupSchedule](#BackupSchedule)
-      - [JSON representation](#BackupSchedule.SCHEMA_REPRESENTATION)
-  - [BackupScheduleSpec](#BackupScheduleSpec)
-      - [JSON representation](#BackupScheduleSpec.SCHEMA_REPRESENTATION)
-  - [CrontabSpec](#CrontabSpec)
-      - [JSON representation](#CrontabSpec.SCHEMA_REPRESENTATION)
-  - [CreateBackupEncryptionConfig](#CreateBackupEncryptionConfig)
-      - [JSON representation](#CreateBackupEncryptionConfig.SCHEMA_REPRESENTATION)
-  - [EncryptionType](#EncryptionType)
-  - [FullBackupSpec](#FullBackupSpec)
-  - [IncrementalBackupSpec](#IncrementalBackupSpec)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource: BackupSchedule](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#BackupSchedule)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#BackupSchedule.SCHEMA_REPRESENTATION)
+  - [BackupScheduleSpec](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#BackupScheduleSpec)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#BackupScheduleSpec.SCHEMA_REPRESENTATION)
+  - [CrontabSpec](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#CrontabSpec)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#CrontabSpec.SCHEMA_REPRESENTATION)
+  - [CreateBackupEncryptionConfig](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#CreateBackupEncryptionConfig)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#CreateBackupEncryptionConfig.SCHEMA_REPRESENTATION)
+  - [EncryptionType](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#EncryptionType)
+  - [FullBackupSpec](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#FullBackupSpec)
+  - [IncrementalBackupSpec](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#IncrementalBackupSpec)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules#METHODS_SUMMARY)
 
 ## Resource: BackupSchedule
 
@@ -26,7 +26,7 @@ BackupSchedule expresses the automated backup creation specification for a Spann
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;spec&quot;: {
     object (BackupScheduleSpec)
@@ -115,7 +115,7 @@ Defines specifications of the backup schedule.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field schedule_spec can be only one of the following:
   &quot;cronSpec&quot;: {
@@ -152,7 +152,7 @@ CrontabSpec can be used to specify the version time and frequency at which the b
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;text&quot;: string,
   &quot;timeZone&quot;: string,
   &quot;creationWindow&quot;: string
@@ -207,7 +207,7 @@ Encryption configuration for the backup to create.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;encryptionType&quot;: enum (EncryptionType),
   &quot;kmsKeyName&quot;: string,
   &quot;kmsKeyNames&quot;: [

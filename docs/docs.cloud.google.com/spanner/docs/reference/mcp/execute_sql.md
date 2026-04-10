@@ -15,7 +15,7 @@ The following sample demonstrate how to use `  curl  ` to invoke the `  execute_
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
 curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 --header &#39;content-type: application/json&#39; \
 --header &#39;accept: application/json, text/event-stream&#39; \
@@ -52,7 +52,7 @@ The request for `  ExecuteSql  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;session&quot;: string,
   &quot;sql&quot;: string,
   &quot;seqno&quot;: string,
@@ -133,7 +133,7 @@ Results for `  execute_sql  ` tool
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;metadata&quot;: {
     object (ResultSetMetadata)
   },
@@ -181,7 +181,7 @@ Optional. A precommit token is included if the read-write transaction is on a mu
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;rowType&quot;: {
     object (StructType)
   },
@@ -204,12 +204,10 @@ Fields
 
 Indicates the field names and types for the rows in the result set. For example, a SQL query like `  "SELECT UserId, UserName FROM Users"  ` could return a `  row_type  ` value like:
 
-``` text
-"fields": [
-  { "name": "UserId", "type": { "code": "INT64" } },
-  { "name": "UserName", "type": { "code": "STRING" } },
-]
-```
+    "fields": [
+      { "name": "UserId", "type": { "code": "INT64" } },
+      { "name": "UserName", "type": { "code": "STRING" } },
+    ]
 
 `  transaction  `
 
@@ -223,12 +221,10 @@ If the read or SQL query began a transaction as a side-effect, the information a
 
 A SQL query can be parameterized. In PLAN mode, these parameters can be undeclared. This indicates the field names and types for those undeclared parameters in the SQL query. For example, a SQL query like `  "SELECT * FROM Users where UserId = @userId and UserName = @userName "  ` could return a `  undeclared_parameters  ` value like:
 
-``` text
-"fields": [
-  { "name": "UserId", "type": { "code": "INT64" } },
-  { "name": "UserName", "type": { "code": "STRING" } },
-]
-```
+    "fields": [
+      { "name": "UserId", "type": { "code": "INT64" } },
+      { "name": "UserName", "type": { "code": "STRING" } },
+    ]
 
 ### StructType
 
@@ -243,7 +239,7 @@ A SQL query can be parameterized. In PLAN mode, these parameters can be undeclar
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;fields&quot;: [
     {
       object (Field)
@@ -275,7 +271,7 @@ The list of fields that make up this struct. Order is significant, because value
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;type&quot;: {
     object (Type)
@@ -312,7 +308,7 @@ The type of the field.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;code&quot;: enum (TypeCode),
   &quot;arrayElementType&quot;: {
     object (Type)
@@ -372,7 +368,7 @@ If `  code  ` == `  PROTO  ` or `  code  ` == `  ENUM  ` , then `  proto_type_fq
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;id&quot;: string,
   &quot;readTimestamp&quot;: string,
   &quot;precommitToken&quot;: {
@@ -424,7 +420,7 @@ A precommit token is included in the response of a BeginTransaction request if t
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;seconds&quot;: string,
   &quot;nanos&quot;: integer
 }</code></pre></td>
@@ -459,7 +455,7 @@ Non-negative fractions of a second at nanosecond resolution. This field is the n
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;precommitToken&quot;: string,
   &quot;seqNum&quot;: integer
 }</code></pre></td>
@@ -496,7 +492,7 @@ An incrementing seq number is generated on every precommit token that is returne
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;values&quot;: [
     value
   ]
@@ -526,7 +522,7 @@ Repeated field of dynamically typed values.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field kind can be only one of the following:
   &quot;nullValue&quot;: null,
@@ -596,7 +592,7 @@ Represents a repeated `  Value  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;fields&quot;: {
     string: value,
     ...
@@ -629,7 +625,7 @@ An object containing a list of `  "key": value  ` pairs. Example: `  { "name": "
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;key&quot;: string,
   &quot;value&quot;: value
 }</code></pre></td>

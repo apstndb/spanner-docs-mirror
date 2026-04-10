@@ -1,12 +1,12 @@
 **Preview**
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 This document describes how to use the Gemini CLI and the MCP toolbox to build agent context files. These files contain templates, facets, and value searches that provide context for generating SQL queries from natural language. You will also use the DB Context Enrichment extension.
 
-To learn about context sets, see [Context sets overview](/spanner/docs/data-agent-overview) .
+To learn about context sets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
 
 To build an agent context file, perform the following high-level steps:
 
@@ -30,17 +30,17 @@ Enable the following services for your project:
 
 ### Prepare a Spanner instance
 
-  - Make sure that a Spanner instance is available. For more information, see [Create an instance](/spanner/docs/create-manage-instances) .
-  - Ensure that you create a database in your instance where you will create the tables. For more information, see [Create a database on the Spanner instance](/spanner/docs/create-manage-databases#create-database)
+  - Make sure that a Spanner instance is available. For more information, see [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances) .
+  - Ensure that you create a database in your instance where you will create the tables. For more information, see [Create a database on the Spanner instance](https://docs.cloud.google.com/spanner/docs/create-manage-databases#create-database)
 
   
-This tutorial requires you to have a database in your Spanner instance. For more information, see [Create a database](/spanner/docs/create-manage-databases#create-database) .
+This tutorial requires you to have a database in your Spanner instance. For more information, see [Create a database](https://docs.cloud.google.com/spanner/docs/create-manage-databases#create-database) .
 
 ### Required roles and permissions
 
-  - Add an IAM user or service account to the cluster. For more information, see [Apply IAM roles](/spanner/docs/grant-permissions) .
-  - Grant the `  spanner.databaseReader  ` and `  geminidataanalytics.queryDataUser  ` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](/sdk/gcloud/reference/projects/add-iam-policy-binding) .
-  - [Grant roles and permissions](/spanner/docs/grant-permissions#project-level_permissions) to the IAM user at the project-level for the required databases.
+  - Add an IAM user or service account to the cluster. For more information, see [Apply IAM roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
+  - Grant the `  spanner.databaseReader  ` and `  geminidataanalytics.queryDataUser  ` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](https://docs.cloud.google.com/sdk/gcloud/reference/projects/add-iam-policy-binding) .
+  - [Grant roles and permissions](https://docs.cloud.google.com/spanner/docs/grant-permissions#project-level_permissions) to the IAM user at the project-level for the required databases.
 
 ## Prepare your environment
 
@@ -64,9 +64,7 @@ To install the DB Context Enrichment extension, follow these steps:
 
 1.  Install the MCP Toolbox Gemini CLI extension:
     
-    ``` text
-    gemini extensions install https://github.com/gemini-cli-extensions/mcp-toolbox
-    ```
+        gemini extensions install https://github.com/gemini-cli-extensions/mcp-toolbox
     
     **Note:** The extension requires a Gemini API key at installation to authenticate with the Gemini API and enable context generation. For more information about how to find your API key, see [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key) .
 
@@ -74,21 +72,17 @@ To install the DB Context Enrichment extension, follow these steps:
     
     To verify the installed version of the extension, run the following command:
     
-    ``` text
-    gemini extensions list
-    ```
+        gemini extensions list
     
     Make sure that the version is `  0.4.2  ` or higher. To update the DB Context Enrichment extension, run the following command:
     
-    ``` text
+    ``` 
       gemini extensions update mcp-db-context-enrichment
     ```
     
     To update the DB Context Enrichment extension or to replace the `  GEMINI_API_KEY  ` , run the following command:
     
-    ``` text
-    gemini extensions config mcp-db-context-enrichment GEMINI_API_KEY
-    ```
+        gemini extensions config mcp-db-context-enrichment GEMINI_API_KEY
     
     Replace GEMINI\_API\_KEY with your Gemini API key.
 
@@ -98,16 +92,14 @@ The extension requires the database connection for context generation for fetchi
 
 #### Configure Application Default Credentials
 
-You must configure [Application Default Credentials (ADC)](/authentication/set-up-adc-local-dev-environment) to provide user credentials for two main components:
+You must configure [Application Default Credentials (ADC)](https://docs.cloud.google.com/authentication/set-up-adc-local-dev-environment) to provide user credentials for two main components:
 
   - Toolbox MCP server: uses credentials to connect to your database, fetch schemas, and run SQL for validation.
   - DB Context Enrichment extension: uses credentials to authenticate and call the Gemini API.
 
 Run the following commands in your terminal to authenticate:
 
-``` text
-gcloud auth application-default login
-```
+    gcloud auth application-default login
 
 #### Configure the `     tools.yaml    ` file
 
@@ -119,23 +111,17 @@ The `  tools.yaml  ` file specifies your database source and tools required to e
 
 1.  Start Gemini CLI:
     
-    ``` text
-    gemini
-    ```
+        gemini
 
 2.  Verify the skills are active by typing in the Gemini CLI:
     
-    ``` text
-    /skills
-    ```
+        /skills
 
 3.  Type a prompt such as `  help me setup the database connection  ` . The skill guides you through creating the `  tools.yaml  ` file in your current working directory.
 
 4.  Run the following command in Gemini CLI to apply the `  tools.yaml  ` configuration to the Toolbox MCP server.
     
-    ``` text
-    /mcp reload
-    ```
+        /mcp reload
 
 For more information about manually configuring the `  tools.yaml  ` file, see [MCP Toolbox Configuration](https://mcp-toolbox.dev/documentation/configuration/) .
 
@@ -147,29 +133,23 @@ The extensions installed earlier empower Gemini CLI to help you author context i
 
 ### Generate targeted templates
 
-If you want to add a specific query pair as a query template to the context set, then you can use the `  /generate_targeted_templates  ` command. For more information about templates, see [Context sets overview](/spanner/docs/data-agent-overview)
+If you want to add a specific query pair as a query template to the context set, then you can use the `  /generate_targeted_templates  ` command. For more information about templates, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview)
 
 To add a query template to the context set, perform the following steps:
 
 1.  In the same directory, start Gemini CLI:
     
-    ``` text
-    gemini
-    ```
+        gemini
 
 2.  Complete the [Gemini CLI Authentication Setup](https://geminicli.com/docs/get-started/authentication/) .
 
 3.  Verify that the MCP toolbox and the database enrichment extension are ready to use:
     
-    ``` text
-    /mcp reload
-    ```
+        /mcp reload
 
 4.  Run the `  /generate_targeted_templates  ` command:
     
-    ``` text
-    /generate_targeted_templates
-    ```
+        /generate_targeted_templates
 
 5.  Enter the natural language query that you want to add to the query template.
 
@@ -179,7 +159,7 @@ To add a query template to the context set, perform the following steps:
 
 The context set file similar to `  my-cluster-psc-primary_postgres_templates_20251104111122.json  ` is saved in the directory where you ran the commands.
 
-For more information about the context set file and the query template, see [Context sets overview](/spanner/docs/data-agent-overview#context-sets) .
+For more information about the context set file and the query template, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview#context-sets) .
 
 ### Generate targeted facets
 
@@ -189,9 +169,7 @@ To add a facet to the context set file, perform the following steps:
 
 1.  Run the `  /generate_targeted_facets  ` command:
     
-    ``` text
-    /generate_targeted_facets
-    ```
+        /generate_targeted_facets
 
 2.  Enter the natural language query that you want to add to the query template.
 
@@ -201,7 +179,7 @@ To add a facet to the context set file, perform the following steps:
 
 The context set file similar to `  my-cluster-psc-primary_postgres_templates_20251104111122.json  ` is saved in the directory where you ran the commands.
 
-For more information about the context set file and facets, see [Context sets overview](/spanner/docs/data-agent-overview#context-sets)
+For more information about the context set file and facets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview#context-sets)
 
 ### Generate value search queries
 
@@ -211,9 +189,7 @@ To generate a value index, perform the following steps:
 
 1.  Run the `  /generate_targeted_value_searches  ` command:
     
-    ``` text
-    /generate_targeted_value_searches
-    ```
+        /generate_targeted_value_searches
 
 <!-- end list -->
 
@@ -223,13 +199,11 @@ To generate a value index, perform the following steps:
 
 1.  Enter the value search configuration as follows:
     
-    ``` text
-    Table name: TABLE_NAME
-    Column name: COLUMN_NAME
-    Concept type: CONCEPT_TYPE
-    Match function: MATCH_FUNCTION
-    Description: DESCRIPTION
-    ```
+        Table name: TABLE_NAME
+        Column name: COLUMN_NAME
+        Concept type: CONCEPT_TYPE
+        Match function: MATCH_FUNCTION
+        Description: DESCRIPTION
     
     Replace the following:
     
@@ -252,7 +226,7 @@ To generate a value index, perform the following steps:
 
 The context set file similar to `  my-cluster-psc-primary_postgres_templates_20251104111122.json  ` is saved in the directory where you ran the commands.
 
-For more information about the value index, see [Context sets overview](/spanner/docs/data-agent-overview#context-sets)
+For more information about the value index, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview#context-sets)
 
 ### Optional: Generate bulk templates
 
@@ -262,9 +236,7 @@ To auto-generate bulk templates, perform the following steps:
 
 1.  Run the `  /generate_bulk_templates  ` command:
     
-    ``` text
-    /generate_bulk_templates
-    ```
+        /generate_bulk_templates
 
 2.  Based on your database schema, the template-based SQL generation takes you through a series of questions related to verifying the database information and granting permissions to access the database schema.
 
@@ -280,10 +252,10 @@ To auto-generate bulk templates, perform the following steps:
 
 The context set file similar to `  my-cluster-psc-primary_postgres_templates_20251104111122.json  ` is saved in the directory where you ran the commands.
 
-For more information about the context set file, see [Context sets overview](/spanner/docs/data-agent-overview#context-sets) .
+For more information about the context set file, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview#context-sets) .
 
 ## What's next
 
-  - Learn more about [context sets](/spanner/docs/data-agent-overview) .
-  - Learn how to [create or delete a context set in Spanner Studio](/spanner/docs/manage-data-agents)
-  - Learn how to [test a context set](/spanner/docs/inspect-data-agent)
+  - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
+  - Learn how to [create or delete a context set in Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents)
+  - Learn how to [test a context set](https://docs.cloud.google.com/spanner/docs/inspect-data-agent)

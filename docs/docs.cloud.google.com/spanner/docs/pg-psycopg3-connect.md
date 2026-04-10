@@ -2,31 +2,27 @@ This page explains how to connect the [PostgreSQL psycopg3 driver](https://www.p
 
 1.  Verify that PGAdapter is running on the same machine as the application that is connecting using the PostgreSQL psycopg3 driver.
     
-    ``` text
-    export GOOGLE_APPLICATION_CREDENTIALS=/CREDENTIALS_FILE_PATH/credentials.json
-    docker pull gcr.io/cloud-spanner-pg-adapter/pgadapter
-    docker run \
-      -d -p 5432:5432 \
-      -v ${GOOGLE_APPLICATION_CREDENTIALS}:${GOOGLE_APPLICATION_CREDENTIALS}:ro \
-      -e GOOGLE_APPLICATION_CREDENTIALS \
-      gcr.io/cloud-spanner-pg-adapter/pgadapter \
-      -p PROJECT_NAME -i INSTANCE_NAME \
-      -x
-    ```
+        export GOOGLE_APPLICATION_CREDENTIALS=/CREDENTIALS_FILE_PATH/credentials.json
+        docker pull gcr.io/cloud-spanner-pg-adapter/pgadapter
+        docker run \
+          -d -p 5432:5432 \
+          -v ${GOOGLE_APPLICATION_CREDENTIALS}:${GOOGLE_APPLICATION_CREDENTIALS}:ro \
+          -e GOOGLE_APPLICATION_CREDENTIALS \
+          gcr.io/cloud-spanner-pg-adapter/pgadapter \
+          -p PROJECT_NAME -i INSTANCE_NAME \
+          -x
     
-    For more information, see [Start PGAdapter](/spanner/docs/pgadapter-start) .
+    For more information, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
 2.  Connect to PGAdapter using TCP.
     
-    ``` text
-    import psycopg
-    
-    with psycopg.connect("host=APPLICATION_HOST port=PORT dbname=DATABASE_NAME sslmode=disable") as conn:
-      conn.autocommit = True
-      with conn.cursor() as cur:
-        cur.execute("select 'Hello world!' as hello")
-        print("Greeting from Cloud Spanner PostgreSQL:", cur.fetchone()[0])
-    ```
+        import psycopg
+        
+        with psycopg.connect("host=APPLICATION_HOST port=PORT dbname=DATABASE_NAME sslmode=disable") as conn:
+          conn.autocommit = True
+          with conn.cursor() as cur:
+            cur.execute("select 'Hello world!' as hello")
+            print("Greeting from Cloud Spanner PostgreSQL:", cur.fetchone()[0])
     
     Replace the following:
     
@@ -41,17 +37,15 @@ To use Unix domain sockets, PGAdapter must be running on the same host as the cl
 
 Verify the PostgreSQL JDBC driver is loaded.
 
-``` text
-import psycopg
-
-with psycopg.connect("host=/tmp
-                      port=PORT
-                      dbname=DATABASE_NAME") as conn:
-conn.autocommit = True
-with conn.cursor() as cur:
-  cur.execute("select 'Hello world!' as hello")
-  print("Greetings from Cloud Spanner PostgreSQL:", cur.fetchone()[0])
-```
+    import psycopg
+    
+    with psycopg.connect("host=/tmp
+                          port=PORT
+                          dbname=DATABASE_NAME") as conn:
+    conn.autocommit = True
+    with conn.cursor() as cur:
+      cur.execute("select 'Hello world!' as hello")
+      print("Greetings from Cloud Spanner PostgreSQL:", cur.fetchone()[0])
 
 Replace the following:
 
@@ -60,5 +54,5 @@ Replace the following:
 
 ## What's next
 
-  - Learn more about [PGAdapter](/spanner/docs/pgadapter) .
+  - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
   - For more information about PostgreSQL psycopg3 driver connection options, see [psycopg3 Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/psycopg3.md) in the PGAdapter GitHub repository.

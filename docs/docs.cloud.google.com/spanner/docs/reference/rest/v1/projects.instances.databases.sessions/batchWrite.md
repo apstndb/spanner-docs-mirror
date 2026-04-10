@@ -1,13 +1,13 @@
-  - [HTTP request](#body.HTTP_TEMPLATE)
-  - [Path parameters](#body.PATH_PARAMETERS)
-  - [Request body](#body.request_body)
-      - [JSON representation](#body.request_body.SCHEMA_REPRESENTATION)
-  - [Response body](#body.response_body)
-      - [JSON representation](#body.BatchWriteResponse.SCHEMA_REPRESENTATION)
-  - [Authorization scopes](#body.aspect)
-  - [MutationGroup](#MutationGroup)
-      - [JSON representation](#MutationGroup.SCHEMA_REPRESENTATION)
-  - [Try it\!](#try-it)
+  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#body.HTTP_TEMPLATE)
+  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#body.PATH_PARAMETERS)
+  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#body.request_body)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#body.request_body.SCHEMA_REPRESENTATION)
+  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#body.response_body)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#body.BatchWriteResponse.SCHEMA_REPRESENTATION)
+  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#body.aspect)
+  - [MutationGroup](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#MutationGroup)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#MutationGroup.SCHEMA_REPRESENTATION)
+  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite#try-it)
 
 Batches the supplied mutation groups in a collection of efficient transactions. All mutations in a group are committed atomically. However, mutations across groups can be committed non-atomically in an unspecified order and thus, they must be independent of each other. Partial failure is possible, that is, some groups might have been committed successfully, while some might have failed. The results of individual batches are streamed into the response as the batches are applied.
 
@@ -16,6 +16,36 @@ Batches the supplied mutation groups in a collection of efficient transactions. 
 ### HTTP request
 
 Choose a location:
+
+global
+
+europe-west8
+
+me-central2
+
+us-central1
+
+us-central2
+
+us-east1
+
+us-east4
+
+us-east5
+
+us-south1
+
+us-west1
+
+us-west2
+
+us-west3
+
+us-west4
+
+us-west8
+
+us-east7
 
   
 `  POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:batchWrite  `
@@ -51,7 +81,7 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;requestOptions&quot;: {
     object (RequestOptions)
   },
@@ -103,7 +133,7 @@ If successful, the response body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;indexes&quot;: [
     integer
   ],
@@ -147,7 +177,7 @@ Requires one of the following OAuth scopes:
   - `  https://www.googleapis.com/auth/spanner.data  `
   - `  https://www.googleapis.com/auth/cloud-platform  `
 
-For more information, see the [Authentication Overview](/docs/authentication#authorization-gcp) .
+For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
 ## MutationGroup
 
@@ -164,7 +194,7 @@ A group of mutations to be committed together. Related mutations should be place
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;mutations&quot;: [
     {
       object (Mutation)

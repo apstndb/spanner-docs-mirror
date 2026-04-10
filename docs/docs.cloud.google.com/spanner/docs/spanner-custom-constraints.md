@@ -5,30 +5,30 @@ This page shows you how to use Organization Policy Service custom constraints to
   - `  spanner.googleapis.com/Instance  `
   - `  spanner.googleapis.com/InstanceConfig  `
 
-To learn more about Organization Policy, see [Custom organization policies](/organization-policy/overview#custom-organization-policies) .
+To learn more about Organization Policy, see [Custom organization policies](https://docs.cloud.google.com/organization-policy/overview#custom-organization-policies) .
 
 ## About organization policies and constraints
 
-The Google Cloud Organization Policy Service gives you centralized, programmatic control over your organization's resources. As the [organization policy administrator](/iam/docs/roles-permissions/orgpolicy#orgpolicy.policyAdmin) , you can define an organization policy, which is a set of restrictions called *constraints* that apply to Google Cloud resources and descendants of those resources in the [Google Cloud resource hierarchy](/resource-manager/docs/cloud-platform-resource-hierarchy) . You can enforce organization policies at the organization, folder, or project level.
+The Google Cloud Organization Policy Service gives you centralized, programmatic control over your organization's resources. As the [organization policy administrator](https://docs.cloud.google.com/iam/docs/roles-permissions/orgpolicy#orgpolicy.policyAdmin) , you can define an organization policy, which is a set of restrictions called *constraints* that apply to Google Cloud resources and descendants of those resources in the [Google Cloud resource hierarchy](https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy) . You can enforce organization policies at the organization, folder, or project level.
 
-Organization Policy provides built-in [managed constraints](/organization-policy/reference/org-policy-constraints) for various Google Cloud services. However, if you want more granular, customizable control over the specific fields that are restricted in your organization policies, you can also create *custom constraints* and use those custom constraints in an organization policy.
+Organization Policy provides built-in [managed constraints](https://docs.cloud.google.com/organization-policy/reference/org-policy-constraints) for various Google Cloud services. However, if you want more granular, customizable control over the specific fields that are restricted in your organization policies, you can also create *custom constraints* and use those custom constraints in an organization policy.
 
 ### Policy inheritance
 
-By default, organization policies are inherited by the descendants of the resources on which you enforce the policy. For example, if you enforce a policy on a folder, Google Cloud enforces the policy on all projects in the folder. To learn more about this behavior and how to change it, refer to [Hierarchy evaluation rules](/organization-policy/hierarchy-evaluation#disallow_inheritance) .
+By default, organization policies are inherited by the descendants of the resources on which you enforce the policy. For example, if you enforce a policy on a folder, Google Cloud enforces the policy on all projects in the folder. To learn more about this behavior and how to change it, refer to [Hierarchy evaluation rules](https://docs.cloud.google.com/organization-policy/hierarchy-evaluation#disallow_inheritance) .
 
 ## Before you begin
 
-1.  Ensure that you know your [organization ID](/resource-manager/docs/creating-managing-organization#retrieving_your_organization_id) .
+1.  Ensure that you know your [organization ID](https://docs.cloud.google.com/resource-manager/docs/creating-managing-organization#retrieving_your_organization_id) .
 
 ### Required roles
 
 To get the permissions that you need to manage organization policies, ask your administrator to grant you the following IAM roles:
 
-  - [Organization Policy Administrator](/iam/docs/roles-permissions/orgpolicy#orgpolicy.policyAdmin) ( `  roles/orgpolicy.policyAdmin  ` ) on the organization resource
+  - [Organization Policy Administrator](https://docs.cloud.google.com/iam/docs/roles-permissions/orgpolicy#orgpolicy.policyAdmin) ( `  roles/orgpolicy.policyAdmin  ` ) on the organization resource
   - To create or update a Spanner database: ( `  roles/spanner.admin  ` ) on the project resource
 
-For more information about granting roles, see [Manage access to projects, folders, and organizations](/iam/docs/granting-changing-revoking-access) .
+For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 These predefined roles contain the permissions required to manage organization policies. To see the exact permissions that are required, expand the **Required permissions** section:
 
@@ -43,17 +43,19 @@ The following permissions are required to manage organization policies:
       - `  spanner.databases.list  ` on the project resource
       - `  spanner.databases.update  ` on the project resource
 
-You might also be able to get these permissions with [custom roles](/iam/docs/creating-custom-roles) or other [predefined roles](/iam/docs/roles-overview#predefined) .
+You might also be able to get these permissions with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
 ## Set up a custom constraint
 
-A custom constraint is defined in a YAML file by the resources, methods, conditions, and actions that are supported by the service on which you are enforcing the organization policy. Conditions for your custom constraints are defined using [Common Expression Language (CEL)](https://github.com/google/cel-spec/blob/master/doc/intro.md) . For more information about how to build conditions in custom constraints using CEL, see the CEL section of [Creating and managing custom constraints](/organization-policy/create-custom-constraints#common_expression_language) .
+A custom constraint is defined in a YAML file by the resources, methods, conditions, and actions that are supported by the service on which you are enforcing the organization policy. Conditions for your custom constraints are defined using [Common Expression Language (CEL)](https://github.com/google/cel-spec/blob/master/doc/intro.md) . For more information about how to build conditions in custom constraints using CEL, see the CEL section of [Creating and managing custom constraints](https://docs.cloud.google.com/organization-policy/create-custom-constraints#common_expression_language) .
 
 ### Console
 
 To create a custom constraint, do the following:
 
 In the Google Cloud console, go to the **Organization policies** page.
+
+[Go to Organization policies](https://console.cloud.google.com/iam-admin/orgpolicies)
 
 From the project picker, select the project that you want to set the organization policy for.
 
@@ -69,11 +71,11 @@ In the **Resource type** box, select the name of the Google Cloud REST resource 
 
 Under **Enforcement method** , select whether to enforce the constraint on a REST `  CREATE  ` method or both `  CREATE  ` and `  UPDATE  ` methods. If you enforce the constraint with the `  UPDATE  ` method on a resource that violates the constraint, changes to that resource are blocked by the organization policy unless the change resolves the violation.
 
-To see supported methods for each service, find the service in [Services that support custom constraints](/organization-policy/reference/custom-constraint-supported-services) .
+To see supported methods for each service, find the service in [Services that support custom constraints](https://docs.cloud.google.com/organization-policy/reference/custom-constraint-supported-services) .
 
 To define a condition, click edit **Edit condition** .
 
-1.  In the **Add condition** panel, create a CEL condition that refers to a supported service resource, for example, `  resource.management.autoUpgrade == false  ` . This field can contain up to 1000 characters. For details about CEL usage, see [Common Expression Language](/resource-manager/docs/organization-policy/creating-managing-custom-constraints#common_expression_language) . For more information about the service resources you can use in your custom constraints, see [Custom constraint supported services](/resource-manager/docs/organization-policy/custom-constraint-supported-services) .
+1.  In the **Add condition** panel, create a CEL condition that refers to a supported service resource, for example, `  resource.management.autoUpgrade == false  ` . This field can contain up to 1000 characters. For details about CEL usage, see [Common Expression Language](https://docs.cloud.google.com/resource-manager/docs/organization-policy/creating-managing-custom-constraints#common_expression_language) . For more information about the service resources you can use in your custom constraints, see [Custom constraint supported services](https://docs.cloud.google.com/resource-manager/docs/organization-policy/custom-constraint-supported-services) .
 2.  Click **Save** .
 
 Under **Action** , select whether to allow or deny the evaluated method if the condition is met.
@@ -90,17 +92,15 @@ When you have entered a value into each field, the equivalent YAML configuration
 
 To create a custom constraint, create a YAML file using the following format:
 
-``` text
-name: organizations/ORGANIZATION_ID/customConstraints/CONSTRAINT_NAME
-resourceTypes: RESOURCE_NAME
-methodTypes:
-  - CREATE
-  - UPDATE 
-condition: "CONDITION"
-actionType: ACTION
-displayName: DISPLAY_NAME
-description: DESCRIPTION
-```
+    name: organizations/ORGANIZATION_ID/customConstraints/CONSTRAINT_NAME
+    resourceTypes: RESOURCE_NAME
+    methodTypes:
+      - CREATE
+      - UPDATE 
+    condition: "CONDITION"
+    actionType: ACTION
+    displayName: DISPLAY_NAME
+    description: DESCRIPTION
 
 Replace the following:
 
@@ -108,30 +108,26 @@ Replace the following:
   - `  CONSTRAINT_NAME  ` : the name that you want for your new custom constraint. A custom constraint can only contain letters (including upper and lowercase) or numbers, for example, `  custom.spannerDatabase  ` . This field can contain up to 70 characters, not counting the prefix ( `  custom.  ` )— for example, `  organizations/123456789/customConstraints/custom  ` . Don't include PII or sensitive data in your constraint ID, because it could be exposed in error messages.
   - `  RESOURCE_NAME  ` : the fully qualified name of the Google Cloud resource containing the object and field that you want to restrict. For example, `  spanner.googleapis.com/Database  ` . Most resource types support up to 20 custom constraints. If you attempt to create more custom constraints, the operation fails.
   - `  methodTypes  ` : the REST methods that the constraint is enforced on. Can be `  CREATE  ` or both `  CREATE  ` and `  UPDATE  ` . If you enforce the constraint with the `  UPDATE  ` method on a resource that violates the constraint, changes to that resource are blocked by the organization policy unless the change resolves the violation.
-  - `  CONDITION  ` : a [CEL condition](/resource-manager/docs/organization-policy/creating-managing-custom-constraints#common_expression_language) that is written against a representation of a supported service resource. This field can contain up to 1000 characters. For example, `  "resource.name.contains('denied-database-name')"  ` .
+  - `  CONDITION  ` : a [CEL condition](https://docs.cloud.google.com/resource-manager/docs/organization-policy/creating-managing-custom-constraints#common_expression_language) that is written against a representation of a supported service resource. This field can contain up to 1000 characters. For example, `  "resource.name.contains('denied-database-name')"  ` .
   - `  ACTION  ` : the action to take if the `  condition  ` is met. Possible values are `  ALLOW  ` and `  DENY  ` .
   - `  DISPLAY_NAME  ` : a human-readable name for the constraint. This name is used in error messages and can be used for identification and debugging. Don't use PII or sensitive data in display names because this name could be exposed in error messages. This field can contain up to 200 characters.
   - `  DESCRIPTION  ` : a human-friendly description of the constraint to display as an error message when the policy is violated. This field can contain up to 2000 characters.
 
-After you have created the YAML file for a new custom constraint, you must set it up to make it available for organization policies in your organization. To set up a custom constraint, use the [`  gcloud org-policies set-custom-constraint  `](/sdk/gcloud/reference/org-policies/set-custom-constraint) command:
+After you have created the YAML file for a new custom constraint, you must set it up to make it available for organization policies in your organization. To set up a custom constraint, use the [`  gcloud org-policies set-custom-constraint  `](https://docs.cloud.google.com/sdk/gcloud/reference/org-policies/set-custom-constraint) command:
 
-``` text
-gcloud org-policies set-custom-constraint CONSTRAINT_PATH
-```
+    gcloud org-policies set-custom-constraint CONSTRAINT_PATH
 
 Replace `  CONSTRAINT_PATH  ` with the full path to your custom constraint file. For example, `  /home/user/customconstraint.yaml  ` .
 
 After this operation is complete, your custom constraints are available as organization policies in your list of Google Cloud organization policies.
 
-To verify that the custom constraint exists, use the [`  gcloud org-policies list-custom-constraints  `](/sdk/gcloud/reference/org-policies/list-custom-constraints) command:
+To verify that the custom constraint exists, use the [`  gcloud org-policies list-custom-constraints  `](https://docs.cloud.google.com/sdk/gcloud/reference/org-policies/list-custom-constraints) command:
 
-``` text
-gcloud org-policies list-custom-constraints --organization=ORGANIZATION_ID
-```
+    gcloud org-policies list-custom-constraints --organization=ORGANIZATION_ID
 
 Replace `  ORGANIZATION_ID  ` with the ID of your organization resource.
 
-For more information, see [Viewing organization policies](/resource-manager/docs/organization-policy/creating-managing-policies#viewing_organization_policies) .
+For more information, see [Viewing organization policies](https://docs.cloud.google.com/resource-manager/docs/organization-policy/creating-managing-policies#viewing_organization_policies) .
 
 ## Enforce a custom organization policy
 
@@ -140,50 +136,56 @@ You can enforce a constraint by creating an organization policy that references 
 ### Console
 
 1.  In the Google Cloud console, go to the **Organization policies** page.
+    
+    [Go to Organization policies](https://console.cloud.google.com/iam-admin/orgpolicies)
+
 2.  From the project picker, select the project that you want to set the organization policy for.
+
 3.  From the list on the **Organization policies** page, select your constraint to view the **Policy details** page for that constraint.
+
 4.  To configure the organization policy for this resource, click **Manage policy** .
+
 5.  On the **Edit policy** page, select **Override parent's policy** .
+
 6.  Click **Add a rule** .
+
 7.  In the **Enforcement** section, select whether this organization policy is enforced or not.
-8.  Optional: To make the organization policy conditional on a tag, click **Add condition** . Note that if you add a conditional rule to an organization policy, you must add at least one unconditional rule or the policy cannot be saved. For more information, see [Scope organization policies with tags](/organization-policy/scope-policies) .
-9.  Click **Test changes** to simulate the effect of the organization policy. For more information, see [Test organization policy changes with Policy Simulator](/policy-intelligence/docs/test-organization-policies) .
-10. To enforce the organization policy in dry-run mode, click **Set dry run policy** . For more information, see [Test organization policies](/organization-policy/test-policies) .
+
+8.  Optional: To make the organization policy conditional on a tag, click **Add condition** . Note that if you add a conditional rule to an organization policy, you must add at least one unconditional rule or the policy cannot be saved. For more information, see [Scope organization policies with tags](https://docs.cloud.google.com/organization-policy/scope-policies) .
+
+9.  Click **Test changes** to simulate the effect of the organization policy. For more information, see [Test organization policy changes with Policy Simulator](https://docs.cloud.google.com/policy-intelligence/docs/test-organization-policies) .
+
+10. To enforce the organization policy in dry-run mode, click **Set dry run policy** . For more information, see [Test organization policies](https://docs.cloud.google.com/organization-policy/test-policies) .
+
 11. After you verify that the organization policy in dry-run mode works as intended, set the live policy by clicking **Set policy** .
 
 ### gcloud
 
 To create an organization policy with boolean rules, create a policy YAML file that references the constraint:
 
-``` text
-name: projects/PROJECT_ID/policies/CONSTRAINT_NAME
-spec:
-  rules:
-  - enforce: true
-
-dryRunSpec:
-  rules:
-  - enforce: true
-```
+    name: projects/PROJECT_ID/policies/CONSTRAINT_NAME
+    spec:
+      rules:
+      - enforce: true
+    
+    dryRunSpec:
+      rules:
+      - enforce: true
 
 Replace the following:
 
   - `  PROJECT_ID  ` : the project that you want to enforce your constraint on.
   - `  CONSTRAINT_NAME  ` : the name you defined for your custom constraint. For example, `  custom.spannerDatabase  ` .
 
-To enforce the organization policy in [dry-run mode](/organization-policy/test-policies) , run the following command with the `  dryRunSpec  ` flag:
+To enforce the organization policy in [dry-run mode](https://docs.cloud.google.com/organization-policy/test-policies) , run the following command with the `  dryRunSpec  ` flag:
 
-``` text
-gcloud org-policies set-policy POLICY_PATH --update-mask=dryRunSpec
-```
+    gcloud org-policies set-policy POLICY_PATH --update-mask=dryRunSpec
 
 Replace `  POLICY_PATH  ` with the full path to your organization policy YAML file. The policy requires up to 15 minutes to take effect.
 
 After you verify that the organization policy in dry-run mode works as intended, set the live policy with the `  org-policies set-policy  ` command and the `  spec  ` flag:
 
-``` text
-gcloud org-policies set-policy POLICY_PATH --update-mask=spec
-```
+    gcloud org-policies set-policy POLICY_PATH --update-mask=spec
 
 Replace `  POLICY_PATH  ` with the full path to your organization policy YAML file. The policy requires up to 15 minutes to take effect.
 
@@ -200,7 +202,7 @@ Before you begin, you must know the following:
 
 1.  Save the following file as `  databasecustomconstraint.yaml  ` :
     
-    ``` text
+    ``` 
       name: organizations/ORGANIZATION_ID/customConstraints/custom.spannerDatabase
       resourceTypes:
       - spanner.googleapis.com/Database
@@ -216,20 +218,20 @@ Before you begin, you must know the following:
 
 2.  Apply the constraint:
     
-    ``` text
+    ``` 
       gcloud org-policies set-custom-constraint ~/databasecustomconstraint.yaml
     ```
 
 3.  Verify that the constraint exists:
     
-    ``` text
+    ``` 
       gcloud org-policies list-custom-constraints \
       --organization=ORGANIZATION_ID
     ```
     
     The output is similar to the following:
     
-    ``` text
+    ``` 
       CUSTOM_CONSTRAINT       ACTION_TYPE  METHOD_TYPES  RESOURCE_TYPES                   DISPLAY_NAME
       custom.spannerDatabase  DENY         CREATE        spanner.googleapis.com/Database  spannerDatabaseConstraint
       ...
@@ -239,7 +241,7 @@ Before you begin, you must know the following:
 
 4.  Save the following file as `  databaseorgpolicy.yaml  ` :
     
-    ``` text
+    ``` 
       name: projects/PROJECT_ID/policies/custom.spannerDatabase
       spec:
         rules:
@@ -250,19 +252,19 @@ Before you begin, you must know the following:
 
 5.  Apply the policy:
     
-    ``` text
+    ``` 
       gcloud org-policies set-policy ~/databaseorgpolicy.yaml
     ```
 
 6.  Verify that the policy exists:
     
-    ``` text
+    ``` 
       gcloud org-policies list --project=PROJECT_ID
     ```
     
     The output is similar to the following:
     
-    ``` text
+    ``` 
       CONSTRAINT              LIST_POLICY  BOOLEAN_POLICY  ETAG
       custom.spannerDatabase  -            SET             COCsm5QGENiXi2E=
     ```
@@ -273,19 +275,15 @@ Before you begin, you must know the following:
     
     Try to create a Spanner database in the project:
     
-    ``` text
-    gcloud spanner databases create denied-database-name100 \
-      --instance=INSTANCE_NAME \
-    ```
+        gcloud spanner databases create denied-database-name100 \
+          --instance=INSTANCE_NAME \
     
     The output is the following:
     
-    ``` text
-    PERMISSION_DENIED: Either caller is missing IAM permission
-    spanner.databases.create on resource or the
-    CreateDatabaseRequest.create_statement field is malformed and the database
-    name could not be identified to verify Cloud IAM Conditions.
-    ```
+        PERMISSION_DENIED: Either caller is missing IAM permission
+        spanner.databases.create on resource or the
+        CreateDatabaseRequest.create_statement field is malformed and the database
+        name could not be identified to verify Cloud IAM Conditions.
 
 ## Google-managed constraints
 
@@ -297,16 +295,16 @@ In the case of Spanner, the `  spanner.managed.restrictCloudSpannerEditions  ` c
 
 Once a policy is enforced, you cannot create Spanner instances with editions that are blocked. Additionally, all updates to existing Spanner instances with prohibited editions are blocked.
 
-Any customer-managed or open-source autoscalers will be blocked from updating violating instances. However, the Spanner [managed autoscaler](/spanner/docs/managed-autoscaler) feature *can* still make updates to instances that are in violation of the policy.
+Any customer-managed or open-source autoscalers will be blocked from updating violating instances. However, the Spanner [managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) feature *can* still make updates to instances that are in violation of the policy.
 
 ### Safe deployment practices
 
 To avoid disruptive restrictions on production workloads, use the following tools to validate your organization policy changes:
 
-  - **Test policies:** Use the [Policy Simulator](/policy-intelligence/docs/test-organization-policies) to analyze the potential impact of a new organization policy.
-  - **Dry-run mode:** You can [create organization policies in dry-run mode](/resource-manager/docs/organization-policy/dry-run-policy) to monitor the effects of a constraint without actively blocking resource creation or updates.
+  - **Test policies:** Use the [Policy Simulator](https://docs.cloud.google.com/policy-intelligence/docs/test-organization-policies) to analyze the potential impact of a new organization policy.
+  - **Dry-run mode:** You can [create organization policies in dry-run mode](https://docs.cloud.google.com/resource-manager/docs/organization-policy/dry-run-policy) to monitor the effects of a constraint without actively blocking resource creation or updates.
 
-For more information about Google-managed constraints, see [Organization policy constraints](/resource-manager/docs/organization-policy/org-policy-constraints) .
+For more information about Google-managed constraints, see [Organization policy constraints](https://docs.cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints) .
 
 ## Spanner supported resources
 
@@ -378,6 +376,6 @@ spanner.googleapis.com/InstanceConfig
 
 ## What's next
 
-  - Learn more about [Organization Policy Service](/organization-policy/overview) .
-  - Learn more about how to [create and manage organization policies](/organization-policy/create-organization-policies) .
-  - See the full list of managed [organization policy constraints](/organization-policy/reference/org-policy-constraints) .
+  - Learn more about [Organization Policy Service](https://docs.cloud.google.com/organization-policy/overview) .
+  - Learn more about how to [create and manage organization policies](https://docs.cloud.google.com/organization-policy/create-organization-policies) .
+  - See the full list of managed [organization policy constraints](https://docs.cloud.google.com/organization-policy/reference/org-policy-constraints) .

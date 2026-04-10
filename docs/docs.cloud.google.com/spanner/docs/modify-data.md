@@ -5,18 +5,26 @@ The Google Cloud console provides an interface for inserting, editing, and delet
 To get started, select to view a Spanner table in the Google Cloud console.
 
 1.  Go to the **Spanner** page in the Google Cloud console.
+    
+    [Go to the Spanner page](https://console.cloud.google.com/spanner)
 
 2.  Click the name of an instance. The instance overview page is displayed.
+    
+    ![Screenshot of databases listed in instance overview](https://docs.cloud.google.com/static/spanner/docs/images/cloud-spanner-instance-overview.png)
 
 3.  Under the **Databases** list on this page, click the name of a database.
 
 4.  Under **Tables** , click the name of a table.
+    
+    ![Screenshot of tables listed in database detail page](https://docs.cloud.google.com/static/spanner/docs/images/select_table.png)
 
 5.  In the left pane of the Google Cloud console, click **Data** .
+    
+    ![Screenshot of table details page](https://docs.cloud.google.com/static/spanner/docs/images/select_data_menu_item.png)
 
 ## Insert data
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](/spanner/docs/manage-data-using-console) .
+**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 1.  On the table's **Data** page, click **Insert** .
     
@@ -24,7 +32,7 @@ To get started, select to view a Spanner table in the Google Cloud console.
 
 2.  Edit the `  INSERT  ` statement to the values you want, and edit the `  SELECT  ` statement's `  WHERE  ` clause to match the primary key value of the row you are inserting.
     
-    See [INSERT statement](/spanner/docs/reference/standard-sql/dml-syntax#insert-statement) and [Literals](/spanner/docs/reference/standard-sql/lexical#literals) for information about the syntax Spanner supports.
+    See [INSERT statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-statement) and [Literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#literals) for information about the syntax Spanner supports.
 
 3.  Click **Run** .
     
@@ -38,7 +46,7 @@ To get started, select to view a Spanner table in the Google Cloud console.
 
 2.  Edit the `  UPDATE  ` statement to reflect the updates you want to make.
     
-    See [UPDATE statement](/spanner/docs/reference/standard-sql/dml-syntax#update-statement) and [Literals](/spanner/docs/reference/standard-sql/lexical#literals) for information about the syntax Spanner supports.
+    See [UPDATE statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#update-statement) and [Literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#literals) for information about the syntax Spanner supports.
 
 3.  Click **Run** .
     
@@ -56,4 +64,4 @@ To get started, select to view a Spanner table in the Google Cloud console.
     
     The Google Cloud console displays the data from your table, which no longer contains the deleted rows.
 
-For an interactive example of inserting and modifying data in a Spanner table, see the [Quickstart using the console](/spanner/docs/create-query-database-console) .
+For an interactive example of inserting and modifying data in a Spanner table, see the [Quickstart using the console](https://docs.cloud.google.com/spanner/docs/create-query-database-console) .

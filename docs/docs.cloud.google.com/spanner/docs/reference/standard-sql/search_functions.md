@@ -19,32 +19,32 @@ The search functions are grouped into the following categories, based on their b
 </thead>
 <tbody>
 <tr class="odd">
-<td>Indexing</td>
-<td><a href="#token"><code dir="ltr" translate="no">        TOKEN       </code></a><br />
-<a href="#tokenize_bool"><code dir="ltr" translate="no">        TOKENIZE_BOOL       </code></a><br />
-<a href="#tokenize_fulltext"><code dir="ltr" translate="no">        TOKENIZE_FULLTEXT       </code></a><br />
-<a href="#tokenize_json"><code dir="ltr" translate="no">        TOKENIZE_JSON       </code></a><br />
-<a href="#tokenize_ngrams"><code dir="ltr" translate="no">        TOKENIZE_NGRAMS       </code></a><br />
-<a href="#tokenize_number"><code dir="ltr" translate="no">        TOKENIZE_NUMBER       </code></a><br />
-<a href="#tokenize_substring"><code dir="ltr" translate="no">        TOKENIZE_SUBSTRING       </code></a><br />
-<a href="#tokenlist_concat"><code dir="ltr" translate="no">        TOKENLIST_CONCAT       </code></a><br />
+<td><span id="indexing"></span> Indexing</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#token"><code dir="ltr" translate="no">        TOKEN       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_bool"><code dir="ltr" translate="no">        TOKENIZE_BOOL       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext"><code dir="ltr" translate="no">        TOKENIZE_FULLTEXT       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_json"><code dir="ltr" translate="no">        TOKENIZE_JSON       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_ngrams"><code dir="ltr" translate="no">        TOKENIZE_NGRAMS       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_number"><code dir="ltr" translate="no">        TOKENIZE_NUMBER       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_substring"><code dir="ltr" translate="no">        TOKENIZE_SUBSTRING       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenlist_concat"><code dir="ltr" translate="no">        TOKENLIST_CONCAT       </code></a><br />
 </td>
 <td>Functions that you can use to create search indexes.</td>
 </tr>
 <tr class="even">
-<td>Retrieval and presentation</td>
-<td><a href="#score"><code dir="ltr" translate="no">        SCORE       </code></a><br />
-<a href="#score_ngrams"><code dir="ltr" translate="no">        SCORE_NGRAMS       </code></a><br />
-<a href="#search_fulltext"><code dir="ltr" translate="no">        SEARCH       </code></a><br />
-<a href="#search_ngrams"><code dir="ltr" translate="no">        SEARCH_NGRAMS       </code></a><br />
-<a href="#search_substring"><code dir="ltr" translate="no">        SEARCH_SUBSTRING       </code></a><br />
-<a href="#snippet"><code dir="ltr" translate="no">        SNIPPET       </code></a><br />
+<td><span id="retrieval"></span> Retrieval and presentation</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score"><code dir="ltr" translate="no">        SCORE       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score_ngrams"><code dir="ltr" translate="no">        SCORE_NGRAMS       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext"><code dir="ltr" translate="no">        SEARCH       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_ngrams"><code dir="ltr" translate="no">        SEARCH_NGRAMS       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_substring"><code dir="ltr" translate="no">        SEARCH_SUBSTRING       </code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#snippet"><code dir="ltr" translate="no">        SNIPPET       </code></a><br />
 </td>
 <td>Functions that you can use to search for data, score the search result, or format the search result.</td>
 </tr>
 <tr class="odd">
-<td>Debugging</td>
-<td><a href="#debug_tokenlist"><code dir="ltr" translate="no">        DEBUG_TOKENLIST       </code></a><br />
+<td><span id="debugging"></span> Debugging</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#debug_tokenlist"><code dir="ltr" translate="no">        DEBUG_TOKENLIST       </code></a><br />
 </td>
 <td>Functions that you can use for debugging.</td>
 </tr>
@@ -53,82 +53,27 @@ The search functions are grouped into the following categories, based on their b
 
 ## Function list
 
-<table>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#debug_tokenlist"><code dir="ltr" translate="no">        DEBUG_TOKENLIST       </code></a></td>
-<td>Displays a human-readable representation of tokens present in the <code dir="ltr" translate="no">       TOKENLIST      </code> value for debugging purposes.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#score"><code dir="ltr" translate="no">        SCORE       </code></a></td>
-<td>Calculates a relevance score of a <code dir="ltr" translate="no">       TOKENLIST      </code> for a full-text search query. The higher the score, the stronger the match.</td>
-</tr>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#score_ngrams"><code dir="ltr" translate="no">        SCORE_NGRAMS       </code></a></td>
-<td>Calculates a relevance score of a <code dir="ltr" translate="no">       TOKENLIST      </code> for a fuzzy search. The higher the score, the stronger the match.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#search_fulltext"><code dir="ltr" translate="no">        SEARCH       </code></a></td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if a full-text search query matches tokens.</td>
-</tr>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#search_ngrams"><code dir="ltr" translate="no">        SEARCH_NGRAMS       </code></a></td>
-<td>Checks whether enough n-grams match the tokens in a fuzzy search.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#search_substring"><code dir="ltr" translate="no">        SEARCH_SUBSTRING       </code></a></td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if a substring query matches tokens.</td>
-</tr>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#snippet"><code dir="ltr" translate="no">        SNIPPET       </code></a></td>
-<td>Gets a list of snippets that match a full-text search query.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#token"><code dir="ltr" translate="no">        TOKEN       </code></a></td>
-<td>Constructs an exact match <code dir="ltr" translate="no">       TOKENLIST      </code> value by tokenizing a <code dir="ltr" translate="no">       BYTE      </code> or <code dir="ltr" translate="no">       STRING      </code> value verbatim to accelerate exact match expressions in SQL.</td>
-</tr>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#tokenize_bool"><code dir="ltr" translate="no">        TOKENIZE_BOOL       </code></a></td>
-<td>Constructs a boolean <code dir="ltr" translate="no">       TOKENLIST      </code> value by tokenizing a <code dir="ltr" translate="no">       BOOL      </code> value to accelerate boolean match expressions in SQL.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext"><code dir="ltr" translate="no">        TOKENIZE_FULLTEXT       </code></a></td>
-<td>Constructs a full-text <code dir="ltr" translate="no">       TOKENLIST      </code> value by tokenizing text for full-text matching.</td>
-</tr>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#tokenize_json"><code dir="ltr" translate="no">        TOKENIZE_JSON       </code></a></td>
-<td>Constructs a JSON <code dir="ltr" translate="no">       TOKENLIST      </code> value by tokenizing a <code dir="ltr" translate="no">       JSON      </code> value to accelerate JSON predicate expressions in SQL.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#tokenize_ngrams"><code dir="ltr" translate="no">        TOKENIZE_NGRAMS       </code></a></td>
-<td>Constructs an n-gram <code dir="ltr" translate="no">       TOKENLIST      </code> value by tokenizing a <code dir="ltr" translate="no">       STRING      </code> value for matching n-grams.</td>
-</tr>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#tokenize_number"><code dir="ltr" translate="no">        TOKENIZE_NUMBER       </code></a></td>
-<td>Constructs a numeric <code dir="ltr" translate="no">       TOKENLIST      </code> value by tokenizing numeric values to accelerate numeric comparison expressions in SQL.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#tokenize_substring"><code dir="ltr" translate="no">        TOKENIZE_SUBSTRING       </code></a></td>
-<td>Constructs a substring <code dir="ltr" translate="no">       TOKENLIST      </code> value by tokenizing text for substring matching.</td>
-</tr>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/search_functions#tokenlist_concat"><code dir="ltr" translate="no">        TOKENLIST_CONCAT       </code></a></td>
-<td>Constructs a <code dir="ltr" translate="no">       TOKENLIST      </code> value by concatenating one or more <code dir="ltr" translate="no">       TOKENLIST      </code> values.</td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                                           | Summary                                                                                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`         DEBUG_TOKENLIST        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#debug_tokenlist)       | Displays a human-readable representation of tokens present in the `        TOKENLIST       ` value for debugging purposes.                                                               |
+| [`         SCORE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score)                           | Calculates a relevance score of a `        TOKENLIST       ` for a full-text search query. The higher the score, the stronger the match.                                                 |
+| [`         SCORE_NGRAMS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score_ngrams)             | Calculates a relevance score of a `        TOKENLIST       ` for a fuzzy search. The higher the score, the stronger the match.                                                           |
+| [`         SEARCH        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext)                | Returns `        TRUE       ` if a full-text search query matches tokens.                                                                                                                |
+| [`         SEARCH_NGRAMS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_ngrams)           | Checks whether enough n-grams match the tokens in a fuzzy search.                                                                                                                        |
+| [`         SEARCH_SUBSTRING        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_substring)     | Returns `        TRUE       ` if a substring query matches tokens.                                                                                                                       |
+| [`         SNIPPET        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#snippet)                       | Gets a list of snippets that match a full-text search query.                                                                                                                             |
+| [`         TOKEN        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#token)                           | Constructs an exact match `        TOKENLIST       ` value by tokenizing a `        BYTE       ` or `        STRING       ` value verbatim to accelerate exact match expressions in SQL. |
+| [`         TOKENIZE_BOOL        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_bool)           | Constructs a boolean `        TOKENLIST       ` value by tokenizing a `        BOOL       ` value to accelerate boolean match expressions in SQL.                                        |
+| [`         TOKENIZE_FULLTEXT        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext)   | Constructs a full-text `        TOKENLIST       ` value by tokenizing text for full-text matching.                                                                                       |
+| [`         TOKENIZE_JSON        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_json)           | Constructs a JSON `        TOKENLIST       ` value by tokenizing a `        JSON       ` value to accelerate JSON predicate expressions in SQL.                                          |
+| [`         TOKENIZE_NGRAMS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_ngrams)       | Constructs an n-gram `        TOKENLIST       ` value by tokenizing a `        STRING       ` value for matching n-grams.                                                                |
+| [`         TOKENIZE_NUMBER        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_number)       | Constructs a numeric `        TOKENLIST       ` value by tokenizing numeric values to accelerate numeric comparison expressions in SQL.                                                  |
+| [`         TOKENIZE_SUBSTRING        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_substring) | Constructs a substring `        TOKENLIST       ` value by tokenizing text for substring matching.                                                                                       |
+| [`         TOKENLIST_CONCAT        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenlist_concat)     | Constructs a `        TOKENLIST       ` value by concatenating one or more `        TOKENLIST       ` values.                                                                            |
 
 ## `     DEBUG_TOKENLIST    `
 
-``` text
-DEBUG_TOKENLIST(tokenlist)
-```
+    DEBUG_TOKENLIST(tokenlist)
 
 **Description**
 
@@ -158,15 +103,13 @@ The following query illustrates how attributes and positions are represented:
 
 <!-- end list -->
 
-``` text
-SELECT DEBUG_TOKENLIST(TOKENIZE_FULLTEXT('Hello DB #World')) AS Result;
-
-/*------------------------------------------------+
- | Result                                         |
- +------------------------------------------------+
- | hello(boundary), db, [#world, world](boundary) |
- +------------------------------------------------*/
-```
+    SELECT DEBUG_TOKENLIST(TOKENIZE_FULLTEXT('Hello DB #World')) AS Result;
+    
+    /*------------------------------------------------+
+     | Result                                         |
+     +------------------------------------------------+
+     | hello(boundary), db, [#world, world](boundary) |
+     +------------------------------------------------*/
 
 The following query illustrates how equality and range are represented:
 
@@ -175,28 +118,24 @@ The following query illustrates how equality and range are represented:
 
 <!-- end list -->
 
-``` text
-SELECT DEBUG_TOKENLIST(TOKENIZE_NUMBER([1, 10], min=> 1, max=>10)) AS Result;
-
-/*--------------------------------------------------------------------------------+
- | Result                                                                         |
- +--------------------------------------------------------------------------------+
- | ==1, ==10, [1, 1], [1, 2], [1, 4], [1, 8], [9, 10], [9, 12], [9, 16], [10, 10] |
- +--------------------------------------------------------------------------------*/
-```
+    SELECT DEBUG_TOKENLIST(TOKENIZE_NUMBER([1, 10], min=> 1, max=>10)) AS Result;
+    
+    /*--------------------------------------------------------------------------------+
+     | Result                                                                         |
+     +--------------------------------------------------------------------------------+
+     | ==1, ==10, [1, 1], [1, 2], [1, 4], [1, 8], [9, 10], [9, 12], [9, 16], [10, 10] |
+     +--------------------------------------------------------------------------------*/
 
 ## `     SCORE    `
 
-``` text
-SCORE(
-  tokens,
-  search_query
-  [, dialect => { "rquery" | "words" | "words_phrase" } ]
-  [, language_tag => value ]
-  [, enhance_query => { TRUE | FALSE } ]
-  [, options => value ]
-)
-```
+    SCORE(
+      tokens,
+      search_query
+      [, dialect => { "rquery" | "words" | "words_phrase" } ]
+      [, language_tag => value ]
+      [, enhance_query => { TRUE | FALSE } ]
+      [, options => value ]
+    )
 
 **Description**
 
@@ -206,15 +145,15 @@ Calculates a relevance score of a `  TOKENLIST  ` for a full-text search query. 
 
   - `  tokens  ` : A `  TOKENLIST  ` value that represents a list of full-text tokens.
 
-  - `  search_query  ` : A `  STRING  ` value that represents a search query, which is interpreted based on the `  dialect  ` argument. For more information, see the [search query overview](/spanner/docs/full-text-search/query-overview#search-query) .
+  - `  search_query  ` : A `  STRING  ` value that represents a search query, which is interpreted based on the `  dialect  ` argument. For more information, see the [search query overview](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#search-query) .
 
   - `  dialect  ` : A named argument with a `  STRING  ` value. The value determines how `  search_query  ` is understood and processed. If the value is `  NULL  ` or this argument isn't specified, `  rquery  ` is used by default. This function supports the following dialect values:
     
-      - `  rquery  ` : The raw search query (or "rquery") using a domain-specific language (DSL). For more information, see [rquery syntax overview](/spanner/docs/full-text-search/query-overview#rquery) . For rquery syntax rules, see [rquery syntax](/spanner/docs/reference/standard-sql/search_functions#rquery-syntax) .
+      - `  rquery  ` : The raw search query (or "rquery") using a domain-specific language (DSL). For more information, see [rquery syntax overview](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#rquery) . For rquery syntax rules, see [rquery syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#rquery-syntax) .
     
-      - `  words  ` : Perform a conjunctive search, requiring all terms in `  search_query  ` to be present. For an overview, see [words dialect overview](/spanner/docs/full-text-search/query-overview#words) . For syntax rules, see [words syntax](/spanner/docs/reference/standard-sql/search_functions#words-syntax) .
+      - `  words  ` : Perform a conjunctive search, requiring all terms in `  search_query  ` to be present. For an overview, see [words dialect overview](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#words) . For syntax rules, see [words syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#words-syntax) .
     
-      - `  words_phrase  ` : Perform a phrase search that requires all terms in `  search_query  ` to be adjacent and in order. For an overview, see [words phrase overview](/spanner/docs/full-text-search/query-overview#words-phrase) . For syntax rules, see [words\_phrase syntax](/spanner/docs/reference/standard-sql/search_functions#words-phrase-syntax) .
+      - `  words_phrase  ` : Perform a phrase search that requires all terms in `  search_query  ` to be adjacent and in order. For an overview, see [words phrase overview](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#words-phrase) . For syntax rules, see [words\_phrase syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#words-phrase-syntax) .
 
   - `  language_tag  ` : A named argument with a `  STRING  ` value. The value contains an [IETF BCP 47 language tag](https://en.wikipedia.org/wiki/IETF_language_tag) . You can use this tag to specify the language for `  search_query  ` . If the value for this argument is `  NULL  ` , this function doesn't use a specific language. If this argument isn't specified, `  NULL  ` is used by default.
 
@@ -267,86 +206,76 @@ The following examples reference a table called `  Albums  ` and a search index 
 
 The `  Albums  ` table contains a column called `  DescriptionTokens  ` , which tokenizes the input added to the `  Description  ` column, and then saves those tokens in the `  DescriptionTokens  ` column. Finally, `  AlbumsIndex  ` indexes `  DescriptionTokens  ` . Once `  DescriptionTokens  ` is indexed, it can be used with the `  SCORE  ` function.
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  Description STRING(MAX),
-  DescriptionTokens TOKENLIST AS (TOKENIZE_FULLTEXT(Description)) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionTokens);
-
-INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'classical album');
-INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 2, 'classical and rock album');
-```
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      Description STRING(MAX),
+      DescriptionTokens TOKENLIST AS (TOKENIZE_FULLTEXT(Description)) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionTokens);
+    
+    INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'classical album');
+    INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 2, 'classical and rock album');
 
 The following query searches the column called `  Description  ` for a token called `  classical album  ` . If this token is found for singer ID `  1  ` , the matching `  Description  ` are returned with the corresponding score. Both `  classical album  ` and `  classical and rock album  ` have the terms `  classical  ` and `  album  ` , but the first one has a higher score because the terms are adjacent.
 
-``` text
-SELECT
-  a.Description, SCORE(a.DescriptionTokens, 'classical album') AS Score
-FROM
-  Albums a
-WHERE
-  SEARCH(a.DescriptionTokens, 'classical album');
-
-/*--------------------------+---------------------+
- | Description              | Score               |
- +--------------------------+---------------------+
- | classical album          | 1.2818930149078369  |
- | classical and rock album | 0.50003194808959961 |
- +--------------------------+---------------------*/
-```
+    SELECT
+      a.Description, SCORE(a.DescriptionTokens, 'classical album') AS Score
+    FROM
+      Albums a
+    WHERE
+      SEARCH(a.DescriptionTokens, 'classical album');
+    
+    /*--------------------------+---------------------+
+     | Description              | Score               |
+     +--------------------------+---------------------+
+     | classical album          | 1.2818930149078369  |
+     | classical and rock album | 0.50003194808959961 |
+     +--------------------------+---------------------*/
 
 The following query is like the previous one. However, scores are boosted more with `  bigram_weight  ` on adjacent positions.
 
-``` text
-SELECT
-  a.Description,
-  SCORE(
-    a.DescriptionTokens,
-    'classical album',
-    options=>JSON '{"bigram_weight": 3.0}'
-  ) AS Score
-FROM Albums a
-WHERE SEARCH(a.DescriptionTokens, 'classical album');
-
-/*--------------------------+---------------------+
- | Description              | Score               |
- +--------------------------+---------------------+
- | classical album          | 1.7417128086090088  |
- | classical and rock album | 0.50003194808959961 |
- +--------------------------+---------------------*/
-```
+    SELECT
+      a.Description,
+      SCORE(
+        a.DescriptionTokens,
+        'classical album',
+        options=>JSON '{"bigram_weight": 3.0}'
+      ) AS Score
+    FROM Albums a
+    WHERE SEARCH(a.DescriptionTokens, 'classical album');
+    
+    /*--------------------------+---------------------+
+     | Description              | Score               |
+     +--------------------------+---------------------+
+     | classical album          | 1.7417128086090088  |
+     | classical and rock album | 0.50003194808959961 |
+     +--------------------------+---------------------*/
 
 The following query uses `  SCORE  ` in the `  ORDER BY  ` clause to get the row with the highest score.
 
-``` text
-SELECT a.Description
-FROM Albums a
-WHERE SEARCH(a.DescriptionTokens, 'classical album')
-ORDER BY SCORE(a.DescriptionTokens, 'classical album') DESC
-LIMIT 1;
-
-/*--------------------------+
- | Description              |
- +--------------------------+
- | classical album          |
- +--------------------------*/
-```
+    SELECT a.Description
+    FROM Albums a
+    WHERE SEARCH(a.DescriptionTokens, 'classical album')
+    ORDER BY SCORE(a.DescriptionTokens, 'classical album') DESC
+    LIMIT 1;
+    
+    /*--------------------------+
+     | Description              |
+     +--------------------------+
+     | classical album          |
+     +--------------------------*/
 
 ## `     SCORE_NGRAMS    `
 
-``` text
-SCORE_NGRAMS(
-  tokens,
-  ngrams_query
-  [, language_tag => value ]
-  [, algorithm => value ]
-  [, array_aggregator => value ]
-)
-```
+    SCORE_NGRAMS(
+      tokens,
+      ngrams_query
+      [, language_tag => value ]
+      [, algorithm => value ]
+      [, array_aggregator => value ]
+    )
 
 **Description**
 
@@ -373,7 +302,7 @@ Calculates a relevance score of a `  TOKENLIST  ` for a fuzzy search. The higher
 **Details**
 
   - This function returns `  0  ` when `  tokens  ` or `  ngrams_query  ` is `  NULL  ` .
-  - Unlike `  SEARCH_NGRAMS  ` , this function requires access to the source column of `  tokens  ` . Therefore, it's often advantageous to include the source column in `  SEARCH INDEX  ` 's `  STORING  ` clause, to avoid a join with the base table. Please see [index-only scans](/spanner/docs/secondary-indexes#storing-clause) .
+  - Unlike `  SEARCH_NGRAMS  ` , this function requires access to the source column of `  tokens  ` . Therefore, it's often advantageous to include the source column in `  SEARCH INDEX  ` 's `  STORING  ` clause, to avoid a join with the base table. Please see [index-only scans](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) .
 
 **Return type**
 
@@ -385,64 +314,56 @@ The following examples reference a table called `  Albums  ` and a search index 
 
 The `  Albums  ` table contains a column `  DescriptionSubstrTokens  ` which tokenizes `  Description  ` column using `  TOKENIZE_SUBSTRING  ` . Finally, `  AlbumsIndex  ` stores `  Description  ` , so that the query below doesn't have to join with the base table.
 
-``` text
-CREATE TABLE Albums (
-  AlbumId INT64 NOT NULL,
-  Description STRING(MAX),
-  DescriptionSubstrTokens TOKENLIST AS
-    (TOKENIZE_SUBSTRING(Description, ngram_size_max=>3)) HIDDEN
-) PRIMARY KEY (AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionSubstrTokens)
-  STORING(Description);
-
-INSERT INTO Albums (AlbumId, Description) VALUES (1, 'rock album');
-INSERT INTO Albums (AlbumId, Description) VALUES (2, 'classical album');
-```
+    CREATE TABLE Albums (
+      AlbumId INT64 NOT NULL,
+      Description STRING(MAX),
+      DescriptionSubstrTokens TOKENLIST AS
+        (TOKENIZE_SUBSTRING(Description, ngram_size_max=>3)) HIDDEN
+    ) PRIMARY KEY (AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionSubstrTokens)
+      STORING(Description);
+    
+    INSERT INTO Albums (AlbumId, Description) VALUES (1, 'rock album');
+    INSERT INTO Albums (AlbumId, Description) VALUES (2, 'classical album');
 
 The following query scores `  Description  ` with `  clasic albun  ` , which is misspelled.
 
-``` text
-SELECT
-  a.Description, SCORE_NGRAMS(a.DescriptionSubstrTokens, 'clasic albun') AS Score
-FROM
-  Albums a
-
-/*-----------------+---------------------+
- | Description     | Score               |
- +-----------------+---------------------+
- | rock album      | 0.14285714285714285 |
- | classical album | 0.38095238095238093 |
- +-----------------+---------------------*/
-```
+    SELECT
+      a.Description, SCORE_NGRAMS(a.DescriptionSubstrTokens, 'clasic albun') AS Score
+    FROM
+      Albums a
+    
+    /*-----------------+---------------------+
+     | Description     | Score               |
+     +-----------------+---------------------+
+     | rock album      | 0.14285714285714285 |
+     | classical album | 0.38095238095238093 |
+     +-----------------+---------------------*/
 
 The following query uses `  SCORE_NGRAMS  ` in the `  ORDER BY  ` clause to produce the row with the highest score.
 
-``` text
-SELECT a.Description
-FROM Albums a
-WHERE SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic albun')
-ORDER BY SCORE_NGRAMS(a.DescriptionSubstrTokens, 'clasic albun') DESC
-LIMIT 1
-
-/*-----------------+
- | Description     |
- +-----------------+
- | classical album |
- +-----------------*/
-```
+    SELECT a.Description
+    FROM Albums a
+    WHERE SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic albun')
+    ORDER BY SCORE_NGRAMS(a.DescriptionSubstrTokens, 'clasic albun') DESC
+    LIMIT 1
+    
+    /*-----------------+
+     | Description     |
+     +-----------------+
+     | classical album |
+     +-----------------*/
 
 ## `     SEARCH    `
 
-``` text
-SEARCH(
-  tokens,
-  search_query
-  [, dialect => { "rquery" | "words" | "words_phrase" } ]
-  [, language_tag => value]
-  [, enhance_query => { TRUE | FALSE }]
-)
-```
+    SEARCH(
+      tokens,
+      search_query
+      [, dialect => { "rquery" | "words" | "words_phrase" } ]
+      [, language_tag => value]
+      [, enhance_query => { TRUE | FALSE }]
+    )
 
 **Description**
 
@@ -452,15 +373,15 @@ Returns `  TRUE  ` if a full-text search query matches tokens.
 
   - `  tokens  ` : A `  TOKENLIST  ` value that contains a list of full-text tokens. It must be a `  TOKENLIST  ` generated by either `  TOKENIZE_FULLTEXT  ` , or by concatenating `  TOKENLIST  ` s from `  TOKENIZE_FULLTEXT  ` using `  TOKENLIST_CONCAT  ` .
 
-  - `  search_query  ` : A `  STRING  ` value that represents a search query, which is interpreted based on the `  dialect  ` argument. For more information, see the [search query overview](/spanner/docs/full-text-search/query-overview#search-query) .
+  - `  search_query  ` : A `  STRING  ` value that represents a search query, which is interpreted based on the `  dialect  ` argument. For more information, see the [search query overview](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#search-query) .
 
   - `  dialect  ` : A named argument with a `  STRING  ` value. The value determines how `  search_query  ` is understood and processed. If the value is `  NULL  ` or this argument isn't specified, `  rquery  ` is used by default. This function supports the following dialect values:
     
-      - `  rquery  ` : The raw search query (or "rquery") using a domain-specific language (DSL). For more information, see [rquery syntax overview](/spanner/docs/full-text-search/query-overview#rquery) . For rquery syntax rules, see [rquery syntax](/spanner/docs/reference/standard-sql/search_functions#rquery-syntax) .
+      - `  rquery  ` : The raw search query (or "rquery") using a domain-specific language (DSL). For more information, see [rquery syntax overview](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#rquery) . For rquery syntax rules, see [rquery syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#rquery-syntax) .
     
-      - `  words  ` : Perform a conjunctive search, requiring all terms in `  search_query  ` to be present. For an overview, see [words dialect overview](/spanner/docs/full-text-search/query-overview#words) . For syntax rules, see [words syntax](/spanner/docs/reference/standard-sql/search_functions#words-syntax) .
+      - `  words  ` : Perform a conjunctive search, requiring all terms in `  search_query  ` to be present. For an overview, see [words dialect overview](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#words) . For syntax rules, see [words syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#words-syntax) .
     
-      - `  words_phrase  ` : Perform a phrase search that requires all terms in `  search_query  ` to be adjacent and in order. For an overview, see [words phrase overview](/spanner/docs/full-text-search/query-overview#words-phrase) . For syntax rules, see [words\_phrase syntax](/spanner/docs/reference/standard-sql/search_functions#words-phrase-syntax) .
+      - `  words_phrase  ` : Perform a phrase search that requires all terms in `  search_query  ` to be adjacent and in order. For an overview, see [words phrase overview](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#words-phrase) . For syntax rules, see [words\_phrase syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#words-phrase-syntax) .
 
   - `  language_tag  ` : A named argument with a `  STRING  ` value. The value contains an [IETF BCP 47 language tag](https://en.wikipedia.org/wiki/IETF_language_tag) . You can use this tag to specify the language for `  search_query  ` . If the value for this argument is `  NULL  ` , this function doesn't use a specific language. If this argument isn't specified, `  NULL  ` is used by default.
 
@@ -490,12 +411,10 @@ Search query uses rquery syntax by default. You can specify other supported synt
     
       - The `  OR  ` operator implies disjunction between two terms, such as `  big OR time  ` . The predicate `  SEARCH(tl, 'big time OR fast car')  ` is equivalent to:
         
-        ``` text
-        SEARCH(tl, 'big')
-        AND (SEARCH(tl, 'time')
-            OR SEARCH(tl, 'fast'))
-        AND SEARCH(tl, 'car');
-        ```
+            SEARCH(tl, 'big')
+            AND (SEARCH(tl, 'time')
+                OR SEARCH(tl, 'fast'))
+            AND SEARCH(tl, 'car');
         
         `  OR  ` only applies to the two adjacent terms so the search expression `  big time OR fast car  ` searches for all the documents that have the terms `  big  ` and `  car  ` and either `  time  ` or `  fast  ` .
         
@@ -520,40 +439,15 @@ Search query uses rquery syntax by default. You can specify other supported synt
     
     The following table explains the meaning of various rquery strings:
     
-    <table>
-    <thead>
-    <tr class="header">
-    <th>rquery</th>
-    <th>Explanation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="odd">
-    <td><code dir="ltr" translate="no">         Miles Davis        </code></td>
-    <td>Matches documents that contain both terms "Miles" and "Davis".</td>
-    </tr>
-    <tr class="even">
-    <td><code dir="ltr" translate="no">         Miles OR Davis        </code></td>
-    <td>Matches documents that contain at least one of the terms "Miles" and "Davis".</td>
-    </tr>
-    <tr class="odd">
-    <td><code dir="ltr" translate="no">         -Davis        </code></td>
-    <td>Matches all documents that don't contain the term "Davis".</td>
-    </tr>
-    <tr class="even">
-    <td><code dir="ltr" translate="no">         "Miles Davis" -"Miles Jaye"        </code></td>
-    <td>Matches documents that contain two adjacent terms "Miles" and "Davis", but don't contain adjacent "Miles" and "Jaye". For example, this query matches "I saw Miles Davis last night and Jaye earlier today", but doesn't match "I saw Miles Davis and Miles Jaye perform together".</td>
-    </tr>
-    <tr class="odd">
-    <td><code dir="ltr" translate="no">         Davis|Jaye        </code></td>
-    <td>This is the same as <code dir="ltr" translate="no">         Davis OR Jaye        </code> .</td>
-    </tr>
-    <tr class="even">
-    <td><code dir="ltr" translate="no">         and OR or        </code></td>
-    <td>Matches documents that have either the term "and" or the term "or" (the <code dir="ltr" translate="no">         OR        </code> operator must be uppercase)</td>
-    </tr>
-    </tbody>
-    </table>
+    | rquery                                           | Explanation                                                                                                                                                                                                                                                                         |
+    | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `          Miles Davis         `                 | Matches documents that contain both terms "Miles" and "Davis".                                                                                                                                                                                                                      |
+    | `          Miles OR Davis         `              | Matches documents that contain at least one of the terms "Miles" and "Davis".                                                                                                                                                                                                       |
+    | `          -Davis         `                      | Matches all documents that don't contain the term "Davis".                                                                                                                                                                                                                          |
+    | `          "Miles Davis" -"Miles Jaye"         ` | Matches documents that contain two adjacent terms "Miles" and "Davis", but don't contain adjacent "Miles" and "Jaye". For example, this query matches "I saw Miles Davis last night and Jaye earlier today", but doesn't match "I saw Miles Davis and Miles Jaye perform together". |
+    | `          Davis\|Jaye         `                 | This is the same as `          Davis OR Jaye         ` .                                                                                                                                                                                                                            |
+    | `          and OR or         `                   | Matches documents that have either the term "and" or the term "or" (the `          OR         ` operator must be uppercase)                                                                                                                                                         |
+    
 
   - **words syntax**
     
@@ -581,75 +475,65 @@ The following examples reference a table called `  Albums  ` and a search index 
 
 The `  Albums  ` table contains a column called `  DescriptionTokens  ` , which tokenizes the `  Description  ` column using `  TOKENIZE_FULLTEXT  ` , and then saves those tokens in the `  DescriptionTokens  ` column. Finally, `  AlbumsIndex  ` indexes `  DescriptionTokens  ` . Once `  DescriptionTokens  ` is indexed, it can be used with the `  SEARCH  ` function.
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  Description STRING(MAX),
-  DescriptionTokens TOKENLIST AS (TOKENIZE_FULLTEXT(Description)) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionTokens)
-PARTITION BY SingerId;
-
-INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'rock album');
-INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 2, 'classical album');
-```
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      Description STRING(MAX),
+      DescriptionTokens TOKENLIST AS (TOKENIZE_FULLTEXT(Description)) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionTokens)
+    PARTITION BY SingerId;
+    
+    INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'rock album');
+    INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 2, 'classical album');
 
 The following query searches the column called `  Description  ` for a token called `  classical  ` . If this token is found for singer ID `  1  ` , the matching rows are returned.
 
-``` text
-SELECT a.AlbumId, a.Description
-FROM Albums a
-WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classical');
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- | 2       | classical album |
- +---------------------------*/
-```
+    SELECT a.AlbumId, a.Description
+    FROM Albums a
+    WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classical');
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     | 2       | classical album |
+     +---------------------------*/
 
 The following query is like the previous one. However, if `  Description  ` contains the `  classical  ` or `  rock  ` token, the matching rows are returned.
 
-``` text
-SELECT a.AlbumId, a.Description
-FROM Albums a
-WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classical OR rock');
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- | 2       | classical album |
- | 1       | rock album      |
- +---------------------------*/
-```
+    SELECT a.AlbumId, a.Description
+    FROM Albums a
+    WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classical OR rock');
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     | 2       | classical album |
+     | 1       | rock album      |
+     +---------------------------*/
 
 The following query is like the previous ones. However, if `  Description  ` contains the `  classic  ` and `  albums  ` token, the matching rows are returned. When `  enhance_query  ` is enabled, it includes similar matches of `  classical  ` and `  album  ` .
 
-``` text
-SELECT a.AlbumId, a.Description
-FROM Albums a
-WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classic albums', enhance_query => TRUE);
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- | 2       | classical album |
- +---------------------------*/
-```
+    SELECT a.AlbumId, a.Description
+    FROM Albums a
+    WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classic albums', enhance_query => TRUE);
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     | 2       | classical album |
+     +---------------------------*/
 
 ## `     SEARCH_NGRAMS    `
 
-``` text
-SEARCH_NGRAMS(
-  tokens,
-  ngrams_query
-  [, language_tag => value ]
-  [, min_ngrams => value ]
-  [, min_ngrams_percent => value ]
-)
-```
+    SEARCH_NGRAMS(
+      tokens,
+      ngrams_query
+      [, language_tag => value ]
+      [, min_ngrams => value ]
+      [, min_ngrams_percent => value ]
+    )
 
 **Description**
 
@@ -684,105 +568,93 @@ The following examples reference a table called `  Albums  ` and a search index 
 
 The `  Albums  ` table contains columns `  DescriptionSubstrTokens  ` and `  DescriptionNgramsTokens  ` which tokenize a `  Description  ` column using `  TOKENIZE_SUBSTRING  ` and `  TOKENIZE_NGRAMS  ` , respectively. Finally, `  AlbumsIndex  ` indexes `  DescriptionSubstrTokens  ` and `  DescriptionNgramsTokens  ` .
 
-``` text
-CREATE TABLE Albums (
-  AlbumId INT64 NOT NULL,
-  Description STRING(MAX),
-  DescriptionSubstrTokens TOKENLIST AS
-    (TOKENIZE_SUBSTRING(Description, ngram_size_min=>3, ngram_size_max=>3)) HIDDEN,
-  DescriptionNgramsTokens TOKENLIST AS
-    (TOKENIZE_NGRAMS(Description, ngram_size_min=>3, ngram_size_max=>3)) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionSubstrTokens, DescriptionNgramsTokens);
-
-INSERT INTO Albums (AlbumId, Description) VALUES (1, 'rock album');
-INSERT INTO Albums (AlbumId, Description) VALUES (2, 'classical album');
-INSERT INTO Albums (AlbumId, Description) VALUES (3, 'last note');
-```
+    CREATE TABLE Albums (
+      AlbumId INT64 NOT NULL,
+      Description STRING(MAX),
+      DescriptionSubstrTokens TOKENLIST AS
+        (TOKENIZE_SUBSTRING(Description, ngram_size_min=>3, ngram_size_max=>3)) HIDDEN,
+      DescriptionNgramsTokens TOKENLIST AS
+        (TOKENIZE_NGRAMS(Description, ngram_size_min=>3, ngram_size_max=>3)) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionSubstrTokens, DescriptionNgramsTokens);
+    
+    INSERT INTO Albums (AlbumId, Description) VALUES (1, 'rock album');
+    INSERT INTO Albums (AlbumId, Description) VALUES (2, 'classical album');
+    INSERT INTO Albums (AlbumId, Description) VALUES (3, 'last note');
 
 The following query searches the column `  Description  ` for `  clasic  ` . The query is misspelled, so querying with `  SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'clasic')  ` doesn't return a row, but the n-grams search is able to find similar matches.
 
 `  SEARCH_NGRAMS  ` first transforms the query `  clasic  ` into n-grams of size 3 (the value of `  DescriptionSubstrTokens  ` 's `  ngram_size_max  ` ), producing `  ['asi', 'cla', 'las', 'sic']  ` . Then it finds rows that have at least two of these n-grams (the default value for `  min_ngrams  ` ) in the `  DescriptionSubstrTokens  ` column.
 
-``` text
-SELECT
-  a.AlbumId, a.Description
-FROM
-  Albums a
-WHERE
-  SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic');
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- | 2       | classical album |
- +---------------------------*/
-```
+    SELECT
+      a.AlbumId, a.Description
+    FROM
+      Albums a
+    WHERE
+      SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic');
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     | 2       | classical album |
+     +---------------------------*/
 
 If we change the `  min_ngrams  ` to 1, then the query will also return the row with `  last  ` which has one n-gram match with `  las  ` . This example illustrates the decreased relevancy of the returned results when this parameter is set low.
 
-``` text
-SELECT
-  a.AlbumId, a.Description
-FROM
-  Albums a
-WHERE
-  SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic', min_ngrams=>1);
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- | 2       | classical album |
- | 3       | last notes      |
- +---------------------------*/
-```
+    SELECT
+      a.AlbumId, a.Description
+    FROM
+      Albums a
+    WHERE
+      SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic', min_ngrams=>1);
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     | 2       | classical album |
+     | 3       | last notes      |
+     +---------------------------*/
 
 The following query searches the column `  Description  ` for `  clasic albun  ` . As the `  DescriptionSubstrTokens  ` is tokenized by `  TOKENIZE_SUBSTRING  ` , the query is segmented into `  ['clasic', 'albun']  ` first, then n-gram tokens are generated from those words, producing the following: `  ['alb', 'asi', 'bun', 'cla', 'las', 'lbu', 'sic']  ` .
 
-``` text
-SELECT
-  a.AlbumId, a.Description
-FROM
-  Albums a
-WHERE
-  SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic albun');
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- | 2       | classical album |
- | 1       | rock album      |
- +---------------------------*/
-```
+    SELECT
+      a.AlbumId, a.Description
+    FROM
+      Albums a
+    WHERE
+      SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic albun');
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     | 2       | classical album |
+     | 1       | rock album      |
+     +---------------------------*/
 
 The following query searches the column `  Description  ` for `  l al  ` , but using the `  DescriptionNgramsTokens  ` this time. As the `  DescriptionNgramsTokens  ` is generated by `  TOKENIZE_NGRAMS  ` , there is no splitting into words before making n-gram tokens, so the query n-gram tokens are generated as the following: `  ['%20al', 'l%20a']  ` .
 
-``` text
-SELECT
-  a.AlbumId, a.Description
-FROM
-  Albums a
-WHERE
-  SEARCH_NGRAMS(a.DescriptionNgramsTokens, 'l al');
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- | 2       | classical album |
- +---------------------------*/
-```
+    SELECT
+      a.AlbumId, a.Description
+    FROM
+      Albums a
+    WHERE
+      SEARCH_NGRAMS(a.DescriptionNgramsTokens, 'l al');
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     | 2       | classical album |
+     +---------------------------*/
 
 ## `     SEARCH_SUBSTRING    `
 
-``` text
-SEARCH_SUBSTRING(
-  tokens,
-  substring_query
-  [, language_tag => value ]
-  [, relative_search_type => value ]
-)
-```
+    SEARCH_SUBSTRING(
+      tokens,
+      substring_query
+      [, language_tag => value ]
+      [, relative_search_type => value ]
+    )
 
 **Description**
 
@@ -825,103 +697,91 @@ The following examples reference a table called `  Albums  ` and a search index 
 
 The `  Albums  ` table contains a column called `  DescriptionSubstrTokens  ` , which tokenizes the input added to the `  Description  ` column using `  TOKENIZE_SUBSTRING  ` , and then saves those substring tokens in the `  DescriptionSubstrTokens  ` column. Finally, `  AlbumsIndex  ` indexes `  DescriptionSubstrTokens  ` . Once `  DescriptionSubstrTokens  ` is indexed, it can be used with the `  SEARCH_SUBSTRING  ` function.
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  Description STRING(MAX),
-  DescriptionSubstrTokens TOKENLIST AS (TOKENIZE_SUBSTRING(Description, support_relative_search=>TRUE)) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionSubstrTokens)
-PARTITION BY SingerId;
-
-INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'rock album');
-INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 2, 'classical album');
-```
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      Description STRING(MAX),
+      DescriptionSubstrTokens TOKENLIST AS (TOKENIZE_SUBSTRING(Description, support_relative_search=>TRUE)) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionSubstrTokens)
+    PARTITION BY SingerId;
+    
+    INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'rock album');
+    INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 2, 'classical album');
 
 The following query searches the column called `  Description  ` for a token called `  ssic  ` . If this token is found for singer ID `  1  ` , the matching rows are returned.
 
-``` text
-SELECT
-  a.AlbumId, a.Description
-FROM
-  Albums a
-WHERE
-  a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'ssic');
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- | 2       | classical album |
- +---------------------------*/
-```
+    SELECT
+      a.AlbumId, a.Description
+    FROM
+      Albums a
+    WHERE
+      a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'ssic');
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     | 2       | classical album |
+     +---------------------------*/
 
 The following query searches the column called `  Description  ` for a token called both `  lbu  ` and `  oc  ` . If these tokens are found for singer ID `  1  ` , the matching rows are returned.
 
-``` text
-SELECT
-  a.AlbumId, a.Description
-FROM
-  Albums a
-WHERE
-  a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'lbu oc');
-
-/*-----------------------+
- | AlbumId | Description |
- +-----------------------+
- | 1       | rock album  |
- +-----------------------*/
-```
+    SELECT
+      a.AlbumId, a.Description
+    FROM
+      Albums a
+    WHERE
+      a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'lbu oc');
+    
+    /*-----------------------+
+     | AlbumId | Description |
+     +-----------------------+
+     | 1       | rock album  |
+     +-----------------------*/
 
 The following query searches the column called `  Description  ` for a token called `  al  ` at the start of a word. If this token is found for singer ID `  1  ` , the matching rows are returned.
 
-``` text
-SELECT
-  a.AlbumId, a.Description
-FROM
-  Albums a
-WHERE
-  a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_search_type=>'word_prefix');
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- | 2       | classical album |
- | 1       | rock album      |
- +---------------------------*/
-```
+    SELECT
+      a.AlbumId, a.Description
+    FROM
+      Albums a
+    WHERE
+      a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_search_type=>'word_prefix');
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     | 2       | classical album |
+     | 1       | rock album      |
+     +---------------------------*/
 
 The following query searches the column called `  Description  ` for a token called `  al  ` at the start of tokens. If this token is found for singer ID `  1  ` , the matching rows are returned. Because there are no matches, no rows are returned.
 
-``` text
-SELECT
-  a.AlbumId, a.Description
-FROM
-  Albums a
-WHERE
-  a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_search_type=>'value_prefix');
-
-/*---------------------------+
- | AlbumId | Description     |
- +---------------------------+
- |         |                 |
- +---------------------------*/
-```
+    SELECT
+      a.AlbumId, a.Description
+    FROM
+      Albums a
+    WHERE
+      a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_search_type=>'value_prefix');
+    
+    /*---------------------------+
+     | AlbumId | Description     |
+     +---------------------------+
+     |         |                 |
+     +---------------------------*/
 
 ## `     SNIPPET    `
 
-``` text
-SNIPPET(
-  data_to_search,
-  raw_search_query
-  [, language_tag => value ]
-  [, enhance_query => { TRUE | FALSE } ]
-  [, max_snippet_width => value ]
-  [, max_snippets => value ]
-  [, content_type => { "text/plain" | "text/html" } ]
-)
-```
+    SNIPPET(
+      data_to_search,
+      raw_search_query
+      [, language_tag => value ]
+      [, enhance_query => { TRUE | FALSE } ]
+      [, max_snippet_width => value ]
+      [, max_snippets => value ]
+      [, content_type => { "text/plain" | "text/html" } ]
+    )
 
 **Description**
 
@@ -964,23 +824,21 @@ This function returns `  NULL  ` when `  data_to_search  ` or `  raw_search_quer
 
 The `  JSON  ` value has this format and definitions:
 
-``` text
-{
-  "snippets":[
     {
-      "highlights":[
+      "snippets":[
         {
-          "begin": json_number,
-          "end": json_number
-        },
-      ],
-      "snippet": json_string,
-      "source_begin": json_number,
-      "source_end": json_number
+          "highlights":[
+            {
+              "begin": json_number,
+              "end": json_number
+            },
+          ],
+          "snippet": json_string,
+          "source_begin": json_number,
+          "source_end": json_number
+        }
+      ]
     }
-  ]
-}
-```
 
   - `  snippets  ` : A JSON object that contains snippets from `  data_to_search  ` . These are snippets of text for `  raw_search_query  ` from the provided `  data_to_search  ` argument.
   - `  highlights  ` : A JSON array that contains the position of each search term found in `  snippet  ` .
@@ -994,21 +852,17 @@ The `  JSON  ` value has this format and definitions:
 
 The following query produces a single snippet, `  Rock albums rock.  ` with two highlighted positions for the matching raw search query term, `  rock  ` :
 
-``` text
-SELECT SNIPPET('Rock albums rock.', 'rock') AS Snippet;
-
-/*--------------------------------------------------------------------------------------------------------------------------------------------------+
- | Snippet                                                                                                                                          |
- +--------------------------------------------------------------------------------------------------------------------------------------------------+
- | {"snippets":[{"highlights":[{"begin":"1","end":"5"},{"begin":"13","end":"17"}],"snippet":"Rock albums rock.","source_begin":1,"source_end":18}]} |
- +--------------------------------------------------------------------------------------------------------------------------------------------------*/
-```
+    SELECT SNIPPET('Rock albums rock.', 'rock') AS Snippet;
+    
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------+
+     | Snippet                                                                                                                                          |
+     +--------------------------------------------------------------------------------------------------------------------------------------------------+
+     | {"snippets":[{"highlights":[{"begin":"1","end":"5"},{"begin":"13","end":"17"}],"snippet":"Rock albums rock.","source_begin":1,"source_end":18}]} |
+     +--------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 ## `     TOKEN    `
 
-``` text
-TOKEN(value_to_tokenize)
-```
+    TOKEN(value_to_tokenize)
 
 **Description**
 
@@ -1030,58 +884,50 @@ Constructs an exact match `  TOKENLIST  ` value by tokenizing a `  BYTE  ` or ` 
 
 The `  Albums  ` table contains a column called `  SingerNameToken  ` and `  SongTitlesToken  ` , which tokenizes the `  SingerName  ` and `  SongTitles  ` columns respectively using the `  TOKEN  ` function. Finally, `  AlbumsIndex  ` indexes `  SingerNameToken  ` and `  SongTitlesToken  ` , which makes it possible for Spanner to use the index to accelerate exact-match expressions in SQL.
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  SingerName STRING(MAX),
-  SingerNameToken TOKENLIST AS (TOKEN(SingerName)) HIDDEN,
-  SongTitles ARRAY<STRING(MAX)>,
-  SongTitlesToken TOKENLIST AS (TOKEN(SongTitles)) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(SingerNameToken, SongTitlesToken);
-
--- For example, the INSERT statement below generates SingerNameToken of
--- 'Catalina Smith', and SongTitlesToken of
--- ['Starting Again', 'The Second Title'].
-INSERT INTO Albums (SingerId, AlbumId, SingerName, SongTitles)
-  VALUES (1, 1, 'Catalina Smith', ['Starting Again', 'The Second Time']);
-```
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      SingerName STRING(MAX),
+      SingerNameToken TOKENLIST AS (TOKEN(SingerName)) HIDDEN,
+      SongTitles ARRAY<STRING(MAX)>,
+      SongTitlesToken TOKENLIST AS (TOKEN(SongTitles)) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(SingerNameToken, SongTitlesToken);
+    
+    -- For example, the INSERT statement below generates SingerNameToken of
+    -- 'Catalina Smith', and SongTitlesToken of
+    -- ['Starting Again', 'The Second Title'].
+    INSERT INTO Albums (SingerId, AlbumId, SingerName, SongTitles)
+      VALUES (1, 1, 'Catalina Smith', ['Starting Again', 'The Second Time']);
 
 The following query finds the column `  SingerName  ` is equal to `  Catalina Smith  ` . The query optimizer could choose to accelerate the condition using `  AlbumsIndex  ` with `  SingerNameToken  ` . Optionally, the query can provide `  @{force_index = AlbumsIndex}  ` to force the optimizer to use `  AlbumsIndex  ` .
 
-``` text
-SELECT a.AlbumId
-FROM Albums @{force_index = AlbumsIndex} a
-WHERE a.SingerName = 'Catalina Smith';
-
-/*---------+
- | AlbumId |
- +---------+
- | 1       |
- +---------*/
-```
+    SELECT a.AlbumId
+    FROM Albums @{force_index = AlbumsIndex} a
+    WHERE a.SingerName = 'Catalina Smith';
+    
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 1       |
+     +---------*/
 
 The following query is like the previous ones. However, this time the query searches for `  SongTitles  ` that contain the string `  Starting Again  ` . Array conditions should use `  ARRAY_INCLUDES  ` , `  ARRAY_INCLUDES_ANY  ` or `  ARRAY_INCLUDES_ALL  ` functions to be eligible for using a search index for acceleration.
 
-``` text
-SELECT a.AlbumId
-FROM Albums a
-WHERE ARRAY_INCLUDES(a.SongTitles, 'Starting Again');
-
-/*---------+
- | AlbumId |
- +---------+
- | 1       |
- +---------*/
-```
+    SELECT a.AlbumId
+    FROM Albums a
+    WHERE ARRAY_INCLUDES(a.SongTitles, 'Starting Again');
+    
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 1       |
+     +---------*/
 
 ## `     TOKENIZE_BOOL    `
 
-``` text
-TOKENIZE_BOOL(value_to_tokenize)
-```
+    TOKENIZE_BOOL(value_to_tokenize)
 
 **Description**
 
@@ -1103,45 +949,39 @@ Constructs a boolean `  TOKENLIST  ` value by tokenizing a `  BOOL  ` value to a
 
 The `  Albums  ` table contains a column called `  IsAwardedToken  ` , which tokenizes the `  IsAwarded  ` column using `  TOKENIZE_BOOL  ` function. Finally, `  AlbumsIndex  ` indexes `  IsAwardedToken  ` , which makes it possible for Spanner to use the index to accelerate boolean-match expressions in SQL.
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  IsAwarded BOOL,
-  IsAwardedToken TOKENLIST AS (TOKENIZE_BOOL(IsAwarded)) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(IsAwardedToken);
-
--- IsAwarded with TRUE generates IsAwardedToken with value 'y'.
-INSERT INTO Albums (SingerId, AlbumId, IsAwarded) VALUES (1, 1, TRUE);
-
--- IsAwarded with FALSE generates IsAwardedToken with value 'n'.
-INSERT INTO Albums (SingerId, AlbumId, IsAwarded) VALUES (1, 2, FALSE);
-
--- NULL IsAwarded generates IsAwardedToken with value NULL.
-INSERT INTO Albums (SingerId, AlbumId) VALUES (1, 3);
-```
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      IsAwarded BOOL,
+      IsAwardedToken TOKENLIST AS (TOKENIZE_BOOL(IsAwarded)) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(IsAwardedToken);
+    
+    -- IsAwarded with TRUE generates IsAwardedToken with value 'y'.
+    INSERT INTO Albums (SingerId, AlbumId, IsAwarded) VALUES (1, 1, TRUE);
+    
+    -- IsAwarded with FALSE generates IsAwardedToken with value 'n'.
+    INSERT INTO Albums (SingerId, AlbumId, IsAwarded) VALUES (1, 2, FALSE);
+    
+    -- NULL IsAwarded generates IsAwardedToken with value NULL.
+    INSERT INTO Albums (SingerId, AlbumId) VALUES (1, 3);
 
 The following query finds the column `  IsAwarded  ` is equal to `  TRUE  ` . The query optimizer could choose to accelerate the condition using `  AlbumsIndex  ` with `  IsAwardedToken  ` . Optionally, the query can provide `  @{force_index = AlbumsIndex}  ` to force the optimizer to use `  AlbumsIndex  ` .
 
-``` text
-SELECT a.AlbumId
-FROM Albums @{force_index = AlbumsIndex} a
-WHERE IsAwarded = TRUE;
-```
+    SELECT a.AlbumId
+    FROM Albums @{force_index = AlbumsIndex} a
+    WHERE IsAwarded = TRUE;
 
 ## `     TOKENIZE_FULLTEXT    `
 
-``` text
-TOKENIZE_FULLTEXT(
-  value_to_tokenize
-  [, language_tag => value ]
-  [, content_type => { "text/plain" | "text/html" } ]
-  [, token_category => { "small" | "medium" | "large" | "title" } ]
-  [, remove_diacritics => { TRUE | FALSE }]
-)
-```
+    TOKENIZE_FULLTEXT(
+      value_to_tokenize
+      [, language_tag => value ]
+      [, content_type => { "text/plain" | "text/html" } ]
+      [, token_category => { "small" | "medium" | "large" | "title" } ]
+      [, remove_diacritics => { TRUE | FALSE }]
+    )
 
 **Description**
 
@@ -1184,37 +1024,33 @@ Constructs a full-text `  TOKENLIST  ` value by tokenizing text for full-text ma
 
 In the following example, a `  TOKENLIST  ` column is created using the `  TOKENIZE_FULLTEXT  ` function:
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  Title STRING(MAX),
-  Description STRING(MAX),
-  DescriptionTokens TOKENLIST AS (TOKENIZE_FULLTEXT(Description)) HIDDEN,
-  TitleTokens TOKENLIST AS (
-    TOKENIZE_FULLTEXT(Title, token_category=>"title")) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      Title STRING(MAX),
+      Description STRING(MAX),
+      DescriptionTokens TOKENLIST AS (TOKENIZE_FULLTEXT(Description)) HIDDEN,
+      TitleTokens TOKENLIST AS (
+        TOKENIZE_FULLTEXT(Title, token_category=>"title")) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    -- DescriptionTokens is generated from the Description value, using the
+    -- TOKENIZE_FULLTEXT function. For example, the following INSERT statement
+    -- generates DescriptionTokens with the tokens ['rock', 'album']. TitleTokens
+    -- will contain ['abbey', 'road'] and these tokens will be assigned to the
+    -- "title" token category.
+    INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'rock album');
+    
+    -- Capitalization and delimiters are removed during tokenization. For example,
+    -- the following INSERT statement generates DescriptionTokens with the tokens
+    -- ['classical', 'albums'].
+    INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'Classical, Albums.');
 
--- DescriptionTokens is generated from the Description value, using the
--- TOKENIZE_FULLTEXT function. For example, the following INSERT statement
--- generates DescriptionTokens with the tokens ['rock', 'album']. TitleTokens
--- will contain ['abbey', 'road'] and these tokens will be assigned to the
--- "title" token category.
-INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'rock album');
-
--- Capitalization and delimiters are removed during tokenization. For example,
--- the following INSERT statement generates DescriptionTokens with the tokens
--- ['classical', 'albums'].
-INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'Classical, Albums.');
-```
-
-To query a full-text `  TOKENLIST  ` column, see the [SEARCH](#search) function.
+To query a full-text `  TOKENLIST  ` column, see the [SEARCH](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search) function.
 
 ## `     TOKENIZE_JSON    `
 
-``` text
-TOKENIZE_JSON(value_to_tokenize)
-```
+    TOKENIZE_JSON(value_to_tokenize)
 
 **Description**
 
@@ -1236,70 +1072,64 @@ Constructs a JSON `  TOKENLIST  ` value by tokenizing a `  JSON  ` value to acce
 
 The `  Albums  ` table contains a column called `  MetadataTokens  ` , which tokenizes the `  Metadata  ` column using the `  TOKENIZE_JSON  ` function. `  AlbumsIndex  ` indexes `  MetadataToken  ` , which makes it possible for Spanner to use the index to accelerate JSON predicate expressions in SQL.
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  Metadata JSON,
-  MetadataTokens TOKENLIST AS (TOKENIZE_JSON(Metadata)) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(MetadataTokens);
-
--- Albums can be stored with varying metadata.
-INSERT INTO Albums (SingerId, AlbumId, Metadata)
-  VALUES (1, 1, JSON '{"AvailableFormats": ["vinyl", "cd"]}'),
-         (1, 2, JSON '{"ReissueDate": "1999-07-13", "MultiDiscCount": 2}'),
-         (1, 3, JSON '{"RegionalReleases": [{"Region": "Japan", "ReleaseDate": "2025-01-05"}]}');
-```
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      Metadata JSON,
+      MetadataTokens TOKENLIST AS (TOKENIZE_JSON(Metadata)) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(MetadataTokens);
+    
+    -- Albums can be stored with varying metadata.
+    INSERT INTO Albums (SingerId, AlbumId, Metadata)
+      VALUES (1, 1, JSON '{"AvailableFormats": ["vinyl", "cd"]}'),
+             (1, 2, JSON '{"ReissueDate": "1999-07-13", "MultiDiscCount": 2}'),
+             (1, 3, JSON '{"RegionalReleases": [{"Region": "Japan", "ReleaseDate": "2025-01-05"}]}');
 
 The following queries perform containment and existence checks on the `  Metadata  ` column. The query optimizer might choose to accelerate these conditions using `  AlbumsIndex  ` and `  MetadataTokens  ` .
 
-``` text
--- Query for albums available on vinyl.
-SELECT a.AlbumId
-FROM Albums a
-WHERE JSON_CONTAINS(a.Metadata, JSON '{"AvailableFormats": ["vinyl"]}');
-
-/*---------+
- | AlbumId |
- +---------+
- | 1       |
- +---------*/
-
--- Query for albums with a regional release in Japan.
-SELECT a.AlbumId
-FROM Albums a
-WHERE JSON_CONTAINS(a.Metadata, JSON '{"RegionalReleases": [{"Region": "Japan"}]}');
-
-/*---------+
- | AlbumId |
- +---------+
- | 3       |
- +---------*/
-
--- Query for reissued albums (those with a reissue date).
-SELECT a.AlbumId
-FROM Albums a
-WHERE a.Metadata.ReissueDate IS NOT NULL;
-
-/*---------+
- | AlbumId |
- +---------+
- | 2       |
- +---------*/
-```
+    -- Query for albums available on vinyl.
+    SELECT a.AlbumId
+    FROM Albums a
+    WHERE JSON_CONTAINS(a.Metadata, JSON '{"AvailableFormats": ["vinyl"]}');
+    
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 1       |
+     +---------*/
+    
+    -- Query for albums with a regional release in Japan.
+    SELECT a.AlbumId
+    FROM Albums a
+    WHERE JSON_CONTAINS(a.Metadata, JSON '{"RegionalReleases": [{"Region": "Japan"}]}');
+    
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 3       |
+     +---------*/
+    
+    -- Query for reissued albums (those with a reissue date).
+    SELECT a.AlbumId
+    FROM Albums a
+    WHERE a.Metadata.ReissueDate IS NOT NULL;
+    
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 2       |
+     +---------*/
 
 ## `     TOKENIZE_NGRAMS    `
 
-``` text
-TOKENIZE_NGRAMS(
-  value_to_tokenize
-  [, ngram_size_min => value ]
-  [, ngram_size_max => value ]
-  [, remove_diacritics => { TRUE | FALSE } ]
-)
-```
+    TOKENIZE_NGRAMS(
+      value_to_tokenize
+      [, ngram_size_min => value ]
+      [, ngram_size_max => value ]
+      [, remove_diacritics => { TRUE | FALSE } ]
+    )
 
 **Description**
 
@@ -1341,34 +1171,30 @@ Second, any n-grams with length equal to `  ngram_size_max  ` are stored in sequ
 
 `  ..., eavy, "avy ", "vy M", "y Me", " Met", Meta, etal  `
 
-``` text
-CREATE TABLE Albums (
-  AlbumId INT64 NOT NULL,
-  Description STRING(MAX),
-  DescriptionNgramTokens TOKENLIST AS (TOKENIZE_NGRAMS(Description)) HIDDEN
-) PRIMARY KEY (AlbumId);
+    CREATE TABLE Albums (
+      AlbumId INT64 NOT NULL,
+      Description STRING(MAX),
+      DescriptionNgramTokens TOKENLIST AS (TOKENIZE_NGRAMS(Description)) HIDDEN
+    ) PRIMARY KEY (AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionNgramTokens);
+    
+    INSERT INTO Albums (AlbumId, Description) VALUES (1, 'Heavy Metal');
 
-CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionNgramTokens);
-
-INSERT INTO Albums (AlbumId, Description) VALUES (1, 'Heavy Metal');
-```
-
-To query an n-gram `  TOKENLIST  ` column, see the [SEARCH\_NGRAMS](#search_ngrams) function.
+To query an n-gram `  TOKENLIST  ` column, see the [SEARCH\_NGRAMS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_ngrams) function.
 
 ## `     TOKENIZE_NUMBER    `
 
-``` text
-TOKENIZE_NUMBER(
-  value_to_tokenize,
-  [, comparison_type => { "all" | "equality" } ]
-  [, algorithm => { "logtree" | "prefixtree" | "floatingpoint" } ]
-  [, min => value ]
-  [, max => value ]
-  [, granularity => value ]
-  [, tree_base => value ]
-  [, precision => value ]
-)
-```
+    TOKENIZE_NUMBER(
+      value_to_tokenize,
+      [, comparison_type => { "all" | "equality" } ]
+      [, algorithm => { "logtree" | "prefixtree" | "floatingpoint" } ]
+      [, min => value ]
+      [, max => value ]
+      [, granularity => value ]
+      [, tree_base => value ]
+      [, precision => value ]
+    )
 
 **Description**
 
@@ -1417,92 +1243,82 @@ Constructs a numeric `  TOKENLIST  ` value by tokenizing numeric values to accel
 
 The `  Albums  ` table contains a column called the `  RatingTokens  ` , which tokenizes the `  Rating  ` column using the `  TOKENIZE_NUMBER  ` function. Finally, `  AlbumsIndex  ` indexes `  RatingTokens  ` , which makes it possible for Spanner to use the index to accelerate numeric comparison expressions in SQL.
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  Rating INT64,
-  RatingTokens TOKENLIST AS (TOKENIZE_NUMBER(Rating)) HIDDEN,
-  TrackRating ARRAY<INT64>,
-  TrackRatingTokens TOKENLIST AS (TOKENIZE_NUMBER(TrackRating)) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(RatingTokens, TrackRatingTokens);
-
--- RatingTokens and TrackRatingTokens are generated from Rating and TrackRating
--- values, respectively, using the TOKENIZE_NUMBER function.
-INSERT INTO Albums (SingerId, AlbumId, Rating, TrackRating) VALUES (1, 1, 2, [2, 3]);
-INSERT INTO Albums (SingerId, AlbumId, Rating, TrackRating) VALUES (1, 2, 5, [3, 5]);
-```
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      Rating INT64,
+      RatingTokens TOKENLIST AS (TOKENIZE_NUMBER(Rating)) HIDDEN,
+      TrackRating ARRAY<INT64>,
+      TrackRatingTokens TOKENLIST AS (TOKENIZE_NUMBER(TrackRating)) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(RatingTokens, TrackRatingTokens);
+    
+    -- RatingTokens and TrackRatingTokens are generated from Rating and TrackRating
+    -- values, respectively, using the TOKENIZE_NUMBER function.
+    INSERT INTO Albums (SingerId, AlbumId, Rating, TrackRating) VALUES (1, 1, 2, [2, 3]);
+    INSERT INTO Albums (SingerId, AlbumId, Rating, TrackRating) VALUES (1, 2, 5, [3, 5]);
 
 The following query finds rows in which the column `  Rating  ` is equal to `  5  ` . The query optimizer might choose to accelerate the condition using `  AlbumsIndex  ` with `  RatingTokens  ` . Optionally, the query can provide `  @{force_index = AlbumsIndex}  ` to force the optimizer to use `  AlbumsIndex  ` .
 
-``` text
-SELECT a.AlbumId
-FROM Albums @{force_index = AlbumsIndex} a
-WHERE a.Rating = 5;
-
-/*---------+
- | AlbumId |
- +---------+
- | 2       |
- +---------*/
-```
+    SELECT a.AlbumId
+    FROM Albums @{force_index = AlbumsIndex} a
+    WHERE a.Rating = 5;
+    
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 2       |
+     +---------*/
 
 The following query is like the previous one. However, the condition is on the array column of `  TrackRating  ` this time. Array conditions should use `  ARRAY_INCLUDES  ` , `  ARRAY_INCLUDES_ANY  ` or `  ARRAY_INCLUDES_ALL  ` functions to be eligible for using a search index for acceleration.
 
-``` text
-SELECT a.AlbumId
-FROM Albums a
-WHERE ARRAY_INCLUDES_ALL(a.TrackRating, [2, 3]);
-
-/*---------+
- | AlbumId |
- +---------+
- | 1       |
- +---------*/
-
-SELECT a.AlbumId
-FROM Albums a
-WHERE ARRAY_INCLUDES_ANY(a.TrackRating, [3, 4, 5]);
-
-/*---------+
- | AlbumId |
- +---------+
- | 1       |
- | 2       |
- +---------*/
-```
+    SELECT a.AlbumId
+    FROM Albums a
+    WHERE ARRAY_INCLUDES_ALL(a.TrackRating, [2, 3]);
+    
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 1       |
+     +---------*/
+    
+    SELECT a.AlbumId
+    FROM Albums a
+    WHERE ARRAY_INCLUDES_ANY(a.TrackRating, [3, 4, 5]);
+    
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 1       |
+     | 2       |
+     +---------*/
 
 The following query is like the previous ones. However, the condition is range this time. This query can also be accelerated, as default `  comparison_type  ` is `  all  ` which covers both `  equality  ` and `  range  ` comparisons.
 
-``` text
-SELECT a.AlbumId
-FROM Albums a
-WHERE a.Rating >= 2;
-
-/*---------+
- | AlbumId |
- +---------+
- | 1       |
- | 2       |
- +---------*/
-```
+    SELECT a.AlbumId
+    FROM Albums a
+    WHERE a.Rating >= 2;
+    
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 1       |
+     | 2       |
+     +---------*/
 
 ## `     TOKENIZE_SUBSTRING    `
 
-``` text
-TOKENIZE_SUBSTRING(
-  value_to_tokenize
-  [, language_tag => value ]
-  [, ngram_size_min => value ]
-  [, ngram_size_max => value ]
-  [, relative_search_types => value ]
-  [, content_type => { "text/plain" | "text/html" } ]
-  [, short_tokens_only_for_anchors => {TRUE | FALSE } ]
-  [, remove_diacritics => { TRUE | FALSE } ]
-)
-```
+    TOKENIZE_SUBSTRING(
+      value_to_tokenize
+      [, language_tag => value ]
+      [, ngram_size_min => value ]
+      [, ngram_size_max => value ]
+      [, relative_search_types => value ]
+      [, content_type => { "text/plain" | "text/html" } ]
+      [, short_tokens_only_for_anchors => {TRUE | FALSE } ]
+      [, remove_diacritics => { TRUE | FALSE } ]
+    )
 
 **Description**
 
@@ -1514,7 +1330,7 @@ Constructs a substring `  TOKENLIST  ` value by tokenizing text for substring ma
 
   - `  language_tag  ` : A named argument with a `  STRING  ` value. The value contains an [IETF BCP 47 language tag](https://en.wikipedia.org/wiki/IETF_language_tag) . You can use this tag to specify the language for `  value_to_tokenize  ` . If the value for this argument is `  NULL  ` , this function doesn't use a specific language. If this argument isn't specified, `  NULL  ` is used by default.
 
-  - `  relative_search_types  ` : A named argument with an `  ARRAY<STRING>  ` value. The value determines which `  TOKENIZE_SUBSTRING  ` relative search types are supported. See the [`  SEARCH_SUBSTRING  `](#search_substring) function for a list of the different relative search types.
+  - `  relative_search_types  ` : A named argument with an `  ARRAY<STRING>  ` value. The value determines which `  TOKENIZE_SUBSTRING  ` relative search types are supported. See the [`  SEARCH_SUBSTRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_substring) function for a list of the different relative search types.
     
     In addition to the relative search types from the `  SEARCH_SUBSTRING  ` function, the `  TOKENIZE_SUBSTRING  ` function accepts a special flag, `  all  ` , which means that all relative search types are supported.
     
@@ -1568,26 +1384,22 @@ Second, any n-grams with length equal to `  ngram_size_max  ` are stored in subs
 
 `  ..., heav, eavy, <gap(1)>, meta, etal  `
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  Description STRING(MAX),
-  DescriptionSubstrTokens TOKENLIST
-    AS (TOKENIZE_SUBSTRING(Description, ngram_size_min=>1, ngram_size_max=>4)) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      Description STRING(MAX),
+      DescriptionSubstrTokens TOKENLIST
+        AS (TOKENIZE_SUBSTRING(Description, ngram_size_min=>1, ngram_size_max=>4)) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    INSERT INTO Albums (SingerId, AlbumId, Description)
+      VALUES (1, 1, 'Heavy Metal');
 
-INSERT INTO Albums (SingerId, AlbumId, Description)
-  VALUES (1, 1, 'Heavy Metal');
-```
-
-To query a substring `  TOKENLIST  ` column, see the [SEARCH\_SUBSTRING](#search_substring) or [SEARCH\_NGRAMS](#search_ngrams) function.
+To query a substring `  TOKENLIST  ` column, see the [SEARCH\_SUBSTRING](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_substring) or [SEARCH\_NGRAMS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_ngrams) function.
 
 ## `     TOKENLIST_CONCAT    `
 
-``` text
-TOKENLIST_CONCAT(value1 [, ...])
-```
+    TOKENLIST_CONCAT(value1 [, ...])
 
 **Description**
 
@@ -1608,51 +1420,45 @@ Constructs a `  TOKENLIST  ` value by concatenating one or more `  TOKENLIST  ` 
 
 In the following example, full-text `  TOKENLIST  ` columns are created using the `  TOKENIZE_FULLTEXT  ` function, then another full-text `  TOKENLIST  ` column is created using the `  TOKENLIST_CONCAT  ` function:
 
-``` text
-CREATE TABLE Albums (
-  SingerId INT64 NOT NULL,
-  AlbumId INT64 NOT NULL,
-  SingerName STRING(MAX),
-  SingerNameTokens TOKENLIST AS (TOKENIZE_FULLTEXT(SingerName)) HIDDEN,
-  AlbumName STRING(MAX),
-  AlbumNameTokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumName)) HIDDEN,
-  SingerOrAlbumNameTokens TOKENLIST AS (TOKENLIST_CONCAT([SingerNameTokens, AlbumNameTokens])) HIDDEN
-) PRIMARY KEY (SingerId, AlbumId);
-
-CREATE SEARCH INDEX AlbumsIndex ON Albums(SingerNameTokens, AlbumNameTokens, SingerOrAlbumNameTokens);
-
--- The INSERT statement below generates SingerOrAlbumNameTokens by concatenating
--- all the tokens in SingerNameTokens and AlbumNameTokens.
-INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (1, 1, 'Alice Trentor', 'Go Go Go');
-INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (2, 1, 'Catalina Smith', 'Alice Wonderland');
-```
+    CREATE TABLE Albums (
+      SingerId INT64 NOT NULL,
+      AlbumId INT64 NOT NULL,
+      SingerName STRING(MAX),
+      SingerNameTokens TOKENLIST AS (TOKENIZE_FULLTEXT(SingerName)) HIDDEN,
+      AlbumName STRING(MAX),
+      AlbumNameTokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumName)) HIDDEN,
+      SingerOrAlbumNameTokens TOKENLIST AS (TOKENLIST_CONCAT([SingerNameTokens, AlbumNameTokens])) HIDDEN
+    ) PRIMARY KEY (SingerId, AlbumId);
+    
+    CREATE SEARCH INDEX AlbumsIndex ON Albums(SingerNameTokens, AlbumNameTokens, SingerOrAlbumNameTokens);
+    
+    -- The INSERT statement below generates SingerOrAlbumNameTokens by concatenating
+    -- all the tokens in SingerNameTokens and AlbumNameTokens.
+    INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (1, 1, 'Alice Trentor', 'Go Go Go');
+    INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (2, 1, 'Catalina Smith', 'Alice Wonderland');
 
 The following query searches for a token `  alice  ` in the `  SingerOrAlbumNameColumnTokens  ` . The rows that match `  alice  ` in either `  SingerNameTokens  ` or `  AlbumNameTokens  ` are returned.
 
-``` text
-SELECT a.SingerId, a.AlbumId
-FROM Albums a
-WHERE SEARCH(a.SingerOrAlbumNameTokens, 'alice');
-
-/*--------------------+
- | SingerId | AlbumId |
- +--------------------+
- | 2        | 1       |
- | 1        | 1       |
- +--------------------*/
-```
+    SELECT a.SingerId, a.AlbumId
+    FROM Albums a
+    WHERE SEARCH(a.SingerOrAlbumNameTokens, 'alice');
+    
+    /*--------------------+
+     | SingerId | AlbumId |
+     +--------------------+
+     | 2        | 1       |
+     | 1        | 1       |
+     +--------------------*/
 
 The following query is like the previous one. However, `  TOKENLIST_CONCAT  ` is called directly inside of a `  SEARCH  ` function this time.
 
-``` text
-SELECT a.SingerId, a.AlbumId
-FROM Albums a
-WHERE SEARCH(TOKENLIST_CONCAT([a.SingerNameTokens, a.AlbumNameTokens]), 'alice');
-
-/*--------------------+
- | SingerId | AlbumId |
- +--------------------+
- | 2        | 1       |
- | 1        | 1       |
- +--------------------*/
-```
+    SELECT a.SingerId, a.AlbumId
+    FROM Albums a
+    WHERE SEARCH(TOKENLIST_CONCAT([a.SingerNameTokens, a.AlbumNameTokens]), 'alice');
+    
+    /*--------------------+
+     | SingerId | AlbumId |
+     +--------------------+
+     | 2        | 1       |
+     | 1        | 1       |
+     +--------------------*/

@@ -1,19 +1,49 @@
-  - [HTTP request](#body.HTTP_TEMPLATE)
-  - [Path parameters](#body.PATH_PARAMETERS)
-  - [Request body](#body.request_body)
-      - [JSON representation](#body.request_body.SCHEMA_REPRESENTATION)
-  - [Response body](#body.response_body)
-  - [Authorization scopes](#body.aspect)
-  - [RestoreDatabaseEncryptionConfig](#RestoreDatabaseEncryptionConfig)
-      - [JSON representation](#RestoreDatabaseEncryptionConfig.SCHEMA_REPRESENTATION)
-  - [EncryptionType](#EncryptionType)
-  - [Try it\!](#try-it)
+  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#body.HTTP_TEMPLATE)
+  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#body.PATH_PARAMETERS)
+  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#body.request_body)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#body.request_body.SCHEMA_REPRESENTATION)
+  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#body.response_body)
+  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#body.aspect)
+  - [RestoreDatabaseEncryptionConfig](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#RestoreDatabaseEncryptionConfig)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#RestoreDatabaseEncryptionConfig.SCHEMA_REPRESENTATION)
+  - [EncryptionType](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#EncryptionType)
+  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#try-it)
 
 Create a new database by restoring from a completed backup. The new database must be in the same project and in an instance with the same instance configuration as the instance containing the backup. The returned database long-running operation has a name of the format `  projects/<project>/instances/<instance>/databases/<database>/operations/<operationId>  ` , and can be used to track the progress of the operation, and to cancel it. The metadata field type is `  RestoreDatabaseMetadata  ` . The response type is `  Database  ` , if successful. Cancelling the returned operation will stop the restore and delete the database. There can be only one database being restored into an instance at a time. Once the restore operation completes, a new restore operation can be initiated, without waiting for the optimize operation associated with the first restore to complete.
 
 ### HTTP request
 
 Choose a location:
+
+global
+
+europe-west8
+
+me-central2
+
+us-central1
+
+us-central2
+
+us-east1
+
+us-east4
+
+us-east5
+
+us-south1
+
+us-west1
+
+us-west2
+
+us-west3
+
+us-west4
+
+us-west8
+
+us-east7
 
   
 `  POST https://spanner.googleapis.com/v1/{parent=projects/*/instances/*}/databases:restore  `
@@ -49,7 +79,7 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;databaseId&quot;: string,
   &quot;encryptionConfig&quot;: {
     object (RestoreDatabaseEncryptionConfig)
@@ -100,7 +130,7 @@ Requires one of the following OAuth scopes:
   - `  https://www.googleapis.com/auth/spanner.admin  `
   - `  https://www.googleapis.com/auth/cloud-platform  `
 
-For more information, see the [Authentication Overview](/docs/authentication#authorization-gcp) .
+For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
 ## RestoreDatabaseEncryptionConfig
 
@@ -117,7 +147,7 @@ Encryption configuration for the restored database.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;encryptionType&quot;: enum (EncryptionType),
   &quot;kmsKeyName&quot;: string,
   &quot;kmsKeyNames&quot;: [

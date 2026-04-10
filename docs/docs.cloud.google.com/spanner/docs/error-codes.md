@@ -6,28 +6,11 @@ When a request fails, the Spanner API returns an HTTP `  4xx  ` or `  5xx  ` sta
 
 The response object contains a single field `  error  ` whose value contains the following elements:
 
-<table>
-<thead>
-<tr class="header">
-<th>Element</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       code      </code></td>
-<td>An <a href="https://tools.ietf.org/html/rfc7231#section-6">HTTP status code</a> that generically identifies the request failure.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       message      </code></td>
-<td>Specific information about the request failure.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       status      </code></td>
-<td>The <a href="https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto">canonical error code</a> ( <code dir="ltr" translate="no">       google.rpc.Code      </code> ) for Google APIs. Codes that may be returned by the Spanner API are listed in <a href="#error-codes">Error codes</a> .</td>
-</tr>
-</tbody>
-</table>
+| Element                  | Description                                                                                                                                                                                                                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `        code       `    | An [HTTP status code](https://tools.ietf.org/html/rfc7231#section-6) that generically identifies the request failure.                                                                                                                                                                                        |
+| `        message       ` | Specific information about the request failure.                                                                                                                                                                                                                                                              |
+| `        status       `  | The [canonical error code](https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto) ( `        google.rpc.Code       ` ) for Google APIs. Codes that may be returned by the Spanner API are listed in [Error codes](https://docs.cloud.google.com/spanner/docs/error-codes#error-codes) . |
 
 If a request made with a content type of `  application/x-protobuf  ` results in an error, it will return a serialized [`  google.rpc.Status  `](https://github.com/googleapis/googleapis/blob/master/google/rpc/status.proto) message as the payload.
 
@@ -53,7 +36,7 @@ The recommended way to classify errors is to inspect the value of the [canonical
 <tbody>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       ABORTED      </code></td>
-<td>The operation was aborted, typically due to concurrency issue such as a sequencer check failure or <a href="/spanner/docs/transactions">transaction</a> abort. Indicates that the request conflicted with another request.</td>
+<td>The operation was aborted, typically due to concurrency issue such as a sequencer check failure or <a href="https://docs.cloud.google.com/spanner/docs/transactions">transaction</a> abort. Indicates that the request conflicted with another request.</td>
 <td>For a non-transactional commit:<br />
 Retry the request or structure your entities to reduce contention.<br />
 <br />
@@ -75,7 +58,7 @@ Retry the entire transaction or structure your entities to reduce contention.</t
 <td>The deadline expired before the operation could complete.</td>
 <td>Investigate if the deadline is sufficient. Use a deadline corresponding to the actual time in which a response is useful. Note that for operations that change the state of the system, an error might be returned even if the operation has completed successfully.<br />
 <br />
-For tips, see <a href="/spanner/docs/deadline-exceeded">Troubleshoot deadline exceeded errors</a> .</td>
+For tips, see <a href="https://docs.cloud.google.com/spanner/docs/deadline-exceeded">Troubleshoot deadline exceeded errors</a> .</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       FAILED_PRECONDITION      </code></td>
@@ -111,14 +94,14 @@ For tips, see <a href="/spanner/docs/deadline-exceeded">Troubleshoot deadline ex
 <td><code dir="ltr" translate="no">       RESOURCE_EXHAUSTED      </code></td>
 <td>Some resource has been exhausted.<br />
 <br />
-For the administrator plane, it's possible that the project exceeded its <a href="/spanner/quotas">quota</a> or the entire file system is out of space.<br />
+For the administrator plane, it's possible that the project exceeded its <a href="https://docs.cloud.google.com/spanner/quotas">quota</a> or the entire file system is out of space.<br />
 <br />
 For the data plane, this can happen if your Spanner nodes are overloaded.<br />
 <br />
-For more information, also see <a href="#sessions">Session-related error codes</a> .</td>
+For more information, also see <a href="https://docs.cloud.google.com/spanner/docs/error-codes#sessions">Session-related error codes</a> .</td>
 <td>For the administrator plane, verify that you didn't exceed your Spanner or project quota. If you've exceeded a quota, request a quota increase or wait for the quota to reset before trying again. Configure your retries to use exponential backoff.<br />
 <br />
-For the data plane, verify that your Spanner nodes haven't exceeded their capacity. Spanner retries these errors in the client library. If all retries fail, see <a href="#flow-control-mechanism-errors">Flow control mechanism errors</a> .<br />
+For the data plane, verify that your Spanner nodes haven't exceeded their capacity. Spanner retries these errors in the client library. If all retries fail, see <a href="https://docs.cloud.google.com/spanner/docs/error-codes#flow-control-mechanism-errors">Flow control mechanism errors</a> .<br />
 <br />
 In general, if your application is experiencing <code dir="ltr" translate="no">       RESOURCE_EXHAUSTED      </code> errors, treat the situation like an <code dir="ltr" translate="no">       UNAVAILABLE      </code> error, and retry with exponential backoff.</td>
 </tr>
@@ -147,12 +130,12 @@ In general, if your application is experiencing <code dir="ltr" translate="no"> 
 
 ### Session errors
 
-Spanner uses [sessions](/spanner/docs/sessions) to manage interactions between your application and the database. Sessions represent a connection to the database and facilitate operations like reads and writes.
+Spanner uses [sessions](https://docs.cloud.google.com/spanner/docs/sessions) to manage interactions between your application and the database. Sessions represent a connection to the database and facilitate operations like reads and writes.
 
 Common session-related errors that your application might encounter include:
 
-  - [`  Session not found  `](#session-not-found)
-  - [`  RESOURCE_EXHAUSTED  `](#session-resource-exhausted)
+  - [`  Session not found  `](https://docs.cloud.google.com/spanner/docs/error-codes#session-not-found)
+  - [`  RESOURCE_EXHAUSTED  `](https://docs.cloud.google.com/spanner/docs/error-codes#session-resource-exhausted)
 
 #### Session not found
 
@@ -166,7 +149,7 @@ The `  Session not found  ` error occurs when your application attempts to use a
     
       - Spanner also deletes a session if it is older than 28 days. If you're using the client library, it handles these cases automatically. If you don't use one of the Spanner client libraries, create a new session when this error occurs. Add the new session to your session pool and remove the deleted session from the pool.
 
-  - If you use one of the [Spanner client libraries](/spanner/docs/reference/libraries) , then the library manages sessions automatically. If you encounter this error, verify that your code doesn't explicitly delete sessions, such as by closing the database client. Occasionally, this might also be caused by an issue in the client library's session management.
+  - If you use one of the [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , then the library manages sessions automatically. If you encounter this error, verify that your code doesn't explicitly delete sessions, such as by closing the database client. Occasionally, this might also be caused by an issue in the client library's session management.
 
 #### Resource exhausted
 
@@ -174,39 +157,19 @@ The `  RESOURCE_EXHAUSTED: No session available in the pool  ` or `  RESOURCE_EX
 
 The following table describes some reasons that might cause these errors, and corresponding recommended actions.
 
-<table>
-<thead>
-<tr class="header">
-<th>Reason</th>
-<th>Recommended action</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>All sessions in the pool are in use.</strong> Your application might receive more concurrent requests than the configured maximum number of sessions. All sessions in the pool are occupied, with no sessions available for new requests.</td>
-<td><a href="/spanner/docs/sessions#multiplexed_sessions">Enable multiplexed sessions</a> . Multiplexed sessions allow multiple transactions and reads to share a single session, which can reduce the total number of sessions required by your application. You can also increase the <code dir="ltr" translate="no">       maxSession      </code> or <code dir="ltr" translate="no">       minSession      </code> configuration in your <a href="/spanner/docs/sessions#configure_the_number_of_sessions_and_grpc_channels_in_the_pools">session pool settings</a> .</td>
-</tr>
-<tr class="even">
-<td><strong>Requests take a long time to complete.</strong> Long-running read or write requests can occupy all available sessions for extended periods. If these requests take longer than the session acquire timeout setting, new requests can't obtain a session from the session pool.</td>
-<td>Investigate why your requests take a long time to complete. Optimize your queries or application logic to reduce execution time. You can increase the <a href="/spanner/docs/custom-timeout-and-retry">session acquire timeout setting</a> . You can also <a href="/spanner/docs/sessions#multiplexed_sessions">enable multiplexed sessions</a> for eligible client libraries to improve session utilization.</td>
-</tr>
-<tr class="odd">
-<td><strong>There are session leaks.</strong> A session leak occurs when your application checks out a session from the pool but doesn't return it after completing the request. This typically happens when iterators or result sets aren't closed properly in your code. If all sessions leak, no sessions are available for new requests.</td>
-<td>Debug your application code to identify and fix the session leaks. Ensure that your code properly closes all iterators and result sets. For more information, see <a href="https://cloud.google.com/blog/products/databases/debug-and-fix-session-leaks-in-spanner">Session leak detection solutions</a> . You can also use the <a href="/spanner/docs/sessions#automatic_cleanup_of_session_leaks">automatic clean up of session leaks</a> feature to set your session pool to automatically resolve inactive transactions.</td>
-</tr>
-<tr class="even">
-<td><strong>Session creation is slow.</strong> Session creation is an computationally expensive operation. Client libraries send <code dir="ltr" translate="no">       BatchCreateSessions      </code> APIs to create initial sessions (based on the <code dir="ltr" translate="no">       minSession      </code> configuration) and <code dir="ltr" translate="no">       CreateSessions      </code> APIs for additional sessions (up to the <code dir="ltr" translate="no">       maxSession      </code> ). If session creation takes longer than the session acquire timeout setting, new requests might time out while waiting for sessions.</td>
-<td>Verify the latency of <code dir="ltr" translate="no">       BatchCreateSessions      </code> and <code dir="ltr" translate="no">       CreateSessions      </code> API calls. Slow session creation might result from resource issues on the Spanner side or a large number of concurrent session creation operations.</td>
-</tr>
-</tbody>
-</table>
+| Reason                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Recommended action                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **All sessions in the pool are in use.** Your application might receive more concurrent requests than the configured maximum number of sessions. All sessions in the pool are occupied, with no sessions available for new requests.                                                                                                                                                                                                                                                        | [Enable multiplexed sessions](https://docs.cloud.google.com/spanner/docs/sessions#multiplexed_sessions) . Multiplexed sessions allow multiple transactions and reads to share a single session, which can reduce the total number of sessions required by your application. You can also increase the `        maxSession       ` or `        minSession       ` configuration in your [session pool settings](https://docs.cloud.google.com/spanner/docs/sessions#configure_the_number_of_sessions_and_grpc_channels_in_the_pools) . |
+| **Requests take a long time to complete.** Long-running read or write requests can occupy all available sessions for extended periods. If these requests take longer than the session acquire timeout setting, new requests can't obtain a session from the session pool.                                                                                                                                                                                                                   | Investigate why your requests take a long time to complete. Optimize your queries or application logic to reduce execution time. You can increase the [session acquire timeout setting](https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry) . You can also [enable multiplexed sessions](https://docs.cloud.google.com/spanner/docs/sessions#multiplexed_sessions) for eligible client libraries to improve session utilization.                                                                                     |
+| **There are session leaks.** A session leak occurs when your application checks out a session from the pool but doesn't return it after completing the request. This typically happens when iterators or result sets aren't closed properly in your code. If all sessions leak, no sessions are available for new requests.                                                                                                                                                                 | Debug your application code to identify and fix the session leaks. Ensure that your code properly closes all iterators and result sets. For more information, see [Session leak detection solutions](https://cloud.google.com/blog/products/databases/debug-and-fix-session-leaks-in-spanner) . You can also use the [automatic clean up of session leaks](https://docs.cloud.google.com/spanner/docs/sessions#automatic_cleanup_of_session_leaks) feature to set your session pool to automatically resolve inactive transactions.   |
+| **Session creation is slow.** Session creation is an computationally expensive operation. Client libraries send `        BatchCreateSessions       ` APIs to create initial sessions (based on the `        minSession       ` configuration) and `        CreateSessions       ` APIs for additional sessions (up to the `        maxSession       ` ). If session creation takes longer than the session acquire timeout setting, new requests might time out while waiting for sessions. | Verify the latency of `        BatchCreateSessions       ` and `        CreateSessions       ` API calls. Slow session creation might result from resource issues on the Spanner side or a large number of concurrent session creation operations.                                                                                                                                                                                                                                                                                    |
 
 ### Flow control mechanism errors
 
 Spanner might activate its flow control mechanism to protect itself from overload under the following conditions:
 
-  - There is high CPU usage on the Spanner node. If you suspect that your request is causing high CPU usage, then you can use the [CPU utilization metrics](/spanner/docs/cpu-utilization) to investigate the issue.
-  - There might be hotspots, which increase the processing time of the request. If you suspect that your request is causing hotspots, refer to [Find hotspots in your database](/spanner/docs/find-hotspots-in-database) to investigate the issue. For more information, see [Key Visualizer](/spanner/docs/key-visualizer) .
+  - There is high CPU usage on the Spanner node. If you suspect that your request is causing high CPU usage, then you can use the [CPU utilization metrics](https://docs.cloud.google.com/spanner/docs/cpu-utilization) to investigate the issue.
+  - There might be hotspots, which increase the processing time of the request. If you suspect that your request is causing hotspots, refer to [Find hotspots in your database](https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database) to investigate the issue. For more information, see [Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer) .
 
 The flow control mechanism is supported by the following client libraries:
 

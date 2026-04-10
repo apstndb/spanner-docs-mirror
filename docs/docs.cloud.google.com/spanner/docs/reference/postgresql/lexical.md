@@ -14,37 +14,31 @@ Identifiers are names that are associated with columns, tables, and other databa
   - Quoted identifiers must be enclosed by double quote (") characters.
       - Quoted identifiers can contain any character, such as spaces or symbols.
       - Quoted identifiers cannot be empty.
-      - Quoted identifiers support the same escape sequences as [string literals](#literals-constants) .
-      - A [keyword](#keywords) must be a quoted identifier if it is a standalone keyword or the first component of a path expression. It may be unquoted as the second or later component of a path expression.
+      - Quoted identifiers support the same escape sequences as [string literals](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical#literals-constants) .
+      - A [keyword](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical#keywords) must be a quoted identifier if it is a standalone keyword or the first component of a path expression. It may be unquoted as the second or later component of a path expression.
 
 **Examples**
 
 These are valid identifiers (unquoted identifiers are converted to lower case):
 
-``` text
-Customers5
-"5Customers"
-dataField
-_dataField1
-ADGROUP
-"tableName~"
-"GROUP"
-```
+    Customers5
+    "5Customers"
+    dataField
+    _dataField1
+    ADGROUP
+    "tableName~"
+    "GROUP"
 
 These path expressions contain valid identifiers:
 
-``` text
-foo."GROUP"
-foo.GROUP
-```
+    foo."GROUP"
+    foo.GROUP
 
 These are invalid identifiers:
 
-``` text
-5Customers
-_dataField!
-GROUP
-```
+    5Customers
+    _dataField!
+    GROUP
 
 `  5Customers  ` begins with a number, not a letter or underscore. `  _dataField!  ` contains the special character "\!" which is not a letter, number, or underscore. `  GROUP  ` is a keyword, and therefore cannot be used as an identifier without being enclosed by double quote characters.
 
@@ -52,9 +46,7 @@ GROUP
 
 Fully qualified names (FQNs) combine the schema name and the object name to identify a database object, for example, `  sales.customers  ` . When you add an FQN in DDL, it requires quotes around each part of the name:
 
-``` text
-"foo"."Group"
-```
+    "foo"."Group"
 
 ## Case sensitivity
 
@@ -62,22 +54,18 @@ PostgreSQL is case sensitive. Quoted identifiers are case preserving. Unquoted i
 
 **Examples**
 
-``` text
-CREATE TABLE Foo (a int primary key);  select * from foo;    -- works
-CREATE TABLE Foo (a int primary key);  select * from "foo";  -- works
-CREATE TABLE "Foo" (a int primary key);  select * from foo;  -- fails
-CREATE TABLE Foo (a int primary key);  select * from "Foo";  -- fails
-```
+    CREATE TABLE Foo (a int primary key);  select * from foo;    -- works
+    CREATE TABLE Foo (a int primary key);  select * from "foo";  -- works
+    CREATE TABLE "Foo" (a int primary key);  select * from foo;  -- fails
+    CREATE TABLE Foo (a int primary key);  select * from "Foo";  -- fails
 
 ## Keywords
 
 In the following example, the tokens `  SELECT  ` , `  UPDATE  ` , and `  VALUES  ` are examples of keywords, that is, words that have a fixed meaning in the SQL language.
 
-``` text
-SELECT * FROM MY_TABLE;
-UPDATE MY_TABLE SET A = 5;
-INSERT INTO MY_TABLE VALUES (3, 'hi there');
-```
+    SELECT * FROM MY_TABLE;
+    UPDATE MY_TABLE SET A = 5;
+    INSERT INTO MY_TABLE VALUES (3, 'hi there');
 
 Keywords and identifiers have the same lexical structure, meaning that one can't know whether a token is an identifier or a keyword without knowing the language.
 
@@ -91,10 +79,8 @@ A string constant in SQL is an arbitrary sequence of characters bounded by singl
 
 Two string constants that are only separated by whitespace with at least one newline are concatenated and effectively treated as if the string had been written as one constant. For example:
 
-``` text
-SELECT 'foo'
-'bar';
-```
+    SELECT 'foo'
+    'bar';
 
 is equivalent to:
 
@@ -110,48 +96,16 @@ is not valid syntax.
 
 PostgreSQL also accepts *escape string constants* , which are an extension to the SQL standard. An escape string constant is specified by writing the letter E (upper or lower case) just before the opening single quote, for example `  E'foo'  ` . (When continuing an escape string constant across lines, write E only before the first opening quote.) Within an escape string, a backslash character (\\) begins a C-like *backslash escape* sequence, in which the combination of backslash and following character(s) represent a special byte value, as shown in the following table.
 
-<table>
-<thead>
-<tr class="header">
-<th>Backslash Escape Sequence</th>
-<th>Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code class="literal" dir="ltr" translate="no">         \b        </code></td>
-<td>backspace</td>
-</tr>
-<tr class="even">
-<td><code class="literal" dir="ltr" translate="no">         \f        </code></td>
-<td>form feed</td>
-</tr>
-<tr class="odd">
-<td><code class="literal" dir="ltr" translate="no">         \n        </code></td>
-<td>newline</td>
-</tr>
-<tr class="even">
-<td><code class="literal" dir="ltr" translate="no">         \r        </code></td>
-<td>carriage return</td>
-</tr>
-<tr class="odd">
-<td><code class="literal" dir="ltr" translate="no">         \t        </code></td>
-<td>tab</td>
-</tr>
-<tr class="even">
-<td><code class="literal" dir="ltr" translate="no">         \                     o          </code> , <code class="literal" dir="ltr" translate="no">         \                     oo          </code> , <code class="literal" dir="ltr" translate="no">         \                     ooo          </code> ( <em><code dir="ltr" translate="no">          o         </code></em> = 0–7)</td>
-<td>octal byte value</td>
-</tr>
-<tr class="odd">
-<td><code class="literal" dir="ltr" translate="no">         \x                     h          </code> , <code class="literal" dir="ltr" translate="no">         \x                     hh          </code> ( <em><code dir="ltr" translate="no">          h         </code></em> = 0–9, A–F)</td>
-<td>hexadecimal byte value</td>
-</tr>
-<tr class="even">
-<td><code class="literal" dir="ltr" translate="no">         \u                     xxxx          </code> , <code class="literal" dir="ltr" translate="no">         \U                     xxxxxxxx          </code> ( <em><code dir="ltr" translate="no">          x         </code></em> = 0–9, A–F)</td>
-<td>16 or 32-bit hexadecimal Unicode character value</td>
-</tr>
-</tbody>
-</table>
+| Backslash Escape Sequence                                                                                                                                                               | Interpretation                                   |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `          \b         `                                                                                                                                                                 | backspace                                        |
+| `          \f         `                                                                                                                                                                 | form feed                                        |
+| `          \n         `                                                                                                                                                                 | newline                                          |
+| `          \r         `                                                                                                                                                                 | carriage return                                  |
+| `          \t         `                                                                                                                                                                 | tab                                              |
+| `          \                     o           ` , `          \                     oo           ` , `          \                     ooo           ` ( *`           o          `* = 0–7) | octal byte value                                 |
+| `          \x                     h           ` , `          \x                     hh           ` ( *`           h          `* = 0–9, A–F)                                             | hexadecimal byte value                           |
+| `          \u                     xxxx           ` , `          \U                     xxxxxxxx           ` ( *`           x          `* = 0–9, A–F)                                    | 16 or 32-bit hexadecimal Unicode character value |
 
 Any other character following a backslash is taken literally. Thus, to include a backslash character, write two backslashes ( `  \\  ` ). Also, a single quote can be included in an escape string by writing `  \'  ` , in addition to the normal way of writing `  ''  ` .
 
@@ -185,10 +139,8 @@ To include the escape character in the string literally, write it twice.
 
 Although the standard syntax for specifying string constants is usually convenient, it can be difficult to understand when the string contains many single quotes or backslashes, because each of those must be doubled. To allow more readable queries in such situations, PostgreSQL provides another way, called "dollar quoting", to write string constants. A dollar-quoted string constant consists of a dollar sign ($), an optional "tag" of zero or more characters, another dollar sign, an arbitrary sequence of characters that makes up the string content, a dollar sign, the same tag that began this dollar quote, and a dollar sign. For example, here are two different ways to specify the string "Dianne's horse" using dollar quoting:
 
-``` text
-$$Dianne's horse$$
-$SomeTag$Dianne's horse$SomeTag$
-```
+    $$Dianne's horse$$
+    $SomeTag$Dianne's horse$SomeTag$
 
 Notice that inside the dollar-quoted string, single quotes can be used without needing to be escaped. Indeed, no characters inside a dollar-quoted string are ever escaped: the string content is always written literally. Backslashes are not special, and neither are dollar signs, unless they are part of a sequence matching the opening tag.
 
@@ -204,34 +156,28 @@ Dollar quoting is not part of the SQL standard, but it is often a more convenien
 
 Numeric constants are accepted in these general forms:
 
-``` text
-digits
-digits.[digits][e[+-]digits]
-[digits].digits[e[+-]digits]
-digitse[+-]digits
-```
+    digits
+    digits.[digits][e[+-]digits]
+    [digits].digits[e[+-]digits]
+    digitse[+-]digits
 
 where digits is one or more decimal digits (0 through 9). At least one digit must be before or after the decimal point, if one is used. At least one digit must follow the exponent marker (e), if one is present. There cannot be any spaces or other characters embedded in the constant. Note that any leading plus or minus sign is not actually considered part of the constant; it is an operator applied to the constant.
 
 These are some examples of valid numeric constants:
 
-``` text
-42
-3.5
-4.
-.001
-5e2
-1.925e-3
-```
+    42
+    3.5
+    4.
+    .001
+    5e2
+    1.925e-3
 
 A numeric constant that contains neither a decimal point nor an exponent is initially presumed to be type bigint if its value fits in type bigint (64 bits); otherwise it is taken to be type numeric. Constants that contain decimal points or exponents are always initially presumed to be type numeric.
 
 The initially assigned data type of a numeric constant is just a starting point for the type resolution algorithms. In most cases the constant will be automatically coerced to the most appropriate type depending on context. When necessary, you can force a numeric value to be interpreted as a specific data type by casting it. For example, you can force a bigint value to be treated as type numeric by writing:
 
-``` text
-NUMERIC '123'
-123::numeric
-```
+    NUMERIC '123'
+    123::numeric
 
 These are actually just special cases of the general casting notations discussed in the next section.
 
@@ -239,11 +185,9 @@ These are actually just special cases of the general casting notations discussed
 
 A constant of an arbitrary type can be entered using any one of the following notations:
 
-``` text
-type 'string'
-'string'::type
-CAST ( 'string' AS type )
-```
+    type 'string'
+    'string'::type
+    CAST ( 'string' AS type )
 
 The string constant's text is passed to the input conversion routine for the type called `  type  ` . The result is a constant of the indicated type. The explicit type cast can be omitted if there is no ambiguity as to the type the constant must be (for example, when it is assigned directly to a table column), in which case it is automatically coerced.
 
@@ -281,11 +225,9 @@ A comment is a sequence of characters beginning with double dashes and extending
 
 Alternatively, C-style block comments can be used:
 
-``` text
-/* multiline comment
- *   with nesting: /* nested block comment */
- */
-```
+    /* multiline comment
+     *   with nesting: /* nested block comment */
+     */
 
 where the comment begins with /\* and extends to the matching occurrence of \*/. These block comments nest, as specified in the SQL standard but unlike C, so that one can comment out larger blocks of code that might contain existing block comments.
 

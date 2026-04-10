@@ -1,6 +1,6 @@
-This article explains how to migrate your database from Oracle® Online Transaction Processing (OLTP) systems to [Spanner](/spanner) .
+This article explains how to migrate your database from Oracle® Online Transaction Processing (OLTP) systems to [Spanner](https://docs.cloud.google.com/spanner) .
 
-**Note:** For Online Analytical Processing (OLAP) databases, consider using [BigQuery](/bigquery) as an alternative.
+**Note:** For Online Analytical Processing (OLAP) databases, consider using [BigQuery](https://docs.cloud.google.com/bigquery) as an alternative.
 
 Spanner uses certain concepts differently from other enterprise database management tools, so you might need to adjust your application to take full advantage of its capabilities. You might also need to supplement Spanner with other services from Google Cloud to meet your needs.
 
@@ -14,17 +14,17 @@ Spanner does not support running user code in the database level, so as part of 
 
 ### Sequences
 
-We recommend using UUID Version 4 as the default method to generate primary key values. The `  GENERATE_UUID()  ` function ( [GoogleSQL](/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) , [PostgreSQL](/spanner/docs/reference/postgresql/functions-and-operators#utility) ) returns UUID Version 4 values as a `  STRING  ` type.
+We recommend using UUID Version 4 as the default method to generate primary key values. The `  GENERATE_UUID()  ` function ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) ) returns UUID Version 4 values as a `  STRING  ` type.
 
-If you need to generate 64-bit integer values, Spanner supports positive bit-reversed sequences ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ), which produce values that distribute evenly across the positive 64-bit number space. You can use these numbers to avoid hotspotting issues.
+If you need to generate 64-bit integer values, Spanner supports positive bit-reversed sequences ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ), which produce values that distribute evenly across the positive 64-bit number space. You can use these numbers to avoid hotspotting issues.
 
-For more information, see [primary key default value strategies](/spanner/docs/primary-key-default-value) .
+For more information, see [primary key default value strategies](https://docs.cloud.google.com/spanner/docs/primary-key-default-value) .
 
 ### Access controls
 
-Identity and Access Management (IAM) lets you control user and group access to Spanner resources at the project, Spanner instance, and Spanner database levels. For more information, see [IAM overview](/spanner/docs/iam) .
+Identity and Access Management (IAM) lets you control user and group access to Spanner resources at the project, Spanner instance, and Spanner database levels. For more information, see [IAM overview](https://docs.cloud.google.com/spanner/docs/iam) .
 
-Review and implement IAM policies following the least-privilege principle for all users and service accounts accessing your database. If the application requires restricted access to specific tables, columns, views, or change streams, implement fine-grained access control (FGAC). For more information, see [fine-grained access control overview](/spanner/docs/fgac-about) .
+Review and implement IAM policies following the least-privilege principle for all users and service accounts accessing your database. If the application requires restricted access to specific tables, columns, views, or change streams, implement fine-grained access control (FGAC). For more information, see [fine-grained access control overview](https://docs.cloud.google.com/spanner/docs/fgac-about) .
 
 ## Data validation constraints
 
@@ -34,40 +34,17 @@ If you need more complex data constraints, implement them in the application lay
 
 The following table discusses the types of constraints commonly found in Oracle® databases, and how to implement them with Spanner.
 
-<table>
-<thead>
-<tr class="header">
-<th>Constraint</th>
-<th>Implementation with Spanner</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Not null</td>
-<td><code dir="ltr" translate="no">       NOT NULL      </code> column constraint</td>
-</tr>
-<tr class="even">
-<td>Unique</td>
-<td>Secondary index with <code dir="ltr" translate="no">       UNIQUE      </code> constraint</td>
-</tr>
-<tr class="odd">
-<td>Foreign key (for normal tables)</td>
-<td>See <a href="/spanner/docs/foreign-keys/how-to">Create and manage foreign key relationships</a> .</td>
-</tr>
-<tr class="even">
-<td>Foreign key <code dir="ltr" translate="no">       ON DELETE/ON UPDATE      </code> actions</td>
-<td>Only possible for interleaved tables, otherwise implemented in the application layer</td>
-</tr>
-<tr class="odd">
-<td>Value checks and validation via <code dir="ltr" translate="no">       CHECK      </code> constraints or triggers</td>
-<td>Implemented in the application layer</td>
-</tr>
-</tbody>
-</table>
+| Constraint                                                                     | Implementation with Spanner                                                                                         |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| Not null                                                                       | `        NOT NULL       ` column constraint                                                                         |
+| Unique                                                                         | Secondary index with `        UNIQUE       ` constraint                                                             |
+| Foreign key (for normal tables)                                                | See [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) . |
+| Foreign key `        ON DELETE/ON UPDATE       ` actions                       | Only possible for interleaved tables, otherwise implemented in the application layer                                |
+| Value checks and validation via `        CHECK       ` constraints or triggers | Implemented in the application layer                                                                                |
 
 ### Supported data types
 
-Oracle® databases and Spanner support different sets of data types. The following table lists the Oracle data types and their equivalent in Spanner. For detailed definitions of each Spanner data type, see [Data Types](/spanner/docs/data-types) .
+Oracle® databases and Spanner support different sets of data types. The following table lists the Oracle data types and their equivalent in Spanner. For detailed definitions of each Spanner data type, see [Data Types](https://docs.cloud.google.com/spanner/docs/data-types) .
 
 You might also have to perform additional transformations on your data as described in the Notes column to make Oracle data fit in your Spanner database.
 
@@ -107,7 +84,7 @@ Consider using alternative Google Cloud offerings such as Cloud Storage to store
 <tr class="even">
 <td><code dir="ltr" translate="no">       NUMBER      </code> , <code dir="ltr" translate="no">       NUMERIC      </code> , <code dir="ltr" translate="no">       DECIMAL      </code></td>
 <td><code dir="ltr" translate="no">       STRING      </code> , <code dir="ltr" translate="no">       FLOAT64      </code> , <code dir="ltr" translate="no">       INT64      </code></td>
-<td>The Oracle <code dir="ltr" translate="no">       NUMBER      </code> data type is equivalent to the GoogleSQL <code dir="ltr" translate="no">       NUMERIC      </code> data type. Each supports 38 digits of precision and nine digits of scale: (P,S) = (38,9). The PostgreSQL <code dir="ltr" translate="no">       NUMERIC      </code> data type stores <a href="/spanner/docs/storing-numeric-data">arbitrary precision numeric data</a> . The <code dir="ltr" translate="no">       FLOAT64      </code> GoogleSQL data type supports up to 16 digits of precision.<br />
+<td>The Oracle <code dir="ltr" translate="no">       NUMBER      </code> data type is equivalent to the GoogleSQL <code dir="ltr" translate="no">       NUMERIC      </code> data type. Each supports 38 digits of precision and nine digits of scale: (P,S) = (38,9). The PostgreSQL <code dir="ltr" translate="no">       NUMERIC      </code> data type stores <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">arbitrary precision numeric data</a> . The <code dir="ltr" translate="no">       FLOAT64      </code> GoogleSQL data type supports up to 16 digits of precision.<br />
 </td>
 </tr>
 <tr class="odd">
@@ -171,83 +148,77 @@ An overall timeline of your migration process would be:
 
 ### Step 1: Convert your database and schema
 
-You convert your existing schema to a Spanner [schema](/spanner/docs/schema-and-data-model) to store your data. This should match the existing Oracle schema as closely as possible to make application modifications simpler. However, due to the differences in features, some changes will be necessary.
+You convert your existing schema to a Spanner [schema](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) to store your data. This should match the existing Oracle schema as closely as possible to make application modifications simpler. However, due to the differences in features, some changes will be necessary.
 
-Using [best practices in schema design](/spanner/docs/schema-design) can help you increase throughput and reduce hot spots in your Spanner database.
+Using [best practices in schema design](https://docs.cloud.google.com/spanner/docs/schema-design) can help you increase throughput and reduce hot spots in your Spanner database.
 
 #### Primary keys
 
-In Spanner, every table that must store more than one row must have a primary key consisting of one or more columns of the table. Your table's primary key uniquely identifies each row in a table, and the table rows are sorted by primary key. Because Spanner is highly distributed, it is important that you choose a primary key generation technique that scales well with your data growth. For more information, see recommended [primary key migration strategies](/spanner/docs/migrating-primary-keys) .
+In Spanner, every table that must store more than one row must have a primary key consisting of one or more columns of the table. Your table's primary key uniquely identifies each row in a table, and the table rows are sorted by primary key. Because Spanner is highly distributed, it is important that you choose a primary key generation technique that scales well with your data growth. For more information, see recommended [primary key migration strategies](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys) .
 
-Note that after you designate your primary key, you cannot add or remove a primary key column, or change a primary key value later without deleting and recreating the table. For more information on how to designate your primary key, see [Schema and data model - primary keys](/spanner/docs/schema-and-data-model#primary_keys) .
+Note that after you designate your primary key, you cannot add or remove a primary key column, or change a primary key value later without deleting and recreating the table. For more information on how to designate your primary key, see [Schema and data model - primary keys](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#primary_keys) .
 
 #### Interleave your tables
 
-Spanner has a feature where you can define two tables as having a one-to-many, [parent-child relationship](/spanner/docs/schema-and-data-model#parent-child_table_relationships) . This interleaves child data rows with their parent row in storage, effectively pre-joining the table and improving data retrieval efficiency when the parent and children are queried together.
+Spanner has a feature where you can define two tables as having a one-to-many, [parent-child relationship](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#parent-child_table_relationships) . This interleaves child data rows with their parent row in storage, effectively pre-joining the table and improving data retrieval efficiency when the parent and children are queried together.
 
 The child table's primary key must start with the primary key column(s) of the parent table. From the child row's perspective, the parent row primary key is referred to as a foreign key. You can define up to 6 levels of parent-child relationships.
 
-You can [define on-delete actions](/spanner/docs/schema-and-data-model#creating-interleaved-tables) for child tables to determine what happens when the parent row is deleted: either all child rows are deleted, or the parent row deletion is blocked while child rows exist.
+You can [define on-delete actions](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) for child tables to determine what happens when the parent row is deleted: either all child rows are deleted, or the parent row deletion is blocked while child rows exist.
 
 Here is an example of creating an Albums table interleaved in the parent Singers table defined earlier:
 
-``` text
-CREATE TABLE Albums (
-  SingerId     INT64 NOT NULL,
-  AlbumId      INT64 NOT NULL,
-  AlbumTitle   STRING(MAX),
-) PRIMARY KEY (SingerId, AlbumId)
-INTERLEAVE IN PARENT (Singers)
-ON DELETE CASCADE;
-```
+    CREATE TABLE Albums (
+      SingerId     INT64 NOT NULL,
+      AlbumId      INT64 NOT NULL,
+      AlbumTitle   STRING(MAX),
+    ) PRIMARY KEY (SingerId, AlbumId)
+    INTERLEAVE IN PARENT (Singers)
+    ON DELETE CASCADE;
 
 #### Create secondary indexes
 
-You can also create [secondary indexes](/spanner/docs/secondary-indexes) to index data within the table outside of the primary key.
+You can also create [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) to index data within the table outside of the primary key.
 
-Spanner implements secondary indexes in the same way as tables, so the column values to be used as index keys have [the same constraints](/spanner/docs/schema-and-data-model#primary_keys) as the primary keys of tables. This also means that indexes have the same consistency guarantees as Spanner tables.
+Spanner implements secondary indexes in the same way as tables, so the column values to be used as index keys have [the same constraints](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#primary_keys) as the primary keys of tables. This also means that indexes have the same consistency guarantees as Spanner tables.
 
 Value lookups using secondary indexes are effectively the same as a query with a table join. You can improve the performance of queries using indexes by storing copies the original table's column values in the secondary index using the `  STORING  ` clause, making it a [covering index](https://wikipedia.org/wiki/Database_index#Covering_index) .
 
-Spanner's query optimizer will only automatically use secondary indexes when the index itself stores all the columns being queried (a covered query). To force the use of an index when querying columns in the original table, you must use a [`  FORCE INDEX  ` directive](/spanner/docs/secondary-indexes#index_directive) in the SQL statement, for example:
+Spanner's query optimizer will only automatically use secondary indexes when the index itself stores all the columns being queried (a covered query). To force the use of an index when querying columns in the original table, you must use a [`  FORCE INDEX  ` directive](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index_directive) in the SQL statement, for example:
 
-``` text
-SELECT *
-FROM MyTable@{FORCE_INDEX=MyTableIndex}
-WHERE IndexedColumn=@value
-```
+    SELECT *
+    FROM MyTable@{FORCE_INDEX=MyTableIndex}
+    WHERE IndexedColumn=@value
 
-Indexes can be used to enforce unique values within a table column, by defining a [`  UNIQUE  ` index](/spanner/docs/secondary-indexes#unique_indexes) on that column. Adding duplicate values will be prevented by the index.
+Indexes can be used to enforce unique values within a table column, by defining a [`  UNIQUE  ` index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#unique_indexes) on that column. Adding duplicate values will be prevented by the index.
 
 Here is an example DDL statement creating a secondary index for the Albums table:
 
-``` text
-CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
-```
+    CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
 
-Note that if you create additional indexes after your data is loaded, populating the index may take some time. You should limit the rate at which you add them to an average of three per day. For more guidance on creating secondary indexes, see [Secondary indexes](/spanner/docs/secondary-indexes) . For more information on the limitations on index creation, see [Schema updates](/spanner/docs/schema-updates#large-updates) .
+Note that if you create additional indexes after your data is loaded, populating the index may take some time. You should limit the rate at which you add them to an average of three per day. For more guidance on creating secondary indexes, see [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) . For more information on the limitations on index creation, see [Schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates#large-updates) .
 
 ### Step 2: Translate any SQL queries
 
-Spanner uses the [ANSI 2011 dialect of SQL with extensions](/spanner/docs/query-syntax) , and has many functions and operators to help translate and aggregate your data. You must convert any SQL queries that use Oracle-specific syntax, functions, and types to be compatible with Spanner.
+Spanner uses the [ANSI 2011 dialect of SQL with extensions](https://docs.cloud.google.com/spanner/docs/query-syntax) , and has many functions and operators to help translate and aggregate your data. You must convert any SQL queries that use Oracle-specific syntax, functions, and types to be compatible with Spanner.
 
 While Spanner does not support structured data as column definitions, structured data can be used in SQL queries using `  ARRAY  ` and `  STRUCT  ` types.
 
-For example, a query could be written to return all Albums for an artist using an `  ARRAY  ` of `  STRUCTs  ` in a single query (taking advantage of the pre-joined data). For more information see the [Notes about subqueries](/spanner/docs/query-syntax#notes-about-subqueries) section of the documentation.
+For example, a query could be written to return all Albums for an artist using an `  ARRAY  ` of `  STRUCTs  ` in a single query (taking advantage of the pre-joined data). For more information see the [Notes about subqueries](https://docs.cloud.google.com/spanner/docs/query-syntax#notes-about-subqueries) section of the documentation.
 
 SQL queries can be profiled using the Spanner Studio page in the Google Cloud Console to execute the query. In general, queries that perform full table scans on large tables are very expensive, and should be used sparingly.
 
-See the [SQL best practices](/spanner/docs/sql-best-practices) documentation for more information on optimising SQL queries.
+See the [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) documentation for more information on optimising SQL queries.
 
 ### Step 3: Migrate your application to use Spanner
 
-Spanner provides a set of [Client libraries](/spanner/docs/reference/libraries) for various languages, and the ability to read and write data using Spanner-specific API calls, as well as by using [SQL queries](/spanner/docs/query-syntax) and [Data modification language (DML)](/spanner/docs/dml-syntax) statements. Using API calls may be faster for some queries, such as direct row reads by key, because the SQL statement does not have to be translated.
+Spanner provides a set of [Client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) for various languages, and the ability to read and write data using Spanner-specific API calls, as well as by using [SQL queries](https://docs.cloud.google.com/spanner/docs/query-syntax) and [Data modification language (DML)](https://docs.cloud.google.com/spanner/docs/dml-syntax) statements. Using API calls may be faster for some queries, such as direct row reads by key, because the SQL statement does not have to be translated.
 
-You can also use the [Java Database Connectivity (JDBC) driver](/spanner/docs/jdbc-drivers) to connect to Spanner, leveraging existing tooling and infrastructure that does not have native integration.
+You can also use the [Java Database Connectivity (JDBC) driver](https://docs.cloud.google.com/spanner/docs/jdbc-drivers) to connect to Spanner, leveraging existing tooling and infrastructure that does not have native integration.
 
 As part of the migration process, features not available in Spanner must be implemented in the application. For example, a trigger to verify data values and update a related table would need to be implemented in the application using a read/write transaction to read the existing row, verify the constraint, then write the updated rows to both tables.
 
-Spanner offers [read-write and read-only transactions](/spanner/docs/transactions) , which ensure external consistency of your data. Additionally, read transactions can have [timestamp bounds](/spanner/docs/timestamp-bounds) applied, where you are reading a consistent version of the data specified in these ways:
+Spanner offers [read-write and read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions) , which ensure external consistency of your data. Additionally, read transactions can have [timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) applied, where you are reading a consistent version of the data specified in these ways:
 
   - At an exact time in the past (up to 1 hour ago).
   - In the future (where the read will block until that time arrives).
@@ -256,6 +227,8 @@ Spanner offers [read-write and read-only transactions](/spanner/docs/transaction
 ### Step 4: Transfer your data from Oracle to Spanner
 
 To transfer your data from Oracle to Spanner, you will need to export your Oracle database to a portable file format, for example CSV, then import that data into Spanner using Dataflow.
+
+![The extract, transform, and load process in Dataflow](https://docs.cloud.google.com/static/spanner/docs/images/ortospan-7.png)
 
 #### Bulk export from Oracle
 
@@ -273,13 +246,13 @@ Each of these has the disadvantage that only one table can be exported at a time
 
 Other options include third-party tools as listed in the [Oracle FAQ](http://www.orafaq.com/wiki/SQL*Loader_FAQ#Is_there_a_SQL.2AUnloader_to_download_data_to_a_flat_file.3F) page, some of which can unload a consistent view of the entire database.
 
-After they're unloaded, you should upload these datafiles to a [Cloud Storage](/storage) bucket so that they are accessible for import.
+After they're unloaded, you should upload these datafiles to a [Cloud Storage](https://docs.cloud.google.com/storage) bucket so that they are accessible for import.
 
 #### Bulk import into Spanner
 
 Because the database schemas probably differ between Oracle and Spanner, you might need to make some data conversions as part of the import process.
 
-The easiest way to perform these data conversions and import the data into Spanner is by using [Dataflow](/dataflow) .
+The easiest way to perform these data conversions and import the data into Spanner is by using [Dataflow](https://docs.cloud.google.com/dataflow) .
 
 Dataflow is the Google Cloud distributed Extract Transform and Load (ETL) service. It provides a platform for running data pipelines written using the [Apache Beam SDK](https://beam.apache.org/get-started/beam-overview/) in order to read and process large amounts of data in parallel over multiple machines.
 
@@ -289,7 +262,7 @@ See an example of a simple pipeline that reads from CSV files and writes to Span
 
 If parent-child interleaved tables are used in your Spanner schema, then care must be taken in the import process so that the parent row is created before the child row. The [Spanner Import pipeline code](https://github.com/GoogleCloudPlatform/DataflowTemplates/blob/main/v1/src/main/java/com/google/cloud/teleport/spanner/ImportTransform.java) handles this by importing all data for root level tables first, then all the level 1 child tables, then all the level 2 child tables, and so on.
 
-The Spanner import pipeline can be used directly to [bulk import your data,](/spanner/docs/import-non-spanner) but this requires that your data exist in Avro files using the correct schema.
+The Spanner import pipeline can be used directly to [bulk import your data,](https://docs.cloud.google.com/spanner/docs/import-non-spanner) but this requires that your data exist in Avro files using the correct schema.
 
 ### Step 5: Maintain consistency between both databases
 
@@ -350,9 +323,9 @@ You can optionally export your tables from Spanner to a Cloud Storage bucket usi
   - Backing up your database for data retention policy compliance or disaster recovery.
   - Importing the Avro file into other Google Cloud offerings such as BigQuery.
 
-For more information on the export and import process, see [Exporting Databases](/spanner/docs/export) and [Importing Databases](/spanner/docs/import) .
+For more information on the export and import process, see [Exporting Databases](https://docs.cloud.google.com/spanner/docs/export) and [Importing Databases](https://docs.cloud.google.com/spanner/docs/import) .
 
 ## What's next
 
-  - Read about how to [optimize your Spanner schema](/spanner/docs/whitepapers/optimizing-schema-design) .
-  - Learn how to use [Dataflow](/dataflow/docs/how-to) for more complex situations.
+  - Read about how to [optimize your Spanner schema](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .
+  - Learn how to use [Dataflow](https://docs.cloud.google.com/dataflow/docs/how-to) for more complex situations.

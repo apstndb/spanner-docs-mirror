@@ -1,9 +1,9 @@
-  - [Resource: Backup](#Backup)
-      - [JSON representation](#Backup.SCHEMA_REPRESENTATION)
-  - [State](#State)
-  - [BackupInstancePartition](#BackupInstancePartition)
-      - [JSON representation](#BackupInstancePartition.SCHEMA_REPRESENTATION)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource: Backup](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup.SCHEMA_REPRESENTATION)
+  - [State](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#State)
+  - [BackupInstancePartition](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#BackupInstancePartition)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#BackupInstancePartition.SCHEMA_REPRESENTATION)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#METHODS_SUMMARY)
 
 ## Resource: Backup
 
@@ -20,7 +20,7 @@ A backup of a Cloud Spanner database.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;database&quot;: string,
   &quot;versionTime&quot;: string,
   &quot;expireTime&quot;: string,
@@ -237,7 +237,7 @@ Instance partition information for the backup.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;instancePartition&quot;: string
 }</code></pre></td>
 </tr>

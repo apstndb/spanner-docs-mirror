@@ -6,7 +6,7 @@ Time to live (TTL) lets you set policies to periodically delete data from Spanne
 
 TTL is ideal for regular clean-up activities. It runs continuously in the background, periodically deleting eligible data in batches. Data is typically deleted within 72 hours after its expiration date. Each delete requires a primary key replication across the database's replicas that leads to replication costs. For more information, see [Data replication pricing](https://cloud.google.com/spanner/pricing#data-replication) . TTL doesn't immediately invalidate data or hide it from queries when it becomes eligible for deletion. TTL also doesn't check data while it is inserted, thus it doesn't block you from inserting a row with an expired timestamp.
 
-TTL is designed to minimize the impact on other database workloads. The TTL sweeper process works in the background at [system low priority](/spanner/docs/cpu-utilization#task-priority) . It spreads work over time and available instance resources more efficiently than end-user queries and includes retry logic to ensure end-to-end cleanup with minimal processing overhead.
+TTL is designed to minimize the impact on other database workloads. The TTL sweeper process works in the background at [system low priority](https://docs.cloud.google.com/spanner/docs/cpu-utilization#task-priority) . It spreads work over time and available instance resources more efficiently than end-user queries and includes retry logic to ensure end-to-end cleanup with minimal processing overhead.
 
 Another background compaction process reclaims storage from deleted rows, typically within seven days.
 
@@ -28,7 +28,7 @@ A background system process checks for eligible rows daily. It parallelizes the 
 
 Since this is an asynchronous background process, there is a delay between eligibility and deletion. Typically, the delay is less than 72 hours. As a result, rows might remain in your table for up to three days after their TTL has expired; for example, a table with a row deletion policy that deletes rows older than four days might include rows up to seven days old as well as older, undeletable rows.
 
-For step-by-step instructions on how to create a GoogleSQL row deletion policy, see [Create a TTL policy](/spanner/docs/ttl/working-with-ttl#create) .
+For step-by-step instructions on how to create a GoogleSQL row deletion policy, see [Create a TTL policy](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#create) .
 
 ### TTL with PostgreSQL
 
@@ -40,7 +40,7 @@ The clause must evaluate to a whole number of days. For example, `  '3 DAYS'  ` 
 
 TTL garbage collection deletes eligible rows continuously and in the background. Because this is an asynchronous background process, there is a delay between eligibility and deletion. The table might contain rows that is eligible for TTL deletion but for which TTL has not completed, yet. Typically, the delay is less than 72 hours.
 
-For instructions on how to create a PostgreSQL row deletion policy, see [Create a TTL policy](/spanner/docs/ttl/working-with-ttl#create) .
+For instructions on how to create a PostgreSQL row deletion policy, see [Create a TTL policy](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#create) .
 
 ## Backups and TTL
 
@@ -50,13 +50,13 @@ When you restore a database from a backup, any row deletion policies that were c
 
 ### Data consistency
 
-A [backup](/spanner/docs/backup) is a consistent snapshot of your data at a particular point in time ( `  version_time  ` ). The backup can contain rows that might be eligible for TTL deletion but for which TTL has not yet completed. Similarly, Dataflow export jobs read the entire table at a fixed timestamp.
+A [backup](https://docs.cloud.google.com/spanner/docs/backup) is a consistent snapshot of your data at a particular point in time ( `  version_time  ` ). The backup can contain rows that might be eligible for TTL deletion but for which TTL has not yet completed. Similarly, Dataflow export jobs read the entire table at a fixed timestamp.
 
 ### Auditing
 
-TTL supports auditing its deletions through [change streams](/spanner/docs/change-streams/details) . Change streams data records that track TTL changes to a database have the `  transaction_tag  ` field set to `  RowDeletionPolicy  ` and the `  is_system_transaction  ` field set to `  true  ` . Change streams readers are then able to filter out all the TTL records, or all the records except for the TTL ones, depending on their use case. See an example of [using Beam to filter by transaction tags](/spanner/docs/change-streams/use-dataflow#filter-by-tx-tag) .
+TTL supports auditing its deletions through [change streams](https://docs.cloud.google.com/spanner/docs/change-streams/details) . Change streams data records that track TTL changes to a database have the `  transaction_tag  ` field set to `  RowDeletionPolicy  ` and the `  is_system_transaction  ` field set to `  true  ` . Change streams readers are then able to filter out all the TTL records, or all the records except for the TTL ones, depending on their use case. See an example of [using Beam to filter by transaction tags](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#filter-by-tx-tag) .
 
 ## What's next
 
-  - Learn [how to manage data retention with TTL](/spanner/docs/ttl/working-with-ttl) .
-  - Learn about [TTL metrics and monitoring](/spanner/docs/ttl/monitoring-and-metrics) .
+  - Learn [how to manage data retention with TTL](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl) .
+  - Learn about [TTL metrics and monitoring](https://docs.cloud.google.com/spanner/docs/ttl/monitoring-and-metrics) .

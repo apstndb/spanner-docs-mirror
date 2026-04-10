@@ -11,7 +11,7 @@ Rows in a Spanner table are organized lexicographically by `  PRIMARY KEY  ` . C
   - Scanning the table in lexicographic order is efficient.
   - Sufficiently close rows will be stored in the same disk blocks, and will be read and cached together.
 
-Spanner replicates your data across multiple [zones](/docs/geography-and-regions) for availability and scale. Each zone holds a complete replica of your data. When you provision a Spanner instance node, you specify its [compute capacity](/spanner/docs/compute-capacity) . The compute capacity is the amount of compute resource allocated to your instance in each of these zones. While each replica is a complete set of your data, data within a replica is partitioned across the compute resources in that zone.
+Spanner replicates your data across multiple [zones](https://docs.cloud.google.com/docs/geography-and-regions) for availability and scale. Each zone holds a complete replica of your data. When you provision a Spanner instance node, you specify its [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) . The compute capacity is the amount of compute resource allocated to your instance in each of these zones. While each replica is a complete set of your data, data within a replica is partitioned across the compute resources in that zone.
 
 Data within each Spanner replica is organized into two levels of physical hierarchy: *database splits* , then *blocks* . Splits hold contiguous ranges of rows, and are the unit by which Spanner distributes your database across compute resources. Over time, splits may be broken into smaller parts, merged, or moved to other nodes in your instance to increase parallelism and allow your application to scale. Operations that span splits are more expensive than equivalent operations that don't, due to increased communication. This is true even if those splits happen to be served by the same node.
 
@@ -43,7 +43,7 @@ Note that some level of two-phase commit and non-local data operations are unavo
 
 ## Index options
 
-[Secondary indexes](/spanner/docs/secondary-indexes) allow you to quickly find rows by values other than the primary key. Spanner supports both non-interleaved and interleaved indexes. Non-interleaved indexes are the default and the type most analogous to what is supported in other RDBMS . They don't place any restrictions over the columns being indexed and, while powerful, they are not always the best choice. Interleaved indexes must be defined over columns that share a prefix with the parent table, and allow greater control of locality.
+[Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) allow you to quickly find rows by values other than the primary key. Spanner supports both non-interleaved and interleaved indexes. Non-interleaved indexes are the default and the type most analogous to what is supported in other RDBMS . They don't place any restrictions over the columns being indexed and, while powerful, they are not always the best choice. Interleaved indexes must be defined over columns that share a prefix with the parent table, and allow greater control of locality.
 
 Spanner stores index data in the same way as tables, with one row per index entry. Many of the design considerations for tables also apply to indexes. Non-interleaved indexes store data in root tables. Because root tables can be split between any root row, this ensures that non-interleaved indexes can scale to arbitrary size and, ignoring hot spots, to almost any workload. Unfortunately it also means that the index entries are usually not in the same splits as the primary data. This creates extra work and latency for any writing process, and adds additional splits to consult at read time.
 
@@ -81,6 +81,8 @@ If your application absolutely must include a log that is timestamp ordered, con
 
 If you need a global (cross root) timestamp ordered table, and you need to support higher write rates to that table than a single node is capable of, use application-level *sharding* . Sharding a table means partitioning it into some number N of roughly equal divisions called shards. This is typically done by prefixing the original primary key with an additional `  ShardId  ` column holding integer values between `  [0, N)  ` . The `  ShardId  ` for a given write is typically selected either at random, or by hashing a part of the base key. Hashing is often preferred because it can be used to ensure all records of a given type go into the same shard, improving performance of retrieval. Either way, the goal is to ensure that, over time, writes are distributed across all shards equally. This approach sometimes means that reads need to scan all shards to reconstruct the original total ordering of writes.
 
+<https://docs.cloud.google.com/spanner/docs/images/shards_for_parallelism.png>
+
 #### Recommendations:
 
   - Avoid high write-rate timestamp ordered tables and indexes **at all cost** .
@@ -92,7 +94,7 @@ Application developers love using database sequences (or auto-increment) to gene
 
 Contrary to RDBMS conventional wisdom, we recommend that you use real-world attributes for primary keys whenever it makes sense. This is particularly the case if the attribute is never going to change.
 
-If you want to generate numerical unique primary keys, aim to get the high order bits of subsequent numbers to be distributed roughly equally over the entire number space. One trick is to generate sequential numbers by conventional means, and then bit-reversing to obtain a final value. Alternatively you could look into a [UUID](/spanner/docs/reference/standard-sql/data-types#uuid_type) generator, but be careful: not all UUID functions are created equally, and some store the timestamp in the high order bits, effectively defeating the benefit. Make sure your UUID generator pseudo-randomly chooses high order bits.
+If you want to generate numerical unique primary keys, aim to get the high order bits of subsequent numbers to be distributed roughly equally over the entire number space. One trick is to generate sequential numbers by conventional means, and then bit-reversing to obtain a final value. Alternatively you could look into a [UUID](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#uuid_type) generator, but be careful: not all UUID functions are created equally, and some store the timestamp in the high order bits, effectively defeating the benefit. Make sure your UUID generator pseudo-randomly chooses high order bits.
 
 #### Recommendations:
 

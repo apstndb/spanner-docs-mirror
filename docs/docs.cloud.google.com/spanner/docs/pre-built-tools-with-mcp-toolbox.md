@@ -1,6 +1,6 @@
 This document describes how to connect your Spanner instance to various developer tools that support the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) .
 
-We recommend using the dedicated Spanner extension for [Gemini CLI](/gemini/docs/codeassist/gemini-cli) . This extension abstracts away the need to set up a separate server connection. You can configure Gemini Code Assist to use the Gemini CLI, offering similar setup benefits in your IDE. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
+We recommend using the dedicated Spanner extension for [Gemini CLI](https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli) . This extension abstracts away the need to set up a separate server connection. You can configure Gemini Code Assist to use the Gemini CLI, offering similar setup benefits in your IDE. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
 
 Alternatively, other IDEs and developer tools supporting the MCP can connect through [MCP Toolbox for Databases](https://github.com/googleapis/genai-toolbox) . MCP Toolbox is an open-source MCP server designed to connect AI agents to your data. It handles tasks like authentication and connection pooling, letting you interact with your data with natural language directly from your IDE.
 
@@ -12,40 +12,23 @@ The Spanner integration with Gemini CLI is through an open-source extension that
 
 The `  spanner  ` extension includes tools for listing tables, and executing SQL and SQL DQL statements.
 
-<table>
-<thead>
-<tr class="header">
-<th>Tools</th>
-<th>Example natural language prompt</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       list_tables      </code></td>
-<td>What tables do I have in my Spanner instance?</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       execute_sql      </code></td>
-<td>Insert test data into the products table.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       execute_sql_dql      </code></td>
-<td>What products in the electronics category are sold in America?</td>
-</tr>
-</tbody>
-</table>
+| Tools                            | Example natural language prompt                                |
+| -------------------------------- | -------------------------------------------------------------- |
+| `        list_tables       `     | What tables do I have in my Spanner instance?                  |
+| `        execute_sql       `     | Insert test data into the products table.                      |
+| `        execute_sql_dql       ` | What products in the electronics category are sold in America? |
 
 ## Before you begin
 
 1.  In the Google Cloud console, on the [project selector page](https://console.cloud.google.com/projectselector2/home/dashboard) , select or create a Google Cloud project.
 
-2.  [Make sure that billing is enabled for your Google Cloud project](/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project) .
+2.  [Make sure that billing is enabled for your Google Cloud project](https://docs.cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project) .
 
 ## Set up the Spanner instance
 
 1.  [Enable the Spanner API in the Google Cloud project](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com&redirect=https://console.cloud.google.com/) .
 
-2.  [Create or select a Spanner instance and database](/spanner/docs/create-query-database-console) .
+2.  [Create or select a Spanner instance and database](https://docs.cloud.google.com/spanner/docs/create-query-database-console) .
 
 3.  Configure the required roles and permissions to complete this task. The user invoking the LLM agents needs the following roles at the database level:
     
@@ -53,7 +36,7 @@ The `  spanner  ` extension includes tools for listing tables, and executing SQL
     
       - Cloud Spanner Database User ( `  roles/spanner.databaseUser  ` ) to execute DML queries.
 
-4.  Configure [Application Default Credentials (ADC)](/docs/authentication/set-up-adc-local-dev-environment) for your environment.
+4.  Configure [Application Default Credentials (ADC)](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) for your environment.
 
 ## Install MCP Toolbox
 
@@ -63,39 +46,27 @@ The `  spanner  ` extension includes tools for listing tables, and executing SQL
     
     ### linux/amd64
     
-    ``` text
-    curl -O https://storage.googleapis.com/genai-toolbox/version/linux/amd64/toolbox
-    ```
+        curl -O https://storage.googleapis.com/genai-toolbox/version/linux/amd64/toolbox
     
     ### darwin/arm64
     
-    ``` text
-    curl -O https://storage.googleapis.com/genai-toolbox/version/darwin/arm64/toolbox
-    ```
+        curl -O https://storage.googleapis.com/genai-toolbox/version/darwin/arm64/toolbox
     
     ### darwin/amd64
     
-    ``` text
-    curl -O https://storage.googleapis.com/genai-toolbox/version/darwin/amd64/toolbox
-    ```
+        curl -O https://storage.googleapis.com/genai-toolbox/version/darwin/amd64/toolbox
     
     ### windows/amd64
     
-    ``` text
-    curl -O https://storage.googleapis.com/genai-toolbox/version/windows/amd64/toolbox
-    ```
+        curl -O https://storage.googleapis.com/genai-toolbox/version/windows/amd64/toolbox
 
 2.  Make the binary executable:
     
-    ``` text
-    chmod +x toolbox
-    ```
+        chmod +x toolbox
 
 3.  Verify the installation:
     
-    ``` text
-    ./toolbox --version
-    ```
+        ./toolbox --version
 
 ## Set up the agent tool
 
@@ -109,7 +80,7 @@ This section describes how to configure various developer tools to connect to yo
 
 3.  Set the following environment variables to connect to your Spanner instance:  
     
-    ``` text
+    ``` 
         export SPANNER_PROJECT="PROJECT_ID"
         export SPANNER_INSTANCE="INSTANCE_NAME"
         export SPANNER_DATABASE="DATABASE_NAME"
@@ -126,7 +97,7 @@ This section describes how to configure various developer tools to connect to yo
 
 4.  Start the Gemini CLI in interactive mode:
     
-    ``` text
+    ``` 
         gemini
         
     ```
@@ -135,7 +106,7 @@ This section describes how to configure various developer tools to connect to yo
 
 ### Gemini Code Assist
 
-We strongly recommend configuring Gemini Code Assist to use the [Gemini CLI](#mcp-configure-your-mcp-client-geminicli) , as this approach removes the need to manually configure an MCP server. However, the directions to manually configure an MCP server are still available in the following section:
+We strongly recommend configuring Gemini Code Assist to use the [Gemini CLI](https://docs.cloud.google.com/spanner/docs/pre-built-tools-with-mcp-toolbox#mcp-configure-your-mcp-client-geminicli) , as this approach removes the need to manually configure an MCP server. However, the directions to manually configure an MCP server are still available in the following section:
 
   
 1\. Install the [Gemini Code Assist](https://marketplace.visualstudio.com/items?itemName=Google.geminicodeassist) extension in VS Code.  
@@ -153,41 +124,37 @@ We strongly recommend configuring Gemini Code Assist to use the [Gemini CLI](#mc
 Spanner with **GoogleSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner-postgres","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner-postgres","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
 ### Claude Code
 
@@ -199,41 +166,37 @@ Spanner with **PostgreSQL** dialect:
 Spanner with **GoogleSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner-postgres","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner-postgres","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
 ### Claude for Desktop
 
@@ -245,41 +208,37 @@ Spanner with **PostgreSQL** dialect:
 Spanner with **GoogleSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner-postgres","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner-postgres","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 4\. Restart Claude for Desktop.  
@@ -296,41 +255,37 @@ Spanner with **PostgreSQL** dialect:
 Spanner with **GoogleSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner-postgres","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner-postgres","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 A green active status appears after the server connects successfully.  
@@ -346,41 +301,37 @@ A green active status appears after the server connects successfully.
 Spanner with **GoogleSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner-postgres","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner-postgres","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 4\. Open [Cursor](https://www.cursor.com/) and navigate to **Settings \> Cursor Settings \> MCP** . A green active status appears when the server connects.  
@@ -396,41 +347,37 @@ Spanner with **PostgreSQL** dialect:
 Spanner with **GoogleSQL** dialect:  
   
 
-``` text
-{
-  "servers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner","--stdio"],
-      "env": {
-        "SPANNER_PROJECT": "PROJECT_ID",
-        "SPANNER_INSTANCE": "INSTANCE_NAME",
-        "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "servers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner","--stdio"],
+          "env": {
+            "SPANNER_PROJECT": "PROJECT_ID",
+            "SPANNER_INSTANCE": "INSTANCE_NAME",
+            "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-``` text
-{
-  "servers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner-postgres","--stdio"],
-      "env": {
-        "SPANNER_PROJECT": "PROJECT_ID",
-        "SPANNER_INSTANCE": "INSTANCE_NAME",
-        "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "servers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner-postgres","--stdio"],
+          "env": {
+            "SPANNER_PROJECT": "PROJECT_ID",
+            "SPANNER_INSTANCE": "INSTANCE_NAME",
+            "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
 ### Windsurf
 
@@ -442,41 +389,37 @@ Spanner with **PostgreSQL** dialect:
 Spanner with **GoogleSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "./PATH/TO/toolbox",
-      "args": ["--prebuilt","spanner-postgres","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "./PATH/TO/toolbox",
+          "args": ["--prebuilt","spanner-postgres","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
 ## Connect with Antigravity
 
@@ -507,22 +450,20 @@ To connect to a custom MCP server, do the following steps:
 
 <!-- end list -->
 
-``` text
-{
-  "mcpServers": {
-    "spanner": {
-      "command": "npx",
-      "args": ["-y","@toolbox-sdk/server","--prebuilt","spanner","--stdio"],
-      "env": {
-          "SPANNER_PROJECT": "PROJECT_ID",
-          "SPANNER_INSTANCE": "INSTANCE_NAME",
-          "SPANNER_DATABASE": "DATABASE_NAME",
-          "SPANNER_DIALECT": "DIALECT_NAME"
+    {
+      "mcpServers": {
+        "spanner": {
+          "command": "npx",
+          "args": ["-y","@toolbox-sdk/server","--prebuilt","spanner","--stdio"],
+          "env": {
+              "SPANNER_PROJECT": "PROJECT_ID",
+              "SPANNER_INSTANCE": "INSTANCE_NAME",
+              "SPANNER_DATABASE": "DATABASE_NAME",
+              "SPANNER_DIALECT": "DIALECT_NAME"
+          }
+        }
       }
     }
-  }
-}
-```
 
 Once you configure the custom MCP server, the resources and tools from the Spanner server are available to the editor.
 

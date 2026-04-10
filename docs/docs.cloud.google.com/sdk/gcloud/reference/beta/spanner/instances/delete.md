@@ -14,7 +14,7 @@ EXAMPLES
 
 To delete a Cloud Spanner instance, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner instances delete my-instance-id
 ```
 
@@ -33,10 +33,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner instances delete
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner instances delete
 ```

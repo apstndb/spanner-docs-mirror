@@ -21,7 +21,7 @@ The live data migration consists of the following two phases:
 
 ## Plan for the live data migration
 
-You need to configure the network infrastructure required for data to flow between your source MySQL instance, Datastream, Dataflow , Cloud Storage buckets, and the target Spanner database. We recommend configuring private network connectivity for a secure migration. Depending on your organization's compliance requirements, you might have to configure public or private network connectivity. For more information about Datastream connectivity, see [Network connectivity options](/datastream/docs/network-connectivity-options) .
+You need to configure the network infrastructure required for data to flow between your source MySQL instance, Datastream, Dataflow , Cloud Storage buckets, and the target Spanner database. We recommend configuring private network connectivity for a secure migration. Depending on your organization's compliance requirements, you might have to configure public or private network connectivity. For more information about Datastream connectivity, see [Network connectivity options](https://docs.cloud.google.com/datastream/docs/network-connectivity-options) .
 
 To plan for the live data migration, you might need your organization's network administrator to perform the following tasks:
 
@@ -35,9 +35,9 @@ To plan for the live data migration, you might need your organization's network 
 
 To perform a live data migration, follow these steps:
 
-1.  [Set up CDC migration](#setup-cdc-migration) .
-2.  [Perform the backfill migration](#perform-backfill-migration) .
-3.  [Finish the CDC migration after the backfill migration is finished](#finish-cdc-migration) .
+1.  [Set up CDC migration](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration#setup-cdc-migration) .
+2.  [Perform the backfill migration](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration#perform-backfill-migration) .
+3.  [Finish the CDC migration after the backfill migration is finished](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration#finish-cdc-migration) .
 
 Performing the live data migration requires deploying and managing a significant number of resources. Spanner provides two sample Terraform templates for each phase of the live data migration.
 
@@ -52,22 +52,22 @@ The backfill migration terraform template performs the backfill migration from y
 
   - Ensure Terraform is installed on your local shell.
 
-  - Create a service account to run the live data migration. For more information about creating a service account, see [Create service accounts](/iam/docs/service-accounts-create) .
+  - Create a service account to run the live data migration. For more information about creating a service account, see [Create service accounts](https://docs.cloud.google.com/iam/docs/service-accounts-create) .
 
   - To ensure that the service account has the necessary permissions to perform live migration, ask your administrator to grant the following IAM roles to the service account on your project:
     
     **Important:** You must grant these roles to the service account, *not* to your user account. Failure to grant the roles to the correct principal might result in permission errors.
     
-      - [Dataflow Admin](/iam/docs/roles-permissions/dataflow#dataflow.admin) ( `  roles/dataflow.admin  ` )
-      - [Datastream Admin](/iam/docs/roles-permissions/datastream#datastream.admin) ( `  roles/datastream.admin  ` )
-      - [Security Admin](/iam/docs/roles-permissions/iam#iam.securityAdmin) ( `  roles/iam.securityAdmin  ` )
-      - [Service Account Admin](/iam/docs/roles-permissions/iam#iam.serviceAccountAdmin) ( `  roles/iam.serviceAccountAdmin  ` )
-      - [Pub/Sub Admin](/iam/docs/roles-permissions/pubsub#pubsub.admin) ( `  roles/pubsub.admin  ` )
-      - [Storage Admin](/iam/docs/roles-permissions/storage#storage.admin) ( `  roles/storage.admin  ` )
-      - [Compute Network Admin](/iam/docs/roles-permissions/compute#compute.networkAdmin) ( `  roles/compute.networkAdmin  ` )
-      - [Viewer](/iam/docs/roles-overview#basic) ( `  roles/viewer  ` )
+      - [Dataflow Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.admin) ( `  roles/dataflow.admin  ` )
+      - [Datastream Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/datastream#datastream.admin) ( `  roles/datastream.admin  ` )
+      - [Security Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/iam#iam.securityAdmin) ( `  roles/iam.securityAdmin  ` )
+      - [Service Account Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/iam#iam.serviceAccountAdmin) ( `  roles/iam.serviceAccountAdmin  ` )
+      - [Pub/Sub Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/pubsub#pubsub.admin) ( `  roles/pubsub.admin  ` )
+      - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `  roles/storage.admin  ` )
+      - [Compute Network Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/compute#compute.networkAdmin) ( `  roles/compute.networkAdmin  ` )
+      - [Viewer](https://docs.cloud.google.com/iam/docs/roles-overview#basic) ( `  roles/viewer  ` )
     
-    For more information about granting roles, see [Manage access to projects, folders, and organizations](/iam/docs/granting-changing-revoking-access) .
+    For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
     
     These predefined roles contain the permissions required to perform live migration. To see the exact permissions that are required, expand the **Required permissions** section:
     
@@ -116,7 +116,7 @@ The backfill migration terraform template performs the backfill migration from y
       - `  storage.buckets.update  `
       - `  storage.objects.delete  `
     
-    Your administrator might also be able to give the service account these permissions with [custom roles](/iam/docs/creating-custom-roles) or other [predefined roles](/iam/docs/roles-overview#predefined) .
+    Your administrator might also be able to give the service account these permissions with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
 ## Set up CDC migration
 
@@ -140,7 +140,7 @@ Spanner offers a Terraform template setting up the CDC and later, completing the
 
 You can prepare the [Terraform template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/datastream-to-spanner/terraform/samples/mysql-end-to-end) to include Dataflow variable configurations, but disable the creation of Dataflow jobs:
 
-``` text
+``` 
     common_params = {
       project = "PROJECT_ID"
       region  = "GCP_REGION"
@@ -202,43 +202,41 @@ To perform the CDC migration, you need to run the Terraform template:
 
 1.  Initialize Terraform by using the following command:
     
-    ``` text
+    ``` 
       terraform init
     ```
 
 2.  Validate the Terraform files by using the following command:
     
-    ``` text
+    ``` 
       terraform plan --var-file=terraform_simple.tfvars
     ```
 
 3.  Run the Terraform configuration using the following command:
     
-    ``` text
+    ``` 
       terraform apply --var-file=terraform_simple.tfvars
     ```
     
     The Terraform configuration produces output similar to the following:
     
-    ``` text
-    Outputs:
-    resource_ids = {
-      "datastream_source_connection_profile" = "source-mysql-thorough-wombat"
-      "datastream_stream" = "mysql-stream-thorough-wombat"
-      "datastream_target_connection_profile" = "target-gcs-thorough-wombat"
-      "gcs_bucket" = "live-migration-thorough-wombat"
-      "pubsub_subscription" = "live-migration-thorough-wombat-sub"
-      "pubsub_topic" = "live-migration-thorough-wombat"
-    }
-    resource_urls = {
-      "datastream_source_connection_profile" = "https://console.cloud.google.com/datastream/connection-profiles/locations/us-central1/instances/source-mysql-thorough-wombat?project=your-project-here"
-      "datastream_stream" = "https://console.cloud.google.com/datastream/streams/locations/us-central1/instances/mysql-stream-thorough-wombat?project=your-project-here"
-      "datastream_target_connection_profile" = "https://console.cloud.google.com/datastream/connection-profiles/locations/us-central1/instances/target-gcs-thorough-wombat?project=your-project-here"
-      "gcs_bucket" = "https://console.cloud.google.com/storage/browser/live-migration-thorough-wombat?project=your-project-here"
-      "pubsub_subscription" = "https://console.cloud.google.com/cloudpubsub/subscription/detail/live-migration-thorough-wombat-sub?project=your-project-here"
-      "pubsub_topic" = "https://console.cloud.google.com/cloudpubsub/topic/detail/live-migration-thorough-wombat?project=your-project-here"
-    }
-    ```
+        Outputs:
+        resource_ids = {
+          "datastream_source_connection_profile" = "source-mysql-thorough-wombat"
+          "datastream_stream" = "mysql-stream-thorough-wombat"
+          "datastream_target_connection_profile" = "target-gcs-thorough-wombat"
+          "gcs_bucket" = "live-migration-thorough-wombat"
+          "pubsub_subscription" = "live-migration-thorough-wombat-sub"
+          "pubsub_topic" = "live-migration-thorough-wombat"
+        }
+        resource_urls = {
+          "datastream_source_connection_profile" = "https://console.cloud.google.com/datastream/connection-profiles/locations/us-central1/instances/source-mysql-thorough-wombat?project=your-project-here"
+          "datastream_stream" = "https://console.cloud.google.com/datastream/streams/locations/us-central1/instances/mysql-stream-thorough-wombat?project=your-project-here"
+          "datastream_target_connection_profile" = "https://console.cloud.google.com/datastream/connection-profiles/locations/us-central1/instances/target-gcs-thorough-wombat?project=your-project-here"
+          "gcs_bucket" = "https://console.cloud.google.com/storage/browser/live-migration-thorough-wombat?project=your-project-here"
+          "pubsub_subscription" = "https://console.cloud.google.com/cloudpubsub/subscription/detail/live-migration-thorough-wombat-sub?project=your-project-here"
+          "pubsub_topic" = "https://console.cloud.google.com/cloudpubsub/topic/detail/live-migration-thorough-wombat?project=your-project-here"
+        }
 
 Datastream is now streaming the CDC to a Cloud Storage bucket. You must perform the backfill migration and finish the CDC migration later.
 
@@ -250,7 +248,7 @@ Spanner offers a Terraform template to perform the backfill migration. The Terra
 
 ### Preparing the backfill migration Terraform configuration
 
-``` text
+``` 
     job_name = "JOB_NAME"
     project = "PROJECT_ID"
     region = "GCP_REGION"
@@ -285,34 +283,32 @@ To perform the backfill migration, do the following:
 
 1.  Initialize Terraform by using the following command:
     
-    ``` text
+    ``` 
       terraform init
     ```
 
 2.  Validate the Terraform files by using the following command:
     
-    ``` text
+    ``` 
       terraform plan --var-file=terraform_simple.tfvars
     ```
 
 3.  Run the Terraform configuration using the following command:
     
-    ``` text
+    ``` 
       terraform apply --var-file=terraform_simple.tfvars
     ```
     
     The Terraform configuration produces an output similar to the following:
     
-    ``` text
-    Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
-    Outputs:
-    dataflow_job_id = [
-      "2024-06-05_00_41_11-4759981257849547781",
-    ]
-    dataflow_job_url = [
-      "https://console.cloud.google.com/dataflow/jobs/gcp-region/2024-06-05_00_41_11-4759981257849547781",
-    ]
-    ```
+        Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+        Outputs:
+        dataflow_job_id = [
+          "2024-06-05_00_41_11-4759981257849547781",
+        ]
+        dataflow_job_url = [
+          "https://console.cloud.google.com/dataflow/jobs/gcp-region/2024-06-05_00_41_11-4759981257849547781",
+        ]
 
 When the backfill migration cannot write a row to Spanner, it writes that row to a dead-letter queue directory in a Cloud Storage bucket.
 
@@ -320,16 +316,14 @@ You can retry writing these rows from the dead-letter queue directory to Spanner
 
 To retry writing these rows from the dead-letter queue directory to Spanner before finishing the CDC migration, run the following command:
 
-``` text
-gcloud dataflow flex-template run JOB_NAME \
---region=GCP_REGION \
---template-file-gcs-location=gs://dataflow-templates/latest/flex/Cloud_Datastream_to_Spanner \
---additional-experiments=use_runner_v2 \
---parameters inputFilePattern=inputFilePattern,streamName="ignore", \
---datastreamSourceType=SOURCE_TYPE\
-instanceId=INSTANCE_ID,databaseId=DATABASE_ID,sessionFilePath=SESSION_FILE_PATH, \
-deadLetterQueueDirectory=DLQ_DIRECTORY,runMode="retryDLQ"
-```
+    gcloud dataflow flex-template run JOB_NAME \
+    --region=GCP_REGION \
+    --template-file-gcs-location=gs://dataflow-templates/latest/flex/Cloud_Datastream_to_Spanner \
+    --additional-experiments=use_runner_v2 \
+    --parameters inputFilePattern=inputFilePattern,streamName="ignore", \
+    --datastreamSourceType=SOURCE_TYPE\
+    instanceId=INSTANCE_ID,databaseId=DATABASE_ID,sessionFilePath=SESSION_FILE_PATH, \
+    deadLetterQueueDirectory=DLQ_DIRECTORY,runMode="retryDLQ"
 
 The gcloud CLI command variables are described in the following list:
 
@@ -354,11 +348,11 @@ To finish the CDC migration, change the value of the `  skip_dataflow  ` Terrafo
 
 Run the Terraform configuration using the following command:
 
-``` text
+``` 
       terraform apply --var-file=terraform_simple.tfvars
     
 ```
 
 ## What's next
 
-  - [Migration overview](/spanner/docs/migration-overview)
+  - [Migration overview](https://docs.cloud.google.com/spanner/docs/migration-overview)

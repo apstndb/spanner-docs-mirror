@@ -1,12 +1,12 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document describes errors you might encounter when you work with Spanner Graph. Examples of errors and recommended fixes are also provided.
 
-If you require further support after reviewing this troubleshooting guide, see [Get support](/spanner/docs/graph/overview#support) .
+If you require further support after reviewing this troubleshooting guide, see [Get support](https://docs.cloud.google.com/spanner/docs/graph/overview#support) .
 
 ## Schema errors
 
-Schema results are based on the dataset used in [Set up and query Spanner Graph](/spanner/docs/graph/set-up) .
+Schema results are based on the dataset used in [Set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
 
 ### Element keys must have a uniqueness guarantee
 
@@ -16,33 +16,27 @@ Schema results are based on the dataset used in [Set up and query Spanner Graph]
 
 #### Example error
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person KEY (name)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person KEY (name)
+      );
 
 #### Recommended fix
 
 Create a unique index on the element key columns and redefine the element key columns based on the source table primary keys.
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person KEY (id)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person KEY (id)
+      );
 
 Alternatively, create a unique index on the element key columns.
 
-``` text
-CREATE UNIQUE INDEX PersonNameIndex ON Person(name);
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person KEY (name)
-  );
-```
+    CREATE UNIQUE INDEX PersonNameIndex ON Person(name);
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person KEY (name)
+      );
 
 ### Names for element definitions must be unique
 
@@ -52,35 +46,31 @@ CREATE OR REPLACE PROPERTY GRAPH FinGraph
 
 #### Example error
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Account,
-    Person
-  )
-  EDGE TABLES (
-    Account
-      SOURCE KEY(owner_id) REFERENCES Person
-      DESTINATION KEY(account_id) REFERENCES Account
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Account,
+        Person
+      )
+      EDGE TABLES (
+        Account
+          SOURCE KEY(owner_id) REFERENCES Person
+          DESTINATION KEY(account_id) REFERENCES Account
+      );
 
 #### Recommended fix
 
 Use a unique name for the edge definition.
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Account,
-    Person
-  )
-  EDGE TABLES (
-    Account AS Owns
-      SOURCE KEY(owner_id) REFERENCES Person
-      DESTINATION KEY(account_id) REFERENCES Account
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Account,
+        Person
+      )
+      EDGE TABLES (
+        Account AS Owns
+          SOURCE KEY(owner_id) REFERENCES Person
+          DESTINATION KEY(account_id) REFERENCES Account
+      );
 
 ### Label definition must be consistent for properties
 
@@ -90,25 +80,21 @@ CREATE OR REPLACE PROPERTY GRAPH FinGraph
 
 #### Example error
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person LABEL Entity PROPERTIES (name),
-    Account LABEL Entity PROPERTIES (id)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person LABEL Entity PROPERTIES (name),
+        Account LABEL Entity PROPERTIES (id)
+      );
 
 #### Recommended fix
 
 You must use the same set of property names under the same label.
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person LABEL Entity PROPERTIES (id, name),
-    Account LABEL Entity PROPERTIES (id, name)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person LABEL Entity PROPERTIES (id, name),
+        Account LABEL Entity PROPERTIES (id, name)
+      );
 
 ### Property declaration must be consistent for property type
 
@@ -118,23 +104,19 @@ CREATE OR REPLACE PROPERTY GRAPH FinGraph
 
 #### Example error
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person PROPERTIES (name),
-    Account PROPERTIES (id AS name)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person PROPERTIES (name),
+        Account PROPERTIES (id AS name)
+      );
 
 #### Recommended fix
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person PROPERTIES (name),
-    Account PROPERTIES (CAST(id AS STRING) AS name)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person PROPERTIES (name),
+        Account PROPERTIES (CAST(id AS STRING) AS name)
+      );
 
 ### Property definition must not be a subquery
 
@@ -144,12 +126,10 @@ CREATE OR REPLACE PROPERTY GRAPH FinGraph
 
 #### Example error
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person PROPERTIES ((SELECT COUNT(*) FROM Person) AS count)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person PROPERTIES ((SELECT COUNT(*) FROM Person) AS count)
+      );
 
 #### Recommended fix
 
@@ -163,42 +143,36 @@ N/A. This condition is disallowed.
 
 #### Example error
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person
-      LABEL Person PROPERTIES (country AS location)
-      LABEL Entity PROPERTIES (city AS location)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person
+          LABEL Person PROPERTIES (country AS location)
+          LABEL Entity PROPERTIES (city AS location)
+      );
 
 #### Recommended fix
 
 Use the same property definition.
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person
-      LABEL Person PROPERTIES (country AS location)
-      LABEL Entity PROPERTIES (country AS location)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person
+          LABEL Person PROPERTIES (country AS location)
+          LABEL Entity PROPERTIES (country AS location)
+      );
 
 Alternatively, assign different property names.
 
-``` text
-CREATE OR REPLACE PROPERTY GRAPH FinGraph
-  NODE TABLES (
-    Person
-      LABEL Person PROPERTIES (country AS location)
-      LABEL Entity PROPERTIES (city AS city)
-  );
-```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person
+          LABEL Person PROPERTIES (country AS location)
+          LABEL Entity PROPERTIES (city AS city)
+      );
 
 ## Query errors
 
-Query results are based on the dataset used in [Set up and query Spanner Graph](/spanner/docs/graph/set-up) .
+Query results are based on the dataset used in [Set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
 
 ### Graph elements cannot be returned as query results
 
@@ -208,19 +182,15 @@ Query results are based on the dataset used in [Set up and query Spanner Graph](
 
 #### Example error
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account)
-RETURN n;
-```
+    GRAPH FinGraph
+    MATCH (n:Account)
+    RETURN n;
 
 #### Recommended fix
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account)
-RETURN TO_JSON(n) AS n;
-```
+    GRAPH FinGraph
+    MATCH (n:Account)
+    RETURN TO_JSON(n) AS n;
 
 ### Property specification can't be used with `     WHERE    ` clause
 
@@ -230,34 +200,26 @@ RETURN TO_JSON(n) AS n;
 
 #### Example error
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account {id: 1} WHERE n.is_blocked)
-RETURN n.id;
-```
+    GRAPH FinGraph
+    MATCH (n:Account {id: 1} WHERE n.is_blocked)
+    RETURN n.id;
 
 #### Recommended fix
 
 You can use one of the following suggested fixes.
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account {id: 1})
-WHERE n.is_blocked
-RETURN n.id;
-```
+    GRAPH FinGraph
+    MATCH (n:Account {id: 1})
+    WHERE n.is_blocked
+    RETURN n.id;
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account WHERE n.id = 1 AND n.is_blocked )
-RETURN n.id;
-```
+    GRAPH FinGraph
+    MATCH (n:Account WHERE n.id = 1 AND n.is_blocked )
+    RETURN n.id;
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account {id: 1, is_blocked: TRUE})
-RETURN n.id;
-```
+    GRAPH FinGraph
+    MATCH (n:Account {id: 1, is_blocked: TRUE})
+    RETURN n.id;
 
 #### Reference to variables defined in previous statements is not allowed
 
@@ -271,22 +233,18 @@ Reference to variables defined in previous statements is not allowed within the 
 
 ##### Example error
 
-``` text
-GRAPH FinGraph
-LET account_id = 1
-MATCH (n:Account {id: account_id})
-RETURN n.id;
-```
+    GRAPH FinGraph
+    LET account_id = 1
+    MATCH (n:Account {id: account_id})
+    RETURN n.id;
 
 ##### Recommended fix
 
-``` text
-GRAPH FinGraph
-LET account_id = 1
-MATCH (n:Account)
-WHERE n.id = account_id
-RETURN n.id;
-```
+    GRAPH FinGraph
+    LET account_id = 1
+    MATCH (n:Account)
+    WHERE n.id = account_id
+    RETURN n.id;
 
 ### Redefining a correlated graph variable is not allowed
 
@@ -300,30 +258,26 @@ In the graph query, graph element names cannot be redefined in an inner graph su
 
 #### Example error
 
-``` text
-GRAPH FinGraph
-MATCH (account:Account)
-RETURN account.id AS account_id, VALUE {
-  MATCH (account:Account)-[transfer:Transfers]->(:Account)
-  RETURN SUM(transfer.amount) AS total_transfer
-} AS total_transfer;
-```
+    GRAPH FinGraph
+    MATCH (account:Account)
+    RETURN account.id AS account_id, VALUE {
+      MATCH (account:Account)-[transfer:Transfers]->(:Account)
+      RETURN SUM(transfer.amount) AS total_transfer
+    } AS total_transfer;
 
 #### Recommended fix
 
-``` text
-GRAPH FinGraph
-MATCH (account:Account)
-RETURN account.id AS account_id, VALUE {
-  MATCH (a:Account)-[transfer:Transfers]->(:Account)
-  WHERE a = account
-  RETURN SUM(transfer.amount) AS total_transfer
-} AS total_transfer;
-```
+    GRAPH FinGraph
+    MATCH (account:Account)
+    RETURN account.id AS account_id, VALUE {
+      MATCH (a:Account)-[transfer:Transfers]->(:Account)
+      WHERE a = account
+      RETURN SUM(transfer.amount) AS total_transfer
+    } AS total_transfer;
 
 ## Query semantics issues
 
-Query results are based on the dataset used in [Set up and query Spanner Graph](/spanner/docs/graph/set-up) .
+Query results are based on the dataset used in [Set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
 
 ### Different `     WHERE    ` and `     FILTER    ` result in different outputs
 
@@ -341,38 +295,23 @@ The following examples have different outputs because `  WHERE  ` and `  FILTER 
 
 **Example 1**
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account {id: 7})
-OPTIONAL MATCH (m:Account)
-WHERE FALSE
-RETURN n.id AS n_id, m.id AS m_id;
-```
+    GRAPH FinGraph
+    MATCH (n:Account {id: 7})
+    OPTIONAL MATCH (m:Account)
+    WHERE FALSE
+    RETURN n.id AS n_id, m.id AS m_id;
 
-<table>
-<thead>
-<tr class="header">
-<th><strong>n_id</strong></th>
-<th><strong>m_id</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>7</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
+| **n\_id** | **m\_id** |
+| --------- | --------- |
+| 7         | null      |
 
 **Example 2**
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account {id: 7})
-OPTIONAL MATCH (m:Account)
-FILTER FALSE
-RETURN n.id AS n_id, m.id AS m_id;
-```
+    GRAPH FinGraph
+    MATCH (n:Account {id: 7})
+    OPTIONAL MATCH (m:Account)
+    FILTER FALSE
+    RETURN n.id AS n_id, m.id AS m_id;
 
 Empty results.
 
@@ -392,44 +331,31 @@ The following examples have different outputs because different variables are pr
 
 **Example 1**
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account {id: 7})
-RETURN n
-
-NEXT
-
-MATCH (n:Account {id: 16})
-RETURN n.id AS n_id;
-```
+    GRAPH FinGraph
+    MATCH (n:Account {id: 7})
+    RETURN n
+    
+    NEXT
+    
+    MATCH (n:Account {id: 16})
+    RETURN n.id AS n_id;
 
 Empty results.
 
 **Example 2**
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account {id: 7})
-RETURN n.id AS id
+    GRAPH FinGraph
+    MATCH (n:Account {id: 7})
+    RETURN n.id AS id
+    
+    NEXT
+    
+    MATCH (n:Account {id: 16})
+    RETURN n.id AS n_id;
 
-NEXT
-
-MATCH (n:Account {id: 16})
-RETURN n.id AS n_id;
-```
-
-<table>
-<thead>
-<tr class="header">
-<th><strong>n_id</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>16</td>
-</tr>
-</tbody>
-</table>
+| **n\_id** |
+| --------- |
+| 16        |
 
 ### `     ORDER BY    ` is ignored if there is a succeeding statement that is not `     LIMIT    `
 
@@ -450,49 +376,27 @@ The following examples have different outputs because the `  ORDER BY  ` stateme
 
 **Example 1**
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account)
-ORDER BY n.id DESC
-RETURN n.id
-LIMIT 3;
-```
+    GRAPH FinGraph
+    MATCH (n:Account)
+    ORDER BY n.id DESC
+    RETURN n.id
+    LIMIT 3;
 
-<table>
-<thead>
-<tr class="header">
-<th><strong>n_id</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>7</td>
-</tr>
-</tbody>
-</table>
+| **n\_id** |
+| --------- |
+| 7         |
 
 **Example 2**
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account)
-ORDER BY n.id DESC
-LIMIT 3
-RETURN n.id;
-```
+    GRAPH FinGraph
+    MATCH (n:Account)
+    ORDER BY n.id DESC
+    LIMIT 3
+    RETURN n.id;
 
-<table>
-<thead>
-<tr class="header">
-<th><strong>n_id</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>20</td>
-</tr>
-</tbody>
-</table>
+| **n\_id** |
+| --------- |
+| 20        |
 
 ### Different edge patterns result in different outputs
 
@@ -515,49 +419,27 @@ The following examples have different outputs because different edge patterns ar
 
 **Example 1**
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account)-[:Transfers]-(m:Account)
-RETURN COUNT(*) AS num_transfer_edges;
-```
+    GRAPH FinGraph
+    MATCH (n:Account)-[:Transfers]-(m:Account)
+    RETURN COUNT(*) AS num_transfer_edges;
 
-<table>
-<thead>
-<tr class="header">
-<th><strong>num_transfer_edges</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>10</td>
-</tr>
-</tbody>
-</table>
+| **num\_transfer\_edges** |
+| ------------------------ |
+| 10                       |
 
 **Example 2**
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account)-[:Transfers]->(m:Account)
-RETURN COUNT(*) AS num_transfer_edges;
-```
+    GRAPH FinGraph
+    MATCH (n:Account)-[:Transfers]->(m:Account)
+    RETURN COUNT(*) AS num_transfer_edges;
 
-<table>
-<thead>
-<tr class="header">
-<th><strong>num_transfer_edges</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>5</td>
-</tr>
-</tbody>
-</table>
+| **num\_transfer\_edges** |
+| ------------------------ |
+| 5                        |
 
 ## Mutation errors
 
-Mutation results are based on the dataset used in [Set up and query Spanner Graph](/spanner/docs/graph/set-up) .
+Mutation results are based on the dataset used in [Set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
 
 ### Missing source node violates foreign key constraint
 
@@ -571,10 +453,8 @@ Mutation results are based on the dataset used in [Set up and query Spanner Grap
 
 #### Example error
 
-``` text
-INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
-VALUES (100, 1, PENDING_COMMIT_TIMESTAMP(), 200);
-```
+    INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
+    VALUES (100, 1, PENDING_COMMIT_TIMESTAMP(), 200);
 
 #### Recommended fix
 
@@ -592,10 +472,8 @@ The `  AccountTransferAccount  ` table refers to `  Accounttable  ` through a ` 
 
 #### Example error
 
-``` text
-INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
-VALUES (1, 100, PENDING_COMMIT_TIMESTAMP(), 200);
-```
+    INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
+    VALUES (1, 100, PENDING_COMMIT_TIMESTAMP(), 200);
 
 #### Recommended fix
 
@@ -613,13 +491,11 @@ Create the tailing Account node first, then create the `  Transfer  ` edge.
 
 #### Example error
 
-``` text
-DELETE FROM Account WHERE id = 1;
-```
+    DELETE FROM Account WHERE id = 1;
 
 #### Recommended fix
 
-Delete all outgoing `  Transfer  ` edges first, then delete the `  Account  ` node. Alternatively, define [`  ON DELETE CASCADE  `](/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) for `  INTERLEAVE  ` and have Spanner automatically delete those edges.
+Delete all outgoing `  Transfer  ` edges first, then delete the `  Account  ` node. Alternatively, define [`  ON DELETE CASCADE  `](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) for `  INTERLEAVE  ` and have Spanner automatically delete those edges.
 
 ### Orphaned incoming edge violates parent-child relationship
 
@@ -633,10 +509,8 @@ Delete all outgoing `  Transfer  ` edges first, then delete the `  Account  ` no
 
 #### Example error
 
-``` text
-DELETE FROM Account WHERE id = 1;
-```
+    DELETE FROM Account WHERE id = 1;
 
 #### Recommended fix
 
-Delete all incoming `  Transfer  ` edges first, then delete the `  Account  ` node. Alternatively, define [`  ON DELETE CASCADE  `](/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) for `  ForeignKey  ` and have Spanner automatically delete those edges.
+Delete all incoming `  Transfer  ` edges first, then delete the `  Account  ` node. Alternatively, define [`  ON DELETE CASCADE  `](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) for `  ForeignKey  ` and have Spanner automatically delete those edges.

@@ -12,7 +12,7 @@ We also want to make sure that data is accessible despite failures. To ensure th
 
 Spanner provides both **read-only transactions** and **read-write transactions** . The former are the preferred transaction-type for operations (including SQL `  SELECT  ` statements) that do not mutate your data. Read-only transactions still provide strong consistency and operate, by-default, on the latest copy of your data. But they are able to run without the need for any form of locking internally, which makes them faster and more scalable. Read-write transactions are used for transactions that insert, update, or delete data; this includes transactions that perform reads followed by a write. They are still highly scalable, but read-write transactions introduce locking and must be orchestrated by Paxos leaders. Note that locking is transparent to Spanner clients.
 
-Many previous distributed database systems have elected not to provide strong consistency guarantees because of the costly cross-machine communication that is usually required. Spanner is able to provide strongly consistent snapshots across the entire database using a Google-developed technology called [TrueTime](/spanner/docs/true-time-external-consistency) . Like the Flux Capacitor in a circa-1985 time machine, **TrueTime** is what makes Spanner possible. It is an API that allows any machine in Google datacenters to know the exact global time with a high degree of accuracy (that is, within a few milliseconds). This allows different Spanner machines to reason about the ordering of transactional operations (and have that ordering match what the client has observed) often without any communication at all. Google had to outfit its datacenters with special hardware (atomic clocks\!) in order to make TrueTime work. The resulting time precision and accuracy is much higher than can be achieved by other protocols (such as NTP). In particular, Spanner assigns a timestamp to all reads and writes. A transaction at timestamp `  T1  ` is guaranteed to reflect the results of all writes that happened before `  T1  ` . If a machine wants to satisfy a read at `  T2  ` , it must ensure that its view of the data is up-to-date through at least `  T2  ` . Because of TrueTime, this determination is usually very cheap. The protocols for ensuring consistency of the data are complicated, but they are discussed more in the original Spanner [paper](https://research.google.com/archive/spanner.html) and in this [paper](https://research.google/pubs/spanner-truetime-and-the-cap-theorem/) about Spanner and consistency.
+Many previous distributed database systems have elected not to provide strong consistency guarantees because of the costly cross-machine communication that is usually required. Spanner is able to provide strongly consistent snapshots across the entire database using a Google-developed technology called [TrueTime](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) . Like the Flux Capacitor in a circa-1985 time machine, **TrueTime** is what makes Spanner possible. It is an API that allows any machine in Google datacenters to know the exact global time with a high degree of accuracy (that is, within a few milliseconds). This allows different Spanner machines to reason about the ordering of transactional operations (and have that ordering match what the client has observed) often without any communication at all. Google had to outfit its datacenters with special hardware (atomic clocks\!) in order to make TrueTime work. The resulting time precision and accuracy is much higher than can be achieved by other protocols (such as NTP). In particular, Spanner assigns a timestamp to all reads and writes. A transaction at timestamp `  T1  ` is guaranteed to reflect the results of all writes that happened before `  T1  ` . If a machine wants to satisfy a read at `  T2  ` , it must ensure that its view of the data is up-to-date through at least `  T2  ` . Because of TrueTime, this determination is usually very cheap. The protocols for ensuring consistency of the data are complicated, but they are discussed more in the original Spanner [paper](https://research.google.com/archive/spanner.html) and in this [paper](https://research.google/pubs/spanner-truetime-and-the-cap-theorem/) about Spanner and consistency.
 
 ### Aside: Distributed Filesystems
 
@@ -24,63 +24,28 @@ In order to guarantee the durability of writes, Spanner transactions commit by w
 
 Let's work through a few practical examples to see how it all works:
 
-``` text
-CREATE TABLE ExampleTable (
- Id INT64 NOT NULL,
- Value STRING(MAX),
-) PRIMARY KEY(Id);
-```
+    CREATE TABLE ExampleTable (
+     Id INT64 NOT NULL,
+     Value STRING(MAX),
+    ) PRIMARY KEY(Id);
 
 In this example, we have a table with a simple integer primary key.
 
-<table>
-<thead>
-<tr class="header">
-<th>Split</th>
-<th>KeyRange</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0</td>
-<td>[-∞,3)</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>[3,224)</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>[224,712)</td>
-</tr>
-<tr class="even">
-<td>3</td>
-<td>[712,717)</td>
-</tr>
-<tr class="odd">
-<td>4</td>
-<td>[717,1265)</td>
-</tr>
-<tr class="even">
-<td>5</td>
-<td>[1265,1724)</td>
-</tr>
-<tr class="odd">
-<td>6</td>
-<td>[1724,1997)</td>
-</tr>
-<tr class="even">
-<td>7</td>
-<td>[1997,2456)</td>
-</tr>
-<tr class="odd">
-<td>8</td>
-<td>[2456,∞)</td>
-</tr>
-</tbody>
-</table>
+| Split | KeyRange     |
+| ----- | ------------ |
+| 0     | \[-∞,3)      |
+| 1     | \[3,224)     |
+| 2     | \[224,712)   |
+| 3     | \[712,717)   |
+| 4     | \[717,1265)  |
+| 5     | \[1265,1724) |
+| 6     | \[1724,1997) |
+| 7     | \[1997,2456) |
+| 8     | \[2456,∞)    |
 
 Given the schema for `  ExampleTable  ` above, the primary key space is partitioned into splits. For example: If there is a row in `  ExampleTable  ` with an `  Id  ` of `  3700  ` , it will live in Split 8. As detailed above, Split 8 itself is replicated across multiple machines.
+
+<https://docs.cloud.google.com/spanner/docs/images/api_layer.png>
 
 In this example Spanner instance, the customer has five nodes, and the instance is replicated across three zones. The nine splits are numbered 0-8, with Paxos leaders for each split being darkly shaded. The splits also have replicas in each zone (lightly shaded). The distribution of splits among the nodes may be different in each zone, and the Paxos leaders do not all reside in the same zone. This flexibility helps Spanner to be more robust to certain kinds of load profiles and failure modes.
 
@@ -122,26 +87,12 @@ If multiple splits are involved, an extra layer of coordination (using the stand
 
 Let's say the table contains four thousand rows:
 
-<table>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>"one"</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>"two"</td>
-</tr>
-<tr class="odd">
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="even">
-<td>4000</td>
-<td>"four thousand"</td>
-</tr>
-</tbody>
-</table>
+|      |                 |
+| ---- | --------------- |
+| 1    | "one"           |
+| 2    | "two"           |
+| ...  | ...             |
+| 4000 | "four thousand" |
 
 And let's say the client wants to read the value for row `  1000  ` and write a value to rows `  2000  ` , `  3000  ` , and `  4000  ` within a transaction. This will be executed within a read-write transaction as follows:
 

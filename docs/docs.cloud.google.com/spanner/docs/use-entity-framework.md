@@ -6,26 +6,24 @@ The [Spanner Entity Framework Core provider](https://github.com/googleapis/dotne
 
 To set up the Spanner Entity Framework Core provider in your application, add the following dependency.
 
-``` text
-<Project Sdk="Microsoft.NET.Sdk">
+    <Project Sdk="Microsoft.NET.Sdk">
+    
+      <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <OutputType>Exe</OutputType>
+      </PropertyGroup>
+    
+      ...
+    
+      <ItemGroup>
+        <PackageReference Include="Google.Cloud.EntityFrameworkCore.Spanner" Version="3.2.0" />
+      </ItemGroup>
+    
+      ...
+    
+    </Project>
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <OutputType>Exe</OutputType>
-  </PropertyGroup>
-
-  ...
-
-  <ItemGroup>
-    <PackageReference Include="Google.Cloud.EntityFrameworkCore.Spanner" Version="3.2.0" />
-  </ItemGroup>
-
-  ...
-
-</Project>
-```
-
-As authentication for the Spanner Entity Framework Core provider, the [service account JSON credentials](/docs/authentication/getting-started) file location should be provided in the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable. Otherwise, the provider can also use the default credentials set in the Google Cloud CLI `  gcloud  ` application.
+As authentication for the Spanner Entity Framework Core provider, the [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location should be provided in the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable. Otherwise, the provider can also use the default credentials set in the Google Cloud CLI `  gcloud  ` application.
 
 ## Use the Spanner Entity Framework Core provider
 
@@ -38,4 +36,4 @@ For more information about the available features, limitations of the provider, 
   - File a [GitHub issue](https://github.com/googleapis/dotnet-spanner-entity-framework/issues) to report a bug or ask a question about the Spanner Entity Framework provider.
   - Learn more about [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) .
   - Learn more about [NuGet](https://www.nuget.org/) .
-  - Learn about authorization and authentication credentials in [Getting started with authentication](/docs/authentication/getting-started) .
+  - Learn about authorization and authentication credentials in [Getting started with authentication](https://docs.cloud.google.com/docs/authentication/getting-started) .

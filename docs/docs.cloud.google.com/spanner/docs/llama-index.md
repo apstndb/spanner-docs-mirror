@@ -1,14 +1,14 @@
 **Preview — Spanner integration with LlamaIndex**
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 You can build large language model (LLM) applications that use graph retrieval-augmented generation (GraphRAG) with [LlamaIndex](https://www.llamaindex.ai/) and Spanner Graph.
 
 Spanner Graph integrates with LlamaIndex through its property graph store capabilities to let you use the following to create data retrieval workflows:
 
-  - **[Property graph store](#property-graph-store)** : Lets you represent data as a graph by storing nodes and edges in a graph database. You can use the graph database to query for complex relationships in your data.
+  - **[Property graph store](https://docs.cloud.google.com/spanner/docs/llama-index#property-graph-store)** : Lets you represent data as a graph by storing nodes and edges in a graph database. You can use the graph database to query for complex relationships in your data.
 
-  - **[Graph retrievers](#graph-retrievers)** : Lets you use an LLM to translate a user's natural language question into a query for the graph store. This enables applications to answer questions using the structured relationships in the graph data.
+  - **[Graph retrievers](https://docs.cloud.google.com/spanner/docs/llama-index#graph-retrievers)** : Lets you use an LLM to translate a user's natural language question into a query for the graph store. This enables applications to answer questions using the structured relationships in the graph data.
 
 ## What is LlamaIndex?
 
@@ -90,10 +90,10 @@ To learn how to use graph retrievers with Spanner to answer questions, see the [
 
 ## What's next
 
-  - To learn how to use Spanner with other Google Cloud products to build generative AI applications, see [Spanner AI overview](/spanner/docs/spanner-ai-overview) .
+  - To learn how to use Spanner with other Google Cloud products to build generative AI applications, see [Spanner AI overview](https://docs.cloud.google.com/spanner/docs/spanner-ai-overview) .
 
-  - To learn about vector search in Spanner, see [Use vector search with Spanner Graph](/spanner/docs/graph/perform-vector-similarity-search) .
+  - To learn about vector search in Spanner, see [Use vector search with Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/perform-vector-similarity-search) .
 
-  - To learn how to use Spanner to store vector embeddings, see [Get Spanner text embeddings](/spanner/docs/ml-tutorial-embeddings) .
+  - To learn how to use Spanner to store vector embeddings, see [Get Spanner text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
 
-  - To learn more about machine learning with Spanner, see the [Vertex AI integration overview](/spanner/docs/ml) .
+  - To learn more about machine learning with Spanner, see the [Vertex AI integration overview](https://docs.cloud.google.com/spanner/docs/ml) .

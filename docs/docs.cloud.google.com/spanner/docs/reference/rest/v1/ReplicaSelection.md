@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ReplicaSelection#SCHEMA_REPRESENTATION)
 
 ReplicaSelection identifies replicas with common properties.
 
@@ -13,7 +13,7 @@ ReplicaSelection identifies replicas with common properties.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;location&quot;: string
 }</code></pre></td>
 </tr>

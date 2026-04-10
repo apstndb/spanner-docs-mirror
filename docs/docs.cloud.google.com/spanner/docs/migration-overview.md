@@ -2,13 +2,13 @@ This section provides an overview of how to migrate your database to Spanner. Th
 
 A typical Spanner migration involves the following stages:
 
-1.  [Assess your migration](/spanner/docs/assess-migration) .
-2.  [Migrate your schema](/spanner/docs/schema-migration) .
-3.  [Modify your application code](/spanner/docs/application-migration) .
-4.  [Optimize your schema and application performance](/spanner/docs/optimize-schema-performance) .
-5.  [Migrate your data](/spanner/docs/data-migration) .
-6.  [Validate the migration](/spanner/docs/data-validation) .
-7.  [Configure cutover and fallback mechanisms](/spanner/docs/cutover-fallback-mechanisms) .
+1.  [Assess your migration](https://docs.cloud.google.com/spanner/docs/assess-migration) .
+2.  [Migrate your schema](https://docs.cloud.google.com/spanner/docs/schema-migration) .
+3.  [Modify your application code](https://docs.cloud.google.com/spanner/docs/application-migration) .
+4.  [Optimize your schema and application performance](https://docs.cloud.google.com/spanner/docs/optimize-schema-performance) .
+5.  [Migrate your data](https://docs.cloud.google.com/spanner/docs/data-migration) .
+6.  [Validate the migration](https://docs.cloud.google.com/spanner/docs/data-validation) .
+7.  [Configure cutover and fallback mechanisms](https://docs.cloud.google.com/spanner/docs/cutover-fallback-mechanisms) .
 
 Depending on the stage of the migration you're in, you might need to consult your organization's network administrator, database administrator, or application developers to complete that migration steps outlined.
 
@@ -16,4 +16,4 @@ You can use the previously described high-level migration stages if you want to 
 
 ## Source-specific migration guides
 
-  - MySQL: [Migrate from MySQL to Spanner](/spanner/docs/migrating-mysql-to-spanner) .
+  - MySQL: [Migrate from MySQL to Spanner](https://docs.cloud.google.com/spanner/docs/migrating-mysql-to-spanner) .

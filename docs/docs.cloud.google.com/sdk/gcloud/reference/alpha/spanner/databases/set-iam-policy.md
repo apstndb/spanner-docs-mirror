@@ -14,7 +14,7 @@ EXAMPLES
 
 The following command reads an IAM policy defined in a JSON file `  policy.json  ` and sets it for a spanner database with the ID `  my-database-id  ` :
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases set-iam-policy my-database-id --instance=my-instance-id policy.json
 ```
 
@@ -64,10 +64,10 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner databases set-iam-policy
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases set-iam-policy
 ```

@@ -1,4 +1,4 @@
-This page explains how to use the Kafka connector to consume and forward Spanner [change streams](/spanner/docs/change-streams) data.
+This page explains how to use the Kafka connector to consume and forward Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) data.
 
 ## Core concepts
 
@@ -10,19 +10,19 @@ The following describes core concepts of the Kafka connector.
 
 ### Kafka connector
 
-The Kafka connector provides an abstraction over the Spanner API to publish Spanner change streams to Kafka. With this connector, you don't have to manage the change streams partition lifecycle, which is necessary when you [use the Spanner API directly](/spanner/docs/change-streams/details#query) .
+The Kafka connector provides an abstraction over the Spanner API to publish Spanner change streams to Kafka. With this connector, you don't have to manage the change streams partition lifecycle, which is necessary when you [use the Spanner API directly](https://docs.cloud.google.com/spanner/docs/change-streams/details#query) .
 
-The Kafka connector produces a change event for every data change record mod and sends change event records downstream into a separate Kafka topic for each change stream-tracked table. A [data change record mod](/spanner/docs/change-streams/details#data-change-records) represents a single modification (insert, update, or delete) that was captured. A single data change record can contain more than one mod.
+The Kafka connector produces a change event for every data change record mod and sends change event records downstream into a separate Kafka topic for each change stream-tracked table. A [data change record mod](https://docs.cloud.google.com/spanner/docs/change-streams/details#data-change-records) represents a single modification (insert, update, or delete) that was captured. A single data change record can contain more than one mod.
 
 ### Kafka connector output
 
 The Kafka connector forwards change streams records directly into a separate Kafka topic. The output topic name should be `  connector_name  ` . `  table_name  ` . If the topic doesn't exist, the Kafka connector automatically creates a topic under that name.
 
-You can also configure [topic routing transformations](https://debezium.io/documentation/reference/stable/transformations/topic-routing.html) to re-route records into topics that you specify. If you want to use topic routing, disable the [low watermark](/spanner/docs/change-streams/use-kafka#low-watermark) functionality.
+You can also configure [topic routing transformations](https://debezium.io/documentation/reference/stable/transformations/topic-routing.html) to re-route records into topics that you specify. If you want to use topic routing, disable the [low watermark](https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka#low-watermark) functionality.
 
 #### Record ordering
 
-Records are ordered by commit timestamp per primary key in the Kafka topics. Records belonging to different primary keys do not have ordering guarantees. Records with the same primary key are stored in the same Kafka topic partition. If you want to process whole transactions, you can also use the [data change record's](/spanner/docs/change-streams/details#data-change-records) `  server_transaction_id  ` and `  number_of_records_in_transaction  ` fields to assemble a Spanner transaction.
+Records are ordered by commit timestamp per primary key in the Kafka topics. Records belonging to different primary keys do not have ordering guarantees. Records with the same primary key are stored in the same Kafka topic partition. If you want to process whole transactions, you can also use the [data change record's](https://docs.cloud.google.com/spanner/docs/change-streams/details#data-change-records) `  server_transaction_id  ` and `  number_of_records_in_transaction  ` fields to assemble a Spanner transaction.
 
 #### Change events
 
@@ -46,249 +46,247 @@ If you configure the connector to produce JSON events, the output change event c
 
 The following is an example of a data change event:
 
-``` text
-{
-  // The schema for the Spanner key.
-  "schema": {
-    "type": "struct",
-    "name": "customers.Key",
-    "optional": false,
-    "fields": [
-      {
-        "type": "int64",
-        "optional": "false"
-        "field": "false"
-      }
-    ]
-  },
-  // The value of the Spanner key.
-  "payload": {
-      "id": "1"
-  },
-  // The schema for the payload, which contains the before and after values
-  // of the changed row. The schema for the payload contains all the
-  // columns that the change stream has tracked since the connector start
-  // time.
-  "schema": { 
-    "type": "struct",
-    "fields": [
-      {
-        // The schema for the before values of the changed row.
+    {
+      // The schema for the Spanner key.
+      "schema": {
+        "type": "struct",
+        "name": "customers.Key",
+        "optional": false,
+        "fields": [
+          {
+            "type": "int64",
+            "optional": "false"
+            "field": "false"
+          }
+        ]
+      },
+      // The value of the Spanner key.
+      "payload": {
+          "id": "1"
+      },
+      // The schema for the payload, which contains the before and after values
+      // of the changed row. The schema for the payload contains all the
+      // columns that the change stream has tracked since the connector start
+      // time.
+      "schema": { 
         "type": "struct",
         "fields": [
-            {
+          {
+            // The schema for the before values of the changed row.
+            "type": "struct",
+            "fields": [
+                {
+                    "type": "int32",
+                    "optional": false,
+                    "field": "id"
+                },
+                {
+                    "type": "string",
+                    "optional": true,
+                    "field": "first_name"
+                }
+            ],
+            "optional": true,
+            "name": "customers.Value",
+            "field": "before"
+          },
+          {
+            // The schema for the after values of the changed row.
+            "type": "struct",
+            "fields": [
+              {
                 "type": "int32",
                 "optional": false,
                 "field": "id"
+              },
+              {
+                "type": "string",
+                "optional": false,
+                "field": "first_name"
+              }
+            ],
+              "optional": true,
+              "name": "customers.Value",
+              "field": "after"
             },
             {
-                "type": "string",
-                "optional": true,
-                "field": "first_name"
-            }
-        ],
-        "optional": true,
-        "name": "customers.Value",
-        "field": "before"
-      },
-      {
-        // The schema for the after values of the changed row.
-        "type": "struct",
-        "fields": [
-          {
-            "type": "int32",
-            "optional": false,
-            "field": "id"
-          },
+              // The schema for the source metadata for the event.
+              "type": "struct",
+              "fields": [
+                {
+                    "type": "string",
+                    "optional": false,
+                    "field": "version"
+                },
+                {
+                    "type": "string",
+                    "optional": false,
+                    "field": "connector"
+                },
+                {
+                    "type": "string",
+                    "optional": false,
+                    "field": "name"
+                },
+                {
+                    "type": "int64",
+                    "optional": false,
+                    "field": "ts_ms"
+                },
+                {
+                    "type": "boolean",
+                    "optional": true,
+                    "default": false,
+                    "field": "snapshot"
+                },
+                {
+                    "type": "string",
+                    "optional": false,
+                    "field": "db"
+                },
+                {
+                    "type": "string",
+                    "optional": false,
+                    "field": "sequence"
+                },
+                {
+                    "type": "string",
+                    "optional": false,
+                    "field": "project_id"
+                },
+                {
+                    "type": "string",
+                    "optional": false,
+                    "field": "instance_id"
+                },
+                {
+                    "type": "string",
+                    "optional": false,
+                    "field": "database_id"
+                },
+                {
+                    "type": "string",
+                    "optional": false,
+                    "field": "change_stream_name"
+                },
+                {
+                    "type": "string",
+                    "optional": true,
+                    "field": "table"
+                }
+                {
+                    "type": "string",
+                    "optional": true,
+                    "field": "server_transaction_id"
+                }
+                {
+                    "type": "int64",
+                    "optional": true,
+                    "field": "low_watermark"
+                }
+                {
+                    "type": "int64",
+                    "optional": true,
+                    "field": "read_at_timestamp"
+                }
+                {
+                    "type": "int64",
+                    "optional": true,
+                    "field": "number_of_records_in_transaction"
+                }
+                {
+                    "type": "string",
+                    "optional": true,
+                    "field": "transaction_tag"
+                }
+                {
+                    "type": "boolean",
+                    "optional": true,
+                    "field": "system_transaction"
+                }
+                {
+                    "type": "string",
+                    "optional": true,
+                    "field": "value_capture_type"
+                }
+                {
+                    "type": "string",
+                    "optional": true,
+                    "field": "partition_token"
+                }
+                {
+                    "type": "int32",
+                    "optional": true,
+                    "field": "mod_number"
+                }
+                {
+                    "type": "boolean",
+                    "optional": true,
+                    "field": "is_last_record_in_transaction_in_partition"
+                }
+                {
+                    "type": "int64",
+                    "optional": true,
+                    "field": "number_of_partitions_in_transaction"
+                }
+              ],
+              "optional": false,
+              "name": "io.debezium.connector.spanner.Source",
+              "field": "source"
+            },
+          ]
           {
             "type": "string",
             "optional": false,
-            "field": "first_name"
+            "field": "op"
+          },
+          {
+            "type": "int64",
+            "optional": true,
+            "field": "ts_ms"
           }
         ],
-          "optional": true,
-          "name": "customers.Value",
-          "field": "after"
-        },
-        {
-          // The schema for the source metadata for the event.
-          "type": "struct",
-          "fields": [
-            {
-                "type": "string",
-                "optional": false,
-                "field": "version"
-            },
-            {
-                "type": "string",
-                "optional": false,
-                "field": "connector"
-            },
-            {
-                "type": "string",
-                "optional": false,
-                "field": "name"
-            },
-            {
-                "type": "int64",
-                "optional": false,
-                "field": "ts_ms"
-            },
-            {
-                "type": "boolean",
-                "optional": true,
-                "default": false,
-                "field": "snapshot"
-            },
-            {
-                "type": "string",
-                "optional": false,
-                "field": "db"
-            },
-            {
-                "type": "string",
-                "optional": false,
-                "field": "sequence"
-            },
-            {
-                "type": "string",
-                "optional": false,
-                "field": "project_id"
-            },
-            {
-                "type": "string",
-                "optional": false,
-                "field": "instance_id"
-            },
-            {
-                "type": "string",
-                "optional": false,
-                "field": "database_id"
-            },
-            {
-                "type": "string",
-                "optional": false,
-                "field": "change_stream_name"
-            },
-            {
-                "type": "string",
-                "optional": true,
-                "field": "table"
-            }
-            {
-                "type": "string",
-                "optional": true,
-                "field": "server_transaction_id"
-            }
-            {
-                "type": "int64",
-                "optional": true,
-                "field": "low_watermark"
-            }
-            {
-                "type": "int64",
-                "optional": true,
-                "field": "read_at_timestamp"
-            }
-            {
-                "type": "int64",
-                "optional": true,
-                "field": "number_of_records_in_transaction"
-            }
-            {
-                "type": "string",
-                "optional": true,
-                "field": "transaction_tag"
-            }
-            {
-                "type": "boolean",
-                "optional": true,
-                "field": "system_transaction"
-            }
-            {
-                "type": "string",
-                "optional": true,
-                "field": "value_capture_type"
-            }
-            {
-                "type": "string",
-                "optional": true,
-                "field": "partition_token"
-            }
-            {
-                "type": "int32",
-                "optional": true,
-                "field": "mod_number"
-            }
-            {
-                "type": "boolean",
-                "optional": true,
-                "field": "is_last_record_in_transaction_in_partition"
-            }
-            {
-                "type": "int64",
-                "optional": true,
-                "field": "number_of_partitions_in_transaction"
-            }
-          ],
-          "optional": false,
-          "name": "io.debezium.connector.spanner.Source",
-          "field": "source"
-        },
-      ]
-      {
-        "type": "string",
         "optional": false,
-        "field": "op"
+        "name": "connector_name.customers.Envelope"
       },
-      {
-        "type": "int64",
-        "optional": true,
-        "field": "ts_ms"
-      }
-    ],
-    "optional": false,
-    "name": "connector_name.customers.Envelope"
-  },
-  "payload": {
-    // The values of the row before the event.
-    "before": null,
-    // The values of the row after the event.
-    "after": { 
-        "id": 1,
-        "first_name": "Anne",
+      "payload": {
+        // The values of the row before the event.
+        "before": null,
+        // The values of the row after the event.
+        "after": { 
+            "id": 1,
+            "first_name": "Anne",
+        }
+      },
+      // The source metadata.
+      "source": {
+        "version": "{debezium-version}",
+        "connector": "spanner",
+        "name": "spanner_connector",
+        "ts_ms": 1670955531785,
+        "snapshot": "false",
+        "db": "database",
+        "sequence": "1",
+        "project_id": "project",
+        "instance_id": "instance",
+        "database_id": "database",
+        "change_stream_name": "change_stream",
+        "table": "customers",
+        "server_transaction_id": "transaction_id",
+        "low_watermark": 1670955471635,
+        "read_at_timestamp": 1670955531791,
+        "number_records_in_transaction": 2,
+        "transaction_tag": "",
+        "system_transaction": false,
+        "value_capture_type": "OLD_AND_NEW_VALUES",
+        "partition_token": "partition_token",
+        "mod_number": 0,
+        "is_last_record_in_transaction_in_partition": true,
+        "number_of_partitions_in_transaction": 1
+      },
+      "op": "c", 
+      "ts_ms": 1559033904863 //
     }
-  },
-  // The source metadata.
-  "source": {
-    "version": "{debezium-version}",
-    "connector": "spanner",
-    "name": "spanner_connector",
-    "ts_ms": 1670955531785,
-    "snapshot": "false",
-    "db": "database",
-    "sequence": "1",
-    "project_id": "project",
-    "instance_id": "instance",
-    "database_id": "database",
-    "change_stream_name": "change_stream",
-    "table": "customers",
-    "server_transaction_id": "transaction_id",
-    "low_watermark": 1670955471635,
-    "read_at_timestamp": 1670955531791,
-    "number_records_in_transaction": 2,
-    "transaction_tag": "",
-    "system_transaction": false,
-    "value_capture_type": "OLD_AND_NEW_VALUES",
-    "partition_token": "partition_token",
-    "mod_number": 0,
-    "is_last_record_in_transaction_in_partition": true,
-    "number_of_partitions_in_transaction": 1
-  },
-  "op": "c", 
-  "ts_ms": 1559033904863 //
-}
-```
 
 #### Low watermark
 
@@ -328,15 +326,15 @@ The Kafka connector supports at-least-once delivery guarantee.
 
 The Kafka connector is tolerant of failures. As the Kafka connector reads changes and produces events, it records the last commit timestamp processed for each change stream partition. If the Kafka connector stops for any reason (including communication failures, network problems, or software failures), upon restart the Kafka connector continues streaming records where it last left off.
 
-The Kafka connector reads the information schema at the Kafka connector's start timestamp to retrieve schema information. By default, Spanner cannot read the information schema at read timestamps before the [version retention period](/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) , which defaults to one hour. If you want to start the connector from earlier than one hour into the past, you must increase the database's version retention period.
+The Kafka connector reads the information schema at the Kafka connector's start timestamp to retrieve schema information. By default, Spanner cannot read the information schema at read timestamps before the [version retention period](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) , which defaults to one hour. If you want to start the connector from earlier than one hour into the past, you must increase the database's version retention period.
 
 ## Set up the Kafka connector
 
 ### Create a change stream
 
-For details on how to create a change stream, see [Create a change stream](/spanner/docs/change-streams/manage#create) . To continue with the next steps, a Spanner instance with a change stream configured is required.
+For details on how to create a change stream, see [Create a change stream](https://docs.cloud.google.com/spanner/docs/change-streams/manage#create) . To continue with the next steps, a Spanner instance with a change stream configured is required.
 
-Note that if you want both changed and unchanged columns to be returned on each data change event, use the value capture type `  NEW_ROW  ` . For more information, see [value capture type](/spanner/docs/change-streams#value-capture-type) .
+Note that if you want both changed and unchanged columns to be returned on each data change event, use the value capture type `  NEW_ROW  ` . For more information, see [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) .
 
 ### Install the Kafka connector JAR
 
@@ -350,7 +348,7 @@ For more information on how to install Debezium-based Kafka connector JARs, see 
 
 The following is an example of the configuration for a Kafka connector that connects to a change stream called `  changeStreamAll  ` in the database `  users  ` in instance `  test-instance  ` and project `  test-project  ` .
 
-``` json
+``` json suppresswarning
 "name": "spanner-connector",
 "config": {
     "connector.class": "io.debezium.connector.spanner.SpannerConnector",
@@ -384,7 +382,7 @@ This configuration contains the following:
 
   - The maximum number of tasks.
 
-For a complete list of connector properties, see [Kafka connector configuration properties](/spanner/docs/change-streams/use-kafka#kafka-connector-configuration-properties) .
+For a complete list of connector properties, see [Kafka connector configuration properties](https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka#kafka-connector-configuration-properties) .
 
 ### Add the connector configuration to Kafka Connect
 
@@ -398,7 +396,7 @@ You can send this configuration with a `  POST  ` command to a running Kafka Con
 
 The following is an example `  POST  ` command:
 
-``` text
+``` notranslate
 POST /connectors HTTP/1.1
 Host: http://localhost:8083
 Accept: application/json
@@ -419,7 +417,7 @@ Accept: application/json
 
 Example successful response:
 
-``` text
+``` notranslate
 HTTP/1.1 201 Created
 Content-Type: application/json
 {
@@ -448,7 +446,7 @@ To update the connector configuration, send a `  PUT  ` command to the running K
 
 Assume that we have a connector running with the configuration from the previous section. The following is an example `  PUT  ` command:
 
-``` text
+``` notranslate
 PUT /connectors/spanner-connector/config HTTP/1.1
 Host: http://localhost:8083
 Accept: application/json
@@ -466,7 +464,7 @@ Accept: application/json
 
 Example successful response:
 
-``` text
+``` notranslate
 HTTP/1.1 200 OK
 Content-Type: application/json
 {
@@ -488,14 +486,14 @@ To stop the connector, send a `  DELETE  ` command to the running Kafka Connect 
 
 Assume that we have a connector running with the configuration from the previous section. The following is an example `  DELETE  ` command:
 
-``` text
+``` notranslate
 DELETE /connectors/spanner-connector HTTP/1.1
 Host: http://localhost:8083
 ```
 
 Example successful response:
 
-``` text
+``` notranslate
 HTTP/1.1 204 No Content
 ```
 
@@ -555,7 +553,7 @@ The following are required configuration properties for the connector:
 
   - `  gcp.spanner.credentials.path  ` : The file path to the service account key JSON object. Required if the above field isn't provided.
 
-  - `  gcp.spanner.database.role  ` : The Spanner database role to use. This is required only when the change stream is secured with fine-grained access control. The database role must have the `  SELECT  ` privilege on the change stream and the `  EXECUTE  ` privilege on the change stream's read function. For more information, see [Fine-grained access control for change streams](../fgac-change-streams) .
+  - `  gcp.spanner.database.role  ` : The Spanner database role to use. This is required only when the change stream is secured with fine-grained access control. The database role must have the `  SELECT  ` privilege on the change stream and the `  EXECUTE  ` privilege on the change stream's read function. For more information, see [Fine-grained access control for change streams](https://docs.cloud.google.com/spanner/docs/fgac-change-streams) .
 
 The following advanced configuration properties have defaults that work in most situations and therefore rarely need to be specified in the connector's configuration:
 

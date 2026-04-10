@@ -15,7 +15,7 @@ The following sample demonstrate how to use `  curl  ` to invoke the `  list_dat
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
 curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 --header &#39;content-type: application/json&#39; \
 --header &#39;accept: application/json, text/event-stream&#39; \
@@ -52,7 +52,7 @@ The request for `  ListDatabases  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;parent&quot;: string,
   &quot;pageSize&quot;: integer,
   &quot;pageToken&quot;: string
@@ -98,7 +98,7 @@ The response for `  ListDatabases  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;databases&quot;: [
     {
       object (Database)
@@ -137,7 +137,7 @@ Databases that matched the request.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;state&quot;: enum (State),
   &quot;createTime&quot;: string,
@@ -269,7 +269,7 @@ Output only. Applicable only for databases that use dual-region instance configu
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;seconds&quot;: string,
   &quot;nanos&quot;: integer
 }</code></pre></td>
@@ -304,7 +304,7 @@ Non-negative fractions of a second at nanosecond resolution. This field is the n
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;sourceType&quot;: enum (RestoreSourceType),
 
   // Union field source_info can be only one of the following:
@@ -346,7 +346,7 @@ Information about the backup used to restore the database. The backup may no lon
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;backup&quot;: string,
   &quot;versionTime&quot;: string,
   &quot;createTime&quot;: string,
@@ -399,7 +399,7 @@ Name of the database the backup was created from.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;kmsKeyName&quot;: string,
   &quot;kmsKeyNames&quot;: [
     string
@@ -442,7 +442,7 @@ The keys referenced by `  kms_key_names  ` must fully cover all regions of the d
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;encryptionType&quot;: enum (Type),
   &quot;encryptionStatus&quot;: {
     object (Status)
@@ -486,7 +486,7 @@ Output only. A Cloud KMS key version that is being used to protect the database 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;code&quot;: integer,
   &quot;message&quot;: string,
   &quot;details&quot;: [
@@ -536,7 +536,7 @@ An object containing fields of an arbitrary type. An additional field `  "@type"
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;typeUrl&quot;: string,
   &quot;value&quot;: string
 }</code></pre></td>
@@ -583,7 +583,7 @@ A base64-encoded string.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;quorumType&quot;: {
     object (QuorumType)
   },
@@ -636,7 +636,7 @@ Output only. The etag is used for optimistic concurrency control as a way to hel
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field type can be only one of the following:
   &quot;singleRegion&quot;: {
@@ -680,7 +680,7 @@ Dual-region quorum type.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;servingLocation&quot;: string
 }</code></pre></td>
 </tr>

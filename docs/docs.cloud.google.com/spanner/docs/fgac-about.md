@@ -1,8 +1,8 @@
-Spanner fine-grained access control combines the benefits of [Identity and Access Management](/iam/docs) (IAM) with SQL role-based access control. With fine-grained access control, you define database roles, grant privileges to the roles, and create IAM policies to grant permissions on database roles to IAM principals. This page describes how to use fine-grained access control with Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
+Spanner fine-grained access control combines the benefits of [Identity and Access Management](https://docs.cloud.google.com/iam/docs) (IAM) with SQL role-based access control. With fine-grained access control, you define database roles, grant privileges to the roles, and create IAM policies to grant permissions on database roles to IAM principals. This page describes how to use fine-grained access control with Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 As an administrator, you must enable fine-grained access control for individual IAM principals. Principals for whom fine-grained access control is enabled ("fine-grained access control users") must assume a database role to access Spanner resources.
 
-Resource access for users who are are not fine-grained access control users is governed by IAM database-level roles. Fine-grained access control is fully compatible and can co-exist with existing IAM database-level access control. You can use it to access individual database objects. To control access to the entire database, use [IAM roles](/spanner/docs/iam) .
+Resource access for users who are are not fine-grained access control users is governed by IAM database-level roles. Fine-grained access control is fully compatible and can co-exist with existing IAM database-level access control. You can use it to access individual database objects. To control access to the entire database, use [IAM roles](https://docs.cloud.google.com/spanner/docs/iam) .
 
 **Note:** Spanner relies on IAM for identity management rather than managing user credentials within the database.
 
@@ -18,19 +18,15 @@ To manage fine-grained access control, you use the following DDL statements:
     
     ### GoogleSQL
     
-    ``` text
-    CREATE ROLE hr_rep;
-    GRANT SELECT ON TABLE employees TO ROLE hr_rep;
-    ```
+        CREATE ROLE hr_rep;
+        GRANT SELECT ON TABLE employees TO ROLE hr_rep;
     
     ### PostgreSQL
     
-    ``` text
-    CREATE ROLE hr_rep;
-    GRANT SELECT ON TABLE employees TO hr_rep;
-    ```
+        CREATE ROLE hr_rep;
+        GRANT SELECT ON TABLE employees TO hr_rep;
     
-    For more information on privileges, see [Fine-grained access control privileges reference](/spanner/docs/fgac-privileges) .
+    For more information on privileges, see [Fine-grained access control privileges reference](https://docs.cloud.google.com/spanner/docs/fgac-privileges) .
 
   - `  GRANT  ` statements for granting roles to other roles to create hierarchies of roles, with privilege inheritance.
 
@@ -44,7 +40,7 @@ The following are sample use cases for fine-grained access control:
 
 ## Spanner resources and their privileges
 
-The following is a list of Spanner resources and the [fine-grained access control privileges](/spanner/docs/fgac-privileges) that you can grant for them.
+The following is a list of Spanner resources and the [fine-grained access control privileges](https://docs.cloud.google.com/spanner/docs/fgac-privileges) that you can grant for them.
 
   - Schemas  
     You can grant the `  USAGE  ` privilege on schemas to specific database roles. For a non-default schema, database roles must have the `  USAGE  ` privilege to access the database objects. The privilege check looks like the following:
@@ -66,13 +62,13 @@ Yes: You can access the table.
   - Columns  
     You can grant `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` on a subset of columns in a table. The privilege is then valid only for those columns. `  DELETE  ` is not permitted at the column level.
   - Views  
-    You can grant `  SELECT  ` privilege on a view. Only `  SELECT  ` is supported for views. Spanner supports both invoker's rights views and definer's rights views. If you create a view with invoker's rights, to query the view, the database role or user needs the `  SELECT  ` privilege on the view, and also the `  SELECT  ` privilege on the underlying objects referenced in the view. If you create a view with definer's rights, to query the view, the database role or user only needs the `  SELECT  ` privilege on the view. For more information, see [Views overview](/spanner/docs/views) .
+    You can grant `  SELECT  ` privilege on a view. Only `  SELECT  ` is supported for views. Spanner supports both invoker's rights views and definer's rights views. If you create a view with invoker's rights, to query the view, the database role or user needs the `  SELECT  ` privilege on the view, and also the `  SELECT  ` privilege on the underlying objects referenced in the view. If you create a view with definer's rights, to query the view, the database role or user only needs the `  SELECT  ` privilege on the view. For more information, see [Views overview](https://docs.cloud.google.com/spanner/docs/views) .
   - Change streams  
-    You can grant `  SELECT  ` on change streams. You must also grant `  EXECUTE  ` on the read function associated with a change stream. For information, see [Fine-grained access control for change streams](/spanner/docs/fgac-change-streams) .
+    You can grant `  SELECT  ` on change streams. You must also grant `  EXECUTE  ` on the read function associated with a change stream. For information, see [Fine-grained access control for change streams](https://docs.cloud.google.com/spanner/docs/fgac-change-streams) .
   - Sequences  
-    You can grant `  SELECT  ` and `  UPDATE  ` on sequences. For information, see [Fine-grained access control for sequences](/spanner/docs/fgac-sequences) .
+    You can grant `  SELECT  ` and `  UPDATE  ` on sequences. For information, see [Fine-grained access control for sequences](https://docs.cloud.google.com/spanner/docs/fgac-sequences) .
   - Models  
-    You can grant `  EXECUTE  ` on models. For information, see [Fine-grained access control for models](/spanner/docs/fgac-models) .
+    You can grant `  EXECUTE  ` on models. For information, see [Fine-grained access control for models](https://docs.cloud.google.com/spanner/docs/fgac-models) .
 
 ## Fine-grained access control system roles
 
@@ -80,7 +76,7 @@ Fine-grained access control has predefined *system roles* for each database. Lik
 
 For example, a fine-grained access control user needs to be granted the `  spanner_sys_reader  ` system role to access Key Visualizer, and needs the `  spanner_info_reader  ` system role to be able to see unfiltered results when querying the `  INFORMATION_SCHEMA  ` tables.
 
-For more information, see [Fine-grained access control system roles](/spanner/docs/fgac-system-roles) .
+For more information, see [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
 
 ## Database role hierarchies and inheritance
 
@@ -90,19 +86,17 @@ For example, consider the following `  GRANT  ` statements:
 
 ### GoogleSQL
 
-``` text
-GRANT SELECT ON TABLE employees TO ROLE pii_access;
-GRANT ROLE pii_access TO ROLE hr_manager, hr_director;
-```
+    GRANT SELECT ON TABLE employees TO ROLE pii_access;
+    GRANT ROLE pii_access TO ROLE hr_manager, hr_director;
 
 ### PostgreSQL
 
-``` text
-GRANT SELECT ON TABLE employees TO pii_access;
-GRANT pii_access TO hr_manager, hr_director;
-```
+    GRANT SELECT ON TABLE employees TO pii_access;
+    GRANT pii_access TO hr_manager, hr_director;
 
 `  hr_manager  ` and `  hr_director  ` are members of role `  pii_access  ` , and inherit the `  SELECT  ` privilege on table `  employees  ` .
+
+![Privilege inheritance](https://docs.cloud.google.com/static/spanner/docs/images/role_hierarchy.png)
 
 `  hr_manager  ` and `  hr_director  ` can also have members, and those members would inherit the `  SELECT  ` privilege on `  employees  ` .
 
@@ -110,11 +104,11 @@ There are no limits on the depth of role hierarchies, but query performance migh
 
 ## Backup and restore
 
-Spanner [backups](/spanner/docs/backup) include database role definitions. When a database is restored from backup, database roles are re-created with their granted privileges. However, IAM policies are not a part of database backups, so you must re-grant access to database roles to principals in the restored database.
+Spanner [backups](https://docs.cloud.google.com/spanner/docs/backup) include database role definitions. When a database is restored from backup, database roles are re-created with their granted privileges. However, IAM policies are not a part of database backups, so you must re-grant access to database roles to principals in the restored database.
 
 ## Overview of setting up fine-grained access control
 
-The following are the high-level steps that you take to begin securing data with fine-grained access control. For details, see [Configure fine-grained access control](/spanner/docs/configure-fgac) .
+The following are the high-level steps that you take to begin securing data with fine-grained access control. For details, see [Configure fine-grained access control](https://docs.cloud.google.com/spanner/docs/configure-fgac) .
 
 You must be granted the `  roles/spanner.admin  ` or `  roles/spanner.databaseAdmin  ` IAM roles to perform these tasks.
 
@@ -132,12 +126,12 @@ You must be granted the `  roles/spanner.admin  ` or `  roles/spanner.databaseAd
 
 ## What's next
 
-  - [Access a database with fine-grained access control](/spanner/docs/access-with-fgac)
-  - [Fine-grained access control for change streams](/spanner/docs/fgac-change-streams)
-  - [Configure fine-grained access control](/spanner/docs/configure-fgac)
-  - [Fine-grained access control privileges reference](/spanner/docs/fgac-privileges)
-  - [Fine-grained access control system roles](/spanner/docs/fgac-system-roles)
-  - [GoogleSQL `  GRANT  ` and `  REVOKE  ` statements](/spanner/docs/reference/standard-sql/data-definition-language#grant_and_revoke_statements)
-  - [PostgreSQL `  GRANT  ` and `  REVOKE  ` statements](/spanner/docs/reference/postgresql/data-definition-language#grant_and_revoke_statements)
-  - [Fine-grained access control for sequences](/spanner/docs/fgac-sequences)
-  - [Fine-grained access control for models](/spanner/docs/fgac-models)
+  - [Access a database with fine-grained access control](https://docs.cloud.google.com/spanner/docs/access-with-fgac)
+  - [Fine-grained access control for change streams](https://docs.cloud.google.com/spanner/docs/fgac-change-streams)
+  - [Configure fine-grained access control](https://docs.cloud.google.com/spanner/docs/configure-fgac)
+  - [Fine-grained access control privileges reference](https://docs.cloud.google.com/spanner/docs/fgac-privileges)
+  - [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles)
+  - [GoogleSQL `  GRANT  ` and `  REVOKE  ` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#grant_and_revoke_statements)
+  - [PostgreSQL `  GRANT  ` and `  REVOKE  ` statements](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#grant_and_revoke_statements)
+  - [Fine-grained access control for sequences](https://docs.cloud.google.com/spanner/docs/fgac-sequences)
+  - [Fine-grained access control for models](https://docs.cloud.google.com/spanner/docs/fgac-models)

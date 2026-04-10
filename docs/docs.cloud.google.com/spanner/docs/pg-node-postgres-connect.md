@@ -2,22 +2,20 @@ This page explains how to connect the PostgreSQL node-postgres driver to a Postg
 
 1.  Verify that PGAdapter is running on the same machine as the application that is connecting using the PostgreSQL node-postgres driver.
     
-    For more information, see [Start PGAdapter](/spanner/docs/pgadapter-start) .
+    For more information, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
 2.  Specify the database server host and port in the `  node-postgres  ` connection properties:
     
-    ``` text
-    const { Client } = require('pg');
-    const client = new Client({
-      host: 'APPLICATION_HOST',
-      port: PORT,
-      database: 'DATABASE_NAME',
-    });
-    await client.connect();
-    const res = await client.query("select 'Hello world!' as hello");
-    console.log(res.rows[0].hello);
-    await client.end();
-    ```
+        const { Client } = require('pg');
+        const client = new Client({
+          host: 'APPLICATION_HOST',
+          port: PORT,
+          database: 'DATABASE_NAME',
+        });
+        await client.connect();
+        const res = await client.query("select 'Hello world!' as hello");
+        console.log(res.rows[0].hello);
+        await client.end();
     
     Replace the following:
     
@@ -30,17 +28,15 @@ This section explains how to use Unix domain sockets to connect a PostgreSQL nod
 
 To use Unix domain sockets, PGAdapter must be running on the same host as the client application.
 
-``` text
-const client = new Client({
-  host: '/tmp',
-  port: PORT,
-  database: 'DATABASE_NAME',
-});
-await client.connect();
-const res = await client.query("select 'Hello world!' as hello");
-console.log(res.rows[0].hello);
-await client.end();
-```
+    const client = new Client({
+      host: '/tmp',
+      port: PORT,
+      database: 'DATABASE_NAME',
+    });
+    await client.connect();
+    const res = await client.query("select 'Hello world!' as hello");
+    console.log(res.rows[0].hello);
+    await client.end();
 
 Replace the following:
 
@@ -49,5 +45,5 @@ Replace the following:
 
 ## What's next
 
-  - Learn more about [PGAdapter](/spanner/docs/pgadapter) .
+  - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
   - For more information about PostgreSQL node-postgres driver connection options, see [node-postgres Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/node-postgres.md) in the PGAdapter GitHub repository.

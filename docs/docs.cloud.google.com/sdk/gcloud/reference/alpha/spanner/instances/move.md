@@ -14,7 +14,7 @@ EXAMPLES
 
 To move the Cloud Spanner instance, which has two CMEK-enabled databases db1 and db2 and a database db3 with Google-managed encryption keys, to the target instance configuration nam3 (us-east4, us-east1, us-central1), run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instances move my-instance-id --target-config=nam3 --target-database-move-configs=^:^database-id=db1:kms-key-names=projects/myproject/locations/us-east4/keyRings/mykeyring/cryptoKeys/cmek-key,projects/myproject/locations/us-east1/keyRings/mykeyring/cryptoKeys/cmek-key,projects/myproject/locations/us-central1/keyRings/mykeyring/cryptoKeys/cmek-key --target-database-move-configs=^:^database-id=db2:kms-key-names=projects/myproject/locations/us-east4/keyRings/mykeyring/cryptoKeys/cmek-key,projects/myproject/locations/us-east1/keyRings/mykeyring/cryptoKeys/cmek-key,projects/myproject/locations/us-central1/keyRings/mykeyring/cryptoKeys/cmek-key
 ```
 
@@ -40,21 +40,15 @@ OPTIONAL FLAGS
     
     `  Shorthand Example:  `
     
-    ``` text
-    --target-database-move-configs=database-id=string,kms-key-names=string --target-database-move-configs=database-id=string,kms-key-names=string
-    ```
+        --target-database-move-configs=database-id=string,kms-key-names=string --target-database-move-configs=database-id=string,kms-key-names=string
     
     `  JSON Example:  `
     
-    ``` text
-    --target-database-move-configs='[{"database-id": "string", "kms-key-names": "string"}]'
-    ```
+        --target-database-move-configs='[{"database-id": "string", "kms-key-names": "string"}]'
     
     `  File Example:  `
     
-    ``` text
-    --target-database-move-configs=path_to_file.(yaml|json)
-    ```
+        --target-database-move-configs=path_to_file.(yaml|json)
 
 GCLOUD WIDE FLAGS
 
@@ -66,10 +60,10 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner instances move
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner instances move
 ```

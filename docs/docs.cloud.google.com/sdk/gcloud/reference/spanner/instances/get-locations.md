@@ -14,7 +14,7 @@ EXAMPLES
 
 To get the location of every replica in a Cloud Spanner instance in this project, run:
 
-``` text
+``` wrap-code
 gcloud spanner instances get-locations my-instance-id
 ```
 
@@ -38,10 +38,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instances get-locations
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner instances get-locations
 ```

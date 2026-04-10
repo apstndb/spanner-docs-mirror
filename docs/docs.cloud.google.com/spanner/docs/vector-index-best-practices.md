@@ -1,12 +1,12 @@
 **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-This page describes vector indexing best practices that optimize your [vector indexes](/spanner/docs/vector-indexes) and improve [approximate nearest neighbor (ANN) query results](/spanner/docs/find-approximate-nearest-neighbors#query-vector-embeddings) .
+This page describes vector indexing best practices that optimize your [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) and improve [approximate nearest neighbor (ANN) query results](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#query-vector-embeddings) .
 
 ## Tune the vector search options
 
-The most optimal values for your vector index options depend on your use case, vector dataset, and on the query vectors. You can set and tune these values by creating a new vector index and setting the [`  index_option_list  `](/spanner/docs/reference/standard-sql/data-definition-language#index_option_list) in the `  CREATE VECTOR INDEX  ` statement. You might need to perform iterative tuning to find the best values for your specific workload.
+The most optimal values for your vector index options depend on your use case, vector dataset, and on the query vectors. You can set and tune these values by creating a new vector index and setting the [`  index_option_list  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#index_option_list) in the `  CREATE VECTOR INDEX  ` statement. You might need to perform iterative tuning to find the best values for your specific workload.
 
 Here are some helpful guidelines to follow when picking appropriate values:
 
@@ -40,11 +40,11 @@ To rebuild your vector index without downtime:
 
 2.  Spanner automatically decides which index to use in the query's execution. Spanner provides two ways that let you specify the index to be used. Choose one of the following methods to evaluate and compare your indexes:
     
-    a. Change your application: You can update some subset of your queries so that they use the [`  FORCE_INDEX  ` hint](/spanner/docs/secondary-indexes#index-directive) to point at the new index to update the vector search query. This ensures that the query uses the new vector index. Using this method, you might need to retune `  num_leaves_to_search  ` in your new query.
+    a. Change your application: You can update some subset of your queries so that they use the [`  FORCE_INDEX  ` hint](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) to point at the new index to update the vector search query. This ensures that the query uses the new vector index. Using this method, you might need to retune `  num_leaves_to_search  ` in your new query.
     
     b. Change your schema: You can set the `  disable_search  ` option on one of your vector indexes. When set to `  true  ` , Spanner disables the vector index. You can do this by running the `  ALTER VECTOR INDEX  ` schema change statement:
     
-    ``` text
+    ``` 
       ALTER VECTOR INDEX IncidentVectorIndex SET OPTIONS (disable_search=true);
     ```
     
@@ -54,10 +54,10 @@ To rebuild your vector index without downtime:
 
 ## What's next
 
-  - Learn more about Spanner [vector indexes](/spanner/docs/vector-indexes) .
+  - Learn more about Spanner [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) .
 
-  - Learn more about Spanner [approximate nearest neighbors](/spanner/docs/find-approximate-nearest-neighbors) .
+  - Learn more about Spanner [approximate nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
 
-  - Learn more about the [GoogleSQL `  APPROXIMATE_COSINE_DISTANCE()  ` , `  APPROXIMATE_EUCLIDEAN_DISTANCE()  ` , `  APPROXIMATE_DOT_PRODUCT()  `](/spanner/docs/reference/standard-sql/mathematical_functions) functions.
+  - Learn more about the [GoogleSQL `  APPROXIMATE_COSINE_DISTANCE()  ` , `  APPROXIMATE_EUCLIDEAN_DISTANCE()  ` , `  APPROXIMATE_DOT_PRODUCT()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
 
-  - Learn more about the [GoogleSQL `  VECTOR INDEX  ` statements](/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
+  - Learn more about the [GoogleSQL `  VECTOR INDEX  ` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .

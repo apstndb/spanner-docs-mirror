@@ -1,6 +1,6 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [KeyRange](#KeyRange)
-      - [JSON representation](#KeyRange.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/KeySet#SCHEMA_REPRESENTATION)
+  - [KeyRange](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/KeySet#KeyRange)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/KeySet#KeyRange.SCHEMA_REPRESENTATION)
 
 `  KeySet  ` defines a collection of Cloud Spanner keys and/or key ranges. All the keys are expected to be in the same table or index. The keys need not be sorted in any particular way.
 
@@ -17,7 +17,7 @@ If the same key is specified multiple times in the set (for example if two range
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;keys&quot;: [
     array
   ],
@@ -62,88 +62,66 @@ Keys are represented by lists, where the ith value in the list corresponds to th
 
 For example, consider the following table definition:
 
-``` text
-CREATE TABLE UserEvents (
-  UserName STRING(MAX),
-  EventDate STRING(10)
-) PRIMARY KEY(UserName, EventDate);
-```
+    CREATE TABLE UserEvents (
+      UserName STRING(MAX),
+      EventDate STRING(10)
+    ) PRIMARY KEY(UserName, EventDate);
 
 The following keys name rows in this table:
 
-``` text
-["Bob", "2014-09-23"]
-["Alfred", "2015-06-12"]
-```
+    ["Bob", "2014-09-23"]
+    ["Alfred", "2015-06-12"]
 
 Since the `  UserEvents  ` table's `  PRIMARY KEY  ` clause names two columns, each `  UserEvents  ` key has two elements; the first is the `  UserName  ` , and the second is the `  EventDate  ` .
 
 Key ranges with multiple components are interpreted lexicographically by component using the table or index key's declared sort order. For example, the following range returns all events for user `  "Bob"  ` that occurred in the year 2015:
 
-``` text
-"startClosed": ["Bob", "2015-01-01"]
-"endClosed": ["Bob", "2015-12-31"]
-```
+    "startClosed": ["Bob", "2015-01-01"]
+    "endClosed": ["Bob", "2015-12-31"]
 
 Start and end keys can omit trailing key components. This affects the inclusion and exclusion of rows that exactly match the provided key components: if the key is closed, then rows that exactly match the provided components are included; if the key is open, then rows that exactly match are not included.
 
 For example, the following range includes all events for `  "Bob"  ` that occurred during and after the year 2000:
 
-``` text
-"startClosed": ["Bob", "2000-01-01"]
-"endClosed": ["Bob"]
-```
+    "startClosed": ["Bob", "2000-01-01"]
+    "endClosed": ["Bob"]
 
 The next example retrieves all events for `  "Bob"  ` :
 
-``` text
-"startClosed": ["Bob"]
-"endClosed": ["Bob"]
-```
+    "startClosed": ["Bob"]
+    "endClosed": ["Bob"]
 
 To retrieve events before the year 2000:
 
-``` text
-"startClosed": ["Bob"]
-"endOpen": ["Bob", "2000-01-01"]
-```
+    "startClosed": ["Bob"]
+    "endOpen": ["Bob", "2000-01-01"]
 
 The following range includes all rows in the table:
 
-``` text
-"startClosed": []
-"endClosed": []
-```
+    "startClosed": []
+    "endClosed": []
 
 This range returns all users whose `  UserName  ` begins with any character from A to C:
 
-``` text
-"startClosed": ["A"]
-"endOpen": ["D"]
-```
+    "startClosed": ["A"]
+    "endOpen": ["D"]
 
 This range returns all users whose `  UserName  ` begins with B:
 
-``` text
-"startClosed": ["B"]
-"endOpen": ["C"]
-```
+    "startClosed": ["B"]
+    "endOpen": ["C"]
 
 Key ranges honor column sort order. For example, suppose a table is defined as follows:
 
-``` text
-CREATE TABLE DescendingSortedTable {
-  Key INT64,
-  ...
-) PRIMARY KEY(Key DESC);
-```
+    CREATE TABLE DescendingSortedTable {
+      Key INT64,
+      ...
+    ) PRIMARY KEY(Key DESC);
 
 The following range retrieves all rows with key values between 1 and 100 inclusive:
 
-``` text
-"startClosed": ["100"]
-"endClosed": ["1"]
-```
+    "startClosed": ["100"]
+    "endClosed": ["1"]
 
 Note that 100 is passed as the start, and 1 is passed as the end, because `  Key  ` is a descending column in the schema.
 
@@ -158,7 +136,7 @@ Note that 100 is passed as the start, and 1 is passed as the end, because `  Key
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field start_key_type can be only one of the following:
   &quot;startClosed&quot;: array,

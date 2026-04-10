@@ -94,7 +94,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -122,7 +122,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -149,7 +149,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -178,7 +178,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -208,7 +208,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -235,7 +235,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -264,7 +264,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -294,7 +294,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -322,7 +322,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -349,7 +349,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -376,7 +376,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -404,7 +404,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -432,7 +432,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -461,7 +461,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -489,7 +489,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -516,7 +516,7 @@ The Cloud Spanner API can be used to manage sessions and execute transactions on
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.data             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -1212,9 +1212,7 @@ Specifying `  latest  ` as a value instructs Cloud Spanner to use the latest gen
 
 The statistics package requested by the query has to be exempt from garbage collection. This can be achieved with the following DDL statement:
 
-``` text
-ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
-```
+    ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
 
 The list of available statistics packages can be queried from `  INFORMATION_SCHEMA.SPANNER_STATISTICS  ` .
 
@@ -1246,88 +1244,66 @@ Keys are represented by lists, where the ith value in the list corresponds to th
 
 For example, consider the following table definition:
 
-``` text
-CREATE TABLE UserEvents (
-  UserName STRING(MAX),
-  EventDate STRING(10)
-) PRIMARY KEY(UserName, EventDate);
-```
+    CREATE TABLE UserEvents (
+      UserName STRING(MAX),
+      EventDate STRING(10)
+    ) PRIMARY KEY(UserName, EventDate);
 
 The following keys name rows in this table:
 
-``` text
-["Bob", "2014-09-23"]
-["Alfred", "2015-06-12"]
-```
+    ["Bob", "2014-09-23"]
+    ["Alfred", "2015-06-12"]
 
 Since the `  UserEvents  ` table's `  PRIMARY KEY  ` clause names two columns, each `  UserEvents  ` key has two elements; the first is the `  UserName  ` , and the second is the `  EventDate  ` .
 
 Key ranges with multiple components are interpreted lexicographically by component using the table or index key's declared sort order. For example, the following range returns all events for user `  "Bob"  ` that occurred in the year 2015:
 
-``` text
-"start_closed": ["Bob", "2015-01-01"]
-"end_closed": ["Bob", "2015-12-31"]
-```
+    "start_closed": ["Bob", "2015-01-01"]
+    "end_closed": ["Bob", "2015-12-31"]
 
 Start and end keys can omit trailing key components. This affects the inclusion and exclusion of rows that exactly match the provided key components: if the key is closed, then rows that exactly match the provided components are included; if the key is open, then rows that exactly match are not included.
 
 For example, the following range includes all events for `  "Bob"  ` that occurred during and after the year 2000:
 
-``` text
-"start_closed": ["Bob", "2000-01-01"]
-"end_closed": ["Bob"]
-```
+    "start_closed": ["Bob", "2000-01-01"]
+    "end_closed": ["Bob"]
 
 The next example retrieves all events for `  "Bob"  ` :
 
-``` text
-"start_closed": ["Bob"]
-"end_closed": ["Bob"]
-```
+    "start_closed": ["Bob"]
+    "end_closed": ["Bob"]
 
 To retrieve events before the year 2000:
 
-``` text
-"start_closed": ["Bob"]
-"end_open": ["Bob", "2000-01-01"]
-```
+    "start_closed": ["Bob"]
+    "end_open": ["Bob", "2000-01-01"]
 
 The following range includes all rows in the table:
 
-``` text
-"start_closed": []
-"end_closed": []
-```
+    "start_closed": []
+    "end_closed": []
 
 This range returns all users whose `  UserName  ` begins with any character from A to C:
 
-``` text
-"start_closed": ["A"]
-"end_open": ["D"]
-```
+    "start_closed": ["A"]
+    "end_open": ["D"]
 
 This range returns all users whose `  UserName  ` begins with B:
 
-``` text
-"start_closed": ["B"]
-"end_open": ["C"]
-```
+    "start_closed": ["B"]
+    "end_open": ["C"]
 
 Key ranges honor column sort order. For example, suppose a table is defined as follows:
 
-``` text
-CREATE TABLE DescendingSortedTable {
-  Key INT64,
-  ...
-) PRIMARY KEY(Key DESC);
-```
+    CREATE TABLE DescendingSortedTable {
+      Key INT64,
+      ...
+    ) PRIMARY KEY(Key DESC);
 
 The following range retrieves all rows with key values between 1 and 100 inclusive:
 
-``` text
-"start_closed": ["100"]
-"end_closed": ["1"]
-```
+    "start_closed": ["100"]
+    "end_closed": ["1"]
 
 Note that 100 is passed as the start, and 1 is passed as the end, because `  Key  ` is a descending column in the schema.
 
@@ -1579,50 +1555,46 @@ It's possible that the last value in values is "chunked", meaning that the rest 
 
 Some examples of merging:
 
-``` text
-Strings are concatenated.
-"foo", "bar" => "foobar"
-
-Lists of non-strings are concatenated.
-[2, 3], [4] => [2, 3, 4]
-
-Lists are concatenated, but the last and first elements are merged
-because they are strings.
-["a", "b"], ["c", "d"] => ["a", "bc", "d"]
-
-Lists are concatenated, but the last and first elements are merged
-because they are lists. Recursively, the last and first elements
-of the inner lists are merged because they are strings.
-["a", ["b", "c"]], [["d"], "e"] => ["a", ["b", "cd"], "e"]
-
-Non-overlapping object fields are combined.
-{"a": "1"}, {"b": "2"} => {"a": "1", "b": 2"}
-
-Overlapping object fields are merged.
-{"a": "1"}, {"a": "2"} => {"a": "12"}
-
-Examples of merging objects containing lists of strings.
-{"a": ["1"]}, {"a": ["2"]} => {"a": ["12"]}
-```
+    Strings are concatenated.
+    "foo", "bar" => "foobar"
+    
+    Lists of non-strings are concatenated.
+    [2, 3], [4] => [2, 3, 4]
+    
+    Lists are concatenated, but the last and first elements are merged
+    because they are strings.
+    ["a", "b"], ["c", "d"] => ["a", "bc", "d"]
+    
+    Lists are concatenated, but the last and first elements are merged
+    because they are lists. Recursively, the last and first elements
+    of the inner lists are merged because they are strings.
+    ["a", ["b", "c"]], [["d"], "e"] => ["a", ["b", "cd"], "e"]
+    
+    Non-overlapping object fields are combined.
+    {"a": "1"}, {"b": "2"} => {"a": "1", "b": 2"}
+    
+    Overlapping object fields are merged.
+    {"a": "1"}, {"a": "2"} => {"a": "12"}
+    
+    Examples of merging objects containing lists of strings.
+    {"a": ["1"]}, {"a": ["2"]} => {"a": ["12"]}
 
 For a more complete example, suppose a streaming SQL query is yielding a result set whose rows contain a single string field. The following `  PartialResultSet  ` s might be yielded:
 
-``` text
-{
-  "metadata": { ... }
-  "values": ["Hello", "W"]
-  "chunked_value": true
-  "resume_token": "Af65..."
-}
-{
-  "values": ["orl"]
-  "chunked_value": true
-}
-{
-  "values": ["d"]
-  "resume_token": "Zx1B..."
-}
-```
+    {
+      "metadata": { ... }
+      "values": ["Hello", "W"]
+      "chunked_value": true
+      "resume_token": "Af65..."
+    }
+    {
+      "values": ["orl"]
+      "chunked_value": true
+    }
+    {
+      "values": ["d"]
+      "resume_token": "Zx1B..."
+    }
 
 This sequence of `  PartialResultSet  ` s encodes two rows, one containing the field value `  "Hello"  ` , and a second containing the field value `  "World" = "W" + "orl" + "d"  ` .
 
@@ -1864,12 +1836,10 @@ Condensed representation for `  SCALAR  ` nodes.
 
 Attributes relevant to the node contained in a group of key-value pairs. For example, a Parameter Reference node could have the following information in its metadata:
 
-``` text
-{
-  "parameter_reference": "param1",
-  "parameter_type": "array"
-}
-```
+    {
+      "parameter_reference": "param1",
+      "parameter_type": "array"
+    }
 
 `  execution_stats  `
 
@@ -2166,12 +2136,10 @@ Fields
 
 Indicates the field names and types for the rows in the result set. For example, a SQL query like `  "SELECT UserId, UserName FROM Users"  ` could return a `  row_type  ` value like:
 
-``` text
-"fields": [
-  { "name": "UserId", "type": { "code": "INT64" } },
-  { "name": "UserName", "type": { "code": "STRING" } },
-]
-```
+    "fields": [
+      { "name": "UserId", "type": { "code": "INT64" } },
+      { "name": "UserName", "type": { "code": "STRING" } },
+    ]
 
 `  transaction  `
 
@@ -2185,12 +2153,10 @@ If the read or SQL query began a transaction as a side-effect, the information a
 
 A SQL query can be parameterized. In PLAN mode, these parameters can be undeclared. This indicates the field names and types for those undeclared parameters in the SQL query. For example, a SQL query like `  "SELECT * FROM Users where UserId = @userId and UserName = @userName "  ` could return a `  undeclared_parameters  ` value like:
 
-``` text
-"fields": [
-  { "name": "UserId", "type": { "code": "INT64" } },
-  { "name": "UserName", "type": { "code": "STRING" } },
-]
-```
+    "fields": [
+      { "name": "UserId", "type": { "code": "INT64" } },
+      { "name": "UserName", "type": { "code": "STRING" } },
+    ]
 
 ## ResultSetStats
 
@@ -2210,13 +2176,11 @@ Fields
 
 Aggregated statistics from the execution of the query. Only present when the query is profiled. For example, a query could return the statistics as follows:
 
-``` text
-{
-  "rows_returned": "3",
-  "elapsed_time": "1.22 secs",
-  "cpu_time": "1.19 secs"
-}
-```
+    {
+      "rows_returned": "3",
+      "elapsed_time": "1.22 secs",
+      "cpu_time": "1.19 secs"
+    }
 
 Union field `  row_count  ` . The number of rows modified by the DML statement. `  row_count  ` can be only one of the following:
 

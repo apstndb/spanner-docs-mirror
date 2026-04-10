@@ -1,6 +1,6 @@
 This document contains information to help you pre-split your database.
 
-Spanner manages [database splits](/spanner/docs/schema-and-data-model#database-splits) and scales in response to load and size changes. Splitting and merging are dynamic, based on traffic. As a split receives more traffic, Spanner subdivides it into smaller ranges and redistributes the resulting splits over other available resources in the instance. Spanner merges the split when the split consistently receives less traffic.
+Spanner manages [database splits](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) and scales in response to load and size changes. Splitting and merging are dynamic, based on traffic. As a split receives more traffic, Spanner subdivides it into smaller ranges and redistributes the resulting splits over other available resources in the instance. Spanner merges the split when the split consistently receives less traffic.
 
 Splitting is not instantaneous. If the splitting and rebalancing can't keep up with the traffic, a split can potentially use up its available compute and memory resources. When this happens, Spanner's work scheduler queues up further requests, increasing latency and potentially leading to timeouts and aborted transactions.
 
@@ -33,22 +33,20 @@ Consider the following when determining split points for your database:
 
 Assume your database has the table structures defined by the following DDL:
 
-``` text
-CREATE TABLE UserInfo (
- UserId INT64 NOT NULL,
- Info BYTES(MAX),
-) PRIMARY KEY (UserId);
-
-
-CREATE TABLE UserLocationInfo (
- UserId INT64 NOT NULL,
- LocationId STRING(MAX) NOT NULL,
- ActivityData BYTES(MAX),
-) PRIMARY KEY (UserId, LocationId), INTERLEAVE IN PARENT UserInfo ON DELETE CASCADE;
-
-
-CREATE INDEX UsersByLocation ON UserLocationInfo(LocationId);
-```
+    CREATE TABLE UserInfo (
+     UserId INT64 NOT NULL,
+     Info BYTES(MAX),
+    ) PRIMARY KEY (UserId);
+    
+    
+    CREATE TABLE UserLocationInfo (
+     UserId INT64 NOT NULL,
+     LocationId STRING(MAX) NOT NULL,
+     ActivityData BYTES(MAX),
+    ) PRIMARY KEY (UserId, LocationId), INTERLEAVE IN PARENT UserInfo ON DELETE CASCADE;
+    
+    
+    CREATE INDEX UsersByLocation ON UserLocationInfo(LocationId);
 
 `  UserId  ` is a randomly generated hash in the `  INT64  ` space, and you need to add a 100 split points to evenly distribute the anticipated increase in traffic on the `  UserInfo  ` table and its interleaved tables. Because the split points are evenly distributed, you need to find the number of rows, or `  offset  ` between each split point:
 
@@ -92,7 +90,7 @@ The default expiration time is 10 days from when the split is created or updated
 
 After the split expires, Spanner takes over managing the split and you can no longer view the split. Spanner might merge the split depending on the traffic.
 
-You can also update the expiration time for a split point before it expires. For example, if your increased traffic hasn't subsided, you can increase the split expiration time. If you no longer need a split point, you can set it to expire immediately. To learn how to set the expiration time of split points, see [How to expire a split point](/spanner/docs/create-manage-split-points#expire-splits) .
+You can also update the expiration time for a split point before it expires. For example, if your increased traffic hasn't subsided, you can increase the split expiration time. If you no longer need a split point, you can set it to expire immediately. To learn how to set the expiration time of split points, see [How to expire a split point](https://docs.cloud.google.com/spanner/docs/create-manage-split-points#expire-splits) .
 
 ## Outcomes of pre-splitting your database
 
@@ -100,7 +98,7 @@ The following outcomes are likely after adding split points:
 
   - **Latency changes** : Adding split points is a way of simulating increases in traffic on the database. When a database has more splits, there can be permanent increases in read and write latency due to more transaction participants and query splits. You can also expect an increase in compute and query usage per read or write request.
 
-  - **Split point efficacy** : To determine whether the added split points are beneficial, monitor the [latency profile](/spanner/docs/monitoring-console#available_scorecards) for minimal changes, and [key visualiser](/spanner/docs/key-visualizer) for hotspots. If you notice hotspots, you can expire the split points immediately and create new ones. For more information about expiring split points, see [How to expire a split point](/spanner/docs/create-manage-split-points#expire-splits) . Consider introducing a smaller number of splits in the next iteration of adding splits and observe the latency profile.
+  - **Split point efficacy** : To determine whether the added split points are beneficial, monitor the [latency profile](https://docs.cloud.google.com/spanner/docs/monitoring-console#available_scorecards) for minimal changes, and [key visualiser](https://docs.cloud.google.com/spanner/docs/key-visualizer) for hotspots. If you notice hotspots, you can expire the split points immediately and create new ones. For more information about expiring split points, see [How to expire a split point](https://docs.cloud.google.com/spanner/docs/create-manage-split-points#expire-splits) . Consider introducing a smaller number of splits in the next iteration of adding splits and observe the latency profile.
 
   - **Split point behavior after the traffic increase** : The added split points should be removed after the traffic increase stabilizes. The split distribution might not converge to where it was before the load increase. The database might settle on a different latency profile due to the traffic change and the splitting that is required to support the traffic.
 
@@ -112,25 +110,25 @@ You need to ensure there's no service disruption when the traffic comes through 
 
 Consider the following high-level pre-splitting strategy for this use case:
 
-1.  Identify the number of nodes that the instance needs to support the increased traffic. To learn how to identify node count, see [Performance overview](/spanner/docs/performance) . If you're using autoscaler, set the [maximum limit parameter](/spanner/docs/managed-autoscaler#determine-maximum) to the node count you identified. Also, set the [minimum limit parameter](/spanner/docs/managed-autoscaler#determine-minimum) to (node count you identified / 5).
+1.  Identify the number of nodes that the instance needs to support the increased traffic. To learn how to identify node count, see [Performance overview](https://docs.cloud.google.com/spanner/docs/performance) . If you're using autoscaler, set the [maximum limit parameter](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-maximum) to the node count you identified. Also, set the [minimum limit parameter](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-minimum) to (node count you identified / 5).
 
 2.  Identify the tables and indexes that have the most traffic and can benefit the most from using split points. Analyze the current data and choose between using custom split points or evenly distributed split points.
 
-3.  [Create the split points](/spanner/docs/create-manage-split-points#create-split-points) no earlier than seven days and no later than 12 hours before the anticipated traffic increase.
+3.  [Create the split points](https://docs.cloud.google.com/spanner/docs/create-manage-split-points#create-split-points) no earlier than seven days and no later than 12 hours before the anticipated traffic increase.
 
-4.  Verify that the splits are created. To view created split points on an instance, see [View split points](/spanner/docs/create-manage-split-points#view-split-points) .
+4.  Verify that the splits are created. To view created split points on an instance, see [View split points](https://docs.cloud.google.com/spanner/docs/create-manage-split-points#view-split-points) .
 
 ## Caveats
 
 Consider the following caveats when creating split points:
 
-  - **Table, index, and database deletion** : Before deleting a table, index, or database, you need to ensure all the corresponding added split points are expired. You can do this by setting the split expiration date to the current time. This is necessary for the instance level quota to be reclaimed. For more information about expiring split points, see [How to expire a split point](/spanner/docs/create-manage-split-points#expire-splits) .
+  - **Table, index, and database deletion** : Before deleting a table, index, or database, you need to ensure all the corresponding added split points are expired. You can do this by setting the split expiration date to the current time. This is necessary for the instance level quota to be reclaimed. For more information about expiring split points, see [How to expire a split point](https://docs.cloud.google.com/spanner/docs/create-manage-split-points#expire-splits) .
 
   - **Backing up and restoring databases** : Added splits aren't backed up. You need to create splits on a restored database.
 
-  - **Asymmetric auto scaling** : If you're using [asymmetric auto scaling](/spanner/docs/autoscaling-overview) , the node count used to determine the split point count is the minimum node count across all the regions.
+  - **Asymmetric auto scaling** : If you're using [asymmetric auto scaling](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) , the node count used to determine the split point count is the minimum node count across all the regions.
 
-  - **Temporary increase in storage usage metrics** : Adding split points temporarily increases the [total database storage](/spanner/docs/storage-utilization#metrics) metric until Spanner completes compaction. For more information, see [Storage utilization](/spanner/docs/storage-utilization) . This only happens when existing key ranges are split further, and not when new key ranges are split.
+  - **Temporary increase in storage usage metrics** : Adding split points temporarily increases the [total database storage](https://docs.cloud.google.com/spanner/docs/storage-utilization#metrics) metric until Spanner completes compaction. For more information, see [Storage utilization](https://docs.cloud.google.com/spanner/docs/storage-utilization) . This only happens when existing key ranges are split further, and not when new key ranges are split.
 
   - You should create split points no earlier than seven days and no later than 12 hours before the expected traffic increase.
 
@@ -138,12 +136,12 @@ Consider the following caveats when creating split points:
 
 Pre-splitting your database has the following limitations:
 
-  - You can't pre-split search indexes. You only need to pre-split the base table. For more information, see [Search index sharding](/spanner/docs/full-text-search/search-indexes#search_index_sharding) .
+  - You can't pre-split search indexes. You only need to pre-split the base table. For more information, see [Search index sharding](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#search_index_sharding) .
 
-  - You cannot pre-split vector indexes. For more information about vector indexes, see [Vector index](/spanner/docs/find-approximate-nearest-neighbors#vector-index) .
+  - You cannot pre-split vector indexes. For more information about vector indexes, see [Vector index](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#vector-index) .
 
-  - To learn about the quotas for split points, see [Quotas and limits](/spanner/quotas#split-point-limits) .
+  - To learn about the quotas for split points, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#split-point-limits) .
 
 ## What's next?
 
-  - [Create and manage split points](/spanner/docs/create-manage-split-points)
+  - [Create and manage split points](https://docs.cloud.google.com/spanner/docs/create-manage-split-points)

@@ -47,10 +47,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instances
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner instances
 ```

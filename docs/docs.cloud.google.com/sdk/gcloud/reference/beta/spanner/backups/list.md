@@ -14,13 +14,13 @@ EXAMPLES
 
 To list existing backups for the instance, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner backups list --instance=INSTANCE_NAME
 ```
 
 To list existing backups for a database, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner backups list --instance=INSTANCE_NAME --database=DATABASE
 ```
 
@@ -51,7 +51,7 @@ To set the `  instance  ` attribute:
 LIST COMMAND FLAGS
 
   - `  --filter  ` = `  EXPRESSION  `  
-    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
+    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --limit  ` = `  LIMIT  `  
     Maximum number of resources to list. The default is `  unlimited  ` . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --page-size  ` = `  PAGE_SIZE  `  
@@ -73,10 +73,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner backups list
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner backups list
 ```

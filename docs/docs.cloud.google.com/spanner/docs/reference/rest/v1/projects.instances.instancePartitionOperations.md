@@ -1,5 +1,5 @@
-  - [Resource](#RESOURCE_REPRESENTATION)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitionOperations#RESOURCE_REPRESENTATION)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitionOperations#METHODS_SUMMARY)
 
 ## Resource
 

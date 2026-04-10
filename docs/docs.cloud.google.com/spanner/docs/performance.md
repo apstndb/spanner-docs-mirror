@@ -4,7 +4,7 @@ The information on this page applies to both GoogleSQL and PostgreSQL databases.
 
 ## Performance and storage improvements
 
-Performance and storage improvements have rolled out to all [Spanner regional, dual-region, and multi-region instance configurations](/spanner/docs/instance-configurations) . You don't need to make any changes to your application or manually configure anything in your Spanner instances to take advantage of these improvements, which are offered at no additional cost. These performance improvements result in higher throughput and better latency in Spanner nodes in all instance configurations.
+Performance and storage improvements have rolled out to all [Spanner regional, dual-region, and multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) . You don't need to make any changes to your application or manually configure anything in your Spanner instances to take advantage of these improvements, which are offered at no additional cost. These performance improvements result in higher throughput and better latency in Spanner nodes in all instance configurations.
 
 ### Increased performance throughput
 
@@ -26,7 +26,7 @@ All Spanner instance configurations have improved performance and offer increase
 <th style="text-align: center;"></th>
 <th>Peak writes (QPS total)</th>
 <th></th>
-<th>Peak writes using <a href="/spanner/docs/throughput-optimized-writes">throughput optimized writes</a> (QPS total)</th>
+<th>Peak writes using <a href="https://docs.cloud.google.com/spanner/docs/throughput-optimized-writes">throughput optimized writes</a> (QPS total)</th>
 </tr>
 </thead>
 <tbody>
@@ -55,15 +55,15 @@ HDD: 15,000</td>
 </tbody>
 </table>
 
-For information about the performance throughput of these instance configurations, see [Performance for typical workloads](#typical-workloads) . For more information about using solid-state drives (SSD) and hard disk drives (HDD) to store your data, see [Tiered storage overview](/spanner/docs/tiered-storage) .
+For information about the performance throughput of these instance configurations, see [Performance for typical workloads](https://docs.cloud.google.com/spanner/docs/performance#typical-workloads) . For more information about using solid-state drives (SSD) and hard disk drives (HDD) to store your data, see [Tiered storage overview](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
 
 Read guidance is given per region (because reads can be served from any read-write or read-only region), while write guidance is for the entire configuration. Read guidance assumes you're reading single rows of 1KB. Write guidance assumes that you're writing single rows at 1KB of data per row.
 
-Peak write performance using [throughput optimized writes](/spanner/docs/throughput-optimized-writes) is achieved using a batching delay of 100ms.
+Peak write performance using [throughput optimized writes](https://docs.cloud.google.com/spanner/docs/throughput-optimized-writes) is achieved using a batching delay of 100ms.
 
 In general, both the read and write throughputs of a Spanner instance scale linearly as you add more compute capacity (nodes or processing units) to the instance. For example, if a single-region Spanner instance with 2 nodes can provide up to 45,000 reads per second, then a single-region Spanner instance with 4 nodes can provide up to 90,000 reads per second.
 
-If you aren't seeing the expected performance for your workload from Spanner, see [troubleshooting performance regressions](/spanner/docs/troubleshooting-performance-regressions) for information about common causes.
+If you aren't seeing the expected performance for your workload from Spanner, see [troubleshooting performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions) for information about common causes.
 
 ### Increased storage
 
@@ -91,7 +91,7 @@ Each 1,000 processing units (1 node) of compute capacity can provide the followi
 <th style="text-align: center;"></th>
 <th>Peak writes (QPS total)</th>
 <th></th>
-<th>Peak writes using <a href="/spanner/docs/throughput-optimized-writes">throughput optimized writes</a> (QPS total)</th>
+<th>Peak writes using <a href="https://docs.cloud.google.com/spanner/docs/throughput-optimized-writes">throughput optimized writes</a> (QPS total)</th>
 </tr>
 </thead>
 <tbody>
@@ -110,11 +110,11 @@ HDD: 22,500</td>
 
 For regional instance configurations that allow optional read-only replicas, the optional read-only replica can support an additional 7,500 reads per second for SSD storage and 500 reads per second for HDD storage.
 
-**Note:** These throughput numbers are **estimates only** , and they reflect a read-only or write-only workload. Spanner throughput is highly dependent on workload, schema design, and dataset characteristics. These throughput numbers can help as a starting point when you are estimating the approximate [compute capacity](/spanner/docs/compute-capacity) (nodes or processing units) required for your Spanner instance. But these numbers can't be used for exact sizing and cost estimates.
+**Note:** These throughput numbers are **estimates only** , and they reflect a read-only or write-only workload. Spanner throughput is highly dependent on workload, schema design, and dataset characteristics. These throughput numbers can help as a starting point when you are estimating the approximate [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) (nodes or processing units) required for your Spanner instance. But these numbers can't be used for exact sizing and cost estimates.
 
 ### Performance for dual-region configurations
 
-Each 1,000 processing units (1 node) of compute capacity can provide the following peak performance (at 100% CPU) in a dual-region instance configuration. Use [throughput optimized writes](/spanner/docs/throughput-optimized-writes) to increase write throughput beyond the numbers in the table.
+Each 1,000 processing units (1 node) of compute capacity can provide the following peak performance (at 100% CPU) in a dual-region instance configuration. Use [throughput optimized writes](https://docs.cloud.google.com/spanner/docs/throughput-optimized-writes) to increase write throughput beyond the numbers in the table.
 
 <table>
 <colgroup>
@@ -165,7 +165,7 @@ Read guidance is given per region (because reads can be served from anywhere), w
 
 ### Performance for multi-region configurations
 
-Each Spanner multi-region instance configuration has slightly different performance characteristics based on the replication topology. Use [throughput optimized writes](/spanner/docs/throughput-optimized-writes) to increase write throughput beyond the numbers in the table.
+Each Spanner multi-region instance configuration has slightly different performance characteristics based on the replication topology. Use [throughput optimized writes](https://docs.cloud.google.com/spanner/docs/throughput-optimized-writes) to increase write throughput beyond the numbers in the table.
 
 Each 1,000 processing units (1 node) of compute capacity can provide the following peak performance (at 100% CPU):
 
@@ -237,7 +237,7 @@ HDD: 2,700</td>
 <td>SSD: 15,000 in <code dir="ltr" translate="no">       us-central1      </code> and <code dir="ltr" translate="no">       us-east1      </code><br />
 7,500 in <code dir="ltr" translate="no">       us-west1      </code> and <code dir="ltr" translate="no">       us-west2      </code><br />
 HDD: 1,000 in <code dir="ltr" translate="no">       us-central1      </code> and <code dir="ltr" translate="no">       us-east1      </code><br />
-500 in <code dir="ltr" translate="no">       us-west1      </code> and <code dir="ltr" translate="no">       us-west2      </code> <a href="#QPS"><em>[1]</em></a></td>
+500 in <code dir="ltr" translate="no">       us-west1      </code> and <code dir="ltr" translate="no">       us-west2      </code> <a href="https://docs.cloud.google.com/spanner/docs/performance#QPS"><em>[1]</em></a></td>
 <td>SSD: 2,700<br />
 <br />
 HDD: 2,700</td>
@@ -338,7 +338,7 @@ Read guidance is given per region (because reads can be served from anywhere), w
 Always run your own typical workloads against a Spanner instance when doing capacity planning, so you can figure out the best resource allocation for your applications. Google's PerfKit Benchmarker uses [YCSB](https://ycsb.site/) to benchmark cloud services. You can follow the [PerfKitBenchmarker tutorial for Spanner](https://github.com/cloudspannerecosystem/spanner-benchmarks-tutorial) to create tests for your own workloads. When doing so, you should tune the parameters in the benchmarking configuration `  yaml  ` files to make sure that the generated benchmark reflects the following characteristics in your production environment:
 
   - Total size of your database
-  - Schema (For example: [row key size, number of columns, row data sizes](/spanner/docs/schema-design) )
+  - Schema (For example: [row key size, number of columns, row data sizes](https://docs.cloud.google.com/spanner/docs/schema-design) )
   - Data access pattern (row key distribution)
   - Mixture of reads versus writes
   - Type and complexity of queries
@@ -347,15 +347,15 @@ Always run your own typical workloads against a Spanner instance when doing capa
 
 To reproduce the benchmark numbers, follow the [Benchmarking Spanner with PerfKit Benchmarker tutorial](https://github.com/cloudspannerecosystem/spanner-benchmarks-tutorial) using the corresponding `  yaml  ` files in the [`  throughput_benchmark  `](https://github.com/cloudspannerecosystem/spanner-benchmarks-tutorial/tree/main/data/throughput_benchmarks) folder.
 
-To benchmark instances in an instance configuration that has undergone [performance improvements](#improved-performance) , ensure that your tests are running in one of these improved instance configurations.
+To benchmark instances in an instance configuration that has undergone [performance improvements](https://docs.cloud.google.com/spanner/docs/performance#improved-performance) , ensure that your tests are running in one of these improved instance configurations.
 
 ## Zonal and regional failure protection
 
-When running your workloads in production, it is important to provision enough compute capacity to continue to serve your traffic in the event of the loss of an entire zone (for regional instances) or an entire region (for dual-region and multi-region instances). For more information about the recommended maximum CPU, see [alerts for high CPU utilization](/spanner/docs/cpu-utilization#recommended-max) .
+When running your workloads in production, it is important to provision enough compute capacity to continue to serve your traffic in the event of the loss of an entire zone (for regional instances) or an entire region (for dual-region and multi-region instances). For more information about the recommended maximum CPU, see [alerts for high CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization#recommended-max) .
 
 ## What's next
 
-  - Learn how to [design a Spanner schema](/spanner/docs/schema-design) .
-  - Find out how to [monitor Spanner performance](/spanner/docs/monitoring-console) .
-  - Learn how to [troubleshoot issues with Key Visualizer](/spanner/docs/key-visualizer) .
+  - Learn how to [design a Spanner schema](https://docs.cloud.google.com/spanner/docs/schema-design) .
+  - Find out how to [monitor Spanner performance](https://docs.cloud.google.com/spanner/docs/monitoring-console) .
+  - Learn how to [troubleshoot issues with Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer) .
   - Learn about [Spanner pricing](https://cloud.google.com/spanner/pricing) .

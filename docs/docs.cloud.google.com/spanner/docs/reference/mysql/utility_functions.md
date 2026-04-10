@@ -1,71 +1,25 @@
-Spanner supports the following MySQL utility user-defined functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](/spanner/docs/install-mysql-functions) .
+Spanner supports the following MySQL utility user-defined functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](https://docs.cloud.google.com/spanner/docs/install-mysql-functions) .
 
 ## Function list
 
-<table>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#bin_to_uuid"><code dir="ltr" translate="no">        mysql.BIN_TO_UUID       </code></a></td>
-<td>Converts a binary UUID representation to a STRING representation.</td>
-</tr>
-<tr class="even">
-<td><a href="#inet_aton"><code dir="ltr" translate="no">        mysql.INET_ATON       </code></a></td>
-<td>Returns the numeric value of an IP address.</td>
-</tr>
-<tr class="odd">
-<td><a href="#inet_ntoa"><code dir="ltr" translate="no">        mysql.INET_NTOA       </code></a></td>
-<td>Returns the IP address from a numeric value.</td>
-</tr>
-<tr class="even">
-<td><a href="#inet6_aton"><code dir="ltr" translate="no">        mysql.INET6_ATON       </code></a></td>
-<td>Returns the numeric value of an IPv6 address.</td>
-</tr>
-<tr class="odd">
-<td><a href="#inet6_ntoa"><code dir="ltr" translate="no">        mysql.INET6_NTOA       </code></a></td>
-<td>Returns the IPv6 address from a numeric value.</td>
-</tr>
-<tr class="even">
-<td><a href="#is_ipv4"><code dir="ltr" translate="no">        mysql.IS_IPV4       </code></a></td>
-<td>Returns whether the input parameter is an IPv4 address.</td>
-</tr>
-<tr class="odd">
-<td><a href="#is_ipv4_compat"><code dir="ltr" translate="no">        mysql.IS_IPV4_COMPAT       </code></a></td>
-<td>Returns whether the input parameter is an IPv4-compatible address.</td>
-</tr>
-<tr class="even">
-<td><a href="#is_ipv4_mapped"><code dir="ltr" translate="no">        mysql.IS_IPV4_MAPPED       </code></a></td>
-<td>Returns whether the input parameter is an IPv4-mapped address.</td>
-</tr>
-<tr class="odd">
-<td><a href="#is_ipv6"><code dir="ltr" translate="no">        mysql.IS_IPV6       </code></a></td>
-<td>Returns whether the input parameter is an IPv6 address.</td>
-</tr>
-<tr class="even">
-<td><a href="#is_uuid"><code dir="ltr" translate="no">        mysql.IS_UUID       </code></a></td>
-<td>Returns whether the input parameter is a valid UUID.</td>
-</tr>
-<tr class="odd">
-<td><a href="#uuid"><code dir="ltr" translate="no">        mysql.UUID       </code></a></td>
-<td>Returns a Universal Unique Identifier (UUID).</td>
-</tr>
-<tr class="even">
-<td><a href="#uuid_to_bin"><code dir="ltr" translate="no">        mysql.UUID_TO_BIN       </code></a></td>
-<td>Converts a string representation of UUID to a binary representation.</td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                                   | Summary                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| [`         mysql.BIN_TO_UUID        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#bin_to_uuid)       | Converts a binary UUID representation to a STRING representation.    |
+| [`         mysql.INET_ATON        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#inet_aton)           | Returns the numeric value of an IP address.                          |
+| [`         mysql.INET_NTOA        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#inet_ntoa)           | Returns the IP address from a numeric value.                         |
+| [`         mysql.INET6_ATON        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#inet6_aton)         | Returns the numeric value of an IPv6 address.                        |
+| [`         mysql.INET6_NTOA        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#inet6_ntoa)         | Returns the IPv6 address from a numeric value.                       |
+| [`         mysql.IS_IPV4        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#is_ipv4)               | Returns whether the input parameter is an IPv4 address.              |
+| [`         mysql.IS_IPV4_COMPAT        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#is_ipv4_compat) | Returns whether the input parameter is an IPv4-compatible address.   |
+| [`         mysql.IS_IPV4_MAPPED        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#is_ipv4_mapped) | Returns whether the input parameter is an IPv4-mapped address.       |
+| [`         mysql.IS_IPV6        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#is_ipv6)               | Returns whether the input parameter is an IPv6 address.              |
+| [`         mysql.IS_UUID        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#is_uuid)               | Returns whether the input parameter is a valid UUID.                 |
+| [`         mysql.UUID        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#uuid)                     | Returns a Universal Unique Identifier (UUID).                        |
+| [`         mysql.UUID_TO_BIN        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions#uuid_to_bin)       | Converts a string representation of UUID to a binary representation. |
 
 ## `     mysql.BIN_TO_UUID    `
 
-``` text
-mysql.BIN_TO_UUID(bytes_expression)
-```
+    mysql.BIN_TO_UUID(bytes_expression)
 
 **Description**
 
@@ -91,23 +45,19 @@ This function doesn't support the two-argument version found in MySQL for swappi
 
 The following example converts a binary UUID (represented by a hex string) to its string format:
 
-``` text
-SELECT mysql.BIN_TO_UUID(FROM_HEX('00112233445566778899AABBCCDDEEFF')) as uuid_string;
-
-/*
-+--------------------------------------+
-| uuid_string                          |
-+--------------------------------------+
-| 00112233-4455-6677-8899-aabbccddeeff |
-+--------------------------------------+
-*/
-```
+    SELECT mysql.BIN_TO_UUID(FROM_HEX('00112233445566778899AABBCCDDEEFF')) as uuid_string;
+    
+    /*
+    +--------------------------------------+
+    | uuid_string                          |
+    +--------------------------------------+
+    | 00112233-4455-6677-8899-aabbccddeeff |
+    +--------------------------------------+
+    */
 
 ## `     mysql.INET_ATON    `
 
-``` text
-mysql.INET_ATON(string_expression)
-```
+    mysql.INET_ATON(string_expression)
 
 **Description**
 
@@ -129,23 +79,19 @@ This function parses IPv4 addresses more strictly than the MySQL version might. 
 
 The following example converts the IP address 10.0.0.1 to its numeric value:
 
-``` text
-SELECT mysql.INET_ATON('10.0.0.1') as ip_numeric_value;
-
-/*
-+------------------+
-| ip_numeric_value |
-+------------------+
-| 167772161        |
-+------------------+
-*/
-```
+    SELECT mysql.INET_ATON('10.0.0.1') as ip_numeric_value;
+    
+    /*
+    +------------------+
+    | ip_numeric_value |
+    +------------------+
+    | 167772161        |
+    +------------------+
+    */
 
 ## `     mysql.INET_NTOA    `
 
-``` text
-mysql.INET_NTOA(numeric_expression)
-```
+    mysql.INET_NTOA(numeric_expression)
 
 **Description**
 
@@ -167,23 +113,19 @@ If the input number is outside the valid range for an IPv4 address (0 to 4294967
 
 The following example converts the numeric value 167772161 to an IP address string:
 
-``` text
-SELECT mysql.INET_NTOA(167772161) as ip_address_string;
-
-/*
-+-------------------+
-| ip_address_string |
-+-------------------+
-| 10.0.0.1          |
-+-------------------+
-*/
-```
+    SELECT mysql.INET_NTOA(167772161) as ip_address_string;
+    
+    /*
+    +-------------------+
+    | ip_address_string |
+    +-------------------+
+    | 10.0.0.1          |
+    +-------------------+
+    */
 
 ## `     mysql.INET6_ATON    `
 
-``` text
-mysql.INET6_ATON(string_expression)
-```
+    mysql.INET6_ATON(string_expression)
 
 **Description**
 
@@ -201,23 +143,19 @@ This function supports the following argument:
 
 The following example converts the IPv6 address 2001:db8::1 to its binary representation and displays it as a hex string:
 
-``` text
-SELECT TO_HEX(mysql.INET6_ATON('2001:db8::1')) as ipv6_bytes_hex;
-
-/*
-+----------------------------------+
-| ipv6_bytes_hex                   |
-+----------------------------------+
-| 20010DB8000000000000000000000001 |
-+----------------------------------+
-*/
-```
+    SELECT TO_HEX(mysql.INET6_ATON('2001:db8::1')) as ipv6_bytes_hex;
+    
+    /*
+    +----------------------------------+
+    | ipv6_bytes_hex                   |
+    +----------------------------------+
+    | 20010DB8000000000000000000000001 |
+    +----------------------------------+
+    */
 
 ## `     mysql.INET6_NTOA    `
 
-``` text
-mysql.INET6_NTOA(bytes_expression)
-```
+    mysql.INET6_NTOA(bytes_expression)
 
 **Description**
 
@@ -235,23 +173,19 @@ This function supports the following argument:
 
 The following example converts a binary IPv6 address (represented by a hex string) back to its string format:
 
-``` text
-SELECT mysql.INET6_NTOA(FROM_HEX('20010DB8000000000000000000000001')) as ipv6_string;
-
-/*
-+-------------+
-| ipv6_string |
-+-------------+
-| 2001:db8::1 |
-+-------------+
-*/
-```
+    SELECT mysql.INET6_NTOA(FROM_HEX('20010DB8000000000000000000000001')) as ipv6_string;
+    
+    /*
+    +-------------+
+    | ipv6_string |
+    +-------------+
+    | 2001:db8::1 |
+    +-------------+
+    */
 
 ## `     mysql.IS_IPV4    `
 
-``` text
-mysql.IS_IPV4(string_expression)
-```
+    mysql.IS_IPV4(string_expression)
 
 **Description**
 
@@ -269,26 +203,22 @@ This function supports the following argument:
 
 The following example checks if strings are valid IPv4 addresses:
 
-``` text
-SELECT
-  mysql.IS_IPV4('192.168.1.1') as example1_is_ipv4,
-  mysql.IS_IPV4('2001:db8::1') as example2_is_ipv4,
-  mysql.IS_IPV4('not-an-ip') as example3_is_ipv4;
-
-/*
-+------------------+------------------+------------------+
-| example1_is_ipv4 | example2_is_ipv4 | example3_is_ipv4 |
-+------------------+------------------+------------------+
-| true             | false            | false            |
-+------------------+------------------+------------------+
-*/
-```
+    SELECT
+      mysql.IS_IPV4('192.168.1.1') as example1_is_ipv4,
+      mysql.IS_IPV4('2001:db8::1') as example2_is_ipv4,
+      mysql.IS_IPV4('not-an-ip') as example3_is_ipv4;
+    
+    /*
+    +------------------+------------------+------------------+
+    | example1_is_ipv4 | example2_is_ipv4 | example3_is_ipv4 |
+    +------------------+------------------+------------------+
+    | true             | false            | false            |
+    +------------------+------------------+------------------+
+    */
 
 ## `     mysql.IS_IPV4_COMPAT    `
 
-``` text
-mysql.IS_IPV4_COMPAT(string_expression)
-```
+    mysql.IS_IPV4_COMPAT(string_expression)
 
 **Description**
 
@@ -310,23 +240,19 @@ If you provide a `  NULL  ` input, this function returns `  FALSE  ` . In MySQL 
 
 The following example checks for an IPv4-compatible IPv6 address:
 
-``` text
-SELECT mysql.IS_IPV4_COMPAT('::192.0.2.128') as is_ipv4_compatible;
-
-/*
-+--------------------+
-| is_ipv4_compatible |
-+--------------------+
-| true               |
-+--------------------+
-*/
-```
+    SELECT mysql.IS_IPV4_COMPAT('::192.0.2.128') as is_ipv4_compatible;
+    
+    /*
+    +--------------------+
+    | is_ipv4_compatible |
+    +--------------------+
+    | true               |
+    +--------------------+
+    */
 
 ## `     mysql.IS_IPV4_MAPPED    `
 
-``` text
-mysql.IS_IPV4_MAPPED(string_expression)
-```
+    mysql.IS_IPV4_MAPPED(string_expression)
 
 **Description**
 
@@ -344,23 +270,19 @@ This function supports the following argument:
 
 The following example checks for an IPv4-mapped IPv6 address:
 
-``` text
-SELECT mysql.IS_IPV4_MAPPED('::ffff:192.0.2.128') as is_ipv4_mapped;
-
-/*
-+----------------+
-| is_ipv4_mapped |
-+----------------+
-| true           |
-+----------------+
-*/
-```
+    SELECT mysql.IS_IPV4_MAPPED('::ffff:192.0.2.128') as is_ipv4_mapped;
+    
+    /*
+    +----------------+
+    | is_ipv4_mapped |
+    +----------------+
+    | true           |
+    +----------------+
+    */
 
 ## `     mysql.IS_IPV6    `
 
-``` text
-mysql.IS_IPV6(string_expression)
-```
+    mysql.IS_IPV6(string_expression)
 
 **Description**
 
@@ -378,26 +300,22 @@ This function supports the following argument:
 
 The following example checks if strings are valid IPv6 addresses:
 
-``` text
-SELECT
-  mysql.IS_IPV6('2001:db8::1') as example1_is_ipv6,
-  mysql.IS_IPV6('192.168.1.1') as example2_is_ipv6, /* This is IPv4 */
-  mysql.IS_IPV6('::ffff:192.0.2.128') as example3_is_ipv6; /* IPv4-mapped IPv6 */
-
-/*
-+------------------+------------------+------------------+
-| example1_is_ipv6 | example2_is_ipv6 | example3_is_ipv6 |
-+------------------+------------------+------------------+
-| true             | false            | true             |
-+------------------+------------------+------------------+
-*/
-```
+    SELECT
+      mysql.IS_IPV6('2001:db8::1') as example1_is_ipv6,
+      mysql.IS_IPV6('192.168.1.1') as example2_is_ipv6, /* This is IPv4 */
+      mysql.IS_IPV6('::ffff:192.0.2.128') as example3_is_ipv6; /* IPv4-mapped IPv6 */
+    
+    /*
+    +------------------+------------------+------------------+
+    | example1_is_ipv6 | example2_is_ipv6 | example3_is_ipv6 |
+    +------------------+------------------+------------------+
+    | true             | false            | true             |
+    +------------------+------------------+------------------+
+    */
 
 ## `     mysql.IS_UUID    `
 
-``` text
-mysql.IS_UUID(string_expression)
-```
+    mysql.IS_UUID(string_expression)
 
 **Description**
 
@@ -415,25 +333,21 @@ This function supports the following argument:
 
 The following example checks if strings are valid UUIDs:
 
-``` text
-SELECT
-  mysql.IS_UUID('550e8400-e29b-41d4-a716-446655440000') as is_valid_uuid,
-  mysql.IS_UUID('not-a-uuid') as is_invalid_uuid;
-
-/*
-+---------------+-----------------+
-| is_valid_uuid | is_invalid_uuid |
-+---------------+-----------------+
-| true          | false           |
-+---------------+-----------------+
-*/
-```
+    SELECT
+      mysql.IS_UUID('550e8400-e29b-41d4-a716-446655440000') as is_valid_uuid,
+      mysql.IS_UUID('not-a-uuid') as is_invalid_uuid;
+    
+    /*
+    +---------------+-----------------+
+    | is_valid_uuid | is_invalid_uuid |
+    +---------------+-----------------+
+    | true          | false           |
+    +---------------+-----------------+
+    */
 
 ## `     mysql.UUID    `
 
-``` text
-mysql.UUID()
-```
+    mysql.UUID()
 
 **Description**
 
@@ -453,23 +367,19 @@ Both this function and MySQL's `  UUID  ` function comply with [RFC 4122](https:
 
 The following example generates a UUID:
 
-``` text
-SELECT mysql.UUID() as generated_uuid;
-
-/*
-+--------------------------------------+
-| generated_uuid                       |
-+--------------------------------------+
-| 123e4567-e89b-12d3-a456-426614174000 |
-+--------------------------------------+
-*/
-```
+    SELECT mysql.UUID() as generated_uuid;
+    
+    /*
+    +--------------------------------------+
+    | generated_uuid                       |
+    +--------------------------------------+
+    | 123e4567-e89b-12d3-a456-426614174000 |
+    +--------------------------------------+
+    */
 
 ## `     mysql.UUID_TO_BIN    `
 
-``` text
-mysql.UUID_TO_BIN(string_expression)
-```
+    mysql.UUID_TO_BIN(string_expression)
 
 **Description**
 
@@ -495,14 +405,12 @@ This function doesn't use the optional second argument for swapping time-low and
 
 The following example converts a UUID string to its binary representation and displays it as a hex string:
 
-``` text
-SELECT TO_HEX(mysql.UUID_TO_BIN('00112233-4455-6677-8899-aabbccddeeff')) as uuid_bytes_hex;
-
-/*
-+----------------------------------+
-| uuid_bytes_hex                   |
-+----------------------------------+
-| 00112233445566778899AABBCCDDEEFF |
-+----------------------------------+
-*/
-```
+    SELECT TO_HEX(mysql.UUID_TO_BIN('00112233-4455-6677-8899-aabbccddeeff')) as uuid_bytes_hex;
+    
+    /*
+    +----------------------------------+
+    | uuid_bytes_hex                   |
+    +----------------------------------+
+    | 00112233445566778899AABBCCDDEEFF |
+    +----------------------------------+
+    */

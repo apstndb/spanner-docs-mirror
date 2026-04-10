@@ -14,19 +14,19 @@ EXAMPLES
 
 To create an empty Cloud Spanner database, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner databases create testdb --instance=my-instance-id
 ```
 
 To create a Cloud Spanner database with populated schema, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner databases create testdb --instance=my-instance-id --ddl='CREATE TABLE mytable (a INT64, b INT64) PRIMARY KEY(a)'
 ```
 
 To create a Cloud Spanner database with the PostgreSQL dialect, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner databases create testdb --instance=my-instance-id --database-dialect=POSTGRESQL
 ```
 
@@ -157,10 +157,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner databases create
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases create
 ```

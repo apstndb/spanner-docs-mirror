@@ -15,7 +15,7 @@ The following sample demonstrate how to use `  curl  ` to invoke the `  create_i
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
 curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 --header &#39;content-type: application/json&#39; \
 --header &#39;accept: application/json, text/event-stream&#39; \
@@ -52,7 +52,7 @@ The request for `  CreateInstance  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;parent&quot;: string,
   &quot;instanceId&quot;: string,
   &quot;instance&quot;: {
@@ -96,7 +96,7 @@ Required. The instance to create. The name may be omitted, but if specified must
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;config&quot;: string,
   &quot;displayName&quot;: string,
@@ -280,7 +280,7 @@ In the `  GetInstance  ` or `  ListInstances  ` response, if the value of `  def
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;replicaSelection&quot;: {
     object (ReplicaSelection)
   },
@@ -333,7 +333,7 @@ This may be zero in API responses for instances that are not yet in state `  REA
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;location&quot;: string
 }</code></pre></td>
 </tr>
@@ -361,7 +361,7 @@ Required. Name of the location of the replicas (for example, "us-central1").
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;autoscalingLimits&quot;: {
     object (AutoscalingLimits)
   },
@@ -413,7 +413,7 @@ Other replicas (those do not match any replica selection) will be autoscaled tog
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field min_limit can be only one of the following:
   &quot;minNodes&quot;: integer,
@@ -472,7 +472,7 @@ Maximum number of processing units allocated to the instance. If set, this numbe
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;highPriorityCpuUtilizationPercent&quot;: integer,
   &quot;totalCpuUtilizationPercent&quot;: integer,
   &quot;storageUtilizationPercent&quot;: integer
@@ -514,7 +514,7 @@ Required. The target storage utilization percentage that the autoscaler should b
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;replicaSelection&quot;: {
     object (ReplicaSelection)
   },
@@ -553,7 +553,7 @@ Optional. Overrides applied to the top-level autoscaling configuration for the s
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;autoscalingLimits&quot;: {
     object (AutoscalingLimits)
   },
@@ -623,7 +623,7 @@ Setting both `  disable_high_priority_cpu_autoscaling  ` and `  disable_total_cp
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;key&quot;: string,
   &quot;value&quot;: string
 }</code></pre></td>
@@ -654,7 +654,7 @@ Fields
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;seconds&quot;: string,
   &quot;nanos&quot;: integer
 }</code></pre></td>
@@ -689,7 +689,7 @@ Non-negative fractions of a second at nanosecond resolution. This field is the n
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;expireTime&quot;: string,
   &quot;upgradeTime&quot;: string,
   &quot;expireBehavior&quot;: enum (ExpireBehavior)
@@ -739,7 +739,7 @@ This resource represents a long-running operation that is the result of a networ
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;metadata&quot;: {
     &quot;@type&quot;: string,
@@ -814,7 +814,7 @@ An object containing fields of an arbitrary type. An additional field `  "@type"
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;typeUrl&quot;: string,
   &quot;value&quot;: string
 }</code></pre></td>
@@ -861,7 +861,7 @@ A base64-encoded string.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;code&quot;: integer,
   &quot;message&quot;: string,
   &quot;details&quot;: [

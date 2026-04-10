@@ -22,150 +22,39 @@ The following table shows the precedence and associativity of the operators in P
 
 **Operator Precedence (highest to lowest)**
 
-<table>
-<thead>
-<tr class="header">
-<th>Operator/Element</th>
-<th>Associativity</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">        .       </code></td>
-<td>left</td>
-<td>table/column name separator</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">        ::       </code></td>
-<td>left</td>
-<td>PostgreSQL -style typecast</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">        [       </code> <code dir="ltr" translate="no">        ]       </code></td>
-<td>left</td>
-<td>array element selection</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">        +       </code> <code dir="ltr" translate="no">        -       </code></td>
-<td>right</td>
-<td>unary plus, unary minus</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">        ^       </code></td>
-<td>left</td>
-<td>exponentiation</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">        *       </code> <code dir="ltr" translate="no">        /       </code> <code dir="ltr" translate="no">        %       </code></td>
-<td>left</td>
-<td>multiplication, division, modulo</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">        +       </code> <code dir="ltr" translate="no">        -       </code></td>
-<td>left</td>
-<td>addition, subtraction</td>
-</tr>
-<tr class="even">
-<td>(any other operator)</td>
-<td>left</td>
-<td>all other PostgreSQL and user-defined operators</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">        BETWEEN       </code> <code dir="ltr" translate="no">        LIKE       </code> <code dir="ltr" translate="no">        IN       </code></td>
-<td></td>
-<td>range containment, string matching, set membership</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">        &lt;       </code> <code dir="ltr" translate="no">        &gt;       </code> <code dir="ltr" translate="no">        =       </code> <code dir="ltr" translate="no">        &lt;=       </code> <code dir="ltr" translate="no">        &gt;=       </code> <code dir="ltr" translate="no">        &lt;&gt;       </code></td>
-<td></td>
-<td>comparison operators</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">        IS       </code> <code dir="ltr" translate="no">        ISNULL       </code> <code dir="ltr" translate="no">        NOTNULL       </code></td>
-<td></td>
-<td><code class="literal" dir="ltr" translate="no">        IS TRUE       </code> , <code class="literal" dir="ltr" translate="no">        IS FALSE       </code> , <code class="literal" dir="ltr" translate="no">        IS NULL       </code> , <code class="literal" dir="ltr" translate="no">        IS DISTINCT FROM       </code> , and more</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">        NOT       </code></td>
-<td>right</td>
-<td>logical negation</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">        AND       </code></td>
-<td>left</td>
-<td>logical conjunction</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">        OR       </code></td>
-<td>left</td>
-<td>logical disjunction</td>
-</tr>
-</tbody>
-</table>
+| Operator/Element                                                                                                                 | Associativity | Description                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `         .        `                                                                                                             | left          | table/column name separator                                                                                                            |
+| `         ::        `                                                                                                            | left          | PostgreSQL -style typecast                                                                                                             |
+| `         [        ` `         ]        `                                                                                        | left          | array element selection                                                                                                                |
+| `         +        ` `         -        `                                                                                        | right         | unary plus, unary minus                                                                                                                |
+| `         ^        `                                                                                                             | left          | exponentiation                                                                                                                         |
+| `         *        ` `         /        ` `         %        `                                                                   | left          | multiplication, division, modulo                                                                                                       |
+| `         +        ` `         -        `                                                                                        | left          | addition, subtraction                                                                                                                  |
+| (any other operator)                                                                                                             | left          | all other PostgreSQL and user-defined operators                                                                                        |
+| `         BETWEEN        ` `         LIKE        ` `         IN        `                                                         |               | range containment, string matching, set membership                                                                                     |
+| `         <        ` `         >        ` `         =        ` `         <=        ` `         >=        ` `         <>        ` |               | comparison operators                                                                                                                   |
+| `         IS        ` `         ISNULL        ` `         NOTNULL        `                                                       |               | `         IS TRUE        ` , `         IS FALSE        ` , `         IS NULL        ` , `         IS DISTINCT FROM        ` , and more |
+| `         NOT        `                                                                                                           | right         | logical negation                                                                                                                       |
+| `         AND        `                                                                                                           | left          | logical conjunction                                                                                                                    |
+| `         OR        `                                                                                                            | left          | logical disjunction                                                                                                                    |
 
 ## Array operators
 
-<table>
-<thead>
-<tr class="header">
-<th>Operator</th>
-<th>Example/Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       @&gt;      </code></td>
-<td><code dir="ltr" translate="no">       array[1, 2, 3] @&gt; array[1, 2, 1] → true      </code></td>
-<td>Array contains operator. Returns <code dir="ltr" translate="no">       true      </code> if the first array contains the second, that is, if every element in the second array equals some element in the first array.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       &lt;@      </code></td>
-<td><code dir="ltr" translate="no">       array[1, 1, 3] &lt;@ array[1, 2, 3, 4] → true      </code></td>
-<td>Array contained operator. Returns <code dir="ltr" translate="no">       true      </code> if the second array contains the first array. That is, if every element in the first array equals some element in the second array.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       &amp;&amp;      </code></td>
-<td><code dir="ltr" translate="no">       array[1, 2, 3] &amp;&amp; array[1, 5] → true      </code></td>
-<td>Array overlap operator. Returns <code dir="ltr" translate="no">       true      </code> if the elements in the arrays overlap, that is, if they have any element in common.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       ||      </code></td>
-<td><code dir="ltr" translate="no">       array[1, 2] || array[3, 4] → {1, 2, 3, 4}      </code></td>
-<td>Concatenation operator. Concatenates two arrays.</td>
-</tr>
-</tbody>
-</table>
+| Operator              | Example/Notes                                                | Description                                                                                                                                                                                 |
+| --------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        @>       `   | `        array[1, 2, 3] @> array[1, 2, 1] → true       `     | Array contains operator. Returns `        true       ` if the first array contains the second, that is, if every element in the second array equals some element in the first array.        |
+| `        <@       `   | `        array[1, 1, 3] <@ array[1, 2, 3, 4] → true       `  | Array contained operator. Returns `        true       ` if the second array contains the first array. That is, if every element in the first array equals some element in the second array. |
+| `        &&       `   | `        array[1, 2, 3] && array[1, 5] → true       `        | Array overlap operator. Returns `        true       ` if the elements in the arrays overlap, that is, if they have any element in common.                                                   |
+| `        \|\|       ` | `        array[1, 2] \|\| array[3, 4] → {1, 2, 3, 4}       ` | Concatenation operator. Concatenates two arrays.                                                                                                                                            |
 
 ## Date and time operators
 
-<table>
-<thead>
-<tr class="header">
-<th>Operator</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       date - date      </code></td>
-<td><code dir="ltr" translate="no">       date '2001-10-01' - date '2001-09-28' → 3      </code></td>
-<td>Subtracts dates, returning the number of days that have elapsed.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       date - integer      </code></td>
-<td><code dir="ltr" translate="no">       date '2001-10-01' - 7 → 2001-09-24      </code></td>
-<td>Subtracts a number of days from a date, returning the new date.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       date + integer      </code></td>
-<td><code dir="ltr" translate="no">       date '2001-09-28' + 7 → 2001-10-05      </code></td>
-<td>Adds a number of days to a date, returning the new date.</td>
-</tr>
-</tbody>
-</table>
+| Operator                        | Example / Notes                                            | Description                                                      |
+| ------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------- |
+| `        date - date       `    | `        date '2001-10-01' - date '2001-09-28' → 3       ` | Subtracts dates, returning the number of days that have elapsed. |
+| `        date - integer       ` | `        date '2001-10-01' - 7 → 2001-09-24       `        | Subtracts a number of days from a date, returning the new date.  |
+| `        date + integer       ` | `        date '2001-09-28' + 7 → 2001-10-05       `        | Adds a number of days to a date, returning the new date.         |
 
 ## JSONB operators
 
@@ -260,19 +149,6 @@ The following table shows the precedence and associativity of the operators in P
 
 ## Pattern matching operators
 
-<table>
-<thead>
-<tr class="header">
-<th>Operator</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">         string              text !~               pattern              text      </code></td>
-<td><code dir="ltr" translate="no">       'thomas' !~ 't.*max' → true      </code></td>
-<td>Tests whether a string text does not match a regular expression. Case sensitive.</td>
-</tr>
-</tbody>
-</table>
+| Operator                                                                               | Example / Notes                              | Description                                                                      |
+| -------------------------------------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------- |
+| `          string              text !~               pattern              text       ` | `        'thomas' !~ 't.*max' → true       ` | Tests whether a string text does not match a regular expression. Case sensitive. |

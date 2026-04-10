@@ -134,7 +134,7 @@ Unless otherwise specified, functions return the same data type as provided in t
 <tr class="odd">
 <td><code dir="ltr" translate="no">       spanner.bit_reverse(bigint_value, /*preserve_sign=*/bool)      </code></td>
 <td><code dir="ltr" translate="no">       spanner.bit_reverse(1, true);              --&gt; returns 4611686018427387904              spanner.bit_reverse(10, false);              --&gt; returns  5764607523034234880      </code></td>
-<td>Returns a bit-reversed value for a <code dir="ltr" translate="no">       bigint      </code> value. When <code dir="ltr" translate="no">       preserve_sign      </code> is <code dir="ltr" translate="no">       true      </code> , this function provides the same bit-reversal algorithm used in bit-reversed sequence. See <a href="/spanner/docs/primary-key-default-value#bit-reversed-sequence">Bit-reversed sequence</a> .</td>
+<td>Returns a bit-reversed value for a <code dir="ltr" translate="no">       bigint      </code> value. When <code dir="ltr" translate="no">       preserve_sign      </code> is <code dir="ltr" translate="no">       true      </code> , this function provides the same bit-reversal algorithm used in bit-reversed sequence. See <a href="https://docs.cloud.google.com/spanner/docs/primary-key-default-value#bit-reversed-sequence">Bit-reversed sequence</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       spanner.cosine_distance(float4[], float4[])              spanner.cosine_distance(float8[], float8[])      </code></td>
@@ -218,7 +218,7 @@ Unless otherwise specified, functions return the same data type as provided in t
 <td><code dir="ltr" translate="no">       spanner.ML_PREDICT_ROW(model_endpoint               text|jsonb              , args               jsonb              )      </code></td>
 <td>Returns JSONB.<br />
 <code dir="ltr" translate="no"></code></td>
-<td><code dir="ltr" translate="no">       spanner.ML_PREDICT_ROW      </code> is a scalar function that allows predictions on a per row basis and can appear anywhere a scalar expression is allowed in SQL statements. You can get online predictions in your SQL code by calling this function. For more information about this function, see <a href="/spanner/docs/ml-tutorial#use_ml_predict_for_ml_serving">Use ML Predict for ML serving</a> .</td>
+<td><code dir="ltr" translate="no">       spanner.ML_PREDICT_ROW      </code> is a scalar function that allows predictions on a per row basis and can appear anywhere a scalar expression is allowed in SQL statements. You can get online predictions in your SQL code by calling this function. For more information about this function, see <a href="https://docs.cloud.google.com/spanner/docs/ml-tutorial#use_ml_predict_for_ml_serving">Use ML Predict for ML serving</a> .</td>
 </tr>
 </tbody>
 </table>
@@ -260,27 +260,27 @@ If you pass NULL for either the <em>delimiter</em> argument or the <em>null_stri
 <tr class="odd">
 <td><code dir="ltr" translate="no">       array_upper(anyarray,               dimension              int8)      </code></td>
 <td><code dir="ltr" translate="no">       array_upper(ARRAY[1, 2, 3, 4], 1) → 4      </code></td>
-<td>Returns the upper bound of the requested array dimension. Note that Spanner does not support multidimensional arrays. The only dimension supported is <code dir="ltr" translate="no">       1      </code> . For more information, see <a href="/spanner/docs/reference/postgresql/arrays">Working with arrays in PostgreSQL-dialect databases</a> .</td>
+<td>Returns the upper bound of the requested array dimension. Note that Spanner does not support multidimensional arrays. The only dimension supported is <code dir="ltr" translate="no">       1      </code> . For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays">Working with arrays in PostgreSQL-dialect databases</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       array_length(anyarray,               dimension              int8)      </code></td>
 <td><code dir="ltr" translate="no">       array_length(ARRAY[1, 2, 3, 4], 1) → 4      </code></td>
-<td>Returns the size of the array. Returns <code dir="ltr" translate="no">       NULL      </code> for an empty or <code dir="ltr" translate="no">       NULL      </code> array, or if the dimension is <code dir="ltr" translate="no">       NULL      </code> . multidimensional arrays are not supported. The only dimension supported is <code dir="ltr" translate="no">       1      </code> . For more information, see <a href="/spanner/docs/reference/postgresql/arrays">Working with arrays in PostgreSQL-dialect databases</a> .</td>
+<td>Returns the size of the array. Returns <code dir="ltr" translate="no">       NULL      </code> for an empty or <code dir="ltr" translate="no">       NULL      </code> array, or if the dimension is <code dir="ltr" translate="no">       NULL      </code> . multidimensional arrays are not supported. The only dimension supported is <code dir="ltr" translate="no">       1      </code> . For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays">Working with arrays in PostgreSQL-dialect databases</a> .</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       array(subquery)      </code></td>
 <td></td>
-<td>Returns an <code dir="ltr" translate="no">       ARRAY      </code> with one element for each row in the subquery. For more information, see <a href="/spanner/docs/reference/postgresql/arrays">Working with arrays in PostgreSQL-dialect databases</a> .</td>
+<td>Returns an <code dir="ltr" translate="no">       ARRAY      </code> with one element for each row in the subquery. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays">Working with arrays in PostgreSQL-dialect databases</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       unnest(anyarray)      </code></td>
 <td></td>
-<td>Expands an <code dir="ltr" translate="no">       ARRAY      </code> into a set of rows. For more information, see <a href="/spanner/docs/reference/postgresql/arrays">Working with arrays in PostgreSQL-dialect databases</a> .</td>
+<td>Expands an <code dir="ltr" translate="no">       ARRAY      </code> into a set of rows. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays">Working with arrays in PostgreSQL-dialect databases</a> .</td>
 </tr>
 </tbody>
 </table>
 
-  - For details about the array aggregate function, see [aggregate functions](/spanner/docs/reference/postgresql/functions#aggregate) .
+  - For details about the array aggregate function, see [aggregate functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#aggregate) .
 
 ### Array comparisons
 
@@ -545,22 +545,9 @@ If you pass NULL for either the <em>delimiter</em> argument or the <em>null_stri
 
 ## Hash functions
 
-<table>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       spanner.farm_fingerprint(               value              bytea | text)      </code></td>
-<td><code dir="ltr" translate="no">       spanner.farm_fingerprint('abc') → 2640714258260161385      </code></td>
-<td>Computes the fingerprint of <em>value</em> using the FarmHash Fingerprint64 algorithm.</td>
-</tr>
-</tbody>
-</table>
+| Function                                                                                   | Example / Notes                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `        spanner.farm_fingerprint(               value              bytea \| text)       ` | `        spanner.farm_fingerprint('abc') → 2640714258260161385       ` | Computes the fingerprint of *value* using the FarmHash Fingerprint64 algorithm. |
 
 ## Date and time functions
 
@@ -568,57 +555,16 @@ This section describes the date and time functions that are available in Spanner
 
 ### Date and time functions
 
-<table>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       current_date      </code></td>
-<td><code dir="ltr" translate="no">       SELECT CURRENT_DATE;              Result: 2022-05-13      </code></td>
-<td>Returns current <code dir="ltr" translate="no">       date      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       current_timestamp      </code></td>
-<td><code dir="ltr" translate="no">       SELECT CURRENT_TIMESTAMP;              Result: 2022-05-13T16:30:29.880850967Z      </code></td>
-<td>Returns current date and time in <code dir="ltr" translate="no">       timestamptz      </code> format.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       date_trunc(text, timestamptz)      </code></td>
-<td><code dir="ltr" translate="no">       date_trunc('day', timestamptz '2020-01-02 13:14:15+0') -&gt; 2020-01-02 00:00:00-08      </code></td>
-<td>Truncates a timestamp to the precision of the provided field. The truncation is done with respect to the default time zone (America/Los_Angeles)</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       date_trunc(text, timestamptz, text)      </code></td>
-<td><code dir="ltr" translate="no">       date_trunc('day', timestamptz '2001-02-16 20:38:40+00', 'Australia/Sydney') -&gt; 2001-02-16 08:00:00-05      </code></td>
-<td>Truncates a timestamp to the precision of the provided field. The trunctation is done with respect to the provided time zone</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       extract(field FROM source)      </code></td>
-<td><code dir="ltr" translate="no">       extract(decade from timestamptz '2001-01-01 01:00:00+00') -&gt; 200      </code></td>
-<td>Retrieves subfields from date and time values and returns values of type numeric. Source can use the date or timestamptz data type.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       make_date(int8, int8, int8)      </code></td>
-<td><code dir="ltr" translate="no">       make_date(2013, 7, 15) → 2013-07-15      </code></td>
-<td>Creates date from year, month, and day fields (negative years signify BCE).</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       now()      </code></td>
-<td><code dir="ltr" translate="no">       now() → 2022-05-02T19:17:45.145511221Z      </code></td>
-<td>Returns current date and time in <code dir="ltr" translate="no">       timestamptz      </code> format.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       to_timestamp(int8)      </code></td>
-<td><code dir="ltr" translate="no">       to_timestamp(1284352323) → 2010-09-13T04:32:03Z      </code></td>
-<td>Converts Unix epoch (seconds since 1970-01-01 00:00:00+00) to <code dir="ltr" translate="no">       timestamptz      </code> format.</td>
-</tr>
-</tbody>
-</table>
+| Function                                             | Example / Notes                                                                                                        | Description                                                                                                                                       |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        current_date       `                        | `        SELECT CURRENT_DATE;              Result: 2022-05-13       `                                                  | Returns current `        date       ` .                                                                                                           |
+| `        current_timestamp       `                   | `        SELECT CURRENT_TIMESTAMP;              Result: 2022-05-13T16:30:29.880850967Z       `                         | Returns current date and time in `        timestamptz       ` format.                                                                             |
+| `        date_trunc(text, timestamptz)       `       | `        date_trunc('day', timestamptz '2020-01-02 13:14:15+0') -> 2020-01-02 00:00:00-08       `                      | Truncates a timestamp to the precision of the provided field. The truncation is done with respect to the default time zone (America/Los\_Angeles) |
+| `        date_trunc(text, timestamptz, text)       ` | `        date_trunc('day', timestamptz '2001-02-16 20:38:40+00', 'Australia/Sydney') -> 2001-02-16 08:00:00-05       ` | Truncates a timestamp to the precision of the provided field. The trunctation is done with respect to the provided time zone                      |
+| `        extract(field FROM source)       `          | `        extract(decade from timestamptz '2001-01-01 01:00:00+00') -> 200       `                                      | Retrieves subfields from date and time values and returns values of type numeric. Source can use the date or timestamptz data type.               |
+| `        make_date(int8, int8, int8)       `         | `        make_date(2013, 7, 15) → 2013-07-15       `                                                                   | Creates date from year, month, and day fields (negative years signify BCE).                                                                       |
+| `        now()       `                               | `        now() → 2022-05-02T19:17:45.145511221Z       `                                                                | Returns current date and time in `        timestamptz       ` format.                                                                             |
+| `        to_timestamp(int8)       `                  | `        to_timestamp(1284352323) → 2010-09-13T04:32:03Z       `                                                       | Converts Unix epoch (seconds since 1970-01-01 00:00:00+00) to `        timestamptz       ` format.                                                |
 
 ### Spanner specific date and time functions
 
@@ -642,7 +588,7 @@ Spanner has several functions that perform date or time math that accept `  INTE
 <td><code dir="ltr" translate="no">       spanner.date(timestamptz, text)      </code></td>
 <td><code dir="ltr" translate="no">       spanner.date('2025-04-14 03:38:40+00'::timestamptz, 'America/New_York') -&gt; 2025-04-13      </code></td>
 <td><p>Extracts date from a timestamptz in a specified time zone.</p>
-<p>If a time zone value is not provided in the first parameter, the time zone value defaults to <a href="/spanner/docs/reference/standard-sql/data-types#time_zones">America/Los_Angeles</a> . For example, <code dir="ltr" translate="no">        spanner.date('2025-04-14 23:38:40'::timestamptz, 'America/New_York') -&gt; 2025-04-15       </code></p></td>
+<p>If a time zone value is not provided in the first parameter, the time zone value defaults to <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones">America/Los_Angeles</a> . For example, <code dir="ltr" translate="no">        spanner.date('2025-04-14 23:38:40'::timestamptz, 'America/New_York') -&gt; 2025-04-15       </code></p></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       spanner.date_bin(text, timestamptz, timestamptz)      </code></td>
@@ -659,19 +605,19 @@ You can also use <code dir="ltr" translate="no">       SPANNER.PENDING_COMMIT_TI
 <tr class="even">
 <td><code dir="ltr" translate="no">       spanner.timestamptz_add(timestamptz, text)      </code></td>
 <td><code dir="ltr" translate="no">       spanner.timestamptz_add(timestamptz '2001-02-16 20:38:40Z', '1 day 3min') -&gt; 2001-02-17 20:41:40Z      </code></td>
-<td>Adds an interval to a <code dir="ltr" translate="no">       timestamptz      </code> . To be more consistent with the PostgreSQL language, we recommend using the <a href="/spanner/docs/reference/postgresql/data-types#interval-type"><code dir="ltr" translate="no">        INTERVAL       </code></a> type with the addition operator ( <code dir="ltr" translate="no">       +      </code> ) instead.</td>
+<td>Adds an interval to a <code dir="ltr" translate="no">       timestamptz      </code> . To be more consistent with the PostgreSQL language, we recommend using the <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#interval-type"><code dir="ltr" translate="no">        INTERVAL       </code></a> type with the addition operator ( <code dir="ltr" translate="no">       +      </code> ) instead.</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       spanner.timestamptz_subtract(timestamptz, text)      </code></td>
 <td><code dir="ltr" translate="no">       spanner.timestamptz_subtract(timestamptz '2001-02-16 20:38:40Z', '1 month 2 hours') -&gt; 2001-01-16 18:38:40Z      </code></td>
-<td>Subtracts an interval from a <code dir="ltr" translate="no">       timestamptz      </code> . To be more consistent with the PostgreSQL language, we recommend using the <a href="/spanner/docs/reference/postgresql/data-types#interval-type"><code dir="ltr" translate="no">        INTERVAL       </code></a> type with the subtraction operator ( <code dir="ltr" translate="no">       -      </code> ) instead.</td>
+<td>Subtracts an interval from a <code dir="ltr" translate="no">       timestamptz      </code> . To be more consistent with the PostgreSQL language, we recommend using the <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#interval-type"><code dir="ltr" translate="no">        INTERVAL       </code></a> type with the subtraction operator ( <code dir="ltr" translate="no">       -      </code> ) instead.</td>
 </tr>
 </tbody>
 </table>
 
 ## Search functions
 
-Spanner has several functions that perform full-text search operations. For more information, see [Full-text search](/spanner/docs/full-text-search) . For more information on search functions, see the GoogleSQL [Search functions](/spanner/docs/reference/standard-sql/search_functions) section.
+Spanner has several functions that perform full-text search operations. For more information, see [Full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) . For more information on search functions, see the GoogleSQL [Search functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions) section.
 
 ### Indexing
 
@@ -746,78 +692,22 @@ Functions that you can use to create search indexes.
 
 Functions that you can use to search for data, score the search result, or format the search result.
 
-<table>
-<colgroup>
-<col style="width: 40%" />
-<col style="width: 20%" />
-<col style="width: 40%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       spanner.score(              tokens spanner.tokenlist,              query text              [, dialect text]              [, language_tag text]              [, enhance_query bool]              [, options jsonb])       </code></td>
-<td>Returns a <code dir="ltr" translate="no">       float8      </code> .</td>
-<td>Calculates a relevance score of a <code dir="ltr" translate="no">       tokenlist      </code> for a full-text search query. The higher the score, the stronger the match.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       spanner.score_ngrams(              tokens spanner.tokenlist,              ngrams_query text              [, language_tag text]              [, algorithm text])       </code></td>
-<td></td>
-<td>Calculates the relevance score of a <code dir="ltr" translate="no">       tokenlist      </code> for a fuzzy search. The higher the score, the stronger the match.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       spanner.search(              tokens spanner.tokenlist,              query text              [, dialect text]              [, language_tag text]              [, enhance_query bool])       </code></td>
-<td>Returns a <code dir="ltr" translate="no">       bool      </code> .</td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if a full-text search query matches tokens.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       spanner.search_ngrams(              tokens spanner.tokenlist,              ngrams_query text              [, language_tag text]              [, min_ngrams int8]              [, min_ngrams_percent float8])       </code></td>
-<td>Returns a <code dir="ltr" translate="no">       bool      </code> .</td>
-<td>Checks whether enough n-grams match the tokens in a fuzzy search.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       spanner.search_substring(              tokens spanner.tokenlist              [, query text]              [, language_tag text]              [, relative_search_type text])       </code></td>
-<td>Returns a <code dir="ltr" translate="no">       bool      </code> .</td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if a substring query matches tokens.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       spanner.snippet(              value text,              query text              [, language_tag text]              [, enhance_query bool]              [, max_snippet_width int8]              [, max_snippets int8]              [, content_type text])       </code></td>
-<td>Returns <code dir="ltr" translate="no">       jsonb      </code> .</td>
-<td>Gets a list of snippets that match a full-text search query.</td>
-</tr>
-</tbody>
-</table>
+| Function                                                                                                                                                                                                                                                                  | Example / Notes                     | Description                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `        spanner.score(              tokens spanner.tokenlist,              query text              [, dialect text]              [, language_tag text]              [, enhance_query bool]              [, options jsonb])        `                                      | Returns a `        float8       ` . | Calculates a relevance score of a `        tokenlist       ` for a full-text search query. The higher the score, the stronger the match. |
+| `        spanner.score_ngrams(              tokens spanner.tokenlist,              ngrams_query text              [, language_tag text]              [, algorithm text])        `                                                                                         |                                     | Calculates the relevance score of a `        tokenlist       ` for a fuzzy search. The higher the score, the stronger the match.         |
+| `        spanner.search(              tokens spanner.tokenlist,              query text              [, dialect text]              [, language_tag text]              [, enhance_query bool])        `                                                                    | Returns a `        bool       ` .   | Returns `        TRUE       ` if a full-text search query matches tokens.                                                                |
+| `        spanner.search_ngrams(              tokens spanner.tokenlist,              ngrams_query text              [, language_tag text]              [, min_ngrams int8]              [, min_ngrams_percent float8])        `                                            | Returns a `        bool       ` .   | Checks whether enough n-grams match the tokens in a fuzzy search.                                                                        |
+| `        spanner.search_substring(              tokens spanner.tokenlist              [, query text]              [, language_tag text]              [, relative_search_type text])        `                                                                              | Returns a `        bool       ` .   | Returns `        TRUE       ` if a substring query matches tokens.                                                                       |
+| `        spanner.snippet(              value text,              query text              [, language_tag text]              [, enhance_query bool]              [, max_snippet_width int8]              [, max_snippets int8]              [, content_type text])        ` | Returns `        jsonb       ` .    | Gets a list of snippets that match a full-text search query.                                                                             |
 
 ### Debugging
 
 Functions that you can use for debugging.
 
-<table>
-<colgroup>
-<col style="width: 40%" />
-<col style="width: 20%" />
-<col style="width: 40%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       spanner.debug_tokenlist(              spanner.tokenlist)       </code></td>
-<td>Returns <code dir="ltr" translate="no">       text      </code> .</td>
-<td>Displays a human-readable representation of tokens present in the <code dir="ltr" translate="no">       tokenlist      </code> value for debugging purposes.</td>
-</tr>
-</tbody>
-</table>
+| Function                                                                   | Example / Notes                 | Description                                                                                                                |
+| -------------------------------------------------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `        spanner.debug_tokenlist(              spanner.tokenlist)        ` | Returns `        text       ` . | Displays a human-readable representation of tokens present in the `        tokenlist       ` value for debugging purposes. |
 
 ## JSONB functions
 
@@ -844,7 +734,7 @@ For more information, see the [PostgreSQL `  JSONB  ` documentation](https://www
 <tr class="odd">
 <td><code dir="ltr" translate="no">       jsonb_array_elements(JSONB)      </code></td>
 <td><p><code dir="ltr" translate="no">        jsonb_array_elements('[1, "abc", {"k": "v"}]'::jsonb)       </code></p>
-<pre class="text" dir="ltr" data-is-upgraded="" translate="no"><code>      /*---------------------*
+<pre dir="ltr" data-is-upgraded="" translate="no"><code>      /*---------------------*
       | jsonb_array_elements |
       +----------------------+
       | &#39;1&#39;                  |
@@ -1065,87 +955,22 @@ Spanner has several JSONB functions that are not available in open source Postgr
 
 ## Aggregate functions
 
-<table>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       array_agg(anynonarray [ORDER BY input_sort_columns])      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Inserts the given values, including nulls, into an array. <code dir="ltr" translate="no">       input_sort_columns      </code> , if specified, must have the same syntax as a query-level ORDER BY clause and is used to sort the inputs.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       avg(float4 | float8 | interval | int8 | numeric)      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Computes the average (arithmetic mean) of all the non-null input values.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       bit_and(int8)      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Computes the bitwise AND of all non-null input values.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       bit_or(int8)      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Computes the bitwise OR of all non-null input values.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       bool_and(bool)      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Returns <code dir="ltr" translate="no">       true      </code> if all non-null input values are <code dir="ltr" translate="no">       true      </code> , otherwise false.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       bool_or(bool)      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Returns <code dir="ltr" translate="no">       true      </code> if any non-null input value is <code dir="ltr" translate="no">       true      </code> , otherwise false.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       count(*)      </code></td>
-<td>Returns int8. <code dir="ltr" translate="no"></code></td>
-<td>Computes the number of input rows.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       count(bool | bytea | float4 | float8 | interval | int8 | text | timestamptz)      </code></td>
-<td>Returns int8. <code dir="ltr" translate="no"></code></td>
-<td>Computes the number of input rows in which the input value is not null.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       every(bool)      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Equivalent to <code dir="ltr" translate="no">       bool_and()      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       max(float4 | float8 | interval | int8 | numeric | text | timestamptz)      </code></td>
-<td>Returns same type as input type. <code dir="ltr" translate="no"></code></td>
-<td>Computes the maximum of the non-null input values.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       min(float4 | float8 | interval | int8 | numeric | text | timestamptz)      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Computes the minimum of the non-null input values.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       string_agg(               value              bytea,               delimiter              bytea)      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Concatenates the non-null input values into a string. Each value after the first is preceded by the corresponding <em>delimiter</em> (if it's not null).</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       string_agg(               value              text,               delimiter              text [ORDER BY input_sort_columns])      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Concatenates the non-null input values into a string. Each value after the first is preceded by the corresponding <em>delimiter</em> (if it's not null). <code dir="ltr" translate="no">       input_sort_columns      </code> , if specified, must have the same syntax as a query-level ORDER BY clause and is used to sort the inputs.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       sum(float4 | float8 | interval | int8 | numeric)      </code></td>
-<td><code dir="ltr" translate="no"></code></td>
-<td>Computes the sum of the non-null input values.</td>
-</tr>
-</tbody>
-</table>
+| Function                                                                                                                                     | Example / Notes                       | Description                                                                                                                                                                                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `        array_agg(anynonarray [ORDER BY input_sort_columns])       `                                                                        | `  `                                  | Inserts the given values, including nulls, into an array. `        input_sort_columns       ` , if specified, must have the same syntax as a query-level ORDER BY clause and is used to sort the inputs.                                                                                         |
+| `        avg(float4 \| float8 \| interval \| int8 \| numeric)       `                                                                        | `  `                                  | Computes the average (arithmetic mean) of all the non-null input values.                                                                                                                                                                                                                         |
+| `        bit_and(int8)       `                                                                                                               | `  `                                  | Computes the bitwise AND of all non-null input values.                                                                                                                                                                                                                                           |
+| `        bit_or(int8)       `                                                                                                                | `  `                                  | Computes the bitwise OR of all non-null input values.                                                                                                                                                                                                                                            |
+| `        bool_and(bool)       `                                                                                                              | `  `                                  | Returns `        true       ` if all non-null input values are `        true       ` , otherwise false.                                                                                                                                                                                          |
+| `        bool_or(bool)       `                                                                                                               | `  `                                  | Returns `        true       ` if any non-null input value is `        true       ` , otherwise false.                                                                                                                                                                                            |
+| `        count(*)       `                                                                                                                    | Returns int8. `  `                    | Computes the number of input rows.                                                                                                                                                                                                                                                               |
+| `        count(bool \| bytea \| float4 \| float8 \| interval \| int8 \| text \| timestamptz)       `                                         | Returns int8. `  `                    | Computes the number of input rows in which the input value is not null.                                                                                                                                                                                                                          |
+| `        every(bool)       `                                                                                                                 | `  `                                  | Equivalent to `        bool_and()       ` .                                                                                                                                                                                                                                                      |
+| `        max(float4 \| float8 \| interval \| int8 \| numeric \| text \| timestamptz)       `                                                 | Returns same type as input type. `  ` | Computes the maximum of the non-null input values.                                                                                                                                                                                                                                               |
+| `        min(float4 \| float8 \| interval \| int8 \| numeric \| text \| timestamptz)       `                                                 | `  `                                  | Computes the minimum of the non-null input values.                                                                                                                                                                                                                                               |
+| `        string_agg(               value              bytea,               delimiter              bytea)       `                             | `  `                                  | Concatenates the non-null input values into a string. Each value after the first is preceded by the corresponding *delimiter* (if it's not null).                                                                                                                                                |
+| `        string_agg(               value              text,               delimiter              text [ORDER BY input_sort_columns])       ` | `  `                                  | Concatenates the non-null input values into a string. Each value after the first is preceded by the corresponding *delimiter* (if it's not null). `        input_sort_columns       ` , if specified, must have the same syntax as a query-level ORDER BY clause and is used to sort the inputs. |
+| `        sum(float4 \| float8 \| interval \| int8 \| numeric)       `                                                                        | `  `                                  | Computes the sum of the non-null input values.                                                                                                                                                                                                                                                   |
 
 ## Conditional functions
 
@@ -1289,92 +1114,30 @@ This section describes the pattern matching functions that are available in Span
 
 ## Formatting functions
 
-<table>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       to_char(               interval_value              interval,               format              text)      </code></td>
-<td><code dir="ltr" translate="no">       SELECT to_char(INTERVAL '1 year 2 months 15 days 10 hours 30 minutes 15 seconds 100 milliseconds', 'YYYY-MM-DD HH24:MI:SS.MS');      </code></td>
-<td>Converts interval to string according to the given date format. <a href="#footnote1"><sup>[1]</sup></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       to_char(               number              int8,               format              text)      </code></td>
-<td><code dir="ltr" translate="no">       to_char(125, '999') → 125      </code></td>
-<td>Converts int8 to string according to the given format. <a href="#footnote2"><sup>[2]</sup></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       to_char(               number              numeric,               format              text)      </code></td>
-<td><code dir="ltr" translate="no">       to_char(-125.8, '999D99S') → 125.8-      </code></td>
-<td>Converts numeric to string according to the given format. <a href="#footnote2"><sup>[2]</sup></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       to_char(               number              float4,               format              text)      </code></td>
-<td><code dir="ltr" translate="no">       to_char(125.8::float4, '999D9') → 125.8      </code></td>
-<td>Converts float4 to string according to the given format. <a href="#footnote2"><sup>[2]</sup></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       to_char(               number              float8,               format              text)      </code></td>
-<td><code dir="ltr" translate="no">       to_char(125.8::float8, '999D9') → 125.8      </code></td>
-<td>Converts float8 to string according to the given format. <a href="#footnote2"><sup>[2]</sup></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       to_char(               timestamp              timestamptz,               format              text)      </code></td>
-<td><code dir="ltr" translate="no">       to_char(timestamp '2002-04-20 17:31:12.66', 'HH12:MI:SS') → 05:31:12      </code></td>
-<td>Converts timestamptz to string according to the given date format. <a href="#footnote3"><sup>[3]</sup></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       to_number(               number              text,               format              text)      </code></td>
-<td><code dir="ltr" translate="no">       to_number('12,454.8-', '99G999D9S') → -12454.8      </code></td>
-<td>Converts string to numeric according to the given format. <a href="#footnote3"><sup>[2]</sup></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       to_date(               date              text,               format              text)      </code></td>
-<td><code dir="ltr" translate="no">       to_date('05 Dec 2000', 'DD Mon YYYY') → 2000-12-05      </code></td>
-<td>Converts string to date according to the given date format. <a href="#footnote3"><sup>[3]</sup></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       to_timestamp(               timestamp              timestamptz,               format              text)      </code></td>
-<td><code dir="ltr" translate="no">       to_timestamp('05 Dec 2000', 'DD Mon YYYY') → 2000-12-05 00:00:00-05      </code></td>
-<td>Converts string to timestamptz format according to the given date time format. <a href="#footnote3"><sup>[3]</sup></a></td>
-</tr>
-</tbody>
-</table>
+| Function                                                                                                                 | Example / Notes                                                                                                                                  | Description                                                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        to_char(               interval_value              interval,               format              text)       `    | `        SELECT to_char(INTERVAL '1 year 2 months 15 days 10 hours 30 minutes 15 seconds 100 milliseconds', 'YYYY-MM-DD HH24:MI:SS.MS');       ` | Converts interval to string according to the given date format. [<sup>\[1\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote1)                |
+| `        to_char(               number              int8,               format              text)       `                | `        to_char(125, '999') → 125       `                                                                                                       | Converts int8 to string according to the given format. [<sup>\[2\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote2)                         |
+| `        to_char(               number              numeric,               format              text)       `             | `        to_char(-125.8, '999D99S') → 125.8-       `                                                                                             | Converts numeric to string according to the given format. [<sup>\[2\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote2)                      |
+| `        to_char(               number              float4,               format              text)       `              | `        to_char(125.8::float4, '999D9') → 125.8       `                                                                                         | Converts float4 to string according to the given format. [<sup>\[2\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote2)                       |
+| `        to_char(               number              float8,               format              text)       `              | `        to_char(125.8::float8, '999D9') → 125.8       `                                                                                         | Converts float8 to string according to the given format. [<sup>\[2\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote2)                       |
+| `        to_char(               timestamp              timestamptz,               format              text)       `      | `        to_char(timestamp '2002-04-20 17:31:12.66', 'HH12:MI:SS') → 05:31:12       `                                                            | Converts timestamptz to string according to the given date format. [<sup>\[3\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote3)             |
+| `        to_number(               number              text,               format              text)       `              | `        to_number('12,454.8-', '99G999D9S') → -12454.8       `                                                                                  | Converts string to numeric according to the given format. [<sup>\[2\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote3)                      |
+| `        to_date(               date              text,               format              text)       `                  | `        to_date('05 Dec 2000', 'DD Mon YYYY') → 2000-12-05       `                                                                              | Converts string to date according to the given date format. [<sup>\[3\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote3)                    |
+| `        to_timestamp(               timestamp              timestamptz,               format              text)       ` | `        to_timestamp('05 Dec 2000', 'DD Mon YYYY') → 2000-12-05 00:00:00-05       `                                                             | Converts string to timestamptz format according to the given date time format. [<sup>\[3\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote3) |
 
 <sup>\[1\]</sup> For a list of supported numeric formatting, see [Template Patterns for Numeric Formatting](https://www.postgresql.org/docs/current/functions-formatting.html#FUNCTIONS-FORMATTING-NUMERIC-TABLE) .
 
 <sup>\[2\]</sup> For a list of supported numeric formatting, see [Template Patterns for Numeric Formatting](https://www.postgresql.org/docs/current/functions-formatting.html#FUNCTIONS-FORMATTING-NUMERIC-TABLE) .
 
-<sup>\[3\]</sup> For a list of supported date/time formatting, see [Supported formats for `  date  ` data type](/spanner/docs/reference/postgresql/data-types#supported-date) and [Supported formats for `  timestamptz  ` data type](/spanner/docs/reference/postgresql/data-types#supported-timestamptz) .
+<sup>\[3\]</sup> For a list of supported date/time formatting, see [Supported formats for `  date  ` data type](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#supported-date) and [Supported formats for `  timestamptz  ` data type](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#supported-timestamptz) .
 
 ## Sequence functions
 
-<table>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       nextval (varchar) → bigint      </code></td>
-<td><code dir="ltr" translate="no">       nextval ('MySequence')      </code></td>
-<td>Takes a sequence name string and returns the next sequence value in the <code dir="ltr" translate="no">       bigint      </code> data type. This function is only allowed in read-write transactions</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       spanner.get_internal_sequence_state(varchar)      </code></td>
-<td><code dir="ltr" translate="no">       spanner.get_internal_sequence_state('MySequence')      </code></td>
-<td>Gets the current sequence internal counter before bit reversal. As the sequence generates values, its internal counter changes. This function is useful when using import or export, and for migrations. If <code dir="ltr" translate="no">       nextval ('MySequence')      </code> is never called on the sequence, then this function returns NULL.</td>
-</tr>
-</tbody>
-</table>
+| Function                                                      | Example / Notes                                                    | Description                                                                                                                                                                                                                                                                                                           |
+| ------------------------------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        nextval (varchar) → bigint       `                   | `        nextval ('MySequence')       `                            | Takes a sequence name string and returns the next sequence value in the `        bigint       ` data type. This function is only allowed in read-write transactions                                                                                                                                                   |
+| `        spanner.get_internal_sequence_state(varchar)       ` | `        spanner.get_internal_sequence_state('MySequence')       ` | Gets the current sequence internal counter before bit reversal. As the sequence generates values, its internal counter changes. This function is useful when using import or export, and for migrations. If `        nextval ('MySequence')       ` is never called on the sequence, then this function returns NULL. |
 
 ## Set returning functions
 
@@ -1392,7 +1155,7 @@ Unlike open source PostgreSQL, Spanner only supports these functions in the \`FR
 <tr class="odd">
 <td><code dir="ltr" translate="no">       generate_series(               start              int8 | numeric,               end              int8 | numeric [,               step              int8 | numeric])      </code></td>
 <td><p><code dir="ltr" translate="no">        SELECT * FROM generate_series(2, 4)       </code></p>
-<pre class="text" dir="ltr" data-is-upgraded="" translate="no"><code>      /*---------------------*
+<pre dir="ltr" data-is-upgraded="" translate="no"><code>      /*---------------------*
       | generate_series      |
       +----------------------+
       | 2                    |
@@ -1401,7 +1164,7 @@ Unlike open source PostgreSQL, Spanner only supports these functions in the \`FR
       *---------------------*/
       </code></pre>
 <p><code dir="ltr" translate="no">        SELECT * FROM generate_series(3, 0, -2)       </code></p>
-<pre class="text" dir="ltr" data-is-upgraded="" translate="no"><code>      /*---------------------*
+<pre dir="ltr" data-is-upgraded="" translate="no"><code>      /*---------------------*
       | generate_series      |
       +----------------------+
       | 3                    |
@@ -1416,24 +1179,7 @@ Unlike open source PostgreSQL, Spanner only supports these functions in the \`FR
 
 ## Utility functions
 
-<table>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Example / Notes</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       spanner.generate_uuid()      </code></td>
-<td><code dir="ltr" translate="no">       SELECT spanner.generate_uuid() AS uuid  →     4192bff0-e1e0-43ce-a4db-912808c32493      </code></td>
-<td>Returns a random universally unique identifier (UUID) (Version 4) as a string. that Spanner can use for primary key columns. The returned string consists of 32 hexadecimal digits in five groups separated by hyphens in the form 8-4-4-4-12. The hexadecimal digits represent 122 random bits and 6 fixed bits, in compliance with RFC 4122 section 4.4. The returned string is lowercase.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       gen_random_uuid()      </code></td>
-<td><code dir="ltr" translate="no">       gen_random_uuid() -&gt; uuid      </code></td>
-<td>Returns a random universally unique identifier (UUID) (Version 4).</td>
-</tr>
-</tbody>
-</table>
+| Function                                 | Example / Notes                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        spanner.generate_uuid()       ` | `        SELECT spanner.generate_uuid() AS uuid  →     4192bff0-e1e0-43ce-a4db-912808c32493       ` | Returns a random universally unique identifier (UUID) (Version 4) as a string. that Spanner can use for primary key columns. The returned string consists of 32 hexadecimal digits in five groups separated by hyphens in the form 8-4-4-4-12. The hexadecimal digits represent 122 random bits and 6 fixed bits, in compliance with RFC 4122 section 4.4. The returned string is lowercase. |
+| `        gen_random_uuid()       `       | `        gen_random_uuid() -> uuid       `                                                          | Returns a random universally unique identifier (UUID) (Version 4).                                                                                                                                                                                                                                                                                                                           |

@@ -1,4 +1,4 @@
-This page offers an overview of how to migrate your Online Transactional Processing (OLTP) database from MySQL to [Spanner](/spanner) . The process to migrate to Spanner might vary depending on factors like data size, downtime requirements, application code complexity, sharding schema, custom functions, and failover and replication strategies.
+This page offers an overview of how to migrate your Online Transactional Processing (OLTP) database from MySQL to [Spanner](https://docs.cloud.google.com/spanner) . The process to migrate to Spanner might vary depending on factors like data size, downtime requirements, application code complexity, sharding schema, custom functions, and failover and replication strategies.
 
 The Spanner migration is broken down into the following steps:
 
@@ -12,23 +12,23 @@ The Spanner migration is broken down into the following steps:
 
 ## Assess your migration
 
-Assessing a migration from your source MySQL database to Spanner requires evaluating your business, technical, operational, and financial needs. For more information, see [Assess your migration](/spanner/docs/assess-migration) .
+Assessing a migration from your source MySQL database to Spanner requires evaluating your business, technical, operational, and financial needs. For more information, see [Assess your migration](https://docs.cloud.google.com/spanner/docs/assess-migration) .
 
 ## Migrate your schema
 
-You convert your existing schema to a Spanner [schema](/spanner/docs/schema-and-data-model) using Spanner migration tool.
+You convert your existing schema to a Spanner [schema](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) using Spanner migration tool.
 
-For more information, see [Migrate schema from MySQL overview](/spanner/docs/migrate-mysql-schema) .
+For more information, see [Migrate schema from MySQL overview](https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema) .
 
 ## Migrate your application to use Spanner
 
-Spanner provides a set of [Client libraries](/spanner/docs/reference/libraries) for various languages, and the ability to read and write data using Spanner-specific API calls, as well as by using [SQL queries](/spanner/docs/query-syntax) and [Data Modification Language (DML)](/spanner/docs/dml-syntax) statements. Using API calls might be faster for some queries, such as direct row reads by key, because the SQL statement doesn't have to be translated.
+Spanner provides a set of [Client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) for various languages, and the ability to read and write data using Spanner-specific API calls, as well as by using [SQL queries](https://docs.cloud.google.com/spanner/docs/query-syntax) and [Data Modification Language (DML)](https://docs.cloud.google.com/spanner/docs/dml-syntax) statements. Using API calls might be faster for some queries, such as direct row reads by key, because the SQL statement doesn't have to be translated.
 
-Spanner provides a [JDBC driver](/spanner/docs/use-oss-jdbc) for Java applications.
+Spanner provides a [JDBC driver](https://docs.cloud.google.com/spanner/docs/use-oss-jdbc) for Java applications.
 
 As part of the migration process, features not available in Spanner as mentioned previously must be implemented in the application. For example, a trigger to verify data values and update a related table would need to be implemented in the application using a read or write transaction to read the existing row, verify the constraint, then write the updated rows to both tables.
 
-Spanner offers [read or write and read-only transactions](/spanner/docs/transactions) which ensure external consistency of your data. Additionally, read transactions can have [Timestamp bounds](/spanner/docs/timestamp-bounds) applied, where you are reading a consistent version of the data either:
+Spanner offers [read or write and read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions) which ensure external consistency of your data. Additionally, read transactions can have [Timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) applied, where you are reading a consistent version of the data either:
 
   - at an exact time in the past (up to 1 hour ago).
   - in the future (where the read will block until that time arrives).
@@ -38,9 +38,9 @@ Spanner offers [read or write and read-only transactions](/spanner/docs/transact
 
 You can load sample data in to Spanner before performing a complete data migration to test schemas, queries, and your application.
 
-You can use the [BigQuery reverse ETL](/bigquery/docs/export-to-spanner) workflow and the [Google Cloud CLI](/sdk) to load a small amount of data in the CSV file format in to Spanner.
+You can use the [BigQuery reverse ETL](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) workflow and the [Google Cloud CLI](https://docs.cloud.google.com/sdk) to load a small amount of data in the CSV file format in to Spanner.
 
-For more information, see [Load sample data](/spanner/docs/load-sample-data) .
+For more information, see [Load sample data](https://docs.cloud.google.com/spanner/docs/load-sample-data) .
 
 To transfer your data from MySQL to Spanner, you can also export your MySQL database to a portable file format—for example, XML—and then import that data into Spanner using Dataflow.
 
@@ -48,7 +48,7 @@ To transfer your data from MySQL to Spanner, you can also export your MySQL data
 
 After optimizing your Spanner schema and loading sample data, you can move your data into an empty production-sized Spanner database.
 
-For more information, see [Live data migration from MySQL](/spanner/docs/mysql-live-data-migration) .
+For more information, see [Live data migration from MySQL](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration) .
 
 ## Validate your data migration
 
@@ -56,7 +56,7 @@ As data streams into your Spanner database, you can periodically run a compariso
 
 You can use Dataflow to perform a detailed comparison over large data sets by using [join transform](https://beam.apache.org/documentation/pipelines/design-your-pipeline/#multiple-sources) . This transform takes 2 keyed data sets, and matches the values by key. The matched values can then be compared for equality. You can regularly run this verification until the level of consistency matches your business requirements.
 
-For more information, see [Validate your data migration](/spanner/docs/data-validation) .
+For more information, see [Validate your data migration](https://docs.cloud.google.com/spanner/docs/data-validation) .
 
 ## Configure cutover and fallback mechanisms
 
@@ -66,7 +66,7 @@ Reverse replication is useful when you encounter unforeseen issues with Spanner 
 
 The reverse replication flow involves the following steps, performed by the [`  Spanner to SourceDB  ` Dataflow template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/spanner-to-sourcedb) :
 
-1.  Read changes from Spanner using [Spanner change streams](/spanner/docs/change-streams) .
+1.  Read changes from Spanner using [Spanner change streams](https://docs.cloud.google.com/spanner/docs/change-streams) .
 
 2.  Filter the forward-migrated changes.
 
@@ -78,6 +78,6 @@ The reverse replication flow involves the following steps, performed by the [`  
 
 ## What's next
 
-  - [Best practices in schema design](/spanner/docs/schema-design) .
-  - [Optimize your Spanner schema](/spanner/docs/whitepapers/optimizing-schema-design) .
-  - Learn how to use [Dataflow](/dataflow/docs/how-to) for more complex situations.
+  - [Best practices in schema design](https://docs.cloud.google.com/spanner/docs/schema-design) .
+  - [Optimize your Spanner schema](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .
+  - Learn how to use [Dataflow](https://docs.cloud.google.com/dataflow/docs/how-to) for more complex situations.

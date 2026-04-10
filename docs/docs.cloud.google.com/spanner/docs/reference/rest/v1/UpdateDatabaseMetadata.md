@@ -1,6 +1,6 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [UpdateDatabaseRequest](#UpdateDatabaseRequest)
-      - [JSON representation](#UpdateDatabaseRequest.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/UpdateDatabaseMetadata#SCHEMA_REPRESENTATION)
+  - [UpdateDatabaseRequest](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/UpdateDatabaseMetadata#UpdateDatabaseRequest)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/UpdateDatabaseMetadata#UpdateDatabaseRequest.SCHEMA_REPRESENTATION)
 
 Metadata type for the operation returned by `  databases.patch  ` .
 
@@ -15,7 +15,7 @@ Metadata type for the operation returned by `  databases.patch  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;request&quot;: {
     object (UpdateDatabaseRequest)
   },
@@ -65,7 +65,7 @@ The request for `  databases.patch  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;database&quot;: {
     object (Database)
   },

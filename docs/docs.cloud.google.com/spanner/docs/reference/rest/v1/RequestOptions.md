@@ -1,5 +1,5 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [Priority](#Priority)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#SCHEMA_REPRESENTATION)
+  - [Priority](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority)
 
 Common request options for various APIs.
 
@@ -14,7 +14,7 @@ Common request options for various APIs.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;priority&quot;: enum (Priority),
   &quot;requestTag&quot;: string,
   &quot;transactionTag&quot;: string

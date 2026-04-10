@@ -1,13 +1,13 @@
-  - [HTTP request](#body.HTTP_TEMPLATE)
-  - [Path parameters](#body.PATH_PARAMETERS)
-  - [Request body](#body.request_body)
-      - [JSON representation](#body.request_body.SCHEMA_REPRESENTATION)
-  - [Response body](#body.response_body)
-      - [JSON representation](#body.ExecuteBatchDmlResponse.SCHEMA_REPRESENTATION)
-  - [Authorization scopes](#body.aspect)
-  - [Statement](#Statement)
-      - [JSON representation](#Statement.SCHEMA_REPRESENTATION)
-  - [Try it\!](#try-it)
+  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#body.HTTP_TEMPLATE)
+  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#body.PATH_PARAMETERS)
+  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#body.request_body)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#body.request_body.SCHEMA_REPRESENTATION)
+  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#body.response_body)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#body.ExecuteBatchDmlResponse.SCHEMA_REPRESENTATION)
+  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#body.aspect)
+  - [Statement](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#Statement)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#Statement.SCHEMA_REPRESENTATION)
+  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeBatchDml#try-it)
 
 Executes a batch of SQL DML statements. This method allows many statements to be run with lower latency than submitting them sequentially with `  sessions.executeSql  ` .
 
@@ -18,6 +18,36 @@ Execution stops after the first failed statement; the remaining statements are n
 ### HTTP request
 
 Choose a location:
+
+global
+
+europe-west8
+
+me-central2
+
+us-central1
+
+us-central2
+
+us-east1
+
+us-east4
+
+us-east5
+
+us-south1
+
+us-west1
+
+us-west2
+
+us-west3
+
+us-west4
+
+us-west8
+
+us-east7
 
   
 `  POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:executeBatchDml  `
@@ -53,7 +83,7 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;transaction&quot;: {
     object (TransactionSelector)
   },
@@ -144,7 +174,7 @@ If successful, the response body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;resultSets&quot;: [
     {
       object (ResultSet)
@@ -190,7 +220,7 @@ Requires one of the following OAuth scopes:
   - `  https://www.googleapis.com/auth/spanner.data  `
   - `  https://www.googleapis.com/auth/cloud-platform  `
 
-For more information, see the [Authentication Overview](/docs/authentication#authorization-gcp) .
+For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
 ## Statement
 
@@ -207,7 +237,7 @@ A single DML statement.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;sql&quot;: string,
   &quot;params&quot;: {
     object

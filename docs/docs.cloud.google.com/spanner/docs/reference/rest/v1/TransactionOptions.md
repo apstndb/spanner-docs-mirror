@@ -1,11 +1,11 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [ReadWrite](#ReadWrite)
-      - [JSON representation](#ReadWrite.SCHEMA_REPRESENTATION)
-  - [ReadLockMode](#ReadLockMode)
-  - [PartitionedDml](#PartitionedDml)
-  - [ReadOnly](#ReadOnly)
-      - [JSON representation](#ReadOnly.SCHEMA_REPRESENTATION)
-  - [IsolationLevel](#IsolationLevel)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#SCHEMA_REPRESENTATION)
+  - [ReadWrite](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#ReadWrite)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#ReadWrite.SCHEMA_REPRESENTATION)
+  - [ReadLockMode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#ReadLockMode)
+  - [PartitionedDml](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#PartitionedDml)
+  - [ReadOnly](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#ReadOnly)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#ReadOnly.SCHEMA_REPRESENTATION)
+  - [IsolationLevel](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#IsolationLevel)
 
 Options to use for transactions.
 
@@ -20,7 +20,7 @@ Options to use for transactions.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;excludeTxnFromChangeStreams&quot;: boolean,
   &quot;isolationLevel&quot;: enum (IsolationLevel),
 
@@ -103,7 +103,7 @@ Message type to initiate a read-write transaction. Currently this transaction ty
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;readLockMode&quot;: enum (ReadLockMode),
   &quot;multiplexedSessionPreviousTransactionId&quot;: string
 }</code></pre></td>
@@ -174,7 +174,7 @@ Message type to initiate a read-only transaction.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;returnReadTimestamp&quot;: boolean,
 
   // Union field timestamp_bound can be only one of the following:

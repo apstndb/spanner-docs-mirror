@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionSelector#SCHEMA_REPRESENTATION)
 
 This message is used to select the transaction in which a `  sessions.read  ` or `  ExecuteSql  ` call runs.
 
@@ -15,7 +15,7 @@ See `  TransactionOptions  ` for more information about transactions.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field selector can be only one of the following:
   &quot;singleUse&quot;: {

@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DdlStatementActionInfo#SCHEMA_REPRESENTATION)
 
 Action information extracted from a DDL statement. This proto is used to display the brief info of the DDL statement for the operation `  databases.updateDdl  ` .
 
@@ -13,7 +13,7 @@ Action information extracted from a DDL statement. This proto is used to display
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;action&quot;: string,
   &quot;entityType&quot;: string,
   &quot;entityNames&quot;: [

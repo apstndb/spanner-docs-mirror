@@ -2,49 +2,47 @@ The Autoscaler tool is designed to allow for flexibility, and can accommodate th
 
 This document is part of a series that also includes:
 
-  - [Autoscaling Spanner](/spanner/docs/autoscaling-overview)
-  - [Autoscaler tool overview](/spanner/docs/autoscaler-tool-overview)
-  - [Deploy the Autoscaler tool for Spanner to Google Kubernetes Engine (GKE)](/spanner/docs/set-up-autoscaling-gke)
+  - [Autoscaling Spanner](https://docs.cloud.google.com/spanner/docs/autoscaling-overview)
+  - [Autoscaler tool overview](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview)
+  - [Deploy the Autoscaler tool for Spanner to Google Kubernetes Engine (GKE)](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke)
 
 This series is intended for IT, Operations, and Site Reliability Engineering (SRE) teams who want to reduce operational overhead and to optimize the cost of Spanner deployments.
 
 This page introduces three ways you can deploy the Autoscaler to Cloud Run functions, according to your requirements:
 
-  - [A per-project deployment topology](#per-project_topology) . The Autoscaler infrastructure is deployed in the same project as Spanner that needs to be autoscaled. We recommend this topology for independent teams who want to manage their own Autoscaler configuration and infrastructure. A per-project deployment topology is also a good starting point for testing the capabilities of the Autoscaler.
-  - [A centralized deployment topology](#centralized_topology) . The Autoscaler tool is deployed in one project and manages one or more Spanner instances in different projects. We recommend this topology for teams who manage the configuration and infrastructure of one or more Spanner instances while keeping the components and configuration for Autoscaler in a central place. In the centralized topology, in addition to an Autoscaler project, you set up a second project, which in this tutorial is referred to as the *Application project* . The Application project holds the application resources, including Spanner.
-  - [A distributed deployment topology](#distributed_topology) . Most of the Autoscaler infrastructure is deployed in one project but some infrastructure components are deployed with the Spanner instances being autoscaled in different projects. We recommend this topology for organizations with multiple teams, where teams who own the Spanner instances want to manage only the Autoscaler configuration parameters for their instances, but the rest of the Autoscaler infrastructure is managed by a central team.
+  - [A per-project deployment topology](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run#per-project_topology) . The Autoscaler infrastructure is deployed in the same project as Spanner that needs to be autoscaled. We recommend this topology for independent teams who want to manage their own Autoscaler configuration and infrastructure. A per-project deployment topology is also a good starting point for testing the capabilities of the Autoscaler.
+  - [A centralized deployment topology](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run#centralized_topology) . The Autoscaler tool is deployed in one project and manages one or more Spanner instances in different projects. We recommend this topology for teams who manage the configuration and infrastructure of one or more Spanner instances while keeping the components and configuration for Autoscaler in a central place. In the centralized topology, in addition to an Autoscaler project, you set up a second project, which in this tutorial is referred to as the *Application project* . The Application project holds the application resources, including Spanner.
+  - [A distributed deployment topology](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run#distributed_topology) . Most of the Autoscaler infrastructure is deployed in one project but some infrastructure components are deployed with the Spanner instances being autoscaled in different projects. We recommend this topology for organizations with multiple teams, where teams who own the Spanner instances want to manage only the Autoscaler configuration parameters for their instances, but the rest of the Autoscaler infrastructure is managed by a central team.
 
 ### Serverless for ease of deployment and management
 
 In this model, the Autoscaler tool is built using only serverless and low management Google Cloud tools, such as Cloud Run functions, Pub/Sub, Cloud Scheduler, and Firestore. This approach minimizes the cost and operational overhead of running the Autoscaler tool.
 
-By using built-in Google Cloud tools, the Autoscaler tool can take full advantage of [Identity and Access Management (IAM)](/iam) for authentication and authorization.
+By using built-in Google Cloud tools, the Autoscaler tool can take full advantage of [Identity and Access Management (IAM)](https://docs.cloud.google.com/iam) for authentication and authorization.
 
 ### Configuration
 
 The Autoscaler tool manages Spanner instances through the configuration defined in Cloud Scheduler. If multiple Spanner instances need to be polled with the same interval, we recommend that you configure them in the same Cloud Scheduler job. The configuration of each instance is represented as a JSON object. The following is an example of a configuration where two Spanner instances are managed with one Cloud Scheduler job:
 
-``` text
-[
-  {
-    "projectId": "my-spanner-project",
-    "instanceId": "my-spanner",
-    "scalerPubSubTopic": "projects/my-spanner-project/topics/spanner-scaling",
-    "units": "NODES",
-    "minSize": 1,
-    "maxSize": 3
-  },
-  {
-    "projectId": "different-project",
-    "instanceId": "another-spanner",
-    "scalerPubSubTopic": "projects/my-spanner-project/topics/spanner-scaling",
-    "units": "PROCESSING_UNITS",
-    "minSize": 500,
-    "maxSize": 3000,
-    "scalingMethod": "DIRECT"
-  }
-]
-```
+    [
+      {
+        "projectId": "my-spanner-project",
+        "instanceId": "my-spanner",
+        "scalerPubSubTopic": "projects/my-spanner-project/topics/spanner-scaling",
+        "units": "NODES",
+        "minSize": 1,
+        "maxSize": 3
+      },
+      {
+        "projectId": "different-project",
+        "instanceId": "another-spanner",
+        "scalerPubSubTopic": "projects/my-spanner-project/topics/spanner-scaling",
+        "units": "PROCESSING_UNITS",
+        "minSize": 500,
+        "maxSize": 3000,
+        "scalingMethod": "DIRECT"
+      }
+    ]
 
 Spanner instances can have multiple configurations on different Cloud Scheduler jobs. For example, an instance can have one Autoscaler configuration with the linear method for normal operations, but also have another Autoscaler configuration with the direct method for planned batch workloads.
 
@@ -55,6 +53,8 @@ When the Cloud Scheduler job runs, it sends a Pub/Sub message to the Polling Pub
 In a per-project topology deployment, each project with a Spanner instance needing to be autoscaled also has its own independent deployment of the Autoscaler components. We recommend this topology for independent teams who want to manage their own Autoscaler configuration and infrastructure. It's also a good starting point for testing the capabilities of the Autoscaler tool.
 
 The following diagram shows a high-level conceptual view of a per-project deployment.
+
+![Conceptual per-project deployment.](https://docs.cloud.google.com/static/spanner/docs/images/autoscaler-tool-per-project-conceptual.svg "Conceptual per-project deployment.")
 
 The per-project deployments depicted in the preceding diagram have these characteristics:
 
@@ -83,6 +83,8 @@ As in the per-project topology, in a centralized topology deployment all of the 
 
 The following diagram shows a high-level conceptual view of a centralized-project deployment:
 
+![Conceptual centralized project deployment.](https://docs.cloud.google.com/static/spanner/docs/images/autoscaler-tool-centralized-conceptual.svg "Conceptual centralized project deployment.")
+
 The centralized deployment shown in the preceding diagram has the following characteristics:
 
   - Two applications, Application 1 and Application 2, each use their own Spanner instances.
@@ -110,6 +112,8 @@ In a distributed topology deployment, the Cloud Scheduler and Spanner instances 
 
 The following diagram shows a high-level conceptual view of a distributed-project deployment.
 
+![Conceptual distributed-project deployment.](https://docs.cloud.google.com/static/spanner/docs/images/autoscaler-tool-distributed-conceptual.svg "Conceptual distributed-project deployment.")
+
 The hybrid deployment depicted in the preceding diagram has the following characteristics:
 
   - Two applications, Application 1 and Application 2, use their own Spanner instances.
@@ -126,6 +130,8 @@ The Forwarder function takes messages published to Pub/Sub from Cloud Scheduler,
 
 The following diagram shows the components used for the forwarding mechanism:
 
+![Forwarding mechanism.](https://docs.cloud.google.com/static/spanner/docs/images/autoscaler-tool-forwarder.svg)
+
 As shown in the preceding diagram, the Spanner instances are in projects named *Application 1* and *Application 2* :
 
 1.  Cloud Scheduler is the same project as the Spanner instances.
@@ -136,7 +142,7 @@ As shown in the preceding diagram, the Spanner instances are in projects named *
     
     (2c) The Forwarder function forwards messages to the Polling topic residing in the Autoscaler project.
 
-3.  The Poller function reads the messages from the polling topic and the process continues, as described in the [Poller](/spanner/docs/autoscaler-tool-overview#poller) section.
+3.  The Poller function reads the messages from the polling topic and the process continues, as described in the [Poller](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview#poller) section.
 
 A distributed deployment has the following advantages and disadvantages.
 
@@ -155,8 +161,8 @@ To learn how to set up the Autoscaler using a distributed topology, see [the ste
 
 ## What's next
 
-  - Learn how to [deploy the Autoscaler tool to GKE](/spanner/docs/set-up-autoscaling-gke) .
-  - Read more about Spanner [recommended thresholds](/spanner/docs/monitoring-cloud#create-alert) .
-  - Read more about Spanner [CPU utilization metrics](/spanner/docs/cpu-utilization) and [latency metrics](/spanner/docs/latency-guide) .
-  - Learn about [best practices for Spanner schema design](/spanner/docs/schema-design) to avoid hotspots and for loading data into Spanner.
-  - Explore reference architectures, diagrams, and best practices about Google Cloud. Take a look at our [Cloud Architecture Center](/architecture) .
+  - Learn how to [deploy the Autoscaler tool to GKE](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke) .
+  - Read more about Spanner [recommended thresholds](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-alert) .
+  - Read more about Spanner [CPU utilization metrics](https://docs.cloud.google.com/spanner/docs/cpu-utilization) and [latency metrics](https://docs.cloud.google.com/spanner/docs/latency-guide) .
+  - Learn about [best practices for Spanner schema design](https://docs.cloud.google.com/spanner/docs/schema-design) to avoid hotspots and for loading data into Spanner.
+  - Explore reference architectures, diagrams, and best practices about Google Cloud. Take a look at our [Cloud Architecture Center](https://docs.cloud.google.com/architecture) .

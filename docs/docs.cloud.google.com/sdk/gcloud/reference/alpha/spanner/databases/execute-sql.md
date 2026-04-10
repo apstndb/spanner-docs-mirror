@@ -14,7 +14,7 @@ EXAMPLES
 
 To execute a SQL SELECT statement against example-database under example-instance, run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases execute-sql example-database --instance=example-instance --sql='SELECT * FROM MyTable WHERE MyKey = 1'
 ```
 
@@ -84,7 +84,7 @@ Mode in which the query must be processed. `  QUERY_MODE  ` must be one of:
 
 `  --timeout  ` = `  TIMEOUT  ` ; default="10m"
 
-Maximum time to wait for the SQL query to complete. See $ [gcloud topic datetimes](/sdk/gcloud/reference/topic/datetimes) for information on duration formats.
+Maximum time to wait for the SQL query to complete. See $ [gcloud topic datetimes](https://docs.cloud.google.com/sdk/gcloud/reference/topic/datetimes) for information on duration formats.
 
 Read-only query timestamp bound. The default is --strong. See <https://cloud.google.com/spanner/docs/timestamp-bounds> .
 
@@ -105,10 +105,10 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner databases execute-sql
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases execute-sql
 ```

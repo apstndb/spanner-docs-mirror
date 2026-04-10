@@ -1,17 +1,17 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [QueryPlan](#QueryPlan)
-      - [JSON representation](#QueryPlan.SCHEMA_REPRESENTATION)
-  - [PlanNode](#PlanNode)
-      - [JSON representation](#PlanNode.SCHEMA_REPRESENTATION)
-  - [Kind](#Kind)
-  - [ChildLink](#ChildLink)
-      - [JSON representation](#ChildLink.SCHEMA_REPRESENTATION)
-  - [ShortRepresentation](#ShortRepresentation)
-      - [JSON representation](#ShortRepresentation.SCHEMA_REPRESENTATION)
-  - [QueryAdvisorResult](#QueryAdvisorResult)
-      - [JSON representation](#QueryAdvisorResult.SCHEMA_REPRESENTATION)
-  - [IndexAdvice](#IndexAdvice)
-      - [JSON representation](#IndexAdvice.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#SCHEMA_REPRESENTATION)
+  - [QueryPlan](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#QueryPlan)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#QueryPlan.SCHEMA_REPRESENTATION)
+  - [PlanNode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#PlanNode)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#PlanNode.SCHEMA_REPRESENTATION)
+  - [Kind](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#Kind)
+  - [ChildLink](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#ChildLink)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#ChildLink.SCHEMA_REPRESENTATION)
+  - [ShortRepresentation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#ShortRepresentation)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#ShortRepresentation.SCHEMA_REPRESENTATION)
+  - [QueryAdvisorResult](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#QueryAdvisorResult)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#QueryAdvisorResult.SCHEMA_REPRESENTATION)
+  - [IndexAdvice](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#IndexAdvice)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#IndexAdvice.SCHEMA_REPRESENTATION)
 
 Additional statistics about a `  ResultSet  ` or `  PartialResultSet  ` .
 
@@ -26,7 +26,7 @@ Additional statistics about a `  ResultSet  ` or `  PartialResultSet  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;queryPlan&quot;: {
     object (QueryPlan)
   },
@@ -57,13 +57,11 @@ Fields
 
 Aggregated statistics from the execution of the query. Only present when the query is profiled. For example, a query could return the statistics as follows:
 
-``` text
-{
-  "rows_returned": "3",
-  "elapsed_time": "1.22 secs",
-  "cpu_time": "1.19 secs"
-}
-```
+    {
+      "rows_returned": "3",
+      "elapsed_time": "1.22 secs",
+      "cpu_time": "1.19 secs"
+    }
 
 Union field `  row_count  ` . The number of rows modified by the DML statement. `  row_count  ` can be only one of the following:
 
@@ -94,7 +92,7 @@ Contains an ordered list of nodes appearing in the query plan.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;planNodes&quot;: [
     {
       object (PlanNode)
@@ -137,7 +135,7 @@ Node information for nodes appearing in a `  QueryPlan.plan_nodes  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;index&quot;: integer,
   &quot;kind&quot;: enum (Kind),
   &quot;displayName&quot;: string,
@@ -198,12 +196,10 @@ Condensed representation for `  SCALAR  ` nodes.
 
 Attributes relevant to the node contained in a group of key-value pairs. For example, a Parameter Reference node could have the following information in its metadata:
 
-``` text
-{
-  "parameter_reference": "param1",
-  "parameterType": "array"
-}
-```
+    {
+      "parameter_reference": "param1",
+      "parameterType": "array"
+    }
 
 `  executionStats  `
 
@@ -244,7 +240,7 @@ Metadata associated with a parent-child relationship appearing in a `  PlanNode 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;childIndex&quot;: integer,
   &quot;type&quot;: string,
   &quot;variable&quot;: string
@@ -288,7 +284,7 @@ Condensed representation of a node and its subtree. Only present for `  SCALAR  
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;description&quot;: string,
   &quot;subqueries&quot;: {
     string: integer,
@@ -328,7 +324,7 @@ Output of query advisor analysis.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;indexAdvice&quot;: [
     {
       object (IndexAdvice)
@@ -362,7 +358,7 @@ Recommendation to add new indexes to run queries more efficiently.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;ddl&quot;: [
     string
   ],

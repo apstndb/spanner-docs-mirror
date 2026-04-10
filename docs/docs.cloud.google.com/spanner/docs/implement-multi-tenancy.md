@@ -19,7 +19,7 @@ In a multi-tenant application, each tenant's data is isolated in one of several 
   - **Table:** A tenant resides in exclusive tables within a database, and several tenants can be located in the same database.
   - **Row:** Tenant data are rows in database tables. Those tables are shared with other tenants.
 
-The preceding criteria are called data management patterns and are discussed in detail in the [Multi-tenancy data management patterns](#multi-tenancy_data_management_patterns) section. That discussion is based on the following criteria:
+The preceding criteria are called data management patterns and are discussed in detail in the [Multi-tenancy data management patterns](https://docs.cloud.google.com/spanner/docs/implement-multi-tenancy#multi-tenancy_data_management_patterns) section. That discussion is based on the following criteria:
 
   - **Data isolation:** The degree of data isolation across multiple tenants is a major consideration for multi-tenancy. For example, whether data needs to be physically or logically separated, and whether there are independent ACLs (Access Control Lists) that can be set for each tenant's data. Isolation is driven by the choices made for the criteria under other categories. For example, certain regulatory and compliance requirements might dictate a greater degree of isolation.
   - **Agility:** The ease of onboarding and offboarding activities for a tenant with respect to creating an instance, database, table, or row.
@@ -30,7 +30,7 @@ The preceding criteria are called data management patterns and are discussed in 
       - **Minimum resources per tenant** : The average minimum amount of resources per tenant. This doesn't necessarily mean that you need to pay at least this amount for each individual tenant, but rather you need to pay at least N \* this amount for all the N tenants together.
       - **Resource efficiency** : The ability to use idle resources of other tenants to save overall cost.
       - **Location selection for latency optimization** : The ability to pick specific replication topology for each tenant so that the data for each tenant can be placed in the location that provides the best latency for the tenant.
-  - **Regulations and compliance:** The ability to address the requirements of highly regulated industries and countries that require the complete isolation of resources and maintenance operations. For example, data residency requirements for France require that personally identifiable information is physically stored exclusively within France. Financial industries usually require [customer-managed encryption keys (CMEK)](/kms/docs/cmek) , and each tenant might want to use its own encryption key.
+  - **Regulations and compliance:** The ability to address the requirements of highly regulated industries and countries that require the complete isolation of resources and maintenance operations. For example, data residency requirements for France require that personally identifiable information is physically stored exclusively within France. Financial industries usually require [customer-managed encryption keys (CMEK)](https://docs.cloud.google.com/kms/docs/cmek) , and each tenant might want to use its own encryption key.
 
 Each data management pattern as it relates to these criteria is detailed in the next section. Use the same criteria when selecting a data management pattern for a specific set of tenants.
 
@@ -43,6 +43,8 @@ The following sections describe the four main data management patterns: instance
 To provide complete isolation, the instance data management pattern stores each tenant's data in its own Spanner instance and database. A Spanner instance can have one or more databases. In this pattern, only one database is created. For the HR application discussed earlier, a separate Spanner instance with one database is created for each customer organization.
 
 As seen in the following diagram, the data management pattern has one tenant per instance.
+
+![The instance data management pattern stores houses a single tenant per instance.](https://docs.cloud.google.com/static/spanner/docs/images/implementing-multi-tenancy-cloud-spanner-01.png)
 
 Having separate instances for each tenant allows the use of separate Google Cloud projects to achieve separate trust boundaries for different tenants. An extra benefit is that each instance configuration can be chosen based on each tenant's location (either regionally or multi-regionally), optimizing location flexibility and performance.
 
@@ -79,7 +81,7 @@ The following table outlines how the instance data management pattern affects di
 <li>Instance-specific security</li>
 <li>Instance-specific connectivity</li>
 </ul></li>
-<li>Onboarding and offboarding can be automated through <a href="/docs/terraform/iac-overview">Infrastructure as Code (IaC)</a></li>
+<li>Onboarding and offboarding can be automated through <a href="https://docs.cloud.google.com/docs/terraform/iac-overview">Infrastructure as Code (IaC)</a></li>
 </ul></td>
 </tr>
 <tr class="odd">
@@ -136,13 +138,15 @@ The instance data management pattern is best suited for the following scenarios:
 
 In the database data management pattern, each tenant resides in a database within a single Spanner instance. Multiple databases can reside in a single instance. If one instance is insufficient for the number of tenants, create multiple instances. This pattern implies that a single Spanner instance is shared among multiple tenants.
 
-Spanner has a [hard limit](/spanner/quotas#database_limits) of 100 databases per instance. This limit means that if the SaaS provider needs to scale beyond 100 customers, they need to create and use multiple Spanner instances.
+Spanner has a [hard limit](https://docs.cloud.google.com/spanner/quotas#database_limits) of 100 databases per instance. This limit means that if the SaaS provider needs to scale beyond 100 customers, they need to create and use multiple Spanner instances.
 
 For the HR application, the SaaS provider creates and manages each tenant with a separate database in a Spanner instance.
 
 As seen in the following diagram, the data management pattern has one tenant per database.
 
-The database data management pattern achieves logical isolation on a database level for different tenants' data. However, because it's a single Spanner instance, all the tenant databases share the same replication topology and underlying compute and storage setup unless the [geo-partitioning](/spanner/docs/geo-partitioning) feature is used. You can use the Spanner geo-partitioning feature to create instance partitions in different locations and use different instance partitions for different databases in the same instance.
+![The database data management pattern houses one tenant per database.](https://docs.cloud.google.com/static/spanner/docs/images/implementing-multi-tenancy-cloud-spanner-02.png)
+
+The database data management pattern achieves logical isolation on a database level for different tenants' data. However, because it's a single Spanner instance, all the tenant databases share the same replication topology and underlying compute and storage setup unless the [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) feature is used. You can use the Spanner geo-partitioning feature to create instance partitions in different locations and use different instance partitions for different databases in the same instance.
 
 The following table outlines how the database data management pattern affects different criteria.
 
@@ -163,14 +167,14 @@ The following table outlines how the database data management pattern affects di
 <td><ul>
 <li>Complete logical isolation on the database level</li>
 <li>Data storage is physically separated</li>
-<li>You can grant ACLs to all databases in the instance, or you can grant them separately <a href="/spanner/docs/grant-permissions#database-level_permissions">to each database</a></li>
+<li>You can grant ACLs to all databases in the instance, or you can grant them separately <a href="https://docs.cloud.google.com/spanner/docs/grant-permissions#database-level_permissions">to each database</a></li>
 </ul></td>
 </tr>
 <tr class="even">
 <td>Agility</td>
 <td><ul>
 <li>Requires effort to create or delete the database and any specific security controls</li>
-<li>Automation for onboarding and offboarding comes through <a href="/docs/terraform/iac-overview">Infrastructure as Code (IaC)</a></li>
+<li>Automation for onboarding and offboarding comes through <a href="https://docs.cloud.google.com/docs/terraform/iac-overview">Infrastructure as Code (IaC)</a></li>
 </ul></td>
 </tr>
 <tr class="odd">
@@ -229,17 +233,19 @@ The database data management pattern is best suited for the following scenarios:
 
 ### Table
 
-In the table data management pattern, a single database, which implements a single schema, is used for multiple tenants and a separate set of tables is used for each tenant's data. These tables can be differentiated by including the `  tenant ID  ` in the table names as either a prefix, a suffix, or as [named schemas](/spanner/docs/named-schemas) .
+In the table data management pattern, a single database, which implements a single schema, is used for multiple tenants and a separate set of tables is used for each tenant's data. These tables can be differentiated by including the `  tenant ID  ` in the table names as either a prefix, a suffix, or as [named schemas](https://docs.cloud.google.com/spanner/docs/named-schemas) .
 
 This data management pattern of using a separate set of tables for each tenant provides a much lower level of isolation compared to the preceding options (the instance and database management patterns). Onboarding involves creating new tables and associated referential integrity and indexes.
 
 There's a limit of 5,000 tables per database. For some customers, that limit might restrict their use of the application.
 
-Furthermore, using separate tables for each customer can result in a large backlog of schema update operations. Such a backlog takes [a long time to resolve](/spanner/docs/schema-updates) .
+Furthermore, using separate tables for each customer can result in a large backlog of schema update operations. Such a backlog takes [a long time to resolve](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 For the HR application, the SaaS provider can create a set of tables for each customer with `  tenant ID  ` as the prefix in the table names. For example, `  customer1_employee  ` , `  customer1_payroll  ` , and `  customer1_department  ` . Alternatively, they can use tenant ID as a named schema and name their table as `  customer1.employee  ` , `  customer1.payroll  ` , and `  customer1.department  ` .
 
 As seen in the following diagram, the table data management pattern has one set of tables for each tenant.
+
+![The table data management pattern has one set of tables for each tenant.](https://docs.cloud.google.com/static/spanner/docs/images/implementing-multi-tenancy-cloud-spanner-03.png)
 
 The following table outlines how the table data management pattern affects different criteria.
 
@@ -259,7 +265,7 @@ The following table outlines how the table data management pattern affects diffe
 <td>Data isolation</td>
 <td><ul>
 <li>Moderate level of data isolation. Data is logically separate, but can be physically stored in the same file on persistent storage.</li>
-<li>ACLs are shared by default, but can be granted separately using <a href="/spanner/docs/fgac-about">fine-grained access control (FGAC).</a></li>
+<li>ACLs are shared by default, but can be granted separately using <a href="https://docs.cloud.google.com/spanner/docs/fgac-about">fine-grained access control (FGAC).</a></li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -315,7 +321,7 @@ In summary, the key takeaways are:
   - **Disadvantage:**
       - Moderate level of data isolation, and resource isolation.
       - Location inflexibility if not using the new geo-partitioning feature.
-      - Inability to separately monitor tenants. The only available table level resource consumption info is [table size statistics](/spanner/docs/introspection/table-sizes-statistics) .
+      - Inability to separately monitor tenants. The only available table level resource consumption info is [table size statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics) .
       - Tenants can't have their own CMEK and backups.
 
 The table data management pattern is best suited for the following scenarios:
@@ -330,6 +336,8 @@ The final data management pattern serves multiple tenants with a common set of t
 For the HR application, the payroll table's primary key can be a combination of `  customerID  ` and `  payrollID  ` .
 
 As seen in the following diagram, the row data management pattern has one table for several tenants.
+
+![The table data management pattern uses one table for several tenants.](https://docs.cloud.google.com/static/spanner/docs/images/implementing-multi-tenancy-cloud-spanner-04.png)
 
 Unlike all the other patterns, data access in the row pattern can't be controlled separately for different tenants. Using fewer tables means schema update operations complete faster when each tenant has their own database tables. To a large extent, this approach simplifies onboarding, offboarding, and operations.
 
@@ -415,84 +423,19 @@ This pattern is best suited for the following scenarios:
 
 The following table compares the various data management patterns across all criteria at a high level.
 
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th>Instance</th>
-<th>Database</th>
-<th>Table</th>
-<th>Row</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Data isolation</strong></td>
-<td>Complete</td>
-<td>High</td>
-<td>Moderate</td>
-<td>Low</td>
-</tr>
-<tr class="even">
-<td><strong>Agility</strong></td>
-<td>Low</td>
-<td>Moderate</td>
-<td>Moderate</td>
-<td>Highest</td>
-</tr>
-<tr class="odd">
-<td><strong>Ease of operations</strong></td>
-<td>High</td>
-<td>High</td>
-<td>Low</td>
-<td>Low</td>
-</tr>
-<tr class="even">
-<td><strong>Scale</strong></td>
-<td>High</td>
-<td>Limited (unless using additional instances when reaching limit)</td>
-<td>Limited (unless using additional databases when reaching limit)</td>
-<td>Highest</td>
-</tr>
-<tr class="odd">
-<td><strong>Performance <sup>1</sup></strong> - Resource isolation</td>
-<td>High</td>
-<td>Low</td>
-<td>Low</td>
-<td>Low</td>
-</tr>
-<tr class="even">
-<td><strong>Performance <sup>1</sup></strong> - Minimum resources per tenant</td>
-<td>High</td>
-<td>Moderate High</td>
-<td>Moderate</td>
-<td>No minimum per tenant</td>
-</tr>
-<tr class="odd">
-<td><strong>Performance <sup>1</sup></strong> - Resource efficiency</td>
-<td>Low</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-</tr>
-<tr class="even">
-<td><strong>Performance <sup>1</sup></strong> - Location selection for latency optimization</td>
-<td>High</td>
-<td>Moderate</td>
-<td>Moderate</td>
-<td>Moderate</td>
-</tr>
-<tr class="odd">
-<td><strong>Regulations and compliance</strong></td>
-<td>Highest</td>
-<td>High</td>
-<td>Moderate</td>
-<td>Low</td>
-</tr>
-</tbody>
-</table>
+|                                                                            | Instance | Database                                                        | Table                                                           | Row                   |
+| -------------------------------------------------------------------------- | -------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------- |
+| **Data isolation**                                                         | Complete | High                                                            | Moderate                                                        | Low                   |
+| **Agility**                                                                | Low      | Moderate                                                        | Moderate                                                        | Highest               |
+| **Ease of operations**                                                     | High     | High                                                            | Low                                                             | Low                   |
+| **Scale**                                                                  | High     | Limited (unless using additional instances when reaching limit) | Limited (unless using additional databases when reaching limit) | Highest               |
+| **Performance <sup>1</sup>** - Resource isolation                          | High     | Low                                                             | Low                                                             | Low                   |
+| **Performance <sup>1</sup>** - Minimum resources per tenant                | High     | Moderate High                                                   | Moderate                                                        | No minimum per tenant |
+| **Performance <sup>1</sup>** - Resource efficiency                         | Low      | High                                                            | High                                                            | High                  |
+| **Performance <sup>1</sup>** - Location selection for latency optimization | High     | Moderate                                                        | Moderate                                                        | Moderate              |
+| **Regulations and compliance**                                             | Highest  | High                                                            | Moderate                                                        | Low                   |
 
-<sup>1</sup> Performance is heavily dependent on the [schema design](/spanner/docs/schema-design) and [query best practices](/spanner/docs/sql-best-practices) . The values here are only an average expectation.
+<sup>1</sup> Performance is heavily dependent on the [schema design](https://docs.cloud.google.com/spanner/docs/schema-design) and [query best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) . The values here are only an average expectation.
 
 The best data management patterns for a specific multi-tenant application are those that satisfy most of its requirements based on the criteria. If a particular criterion isn't required, you can ignore the row it's in.
 
@@ -528,7 +471,7 @@ Some multi-tenant applications require several data management patterns at the s
 
 A best practice is to keep different data management patterns in different databases. While it's possible to combine different data management patterns in a Spanner database, doing so makes it difficult to implement the application's access logic and lifecycle operations.
 
-The [Application design](#application_design) section outlines some multi-tenant application design considerations that apply when using a single data management pattern or several data management patterns.
+The [Application design](https://docs.cloud.google.com/spanner/docs/implement-multi-tenancy#application_design) section outlines some multi-tenant application design considerations that apply when using a single data management pattern or several data management patterns.
 
 ### Manage the tenant lifecycle
 
@@ -573,10 +516,8 @@ If a tenant executes business logic (for example, an employee logging in with th
 
 This application logic requires tenant-to-data-management pattern mapping. In the following code sample, the `  connection string  ` refers to the database where the tenant data resides. The sample identifies the Spanner instance and the database. For the data management pattern instance and database, the following code is sufficient for the application to connect and execute queries:
 
-``` text
-tenant id -> (data management pattern,
-              database connection string)
-```
+    tenant id -> (data management pattern,
+                  database connection string)
 
 Additional design is required for the table and row data management patterns.
 
@@ -616,29 +557,23 @@ It would be easier to analyze logs and queries by determining the tenant for a g
 
 The following query selects all employee data for the tenant identified by `  TENANT 356  ` . To avoid parsing the SQL syntax and extracting the tenant ID from the predicate, the tenant ID is added as a comment. A comment can be extracted without having to parse the SQL syntax.
 
-``` text
-SELECT * FROM EMPLOYEE
-  -- TENANT 356
-  WHERE TENANT = 'T356';
-```
+    SELECT * FROM EMPLOYEE
+      -- TENANT 356
+      WHERE TENANT = 'T356';
 
 or
 
-``` text
-SELECT * FROM T356_EMPLOYEE;
-  -- TENANT 356
-```
+    SELECT * FROM T356_EMPLOYEE;
+      -- TENANT 356
 
 With this design, every query run for a tenant is attributed to that tenant independent of the data management pattern. If a tenant is moved from one data management pattern to another, the query text might change, but the attribution remains the same in the query text.
 
 The preceding code sample is only one method. Another method is to insert a [JSON](https://www.json.org/) object as a comment instead of a label and value:
 
-``` text
-SELECT * FROM T356_EMPLOYEE;
-  -- {"TENANT": 356}
-```
+    SELECT * FROM T356_EMPLOYEE;
+      -- {"TENANT": 356}
 
-You can also use [tags](/spanner/docs/introspection/troubleshooting-with-tags) to attribute queries to tenants, and view the statistics in the built-in `  spanner_sys  ` tables.
+You can also use [tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to attribute queries to tenants, and view the statistics in the built-in `  spanner_sys  ` tables.
 
 ### Tenant access lifecycle operations
 

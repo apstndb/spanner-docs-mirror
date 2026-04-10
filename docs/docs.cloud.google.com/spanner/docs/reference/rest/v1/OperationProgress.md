@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/OperationProgress#SCHEMA_REPRESENTATION)
 
 Encapsulates progress related information for a Cloud Spanner long running operation.
 
@@ -13,7 +13,7 @@ Encapsulates progress related information for a Cloud Spanner long running opera
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;progressPercent&quot;: integer,
   &quot;startTime&quot;: string,
   &quot;endTime&quot;: string

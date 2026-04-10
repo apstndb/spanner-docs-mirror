@@ -14,13 +14,13 @@ EXAMPLES
 
 To remove an IAM policy binding for the role of 'roles/spanner.backupAdmin' for the user 'test-user@gmail.com' with backup 'example-backup' and instance 'example-instance', run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner backups remove-iam-policy-binding example-backup --instance='example-instance' --member='user:test-user@gmail.com' --role='roles/spanner.backupAdmin'
 ```
 
 To remove an IAM policy binding which expires at the end of the year 2018 for the role of 'roles/spanner.backupAdmin' and the user 'test-user@gmail.com' with backup 'example-backup' and instance 'example-instance', run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner backups remove-iam-policy-binding example-backup --instance='example-instance' --member='user:test-user@gmail.com' --role='roles/spanner.backupAdmin' --condition='expression=request.time <
  timestamp("2019-01-01T00:00:00Z"),title=expires_end_of_2018,descrip\
 tion=Expires at midnight on 2018-12-31'
@@ -113,10 +113,10 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner backups remove-iam-policy-binding
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner backups remove-iam-policy-binding
 ```

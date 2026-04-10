@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document compares openCypher and Spanner Graph in the following ways:
 
@@ -12,7 +12,7 @@ This document assumes you're familiar with [openCypher v9](https://opencypher.or
 
 ## Before you begin
 
-[Set up and query Spanner Graph using the Google Cloud console](/spanner/docs/graph/set-up) .
+[Set up and query Spanner Graph using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
 
 ## Terminology
 
@@ -56,7 +56,7 @@ For example, <code dir="ltr" translate="no">       MATCH      </code> is a state
 openCypher doesn't return results with repeating edges in a single match.</td>
 <td><code dir="ltr" translate="no">       TRAIL      </code> path<br />
 <br />
-When uniqueness is desired in Spanner Graph, use <a href="/spanner/docs/graph/opencypher-reference#relationship-uniqueness-and-trail-mode"><code dir="ltr" translate="no">        TRAIL       </code> mode</a> to return unique edges in a single match.</td>
+When uniqueness is desired in Spanner Graph, use <a href="https://docs.cloud.google.com/spanner/docs/graph/opencypher-reference#relationship-uniqueness-and-trail-mode"><code dir="ltr" translate="no">        TRAIL       </code> mode</a> to return unique edges in a single match.</td>
 </tr>
 </tbody>
 </table>
@@ -105,9 +105,9 @@ Both Spanner Graph and openCypher adopt the property graph data model with some 
 <tbody>
 <tr class="odd">
 <td>A graph has no predefined schema.</td>
-<td>A graph schema must be explicitly defined by using the <a href="/spanner/docs/reference/standard-sql/graph-schema-statements#gql_create_graph"><code dir="ltr" translate="no">        CREATE PROPERTY GRAPH       </code> statement</a> .<br />
+<td>A graph schema must be explicitly defined by using the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#gql_create_graph"><code dir="ltr" translate="no">        CREATE PROPERTY GRAPH       </code> statement</a> .<br />
 Labels are statically defined in the schema. To update labels, you need to update the schema.<br />
-For more information, see <a href="/spanner/docs/graph/create-update-drop-schema">Create, update, or drop a Spanner Graph schema</a> .</td>
+For more information, see <a href="https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema">Create, update, or drop a Spanner Graph schema</a> .</td>
 </tr>
 </tbody>
 </table>
@@ -120,13 +120,13 @@ Spanner Graph query capabilities are similar to those of openCypher. The differe
 
 In openCypher, there is one default graph, and queries operate on the default graph. In Spanner Graph, you can define more than one graph and a query must start with the `  GRAPH  ` clause to specify the graph to query. For example:
 
-``` text
+``` 
    GRAPH FinGraph
    MATCH (p:Person)
    RETURN p.name;
 ```
 
-For more information, see the [graph query syntax](/spanner/docs/reference/standard-sql/graph-query-statements) .
+For more information, see the [graph query syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements) .
 
 ### Graph pattern matching
 
@@ -134,12 +134,14 @@ Spanner Graph supports graph pattern matching capabilities similar to openCypher
 
 #### Relationship uniqueness and TRAIL mode
 
-openCypher doesn't return results with repeating edges in a single match; this is called *relationship uniqueness* in openCypher. In Spanner Graph, repeating edges are returned by default. When uniqueness is desired, use `  TRAIL  ` mode to ensure no repeating edge exists in the single match. For detailed semantics of `  TRAIL  ` and other different path modes, see [Path mode](/spanner/docs/reference/standard-sql/graph-patterns#path_mode) .
+openCypher doesn't return results with repeating edges in a single match; this is called *relationship uniqueness* in openCypher. In Spanner Graph, repeating edges are returned by default. When uniqueness is desired, use `  TRAIL  ` mode to ensure no repeating edge exists in the single match. For detailed semantics of `  TRAIL  ` and other different path modes, see [Path mode](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#path_mode) .
 
 The following example shows how the results of a query change with `  TRAIL  ` mode:
 
   - The openCypher and Spanner Graph `  TRAIL  ` mode queries return empty results because the only possible path is to repeat `  t1  ` twice.
   - By default, the Spanner Graph query returns a valid path.
+
+![Example graph](https://docs.cloud.google.com/static/spanner/docs/images/spanner-graph-opencypher-image.png)
 
 <table style="width:66%;">
 <colgroup>
@@ -156,14 +158,14 @@ The following example shows how the results of a query change with `  TRAIL  ` m
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH
   (src:Account)-[t1:Transfers]-&gt;
   (dst:Account)-[t2:Transfers]-&gt;
   (src)-[t1]-&gt;(dst)
 WHERE src.id = 16
 RETURN src.id AS src_id, dst.id AS dst_id;
       </code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
 MATCH TRAIL
   (src:Account)-[t1:Transfers]-&gt;
   (dst:Account)-[t2:Transfers]-&gt;
@@ -171,7 +173,7 @@ MATCH TRAIL
 WHERE src.id = 16
 RETURN src.id AS src_id, dst.id AS dst_id;
       </code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
 MATCH
   (src:Account)-[t1:Transfers]-&gt;
   (dst:Account)-[t2:Transfers]-&gt;
@@ -218,10 +220,10 @@ RETURN src.id AS src_id, dst.id AS dst_id;
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (account:Account)
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (account:Account)
 WHERE account.id = 16
 RETURN account;</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
 MATCH (account:Account)
 WHERE account.id = 16
 RETURN TO_JSON(account) AS account;</code></pre></td>
@@ -233,7 +235,7 @@ In Spanner Graph, query results don't return graph elements. Use the `  TO_JSON 
 
 #### Variable-length pattern matching and pattern quantification
 
-Variable-length pattern matching in openCypher is called *path quantification* in Spanner Graph. Path quantification uses a different syntax, as shown in the following example. For more information, see [Quantified path pattern](/spanner/docs/reference/standard-sql/graph-patterns#quantified_paths) .
+Variable-length pattern matching in openCypher is called *path quantification* in Spanner Graph. Path quantification uses a different syntax, as shown in the following example. For more information, see [Quantified path pattern](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#quantified_paths) .
 
 <table style="width:50%;">
 <colgroup>
@@ -248,12 +250,12 @@ Variable-length pattern matching in openCypher is called *path quantification* i
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (src:Account)-[:Transfers*1..2]-&gt;(dst:Account)
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (src:Account)-[:Transfers*1..2]-&gt;(dst:Account)
 WHERE src.id = 16
 RETURN dst.id
 ORDER BY dst.id;
      </code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
 MATCH (src:Account)-[:Transfers]-&gt;{1,2}(dst:Account)
 WHERE src.id = 16
 RETURN dst.id
@@ -280,11 +282,11 @@ Spanner Graph lets you directly access the variables used in path quantification
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH p=(src:Account)-[:Transfers*1..3]-&gt;(dst:Account)
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH p=(src:Account)-[:Transfers*1..3]-&gt;(dst:Account)
 WHERE src.id = 16
 RETURN edges(p);
       </code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
 MATCH (src:Account) -[e:Transfers]-&gt;{1,3} (dst:Account)
 WHERE src.id = 16
 RETURN TO_JSON(e) AS e;
@@ -315,13 +317,13 @@ Spanner Graph uses a different syntax to find a single shortest path between nod
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH
   (src:Account {id: 7}),
   (dst:Account {id: 20}),
   p = shortestPath((src)-[*1..10]-&gt;(dst))
 RETURN length(p) AS path_length;
       </code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
 MATCH ANY SHORTEST
   (src:Account {id: 7})-[e:Transfers]-&gt;{1, 3}
   (dst:Account {id: 20})
@@ -341,91 +343,81 @@ Spanner Graph
 
 `  MATCH  `
 
-Supported. For more information, see [graph pattern matching](/spanner/docs/graph/opencypher-reference#graph-pattern-matching) .
+Supported. For more information, see [graph pattern matching](https://docs.cloud.google.com/spanner/docs/graph/opencypher-reference#graph-pattern-matching) .
 
 `  OPTIONAL MATCH  `
 
-Supported. For more information, see [graph pattern matching](/spanner/docs/graph/opencypher-reference#graph-pattern-matching) .
+Supported. For more information, see [graph pattern matching](https://docs.cloud.google.com/spanner/docs/graph/opencypher-reference#graph-pattern-matching) .
 
 `  RETURN / WITH  `
 
-Supported. For more information, see the [`  RETURN  ` statement](/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) and the [`  WITH  ` statement](/spanner/docs/reference/standard-sql/graph-query-statements#gql_with) .  
+Supported. For more information, see the [`  RETURN  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) and the [`  WITH  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_with) .  
 Spanner Graph requires explicit aliasing for complicated expressions.
 
   
 Supported.
 
-``` text
-GRAPH FinGraph
-MATCH (p:Person)
-RETURN EXTRACT(YEAR FROM p.birthday) AS birthYear;
-```
+    GRAPH FinGraph
+    MATCH (p:Person)
+    RETURN EXTRACT(YEAR FROM p.birthday) AS birthYear;
 
   
 Not supported.
 
-``` text
-GRAPH FinGraph
-MATCH (p:Person)
-RETURN EXTRACT(YEAR FROM p.birthday); -- No aliasing
-```
+    GRAPH FinGraph
+    MATCH (p:Person)
+    RETURN EXTRACT(YEAR FROM p.birthday); -- No aliasing
 
 `  WHERE  `
 
-Supported. For more information, see the definition for [graph pattern](/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
+Supported. For more information, see the definition for [graph pattern](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
 
 `  ORDER BY  `
 
-Supported. For more information, see the [`  ORDER BY  ` statement](/spanner/docs/reference/standard-sql/graph-query-statements#gql_order_by) .
+Supported. For more information, see the [`  ORDER BY  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_order_by) .
 
 `  SKIP / LIMIT  `
 
-Supported. For more information, see the [`  SKIP  ` statement](/spanner/docs/reference/standard-sql/graph-query-statements#gql_skip) and the [`  LIMIT  ` statement](/spanner/docs/reference/standard-sql/graph-query-statements#gql_limit) .  
+Supported. For more information, see the [`  SKIP  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_skip) and the [`  LIMIT  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_limit) .  
   
 Spanner Graph requires a constant expression for the offset and the limit.
 
   
 Supported.
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account)
-RETURN n.id
-SKIP @offsetParameter
-LIMIT 3;
-```
+    GRAPH FinGraph
+    MATCH (n:Account)
+    RETURN n.id
+    SKIP @offsetParameter
+    LIMIT 3;
 
   
 Not supported.
 
-``` text
-GRAPH FinGraph
-MATCH (n:Account)
-RETURN n.id
-LIMIT VALUE {
-  MATCH (m:Person)
-  RETURN COUNT(*) AS count
-} AS count; -- Not a constant expression
-```
+    GRAPH FinGraph
+    MATCH (n:Account)
+    RETURN n.id
+    LIMIT VALUE {
+      MATCH (m:Person)
+      RETURN COUNT(*) AS count
+    } AS count; -- Not a constant expression
 
 `  UNION  `
 
-Supported. For more information, see [Composite graph query](/spanner/docs/reference/standard-sql/graph-intro#composite_graph_query) .
+Supported. For more information, see [Composite graph query](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro#composite_graph_query) .
 
 `  UNION ALL  `
 
-Supported. For more information, see [Composite graph query](/spanner/docs/reference/standard-sql/graph-intro#composite_graph_query) .
+Supported. For more information, see [Composite graph query](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro#composite_graph_query) .
 
 `  UNWIND  `
 
-Supported by [`  FOR  ` statement](/spanner/docs/reference/standard-sql/graph-query-statements#gql_for) .
+Supported by [`  FOR  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_for) .
 
-``` text
-GRAPH FinGraph
-LET arr = [1, 2, 3]
-FOR num IN arr
-RETURN num;
-```
+    GRAPH FinGraph
+    LET arr = [1, 2, 3]
+    FOR num IN arr
+    RETURN num;
 
 `  MANDATORY MATCH  `
 
@@ -437,42 +429,21 @@ Not supported.
 
 `  CREATE  ` , `  DELETE  ` , `  SET  ` , `  REMOVE  ` , `  MERGE  `
 
-To learn more, see the [Mutation](/spanner/docs/graph/opencypher-reference#mutation) section and [Insert, update, or delete data in Spanner Graph](/spanner/docs/graph/insert-update-delete-data) .
+To learn more, see the [Mutation](https://docs.cloud.google.com/spanner/docs/graph/opencypher-reference#mutation) section and [Insert, update, or delete data in Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data) .
 
 ### Data types
 
-Spanner Graph supports all GoogleSQL data types. For more information, see [Data types in GoogleSQL](/spanner/docs/reference/standard-sql/data-types) .
+Spanner Graph supports all GoogleSQL data types. For more information, see [Data types in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) .
 
 The following sections compare openCypher data types with Spanner Graph data types.
 
 #### Structural type
 
-<table style="width:50%;">
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 0%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>openCypher</th>
-<th>Spanner Graph</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Node</td>
-<td><a href="/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type">Node</a></td>
-</tr>
-<tr class="even">
-<td>Edge</td>
-<td><a href="/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type">Edge</a></td>
-</tr>
-<tr class="odd">
-<td>Path</td>
-<td><a href="/spanner/docs/reference/standard-sql/graph-data-types#graph_path_type">Path</a></td>
-</tr>
-</tbody>
-</table>
+| openCypher | Spanner Graph                                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------------------------------- |
+| Node       | [Node](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) |
+| Edge       | [Edge](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) |
+| Path       | [Path](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_path_type)    |
 
 #### Property type
 
@@ -490,26 +461,26 @@ The following sections compare openCypher data types with Spanner Graph data typ
 <tbody>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       INT      </code></td>
-<td><a href="/spanner/docs/reference/standard-sql/data-types#integer_types"><code dir="ltr" translate="no">        INT64       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#integer_types"><code dir="ltr" translate="no">        INT64       </code></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       FLOAT      </code></td>
-<td><a href="/spanner/docs/reference/standard-sql/data-types#floating_point_types"><code dir="ltr" translate="no">        FLOAT64       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types"><code dir="ltr" translate="no">        FLOAT64       </code></a></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       STRING      </code></td>
-<td><a href="/spanner/docs/reference/standard-sql/data-types#string_type"><code dir="ltr" translate="no">        STRING       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#string_type"><code dir="ltr" translate="no">        STRING       </code></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       BOOLEAN      </code></td>
-<td><a href="/spanner/docs/reference/standard-sql/data-types#boolean_type"><code dir="ltr" translate="no">        BOOL       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#boolean_type"><code dir="ltr" translate="no">        BOOL       </code></a></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       LIST      </code><br />
 A homogeneous list of simple types.<br />
 For example, List of <code dir="ltr" translate="no">       INT      </code> , List of <code dir="ltr" translate="no">       STRING      </code> .<br />
 You can't mix <code dir="ltr" translate="no">       INT      </code> and <code dir="ltr" translate="no">       STRING      </code> in a single list.</td>
-<td><a href="/spanner/docs/reference/standard-sql/data-types#array_type"><code dir="ltr" translate="no">        ARRAY       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type"><code dir="ltr" translate="no">        ARRAY       </code></a></td>
 </tr>
 </tbody>
 </table>
@@ -530,12 +501,12 @@ You can't mix <code dir="ltr" translate="no">       INT      </code> and <code d
 <tbody>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       LIST      </code></td>
-<td><a href="/spanner/docs/reference/standard-sql/data-types#array_type"><code dir="ltr" translate="no">        ARRAY       </code></a> or <a href="/spanner/docs/reference/standard-sql/data-types#json_type"><code dir="ltr" translate="no">        JSON       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type"><code dir="ltr" translate="no">        ARRAY       </code></a> or <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type"><code dir="ltr" translate="no">        JSON       </code></a><br />
 </td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       MAP      </code></td>
-<td><a href="/spanner/docs/reference/standard-sql/data-types#struct_type"><code dir="ltr" translate="no">        STRUCT       </code></a> or <a href="/spanner/docs/reference/standard-sql/data-types#json_type"><code dir="ltr" translate="no">        JSON       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#struct_type"><code dir="ltr" translate="no">        STRUCT       </code></a> or <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type"><code dir="ltr" translate="no">        JSON       </code></a><br />
 </td>
 </tr>
 </tbody>
@@ -545,26 +516,11 @@ Spanner Graph doesn't support heterogeneous lists of different types or maps of 
 
 #### Type Coercion
 
-<table style="width:50%;">
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 0%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>openCypher</th>
-<th>Spanner Graph</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       INT      </code> -&gt; <code dir="ltr" translate="no">       FLOAT      </code></td>
-<td>Supported.</td>
-</tr>
-</tbody>
-</table>
+| openCypher                                      | Spanner Graph |
+| ----------------------------------------------- | ------------- |
+| `        INT       ` -\> `        FLOAT       ` | Supported.    |
 
-For more information about type conversion rules, see [Conversion rules in GoogleSQL](/spanner/docs/reference/standard-sql/conversion_rules) .
+For more information about type conversion rules, see [Conversion rules in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules) .
 
 ### Functions and expressions
 
@@ -572,7 +528,7 @@ Besides graph functions and expressions, Spanner Graph also supports all GoogleS
 
 This section lists openCypher functions and expressions and their equivalents in Spanner Graph.
 
-**Note:** For a complete list of functions, see [GoogleSQL functions](/spanner/docs/reference/standard-sql/functions-all) . For a complete list of operators, see [GoogleSQL operators](/spanner/docs/reference/standard-sql/operators) . For a complete list of conditional expressions, see [GoogleSQL conditional expressions](/spanner/docs/reference/standard-sql/conditional_expressions) .
+**Note:** For a complete list of functions, see [GoogleSQL functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-all) . For a complete list of operators, see [GoogleSQL operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) . For a complete list of conditional expressions, see [GoogleSQL conditional expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions) .
 
 #### Structural type functions and expressions
 
@@ -589,7 +545,7 @@ Node and Edge
 
 `  exists(n.prop)  `
 
-[`  PROPERTY_EXISTS(n, prop)  `](/spanner/docs/reference/standard-sql/graph-operators#property_exists_predicate)
+[`  PROPERTY_EXISTS(n, prop)  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#property_exists_predicate)
 
 `  id  ` (returns integer)
 
@@ -597,16 +553,16 @@ Not supported.
 
 `  properties  `
 
-[`  TO_JSON  `](/spanner/docs/reference/standard-sql/json_functions#to_json)  
+[`  TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json)  
 
 `  keys  `  
 (property type names, but not property values)
 
-[`  PROPERTY_NAMES  `](/spanner/docs/reference/standard-sql/graph-gql-functions#property_names)  
+[`  PROPERTY_NAMES  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#property_names)  
 
 `  labels  `
 
-[`  LABELS  `](/spanner/docs/reference/standard-sql/graph-gql-functions#labels)
+[`  LABELS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#labels)
 
 Edge
 
@@ -654,7 +610,7 @@ dynamic property reference
 </colgroup>
 <thead>
 <tr class="header">
-<th><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (n)
+<th><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (n)
 RETURN n[n.name]</code></pre></th>
 </tr>
 </thead>
@@ -676,7 +632,7 @@ Not supported. Use a subquery as following
 </colgroup>
 <thead>
 <tr class="header">
-<th><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>VALUE {
+<th><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>VALUE {
   MATCH pattern
   RETURN COUNT(*) AS count;
 }</code></pre></th>
@@ -993,7 +949,7 @@ Chain of comparison
 </colgroup>
 <thead>
 <tr class="header">
-<th><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>a &lt; b &lt; c</code></pre></th>
+<th><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>a &lt; b &lt; c</code></pre></th>
 </tr>
 </thead>
 <tbody>
@@ -1009,7 +965,7 @@ For example:
 </colgroup>
 <thead>
 <tr class="header">
-<th><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>      a &lt; b AND b &lt; C
+<th><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>      a &lt; b AND b &lt; C
       </code></pre></th>
 </tr>
 </thead>
@@ -1039,7 +995,7 @@ For example:
 </colgroup>
 <thead>
 <tr class="header">
-<th><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>      boolean_1 &lt;&gt; boolean_2
+<th><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>      boolean_1 &lt;&gt; boolean_2
       </code></pre></th>
 </tr>
 </thead>
@@ -1113,7 +1069,7 @@ List
 <tr class="even">
 <td>List comprehension</td>
 <td>Not supported.<br />
-<a href="/spanner/docs/reference/standard-sql/array_functions#generate_array"><code dir="ltr" translate="no">        GENERATE_ARRAY       </code></a> and <a href="/spanner/docs/reference/standard-sql/array_functions#array_transform"><code dir="ltr" translate="no">        ARRAY_TRANSFORM       </code></a> cover the majority of use cases.</td>
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#generate_array"><code dir="ltr" translate="no">        GENERATE_ARRAY       </code></a> and <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_transform"><code dir="ltr" translate="no">        ARRAY_TRANSFORM       </code></a> cover the majority of use cases.</td>
 </tr>
 </tbody>
 </table>
@@ -1138,10 +1094,10 @@ The following queries show the difference between using parameters in openCypher
 <tbody>
 <tr class="odd">
 <td>Parameter</td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (n:Person)
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (n:Person)
 WHERE n.id = $id
 RETURN n.name;</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>GRAPH FinGraph
 MATCH (n:Person)
 WHERE n.id = @id
 RETURN n.name;</code></pre></td>
@@ -1151,7 +1107,7 @@ RETURN n.name;</code></pre></td>
 
 ## Mutation
 
-Spanner Graph uses [GoogleSQL DML](/spanner/docs/reference/standard-sql/dml-syntax) to mutate the node and edge input tables. For more information, see [Insert, update, or delete Spanner Graph data](/spanner/docs/graph/insert-update-delete-data) .
+Spanner Graph uses [GoogleSQL DML](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax) to mutate the node and edge input tables. For more information, see [Insert, update, or delete Spanner Graph data](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data) .
 
 ### Create node and edge
 
@@ -1171,14 +1127,14 @@ Spanner Graph uses [GoogleSQL DML](/spanner/docs/reference/standard-sql/dml-synt
 <tbody>
 <tr class="odd">
 <td>Create nodes and edges</td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>CREATE (:Person {id: 100, name: &#39;John&#39;});
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>CREATE (:Person {id: 100, name: &#39;John&#39;});
 CREATE (:Account {id: 1000, is_blocked: FALSE});
 
 
 MATCH (p:Person {id: 100}),
       (a:Account {id: 1000})
 CREATE (p)-[:Owns {create_time: timestamp()}]-&gt;(a);</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>INSERT INTO
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>INSERT INTO
 Person (id, name)
 VALUES (100, &quot;John&quot;);
 
@@ -1194,10 +1150,10 @@ VALUES (100, 1000, CURRENT_TIMESTAMP());</code></pre></td>
 <tr class="even">
 <td>Create nodes and edges with query results<br />
 </td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (a:Account {id: 1}), (oa:Account)
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (a:Account {id: 1}), (oa:Account)
 WHERE oa &lt;&gt; a
 CREATE (a)-[:Transfers {amount: 100, create_time: timestamp()}]-&gt;(oa);</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>INSERT INTO AccountTransferAccount(id, to_id, create_time, amount)
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>INSERT INTO AccountTransferAccount(id, to_id, create_time, amount)
 SELECT a.id, oa.id, CURRENT_TIMESTAMP(), 100
 FROM GRAPH_TABLE(
   FinGraph
@@ -1230,16 +1186,16 @@ In Spanner Graph, the labels are statically assigned according to the `  CREATE 
 <tbody>
 <tr class="odd">
 <td>Update properties</td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (p:Person {id: 100})
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (p:Person {id: 100})
 SET p.country = &#39;United States&#39;;</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>UPDATE Person AS p
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>UPDATE Person AS p
 SET p.country = &#39;United States&#39;
 WHERE p.id = 100;</code></pre></td>
 </tr>
 </tbody>
 </table>
 
-To update Spanner Graph labels, see [Create, update, or drop a Spanner Graph schema](/spanner/docs/graph/create-update-drop-schema) .
+To update Spanner Graph labels, see [Create, update, or drop a Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema) .
 
 ### Merge node and edge
 
@@ -1259,8 +1215,8 @@ To update Spanner Graph labels, see [Create, update, or drop a Spanner Graph sch
 <tbody>
 <tr class="odd">
 <td>Insert new element or update properties</td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MERGE (p:Person {id: 100, country: &#39;United States&#39;});</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>INSERT OR UPDATE INTO Person
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MERGE (p:Person {id: 100, country: &#39;United States&#39;});</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>INSERT OR UPDATE INTO Person
 (id, country)
 VALUES (100, &#39;United States&#39;);</code></pre></td>
 </tr>
@@ -1287,15 +1243,15 @@ Deleting edges is the same as deleting the input table.
 <tbody>
 <tr class="odd">
 <td>Delete nodes and edges</td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (p:Person {id:100}), (a:Account {id:1000})
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (p:Person {id:100}), (a:Account {id:1000})
 DELETE (p)-[:Owns]-&gt;(a);</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DELETE PersonOwnAccount
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DELETE PersonOwnAccount
 WHERE id = 100 AND account_id = 1000;</code></pre></td>
 </tr>
 </tbody>
 </table>
 
-Deleting nodes requires handling potential dangling edges. When `  DELETE CASCADE  ` is specified, `  DELETE  ` removes the associated edges of nodes like `  DETACH DELETE  ` in openCypher. For more information, see Spanner [schema overview](/spanner/docs/schema-and-data-model) .
+Deleting nodes requires handling potential dangling edges. When `  DELETE CASCADE  ` is specified, `  DELETE  ` removes the associated edges of nodes like `  DETACH DELETE  ` in openCypher. For more information, see Spanner [schema overview](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
 
 <table style="width:55%;">
 <colgroup>
@@ -1313,8 +1269,8 @@ Deleting nodes requires handling potential dangling edges. When `  DELETE CASCAD
 <tbody>
 <tr class="odd">
 <td>Delete nodes and associated edges</td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DETACH DELETE (:Account {id: 1000});</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DELETE Account
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DETACH DELETE (:Account {id: 1000});</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DELETE Account
 WHERE id = 1000;</code></pre></td>
 </tr>
 </tbody>
@@ -1338,19 +1294,19 @@ WHERE id = 1000;</code></pre></td>
 <tbody>
 <tr class="odd">
 <td>Return results after insertion or update</td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (p:Person {id: 100})
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>MATCH (p:Person {id: 100})
 SET p.country = &#39;United States&#39;
 RETURN p.id, p.name;</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>UPDATE Person AS p
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>UPDATE Person AS p
 SET p.country = &#39;United States&#39;
 WHERE p.id = 100
 THEN RETURN id, name;</code></pre></td>
 </tr>
 <tr class="even">
 <td>Return results after deletion</td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DELETE (p:Person {id: 100})
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DELETE (p:Person {id: 100})
 RETURN p.country;</code></pre></td>
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DELETE FROM Person
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="SQL" translate="no"><code>DELETE FROM Person
 WHERE id = 100
 THEN RETURN country;</code></pre></td>
 </tr>
@@ -1359,4 +1315,4 @@ THEN RETURN country;</code></pre></td>
 
 ## What's next
 
-  - [Spanner Graph overview](/spanner/docs/graph/overview) .
+  - [Spanner Graph overview](https://docs.cloud.google.com/spanner/docs/graph/overview) .

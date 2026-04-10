@@ -2,7 +2,7 @@ The information schema is a built-in schema that's common to every PostgreSQL da
 
 For example, the following query fetches the names of all user-defined tables in a database:
 
-``` text
+``` 
   SELECT
     table_schema,
     table_name
@@ -25,8 +25,8 @@ For example, the following query fetches the names of all user-defined tables in
 
 <!-- end list -->
 
-  - Queries against the `  information_schema  ` can use strong, bounded staleness, or exact staleness [timestamp bounds](/spanner/docs/timestamp-bounds) .
-  - If you are using a GoogleSQL-dialect database, see [Information schema for GoogleSQL-dialect databases](/spanner/docs/information-schema) .
+  - Queries against the `  information_schema  ` can use strong, bounded staleness, or exact staleness [timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) .
+  - If you are using a GoogleSQL-dialect database, see [Information schema for GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema) .
 
 ## Differences from `     information_schema    ` for PostgreSQL
 
@@ -44,7 +44,7 @@ Other notable differences in the `  information_schema  ` for PostgreSQL-dialect
 
 ## Row filtering in `     information_schema    ` tables and views
 
-Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` [system role](/spanner/docs/fgac-system-roles) (or to members of that role) can see all rows in all `  information_schema  ` tables and views. For other principals, Spanner filters rows based on the current database role. The table and view descriptions in the following sections indicate how Spanner filters rows for each table and view.
+Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` [system role](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) (or to members of that role) can see all rows in all `  information_schema  ` tables and views. For other principals, Spanner filters rows based on the current database role. The table and view descriptions in the following sections indicate how Spanner filters rows for each table and view.
 
 ## Tables in `     information_schema    ` for PostgreSQL-dialect databases
 
@@ -56,39 +56,13 @@ The following sections describe the tables and views in the `  information_schem
 
 This row-filtered view lists all role memberships that are explicitly granted to all database roles. Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only the role memberships that are granted to the current database role or to a role of which the current database role is a member.
 
-Because all database roles are members of the [public role](/spanner/docs/fgac-system-roles#public) , the results omit records for implicit membership in the public role.
+Because all database roles are members of the [public role](https://docs.cloud.google.com/spanner/docs/fgac-system-roles#public) , the results omit records for implicit membership in the public role.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Column name</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       grantee      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the database role to which membership is granted.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       role_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the parent database role in which this membership is granted.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       is_grantable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-</tbody>
-</table>
+| **Column name**               | **Type**                           | **Description**                                                           |
+| ----------------------------- | ---------------------------------- | ------------------------------------------------------------------------- |
+| `        grantee       `      | `        character varying       ` | The name of the database role to which membership is granted.             |
+| `        role_name       `    | `        character varying       ` | The name of the parent database role in which this membership is granted. |
+| `        is_grantable       ` | `        character varying       ` | Not used. Always `        NO       ` .                                    |
 
 ### `     change_stream_columns    `
 
@@ -96,164 +70,42 @@ This row-filtered view contains information about table columns and the change s
 
 Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only rows for change streams on which the `  SELECT  ` privilege is granted to the current database role, to roles of which the current database role is a member, or to `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       change_stream_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream's schema. For PostgreSQL-dialect databases, the default is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table's schema. For PostgreSQL-dialect databases, the default is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table that this row refers to.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       column_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the column that this row refers to.</td>
-</tr>
-</tbody>
-</table>
+| Column name                            | Type                               | Description                                                                                                        |
+| -------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `        change_stream_catalog       ` | `        character varying       ` | The database name.                                                                                                 |
+| `        change_stream_schema       `  | `        character varying       ` | The name of the change stream's schema. For PostgreSQL-dialect databases, the default is `        public       ` . |
+| `        change_stream_name       `    | `        character varying       ` | The name of the change stream.                                                                                     |
+| `        table_catalog       `         | `        character varying       ` | The database name.                                                                                                 |
+| `        table_schema       `          | `        character varying       ` | The name of the table's schema. For PostgreSQL-dialect databases, the default is `        public       ` .         |
+| `        table_name       `            | `        character varying       ` | The name of the table that this row refers to.                                                                     |
+| `        column_name       `           | `        character varying       ` | The name of the column that this row refers to.                                                                    |
 
 ### `     change_stream_options    `
 
 This row-filtered view contains the configuration options for change streams. Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only options for change streams on which the `  SELECT  ` privilege is granted to the current database role, to roles of which the current database role is a member, or to `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       change_stream_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream's schema. For PostgreSQL-dialect databases, the default is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       option_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream option.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       option_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The data type of the change stream option.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       option_value      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The value of the change stream option.</td>
-</tr>
-</tbody>
-</table>
+| Column name                            | Type                               | Description                                                                                                        |
+| -------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `        change_stream_catalog       ` | `        character varying       ` | The database name.                                                                                                 |
+| `        change_stream_schema       `  | `        character varying       ` | The name of the change stream's schema. For PostgreSQL-dialect databases, the default is `        public       ` . |
+| `        change_stream_name       `    | `        character varying       ` | The name of the change stream.                                                                                     |
+| `        option_name       `           | `        character varying       ` | The name of the change stream option.                                                                              |
+| `        option_type       `           | `        character varying       ` | The data type of the change stream option.                                                                         |
+| `        option_value       `          | `        character varying       ` | The value of the change stream option.                                                                             |
 
 ### `     change_stream_privileges    `
 
 This row-filtered view lists all fine-grained access control privileges granted on all change streams to any database role, including `  public  ` . Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on change streams to the current database role, to roles of which the current database role is a member, or to `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Column name</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       grantor      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       grantee      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the database role to which this privilege is granted.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       change_stream_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the change stream. The default is <code dir="ltr" translate="no">       public      </code> for PostgreSQL-dialect databases.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       privilege_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The type of the privilege ( <code dir="ltr" translate="no">       SELECT      </code> only).</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       is_grantable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-</tbody>
-</table>
+| **Column name**                        | **Type**                           | **Description**                                                                                                                  |
+| -------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `        grantor       `               | `        character varying       ` | Not used. Always `        NULL       ` .                                                                                         |
+| `        grantee       `               | `        character varying       ` | The name of the database role to which this privilege is granted.                                                                |
+| `        change_stream_catalog       ` | `        character varying       ` | The database name.                                                                                                               |
+| `        change_stream_schema       `  | `        character varying       ` | The name of the schema that contains the change stream. The default is `        public       ` for PostgreSQL-dialect databases. |
+| `        change_stream_name       `    | `        character varying       ` | The name of the change stream.                                                                                                   |
+| `        privilege_type       `        | `        character varying       ` | The type of the privilege ( `        SELECT       ` only).                                                                       |
+| `        is_grantable       `          | `        character varying       ` | Not used. Always `        NO       ` .                                                                                           |
 
 ### `     change_stream_tables    `
 
@@ -261,98 +113,26 @@ This row-filtered view contains information about tables and the change streams 
 
 The data in `  change_stream_tables  ` does not include the implicit relationships between tables and change streams that track the entire database.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       change_stream_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream's schema. For PostgreSQL-dialect databases, the default is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream that this row refers to.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table's schema. For PostgreSQL-dialect databases, the default is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table that this row refers to.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       all_columns      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td><code dir="ltr" translate="no">       YES      </code> if this row's change stream tracks the entirety of the table this row refers to. Otherwise, <code dir="ltr" translate="no">       NO      </code> . In accordance with the SQL standard, the string is either <code dir="ltr" translate="no">       YES      </code> or <code dir="ltr" translate="no">       NO      </code> , rather than a Boolean value.</td>
-</tr>
-</tbody>
-</table>
+| Column name                            | Type                               | Description                                                                                                                                                                                                                                                                 |
+| -------------------------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        change_stream_catalog       ` | `        character varying       ` | The database name.                                                                                                                                                                                                                                                          |
+| `        change_stream_schema       `  | `        character varying       ` | The name of the change stream's schema. For PostgreSQL-dialect databases, the default is `        public       ` .                                                                                                                                                          |
+| `        change_stream_name       `    | `        character varying       ` | The name of the change stream that this row refers to.                                                                                                                                                                                                                      |
+| `        table_catalog       `         | `        character varying       ` | The database name.                                                                                                                                                                                                                                                          |
+| `        table_schema       `          | `        character varying       ` | The name of the table's schema. For PostgreSQL-dialect databases, the default is `        public       ` .                                                                                                                                                                  |
+| `        table_name       `            | `        character varying       ` | The name of the table that this row refers to.                                                                                                                                                                                                                              |
+| `        all_columns       `           | `        character varying       ` | `        YES       ` if this row's change stream tracks the entirety of the table this row refers to. Otherwise, `        NO       ` . In accordance with the SQL standard, the string is either `        YES       ` or `        NO       ` , rather than a Boolean value. |
 
 ### `     change_streams    `
 
 This row-filtered view lists all of a database's change streams, and notes which ones track the entire database versus specific tables or columns. Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only change streams on which the `  SELECT  ` fine-grained access control privilege is granted to the current database role, to roles of which the current database role is a member, or to `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       change_stream_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of this change stream's schema. For PostgreSQL-dialect databases, the default is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       all      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td><code dir="ltr" translate="no">       YES      </code> if this change stream tracks the entire database. <code dir="ltr" translate="no">       NO      </code> if this change stream tracks specific tables or columns. In accordance with the SQL standard, the string is either <code dir="ltr" translate="no">       YES      </code> or <code dir="ltr" translate="no">       NO      </code> , rather than a Boolean value.</td>
-</tr>
-</tbody>
-</table>
+| Column name                            | Type                               | Description                                                                                                                                                                                                                                                                              |
+| -------------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        change_stream_catalog       ` | `        character varying       ` | The database name.                                                                                                                                                                                                                                                                       |
+| `        change_stream_schema       `  | `        character varying       ` | The name of this change stream's schema. For PostgreSQL-dialect databases, the default is `        public       ` .                                                                                                                                                                      |
+| `        change_stream_name       `    | `        character varying       ` | The name of the change stream.                                                                                                                                                                                                                                                           |
+| `        all       `                   | `        character varying       ` | `        YES       ` if this change stream tracks the entire database. `        NO       ` if this change stream tracks specific tables or columns. In accordance with the SQL standard, the string is either `        YES       ` or `        NO       ` , rather than a Boolean value. |
 
 ### `     check_constraints    `
 
@@ -408,103 +188,27 @@ The `  check_constraints  ` view contains one row for each check constraint defi
 
 This view lists all the generated columns that depend on another base column in the same table.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the table. The name is <code dir="ltr" translate="no">       public      </code> for the default schema and non-empty for other schemas (for example, the <code dir="ltr" translate="no">       information_schema      </code> itself). This column is never null.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table that contains the generated columns.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       column_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the base column that the generated column depends on.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       dependent_column      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the generated column.</td>
-</tr>
-</tbody>
-</table>
+| Column name                       | Type                               | Description                                                                                                                                                                                                                          |
+| --------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `        table_catalog       `    | `        character varying       ` | The database name.                                                                                                                                                                                                                   |
+| `        table_schema       `     | `        character varying       ` | The name of the schema that contains the table. The name is `        public       ` for the default schema and non-empty for other schemas (for example, the `        information_schema       ` itself). This column is never null. |
+| `        table_name       `       | `        character varying       ` | The name of the table that contains the generated columns.                                                                                                                                                                           |
+| `        column_name       `      | `        character varying       ` | The name of the base column that the generated column depends on.                                                                                                                                                                    |
+| `        dependent_column       ` | `        character varying       ` | The name of the generated column.                                                                                                                                                                                                    |
 
 ### `     column_options    `
 
 This view lists all the options defined for the referenced table columns of a foreign key constraint. The view contains only those columns in the reference table that the current user has access to (by way of being the owner or granted privileges).
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the foreign table. The name is <code dir="ltr" translate="no">       public      </code> for the default schema and non-empty for other schemas (for example, the <code dir="ltr" translate="no">       information_schema      </code> itself). This column is never null.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the foreign table.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       column_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the column.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       option_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>A SQL identifier that uniquely identifies the option. This identifier is the key of the <code dir="ltr" translate="no">       OPTIONS      </code> clause in DDL.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       option_value      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>A SQL literal describing the value of this option. The value of this column is parsable as part of a query.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       option_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>A data type name that is the type of this option value.</td>
-</tr>
-</tbody>
-</table>
+| Column name                    | Type                               | Description                                                                                                                                                                                                                                  |
+| ------------------------------ | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        table_catalog       ` | `        character varying       ` | The database name.                                                                                                                                                                                                                           |
+| `        table_schema       `  | `        character varying       ` | The name of the schema that contains the foreign table. The name is `        public       ` for the default schema and non-empty for other schemas (for example, the `        information_schema       ` itself). This column is never null. |
+| `        table_name       `    | `        character varying       ` | The name of the foreign table.                                                                                                                                                                                                               |
+| `        column_name       `   | `        character varying       ` | The name of the column.                                                                                                                                                                                                                      |
+| `        option_name       `   | `        character varying       ` | A SQL identifier that uniquely identifies the option. This identifier is the key of the `        OPTIONS       ` clause in DDL.                                                                                                              |
+| `        option_value       `  | `        character varying       ` | A SQL literal describing the value of this option. The value of this column is parsable as part of a query.                                                                                                                                  |
+| `        option_type       `   | `        character varying       ` | A data type name that is the type of this option value.                                                                                                                                                                                      |
 
 ### `     column_privileges    `
 
@@ -512,62 +216,16 @@ This row-filtered view lists all fine-grained access control privileges granted 
 
 The view includes the `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` privileges that the column inherits from the table or view that contains the column.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Column name</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       grantor      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       grantee      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the database role to which this privilege is granted.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the table or view. The default is <code dir="ltr" translate="no">       public      </code> for PostgreSQL-dialect databases.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table or view that contains the column.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       column_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the column.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       privilege_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The type of the privilege ( <code dir="ltr" translate="no">       SELECT      </code> , <code dir="ltr" translate="no">       INSERT      </code> , or <code dir="ltr" translate="no">       UPDATE      </code> ).</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       is_grantable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-</tbody>
-</table>
+| **Column name**                 | **Type**                           | **Description**                                                                                                                  |
+| ------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `        grantor       `        | `        character varying       ` | Not used. Always `        NULL       ` .                                                                                         |
+| `        grantee       `        | `        character varying       ` | The name of the database role to which this privilege is granted.                                                                |
+| `        table_catalog       `  | `        character varying       ` | The database name.                                                                                                               |
+| `        table_schema       `   | `        character varying       ` | The name of the schema that contains the table or view. The default is `        public       ` for PostgreSQL-dialect databases. |
+| `        table_name       `     | `        character varying       ` | The name of the table or view that contains the column.                                                                          |
+| `        column_name       `    | `        character varying       ` | The name of the column.                                                                                                          |
+| `        privilege_type       ` | `        character varying       ` | The type of the privilege ( `        SELECT       ` , `        INSERT       ` , or `        UPDATE       ` ).                    |
+| `        is_grantable       `   | `        character varying       ` | Not used. Always `        NO       ` .                                                                                           |
 
 ### `     columns    `
 
@@ -854,256 +512,66 @@ This view contains one row about each column used by a constraint.
   - For foreign key constraints, the view contains the columns of the referenced table.
   - For `  UNIQUE  ` constraints, the view contains the columns from `  KEY_COLUMN_USAGE  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the table that contains the column that is used by the constraint.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table that contains the column that is used by the constraint.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       column_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the column that is used by the constraint.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       constraint_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       constraint_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the constraint's schema.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       constraint_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the constraint.</td>
-</tr>
-</tbody>
-</table>
+| Column name                         | Type                               | Description                                                                                             |
+| ----------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `        table_catalog       `      | `        character varying       ` | The database name.                                                                                      |
+| `        table_schema       `       | `        character varying       ` | The name of the schema that contains the table that contains the column that is used by the constraint. |
+| `        table_name       `         | `        character varying       ` | The name of the table that contains the column that is used by the constraint.                          |
+| `        column_name       `        | `        character varying       ` | The name of the column that is used by the constraint.                                                  |
+| `        constraint_catalog       ` | `        character varying       ` | The database name.                                                                                      |
+| `        constraint_schema       `  | `        character varying       ` | The name of the constraint's schema.                                                                    |
+| `        constraint_name       `    | `        character varying       ` | The name of the constraint.                                                                             |
 
 ### `     constraint_table_usage    `
 
 This view contains one row for each table used by a constraint. For `  FOREIGN KEY  ` constraints, the table information is for the tables in the `  REFERENCES  ` clause. For a unique or primary key constraint, this view identifies the table the constraint belongs to. Check constraints and not-null constraints are not included in this view.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the constrained table's schema.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table that is used by some constraint.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       constraint_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       constraint_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the constraint.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       constraint_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the constraint.</td>
-</tr>
-</tbody>
-</table>
+| Column name                         | Type                               | Description                                            |
+| ----------------------------------- | ---------------------------------- | ------------------------------------------------------ |
+| `        table_catalog       `      | `        character varying       ` | The database name.                                     |
+| `        table_schema       `       | `        character varying       ` | The name of the constrained table's schema.            |
+| `        table_name       `         | `        character varying       ` | The name of the table that is used by some constraint. |
+| `        constraint_catalog       ` | `        character varying       ` | The database name.                                     |
+| `        constraint_schema       `  | `        character varying       ` | The name of the schema that contains the constraint.   |
+| `        constraint_name       `    | `        character varying       ` | The name of the constraint.                            |
 
 ### `     database_options    `
 
 This table lists the options that are set on the database.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       catalog_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       schema_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema. The default value is <code dir="ltr" translate="no">       public      </code> for PostgreSQL-dialect databases.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       option_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the database option. This is the value of <code dir="ltr" translate="no">       key      </code> in the <code dir="ltr" translate="no">       OPTIONS      </code> clause in DDL.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       option_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The data type of the database option.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       option_value      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The value of the database option.</td>
-</tr>
-</tbody>
-</table>
+| Column name                   | Type                               | Description                                                                                                               |
+| ----------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `        catalog_name       ` | `        character varying       ` | The database name.                                                                                                        |
+| `        schema_name       `  | `        character varying       ` | The name of the schema. The default value is `        public       ` for PostgreSQL-dialect databases.                    |
+| `        option_name       `  | `        character varying       ` | The name of the database option. This is the value of `        key       ` in the `        OPTIONS       ` clause in DDL. |
+| `        option_type       `  | `        character varying       ` | The data type of the database option.                                                                                     |
+| `        option_value       ` | `        character varying       ` | The value of the database option.                                                                                         |
 
 ### `     enabled_roles    `
 
 This row-filtered view lists the defined database roles. Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all database roles. All other principals can see only database roles to which they have been granted access either directly or through inheritance. All system roles excluding `  public  ` also appear in this view.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Column name</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       role_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the role.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       spanner_is_system      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td><code dir="ltr" translate="no">       YES      </code> if the role is a system role. Otherwise, <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-</tbody>
-</table>
+| **Column name**                    | **Type**                           | **Description**                                                                     |
+| ---------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------- |
+| `        role_name       `         | `        character varying       ` | The name of the role.                                                               |
+| `        spanner_is_system       ` | `        character varying       ` | `        YES       ` if the role is a system role. Otherwise, `        NO       ` . |
 
 ### `     index_columns    `
 
 This view lists the columns in an index.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the index. The default value is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table associated with the index.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       index_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the index. Tables that have a <code dir="ltr" translate="no">       PRIMARY KEY      </code> specification have a pseudo-index entry generated with the name <code dir="ltr" translate="no">       PRIMARY_KEY      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       index_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The type of index. Possible values are <code dir="ltr" translate="no">       PRIMARY_KEY      </code> , <code dir="ltr" translate="no">       LOCAL      </code> , or <code dir="ltr" translate="no">       GLOBAL      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       column_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the column.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       ordinal_position      </code></td>
-<td><code dir="ltr" translate="no">       BIGINT      </code></td>
-<td>The ordinal position of the column in the index (or primary key), starting with a value of 1. This value is <code dir="ltr" translate="no">       NULL      </code> for non-key columns (for example, columns specified in the <a href="/spanner/docs/secondary-indexes#storing_clause"><code dir="ltr" translate="no">        INCLUDE       </code> clause</a> of an index).</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       column_ordering      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The sort order of the column. The value is <code dir="ltr" translate="no">       ASC      </code> or <code dir="ltr" translate="no">       DESC      </code> for key columns, and <code dir="ltr" translate="no">       NULL      </code> for non-key columns (for example, columns specified in the <code dir="ltr" translate="no">       STORING      </code> clause of an index).</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       is_nullable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>A string that indicates whether the column is nullable. In accordance with the SQL standard, the string is either <code dir="ltr" translate="no">       YES      </code> or <code dir="ltr" translate="no">       NO      </code> , rather than a Boolean value.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       spanner_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>A string holding the DDL-compatible type of the column.</td>
-</tr>
-</tbody>
-</table>
+| Column name                       | Type                               | Description                                                                                                                                                                                                                                                                                                                 |
+| --------------------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        table_catalog       `    | `        character varying       ` | The database name.                                                                                                                                                                                                                                                                                                          |
+| `        table_schema       `     | `        character varying       ` | The name of the schema that contains the index. The default value is `        public       ` .                                                                                                                                                                                                                              |
+| `        table_name       `       | `        character varying       ` | The name of the table associated with the index.                                                                                                                                                                                                                                                                            |
+| `        index_name       `       | `        character varying       ` | The name of the index. Tables that have a `        PRIMARY KEY       ` specification have a pseudo-index entry generated with the name `        PRIMARY_KEY       ` .                                                                                                                                                       |
+| `        index_type       `       | `        character varying       ` | The type of index. Possible values are `        PRIMARY_KEY       ` , `        LOCAL       ` , or `        GLOBAL       ` .                                                                                                                                                                                                 |
+| `        column_name       `      | `        character varying       ` | The name of the column.                                                                                                                                                                                                                                                                                                     |
+| `        ordinal_position       ` | `        BIGINT       `            | The ordinal position of the column in the index (or primary key), starting with a value of 1. This value is `        NULL       ` for non-key columns (for example, columns specified in the [`         INCLUDE        ` clause](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing_clause) of an index). |
+| `        column_ordering       `  | `        character varying       ` | The sort order of the column. The value is `        ASC       ` or `        DESC       ` for key columns, and `        NULL       ` for non-key columns (for example, columns specified in the `        STORING       ` clause of an index).                                                                                |
+| `        is_nullable       `      | `        character varying       ` | A string that indicates whether the column is nullable. In accordance with the SQL standard, the string is either `        YES       ` or `        NO       ` , rather than a Boolean value.                                                                                                                                |
+| `        spanner_type       `     | `        character varying       ` | A string holding the DDL-compatible type of the column.                                                                                                                                                                                                                                                                     |
 
 ### `     indexes    `
 
@@ -1151,7 +619,7 @@ This view lists the indexes in a schema.
 <tr class="even">
 <td><code dir="ltr" translate="no">       parent_table_name      </code></td>
 <td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Secondary indexes can be interleaved in a parent table, as discussed in <a href="/spanner/docs/secondary-indexes#creating_a_secondary_index">Creating a secondary index</a> . This column holds the name of that parent table, or an empty string if the index is not interleaved.</td>
+<td>Secondary indexes can be interleaved in a parent table, as discussed in <a href="https://docs.cloud.google.com/spanner/docs/secondary-indexes#creating_a_secondary_index">Creating a secondary index</a> . This column holds the name of that parent table, or an empty string if the index is not interleaved.</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       is_unique      </code></td>
@@ -1188,93 +656,25 @@ This view lists the indexes in a schema.
 
 This table contains one row and one column containing the database name.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       catalog_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-</tbody>
-</table>
+| Column name                   | Type                               | Description        |
+| ----------------------------- | ---------------------------------- | ------------------ |
+| `        catalog_name       ` | `        character varying       ` | The database name. |
 
 ### `     key_column_usage    `
 
 This view identifies all columns in the current database that are referenced by a unique, primary key, or foreign key constraint. For information about `  CHECK  ` constraint columns, see the `  check_constraints  ` view.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       constraint_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       constraint_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the constraint's schema. The default value is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       constraint_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the constraint.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the table that contains the constrained column. The default value is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table that contains the column that is restricted by this constraint.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       column_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the column that is constrained.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       ordinal_position      </code></td>
-<td><code dir="ltr" translate="no">       BIGINT      </code></td>
-<td>The ordinal position of the column within the constraint's key, starting with a value of <code dir="ltr" translate="no">       1      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       position_in_unique_constraint      </code></td>
-<td><code dir="ltr" translate="no">       BIGINT      </code></td>
-<td>For <code dir="ltr" translate="no">       FOREIGN KEY      </code> s, the ordinal position of the column within the unique constraint, starting with a value of <code dir="ltr" translate="no">       1      </code> . This column has a <code dir="ltr" translate="no">       NULL      </code> value for other constraint types.</td>
-</tr>
-</tbody>
-</table>
+| Column name                                    | Type                               | Description                                                                                                                                                                                                                  |
+| ---------------------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        constraint_catalog       `            | `        character varying       ` | The database name.                                                                                                                                                                                                           |
+| `        constraint_schema       `             | `        character varying       ` | The name of the constraint's schema. The default value is `        public       ` .                                                                                                                                          |
+| `        constraint_name       `               | `        character varying       ` | The name of the constraint.                                                                                                                                                                                                  |
+| `        table_catalog       `                 | `        character varying       ` | The database name.                                                                                                                                                                                                           |
+| `        table_schema       `                  | `        character varying       ` | The name of the schema that contains the table that contains the constrained column. The default value is `        public       ` .                                                                                          |
+| `        table_name       `                    | `        character varying       ` | The name of the table that contains the column that is restricted by this constraint.                                                                                                                                        |
+| `        column_name       `                   | `        character varying       ` | The name of the column that is constrained.                                                                                                                                                                                  |
+| `        ordinal_position       `              | `        BIGINT       `            | The ordinal position of the column within the constraint's key, starting with a value of `        1       ` .                                                                                                                |
+| `        position_in_unique_constraint       ` | `        BIGINT       `            | For `        FOREIGN KEY       ` s, the ordinal position of the column within the unique constraint, starting with a value of `        1       ` . This column has a `        NULL       ` value for other constraint types. |
 
 ### `     parameters    `
 
@@ -1475,36 +875,14 @@ Principals that have database-level IAM permissions and principals who have been
 
 This table lists the placements in the database.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       placement_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the placement.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       is_default      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>A string that indicates whether the column is nullable. In accordance with the SQL standard, the string is either <code dir="ltr" translate="no">       YES      </code> or <code dir="ltr" translate="no">       NO      </code> , rather than a Boolean value.</td>
-</tr>
-</tbody>
-</table>
+| Column name                     | Type                               | Description                                                                                                                                                                                  |
+| ------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        placement_name       ` | `        character varying       ` | The name of the placement.                                                                                                                                                                   |
+| `        is_default       `     | `        character varying       ` | A string that indicates whether the column is nullable. In accordance with the SQL standard, the string is either `        YES       ` or `        NO       ` , rather than a Boolean value. |
 
 ### `     placement-options    `
 
-For each placement, this table lists the options that are set on the placement in the `  OPTIONS  ` clause of the [`  CREATE PLACEMENT  `](/spanner/docs/reference/postgresql/data-definition-language#create-placement) statement.
+For each placement, this table lists the options that are set on the placement in the `  OPTIONS  ` clause of the [`  CREATE PLACEMENT  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) statement.
 
 <table>
 <colgroup>
@@ -1549,7 +927,7 @@ For each placement, this table lists the options that are set on the placement i
 
 ### `     locality-group-options    `
 
-For each locality group, this table lists the name and options that are set on the locality group in the `  OPTIONS  ` clause of the [`  CREATE LOCALITY GROUP  `](/spanner/docs/reference/postgresql/data-definition-language#create-locality-group) statement.
+For each locality group, this table lists the name and options that are set on the locality group in the `  OPTIONS  ` clause of the [`  CREATE LOCALITY GROUP  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-locality-group) statement.
 
 <table>
 <colgroup>
@@ -1668,57 +1046,15 @@ This view contains one row about each `  FOREIGN KEY  ` constraint. You can see 
 
 This row-filtered view lists the `  SELECT  ` privileges granted on all change streams to any database role, including `  public  ` . Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on change streams to the current database role and to roles of which the current database role is a member, not including `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Column name</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       grantor      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       grantee      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the database role to which this privilege is granted.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       change_stream_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the change stream. The default is <code dir="ltr" translate="no">       public      </code> for PostgreSQL-dialect databases.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       change_stream_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the change stream.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       privilege_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The type of the privilege ( <code dir="ltr" translate="no">       SELECT      </code> only).</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       is_grantable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-</tbody>
-</table>
+| **Column name**                        | **Type**                           | **Description**                                                                                                                  |
+| -------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `        grantor       `               | `        character varying       ` | Not used. Always `        NULL       ` .                                                                                         |
+| `        grantee       `               | `        character varying       ` | The name of the database role to which this privilege is granted.                                                                |
+| `        change_stream_catalog       ` | `        character varying       ` | The database name.                                                                                                               |
+| `        change_stream_schema       `  | `        character varying       ` | The name of the schema that contains the change stream. The default is `        public       ` for PostgreSQL-dialect databases. |
+| `        change_stream_name       `    | `        character varying       ` | The name of the change stream.                                                                                                   |
+| `        privilege_type       `        | `        character varying       ` | The type of the privilege ( `        SELECT       ` only).                                                                       |
+| `        is_grantable       `          | `        character varying       ` | Not used. Always `        NO       ` .                                                                                           |
 
 ### `     role_column_grants    `
 
@@ -1726,194 +1062,48 @@ This row-filtered view lists all fine-grained access control privileges granted 
 
 The view includes the `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` privileges that the column inherits from the table or view that contains the column.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Column name</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       grantor      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       grantee      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the database role to which this privilege is granted.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the table or view. The default is <code dir="ltr" translate="no">       public      </code> for PostgreSQL-dialect databases.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table or view that contains the column.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       column_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the column.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       privilege_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The type of the privilege ( <code dir="ltr" translate="no">       SELECT      </code> , <code dir="ltr" translate="no">       INSERT      </code> , or <code dir="ltr" translate="no">       UPDATE      </code> ).</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       is_grantable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-</tbody>
-</table>
+| **Column name**                 | **Type**                           | **Description**                                                                                                                  |
+| ------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `        grantor       `        | `        character varying       ` | Not used. Always `        NULL       ` .                                                                                         |
+| `        grantee       `        | `        character varying       ` | The name of the database role to which this privilege is granted.                                                                |
+| `        table_catalog       `  | `        character varying       ` | The database name.                                                                                                               |
+| `        table_schema       `   | `        character varying       ` | The name of the schema that contains the table or view. The default is `        public       ` for PostgreSQL-dialect databases. |
+| `        table_name       `     | `        character varying       ` | The name of the table or view that contains the column.                                                                          |
+| `        column_name       `    | `        character varying       ` | The name of the column.                                                                                                          |
+| `        privilege_type       ` | `        character varying       ` | The type of the privilege ( `        SELECT       ` , `        INSERT       ` , or `        UPDATE       ` ).                    |
+| `        is_grantable       `   | `        character varying       ` | Not used. Always `        NO       ` .                                                                                           |
 
 ### `     role_routine_grants    `
 
 This row-filtered view lists the `  EXECUTE  ` privileges granted on all change stream read functions to any database role, including `  public  ` . Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on change stream read functions to the current database role and to roles of which the current database role is a member, not including `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       grantor      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       grantee      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the role that the privilege was granted to.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       specific_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       specific_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the routine's schema. For PostgreSQL-dialect databases, the default is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       specific_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the routine. Uniquely identifies the routine even if its name is overloaded.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       routine_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       routine_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the routine's schema. The default is <code dir="ltr" translate="no">       public      </code> for PostgreSQL-dialect databases.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       routine_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the routine. (Might be duplicated in case of overloading.)</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       privilege_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The type of the privilege granted. Always <code dir="ltr" translate="no">       EXECUTE      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       is_grantable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-</tbody>
-</table>
+| Column name                       | Type                               | Description                                                                                                  |
+| --------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `        grantor       `          | `        character varying       ` | Not used. Always `        NULL       ` .                                                                     |
+| `        grantee       `          | `        character varying       ` | The name of the role that the privilege was granted to.                                                      |
+| `        specific_catalog       ` | `        character varying       ` | The database name.                                                                                           |
+| `        specific_schema       `  | `        character varying       ` | The name of the routine's schema. For PostgreSQL-dialect databases, the default is `        public       ` . |
+| `        specific_name       `    | `        character varying       ` | The name of the routine. Uniquely identifies the routine even if its name is overloaded.                     |
+| `        routine_catalog       `  | `        character varying       ` | The database name.                                                                                           |
+| `        routine_schema       `   | `        character varying       ` | The name of the routine's schema. The default is `        public       ` for PostgreSQL-dialect databases.   |
+| `        routine_name       `     | `        character varying       ` | The name of the routine. (Might be duplicated in case of overloading.)                                       |
+| `        privilege_type       `   | `        character varying       ` | The type of the privilege granted. Always `        EXECUTE       ` .                                         |
+| `        is_grantable       `     | `        character varying       ` | Not used. Always `        NO       ` .                                                                       |
 
 ### `     role_table_grants    `
 
 This row-filtered view lists all fine-grained access control privileges granted on all tables and views to any database role, including `  public  ` . Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on tables and views to the current database role and to roles of which the current database role is a member, not including `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Column name</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       grantor      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       grantee      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the database role to which this privilege is granted.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the table or view. The default is <code dir="ltr" translate="no">       public      </code> for PostgreSQL-dialect databases.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table or view.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       privilege_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The type of the privilege ( <code dir="ltr" translate="no">       SELECT      </code> , <code dir="ltr" translate="no">       INSERT      </code> , <code dir="ltr" translate="no">       UPDATE      </code> , or <code dir="ltr" translate="no">       DELETE      </code> ).</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       is_grantable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       with_hierarchy      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-</tbody>
-</table>
+| **Column name**                 | **Type**                           | **Description**                                                                                                                         |
+| ------------------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `        grantor       `        | `        character varying       ` | Not used. Always `        NULL       ` .                                                                                                |
+| `        grantee       `        | `        character varying       ` | The name of the database role to which this privilege is granted.                                                                       |
+| `        table_catalog       `  | `        character varying       ` | The database name.                                                                                                                      |
+| `        table_schema       `   | `        character varying       ` | The name of the schema that contains the table or view. The default is `        public       ` for PostgreSQL-dialect databases.        |
+| `        table_name       `     | `        character varying       ` | The name of the table or view.                                                                                                          |
+| `        privilege_type       ` | `        character varying       ` | The type of the privilege ( `        SELECT       ` , `        INSERT       ` , `        UPDATE       ` , or `        DELETE       ` ). |
+| `        is_grantable       `   | `        character varying       ` | Not used. Always `        NO       ` .                                                                                                  |
+| `        with_hierarchy       ` | `        character varying       ` | Not used. Always `        NULL       ` .                                                                                                |
 
 ### `     routine_options    `
 
@@ -1979,72 +1169,18 @@ Principals that have database-level IAM permissions and principals who have been
 
 This row-filtered view lists all fine-grained access control privileges granted on all change stream read functions to any database role, including `  public  ` . Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on change stream read functions to the current database role, to roles of which the current database role is a member, or to `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       grantor      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       grantee      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the role that the privilege was granted to.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       specific_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       specific_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the routine's schema. For PostgreSQL-dialect databases, the default is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       specific_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the routine. Uniquely identifies the routine even if its name is overloaded.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       routine_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       routine_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the routine's schema. The default is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       routine_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the routine. (Might be duplicated if overloaded.)</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       privilege_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The type of the privilege granted.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       is_grantable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-</tbody>
-</table>
+| Column name                       | Type                               | Description                                                                                                  |
+| --------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `        grantor       `          | `        character varying       ` | Not used. Always `        NULL       ` .                                                                     |
+| `        grantee       `          | `        character varying       ` | The name of the role that the privilege was granted to.                                                      |
+| `        specific_catalog       ` | `        character varying       ` | The database name.                                                                                           |
+| `        specific_schema       `  | `        character varying       ` | The name of the routine's schema. For PostgreSQL-dialect databases, the default is `        public       ` . |
+| `        specific_name       `    | `        character varying       ` | The name of the routine. Uniquely identifies the routine even if its name is overloaded.                     |
+| `        routine_catalog       `  | `        character varying       ` | The database name.                                                                                           |
+| `        routine_schema       `   | `        character varying       ` | The name of the routine's schema. The default is `        public       ` .                                   |
+| `        routine_name       `     | `        character varying       ` | The name of the routine. (Might be duplicated if overloaded.)                                                |
+| `        privilege_type       `   | `        character varying       ` | The type of the privilege granted.                                                                           |
+| `        is_grantable       `     | `        character varying       ` | Not used. Always `        NO       ` .                                                                       |
 
 ### `     routines    `
 
@@ -2498,204 +1634,50 @@ This row-filtered view lists all of a database's user defined and change stream 
 
 The `  information_schema.schemata  ` view contains one row for each schema in the current database. The schemas include the information schema and a default schema named `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       catalog_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       schema_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema. This is set to <code dir="ltr" translate="no">       public      </code> for the default schema and non-empty for named schemas.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       schema_owner      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the owner of the schema.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       default_character_set_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       default_character_set_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       default_character_set_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       sql_path      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       effective_timestamp      </code></td>
-<td><code dir="ltr" translate="no">       timestamp with timezone      </code></td>
-<td>The timestamp at which all the data in this schema became effective. This is used only for the default schema.</td>
-</tr>
-</tbody>
-</table>
+| Column name                                    | Type                                     | Description                                                                                                            |
+| ---------------------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `        catalog_name       `                  | `        character varying       `       | The database name.                                                                                                     |
+| `        schema_name       `                   | `        character varying       `       | The name of the schema. This is set to `        public       ` for the default schema and non-empty for named schemas. |
+| `        schema_owner       `                  | `        character varying       `       | The name of the owner of the schema.                                                                                   |
+| `        default_character_set_catalog       ` | `        character varying       `       | Not used.                                                                                                              |
+| `        default_character_set_schema       `  | `        character varying       `       | Not used.                                                                                                              |
+| `        default_character_set_name       `    | `        character varying       `       | Not used.                                                                                                              |
+| `        sql_path       `                      | `        character varying       `       | Not used.                                                                                                              |
+| `        effective_timestamp       `           | `        timestamp with timezone       ` | The timestamp at which all the data in this schema became effective. This is used only for the default schema.         |
 
 ### `     sequences    `
 
 The `  information_schema.sequences  ` view contains the `  sequences  ` metadata.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       sequence_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       sequence_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the sequence's schema. The default is <code dir="ltr" translate="no">       public      </code> for a PostgreSQL-dialect database.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       sequence_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the sequence.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       data_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Sequence only supports <code dir="ltr" translate="no">       int8      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       numeric_precision      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>Not used. The value is always `NULL`.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       numeric_precision_radix      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>Not used. The value is always `NULL`.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       numeric_scale      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>Not used. The value is always `NULL`.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       start_value      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>Not used. The value is always `NULL`.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       minimum_value      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>Not used. The value is always `NULL`.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       maximum_value      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>Not used. The value is always `NULL`.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       increment      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>Not used. The value is always `NULL`.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       cycle_option      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The only option that <code dir="ltr" translate="no">       sequence      </code> accepts is <code dir="ltr" translate="no">       no      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       sequence_kind      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The kind of sequence. <code dir="ltr" translate="no">       bit_reversed_positive      </code> is the only acceptable value.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       counter_start_value      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>Starting value of the sequence counter.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       skip_range_min      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>The minimum value in the skipped range. This value is <code dir="ltr" translate="no">       NULL      </code> if not set.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       skip_range_max      </code></td>
-<td><code dir="ltr" translate="no">       bigint      </code></td>
-<td>The maximum value in the skipped range. This value is <code dir="ltr" translate="no">       NULL      </code> if not set.</td>
-</tr>
-</tbody>
-</table>
+| Column name                              | Type                               | Description                                                                                                  |
+| ---------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `        sequence_catalog       `        | `        character varying       ` | The database name.                                                                                           |
+| `        sequence_schema       `         | `        character varying       ` | The name of the sequence's schema. The default is `        public       ` for a PostgreSQL-dialect database. |
+| `        sequence_name       `           | `        character varying       ` | The name of the sequence.                                                                                    |
+| `        data_type       `               | `        character varying       ` | Sequence only supports `        int8       ` .                                                               |
+| `        numeric_precision       `       | `        bigint       `            | Not used. The value is always \`NULL\`.                                                                      |
+| `        numeric_precision_radix       ` | `        bigint       `            | Not used. The value is always \`NULL\`.                                                                      |
+| `        numeric_scale       `           | `        bigint       `            | Not used. The value is always \`NULL\`.                                                                      |
+| `        start_value       `             | `        bigint       `            | Not used. The value is always \`NULL\`.                                                                      |
+| `        minimum_value       `           | `        bigint       `            | Not used. The value is always \`NULL\`.                                                                      |
+| `        maximum_value       `           | `        bigint       `            | Not used. The value is always \`NULL\`.                                                                      |
+| `        increment       `               | `        bigint       `            | Not used. The value is always \`NULL\`.                                                                      |
+| `        cycle_option       `            | `        character varying       ` | The only option that `        sequence       ` accepts is `        no       ` .                              |
+| `        sequence_kind       `           | `        character varying       ` | The kind of sequence. `        bit_reversed_positive       ` is the only acceptable value.                   |
+| `        counter_start_value       `     | `        bigint       `            | Starting value of the sequence counter.                                                                      |
+| `        skip_range_min       `          | `        bigint       `            | The minimum value in the skipped range. This value is `        NULL       ` if not set.                      |
+| `        skip_range_max       `          | `        bigint       `            | The maximum value in the skipped range. This value is `        NULL       ` if not set.                      |
 
 ### `     spanner_statistics    `
 
 This table lists the available query optimizer statistics packages.
 
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 10%" />
-<col style="width: 70%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       catalog_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       schema_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema. The default schema value is <code dir="ltr" translate="no">       public      </code> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       package_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the statistics package.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       allow_gc      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Whether the statistics package is exempted from garbage collection. In accordance with the SQL standard, the string is either <code dir="ltr" translate="no">       YES      </code> or <code dir="ltr" translate="no">       NO      </code> , rather than a Boolean value. This attribute must be set to <code dir="ltr" translate="no">       NO      </code> before you can reference the statistics package in a hint or through the client API.</td>
-</tr>
-</tbody>
-</table>
+| Column name                   | Type                               | Description                                                                                                                                                                                                                                                                                                                                     |
+| ----------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        catalog_name       ` | `        character varying       ` | The database name.                                                                                                                                                                                                                                                                                                                              |
+| `        schema_name       `  | `        character varying       ` | The name of the schema. The default schema value is `        public       ` .                                                                                                                                                                                                                                                                   |
+| `        package_name       ` | `        character varying       ` | The name of the statistics package.                                                                                                                                                                                                                                                                                                             |
+| `        allow_gc       `     | `        character varying       ` | Whether the statistics package is exempted from garbage collection. In accordance with the SQL standard, the string is either `        YES       ` or `        NO       ` , rather than a Boolean value. This attribute must be set to `        NO       ` before you can reference the statistics package in a hint or through the client API. |
 
 ### `     table_constraints    `
 
@@ -2779,62 +1761,16 @@ This view contains all constraints belonging to tables that the current user has
 
 This row-filtered view lists all fine-grained access control privileges granted on all tables and views to any database role, including `  public  ` . Principals that have database-level IAM permissions and principals who have been granted access to the `  spanner_info_reader  ` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on tables and views to the current database role, to roles of which the current database role is a member, or to `  public  ` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Column name</strong></th>
-<th><strong>Type</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       grantor      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       grantee      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the database role to which this privilege is granted.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_catalog      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The database name.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       table_schema      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the schema that contains the table or view. The default is <code dir="ltr" translate="no">       public      </code> for PostgreSQL-dialect databases.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       table_name      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The name of the table or view.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       privilege_type      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>The type of the privilege ( <code dir="ltr" translate="no">       SELECT      </code> , <code dir="ltr" translate="no">       INSERT      </code> , <code dir="ltr" translate="no">       UPDATE      </code> , or <code dir="ltr" translate="no">       DELETE      </code> ).</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       is_grantable      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NO      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       that have_hierarchy      </code></td>
-<td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>Not used. Always <code dir="ltr" translate="no">       NULL      </code> .</td>
-</tr>
-</tbody>
-</table>
+| **Column name**                      | **Type**                           | **Description**                                                                                                                         |
+| ------------------------------------ | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `        grantor       `             | `        character varying       ` | Not used. Always `        NULL       ` .                                                                                                |
+| `        grantee       `             | `        character varying       ` | The name of the database role to which this privilege is granted.                                                                       |
+| `        table_catalog       `       | `        character varying       ` | The database name.                                                                                                                      |
+| `        table_schema       `        | `        character varying       ` | The name of the schema that contains the table or view. The default is `        public       ` for PostgreSQL-dialect databases.        |
+| `        table_name       `          | `        character varying       ` | The name of the table or view.                                                                                                          |
+| `        privilege_type       `      | `        character varying       ` | The type of the privilege ( `        SELECT       ` , `        INSERT       ` , `        UPDATE       ` , or `        DELETE       ` ). |
+| `        is_grantable       `        | `        character varying       ` | Not used. Always `        NO       ` .                                                                                                  |
+| `        that have_hierarchy       ` | `        character varying       ` | Not used. Always `        NULL       ` .                                                                                                |
 
 ### `     tables    `
 
@@ -2925,7 +1861,7 @@ This row-filtered view lists all the tables and view that are in the current dat
 <tr class="even">
 <td><code dir="ltr" translate="no">       on_delete_action      </code></td>
 <td><code dir="ltr" translate="no">       character varying      </code></td>
-<td>This is set to <code dir="ltr" translate="no">       CASCADE      </code> or <code dir="ltr" translate="no">       NO ACTION      </code> for interleaved tables, and <code dir="ltr" translate="no">       NULL      </code> otherwise. See <a href="/spanner/docs/reference/standard-sql/data-definition-language#table_statements">TABLE statements</a> for more information.</td>
+<td>This is set to <code dir="ltr" translate="no">       CASCADE      </code> or <code dir="ltr" translate="no">       NO ACTION      </code> for interleaved tables, and <code dir="ltr" translate="no">       NULL      </code> otherwise. See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#table_statements">TABLE statements</a> for more information.</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       spanner_state      </code></td>
@@ -2960,52 +1896,14 @@ A table can go through multiple states during creation, if bulk operations are i
 
 This table lists synonym information for the table.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       CATALOG      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>Name of the catalog containing the table.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       SCHEMA      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>Name of the schema containing the table.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       TABLE_NAME      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>Name of the table.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       SYNONYM_CATALOG      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>The name of the catalog for the synonym.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       SYNONYM_SCHEMA      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>The name of the schema for the synonym.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       SYNONYM_TABLE_NAME      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>The name of the table for the synonym.</td>
-</tr>
-</tbody>
-</table>
+| Column name                         | Type                    | Description                               |
+| ----------------------------------- | ----------------------- | ----------------------------------------- |
+| `        CATALOG       `            | `        STRING       ` | Name of the catalog containing the table. |
+| `        SCHEMA       `             | `        STRING       ` | Name of the schema containing the table.  |
+| `        TABLE_NAME       `         | `        STRING       ` | Name of the table.                        |
+| `        SYNONYM_CATALOG       `    | `        STRING       ` | The name of the catalog for the synonym.  |
+| `        SYNONYM_SCHEMA       `     | `        STRING       ` | The name of the schema for the synonym.   |
+| `        SYNONYM_TABLE_NAME       ` | `        STRING       ` | The name of the table for the synonym.    |
 
 ### `     views    `
 
@@ -3079,7 +1977,7 @@ This row-filtered view lists all views in the current database. Principals that 
 <td><code dir="ltr" translate="no">       security_type      </code></td>
 <td><code dir="ltr" translate="no">       character varying      </code></td>
 <td>The security type of the view. Either <code dir="ltr" translate="no">       INVOKER      </code> or <code dir="ltr" translate="no">       DEFINER      </code> .
-<p>For more information, see <a href="/spanner/docs/views">About views</a> .</p></td>
+<p>For more information, see <a href="https://docs.cloud.google.com/spanner/docs/views">About views</a> .</p></td>
 </tr>
 </tbody>
 </table>
@@ -3088,89 +1986,79 @@ This row-filtered view lists all views in the current database. Principals that 
 
 Return information about each table in the user's schema:
 
-``` text
-SELECT
-  t.table_schema,
-  t.table_catalog,
-  t.table_name,
-  t.parent_table_name
-FROM
-  information_schema.tables AS t
-WHERE
-  t.table_schema NOT IN ('pg_catalog', 'information_schema', 'SPANNER_SYS')
-  AND t.table_type = 'BASE TABLE'
-ORDER BY
-  t.table_catalog,
-  t.table_schema,
-  t.table_name
-```
+    SELECT
+      t.table_schema,
+      t.table_catalog,
+      t.table_name,
+      t.parent_table_name
+    FROM
+      information_schema.tables AS t
+    WHERE
+      t.table_schema NOT IN ('pg_catalog', 'information_schema', 'SPANNER_SYS')
+      AND t.table_type = 'BASE TABLE'
+    ORDER BY
+      t.table_catalog,
+      t.table_schema,
+      t.table_name
 
 Return the name of all tables and views in the `  information_schema  ` for PostgreSQL-dialect databases:
 
-``` text
-SELECT table_name
-FROM information_schema.tables
-WHERE table_schema = "information_schema"
-```
+    SELECT table_name
+    FROM information_schema.tables
+    WHERE table_schema = "information_schema"
 
 Return information about columns in the user table `  my_table  ` in the default schema:
 
-``` text
-SELECT
-  t.ordinal_position,
-  t.column_name,
-  t.data_type,
-  t.spanner_type,
-  t.is_nullable
-FROM
-  information_schema.columns AS t
-WHERE
-  t.table_schema = 'public'
-  AND
-  t.table_name = 'my_table'
-ORDER BY
-  t.ordinal_position
-```
+    SELECT
+      t.ordinal_position,
+      t.column_name,
+      t.data_type,
+      t.spanner_type,
+      t.is_nullable
+    FROM
+      information_schema.columns AS t
+    WHERE
+      t.table_schema = 'public'
+      AND
+      t.table_name = 'my_table'
+    ORDER BY
+      t.ordinal_position
 
 Return information about each index in the default schema in the current database: \`\`\`postgresql SELECT t.table\_name, t.index\_name, t.parent\_table\_name FROM information\_schema.indexes AS t WHERE t.table\_schema = 'public' AND t.index\_type \!= 'PRIMARY\_KEY' ORDER BY t.table\_schema, t.table\_name, t.index\_name
 
 Return columns that use non-default options in the default schema:
 
-``` text
-SELECT
-  t.table_name,
-  t.column_name,
-  t.option_type,
-  t.option_value,
-  t.option_name
-FROM
-  information_schema.column_options AS t
-WHERE
-  t.table_schema = 'public'
-ORDER BY
-  t.table_schema,
-  t.table_name,
-  t.column_name,
-  t.option_name
-```
+    SELECT
+      t.table_name,
+      t.column_name,
+      t.option_type,
+      t.option_value,
+      t.option_name
+    FROM
+      information_schema.column_options AS t
+    WHERE
+      t.table_schema = 'public'
+    ORDER BY
+      t.table_schema,
+      t.table_name,
+      t.column_name,
+      t.option_name
 
 Return the current optimizer-related database options:
 
-``` text
-SELECT
-  s.option_name,
-  s.option_value
-FROM
-  information_schema.database_options s
-WHERE
-  s.schema_name='public'
-  AND s.option_name IN ('optimizer_version',
-    'optimizer_statistics_package')
-```
+    SELECT
+      s.option_name,
+      s.option_value
+    FROM
+      information_schema.database_options s
+    WHERE
+      s.schema_name='public'
+      AND s.option_name IN ('optimizer_version',
+        'optimizer_statistics_package')
 
 Return all available statistics packages:
 
-```` postgresql
+```` prettyprint lang-postgresql
 SELECT *
 FROM information_schema.spanner_statistics;
 ``` ## What's

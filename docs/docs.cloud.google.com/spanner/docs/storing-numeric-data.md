@@ -1,8 +1,8 @@
-Spanner provides the `  NUMERIC  ` type that can store decimal precision numbers exactly. The semantics of the `  NUMERIC  ` type in Spanner varies between its two SQL dialects (GoogleSQL and PostgreSQL), especially around the limits on [scale and precision](#precision) :
+Spanner provides the `  NUMERIC  ` type that can store decimal precision numbers exactly. The semantics of the `  NUMERIC  ` type in Spanner varies between its two SQL dialects (GoogleSQL and PostgreSQL), especially around the limits on [scale and precision](https://docs.cloud.google.com/spanner/docs/storing-numeric-data#precision) :
 
-  - [`  NUMERIC  `](/spanner/docs/reference/postgresql/data-types) in the PostgreSQL dialect is an [arbitrary decimal precision](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) numeric type (scale or precision can be any number within the supported range) and thus is an ideal choice for storing arbitrary precision numeric data.
+  - [`  NUMERIC  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) in the PostgreSQL dialect is an [arbitrary decimal precision](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) numeric type (scale or precision can be any number within the supported range) and thus is an ideal choice for storing arbitrary precision numeric data.
 
-  - [`  NUMERIC  `](/spanner/docs/working-with-numerics#numeric) in GoogleSQL is a [fixed precision](https://en.wikipedia.org/wiki/Fixed-point_arithmetic) numeric type (precision=38 and scale=9) and cannot be used to store arbitrary precision numeric data. When you need to store arbitrary precision numbers in GoogleSQL dialect databases, we recommend that you [store them as strings](#recommendation_store_arbitrary_precision_numbers_as_strings) .
+  - [`  NUMERIC  `](https://docs.cloud.google.com/spanner/docs/working-with-numerics#numeric) in GoogleSQL is a [fixed precision](https://en.wikipedia.org/wiki/Fixed-point_arithmetic) numeric type (precision=38 and scale=9) and cannot be used to store arbitrary precision numeric data. When you need to store arbitrary precision numbers in GoogleSQL dialect databases, we recommend that you [store them as strings](https://docs.cloud.google.com/spanner/docs/storing-numeric-data#recommendation_store_arbitrary_precision_numbers_as_strings) .
 
 ## Precision of Spanner numeric types
 
@@ -14,9 +14,9 @@ Precision is the number of digits in a number. Scale is the number of digits to 
 
 Let's look at each in terms of precision and scale.
 
-[`  INT64  `](/spanner/docs/reference/standard-sql/data-types#integer_type) / [`  INT8  `](/spanner/docs/reference/postgresql/data-types) represents numeric values that don't have a fractional component. This data type provides 18 digits of precision, with a scale of zero.
+[`  INT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#integer_type) / [`  INT8  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) represents numeric values that don't have a fractional component. This data type provides 18 digits of precision, with a scale of zero.
 
-[`  FLOAT64  `](/spanner/docs/reference/standard-sql/data-types#floating_point_types) / [`  FLOAT8  `](/spanner/docs/reference/postgresql/data-types) can only represent approximate decimal numeric values with fractional components and provides 15 to 17 significant digits (count of digits in a number with all trailing zeros removed) of decimal precision. We say that this type represents *approximate* decimal numeric values because [IEEE 64-bit floating point](https://ieeexplore.ieee.org/document/4610935) binary representation that Spanner uses cannot precisely represent decimal (base-10) fractions (it can represent only base-2 fractions exactly). This loss of precision introduces rounding errors for some decimal fractions.
+[`  FLOAT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) / [`  FLOAT8  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) can only represent approximate decimal numeric values with fractional components and provides 15 to 17 significant digits (count of digits in a number with all trailing zeros removed) of decimal precision. We say that this type represents *approximate* decimal numeric values because [IEEE 64-bit floating point](https://ieeexplore.ieee.org/document/4610935) binary representation that Spanner uses cannot precisely represent decimal (base-10) fractions (it can represent only base-2 fractions exactly). This loss of precision introduces rounding errors for some decimal fractions.
 
 For example, when you store the decimal value 0.2 using the `  FLOAT64  ` / `  FLOAT8  ` data type, the binary representation converts back to a decimal value of 0.20000000000000001 (to 18 digits of precision). Similarly (1.4 \* 165) converts back to 230.999999999999971 and (0.1 + 0.2) converts back to 0.30000000000000004. This is why 64-bit floats are described as only having 15-17 significant digits of precision (only some numbers with more than 15 decimal digits can be represented as 64-bit float without rounding). For more details on how floating point precision is calculated, see [Double-precision floating-point format](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) .
 
@@ -24,7 +24,7 @@ Neither `  INT64  ` / `  INT8  ` nor `  FLOAT64  ` / `  FLOAT8  ` has the ideal 
 
 The `  NUMERIC  ` data type is suitable for those applications, since it is capable of representing exact decimal precision numeric values having precision of more than 30 decimal digits.
 
-The GoogleSQL [`  NUMERIC  `](/spanner/docs/reference/standard-sql/data-types#numeric_type) data type can represent numbers with a fixed decimal precision of 38 and fixed scale of 9. The range of GoogleSQL `  NUMERIC  ` is -99999999999999999999999999999.999999999 to 99999999999999999999999999999.999999999.
+The GoogleSQL [`  NUMERIC  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_type) data type can represent numbers with a fixed decimal precision of 38 and fixed scale of 9. The range of GoogleSQL `  NUMERIC  ` is -99999999999999999999999999999.999999999 to 99999999999999999999999999999.999999999.
 
 The PostgreSQL dialect `  NUMERIC  ` type can represent numbers with a maximum decimal precision of 147,455 and a maximum scale of 16,383.
 
@@ -52,31 +52,23 @@ You can use SQL queries to perform *approximate* aggregate calculations by casti
 
 ### GoogleSQL
 
-``` text
-SELECT SUM(CAST(value AS FLOAT64)) FROM my_table
-```
+    SELECT SUM(CAST(value AS FLOAT64)) FROM my_table
 
 ### PostgreSQL
 
-``` text
-SELECT SUM(value::FLOAT8) FROM my_table
-```
+    SELECT SUM(value::FLOAT8) FROM my_table
 
 Similarly, you can sort by numeric value or limit values by range with casting:
 
 ### GoogleSQL
 
-``` text
-SELECT value FROM my_table ORDER BY CAST(value AS FLOAT64);
-SELECT value FROM my_table WHERE CAST(value AS FLOAT64) > 100.0;
-```
+    SELECT value FROM my_table ORDER BY CAST(value AS FLOAT64);
+    SELECT value FROM my_table WHERE CAST(value AS FLOAT64) > 100.0;
 
 ### PostgreSQL
 
-``` text
-SELECT value FROM my_table ORDER BY value::FLOAT8;
-SELECT value FROM my_table WHERE value::FLOAT8 > 100.0;
-```
+    SELECT value FROM my_table ORDER BY value::FLOAT8;
+    SELECT value FROM my_table WHERE value::FLOAT8 > 100.0;
 
 These calculations are approximate to the limits of the `  FLOAT64  ` / `  FLOAT8  ` data type.
 
@@ -111,18 +103,14 @@ The database then stores the byte array ( `  BYTES  ` / `  BYTEA  ` ) and intege
 
 In Java, you can use [`  BigDecimal  `](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html) and [`  BigInteger  `](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigInteger.html) to perform these calculations:
 
-``` text
-byte[] storedUnscaledBytes = bigDecimal.unscaledValue().toByteArray();
-int storedScale = bigDecimal.scale();
-```
+    byte[] storedUnscaledBytes = bigDecimal.unscaledValue().toByteArray();
+    int storedScale = bigDecimal.scale();
 
 You can read back to a Java `  BigDecimal  ` using the following code:
 
-``` text
-BigDecimal bigDecimal = new BigDecimal(
-    new BigInteger(storedUnscaledBytes),
-    storedScale);
-```
+    BigDecimal bigDecimal = new BigDecimal(
+        new BigInteger(storedUnscaledBytes),
+        storedScale);
 
 This approach stores values with arbitrary precision and a portable representation, but the values are not human-readable in the database, and all calculations must be performed by the application.
 
@@ -136,6 +124,6 @@ This approach has portability issues. If you try to read the values with a progr
 
 ## What's next
 
-  - Read about other [data types](/spanner/docs/reference/standard-sql/data-types#numeric_types) available for Spanner.
-  - Learn how to correctly set up a Spanner [schema design and data model](/spanner/docs/schema-and-data-model) .
-  - Learn about [optimizing your schema design for Spanner](/spanner/docs/whitepapers/optimizing-schema-design) .
+  - Read about other [data types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_types) available for Spanner.
+  - Learn how to correctly set up a Spanner [schema design and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
+  - Learn about [optimizing your schema design for Spanner](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .

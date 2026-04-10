@@ -2,12 +2,12 @@ This page describes the Spanner index advisor and how you can view and apply its
 
 The Spanner index advisor analyzes your queries to recommend new or altered indexes that can improve your query performance. You can view the index advisor's recommendations in the Google Cloud console using either of the following approaches:
 
-  - Run a query and view its [query execution plan](/spanner/docs/query-execution-plans)
-  - Use the Spanner [Query insights dashboard](/spanner/docs/using-query-insights)
+  - Run a query and view its [query execution plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans)
+  - Use the Spanner [Query insights dashboard](https://docs.cloud.google.com/spanner/docs/using-query-insights)
 
 To view the `  CREATE INDEX  ` and `  ALTER INDEX  ` recommendations, you can use the Google Cloud console.
 
-For more information about Spanner indexes, see [Secondary indexes](/spanner/docs/secondary-indexes) .
+For more information about Spanner indexes, see [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
 
 ## Limitations
 
@@ -17,7 +17,7 @@ Spanner index advisor has the following limitations:
 
   - An index recommendation is only shown if it provides a noticeable performance benefit.
 
-  - If you are a [fine-grained access control](/spanner/docs/fgac-about) user or if you don't have DDL access, you can't execute index recommendation DDL statements. You can copy and save the recommendation.
+  - If you are a [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) user or if you don't have DDL access, you can't execute index recommendation DDL statements. You can copy and save the recommendation.
 
 ## Use the query execution plan
 
@@ -28,6 +28,8 @@ To view and apply index advisor recommendations from a query's execution plan, f
 To view the query execution plan, run a query in the Google Cloud console:
 
 1.  Go to the Spanner **Instances** page in Google Cloud console.
+    
+    [Go to Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance that contains the database that you want to query.
 
@@ -66,6 +68,8 @@ To view and apply index advisor recommendations from the Query insights dashboar
 ### View recommendations
 
 1.  Go to the Spanner **Instances** page in Google Cloud console.
+    
+    [Go to Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the name of the instance containing the database you want to query.
 
@@ -75,7 +79,7 @@ To view and apply index advisor recommendations from the Query insights dashboar
 
 5.  View the **TopN queries and tags** table.
     
-    The table shows a **Recommendation** column. If Spanner determines that a new or altered index can improve your query performance, then an index recommendation is displayed. To view what this looks like in the Google Cloud console, see [Identify a potentially problematic query or request tag](/spanner/docs/using-query-insights#filter-db-load) .
+    The table shows a **Recommendation** column. If Spanner determines that a new or altered index can improve your query performance, then an index recommendation is displayed. To view what this looks like in the Google Cloud console, see [Identify a potentially problematic query or request tag](https://docs.cloud.google.com/spanner/docs/using-query-insights#filter-db-load) .
 
 6.  To view the index recommendation DDL statement, click **Index recommendation** .
 
@@ -88,6 +92,8 @@ To apply the index advisor's recommendation, copy and run the index advisor's DD
 1.  In the **Index recommendation** pane, select the DDL statements you want to copy.
     
     Spanner generates recommendations for TopN queries every 12 hours for the TopN queries executed in the preceding 12 hours. The **Index recommendation** pane displays a record of how long ago it was last refreshed.
+    
+    ![View of an index recommendation.](https://docs.cloud.google.com/static/spanner/docs/images/index-recommendation.png)
 
 2.  Click **Copy to Spanner Studio** . Google Cloud console displays the **Spanner Studio** editor.
     
@@ -97,8 +103,8 @@ To apply the index advisor's recommendation, copy and run the index advisor's DD
 
 ## What's next
 
-  - Learn more about Spanner [secondary indexes](/spanner/docs/secondary-indexes) .
+  - Learn more about Spanner [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
 
-  - Learn more [SQL best practices](/spanner/docs/sql-best-practices) .
+  - Learn more [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
 
-  - Learn how to [Troubleshoot performance regressions](/spanner/docs/troubleshooting-performance-regressions) .
+  - Learn how to [Troubleshoot performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions) .

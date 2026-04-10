@@ -14,13 +14,13 @@ EXAMPLES
 
 To restore a backup, run:
 
-``` text
+``` wrap-code
 gcloud spanner databases restore --source-backup=BACKUP_ID --source-instance=SOURCE_INSTANCE --destination-database=DATABASE --destination-instance=INSTANCE_NAME
 ```
 
 To restore a backup using relative names, run:
 
-``` text
+``` wrap-code
 gcloud spanner databases restore --source-backup=projects/PROJECT_ID/instances/SOURCE_INSTANCE_ID/backups/BACKUP_ID --destination-database=projects/PROJECT_ID/instances/SOURCE_INSTANCE_ID/databases/DATABASE_ID
 ```
 
@@ -174,10 +174,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases restore
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases restore
 ```

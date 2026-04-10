@@ -1,10 +1,10 @@
 GoogleSQL for Spanner supports conversion. Conversion includes, but isn't limited to, casting, coercion, and supertyping.
 
-  - Casting is explicit conversion and uses the [`  CAST()  `](/spanner/docs/reference/standard-sql/conversion_functions#cast) function.
+  - Casting is explicit conversion and uses the [`  CAST()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions#cast) function.
   - Coercion is implicit conversion, which GoogleSQL performs automatically under the conditions described below.
   - A supertype is a common type to which two or more expressions can be coerced.
 
-There are also conversions that have their own function names, such as `  PARSE_DATE()  ` . To learn more about these functions, see [Conversion functions](/spanner/docs/reference/standard-sql/conversion_functions) .
+There are also conversions that have their own function names, such as `  PARSE_DATE()  ` . To learn more about these functions, see [Conversion functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions) .
 
 ### Comparison of casting and coercion
 
@@ -151,7 +151,7 @@ The following table summarizes all possible cast and coercion possibilities for 
 
 ### Casting
 
-Most data types can be cast from one type to another with the `  CAST  ` function. When using `  CAST  ` , a query can fail if GoogleSQL is unable to perform the cast. If you want to protect your queries from these types of errors, you can use `  SAFE_CAST  ` . To learn more about the rules for `  CAST  ` , `  SAFE_CAST  ` and other casting functions, see [Conversion functions](/spanner/docs/reference/standard-sql/conversion_functions) .
+Most data types can be cast from one type to another with the `  CAST  ` function. When using `  CAST  ` , a query can fail if GoogleSQL is unable to perform the cast. If you want to protect your queries from these types of errors, you can use `  SAFE_CAST  ` . To learn more about the rules for `  CAST  ` , `  SAFE_CAST  ` and other casting functions, see [Conversion functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions) .
 
 ### Coercion
 
@@ -259,7 +259,7 @@ A supertype is a common type to which two or more expressions can be coerced. Su
 </tbody>
 </table>
 
-If you want to find the supertype for a set of input types, first determine the intersection of the set of supertypes for each input type. If that set is empty then the input types have no common supertype. If that set is non-empty, then the common supertype is generally the [most specific](#supertype_specificity) type in that set. Generally, the most specific type is the type with the most restrictive domain.
+If you want to find the supertype for a set of input types, first determine the intersection of the set of supertypes for each input type. If that set is empty then the input types have no common supertype. If that set is non-empty, then the common supertype is generally the [most specific](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertype_specificity) type in that set. Generally, the most specific type is the type with the most restrictive domain.
 
 **Examples**
 
@@ -373,7 +373,7 @@ Each type has a domain of values that it supports. A type with a narrow domain i
 Supertype rules for literals are more permissive than for normal expressions, and are consistent with implicit coercion rules. The following algorithm is used when the input set of types includes types related to literals:
 
   - If there exists non-literals in the set, find the set of common supertypes of the non-literals.
-  - If there is at least one possible supertype, find the [most specific](#supertype_specificity) type to which the remaining literal types can be implicitly coerced and return that supertype. Otherwise, there is no supertype.
+  - If there is at least one possible supertype, find the [most specific](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertype_specificity) type to which the remaining literal types can be implicitly coerced and return that supertype. Otherwise, there is no supertype.
   - If the set only contains types related to literals, compute the supertype of the literal types.
   - If all input types are related to `  NULL  ` literals, then the resulting supertype is `  INT64  ` .
   - If no common supertype is found, an error is produced.

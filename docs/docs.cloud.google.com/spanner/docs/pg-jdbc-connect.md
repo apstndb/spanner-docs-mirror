@@ -9,22 +9,20 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
 1.  Add PGAdapter and the PostgreSQL JDBC driver as dependencies to your application.  
       
     
-    ``` markdown
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>0.54.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud-spanner-pgadapter</artifactId>
-      <version>0.54.0</version>
-    </dependency>
-    ```
+        <dependency>
+          <groupId>org.postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>0.54.0</version>
+        </dependency>
+        <dependency>
+          <groupId>com.google.cloud</groupId>
+          <artifactId>google-cloud-spanner-pgadapter</artifactId>
+          <version>0.54.0</version>
+        </dependency>
 
 2.  Start PGAdapter in-process with your application.
     
-    ``` text
+    ``` suppresswarning
     OptionsMetadata.Builder builder =
       OptionsMetadata.newBuilder()
         .setProject("PROJECT_NAME")
@@ -42,7 +40,7 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
 
 3.  Make sure the PostgreSQL JDBC driver driver is loaded.
     
-    ``` text
+    ``` suppresswarning
     Class.forName("org.postgresql.Driver");
     
     try (Connection connection =
@@ -70,7 +68,7 @@ This section explains how to use Unix domain sockets to connect PostgreSQL JDBC 
 
 To use Unix domain sockets, PGAdapter must be running on the same host as the client application.
 
-``` text
+``` suppresswarning
 // Make sure the PG JDBC driver is loaded.
 Class.forName("org.postgresql.Driver");
 
@@ -98,36 +96,34 @@ This section explains how to use the Spanner JDBC driver to connect to a Postgre
 1.  Add the Spanner JDBC driver as a dependency to your application.  
       
     
-    ``` xml
-    <dependencyManagement>
-      <dependencies>
-        <dependency>
-          <groupId>com.google.cloud</groupId>
-          <artifactId>libraries-bom</artifactId>
-          <version>26.76.0</version>
-          <type>pom</type>
-          <scope>import</scope>
-        </dependency>
-      </dependencies>
-    </dependencyManagement>
-    
-    <dependencies>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-spanner-jdbc</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>com.google.api.grpc</groupId>
-            <artifactId>proto-google-cloud-spanner-executor-v1</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-    ```
+        <dependencyManagement>
+          <dependencies>
+            <dependency>
+              <groupId>com.google.cloud</groupId>
+              <artifactId>libraries-bom</artifactId>
+              <version>26.76.0</version>
+              <type>pom</type>
+              <scope>import</scope>
+            </dependency>
+          </dependencies>
+        </dependencyManagement>
+        
+        <dependencies>
+          <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-spanner-jdbc</artifactId>
+            <exclusions>
+              <exclusion>
+                <groupId>com.google.api.grpc</groupId>
+                <artifactId>proto-google-cloud-spanner-executor-v1</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
 
 2.  Use a Spanner JDBC connection URL to connect to the PostgreSQL-dialect database.  
       
     
-    ``` text
+    ``` suppresswarning
         // Make sure the PostgreSQL JDBC driver is loaded.
         Class.forName("org.postgresql.Driver");
     
@@ -148,5 +144,5 @@ This section explains how to use the Spanner JDBC driver to connect to a Postgre
 
 ## What's next
 
-  - Learn more about [PGAdapter](/spanner/docs/pgadapter) .
+  - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
   - For more information about PostgreSQL JDBC driver connection options, see [PGAdapter - JDBC Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/jdbc.md) in the PGAdapter GitHub repository.

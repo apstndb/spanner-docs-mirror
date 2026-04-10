@@ -4,11 +4,11 @@ This page describes how to rename tables and how to add, use, and drop table syn
 
 You can use the `  ALTER TABLE  ` statement to do the following:
 
-  - [Rename a table and add the old name to a synonym](#rename-with-synonyms) .
-  - [Swap table names](#how-renaming-works) .
-  - [Rename a single table](#how-renaming-works) .
-  - [Create a new table with a single synonym](#create-synonym) .
-  - [Add a single synonym to a table without renaming it](#synonyms) .
+  - [Rename a table and add the old name to a synonym](https://docs.cloud.google.com/spanner/docs/table-name-synonym#rename-with-synonyms) .
+  - [Swap table names](https://docs.cloud.google.com/spanner/docs/table-name-synonym#how-renaming-works) .
+  - [Rename a single table](https://docs.cloud.google.com/spanner/docs/table-name-synonym#how-renaming-works) .
+  - [Create a new table with a single synonym](https://docs.cloud.google.com/spanner/docs/table-name-synonym#create-synonym) .
+  - [Add a single synonym to a table without renaming it](https://docs.cloud.google.com/spanner/docs/table-name-synonym#synonyms) .
 
 ## How table renaming with synonyms works
 
@@ -18,13 +18,13 @@ After you update all of your applications to use the new name, we recommend that
 
 Synonyms are stored in the schema as a `  synonym  ` object. You can only have one synonym on a table.
 
-For more information, see [Rename a table and add a synonym](#rename-add-synonym) .
+For more information, see [Rename a table and add a synonym](https://docs.cloud.google.com/spanner/docs/table-name-synonym#rename-add-synonym) .
 
 ## How table name swapping works
 
 When you need to swap names between two tables, you can chain together `  RENAME TO  ` statements to rename two tables in the same statement. This lets you link applications to a different table without interruptions.
 
-For more information, see [Swap table names](#rename-tables) .
+For more information, see [Swap table names](https://docs.cloud.google.com/spanner/docs/table-name-synonym#rename-tables) .
 
 ## How table renaming works
 
@@ -39,7 +39,7 @@ Spanner doesn't automatically update views to use the new table name.
 
 **Warning:** Use care when renaming a table because it can cause an outage if there are processes that reference the table. One scenario where you might rename a table is if the table name was misspelled when you created it.
 
-For more information, see [Rename a table](#rename-table) .
+For more information, see [Rename a table](https://docs.cloud.google.com/spanner/docs/table-name-synonym#rename-table) .
 
 ### Table renaming limitations
 
@@ -53,27 +53,27 @@ Table renaming has the following limitations:
 
 You can create a new table with a synonym or alter a table to add a synonym to it without renaming the table. A scenario for when you might want to do this is if you want to use a database for both a production and test environment.
 
-For more information, see [Add a synonym to a table](#add-synonym) .
+For more information, see [Add a synonym to a table](https://docs.cloud.google.com/spanner/docs/table-name-synonym#add-synonym) .
 
 ## Permissions
 
-To rename a table or add a synonym to a table, you need the `  spanner.databases.updateDdl  ` permission. To check or edit your permissions, see [Grant permissions to principles](/spanner/docs/grant-permissions#grant_permissions_to_principals) .
+To rename a table or add a synonym to a table, you need the `  spanner.databases.updateDdl  ` permission. To check or edit your permissions, see [Grant permissions to principles](https://docs.cloud.google.com/spanner/docs/grant-permissions#grant_permissions_to_principals) .
 
 ## Rename a table and add a synonym
 
 ### GoogleSQL
 
-Use [`  ALTER TABLE RENAME TO ADD SYNONYM  `](/spanner/docs/reference/standard-sql/data-definition-language#alter_table) to rename a table and add a synonym.
+Use [`  ALTER TABLE RENAME TO ADD SYNONYM  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) to rename a table and add a synonym.
 
-``` text
+``` 
   ALTER TABLE table_name RENAME TO new_table_name, ADD SYNONYM table_name;
 ```
 
 ### PostgreSQL
 
-Use [`  ALTER TABLE RENAME WITH ADD SYNONYM  `](/spanner/docs/reference/postgresql/data-definition-language#alter_table) to rename a table and add a synonym.
+Use [`  ALTER TABLE RENAME WITH ADD SYNONYM  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) to rename a table and add a synonym.
 
-``` text
+``` 
   ALTER TABLE table_name RENAME WITH SYNONYM TO new_table_name;
 ```
 
@@ -81,7 +81,7 @@ The following example shows how to rename a table and add a synonym. For example
 
 ### GoogleSQL
 
-``` text
+``` 
   CREATE TABLE Singers (
       SingerId INT64 NOT NULL,
       SingerName STRING(1024)
@@ -90,7 +90,7 @@ The following example shows how to rename a table and add a synonym. For example
 
 ### PostgreSQL
 
-``` text
+``` 
   CREATE TABLE singers (
       singer_id BIGINT,
       singer_name VARCHAR(1024),
@@ -101,13 +101,13 @@ You can make the following DDL request to rename the table and move the existing
 
 ### GoogleSQL
 
-``` text
+``` 
   ALTER TABLE Singers RENAME TO SingersNew, ADD SYNONYM Singers;
 ```
 
 ### PostgreSQL
 
-``` text
+``` 
   ALTER TABLE singers RENAME WITH SYNONYM TO singers_new;
 ```
 
@@ -119,17 +119,17 @@ The following DDL statement changes the names of multiple tables atomically. Thi
 
 ### GoogleSQL
 
-Use [`  RENAME TABLE  `](/spanner/docs/reference/standard-sql/data-definition-language#rename_table) .
+Use [`  RENAME TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#rename_table) .
 
-``` text
+``` 
   RENAME TABLE old_name1 TO new_name1 [,old_name2 TO new_name2 ...];
 ```
 
 ### PostgreSQL
 
-Use [`  ALTER TABLE RENAME TO  `](/spanner/docs/reference/postgresql/data-definition-language#alter_table) .
+Use [`  ALTER TABLE RENAME TO  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) .
 
-``` text
+``` 
   ALTER TABLE [ IF EXISTS ] [ ONLY ] table_name1
         RENAME TO new_table_name1
         [, ALTER TABLE [ IF EXISTS ] [ ONLY ] table_name2
@@ -142,7 +142,7 @@ If you have created two tables as shown in the following:
 
 ### GoogleSQL
 
-``` text
+``` 
   CREATE TABLE Singers (
         SingerId INT64 NOT NULL,
         SingerName STRING(1024)
@@ -158,7 +158,7 @@ If you have created two tables as shown in the following:
 
 ### PostgreSQL
 
-``` text
+``` 
   CREATE TABLE singers (
         singer_id BIGINT,
         singer_name VARCHAR(1024),
@@ -178,13 +178,13 @@ You can use the following DDL request to swap the table names:
 
 ### GoogleSQL
 
-``` text
+``` 
   RENAME TABLE Singers TO Temp, SingersNew TO Singers, Temp TO SingersNew;
 ```
 
 ### PostgreSQL
 
-``` text
+``` 
   ALTER TABLE singers RENAME TO temp,
         ALTER TABLE singers_new RENAME TO singers,
         ALTER TABLE temp RENAME TO singers_new;
@@ -194,7 +194,7 @@ After the DDL statement is applied, the table names are swapped, as shown in the
 
 ### GoogleSQL
 
-``` text
+``` 
   CREATE TABLE Singers (
         SingerId INT64 NOT NULL,
         FirstName STRING(1024),
@@ -210,7 +210,7 @@ After the DDL statement is applied, the table names are swapped, as shown in the
 
 ### PostgreSQL
 
-``` text
+``` 
   CREATE TABLE singers (
         singer_id BIGINT,
         first_name VARCHAR(1024),
@@ -234,18 +234,18 @@ To rename a table, use the following syntax:
 
 ### GoogleSQL
 
-Use either the [`  ALTER NAME  `](/spanner/docs/reference/standard-sql/data-definition-language#alter_table) or [`  RENAME TABLE  `](/spanner/docs/reference/standard-sql/data-definition-language#rename_table) statement.
+Use either the [`  ALTER NAME  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) or [`  RENAME TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#rename_table) statement.
 
-``` text
+``` 
   ALTER TABLE table_name RENAME TO new_table_name;
   RENAME TABLE table_name TO new_table_name;
 ```
 
 ### PostgreSQL
 
-Use the [`  ALTER TABLE RENAME TO  `](/spanner/docs/reference/postgresql/data-definition-language#alter_table) statement.
+Use the [`  ALTER TABLE RENAME TO  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) statement.
 
-``` text
+``` 
   ALTER TABLE [ IF EXISTS ] [ ONLY ] table_name
         RENAME TO new_table_name;
 ```
@@ -254,13 +254,13 @@ The following example shows a DDL request that renames the table:
 
 ### GoogleSQL
 
-``` text
+``` 
   RENAME TABLE Singers TO SingersNew;
 ```
 
 ### PostgreSQL
 
-``` text
+``` 
   ALTER TABLE singers RENAME TO singers_new;
 ```
 
@@ -270,13 +270,13 @@ To add a synonym to a table:
 
 ### GoogleSQL
 
-``` text
+``` 
   ALTER TABLE table_name ADD SYNONYM synonym;
 ```
 
 ### PostgreSQL
 
-``` text
+``` 
   ALTER TABLE [ IF EXISTS ] [ ONLY ] table_name ADD SYNONYM synonym;
 ```
 
@@ -284,13 +284,13 @@ The following example shows a DDL request that adds a synonym to the table:
 
 ### GoogleSQL
 
-``` text
+``` 
   ALTER TABLE Singers ADD SYNONYM SingersTest;
 ```
 
 ### PostgreSQL
 
-``` text
+``` 
   ALTER TABLE singers ADD SYNONYM singers_test;
 ```
 
@@ -300,9 +300,9 @@ To create a table with a synonym:
 
 ### GoogleSQL
 
-Use [`  CREATE TABLE SYNONYM synonym_name  `](/spanner/docs/reference/postgresql/data-definition-language) .
+Use [`  CREATE TABLE SYNONYM synonym_name  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language) .
 
-``` text
+``` 
   CREATE TABLE table_name (
       ...
       SYNONYM (synonym)
@@ -311,9 +311,9 @@ Use [`  CREATE TABLE SYNONYM synonym_name  `](/spanner/docs/reference/postgresql
 
 ### PostgreSQL
 
-Use [`  CREATE TABLE SYNONYM synonym_name  `](/spanner/docs/reference/postgresql/data-definition-language) .
+Use [`  CREATE TABLE SYNONYM synonym_name  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language) .
 
-``` text
+``` 
   CREATE TABLE table_name (
       ...
       SYNONYM (synonym),
@@ -324,7 +324,7 @@ The following example creates a table and adds a synonym.
 
 ### GoogleSQL
 
-``` text
+``` 
   # The table's name is Singers and the synonym is Artists.
   CREATE TABLE Singers (
       SingerId INT64 NOT NULL,
@@ -335,7 +335,7 @@ The following example creates a table and adds a synonym.
 
 ### PostgreSQL
 
-``` text
+``` 
   # The table's name is singers and the synonym is artists.
   CREATE TABLE singers (
       singer_id BIGINT,
@@ -348,17 +348,17 @@ The following example creates a table and adds a synonym.
 
 ### GoogleSQL
 
-Use [ALTER TABLE DROP SYNONYM](/spanner/docs/reference/standard-sql/data-definition-language#alter_table) to remove the synonym from the table.
+Use [ALTER TABLE DROP SYNONYM](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) to remove the synonym from the table.
 
-``` text
+``` 
   ALTER TABLE table_name DROP SYNONYM synonym;
 ```
 
 ### PostgreSQL
 
-Use [ALTER TABLE DROP SYNONYM](/spanner/docs/reference/postgresql/data-definition-language#alter_table) to remove the synonym from the table.
+Use [ALTER TABLE DROP SYNONYM](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) to remove the synonym from the table.
 
-``` text
+``` 
   ALTER TABLE [ IF EXISTS ] [ ONLY ] table_name DROP SYNONYM synonym;
 ```
 
@@ -366,12 +366,12 @@ The following example shows a DDL request that drops the synonym from the table:
 
 ### GoogleSQL
 
-``` text
+``` 
   ALTER TABLE Singers DROP SYNONYM SingersTest;
 ```
 
 ### PostgreSQL
 
-``` text
+``` 
   ALTER TABLE singers DROP SYNONYM singers_test;
 ```

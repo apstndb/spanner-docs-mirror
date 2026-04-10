@@ -5,6 +5,8 @@ This document describes how you can use Gemini assistance to help you use system
 To improve system performance for Spanner using Gemini Cloud Assist, follow these steps:
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
+    
+    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  To open the **Overview** page of an instance, click the instance name.
 
@@ -32,6 +34,6 @@ To improve system performance for Spanner using Gemini Cloud Assist, follow thes
 
 ## What's next
 
-  - [Write SQL with Gemini assistance](/spanner/docs/write-sql-gemini) .
-  - Learn about how to [optimize Spanner performance](/spanner/docs/performance) .
-  - Learn how to [monitor instances with system insights](/spanner/docs/monitoring-console) .
+  - [Write SQL with Gemini assistance](https://docs.cloud.google.com/spanner/docs/write-sql-gemini) .
+  - Learn about how to [optimize Spanner performance](https://docs.cloud.google.com/spanner/docs/performance) .
+  - Learn how to [monitor instances with system insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) .

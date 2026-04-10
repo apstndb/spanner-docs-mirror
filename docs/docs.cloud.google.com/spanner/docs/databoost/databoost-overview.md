@@ -2,10 +2,12 @@ Spanner Data Boost is a fully managed, serverless service that provides independ
 
 Data Boost is most impactful in the following scenarios where you want to avoid negative impacts to the existing transactional system due to resource contention:
 
-  - Ad hoc or infrequent queries that involve processing large amounts of data. A typical example is a [federated query](/bigquery/docs/spanner-federated-queries) from BigQuery to Spanner.
+  - Ad hoc or infrequent queries that involve processing large amounts of data. A typical example is a [federated query](https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries) from BigQuery to Spanner.
   - Reporting or data export jobs. An example is a Dataflow job to export Spanner data to Cloud Storage.
 
 The following diagram illustrates how Data Boost coordinates with the Spanner instance to provide independent compute resources.
+
+![Data Boost within the Spanner architecture](https://docs.cloud.google.com/static/spanner/docs/images/databoost-architecture.png)
 
 ## Benefits
 
@@ -28,8 +30,8 @@ You pay only for actual processing units used by queries that run on Data Boost.
 
 ## What's next
 
-  - [Run federated queries with Data Boost](/spanner/docs/databoost/databoost-run-queries)
-  - [Export data with Data Boost](/spanner/docs/databoost/databoost-export)
-  - [Use Data Boost in your applications](/spanner/docs/databoost/databoost-applications)
-  - [Monitor Data Boost usage](/spanner/docs/databoost/databoost-monitor)
-  - [Monitor and manage Data Boost quota usage](/spanner/docs/databoost/databoost-quotas)
+  - [Run federated queries with Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries)
+  - [Export data with Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-export)
+  - [Use Data Boost in your applications](https://docs.cloud.google.com/spanner/docs/databoost/databoost-applications)
+  - [Monitor Data Boost usage](https://docs.cloud.google.com/spanner/docs/databoost/databoost-monitor)
+  - [Monitor and manage Data Boost quota usage](https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas)

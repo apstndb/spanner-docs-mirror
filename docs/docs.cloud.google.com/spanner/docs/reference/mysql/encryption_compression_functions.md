@@ -1,27 +1,14 @@
-Spanner supports the following MySQL encryption and compression functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](/spanner/docs/install-mysql-functions) .
+Spanner supports the following MySQL encryption and compression functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](https://docs.cloud.google.com/spanner/docs/install-mysql-functions) .
 
 ## Function list
 
-<table>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#sha2"><code dir="ltr" translate="no">        mysql.SHA2       </code></a></td>
-<td>Calculates a SHA-2 checksum.</td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                              | Summary                      |
+| --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| [`         mysql.SHA2        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/encryption_compression_functions#sha2) | Calculates a SHA-2 checksum. |
 
 ## `     mysql.SHA2    `
 
-``` text
-mysql.SHA2(bytes_expression, hash_length)
-```
+    mysql.SHA2(bytes_expression, hash_length)
 
 **Description**
 
@@ -48,14 +35,12 @@ This function only supports hash lengths of 256 and 512 bits. The output is alwa
 
 The following example calculates the SHA-256 checksum for a `  BYTES  ` value:
 
-``` text
-SELECT mysql.SHA2(B'GoogleCloud', 256) as sha256_checksum;
-
-/*
-+------------------------------------------------------------------+
-| sha256_checksum                                                  |
-+------------------------------------------------------------------+
-| 2002A3F1F350598F5FAF799AD9C9936908230796712E24682016E5257A4D2000 |
-+------------------------------------------------------------------+
-*/
-```
+    SELECT mysql.SHA2(B'GoogleCloud', 256) as sha256_checksum;
+    
+    /*
+    +------------------------------------------------------------------+
+    | sha256_checksum                                                  |
+    +------------------------------------------------------------------+
+    | 2002A3F1F350598F5FAF799AD9C9936908230796712E24682016E5257A4D2000 |
+    +------------------------------------------------------------------+
+    */

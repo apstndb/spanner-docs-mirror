@@ -1,6 +1,6 @@
-  - [Resource: Session](#Session)
-      - [JSON representation](#Session.SCHEMA_REPRESENTATION)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource: Session](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions#Session)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions#Session.SCHEMA_REPRESENTATION)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions#METHODS_SUMMARY)
 
 ## Resource: Session
 
@@ -17,7 +17,7 @@ A session in the Cloud Spanner API.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;labels&quot;: {
     string: string,

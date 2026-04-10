@@ -11,7 +11,7 @@ Spanner CUDs offer two levels of discounts, depending on the commitment period:
   - **20% discount** : You get this by committing to a 1-year term. For the duration of your term, you pay the Spanner CUD 1-year price (consumption model ID 558C-892D-2291) as your committed hourly spend amount.
   - **40% discount** : You get this by committing to a 3-year term. For the duration of your term, you pay the Spanner CUD 3-year price (consumption model ID 38C3-A961-A68B) as your committed hourly spend amount.
 
-When you purchase a commitment, you agree to pay a fixed hourly fee for a one or three-year term. Your monthly invoice shows usage charges using the CUD [consumption model](/billing/docs/resources/multiprice-cuds) prices for usage that falls within your commitment. You're charged $1 for $1 worth of commitment fees, and a corresponding credit applies so that the commitment fee is offset for any utilized portion of your commitment. For a full example, see [An example Spanner CUD](#example) .
+When you purchase a commitment, you agree to pay a fixed hourly fee for a one or three-year term. Your monthly invoice shows usage charges using the CUD [consumption model](https://docs.cloud.google.com/billing/docs/resources/multiprice-cuds) prices for usage that falls within your commitment. You're charged $1 for $1 worth of commitment fees, and a corresponding credit applies so that the commitment fee is offset for any utilized portion of your commitment. For a full example, see [An example Spanner CUD](https://docs.cloud.google.com/spanner/docs/cuds#example) .
 
 For any unused portion of your commitment, the fee applies. The result is that you pay the flat commitment fee every hour, whether you use the services or not, but commitment fees are then credited back to you for the used portions within the commitment amount.
 
@@ -31,9 +31,9 @@ For a list of applicable SKUs, see [Spanner CUD Eligible SKUs](https://cloud.goo
 
 ## Purchase a Spanner CUD
 
-After your purchase a CUD, you can't cancel your commitment. Make sure the size and duration of your commitment aligns with both your historical and your expected minimum expenditure on Spanner capacity. For more information, see [Canceling commitments](/docs/cuds-spend-based#canceling_commitments) .
+After your purchase a CUD, you can't cancel your commitment. Make sure the size and duration of your commitment aligns with both your historical and your expected minimum expenditure on Spanner capacity. For more information, see [Canceling commitments](https://docs.cloud.google.com/docs/cuds-spend-based#canceling_commitments) .
 
-To purchase or manage Spanner committed use discounts for your Cloud Billing account, follow the instructions at [Purchasing spend-based commitments](/docs/cuds-spend-based#purchasing) .
+To purchase or manage Spanner committed use discounts for your Cloud Billing account, follow the instructions at [Purchasing spend-based commitments](https://docs.cloud.google.com/docs/cuds-spend-based#purchasing) .
 
 ## An example Spanner CUD
 
@@ -90,12 +90,12 @@ Your commitment fee applies to every hour during the term of the commitment, reg
 
   - Learn more about [Spanner pricing](https://cloud.google.com/spanner/pricing) .
 
-  - Learn more about [Google Cloud spend-based CUDs](/docs/cuds) .
+  - Learn more about [Google Cloud spend-based CUDs](https://docs.cloud.google.com/docs/cuds) .
 
-  - Learn more about CUD [consumption models](/billing/docs/resources/multiprice-cuds) .
+  - Learn more about CUD [consumption models](https://docs.cloud.google.com/billing/docs/resources/multiprice-cuds) .
 
-  - Learn how to [view your CUD reports](/billing/docs/how-to/cud-analysis) .
+  - Learn how to [view your CUD reports](https://docs.cloud.google.com/billing/docs/how-to/cud-analysis) .
 
-  - Understand savings with [cost breakdown reports](/billing/docs/how-to/cost-breakdown) .
+  - Understand savings with [cost breakdown reports](https://docs.cloud.google.com/billing/docs/how-to/cost-breakdown) .
 
   - See [the list of Spanner SKUs](https://cloud.google.com/skus/sku-groups/cloud-spanner-cud-eligible-skus) that you can use with Spanner CUDs.

@@ -1,6 +1,6 @@
 This page compares [Apache Cassandra](https://cassandra.apache.org/) and Spanner architecture as well as helps you understand the capabilities and limitations of the Spanner Cassandra interface. It assumes you're familiar with Cassandra and want to migrate existing applications or design new applications while using Spanner as your database.
 
-Cassandra and Spanner are both large-scale distributed databases built for applications requiring high scalability and low latency. While both databases can support demanding NoSQL workloads, Spanner provides advanced features for data modeling, querying, and transactional operations. For more information about how Spanner meets NoSQL database criteria, see [Spanner for non-relational workloads](/spanner/docs/non-relational/overview) .
+Cassandra and Spanner are both large-scale distributed databases built for applications requiring high scalability and low latency. While both databases can support demanding NoSQL workloads, Spanner provides advanced features for data modeling, querying, and transactional operations. For more information about how Spanner meets NoSQL database criteria, see [Spanner for non-relational workloads](https://docs.cloud.google.com/spanner/docs/non-relational/overview) .
 
 ## Core concepts
 
@@ -24,13 +24,13 @@ This section compares key Cassandra and Spanner concepts.
 <td><strong>Cluster</strong></td>
 <td><strong>Instance</strong><br />
 <br />
-A Cassandra cluster is equivalent to a Spanner <a href="/spanner/docs/instances">instance</a> - a collection of servers and storage resources. Because Spanner is a managed service, you don't have to configure the underlying hardware or software. You only need to specify the amount of nodes you want to reserve for your instance or use <a href="/spanner/docs/autoscaling-overview">autoscaling</a> to automatically scale the instance. An instance acts like a container for your databases. You also choose the data replication topology ( <a href="/spanner/docs/instance-configurations">regional, dual-region, or multi-region</a> ) at the instance level.</td>
+A Cassandra cluster is equivalent to a Spanner <a href="https://docs.cloud.google.com/spanner/docs/instances">instance</a> - a collection of servers and storage resources. Because Spanner is a managed service, you don't have to configure the underlying hardware or software. You only need to specify the amount of nodes you want to reserve for your instance or use <a href="https://docs.cloud.google.com/spanner/docs/autoscaling-overview">autoscaling</a> to automatically scale the instance. An instance acts like a container for your databases. You also choose the data replication topology ( <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations">regional, dual-region, or multi-region</a> ) at the instance level.</td>
 </tr>
 <tr class="even">
 <td><strong>Keyspace</strong></td>
 <td><strong>Database</strong><br />
 <br />
-A Cassandra keyspace is equivalent to a Spanner <a href="/spanner/docs/databases">database</a> , which is a collection of tables and other schema elements (for example, indexes and roles). Unlike a keyspace, you don't need to configure the replication location. Spanner automatically replicates your data to the region designated in your instance.</td>
+A Cassandra keyspace is equivalent to a Spanner <a href="https://docs.cloud.google.com/spanner/docs/databases">database</a> , which is a collection of tables and other schema elements (for example, indexes and roles). Unlike a keyspace, you don't need to configure the replication location. Spanner automatically replicates your data to the region designated in your instance.</td>
 </tr>
 <tr class="odd">
 <td><strong>Table</strong></td>
@@ -54,7 +54,7 @@ In both Cassandra and Spanner, a row is a collection of columns identified uniqu
 <td><strong>Column</strong></td>
 <td><strong>Column</strong><br />
 <br />
-In both Cassandra and Spanner, a column is a set of data values that have the same type. There is one value for each row of a table. For more information about comparing Cassandra column types to Spanner, see <a href="#data-types">Data types</a> .</td>
+In both Cassandra and Spanner, a column is a set of data values that have the same type. There is one value for each row of a table. For more information about comparing Cassandra column types to Spanner, see <a href="https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview#data-types">Data types</a> .</td>
 </tr>
 </tbody>
 </table>
@@ -63,17 +63,17 @@ In both Cassandra and Spanner, a column is a set of data values that have the sa
 
 A Cassandra cluster consists of a set of servers and storage colocated with those servers. A hash function maps rows from a partition keyspace to a virtual node (vnode). A set of vnodes is then randomly assigned to each server to serve a portion of the cluster keyspace. Storage for the vnodes is locally attached to the serving node. Client drivers connect directly to the serving nodes and handle load balancing and query routing.
 
-A Spanner instance consists of a set of servers in a [replication topology](/spanner/docs/instance-configurations) . Spanner dynamically shards each table into row ranges based on CPU and disk usage. Shards are assigned to compute nodes for serving. Data is physically stored on Colossus, Google's distributed file system, separate from the compute nodes. Client drivers connect to Spanner's frontend servers which perform request routing and load balancing. To learn more, see the [Life of Spanner reads and writes](/spanner/docs/whitepapers/life-of-reads-and-writes) whitepaper.
+A Spanner instance consists of a set of servers in a [replication topology](https://docs.cloud.google.com/spanner/docs/instance-configurations) . Spanner dynamically shards each table into row ranges based on CPU and disk usage. Shards are assigned to compute nodes for serving. Data is physically stored on Colossus, Google's distributed file system, separate from the compute nodes. Client drivers connect to Spanner's frontend servers which perform request routing and load balancing. To learn more, see the [Life of Spanner reads and writes](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes) whitepaper.
 
-At a high level, both architectures scale as resources are added to the underlying cluster. Spanner's compute and storage separation lets the load between compute nodes rebalance faster in response to workload changes. Unlike Cassandra, shard moves don't involve data moves as the data stays on Colossus. Moreover, Spanner's range-based partitioning might be more natural for applications that expect data to be sorted by partition key. The flip-side of range-based partitioning is that workloads that write to one end of the keyspace (for example, tables keyed by the current timestamp) might have hotspots if additional schema designs aren't considered. For more information about techniques for overcoming hotspots, see [Schema design best practices](/spanner/docs/schema-design) .
+At a high level, both architectures scale as resources are added to the underlying cluster. Spanner's compute and storage separation lets the load between compute nodes rebalance faster in response to workload changes. Unlike Cassandra, shard moves don't involve data moves as the data stays on Colossus. Moreover, Spanner's range-based partitioning might be more natural for applications that expect data to be sorted by partition key. The flip-side of range-based partitioning is that workloads that write to one end of the keyspace (for example, tables keyed by the current timestamp) might have hotspots if additional schema designs aren't considered. For more information about techniques for overcoming hotspots, see [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
 
 ### Consistency
 
 With Cassandra, you must specify a consistency level for each operation. If you use the quorum consistency level, a replica node majority must respond to the coordinator node for the operation to be considered successful. If you use a consistency level of one, Cassandra needs a [single replica node](https://cassandra.apache.org/doc/4.1/cassandra/architecture/dynamo.html#tunable-consistency) to respond for the operation to be considered successful.
 
-Spanner provides strong consistency. The [Spanner API](/spanner/docs/reference/rest) doesn't expose replicas to the client. Spanner clients interact with Spanner as if it were a single machine database. A write is always written to a majority of replicas before Spanner reports its success to the user. Any subsequent reads reflects the newly written data. Applications can choose to read a snapshot of the database at a time in the past, which might have performance benefits over strong reads. For more information about the consistency properties of Spanner, see the [Transactions overview](/spanner/docs/transactions) .
+Spanner provides strong consistency. The [Spanner API](https://docs.cloud.google.com/spanner/docs/reference/rest) doesn't expose replicas to the client. Spanner clients interact with Spanner as if it were a single machine database. A write is always written to a majority of replicas before Spanner reports its success to the user. Any subsequent reads reflects the newly written data. Applications can choose to read a snapshot of the database at a time in the past, which might have performance benefits over strong reads. For more information about the consistency properties of Spanner, see the [Transactions overview](https://docs.cloud.google.com/spanner/docs/transactions) .
 
-Spanner was built to support the consistency and availability needed in large scale applications. Spanner provides strong consistency at scale and with high performance. For use cases that require it, Spanner supports [snapshot (stale) reads](/spanner/docs/reads#read_types) that relax freshness requirements.
+Spanner was built to support the consistency and availability needed in large scale applications. Spanner provides strong consistency at scale and with high performance. For use cases that require it, Spanner supports [snapshot (stale) reads](https://docs.cloud.google.com/spanner/docs/reads#read_types) that relax freshness requirements.
 
 ## Cassandra interface
 
@@ -219,36 +219,32 @@ The `  cassandra_type  ` column option lets you define mappings between the Cass
 
 For example, if there's a table in Cassandra with the following schema:
 
-``` text
-CREATE TABLE Albums (
-  albumId uuid,
-  title varchar,
-  artists set<varchar>,
-  tags  map<varchar, varchar>,
-  numberOfSongs tinyint,
-  releaseDate date,
-  copiesSold bigint,
-  score frozen<set<int>>
-  ....
-  PRIMARY KEY(albumId)
-)
-```
+    CREATE TABLE Albums (
+      albumId uuid,
+      title varchar,
+      artists set<varchar>,
+      tags  map<varchar, varchar>,
+      numberOfSongs tinyint,
+      releaseDate date,
+      copiesSold bigint,
+      score frozen<set<int>>
+      ....
+      PRIMARY KEY(albumId)
+    )
 
 In Spanner, you use type annotations to map to the Cassandra data types, as shown in the following:
 
-``` text
-CREATE TABLE Albums (
-  albumId       STRING(MAX) OPTIONS (cassandra_type = 'uuid'),
-  title         STRING(MAX) OPTIONS (cassandra_type = 'varchar'),
-  artists       ARRAY<STRING(max)> OPTIONS (cassandra_type = 'set<varchar>'),
-  tags          JSON OPTIONS (cassandra_type = 'map<varchar, varchar>'),
-  numberOfSongs INT64 OPTIONS (cassandra_type = 'tinyint'),
-  releaseDate   DATE OPTIONS (cassandra_type = 'date'),
-  copiesSold    INT64 OPTIONS (cassandra_type = 'bigint'),
-  score         ARRAY<INT64> OPTIONS (cassandra_type = 'frozen<set<int>>')
-  ...
-) PRIMARY KEY (albumId);
-```
+    CREATE TABLE Albums (
+      albumId       STRING(MAX) OPTIONS (cassandra_type = 'uuid'),
+      title         STRING(MAX) OPTIONS (cassandra_type = 'varchar'),
+      artists       ARRAY<STRING(max)> OPTIONS (cassandra_type = 'set<varchar>'),
+      tags          JSON OPTIONS (cassandra_type = 'map<varchar, varchar>'),
+      numberOfSongs INT64 OPTIONS (cassandra_type = 'tinyint'),
+      releaseDate   DATE OPTIONS (cassandra_type = 'date'),
+      copiesSold    INT64 OPTIONS (cassandra_type = 'bigint'),
+      score         ARRAY<INT64> OPTIONS (cassandra_type = 'frozen<set<int>>')
+      ...
+    ) PRIMARY KEY (albumId);
 
 In the previous example, the `  OPTIONS  ` clause maps the column's Spanner data type to its corresponding Cassandra data type.
 
@@ -267,54 +263,24 @@ You can use the `  ALTER TABLE  ` statement to add or modify the `  cassandra_ty
 
 To add a `  cassandra_type  ` option to a column that doesn't have it yet, use the following statement:
 
-``` text
-ALTER TABLE Albums ALTER COLUMN uuid SET OPTIONS (cassandra_type='uuid');
-```
+    ALTER TABLE Albums ALTER COLUMN uuid SET OPTIONS (cassandra_type='uuid');
 
 In this example, the `  uuid  ` column in the Albums table is updated with the `  cassandra_type  ` option set to `  uuid  ` .
 
 To modify an existing `  cassandra_type  ` option, use the `  ALTER TABLE  ` statement with the new `  cassandra_type  ` value. For example, to change the `  cassandra_type  ` of the `  numberOfSongs  ` column in the Albums table from `  tinyint  ` to `  bigint  ` , use the following statement:
 
-``` text
-ALTER TABLE Albums ALTER COLUMN numberOfSongs SET OPTIONS (cassandra_type='bigint');
-```
+    ALTER TABLE Albums ALTER COLUMN numberOfSongs SET OPTIONS (cassandra_type='bigint');
 
 You are only permitted to modify the following types:
 
-<table>
-<thead>
-<tr class="header">
-<th>From</th>
-<th>To</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>tinyint</td>
-<td>smallint, int, bigint</td>
-</tr>
-<tr class="even">
-<td>smallint</td>
-<td>int, bigint</td>
-</tr>
-<tr class="odd">
-<td>int</td>
-<td>bigint</td>
-</tr>
-<tr class="even">
-<td>float</td>
-<td>double</td>
-</tr>
-<tr class="odd">
-<td>text</td>
-<td>varchar</td>
-</tr>
-<tr class="even">
-<td>ascii</td>
-<td>varchar, text</td>
-</tr>
-</tbody>
-</table>
+| From     | To                    |
+| -------- | --------------------- |
+| tinyint  | smallint, int, bigint |
+| smallint | int, bigint           |
+| int      | bigint                |
+| float    | double                |
+| text     | varchar               |
+| ascii    | varchar, text         |
 
 ##### Direct and nuanced mappings
 
@@ -339,9 +305,9 @@ When migrating from Cassandra, add a row deletion policy to your Spanner table i
 
 The Spanner TTL logic operates at the *row level* , in contrast to Cassandra, where TTL logic can be applied at the *cell level* . To use the Spanner TTL, you must include a timestamp column and a time interval in the row deletion policy. Spanner deletes the row after the row exceeds the specified duration relative to the timestamp.
 
-[Spanner TTL](/spanner/docs/ttl) deletion isn't instantaneous. An asynchronous background process deletes expired rows, and deletions can take up to 72 hours.
+[Spanner TTL](https://docs.cloud.google.com/spanner/docs/ttl) deletion isn't instantaneous. An asynchronous background process deletes expired rows, and deletions can take up to 72 hours.
 
-For more information, see [Enable TTL on Cassandra data](/spanner/docs/non-relational/migrate-from-cassandra-to-spanner#enable-ttl-on-cassandra) .
+For more information, see [Enable TTL on Cassandra data](https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner#enable-ttl-on-cassandra) .
 
 ### Unsupported Cassandra features on Spanner
 
@@ -366,16 +332,16 @@ CQL DDL statements are not directly supported using Cassandra interface. For DDL
     
     Spanner lets you connect to databases from a variety of clients:
     
-      - Cassandra Adapter can be used as an in-process helper or as a sidecar proxy to connect your Cassandra applications to Cassandra interface. For more information, see [Connect to Spanner using the Cassandra Adapter](/spanner/docs/non-relational/connect-cassandra-adapter) .
-      - Cassandra Adapter can be started as a standalone process locally and connected using `  CQLSH  ` . For more information, see [Connect the Cassandra interface to your application](/spanner/docs/non-relational/connect-cassandra-adapter#standalone) .
+      - Cassandra Adapter can be used as an in-process helper or as a sidecar proxy to connect your Cassandra applications to Cassandra interface. For more information, see [Connect to Spanner using the Cassandra Adapter](https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter) .
+      - Cassandra Adapter can be started as a standalone process locally and connected using `  CQLSH  ` . For more information, see [Connect the Cassandra interface to your application](https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter#standalone) .
     
     </div>
 
 ### Access control with Identity and Access Management
 
-You need to have the `  spanner.databases.adapt  ` , `  spanner.databases.select  ` , and `  spanner.databases.write  ` permissions to perform read and write operations against the Cassandra endpoint. For more information, see the [IAM overview](/spanner/docs/iam) .
+You need to have the `  spanner.databases.adapt  ` , `  spanner.databases.select  ` , and `  spanner.databases.write  ` permissions to perform read and write operations against the Cassandra endpoint. For more information, see the [IAM overview](https://docs.cloud.google.com/spanner/docs/iam) .
 
-For more information about how to grant Spanner IAM permissions, see [Apply IAM roles](/spanner/docs/grant-permissions) .
+For more information about how to grant Spanner IAM permissions, see [Apply IAM roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
 
 ### Monitoring
 
@@ -398,9 +364,11 @@ You can create a custom Cloud Monitoring dashboard to display and monitor metric
 
 ### Google Cloud console
 
-1.  Download the [`  cassandra-adapter-dashboard.json  `](/static/spanner/docs/non-relational/cassandra-adapter-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
+1.  Download the [`  cassandra-adapter-dashboard.json  `](https://docs.cloud.google.com/static/spanner/docs/non-relational/cassandra-adapter-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
 
 2.  In the Google Cloud console, go to the dashboard **Dashboards** page:
+    
+    [Go to **Dashboards**](https://console.cloud.google.com/monitoring/dashboards)
     
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
@@ -416,23 +384,21 @@ You can create a custom Cloud Monitoring dashboard to display and monitor metric
 
 ### gcloud CLI
 
-1.  Download the [`  cassandra-adapter-dashboard.json  `](/static/spanner/docs/non-relational/cassandra-adapter-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
+1.  Download the [`  cassandra-adapter-dashboard.json  `](https://docs.cloud.google.com/static/spanner/docs/non-relational/cassandra-adapter-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
 
 2.  To create a dashboard in a project, use the `  gcloud monitoring dashboards create  ` command:
     
-    ``` text
-    gcloud monitoring dashboards create --config-from-file=cassandra-adapter-dashboard.json
-    ```
+        gcloud monitoring dashboards create --config-from-file=cassandra-adapter-dashboard.json
     
-    For more information, see the [`  gcloud monitoring dashboards create  `](/sdk/gcloud/reference/monitoring/dashboards/create) reference.
+    For more information, see the [`  gcloud monitoring dashboards create  `](https://docs.cloud.google.com/sdk/gcloud/reference/monitoring/dashboards/create) reference.
 
 Additionally, the following Spanner metrics are helpful for monitoring the Cassandra Adapter:
 
-  - [CPU utilization metrics](/spanner/docs/cpu-utilization) provide information about CPU usage for user and system tasks with breakdowns by priority and operation type.
-  - [Storage utilization metrics](/spanner/docs/storage-utilization) provide information about database and backup storage.
-  - [Spanner's built-in statistics tables](/spanner/docs/introspection) provide insights about queries, transactions, and reads to help you discover issues in your databases.
+  - [CPU utilization metrics](https://docs.cloud.google.com/spanner/docs/cpu-utilization) provide information about CPU usage for user and system tasks with breakdowns by priority and operation type.
+  - [Storage utilization metrics](https://docs.cloud.google.com/spanner/docs/storage-utilization) provide information about database and backup storage.
+  - [Spanner's built-in statistics tables](https://docs.cloud.google.com/spanner/docs/introspection) provide insights about queries, transactions, and reads to help you discover issues in your databases.
 
-For a complete list of system insights, see [Monitor instances with system insights](/spanner/docs/monitoring-console) . To learn more about monitoring your Spanner resources, see [Monitor instances with Cloud Monitoring](/spanner/docs/monitoring-cloud) .
+For a complete list of system insights, see [Monitor instances with system insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) . To learn more about monitoring your Spanner resources, see [Monitor instances with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
 ### Pricing
 
@@ -442,6 +408,6 @@ For more information, see [Spanner pricing](https://cloud.google.com/spanner/pri
 
 ## What's next
 
-  - Learn how to [Migrate from Cassandra to Spanner](/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) .
-  - Learn how to [Connect to Spanner using the Cassandra Adapter](/spanner/docs/non-relational/connect-cassandra-adapter) .
+  - Learn how to [Migrate from Cassandra to Spanner](https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) .
+  - Learn how to [Connect to Spanner using the Cassandra Adapter](https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter) .
   - Try the [Spanner for Cassandra users codelab](https://codelabs.developers.google.com/codelabs/spanner-cassandra-adapter-getting-started#0) .

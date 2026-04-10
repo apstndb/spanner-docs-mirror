@@ -1,6 +1,6 @@
-This page describes how to prepare Avro files that you exported from non- Spanner databases and then import those files into Spanner. These procedures include information for both GoogleSQL-dialect databases and PostgreSQL-dialect databases. If you want to import a Spanner database that you previously exported, see [Import Spanner Avro files](/spanner/docs/import) .
+This page describes how to prepare Avro files that you exported from non- Spanner databases and then import those files into Spanner. These procedures include information for both GoogleSQL-dialect databases and PostgreSQL-dialect databases. If you want to import a Spanner database that you previously exported, see [Import Spanner Avro files](https://docs.cloud.google.com/spanner/docs/import) .
 
-The process uses [Dataflow](/dataflow) ; it imports data from a [Cloud Storage](/storage) bucket that contains a set of [Avro files](https://en.wikipedia.org/wiki/Apache_Avro) and a [JSON manifest file](/spanner/docs/import-export-csv#create-json-manifest) that specifies the destination tables and Avro files that populate each table.
+The process uses [Dataflow](https://docs.cloud.google.com/dataflow) ; it imports data from a [Cloud Storage](https://docs.cloud.google.com/storage) bucket that contains a set of [Avro files](https://en.wikipedia.org/wiki/Apache_Avro) and a [JSON manifest file](https://docs.cloud.google.com/spanner/docs/import-export-csv#create-json-manifest) that specifies the destination tables and Avro files that populate each table.
 
 ## Before you begin
 
@@ -8,7 +8,9 @@ To import a Spanner database, first you need to enable the Spanner, Cloud Storag
 
 **Roles required to enable APIs**
 
-To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](/iam/docs/granting-changing-revoking-access) .
+To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+
+[Enable the APIs](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com,storage_component,compute,dataflow)
 
 You also need enough quota and the required IAM permissions.
 
@@ -16,11 +18,11 @@ You also need enough quota and the required IAM permissions.
 
 The quota requirements for import jobs are as follows:
 
-  - **Spanner** : You must have enough [compute capacity](/spanner/docs/compute-capacity) to support the amount of data that you are importing. No additional compute capacity is required to import a database, though you might need to add more compute capacity so that your job finishes in a reasonable amount of time. See [Optimize jobs](#optimize-slow) for more details.
+  - **Spanner** : You must have enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to support the amount of data that you are importing. No additional compute capacity is required to import a database, though you might need to add more compute capacity so that your job finishes in a reasonable amount of time. See [Optimize jobs](https://docs.cloud.google.com/spanner/docs/import-non-spanner#optimize-slow) for more details.
 
   - **Cloud Storage** : To import, you must have a bucket containing your previously exported files. You don't need to set a size for your bucket.
 
-  - **Dataflow** : Import jobs are subject to the same CPU, disk usage, and IP address [Compute Engine quotas](/dataflow/quotas#compute-engine-quotas) as other Dataflow jobs.
+  - **Dataflow** : Import jobs are subject to the same CPU, disk usage, and IP address [Compute Engine quotas](https://docs.cloud.google.com/dataflow/quotas#compute-engine-quotas) as other Dataflow jobs.
 
   - **Compute Engine** : Before running your import job, you must [set up initial quotas](https://support.google.com/cloud/answer/6075746) for Compute Engine, which Dataflow uses. These quotas represent the *maximum* number of resources that you allow Dataflow to use for your job. Recommended starting values are:
     
@@ -34,11 +36,11 @@ The quota requirements for import jobs are as follows:
 
 To get the permissions that you need to export a database, ask your administrator to grant you the following IAM roles on your Dataflow worker service account:
 
-  - [Cloud Spanner Viewer](/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-  - [Dataflow Worker](/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `  roles/dataflow.worker  ` )
-  - [Storage Admin](/iam/docs/roles-permissions/storage#storage.admin) ( `  roles/storage.admin  ` )
-  - [Spanner Database Reader](/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
-  - [Database Admin](/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` )
+  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
+  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `  roles/dataflow.worker  ` )
+  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `  roles/storage.admin  ` )
+  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
+  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` )
 
 **Note:** The Spanner Database Admin role is only required for import jobs.
 
@@ -63,15 +65,15 @@ Keep the following things in mind when exporting your data:
       - `  LONG  ` <sup>†</sup>
       - `  STRING  ` <sup>‡</sup>
     
-    <sup>\*</sup> A column of type `  BYTES  ` is used to import a Spanner `  NUMERIC  ` ; see the following [recommended mappings](#recommended-map) section for details.
+    <sup>\*</sup> A column of type `  BYTES  ` is used to import a Spanner `  NUMERIC  ` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
     
-    <sup>†,‡</sup> You can import a `  LONG  ` storing a timestamp or a `  STRING  ` storing a timestamp as a Spanner `  TIMESTAMP  ` ; see the following [recommended mappings](#recommended-map) section for details.
+    <sup>†,‡</sup> You can import a `  LONG  ` storing a timestamp or a `  STRING  ` storing a timestamp as a Spanner `  TIMESTAMP  ` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
 
   - You don't have to include or generate any metadata when you export the Avro files.
 
   - You don't have to follow any particular naming convention for your files.
 
-If you don't export your files directly to Cloud Storage, you must upload the Avro files to a Cloud Storage bucket. For detailed instructions, see [Upload objects](/storage/docs/uploading-objects) to your Cloud Storage.
+If you don't export your files directly to Cloud Storage, you must upload the Avro files to a Cloud Storage bucket. For detailed instructions, see [Upload objects](https://docs.cloud.google.com/storage/docs/uploading-objects) to your Cloud Storage.
 
 ## Import Avro files from non-Spanner databases to Spanner
 
@@ -136,7 +138,7 @@ You must create a schema that uses the appropriate column type for each column i
 <tr class="even">
 <td><code dir="ltr" translate="no">         STRING        </code></td>
 <td><p><code dir="ltr" translate="no">          STRING         </code></p>
-<p><code dir="ltr" translate="no">          TIMESTAMP         </code> when <code dir="ltr" translate="no">          STRING         </code> represents a timestamp in the <a href="/spanner/docs/reference/standard-sql/data-types#canonical-format_1">canonical format for SQL queries</a></p></td>
+<p><code dir="ltr" translate="no">          TIMESTAMP         </code> when <code dir="ltr" translate="no">          STRING         </code> represents a timestamp in the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical-format_1">canonical format for SQL queries</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -201,24 +203,22 @@ You must also create a file named `  spanner-export.json  ` in your Cloud Storag
 
 The contents of the file have the following format:
 
-``` text
-{
-  "tables": [
-   {
-    "name": "TABLE1",
-    "dataFiles": [
-      "RELATIVE/PATH/TO/TABLE1_FILE1",
-      "RELATIVE/PATH/TO/TABLE1_FILE2"
-    ]
-   },
-   {
-    "name": "TABLE2",
-    "dataFiles": ["RELATIVE/PATH/TO/TABLE2_FILE1"]
-   }
-  ],
-  "dialect":"DATABASE_DIALECT"
-}
-```
+    {
+      "tables": [
+       {
+        "name": "TABLE1",
+        "dataFiles": [
+          "RELATIVE/PATH/TO/TABLE1_FILE1",
+          "RELATIVE/PATH/TO/TABLE1_FILE2"
+        ]
+       },
+       {
+        "name": "TABLE2",
+        "dataFiles": ["RELATIVE/PATH/TO/TABLE2_FILE1"]
+       }
+      ],
+      "dialect":"DATABASE_DIALECT"
+    }
 
 Where DATABASE\_DIALECT = { `  GOOGLE_STANDARD_SQL  ` | `  POSTGRESQL  ` }
 
@@ -228,27 +228,27 @@ If the dialect element is omitted, the dialect defaults to `  GOOGLE_STANDARD_SQ
 
 ### Step 3: Run a Dataflow import job using gcloud CLI
 
-To start your import job, follow the instructions for using the Google Cloud CLI to run a job with the [Avro to Spanner template](/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) .
+To start your import job, follow the instructions for using the Google Cloud CLI to run a job with the [Avro to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) .
 
-After you have started an import job, you can [see details about the job](/spanner/docs/import-non-spanner#view-dataflow-ui) in the Google Cloud console.
+After you have started an import job, you can [see details about the job](https://docs.cloud.google.com/spanner/docs/import-non-spanner#view-dataflow-ui) in the Google Cloud console.
 
-After the import job is finished, add any necessary [secondary indexes](/spanner/docs/secondary-indexes) and [foreign-keys](/spanner/docs/foreign-keys/overview) .
+After the import job is finished, add any necessary [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) and [foreign-keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) .
 
-**Note:** To avoid [outbound data transfer charges](/storage/pricing#network-pricing) , choose a region that overlaps with your Cloud Storage bucket's location. For more information, see [Choose a region](/spanner/docs/import-non-spanner#choose-region) .
+**Note:** To avoid [outbound data transfer charges](https://docs.cloud.google.com/storage/pricing#network-pricing) , choose a region that overlaps with your Cloud Storage bucket's location. For more information, see [Choose a region](https://docs.cloud.google.com/spanner/docs/import-non-spanner#choose-region) .
 
 **Note:** The Dataflow job doesn't resolve interleaved tables or foreign key constraints, so you might face write errors due to referential integrity violations. Remove all interleaving relations or foreign keys before initiating the Dataflow job.
 
 ## Choose a region for your import job
 
-You might want to choose a different region based on the location of your Cloud Storage bucket. To avoid [outbound data transfer charges](/storage/pricing#network-pricing) , choose a region that matches your Cloud Storage bucket's location.
+You might want to choose a different region based on the location of your Cloud Storage bucket. To avoid [outbound data transfer charges](https://docs.cloud.google.com/storage/pricing#network-pricing) , choose a region that matches your Cloud Storage bucket's location.
 
-  - If your Cloud Storage bucket location is a [region](/storage/docs/bucket-locations#location-r) , you can take advantage of [free network usage](/storage/pricing#network-buckets) by choosing the same region for your import job, assuming that region is available.
+  - If your Cloud Storage bucket location is a [region](https://docs.cloud.google.com/storage/docs/bucket-locations#location-r) , you can take advantage of [free network usage](https://docs.cloud.google.com/storage/pricing#network-buckets) by choosing the same region for your import job, assuming that region is available.
 
-  - If your Cloud Storage bucket location is a [dual-region](/storage/docs/bucket-locations#location-dr) , you can take advantage of [free network usage](/storage/pricing#network-buckets) by choosing one of the two regions that make up the dual-region for your import job, assuming one of the regions is available.
+  - If your Cloud Storage bucket location is a [dual-region](https://docs.cloud.google.com/storage/docs/bucket-locations#location-dr) , you can take advantage of [free network usage](https://docs.cloud.google.com/storage/pricing#network-buckets) by choosing one of the two regions that make up the dual-region for your import job, assuming one of the regions is available.
 
 <!-- end list -->
 
-  - If a co-located region is not available for your import job, or if your Cloud Storage bucket location is a [multi-region](/storage/docs/bucket-locations#location-mr) , outbound data transfer charges apply. Refer to Cloud Storage [data transfer](/storage/pricing#network-pricing) pricing to choose a region that incurs the lowest data transfer charges.
+  - If a co-located region is not available for your import job, or if your Cloud Storage bucket location is a [multi-region](https://docs.cloud.google.com/storage/docs/bucket-locations#location-mr) , outbound data transfer charges apply. Refer to Cloud Storage [data transfer](https://docs.cloud.google.com/storage/pricing#network-pricing) pricing to choose a region that incurs the lowest data transfer charges.
 
 ## View or troubleshoot jobs in the Dataflow UI
 
@@ -264,11 +264,15 @@ To see details for any import or export jobs that you ran within the last week, 
 
 3.  In the database **Import/Export** page, click the job name in the **Dataflow job name** column:
     
+    ![In-progress job status message](https://docs.cloud.google.com/static/spanner/docs/images/import_export_job_list.png)
+    
     The Google Cloud console displays details of the Dataflow job.
 
 To view a job that you ran more than one week ago:
 
 1.  Go to the Dataflow jobs page in the Google Cloud console.
+    
+    [Go to Jobs](https://console.cloud.google.com/dataflow)
 
 2.  Find your job in the list, then click its name.
     
@@ -282,45 +286,47 @@ To view a Dataflow job's logs, navigate to the job's details page, then click **
 
 If a job fails, look for errors in the logs. If there are errors, the error count displays next to **Logs** :
 
+![Error count example next to Logs button](https://docs.cloud.google.com/static/spanner/docs/images/dataflow_error_count.png)
+
 To view job errors:
 
 1.  Click the error count next to **Logs** .
     
     The Google Cloud console displays the job's logs. You may need to scroll to see the errors.
 
-2.  Locate entries with the error icon .
+2.  Locate entries with the error icon ![Error icon](https://docs.cloud.google.com/static/spanner/docs/images/dataflow_log_error.png) .
 
 3.  Click an individual log entry to expand its contents.
 
-For more information about troubleshooting Dataflow jobs, see [Troubleshoot your pipeline](/dataflow/pipelines/troubleshooting-your-pipeline#basic-troubleshooting-workflow) .
+For more information about troubleshooting Dataflow jobs, see [Troubleshoot your pipeline](https://docs.cloud.google.com/dataflow/pipelines/troubleshooting-your-pipeline#basic-troubleshooting-workflow) .
 
 ### Troubleshoot failed import jobs
 
 If you see the following errors in your job logs:
 
-``` text
-com.google.cloud.spanner.SpannerException: NOT_FOUND: Session not found
-
---or--
-
-com.google.cloud.spanner.SpannerException: DEADLINE_EXCEEDED: Deadline expired before operation could complete.
-```
+    com.google.cloud.spanner.SpannerException: NOT_FOUND: Session not found
+    
+    --or--
+    
+    com.google.cloud.spanner.SpannerException: DEADLINE_EXCEEDED: Deadline expired before operation could complete.
 
 Check the *99% Write latency* in the **Monitoring** tab of your Spanner database in the Google Cloud console. If it is showing high (multiple second) values, then it indicates that the instance is overloaded, causing writes to timeout and fail.
 
 One cause of high latency is that the Dataflow job is running using too many workers, putting too much load on the Spanner instance.
 
-To specify a limit on the number of Dataflow workers, instead of using the Import/Export tab in the instance details page of your Spanner database in the Google Cloud console, you must start the import using the Dataflow [Cloud Storage Avro to Spanner template](/dataflow/docs/guides/templates/provided-batch#gcs_avro_to_cloud_spanner) and specify the maximum number of workers as described:
+To specify a limit on the number of Dataflow workers, instead of using the Import/Export tab in the instance details page of your Spanner database in the Google Cloud console, you must start the import using the Dataflow [Cloud Storage Avro to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcs_avro_to_cloud_spanner) and specify the maximum number of workers as described:
 
 ### Console
 
 If you are using the Dataflow console, the **Max workers** parameter is located in the **Optional parameters** section of the **Create job from template** page.
 
+[Go to Dataflow](https://console.cloud.google.com/dataflow)
+
 ### gcloud
 
-Run the [`  gcloud dataflow jobs run  `](/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `  max-workers  ` argument. For example:
+Run the [`  gcloud dataflow jobs run  `](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `  max-workers  ` argument. For example:
 
-``` text
+``` 
   gcloud dataflow jobs run my-import-job \
     --gcs-location='gs://dataflow-templates/latest/GCS_Avro_to_Cloud_Spanner' \
     --region=us-central1 \
@@ -333,26 +339,26 @@ Run the [`  gcloud dataflow jobs run  `](/sdk/gcloud/reference/dataflow/jobs/run
 
 The following error might occur when you export your Spanner databases:
 
-``` text
-Workflow failed. Causes: Error: Message: Invalid value for field
-'resource.properties.networkInterfaces[0].subnetwork': ''. Network interface
-must specify a subnet if the network resource is in custom subnet mode.
-HTTP Code: 400
-```
+    Workflow failed. Causes: Error: Message: Invalid value for field
+    'resource.properties.networkInterfaces[0].subnetwork': ''. Network interface
+    must specify a subnet if the network resource is in custom subnet mode.
+    HTTP Code: 400
 
-This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `  default  ` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](/dataflow/docs/guides/specifying-networks?) .
+This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `  default  ` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks) .
 
 ## Optimize slow running import jobs
 
-If you have followed the suggestions in [initial settings](#quota) , you should generally not have to make any other adjustments. If your job is running slowly, there are a few other optimizations you can try:
+If you have followed the suggestions in [initial settings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#quota) , you should generally not have to make any other adjustments. If your job is running slowly, there are a few other optimizations you can try:
 
-  - **Optimize the job and data location** : Run your Dataflow job [in the same region](#choose-region) where your Spanner instance and Cloud Storage bucket are located.
+  - **Optimize the job and data location** : Run your Dataflow job [in the same region](https://docs.cloud.google.com/spanner/docs/import-non-spanner#choose-region) where your Spanner instance and Cloud Storage bucket are located.
 
-  - **Ensure sufficient Dataflow resources** : If the [relevant Compute Engine quotas](/dataflow/quotas#compute-engine-quotas) limit your Dataflow job's resources, the job's [Dataflow page](#dataflow-job-details) in the Google Cloud console displays a warning icon and log messages:
+  - **Ensure sufficient Dataflow resources** : If the [relevant Compute Engine quotas](https://docs.cloud.google.com/dataflow/quotas#compute-engine-quotas) limit your Dataflow job's resources, the job's [Dataflow page](https://docs.cloud.google.com/spanner/docs/import-non-spanner#dataflow-job-details) in the Google Cloud console displays a warning icon ![Warning icon](https://docs.cloud.google.com/static/spanner/docs/images/dataflow_ui_warning_icon.png) and log messages:
+    
+    ![Screenshot of quota limit warning](https://docs.cloud.google.com/static/spanner/docs/images/import_export_quota_limit_warning.png)
     
     In this situation, [increasing the quotas](https://support.google.com/cloud/answer/6075746) for CPUs, in-use IP addresses, and standard persistent disk might shorten the run time of the job, but you might incur more Compute Engine charges.
 
-  - **Check the Spanner CPU utilization** : If you see that the CPU utilization for the instance is over 65%, you can increase the [compute capacity](/spanner/docs/compute-capacity) in that instance. The capacity adds more Spanner resources and the job should speed up, but you incur more Spanner charges.
+  - **Check the Spanner CPU utilization** : If you see that the CPU utilization for the instance is over 65%, you can increase the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) in that instance. The capacity adds more Spanner resources and the job should speed up, but you incur more Spanner charges.
 
 ## Factors affecting import job performance
 

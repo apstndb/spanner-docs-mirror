@@ -14,11 +14,11 @@ EXAMPLES
 
 To import data from a source file to Cloud Spanner:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases import --instance=instanceA --database=databaseA --table-name=tableA --source-uri=gs://bucket/data.csv --source-format=csv --schema-uri=gs://bucket/schema.json
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases import --instance=instanceA --database=databaseA --source-uri=gs://bucket/dump.sql --source-format=mysqldump
 ```
 

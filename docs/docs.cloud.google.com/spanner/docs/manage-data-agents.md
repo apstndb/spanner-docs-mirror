@@ -1,6 +1,6 @@
 **Preview**
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 For information about access to this release, see the [access request page](https://forms.gle/pJByTWfenZAWbaXo7) .
 
@@ -8,7 +8,7 @@ For information about access to this release, see the [access request page](http
 
 This document describes how to create context sets in Spanner Studio using a context set file. Context set names must be unique within a database.
 
-To learn about context sets, see [Context sets overview](/spanner/docs/data-agent-overview) .
+To learn about context sets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
 
 ## Before you begin
 
@@ -24,23 +24,25 @@ Enable the following services for your project:
 
 ### Prepare a Spanner instance
 
-  - Make sure that a Spanner instance is available. For more information, see [Create an instance](/spanner/docs/create-manage-instances) .
-  - Ensure that you create a database in your instance where you will create the tables. For more information, see [Create a database on the Spanner instance](/spanner/docs/create-manage-databases#create-database)
+  - Make sure that a Spanner instance is available. For more information, see [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances) .
+  - Ensure that you create a database in your instance where you will create the tables. For more information, see [Create a database on the Spanner instance](https://docs.cloud.google.com/spanner/docs/create-manage-databases#create-database)
 
   
-This tutorial requires you to have a database in your Spanner instance. For more information, see [Create a database](/spanner/docs/create-manage-databases#create-database) .
+This tutorial requires you to have a database in your Spanner instance. For more information, see [Create a database](https://docs.cloud.google.com/spanner/docs/create-manage-databases#create-database) .
 
 ### Required roles and permissions
 
-  - Add an IAM user or service account to the cluster. For more information, see [Apply IAM roles](/spanner/docs/grant-permissions) .
-  - Grant the `  spanner.databaseReader  ` and `  geminidataanalytics.queryDataUser  ` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](/sdk/gcloud/reference/projects/add-iam-policy-binding) .
-  - [Grant roles and permissions](/spanner/docs/grant-permissions#project-level_permissions) to the IAM user at the project-level for the required databases.
+  - Add an IAM user or service account to the cluster. For more information, see [Apply IAM roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
+  - Grant the `  spanner.databaseReader  ` and `  geminidataanalytics.queryDataUser  ` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](https://docs.cloud.google.com/sdk/gcloud/reference/projects/add-iam-policy-binding) .
+  - [Grant roles and permissions](https://docs.cloud.google.com/spanner/docs/grant-permissions#project-level_permissions) to the IAM user at the project-level for the required databases.
 
 ## Create a context set
 
 To create a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
+    
+    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -60,13 +62,15 @@ To create a context set, perform the following steps:
 
 ## Build context sets
 
-After creating a context set, follow the steps in [Build contexts using Gemini CLI](/spanner/docs/build-context-gemini-cli) to create a context set file. You can then edit your context set to upload the context set file.
+After creating a context set, follow the steps in [Build contexts using Gemini CLI](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli) to create a context set file. You can then edit your context set to upload the context set file.
 
 ## Edit a context set
 
 To edit a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
+    
+    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -87,6 +91,8 @@ To edit a context set, perform the following steps:
 To delete a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
+    
+    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -104,6 +110,6 @@ To delete a context set, perform the following steps:
 
 ## What's next
 
-  - Learn more about [context sets](/spanner/docs/data-agent-overview) .
-  - Learn how to [test a context set](/spanner/docs/test-context-set) .
-  - Learn how to [build contexts using Gemini CLI](/spanner/docs/build-context-gemini-cli) .
+  - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
+  - Learn how to [test a context set](https://docs.cloud.google.com/spanner/docs/test-context-set) .
+  - Learn how to [build contexts using Gemini CLI](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli) .

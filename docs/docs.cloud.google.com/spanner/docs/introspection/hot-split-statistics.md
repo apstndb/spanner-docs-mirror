@@ -8,7 +8,7 @@ A split's hotspot statistic (identified in the system as `  CPU_USAGE_SCORE  ` )
 
 The `  CPU_USAGE_SCORE  ` of a split can remain constant or vary over time based on the workload accessing the split and changes in the split boundaries.
 
-Based on the warm and hot split resource constraints, Spanner might use [load-based splitting](/spanner/docs/schema-and-data-model#load-based_splitting) to evenly distribute the load across the key space. The warm and hot splits can be moved across the instance's servers for load balancing. Spanner performs load-based splitting in the background, minimizing the impact on latency. However, Spanner might not be able to balance the load, even after multiple attempts at splitting, due to [anti-patterns](/spanner/docs/whitepapers/optimizing-schema-design#anti-patterns) in the application. The `  UNSPLITTABLE_REASONS  ` column in the statistics views provides specific reasons why a hot or warm split couldn't be divided further. Hence, persistent warm or hot splits that last at least 10 minutes might need further troubleshooting and potential application changes, especially when `  UNSPLITTABLE_REASONS  ` are present.
+Based on the warm and hot split resource constraints, Spanner might use [load-based splitting](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#load-based_splitting) to evenly distribute the load across the key space. The warm and hot splits can be moved across the instance's servers for load balancing. Spanner performs load-based splitting in the background, minimizing the impact on latency. However, Spanner might not be able to balance the load, even after multiple attempts at splitting, due to [anti-patterns](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design#anti-patterns) in the application. The `  UNSPLITTABLE_REASONS  ` column in the statistics views provides specific reasons why a hot or warm split couldn't be divided further. Hence, persistent warm or hot splits that last at least 10 minutes might need further troubleshooting and potential application changes, especially when `  UNSPLITTABLE_REASONS  ` are present.
 
 The Spanner hot split statistics help you identify the splits where hotspots occur and understand why they may persist. These statistics, combined with `  UNSPLITTABLE_REASONS  ` codes, can help you diagnose what actions you need to take to resolve hotspots. You can then make changes to your application or schema, as needed.
 
@@ -16,9 +16,9 @@ The Spanner hot split statistics help you identify the splits where hotspots occ
 
 Spanner provides the hot split statistics in the `  SPANNER_SYS  ` schema. `  SPANNER_SYS  ` data is available through GoogleSQL and PostgreSQL interfaces. You can access this data in the following ways:
 
-  - A database's [Spanner Studio page](/spanner/docs/manage-data-using-console) in the Google Cloud console.
-  - The [`  gcloud spanner databases execute-sql  `](/sdk/gcloud/reference/spanner/databases/execute-sql) command.
-  - The [`  executeSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
+  - A database's [Spanner Studio page](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) in the Google Cloud console.
+  - The [`  gcloud spanner databases execute-sql  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command.
+  - The [`  executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
 
 The following single read methods that Spanner provides don't support `  SPANNER_SYS  ` :
 
@@ -48,7 +48,7 @@ These views have the following properties:
   - Spanner groups the statistics by splits.
   - Each row contains statistics, including the `  CPU_USAGE_SCORE  ` percentage which indicates how hot or warm a split is, for each split that Spanner captures statistics for during the specified interval.
   - The `  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE  ` view offers the granular split statistics for every minute. Use this view for detailed debugging of recent events.
-  - The `  SPANNER_SYS.SPLIT_STATS_TOP_10MINUTE  ` and `  SPANNER_SYS.SPLIT_STATS_TOP_HOUR  ` views provide an aggregated view within 10-minute and hour intervals, respectively. Use these views for trend analysis or investigating issues over the past few days or weeks. For more information on aggregation, see [View event aggregation](#view-event-aggregation) .
+  - The `  SPANNER_SYS.SPLIT_STATS_TOP_10MINUTE  ` and `  SPANNER_SYS.SPLIT_STATS_TOP_HOUR  ` views provide an aggregated view within 10-minute and hour intervals, respectively. Use these views for trend analysis or investigating issues over the past few days or weeks. For more information on aggregation, see [View event aggregation](https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics#view-event-aggregation) .
   - If Spanner is unable to store all the hot splits during the interval, the system prioritizes the splits with the highest `  CPU_USAGE_SCORE  ` percentage during the specified interval. If there are no splits returned, it's an indication of the absence of any hot splits.
 
 ## Data retention
@@ -68,47 +68,14 @@ These retention periods cannot be increased or decreased, and you can't prevent 
 
 The following table shows the schema for hot split statistics:
 
-<table>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       INTERVAL_END      </code></td>
-<td><code dir="ltr" translate="no">       TIMESTAMP      </code></td>
-<td>End of the time interval during which the split was warm or hot.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       SPLIT_START      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>The starting key of the range of rows in the split. The split start might also be &lt;begin&gt;, indicating the beginning of the key space.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>The limit key for the range of rows in the split. The limit key might also be &lt;end&gt;, indicating the end of the key space.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
-<td>The <code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code> percentage of the splits. A <code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code> percentage of 50% indicates the presence of warm or hot splits.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></td>
-<td><code dir="ltr" translate="no">       STRING ARRAY      </code></td>
-<td>The tables whose rows might be in the split.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></td>
-<td><code dir="ltr" translate="no">       STRING ARRAY      </code></td>
-<td>Identifies the type of hotspots present that load-based splitting cannot mitigate, often due to anti-patterns. The presence of any reason indicates user intervention, such as schema or workload adjustments, is likely needed. An empty array means either no unsplittable conditions were detected during this interval or the high load was too short-lived for Spanner to determine if it was unsplittable. See <a href="#unsplit-reason-types"><code dir="ltr" translate="no">        UNSPLITTABLE_REASONS       </code> types</a> for more details.</td>
-</tr>
-</tbody>
-</table>
+| Column name                           | Type                          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `        INTERVAL_END       `         | `        TIMESTAMP       `    | End of the time interval during which the split was warm or hot.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `        SPLIT_START       `          | `        STRING       `       | The starting key of the range of rows in the split. The split start might also be \<begin\>, indicating the beginning of the key space.                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `        SPLIT_LIMIT       `          | `        STRING       `       | The limit key for the range of rows in the split. The limit key might also be \<end\>, indicating the end of the key space.                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `        CPU_USAGE_SCORE       `      | `        INT64       `        | The `        CPU_USAGE_SCORE       ` percentage of the splits. A `        CPU_USAGE_SCORE       ` percentage of 50% indicates the presence of warm or hot splits.                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `        AFFECTED_TABLES       `      | `        STRING ARRAY       ` | The tables whose rows might be in the split.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `        UNSPLITTABLE_REASONS       ` | `        STRING ARRAY       ` | Identifies the type of hotspots present that load-based splitting cannot mitigate, often due to anti-patterns. The presence of any reason indicates user intervention, such as schema or workload adjustments, is likely needed. An empty array means either no unsplittable conditions were detected during this interval or the high load was too short-lived for Spanner to determine if it was unsplittable. See [`         UNSPLITTABLE_REASONS        ` types](https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics#unsplit-reason-types) for more details. |
 
 **Note:** Splits with `  CPU_USAGE_SCORE  ` percentages that are less than 100% can be used to track trends over time. Spanner uses load-based splitting to balance the load across servers, and hence you might see the splits change or shrink over time. However, Spanner might not be able to balance the load due to problematic patterns in the application, and hot splits might persist and result in `  UNSPLITTABLE_REASONS  ` . We recommend looking for schema or workload issues if you observe hot splits with unsplittable reasons persisting for longer than 10 minutes.
 
@@ -124,133 +91,90 @@ The following schema is an example table for the topics in this page.
 
 ### GoogleSQL
 
-``` text
-CREATE TABLE Users (
-  UserId INT64 NOT NULL,
-  FirstName STRING(MAX),
-  LastName STRING(MAX),
-) PRIMARY KEY(UserId);
-
-CREATE INDEX UsersByFirstName ON Users(FirstName DESC);
-
-CREATE TABLE Threads (
-  UserId INT64 NOT NULL,
-  ThreadId INT64 NOT NULL,
-  Starred BOOL,
-) PRIMARY KEY(UserId, ThreadId),
-  INTERLEAVE IN PARENT Users ON DELETE CASCADE;
-
-CREATE TABLE Messages (
-  UserId INT64 NOT NULL,
-  ThreadId INT64 NOT NULL,
-  MessageId INT64 NOT NULL,
-  Subject STRING(MAX),
-  Body STRING(MAX),
-) PRIMARY KEY(UserId, ThreadId, MessageId),
-  INTERLEAVE IN PARENT Threads ON DELETE CASCADE;
-
-CREATE INDEX MessagesIdx ON Messages(UserId, ThreadId, Subject),
-INTERLEAVE IN Threads;
-```
+    CREATE TABLE Users (
+      UserId INT64 NOT NULL,
+      FirstName STRING(MAX),
+      LastName STRING(MAX),
+    ) PRIMARY KEY(UserId);
+    
+    CREATE INDEX UsersByFirstName ON Users(FirstName DESC);
+    
+    CREATE TABLE Threads (
+      UserId INT64 NOT NULL,
+      ThreadId INT64 NOT NULL,
+      Starred BOOL,
+    ) PRIMARY KEY(UserId, ThreadId),
+      INTERLEAVE IN PARENT Users ON DELETE CASCADE;
+    
+    CREATE TABLE Messages (
+      UserId INT64 NOT NULL,
+      ThreadId INT64 NOT NULL,
+      MessageId INT64 NOT NULL,
+      Subject STRING(MAX),
+      Body STRING(MAX),
+    ) PRIMARY KEY(UserId, ThreadId, MessageId),
+      INTERLEAVE IN PARENT Threads ON DELETE CASCADE;
+    
+    CREATE INDEX MessagesIdx ON Messages(UserId, ThreadId, Subject),
+    INTERLEAVE IN Threads;
 
 ### PostgreSQL
 
-``` text
-CREATE TABLE users
-(
-   userid    BIGINT NOT NULL PRIMARY KEY,-- INT64 to BIGINT
-   firstname VARCHAR(max),-- STRING(MAX) to VARCHAR(MAX)
-   lastname  VARCHAR(max)
-);
-
-CREATE INDEX usersbyfirstname
-  ON users(firstname DESC);
-
-CREATE TABLE threads
-  (
-    userid   BIGINT NOT NULL,
-    threadid BIGINT NOT NULL,
-    starred  BOOLEAN, -- BOOL to BOOLEAN
-    PRIMARY KEY (userid, threadid),
-    CONSTRAINT fk_threads_user FOREIGN KEY (userid) REFERENCES users(userid) ON
-    DELETE CASCADE -- Interleave to Foreign Key constraint
-  );
-
-CREATE TABLE messages
-  (
-    userid    BIGINT NOT NULL,
-    threadid  BIGINT NOT NULL,
-    messageid BIGINT NOT NULL PRIMARY KEY,
-    subject   VARCHAR(max),
-    body      VARCHAR(max),
-    CONSTRAINT fk_messages_thread FOREIGN KEY (userid, threadid) REFERENCES
-    threads(userid, threadid) ON DELETE CASCADE
-  -- Interleave to Foreign Key constraint
-  );
-
-CREATE INDEX messagesidx ON messages(userid, threadid, subject), REFERENCES
-threads(userid, threadid);
-```
+    CREATE TABLE users
+    (
+       userid    BIGINT NOT NULL PRIMARY KEY,-- INT64 to BIGINT
+       firstname VARCHAR(max),-- STRING(MAX) to VARCHAR(MAX)
+       lastname  VARCHAR(max)
+    );
+    
+    CREATE INDEX usersbyfirstname
+      ON users(firstname DESC);
+    
+    CREATE TABLE threads
+      (
+        userid   BIGINT NOT NULL,
+        threadid BIGINT NOT NULL,
+        starred  BOOLEAN, -- BOOL to BOOLEAN
+        PRIMARY KEY (userid, threadid),
+        CONSTRAINT fk_threads_user FOREIGN KEY (userid) REFERENCES users(userid) ON
+        DELETE CASCADE -- Interleave to Foreign Key constraint
+      );
+    
+    CREATE TABLE messages
+      (
+        userid    BIGINT NOT NULL,
+        threadid  BIGINT NOT NULL,
+        messageid BIGINT NOT NULL PRIMARY KEY,
+        subject   VARCHAR(max),
+        body      VARCHAR(max),
+        CONSTRAINT fk_messages_thread FOREIGN KEY (userid, threadid) REFERENCES
+        threads(userid, threadid) ON DELETE CASCADE
+      -- Interleave to Foreign Key constraint
+      );
+    
+    CREATE INDEX messagesidx ON messages(userid, threadid, subject), REFERENCES
+    threads(userid, threadid);
 
 Imagine your key space looks like this:
 
-<table>
-<thead>
-<tr class="header">
-<th>PRIMARY KEY</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       &lt;begin&gt;      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       Users()      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Threads()      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       Users(2)      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Users(3)      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       Threads(3)      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Threads(3,"a")      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       Messages(3,"a",1)      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Messages(3,"a",2)      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       Threads(3, "aa")      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Users(9)      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       Users(10)      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Threads(10)      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       UsersByFirstName("abc")      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       UsersByFirstName("abcd")      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-</tr>
-</tbody>
-</table>
+| PRIMARY KEY                               |
+| ----------------------------------------- |
+| `        <begin>       `                  |
+| `        Users()       `                  |
+| `        Threads()       `                |
+| `        Users(2)       `                 |
+| `        Users(3)       `                 |
+| `        Threads(3)       `               |
+| `        Threads(3,"a")       `           |
+| `        Messages(3,"a",1)       `        |
+| `        Messages(3,"a",2)       `        |
+| `        Threads(3, "aa")       `         |
+| `        Users(9)       `                 |
+| `        Users(10)       `                |
+| `        Threads(10)       `              |
+| `        UsersByFirstName("abc")       `  |
+| `        UsersByFirstName("abcd")       ` |
+| `        <end>       `                    |
 
 ### Example of splits
 
@@ -258,60 +182,15 @@ The following shows some example splits to help you understand what splits look 
 
 The `  SPLIT_START  ` and `  SPLIT_LIMIT  ` might indicate the row of a table or index, or they can be `  <begin>  ` and `  <end>  ` , representing the boundaries of the key space of the database. The `  SPLIT_START  ` and `  SPLIT_LIMIT  ` might also contain truncated keys, which are keys preceding any full key in the table. For example, `  Threads(10)  ` is a prefix for any `  Threads  ` row interleaved in `  Users(10)  ` .
 
-<table>
-<thead>
-<tr class="header">
-<th>SPLIT_START</th>
-<th>SPLIT_LIMIT</th>
-<th>AFFECTED_TABLES</th>
-<th>EXPLANATION</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Users(3)      </code></td>
-<td><code dir="ltr" translate="no">       Users(10)      </code></td>
-<td><code dir="ltr" translate="no">       UsersByFirstName      </code> , <code dir="ltr" translate="no">       Users      </code> , <code dir="ltr" translate="no">       Threads      </code> , <code dir="ltr" translate="no">       Messages      </code> , <code dir="ltr" translate="no">       MessagesIdx      </code></td>
-<td>Split starts at row with <code dir="ltr" translate="no">       UserId=3      </code> and ends at the row before the row with <code dir="ltr" translate="no">       UserId = 10      </code> . The split contains the <code dir="ltr" translate="no">       Users      </code> table rows and all its interleaved tables rows for <code dir="ltr" translate="no">       UserId=3      </code> to 10.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       Messages(3,"a",1)      </code></td>
-<td><code dir="ltr" translate="no">       Threads(3,"aa")      </code></td>
-<td><code dir="ltr" translate="no">       Threads      </code> , <code dir="ltr" translate="no">       Messages      </code> , <code dir="ltr" translate="no">       MessagesIdx      </code></td>
-<td>The split starts at the row with <code dir="ltr" translate="no">       UserId=3      </code> , <code dir="ltr" translate="no">       ThreadId="a"      </code> and <code dir="ltr" translate="no">       MessageId=1      </code> and ends at the row preceding the row with the key of <code dir="ltr" translate="no">       UserId=3      </code> and <code dir="ltr" translate="no">       ThreadsId = "aa"      </code> . The split contains all the tables between <code dir="ltr" translate="no">       Messages(3,"a",1)      </code> and <code dir="ltr" translate="no">       Threads(3,"aa")      </code> . As the <code dir="ltr" translate="no">       split_start      </code> and <code dir="ltr" translate="no">       split_limit      </code> are interleaved in the same top-level table row, the split contains the interleaved tables rows between the start and limit. See <a href="/spanner/docs/schema-and-data-model#create_a_hierarchy_of_interleaved_tables">schemas-overview</a> to understand how interleaved tables are co-located.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Messages(3,"a",1)      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       UsersByFirstName      </code> , <code dir="ltr" translate="no">       Users      </code> , <code dir="ltr" translate="no">       Threads      </code> , <code dir="ltr" translate="no">       Messages      </code> , <code dir="ltr" translate="no">       MessagesIdx      </code></td>
-<td>The split starts in the messages table at the row with key <code dir="ltr" translate="no">       UserId=3      </code> , <code dir="ltr" translate="no">       ThreadId="a"      </code> and <code dir="ltr" translate="no">       MessageId=1      </code> . The split hosts all the rows from the <code dir="ltr" translate="no">       split_start      </code> to <code dir="ltr" translate="no">       &lt;end&gt;      </code> , the end of the key space of the database. All the rows of the tables following the <code dir="ltr" translate="no">       split_start      </code> , like <code dir="ltr" translate="no">       Users(4)      </code> are included in the split.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       &lt;begin&gt;      </code></td>
-<td><code dir="ltr" translate="no">       Users(9)      </code></td>
-<td><code dir="ltr" translate="no">       UsersByFirstName      </code> , <code dir="ltr" translate="no">       Users      </code> , <code dir="ltr" translate="no">       Threads      </code> , <code dir="ltr" translate="no">       Messages      </code> , <code dir="ltr" translate="no">       MessagesIdx      </code></td>
-<td>The split starts at <code dir="ltr" translate="no">       &lt;begin&gt;      </code> , the beginning of the key space of the database and ends at the row preceding the <code dir="ltr" translate="no">       Users      </code> row with <code dir="ltr" translate="no">       UserId=9      </code> . So the split has all the table rows preceding <code dir="ltr" translate="no">       Users      </code> and all the rows of <code dir="ltr" translate="no">       Users      </code> table preceding <code dir="ltr" translate="no">       UserId=9      </code> and the rows of its interleaved tables.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Messages(3,"a",1)      </code></td>
-<td><code dir="ltr" translate="no">       Threads(10)      </code></td>
-<td><code dir="ltr" translate="no">       UsersByFirstName      </code> , <code dir="ltr" translate="no">       Users      </code> , <code dir="ltr" translate="no">       Threads      </code> , <code dir="ltr" translate="no">       Messages      </code> , <code dir="ltr" translate="no">       MessagesIdx      </code></td>
-<td>Split starts at <code dir="ltr" translate="no">       Messages(3,"a", 1)      </code> interleaved in <code dir="ltr" translate="no">       Users(3)      </code> and ends at the row preceding <code dir="ltr" translate="no">       Threads(10)      </code> . <code dir="ltr" translate="no">       Threads(10)      </code> is a truncated split key that is a prefix of any key of the Threads table interleaved in <code dir="ltr" translate="no">       Users(10)      </code> .</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       Users()      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       UsersByFirstName      </code> , <code dir="ltr" translate="no">       Users      </code> , <code dir="ltr" translate="no">       Threads      </code> , <code dir="ltr" translate="no">       Messages      </code> , <code dir="ltr" translate="no">       MessagesIdx      </code></td>
-<td>The split starts at the truncated split key of <code dir="ltr" translate="no">       Users()      </code> which precedes any full key of the <code dir="ltr" translate="no">       Users      </code> table. The split extends until the end of the possible key space in the database. The affected_tables hence cover the <code dir="ltr" translate="no">       Users      </code> table, its interleaved tables and indexes and all the tables that might appear after users.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Threads(10)      </code></td>
-<td><code dir="ltr" translate="no">       UsersByFirstName("abc")      </code></td>
-<td><code dir="ltr" translate="no">       UsersByFirstName      </code> , <code dir="ltr" translate="no">       Users      </code> , <code dir="ltr" translate="no">       Threads      </code> , <code dir="ltr" translate="no">       Messages      </code> , <code dir="ltr" translate="no">       MessagesIdx      </code></td>
-<td>The split starts at the <code dir="ltr" translate="no">       Threads      </code> row with <code dir="ltr" translate="no">       UserId = 10      </code> and ends at the index, <code dir="ltr" translate="no">       UsersByFirstName      </code> at the key preceding <code dir="ltr" translate="no">       "abc"      </code> .</td>
-</tr>
-</tbody>
-</table>
+| SPLIT\_START                       | SPLIT\_LIMIT                             | AFFECTED\_TABLES                                                                                                                                 | EXPLANATION                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ---------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        Users(3)       `          | `        Users(10)       `               | `        UsersByFirstName       ` , `        Users       ` , `        Threads       ` , `        Messages       ` , `        MessagesIdx       ` | Split starts at row with `        UserId=3       ` and ends at the row before the row with `        UserId = 10       ` . The split contains the `        Users       ` table rows and all its interleaved tables rows for `        UserId=3       ` to 10.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `        Messages(3,"a",1)       ` | `        Threads(3,"aa")       `         | `        Threads       ` , `        Messages       ` , `        MessagesIdx       `                                                              | The split starts at the row with `        UserId=3       ` , `        ThreadId="a"       ` and `        MessageId=1       ` and ends at the row preceding the row with the key of `        UserId=3       ` and `        ThreadsId = "aa"       ` . The split contains all the tables between `        Messages(3,"a",1)       ` and `        Threads(3,"aa")       ` . As the `        split_start       ` and `        split_limit       ` are interleaved in the same top-level table row, the split contains the interleaved tables rows between the start and limit. See [schemas-overview](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create_a_hierarchy_of_interleaved_tables) to understand how interleaved tables are co-located. |
+| `        Messages(3,"a",1)       ` | `        <end>       `                   | `        UsersByFirstName       ` , `        Users       ` , `        Threads       ` , `        Messages       ` , `        MessagesIdx       ` | The split starts in the messages table at the row with key `        UserId=3       ` , `        ThreadId="a"       ` and `        MessageId=1       ` . The split hosts all the rows from the `        split_start       ` to `        <end>       ` , the end of the key space of the database. All the rows of the tables following the `        split_start       ` , like `        Users(4)       ` are included in the split.                                                                                                                                                                                                                                                                                                                               |
+| `        <begin>       `           | `        Users(9)       `                | `        UsersByFirstName       ` , `        Users       ` , `        Threads       ` , `        Messages       ` , `        MessagesIdx       ` | The split starts at `        <begin>       ` , the beginning of the key space of the database and ends at the row preceding the `        Users       ` row with `        UserId=9       ` . So the split has all the table rows preceding `        Users       ` and all the rows of `        Users       ` table preceding `        UserId=9       ` and the rows of its interleaved tables.                                                                                                                                                                                                                                                                                                                                                                    |
+| `        Messages(3,"a",1)       ` | `        Threads(10)       `             | `        UsersByFirstName       ` , `        Users       ` , `        Threads       ` , `        Messages       ` , `        MessagesIdx       ` | Split starts at `        Messages(3,"a", 1)       ` interleaved in `        Users(3)       ` and ends at the row preceding `        Threads(10)       ` . `        Threads(10)       ` is a truncated split key that is a prefix of any key of the Threads table interleaved in `        Users(10)       ` .                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `        Users()       `           | `        <end>       `                   | `        UsersByFirstName       ` , `        Users       ` , `        Threads       ` , `        Messages       ` , `        MessagesIdx       ` | The split starts at the truncated split key of `        Users()       ` which precedes any full key of the `        Users       ` table. The split extends until the end of the possible key space in the database. The affected\_tables hence cover the `        Users       ` table, its interleaved tables and indexes and all the tables that might appear after users.                                                                                                                                                                                                                                                                                                                                                                                      |
+| `        Threads(10)       `       | `        UsersByFirstName("abc")       ` | `        UsersByFirstName       ` , `        Users       ` , `        Threads       ` , `        Messages       ` , `        MessagesIdx       ` | The split starts at the `        Threads       ` row with `        UserId = 10       ` and ends at the index, `        UsersByFirstName       ` at the key preceding `        "abc"       ` .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 **Note:** `  SPLIT_LIMIT  ` is greater than the `  SPLIT_START  ` . However, lexicographical comparisons of the split start and limit might not work across splits.
 
@@ -383,8 +262,8 @@ When Spanner cannot mitigate a hotspot through load-based splitting, the `  UNSP
 
   - Investigate application workloads, queries, or transactions accessing the tables within the hot split (listed in `  AFFECTED_TABLES  ` ) that have shown increased load.
   - Use tools like Query Insights and Transaction Insights to identify expensive operations.
-  - Evaluate the workload and ensure that you are using the [Schema design best practices](/spanner/docs/schema-design) and [SQL best practices](/spanner/docs/sql-best-practices) .
-  - If the hotspot persists for more than 10 minutes despite the prior optimizations, [open a support case](/spanner/docs/getting-support) .
+  - Evaluate the workload and ensure that you are using the [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) and [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
+  - If the hotspot persists for more than 10 minutes despite the prior optimizations, [open a support case](https://docs.cloud.google.com/spanner/docs/getting-support) .
 
 ## View event aggregation
 
@@ -400,101 +279,21 @@ A split appears in these views if its `  CPU_USAGE_SCORE  ` was 50% or higher in
 
 Examine the split from `  Users(101)  ` to `  Users(102)  ` . The following table shows its potential entries in the `  MINUTE  ` view over a 10-minute period from 10:00:00 to 10:10:00:
 
-<table>
-<thead>
-<tr class="header">
-<th><code dir="ltr" translate="no">       INTERVAL_END      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
-<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
-<th><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></th>
-<th><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>10:01:00</td>
-<td>Users(101)</td>
-<td>Users(102)</td>
-<td>60</td>
-<td>[Messages,Users,Threads]</td>
-<td>[]</td>
-</tr>
-<tr class="even">
-<td>10:02:00</td>
-<td>Users(101)</td>
-<td>Users(102)</td>
-<td>95</td>
-<td>[Messages,Users,Threads]</td>
-<td>[HOT_ROW]</td>
-</tr>
-<tr class="odd">
-<td>10:03:00</td>
-<td>Users(101)</td>
-<td>Users(102)</td>
-<td>80</td>
-<td>[Messages,Users,Threads]</td>
-<td>[HOT_ROW]</td>
-</tr>
-<tr class="even">
-<td>10:04:00</td>
-<td>Users(101)</td>
-<td>Users(102)</td>
-<td>55</td>
-<td>[Users,Threads]</td>
-<td>[]</td>
-</tr>
-<tr class="odd">
-<td>10:06:00</td>
-<td>Users(101)</td>
-<td>Users(102)</td>
-<td>70</td>
-<td>[Users,Threads]</td>
-<td>[LARGE_SCAN_HOT_SPOT]</td>
-</tr>
-<tr class="even">
-<td>10:07:00</td>
-<td>Users(101)</td>
-<td>Users(102)</td>
-<td>65</td>
-<td>[Users,Threads]</td>
-<td>[LARGE_SCAN_HOT_SPOT]</td>
-</tr>
-<tr class="odd">
-<td>10:09:00</td>
-<td>Users(101)</td>
-<td>Users(102)</td>
-<td>52</td>
-<td>[Users,Threads]</td>
-<td>[]</td>
-</tr>
-</tbody>
-</table>
+| `        INTERVAL_END       ` | `        SPLIT_START       ` | `        SPLIT_LIMIT       ` | `        CPU_USAGE_SCORE       ` | `        AFFECTED_TABLES       ` | `        UNSPLITTABLE_REASONS       ` |
+| ----------------------------- | ---------------------------- | ---------------------------- | -------------------------------- | -------------------------------- | ------------------------------------- |
+| 10:01:00                      | Users(101)                   | Users(102)                   | 60                               | \[Messages,Users,Threads\]       | \[\]                                  |
+| 10:02:00                      | Users(101)                   | Users(102)                   | 95                               | \[Messages,Users,Threads\]       | \[HOT\_ROW\]                          |
+| 10:03:00                      | Users(101)                   | Users(102)                   | 80                               | \[Messages,Users,Threads\]       | \[HOT\_ROW\]                          |
+| 10:04:00                      | Users(101)                   | Users(102)                   | 55                               | \[Users,Threads\]                | \[\]                                  |
+| 10:06:00                      | Users(101)                   | Users(102)                   | 70                               | \[Users,Threads\]                | \[LARGE\_SCAN\_HOT\_SPOT\]            |
+| 10:07:00                      | Users(101)                   | Users(102)                   | 65                               | \[Users,Threads\]                | \[LARGE\_SCAN\_HOT\_SPOT\]            |
+| 10:09:00                      | Users(101)                   | Users(102)                   | 52                               | \[Users,Threads\]                | \[\]                                  |
 
 The corresponding aggregated entry in `  10MINUTE  ` for the interval ending at 10:10:00 for this split would be:
 
-<table>
-<thead>
-<tr class="header">
-<th><code dir="ltr" translate="no">       INTERVAL_END      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
-<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
-<th><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></th>
-<th><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>10:10:00</td>
-<td>Users(101)</td>
-<td>Users(102)</td>
-<td>95</td>
-<td>[Messages,Users,Threads]</td>
-<td>[HOT_ROW, LARGE_SCAN_HOT_SPOT]</td>
-</tr>
-</tbody>
-</table>
+| `        INTERVAL_END       ` | `        SPLIT_START       ` | `        SPLIT_LIMIT       ` | `        CPU_USAGE_SCORE       ` | `        AFFECTED_TABLES       ` | `        UNSPLITTABLE_REASONS       ` |
+| ----------------------------- | ---------------------------- | ---------------------------- | -------------------------------- | -------------------------------- | ------------------------------------- |
+| 10:10:00                      | Users(101)                   | Users(102)                   | 95                               | \[Messages,Users,Threads\]       | \[HOT\_ROW, LARGE\_SCAN\_HOT\_SPOT\]  |
 
   - **`  CPU_USAGE_SCORE  `** : 95 is the maximum value from the `  CPU_USAGE_SCORE  ` column in the 1-minute view for this split within the window.
   - **`  UNSPLITTABLE_REASONS  `** : `  [HOT_ROW, LARGE_SCAN_HOT_SPOT]  ` is the union of all unique reasons present in the `  UNSPLITTABLE_REASONS  ` column in the 1-minute view.
@@ -505,22 +304,20 @@ This example shows how the `  10MINUTE  ` view summarizes the most intense load 
 
 You can use the following SQL statement to retrieve hot split statistics. You can run these SQL statements using the client libraries, Google Cloud CLI, or the Google Cloud console.
 
-``` text
-SELECT
-  t.interval_end,
-  t.split_start,
-  t.split_limit,
-  t.cpu_usage_score,
-  t.affected_tables,
-  t.unsplittable_reasons
-FROM
-  SPANNER_SYS.SPLIT_STATS_TOP_DURATION AS t
-WHERE
-  -- Optional: Filter by a specific interval end time
-  -- t.interval_end = 'INTERVAL_END_TIME'
-ORDER BY
-  t.interval_end DESC, t.cpu_usage_score DESC;
-```
+    SELECT
+      t.interval_end,
+      t.split_start,
+      t.split_limit,
+      t.cpu_usage_score,
+      t.affected_tables,
+      t.unsplittable_reasons
+    FROM
+      SPANNER_SYS.SPLIT_STATS_TOP_DURATION AS t
+    WHERE
+      -- Optional: Filter by a specific interval end time
+      -- t.interval_end = 'INTERVAL_END_TIME'
+    ORDER BY
+      t.interval_end DESC, t.cpu_usage_score DESC;
 
 Replace the following:
 
@@ -529,63 +326,16 @@ Replace the following:
 
 ### Interpret query results
 
-For a complete list of `  UNSPLITTABLE_REASONS  ` codes and their possible diagnoses, see [`  UNSPLITTABLE_REASONS  ` types](#unsplit-reason-types) . For example, your query output might look like the following:
+For a complete list of `  UNSPLITTABLE_REASONS  ` codes and their possible diagnoses, see [`  UNSPLITTABLE_REASONS  ` types](https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics#unsplit-reason-types) . For example, your query output might look like the following:
 
-<table>
-<thead>
-<tr class="header">
-<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
-<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
-<th><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></th>
-<th><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Threads(10)</td>
-<td>Threads(10, "aa")</td>
-<td>100</td>
-<td>Messages,Threads</td>
-<td>[UNISOLATABLE_HOT_ROW]</td>
-</tr>
-<tr class="even">
-<td>Messages(631, "abc", 1)</td>
-<td>Messages(631, "abc", 3)</td>
-<td>100</td>
-<td>Messages</td>
-<td>[HOT_ROW]</td>
-</tr>
-<tr class="odd">
-<td>Users(620)</td>
-<td>&lt;end&gt;</td>
-<td>100</td>
-<td>Messages,Users,Threads</td>
-<td>[MOVING_HOT_SPOT]</td>
-</tr>
-<tr class="even">
-<td>Users(101)</td>
-<td>Users(102)</td>
-<td>90</td>
-<td>Messages,Users,Threads</td>
-<td>[HOT_ROW]</td>
-</tr>
-<tr class="odd">
-<td>Users(13)</td>
-<td>Users(76)</td>
-<td>82</td>
-<td>Messages,Users,Threads</td>
-<td>[LARGE_SCAN_HOT_SPOT]</td>
-</tr>
-<tr class="even">
-<td>Threads(12, "zebra")</td>
-<td>Users(14)</td>
-<td>76</td>
-<td>Messages,Users,Threads</td>
-<td>[]</td>
-</tr>
-</tbody>
-</table>
+| `        SPLIT_START       ` | `        SPLIT_LIMIT       ` | `        CPU_USAGE_SCORE       ` | `        AFFECTED_TABLES       ` | `        UNSPLITTABLE_REASONS       ` |
+| ---------------------------- | ---------------------------- | -------------------------------- | -------------------------------- | ------------------------------------- |
+| Threads(10)                  | Threads(10, "aa")            | 100                              | Messages,Threads                 | \[UNISOLATABLE\_HOT\_ROW\]            |
+| Messages(631, "abc", 1)      | Messages(631, "abc", 3)      | 100                              | Messages                         | \[HOT\_ROW\]                          |
+| Users(620)                   | \<end\>                      | 100                              | Messages,Users,Threads           | \[MOVING\_HOT\_SPOT\]                 |
+| Users(101)                   | Users(102)                   | 90                               | Messages,Users,Threads           | \[HOT\_ROW\]                          |
+| Users(13)                    | Users(76)                    | 82                               | Messages,Users,Threads           | \[LARGE\_SCAN\_HOT\_SPOT\]            |
+| Threads(12, "zebra")         | Users(14)                    | 76                               | Messages,Users,Threads           | \[\]                                  |
 
 From these results, you could infer the following issues:
 
@@ -602,35 +352,33 @@ This section describes how to detect and troubleshoot hotspots.
 
 ### Select a time period to investigate
 
-Check the [latency metrics](/spanner/docs/latency-metrics) for your Spanner database to find the time period when your application experienced high latency and CPU usage. For example, it might show you that an issue started around 10:50 PM on May 18, 2072.
+Check the [latency metrics](https://docs.cloud.google.com/spanner/docs/latency-metrics) for your Spanner database to find the time period when your application experienced high latency and CPU usage. For example, it might show you that an issue started around 10:50 PM on May 18, 2072.
 
 ### Check for unsplittable reasons
 
-As Spanner balances load with [load-based splitting](/spanner/docs/schema-and-data-model#load-based_splitting) , we recommend that you investigate hotspots that continue for more than 10 minutes, especially if they have `  UNSPLITTABLE_REASONS  ` . The presence of `  UNSPLITTABLE_REASONS  ` indicates that Spanner cannot split the hot split, and schema or workload changes might be needed to mitigate the hotspot.
+As Spanner balances load with [load-based splitting](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#load-based_splitting) , we recommend that you investigate hotspots that continue for more than 10 minutes, especially if they have `  UNSPLITTABLE_REASONS  ` . The presence of `  UNSPLITTABLE_REASONS  ` indicates that Spanner cannot split the hot split, and schema or workload changes might be needed to mitigate the hotspot.
 
 You can query for `  UNSPLITTABLE_REASONS  ` as shown in the following example query:
 
-``` text
-SELECT
-  reason,
-  COUNT(*) AS occurrences
-FROM
-  SPANNER_SYS.SPLIT_STATS_TOP_MINUTE AS t,
-  UNNEST(t.unsplittable_reasons) AS reason
-WHERE
-  t.cpu_usage_score >= 50
-  AND ARRAY_LENGTH(t.unsplittable_reasons) > 0
-  AND t.interval_end >= "2072-05-18T17:40:00Z"  -- Start of window
-  AND t.interval_end <= "2072-05-18T17:50:00Z"  -- End of window
-GROUP BY
-  reason
-ORDER BY
-  occurrences DESC;
-```
+    SELECT
+      reason,
+      COUNT(*) AS occurrences
+    FROM
+      SPANNER_SYS.SPLIT_STATS_TOP_MINUTE AS t,
+      UNNEST(t.unsplittable_reasons) AS reason
+    WHERE
+      t.cpu_usage_score >= 50
+      AND ARRAY_LENGTH(t.unsplittable_reasons) > 0
+      AND t.interval_end >= "2072-05-18T17:40:00Z"  -- Start of window
+      AND t.interval_end <= "2072-05-18T17:50:00Z"  -- End of window
+    GROUP BY
+      reason
+    ORDER BY
+      occurrences DESC;
 
 The presence of `  UNSPLITTABLE_REASONS  ` indicates a need for further debugging.
 
-You can also monitor unsplittable reasons using Cloud Monitoring. The metric to use is `  unsplittable_reason_count  ` . For more information, see [Spanner metrics](/spanner/docs/metrics) .
+You can also monitor unsplittable reasons using Cloud Monitoring. The metric to use is `  unsplittable_reason_count  ` . For more information, see [Spanner metrics](https://docs.cloud.google.com/spanner/docs/metrics) .
 
 ### Find the splits with the highest `     CPU_USAGE_SCORE    ` and their `     UNSPLITTABLE_REASONS    `
 
@@ -638,72 +386,39 @@ For this example, we run the following SQL to find the row ranges with the highe
 
 ### GoogleSQL
 
-``` text
-SELECT t.split_start,
-     t.split_limit,
-     t.cpu_usage_score,
-     t.affected_tables,
-     t.unsplittable_reasons
-FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
-WHERE  t.cpu_usage_score >= 50
-AND  t.interval_end = "interval_end_date_time";
-```
+    SELECT t.split_start,
+         t.split_limit,
+         t.cpu_usage_score,
+         t.affected_tables,
+         t.unsplittable_reasons
+    FROM   SPANNER_SYS.SPLIT_STATS_TOP_MINUTE t
+    WHERE  t.cpu_usage_score >= 50
+    AND  t.interval_end = "interval_end_date_time";
 
 Replace interval\_end\_date\_time with the date and time for the interval, using the format YYYY-MM-DDTHH:MM:SSZ. For example, `  2072-05-18T17:40:00Z  ` .
 
 ### PostgreSQL
 
-``` text
-SELECT t.split_start,
-     t.split_limit,
-     t.cpu_usage_score,
-     t.affected_tables,
-     t.unsplittable_reasons
-FROM   spanner_sys.split_stats_top_minute t
-WHERE  t.cpu_usage_score >= 50
-AND  t.interval_end = 'interval_end_date_time'::timestamptz;
-```
+    SELECT t.split_start,
+         t.split_limit,
+         t.cpu_usage_score,
+         t.affected_tables,
+         t.unsplittable_reasons
+    FROM   spanner_sys.split_stats_top_minute t
+    WHERE  t.cpu_usage_score >= 50
+    AND  t.interval_end = 'interval_end_date_time'::timestamptz;
 
 Replace interval\_end\_date\_time with the date and time for the interval, using the format YYYY-MM-DDTHH:MM:SSZ. For example, `  2072-05-18T17:40:00Z  ` .
 
 The previous SQL outputs the following:
 
-<table>
-<thead>
-<tr class="header">
-<th><code dir="ltr" translate="no">       SPLIT_START      </code></th>
-<th><code dir="ltr" translate="no">       SPLIT_LIMIT      </code></th>
-<th><code dir="ltr" translate="no">       CPU_USAGE_SCORE      </code></th>
-<th><code dir="ltr" translate="no">       AFFECTED_TABLES      </code></th>
-<th><code dir="ltr" translate="no">       UNSPLITTABLE_REASONS      </code></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Users(180)      </code></td>
-<td><code dir="ltr" translate="no">       &lt;end&gt;      </code></td>
-<td><code dir="ltr" translate="no">       85      </code></td>
-<td><code dir="ltr" translate="no">       Messages,Users,Threads      </code></td>
-<td><code dir="ltr" translate="no">       [MOVING_HOT_SPOT]      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       Users(24)      </code></td>
-<td><code dir="ltr" translate="no">       Users(76)      </code></td>
-<td><code dir="ltr" translate="no">       76      </code></td>
-<td><code dir="ltr" translate="no">       Messages,Users,Threads      </code></td>
-<td><code dir="ltr" translate="no">       [HOT_ROW, LARGE_SCAN_HOT_SPOT]      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       Threads(10)      </code></td>
-<td><code dir="ltr" translate="no">       UsersByFirstName("abc")      </code></td>
-<td><code dir="ltr" translate="no">       100      </code></td>
-<td><code dir="ltr" translate="no">       UsersByFirstName, Users, Threads, Messages, MessagesIdx      </code></td>
-<td><code dir="ltr" translate="no">       []      </code></td>
-</tr>
-</tbody>
-</table>
+| `        SPLIT_START       ` | `        SPLIT_LIMIT       `             | `        CPU_USAGE_SCORE       ` | `        AFFECTED_TABLES       `                                         | `        UNSPLITTABLE_REASONS       `           |
+| ---------------------------- | ---------------------------------------- | -------------------------------- | ------------------------------------------------------------------------ | ----------------------------------------------- |
+| `        Users(180)       `  | `        <end>       `                   | `        85       `              | `        Messages,Users,Threads       `                                  | `        [MOVING_HOT_SPOT]       `              |
+| `        Users(24)       `   | `        Users(76)       `               | `        76       `              | `        Messages,Users,Threads       `                                  | `        [HOT_ROW, LARGE_SCAN_HOT_SPOT]       ` |
+| `        Threads(10)       ` | `        UsersByFirstName("abc")       ` | `        100       `             | `        UsersByFirstName, Users, Threads, Messages, MessagesIdx       ` | `        []       `                             |
 
-From this table of results, we can see that there are three hot splits and two of them are unsplittable. Hotspots with `  UNSPLITTABLE_REASONS  ` that persist over time warrant further investigation. To understand what each reason means and how to mitigate it, see [`  UNSPLITTABLE_REASONS  ` types](#unsplit-reason-types) .
+From this table of results, we can see that there are three hot splits and two of them are unsplittable. Hotspots with `  UNSPLITTABLE_REASONS  ` that persist over time warrant further investigation. To understand what each reason means and how to mitigate it, see [`  UNSPLITTABLE_REASONS  ` types](https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics#unsplit-reason-types) .
 
 ## Best practices to mitigate hotspots
 
@@ -713,22 +428,22 @@ If load-balancing doesn't decrease latency, the next step is to identify the cau
 
 #### Identify the cause
 
-  - Use [Lock & Transaction Insights](/spanner/docs/use-lock-and-transaction-insights) to look for transactions that have high lock wait time where the row range start key is within the hot split.
-  - Use [Query Insights](/spanner/docs/using-query-insights) to look for queries that read from the table that contains the hot split, and have recently increased latency, or a higher ratio of latency to CPU.
-  - Use [Oldest Active Queries](/spanner/docs/introspection/oldest-active-queries) to look for queries that read from the table that contains the hot split, and have higher than expected latency.
+  - Use [Lock & Transaction Insights](https://docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights) to look for transactions that have high lock wait time where the row range start key is within the hot split.
+  - Use [Query Insights](https://docs.cloud.google.com/spanner/docs/using-query-insights) to look for queries that read from the table that contains the hot split, and have recently increased latency, or a higher ratio of latency to CPU.
+  - Use [Oldest Active Queries](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries) to look for queries that read from the table that contains the hot split, and have higher than expected latency.
 
 Some special cases to watch for:
 
-  - Check to see if [time to live (TTL)](/spanner/docs/ttl/monitoring-and-metrics) was enabled recently. If there are a lot of splits from old data, then TTL can raise `  CPU_USAGE_SCORE  ` levels during mass deletes. In this case, the issue should self-resolve once the initial deletions complete.
+  - Check to see if [time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl/monitoring-and-metrics) was enabled recently. If there are a lot of splits from old data, then TTL can raise `  CPU_USAGE_SCORE  ` levels during mass deletes. In this case, the issue should self-resolve once the initial deletions complete.
 
 #### Optimize the workload
 
-  - Follow [SQL best practices](/spanner/docs/sql-best-practices) . Consider stale reads, writes that don't perform reads first, or adding indexes.
-  - Follow [Schema best practices](/spanner/docs/schema-design) . Ensure your schema is designed to handle load balancing and avoid hotspots.
+  - Follow [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) . Consider stale reads, writes that don't perform reads first, or adding indexes.
+  - Follow [Schema best practices](https://docs.cloud.google.com/spanner/docs/schema-design) . Ensure your schema is designed to handle load balancing and avoid hotspots.
 
 ## What's next
 
-  - Learn about [schema design best practices](/spanner/docs/schema-design) .
-  - Learn about [Key Visualizer](/spanner/docs/key-visualizer) .
+  - Learn about [schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+  - Learn about [Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer) .
   - Look through [examples of schema designs](https://cloudplatform.googleblog.com/2018/06/What-DBAs-need-to-know-about-Cloud-Spanner-part-1-Keys-and-indexes.html) .
-  - Learn how to use the [split insights dashboard](/spanner/docs/find-hotspots-in-database) to detect hotspots.
+  - Learn how to use the [split insights dashboard](https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database) to detect hotspots.

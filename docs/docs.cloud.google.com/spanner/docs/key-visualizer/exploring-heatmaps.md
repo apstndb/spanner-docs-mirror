@@ -1,12 +1,12 @@
 This page describes the features of the Key Visualizer interface.
 
-Before you read this page, you should be familiar with the [Key Visualizer overview](/spanner/docs/key-visualizer) and ensure you have [access to Key Visualizer](/spanner/docs/key-visualizer/getting-started) .
+Before you read this page, you should be familiar with the [Key Visualizer overview](https://docs.cloud.google.com/spanner/docs/key-visualizer) and ensure you have [access to Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer/getting-started) .
 
 ## Heatmaps
 
-The core of a Key Visualizer scan is the heatmap, which shows the value of a metric over time, broken down into contiguous ranges of row keys. The x-axis of the heatmap represents time, and the y-axis represents [row ranges](#row_ranges) . If the metric has a low value for a row range at a point in time, then the metric is cold, and it appears in a dark color. A high value is hot, and it appears in a bright color. The highest values appear in white.
+The core of a Key Visualizer scan is the heatmap, which shows the value of a metric over time, broken down into contiguous ranges of row keys. The x-axis of the heatmap represents time, and the y-axis represents [row ranges](https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps#row_ranges) . If the metric has a low value for a row range at a point in time, then the metric is cold, and it appears in a dark color. A high value is hot, and it appears in a bright color. The highest values appear in white.
 
-Different types of usage result in different visual patterns within the heatmap, which can make it possible to diagnose issues at a glance. For more examples, see common [Heatmap patterns](/spanner/docs/key-visualizer/patterns) .
+Different types of usage result in different visual patterns within the heatmap, which can make it possible to diagnose issues at a glance. For more examples, see common [Heatmap patterns](https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns) .
 
 ## Row ranges
 
@@ -48,13 +48,15 @@ As you move your cursor over a heatmap, Key Visualizer displays a tooltip that c
 
 You can choose the metric to display in the heatmap from the drop-down metric list located at the top left of the page.
 
-For descriptions of each metric, see [Key Visualizer Metrics](/spanner/docs/key-visualizer/metrics) .
+For descriptions of each metric, see [Key Visualizer Metrics](https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics) .
 
 ## Finding connections between different metrics
 
 You can view multiple metrics at the same time in Key Visualizer when you want to compare metrics or find correlations between metrics.
 
 To view multiple metrics and their values at the same time, click **Show info panel** near the top right corner. A list of metrics appears in a pane to the right of the heatmap.
+
+![Example showing the multimetric pane for\_a\_scan](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/heatmap-metrics-panel.png)
 
 To examine several metrics at once, use the following tools in the info panel:
 
@@ -65,6 +67,8 @@ To examine several metrics at once, use the following tools in the info panel:
   - To hide an individual metric's heatmap, click the metric name again.
 
   - To display a metric's heatmap in the main window, click the solid arrow at the left edge of the metric's title bar.
+    
+    ![Left arrow shows a metric in the main window](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/metrics-panel-solid-arrow.png)
 
   - Hover over a miniature heatmap to see corresponding activity in the main view.
 
@@ -76,5 +80,5 @@ To compare different metrics for a row range at the same point in time, you can 
 
 ## What's next
 
-  - Learn to recognize [common patterns in heatmaps](/spanner/docs/key-visualizer/patterns) .
-  - Read about the [metrics you can view in a heatmap](/spanner/docs/key-visualizer/metrics) .
+  - Learn to recognize [common patterns in heatmaps](https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns) .
+  - Read about the [metrics you can view in a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics) .

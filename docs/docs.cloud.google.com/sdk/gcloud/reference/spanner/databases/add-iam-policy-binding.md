@@ -14,13 +14,13 @@ EXAMPLES
 
 To add an IAM policy binding for the role of 'roles/editor' for the user 'test-user@gmail.com' with database 'my-database' and instance 'my-instance', run:
 
-``` text
+``` wrap-code
 gcloud spanner databases add-iam-policy-binding my-database --instance='my-instance' --member='user:test-user@gmail.com' --role='roles/editor'
 ```
 
 To add an IAM policy binding which expires at the end of the year 2018 for the role of 'roles/spanner.databaseAdmin' and the user 'test-user@gmail.com' with database 'my-database' and instance 'my-instance', run:
 
-``` text
+``` wrap-code
 gcloud spanner databases add-iam-policy-binding my-database --instance='my-instance' --member='user:test-user@gmail.com' --role='roles/spanner.databaseAdmin' --condition='expression=request.time <
  timestamp("2019-01-01T00:00:00Z"),title=expires_end_of_2018,descrip\
 tion=Expires at midnight on 2018-12-31'
@@ -108,10 +108,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases add-iam-policy-binding
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases add-iam-policy-binding
 ```

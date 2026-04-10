@@ -2,7 +2,7 @@ After optimizing your Spanner schema and migrating your application, you can mov
 
 Depending on your use case, you might be able to perform a live data migration with minimal downtime, or you might require prolonged downtime to perform the data migration.
 
-If your application can't afford a lot of downtime, consider performing a [live data migration](#live-data-migration) . If your application can handle downtime, you can consider [migrating with downtime](#downtime-data-migration) .
+If your application can't afford a lot of downtime, consider performing a [live data migration](https://docs.cloud.google.com/spanner/docs/data-migration#live-data-migration) . If your application can handle downtime, you can consider [migrating with downtime](https://docs.cloud.google.com/spanner/docs/data-migration#downtime-data-migration) .
 
 In a live data migration, you need to configure the network infrastructure required for data to flow between your source database, the target Spanner database, and the tools you're using to perform the data migration. You need to decide on either private or public network connectivity depending on your organization's compliance requirements. You might need your organization's network administrator to set up the infrastructure.
 
@@ -21,7 +21,7 @@ While live data migrations help protect your data, the process involves challeng
 
 ## Migration with downtime
 
-If your source database can export to CSV or Avro, then you can migrate to Spanner with downtime. For more information, see [Spanner import and export overview](/spanner/docs/import-export-overview) .
+If your source database can export to CSV or Avro, then you can migrate to Spanner with downtime. For more information, see [Spanner import and export overview](https://docs.cloud.google.com/spanner/docs/import-export-overview) .
 
 Migrations with downtime can be used for test environments or applications that can handle a few hours of downtime. On a live database, a migration with downtime might result in data loss.
 
@@ -40,4 +40,4 @@ When generating a dump file from the source database, keep the following in mind
 
 ## Source specific guides
 
-  - MySQL: [MySQL live data migration](/spanner/docs/mysql-live-data-migration) .
+  - MySQL: [MySQL live data migration](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration) .

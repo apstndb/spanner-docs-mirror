@@ -1,1 +1,1 @@
-Graph Query Language (GQL) supports all GoogleSQL conditional expressions. To learn more, see [Conditional expressions](/spanner/docs/reference/standard-sql/conditional_expressions) .
+Graph Query Language (GQL) supports all GoogleSQL conditional expressions. To learn more, see [Conditional expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions) .

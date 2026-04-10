@@ -10,7 +10,7 @@ This page defines the characteristics, constraints, and intended use of the thre
 
 ### `     spanner_info_reader    ` system role
 
-  - This role has the `  SELECT  ` privilege on [`  INFORMATION_SCHEMA  `](/spanner/docs/information-schema) views for GoogleSQL-dialect databases and [`  information_schema  `](/spanner/docs/information-schema-pg) views for PostgreSQL-dialect databases.
+  - This role has the `  SELECT  ` privilege on [`  INFORMATION_SCHEMA  `](https://docs.cloud.google.com/spanner/docs/information-schema) views for GoogleSQL-dialect databases and [`  information_schema  `](https://docs.cloud.google.com/spanner/docs/information-schema-pg) views for PostgreSQL-dialect databases.
 
   - You can't grant any other privileges to `  spanner_info_reader  ` .
 
@@ -30,21 +30,17 @@ This page defines the characteristics, constraints, and intended use of the thre
 
   - System roles can't be members of other database roles. That is, the following GoogleSQL statement is invalid:
     
-    ``` text
-    GRANT ROLE pii_access TO ROLE spanner_info_reader;
-    ```
+        GRANT ROLE pii_access TO ROLE spanner_info_reader;
 
   - You can't grant membership in the `  public  ` role to your database roles. For example, the following GoogleSQL statement is also invalid:
     
-    ``` text
-    GRANT ROLE public TO ROLE pii_access;
-    ```
+        GRANT ROLE public TO ROLE pii_access;
     
     However, you can grant membership in the `  spanner_info_reader  ` and `  spanner_sys_reader  ` roles. For example, the following are valid statements.
     
     ### GoogleSQL
     
-    ```` text
+    ```` 
       GRANT ROLE spanner_info_reader TO ROLE pii_access;
       GRANT ROLE spanner_sys_reader TO ROLE pii_access;
       ```
@@ -52,12 +48,10 @@ This page defines the characteristics, constraints, and intended use of the thre
     
     ### PostgreSQL
     
-    ``` text
-    GRANT spanner_info_reader TO pii_access;
-    GRANT spanner_sys_reader TO pii_access;
-    ```
+        GRANT spanner_info_reader TO pii_access;
+        GRANT spanner_sys_reader TO pii_access;
 
 ## What's next
 
-  - Learn how to [Configure fine-grained access control](/spanner/docs/configure-fgac) .
-  - Learn [About fine-grained access control](/spanner/docs/fgac-about) .
+  - Learn how to [Configure fine-grained access control](https://docs.cloud.google.com/spanner/docs/configure-fgac) .
+  - Learn [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .

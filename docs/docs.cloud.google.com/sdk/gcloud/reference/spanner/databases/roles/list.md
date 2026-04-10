@@ -14,7 +14,7 @@ EXAMPLES
 
 To list the Cloud Spanner database roles in a database, run:
 
-``` text
+``` wrap-code
 gcloud spanner databases roles list --instance=my-instance-id --database=my-database-id
 ```
 
@@ -51,7 +51,7 @@ This must be specified.
 LIST COMMAND FLAGS
 
   - `  --filter  ` = `  EXPRESSION  `  
-    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
+    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --limit  ` = `  LIMIT  `  
     Maximum number of resources to list. The default is `  unlimited  ` . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --page-size  ` = `  PAGE_SIZE  `  
@@ -71,10 +71,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases roles list
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases roles list
 ```

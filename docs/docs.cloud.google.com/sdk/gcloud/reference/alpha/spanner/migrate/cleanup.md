@@ -14,15 +14,11 @@ EXAMPLES
 
 To cleanup resources for a data migration job, specify the jobId and the boolean flags for the resources that need to be cleaned up. For sharded migrations, specific data shard Ids can also be provided.
 
-``` text
-For a all shards of a sharded migration, or a non-sharded migration:
-gcloud alpha spanner migrate cleanup --job-id="XXX" --target-profile="XXX" --datastream --dataflow --pub-sub --monitoring
-```
+    For a all shards of a sharded migration, or a non-sharded migration:
+    gcloud alpha spanner migrate cleanup --job-id="XXX" --target-profile="XXX" --datastream --dataflow --pub-sub --monitoring
 
-``` text
-For a subset of shards of a sharded migration:
-gcloud alpha spanner migrate cleanup --job-id="XXX" --data-shard-ids="lorem,epsum" --target-profile="XXX" --datastream --dataflow --pub-sub --monitoring
-```
+    For a subset of shards of a sharded migration:
+    gcloud alpha spanner migrate cleanup --job-id="XXX" --data-shard-ids="lorem,epsum" --target-profile="XXX" --datastream --dataflow --pub-sub --monitoring
 
 REQUIRED FLAGS
 

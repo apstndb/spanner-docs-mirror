@@ -1,6 +1,6 @@
 This page explains how you can search for and manage your Spanner resources by using Data Catalog.
 
-**Caution:** Data Catalog is [deprecated](/data-catalog/docs/deprecations) in favor of [Dataplex Universal Catalog](/dataplex/docs/catalog-overview) . Dataplex Universal Catalog is also integrated with Spanner, offering similar capabilities. You can use Dataplex Universal Catalog to enrich your data with aspects, which are the equivalent of Data Catalog tags. For more information, see [Manage aspects and enrich metadata](/dataplex/docs/enrich-entries-metadata) .
+**Caution:** Data Catalog is [deprecated](https://docs.cloud.google.com/data-catalog/docs/deprecations) in favor of [Dataplex Universal Catalog](https://docs.cloud.google.com/dataplex/docs/catalog-overview) . Dataplex Universal Catalog is also integrated with Spanner, offering similar capabilities. You can use Dataplex Universal Catalog to enrich your data with aspects, which are the equivalent of Data Catalog tags. For more information, see [Manage aspects and enrich metadata](https://docs.cloud.google.com/dataplex/docs/enrich-entries-metadata) .
 
 Data Catalog is a fully managed, scalable metadata management service within Dataplex Universal Catalog. It automatically catalogs the following metadata about Spanner instances, databases, tables, columns, and views:
 
@@ -21,30 +21,30 @@ With Data Catalog, you can curate metadata by attaching tags to Spanner metadata
 
 For example, you could attach the following tag to a column that contains a social security number, which is personal identifiable information (PII):
 
-``` text
-pii:true
-pii_type:SSN
-```
+    pii:true
+    pii_type:SSN
 
-When you [move an instance](/spanner/docs/move-instance) that uses tags, the tags aren't automatically moved to the destination instance. Instead, you need to export tags from the source instance before moving the instance, and import the tags into the destination instance. For more information, see [Export and import tags](#import-export-tags) .
+When you [move an instance](https://docs.cloud.google.com/spanner/docs/move-instance) that uses tags, the tags aren't automatically moved to the destination instance. Instead, you need to export tags from the source instance before moving the instance, and import the tags into the destination instance. For more information, see [Export and import tags](https://docs.cloud.google.com/spanner/docs/dc-integration#import-export-tags) .
 
-To learn more about Data Catalog see [What is Data Catalog](/data-catalog/docs/concepts/overview) .
+To learn more about Data Catalog see [What is Data Catalog](https://docs.cloud.google.com/data-catalog/docs/concepts/overview) .
 
 **Note:** Data Catalog refers to the resources in Spanner and in other Google Cloud services as *assets* . In this page, we refer to Spanner resources—instances, databases, tables, and views—as Spanner assets. We also use the term *assets* to refer to both the resources and Data Catalog metadata for the resources.
 
 ## Before you begin
 
 1.  Enable the Data Catalog API for the project.
+    
+    [Enable the Data Catalog API](https://console.cloud.google.com/flows/enableapi?apiid=datacatalog.googleapis.com)
 
 2.  Check permissions.
     
-    You need certain Identity and Access Management (IAM) roles and permissions to search for and attach tags to Spanner assets. For details, see [Required IAM roles and permissions for Data Catalog](#iam-permissions) .
+    You need certain Identity and Access Management (IAM) roles and permissions to search for and attach tags to Spanner assets. For details, see [Required IAM roles and permissions for Data Catalog](https://docs.cloud.google.com/spanner/docs/dc-integration#iam-permissions) .
 
 ## Create tag templates
 
 Tag temples are reusable structures that you can use to rapidly create new tags. Templates help you avoid duplication of work and incomplete tags. Create as many tag templates as you need.
 
-To learn more, see [Tags and tag templates](/data-catalog/docs/tags-and-tag-templates) .
+To learn more, see [Tags and tag templates](https://docs.cloud.google.com/data-catalog/docs/tags-and-tag-templates) .
 
 ## Attach tags to Spanner assets
 
@@ -53,13 +53,15 @@ Attaching tags to Spanner assets lets you do the following:
   - Add business metadata to the assets.
   - Search for assets by business metadata and other custom metadata.
 
-To learn more, see [Tags and tag templates](/data-catalog/docs/tags-and-tag-templates) .
+To learn more, see [Tags and tag templates](https://docs.cloud.google.com/data-catalog/docs/tags-and-tag-templates) .
 
 ## Search for Spanner assets
 
 Use the Dataplex Universal Catalog search page in the Google Cloud console to search for Spanner assets.
 
 1.  Go to the Dataplex Universal Catalog search page.
+    
+    [Go to Search](https://console.cloud.google.com/dataplex/search)
 
 2.  In the **Filters panel** , under **Systems** , select **Spanner** .
     
@@ -73,13 +75,13 @@ Use the Dataplex Universal Catalog search page in the Google Cloud console to se
     
     For example, to view only databases, enter the following text in the search field, and then press `  Enter  ` .
     
-    ``` text
+    ``` 
      system=cloud_spanner type=database
     ```
     
     **Note:** To search for Spanner instances, use `  type=service  ` . To search for an instance configuration, use `  instance_config=configuration-name  ` .
     
-    You can also use parentheses and the logical operators `  and  ` and `  or  ` for complex expressions. To learn more about the expressions that you can use in the search field, see [Data Catalog search syntax](/data-catalog/docs/how-to/search-reference) .
+    You can also use parentheses and the logical operators `  and  ` and `  or  ` for complex expressions. To learn more about the expressions that you can use in the search field, see [Data Catalog search syntax](https://docs.cloud.google.com/data-catalog/docs/how-to/search-reference) .
 
 4.  In the results table, click the name of an asset to view the metadata for that asset.
 
@@ -95,14 +97,14 @@ Use the Dataplex Universal Catalog search page in the Google Cloud console to se
 In this example workflow, you start by searching for a Spanner instance, then view a member database, then view a table in that database, and then view the columns in the table.
 
 1.  Go to the Dataplex Universal Catalog search page.
+    
+    [Go to Search](https://console.cloud.google.com/dataplex/search)
 
 2.  In the **Filters panel** , under **Systems** , select **Spanner** .
 
 3.  To view all Spanner instances in Data Catalog, either select the **Service** checkbox under **Data types** , or enter the following text in the search field and press `  Enter  ` .
     
-    ``` text
-    system=cloud_spanner type=service
-    ```
+        system=cloud_spanner type=service
 
 4.  Select an instance name.
 
@@ -124,7 +126,7 @@ In this example workflow, you start by searching for a Spanner instance, then vi
 
 ## Export and import tags
 
-When you [move a Spanner instance](/spanner/docs/move-instance) , the moving process deletes the instance tags that you created in Data Catalog. To preserve your tags, you need to do the following:
+When you [move a Spanner instance](https://docs.cloud.google.com/spanner/docs/move-instance) , the moving process deletes the instance tags that you created in Data Catalog. To preserve your tags, you need to do the following:
 
   - Query the tags associated with the instance.
   - Copy the details for the tags.
@@ -134,15 +136,13 @@ Spanner sync data every 6 hours. Any metadata changes made on Spanner assets lik
 
 ### Export tags from the source instance configuration
 
-To list the tags for an instance (entry or entry group), use the Google Cloud CLI [`  gcloud data-catalog tags list  `](/sdk/gcloud/reference/data-catalog/tags/list) command as follows:
+To list the tags for an instance (entry or entry group), use the Google Cloud CLI [`  gcloud data-catalog tags list  `](https://docs.cloud.google.com/sdk/gcloud/reference/data-catalog/tags/list) command as follows:
 
-``` text
-curl \
-'https://datacatalog.googleapis.com/v1/projects/PROJECT/locations/LOCATION/entryGroups/ENTRY_GROUP/tags?key=API_KEY' \
-  --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/json' \
-  --compressed
-```
+    curl \
+    'https://datacatalog.googleapis.com/v1/projects/PROJECT/locations/LOCATION/entryGroups/ENTRY_GROUP/tags?key=API_KEY' \
+      --header 'Authorization: Bearer ACCESS_TOKEN' \
+      --header 'Accept: application/json' \
+      --compressed
 
 Replace the following:
 
@@ -155,20 +155,18 @@ Replace the following:
 
 Before you complete this procedure, do the following:
 
-  - [Move the instance](/spanner/docs/move-instance) .
-  - [Update Data Catalog with metadata](/sdk/gcloud/reference/data-catalog/entries/update) .
+  - [Move the instance](https://docs.cloud.google.com/spanner/docs/move-instance) .
+  - [Update Data Catalog with metadata](https://docs.cloud.google.com/sdk/gcloud/reference/data-catalog/entries/update) .
 
-To copy over a tag, create the tags on the moved instance using the [`  gcloud data-catalog tags create  `](/sdk/gcloud/reference/data-catalog/tags/create) command as follows:
+To copy over a tag, create the tags on the moved instance using the [`  gcloud data-catalog tags create  `](https://docs.cloud.google.com/sdk/gcloud/reference/data-catalog/tags/create) command as follows:
 
-``` text
-curl --request POST \
-'https://datacatalog.googleapis.com/v1/entries:lookup?fullyQualifiedName=FQN&location=LOCATION&project=PROJECT&key=API_KEY' \
-  --header 'Authorization: Bearer ACCESS_TOKEN' \
-  --header 'Accept: application/json' \
-  --header 'Content-Type: application/json' \
-  --data '{"column":"myColumnName","name":"myTagName","template":"myTemplateName","fields":{"myDoubleField":{"doubleValue":0}}}' \
-  --compressed
-```
+    curl --request POST \
+    'https://datacatalog.googleapis.com/v1/entries:lookup?fullyQualifiedName=FQN&location=LOCATION&project=PROJECT&key=API_KEY' \
+      --header 'Authorization: Bearer ACCESS_TOKEN' \
+      --header 'Accept: application/json' \
+      --header 'Content-Type: application/json' \
+      --data '{"column":"myColumnName","name":"myTagName","template":"myTemplateName","fields":{"myDoubleField":{"doubleValue":0}}}' \
+      --compressed
 
 Replace the following:
 
@@ -290,10 +288,10 @@ The `  spanner.databases.UpdateTag  ` permission is included in the following ro
   - roles/spanner.databaseAdmin
   - roles/spanner.databaseUser
 
-For more information, see [Predefined roles](/spanner/docs/iam#roles) .
+For more information, see [Predefined roles](https://docs.cloud.google.com/spanner/docs/iam#roles) .
 
 ## What's next
 
-  - [What is Data Catalog](/data-catalog/docs/concepts/overview)
-  - [Roles to search Google Cloud resources](/data-catalog/docs/concepts/iam#roles_to_search_resources)
-  - [About fine-grained access control](/spanner/docs/fgac-about)
+  - [What is Data Catalog](https://docs.cloud.google.com/data-catalog/docs/concepts/overview)
+  - [Roles to search Google Cloud resources](https://docs.cloud.google.com/data-catalog/docs/concepts/iam#roles_to_search_resources)
+  - [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about)

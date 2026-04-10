@@ -4,15 +4,15 @@ Spanner provides PostgreSQL language support by expressing Spanner database feat
 
 For detailed information about this support, refer to these pages:
 
-  - [Lexical structure and syntax](/spanner/docs/reference/postgresql/lexical) describes how to form valid PostgreSQL statements.
-  - [Data definition (DDL)](/spanner/docs/reference/postgresql/data-definition-language) defines the syntax of DDL statements like `  CREATE DATABASE  ` and `  CREATE TABLE  ` .
-  - [Data manipulation (DML)](/spanner/docs/reference/postgresql/dml-syntax) defines the syntax of DML statements like `  INSERT  ` and `  UPDATE  ` .
-  - [Queries](/spanner/docs/reference/postgresql/query-syntax) defines the syntax of the `  SELECT  ` statement.
-  - [Subqueries](/spanner/docs/reference/postgresql/subqueries) defines the syntax of subqueries.
-  - [Data types](/spanner/docs/reference/postgresql/data-types) describes the data types that Spanner supports.
-  - [Functions](/spanner/docs/reference/postgresql/functions-and-operators) describes the functions that Spanner supports.
-  - [Stored procedures](/spanner/docs/reference/postgresql/stored-procedures-pg) describes stored procedures that come with Spanner.
-  - [Known issues in the PostgreSQL interface for Spanner](/spanner/docs/reference/postgresql/known-issues-postgresql-interface) describes PostgreSQL language features that don't work as expected.
+  - [Lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) describes how to form valid PostgreSQL statements.
+  - [Data definition (DDL)](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language) defines the syntax of DDL statements like `  CREATE DATABASE  ` and `  CREATE TABLE  ` .
+  - [Data manipulation (DML)](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax) defines the syntax of DML statements like `  INSERT  ` and `  UPDATE  ` .
+  - [Queries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax) defines the syntax of the `  SELECT  ` statement.
+  - [Subqueries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries) defines the syntax of subqueries.
+  - [Data types](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) describes the data types that Spanner supports.
+  - [Functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators) describes the functions that Spanner supports.
+  - [Stored procedures](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg) describes stored procedures that come with Spanner.
+  - [Known issues in the PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface) describes PostgreSQL language features that don't work as expected.
 
 Spanner doesn't support several open source PostgreSQL features, including the following:
 

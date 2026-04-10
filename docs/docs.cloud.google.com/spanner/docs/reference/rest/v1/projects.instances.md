@@ -1,14 +1,14 @@
-  - [Resource: Instance](#Instance)
-      - [JSON representation](#Instance.SCHEMA_REPRESENTATION)
-  - [ReplicaComputeCapacity](#ReplicaComputeCapacity)
-      - [JSON representation](#ReplicaComputeCapacity.SCHEMA_REPRESENTATION)
-  - [State](#State)
-  - [InstanceType](#InstanceType)
-  - [FreeInstanceMetadata](#FreeInstanceMetadata)
-      - [JSON representation](#FreeInstanceMetadata.SCHEMA_REPRESENTATION)
-  - [ExpireBehavior](#ExpireBehavior)
-  - [DefaultBackupScheduleType](#DefaultBackupScheduleType)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource: Instance](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#Instance)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#Instance.SCHEMA_REPRESENTATION)
+  - [ReplicaComputeCapacity](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#ReplicaComputeCapacity)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#ReplicaComputeCapacity.SCHEMA_REPRESENTATION)
+  - [State](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#State)
+  - [InstanceType](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#InstanceType)
+  - [FreeInstanceMetadata](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#FreeInstanceMetadata)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#FreeInstanceMetadata.SCHEMA_REPRESENTATION)
+  - [ExpireBehavior](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#ExpireBehavior)
+  - [DefaultBackupScheduleType](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#DefaultBackupScheduleType)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances#METHODS_SUMMARY)
 
 ## Resource: Instance
 
@@ -25,7 +25,7 @@ An isolated set of Cloud Spanner resources on which databases can be hosted.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;config&quot;: string,
   &quot;displayName&quot;: string,
@@ -209,7 +209,7 @@ ReplicaComputeCapacity describes the amount of server resources that are allocat
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;replicaSelection&quot;: {
     object (ReplicaSelection)
   },
@@ -300,7 +300,7 @@ Free instance specific metadata that is kept even after an instance has been upg
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;expireTime&quot;: string,
   &quot;upgradeTime&quot;: string,
   &quot;expireBehavior&quot;: enum (ExpireBehavior)

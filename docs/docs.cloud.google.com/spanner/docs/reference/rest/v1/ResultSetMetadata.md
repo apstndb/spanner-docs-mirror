@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetMetadata#SCHEMA_REPRESENTATION)
 
 Metadata about a `  ResultSet  ` or `  PartialResultSet  ` .
 
@@ -13,7 +13,7 @@ Metadata about a `  ResultSet  ` or `  PartialResultSet  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;rowType&quot;: {
     object (StructType)
   },
@@ -36,12 +36,10 @@ Fields
 
 Indicates the field names and types for the rows in the result set. For example, a SQL query like `  "SELECT UserId, UserName FROM Users"  ` could return a `  rowType  ` value like:
 
-``` text
-"fields": [
-  { "name": "UserId", "type": { "code": "INT64" } },
-  { "name": "UserName", "type": { "code": "STRING" } },
-]
-```
+    "fields": [
+      { "name": "UserId", "type": { "code": "INT64" } },
+      { "name": "UserName", "type": { "code": "STRING" } },
+    ]
 
 `  transaction  `
 
@@ -55,9 +53,7 @@ If the read or SQL query began a transaction as a side-effect, the information a
 
 A SQL query can be parameterized. In PLAN mode, these parameters can be undeclared. This indicates the field names and types for those undeclared parameters in the SQL query. For example, a SQL query like `  "SELECT * FROM Users where UserId = @userId and UserName = @userName "  ` could return a `  undeclaredParameters  ` value like:
 
-``` text
-"fields": [
-  { "name": "UserId", "type": { "code": "INT64" } },
-  { "name": "UserName", "type": { "code": "STRING" } },
-]
-```
+    "fields": [
+      { "name": "UserId", "type": { "code": "INT64" } },
+      { "name": "UserName", "type": { "code": "STRING" } },
+    ]

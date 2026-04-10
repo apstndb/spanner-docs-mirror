@@ -1,15 +1,45 @@
-  - [HTTP request](#body.HTTP_TEMPLATE)
-  - [Path parameters](#body.PATH_PARAMETERS)
-  - [Request body](#body.request_body)
-  - [Response body](#body.response_body)
-  - [Authorization scopes](#body.aspect)
-  - [Try it\!](#try-it)
+  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/delete#body.HTTP_TEMPLATE)
+  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/delete#body.PATH_PARAMETERS)
+  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/delete#body.request_body)
+  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/delete#body.response_body)
+  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/delete#body.aspect)
+  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/delete#try-it)
 
 Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns `  google.rpc.Code.UNIMPLEMENTED  ` .
 
 ### HTTP request
 
 Choose a location:
+
+global
+
+europe-west8
+
+me-central2
+
+us-central1
+
+us-central2
+
+us-east1
+
+us-east4
+
+us-east5
+
+us-south1
+
+us-west1
+
+us-west2
+
+us-west3
+
+us-west4
+
+us-west8
+
+us-east7
 
   
 `  DELETE https://spanner.googleapis.com/v1/{name=projects/*/instances/*/databases/*/operations/*}  `
@@ -41,4 +71,4 @@ Requires one of the following OAuth scopes:
   - `  https://www.googleapis.com/auth/spanner.admin  `
   - `  https://www.googleapis.com/auth/cloud-platform  `
 
-For more information, see the [Authentication Overview](/docs/authentication#authorization-gcp) .
+For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

@@ -2,7 +2,7 @@ A GoogleSQL statement comprises a series of tokens. Tokens include identifiers, 
 
 ## Identifiers
 
-Identifiers are names that are associated with columns, tables, fields, path expressions, and more. They can be [unquoted](#unquoted_identifiers) or [quoted](#quoted_identifiers) and some are [case-sensitive](#case_sensitivity) .
+Identifiers are names that are associated with columns, tables, fields, path expressions, and more. They can be [unquoted](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#unquoted_identifiers) or [quoted](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#quoted_identifiers) and some are [case-sensitive](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#case_sensitivity) .
 
 ### Unquoted identifiers
 
@@ -14,103 +14,89 @@ Identifiers are names that are associated with columns, tables, fields, path exp
   - Must be enclosed by backtick (\`) characters.
   - Can contain any characters, including spaces and symbols.
   - Can't be empty.
-  - Have the same escape sequences as [string literals](#string_and_bytes_literals) .
-  - If an identifier is the same as a [reserved keyword](#reserved_keywords) , the identifier must be quoted. For example, the identifier `  FROM  ` must be quoted. Additional rules apply for [path expressions](#path_expressions) and [field names](#field_names) .
+  - Have the same escape sequences as [string literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#string_and_bytes_literals) .
+  - If an identifier is the same as a [reserved keyword](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#reserved_keywords) , the identifier must be quoted. For example, the identifier `  FROM  ` must be quoted. Additional rules apply for [path expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#path_expressions) and [field names](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#field_names) .
 
 ### Identifier examples
 
 Path expression examples:
 
-``` text
--- Valid. _5abc and dataField are valid identifiers.
-_5abc.dataField
-
--- Valid. `5abc` and dataField are valid identifiers.
-`5abc`.dataField
-
--- Invalid. 5abc is an invalid identifier because it's unquoted and starts
--- with a number rather than a letter or underscore.
-5abc.dataField
-
--- Valid. abc5 and dataField are valid identifiers.
-abc5.dataField
-
--- Invalid. abc5! is an invalid identifier because it's unquoted and contains
--- a character that isn't a letter, number, or underscore.
-abc5!.dataField
-
--- Valid. `GROUP` and dataField are valid identifiers.
-`GROUP`.dataField
-
--- Invalid. GROUP is an invalid identifier because it's unquoted and is a
--- stand-alone reserved keyword.
-GROUP.dataField
-
--- Valid. abc5 and GROUP are valid identifiers.
-abc5.GROUP
-```
+    -- Valid. _5abc and dataField are valid identifiers.
+    _5abc.dataField
+    
+    -- Valid. `5abc` and dataField are valid identifiers.
+    `5abc`.dataField
+    
+    -- Invalid. 5abc is an invalid identifier because it's unquoted and starts
+    -- with a number rather than a letter or underscore.
+    5abc.dataField
+    
+    -- Valid. abc5 and dataField are valid identifiers.
+    abc5.dataField
+    
+    -- Invalid. abc5! is an invalid identifier because it's unquoted and contains
+    -- a character that isn't a letter, number, or underscore.
+    abc5!.dataField
+    
+    -- Valid. `GROUP` and dataField are valid identifiers.
+    `GROUP`.dataField
+    
+    -- Invalid. GROUP is an invalid identifier because it's unquoted and is a
+    -- stand-alone reserved keyword.
+    GROUP.dataField
+    
+    -- Valid. abc5 and GROUP are valid identifiers.
+    abc5.GROUP
 
 Function examples:
 
-``` text
--- Valid. dataField is a valid identifier in a function called foo().
-foo().dataField
-```
+    -- Valid. dataField is a valid identifier in a function called foo().
+    foo().dataField
 
 Array access operation examples:
 
-``` text
--- Valid. dataField is a valid identifier in an array called items.
-items[OFFSET(3)].dataField
-```
+    -- Valid. dataField is a valid identifier in an array called items.
+    items[OFFSET(3)].dataField
 
 Named query parameter examples:
 
-``` text
--- Valid. param and dataField are valid identifiers.
-@param.dataField
-```
+    -- Valid. param and dataField are valid identifiers.
+    @param.dataField
 
 Protocol buffer examples:
 
-``` text
--- Valid. dataField is a valid identifier in a protocol buffer called foo.
-(foo).dataField
-```
+    -- Valid. dataField is a valid identifier in a protocol buffer called foo.
+    (foo).dataField
 
 ## Path expressions
 
 A path expression describes how to navigate to an object in a graph of objects and generally follows this structure:
 
-``` text
-path:
-  [path_expression][. ...]
-
-path_expression:
-  [first_part]/subsequent_part[ { / | : | - } subsequent_part ][...]
-
-first_part:
-  { unquoted_identifier | quoted_identifier }
-
-subsequent_part:
-  { unquoted_identifier | quoted_identifier | number }
-```
+    path:
+      [path_expression][. ...]
+    
+    path_expression:
+      [first_part]/subsequent_part[ { / | : | - } subsequent_part ][...]
+    
+    first_part:
+      { unquoted_identifier | quoted_identifier }
+    
+    subsequent_part:
+      { unquoted_identifier | quoted_identifier | number }
 
   - `  path  ` : A graph of one or more objects.
   - `  path_expression  ` : An object in a graph of objects.
-  - `  first_part  ` : A path expression can start with a quoted or unquoted identifier. If the path expressions starts with a [reserved keyword](#reserved_keywords) , it must be a quoted identifier.
-  - `  subsequent_part  ` : Subsequent parts of a path expression can include non-identifiers, such as reserved keywords. If a subsequent part of a path expressions starts with a [reserved keyword](#reserved_keywords) , it may be quoted or unquoted.
+  - `  first_part  ` : A path expression can start with a quoted or unquoted identifier. If the path expressions starts with a [reserved keyword](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#reserved_keywords) , it must be a quoted identifier.
+  - `  subsequent_part  ` : Subsequent parts of a path expression can include non-identifiers, such as reserved keywords. If a subsequent part of a path expressions starts with a [reserved keyword](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#reserved_keywords) , it may be quoted or unquoted.
 
 Examples:
 
-``` text
-foo.bar
-foo.bar/25
-foo/bar:25
-foo/bar/25-31
-/foo/bar
-/25/foo/bar
-```
+    foo.bar
+    foo.bar/25
+    foo/bar:25
+    foo/bar/25-31
+    /foo/bar
+    /25/foo/bar
 
 ## Field names
 
@@ -124,7 +110,7 @@ A literal represents a constant value of a built-in data type. Some, but not all
 
 ### String and bytes literals
 
-A string literal represents a constant value of the [string data type](/spanner/docs/reference/standard-sql/data-types#string_type) . A bytes literal represents a constant value of the [bytes data type](/spanner/docs/reference/standard-sql/data-types#bytes_type) .
+A string literal represents a constant value of the [string data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#string_type) . A bytes literal represents a constant value of the [bytes data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#bytes_type) .
 
 Both string and bytes literals must be *quoted* , either with single ( `  '  ` ) or double ( `  "  ` ) quotation marks, or *triple-quoted* with groups of three single ( `  '''  ` ) or three double ( `  """  ` ) quotation marks.
 
@@ -300,15 +286,13 @@ The range D800-DFFF isn't allowed, as these values are surrogate unicode values.
 
 Integer literals are either a sequence of decimal digits (0–9) or a hexadecimal value that's prefixed with " `  0x  ` " or " `  0X  ` ". Integers can be prefixed by " `  +  ` " or " `  -  ` " to represent positive and negative values, respectively. Examples:
 
-``` text
-123
-0xABC
--123
-```
+    123
+    0xABC
+    -123
 
 An integer literal is interpreted as an `  INT64  ` .
 
-A integer literal represents a constant value of the [integer data type](/spanner/docs/reference/standard-sql/data-types#integer_types) .
+A integer literal represents a constant value of the [integer data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#integer_types) .
 
 ### `     NUMERIC    ` literals
 
@@ -316,37 +300,31 @@ You can construct `  NUMERIC  ` literals using the `  NUMERIC  ` keyword followe
 
 Examples:
 
-``` text
-SELECT NUMERIC '0';
-SELECT NUMERIC '123456';
-SELECT NUMERIC '-3.14';
-SELECT NUMERIC '-0.54321';
-SELECT NUMERIC '1.23456e05';
-SELECT NUMERIC '-9.876e-3';
-```
+    SELECT NUMERIC '0';
+    SELECT NUMERIC '123456';
+    SELECT NUMERIC '-3.14';
+    SELECT NUMERIC '-0.54321';
+    SELECT NUMERIC '1.23456e05';
+    SELECT NUMERIC '-9.876e-3';
 
-A `  NUMERIC  ` literal represents a constant value of the [`  NUMERIC  ` data type](/spanner/docs/reference/standard-sql/data-types#decimal_types) .
+A `  NUMERIC  ` literal represents a constant value of the [`  NUMERIC  ` data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#decimal_types) .
 
 ### Floating point literals
 
 Syntax options:
 
-``` text
-[+-]DIGITS.[DIGITS][e[+-]DIGITS]
-[+-][DIGITS].DIGITS[e[+-]DIGITS]
-DIGITSe[+-]DIGITS
-```
+    [+-]DIGITS.[DIGITS][e[+-]DIGITS]
+    [+-][DIGITS].DIGITS[e[+-]DIGITS]
+    DIGITSe[+-]DIGITS
 
 `  DIGITS  ` represents one or more decimal numbers (0 through 9) and `  e  ` represents the exponent marker (e or E).
 
 Examples:
 
-``` text
-123.456e-67
-.1E4
-58.
-4e2
-```
+    123.456e-67
+    .1E4
+    58.
+    4e2
 
 Numeric literals that contain either a decimal point or an exponent marker are presumed to be type double.
 
@@ -358,7 +336,7 @@ There is no literal representation of NaN or infinity, but the following case-in
   - "inf" or "+inf"
   - "-inf"
 
-A floating-point literal represents a constant value of the [floating-point data type](/spanner/docs/reference/standard-sql/data-types#floating_point_types) .
+A floating-point literal represents a constant value of the [floating-point data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) .
 
 ### Array literals
 
@@ -366,119 +344,77 @@ Array literals are comma-separated lists of elements enclosed in square brackets
 
 Examples:
 
-``` text
-[1, 2, 3]
-['x', 'y', 'xy']
-ARRAY[1, 2, 3]
-ARRAY<STRING>['x', 'y', 'xy']
-ARRAY<INT64>[]
-```
+    [1, 2, 3]
+    ['x', 'y', 'xy']
+    ARRAY[1, 2, 3]
+    ARRAY<STRING>['x', 'y', 'xy']
+    ARRAY<INT64>[]
 
-An array literal represents a constant value of the [array data type](/spanner/docs/reference/standard-sql/data-types#array_type) .
+An array literal represents a constant value of the [array data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type) .
 
 ### Struct literals
 
-A struct literal is a struct whose fields are all literals. Struct literals can be written using any of the syntaxes for [constructing a struct](/spanner/docs/reference/standard-sql/data-types#constructing_a_struct) (tuple syntax, typeless struct syntax, or typed struct syntax).
+A struct literal is a struct whose fields are all literals. Struct literals can be written using any of the syntaxes for [constructing a struct](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#constructing_a_struct) (tuple syntax, typeless struct syntax, or typed struct syntax).
 
 Note that tuple syntax requires at least two fields, in order to distinguish it from an ordinary parenthesized expression. To write a struct literal with a single field, use typeless struct syntax or typed struct syntax.
 
-<table>
-<thead>
-<tr class="header">
-<th>Example</th>
-<th>Output Type</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       (1, 2, 3)      </code></td>
-<td><code dir="ltr" translate="no">       STRUCT&lt;INT64, INT64, INT64&gt;      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       (1, 'abc')      </code></td>
-<td><code dir="ltr" translate="no">       STRUCT&lt;INT64, STRING&gt;      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       STRUCT(1 AS foo, 'abc' AS bar)      </code></td>
-<td><code dir="ltr" translate="no">       STRUCT&lt;foo INT64, bar STRING&gt;      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       STRUCT&lt;INT64, STRING&gt;(1, 'abc')      </code></td>
-<td><code dir="ltr" translate="no">       STRUCT&lt;INT64, STRING&gt;      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       STRUCT(1)      </code></td>
-<td><code dir="ltr" translate="no">       STRUCT&lt;INT64&gt;      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       STRUCT&lt;INT64&gt;(1)      </code></td>
-<td><code dir="ltr" translate="no">       STRUCT&lt;INT64&gt;      </code></td>
-</tr>
-</tbody>
-</table>
+| Example                                          | Output Type                                    |
+| ------------------------------------------------ | ---------------------------------------------- |
+| `        (1, 2, 3)       `                       | `        STRUCT<INT64, INT64, INT64>       `   |
+| `        (1, 'abc')       `                      | `        STRUCT<INT64, STRING>       `         |
+| `        STRUCT(1 AS foo, 'abc' AS bar)       `  | `        STRUCT<foo INT64, bar STRING>       ` |
+| `        STRUCT<INT64, STRING>(1, 'abc')       ` | `        STRUCT<INT64, STRING>       `         |
+| `        STRUCT(1)       `                       | `        STRUCT<INT64>       `                 |
+| `        STRUCT<INT64>(1)       `                | `        STRUCT<INT64>       `                 |
 
-A struct literal represents a constant value of the [struct data type](/spanner/docs/reference/standard-sql/data-types#struct_type) .
+A struct literal represents a constant value of the [struct data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#struct_type) .
 
 ### Date literals
 
 Syntax:
 
-``` text
-DATE 'date_canonical_format'
-```
+    DATE 'date_canonical_format'
 
-Date literals contain the `  DATE  ` keyword followed by [`  date_canonical_format  `](/spanner/docs/reference/standard-sql/data-types#canonical_format_for_date_literals) , a string literal that conforms to the canonical date format, enclosed in single quotation marks. Date literals support a range between the years 1 and 9999, inclusive. Dates outside of this range are invalid.
+Date literals contain the `  DATE  ` keyword followed by [`  date_canonical_format  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical_format_for_date_literals) , a string literal that conforms to the canonical date format, enclosed in single quotation marks. Date literals support a range between the years 1 and 9999, inclusive. Dates outside of this range are invalid.
 
 For example, the following date literal represents September 27, 2014:
 
-``` text
-DATE '2014-09-27'
-```
+    DATE '2014-09-27'
 
 String literals in canonical date format also implicitly coerce to DATE type when used where a DATE-type expression is expected. For example, in the query
 
-``` text
-SELECT * FROM foo WHERE date_col = "2014-09-27"
-```
+    SELECT * FROM foo WHERE date_col = "2014-09-27"
 
 the string literal `  "2014-09-27"  ` will be coerced to a date literal.
 
-A date literal represents a constant value of the [date data type](/spanner/docs/reference/standard-sql/data-types#date_type) .
+A date literal represents a constant value of the [date data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) .
 
 ### Timestamp literals
 
 Syntax:
 
-``` text
-TIMESTAMP 'timestamp_canonical_format'
-```
+    TIMESTAMP 'timestamp_canonical_format'
 
-Timestamp literals contain the `  TIMESTAMP  ` keyword and [`  timestamp_canonical_format  `](/spanner/docs/reference/standard-sql/data-types#canonical_format_for_timestamp_literals) , a string literal that conforms to the canonical timestamp format, enclosed in single quotation marks.
+Timestamp literals contain the `  TIMESTAMP  ` keyword and [`  timestamp_canonical_format  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical_format_for_timestamp_literals) , a string literal that conforms to the canonical timestamp format, enclosed in single quotation marks.
 
 Timestamp literals support a range between the years 1 and 9999, inclusive. Timestamps outside of this range are invalid.
 
 A timestamp literal can include a numerical suffix to indicate the time zone:
 
-``` text
-TIMESTAMP '2014-09-27 12:30:00.45-08'
-```
+    TIMESTAMP '2014-09-27 12:30:00.45-08'
 
 If this suffix is absent, the default time zone, America/Los\_Angeles, is used.
 
 For example, the following timestamp represents 12:30 p.m. on September 27, 2014 in the default time zone, America/Los\_Angeles:
 
-``` text
-TIMESTAMP '2014-09-27 12:30:00.45'
-```
+    TIMESTAMP '2014-09-27 12:30:00.45'
 
-For more information about time zones, see [Time zone](#timezone) .
+For more information about time zones, see [Time zone](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#timezone) .
 
 String literals with the canonical timestamp format, including those with time zone names, implicitly coerce to a timestamp literal when used where a timestamp expression is expected. For example, in the following query, the string literal `  "2014-09-27 12:30:00.45 America/Los_Angeles"  ` is coerced to a timestamp literal.
 
-``` text
-SELECT * FROM foo
-WHERE timestamp_col = "2014-09-27 12:30:00.45 America/Los_Angeles"
-```
+    SELECT * FROM foo
+    WHERE timestamp_col = "2014-09-27 12:30:00.45 America/Los_Angeles"
 
 A timestamp literal can include these optional characters:
 
@@ -487,46 +423,40 @@ A timestamp literal can include these optional characters:
 
 If you use one of these characters, a space can't be included before or after it. These are valid:
 
-``` text
-TIMESTAMP '2017-01-18T12:34:56.123456Z'
-TIMESTAMP '2017-01-18t12:34:56.123456'
-TIMESTAMP '2017-01-18 12:34:56.123456z'
-TIMESTAMP '2017-01-18 12:34:56.123456Z'
-```
+    TIMESTAMP '2017-01-18T12:34:56.123456Z'
+    TIMESTAMP '2017-01-18t12:34:56.123456'
+    TIMESTAMP '2017-01-18 12:34:56.123456z'
+    TIMESTAMP '2017-01-18 12:34:56.123456Z'
 
-A timestamp literal represents a constant value of the [timestamp data type](/spanner/docs/reference/standard-sql/data-types#timestamp_type) .
+A timestamp literal represents a constant value of the [timestamp data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#timestamp_type) .
 
 #### Time zone
 
 Since timestamp literals must be mapped to a specific point in time, a time zone is necessary to correctly interpret a literal. If a time zone isn't specified as part of the literal itself, then GoogleSQL uses the default time zone value, which the GoogleSQL implementation sets.
 
-GoogleSQL can represent a time zones using a string, which represents the [offset from Coordinated Universal Time (UTC)](/spanner/docs/reference/standard-sql/data-types#utc_offset) .
+GoogleSQL can represent a time zones using a string, which represents the [offset from Coordinated Universal Time (UTC)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#utc_offset) .
 
 Examples:
 
-``` text
-'-08:00'
-'-8:15'
-'+3:00'
-'+07:30'
-'-7'
-```
+    '-08:00'
+    '-8:15'
+    '+3:00'
+    '+07:30'
+    '-7'
 
-Time zones can also be expressed using string [time zone names](/spanner/docs/reference/standard-sql/data-types#time_zone_name) .
+Time zones can also be expressed using string [time zone names](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zone_name) .
 
 Examples:
 
-``` text
-TIMESTAMP '2014-09-27 12:30:00 America/Los_Angeles'
-TIMESTAMP '2014-09-27 12:30:00 America/Argentina/Buenos_Aires'
-```
+    TIMESTAMP '2014-09-27 12:30:00 America/Los_Angeles'
+    TIMESTAMP '2014-09-27 12:30:00 America/Argentina/Buenos_Aires'
 
 ### Interval literals
 
-An interval literal represents a constant value of the [interval data type](/spanner/docs/reference/standard-sql/data-types#interval_type) . There are two types of interval literals:
+An interval literal represents a constant value of the [interval data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_type) . There are two types of interval literals:
 
-  - [Interval literal with a single datetime part](#interval_literal_single)
-  - [Interval literal with a datetime part range](#interval_literal_range)
+  - [Interval literal with a single datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#interval_literal_single)
+  - [Interval literal with a datetime part range](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#interval_literal_range)
 
 An interval literal can be used directly inside of the `  SELECT  ` statement and as an argument in some functions that support the interval data type.
 
@@ -534,225 +464,136 @@ An interval literal can be used directly inside of the `  SELECT  ` statement an
 
 Syntax:
 
-``` text
-INTERVAL int64_expression datetime_part
-```
+    INTERVAL int64_expression datetime_part
 
-The single datetime part syntax includes an `  INT64  ` expression and a single [interval-supported datetime part](/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) . For example:
+The single datetime part syntax includes an `  INT64  ` expression and a single [interval-supported datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) . For example:
 
-``` text
--- 0 years, 0 months, 5 days, 0 hours, 0 minutes, 0 seconds (0-0 5 0:0:0)
-INTERVAL 5 DAY
-
--- 0 years, 0 months, -5 days, 0 hours, 0 minutes, 0 seconds (0-0 -5 0:0:0)
-INTERVAL -5 DAY
-
--- 0 years, 0 months, 0 days, 0 hours, 0 minutes, 1 seconds (0-0 0 0:0:1)
-INTERVAL 1 SECOND
-```
+    -- 0 years, 0 months, 5 days, 0 hours, 0 minutes, 0 seconds (0-0 5 0:0:0)
+    INTERVAL 5 DAY
+    
+    -- 0 years, 0 months, -5 days, 0 hours, 0 minutes, 0 seconds (0-0 -5 0:0:0)
+    INTERVAL -5 DAY
+    
+    -- 0 years, 0 months, 0 days, 0 hours, 0 minutes, 1 seconds (0-0 0 0:0:1)
+    INTERVAL 1 SECOND
 
 When a negative sign precedes the year or month part in an interval literal, the negative sign distributes over the years and months. Or, when a negative sign precedes the time part in an interval literal, the negative sign distributes over the hours, minutes, and seconds. For example:
 
-``` text
--- -2 years, -1 months, 0 days, 0 hours, 0 minutes, and 0 seconds (-2-1 0 0:0:0)
-INTERVAL -25 MONTH
+    -- -2 years, -1 months, 0 days, 0 hours, 0 minutes, and 0 seconds (-2-1 0 0:0:0)
+    INTERVAL -25 MONTH
+    
+    -- 0 years, 0 months, 0 days, -1 hours, -30 minutes, and 0 seconds (0-0 0 -1:30:0)
+    INTERVAL -90 MINUTE
 
--- 0 years, 0 months, 0 days, -1 hours, -30 minutes, and 0 seconds (0-0 0 -1:30:0)
-INTERVAL -90 MINUTE
-```
-
-For more information on how to construct interval with a single datetime part, see [Construct an interval with a single datetime part](/spanner/docs/reference/standard-sql/data-types#single_datetime_part_interval) .
+For more information on how to construct interval with a single datetime part, see [Construct an interval with a single datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#single_datetime_part_interval) .
 
 #### Interval literal with a datetime part range
 
 Syntax:
 
-``` text
-INTERVAL datetime_parts_string starting_datetime_part TO ending_datetime_part
-```
+    INTERVAL datetime_parts_string starting_datetime_part TO ending_datetime_part
 
-The range datetime part syntax includes a [datetime parts string](/spanner/docs/reference/standard-sql/data-types#range_datetime_part_interval) , a [starting datetime part](/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) , and an [ending datetime part](/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) .
+The range datetime part syntax includes a [datetime parts string](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#range_datetime_part_interval) , a [starting datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) , and an [ending datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) .
 
 For example:
 
-``` text
--- 0 years, 0 months, 0 days, 10 hours, 20 minutes, 30 seconds (0-0 0 10:20:30.520)
-INTERVAL '10:20:30.52' HOUR TO SECOND
-
--- 1 year, 2 months, 0 days, 0 hours, 0 minutes, 0 seconds (1-2 0 0:0:0)
-INTERVAL '1-2' YEAR TO MONTH
-
--- 0 years, 1 month, -15 days, 0 hours, 0 minutes, 0 seconds (0-1 -15 0:0:0)
-INTERVAL '1 -15' MONTH TO DAY
-
--- 0 years, 0 months, 1 day, 5 hours, 30 minutes, 0 seconds (0-0 1 5:30:0)
-INTERVAL '1 5:30' DAY TO MINUTE
-```
+    -- 0 years, 0 months, 0 days, 10 hours, 20 minutes, 30 seconds (0-0 0 10:20:30.520)
+    INTERVAL '10:20:30.52' HOUR TO SECOND
+    
+    -- 1 year, 2 months, 0 days, 0 hours, 0 minutes, 0 seconds (1-2 0 0:0:0)
+    INTERVAL '1-2' YEAR TO MONTH
+    
+    -- 0 years, 1 month, -15 days, 0 hours, 0 minutes, 0 seconds (0-1 -15 0:0:0)
+    INTERVAL '1 -15' MONTH TO DAY
+    
+    -- 0 years, 0 months, 1 day, 5 hours, 30 minutes, 0 seconds (0-0 1 5:30:0)
+    INTERVAL '1 5:30' DAY TO MINUTE
 
 When a negative sign precedes the year or month part in an interval literal, the negative sign distributes over the years and months. Or, when a negative sign precedes the time part in an interval literal, the negative sign distributes over the hours, minutes, and seconds. For example:
 
-``` text
--- -23 years, -2 months, 10 days, -12 hours, -30 minutes, and 0 seconds (-23-2 10 -12:30:0)
-INTERVAL '-23-2 10 -12:30' YEAR TO MINUTE
+    -- -23 years, -2 months, 10 days, -12 hours, -30 minutes, and 0 seconds (-23-2 10 -12:30:0)
+    INTERVAL '-23-2 10 -12:30' YEAR TO MINUTE
+    
+    -- -23 years, -2 months, 10 days, 0 hours, -30 minutes, and 0 seconds (-23-2 10 -0:30:0)
+    SELECT INTERVAL '-23-2 10 -0:30' YEAR TO MINUTE
+    
+    -- Produces an error because the negative sign for minutes must come before the hour.
+    SELECT INTERVAL '-23-2 10 0:-30' YEAR TO MINUTE
+    
+    -- Produces an error because the negative sign for months must come before the year.
+    SELECT INTERVAL '23--2 10 0:30' YEAR TO MINUTE
+    
+    -- 0 years, -2 months, 10 days, 0 hours, 30 minutes, and 0 seconds (-0-2 10 0:30:0)
+    SELECT INTERVAL '-2 10 0:30' MONTH TO MINUTE
+    
+    -- 0 years, 0 months, 0 days, 0 hours, -30 minutes, and -10 seconds (0-0 0 -0:30:10)
+    SELECT INTERVAL '-30:10' MINUTE TO SECOND
 
--- -23 years, -2 months, 10 days, 0 hours, -30 minutes, and 0 seconds (-23-2 10 -0:30:0)
-SELECT INTERVAL '-23-2 10 -0:30' YEAR TO MINUTE
-
--- Produces an error because the negative sign for minutes must come before the hour.
-SELECT INTERVAL '-23-2 10 0:-30' YEAR TO MINUTE
-
--- Produces an error because the negative sign for months must come before the year.
-SELECT INTERVAL '23--2 10 0:30' YEAR TO MINUTE
-
--- 0 years, -2 months, 10 days, 0 hours, 30 minutes, and 0 seconds (-0-2 10 0:30:0)
-SELECT INTERVAL '-2 10 0:30' MONTH TO MINUTE
-
--- 0 years, 0 months, 0 days, 0 hours, -30 minutes, and -10 seconds (0-0 0 -0:30:10)
-SELECT INTERVAL '-30:10' MINUTE TO SECOND
-```
-
-For more information on how to construct interval with a datetime part range, see [Construct an interval with a datetime part range](/spanner/docs/reference/standard-sql/data-types#single_datetime_part_interval) .
+For more information on how to construct interval with a datetime part range, see [Construct an interval with a datetime part range](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#single_datetime_part_interval) .
 
 ### Enum literals
 
-There is no syntax for enum literals. Integer or string literals are coerced to the enum type when necessary, or explicitly cast to a specific enum type name. For more information, see [Literal coercion](/spanner/docs/reference/standard-sql/conversion_rules#coercion) .
+There is no syntax for enum literals. Integer or string literals are coerced to the enum type when necessary, or explicitly cast to a specific enum type name. For more information, see [Literal coercion](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#coercion) .
 
-An enum literal represents a constant value of the [enum data type](/spanner/docs/reference/standard-sql/data-types#enum_type) .
+An enum literal represents a constant value of the [enum data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#enum_type) .
 
 ### JSON literals
 
 Syntax:
 
-``` text
-JSON 'json_formatted_data'
-```
+    JSON 'json_formatted_data'
 
 A JSON literal represents [JSON](https://en.wikipedia.org/wiki/JSON) -formatted data.
 
 Example:
 
-``` text
-JSON '
-{
-  "id": 10,
-  "type": "fruit",
-  "name": "apple",
-  "on_menu": true,
-  "recipes":
+    JSON '
     {
-      "salads":
-      [
-        { "id": 2001, "type": "Walnut Apple Salad" },
-        { "id": 2002, "type": "Apple Spinach Salad" }
-      ],
-      "desserts":
-      [
-        { "id": 3001, "type": "Apple Pie" },
-        { "id": 3002, "type": "Apple Scones" },
-        { "id": 3003, "type": "Apple Crumble" }
-      ]
+      "id": 10,
+      "type": "fruit",
+      "name": "apple",
+      "on_menu": true,
+      "recipes":
+        {
+          "salads":
+          [
+            { "id": 2001, "type": "Walnut Apple Salad" },
+            { "id": 2002, "type": "Apple Spinach Salad" }
+          ],
+          "desserts":
+          [
+            { "id": 3001, "type": "Apple Pie" },
+            { "id": 3002, "type": "Apple Scones" },
+            { "id": 3003, "type": "Apple Crumble" }
+          ]
+        }
     }
-}
-'
-```
+    '
 
-A JSON literal represents a constant value of the [JSON data type](/spanner/docs/reference/standard-sql/data-types#json_type) .
+A JSON literal represents a constant value of the [JSON data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type) .
 
 ## Case sensitivity
 
 GoogleSQL follows these rules for case sensitivity:
 
-<table>
-<thead>
-<tr class="header">
-<th>Category</th>
-<th>Case-sensitive?</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Keywords</td>
-<td>No</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Function names</td>
-<td>No</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Table names</td>
-<td>See Notes</td>
-<td>Table names are usually case-insensitive, but they might be case-sensitive when querying a database that uses case-sensitive table names.</td>
-</tr>
-<tr class="even">
-<td>Column names</td>
-<td>No</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Field names</td>
-<td>No</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>All type names except for protocol buffer type names</td>
-<td>No</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Protocol buffer type names</td>
-<td>Yes</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Enum type names</td>
-<td>Yes</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>String values</td>
-<td>Yes</td>
-<td>Any value of type <code dir="ltr" translate="no">       STRING      </code> preserves its case. For example, the result of an expression that produces a <code dir="ltr" translate="no">       STRING      </code> value or a column value that's of type <code dir="ltr" translate="no">       STRING      </code> .</td>
-</tr>
-<tr class="even">
-<td>String comparisons</td>
-<td>Yes</td>
-<td>However, string comparisons are case-insensitive in <a href="/spanner/docs/reference/standard-sql/collation-concepts">collations</a> that are case-insensitive. This behavior also applies to operations affected by collation, such as <code dir="ltr" translate="no">       GROUP BY      </code> and <code dir="ltr" translate="no">       DISTINCT      </code> clauses.</td>
-</tr>
-<tr class="odd">
-<td>Aliases within a query</td>
-<td>No</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Regular expression matching</td>
-<td>See Notes</td>
-<td>Regular expression matching is case-sensitive by default, unless the expression itself specifies that it should be case-insensitive.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       LIKE      </code> matching</td>
-<td>Yes</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Property graph names</td>
-<td>No</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Property graph label names</td>
-<td>No</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Property graph property names</td>
-<td>No</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Category                                             | Case-sensitive? | Notes                                                                                                                                                                                                                                                                                                                      |
+| ---------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Keywords                                             | No              |                                                                                                                                                                                                                                                                                                                            |
+| Function names                                       | No              |                                                                                                                                                                                                                                                                                                                            |
+| Table names                                          | See Notes       | Table names are usually case-insensitive, but they might be case-sensitive when querying a database that uses case-sensitive table names.                                                                                                                                                                                  |
+| Column names                                         | No              |                                                                                                                                                                                                                                                                                                                            |
+| Field names                                          | No              |                                                                                                                                                                                                                                                                                                                            |
+| All type names except for protocol buffer type names | No              |                                                                                                                                                                                                                                                                                                                            |
+| Protocol buffer type names                           | Yes             |                                                                                                                                                                                                                                                                                                                            |
+| Enum type names                                      | Yes             |                                                                                                                                                                                                                                                                                                                            |
+| String values                                        | Yes             | Any value of type `        STRING       ` preserves its case. For example, the result of an expression that produces a `        STRING       ` value or a column value that's of type `        STRING       ` .                                                                                                            |
+| String comparisons                                   | Yes             | However, string comparisons are case-insensitive in [collations](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts) that are case-insensitive. This behavior also applies to operations affected by collation, such as `        GROUP BY       ` and `        DISTINCT       ` clauses. |
+| Aliases within a query                               | No              |                                                                                                                                                                                                                                                                                                                            |
+| Regular expression matching                          | See Notes       | Regular expression matching is case-sensitive by default, unless the expression itself specifies that it should be case-insensitive.                                                                                                                                                                                       |
+| `        LIKE       ` matching                       | Yes             |                                                                                                                                                                                                                                                                                                                            |
+| Property graph names                                 | No              |                                                                                                                                                                                                                                                                                                                            |
+| Property graph label names                           | No              |                                                                                                                                                                                                                                                                                                                            |
+| Property graph property names                        | No              |                                                                                                                                                                                                                                                                                                                            |
 
 ## Reserved keywords
 
@@ -888,9 +729,7 @@ You can optionally use a trailing comma ( `  ,  ` ) at the end of a column list 
 
 **Example**
 
-``` text
-SELECT name, release_date, FROM Books
-```
+    SELECT name, release_date, FROM Books
 
 ## Query parameters
 
@@ -898,19 +737,15 @@ You can use query parameters to substitute arbitrary expressions. However, query
 
 Client APIs allow the binding of parameter names to values; the query engine substitutes a bound value for a parameter at execution time.
 
-Parameterized queries have better [query cache](/spanner/docs/whitepapers/life-of-query#caching) hit rates resulting in lower query latency and lower overall CPU usage.
+Parameterized queries have better [query cache](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query#caching) hit rates resulting in lower query latency and lower overall CPU usage.
 
 For example, instead of using a query like the following:
 
-``` text
-SELECT AlbumId FROM Albums WHERE SEARCH(AlbumTitle_Tokens, 'cat')
-```
+    SELECT AlbumId FROM Albums WHERE SEARCH(AlbumTitle_Tokens, 'cat')
 
 use the following syntax:
 
-``` text
-SELECT AlbumId FROM Albums WHERE SEARCH(AlbumTitle_Tokens, @p)
-```
+    SELECT AlbumId FROM Albums WHERE SEARCH(AlbumTitle_Tokens, @p)
 
 Spanner runs the query optimizer on distinct SQL. The fewer distinct SQL instances the application uses, the fewer times the query optimization is invoked.
 
@@ -918,11 +753,9 @@ Spanner runs the query optimizer on distinct SQL. The fewer distinct SQL instanc
 
 Syntax:
 
-``` text
-@parameter_name
-```
+    @parameter_name
 
-A named query parameter is denoted using an [identifier](#identifiers) preceded by the `  @  ` character.
+A named query parameter is denoted using an [identifier](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#identifiers) preceded by the `  @  ` character.
 
 A named query parameter can start with an identifier or a reserved keyword. An identifier can be unquoted or quoted.
 
@@ -930,29 +763,25 @@ A named query parameter can start with an identifier or a reserved keyword. An i
 
 This example returns all rows where `  LastName  ` is equal to the value of the named query parameter `  myparam  ` .
 
-``` text
-SELECT * FROM Roster WHERE LastName = @myparam
-```
+    SELECT * FROM Roster WHERE LastName = @myparam
 
 ## Hints
 
-``` text
-@{ hint [, ...] }
-
-hint:
-  [engine_name.]hint_name = value
-```
+    @{ hint [, ...] }
+    
+    hint:
+      [engine_name.]hint_name = value
 
 The purpose of a hint is to modify the execution strategy for a query without changing the result of the query. Hints generally don't affect query semantics, but may have performance implications. These hint types are available:
 
-  - [GROUP hints](/spanner/docs/reference/standard-sql/query-syntax#group_hints)
-  - [JOIN hints](/spanner/docs/reference/standard-sql/query-syntax#join_hints)
-  - [STATEMENT hints](/spanner/docs/reference/standard-sql/query-syntax#statement_hints)
-  - [TABLE hints](/spanner/docs/reference/standard-sql/query-syntax#table_hints)
+  - [GROUP hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#group_hints)
+  - [JOIN hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join_hints)
+  - [STATEMENT hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints)
+  - [TABLE hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#table_hints)
 
 Hint syntax requires the `  @  ` character followed by curly braces. You can create one hint or a group of hints. The optional `  engine_name.  ` prefix allows for multiple engines to define hints with the same `  hint_name  ` . This is important if you need to suggest different engine-specific execution strategies or different engines support different hints.
 
-You can assign [identifiers](#identifiers) and [literals](#literals) to hints.
+You can assign [identifiers](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#identifiers) and [literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#literals) to hints.
 
   - Identifiers are useful for hints that are meant to act like enums. You can use an identifier to avoid using a quoted string. In the resolved AST, identifier hints are represented as string literals, so `  @{hint="abc"}  ` is the same as `  @{hint=abc}  ` . Identifier hints can also be used for hints that take a table name or column name as a single identifier.
   - NULL literals are allowed and are inferred as integers.
@@ -963,15 +792,11 @@ Hints are meant to apply only to the node they are attached to, and not to a lar
 
 In this example, a literal is assigned to a hint. This hint is only used with two database engines called `  database_engine_a  ` and `  database_engine_b  ` . The value for the hint is different for each database engine.
 
-``` text
-@{ database_engine_a.file_count=23, database_engine_b.file_count=10 }
-```
+    @{ database_engine_a.file_count=23, database_engine_b.file_count=10 }
 
 In this example, an identifier is assigned to a hint. There are unique identifiers for each hint type. You can view a list of hint types at the beginning of this topic.
 
-``` text
-@{ JOIN_METHOD=HASH_JOIN }
-```
+    @{ JOIN_METHOD=HASH_JOIN }
 
 ## Comments
 
@@ -983,26 +808,18 @@ Use a single-line comment if you want the comment to appear on a line by itself.
 
 **Examples**
 
-``` text
-# this is a single-line comment
-SELECT book FROM library;
-```
+    # this is a single-line comment
+    SELECT book FROM library;
 
-``` text
--- this is a single-line comment
-SELECT book FROM library;
-```
+    -- this is a single-line comment
+    SELECT book FROM library;
 
-``` text
-/* this is a single-line comment */
-SELECT book FROM library;
-```
+    /* this is a single-line comment */
+    SELECT book FROM library;
 
-``` text
-SELECT book FROM library
-/* this is a single-line comment */
-WHERE book = "Ulysses";
-```
+    SELECT book FROM library
+    /* this is a single-line comment */
+    WHERE book = "Ulysses";
 
 ### Inline comments
 
@@ -1010,21 +827,13 @@ Use an inline comment if you want the comment to appear on the same line as a st
 
 **Examples**
 
-``` text
-SELECT book FROM library; # this is an inline comment
-```
+    SELECT book FROM library; # this is an inline comment
 
-``` text
-SELECT book FROM library; -- this is an inline comment
-```
+    SELECT book FROM library; -- this is an inline comment
 
-``` text
-SELECT book FROM library; /* this is an inline comment */
-```
+    SELECT book FROM library; /* this is an inline comment */
 
-``` text
-SELECT book FROM library /* this is an inline comment */ WHERE book = "Ulysses";
-```
+    SELECT book FROM library /* this is an inline comment */ WHERE book = "Ulysses";
 
 ### Multiline comments
 
@@ -1032,18 +841,14 @@ Use a multiline comment if you need the comment to span multiple lines. Nested m
 
 **Examples**
 
-``` text
-SELECT book FROM library
-/*
-  This is a multiline comment
-  on multiple lines
-*/
-WHERE book = "Ulysses";
-```
+    SELECT book FROM library
+    /*
+      This is a multiline comment
+      on multiple lines
+    */
+    WHERE book = "Ulysses";
 
-``` text
-SELECT book FROM library
-/* this is a multiline comment
-on two lines */
-WHERE book = "Ulysses";
-```
+    SELECT book FROM library
+    /* this is a multiline comment
+    on two lines */
+    WHERE book = "Ulysses";

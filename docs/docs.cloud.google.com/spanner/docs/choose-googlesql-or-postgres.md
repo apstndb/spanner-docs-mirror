@@ -18,4 +18,4 @@ If portability is your highest priority, giving you the option to move away from
 
 ## What's next
 
-  - Learn about [dialect parity between GoogleSQL and PostgreSQL](/spanner/docs/reference/dialect-differences) .
+  - Learn about [dialect parity between GoogleSQL and PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/dialect-differences) .

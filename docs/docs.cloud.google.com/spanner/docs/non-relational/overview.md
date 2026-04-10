@@ -18,7 +18,7 @@ Conventional relational databases are typically accessed using SQL, which comes 
 
 ### Fully managed
 
-A big draw of NoSQL databases has been that they are perceived to be easier to manage. As a fully managed service, Spanner doesn't place any operational burden on customers. Spanner performs zero-downtime software and hardware updates behind the scenes while maintaining backward compatibility. The Spanner API and semantics are the same as if the operations were being performed on a single machine database and don't require knowledge of Spanner's internal architecture. Spanner runs on deployments ranging from 1/10th of a node to tens of thousands of nodes, scaling automatically and responsively with a [managed autoscaler](/spanner/docs/managed-autoscaler) .
+A big draw of NoSQL databases has been that they are perceived to be easier to manage. As a fully managed service, Spanner doesn't place any operational burden on customers. Spanner performs zero-downtime software and hardware updates behind the scenes while maintaining backward compatibility. The Spanner API and semantics are the same as if the operations were being performed on a single machine database and don't require knowledge of Spanner's internal architecture. Spanner runs on deployments ranging from 1/10th of a node to tens of thousands of nodes, scaling automatically and responsively with a [managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) .
 
 ### Semi-structured data
 
@@ -26,7 +26,7 @@ Spanner supports flexible data types like JSON and BYTES that are used to store 
 
 ### Access control
 
-Like other NoSQL databases, Spanner supports [IAM based access control](/spanner/docs/iam) . Administrators can configure and administer access control policies without storing usernames and passwords in the database.
+Like other NoSQL databases, Spanner supports [IAM based access control](https://docs.cloud.google.com/spanner/docs/iam) . Administrators can configure and administer access control policies without storing usernames and passwords in the database.
 
 ## How Spanner differs from conventional NoSQL databases
 
@@ -38,11 +38,11 @@ As applications grow in complexity, they often need to perform multi-row and mul
 
 ### Data modeling
 
-Schema design in NoSQL databases can be unnatural due to the need to fit all data into one table, and to forcibly denormalize data due to the inability to perform joins. With Spanner, you can specify your schema without resorting to a single table or denormalization. To optimize access patterns that touch multiple tables, you can use [table interleaving](/spanner/docs/schema-and-data-model#create-interleaved-tables) . You can also perform joins across tables.
+Schema design in NoSQL databases can be unnatural due to the need to fit all data into one table, and to forcibly denormalize data due to the inability to perform joins. With Spanner, you can specify your schema without resorting to a single table or denormalization. To optimize access patterns that touch multiple tables, you can use [table interleaving](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) . You can also perform joins across tables.
 
 ### Ad hoc queries
 
-Even if you mainly use the NoSQL API, it is often still useful to run ad hoc queries for debugging or analytics purposes. Spanner adheres to the SQL standard query language. You can use [request prioritization](/spanner/docs/reference/rest/v1/RequestOptions) to isolate ad hoc low-priority traffic from online traffic or use Spanner [Data Boost](/spanner/docs/databoost/databoost-overview) to run analytical queries on compute resources completely isolated from online database traffic.
+Even if you mainly use the NoSQL API, it is often still useful to run ad hoc queries for debugging or analytics purposes. Spanner adheres to the SQL standard query language. You can use [request prioritization](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions) to isolate ad hoc low-priority traffic from online traffic or use Spanner [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) to run analytical queries on compute resources completely isolated from online database traffic.
 
 ### Strongly consistent secondary indexes
 

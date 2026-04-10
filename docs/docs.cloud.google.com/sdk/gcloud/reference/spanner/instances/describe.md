@@ -14,7 +14,7 @@ EXAMPLES
 
 To describe a Cloud Spanner instance, run:
 
-``` text
+``` wrap-code
 gcloud spanner instances describe my-instance-id
 ```
 
@@ -33,10 +33,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instances describe
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner instances describe
 ```

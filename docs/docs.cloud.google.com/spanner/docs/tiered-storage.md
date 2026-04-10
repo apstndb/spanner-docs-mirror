@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes and explains how tiered storage works in Spanner. This feature is supported in both GoogleSQL-dialect and PostgreSQL-dialect databases.
 
@@ -56,7 +56,7 @@ Up to 2,700 QPS write</td>
 </tbody>
 </table>
 
-Use [throughput optimized writes](/spanner/docs/throughput-optimized-writes) to increase write throughput beyond the numbers in the table. For more information, see [Performance overview](/spanner/docs/performance) .
+Use [throughput optimized writes](https://docs.cloud.google.com/spanner/docs/throughput-optimized-writes) to increase write throughput beyond the numbers in the table. For more information, see [Performance overview](https://docs.cloud.google.com/spanner/docs/performance) .
 
 ## Benefits
 
@@ -71,9 +71,9 @@ Tiered storage offers the following benefits by letting you use both SSD and HDD
 
 By default, when you create a new instance, data is only stored on SSD storage. Similarly, data in existing instances is also only stored on SSD storage.
 
-If you choose to use tiered storage to store some data in HDD storage, you must create a [locality group](/spanner/docs/schema-and-data-model#locality-groups) , which is used to define the tiered storage policy for data in your schema. When you create a locality group, you can define the storage type, either `  ssd  ` or `  hdd  ` . Optionally, you can also define the amount of time that data is stored on SSD storage before it's moved to HDD storage. This time is relative to the data's commit timestamp. After the specified time passes, Spanner migrates the data to HDD storage during its normal compaction cycle, which typically occurs over the course of seven days from the specified time. This is known as an age-based tiered storage policy. When using an age-based tiered storage policy, the minimum amount of time that data must be stored on SSD before it's moved to HDD storage is one hour.
+If you choose to use tiered storage to store some data in HDD storage, you must create a [locality group](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) , which is used to define the tiered storage policy for data in your schema. When you create a locality group, you can define the storage type, either `  ssd  ` or `  hdd  ` . Optionally, you can also define the amount of time that data is stored on SSD storage before it's moved to HDD storage. This time is relative to the data's commit timestamp. After the specified time passes, Spanner migrates the data to HDD storage during its normal compaction cycle, which typically occurs over the course of seven days from the specified time. This is known as an age-based tiered storage policy. When using an age-based tiered storage policy, the minimum amount of time that data must be stored on SSD before it's moved to HDD storage is one hour.
 
-With your locality groups defined, when you create your tables, you can set the tiered storage policy at the database, table, column, or secondary index-level. The tiered storage policy determines how and where data is stored. For instructions, see [Create and manage locality groups](/spanner/docs/create-manage-locality-groups) .
+With your locality groups defined, when you create your tables, you can set the tiered storage policy at the database, table, column, or secondary index-level. The tiered storage policy determines how and where data is stored. For instructions, see [Create and manage locality groups](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups) .
 
 ### Key behavior details
 
@@ -86,15 +86,15 @@ The following behaviors apply when using tiered storage:
 
 ## Back up and restore
 
-You can back up and restore your data using [Spanner backups](/spanner/docs/backup) . The backup contains all storage schema information, including [`  INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS  `](#information-schema) , which specifies the storage type of each locality group. To restore a backup that contains locality groups to a new instance, the destination instance must be in the Spanner Enterprise edition or Spanner Enterprise Plus edition.
+You can back up and restore your data using [Spanner backups](https://docs.cloud.google.com/spanner/docs/backup) . The backup contains all storage schema information, including [`  INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS  `](https://docs.cloud.google.com/spanner/docs/tiered-storage#information-schema) , which specifies the storage type of each locality group. To restore a backup that contains locality groups to a new instance, the destination instance must be in the Spanner Enterprise edition or Spanner Enterprise Plus edition.
 
 ## Data Boost
 
-You can use [Spanner Data Boost](/spanner/docs/databoost/databoost-overview) to access data on SSD or HDD storage. Querying data on HDD uses the instance's [HDD disk load capacity](/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load) , which is part of your compute capacity.
+You can use [Spanner Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) to access data on SSD or HDD storage. Querying data on HDD uses the instance's [HDD disk load capacity](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load) , which is part of your compute capacity.
 
 ## Search indexes
 
-[Full-text search](/spanner/docs/full-text-search) and [vector indexes](/spanner/docs/find-approximate-nearest-neighbors#vector-index) inherit the locality group that is set on the [database object](/spanner/docs/create-manage-locality-groups#set_a_database-level_locality_group) .
+[Full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) and [vector indexes](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#vector-index) inherit the locality group that is set on the [database object](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#set_a_database-level_locality_group) .
 
 ## Observability
 
@@ -112,11 +112,11 @@ Spanner provides the following metrics to help you monitor your tiered storage u
 
 If you have existing queries that filter existing metrics by `  storage_class:ssd  ` , you must remove the filter to see your HDD usage.
 
-To learn more about monitoring your Spanner resources, see [Monitor instances with system insights](/spanner/docs/monitoring-console) and [Monitor instances with Cloud Monitoring](/spanner/docs/monitoring-cloud) .
+To learn more about monitoring your Spanner resources, see [Monitor instances with system insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) and [Monitor instances with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
 ### Information schema
 
-`  INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS  ` contains the list of locality groups and options in your Spanner database. It includes information for the `  default  ` locality group. For more information, see [`  locality_group_options  ` for GoogleSQL-dialect databases](/spanner/docs/information-schema) and [`  locality_group_options  ` for PostgreSQL-dialect databases](/spanner/docs/information-schema-pg) .
+`  INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS  ` contains the list of locality groups and options in your Spanner database. It includes information for the `  default  ` locality group. For more information, see [`  locality_group_options  ` for GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema) and [`  locality_group_options  ` for PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema-pg) .
 
 ### Built-in statistics tables
 
@@ -125,20 +125,20 @@ The following built-in statistics tables are available for databases using tiere
   - `  SPANNER_SYS.TABLE_SIZES_STATS_1HOUR  ` : Shows HDD and SSD storage usage for each table in your database.
   - `  SPANNER_SYS.TABLE_SIZES_STATS_PER_LOCALITY_GROUP_1HOUR  ` : Shows HDD and SSD storage usage for each locality group in your database.
 
-For more information, see [Table sizes statistics](/spanner/docs/introspection/table-sizes-statistics) .
+For more information, see [Table sizes statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics) .
 
 The query statistics and read statistics tables have the following column that is related to tiered storage:
 
-  - `  AVG_DISK_IO_COST  ` : The average cost of this query in terms of Spanner [HDD disk load](/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load) . Use this value to make relative HDD I/O cost comparisons between reads that you run in the database. A higher value indicates that you are using more HDD disk load and your query might be slower than if it was running on SSD. Furthermore, if your HDD disk load is at capacity, the performance of your queries might be further impacted.
+  - `  AVG_DISK_IO_COST  ` : The average cost of this query in terms of Spanner [HDD disk load](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load) . Use this value to make relative HDD I/O cost comparisons between reads that you run in the database. A higher value indicates that you are using more HDD disk load and your query might be slower than if it was running on SSD. Furthermore, if your HDD disk load is at capacity, the performance of your queries might be further impacted.
 
-For more information, see [Query statistics](/spanner/docs/introspection/query-statistics) and [Read statistics](/spanner/docs/introspection/read-statistics) .
+For more information, see [Query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) and [Read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) .
 
 ## Pricing
 
-There is no additional charge for using tiered storage. You are charged the standard Spanner pricing for the amount of compute capacity that your instance uses and the amount of storage that your database uses. Data that is stored on SSD and HDD is billed at their respective storage rates. You aren't charged for moving data between SSD and HDD storage. Querying data on HDD uses the instance's [HDD disk load capacity](/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load) , which is part of your compute capacity pricing. For more information, see [Spanner pricing](https://cloud.google.com/spanner/pricing) .
+There is no additional charge for using tiered storage. You are charged the standard Spanner pricing for the amount of compute capacity that your instance uses and the amount of storage that your database uses. Data that is stored on SSD and HDD is billed at their respective storage rates. You aren't charged for moving data between SSD and HDD storage. Querying data on HDD uses the instance's [HDD disk load capacity](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load) , which is part of your compute capacity pricing. For more information, see [Spanner pricing](https://cloud.google.com/spanner/pricing) .
 
 ## What's next
 
-  - Learn more about [locality groups](/spanner/docs/schema-and-data-model#locality-groups) .
-  - Learn how to [create and manage locality groups](/spanner/docs/create-manage-locality-groups) .
-  - Learn more about [optimizing queries with timestamp predicate pushdown](/spanner/docs/sql-best-practices#optimize-timestamp-predicate-pushdown) .
+  - Learn more about [locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) .
+  - Learn how to [create and manage locality groups](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups) .
+  - Learn more about [optimizing queries with timestamp predicate pushdown](https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-timestamp-predicate-pushdown) .

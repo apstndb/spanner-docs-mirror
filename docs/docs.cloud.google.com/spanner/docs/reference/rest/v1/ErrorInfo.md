@@ -1,31 +1,27 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ErrorInfo#SCHEMA_REPRESENTATION)
 
 Describes the cause of the error with structured details.
 
 Example of an error when contacting the "pubsub.googleapis.com" API when it is not enabled:
 
-``` text
-{ "reason": "API_DISABLED"
-  "domain": "googleapis.com"
-  "metadata": {
-    "resource": "projects/123",
-    "service": "pubsub.googleapis.com"
-  }
-}
-```
+    { "reason": "API_DISABLED"
+      "domain": "googleapis.com"
+      "metadata": {
+        "resource": "projects/123",
+        "service": "pubsub.googleapis.com"
+      }
+    }
 
 This response indicates that the pubsub.googleapis.com API is not enabled.
 
 Example of an error that is returned when attempting to create a Spanner instance in a region that is out of stock:
 
-``` text
-{ "reason": "STOCKOUT"
-  "domain": "spanner.googleapis.com",
-  "metadata": {
-    "availableRegions": "us-central1,us-east2"
-  }
-}
-```
+    { "reason": "STOCKOUT"
+      "domain": "spanner.googleapis.com",
+      "metadata": {
+        "availableRegions": "us-central1,us-east2"
+      }
+    }
 
 <table>
 <colgroup>
@@ -38,7 +34,7 @@ Example of an error that is returned when attempting to create a Spanner instanc
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;reason&quot;: string,
   &quot;domain&quot;: string,
   &quot;metadata&quot;: {

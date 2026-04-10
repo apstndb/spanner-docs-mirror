@@ -1,4 +1,4 @@
-`  psql  ` is the command-line front end to PostgreSQL. This page describes the `  psql  ` commands that the PostgreSQL interface for Spanner supports. To learn how to connect with `  psql  ` see [Connecting psql to a PostgreSQL-dialect database](/spanner/docs/psql-connect) .
+`  psql  ` is the command-line front end to PostgreSQL. This page describes the `  psql  ` commands that the PostgreSQL interface for Spanner supports. To learn how to connect with `  psql  ` see [Connecting psql to a PostgreSQL-dialect database](https://docs.cloud.google.com/spanner/docs/psql-connect) .
 
 ## Meta-commands
 
@@ -23,40 +23,17 @@ The following categories are not supported:
 
 The following informational commands are supported:
 
-<table>
-<thead>
-<tr class="header">
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>\d</td>
-<td>List tables (excluding system tables)</td>
-</tr>
-<tr class="even">
-<td>\d table</td>
-<td>List table columns</td>
-</tr>
-<tr class="odd">
-<td>\dt</td>
-<td>List tables in all schemas (detailed)</td>
-</tr>
-<tr class="even">
-<td>\dt table</td>
-<td>List table (detailed)</td>
-</tr>
-<tr class="odd">
-<td>\dn</td>
-<td>List schemas</td>
-</tr>
-</tbody>
-</table>
+| Command    | Description                           |
+| ---------- | ------------------------------------- |
+| \\d        | List tables (excluding system tables) |
+| \\d table  | List table columns                    |
+| \\dt       | List tables in all schemas (detailed) |
+| \\dt table | List table (detailed)                 |
+| \\dn       | List schemas                          |
 
 ## Session management statements
 
-`  psql  ` communicates with Spanner through [PGAdapter](/spanner/docs/pgadapter) , which uses the core engine of the Spanner JDBC driver. The driver supports the session management statements described in [Session management statements](https://cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat) . Therefore, you can use these statements with `  psql  ` .
+`  psql  ` communicates with Spanner through [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) , which uses the core engine of the Spanner JDBC driver. The driver supports the session management statements described in [Session management statements](https://cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat) . Therefore, you can use these statements with `  psql  ` .
 
 ## SQL statement batching
 
@@ -72,26 +49,20 @@ Explicit `  BEGIN  ` and `  COMMIT  ` transaction controls are supported, but an
 
 The following example shows how to submit a batch of `  INSERT  ` statements.
 
-``` text
-psql -h localhost -p 5432 -c "INSERT INTO users (id, age, firstname) VALUES (1, 25, 'Alex'); \
- INSERT INTO users (id, age, firstname) VALUES (2, 31, 'Dana'); \
- INSERT INTO users (id, age, firstname) VALUES (3, 54, 'Izumi');"
-```
+    psql -h localhost -p 5432 -c "INSERT INTO users (id, age, firstname) VALUES (1, 25, 'Alex'); \
+     INSERT INTO users (id, age, firstname) VALUES (2, 31, 'Dana'); \
+     INSERT INTO users (id, age, firstname) VALUES (3, 54, 'Izumi');"
 
 The next example shows how to execute the SQL statements in the file `  insert_contacts.sql  ` .
 
-``` text
-psql -h localhost -c "$(cat contacts_insert.sql)"
-```
+    psql -h localhost -c "$(cat contacts_insert.sql)"
 
 #### DDL
 
 This example submits a batch of `  ALTER TABLE  ` statements.
 
-``` text
-psql -h localhost -p 5432 test-db -c "ALTER TABLE users ADD col1 integer; \
- ALTER TABLE users ADD col2 text; ALTER TABLE users ADD col3 float8;"
-```
+    psql -h localhost -p 5432 test-db -c "ALTER TABLE users ADD col1 integer; \
+     ALTER TABLE users ADD col2 text; ALTER TABLE users ADD col3 float8;"
 
 ## COPY command for importing data
 
@@ -117,38 +88,36 @@ To enable non-atomic `  COPY  ` , submit the following command before executing 
 
 ### Syntax
 
-``` text
-COPY table_name [ ( column_name [, ...] ) ]
-    FROM STDIN
-    [ [ WITH ] ( option [, ...] ) ]
-
-where option is one of:
-
-    FORMAT format_name
-    DELIMITER 'delimiter_character'
-    NULL 'null_string'
-    QUOTE 'quote_character'
-    ESCAPE 'escape_character'
-    HEADER [boolean]
-
-and format_name is:
-    {text|csv}
-
-and delimiter_character is:
-    [!-~] except ' " \
-
-and null_string is:
-    {a—z|A—Z|0—9|_}+
-
-and quote_character is:
-    [!-~] except ' " \
-
-and escape_character is:
-    [!-~] except ' " \
-
-and boolean is:
-    {TRUE|ON|1|FALSE|OFF|0}
-```
+    COPY table_name [ ( column_name [, ...] ) ]
+        FROM STDIN
+        [ [ WITH ] ( option [, ...] ) ]
+    
+    where option is one of:
+    
+        FORMAT format_name
+        DELIMITER 'delimiter_character'
+        NULL 'null_string'
+        QUOTE 'quote_character'
+        ESCAPE 'escape_character'
+        HEADER [boolean]
+    
+    and format_name is:
+        {text|csv}
+    
+    and delimiter_character is:
+        [!-~] except ' " \
+    
+    and null_string is:
+        {a—z|A—Z|0—9|_}+
+    
+    and quote_character is:
+        [!-~] except ' " \
+    
+    and escape_character is:
+        [!-~] except ' " \
+    
+    and boolean is:
+        {TRUE|ON|1|FALSE|OFF|0}
 
 The table must already exist. If no column list is specified, all columns of the table are copied.
 
@@ -166,25 +135,19 @@ The default for `  FORMAT  ` is `  text  ` .
 
 ### Examples
 
-This example imports data from the text-formatted file named `  mydata.txt  ` into table `  mytable  ` . PGAdapter must be running. For more information, see [Starting PGAdapter](/spanner/docs/pgadapter-start) .
+This example imports data from the text-formatted file named `  mydata.txt  ` into table `  mytable  ` . PGAdapter must be running. For more information, see [Starting PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
-``` text
-cat mydata.txt | psql -h localhost -c "COPY mytable FROM STDIN;"
-```
+    cat mydata.txt | psql -h localhost -c "COPY mytable FROM STDIN;"
 
 In this next example, `  mydata.csv  ` is in CSV format and its first row is a header with comma-separated column names.
 
-``` text
-cat mydata.csv | psql -h localhost \
-  -c "COPY mytable FROM STDIN WITH (FORMAT csv, ESCAPE '~', HEADER TRUE);"
-```
+    cat mydata.csv | psql -h localhost \
+      -c "COPY mytable FROM STDIN WITH (FORMAT csv, ESCAPE '~', HEADER TRUE);"
 
 This next example shows how to start a non-atomic `  COPY  ` operation.
 
-``` text
-cat mydata.txt | psql -h localhost \ 
-  -c "SET SPANNER.AUTOCOMMIT_DML_MODE='PARTITIONED_NON_ATOMIC'" -c "COPY mytable FROM STDIN;"
-```
+    cat mydata.txt | psql -h localhost \ 
+      -c "SET SPANNER.AUTOCOMMIT_DML_MODE='PARTITIONED_NON_ATOMIC'" -c "COPY mytable FROM STDIN;"
 
 ### Troubleshooting
 
@@ -208,5 +171,5 @@ This error occurs when a row in the input file doesn't include a value (or null)
 
 ## What's next
 
-  - Learn how to [connect to a PostgreSQL-dialect database with `  psql  `](/spanner/docs/psql-connect) .
-  - Learn about [PGAdapter](/spanner/docs/pgadapter) .
+  - Learn how to [connect to a PostgreSQL-dialect database with `  psql  `](https://docs.cloud.google.com/spanner/docs/psql-connect) .
+  - Learn about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .

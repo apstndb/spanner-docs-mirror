@@ -14,7 +14,7 @@ EXAMPLES
 
 To describe a Spanner instance partition, run:
 
-``` text
+``` wrap-code
 gcloud spanner instance-partitions describe my-instance-partition-id --instance=my-instance-id
 ```
 
@@ -58,10 +58,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instance-partitions describe
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner instance-partitions describe
 ```

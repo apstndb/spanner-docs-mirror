@@ -1,6 +1,6 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [Partition](#Partition)
-      - [JSON representation](#Partition.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#SCHEMA_REPRESENTATION)
+  - [Partition](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#Partition)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#Partition.SCHEMA_REPRESENTATION)
 
 The response for `  sessions.partitionQuery  ` or `  sessions.partitionRead  `
 
@@ -15,7 +15,7 @@ The response for `  sessions.partitionQuery  ` or `  sessions.partitionRead  `
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;partitions&quot;: [
     {
       object (Partition)
@@ -58,7 +58,7 @@ Information returned for each partition returned in a PartitionResponse.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;partitionToken&quot;: string
 }</code></pre></td>
 </tr>

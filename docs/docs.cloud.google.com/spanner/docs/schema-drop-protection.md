@@ -14,13 +14,11 @@ If you set the inactivity duration to "24h", you can drop a schema object only i
 
 ### GoogleSQL
 
-For more information, see [ALTER DATABASE](/spanner/docs/reference/standard-sql/data-definition-language#alter-database) .
+For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) .
 
-``` text
-gcloud spanner databases ddl update DATABASE_NAME \
---instance=INSTANCE_ID \
---ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_inactivity_period="DURATION" )'
-```
+    gcloud spanner databases ddl update DATABASE_NAME \
+    --instance=INSTANCE_ID \
+    --ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_inactivity_period="DURATION" )'
 
 Replace the following:
 
@@ -30,13 +28,11 @@ Replace the following:
 
 ### PostgreSQL
 
-For more information, see [ALTER DATABASE](/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
+For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
 
-``` text
-gcloud spanner databases ddl update DATABASE_NAME \
---instance=INSTANCE_ID \
---ddl='ALTER DATABASE `DATABASE_NAME" SET spanner.schema_drop_protection_inactivity_period="DURATION" '
-```
+    gcloud spanner databases ddl update DATABASE_NAME \
+    --instance=INSTANCE_ID \
+    --ddl='ALTER DATABASE `DATABASE_NAME" SET spanner.schema_drop_protection_inactivity_period="DURATION" '
 
 Replace the following:
 
@@ -50,13 +46,11 @@ To disable drop protection, set the inactivity duration to a zero duration value
 
 ### GoogleSQL
 
-For more information, see [ALTER DATABASE](/spanner/docs/reference/standard-sql/data-definition-language#alter-database) .
+For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) .
 
-``` text
-gcloud spanner databases ddl update DATABASE_NAME \
---instance=INSTANCE_ID \
---ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_inactivity_period=null )'
-```
+    gcloud spanner databases ddl update DATABASE_NAME \
+    --instance=INSTANCE_ID \
+    --ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_inactivity_period=null )'
 
 Replace the following:
 
@@ -65,13 +59,11 @@ Replace the following:
 
 ### PostgreSQL
 
-For more information, see [ALTER DATABASE](/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
+For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
 
-``` text
-gcloud spanner databases ddl update DATABASE_NAME \
---instance=INSTANCE_ID \
---ddl='ALTER DATABASE `DATABASE_NAME` SET spanner.schema_drop_protection_inactivity_period=null'
-```
+    gcloud spanner databases ddl update DATABASE_NAME \
+    --instance=INSTANCE_ID \
+    --ddl='ALTER DATABASE `DATABASE_NAME` SET spanner.schema_drop_protection_inactivity_period=null'
 
 Replace the following:
 
@@ -94,23 +86,19 @@ The default read access threshold is 10 per hour, but you can override the defau
 
 ### GoogleSQL
 
-For more information, see [ALTER DATABASE](/spanner/docs/reference/standard-sql/data-definition-language#alter-database) .
+For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) .
 
-``` text
-gcloud spanner databases ddl update DATABASE_NAME \
---instance=INSTANCE_ID \
---ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_usage_lowerbound=<threshold> )'
-```
+    gcloud spanner databases ddl update DATABASE_NAME \
+    --instance=INSTANCE_ID \
+    --ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_usage_lowerbound=<threshold> )'
 
 ### PostgreSQL
 
-For more information, see [ALTER DATABASE](/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
+For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
 
-``` text
-gcloud spanner databases ddl update DATABASE_NAME \
---instance=INSTANCE_ID \
---ddl='ALTER DATABASE `DATABASE_NAME` SET spanner.schema_drop_protection_usage_lowerbound=<threshold> '
-```
+    gcloud spanner databases ddl update DATABASE_NAME \
+    --instance=INSTANCE_ID \
+    --ddl='ALTER DATABASE `DATABASE_NAME` SET spanner.schema_drop_protection_usage_lowerbound=<threshold> '
 
 Access statistics aren't collected for the following cases:
 
@@ -123,9 +111,9 @@ Access statistics aren't collected for the following cases:
 
 If a schema object fails to drop and you can't identify what's accessing it, see the following:
 
-  - [Table operations statistics](/spanner/docs/introspection/table-operations-statistics)
-  - [Column operations statistics](/spanner/docs/introspection/column-operations-statistics)
+  - [Table operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics)
+  - [Column operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics)
 
 ## What's next
 
-Learn how to [prevent database deletion](/spanner/docs/prevent-database-deletion) .
+Learn how to [prevent database deletion](https://docs.cloud.google.com/spanner/docs/prevent-database-deletion) .

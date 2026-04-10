@@ -8,13 +8,15 @@ In the quickstart, you will:
   - Insert and modify data.
   - Run a query.
 
-For information on the cost of using Spanner, see [Pricing](/spanner/pricing) .
+For information on the cost of using Spanner, see [Pricing](https://docs.cloud.google.com/spanner/pricing) .
 
-**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](/spanner/docs/free-trial-quickstart) .
+**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 ## Before you begin
 
 1.  Optional: The Spanner API should be auto-enabled. If not, enable it manually:
+    
+    [Enable Spanner API](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com)
 
 2.  To get the permissions that you need to create instances and databases, ask your administrator to grant you the Cloud Spanner Admin (roles/spanner.admin) IAM role on your project.
 
@@ -23,6 +25,8 @@ For information on the cost of using Spanner, see [Pricing](/spanner/pricing) .
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases in that instance.
 
 1.  In the Google Cloud console, go to the **Spanner** page.
+    
+    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select or create a Google Cloud project if you haven't done so already.
 
@@ -49,6 +53,8 @@ When you first use Spanner, you must create an instance, which is an allocation 
 ## Create a database
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
+    
+    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance you created, for example **Test Instance** .
 
@@ -58,9 +64,11 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 5.  Select a database dialect.
     
-    For information about support for PostgreSQL and for guidance for choosing a dialect, see [PostgreSQL interface](/spanner/docs/postgresql-interface) . If you selected GoogleSQL, you'll define the schema in the **Define your schema** text field in the next section of this quickstart.
+    For information about support for PostgreSQL and for guidance for choosing a dialect, see [PostgreSQL interface](https://docs.cloud.google.com/spanner/docs/postgresql-interface) . If you selected GoogleSQL, you'll define the schema in the **Define your schema** text field in the next section of this quickstart.
     
     Your database creation page now looks like this:
+    
+    ![The updated database creation window.](https://docs.cloud.google.com/static/spanner/docs/images/qs_create_database.png)
 
 6.  Click **Create** .
     
@@ -68,7 +76,7 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 ## Create a schema for your database
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](/spanner/docs/manage-data-using-console) .
+**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 1.  In the navigation menu, click **Spanner Studio** .
 
@@ -78,27 +86,23 @@ When you first use Spanner, you must create an instance, which is an allocation 
     
     ### GoogleSQL
     
-    ``` text
-    CREATE TABLE Singers (
-      SingerId   INT64 NOT NULL,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-      SingerInfo BYTES(MAX),
-      BirthDate  DATE
-    ) PRIMARY KEY(SingerId);
-    ```
+        CREATE TABLE Singers (
+          SingerId   INT64 NOT NULL,
+          FirstName  STRING(1024),
+          LastName   STRING(1024),
+          SingerInfo BYTES(MAX),
+          BirthDate  DATE
+        ) PRIMARY KEY(SingerId);
     
     ### PostgreSQL
     
-    ``` text
-    CREATE TABLE Singers (
-      BirthDate  TIMESTAMPTZ,
-      SingerId   BIGINT PRIMARY KEY,
-      FirstName  VARCHAR(1024),
-      LastName   VARCHAR(1024),
-      SingerInfo BYTEA
-    );
-    ```
+        CREATE TABLE Singers (
+          BirthDate  TIMESTAMPTZ,
+          SingerId   BIGINT PRIMARY KEY,
+          FirstName  VARCHAR(1024),
+          LastName   VARCHAR(1024),
+          SingerInfo BYTEA
+        );
 
 4.  Click play\_circle **Run** .
     
@@ -106,7 +110,11 @@ When you first use Spanner, you must create an instance, which is an allocation 
     
     ### GoogleSQL
     
+    ![The updated overview page.](https://docs.cloud.google.com/static/spanner/docs/images/create_schema.png)
+    
     ### PostgreSQL
+    
+    ![The updated overview page.](https://docs.cloud.google.com/static/spanner/docs/images/create_schema_pg.png)
     
     Notice that PostgreSQL converts the table name to lowercase.
 
@@ -128,7 +136,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
     
     ### GoogleSQL
     
-    ``` text
+    ``` 
      -- Add new values in the VALUES clause in order of the column list.
      -- Each value must be type compatible with its associated column.
     INSERT INTO
@@ -154,7 +162,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
     
     ### PostgreSQL
     
-    ``` text
+    ``` 
       -- Add new values in the VALUES clause in order of the column list.
       -- Each value must be type compatible with its associated column.
     INSERT INTO
@@ -184,7 +192,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
     
     ### GoogleSQL
     
-    ``` text
+    ``` 
       -- Add new values in the VALUES clause in order of the column list.
       -- Each value must be type compatible with its associated column.
     INSERT INTO
@@ -210,7 +218,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
     
     ### PostgreSQL
     
-    ``` text
+    ``` 
       -- Add new values in the VALUES clause in order of the column list.
       -- Each value must be type compatible with its associated column.
     INSERT INTO
@@ -240,7 +248,11 @@ The Google Cloud console provides an interface for inserting, editing, and delet
     
     ### GoogleSQL
     
+    ![The updated Singers table data with one row.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_one_row.png)
+    
     ### PostgreSQL
+    
+    ![The updated Singers table data with one row.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_one_row_pg.png)
 
 6.  In the Explorer, click more\_vert **View actions** next to the **Singers** table, and then click **Insert data** .
 
@@ -248,7 +260,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
     
     ### GoogleSQL
     
-    ``` text
+    ``` 
       -- Add new values in the VALUES clause in order of the column list.
       -- Each value must be type compatible with its associated column.
     INSERT INTO
@@ -275,7 +287,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
     
     ### PostgreSQL
     
-    ``` text
+    ``` 
       -- Add new values in the VALUES clause in order of the column list.
       -- Each value must be type compatible with its associated column.
     INSERT INTO
@@ -310,7 +322,11 @@ The Google Cloud console provides an interface for inserting, editing, and delet
     
     ### GoogleSQL
     
+    ![The updated Singers table data with two rows.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_two_rows.png)
+    
     ### PostgreSQL
+    
+    ![The updated Singers table data with two rows.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_two_rows_pg.png)
 
 You can also insert empty string values when you enter data.
 
@@ -322,7 +338,7 @@ You can also insert empty string values when you enter data.
     
     ### GoogleSQL
     
-    ``` text
+    ``` 
       -- Add new values in the VALUES clause in order of the column list.
       -- Each value must be type compatible with its associated column.
     INSERT INTO
@@ -349,7 +365,7 @@ You can also insert empty string values when you enter data.
     
     ### PostgreSQL
     
-    ``` text
+    ``` 
       -- Add new values in the VALUES clause in order of the column list.
       -- Each value must be type compatible with its associated column.
     INSERT INTO
@@ -386,7 +402,11 @@ You can also insert empty string values when you enter data.
     
     ### GoogleSQL
     
+    ![The updated Singers table data with three rows.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_three_rows.png)
+    
     ### PostgreSQL
+    
+    ![The updated Singers table data with three rows.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_three_rows_pg.png)
 
 ### Edit data
 
@@ -396,7 +416,7 @@ You can also insert empty string values when you enter data.
     
     ### GoogleSQL
     
-    ``` text
+    ``` 
       -- Change values in the SET clause to update the row where the WHERE condition is true.
     UPDATE
       Singers
@@ -417,7 +437,7 @@ You can also insert empty string values when you enter data.
     
     ### PostgreSQL
     
-    ``` text
+    ``` 
       -- Change values in the SET clause to update the row where the WHERE condition is true.
     UPDATE
       singers
@@ -440,7 +460,7 @@ You can also insert empty string values when you enter data.
     
     ### GoogleSQL
     
-    ``` text
+    ``` 
       -- Change values in the SET clause to update the row where the WHERE condition is true.
     UPDATE
       Singers
@@ -458,7 +478,7 @@ You can also insert empty string values when you enter data.
     
     ### PostgreSQL
     
-    ``` text
+    ``` 
       -- Change values in the SET clause to update the row where the WHERE condition is true.
     UPDATE
       singers
@@ -484,7 +504,11 @@ You can also insert empty string values when you enter data.
     
     ### GoogleSQL
     
+    ![The updated Singers table data with an updated row.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_edit.png)
+    
     ### PostgreSQL
+    
+    ![The updated Singers table data with an updated row.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_edit_pg.png)
 
 ### Delete data
 
@@ -496,7 +520,11 @@ You can also insert empty string values when you enter data.
     
     ### GoogleSQL
     
+    ![The updated Singers table data with two rows; the row for SingerId 2 is gone.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_delete.png)
+    
     ### PostgreSQL
+    
+    ![The updated Singers table data with two rows; the row for SingerId 2 is gone.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_delete_pg.png)
 
 ## Run a query in the Google Cloud console
 
@@ -506,15 +534,11 @@ You can also insert empty string values when you enter data.
     
     ### GoogleSQL
     
-    ``` text
-    SELECT * FROM Singers;
-    ```
+        SELECT * FROM Singers;
     
     ### PostgreSQL
     
-    ``` text
-    SELECT * FROM singers;
-    ```
+        SELECT * FROM singers;
 
 3.  Click play\_circle **Run** .
     
@@ -522,7 +546,11 @@ You can also insert empty string values when you enter data.
     
     ### GoogleSQL
     
+    ![The query results.](https://docs.cloud.google.com/static/spanner/docs/images/query_results.png)
+    
     ### PostgreSQL
+    
+    ![The query results.](https://docs.cloud.google.com/static/spanner/docs/images/query_results_pg.png)
 
 Congratulations\! You've successfully created a Spanner database and executed a SQL statement by using the query editor\!
 
@@ -533,6 +561,8 @@ To avoid incurring additional charges to your Google Cloud account, delete the d
 ### Delete the database
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
+    
+    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that has the database that you want to delete, for example, **Test Instance** .
 
@@ -545,6 +575,8 @@ To avoid incurring additional charges to your Google Cloud account, delete the d
 ### Delete the instance
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
+    
+    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to delete, for example, **Test Instance** .
 
@@ -554,8 +586,8 @@ To avoid incurring additional charges to your Google Cloud account, delete the d
 
 ## What's next
 
-  - Learn about [Instances](/spanner/docs/instances) .
-  - Understand the Spanner [Schema and Data Model](/spanner/docs/schema-and-data-model) .
-  - Learn more about [GoogleSQL Data Definition Language (DDL)](/spanner/docs/reference/standard-sql/data-definition-language) .
-  - Learn more about [Query Execution Plans](/spanner/docs/query-execution-plans) .
-  - Learn how to use Spanner with [C++](/spanner/docs/getting-started/cpp) , [C\#](/spanner/docs/getting-started/csharp) , [Go](/spanner/docs/getting-started/go) , [Java](/spanner/docs/getting-started/java) , [Node.js](/spanner/docs/getting-started/nodejs) , [PHP](/spanner/docs/getting-started/php) , [Python](/spanner/docs/getting-started/python) , [Ruby](/spanner/docs/getting-started/ruby) , [REST](/spanner/docs/getting-started/rest) , or [gcloud](/spanner/docs/getting-started/gcloud) .
+  - Learn about [Instances](https://docs.cloud.google.com/spanner/docs/instances) .
+  - Understand the Spanner [Schema and Data Model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
+  - Learn more about [GoogleSQL Data Definition Language (DDL)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) .
+  - Learn more about [Query Execution Plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) .
+  - Learn how to use Spanner with [C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp) , [C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp) , [Go](https://docs.cloud.google.com/spanner/docs/getting-started/go) , [Java](https://docs.cloud.google.com/spanner/docs/getting-started/java) , [Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs) , [PHP](https://docs.cloud.google.com/spanner/docs/getting-started/php) , [Python](https://docs.cloud.google.com/spanner/docs/getting-started/python) , [Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby) , [REST](https://docs.cloud.google.com/spanner/docs/getting-started/rest) , or [gcloud](https://docs.cloud.google.com/spanner/docs/getting-started/gcloud) .

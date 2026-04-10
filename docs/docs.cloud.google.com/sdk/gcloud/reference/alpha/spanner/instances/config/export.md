@@ -20,25 +20,25 @@ EXAMPLES
 
 To export the configuration for an instance, run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instances config export my-instance
 ```
 
 To export the configuration for an instance to a file, run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instances config export my-instance --path=/path/to/dir/
 ```
 
 To export the configuration for an instance in Terraform HCL format, run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instances config export my-instance --resource-format=terraform
 ```
 
 To export the configurations for all instances within a project, run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instances config export --all
 ```
 

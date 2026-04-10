@@ -5,6 +5,8 @@ Spanner Data Boost is subject to quotas that limit the number of concurrent `  E
 To check the concurrency quota in your project, follow these steps:
 
 1.  Go to the Quotas page in the Google Cloud console.
+    
+    [Go to Quotas](https://console.cloud.google.com/iam-admin/quotas)
 
 2.  In the **Filter** field, enter `  databoost  ` . From the list, select one of the following:
     
@@ -20,6 +22,7 @@ To check the concurrency quota in your project, follow these steps:
 To monitor your quota usage, follow these steps:
 
 1.  In the Google Cloud console, go to **Monitoring** .  
+    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  If **Metrics Explorer** is shown in the navigation menu, select it. Otherwise, click **Resources** , and then select **Metrics Explorer** .
 
@@ -61,7 +64,7 @@ To monitor the limit for the Data Boost concurrent requests milli-operations quo
 
 ## Set an alert for Data Boost usage
 
-You can create an alert policy that notifies you when the number of concurrent [partitioned queries](/spanner/docs/reads#read_data_in_parallel) that request Data Boost (concurrent `  ExecuteStreamingSQL  ` and `  StreamingRead  ` calls) per project and per region exceeds a particular threshold. To do so, follow these steps:
+You can create an alert policy that notifies you when the number of concurrent [partitioned queries](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) that request Data Boost (concurrent `  ExecuteStreamingSQL  ` and `  StreamingRead  ` calls) per project and per region exceeds a particular threshold. To do so, follow these steps:
 
 1.  Follow the instructions in [Create metric-threshold alerting policies](https://cloud.google.com/monitoring/alerts/using-alerting-ui) .
 
@@ -107,4 +110,4 @@ If one principal is consistently exceeding the amount of Data Boost resources th
 
 ## What's next
 
-  - Learn about Data Boost in [Data Boost overview](/spanner/docs/databoost/databoost-overview) .
+  - Learn about Data Boost in [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .

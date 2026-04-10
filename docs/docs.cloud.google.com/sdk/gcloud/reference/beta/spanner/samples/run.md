@@ -14,7 +14,7 @@ These sample apps are open source and available at <https://github.com/GoogleClo
 
 To see a list of available sample apps, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner samples list
 ```
 
@@ -22,7 +22,7 @@ EXAMPLES
 
 To run the 'finance' sample app using instance 'my-instance', run:
 
-``` text
+``` wrap-code
 gcloud beta spanner samples run finance --instance-id=my-instance
 ```
 
@@ -57,10 +57,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner samples run
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner samples run
 ```

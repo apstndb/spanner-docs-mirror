@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** This page applies to migrating an open source PostgreSQL database to Spanner and the GoogleSQL dialect. For information about migrating to Spanner and the PostgreSQL dialect, see [Migrating from PostgreSQL to Spanner (PostgreSQL dialect)](/spanner/docs/migrating-postgres-spanner-pgcompat) .
+**PostgreSQL interface note:** This page applies to migrating an open source PostgreSQL database to Spanner and the GoogleSQL dialect. For information about migrating to Spanner and the PostgreSQL dialect, see [Migrating from PostgreSQL to Spanner (PostgreSQL dialect)](https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner-pgcompat) .
 
 This page provides guidance on migrating an open source PostgreSQL database to Spanner.
 
@@ -128,7 +128,7 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       money      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code> , or <code dir="ltr" translate="no">       STRING      </code> for <a href="/spanner/docs/storing-numeric-data">arbitrary precision numbers</a> .</td>
+<td><code dir="ltr" translate="no">       INT64      </code> , or <code dir="ltr" translate="no">       STRING      </code> for <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">arbitrary precision numbers</a> .</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       numeric [ (p, s) ]      </code>
@@ -137,7 +137,7 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 <br />
 The Spanner <code dir="ltr" translate="no">       NUMERIC      </code> data type supports up to 38 digits of precision and 9 decimal digits of scale.<br />
 <br />
-If you require greater precision, see <a href="/spanner/docs/storing-numeric-data">Storing arbitrary precision numeric data</a> for alternative mechanisms.</td>
+If you require greater precision, see <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">Storing arbitrary precision numeric data</a> for alternative mechanisms.</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">       path      </code></td>
@@ -222,21 +222,21 @@ If you require greater precision, see <a href="/spanner/docs/storing-numeric-dat
 
 ### Primary keys
 
-For tables in your Spanner database that you frequently append to, avoid using primary keys that monotonically increase or decrease, as this approach causes hotspots during writes. Instead, modify the DDL `  CREATE TABLE  ` statements so that they use [supported primary key strategies](/spanner/docs/schema-design#choosing_a_primary_key_to_prevent_hotspots) . If you are using a PostgreSQL feature such as a `  UUID  ` data type or function, `  SERIAL  ` data types, `  IDENTITY  ` column, or sequence, you can use the [auto-generated key migration strategies](/spanner/docs/migrating-primary-keys#migrating-auto-generated-keys) that we recommend.
+For tables in your Spanner database that you frequently append to, avoid using primary keys that monotonically increase or decrease, as this approach causes hotspots during writes. Instead, modify the DDL `  CREATE TABLE  ` statements so that they use [supported primary key strategies](https://docs.cloud.google.com/spanner/docs/schema-design#choosing_a_primary_key_to_prevent_hotspots) . If you are using a PostgreSQL feature such as a `  UUID  ` data type or function, `  SERIAL  ` data types, `  IDENTITY  ` column, or sequence, you can use the [auto-generated key migration strategies](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys#migrating-auto-generated-keys) that we recommend.
 
-Note that after you designate your primary key, you can't add or remove a primary key column, or change a primary key value later without deleting and recreating the table. For more information on how to designate your primary key, see [Schema and data model - primary keys](/spanner/docs/schema-and-data-model#primary_keys) .
+Note that after you designate your primary key, you can't add or remove a primary key column, or change a primary key value later without deleting and recreating the table. For more information on how to designate your primary key, see [Schema and data model - primary keys](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#primary_keys) .
 
 During migration, you might need to keep some existing monotonically increasing integer keys. If you need to keep these kinds of keys on a frequently updated table with a lot of operations on these keys, you can avoid creating hotspots by prefixing the existing key with a pseudo-random number. This technique causes Spanner to redistribute the rows. See [What DBAs need to know about Spanner, part 1: Keys and indexes](https://cloudplatform.googleblog.com/2018/06/What-DBAs-need-to-know-about-Cloud-Spanner-part-1-Keys-and-indexes.html) for more information on using this approach.
 
 ### Foreign keys and referential integrity
 
-Learn about [foreign keys support in Spanner](/spanner/docs/foreign-keys/overview) .
+Learn about [foreign keys support in Spanner](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) .
 
 ### Indexes
 
-PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-types.html) are similar to [secondary indexes](/spanner/docs/secondary-indexes) in Spanner. In a Spanner database you use secondary indexes to index commonly searched columns for better performance, and to replace any `  UNIQUE  ` constraints specified in your tables. For example, if your PostgreSQL DDL has this statement:
+PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-types.html) are similar to [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) in Spanner. In a Spanner database you use secondary indexes to index commonly searched columns for better performance, and to replace any `  UNIQUE  ` constraints specified in your tables. For example, if your PostgreSQL DDL has this statement:
 
-``` text
+``` 
    CREATE TABLE customer (
       id CHAR (5) PRIMARY KEY,
       first_name VARCHAR (50),
@@ -247,7 +247,7 @@ PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-ty
 
 You would use this statement in your Spanner DDL:
 
-``` text
+``` 
    CREATE TABLE customer (
       id STRING(5),
       first_name STRING(50),
@@ -260,13 +260,13 @@ You would use this statement in your Spanner DDL:
 
 You can find the indexes for any of your PostgreSQL tables by running the [`  \di  `](https://www.postgresql.org/docs/10/static/app-psql.html) meta-command in `  psql  ` .
 
-After you determine the indexes that you need, add [`  CREATE INDEX  `](/spanner/docs/reference/standard-sql/data-definition-language#create_index) statements to create them. Follow the guidance at [Creating indexes](/spanner/docs/schema-design#creating-indexes) .
+After you determine the indexes that you need, add [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) statements to create them. Follow the guidance at [Creating indexes](https://docs.cloud.google.com/spanner/docs/schema-design#creating-indexes) .
 
 Spanner implements indexes as tables, so indexing monotonically increasing columns (like those containing `  TIMESTAMP  ` data) can cause a hotspot. See [What DBAs need to know about Spanner, part 1: Keys and indexes](https://cloudplatform.googleblog.com/2018/06/What-DBAs-need-to-know-about-Cloud-Spanner-part-1-Keys-and-indexes.html) for more information on methods to avoid hotspots.
 
 ### Check constraints
 
-Learn about [`  CHECK  ` constraint support in Spanner](/spanner/docs/check-constraint/how-to) .
+Learn about [`  CHECK  ` constraint support in Spanner](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
 
 ### Other database objects
 
@@ -280,42 +280,35 @@ You must create the functionality of the following objects in your application l
 
 Keep the following tips in mind when migrating this functionality into application logic:
 
-  - You must migrate any SQL statements that you use from the PostgreSQL SQL dialect to the [GoogleSQL dialect](/spanner/docs/reference/standard-sql/query-syntax) .
-  - If you use [cursors](https://www.postgresql.org/docs/current/static/plpgsql-cursors.html) , you can rework the query to use [offsets and limits](/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
+  - You must migrate any SQL statements that you use from the PostgreSQL SQL dialect to the [GoogleSQL dialect](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) .
+  - If you use [cursors](https://www.postgresql.org/docs/current/static/plpgsql-cursors.html) , you can rework the query to use [offsets and limits](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
 
 ## Create your Spanner instance
 
 After you update your DDL statements to conform to Spanner schema requirements, use it to create your database in Spanner.
 
-1.  [Create a Spanner instance](/spanner/docs/create-manage-instances#creating_an_instance) . Follow the guidance in [Instances](/spanner/docs/instances) to determine the correct regional configuration and compute capacity to support your performance goals.
+1.  [Create a Spanner instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#creating_an_instance) . Follow the guidance in [Instances](https://docs.cloud.google.com/spanner/docs/instances) to determine the correct regional configuration and compute capacity to support your performance goals.
 
-2.  Create the database by using either the Google Cloud console or the [`  gcloud  `](/spanner/docs/gcloud-spanner) command-line tool:
+2.  Create the database by using either the Google Cloud console or the [`  gcloud  `](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) command-line tool:
 
 ### Console
 
-1.  
+1.  [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 2.  Click on the name of the instance that you want to create the example database in to open the **Instance details** page.
-
 3.  Click **Create Database** .
-
 4.  Type a name for the database and click **Continue** .
-
 5.  In the **Define your database schema** section, toggle the **Edit as text** control.
-
 6.  Copy and paste your DDL statements into the **DDL statements** field.
-
 7.  Click **Create** .
 
 ### gcloud
 
-1.  Install the [gcloud CLI](/sdk/downloads) .
+1.  Install the [gcloud CLI](https://docs.cloud.google.com/sdk/downloads) .
 
-2.  Use the `  gcloud spanner databases create  ` command to [create the database](/spanner/docs/gcloud-spanner#create_databases) :
+2.  Use the `  gcloud spanner databases create  ` command to [create the database](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#create_databases) :
     
-    ``` text
-    gcloud spanner databases create DATABASE_NAME --instance=INSTANCE_NAME
-    --ddl='DDL1' --ddl='DDL2'
-    ```
+        gcloud spanner databases create DATABASE_NAME --instance=INSTANCE_NAME
+        --ddl='DDL1' --ddl='DDL2'
 
 <!-- end list -->
 
@@ -323,11 +316,11 @@ After you update your DDL statements to conform to Spanner schema requirements, 
   - INSTANCE\_NAME is the Spanner instance that you created.
   - DDL *n* are your modified DDL statements.
 
-After you create the database, follow the instructions in [Apply IAM roles](/spanner/docs/grant-permissions) to create user accounts and grant permissions to the Spanner instance and database.
+After you create the database, follow the instructions in [Apply IAM roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) to create user accounts and grant permissions to the Spanner instance and database.
 
 ## Refactor the applications and data access layers
 
-In addition to the code needed to replace the [preceding database objects](#other-database-objects) , you must add application logic to handle the following functionality:
+In addition to the code needed to replace the [preceding database objects](https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner#other-database-objects) , you must add application logic to handle the following functionality:
 
   - Hashing primary keys for writes, for tables that have high write rates to sequential keys.
   - Validating data, not already covered by `  CHECK  ` constraints.
@@ -347,17 +340,17 @@ After you create your Spanner database and refactor your application code, you c
 
 2.  Upload the .csv files to Cloud Storage.
     
-    1.  [Create a Cloud Storage bucket](/storage/docs/creating-buckets) .
+    1.  [Create a Cloud Storage bucket](https://docs.cloud.google.com/storage/docs/creating-buckets) .
     2.  In the Cloud Storage console, click on the bucket name to open the bucket browser.
     3.  Click **Upload Files** .
     4.  Navigate to the directory containing the .csv files and select them.
     5.  Click **Open** .
 
-3.  Create an application to import data into Spanner. This application could use [Dataflow](/spanner/docs/dataflow-connector#writing-transforming) or it could use the [client libraries](/spanner/docs/reference/libraries) directly. Make sure to follow the guidance in [Bulk data loading best practices](/spanner/docs/bulk-loading) to get the best performance.
+3.  Create an application to import data into Spanner. This application could use [Dataflow](https://docs.cloud.google.com/spanner/docs/dataflow-connector#writing-transforming) or it could use the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) directly. Make sure to follow the guidance in [Bulk data loading best practices](https://docs.cloud.google.com/spanner/docs/bulk-loading) to get the best performance.
 
 ## Tests
 
-Test all application functions against the Spanner instance to verify that they work as expected. Run production-level workloads to ensure the performance meets your needs. [Update the compute capacity](/spanner/docs/create-manage-instances#changing_the_number_of_nodes) as needed to meet your performance goals.
+Test all application functions against the Spanner instance to verify that they work as expected. Run production-level workloads to ensure the performance meets your needs. [Update the compute capacity](https://docs.cloud.google.com/spanner/docs/create-manage-instances#changing_the_number_of_nodes) as needed to meet your performance goals.
 
 ## Move to the new system
 
@@ -367,9 +360,11 @@ After you complete the initial application testing, turn up the new system using
 
 2.  Shut down the application that targets the PostgreSQL database.
 
-3.  Export all data from the PostgreSQL database and import it into the Spanner database as described in [Migration overview](/spanner/docs/migration-overview) .
+3.  Export all data from the PostgreSQL database and import it into the Spanner database as described in [Migration overview](https://docs.cloud.google.com/spanner/docs/migration-overview) .
 
 4.  Start up the application that targets the Spanner database.
+    
+    ![Offline migration dataflow.](https://docs.cloud.google.com/static/spanner/docs/images/offline-migration.png)
 
 Live migration is possible and requires extensive changes to your application to support the migration.
 
@@ -381,118 +376,106 @@ These examples show the `  CREATE TABLE  ` statements for several tables in the 
 
 ### GoogleSQL
 
-``` text
-CREATE TABLE artist_credit (
- hashed_id STRING(4),
- id INT64,
- name STRING(MAX) NOT NULL,
- artist_count INT64 NOT NULL,
- ref_count INT64,
- created TIMESTAMP OPTIONS (
-    allow_commit_timestamp = true
- ),
-) PRIMARY KEY(hashed_id, id);
-```
+    CREATE TABLE artist_credit (
+     hashed_id STRING(4),
+     id INT64,
+     name STRING(MAX) NOT NULL,
+     artist_count INT64 NOT NULL,
+     ref_count INT64,
+     created TIMESTAMP OPTIONS (
+        allow_commit_timestamp = true
+     ),
+    ) PRIMARY KEY(hashed_id, id);
 
 ### PostgreSQL
 
-``` text
-CREATE TABLE artist_credit (
- id SERIAL,
- name VARCHAR NOT NULL,
- artist_count SMALLINT NOT NULL,
- ref_count INTEGER DEFAULT 0,
- created TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-```
+    CREATE TABLE artist_credit (
+     id SERIAL,
+     name VARCHAR NOT NULL,
+     artist_count SMALLINT NOT NULL,
+     ref_count INTEGER DEFAULT 0,
+     created TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    );
 
 ### recording table
 
 ### GoogleSQL
 
-``` text
-CREATE TABLE recording (
-  hashed_id STRING(36),
-  id INT64,
-  gid STRING(36) NOT NULL,
-  name STRING(MAX) NOT NULL,
-  artist_credit_hid STRING(36) NOT NULL,
-  artist_credit_id INT64 NOT NULL,
-  length INT64,
-  comment STRING(255) NOT NULL,
-  edits_pending INT64 NOT NULL,
-  last_updated TIMESTAMP OPTIONS (
-     allow_commit_timestamp = true
-  ),
-  video BOOL NOT NULL,
-) PRIMARY KEY(hashed_id, id);
-```
+    CREATE TABLE recording (
+      hashed_id STRING(36),
+      id INT64,
+      gid STRING(36) NOT NULL,
+      name STRING(MAX) NOT NULL,
+      artist_credit_hid STRING(36) NOT NULL,
+      artist_credit_id INT64 NOT NULL,
+      length INT64,
+      comment STRING(255) NOT NULL,
+      edits_pending INT64 NOT NULL,
+      last_updated TIMESTAMP OPTIONS (
+         allow_commit_timestamp = true
+      ),
+      video BOOL NOT NULL,
+    ) PRIMARY KEY(hashed_id, id);
 
 ### PostgreSQL
 
-``` text
-CREATE TABLE recording (
-  id SERIAL,
-  gid UUID NOT NULL,
-  name VARCHAR NOT NULL,
-  artist_credit INTEGER NOT NULL, -- references artist_credit.id
-  length INTEGER CHECK (length IS NULL OR length > 0),
-  comment VARCHAR(255) NOT NULL DEFAULT '',
-  edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-  last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  video BOOLEAN NOT NULL DEFAULT FALSE
-);
-```
+    CREATE TABLE recording (
+      id SERIAL,
+      gid UUID NOT NULL,
+      name VARCHAR NOT NULL,
+      artist_credit INTEGER NOT NULL, -- references artist_credit.id
+      length INTEGER CHECK (length IS NULL OR length > 0),
+      comment VARCHAR(255) NOT NULL DEFAULT '',
+      edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+      last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+      video BOOLEAN NOT NULL DEFAULT FALSE
+    );
 
 ### recording-alias table
 
 ### GoogleSQL
 
-``` text
-CREATE TABLE recording_alias (
-  hashed_id STRING(36)  NOT NULL,
-  id INT64  NOT NULL,
-  alias_id INT64,
-  name STRING(MAX)  NOT NULL,
-  locale STRING(MAX),
-  edits_pending INT64  NOT NULL,
-  last_updated TIMESTAMP NOT NULL OPTIONS (
-     allow_commit_timestamp = true
-  ),
-  type INT64,
-  sort_name STRING(MAX)  NOT NULL,
-  begin_date_year INT64,
-  begin_date_month INT64,
-  begin_date_day INT64,
-  end_date_year INT64,
-  end_date_month INT64,
-  end_date_day INT64,
-  primary_for_locale BOOL NOT NULL,
-  ended BOOL NOT NULL,
-) PRIMARY KEY(hashed_id, id, alias_id),
- INTERLEAVE IN PARENT recording ON DELETE NO ACTION;
-```
+    CREATE TABLE recording_alias (
+      hashed_id STRING(36)  NOT NULL,
+      id INT64  NOT NULL,
+      alias_id INT64,
+      name STRING(MAX)  NOT NULL,
+      locale STRING(MAX),
+      edits_pending INT64  NOT NULL,
+      last_updated TIMESTAMP NOT NULL OPTIONS (
+         allow_commit_timestamp = true
+      ),
+      type INT64,
+      sort_name STRING(MAX)  NOT NULL,
+      begin_date_year INT64,
+      begin_date_month INT64,
+      begin_date_day INT64,
+      end_date_year INT64,
+      end_date_month INT64,
+      end_date_day INT64,
+      primary_for_locale BOOL NOT NULL,
+      ended BOOL NOT NULL,
+    ) PRIMARY KEY(hashed_id, id, alias_id),
+     INTERLEAVE IN PARENT recording ON DELETE NO ACTION;
 
 ### PostgreSQL
 
-``` text
-CREATE TABLE recording_alias (
-  id SERIAL, --PK
-  recording INTEGER NOT NULL, -- references recording.id
-  name VARCHAR NOT NULL,
-  locale TEXT,
-  edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
-  last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  type INTEGER, -- references recording_alias_type.id
-  sort_name VARCHAR NOT NULL,
-  begin_date_year SMALLINT,
-  begin_date_month SMALLINT,
-  begin_date_day SMALLINT,
-  end_date_year SMALLINT,
-  end_date_month SMALLINT,
-  end_date_day SMALLINT,
-  primary_for_locale BOOLEAN NOT NULL DEFAULT false,
-  ended BOOLEAN NOT NULL DEFAULT FALSE
-  -- CHECK constraint skipped for brevity
-);
-```
+    CREATE TABLE recording_alias (
+      id SERIAL, --PK
+      recording INTEGER NOT NULL, -- references recording.id
+      name VARCHAR NOT NULL,
+      locale TEXT,
+      edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
+      last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+      type INTEGER, -- references recording_alias_type.id
+      sort_name VARCHAR NOT NULL,
+      begin_date_year SMALLINT,
+      begin_date_month SMALLINT,
+      begin_date_day SMALLINT,
+      end_date_year SMALLINT,
+      end_date_month SMALLINT,
+      end_date_day SMALLINT,
+      primary_for_locale BOOLEAN NOT NULL DEFAULT false,
+      ended BOOLEAN NOT NULL DEFAULT FALSE
+      -- CHECK constraint skipped for brevity
+    );

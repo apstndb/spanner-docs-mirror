@@ -1,10 +1,10 @@
-**PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
+**PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](https://docs.cloud.google.com/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
 
-The Spanner CLI is a command-line interface (CLI) within the gcloud CLI that lets you connect to and interact with your Spanner databases. For example, you can use the Spanner CLI to run [GoogleSQL](/spanner/docs/reference/standard-sql/overview) statements and automate tasks. This document describes how to set up and use the Spanner CLI.
+The Spanner CLI is a command-line interface (CLI) within the gcloud CLI that lets you connect to and interact with your Spanner databases. For example, you can use the Spanner CLI to run [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview) statements and automate tasks. This document describes how to set up and use the Spanner CLI.
 
 The Spanner CLI is based on the open source [spanner-cli](https://github.com/cloudspannerecosystem/spanner-cli) project.
 
-For a list of all supported Spanner CLI commands, see [`  gcloud spanner cli  ` commands](/sdk/gcloud/reference/spanner/cli) .
+For a list of all supported Spanner CLI commands, see [`  gcloud spanner cli  ` commands](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/cli) .
 
 ## Key benefits
 
@@ -12,9 +12,9 @@ You can use the Spanner CLI to perform the following actions:
 
   - Run DDL, DML, and DQL SQL commands.
   - Write and execute SQL statements across multiple lines.
-  - Use [meta-commands](#supported-meta-commands) to help with system tasks such as executing a system shell command and executing SQL from a file.
-  - Automate SQL executions by [writing a series of SQL statements into a script file](#use-file-based) , and then instructing Spanner CLI to execute the script. In addition, you can redirect the output to an output file.
-  - [Start an interactive Spanner CLI session](#start-interactive-session) , which lets you directly type SQL statements and meta-commands and see results in the CLI.
+  - Use [meta-commands](https://docs.cloud.google.com/spanner/docs/spanner-cli#supported-meta-commands) to help with system tasks such as executing a system shell command and executing SQL from a file.
+  - Automate SQL executions by [writing a series of SQL statements into a script file](https://docs.cloud.google.com/spanner/docs/spanner-cli#use-file-based) , and then instructing Spanner CLI to execute the script. In addition, you can redirect the output to an output file.
+  - [Start an interactive Spanner CLI session](https://docs.cloud.google.com/spanner/docs/spanner-cli#start-interactive-session) , which lets you directly type SQL statements and meta-commands and see results in the CLI.
 
 ## Before you begin
 
@@ -22,9 +22,9 @@ Before using the Spanner CLI, ensure that you have the required role and have in
 
 ### Required roles
 
-To get the permissions that you need to install the Spanner, ask your administrator to grant you the [Cloud Spanner Admin](/iam/docs/roles-permissions/spanner#spanner.admin) ( `  roles/spanner.admin  ` ) IAM role on Spanner. For more information about granting roles, see [Manage access to projects, folders, and organizations](/iam/docs/granting-changing-revoking-access) .
+To get the permissions that you need to install the Spanner, ask your administrator to grant you the [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `  roles/spanner.admin  ` ) IAM role on Spanner. For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
-You might also be able to get the required permissions through [custom roles](/iam/docs/creating-custom-roles) or other [predefined roles](/iam/docs/roles-overview#predefined) .
+You might also be able to get the required permissions through [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
 ### Install the Spanner CLI
 
@@ -32,17 +32,13 @@ The Spanner CLI is available in the gcloud CLI. When you run the `  gcloud spann
 
 To install the Spanner CLI manually, run the following command:
 
-``` text
-gcloud components install spanner-cli
-```
+    gcloud components install spanner-cli
 
 **Note:** If you use the open source spanner-cli, you must manually install the Spanner CLI because the open source version isn't automatically upgraded.
 
 If installation using the Google Cloud CLI command is unsuccessful or not feasible in your shell environment, Spanner provides standalone Debian (.deb) and RPM (.rpm) packages. You can use these packages to manually install on compatible systems. To install, run the following command:
 
-``` text
-apt-get install google-cloud-cli-spanner-cli
-```
+    apt-get install google-cloud-cli-spanner-cli
 
 ### Configuration options
 
@@ -54,37 +50,33 @@ The Spanner CLI supports the following configurable options:
 
 ## Use the Spanner CLI
 
-1.  [Set up a Google Cloud project](/spanner/docs/getting-started/set-up#set_up_a_project) .
+1.  [Set up a Google Cloud project](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) .
 
-2.  [Set up authentication using the gcloud CLI](/spanner/docs/getting-started/set-up#gcloud) .
+2.  [Set up authentication using the gcloud CLI](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#gcloud) .
 
-3.  [Create an instance](/spanner/docs/getting-started/gcloud#create-instance) .
+3.  [Create an instance](https://docs.cloud.google.com/spanner/docs/getting-started/gcloud#create-instance) .
 
-4.  [Create a database](/spanner/docs/getting-started/gcloud#create-database) .
+4.  [Create a database](https://docs.cloud.google.com/spanner/docs/getting-started/gcloud#create-database) .
 
 5.  Run the following command to start the Spanner CLI and interact with your Spanner database:
     
-    ``` text
-    gcloud spanner cli DATABASE_ID --instance=INSTANCE_ID
-    ```
+        gcloud spanner cli DATABASE_ID --instance=INSTANCE_ID
     
     Replace the following:
     
-      - `  DATABASE_ID  ` : the ID of the Spanner database. This is the name you used in the previous Create a database step. You can use the [`  gcloud spanner databases list  `](/sdk/gcloud/reference/spanner/databases/list) command to list the Spanner databases contained within the given instance.
-      - `  INSTANCE_ID  ` : the ID of the Spanner instance. This is the name you used in the previous Create an instance step. You can use the [`  gcloud spanner instances list  `](/sdk/gcloud/reference/spanner/instances/list) command to list the Spanner instances contained within the given project.
+      - `  DATABASE_ID  ` : the ID of the Spanner database. This is the name you used in the previous Create a database step. You can use the [`  gcloud spanner databases list  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/list) command to list the Spanner databases contained within the given instance.
+      - `  INSTANCE_ID  ` : the ID of the Spanner instance. This is the name you used in the previous Create an instance step. You can use the [`  gcloud spanner instances list  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/list) command to list the Spanner instances contained within the given project.
 
 ## Execute SQL
 
-You can execute SQL statements in the Spanner CLI by using the [`  execute  ` option](#use-execute-option) or using a [file-based input and output method](#use-file-based) . Your SQL statements can consist of DDL, DML, or DQL.
+You can execute SQL statements in the Spanner CLI by using the [`  execute  ` option](https://docs.cloud.google.com/spanner/docs/spanner-cli#use-execute-option) or using a [file-based input and output method](https://docs.cloud.google.com/spanner/docs/spanner-cli#use-file-based) . Your SQL statements can consist of DDL, DML, or DQL.
 
 ### Use the `     execute    ` flag
 
-To use the `  execute  ` flag to execute SQL, run the following [`  gcloud spanner cli  `](/sdk/gcloud/reference/spanner/cli) command:
+To use the `  execute  ` flag to execute SQL, run the following [`  gcloud spanner cli  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/cli) command:
 
-``` text
-gcloud spanner cli DATABASE_ID --instance INSTANCE_ID \
-    --execute "SQL"
-```
+    gcloud spanner cli DATABASE_ID --instance INSTANCE_ID \
+        --execute "SQL"
 
 Replace the following:
 
@@ -94,42 +86,34 @@ Replace the following:
 
 For example, to execute a DDL statement:
 
-``` text
-gcloud spanner cli test-database --instance test-instance \
-    --execute "CREATE TABLE Singers ( \
-        SingerId   INT64 NOT NULL, \
-        FirstName  STRING(1024), \
-        LastName   STRING(1024), \
-        SingerInfo STRING(1024), \
-        BirthDate  DATE \
-      ) PRIMARY KEY(SingerId);"
-```
+    gcloud spanner cli test-database --instance test-instance \
+        --execute "CREATE TABLE Singers ( \
+            SingerId   INT64 NOT NULL, \
+            FirstName  STRING(1024), \
+            LastName   STRING(1024), \
+            SingerInfo STRING(1024), \
+            BirthDate  DATE \
+          ) PRIMARY KEY(SingerId);"
 
 To execute a DML statement:
 
-``` text
-gcloud spanner cli test-database --instance test-instance \
-    --execute "INSERT INTO Singers (SingerId, FirstName, LastName, SingerInfo) \
-        VALUES(1, 'Marc', 'Richards', 'nationality: USA'), \
-              (2, 'Catalina', 'Smith', 'nationality: Brazil'), \
-              (3, 'Andrew', 'Duneskipper', NULL);"
-```
+    gcloud spanner cli test-database --instance test-instance \
+        --execute "INSERT INTO Singers (SingerId, FirstName, LastName, SingerInfo) \
+            VALUES(1, 'Marc', 'Richards', 'nationality: USA'), \
+                  (2, 'Catalina', 'Smith', 'nationality: Brazil'), \
+                  (3, 'Andrew', 'Duneskipper', NULL);"
 
 ### Use a file-based input and output
 
 If you use the file-based input and output method, Spanner reads its input from a file and writes its output to another file. To use the file-based input and output method to execute SQL, run the following command:
 
-``` text
-gcloud spanner cli DATABASE_ID --instance INSTANCE_ID \
-    --source INPUT_FILE_PATH --tee OUTPUT_FILE_PATH
-```
+    gcloud spanner cli DATABASE_ID --instance INSTANCE_ID \
+        --source INPUT_FILE_PATH --tee OUTPUT_FILE_PATH
 
 You can also use the file-based redirection input and output method:
 
-``` text
-gcloud spanner cli DATABASE_ID --instance INSTANCE_ID \
-    < INPUT_FILE_PATH > OUTPUT_FILE_PATH
-```
+    gcloud spanner cli DATABASE_ID --instance INSTANCE_ID \
+        < INPUT_FILE_PATH > OUTPUT_FILE_PATH
 
 Replace the following:
 
@@ -142,82 +126,72 @@ Replace the following:
 
 You can start an interactive Spanner CLI session, which lets you directly type SQL statements and meta-commands and see results in the CLI. To do so, run the following command:
 
-``` text
-gcloud spanner cli DATABASE_ID --instance=INSTANCE_ID
-```
+    gcloud spanner cli DATABASE_ID --instance=INSTANCE_ID
 
 Upon successful connection between the CLI and your database, you will see a prompt (for example, `  spanner-cli>  ` ) where you can do the following:
 
   - Directly type GoogleSQL statements:
-      - [GoogleSQL DDL reference](/spanner/docs/reference/standard-sql/data-definition-language)
-      - [GoogleSQL DML reference](/spanner/docs/reference/standard-sql/dml-syntax)
-      - [GoogleSQL query syntax](/spanner/docs/reference/standard-sql/query-syntax)
+      - [GoogleSQL DDL reference](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language)
+      - [GoogleSQL DML reference](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax)
+      - [GoogleSQL query syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax)
   - Execute transactions
-  - Use supported [meta-commands](#supported-meta-commands)
+  - Use supported [meta-commands](https://docs.cloud.google.com/spanner/docs/spanner-cli#supported-meta-commands)
 
 After pressing the `  ENTER  ` key, the statement or command is sent to the appropriate Spanner database. Spanner then executes the statement or command.
 
 In the following example, you start an interactive session in `  test-database  ` and then execute `  SELECT 1;  ` :
 
-``` text
-gcloud spanner cli test-database --instance test-instance
-
-Welcome to Spanner-Cli Client.
-Type 'help;' or '\h' for help.
-Type 'exit;' or 'quit;' or '\q' to exit.
-
-spanner-cli> SELECT 1;
-+---+
-|   |
-+---+
-| 1 |
-+---+
-
-1 rows in set (1.11 msecs)
-```
+    gcloud spanner cli test-database --instance test-instance
+    
+    Welcome to Spanner-Cli Client.
+    Type 'help;' or '\h' for help.
+    Type 'exit;' or 'quit;' or '\q' to exit.
+    
+    spanner-cli> SELECT 1;
+    +---+
+    |   |
+    +---+
+    | 1 |
+    +---+
+    
+    1 rows in set (1.11 msecs)
 
 ### Execute DDL statement
 
 To execute a DDL statement, you can run the following:
 
-``` text
-spanner-cli> CREATE TABLE Singers (
-          ->         SingerId   INT64 NOT NULL,
-          ->         FirstName  STRING(1024),
-          ->         LastName   STRING(1024),
-          ->         SingerInfo STRING(1024),
-          ->         BirthDate  DATE
-          -> ) PRIMARY KEY(SingerId);
-
-Query OK, 0 rows affected (17.08 sec)
-```
+    spanner-cli> CREATE TABLE Singers (
+              ->         SingerId   INT64 NOT NULL,
+              ->         FirstName  STRING(1024),
+              ->         LastName   STRING(1024),
+              ->         SingerInfo STRING(1024),
+              ->         BirthDate  DATE
+              -> ) PRIMARY KEY(SingerId);
+    
+    Query OK, 0 rows affected (17.08 sec)
 
 ### Execute DML statement
 
 To execute a DML statement, you can run the following:
 
-``` text
-spanner-cli> INSERT INTO Singers (SingerId, FirstName, LastName, SingerInfo)
-          -> VALUES(1, 'Marc', 'Richards', 'nationality: USA'),
-          -> (2, 'Catalina', 'Smith', 'nationality: Brazil'),
-          -> (3, 'Andrew', 'Duneskipper', NULL);
-
-Query OK, 3 rows affected (0.32 sec)
-```
+    spanner-cli> INSERT INTO Singers (SingerId, FirstName, LastName, SingerInfo)
+              -> VALUES(1, 'Marc', 'Richards', 'nationality: USA'),
+              -> (2, 'Catalina', 'Smith', 'nationality: Brazil'),
+              -> (3, 'Andrew', 'Duneskipper', NULL);
+    
+    Query OK, 3 rows affected (0.32 sec)
 
 ### Execute partitioned DML statement
 
-In the Spanner CLI, you can use the `  PARTITIONED  ` keyword with the `  UPDATE  ` and `  DELETE  ` commands to run efficient, large-scale [partitioned DML](/spanner/docs/dml-partitioned) statements. When the Spanner CLI encounters `  PARTITIONED UPDATE  ` or `  PARTITIONED DELETE  ` , it recognizes them as partitioned DML operations. These keywords are useful for operations that affect a significant portion of a table without locking the entire table for an extended period. Spanner doesn't apply the partitioned DML statements atomically across the entire table. It applies partitioned DML statements atomically across each partition.
+In the Spanner CLI, you can use the `  PARTITIONED  ` keyword with the `  UPDATE  ` and `  DELETE  ` commands to run efficient, large-scale [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statements. When the Spanner CLI encounters `  PARTITIONED UPDATE  ` or `  PARTITIONED DELETE  ` , it recognizes them as partitioned DML operations. These keywords are useful for operations that affect a significant portion of a table without locking the entire table for an extended period. Spanner doesn't apply the partitioned DML statements atomically across the entire table. It applies partitioned DML statements atomically across each partition.
 
 To execute a partitioned DML statement, you can run the following:
 
-``` text
--- Update all rows in the 'Products' table by multiplying the price by 2
-spanner-cli> PARTITIONED UPDATE Products SET Price = Price * 2 WHERE Price > 100;
-
--- Delete all rows in the 'Products' table with price less than 500
-spanner-cli> PARTITIONED DELETE FROM Products WHERE Price < 500;
-```
+    -- Update all rows in the 'Products' table by multiplying the price by 2
+    spanner-cli> PARTITIONED UPDATE Products SET Price = Price * 2 WHERE Price > 100;
+    
+    -- Delete all rows in the 'Products' table with price less than 500
+    spanner-cli> PARTITIONED DELETE FROM Products WHERE Price < 500;
 
 ## Supported meta-commands
 
@@ -303,7 +277,7 @@ Connects to another database. Takes the new database name as an argument.
 
 ## Additional supported commands
 
-The Spanner CLI supports additional commands. For more information, see [Spanner CLI commands](/spanner/docs/spanner-cli-commands) .
+The Spanner CLI supports additional commands. For more information, see [Spanner CLI commands](https://docs.cloud.google.com/spanner/docs/spanner-cli-commands) .
 
 ## Get support
 
@@ -311,5 +285,5 @@ To report an issue with the Spanner CLI, create a new [issue](https://issuetrack
 
 ## What's next
 
-  - See a list of all supported [Spanner CLI commands](/spanner/docs/spanner-cli-commands) .
-  - See a list of all supported [`  gcloud spanner cli  ` commands](/sdk/gcloud/reference/spanner/cli) .
+  - See a list of all supported [Spanner CLI commands](https://docs.cloud.google.com/spanner/docs/spanner-cli-commands) .
+  - See a list of all supported [`  gcloud spanner cli  ` commands](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/cli) .

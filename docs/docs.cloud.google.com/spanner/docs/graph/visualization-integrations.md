@@ -2,7 +2,7 @@ The notebook and third-party tools listed on this page are integrated with Spann
 
 ## Spanner Graph notebook
 
-The [Spanner Graph notebook](https://github.com/cloudspannerecosystem/spanner-graph-notebook) tool is an open-source visualization package that you run in notebook tools like Colaboratory and Jupyter Notebooks. The tool provides a similar user experience to [Spanner Studio graph visualization](/spanner/docs/graph/work-with-visualizations) .
+The [Spanner Graph notebook](https://github.com/cloudspannerecosystem/spanner-graph-notebook) tool is an open-source visualization package that you run in notebook tools like Colaboratory and Jupyter Notebooks. The tool provides a similar user experience to [Spanner Studio graph visualization](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations) .
 
 ## G.V()
 
@@ -26,7 +26,7 @@ Cambridge Intelligence's data visualization SDKs (KeyLines, ReGraph, MapWeave, a
 
 ## What's next
 
-  - Learn how to [set up and query Spanner Graph](/spanner/docs/graph/set-up) .
-  - Learn about [Spanner Graph queries](/spanner/docs/graph/queries-overview) .
-  - Learn how to [work with Spanner Graph visualizations](/spanner/docs/graph/work-with-visualizations) .
-  - [Migrate to Spanner Graph](/spanner/docs/graph/migrate) .
+  - Learn how to [set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
+  - Learn about [Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
+  - Learn how to [work with Spanner Graph visualizations](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations) .
+  - [Migrate to Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/migrate) .

@@ -1,4 +1,4 @@
-The following Spanner metrics are provided to Cloud Monitoring. For the best performance debugging results, use server-side metrics with [client-side metrics](/spanner/docs/view-manage-client-side-metrics) .
+The following Spanner metrics are provided to Cloud Monitoring. For the best performance debugging results, use server-side metrics with [client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) .
 
 The "metric type" strings in this table must be prefixed with `  spanner.googleapis.com/  ` . That prefix has been omitted from the entries in the table. When querying a label, use the `  metric.labels.  ` prefix; for example, `  metric.labels. LABEL =" VALUE "  ` .
 
@@ -15,7 +15,7 @@ Labels
 Adapter API requests
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Cloud Spanner Adapter API requests. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.  
@@ -30,7 +30,7 @@ Adapter API requests
 Adapter request latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of server request latencies for a database. This includes latency of request processing in Cloud Spanner backends and API layer. It does not include network or reverse-proxy overhead between clients and servers. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.  
@@ -43,7 +43,7 @@ Adapter request latencies
 API requests
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Cloud Spanner API requests. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -54,7 +54,7 @@ API requests
 Read API request by serving location
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Cloud Spanner Read API requests by serving location, whether it is a directed read query, and whether it is a change stream query. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.  
@@ -68,7 +68,7 @@ Read API request by serving location
 Read request latencies by change stream
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of read request latencies by whether it is a change stream query. This includes latency of request processing in Cloud Spanner backends and API layer. It does not include network or reverse-proxy overhead between clients and servers. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -79,7 +79,7 @@ Read request latencies by change stream
 Read API request latencies by serving location
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of read request latencies by serving location, whether it is a directed read query, and whether it is a change stream query. This includes latency of request processing in Cloud Spanner backends and API layer. It does not include network or reverse-proxy overhead between clients and servers. This is a superset of spanner.googleapis.com/api/read\_request\_latencies\_by\_change\_stream. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.  
@@ -92,7 +92,7 @@ Read API request latencies by serving location
 Bytes received by Cloud Spanner
 
 `  DELTA  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Uncompressed request bytes received by Cloud Spanner. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -102,7 +102,7 @@ Bytes received by Cloud Spanner
 API request rate
 
 `  GAUGE  ` , `  DOUBLE  ` , `  1/s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Rate of Cloud Spanner API requests. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -113,7 +113,7 @@ API request rate
 API requests by transaction options
 
 `  GAUGE  ` , `  DOUBLE  ` , `  1/s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Cloud Spanner API request rate by transaction options. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.  
@@ -130,7 +130,7 @@ API requests by transaction options
 Request latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of server request latencies for a database. This includes latency of request processing in Cloud Spanner backends and API layer. It does not include network or reverse-proxy overhead between clients and servers. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -140,7 +140,7 @@ Request latencies
 Request latencies by transaction type
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of server request latencies by transaction types. This includes latency of request processing in Cloud Spanner backends and API layer. It does not include network or reverse-proxy overhead between clients and servers. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -152,7 +152,7 @@ Request latencies by transaction type
 Request latencies by transaction options
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of server request latencies by transaction options for a database. This includes latency of request processing in Cloud Spanner backends and API layer. It does not include network or reverse-proxy overhead between clients and servers. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.  
@@ -168,7 +168,7 @@ Request latencies by transaction options
 Bytes sent by Cloud Spanner
 
 `  DELTA  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Uncompressed response bytes sent by Cloud Spanner. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -178,7 +178,7 @@ Bytes sent by Cloud Spanner
 AFE Connectivity Error Count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of requests that failed to reach the Spanner API Frontend. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  method  ` : Cloud Spanner API method.  
@@ -192,7 +192,7 @@ AFE Connectivity Error Count
 AFE Latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  ms  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Latency between Spanner API Frontend receiving an RPC and starting to write back the response. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  method  ` : Cloud Spanner API method.  
@@ -206,7 +206,7 @@ AFE Latencies
 Attempt Count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *The total number of RPC attempt performed by the Spanner client. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  method  ` : Cloud Spanner API method.  
@@ -220,7 +220,7 @@ Attempt Count
 Attempt Latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  ms  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of the total end-to-end latency across a RPC attempt. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  method  ` : Cloud Spanner API method.  
@@ -234,7 +234,7 @@ Attempt Latencies
 GFE Connectivity Error Count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of requests that failed to reach the Google network. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  method  ` : Cloud Spanner API method.  
@@ -248,7 +248,7 @@ GFE Connectivity Error Count
 GFE Latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  ms  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Latency between Google network(GFE) receiving an RPC and reading back the first byte of the response. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  method  ` : Cloud Spanner API method.  
@@ -262,7 +262,7 @@ GFE Latencies
 Operation Count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *The total number of operations performed by the Spanner client. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  method  ` : Cloud Spanner API method.  
@@ -276,7 +276,7 @@ Operation Count
 Operation Latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  ms  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of the total end-to-end latency across all RPC attempts associated with a Spanner operation. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  method  ` : Cloud Spanner API method.  
@@ -290,7 +290,7 @@ Operation Latencies
 Graph algorithm execution count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Total graph algorithm requests received by Cloud Spanner during the time interval. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -300,7 +300,7 @@ Graph algorithm execution count
 Graph algorithm durations
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of graph algorithm execution times (in seconds) within the database. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -310,7 +310,7 @@ Graph algorithm durations
 Graph algorithm failed count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Total failed graph algorithm requests in Cloud Spanner during the time interval. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -321,7 +321,7 @@ Graph algorithm failed count
 Graph query bytes returned count
 
 `  DELTA  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of data bytes that the graph queries returned, excluding transmission encoding overhead. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -330,7 +330,7 @@ Graph query bytes returned count
 Graph query execution count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of times Cloud Spanner saw graph queries during the interval. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -339,7 +339,7 @@ Graph query execution count
 Graph query failures
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of times graph queries failed during the interval. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -349,7 +349,7 @@ Graph query failures
 Graph query latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of total length of time, in seconds, for graph query executions within the database. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -358,7 +358,7 @@ Graph query latencies
 Graph query rows returned count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of rows that the graph queries returned. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -367,7 +367,7 @@ Graph query rows returned count
 Graph query rows scanned count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of rows that the graph queries scanned excluding deleted values. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -376,7 +376,7 @@ Graph query rows scanned count
 Autoscaling high priority cpu utilization target
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *High priority CPU utilization target used for autoscaling. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*
 
@@ -384,7 +384,7 @@ Autoscaling high priority cpu utilization target
 Autoscaling max nodes
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Maximum number of nodes autoscaler is allowed to allocate to the instance. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*
 
@@ -392,7 +392,7 @@ Autoscaling max nodes
 Autoscaling max processing units
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Maximum number of processing units autoscaler is allowed to allocate to the instance. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*
 
@@ -400,7 +400,7 @@ Autoscaling max processing units
 Autoscaling min nodes
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Minimum number of nodes autoscaler is allowed to allocate to the instance. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*
 
@@ -408,7 +408,7 @@ Autoscaling min nodes
 Autoscaling min processing units
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Minimum number of processing units autoscaler is allowed to allocate to the instance. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*
 
@@ -416,7 +416,7 @@ Autoscaling min processing units
 Autoscaling storage utilization target
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage utilization target used for autoscaling. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*
 
@@ -424,7 +424,7 @@ Autoscaling storage utilization target
 Autoscaling total cpu utilization target
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Total CPU utilization target used for autoscaling. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*
 
@@ -432,7 +432,7 @@ Autoscaling total cpu utilization target
 Backup storage used
 
 `  GAUGE  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Backup storage used in bytes. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -442,7 +442,7 @@ Backup storage used
 Smoothed CPU utilization
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *24-hour smoothed utilization of provisioned CPU. Values are typically numbers between 0.0 and 1.0 (but might exceed 1.0), charts display the values as a percentage between 0% and 100% (or more). Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.
@@ -451,7 +451,7 @@ Smoothed CPU utilization
 CPU utilization
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Percent utilization of provisioned CPU. Values are typically numbers between 0.0 and 1.0 (but might exceed 1.0), charts display the values as a percentage between 0% and 100% (or more). Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.
@@ -460,7 +460,7 @@ CPU utilization
 CPU utilization by operation type
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Percent utilization of provisioned CPU, by operation type. Values are typically numbers between 0.0 and 1.0 (but might exceed 1.0), charts display the values as a percentage between 0% and 100% (or more). Currently, it does not include CPU utilization for system tasks. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -472,7 +472,7 @@ CPU utilization by operation type
 CPU utilization by priority
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Percent utilization of provisioned CPU, by priority. Values are typically numbers between 0.0 and 1.0 (but might exceed 1.0), charts display the values as a percentage between 0% and 100% (or more). Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -483,7 +483,7 @@ CPU utilization by priority
 Cross region replicated bytes
 
 `  DELTA  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of bytes replicated from preferred leader to replicas across regions. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
 `  database  ` : Target database.  
@@ -495,7 +495,7 @@ Cross region replicated bytes
 Processing unit second
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Total processing units used for DataBoost operations. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  credential_id  ` : The IAM credential ID.
@@ -504,7 +504,7 @@ Processing unit second
 Disk load
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Percent utilization of HDD disk load in an instance. Values are typically numbers between 0.0 and 1.0 (but might exceed 1.0), charts display the values as a percentage between 0% and 100% (or more). Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.
@@ -513,7 +513,7 @@ Disk load
 Dual Region Quorum Availability
 
 `  GAUGE  ` , `  BOOL  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Quorum availability signal for dual region instance configs. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  quorum_availability  ` : Quorum availability level.
@@ -522,7 +522,7 @@ Dual Region Quorum Availability
 Feature usage
 
 `  GAUGE  ` , `  BOOL  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Indicates if an edition feature is being used by the instance. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
 `  feature  ` : Edition feature.  
@@ -533,7 +533,7 @@ Feature usage
 Leader percentage by region
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Percentage of leaders by cloud region. Values are typically numbers between 0.0 and 1.0, charts display the values as a percentage between 0% and 100%. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -543,7 +543,7 @@ Leader percentage by region
 Nodes
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Total number of nodes. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*
 
@@ -551,7 +551,7 @@ Nodes
 Peak split cpu usage score
 
 `  GAUGE  ` , `  DOUBLE  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Maximum cpu usage score observed in a database across all splits. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.
@@ -560,7 +560,7 @@ Peak split cpu usage score
 Placement row limit
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Upper limit for placement rows. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*
 
@@ -568,7 +568,7 @@ Placement row limit
 Placement row limit per processing unit
 
 `  GAUGE  ` , `  DOUBLE  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Upper limit for placement rows per processing unit. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*
 
@@ -576,7 +576,7 @@ Placement row limit per processing unit
 Placement row count by database
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of placement rows in a database. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.
@@ -585,7 +585,7 @@ Placement row count by database
 Processing units
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Total number of processing units. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*
 
@@ -593,7 +593,7 @@ Processing units
 Autoscaling high priority cpu utilization target for replica
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *High priority CPU utilization target used for autoscaling replica. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*  
 `  location  ` : Replica location.  
@@ -603,7 +603,7 @@ Autoscaling high priority cpu utilization target for replica
 Autoscaling max nodes for replica
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Maximum number of nodes autoscaler is allowed to allocate to the replica. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*  
 `  location  ` : Replica location.  
@@ -613,7 +613,7 @@ Autoscaling max nodes for replica
 Autoscaling max processing units for replica
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Maximum number of processing units autoscaler is allowed to allocate to the replica. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*  
 `  location  ` : Replica location.  
@@ -623,7 +623,7 @@ Autoscaling max processing units for replica
 Autoscaling min nodes for replica
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Minimum number of nodes autoscaler is allowed to allocate to the replica. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*  
 `  location  ` : Replica location.  
@@ -633,7 +633,7 @@ Autoscaling min nodes for replica
 Autoscaling min processing units for replica
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Minimum number of processing units autoscaler is allowed to allocate to the replica. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*  
 `  location  ` : Replica location.  
@@ -643,7 +643,7 @@ Autoscaling min processing units for replica
 Autoscaling total cpu utilization target for replica
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Total CPU utilization target used for autoscaling replica. Sampled every 60 seconds. After sampling, data is not visible for up to 210 seconds.*  
 `  location  ` : Replica location.  
@@ -653,7 +653,7 @@ Autoscaling total cpu utilization target for replica
 CMEK keys
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of CMEK keys identified by database and key revocation status. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.  
@@ -663,7 +663,7 @@ CMEK keys
 Replica nodes
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of nodes allocated to each replica identified by location and replica type. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  location  ` : Replica location.  
@@ -673,7 +673,7 @@ Replica nodes
 Replica processing units.
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of processing units allocated to each replica identified by location and replica type. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  location  ` : Replica location.  
@@ -683,7 +683,7 @@ Replica processing units.
 Schema objects count limit
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *The schema object count limit for the instance. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*
 
@@ -691,7 +691,7 @@ Schema objects count limit
 Schema object count
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *The total count of schema objects in the database. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.
@@ -700,7 +700,7 @@ Schema object count
 Sessions
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of sessions in use. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.
@@ -709,7 +709,7 @@ Sessions
 Storage used (logical) for columnar storage
 
 `  GAUGE  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage used (logical) in bytes for columnar storage. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -719,7 +719,7 @@ Storage used (logical) for columnar storage
 Storage used (logical) for columnar storage by region
 
 `  GAUGE  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage used (logical) in bytes for columnar storage by cloud region. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.  
@@ -729,7 +729,7 @@ Storage used (logical) for columnar storage by region
 Storage limit (combined)
 
 `  GAUGE  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage limit (combined) for instance in bytes. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*
 
@@ -737,7 +737,7 @@ Storage limit (combined)
 Storage limit (combined) per processing unit
 
 `  GAUGE  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage limit (combined) per processing unit in bytes. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*
 
@@ -745,7 +745,7 @@ Storage limit (combined) per processing unit
 Storage utilization (combined)
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage used (combined) as a fraction of storage limit (combined). Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*
 
@@ -753,7 +753,7 @@ Storage utilization (combined)
 Storage limit
 
 `  GAUGE  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage limit for instance in bytes. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  storage_class  ` : Storage type.
@@ -762,7 +762,7 @@ Storage limit
 Storage limit per processing unit
 
 `  GAUGE  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage limit per processing unit in bytes. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  storage_class  ` : Storage type.
@@ -771,7 +771,7 @@ Storage limit per processing unit
 Storage used
 
 `  GAUGE  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage used in bytes. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  database  ` : Target database.  
@@ -781,7 +781,7 @@ Storage used
 Storage utilization
 
 `  GAUGE  ` , `  DOUBLE  ` , `  10^2.%  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Storage used as a fraction of storage limit. Sampled every 60 seconds. After sampling, data is not visible for up to 180 seconds.*  
 `  storage_class  ` : Storage type.
@@ -790,7 +790,7 @@ Storage utilization
 Lock wait time
 
 `  DELTA  ` , `  DOUBLE  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Total lock wait time for lock conflicts recorded for the entire database. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -799,7 +799,7 @@ Lock wait time
 Pending restore count
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner.googleapis.com/Instance](/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
+**[spanner.googleapis.com/Instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
 
 *Limits number of pending restores per instance. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*
 
@@ -807,7 +807,7 @@ Pending restore count
 Count of queries
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Count of queries by database name, status, query type, and used optimizer version. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.  
@@ -819,7 +819,7 @@ Count of queries
 Bytes returned count
 
 `  DELTA  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of data bytes that the queries returned, excluding transmission encoding overhead. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -828,7 +828,7 @@ Bytes returned count
 Query cpu time
 
 `  DELTA  ` , `  DOUBLE  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of seconds of CPU time Cloud Spanner spent on operations to execute the queries. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -837,7 +837,7 @@ Query cpu time
 Query execution count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of times Cloud Spanner saw queries during the interval. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -846,7 +846,7 @@ Query execution count
 Query failures
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of times queries failed during the interval. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -856,7 +856,7 @@ Query failures
 Query latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of total length of time, in seconds, for query executions within the database. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -865,7 +865,7 @@ Query latencies
 Remote service calls count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Count of remote service calls. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -876,7 +876,7 @@ Remote service calls count
 Remote service calls latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  ms  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Latency of remote service calls. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -887,7 +887,7 @@ Remote service calls latencies
 Remote service network bytes
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Network bytes exchanged with remote service. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -898,7 +898,7 @@ Remote service network bytes
 Remote service rows count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Count of rows processed by a remote service. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -909,7 +909,7 @@ Remote service rows count
 Remote service rows latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  ms  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Latency of rows processed by a remote service. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -920,7 +920,7 @@ Remote service rows latencies
 Rows returned count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of rows that the queries returned. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -929,7 +929,7 @@ Rows returned count
 Rows scanned count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of rows that the queries scanned excluding deleted values. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -938,7 +938,7 @@ Rows scanned count
 Instance update requests quota exceeded error
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner.googleapis.com/Instance](/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
+**[spanner.googleapis.com/Instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
 
 *Number of attempts to exceed the limit on quota metric spanner.googleapis.com/internal/instance\_admin\_update\_instance\_requests. After sampling, data is not visible for up to 150 seconds.*  
 `  limit_name  ` : The limit name.
@@ -947,7 +947,7 @@ Instance update requests quota exceeded error
 Instance update requests quota limit
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner.googleapis.com/Instance](/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
+**[spanner.googleapis.com/Instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
 
 *Current limit on quota metric spanner.googleapis.com/internal/instance\_admin\_update\_instance\_requests. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  limit_name  ` : The limit name.
@@ -956,7 +956,7 @@ Instance update requests quota limit
 Instance update requests quota usage
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner.googleapis.com/Instance](/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
+**[spanner.googleapis.com/Instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
 
 *Current usage on quota metric spanner.googleapis.com/internal/instance\_admin\_update\_instance\_requests. After sampling, data is not visible for up to 150 seconds.*  
 `  limit_name  ` : The limit name.  
@@ -966,7 +966,7 @@ Instance update requests quota usage
 Pending restore count quota exceeded error
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner.googleapis.com/Instance](/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
+**[spanner.googleapis.com/Instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
 
 *Number of attempts to exceed the limit on quota metric spanner.googleapis.com/pending\_restore\_count. After sampling, data is not visible for up to 150 seconds.*  
 `  limit_name  ` : The limit name.
@@ -975,7 +975,7 @@ Pending restore count quota exceeded error
 Pending restore count quota limit
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner.googleapis.com/Instance](/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
+**[spanner.googleapis.com/Instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
 
 *Current limit on quota metric spanner.googleapis.com/pending\_restore\_count. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  limit_name  ` : The limit name.
@@ -984,7 +984,7 @@ Pending restore count quota limit
 Pending restore count quota usage
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner.googleapis.com/Instance](/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
+**[spanner.googleapis.com/Instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner.googleapis.com/Instance)**
 
 *Current usage on quota metric spanner.googleapis.com/pending\_restore\_count. After sampling, data is not visible for up to 150 seconds.*  
 `  limit_name  ` : The limit name.
@@ -993,7 +993,7 @@ Pending restore count quota usage
 Bytes returned count
 
 `  DELTA  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Total number of data bytes that the reads returned excluding transmission encoding overhead. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1002,7 +1002,7 @@ Bytes returned count
 Client wait time
 
 `  DELTA  ` , `  DOUBLE  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of seconds spent waiting due to throttling. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1011,7 +1011,7 @@ Client wait time
 Read cpu time
 
 `  DELTA  ` , `  DOUBLE  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of seconds of CPU time Cloud Spanner spent execute the reads excluding prefetch CPU and other overhead. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1020,7 +1020,7 @@ Read cpu time
 Read execution count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of times Cloud Spanner executed the read shapesduring the interval. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1029,7 +1029,7 @@ Read execution count
 Leader refresh delay
 
 `  DELTA  ` , `  DOUBLE  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of seconds spent coordinating reads across instances in multi-regionconfigurations. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1038,7 +1038,7 @@ Leader refresh delay
 Locking delays
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of total time in seconds spent waiting due to locking. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1047,7 +1047,7 @@ Locking delays
 Rows returned count
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of rows that the reads returned. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1056,7 +1056,7 @@ Rows returned count
 Rows deleted
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Count of rows deleted by the policy since the last sample. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.
@@ -1065,7 +1065,7 @@ Rows deleted
 Processed watermark age
 
 `  GAUGE  ` , `  INT64  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Time between now and the read timestamp of the last successful execution. An execution happens as the background task deletes eligible data in batches and is successful even when there are rows that cannot be deleted. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.
@@ -1074,7 +1074,7 @@ Processed watermark age
 Total number of undeletable rows
 
 `  GAUGE  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of rows in all tables in the database that can't be deleted. A row can't be deleted if, for example, it has so many child rows that a delete would exceed the transaction limit. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
 `  database  ` : Target database.
@@ -1083,7 +1083,7 @@ Total number of undeletable rows
 Bytes written
 
 `  DELTA  ` , `  INT64  ` , `  By  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of bytes written by transactions. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1092,7 +1092,7 @@ Bytes written
 Transaction commit attempts
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of commit attempts for transactions. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.  
@@ -1102,7 +1102,7 @@ Transaction commit attempts
 Transaction commit retries
 
 `  DELTA  ` , `  INT64  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Number of commit attempts that are retries from previously aborted transaction attempts. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1111,7 +1111,7 @@ Transaction commit retries
 Transaction participants
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  1  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of total number of participants in each commit attempt. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1120,7 +1120,7 @@ Transaction participants
 Transaction latencies
 
 `  DELTA  ` , `  DISTRIBUTION  ` , `  s  `  
-**[spanner\_instance](/monitoring/api/resources#tag_spanner_instance)**
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Distribution of total seconds takenfrom the first operation of the transaction to commit or abort. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `  database  ` : Target database.
@@ -1129,4 +1129,4 @@ Transaction latencies
 
 ## What's next
 
-  - [View and manage client-side metrics](/spanner/docs/view-manage-client-side-metrics)
+  - [View and manage client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics)

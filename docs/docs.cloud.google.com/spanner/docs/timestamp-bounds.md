@@ -1,8 +1,8 @@
 ## Introduction
 
-When reading data in Spanner in either a [read-only transaction](/spanner/docs/transactions#read-only_transactions) or a [single read call](/spanner/docs/reads) , you can set a **timestamp bound** , which tells Spanner how to choose a timestamp at which to read the data.
+When reading data in Spanner in either a [read-only transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) or a [single read call](https://docs.cloud.google.com/spanner/docs/reads) , you can set a **timestamp bound** , which tells Spanner how to choose a timestamp at which to read the data.
 
-Why set a timestamp bound? If your database is geographically distributed (that is, you created your Spanner instance using a multi-region instance configuration), and your application can tolerate some staleness when reading data, then you can get latency benefits from executing a stale read instead of a strong read. (Learn more about these read types in [Reads](/spanner/docs/reads) .)
+Why set a timestamp bound? If your database is geographically distributed (that is, you created your Spanner instance using a multi-region instance configuration), and your application can tolerate some staleness when reading data, then you can get latency benefits from executing a stale read instead of a strong read. (Learn more about these read types in [Reads](https://docs.cloud.google.com/spanner/docs/reads) .)
 
 ## Timestamp bound types
 
@@ -18,7 +18,7 @@ Notes:
 
   - Stale reads (i.e. using the bounded or exact staleness types) have the maximum performance benefit at longest staleness intervals. Use a minimum staleness of 10 seconds to get a benefit.
 
-  - Spanner keeps track of a database's [`  earliest_version_time  `](/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.earliest_version_time) , which specifies the earliest time at which past versions of data can be read. You cannot read at a timestamp before the earliest version time.
+  - Spanner keeps track of a database's [`  earliest_version_time  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.earliest_version_time) , which specifies the earliest time at which past versions of data can be read. You cannot read at a timestamp before the earliest version time.
 
 The Spanner timestamp bound types are explained in more detail later.
 
@@ -48,4 +48,4 @@ These modes do not require a "negotiation phase" to pick a timestamp. As a resul
 
 ## Maximum timestamp staleness
 
-Spanner continuously garbage collects deleted and overwritten data in the background to reclaim storage space. This process is known as **version GC** . Version GC reclaims versions after they expire past a database's [`  version_retention_period  `](/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) , which defaults to 1 hour, but can be configured up to 1 week. This restriction also applies to in-progress reads and/or SQL queries whose timestamp become too old while executing. Reads and SQL queries with too-old read timestamps fail with the error `  FAILED_PRECONDITION  ` . The only exception is [Partition Read/Query](/spanner/docs/reads#read_data_in_parallel) with partition tokens, which will prevent garbage collection of expired data while the session remains active.
+Spanner continuously garbage collects deleted and overwritten data in the background to reclaim storage space. This process is known as **version GC** . Version GC reclaims versions after they expire past a database's [`  version_retention_period  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) , which defaults to 1 hour, but can be configured up to 1 week. This restriction also applies to in-progress reads and/or SQL queries whose timestamp become too old while executing. Reads and SQL queries with too-old read timestamps fail with the error `  FAILED_PRECONDITION  ` . The only exception is [Partition Read/Query](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) with partition tokens, which will prevent garbage collection of expired data while the session remains active.

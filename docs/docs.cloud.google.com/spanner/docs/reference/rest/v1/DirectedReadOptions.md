@@ -1,11 +1,11 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [IncludeReplicas](#IncludeReplicas)
-      - [JSON representation](#IncludeReplicas.SCHEMA_REPRESENTATION)
-  - [ReplicaSelection](#ReplicaSelection)
-      - [JSON representation](#ReplicaSelection.SCHEMA_REPRESENTATION)
-  - [Type](#Type)
-  - [ExcludeReplicas](#ExcludeReplicas)
-      - [JSON representation](#ExcludeReplicas.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#SCHEMA_REPRESENTATION)
+  - [IncludeReplicas](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#IncludeReplicas)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#IncludeReplicas.SCHEMA_REPRESENTATION)
+  - [ReplicaSelection](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#ReplicaSelection)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#ReplicaSelection.SCHEMA_REPRESENTATION)
+  - [Type](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#Type)
+  - [ExcludeReplicas](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#ExcludeReplicas)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#ExcludeReplicas.SCHEMA_REPRESENTATION)
 
 The `  DirectedReadOptions  ` can be used to indicate which replicas or regions should be used for non-transactional reads or queries.
 
@@ -22,7 +22,7 @@ The `  DirectedReadOptions  ` can be used to indicate which replicas or regions 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field replicas can be only one of the following:
   &quot;includeReplicas&quot;: {
@@ -68,7 +68,7 @@ An `  IncludeReplicas  ` contains a repeated set of `  ReplicaSelection  ` which
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;replicaSelections&quot;: [
     {
       object (ReplicaSelection)
@@ -118,7 +118,7 @@ Some examples of using replica\_selectors are:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;location&quot;: string,
   &quot;type&quot;: enum (Type)
 }</code></pre></td>
@@ -173,7 +173,7 @@ An ExcludeReplicas contains a repeated set of ReplicaSelection that should be ex
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;replicaSelections&quot;: [
     {
       object (ReplicaSelection)

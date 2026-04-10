@@ -2,7 +2,7 @@ This page explains how to explore and manage your Spanner data using Spanner Stu
 
 Spanner Studio includes an **Explorer** pane that integrates with a query editor and a SQL query results table. You can run DDL, DML, and SQL statements from this one interface. For example, instead of configuring a third-party database query tool, you can create a table and immediately query your data using the query editor.
 
-If you're new to Spanner, learn how to [create and query a database by using the Google Cloud console](/spanner/docs/create-query-database-console) .
+If you're new to Spanner, learn how to [create and query a database by using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console) .
 
 ## Explore your data
 
@@ -10,16 +10,16 @@ You can use the **Explorer** to view, search, and interact with your database ob
 
   - Tables
   - Columns
-  - [Indexes and keys](/spanner/docs/secondary-indexes)
-  - [Change streams](/spanner/docs/change-streams)
-  - ML models hosted on [Vertex AI](/spanner/docs/ml)
-  - [Roles](/spanner/docs/fgac-about)
-  - [Views](/spanner/docs/views)
-  - [Placements (in preview)](/spanner/docs/geo-partitioning)
-  - [Graphs](/spanner/docs/graph/overview)
-      - [Nodes](/spanner/docs/graph/schema-overview#property-graph-data-model)
-      - [Edges](/spanner/docs/graph/schema-overview#property-graph-data-model)
-  - [Saved queries (in preview)](/spanner/docs/saved-queries)
+  - [Indexes and keys](https://docs.cloud.google.com/spanner/docs/secondary-indexes)
+  - [Change streams](https://docs.cloud.google.com/spanner/docs/change-streams)
+  - ML models hosted on [Vertex AI](https://docs.cloud.google.com/spanner/docs/ml)
+  - [Roles](https://docs.cloud.google.com/spanner/docs/fgac-about)
+  - [Views](https://docs.cloud.google.com/spanner/docs/views)
+  - [Placements (in preview)](https://docs.cloud.google.com/spanner/docs/geo-partitioning)
+  - [Graphs](https://docs.cloud.google.com/spanner/docs/graph/overview)
+      - [Nodes](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#property-graph-data-model)
+      - [Edges](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#property-graph-data-model)
+  - [Saved queries (in preview)](https://docs.cloud.google.com/spanner/docs/saved-queries)
 
 **Note:** System-level views in the `  INFORMATION_SCHEMA  ` and `  SPANNER_SYS  ` schemas are read-only.
 
@@ -28,6 +28,8 @@ You can use the search field in the **Explorer** pane to search for database obj
 To access the **Explorer** , follow these steps:
 
 1.  In the Google Cloud console, open the **Spanner** page.
+    
+    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -39,11 +41,13 @@ To access the **Explorer** , follow these steps:
 
 Using the query editor, you can run any combination of DDL, DML, and SQL statements. Statements must be separated by a semicolon. You can compose a query yourself, or you can populate the query editor with a template.
 
-Statements are executed based on the order in which you enter them in the query editor. Consecutive DDL statements are batched and sent for execution all at once. For more information, see [Order of execution of statements in batches](/spanner/docs/schema-updates#order_of_execution_of_statements_in_batches) .
+Statements are executed based on the order in which you enter them in the query editor. Consecutive DDL statements are batched and sent for execution all at once. For more information, see [Order of execution of statements in batches](https://docs.cloud.google.com/spanner/docs/schema-updates#order_of_execution_of_statements_in_batches) .
 
 To structure, modify, or query your data, follow these steps:
 
 1.  In the Google Cloud console, open the **Spanner** page.
+    
+    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -77,9 +81,11 @@ To structure, modify, or query your data, follow these steps:
 
 ## View schema design best practice recommendations
 
-Spanner automatically detects opportunities to apply [schema design best practices](/spanner/docs/schema-design) to your databases. If recommendations are available for your database, you can see them in **Spanner Studio** with the following steps:
+Spanner automatically detects opportunities to apply [schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) to your databases. If recommendations are available for your database, you can see them in **Spanner Studio** with the following steps:
 
 1.  In the Google Cloud console, open the **Spanner** page.
+    
+    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 

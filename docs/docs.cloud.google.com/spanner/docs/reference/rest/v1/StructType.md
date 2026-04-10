@@ -1,6 +1,6 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [Field](#Field)
-      - [JSON representation](#Field.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/StructType#SCHEMA_REPRESENTATION)
+  - [Field](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/StructType#Field)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/StructType#Field.SCHEMA_REPRESENTATION)
 
 `  StructType  ` defines the fields of a `  STRUCT  ` type.
 
@@ -15,7 +15,7 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;fields&quot;: [
     {
       object (Field)
@@ -49,7 +49,7 @@ Message representing a single field of a struct.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;type&quot;: {
     object (Type)

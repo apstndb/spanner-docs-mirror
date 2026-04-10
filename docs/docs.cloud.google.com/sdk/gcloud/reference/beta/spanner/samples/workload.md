@@ -10,14 +10,14 @@ DESCRIPTION
 
 `  (BETA)  ` Before sending traffic to the backend service, create the database and start the service with:
 
-``` text
+``` wrap-code
 gcloud beta spanner samples init APPNAME --instance-id=INSTANCE_ID
 gcloud beta spanner samples backend APPNAME --instance-id=INSTANCE_ID
 ```
 
 To run all three steps together, use:
 
-``` text
+``` wrap-code
 gcloud beta spanner samples run APPNAME --instance-id=INSTANCE_ID
 ```
 
@@ -25,7 +25,7 @@ EXAMPLES
 
 To generate traffic for the 'finance' sample app, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner samples workload finance
 ```
 
@@ -53,10 +53,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner samples workload
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner samples workload
 ```

@@ -102,7 +102,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -132,7 +132,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -159,7 +159,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl>
 <dl>
@@ -199,7 +199,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl>
 <dl>
@@ -239,7 +239,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -266,7 +266,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -293,7 +293,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -320,7 +320,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -347,7 +347,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -374,7 +374,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -401,7 +401,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -428,7 +428,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -455,7 +455,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -483,7 +483,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -510,7 +510,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -537,7 +537,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -564,7 +564,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -591,7 +591,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -618,7 +618,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -645,7 +645,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -672,7 +672,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -700,7 +700,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -728,7 +728,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -755,7 +755,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl>
 <dl>
@@ -791,7 +791,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -831,7 +831,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -858,7 +858,7 @@ The Cloud Spanner Database Admin API can be used to: \* create, drop, and list d
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/spanner.admin             </code></li>
 <li><code dir="ltr" translate="no">              https://www.googleapis.com/auth/cloud-platform             </code></li>
 </ul>
-<p>For more information, see the <a href="/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
+<p>For more information, see the <a href="https://docs.cloud.google.com/docs/authentication#authorization-gcp">Authentication Overview</a> .</p>
 </dd>
 </dl></td>
 </tr>
@@ -1570,12 +1570,10 @@ Optional. The dialect of the Cloud Spanner Database.
 
 Optional. Proto descriptors used by `  CREATE/ALTER PROTO BUNDLE  ` statements in 'extra\_statements'. Contains a protobuf-serialized [`  google.protobuf.FileDescriptorSet  `](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto) descriptor set. To generate it, [install](https://grpc.io/docs/protoc-installation/) and run `  protoc  ` with --include\_imports and --descriptor\_set\_out. For example, to generate for moon/shot/app.proto, run
 
-``` text
-$protoc  --proto_path=/app_path --proto_path=/lib_path \
-         --include_imports \
-         --descriptor_set_out=descriptors.data \
-         moon/shot/app.proto
-```
+    $protoc  --proto_path=/app_path --proto_path=/lib_path \
+             --include_imports \
+             --descriptor_set_out=descriptors.data \
+             moon/shot/app.proto
 
 For more details, see protobuffer [self description](https://developers.google.com/protocol-buffers/docs/techniques#self-description) .
 
@@ -2839,12 +2837,10 @@ Specifying an explicit operation ID simplifies determining whether the statement
 
 Optional. Proto descriptors used by CREATE/ALTER PROTO BUNDLE statements. Contains a protobuf-serialized [google.protobuf.FileDescriptorSet](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto) . To generate it, [install](https://grpc.io/docs/protoc-installation/) and run `  protoc  ` with --include\_imports and --descriptor\_set\_out. For example, to generate for moon/shot/app.proto, run
 
-``` text
-$protoc  --proto_path=/app_path --proto_path=/lib_path \
-         --include_imports \
-         --descriptor_set_out=descriptors.data \
-         moon/shot/app.proto
-```
+    $protoc  --proto_path=/app_path --proto_path=/lib_path \
+             --include_imports \
+             --descriptor_set_out=descriptors.data \
+             moon/shot/app.proto
 
 For more details, see protobuffer [self description](https://developers.google.com/protocol-buffers/docs/techniques#self-description) .
 

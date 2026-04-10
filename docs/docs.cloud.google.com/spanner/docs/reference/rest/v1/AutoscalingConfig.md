@@ -1,12 +1,12 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [AutoscalingLimits](#AutoscalingLimits)
-      - [JSON representation](#AutoscalingLimits.SCHEMA_REPRESENTATION)
-  - [AutoscalingTargets](#AutoscalingTargets)
-      - [JSON representation](#AutoscalingTargets.SCHEMA_REPRESENTATION)
-  - [AsymmetricAutoscalingOption](#AsymmetricAutoscalingOption)
-      - [JSON representation](#AsymmetricAutoscalingOption.SCHEMA_REPRESENTATION)
-  - [AutoscalingConfigOverrides](#AutoscalingConfigOverrides)
-      - [JSON representation](#AutoscalingConfigOverrides.SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#SCHEMA_REPRESENTATION)
+  - [AutoscalingLimits](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AutoscalingLimits)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AutoscalingLimits.SCHEMA_REPRESENTATION)
+  - [AutoscalingTargets](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AutoscalingTargets)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AutoscalingTargets.SCHEMA_REPRESENTATION)
+  - [AsymmetricAutoscalingOption](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AsymmetricAutoscalingOption)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AsymmetricAutoscalingOption.SCHEMA_REPRESENTATION)
+  - [AutoscalingConfigOverrides](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AutoscalingConfigOverrides)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AutoscalingConfigOverrides.SCHEMA_REPRESENTATION)
 
 Autoscaling configuration for an instance.
 
@@ -21,7 +21,7 @@ Autoscaling configuration for an instance.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;autoscalingLimits&quot;: {
     object (AutoscalingLimits)
   },
@@ -75,7 +75,7 @@ The autoscaling limits for the instance. Users can define the minimum and maximu
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
 
   // Union field min_limit can be only one of the following:
   &quot;minNodes&quot;: integer,
@@ -136,7 +136,7 @@ The autoscaling targets for an instance.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;highPriorityCpuUtilizationPercent&quot;: integer,
   &quot;totalCpuUtilizationPercent&quot;: integer,
   &quot;storageUtilizationPercent&quot;: integer
@@ -180,7 +180,7 @@ AsymmetricAutoscalingOption specifies the scaling of replicas identified by the 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;replicaSelection&quot;: {
     object (ReplicaSelection)
   },
@@ -221,7 +221,7 @@ Overrides the top-level autoscaling configuration for the replicas identified by
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;autoscalingLimits&quot;: {
     object (AutoscalingLimits)
   },

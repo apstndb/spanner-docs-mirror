@@ -35,7 +35,7 @@ The following table lists the features available for each edition.
 <td>Up to 99.999% availability SLA</td>
 </tr>
 <tr class="even">
-<td><a href="/spanner/docs/instance-configurations">Configurations</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/instance-configurations">Configurations</a></td>
 <td>Regional</td>
 <td>Regional<br />
 Optional custom read-only replicas</td>
@@ -44,68 +44,68 @@ Optional custom read-only replicas</td>
 </tr>
 <tr class="odd">
 <td>Multi-model capabilities</td>
-<td>Relational ( <a href="/spanner/docs/reference/standard-sql/overview">GoogleSQL</a> , <a href="/spanner/docs/reference/postgresql/overview">PostgreSQL</a> )<br />
-<a href="/spanner/docs/non-relational/overview">Key-value</a></td>
-<td>Relational ( <a href="/spanner/docs/reference/standard-sql/overview">GoogleSQL</a> , <a href="/spanner/docs/reference/postgresql/overview">PostgreSQL</a> )<br />
-<a href="/spanner/docs/non-relational/overview">Key-value</a><br />
-<a href="/spanner/docs/graph/overview">Spanner Graph</a></td>
-<td>Relational ( <a href="/spanner/docs/reference/standard-sql/overview">GoogleSQL</a> , <a href="/spanner/docs/reference/postgresql/overview">PostgreSQL</a> )<br />
-<a href="/spanner/docs/non-relational/overview">Key-value</a><br />
-<a href="/spanner/docs/graph/overview">Spanner Graph</a></td>
+<td>Relational ( <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview">GoogleSQL</a> , <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview">PostgreSQL</a> )<br />
+<a href="https://docs.cloud.google.com/spanner/docs/non-relational/overview">Key-value</a></td>
+<td>Relational ( <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview">GoogleSQL</a> , <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview">PostgreSQL</a> )<br />
+<a href="https://docs.cloud.google.com/spanner/docs/non-relational/overview">Key-value</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/graph/overview">Spanner Graph</a></td>
+<td>Relational ( <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview">GoogleSQL</a> , <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview">PostgreSQL</a> )<br />
+<a href="https://docs.cloud.google.com/spanner/docs/non-relational/overview">Key-value</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/graph/overview">Spanner Graph</a></td>
 </tr>
 <tr class="even">
 <td>Search capabilities</td>
 <td>—</td>
-<td><a href="/spanner/docs/full-text-search">Full-text search</a><br />
-Vector search ( <a href="/spanner/docs/find-k-nearest-neighbors">KNN</a> , <a href="/spanner/docs/find-approximate-nearest-neighbors">ANN</a> )</td>
-<td><a href="/spanner/docs/full-text-search">Full-text search</a><br />
-Vector search ( <a href="/spanner/docs/find-k-nearest-neighbors">KNN</a> , <a href="/spanner/docs/find-approximate-nearest-neighbors">ANN</a> )</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/full-text-search">Full-text search</a><br />
+Vector search ( <a href="https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors">KNN</a> , <a href="https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors">ANN</a> )</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/full-text-search">Full-text search</a><br />
+Vector search ( <a href="https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors">KNN</a> , <a href="https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors">ANN</a> )</td>
 </tr>
 <tr class="odd">
 <td>Resource management</td>
-<td><a href="/spanner/docs/autoscaler-tool-overview">Open source Autoscaler</a></td>
-<td><a href="/spanner/docs/autoscaler-tool-overview">Open source Autoscaler</a><br />
-<a href="/spanner/docs/managed-autoscaler">Managed autoscaler</a><br />
-<a href="/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling">Asymmetric read-only autoscaling</a><br />
-<a href="/spanner/docs/create-manage-locality-groups">Locality groups</a><br />
-<a href="/spanner/docs/tiered-storage">Tiered storage</a></td>
-<td><a href="/spanner/docs/autoscaler-tool-overview">Open source Autoscaler</a><br />
-<a href="/spanner/docs/managed-autoscaler">Managed autoscaler</a><br />
-<a href="/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling">Asymmetric read-only autoscaling</a><br />
-<a href="/spanner/docs/create-manage-locality-groups">Locality groups</a><br />
-<a href="/spanner/docs/tiered-storage">Tiered storage</a><br />
-<a href="/spanner/docs/geo-partitioning">Geo-partitioning</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview">Open source Autoscaler</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview">Open source Autoscaler</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/managed-autoscaler">Managed autoscaler</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling">Asymmetric read-only autoscaling</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups">Locality groups</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/tiered-storage">Tiered storage</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview">Open source Autoscaler</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/managed-autoscaler">Managed autoscaler</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling">Asymmetric read-only autoscaling</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups">Locality groups</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/tiered-storage">Tiered storage</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/geo-partitioning">Geo-partitioning</a></td>
 </tr>
 <tr class="even">
 <td>Analytics</td>
-<td><a href="/bigquery/docs/spanner-federated-queries">BigQuery federation</a><br />
-<a href="/spanner/docs/databoost/databoost-overview">Spanner Data Boost</a><br />
-<a href="/bigquery/docs/export-to-spanner">Reverse ETL (BigQuery to Spanner)</a></td>
-<td><a href="/spanner/docs/columnar-engine">Columnar engine</a><br />
-<a href="/bigquery/docs/spanner-federated-queries">BigQuery federation</a><br />
-<a href="/spanner/docs/databoost/databoost-overview">Spanner Data Boost</a><br />
-<a href="/bigquery/docs/export-to-spanner">Reverse ETL (BigQuery to Spanner)</a></td>
-<td><a href="/spanner/docs/columnar-engine">Columnar engine</a><br />
-<a href="/bigquery/docs/spanner-federated-queries">BigQuery federation</a><br />
-<a href="/spanner/docs/databoost/databoost-overview">Spanner Data Boost</a><br />
-<a href="/bigquery/docs/export-to-spanner">Reverse ETL (BigQuery to Spanner)</a></td>
+<td><a href="https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries">BigQuery federation</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview">Spanner Data Boost</a><br />
+<a href="https://docs.cloud.google.com/bigquery/docs/export-to-spanner">Reverse ETL (BigQuery to Spanner)</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/columnar-engine">Columnar engine</a><br />
+<a href="https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries">BigQuery federation</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview">Spanner Data Boost</a><br />
+<a href="https://docs.cloud.google.com/bigquery/docs/export-to-spanner">Reverse ETL (BigQuery to Spanner)</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/columnar-engine">Columnar engine</a><br />
+<a href="https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries">BigQuery federation</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview">Spanner Data Boost</a><br />
+<a href="https://docs.cloud.google.com/bigquery/docs/export-to-spanner">Reverse ETL (BigQuery to Spanner)</a></td>
 </tr>
 <tr class="odd">
 <td>Data protection</td>
-<td><a href="/spanner/docs/backup">Standard backups</a><br />
-<a href="/spanner/docs/pitr">7-day PITR</a><br />
-<a href="/spanner/docs/backup#backup-schedules">Scheduled backups</a></td>
-<td><a href="/spanner/docs/backup">Standard backups</a><br />
-<a href="/spanner/docs/pitr">7-day PITR</a><br />
-<a href="/spanner/docs/backup#backup-schedules">Scheduled backups</a><br />
-<a href="/spanner/docs/backup#incremental-backups">Incremental backups</a></td>
-<td><a href="/spanner/docs/backup">Standard backups</a><br />
-<a href="/spanner/docs/pitr">7-day PITR</a><br />
-<a href="/spanner/docs/backup#backup-schedules">Scheduled backups</a><br />
-<a href="/spanner/docs/backup#incremental-backups">Incremental backups</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/backup">Standard backups</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/pitr">7-day PITR</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/backup#backup-schedules">Scheduled backups</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/backup">Standard backups</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/pitr">7-day PITR</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/backup#backup-schedules">Scheduled backups</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/backup#incremental-backups">Incremental backups</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/backup">Standard backups</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/pitr">7-day PITR</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/backup#backup-schedules">Scheduled backups</a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/backup#incremental-backups">Incremental backups</a></td>
 </tr>
 <tr class="even">
-<td><a href="/spanner/docs/cuds">CUDs</a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/cuds">CUDs</a></td>
 <td>20% for 1 year<br />
 40% for 3 years</td>
 <td>20% for 1 year<br />
@@ -130,7 +130,7 @@ If you are a Spanner customer under Google Cloud commitments with discounts on l
 
 ## Monitor edition feature usage
 
-You can monitor the usage of Enterprise edition and Enterprise Plus edition edition features in your instance. To do so, use the [Feature usage](/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `  instance/edition/feature_usage  ` ) monitoring metric. The following features are shown in this metric when you use them in your instance.
+You can monitor the usage of Enterprise edition and Enterprise Plus edition edition features in your instance. To do so, use the [Feature usage](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `  instance/edition/feature_usage  ` ) monitoring metric. The following features are shown in this metric when you use them in your instance.
 
   - Asymmetric autoscaling
   - Columnar engine
@@ -149,6 +149,8 @@ You can monitor the usage of Enterprise edition and Enterprise Plus edition edit
 To view the edition feature usage metric in the Google Cloud console, follow these steps:
 
 1.  In the Google Cloud console, go to **Monitoring** :
+    
+    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  In the navigation menu, select **Metrics explorer** .
 
@@ -164,23 +166,23 @@ To view the edition feature usage metric in the Google Cloud console, follow the
     
     Optionally, you can click view\_column **Column display options** to display or hide columns to display in the table. The `  name  ` column should generally be ignored in favor of `  instance_id  ` , `  instance_config  ` , `  database  ` and `  feature  ` .
 
-To see a full list of Google Cloud metrics, see [Google Cloud metrics](/monitoring/api/metrics_gcp) .
+To see a full list of Google Cloud metrics, see [Google Cloud metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp) .
 
 ## Pricing
 
-For information about Spanner editions pricing, see [Spanner pricing](https://cloud.google.com/spanner/pricing) . To help control cost, it is possible to prevent specific Spanner editions from being created by using an [organization policy constraint](/spanner/docs/spanner-custom-constraints) .
+For information about Spanner editions pricing, see [Spanner pricing](https://cloud.google.com/spanner/pricing) . To help control cost, it is possible to prevent specific Spanner editions from being created by using an [organization policy constraint](https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints) .
 
 ## Frequently asked questions
 
   - **What are the changes if I'm using a Spanner free trial instance?**  
-    If you're using a free trial instance, it will default to the Enterprise edition when you [upgrade it to a paid instance](/spanner/docs/free-trial-quickstart#upgrade) . Once in Enterprise edition, you can upgrade the instance to the Enterprise Plus edition, or contact support to downgrade to the Standard edition.
+    If you're using a free trial instance, it will default to the Enterprise edition when you [upgrade it to a paid instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart#upgrade) . Once in Enterprise edition, you can upgrade the instance to the Enterprise Plus edition, or contact support to downgrade to the Standard edition.
 
 <!-- end list -->
 
   - **Can I upgrade my instance?**  
-    Yes, you can [upgrade your instance](/spanner/docs/create-manage-instances#upgrade-edition) to the Enterprise edition or Enterprise Plus edition. There is no data migration involved when you change the edition of your instance. The edition upgrade takes approximately 10 minutes to complete with zero downtime.
+    Yes, you can [upgrade your instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#upgrade-edition) to the Enterprise edition or Enterprise Plus edition. There is no data migration involved when you change the edition of your instance. The edition upgrade takes approximately 10 minutes to complete with zero downtime.
   - **Can I downgrade my instance?**  
-    Yes, you can [downgrade your instance](/spanner/docs/create-manage-instances#downgrade-edition) to a lower-tier edition. You must stop using the higher-tier edition features in order to downgrade. There is no data migration involved when you change the edition of your instance. The edition downgrade takes approximately 10 minutes to complete with zero downtime.
+    Yes, you can [downgrade your instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#downgrade-edition) to a lower-tier edition. You must stop using the higher-tier edition features in order to downgrade. There is no data migration involved when you change the edition of your instance. The edition downgrade takes approximately 10 minutes to complete with zero downtime.
   - **Will granular instances continue to be supported with editions?**  
     Yes, granular instances is supported in all Spanner editions. The minimum compute capacity you can set is 100 processing units or one node (1000 processing units).
   - **Will my instance undergo data migration when it upgrades to editions?**  
@@ -190,17 +192,17 @@ For information about Spanner editions pricing, see [Spanner pricing](https://cl
 
   - Enterprise edition and Enterprise Plus edition features:
     
-      - Custom read-only replicas: [Move your instance](/spanner/docs/move-instance) to a regional instance configuration or [delete your instance](/spanner/docs/create-manage-instances#delete-instance) .
-      - Spanner Graph: [Delete all property graph schemas](/spanner/docs/graph/create-update-drop-schema#drop-property-graph-schema) in your instance.
-      - Full-text search: [Delete all search indexes](/spanner/docs/reference/standard-sql/data-definition-language#drop-search-index) in your instance.
-      - Vector search: Stop using all [KNN](/spanner/docs/find-k-nearest-neighbors) and [ANN](/spanner/docs/find-approximate-nearest-neighbors) distance functions, and [delete all vector indexes](/spanner/docs/reference/standard-sql/data-definition-language#drop-vector-index) in your instance.
-      - Managed autoscaler: Change your instance from using the managed autoscaler to [use manual scaling](/spanner/docs/create-manage-instances#remove-managed-autoscaler) .
+      - Custom read-only replicas: [Move your instance](https://docs.cloud.google.com/spanner/docs/move-instance) to a regional instance configuration or [delete your instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#delete-instance) .
+      - Spanner Graph: [Delete all property graph schemas](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#drop-property-graph-schema) in your instance.
+      - Full-text search: [Delete all search indexes](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop-search-index) in your instance.
+      - Vector search: Stop using all [KNN](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) and [ANN](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) distance functions, and [delete all vector indexes](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop-vector-index) in your instance.
+      - Managed autoscaler: Change your instance from using the managed autoscaler to [use manual scaling](https://docs.cloud.google.com/spanner/docs/create-manage-instances#remove-managed-autoscaler) .
 
   - Enterprise Plus edition only features:
     
-      - Dual-region and multi-region instance configurations: [Move your instance](/spanner/docs/move-instance) to a regional instance configuration or [delete your instance](/spanner/docs/create-manage-instances#delete-instance) .
-      - Geo-partitioning: [Delete all partitions](/spanner/docs/create-manage-partitions#delete-partition) in your instance.
+      - Dual-region and multi-region instance configurations: [Move your instance](https://docs.cloud.google.com/spanner/docs/move-instance) to a regional instance configuration or [delete your instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#delete-instance) .
+      - Geo-partitioning: [Delete all partitions](https://docs.cloud.google.com/spanner/docs/create-manage-partitions#delete-partition) in your instance.
 
 ## What's next
 
-  - Learn how to [create and manage your instances](/spanner/docs/create-manage-instances) .
+  - Learn how to [create and manage your instances](https://docs.cloud.google.com/spanner/docs/create-manage-instances) .

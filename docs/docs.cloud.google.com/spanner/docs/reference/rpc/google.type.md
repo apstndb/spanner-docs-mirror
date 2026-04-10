@@ -8,35 +8,27 @@ Represents a textual expression in the Common Expression Language (CEL) syntax. 
 
 Example (Comparison):
 
-``` text
-title: "Summary size limit"
-description: "Determines if a summary is less than 100 chars"
-expression: "document.summary.size() < 100"
-```
+    title: "Summary size limit"
+    description: "Determines if a summary is less than 100 chars"
+    expression: "document.summary.size() < 100"
 
 Example (Equality):
 
-``` text
-title: "Requestor is owner"
-description: "Determines if requestor is the document owner"
-expression: "document.owner == request.auth.claims.email"
-```
+    title: "Requestor is owner"
+    description: "Determines if requestor is the document owner"
+    expression: "document.owner == request.auth.claims.email"
 
 Example (Logic):
 
-``` text
-title: "Public documents"
-description: "Determine whether the document should be publicly visible"
-expression: "document.type != 'private' && document.type != 'internal'"
-```
+    title: "Public documents"
+    description: "Determine whether the document should be publicly visible"
+    expression: "document.type != 'private' && document.type != 'internal'"
 
 Example (Data Manipulation):
 
-``` text
-title: "Notification string"
-description: "Create a notification string with a timestamp."
-expression: "'New message received at ' + string(document.create_time)"
-```
+    title: "Notification string"
+    description: "Create a notification string with a timestamp."
+    expression: "'New message received at ' + string(document.create_time)"
 
 The exact variables and functions that may be referenced within an expression are determined by the service that evaluates it. See the service documentation for additional information.
 

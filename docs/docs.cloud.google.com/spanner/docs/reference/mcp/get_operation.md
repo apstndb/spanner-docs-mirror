@@ -15,7 +15,7 @@ The following sample demonstrate how to use `  curl  ` to invoke the `  get_oper
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
 curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 --header &#39;content-type: application/json&#39; \
 --header &#39;accept: application/json, text/event-stream&#39; \
@@ -52,7 +52,7 @@ The request message for `  Operations.GetOperation  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string
 }</code></pre></td>
 </tr>
@@ -84,7 +84,7 @@ This resource represents a long-running operation that is the result of a networ
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;metadata&quot;: {
     &quot;@type&quot;: string,
@@ -159,7 +159,7 @@ An object containing fields of an arbitrary type. An additional field `  "@type"
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;typeUrl&quot;: string,
   &quot;value&quot;: string
 }</code></pre></td>
@@ -206,7 +206,7 @@ A base64-encoded string.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;code&quot;: integer,
   &quot;message&quot;: string,
   &quot;details&quot;: [

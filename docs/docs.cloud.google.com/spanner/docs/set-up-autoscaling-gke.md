@@ -2,9 +2,9 @@ The Google Kubernetes Engine (GKE) deployment model is is a good choice for inde
 
 This document is part of a series that also includes:
 
-  - [Autoscaling Spanner](/spanner/docs/autoscaling-overview)
-  - [Autoscaler tool overview](/spanner/docs/autoscaler-tool-overview)
-  - [Deploy the Autoscaler tool for Spanner to Cloud Run functions](/spanner/docs/set-up-autoscaling-gke)
+  - [Autoscaling Spanner](https://docs.cloud.google.com/spanner/docs/autoscaling-overview)
+  - [Autoscaler tool overview](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview)
+  - [Deploy the Autoscaler tool for Spanner to Cloud Run functions](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke)
 
 This series is intended for IT, Operations, and Site Reliability Engineering (SRE) teams who want to reduce operational overhead and to optimize the cost of Spanner deployments.
 
@@ -32,31 +32,29 @@ For most use cases, we recommend the unified deployment model.
 
 The Autoscaler tool manages Spanner instances through the configuration defined in a [Kubernetes `  ConfigMap  `](https://kubernetes.io/docs/concepts/configuration/configmap) . If multiple Spanner instances need to be polled with the same interval, we recommend that you configure them in the same `  ConfigMap  ` . The following is an example of a configuration where two Spanner instances are managed with one configuration:
 
-``` text
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: autoscaler-config
-  namespace: spanner-autoscaler
-data:
-  autoscaler-config.yaml: |
-    ---
-    - projectId: spanner-autoscaler-test
-      instanceId: spanner-scaling-linear
-      units: NODES
-      minSize: 5
-      maxSize: 30
-      scalingMethod: LINEAR
-    - projectId: spanner-autoscaler-test
-      instanceId: spanner-scaling-threshold
-      units: PROCESSING_UNITS
-      minSize: 100
-      maxSize: 3000
-      metrics:
-      - name: high_priority_cpu
-        regional_threshold: 40
-        regional_margin: 3
-```
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: autoscaler-config
+      namespace: spanner-autoscaler
+    data:
+      autoscaler-config.yaml: |
+        ---
+        - projectId: spanner-autoscaler-test
+          instanceId: spanner-scaling-linear
+          units: NODES
+          minSize: 5
+          maxSize: 30
+          scalingMethod: LINEAR
+        - projectId: spanner-autoscaler-test
+          instanceId: spanner-scaling-threshold
+          units: PROCESSING_UNITS
+          minSize: 100
+          maxSize: 3000
+          metrics:
+          - name: high_priority_cpu
+            regional_threshold: 40
+            regional_margin: 3
 
 An instance can have one Autoscaler configuration with the linear method for normal operations, and also have another Autoscaler configuration with the direct method for planned batch workloads. See the complete list of configuration options in the [Poller `  README  ` file](https://github.com/cloudspannerecosystem/autoscaler/blob/main/src/poller/README.md#configuration-parameters) .
 
@@ -66,8 +64,8 @@ To learn how to deploy the Autoscaler to GKE in either the decoupled or unified 
 
 # What's next
 
-  - Learn how to [deploy the Autoscaler tool to Cloud Run functions](/spanner/docs/set-up-autoscaling-cloud-run) .
-  - Read more about Spanner [recommended thresholds](/spanner/docs/monitoring-cloud#create-alert) .
-  - Read more about Spanner [CPU utilization metrics](/spanner/docs/cpu-utilization) and [latency metrics](/spanner/docs/latency-guide) .
-  - Learn about [best practices for Spanner schema design](/spanner/docs/schema-design) to avoid hotspots and for loading data into Spanner.
-  - Explore reference architectures, diagrams, and best practices about Google Cloud. Take a look at our [Cloud Architecture Center](/architecture) .
+  - Learn how to [deploy the Autoscaler tool to Cloud Run functions](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run) .
+  - Read more about Spanner [recommended thresholds](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-alert) .
+  - Read more about Spanner [CPU utilization metrics](https://docs.cloud.google.com/spanner/docs/cpu-utilization) and [latency metrics](https://docs.cloud.google.com/spanner/docs/latency-guide) .
+  - Learn about [best practices for Spanner schema design](https://docs.cloud.google.com/spanner/docs/schema-design) to avoid hotspots and for loading data into Spanner.
+  - Explore reference architectures, diagrams, and best practices about Google Cloud. Take a look at our [Cloud Architecture Center](https://docs.cloud.google.com/architecture) .

@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/UpdateInstanceConfigMetadata#SCHEMA_REPRESENTATION)
 
 Metadata type for the operation returned by `  instanceConfigs.patch  ` .
 
@@ -13,7 +13,7 @@ Metadata type for the operation returned by `  instanceConfigs.patch  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;instanceConfig&quot;: {
     object (InstanceConfig)
   },

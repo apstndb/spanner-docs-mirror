@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes what full-text search is and how it works.
 
@@ -45,14 +45,14 @@ Full-text search has the following key concepts:
 
 To understand full-text search, let's take a look at an application that uses a database to store songs for each singer. Each row is a single song. Each song contains columns like title, lyrics, singer, and album. The application uses full-text search to let a user search for a song using natural language queries:
 
-  - The search supports queries that use the `  OR  ` operator, like `  Prince OR Camille  ` . Applications can directly feed the end user input from the search box into the SQL [`  SEARCH  `](/spanner/docs/full-text-search/query-overview#query_a_search_index) function (using the rquery syntax). For more information, see [Query a search index](/spanner/docs/full-text-search/query-overview#query_a_search_index) .
+  - The search supports queries that use the `  OR  ` operator, like `  Prince OR Camille  ` . Applications can directly feed the end user input from the search box into the SQL [`  SEARCH  `](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#query_a_search_index) function (using the rquery syntax). For more information, see [Query a search index](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#query_a_search_index) .
   - Spanner uses search indexes to look for matching documents across different fields. For example, an application can issue a query to search for "cry" in the title, with "so cold" in the lyrics, and "Prince" as the singer.
 
 ## Other uses for search indexes
 
 Search indexes have a variety of uses in addition to full-text search, such as the following:
 
-  - Indexing elements in array columns. Consider an application that uses an array column to store tags associated with an item. With search indexes, the application can efficiently look up rows containing a specific tag. For more information, see [Array tokenization](/spanner/docs/full-text-search/numeric-indexes#array-tokenization) .
+  - Indexing elements in array columns. Consider an application that uses an array column to store tags associated with an item. With search indexes, the application can efficiently look up rows containing a specific tag. For more information, see [Array tokenization](https://docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes#array-tokenization) .
 
   - Finding data that resides in the intersection of a set of query conditions. For example, you can use an arbitrary set of attributes (color, size, brand, rating, and so on) to search for a product in a catalog.
 
@@ -62,20 +62,20 @@ Search indexes have a variety of uses in addition to full-text search, such as t
       - When it's part of an intersection of conditions described previously. For example, to find products where `  color = "yellow" AND size = 14 AND rating >= 4.5  ` .
       - When searching for the intersection of numeric columns. For example, consider a table storing event start and end times. Search indexes can efficiently implement a query that looks for events that took place at a particular point in time: `  start_time <= @p AND end_time > @p  ` .
     
-    For more information, see [Numeric indexes](/spanner/docs/full-text-search/numeric-indexes) .
+    For more information, see [Numeric indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes) .
 
 ## Full-text search steps
 
 In Spanner, full-text search requires the following steps:
 
-1.  Tokenize a document using the Spanner tokenizer functions, such as [`  TOKENIZE_SUBSTRING  `](/spanner/docs/reference/standard-sql/search_functions#tokenize_substring) . For more information, see [Tokenization](/spanner/docs/full-text-search/tokenization) .
-2.  Create a search index to hold the tokens using the [`  CREATE SEARCH INDEX  `](/spanner/docs/reference/standard-sql/data-definition-language#create-search-index) DDL statement. For more information, see [Search indexes](/spanner/docs/full-text-search/search-indexes) .
-3.  Query documents in the search index using the Spanner [`  SEARCH  `](/spanner/docs/reference/standard-sql/search_functions#search_fulltext) function. For more information, see [Query overview](/spanner/docs/full-text-search/query-overview) .
-4.  Rank the results of the query using the Spanner [`  SCORE  `](/spanner/docs/reference/standard-sql/search_functions#score) function. For more information, see [Rank search results](/spanner/docs/full-text-search/ranked-search) .
+1.  Tokenize a document using the Spanner tokenizer functions, such as [`  TOKENIZE_SUBSTRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_substring) . For more information, see [Tokenization](https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization) .
+2.  Create a search index to hold the tokens using the [`  CREATE SEARCH INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-search-index) DDL statement. For more information, see [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
+3.  Query documents in the search index using the Spanner [`  SEARCH  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) function. For more information, see [Query overview](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview) .
+4.  Rank the results of the query using the Spanner [`  SCORE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score) function. For more information, see [Rank search results](https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search) .
 
 ## Limitations
 
-  - Full-text search doesn't support [Assured Workloads](/assured-workloads/docs/overview) .
+  - Full-text search doesn't support [Assured Workloads](https://docs.cloud.google.com/assured-workloads/docs/overview) .
 
 ## Pricing
 
@@ -85,6 +85,6 @@ For more information, see [Spanner pricing](https://cloud.google.com/spanner/pri
 
 ## What's next
 
-  - Learn about [tokenization and Spanner tokenizers](/spanner/docs/full-text-search/tokenization) .
-  - Learn about [search indexes](/spanner/docs/full-text-search/search-indexes) .
-  - Learn about [full-text search queries](/spanner/docs/full-text-search/query-overview) .
+  - Learn about [tokenization and Spanner tokenizers](https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization) .
+  - Learn about [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
+  - Learn about [full-text search queries](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview) .

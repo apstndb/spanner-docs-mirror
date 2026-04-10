@@ -12,11 +12,9 @@ The PostgreSQL interface doesn't return an error in these cases; it returns the 
 
 In the PostgreSQL interface, the `  concat()  ` function returns NULL if any argument is NULL. However, in open source PostgreSQL, this function ignores NULLs and returns a concatenation of all non-NULL arguments, or an empty string if all arguments are NULL. For example:
 
-``` text
--- Returns `abcdef` in open source PostgreSQL.
--- Returns NULL in the PostgreSQL interface.
-select concat('abc', NULL, 'def');
-```
+    -- Returns `abcdef` in open source PostgreSQL.
+    -- Returns NULL in the PostgreSQL interface.
+    select concat('abc', NULL, 'def');
 
 The PostgreSQL interface and open source PostgreSQL have identical behavior for the `  ||  ` operator with scalar (non-array) operands.
 
@@ -24,22 +22,18 @@ The PostgreSQL interface and open source PostgreSQL have identical behavior for 
 
 In the PostgreSQL interface, the `  array_cat()  ` function returns NULL if any argument is NULL. However, in open source PostgreSQL, this function ignores NULLs and returns a concatenation of all non-NULL array arguments, or a NULL array if all arguments are NULL. The same is true for the `  ||  ` operator with array operands. For example:
 
-``` text
--- Returns `{abc, def}` in open source PostgreSQL.
--- Returns NULL in the PostgreSQL interface.
-select '{abc}'::text[] || NULL::text[] || '{def}'::text[];
-```
+    -- Returns `{abc, def}` in open source PostgreSQL.
+    -- Returns NULL in the PostgreSQL interface.
+    select '{abc}'::text[] || NULL::text[] || '{def}'::text[];
 
 ## array\_to\_string function
 
 In the PostgreSQL interface, the `  array_to_string(array text_array, delimiter text [, null_string text ])  ` function returns NULL if the `  null_string  ` argument is NULL. However, in open source PostgreSQL, this function ignores the NULL array elements and returns a concatenation of all non-NULL elements as a string representation if the `  null_string  ` argument is NULL. For example:
 
-``` text
--- Returns `a,b,c` in open source PostgreSQL.
--- Returns NULL in the PostgreSQL interface.
-select array_to_string('{a,b,NULL,c}'::text[], ',', NULL);
-```
+    -- Returns `a,b,c` in open source PostgreSQL.
+    -- Returns NULL in the PostgreSQL interface.
+    select array_to_string('{a,b,NULL,c}'::text[], ',', NULL);
 
 ## Object names
 
-For more information about naming issues, see [Name](/spanner/docs/reference/postgresql/data-definition-language#names) .
+For more information about naming issues, see [Name](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#names) .

@@ -14,19 +14,19 @@ EXAMPLES
 
 To enable database deletion protection on a Cloud Spanner database 'my-database', run:
 
-``` text
+``` wrap-code
 gcloud spanner databases update my-database --enable-drop-protection
 ```
 
 To disable database deletion protection on a Cloud Spanner database 'my-database', run:
 
-``` text
+``` wrap-code
 gcloud spanner databases update my-database --no-enable-drop-protection
 ```
 
 To update KMS key references for a Cloud Spanner database 'my-database', run:
 
-``` text
+``` wrap-code
 gcloud spanner databases update my-database --kms-keys="KEY1,KEY2"
 ```
 
@@ -83,10 +83,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases update
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases update
 ```

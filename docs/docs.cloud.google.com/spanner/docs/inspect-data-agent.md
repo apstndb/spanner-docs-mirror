@@ -1,6 +1,6 @@
 **Preview**
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 For information about access to this release, see the [access request page](https://forms.gle/pJByTWfenZAWbaXo7) .
 
@@ -8,17 +8,19 @@ For information about access to this release, see the [access request page](http
 
 This document describes how to test a context set and update the context set file. You can test a context set's ability to generate SQL queries from natural language questions. If a generated query is not accurate, you can update the context set file.
 
-To learn about context sets, see [Context sets overview](/spanner/docs/data-agent-overview) .
+To learn about context sets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
 
 ## Before you begin
 
-Make sure that a context set is already created and the context set file is uploaded to the QueryData agent. For more information, see [Manage context sets in Spanner Studio](/spanner/docs/manage-data-agents)
+Make sure that a context set is already created and the context set file is uploaded to the QueryData agent. For more information, see [Manage context sets in Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents)
 
 ## Test a context set
 
 To test a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
+    
+    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -42,7 +44,7 @@ To download and update a context set, perform the following steps:
 
 1.  In the **Explorer pane** , click **View actions** .
 2.  Click **Download context file** .
-3.  Follow steps in [Build contexts using Gemini CLI](/spanner/docs/build-context-gemini-cli) to update context with additional query pairs.
+3.  Follow steps in [Build contexts using Gemini CLI](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli) to update context with additional query pairs.
 4.  In the **Explorer pane** , click **View actions** next to the context set you're using.
 5.  Click **Edit context set** .
 6.  Click **Browse** in the **Upload context set file** section, and select the updated context set file.
@@ -57,6 +59,8 @@ After you are satisfied with the accuracy of your responses, you can use the `  
 To connect a data application to the QueryData agent, you need the context set's ID.
 
 1.  In the Google Cloud console, go to the Spanner page.
+    
+    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -70,7 +74,7 @@ To connect a data application to the QueryData agent, you need the context set's
 
 ## Connect the context set to application
 
-Set the context set ID in the `  QueryData  ` method call to provide authored context for database data sources such as AlloyDB, Spanner, Cloud SQL, and Cloud SQL for PostgreSQL. For more information, see [Define data agent context for database data sources](/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases)
+Set the context set ID in the `  QueryData  ` method call to provide authored context for database data sources such as AlloyDB, Spanner, Cloud SQL, and Cloud SQL for PostgreSQL. For more information, see [Define data agent context for database data sources](https://docs.cloud.google.com/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases)
 
 After testing the context set, you can reference the database data source in your `  QueryData  ` call.
 
@@ -78,36 +82,34 @@ After testing the context set, you can reference the database data source in you
 
 The following example shows a `  QueryData  ` request using `  spanner_reference  ` database data source. The `  agent_context_reference.context_set_id  ` field is used to link to pre-authored context stored in the database.
 
-``` text
-{
-  "parent": "projects/context-set-project/locations/us-central1",
-  "prompt": "How many accounts in the Prague region are eligible for loans? A3 contains the data of region.",
-  "context": {
-    "datasource_references": [
-      {
-        "spanner_reference" {
-          "database_reference" {
-            "engine": "GOOGLE_SQL"
-            "project_id": "context-set-project"
-            "region": "us-central1"
-            "instance_id": "evalbench"
-            "database_id": "financial"
-          },
-          "agent_context_reference": {
-            "context_set_id": "projects/context-set-project/locations/us-east1/contextSets/bdf_pg_all_templates"
+    {
+      "parent": "projects/context-set-project/locations/us-central1",
+      "prompt": "How many accounts in the Prague region are eligible for loans? A3 contains the data of region.",
+      "context": {
+        "datasource_references": [
+          {
+            "spanner_reference" {
+              "database_reference" {
+                "engine": "GOOGLE_SQL"
+                "project_id": "context-set-project"
+                "region": "us-central1"
+                "instance_id": "evalbench"
+                "database_id": "financial"
+              },
+              "agent_context_reference": {
+                "context_set_id": "projects/context-set-project/locations/us-east1/contextSets/bdf_pg_all_templates"
+              }
+            }
           }
-        }
+        ]
+      },
+      "generation_options": {
+        "generate_query_result": true,
+        "generate_natural_language_answer": true,
+        "generate_disambiguation_question": true,
+        "generate_explanation": true
       }
-    ]
-  },
-  "generation_options": {
-    "generate_query_result": true,
-    "generate_natural_language_answer": true,
-    "generate_disambiguation_question": true,
-    "generate_explanation": true
-  }
-}
-```
+    }
 
 The request body contains the following fields:
 
@@ -133,33 +135,31 @@ The request body contains the following fields:
 
 Here is an example of a successful response from a `  QueryData  ` call:
 
-``` text
-{
-  "generated_query": "-- Count the number of accounts in Prague that are eligible for loans\nSELECT\n  COUNT(DISTINCT \"loans\".\"account_id\")\nFROM \"loans\"\nJOIN \"district\" -- Join based on district ID\n  ON \"loans\".\"district_id\" = \"district\".\"district_id\"\nWHERE\n  \"district\".\"A3\" = 'Prague'; -- Filter for the Prague region",
-  "intent_explanation": "The question asks for the number of accounts eligible for loans in the Prague region. I need to join the `district` table with the `loans` table to filter by region and count the distinct accounts. The `A3` column in the `district` table contains the region information, and I'll filter for 'Prague'. The `loans` table contains information about loans, including the `account_id` and `district_id`. I will join these two tables on their respective district IDs.",
-  "query_result": {
-    "columns": [
-      {
-        "name": "count"
-      }
-    ],
-    "rows": [
-      {
-        "values": [
+    {
+      "generated_query": "-- Count the number of accounts in Prague that are eligible for loans\nSELECT\n  COUNT(DISTINCT \"loans\".\"account_id\")\nFROM \"loans\"\nJOIN \"district\" -- Join based on district ID\n  ON \"loans\".\"district_id\" = \"district\".\"district_id\"\nWHERE\n  \"district\".\"A3\" = 'Prague'; -- Filter for the Prague region",
+      "intent_explanation": "The question asks for the number of accounts eligible for loans in the Prague region. I need to join the `district` table with the `loans` table to filter by region and count the distinct accounts. The `A3` column in the `district` table contains the region information, and I'll filter for 'Prague'. The `loans` table contains information about loans, including the `account_id` and `district_id`. I will join these two tables on their respective district IDs.",
+      "query_result": {
+        "columns": [
           {
-            "value": "2"
+            "name": "count"
           }
-        ]
-      }
-    ],
-    "total_row_count": 1
-  },
-  "natural_language_answer": "There are 2 accounts in Prague that are eligible for loans."
-}
-```
+        ],
+        "rows": [
+          {
+            "values": [
+              {
+                "value": "2"
+              }
+            ]
+          }
+        ],
+        "total_row_count": 1
+      },
+      "natural_language_answer": "There are 2 accounts in Prague that are eligible for loans."
+    }
 
 ## What's next
 
-  - Learn more about [context sets](/spanner/docs/data-agent-overview) .
-  - Learn how to [build contexts using Gemini CLI](/spanner/docs/build-context-gemini-cli)
-  - Learn how to [Manage context sets in Spanner Studio](/spanner/docs/manage-data-agents)
+  - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
+  - Learn how to [build contexts using Gemini CLI](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli)
+  - Learn how to [Manage context sets in Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents)

@@ -14,13 +14,13 @@ EXAMPLES
 
 To update the backup metadata with an exact expiration date, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner backups update-metadata BACKUP_ID --instance=INSTANCE_NAME --expiration-date=2020-03-29T10:49:41Z
 ```
 
 To update the backup metadata with a retention period, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner backups update-metadata BACKUP_ID --instance=INSTANCE_NAME --retention-period=2w
 ```
 
@@ -75,10 +75,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner backups update-metadata
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner backups update-metadata
 ```

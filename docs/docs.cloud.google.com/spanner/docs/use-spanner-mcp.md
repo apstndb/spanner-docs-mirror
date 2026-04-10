@@ -1,6 +1,6 @@
 **Preview**
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 This document shows you how to use the Spanner remote Model Context Protocol (MCP) server to connect with AI applications including Gemini CLI, ChatGPT, Claude, and custom applications you are developing. The Spanner MCP server lets you access and run Spanner tools to create, manage, and query Spanner resources from your AI-enabled development environments and AI agent platforms. .
 
@@ -35,7 +35,9 @@ For information about other MCP servers and information about security and gover
     
     **Roles required to enable APIs**
     
-    To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](/iam/docs/granting-changing-revoking-access) .
+    To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+    
+    [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=spanner)
     
     For new projects, the Spanner API is automatically enabled.
 
@@ -43,10 +45,10 @@ For information about other MCP servers and information about security and gover
 
 To get the permissions that you need to use the Spanner MCP server, ask your administrator to grant you the following IAM roles on the project where you want to use the Spanner MCP server:
 
-  - Make MCP tool calls: [MCP Tool User](/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `  roles/mcp.toolUser  ` )
-  - Use Spanner MCP tools: [Cloud Spanner Admin](/iam/docs/roles-permissions/spanner#spanner.admin) ( `  roles/spanner.admin  ` )
+  - Make MCP tool calls: [MCP Tool User](https://docs.cloud.google.com/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `  roles/mcp.toolUser  ` )
+  - Use Spanner MCP tools: [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `  roles/spanner.admin  ` )
 
-For more information about granting roles, see [Manage access to projects, folders, and organizations](/iam/docs/granting-changing-revoking-access) .
+For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 These predefined roles contain the permissions required to use the Spanner MCP server. To see the exact permissions that are required, expand the **Required permissions** section:
 
@@ -66,15 +68,15 @@ The following permissions are required to use the Spanner MCP server:
       - `  spanner.databases.select  `
       - `  spanner.databases.write  `
 
-You might also be able to get these permissions with [custom roles](/iam/docs/creating-custom-roles) or other [predefined roles](/iam/docs/roles-overview#predefined) .
+You might also be able to get these permissions with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
 ## Authentication and authorization
 
-Spanner MCP servers use the [OAuth 2.0](https://developers.google.com/identity/protocols/oauth2) protocol with [Identity and Access Management (IAM)](/iam/docs/overview) for authentication and authorization. All [Google Cloud identities](/docs/authentication/identity-products) are supported for authentication to MCP servers.
+Spanner MCP servers use the [OAuth 2.0](https://developers.google.com/identity/protocols/oauth2) protocol with [Identity and Access Management (IAM)](https://docs.cloud.google.com/iam/docs/overview) for authentication and authorization. All [Google Cloud identities](https://docs.cloud.google.com/docs/authentication/identity-products) are supported for authentication to MCP servers.
 
 The Spanner remote MCP server doesn't accept API keys.
 
-We recommend creating a separate identity for agents using MCP tools so that access to resources can be controlled and monitored. For more information on authentication, see [Authenticate to MCP servers](/mcp/authenticate-mcp) .
+We recommend creating a separate identity for agents using MCP tools so that access to resources can be controlled and monitored. For more information on authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
 
 ## Spanner MCP OAuth scopes
 
@@ -82,24 +84,10 @@ OAuth 2.0 uses scopes and credentials to determine if an authenticated principal
 
 Spanner has the following MCP tool OAuth scopes:
 
-<table>
-<thead>
-<tr class="header">
-<th>Scope URI for gcloud CLI</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       https://www.googleapis.com/auth/spanner.admin      </code></td>
-<td>Allows access to administer your Spanner instances and databases.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       https://www.googleapis.com/auth/spanner.data      </code></td>
-<td>Allows access to view and manage data in a Spanner database.</td>
-</tr>
-</tbody>
-</table>
+| Scope URI for gcloud CLI                                       | Description                                                       |
+| -------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `        https://www.googleapis.com/auth/spanner.admin       ` | Allows access to administer your Spanner instances and databases. |
+| `        https://www.googleapis.com/auth/spanner.data       `  | Allows access to view and manage data in a Spanner database.      |
 
 For more information about these scopes, see [Spanner API](https://developers.google.com/identity/protocols/oauth2/scopes#spanner) .
 
@@ -114,37 +102,35 @@ For the Spanner MCP server, enter the following as required:
   - **Server name** : Spanner MCP server
   - **Server URL** or **Endpoint** : `  https://spanner.googleapis.com/mcp  `
   - **Transport** : HTTP
-  - **Authentication details** : Depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information on authentication, see [Authenticate to MCP servers](/mcp/authenticate-mcp) .
+  - **Authentication details** : Depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information on authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
   - **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Spanner MCP server.
 
 For host specific guidance, see the following:
 
-  - [Gemini CLI](/mcp/configure-mcp-ai-application#gemini-cli)
-  - [Claude.ai](/mcp/configure-mcp-ai-application#claude-ai)
+  - [Gemini CLI](https://docs.cloud.google.com/mcp/configure-mcp-ai-application#gemini-cli)
+  - [Claude.ai](https://docs.cloud.google.com/mcp/configure-mcp-ai-application#claude-ai)
 
 For more general guidance, see the following resources:
 
   - [Connect to remote MCP servers](https://modelcontextprotocol.io/docs/develop/connect-remote-servers) .
-  - [Configure MCP in an AI application](/mcp/configure-mcp-ai-application) .
+  - [Configure MCP in an AI application](https://docs.cloud.google.com/mcp/configure-mcp-ai-application) .
 
 ## Available tools
 
-To view details of available MCP tools and their descriptions for the Spanner MCP server, see the [Spanner MCP reference](/spanner/docs/reference/mcp) .
+To view details of available MCP tools and their descriptions for the Spanner MCP server, see the [Spanner MCP reference](https://docs.cloud.google.com/spanner/docs/reference/mcp) .
 
 ### List tools
 
 Use the [MCP inspector](https://modelcontextprotocol.io/docs/tools/inspector) to list tools, or send a `  tools/list  ` HTTP request directly to the Spanner remote MCP server. The `  tools/list  ` method doesn't require authentication.
 
-``` text
-POST /mcp HTTP/1.1
-Host: spanner.googleapis.com
-Content-Type: application/json
-
-{
-  "jsonrpc": "2.0",
-  "method": "tools/list",
-}
-```
+    POST /mcp HTTP/1.1
+    Host: spanner.googleapis.com
+    Content-Type: application/json
+    
+    {
+      "jsonrpc": "2.0",
+      "method": "tools/list",
+    }
 
 ## Sample use cases
 
@@ -184,13 +170,13 @@ Spanner administrators can use the Spanner MCP server to gather information abou
 
 MCP introduces new security risks and considerations due to the wide variety of actions that can be taken with MCP tools. To minimize and manage these risks, Google Cloud offers default and customizable policies to control the use of MCP tools in your Google Cloud organization or project.
 
-For more information about MCP security and governance, see [AI security and safety](/mcp/ai-security-safety) .
+For more information about MCP security and governance, see [AI security and safety](https://docs.cloud.google.com/mcp/ai-security-safety) .
 
 ### Use Model Armor
 
-[Model Armor](/model-armor/overview) is a Google Cloud service designed to enhance the security and safety of your AI applications. It works by proactively screening LLM prompts and responses, protecting against various risks and supporting responsible AI practices. Whether you are deploying AI in your cloud environment, or on external cloud providers, Model Armor can help you prevent malicious input, verify content safety, protect sensitive data, maintain compliance, and enforce your AI safety and security policies consistently across your diverse AI landscape.
+[Model Armor](https://docs.cloud.google.com/model-armor/overview) is a Google Cloud service designed to enhance the security and safety of your AI applications. It works by proactively screening LLM prompts and responses, protecting against various risks and supporting responsible AI practices. Whether you are deploying AI in your cloud environment, or on external cloud providers, Model Armor can help you prevent malicious input, verify content safety, protect sensitive data, maintain compliance, and enforce your AI safety and security policies consistently across your diverse AI landscape.
 
-Model Armor is only available in specific regional locations. If Model Armor is enabled for a project, and a call to that project comes from an unsupported region, then Model Armor makes a cross-regional call. For more information, see [Model Armor locations](/model-armor/locations) .
+Model Armor is only available in specific regional locations. If Model Armor is enabled for a project, and a call to that project comes from an unsupported region, then Model Armor makes a cross-regional call. For more information, see [Model Armor locations](https://docs.cloud.google.com/model-armor/locations) .
 
 **Caution:** If a request fails, Model Armor logs the entire payload. This might expose sensitive information in the logs.
 
@@ -204,7 +190,9 @@ You must enable Model Armor APIs before you can use Model Armor.
     
     **Roles required to enable APIs**
     
-    To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](/iam/docs/granting-changing-revoking-access) .
+    To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+    
+    [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=modelarmor.googleapis.com)
 
 2.  Select the project where you want to activate Model Armor.
 
@@ -214,13 +202,13 @@ Before you begin, follow these steps using the Google Cloud CLI with the Model A
 
 1.  In the Google Cloud console, activate Cloud Shell.
     
-    At the bottom of the Google Cloud console, a [Cloud Shell](/shell/docs/how-cloud-shell-works) session starts and displays a command-line prompt. Cloud Shell is a shell environment with the Google Cloud CLI already installed and with values already set for your current project. It can take a few seconds for the session to initialize.
+    [Activate Cloud Shell](https://console.cloud.google.com/?cloudshell=true)
+    
+    At the bottom of the Google Cloud console, a [Cloud Shell](https://docs.cloud.google.com/shell/docs/how-cloud-shell-works) session starts and displays a command-line prompt. Cloud Shell is a shell environment with the Google Cloud CLI already installed and with values already set for your current project. It can take a few seconds for the session to initialize.
 
 2.  Run the following command to set the API endpoint for the Model Armor service.
     
-    ``` text
-    gcloud config set api_endpoint_overrides/modelarmor "https://modelarmor.LOCATION.rep.googleapis.com/"
-    ```
+        gcloud config set api_endpoint_overrides/modelarmor "https://modelarmor.LOCATION.rep.googleapis.com/"
     
     Replace `  LOCATION  ` with the region where you want to use Model Armor.
 
@@ -236,16 +224,14 @@ Set up a Model Armor floor setting with MCP sanitization enabled. For more infor
 
 See the following example command:
 
-``` text
-gcloud model-armor floorsettings update \
---full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
---enable-floor-setting-enforcement=TRUE \
---add-integrated-services=GOOGLE_MCP_SERVER \
---google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
---enable-google-mcp-server-cloud-logging \
---malicious-uri-filter-settings-enforcement=ENABLED \
---add-rai-settings-filters='[{"confidenceLevel": "MEDIUM_AND_ABOVE", "filterType": "DANGEROUS"}]'
-```
+    gcloud model-armor floorsettings update \
+    --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
+    --enable-floor-setting-enforcement=TRUE \
+    --add-integrated-services=GOOGLE_MCP_SERVER \
+    --google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
+    --enable-google-mcp-server-cloud-logging \
+    --malicious-uri-filter-settings-enforcement=ENABLED \
+    --add-rai-settings-filters='[{"confidenceLevel": "MEDIUM_AND_ABOVE", "filterType": "DANGEROUS"}]'
 
 Replace `  PROJECT_ID  ` with your Google Cloud project ID.
 
@@ -259,11 +245,9 @@ Note the following settings:
 
 If you want to stop scanning Google MCP traffic with Model Armor, run the following command:
 
-``` text
-gcloud model-armor floorsettings update \
-  --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
-  --remove-integrated-services=GOOGLE_MCP_SERVER
-```
+    gcloud model-armor floorsettings update \
+      --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
+      --remove-integrated-services=GOOGLE_MCP_SERVER
 
 Replace `  PROJECT_ID  ` with the Google Cloud project ID.
 
@@ -271,7 +255,7 @@ Model Armor won't scan MCP traffic in the project.
 
 ### Control MCP use with IAM deny policies
 
-[Identity and Access Management (IAM) deny policies](/iam/docs/deny-overview) help you secure Google Cloud remote MCP servers. Configure these policies to block unwanted MCP tool access.
+[Identity and Access Management (IAM) deny policies](https://docs.cloud.google.com/iam/docs/deny-overview) help you secure Google Cloud remote MCP servers. Configure these policies to block unwanted MCP tool access.
 
 For example, you can deny or allow access based on:
 
@@ -279,9 +263,9 @@ For example, you can deny or allow access based on:
   - Tool properties like read-only
   - The application's OAuth client ID
 
-For more information, see [Control MCP use with Identity and Access Management](/mcp/control-mcp-use-iam) .
+For more information, see [Control MCP use with Identity and Access Management](https://docs.cloud.google.com/mcp/control-mcp-use-iam) .
 
 ## What's next
 
-  - Read the [Spanner MCP reference documentation](/spanner/docs/reference/mcp) .
-  - Learn more about [Google Cloud MCP servers](/mcp/overview) .
+  - Read the [Spanner MCP reference documentation](https://docs.cloud.google.com/spanner/docs/reference/mcp) .
+  - Learn more about [Google Cloud MCP servers](https://docs.cloud.google.com/mcp/overview) .

@@ -1,4 +1,4 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata#SCHEMA_REPRESENTATION)
 
 Metadata type for the long-running operation returned by `  databases.restore  ` .
 
@@ -13,7 +13,7 @@ Metadata type for the long-running operation returned by `  databases.restore  `
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;sourceType&quot;: enum (RestoreSourceType),
   &quot;progress&quot;: {

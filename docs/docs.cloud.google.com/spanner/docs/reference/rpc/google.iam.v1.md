@@ -132,7 +132,7 @@ For some types of Google Cloud resources, a `  binding  ` can also specify a `  
 
 **JSON example:**
 
-``` text
+``` 
     {
       "bindings": [
         {
@@ -163,7 +163,7 @@ For some types of Google Cloud resources, a `  binding  ` can also specify a `  
 
 **YAML example:**
 
-``` text
+``` 
     bindings:
     - members:
       - user:mike@example.com

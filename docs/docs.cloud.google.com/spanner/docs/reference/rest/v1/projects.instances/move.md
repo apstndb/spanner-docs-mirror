@@ -1,14 +1,14 @@
-  - [HTTP request](#body.HTTP_TEMPLATE)
-  - [Path parameters](#body.PATH_PARAMETERS)
-  - [Request body](#body.request_body)
-      - [JSON representation](#body.request_body.SCHEMA_REPRESENTATION)
-  - [Response body](#body.response_body)
-  - [Authorization scopes](#body.aspect)
-  - [DatabaseMoveConfig](#DatabaseMoveConfig)
-      - [JSON representation](#DatabaseMoveConfig.SCHEMA_REPRESENTATION)
-  - [EncryptionConfig](#EncryptionConfig)
-      - [JSON representation](#EncryptionConfig.SCHEMA_REPRESENTATION)
-  - [Try it\!](#try-it)
+  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#body.HTTP_TEMPLATE)
+  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#body.PATH_PARAMETERS)
+  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#body.request_body)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#body.request_body.SCHEMA_REPRESENTATION)
+  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#body.response_body)
+  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#body.aspect)
+  - [DatabaseMoveConfig](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#DatabaseMoveConfig)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#DatabaseMoveConfig.SCHEMA_REPRESENTATION)
+  - [EncryptionConfig](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#EncryptionConfig)
+      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#EncryptionConfig.SCHEMA_REPRESENTATION)
+  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/move#try-it)
 
 Moves an instance to the target instance configuration. You can use the returned long-running operation to track the progress of moving the instance.
 
@@ -27,14 +27,12 @@ While the operation is pending:
 
 <!-- end list -->
 
-``` text
-* `DatabaseAdmin.CreateDatabase`
-* `DatabaseAdmin.UpdateDatabaseDdl` (disabled if defaultLeader is
-   specified in the request.)
-* `DatabaseAdmin.RestoreDatabase`
-* `DatabaseAdmin.CreateBackup`
-* `DatabaseAdmin.CopyBackup`
-```
+    * `DatabaseAdmin.CreateDatabase`
+    * `DatabaseAdmin.UpdateDatabaseDdl` (disabled if defaultLeader is
+       specified in the request.)
+    * `DatabaseAdmin.RestoreDatabase`
+    * `DatabaseAdmin.CreateBackup`
+    * `DatabaseAdmin.CopyBackup`
 
   - Both the source and target instance configurations are subject to hourly compute and storage charges.
   - The instance might experience higher read-write latencies and a higher transaction abort rate. However, moving an instance doesn't cause any downtime.
@@ -53,6 +51,36 @@ For more details, see [Move an instance](https://cloud.google.com/spanner/docs/m
 ### HTTP request
 
 Choose a location:
+
+global
+
+europe-west8
+
+me-central2
+
+us-central1
+
+us-central2
+
+us-east1
+
+us-east4
+
+us-east5
+
+us-south1
+
+us-west1
+
+us-west2
+
+us-west3
+
+us-west4
+
+us-west8
+
+us-east7
 
   
 `  POST https://spanner.googleapis.com/v1/{name=projects/*/instances/*}:move  `
@@ -88,7 +116,7 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;targetConfig&quot;: string,
   &quot;targetDatabaseMoveConfigs&quot;: [
     {
@@ -125,7 +153,7 @@ Requires one of the following OAuth scopes:
   - `  https://www.googleapis.com/auth/spanner.admin  `
   - `  https://www.googleapis.com/auth/cloud-platform  `
 
-For more information, see the [Authentication Overview](/docs/authentication#authorization-gcp) .
+For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
 ## DatabaseMoveConfig
 
@@ -142,7 +170,7 @@ The configuration for each database in the target instance configuration.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;databaseId&quot;: string,
   &quot;encryptionConfig&quot;: {
     object (EncryptionConfig)
@@ -185,7 +213,7 @@ Encryption configuration for a Cloud Spanner database.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;kmsKeyName&quot;: string,
   &quot;kmsKeyNames&quot;: [
     string

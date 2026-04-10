@@ -1,12 +1,12 @@
 **PostgreSQL interface note:** The examples in topics for Spanner Graph are intended for GoogleSQL-dialect databases. Spanner Graph doesn't support the PostgreSQL interface.
 
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-Spanner Graph combines graph database capabilities with [Spanner](/spanner/docs) scalability, availability, and consistency. Spanner Graph supports an ISO Graph Query Language (GQL)-compatible graph query interface and enables interoperability between relational and graph models.
+Spanner Graph combines graph database capabilities with [Spanner](https://docs.cloud.google.com/spanner/docs) scalability, availability, and consistency. Spanner Graph supports an ISO Graph Query Language (GQL)-compatible graph query interface and enables interoperability between relational and graph models.
 
 Spanner Graph lets you map tables to property graphs using declarative schema without data migration, bringing graphs to tabular datasets. You can also late-bind data model choices per query, which helps you choose the right tool for your workflows.
 
-To get started with Spanner Graph, see [Set up and query Spanner Graph](/spanner/docs/graph/set-up) and the [Spanner Graph codelab](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started) .
+To get started with Spanner Graph, see [Set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) and the [Spanner Graph codelab](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started) .
 
 ## Benefits of Spanner Graph databases
 
@@ -40,7 +40,7 @@ Spanner Graph is a multi-model database that integrates graph, relational, searc
 
   - **Native graph experience** : The ISO GQL interface offers a familiar, purpose-built graph experience that's based on open standards.
 
-  - **Build GraphRAG workflow applications** : Spanner Graph integrates with LangChain to help you build GraphRAG applications. While conventional retrieval-augmented generation (RAG) uses vector search to provide context to a large language model (LLM), it can't use the implicit relationships in your data. GraphRAG overcomes this limitation by building a graph from your data to capture these complex relationships. It then combines graph search (for relationship-based context) with vector search (for semantic similarity), generating more accurate, relevant, and complete answers than using either method alone. For more information, see [Build LLM-powered applications using LangChain](/spanner/docs/langchain) . To learn how you can use Spanner Graph with Vertex AI to build infrastructure for a GraphRAG-capable generative AI application, see [GraphRAG infrastructure for generative AI using Vertex AI and Spanner Graph](/architecture/gen-ai-graphrag-spanner) .
+  - **Build GraphRAG workflow applications** : Spanner Graph integrates with LangChain to help you build GraphRAG applications. While conventional retrieval-augmented generation (RAG) uses vector search to provide context to a large language model (LLM), it can't use the implicit relationships in your data. GraphRAG overcomes this limitation by building a graph from your data to capture these complex relationships. It then combines graph search (for relationship-based context) with vector search (for semantic similarity), generating more accurate, relevant, and complete answers than using either method alone. For more information, see [Build LLM-powered applications using LangChain](https://docs.cloud.google.com/spanner/docs/langchain) . To learn how you can use Spanner Graph with Vertex AI to build infrastructure for a GraphRAG-capable generative AI application, see [GraphRAG infrastructure for generative AI using Vertex AI and Spanner Graph](https://docs.cloud.google.com/architecture/gen-ai-graphrag-spanner) .
 
   - **Unified relational and graph** : Full interoperability between GQL and SQL breaks down data silos. This lets you choose the optimal tool for each use case, without any operational overheads to extract, transform, and load (ETL).
 
@@ -53,6 +53,6 @@ Spanner Graph is a multi-model database that integrates graph, relational, searc
 ## What's next
 
   - Get started with the [Spanner Graph codelab](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started) .
-  - Set up and query [Spanner Graph](/spanner/docs/graph/set-up) .
-  - Learn about the [Spanner Graph schema](/spanner/docs/graph/schema-overview) .
-  - Learn how to create, update, or drop a [Spanner Graph schema](/spanner/docs/graph/create-update-drop-schema) .
+  - Set up and query [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
+  - Learn about the [Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) .
+  - Learn how to create, update, or drop a [Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema) .

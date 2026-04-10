@@ -15,7 +15,7 @@ The following sample demonstrate how to use `  curl  ` to invoke the `  list_con
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
 curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 --header &#39;content-type: application/json&#39; \
 --header &#39;accept: application/json, text/event-stream&#39; \
@@ -52,7 +52,7 @@ The request for `  ListInstanceConfigs  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;parent&quot;: string,
   &quot;pageSize&quot;: integer,
   &quot;pageToken&quot;: string
@@ -98,7 +98,7 @@ The response for `  ListInstanceConfigs  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;instanceConfigs&quot;: [
     {
       object (InstanceConfig)
@@ -137,7 +137,7 @@ The list of requested instance configurations.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;displayName&quot;: string,
   &quot;configType&quot;: enum (Type),
@@ -283,7 +283,7 @@ Output only. The storage limit in bytes per processing unit.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;location&quot;: string,
   &quot;type&quot;: enum (ReplicaType),
   &quot;defaultLeaderLocation&quot;: boolean
@@ -325,7 +325,7 @@ If true, this location is designated as the default leader location where leader
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;key&quot;: string,
   &quot;value&quot;: string
 }</code></pre></td>

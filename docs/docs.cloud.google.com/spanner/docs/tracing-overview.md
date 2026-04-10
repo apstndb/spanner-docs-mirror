@@ -1,4 +1,4 @@
-This page offers overview information about trace collection with OpenTelemetry. To monitor and debug Spanner requests, you can enable traces in the [Spanner client libraries](/spanner/docs/reference/libraries) . Client-side and end-to-end tracing can help you monitor performance and debug issues.
+This page offers overview information about trace collection with OpenTelemetry. To monitor and debug Spanner requests, you can enable traces in the [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) . Client-side and end-to-end tracing can help you monitor performance and debug issues.
 
 Traces provide relevant information for every request from a client, such as the following:
 
@@ -24,11 +24,9 @@ To prevent overloading Cloud Trace and help manage costs effectively, end-to-end
 
 Spanner client libraries support trace collection using [OpenTelemetry](https://opentelemetry.io/docs/what-is-opentelemetry/) APIs. OpenTelemetry is an open-source observability framework. OpenTelemetry offers a wide range of configurations such as exporters for specific backends, sampling ratios, and span limits.
 
-### Export traces with exporters and collectors
+### Export traces using OTLP
 
-As part of your configurations, you can export your traces to an observability backend. Most observability service providers offer exporters for you to use, such as the [Trace exporter](https://github.com/GoogleCloudPlatform/opentelemetry-operations-java/tree/main/exporters/trace) .
-
-In addition to an exporter, OpenTelemetry recommends setting up a [collector](https://opentelemetry.io/docs/collector/) . A collector lets your service offload data quickly and lets the collector take care of additional handling like retries, batching, and encryption. A collector runs alongside your application. The collector receives OLTP messages, processes the messages, and exports them to your observability backend.
+As part of your OpenTelemetry configuration, you use an exporter to send trace data to an observability backend. We recommend using an [OpenTelemetry Protocol (OTLP) exporter](https://opentelemetry.io/docs/specs/otel/protocol/exporter/) that sends data using the OpenTelemetry protocol. You can configure the OTLP exporter to send traces directly to observability backends that support OTLP, such as Cloud Trace using [`  Telemetry API  `](https://docs.cloud.google.com/stackdriver/docs/reference/telemetry/overview) , or to an OpenTelemetry [collector](https://opentelemetry.io/docs/collector/) .
 
 ## Limitations
 
@@ -47,4 +45,4 @@ To better understand billing, start with a small trace sampling ratio based on y
 
 ## What's next
 
-To set up client-side and end-to-end tracing, see [Set up trace collection using OpenTelemetry](/spanner/docs/set-up-tracing) .
+To set up client-side and end-to-end tracing, see [Set up trace collection using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/set-up-tracing) .

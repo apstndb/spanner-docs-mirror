@@ -1,6 +1,6 @@
 This page describes how to grant Spanner Identity and Access Management (IAM) permissions to an account for a Google Cloud project, instance, database, or backup.
 
-For information on Google Cloud roles, see [Understanding roles](/iam/docs/understanding-roles) , and for more information on Spanner roles, see [Access control: roles](/spanner/docs/iam#roles) .
+For information on Google Cloud roles, see [Understanding roles](https://docs.cloud.google.com/iam/docs/understanding-roles) , and for more information on Spanner roles, see [Access control: roles](https://docs.cloud.google.com/spanner/docs/iam#roles) .
 
 **Note:** If your account doesn't have sufficient permissions, you won't be able to view some of the items in the following directions. In this case, ask your project's owner to grant you additional permissions.
 
@@ -13,6 +13,8 @@ You can grant IAM permissions for an entire Google Cloud project to an account i
 Before you attempt to apply project-level permissions, check that you have sufficient permissions to apply roles to another account. You need permissions at the project level.
 
 1.  Go to your project's **IAM** page.
+    
+    [Go to the IAM page](https://console.cloud.google.com/iam-admin/iam)
 
 2.  Select **Principals** as the **View by** option.
 
@@ -23,10 +25,12 @@ If you don't have sufficient permissions at the project level, ask the project's
 ### Grant permissions to principals
 
 1.  Go to your project's **IAM** page.
+    
+    [Go to the IAM page](https://console.cloud.google.com/iam-admin/iam)
 
 2.  Select **Principals** as the **View by** option.
 
-3.  Find the account in the list and click **Edit** .
+3.  Find the account in the list and click **Edit** ![Screenshot of edit UI element](https://docs.cloud.google.com/static/spanner/docs/images/edit.svg) .
 
 4.  On the **Edit permissions** page, click **Add Another Role** .
 
@@ -37,6 +41,8 @@ If you don't have sufficient permissions at the project level, ask the project's
 ### Add principals to the project
 
 1.  Go to your project's **IAM** page.
+    
+    [Go to the IAM page](https://console.cloud.google.com/iam-admin/iam)
 
 2.  Click the **Add** button below the toolbar.
 
@@ -46,7 +52,7 @@ If you don't have sufficient permissions at the project level, ask the project's
 
 5.  Click **Save** .
 
-For more information, see [Granting, changing, and revoking access](/iam/docs/granting-changing-revoking-access) .
+For more information, see [Granting, changing, and revoking access](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 ## Instance-level permissions
 
@@ -57,12 +63,16 @@ You can grant instance-level IAM permissions to an account in the **IAM** page o
 Before you attempt to apply instance-level permissions at the instance level, check that you have sufficient permissions to apply roles to another account. You need permissions at the project or instance level.
 
 1.  Go to your project's **IAM** page.
+    
+    [Go to the IAM page](https://console.cloud.google.com/iam-admin/iam)
 
 2.  Select **Principals** as the **View by** option.
 
 3.  Find your account in the list. If your account is listed as **Owner** , **Editor** , or **Cloud Spanner Admin** in the **Role** column, you have sufficient permissions. If not, continue to the next step.
 
 4.  Go to the Spanner **Instances** page.
+    
+    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 5.  Select the checkbox for the instance.
 
@@ -75,6 +85,8 @@ If you don't have sufficient permissions at the project or instance level, ask t
 Use the following steps to apply roles for Spanner to an instance in a project.
 
 1.  Go to the Spanner **Instances** page.
+    
+    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the checkbox for the instance.
 
@@ -95,12 +107,16 @@ You can grant database-level IAM permissions to an account in the **IAM** page o
 Before you attempt to apply database-level permissions, check that you have sufficient permissions to apply roles to another account. You need permissions at the project, instance, or database level.
 
 1.  Go to your project's **IAM** page.
+    
+    [Go to the IAM page](https://console.cloud.google.com/iam-admin/iam)
 
 2.  Select **Principals** as the **View by** option.
 
 3.  Find your account in the list. If your account is listed as **Owner** , **Editor** , **Cloud Spanner Admin** , or **Cloud Spanner Database Admin** in the **Role** column, you have sufficient permissions. If not, continue to the next step.
 
 4.  Go to the Spanner **Instances** page.
+    
+    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 5.  Select the checkbox for the instance that contains your database.
 
@@ -121,6 +137,8 @@ If you don't have sufficient permissions at the project, instance, or database l
 Follow these steps to grant access to database-level roles for a principal.
 
 1.  Go to the Spanner **Instances** page.
+    
+    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that contains your database to go to the **Instance details** page.
 
@@ -139,9 +157,11 @@ Follow these steps to grant access to database-level roles for a principal.
 
 Follow these steps to remove database-level roles from a principal.
 
-**Note:** This procedure assumes that you know the role that you want to remove from a principal. If you don't know which roles a principal has, use the IAM Google Cloud console to first view the roles that a principal has, and then revoke the roles. For details, see [Revoke a single role](/iam/docs/granting-changing-revoking-access#revoke-single-role) .
+**Note:** This procedure assumes that you know the role that you want to remove from a principal. If you don't know which roles a principal has, use the IAM Google Cloud console to first view the roles that a principal has, and then revoke the roles. For details, see [Revoke a single role](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access#revoke-single-role) .
 
 1.  Go to the Spanner **Instances** page.
+    
+    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that contains your database to go to the **Instance details** page.
 
@@ -165,12 +185,16 @@ You can grant backup-level IAM permissions to an account in the **IAM** page of 
 Before you attempt to apply backup-level permissions, check that you have sufficient permissions to apply roles to another account. You need permissions at the project, instance, or backup.
 
 1.  Go to your project's **IAM** page.
+    
+    [Go to the IAM page](https://console.cloud.google.com/iam-admin/iam)
 
 2.  Select **Principals** as the **View by** option.
 
 3.  Find your account in the list. If your account is listed as **Owner** , **Editor** , **Cloud Spanner Admin** , **Cloud Spanner Backup Admin** in the **Role** column, you have sufficient permissions. If not, continue to th next step.
 
 4.  Go to the Spanner **Instances** page.
+    
+    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 5.  Select the checkbox for the instance that contains your backup.
 
@@ -191,6 +215,8 @@ If you don't have sufficient permissions at the project or instance level, ask t
 Use the following steps to apply roles for Spanner to an individual backup in a project.
 
 1.  Go to the Spanner **Instances** page.
+    
+    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that contains your backup to go to the **Instance details** page.
 

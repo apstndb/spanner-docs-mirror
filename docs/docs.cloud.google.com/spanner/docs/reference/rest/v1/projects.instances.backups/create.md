@@ -1,17 +1,47 @@
-  - [HTTP request](#body.HTTP_TEMPLATE)
-  - [Path parameters](#body.PATH_PARAMETERS)
-  - [Query parameters](#body.QUERY_PARAMETERS)
-  - [Request body](#body.request_body)
-  - [Response body](#body.response_body)
-  - [Authorization scopes](#body.aspect)
-  - [IAM Permissions](#body.aspect_1)
-  - [Try it\!](#try-it)
+  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#body.HTTP_TEMPLATE)
+  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#body.PATH_PARAMETERS)
+  - [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#body.QUERY_PARAMETERS)
+  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#body.request_body)
+  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#body.response_body)
+  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#body.aspect)
+  - [IAM Permissions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#body.aspect_1)
+  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#try-it)
 
 Starts creating a new Cloud Spanner Backup. The returned backup long-running operation will have a name of the format `  projects/<project>/instances/<instance>/backups/<backup>/operations/<operationId>  ` and can be used to track creation of the backup. The metadata field type is `  CreateBackupMetadata  ` . The response field type is `  Backup  ` , if successful. Cancelling the returned operation will stop the creation and delete the backup. There can be only one pending backup creation per database. Backup creation of different databases can run concurrently.
 
 ### HTTP request
 
 Choose a location:
+
+global
+
+europe-west8
+
+me-central2
+
+us-central1
+
+us-central2
+
+us-east1
+
+us-east4
+
+us-east5
+
+us-south1
+
+us-west1
+
+us-west2
+
+us-west3
+
+us-west4
+
+us-west8
+
+us-east7
 
   
 `  POST https://spanner.googleapis.com/v1/{parent=projects/*/instances/*}/backups  `
@@ -63,7 +93,7 @@ Requires one of the following OAuth scopes:
   - `  https://www.googleapis.com/auth/spanner.admin  `
   - `  https://www.googleapis.com/auth/cloud-platform  `
 
-For more information, see the [Authentication Overview](/docs/authentication#authorization-gcp) .
+For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
 ### IAM Permissions
 

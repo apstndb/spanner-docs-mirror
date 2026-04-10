@@ -14,13 +14,13 @@ EXAMPLES
 
 To create a custom Cloud Spanner instance configuration based on an existing Google-managed configuration ( `  nam3  ` ) by adding a `  READ_ONLY  ` type replica in location `  us-east4  ` , run:
 
-``` text
+``` wrap-code
 gcloud spanner instance-configs create custom-instance-config --clone-config=nam3 --add-replicas=location=us-east4,type=READ_ONLY
 ```
 
 To create a custom Cloud Spanner instance configuration based on another custom configuration ( `  custom-instance-config  ` ) by adding a `  READ_ONLY  ` type replica in location `  us-east1  ` and removing a `  READ_ONLY  ` type replica in location `  us-east4  ` , run:
 
-``` text
+``` wrap-code
 gcloud spanner instance-configs create custom-instance-config1 --clone-config=custom-instance-config --add-replicas=location=us-east1,type=READ_ONLY --skip-replicas=location=us-east4,type=READ_ONLY
 ```
 
@@ -148,10 +148,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner instance-configs create
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner instance-configs create
 ```

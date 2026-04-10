@@ -1,22 +1,22 @@
 Cloud Spanner is a managed, mission-critical, globally consistent and scalable relational database service.
 
-  - [REST Resource: v1.projects.instanceConfigOperations](#v1.projects.instanceConfigOperations)
-  - [REST Resource: v1.projects.instanceConfigs](#v1.projects.instanceConfigs)
-  - [REST Resource: v1.projects.instanceConfigs.operations](#v1.projects.instanceConfigs.operations)
-  - [REST Resource: v1.projects.instances](#v1.projects.instances)
-  - [REST Resource: v1.projects.instances.backupOperations](#v1.projects.instances.backupOperations)
-  - [REST Resource: v1.projects.instances.backups](#v1.projects.instances.backups)
-  - [REST Resource: v1.projects.instances.backups.operations](#v1.projects.instances.backups.operations)
-  - [REST Resource: v1.projects.instances.databaseOperations](#v1.projects.instances.databaseOperations)
-  - [REST Resource: v1.projects.instances.databases](#v1.projects.instances.databases)
-  - [REST Resource: v1.projects.instances.databases.backupSchedules](#v1.projects.instances.databases.backupSchedules)
-  - [REST Resource: v1.projects.instances.databases.databaseRoles](#v1.projects.instances.databases.databaseRoles)
-  - [REST Resource: v1.projects.instances.databases.operations](#v1.projects.instances.databases.operations)
-  - [REST Resource: v1.projects.instances.databases.sessions](#v1.projects.instances.databases.sessions)
-  - [REST Resource: v1.projects.instances.instancePartitionOperations](#v1.projects.instances.instancePartitionOperations)
-  - [REST Resource: v1.projects.instances.instancePartitions](#v1.projects.instances.instancePartitions)
-  - [REST Resource: v1.projects.instances.instancePartitions.operations](#v1.projects.instances.instancePartitions.operations)
-  - [REST Resource: v1.projects.instances.operations](#v1.projects.instances.operations)
+  - [REST Resource: v1.projects.instanceConfigOperations](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instanceConfigOperations)
+  - [REST Resource: v1.projects.instanceConfigs](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instanceConfigs)
+  - [REST Resource: v1.projects.instanceConfigs.operations](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instanceConfigs.operations)
+  - [REST Resource: v1.projects.instances](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances)
+  - [REST Resource: v1.projects.instances.backupOperations](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.backupOperations)
+  - [REST Resource: v1.projects.instances.backups](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.backups)
+  - [REST Resource: v1.projects.instances.backups.operations](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.backups.operations)
+  - [REST Resource: v1.projects.instances.databaseOperations](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.databaseOperations)
+  - [REST Resource: v1.projects.instances.databases](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.databases)
+  - [REST Resource: v1.projects.instances.databases.backupSchedules](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.databases.backupSchedules)
+  - [REST Resource: v1.projects.instances.databases.databaseRoles](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.databases.databaseRoles)
+  - [REST Resource: v1.projects.instances.databases.operations](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.databases.operations)
+  - [REST Resource: v1.projects.instances.databases.sessions](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.databases.sessions)
+  - [REST Resource: v1.projects.instances.instancePartitionOperations](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.instancePartitionOperations)
+  - [REST Resource: v1.projects.instances.instancePartitions](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.instancePartitions)
+  - [REST Resource: v1.projects.instances.instancePartitions.operations](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.instancePartitions.operations)
+  - [REST Resource: v1.projects.instances.operations](https://docs.cloud.google.com/spanner/docs/reference/rest#v1.projects.instances.operations)
 
 ## Service: spanner.googleapis.com
 
@@ -38,11 +38,41 @@ A [service endpoint](https://cloud.google.com/apis/design/glossary#api_service_e
 
 A regional service endpoint is a base URL that specifies the network address of an API service in a single region. A service that is available in multiple regions might have multiple regional endpoints. Select a location to see its regional service endpoint for this service.
 
+global
+
+europe-west8
+
+me-central2
+
+us-central1
+
+us-central2
+
+us-east1
+
+us-east4
+
+us-east5
+
+us-south1
+
+us-west1
+
+us-west2
+
+us-west3
+
+us-west4
+
+us-west8
+
+us-east7
+
   
 
 `  https://spanner.googleapis.com  `
 
-## REST Resource: [v1.projects.instanceConfigOperations](/spanner/docs/reference/rest/v1/projects.instanceConfigOperations)
+## REST Resource: [v1.projects.instanceConfigOperations](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigOperations)
 
 Methods
 
@@ -51,7 +81,7 @@ Methods
 `  GET /v1/{parent=projects/*}/instanceConfigOperations  `  
 Lists the user-managed instance configuration long-running operations in the given project.
 
-## REST Resource: [v1.projects.instanceConfigs](/spanner/docs/reference/rest/v1/projects.instanceConfigs)
+## REST Resource: [v1.projects.instanceConfigs](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs)
 
 Methods
 
@@ -80,7 +110,7 @@ Lists the supported instance configurations for a given project.
 `  PATCH /v1/{instanceConfig.name=projects/*/instanceConfigs/*}  `  
 Updates an instance configuration.
 
-## REST Resource: [v1.projects.instanceConfigs.operations](/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations)
+## REST Resource: [v1.projects.instanceConfigs.operations](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations)
 
 Methods
 
@@ -104,7 +134,7 @@ Gets the latest state of a long-running operation.
 `  GET /v1/{name=projects/*/instanceConfigs/*/operations}  `  
 Lists operations that match the specified filter in the request.
 
-## REST Resource: [v1.projects.instances](/spanner/docs/reference/rest/v1/projects.instances)
+## REST Resource: [v1.projects.instances](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances)
 
 Methods
 
@@ -153,7 +183,7 @@ Sets the access control policy on an instance resource.
 `  POST /v1/{resource=projects/*/instances/*}:testIamPermissions  `  
 Returns permissions that the caller has on the specified instance resource.
 
-## REST Resource: [v1.projects.instances.backupOperations](/spanner/docs/reference/rest/v1/projects.instances.backupOperations)
+## REST Resource: [v1.projects.instances.backupOperations](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backupOperations)
 
 Methods
 
@@ -162,7 +192,7 @@ Methods
 `  GET /v1/{parent=projects/*/instances/*}/backupOperations  `  
 Lists the backup long-running operations in the given instance.
 
-## REST Resource: [v1.projects.instances.backups](/spanner/docs/reference/rest/v1/projects.instances.backups)
+## REST Resource: [v1.projects.instances.backups](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups)
 
 Methods
 
@@ -211,7 +241,7 @@ Sets the access control policy on a database or backup resource.
 `  POST /v1/{resource=projects/*/instances/*/backups/*}:testIamPermissions  `  
 Returns permissions that the caller has on the specified database or backup resource.
 
-## REST Resource: [v1.projects.instances.backups.operations](/spanner/docs/reference/rest/v1/projects.instances.backups.operations)
+## REST Resource: [v1.projects.instances.backups.operations](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations)
 
 Methods
 
@@ -235,7 +265,7 @@ Gets the latest state of a long-running operation.
 `  GET /v1/{name=projects/*/instances/*/backups/*/operations}  `  
 Lists operations that match the specified filter in the request.
 
-## REST Resource: [v1.projects.instances.databaseOperations](/spanner/docs/reference/rest/v1/projects.instances.databaseOperations)
+## REST Resource: [v1.projects.instances.databaseOperations](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations)
 
 Methods
 
@@ -244,7 +274,7 @@ Methods
 `  GET /v1/{parent=projects/*/instances/*}/databaseOperations  `  
 Lists database longrunning-operations.
 
-## REST Resource: [v1.projects.instances.databases](/spanner/docs/reference/rest/v1/projects.instances.databases)
+## REST Resource: [v1.projects.instances.databases](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases)
 
 Methods
 
@@ -313,7 +343,7 @@ Returns permissions that the caller has on the specified database or backup reso
 `  PATCH /v1/{database=projects/*/instances/*/databases/*}/ddl  `  
 Updates the schema of a Cloud Spanner database by creating/altering/dropping tables, columns, indexes, etc.
 
-## REST Resource: [v1.projects.instances.databases.backupSchedules](/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules)
+## REST Resource: [v1.projects.instances.databases.backupSchedules](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules)
 
 Methods
 
@@ -357,7 +387,7 @@ Sets the access control policy on a database or backup resource.
 `  POST /v1/{resource=projects/*/instances/*/databases/*/backupSchedules/*}:testIamPermissions  `  
 Returns permissions that the caller has on the specified database or backup resource.
 
-## REST Resource: [v1.projects.instances.databases.databaseRoles](/spanner/docs/reference/rest/v1/projects.instances.databases.databaseRoles)
+## REST Resource: [v1.projects.instances.databases.databaseRoles](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.databaseRoles)
 
 Methods
 
@@ -371,7 +401,7 @@ Lists Cloud Spanner database roles.
 `  POST /v1/{resource=projects/*/instances/*/databases/*/databaseRoles/*}:testIamPermissions  `  
 Returns permissions that the caller has on the specified database or backup resource.
 
-## REST Resource: [v1.projects.instances.databases.operations](/spanner/docs/reference/rest/v1/projects.instances.databases.operations)
+## REST Resource: [v1.projects.instances.databases.operations](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations)
 
 Methods
 
@@ -395,7 +425,7 @@ Gets the latest state of a long-running operation.
 `  GET /v1/{name=projects/*/instances/*/databases/*/operations}  `  
 Lists operations that match the specified filter in the request.
 
-## REST Resource: [v1.projects.instances.databases.sessions](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions)
+## REST Resource: [v1.projects.instances.databases.sessions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions)
 
 Methods
 
@@ -489,7 +519,7 @@ Rolls back a transaction, releasing any locks it holds.
 `  POST /v1/{session=projects/*/instances/*/databases/*/sessions/*}:streamingRead  `  
 Like `  Read  ` , except returns the result set as a stream.
 
-## REST Resource: [v1.projects.instances.instancePartitionOperations](/spanner/docs/reference/rest/v1/projects.instances.instancePartitionOperations)
+## REST Resource: [v1.projects.instances.instancePartitionOperations](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitionOperations)
 
 Methods
 
@@ -498,7 +528,7 @@ Methods
 `  GET /v1/{parent=projects/*/instances/*}/instancePartitionOperations  `  
 Lists instance partition long-running operations in the given instance.
 
-## REST Resource: [v1.projects.instances.instancePartitions](/spanner/docs/reference/rest/v1/projects.instances.instancePartitions)
+## REST Resource: [v1.projects.instances.instancePartitions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions)
 
 Methods
 
@@ -527,7 +557,7 @@ Lists all instance partitions for the given instance.
 `  PATCH /v1/{instancePartition.name=projects/*/instances/*/instancePartitions/*}  `  
 Updates an instance partition, and begins allocating or releasing resources as requested.
 
-## REST Resource: [v1.projects.instances.instancePartitions.operations](/spanner/docs/reference/rest/v1/projects.instances.instancePartitions.operations)
+## REST Resource: [v1.projects.instances.instancePartitions.operations](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions.operations)
 
 Methods
 
@@ -551,7 +581,7 @@ Gets the latest state of a long-running operation.
 `  GET /v1/{name=projects/*/instances/*/instancePartitions/*/operations}  `  
 Lists operations that match the specified filter in the request.
 
-## REST Resource: [v1.projects.instances.operations](/spanner/docs/reference/rest/v1/projects.instances.operations)
+## REST Resource: [v1.projects.instances.operations](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations)
 
 Methods
 

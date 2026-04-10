@@ -1,6 +1,6 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-This page describes how to create and manage Spanner [locality groups](/spanner/docs/schema-and-data-model#locality-groups) . You can use locality groups to define the tiered storage policy for data in your database schema. For information about how tiered storage works, see [Tiered storage](/spanner/docs/tiered-storage) .
+This page describes how to create and manage Spanner [locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) . You can use locality groups to define the tiered storage policy for data in your database schema. For information about how tiered storage works, see [Tiered storage](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
 
 ## Create a locality group
 
@@ -11,6 +11,8 @@ If you create a locality group without a tiered storage policy, the locality gro
 ### Console
 
 1.  Go to the Spanner **Instances** page in the Google Cloud console.
+    
+    [Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance in which you want to use tiered storage.
 
@@ -20,109 +22,85 @@ If you create a locality group without a tiered storage policy, the locality gro
 
 5.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-6.  Enter the `  CREATE LOCALITY GROUP  ` DDL statement using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#create_locality_group) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#create_locality_group) .
+6.  Enter the `  CREATE LOCALITY GROUP  ` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_locality_group) .
     
     For example, you can run the following to create a locality group, `  separate_storage  ` , that stores columns in a separate file than the data for the rest of the columns:
     
     ### GoogleSQL
     
-    ``` text
-    CREATE LOCALITY GROUP separate_storage;
-    ```
+        CREATE LOCALITY GROUP separate_storage;
     
     ### PostgreSQL
     
-    ``` text
-    CREATE LOCALITY GROUP separate_storage;
-    ```
+        CREATE LOCALITY GROUP separate_storage;
     
     For example, you can run the following to create a locality group, `  ssd_only  ` , that stores data on SSD storage:
     
     ### GoogleSQL
     
-    ``` text
-    CREATE LOCALITY GROUP ssd_only OPTIONS (storage='ssd');
-    ```
+        CREATE LOCALITY GROUP ssd_only OPTIONS (storage='ssd');
     
     ### PostgreSQL
     
-    ``` text
-    CREATE LOCALITY GROUP ssd_only STORAGE 'ssd';
-    ```
+        CREATE LOCALITY GROUP ssd_only STORAGE 'ssd';
     
     For example, you can run the following to create a locality group, `  hdd_only  ` , that stores data on HDD storage:
     
     ### GoogleSQL
     
-    ``` text
-    CREATE LOCALITY GROUP hdd_only OPTIONS (storage='hdd');
-    ```
+        CREATE LOCALITY GROUP hdd_only OPTIONS (storage='hdd');
     
     ### PostgreSQL
     
-    ``` text
-    CREATE LOCALITY GROUP hdd_only STORAGE 'hdd';
-    ```
+        CREATE LOCALITY GROUP hdd_only STORAGE 'hdd';
 
 7.  Click **Run** .
 
 ### gcloud
 
-To create a locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To create a locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, you can run the following to create a locality group, `  separate_storage  ` , that stores columns in a separate file than the data for the rest of the columns:
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE LOCALITY GROUP separate_storage"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE LOCALITY GROUP separate_storage"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE LOCALITY GROUP separate_storage"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE LOCALITY GROUP separate_storage"
 
 For example, you can run the following to create a locality group, `  ssd_only  ` , that stores data on SSD:
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE LOCALITY GROUP ssd_only OPTIONS (storage='ssd')"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE LOCALITY GROUP ssd_only OPTIONS (storage='ssd')"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE LOCALITY GROUP ssd_only STORAGE 'ssd'"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE LOCALITY GROUP ssd_only STORAGE 'ssd'"
 
 For example, you can run the following to create a locality group, `  hdd_only  ` , that stores data on HDD storage:
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE LOCALITY GROUP hdd_only OPTIONS (storage='hdd')"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE LOCALITY GROUP hdd_only OPTIONS (storage='hdd')"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE LOCALITY GROUP hdd_only STORAGE 'hdd'"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE LOCALITY GROUP hdd_only STORAGE 'hdd'"
 
 ### Create an age-based policy for a locality group
 
@@ -134,47 +112,39 @@ To create an age-based locality group, use the `  CREATE LOCALITY GROUP  ` DDL s
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  CREATE LOCALITY GROUP  ` DDL statement using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#create_locality_group) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#create_locality_group) .
+2.  Enter the `  CREATE LOCALITY GROUP  ` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_locality_group) .
     
     For example, the following DDL statement creates a locality group, `  spill_to_hdd  ` , that stores data on SSD storage for the first 10 days, and then migrates older data to HDD storage over the normal compaction cycle:
     
     ### GoogleSQL
     
-    ``` text
-    CREATE LOCALITY GROUP spill_to_hdd
-    OPTIONS (storage = 'ssd', ssd_to_hdd_spill_timespan = '10d');
-    ```
+        CREATE LOCALITY GROUP spill_to_hdd
+        OPTIONS (storage = 'ssd', ssd_to_hdd_spill_timespan = '10d');
     
     ### PostgreSQL
     
-    ``` text
-    CREATE LOCALITY GROUP spill_to_hdd
-    STORAGE 'ssd' SSD_TO_HDD_SPILL_TIMESPAN '10d';
-    ```
+        CREATE LOCALITY GROUP spill_to_hdd
+        STORAGE 'ssd' SSD_TO_HDD_SPILL_TIMESPAN '10d';
 
 3.  Click **Run** .
 
 ### gcloud
 
-To create an age-based locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To create an age-based locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statement creates a locality group `  spill_to_hdd  ` that stores data in SSD for the first 10 days, and then migrates older data to HDD over the normal compaction cycle.
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE LOCALITY GROUP spill_to_hdd OPTIONS (storage='ssd', ssd_to_hdd_spill_timespan='10d')"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE LOCALITY GROUP spill_to_hdd OPTIONS (storage='ssd', ssd_to_hdd_spill_timespan='10d')"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE LOCALITY GROUP spill_to_hdd STORAGE 'ssd' SSD_TO_HDD_SPILL_TIMESPAN '10d'"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE LOCALITY GROUP spill_to_hdd STORAGE 'ssd' SSD_TO_HDD_SPILL_TIMESPAN '10d'"
 
 ## Set a tiered storage policy for your data
 
@@ -190,112 +160,96 @@ The default tiered storage policy is that all data is stored on SSD storage. You
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  ALTER LOCALITY GROUP  ` DDL statement using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#alter_locality_group) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#alter_locality_group) .
+2.  Enter the `  ALTER LOCALITY GROUP  ` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_locality_group) .
     
     For example, the following DDL statements alter the `  default  ` locality group to use an age-based tiered storage policy. All data in the database is moved to HDD storage after 10 days.
     
     ### GoogleSQL
     
-    ``` text
-    ALTER LOCALITY GROUP `default` SET OPTIONS (storage = 'ssd', ssd_to_hdd_spill_timespan = '10d');
-    ```
+        ALTER LOCALITY GROUP `default` SET OPTIONS (storage = 'ssd', ssd_to_hdd_spill_timespan = '10d');
     
     ### PostgreSQL
     
-    ``` text
-    ALTER LOCALITY GROUP "default" STORAGE 'ssd' SSD_TO_HDD_SPILL_TIMESPAN '10d';
-    ```
+        ALTER LOCALITY GROUP "default" STORAGE 'ssd' SSD_TO_HDD_SPILL_TIMESPAN '10d';
 
 3.  Click **Run** .
 
 ### gcloud
 
-To alter the tiered storage policy of the `  default  ` locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To alter the tiered storage policy of the `  default  ` locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statements alter the `  default  ` locality group to use an age-based tiered storage policy. All data in the database is moved to HDD storage after 10 days.
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER LOCALITY GROUP \`default\` SET OPTIONS (storage = 'ssd', ssd_to_hdd_spill_timespan = '10d');"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER LOCALITY GROUP \`default\` SET OPTIONS (storage = 'ssd', ssd_to_hdd_spill_timespan = '10d');"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER LOCALITY GROUP \"default\" STORAGE 'ssd' SSD_TO_HDD_SPILL_TIMESPAN '10d';"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER LOCALITY GROUP \"default\" STORAGE 'ssd' SSD_TO_HDD_SPILL_TIMESPAN '10d';"
 
 ### Set a table-level locality group
 
-You can set a table-level tiered storage policy for your data that overrides the database-level tiered storage policy. The table-level tiered storage policy is also applicable to all columns in the table, unless you have set a [column-level override tiered storage policy](#set-storage-policy-column) .
+You can set a table-level tiered storage policy for your data that overrides the database-level tiered storage policy. The table-level tiered storage policy is also applicable to all columns in the table, unless you have set a [column-level override tiered storage policy](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#set-storage-policy-column) .
 
 ### Console
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  CREATE TABLE  ` DDL statement using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#create_table) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#create_table) .
+2.  Enter the `  CREATE TABLE  ` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) .
     
     For example, the following DDL statements create a table, `  Singers  ` , that uses the locality group `  ssd_only  ` :
     
     ### GoogleSQL
     
-    ``` text
-    CREATE TABLE Singers (
-      SingerId   INT64 NOT NULL,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-      SingerInfo BYTES(MAX)
-    ) PRIMARY KEY (SingerId), OPTIONS (locality_group = 'ssd_only');
-    ```
+        CREATE TABLE Singers (
+          SingerId   INT64 NOT NULL,
+          FirstName  STRING(1024),
+          LastName   STRING(1024),
+          SingerInfo BYTES(MAX)
+        ) PRIMARY KEY (SingerId), OPTIONS (locality_group = 'ssd_only');
     
     ### PostgreSQL
     
-    ``` text
-    CREATE TABLE Singers (
-      SingerId   bigint PRIMARY KEY,
-      FirstName  varchar(1024),
-      LastName   varchar(1024),
-      SingerInfo bytea
-    ) LOCALITY GROUP ssd_only;
-    ```
+        CREATE TABLE Singers (
+          SingerId   bigint PRIMARY KEY,
+          FirstName  varchar(1024),
+          LastName   varchar(1024),
+          SingerInfo bytea
+        ) LOCALITY GROUP ssd_only;
 
 3.  Click **Run** .
 
 ### gcloud
 
-To set a table-level tiered storage policy with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To set a table-level tiered storage policy with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statements create a table, `  Singers  ` , that uses the locality group `  ssd_only  ` .
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE TABLE Singers ( SingerId   INT64 NOT NULL, \
-        FirstName  STRING(1024), \
-        LastName   STRING(1024), \
-        SingerInfo BYTES(MAX) \
-        ) PRIMARY KEY (SingerId), OPTIONS (locality_group = 'ssd_only');"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE TABLE Singers ( SingerId   INT64 NOT NULL, \
+            FirstName  STRING(1024), \
+            LastName   STRING(1024), \
+            SingerInfo BYTES(MAX) \
+            ) PRIMARY KEY (SingerId), OPTIONS (locality_group = 'ssd_only');"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE TABLE Singers ( \
-        SingerId bigint PRIMARY KEY, \
-        FirstName  varchar(1024), \
-        LastName   varchar(1024), \
-        SingerInfo bytea \
-        ) LOCALITY GROUP ssd_only;"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE TABLE Singers ( \
+            SingerId bigint PRIMARY KEY, \
+            FirstName  varchar(1024), \
+            LastName   varchar(1024), \
+            SingerInfo bytea \
+            ) LOCALITY GROUP ssd_only;"
 
 ### Set a column-level override tiered storage policy
 
@@ -305,65 +259,57 @@ You can set a column-level override tiered storage policy for your data.
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  CREATE TABLE  ` DDL statement with a column-level override tiered storage policy using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#create_table) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#create_table) .
+2.  Enter the `  CREATE TABLE  ` DDL statement with a column-level override tiered storage policy using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) .
     
     For example, the following DDL statements create a `  Singers  ` table that uses the locality group `  ssd_only  ` . However, the `  Awards  ` column overrides this table-level locality group and uses the `  spill_to_hdd  ` locality group as its tiered storage policy:
     
     ### GoogleSQL
     
-    ``` text
-    CREATE TABLE Singers (
-      SingerId   INT64 NOT NULL,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-      Awards     ARRAY<STRING(MAX)> OPTIONS (locality_group = 'spill_to_hdd')
-    ) PRIMARY KEY (SingerId), OPTIONS (locality_group = 'ssd_only');
-    ```
+        CREATE TABLE Singers (
+          SingerId   INT64 NOT NULL,
+          FirstName  STRING(1024),
+          LastName   STRING(1024),
+          Awards     ARRAY<STRING(MAX)> OPTIONS (locality_group = 'spill_to_hdd')
+        ) PRIMARY KEY (SingerId), OPTIONS (locality_group = 'ssd_only');
     
     ### PostgreSQL
     
-    ``` text
-    CREATE TABLE Singers (
-      SingerId   bigint PRIMARY KEY,
-      FirstName  varchar(1024),
-      LastName   varchar(1024),
-      Awards     varchar[] LOCALITY GROUP spill_to_hdd
-    ) LOCALITY GROUP ssd_only;
-    ```
+        CREATE TABLE Singers (
+          SingerId   bigint PRIMARY KEY,
+          FirstName  varchar(1024),
+          LastName   varchar(1024),
+          Awards     varchar[] LOCALITY GROUP spill_to_hdd
+        ) LOCALITY GROUP ssd_only;
 
 3.  Click **Run** .
 
 ### gcloud
 
-To set a column-level override tiered storage policy with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To set a column-level override tiered storage policy with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statements create a `  Singers  ` table that uses the locality group `  ssd_only  ` . However, the `  Awards  ` column overrides this table-level tiered storage policy and uses the `  spill_to_hdd  ` locality group as its tiered storage policy:
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE TABLE Singers ( \
-      SingerId   INT64 NOT NULL, \
-      FirstName  STRING(1024), \
-      LastName   STRING(1024), \
-      Awards     ARRAY<STRING(MAX)> OPTIONS (locality_group = 'spill_to_hdd') \
-    ) PRIMARY KEY (SingerId), OPTIONS (locality_group = 'ssd_only');" \
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE TABLE Singers ( \
+          SingerId   INT64 NOT NULL, \
+          FirstName  STRING(1024), \
+          LastName   STRING(1024), \
+          Awards     ARRAY<STRING(MAX)> OPTIONS (locality_group = 'spill_to_hdd') \
+        ) PRIMARY KEY (SingerId), OPTIONS (locality_group = 'ssd_only');" \
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE TABLE Singers ( \
-      SingerId   bigint PRIMARY KEY, \
-      FirstName  varchar(1024), \
-      LastName   varchar(1024), \
-      Awards     varchar[] LOCALITY GROUP spill_to_hdd \
-    ) LOCALITY GROUP ssd_only;"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE TABLE Singers ( \
+          SingerId   bigint PRIMARY KEY, \
+          FirstName  varchar(1024), \
+          LastName   varchar(1024), \
+          Awards     varchar[] LOCALITY GROUP spill_to_hdd \
+        ) LOCALITY GROUP ssd_only;"
 
 ### Set a secondary index-level override tiered storage policy
 
@@ -373,49 +319,41 @@ You can set a secondary index-level override tiered storage policy for your data
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  CREATE INDEX  ` DDL statement with a secondary index-level override tiered storage policy using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#create-index) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#create-index) .
+2.  Enter the `  CREATE INDEX  ` DDL statement with a secondary index-level override tiered storage policy using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-index) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-index) .
     
     For example, the following DDL statements create a `  Singers  ` table that uses the locality group `  ssd_only  ` . The database also has a secondary index on all `  Singers  ` in the database by their first and last name. The `  SingersByFirstLastName  ` index overrides the table-level tiered storage policy and uses the `  spill_to_hdd  ` locality group as its tiered storage policy:
     
     ### GoogleSQL
     
-    ``` text
-    CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName)
-    OPTIONS (locality_group = 'spill_to_hdd');
-    ```
+        CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName)
+        OPTIONS (locality_group = 'spill_to_hdd');
     
     ### PostgreSQL
     
-    ``` text
-    CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName)
-    LOCALITY GROUP spill_to_hdd;
-    ```
+        CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName)
+        LOCALITY GROUP spill_to_hdd;
 
 3.  Click **Run** .
 
 ### gcloud
 
-To set a secondary index-level override tiered storage policy with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To set a secondary index-level override tiered storage policy with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statements create a `  Singers  ` table that uses the locality group `  ssd_only  ` . The database also creates a secondary index on all `  Singers  ` in the database by their first and last name. The `  SingersByFirstLastName  ` index overrides the table-level tiered storage policy and uses the `  spill_to_hdd  ` locality group as its tiered storage policy:
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName) \
-    OPTIONS (locality_group = 'spill_to_hdd');"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName) \
+        OPTIONS (locality_group = 'spill_to_hdd');"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName) \
-    LOCALITY GROUP spill_to_hdd;"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName) \
+        LOCALITY GROUP spill_to_hdd;"
 
 ## Set a column-level locality group
 
@@ -425,79 +363,71 @@ You can set a column-level locality group for your data even if the locality gro
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  CREATE TABLE  ` DDL statement that assigns the column to a locality group using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#create_table) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#create_table) .
+2.  Enter the `  CREATE TABLE  ` DDL statement that assigns the column to a locality group using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) .
     
     For example, the following DDL statements create a `  Songs  ` table with a `  LyricsCompressed  ` column that is stored separately in the `  hdd_only  ` locality group:
     
     ### GoogleSQL
     
-    ``` text
-    CREATE TABLE Songs (
-      SingerId INT64 NOT NULL,
-      SongId INT64 NOT NULL,
-      Title STRING(MAX),
-      Description STRING(MAX),
-      LyricsCompressed BYTES(MAX) OPTIONS (locality_group = 'hdd_only')
-    ) PRIMARY KEY (SingerId, SongId),
-      INTERLEAVE IN PARENT Singers ON DELETE CASCADE,
-      OPTIONS (locality_group = 'ssd_only');
-    ```
+        CREATE TABLE Songs (
+          SingerId INT64 NOT NULL,
+          SongId INT64 NOT NULL,
+          Title STRING(MAX),
+          Description STRING(MAX),
+          LyricsCompressed BYTES(MAX) OPTIONS (locality_group = 'hdd_only')
+        ) PRIMARY KEY (SingerId, SongId),
+          INTERLEAVE IN PARENT Singers ON DELETE CASCADE,
+          OPTIONS (locality_group = 'ssd_only');
     
     ### PostgreSQL
     
-    ``` text
-    CREATE TABLE Songs (
-      SingerId BIGINT NOT NULL,
-      SongId BIGINT NOT NULL,
-      Title VARCHAR,
-      Description TEXT,
-      LyricsCompressed BYTEA LOCALITY GROUP hdd_only,
-      PRIMARY KEY (SingerId, SongId)
-    ) LOCALITY GROUP ssd_only INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
-    ```
+        CREATE TABLE Songs (
+          SingerId BIGINT NOT NULL,
+          SongId BIGINT NOT NULL,
+          Title VARCHAR,
+          Description TEXT,
+          LyricsCompressed BYTEA LOCALITY GROUP hdd_only,
+          PRIMARY KEY (SingerId, SongId)
+        ) LOCALITY GROUP ssd_only INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
 
 3.  Click **Run** .
 
 ### gcloud
 
-To set a column-level locality group for your data with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To set a column-level locality group for your data with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statements create a `  Songs  ` table with a `  LyricsCompressed  ` column that is stored separately in the `  hdd_only  ` locality group:
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE TABLE Songs ( \
-      SingerId INT64 NOT NULL, \
-      SongId INT64 NOT NULL, \
-      Title STRING(MAX), \
-      Description STRING(MAX),
-      LyricsCompressed BYTES(MAX) OPTIONS (locality_group = 'hdd_only') \
-    ) PRIMARY KEY (SingerId, SongId), \
-      INTERLEAVE IN PARENT Singers ON DELETE CASCADE, \
-      OPTIONS (locality_group = 'ssd_only');"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE TABLE Songs ( \
+          SingerId INT64 NOT NULL, \
+          SongId INT64 NOT NULL, \
+          Title STRING(MAX), \
+          Description STRING(MAX),
+          LyricsCompressed BYTES(MAX) OPTIONS (locality_group = 'hdd_only') \
+        ) PRIMARY KEY (SingerId, SongId), \
+          INTERLEAVE IN PARENT Singers ON DELETE CASCADE, \
+          OPTIONS (locality_group = 'ssd_only');"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="CREATE TABLE Songs ( \
-      SingerId BIGINT NOT NULL, \
-      SongId BIGINT NOT NULL, \
-      Title VARCHAR, \
-      Description TEXT, \
-      LyricsCompressed BYTEA LOCALITY GROUP hdd_only, \
-      PRIMARY KEY (SingerId, SongId) \
-    ) LOCALITY GROUP ssd_only INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="CREATE TABLE Songs ( \
+          SingerId BIGINT NOT NULL, \
+          SongId BIGINT NOT NULL, \
+          Title VARCHAR, \
+          Description TEXT, \
+          LyricsCompressed BYTEA LOCALITY GROUP hdd_only, \
+          PRIMARY KEY (SingerId, SongId) \
+        ) LOCALITY GROUP ssd_only INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
 
 ## Move data between storage options
 
-You can move data between SSD and HDD storage. Moving data can take up to seven days. You can monitor the progress of the move by querying the built-in `  SPANNER_SYS.TABLE_SIZES_STATS_1HOUR  ` table to check HDD and SSD storage usage for each table in your database. You can also monitor your storage usage by using the Cloud Monitoring `  spanner.googleapis.com/instance/storage/used_bytes  ` metric to show the SSD and HDD breakdown for your database or instance. For more information, see [tiered storage observability](/spanner/docs/tiered-storage#observability) .
+You can move data between SSD and HDD storage. Moving data can take up to seven days. You can monitor the progress of the move by querying the built-in `  SPANNER_SYS.TABLE_SIZES_STATS_1HOUR  ` table to check HDD and SSD storage usage for each table in your database. You can also monitor your storage usage by using the Cloud Monitoring `  spanner.googleapis.com/instance/storage/used_bytes  ` metric to show the SSD and HDD breakdown for your database or instance. For more information, see [tiered storage observability](https://docs.cloud.google.com/spanner/docs/tiered-storage#observability) .
 
 ### Move data from SSD to HDD storage
 
@@ -517,11 +447,11 @@ To move data from SSD to HDD storage, you can create a new locality group with a
 
 The waiting period isn't applicable if you're creating a new table, column, or index, and adding the locality group as part of the `  CREATE  ` or `  ADD COLUMN  ` syntax.
 
-For more information, see [Create an age-based policy for a locality group](#create-age-based-policy) or [Change the storage option](#change-storage-option) .
+For more information, see [Create an age-based policy for a locality group](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#create-age-based-policy) or [Change the storage option](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#change-storage-option) .
 
 ### Move data from HDD to SSD storage
 
-To move data from HDD to SSD storage, you can [change the storage option](#change-storage-option) of an existing locality group or [alter the locality group used by the table](#alter-table-locality-group) . Spanner moves data during its normal compaction cycle, which typically occurs over the course of seven days. If you're loading data and updating your locality group using one of the following `  ALTER  ` DDL statements, then you must wait up to seven days for the change to the locality group to complete:
+To move data from HDD to SSD storage, you can [change the storage option](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#change-storage-option) of an existing locality group or [alter the locality group used by the table](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#alter-table-locality-group) . Spanner moves data during its normal compaction cycle, which typically occurs over the course of seven days. If you're loading data and updating your locality group using one of the following `  ALTER  ` DDL statements, then you must wait up to seven days for the change to the locality group to complete:
 
 ### GoogleSQL
 
@@ -545,45 +475,37 @@ You can alter the locality group used by a table by setting a new or different l
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  ALTER TABLE  ` DDL statement that changes the locality group used by the table using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#alter_table) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#alter_table) .
+2.  Enter the `  ALTER TABLE  ` DDL statement that changes the locality group used by the table using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) .
     
     For example, the following DDL statements alter the locality group used by the table, `  Singers  ` , to `  spill_to_hdd  ` :
     
     ### GoogleSQL
     
-    ``` text
-    ALTER TABLE Singers SET OPTIONS (locality_group = 'spill_to_hdd');
-    ```
+        ALTER TABLE Singers SET OPTIONS (locality_group = 'spill_to_hdd');
     
     ### PostgreSQL
     
-    ``` text
-    ALTER TABLE Singers SET LOCALITY GROUP spill_to_hdd;
-    ```
+        ALTER TABLE Singers SET LOCALITY GROUP spill_to_hdd;
 
 3.  Click **Run** .
 
 ### gcloud
 
-To alter the locality group used by a table with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To alter the locality group used by a table with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statements alter the locality group used by the table, `  Singers  ` , to `  spill_to_hdd  ` :
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER TABLE Singers SET OPTIONS(locality_group = 'spill_to_hdd');"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER TABLE Singers SET OPTIONS(locality_group = 'spill_to_hdd');"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER TABLE Singers SET LOCALITY GROUP spill_to_hdd;"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER TABLE Singers SET LOCALITY GROUP spill_to_hdd;"
 
 #### Alter the locality group used by a table's column
 
@@ -593,51 +515,43 @@ You can alter the locality group used by a table's column by setting the localit
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  ALTER TABLE  ` DDL statement that changes the locality group used by the table using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#alter_table) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#alter_table) .
+2.  Enter the `  ALTER TABLE  ` DDL statement that changes the locality group used by the table using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) .
     
     For example, the following DDL statements alter the locality group used by the table's column, `  LastName  ` , to `  spill_to_hdd  ` :
     
     ### GoogleSQL
     
-    ``` text
-    ALTER TABLE Singers
-    ALTER COLUMN LastName SET OPTIONS(locality_group = 'spill_to_hdd');
-    ```
+        ALTER TABLE Singers
+        ALTER COLUMN LastName SET OPTIONS(locality_group = 'spill_to_hdd');
     
     ### PostgreSQL
     
-    ``` text
-    ALTER TABLE Singers
-    ALTER COLUMN LastName SET LOCALITY GROUP spill_to_hdd;
-    ```
+        ALTER TABLE Singers
+        ALTER COLUMN LastName SET LOCALITY GROUP spill_to_hdd;
 
 3.  Click **Run** .
 
 ### gcloud
 
-To alter the locality group used by a table with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To alter the locality group used by a table with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statements alter the locality group used by the table's column, `  LastName  ` , to `  spill_to_hdd  ` :
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER TABLE Singers ALTER COLUMN LastName SET OPTIONS(locality_group = 'spill_to_hdd');"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER TABLE Singers ALTER COLUMN LastName SET OPTIONS(locality_group = 'spill_to_hdd');"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER TABLE Singers ALTER COLUMN SET LOCALITY GROUP spill_to_hdd;"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER TABLE Singers ALTER COLUMN SET LOCALITY GROUP spill_to_hdd;"
 
 ## Alter a locality group
 
-You can alter a locality group by [changing its storage option](#change-storage-option) or [changing its age-based policy](#change-age-based-policy) . Spanner moves data during its normal compaction cycle, which typically occurs over the course of seven days. If you're loading data and updating your locality group using `  ALTER LOCALITY GROUP  ` , then you must wait up to seven days for existing data to migrate. The updated setting applies to all new data written to that locality group immediately.
+You can alter a locality group by [changing its storage option](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#change-storage-option) or [changing its age-based policy](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#change-age-based-policy) . Spanner moves data during its normal compaction cycle, which typically occurs over the course of seven days. If you're loading data and updating your locality group using `  ALTER LOCALITY GROUP  ` , then you must wait up to seven days for existing data to migrate. The updated setting applies to all new data written to that locality group immediately.
 
 ### Change the storage option
 
@@ -647,45 +561,37 @@ You can change the storage option of a locality group from SSD to HDD or HDD to 
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  ALTER LOCALITY GROUP  ` DDL statement using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#alter_locality_group) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#alter_locality_group) .
+2.  Enter the `  ALTER LOCALITY GROUP  ` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_locality_group) .
     
     For example, the following DDL statements change the storage option of the locality group, `  separate_storage  ` , to HDD:
     
     ### GoogleSQL
     
-    ``` text
-    ALTER LOCALITY GROUP separate_storage SET OPTIONS (storage='hdd');
-    ```
+        ALTER LOCALITY GROUP separate_storage SET OPTIONS (storage='hdd');
     
     ### PostgreSQL
     
-    ``` text
-    ALTER LOCALITY GROUP separate_storage STORAGE 'hdd';
-    ```
+        ALTER LOCALITY GROUP separate_storage STORAGE 'hdd';
 
 3.  Click **Run** .
 
 ### gcloud
 
-To change the storage option of a locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To change the storage option of a locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statements change the storage option of the locality group, `  separate_storage  ` , to HDD:
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER LOCALITY GROUP separate_storage SET OPTIONS (storage = 'hdd');"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER LOCALITY GROUP separate_storage SET OPTIONS (storage = 'hdd');"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER LOCALITY GROUP separate_storage STORAGE 'hdd';"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER LOCALITY GROUP separate_storage STORAGE 'hdd';"
 
 ### Change the age-based policy
 
@@ -695,96 +601,80 @@ You can change the age-based policy of a locality group by extending or shorteni
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  ALTER LOCALITY GROUP  ` DDL statement using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#alter_locality_group) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#alter_locality_group) .
+2.  Enter the `  ALTER LOCALITY GROUP  ` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_locality_group) .
     
     For example, the following DDL statements change the age-based policy of the locality group, `  spill_to_hdd  ` , by extending the amount of time that data is stored in SSD to 20 days:
     
     ### GoogleSQL
     
-    ``` text
-    ALTER LOCALITY GROUP spill_to_hdd SET OPTIONS (ssd_to_hdd_spill_timespan = '20d');
-    ```
+        ALTER LOCALITY GROUP spill_to_hdd SET OPTIONS (ssd_to_hdd_spill_timespan = '20d');
     
     ### PostgreSQL
     
-    ``` text
-    ALTER LOCALITY GROUP spill_to_hdd SSD_TO_HDD_SPILL_TIMESPAN '20d';
-    ```
+        ALTER LOCALITY GROUP spill_to_hdd SSD_TO_HDD_SPILL_TIMESPAN '20d';
 
 3.  Click **Run** .
 
 ### gcloud
 
-To change the age-based policy of a locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To change the age-based policy of a locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, the following DDL statements change the age-based policy of the locality group, `  spill_to_hdd  ` , by extending the amount of time that data is stored in SSD to 20 days:
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER LOCALITY GROUP spill_to_hdd SET OPTIONS (ssd_to_hdd_spill_timespan = '20d');"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER LOCALITY GROUP spill_to_hdd SET OPTIONS (ssd_to_hdd_spill_timespan = '20d');"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="ALTER LOCALITY GROUP spill_to_hdd SSD_TO_HDD_SPILL_TIMESPAN '20d';"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="ALTER LOCALITY GROUP spill_to_hdd SSD_TO_HDD_SPILL_TIMESPAN '20d';"
 
 ## Delete a locality group
 
-You can't delete a locality group if it contains data. You must first move all data that's in the locality group to another locality group. For more information, see [Alter the locality group used by the table](#alter-table-locality-group) .
+You can't delete a locality group if it contains data. You must first move all data that's in the locality group to another locality group. For more information, see [Alter the locality group used by the table](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#alter-table-locality-group) .
 
 ### Console
 
 1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-2.  Enter the `  DROP LOCALITY GROUP  ` DDL statement using [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#drop_locality_group) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#drop_locality_group) .
+2.  Enter the `  DROP LOCALITY GROUP  ` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop_locality_group) .
     
     For example, you can run the following to drop a locality group `  ssd_only  ` :
     
     ### GoogleSQL
     
-    ``` text
-    DROP LOCALITY GROUP ssd_only;
-    ```
+        DROP LOCALITY GROUP ssd_only;
     
     ### PostgreSQL
     
-    ``` text
-    DROP LOCALITY GROUP ssd_only;
-    ```
+        DROP LOCALITY GROUP ssd_only;
 
 3.  Click **Run** .
 
 ### gcloud
 
-To drop a locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To drop a locality group with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, to drop the locality group `  ssd_only  ` , run:
 
 ### GoogleSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="DROP LOCALITY GROUP ssd_only"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="DROP LOCALITY GROUP ssd_only"
 
 ### PostgreSQL
 
-``` text
-gcloud spanner databases ddl update example-db \
-  --instance=test-instance \
-  --ddl="DROP LOCALITY GROUP ssd_only"
-```
+    gcloud spanner databases ddl update example-db \
+      --instance=test-instance \
+      --ddl="DROP LOCALITY GROUP ssd_only"
 
 ## What's next
 
-  - Learn more about [tiered storage](/spanner/docs/tiered-storage) .
-  - Learn more about [locality groups](/spanner/docs/schema-and-data-model#locality-groups) .
-  - Learn more about [optimizing queries with timestamp predicate pushdown](/spanner/docs/sql-best-practices#optimize-timestamp-predicate-pushdown) .
+  - Learn more about [tiered storage](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
+  - Learn more about [locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) .
+  - Learn more about [optimizing queries with timestamp predicate pushdown](https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-timestamp-predicate-pushdown) .

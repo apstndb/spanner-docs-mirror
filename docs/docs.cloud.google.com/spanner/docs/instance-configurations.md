@@ -4,21 +4,21 @@ This page describes the different types of instance configurations available in 
 
 A Spanner instance configuration defines the geographic placement and replication of the databases in that instance. When you create an instance, you must configure it as either *regional* , *dual-region* , or *multi-region* . You make this choice by selecting an instance configuration, which determines where your data is stored for that instance:
 
-  - [Regional configurations](#regional-configurations) : all the resources reside within a single Google Cloud region
-  - [Dual-region configurations](#dual-region-configurations) : all resources span two regions and reside within a single country (available in the [Enterprise Plus edition](/spanner/docs/editions-overview) )
-  - [Multi-region configurations](#multi-region-configurations) : the resources span more than two regions (available in the [Enterprise Plus edition](/spanner/docs/editions-overview) )
+  - [Regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional-configurations) : all the resources reside within a single Google Cloud region
+  - [Dual-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) : all resources span two regions and reside within a single country (available in the [Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) )
+  - [Multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) : the resources span more than two regions (available in the [Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) )
 
-For more information about region-specific considerations, see [Geography and regions](/docs/geography-and-regions#regions_and_zones) .
+For more information about region-specific considerations, see [Geography and regions](https://docs.cloud.google.com/docs/geography-and-regions#regions_and_zones) .
 
-The instance configurations with predefined regions and replication topologies are referred to as **base instance configurations** . You can create **custom instance configurations** and add additional optional read-only replicas to a predefined base instance configuration (available in the [Enterprise edition and Enterprise Plus edition](/spanner/docs/editions-overview) ). The added read-only replica must be in a region that isn't part of the existing instance configuration. For a list of the optional read-only regions that you can add, see the Optional Region column under [Regional available configurations](/spanner/docs/instance-configurations#available-configurations-regional) and [Multi-region available configurations](/spanner/docs/instance-configurations#available-configurations-multi-region) . You can't change the replication topology of base instance configurations. For more information, see [Read-only replicas](/spanner/docs/replication#read-only) .
+The instance configurations with predefined regions and replication topologies are referred to as **base instance configurations** . You can create **custom instance configurations** and add additional optional read-only replicas to a predefined base instance configuration (available in the [Enterprise edition and Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) ). The added read-only replica must be in a region that isn't part of the existing instance configuration. For a list of the optional read-only regions that you can add, see the Optional Region column under [Regional available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) and [Multi-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) . You can't change the replication topology of base instance configurations. For more information, see [Read-only replicas](https://docs.cloud.google.com/spanner/docs/replication#read-only) .
 
-You can [move your instance](/spanner/docs/instance-configurations#move-instance) from any instance configuration to any other regional, dual-region or multi-region instance configuration (for example, from `  regional-us-central1  ` to `  nam3  ` ). You can also [create a new custom instance configuration with additional replicas](/spanner/docs/create-manage-configurations#create-configuration) , then move your instance to the new custom instance configuration. For example, if your instance is in `  regional-us-central1  ` and you want to add a read-only replica `  us-west1  ` , then you need to create a new custom instance configuration with `  regional-us-central1  ` as the base configuration and add `  us-west1  ` as a read-only replica. Then, move your instance to this new custom instance configuration.
+You can [move your instance](https://docs.cloud.google.com/spanner/docs/instance-configurations#move-instance) from any instance configuration to any other regional, dual-region or multi-region instance configuration (for example, from `  regional-us-central1  ` to `  nam3  ` ). You can also [create a new custom instance configuration with additional replicas](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) , then move your instance to the new custom instance configuration. For example, if your instance is in `  regional-us-central1  ` and you want to add a read-only replica `  us-west1  ` , then you need to create a new custom instance configuration with `  regional-us-central1  ` as the base configuration and add `  us-west1  ` as a read-only replica. Then, move your instance to this new custom instance configuration.
 
 ## Regional configurations
 
-Google Cloud services are available in [locations](/about/locations) across North America, South America, Europe, Asia, and Australia. If your users and services are located within a single region, choose a regional instance configuration for the lowest-latency reads and writes.
+Google Cloud services are available in [locations](https://docs.cloud.google.com/about/locations) across North America, South America, Europe, Asia, and Australia. If your users and services are located within a single region, choose a regional instance configuration for the lowest-latency reads and writes.
 
-For any base regional configuration, Spanner maintains three [read-write replicas](/spanner/docs/replication#read-write) , each within a different Google Cloud [zone](/docs/geography-and-regions) in that region. Each read-write replica contains a full copy of your operational database that is able to serve read-write and read-only requests. Spanner uses replicas in different zones so that if a single-zone failure occurs, your database remains available.
+For any base regional configuration, Spanner maintains three [read-write replicas](https://docs.cloud.google.com/spanner/docs/replication#read-write) , each within a different Google Cloud [zone](https://docs.cloud.google.com/docs/geography-and-regions) in that region. Each read-write replica contains a full copy of your operational database that is able to serve read-write and read-only requests. Spanner uses replicas in different zones so that if a single-zone failure occurs, your database remains available.
 
 ### Available configurations
 
@@ -34,11 +34,11 @@ Optional Region
 
 `  regional-northamerica-northeast1  `
 
-Montréal [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Montréal ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-northamerica-northeast2  `
 
-Toronto [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Toronto ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-northamerica-south1  `
 
@@ -46,30 +46,30 @@ Querétaro
 
 `  regional-southamerica-east1  `
 
-São Paulo [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+São Paulo ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-southamerica-west1  `
 
-Santiago [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Santiago ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-us-central1  `
 
-Iowa [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Iowa ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-Read-only: `  asia-northeast1  ` [*1-OR*](#1-OR)  
-`  asia-south1  ` [*1-OR*](#1-OR)  
-`  europe-west2  ` [*1-OR*](#1-OR)  
-`  europe-west9  ` [*1-OR*](#1-OR)  
-`  us-west3  ` [*1-OR*](#1-OR)
+Read-only: `  asia-northeast1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`  asia-south1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`  europe-west2  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`  europe-west9  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`  us-west3  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
 
 `  regional-us-east1  `
 
 South Carolina
 
-Read-only: `  us-central1  ` [*1-OR*](#1-OR)  
-`  us-west1  ` [*1-OR*](#1-OR)  
-`  europe-west1  ` [*1-OR*](#1-OR)  
-`  europe-west3  ` [*1-OR*](#1-OR)
+Read-only: `  us-central1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`  us-west1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`  europe-west1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`  europe-west3  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
 
 `  regional-us-east4  `
 
@@ -81,11 +81,11 @@ Columbus
 
 `  regional-us-south1  `
 
-Dallas [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Dallas ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-us-west1  `
 
-Oregon [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Oregon ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-us-west2  `
 
@@ -107,26 +107,26 @@ Warsaw
 
 `  regional-europe-north1  `
 
-Finland [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Finland ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-europe-north2  `
 
-Stockholm [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Stockholm ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-europe-southwest1  `
 
-Madrid [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Madrid ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-europe-west1  `
 
-Belgium [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Belgium ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-Read-only: `  us-central1  ` [*1-OR*](#1-OR)  
-`  us-west1  ` [*1-OR*](#1-OR)
+Read-only: `  us-central1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`  us-west1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
 
 `  regional-europe-west2  `
 
-London [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+London ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-europe-west3  `
 
@@ -134,11 +134,11 @@ Frankfurt
 
 `  regional-europe-west4  `
 
-Netherlands [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Netherlands ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-europe-west6  `
 
-Zürich [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Zürich ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-europe-west8  `
 
@@ -146,7 +146,7 @@ Milan
 
 `  regional-europe-west9  `
 
-Paris [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
+Paris ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `  regional-europe-west10  `
 
@@ -228,22 +228,22 @@ Johannesburg
 
 ### Replication
 
-Base regional configurations contain three [read-write replicas](/spanner/docs/replication#read-write) . Every Spanner mutation requires a write quorum that's composed of a majority of voting replicas. Write quorums are formed from two out of the three replicas in regional configurations. For more information about leader regions and voting replicas, see [Replication](/spanner/docs/replication) .
+Base regional configurations contain three [read-write replicas](https://docs.cloud.google.com/spanner/docs/replication#read-write) . Every Spanner mutation requires a write quorum that's composed of a majority of voting replicas. Write quorums are formed from two out of the three replicas in regional configurations. For more information about leader regions and voting replicas, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
 
-You can [create a custom regional instance configuration](/spanner/docs/create-manage-configurations#create-configuration) and add optional read-only replicas. Read-only replicas can help scale reads and support low latency stale reads. These read-only replicas don't take part in the write quorums. The replicas don't affect the [Spanner \>= 99.99% SLA](https://cloud.google.com/spanner/sla) for regional instances. You can add locations listed under the Optional Region column as optional read-only replica(s). If you don't see your chosen read-only replica location, you can [request a new optional read-only replica region](https://docs.google.com/forms/d/e/1FAIpQLSfw9Rj4p4KA8oLu7MhIpSyPRd-4qxqazwsFZIY-_tkNrpWFcw/viewform) . For more information, see [Read-only replicas](/spanner/docs/replication#read-only) .
+You can [create a custom regional instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) and add optional read-only replicas. Read-only replicas can help scale reads and support low latency stale reads. These read-only replicas don't take part in the write quorums. The replicas don't affect the [Spanner \>= 99.99% SLA](https://cloud.google.com/spanner/sla) for regional instances. You can add locations listed under the Optional Region column as optional read-only replica(s). If you don't see your chosen read-only replica location, you can [request a new optional read-only replica region](https://docs.google.com/forms/d/e/1FAIpQLSfw9Rj4p4KA8oLu7MhIpSyPRd-4qxqazwsFZIY-_tkNrpWFcw/viewform) . For more information, see [Read-only replicas](https://docs.cloud.google.com/spanner/docs/replication#read-only) .
 
 ### Performance best practices for regional configurations
 
 For optimal performance, follow these best practices:
 
-  - [Design a schema](/spanner/docs/schema-design) that prevents hotspots and other performance issues.
+  - [Design a schema](https://docs.cloud.google.com/spanner/docs/schema-design) that prevents hotspots and other performance issues.
   - Place critical compute resources within the same region as your Spanner instance.
-  - Provision enough [compute capacity](/spanner/docs/compute-capacity) to keep high priority total CPU utilization under 65%.
-  - For information about the amount of throughput per Spanner node, see [Performance for regional configurations](/spanner/docs/performance) .
+  - Provision enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to keep high priority total CPU utilization under 65%.
+  - For information about the amount of throughput per Spanner node, see [Performance for regional configurations](https://docs.cloud.google.com/spanner/docs/performance) .
 
 ## Dual-region configurations
 
-**Note:** Dual-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** Dual-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Dual-region configurations let you replicate the database's data in multiple zones across two regions in a single country, as defined by the instance configuration.
 
@@ -255,7 +255,7 @@ Dual-region configurations do the following:
 
 Spanner offers dual-region configurations in Australia, Germany, India, and Japan.
 
-For information about the amount of throughput per Spanner node, see [Performance for dual-region configurations](/spanner/docs/performance#dual-region-performance) .
+For information about the amount of throughput per Spanner node, see [Performance for dual-region configurations](https://docs.cloud.google.com/spanner/docs/performance#dual-region-performance) .
 
 ### Available configurations
 
@@ -278,32 +278,32 @@ Spanner offers the following base dual-region instance configurations:
 <tr class="odd">
 <td><code dir="ltr" translate="no">         dual-region-australia1        </code></td>
 <td>au (Australia)</td>
-<td>Sydney: <code dir="ltr" translate="no">         australia-southeast1        </code> <a href="#L"><em>L</em></a> , <a href="#2RW"><em>2RW+1W</em></a><br />
-Melbourne: <code dir="ltr" translate="no">         australia-southeast2        </code> <a href="#2RW"><em>2RW+1W</em></a></td>
+<td>Sydney: <code dir="ltr" translate="no">         australia-southeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Melbourne: <code dir="ltr" translate="no">         australia-southeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">         dual-region-canada1        </code></td>
 <td>ca (Canada)</td>
-<td>Toronto: <code dir="ltr" translate="no">         northamerica-northeast2        </code> <a href="#L"><em>L</em></a> , <a href="#2RW"><em>2RW+1W</em></a><br />
-Montréal: <code dir="ltr" translate="no">         northamerica-northeast1        </code> <a href="#2RW"><em>2RW+1W</em></a></td>
+<td>Toronto: <code dir="ltr" translate="no">         northamerica-northeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Montréal: <code dir="ltr" translate="no">         northamerica-northeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">         dual-region-germany1        </code></td>
 <td>de (Germany)</td>
-<td>Berlin: <code dir="ltr" translate="no">         europe-west10        </code> <a href="#L"><em>L</em></a> , <a href="#2RW"><em>2RW+1W</em></a><br />
-Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="#2RW"><em>2RW+1W</em></a></td>
+<td>Berlin: <code dir="ltr" translate="no">         europe-west10        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">         dual-region-india1        </code></td>
 <td>in (India)</td>
-<td>Mumbai: <code dir="ltr" translate="no">         asia-south1        </code> <a href="#L"><em>L</em></a> , <a href="#2RW"><em>2RW+1W</em></a><br />
-Delhi: <code dir="ltr" translate="no">         asia-south2        </code> <a href="#2RW"><em>2RW+1W</em></a></td>
+<td>Mumbai: <code dir="ltr" translate="no">         asia-south1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Delhi: <code dir="ltr" translate="no">         asia-south2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">         dual-region-japan1        </code></td>
 <td>jp (Japan)</td>
-<td>Tokyo: <code dir="ltr" translate="no">         asia-northeast1        </code> <a href="#L"><em>L</em></a> , <a href="#2RW"><em>2RW+1W</em></a><br />
-Osaka: <code dir="ltr" translate="no">         asia-northeast2        </code> <a href="#2RW"><em>2RW+1W</em></a></td>
+<td>Tokyo: <code dir="ltr" translate="no">         asia-northeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Osaka: <code dir="ltr" translate="no">         asia-northeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 </tbody>
 </table>
@@ -316,15 +316,15 @@ Dual-region instances offer these primary benefits:
 
   - **Data distribution** : automatically replicates your data between the two regions with strong consistency guarantees.
 
-  - **Data residency requirements** : Meets data residency requirements in the countries listed under dual-region [Available configurations](#available-configurations-dual) .
+  - **Data residency requirements** : Meets data residency requirements in the countries listed under dual-region [Available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) .
 
 ### Replication
 
-A dual-region contains six replicas, three in each region. One of the regions is designated as the default leader region (listed in the previous table). You can [change the leader region of a database](/spanner/docs/modifying-leader-region#changing_the_leader_region_of_a_db) . In each region, there are two read-write replicas and one [witness replica](/spanner/docs/replication#witness) . When both regions are healthy and running in a dual-region configuration, the quorum is established across all six replicas. A minimum of two replicas in each region is required to form a quorum and commit a transaction.
+A dual-region contains six replicas, three in each region. One of the regions is designated as the default leader region (listed in the previous table). You can [change the leader region of a database](https://docs.cloud.google.com/spanner/docs/modifying-leader-region#changing_the_leader_region_of_a_db) . In each region, there are two read-write replicas and one [witness replica](https://docs.cloud.google.com/spanner/docs/replication#witness) . When both regions are healthy and running in a dual-region configuration, the quorum is established across all six replicas. A minimum of two replicas in each region is required to form a quorum and commit a transaction.
 
 ### Failover and failback
 
-After you create a dual-region configuration, you can view the *Dual-region quorum health timeline* metric on the [System insights](/spanner/docs/monitoring-console) dashboard. This metric is only available for dual-region configurations. It shows the health of three quorums:
+After you create a dual-region configuration, you can view the *Dual-region quorum health timeline* metric on the [System insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) dashboard. This metric is only available for dual-region configurations. It shows the health of three quorums:
 
   - The dual-region quorum: `  Global  `
   - The single region quorum in each region (for example, `  Sydney  ` and `  Melbourne  ` )
@@ -335,7 +335,7 @@ For faster recovery time objective (RTO), we recommend monitoring or setting up 
 
 Spanner also supports automatic, Google-managed failovers, which might take up to 45 minutes from the time the failure is first detected. The longer RTO is due to Google's service-wide monitoring. We need to gather additional signals to verify that the entire region is disrupted and validate that there is region-level impact. This also ensures that a failover results in better overall service for users in the configuration.
 
-To failover and failback manually, see [Change dual-region quorum](/spanner/docs/change-dual-region-quorum) .
+To failover and failback manually, see [Change dual-region quorum](https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum) .
 
 Consider the following when making manual failover and failback decisions:
 
@@ -347,15 +347,15 @@ Consider the following when making manual failover and failback decisions:
 
 Dual-region provides zero recovery point objective (RPO) because there is no data loss during a regional outage or when a network partition issue arises.
 
-To check the mode (single or dual) of your dual-region quorum, see [Check dual-region quorum](/spanner/docs/change-dual-region-quorum#check) .
+To check the mode (single or dual) of your dual-region quorum, see [Check dual-region quorum](https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum#check) .
 
 #### Failover and failback best practices
 
 Failover and failback best practices include:
 
   - Don't failover to a single region if no region failures or disruptions occur. Failing over to a single region increases the possibility of overall system unavailability if that single region fails.
-  - Be mindful when selecting the region to failover. Choosing a wrong region to failover results in database unavailability, which is unrecoverable before the region is back online. To verify, you can use a [bash script](/spanner/docs/change-dual-region-quorum#rest-gcloud) to check the health of your single region, before performing the failover.
-  - If the unhealthy region is the default leader region, [change the default leader region](/spanner/docs/modifying-leader-region#change-leader-region) to the failover region after performing the failover. After confirming both regions are healthy again, perform failback, then change the leader region back to your original leader region.
+  - Be mindful when selecting the region to failover. Choosing a wrong region to failover results in database unavailability, which is unrecoverable before the region is back online. To verify, you can use a [bash script](https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum#rest-gcloud) to check the health of your single region, before performing the failover.
+  - If the unhealthy region is the default leader region, [change the default leader region](https://docs.cloud.google.com/spanner/docs/modifying-leader-region#change-leader-region) to the failover region after performing the failover. After confirming both regions are healthy again, perform failback, then change the leader region back to your original leader region.
   - Remember to manually failback if you performed a manual failover.
 
 ### Limitations
@@ -364,7 +364,7 @@ You can't create a custom dual-region instance configuration. You can't add read
 
 ## Multi-region configurations
 
-**Note:** Multi-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** Multi-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner regional configurations replicate data between multiple zones within a single region. However, a regional configuration might not be optimal if:
 
@@ -379,7 +379,7 @@ Multi-region configurations can:
 
 Multi-region configurations let you replicate your databases in multiple zones across multiple regions, as defined by the instance configuration. Each multi-region configuration contains two read-write regions. A read-write region contains two read-write replicas located in separate zones. These replicas let you read data with lower latency from multiple locations close to or within the regions in the configuration.
 
-There are trade-offs though, because in a multi-region configuration, the quorum (read-write) replicas are spread across more than one region. You might notice additional network latency when these replicas communicate with each other to form a write quorum. Reads don't require a quorum. The result is that your application achieves faster reads in more places at the cost of a small increase in write latency. For more information, see [The role of replicas in writes and reads](/spanner/docs/replication#role-of-replicas) .
+There are trade-offs though, because in a multi-region configuration, the quorum (read-write) replicas are spread across more than one region. You might notice additional network latency when these replicas communicate with each other to form a write quorum. Reads don't require a quorum. The result is that your application achieves faster reads in more places at the cost of a small increase in write latency. For more information, see [The role of replicas in writes and reads](https://docs.cloud.google.com/spanner/docs/replication#role-of-replicas) .
 
 ### Available configurations
 
@@ -410,20 +410,20 @@ Spanner offers the following base multi-region instance configurations. To reque
 <tr class="odd">
 <td><code dir="ltr" translate="no">         asia1        </code></td>
 <td>global</td>
-<td>Tokyo: <code dir="ltr" translate="no">         asia-northeast1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Osaka: <code dir="ltr" translate="no">         asia-northeast2        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Tokyo: <code dir="ltr" translate="no">         asia-northeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Osaka: <code dir="ltr" translate="no">         asia-northeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Seoul: <code dir="ltr" translate="no">         asia-northeast3        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west1        </code> <a href="#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         us-east5        </code> <a href="#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">         us-east5        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         asia2        </code> <a href="#A"><em>A</em></a></td>
+<td><code dir="ltr" translate="no">         asia2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#A"><em>A</em></a></td>
 <td>global</td>
-<td>Mumbai: <code dir="ltr" translate="no">         asia-south1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Delhi: <code dir="ltr" translate="no">         asia-south2        </code> <a href="#2R"><em>2R</em></a><br />
-Singapore: <code dir="ltr" translate="no">         asia-southeast1        </code> <a href="#1R"><em>1R</em></a></td>
+<td>Mumbai: <code dir="ltr" translate="no">         asia-south1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Delhi: <code dir="ltr" translate="no">         asia-south2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Singapore: <code dir="ltr" translate="no">         asia-southeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a></td>
 <td>None</td>
 <td>None</td>
 <td></td>
@@ -431,40 +431,40 @@ Singapore: <code dir="ltr" translate="no">         asia-southeast1        </code
 <tr class="odd">
 <td><code dir="ltr" translate="no">         eur3        </code></td>
 <td>eu (European Union)</td>
-<td>Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Netherlands: <code dir="ltr" translate="no">         europe-west4        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Netherlands: <code dir="ltr" translate="no">         europe-west4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Finland: <code dir="ltr" translate="no">         europe-north1        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-central1        </code> <a href="#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         us-east4        </code> <a href="#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">         eur5        </code></td>
 <td>global</td>
-<td>London: <code dir="ltr" translate="no">         europe-west2        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>London: <code dir="ltr" translate="no">         europe-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Netherlands: <code dir="ltr" translate="no">         europe-west4        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-central1        </code> <a href="#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         us-east1        </code> <a href="#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">         eur6        </code></td>
 <td>global</td>
-<td>Netherlands: <code dir="ltr" translate="no">         europe-west4        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Netherlands: <code dir="ltr" translate="no">         europe-west4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Zurich: <code dir="ltr" translate="no">         europe-west6        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-east1        </code> <a href="#2-OR"><em>2-OR</em></a></td>
+<code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">         eur7        </code></td>
 <td>eu (European Union)</td>
-<td>Milan: <code dir="ltr" translate="no">         europe-west8        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Milan: <code dir="ltr" translate="no">         europe-west8        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Turin: <code dir="ltr" translate="no">         europe-west12        </code></td>
 <td></td>
@@ -472,66 +472,66 @@ Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <
 <tr class="odd">
 <td><code dir="ltr" translate="no">         nam3        </code></td>
 <td>us (United States)</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Iowa: <code dir="ltr" translate="no">         us-central1        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west2        </code> <a href="#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         asia-southeast1        </code> <a href="#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         asia-southeast2        </code> <a href="#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         europe-west1        </code> <a href="#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         europe-west2        </code> <a href="#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">         asia-southeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">         asia-southeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">         europe-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">         nam6        </code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="#2R"><em>2R</em></a></td>
-<td>Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="#1R"><em>1R</em></a><br />
-Los Angeles: <code dir="ltr" translate="no">         us-west2        </code> <a href="#1R"><em>1R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
+Los Angeles: <code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a></td>
 <td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">         nam7        </code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-east1        </code> <a href="#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">         us-south1        </code> <a href="#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         us-west1        </code> <a href="#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         europe-west1        </code> <a href="#2-OR"><em>2-OR</em></a></td>
+<code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
+<code dir="ltr" translate="no">         us-south1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">         nam8        </code></td>
 <td>us (United States)</td>
-<td>Los Angeles: <code dir="ltr" translate="no">         us-west2        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Los Angeles: <code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Salt Lake City: <code dir="ltr" translate="no">         us-west3        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         asia-southeast1        </code> <a href="#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">         europe-west2        </code> <a href="#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">         us-east5        </code> <a href="#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">         asia-southeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
+<code dir="ltr" translate="no">         europe-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
+<code dir="ltr" translate="no">         us-east5        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">         nam9        </code></td>
 <td>us (United States)</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#2R"><em>2R</em></a></td>
-<td>Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>South Carolina: <code dir="ltr" translate="no">         us-east1        </code></td>
 <td></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">         nam10        </code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Salt Lake City: <code dir="ltr" translate="no">         us-west3        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Salt Lake City: <code dir="ltr" translate="no">         us-west3        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
 <td></td>
@@ -539,27 +539,27 @@ Salt Lake City: <code dir="ltr" translate="no">         us-west3        </code> 
 <tr class="odd">
 <td><code dir="ltr" translate="no">         nam11        </code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west1        </code> <a href="#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">         nam12        </code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="#2R"><em>2R</em></a></td>
-<td>Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">         nam13        </code></td>
 <td>us (United States)</td>
-<td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Salt Lake City: <code dir="ltr" translate="no">         us-west3        </code></td>
 <td></td>
@@ -567,8 +567,8 @@ Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href
 <tr class="even">
 <td><code dir="ltr" translate="no">         nam14        </code></td>
 <td>global</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Montréal: <code dir="ltr" translate="no">         northamerica-northeast1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Montréal: <code dir="ltr" translate="no">         northamerica-northeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>South Carolina: <code dir="ltr" translate="no">         us-east1        </code></td>
 <td></td>
@@ -576,8 +576,8 @@ Montréal: <code dir="ltr" translate="no">         northamerica-northeast1      
 <tr class="odd">
 <td><code dir="ltr" translate="no">         nam15        </code></td>
 <td>us (United States)</td>
-<td>Dallas: <code dir="ltr" translate="no">         us-south1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Dallas: <code dir="ltr" translate="no">         us-south1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Iowa: <code dir="ltr" translate="no">         us-central1        </code></td>
 <td></td>
@@ -585,12 +585,12 @@ Northern Virginia: <code dir="ltr" translate="no">         us-east4        </cod
 <tr class="even">
 <td><code dir="ltr" translate="no">         nam16        </code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Columbus: <code dir="ltr" translate="no">         us-east5        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west2        </code> <a href="#2-OR"><em>2-OR</em></a></td>
+<code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
 </tr>
 </tbody>
 </table>
@@ -620,29 +620,29 @@ Northern Virginia: <code dir="ltr" translate="no">         us-east4        </cod
 <tr class="odd">
 <td><code dir="ltr" translate="no">         nam-eur-asia1        </code></td>
 <td>global</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-Oklahoma: <code dir="ltr" translate="no">         us-central2        </code> <a href="#2R"><em>2R</em></a></td>
-<td>Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="#2R"><em>2R</em></a><br />
-Taiwan: <code dir="ltr" translate="no">         asia-east1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Oklahoma: <code dir="ltr" translate="no">         us-central2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Taiwan: <code dir="ltr" translate="no">         asia-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>South Carolina: <code dir="ltr" translate="no">         us-east1        </code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west2        </code> <a href="#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">         nam-eur-asia3        </code></td>
 <td>global</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="#L"><em>L</em></a> , <a href="#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="#2R"><em>2R</em></a></td>
-<td>Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="#1R"><em>1R</em></a><br />
-Netherlands: <code dir="ltr" translate="no">         europe-west4        </code> <a href="#1R"><em>1R</em></a><br />
-Taiwan: <code dir="ltr" translate="no">         asia-east1        </code> <a href="#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
+Netherlands: <code dir="ltr" translate="no">         europe-west4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
+Taiwan: <code dir="ltr" translate="no">         asia-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 
-  - *L* : default leader region. For more information, see [Modify the leader region of a database](/spanner/docs/modifying-leader-region) .
+  - *L* : default leader region. For more information, see [Modify the leader region of a database](https://docs.cloud.google.com/spanner/docs/modifying-leader-region) .
 
   - *1R* : one replica in the region.
 
@@ -650,9 +650,9 @@ Taiwan: <code dir="ltr" translate="no">         asia-east1        </code> <a hre
 
   - *2RW+1W* : two read-write replicas and one witness replica in the region.
 
-  - *1-OR* : one optional replica. You can create a custom regional instance configuration and add one optional read-only replica. For more information, see [Create a custom instance configuration](/spanner/docs/create-manage-configurations#create-configuration) .
+  - *1-OR* : one optional replica. You can create a custom regional instance configuration and add one optional read-only replica. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
 
-  - *2-OR* : up to two optional replicas. You can create a custom regional instance configuration and add one or two optional read-only replicas. We recommend adding two (where possible) to help maintain low read latency. For more information, see [Create a custom instance configuration](/spanner/docs/create-manage-configurations#create-configuration) .
+  - *2-OR* : up to two optional replicas. You can create a custom regional instance configuration and add one or two optional read-only replicas. We recommend adding two (where possible) to help maintain low read latency. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
 
   - *A* : This instance configuration is restricted with an allow-list. To get access, reach out to your Technical Account Manager.
 
@@ -666,7 +666,7 @@ Multi-region instances offer these primary benefits:
 
   - **Data distribution** : Spanner automatically replicates your data between regions with strong consistency guarantees. This allows your data to be stored where it's used, which can reduce latency and improve the user experience.
 
-  - **External consistency** : Even though Spanner replicates across geographically distant locations, you can still use Spanner as if it were a database running on a single machine. Transactions are guaranteed to be serializable, and the order of transactions within the database is the same as the order in which clients observe the transactions to have been committed. External consistency is a stronger guarantee than "strong consistency," which is offered by some other products. Read more about this property in [TrueTime and external consistency](/spanner/docs/true-time-external-consistency) .
+  - **External consistency** : Even though Spanner replicates across geographically distant locations, you can still use Spanner as if it were a database running on a single machine. Transactions are guaranteed to be serializable, and the order of transactions within the database is the same as the order in which clients observe the transactions to have been committed. External consistency is a stronger guarantee than "strong consistency," which is offered by some other products. Read more about this property in [TrueTime and external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) .
 
 ### Replication
 
@@ -674,77 +674,48 @@ Each base multi-region configuration contains two regions that are designated as
 
 Each time a client issues a mutation to your database, a write quorum forms, consisting of one of the replicas from the default leader region and any two of the additional four voting replicas. (The quorum could be formed by replicas from two or three of the regions that make up your configuration, depending on which other replicas participate in the vote.) In addition to these five voting replicas, some base multi-region configurations contain read-only replicas for serving low-latency reads. The regions that contain read-only replicas are called **read-only regions** .
 
-In general, the voting regions in a multi-region configuration are placed geographically close—less than a thousand miles apart—to form a low-latency quorum that enables fast writes ( [learn more](/spanner/docs/replication#aside-why-read-only-and-witness-replicas) ). However, the regions are still far enough apart—typically, at least a few hundred miles—to avoid coordinated failures. In addition, if your client application is in a non-leader region, Spanner uses leader-aware routing to route read-write transactions dynamically to reduce latency in your database. For more information, see [Leader-aware routing](/spanner/docs/leader-aware-routing) .
+In general, the voting regions in a multi-region configuration are placed geographically close—less than a thousand miles apart—to form a low-latency quorum that enables fast writes ( [learn more](https://docs.cloud.google.com/spanner/docs/replication#aside-why-read-only-and-witness-replicas) ). However, the regions are still far enough apart—typically, at least a few hundred miles—to avoid coordinated failures. In addition, if your client application is in a non-leader region, Spanner uses leader-aware routing to route read-write transactions dynamically to reduce latency in your database. For more information, see [Leader-aware routing](https://docs.cloud.google.com/spanner/docs/leader-aware-routing) .
 
-You can [create a custom multi-region instance configuration](/spanner/docs/create-manage-configurations#create-configuration) with optional read-only replicas. Any custom read-only replicas you create can't be included in write quorums. You can add locations listed under the Optional Region column as optional read-only replica(s). If you don't see your chosen read-only replica location, you can [request a new optional read-only replica region](https://docs.google.com/forms/d/e/1FAIpQLSfw9Rj4p4KA8oLu7MhIpSyPRd-4qxqazwsFZIY-_tkNrpWFcw/viewform) . For more information, see [Read-only replicas](/spanner/docs/replication#read-only) .
+You can [create a custom multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) with optional read-only replicas. Any custom read-only replicas you create can't be included in write quorums. You can add locations listed under the Optional Region column as optional read-only replica(s). If you don't see your chosen read-only replica location, you can [request a new optional read-only replica region](https://docs.google.com/forms/d/e/1FAIpQLSfw9Rj4p4KA8oLu7MhIpSyPRd-4qxqazwsFZIY-_tkNrpWFcw/viewform) . For more information, see [Read-only replicas](https://docs.cloud.google.com/spanner/docs/replication#read-only) .
 
-**Note:** if you are interested in more detailed information about how data is replicated in Spanner, and about the different types of replicas and their roles in reads and writes, see [Replication](/spanner/docs/replication) .
+**Note:** if you are interested in more detailed information about how data is replicated in Spanner, and about the different types of replicas and their roles in reads and writes, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
 
 ### Performance best practices for multi-region configurations
 
 For optimal performance, follow these best practices:
 
-  - [Design a schema](/spanner/docs/schema-design) that prevents hotspots and other performance issues.
+  - [Design a schema](https://docs.cloud.google.com/spanner/docs/schema-design) that prevents hotspots and other performance issues.
   - For optimal write latency, place compute resources for write-heavy workloads within or close to the default leader region.
   - For optimal read performance outside of the default leader region, use staleness of at least 15 seconds.
   - To avoid single-region dependency for your workloads, place critical compute resources in at least two regions. A good option is to place them next to the two different read-write regions so that any single region outage won't impact all of your application.
-  - Provision enough [compute capacity](/spanner/docs/compute-capacity) to keep high priority total CPU utilization under 45% in each region.
-  - For information about the amount of throughput per Spanner node, see [Performance for multi-region configurations](/spanner/docs/performance#multi-region-performance) .
+  - Provision enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to keep high priority total CPU utilization under 45% in each region.
+  - For information about the amount of throughput per Spanner node, see [Performance for multi-region configurations](https://docs.cloud.google.com/spanner/docs/performance#multi-region-performance) .
 
 ## Move an instance
 
-You can move your Spanner instance from any instance configuration to any other instance configuration, including between regional and multi-region configurations. Moving your instance does not cause downtime, and Spanner continues to provide the usual [transaction guarantees](/spanner/docs/transactions#rw_transaction_properties) , including strong consistency, during the move.
+You can move your Spanner instance from any instance configuration to any other instance configuration, including between regional and multi-region configurations. Moving your instance does not cause downtime, and Spanner continues to provide the usual [transaction guarantees](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_properties) , including strong consistency, during the move.
 
-To learn more about Spanner instance move, see [Move an instance](/spanner/docs/move-instance) .
+To learn more about Spanner instance move, see [Move an instance](https://docs.cloud.google.com/spanner/docs/move-instance) .
 
 ## Configure the default leader region
 
-To change the location of your database's default leader region to be closer to connecting clients to reduce application latency, you can change the leader region for any Spanner instance that uses a dual-region or multi-region configuration. For instructions on changing the location of the leader region, see [Change the leader region of a database](/spanner/docs/modifying-leader-region#changing_the_leader_region_of_a_db) . The only regions eligible to become the default leader region for your database are the read-write regions in your [dual-region](/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](/spanner/docs/instance-configurations#available-configurations-multi-region) configuration.
+To change the location of your database's default leader region to be closer to connecting clients to reduce application latency, you can change the leader region for any Spanner instance that uses a dual-region or multi-region configuration. For instructions on changing the location of the leader region, see [Change the leader region of a database](https://docs.cloud.google.com/spanner/docs/modifying-leader-region#changing_the_leader_region_of_a_db) . The only regions eligible to become the default leader region for your database are the read-write regions in your [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) configuration.
 
 The leader region is responsible for handling all database writes, therefore if most of your traffic comes from one geographic region, you can move it to that region to reduce latency. Updating the default leader region is cheap and does not involve any data moves. The new value takes a few minutes to take effect.
 
 **Note:** In the event that the default leader region fails or is not available, Spanner automatically places your database's leader replicas in the second read-write region of your instance configuration, ensuring high availability and no impact to your application.
 
-Changing the default leader region is a [schema change](/spanner/docs/schema-updates) , which uses a long-running operation. If needed, you can [Get the status of the long-running operation](/spanner/docs/manage-long-running-operations#get_the_status_of_a_long-running_database_operation) .
+Changing the default leader region is a [schema change](https://docs.cloud.google.com/spanner/docs/schema-updates) , which uses a long-running operation. If needed, you can [Get the status of the long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations#get_the_status_of_a_long-running_database_operation) .
 
 ## Trade-offs: regional versus dual-region versus multi-region configurations
 
-<table>
-<thead>
-<tr class="header">
-<th>Configuration</th>
-<th>Availability</th>
-<th>Latency</th>
-<th>Cost</th>
-<th>Data Locality</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Regional</td>
-<td>99.99%</td>
-<td>Lower write latencies within region.</td>
-<td>Lower cost; see <a href="/spanner/pricing">pricing</a> .</td>
-<td>Enables geographic data governance.</td>
-</tr>
-<tr class="even">
-<td>Dual-region</td>
-<td>99.999%</td>
-<td>Lower read latencies from two geographic regions; a small increase in write latency.</td>
-<td>Higher cost; see <a href="/spanner/pricing">pricing</a> .</td>
-<td>Distributes data across two regions in a single country.</td>
-</tr>
-<tr class="odd">
-<td>Multi-region</td>
-<td>99.999%</td>
-<td>Lower read latencies from multiple geographic regions; a small increase in write latency.</td>
-<td>Higher cost; see <a href="/spanner/pricing">pricing</a> .</td>
-<td>Distributes data across multiple regions within the configuration.</td>
-</tr>
-</tbody>
-</table>
+| Configuration | Availability | Latency                                                                                   | Cost                                                                        | Data Locality                                                      |
+| ------------- | ------------ | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Regional      | 99.99%       | Lower write latencies within region.                                                      | Lower cost; see [pricing](https://docs.cloud.google.com/spanner/pricing) .  | Enables geographic data governance.                                |
+| Dual-region   | 99.999%      | Lower read latencies from two geographic regions; a small increase in write latency.      | Higher cost; see [pricing](https://docs.cloud.google.com/spanner/pricing) . | Distributes data across two regions in a single country.           |
+| Multi-region  | 99.999%      | Lower read latencies from multiple geographic regions; a small increase in write latency. | Higher cost; see [pricing](https://docs.cloud.google.com/spanner/pricing) . | Distributes data across multiple regions within the configuration. |
 
 ## What's next
 
-  - Learn how to [create a Spanner instance](/spanner/docs/create-manage-instances#create-instance) .
-  - Learn more about [Google Cloud geography and regions](/docs/geography-and-regions) .
+  - Learn how to [create a Spanner instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) .
+  - Learn more about [Google Cloud geography and regions](https://docs.cloud.google.com/docs/geography-and-regions) .

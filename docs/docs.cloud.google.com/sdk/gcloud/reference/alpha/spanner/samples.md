@@ -14,7 +14,7 @@ These sample apps are open source and available at <https://github.com/GoogleClo
 
 To see a list of available sample apps, run:
 
-``` text
+``` wrap-code
 gcloud spanner samples list
 ```
 
@@ -43,10 +43,10 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner samples
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner samples
 ```

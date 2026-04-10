@@ -2,27 +2,23 @@ GoogleSQL for Spanner supports subqueries.
 
 ## About subqueries
 
-A subquery is a [query](/spanner/docs/reference/standard-sql/query-syntax) that appears inside another query statement. Subqueries are also referred to as sub- `  SELECT  ` s or nested `  SELECT  ` s. The full `  SELECT  ` syntax is valid in subqueries.
+A subquery is a [query](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) that appears inside another query statement. Subqueries are also referred to as sub- `  SELECT  ` s or nested `  SELECT  ` s. The full `  SELECT  ` syntax is valid in subqueries.
 
 The `  WITH  ` clause isn't supported on a subquery. This returns an error:
 
-``` text
-SELECT username
-FROM (
-  WITH result AS (SELECT * FROM NPCs)
-  SELECT *
-  FROM result);
-```
+    SELECT username
+    FROM (
+      WITH result AS (SELECT * FROM NPCs)
+      SELECT *
+      FROM result);
 
 ## Expression subqueries
 
-Expression subqueries are used in a query wherever expressions are valid. They return a single value, as opposed to a column or table. Expression subqueries can be [correlated](#correlated_subquery_concepts) .
+Expression subqueries are used in a query wherever expressions are valid. They return a single value, as opposed to a column or table. Expression subqueries can be [correlated](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#correlated_subquery_concepts) .
 
 ### Scalar subqueries
 
-``` text
-( subquery )
-```
+    ( subquery )
 
 **Description**
 
@@ -36,48 +32,42 @@ If the subquery returns exactly one row, that single value is the scalar subquer
 
 **Examples**
 
-In this example, a correlated scalar subquery returns the mascots for a list of players, using the [`  Players  `](#example_tables) and [`  Mascots  `](#example_tables) tables:
+In this example, a correlated scalar subquery returns the mascots for a list of players, using the [`  Players  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) and [`  Mascots  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) tables:
 
-``` text
-SELECT
-  username,
-  (SELECT mascot FROM Mascots WHERE Players.team = Mascots.team) AS player_mascot
-FROM
-  Players;
+    SELECT
+      username,
+      (SELECT mascot FROM Mascots WHERE Players.team = Mascots.team) AS player_mascot
+    FROM
+      Players;
+    
+    /*---------------------------+
+     | username  | player_mascot |
+     +---------------------------+
+     | gorbie    | cardinal      |
+     | junelyn   | finch         |
+     | corba     | parrot        |
+     +---------------------------*/
 
-/*---------------------------+
- | username  | player_mascot |
- +---------------------------+
- | gorbie    | cardinal      |
- | junelyn   | finch         |
- | corba     | parrot        |
- +---------------------------*/
-```
+In this example, an aggregate scalar subquery calculates `  avg_level  ` , the average level of a user in the [`  Players  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) table.
 
-In this example, an aggregate scalar subquery calculates `  avg_level  ` , the average level of a user in the [`  Players  `](#example_tables) table.
-
-``` text
-SELECT
-  username,
-  level,
-  (SELECT AVG(level) FROM Players) AS avg_level
-FROM
-  Players;
-
-/*---------------------------------------+
- | username  | level      | avg_level    |
- +---------------------------------------+
- | gorbie    | 29         | 24.66        |
- | junelyn   | 2          | 24.66        |
- | corba     | 43         | 24.66        |
- +---------------------------------------*/
-```
+    SELECT
+      username,
+      level,
+      (SELECT AVG(level) FROM Players) AS avg_level
+    FROM
+      Players;
+    
+    /*---------------------------------------+
+     | username  | level      | avg_level    |
+     +---------------------------------------+
+     | gorbie    | 29         | 24.66        |
+     | junelyn   | 2          | 24.66        |
+     | corba     | 43         | 24.66        |
+     +---------------------------------------*/
 
 ### Array subqueries
 
-``` text
-ARRAY ( subquery )
-```
+    ARRAY ( subquery )
 
 **Description**
 
@@ -87,62 +77,52 @@ The `  SELECT  ` list in an ARRAY subquery must have exactly one column of any t
 
 ARRAY subqueries can use `  SELECT AS STRUCT  ` to build arrays of structs. ARRAY subqueries can use `  SELECT AS ProtocolBufferName  ` to build arrays of PROTOs.
 
-See [Array functions](/spanner/docs/reference/standard-sql/array_functions#array) for full semantics.
+See [Array functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array) for full semantics.
 
 **Examples**
 
-In this example, an ARRAY subquery returns an array of usernames assigned to the red team in the [`  NPCs  `](#example_tables) table:
+In this example, an ARRAY subquery returns an array of usernames assigned to the red team in the [`  NPCs  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) table:
 
-``` text
-SELECT
-  ARRAY(SELECT username FROM NPCs WHERE team = 'red') AS red;
-
-/*-----------------+
- | red             |
- +-----------------+
- | [niles,jujul]   |
- +-----------------*/
-```
+    SELECT
+      ARRAY(SELECT username FROM NPCs WHERE team = 'red') AS red;
+    
+    /*-----------------+
+     | red             |
+     +-----------------+
+     | [niles,jujul]   |
+     +-----------------*/
 
 ### `     IN    ` subqueries
 
-``` text
-value [ NOT ] IN ( subquery )
-```
+    value [ NOT ] IN ( subquery )
 
 **Description**
 
 Returns TRUE if `  value  ` is in the set of rows returned by the subquery. Returns FALSE if the subquery returns zero rows.
 
-The subquery's SELECT list must have a single column of any type and its type must be comparable to the type for `  value  ` . If not, an error is returned. For full semantics, including `  NULL  ` handling, see the [`  IN  ` operator](/spanner/docs/reference/standard-sql/operators#in_operators) .
+The subquery's SELECT list must have a single column of any type and its type must be comparable to the type for `  value  ` . If not, an error is returned. For full semantics, including `  NULL  ` handling, see the [`  IN  ` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#in_operators) .
 
 If you need to use an `  IN  ` subquery with an array, these are equivalent:
 
-``` text
-value [ NOT ] IN ( subquery )
-value [ NOT ] IN UNNEST( ARRAY( subquery ) )
-```
+    value [ NOT ] IN ( subquery )
+    value [ NOT ] IN UNNEST( ARRAY( subquery ) )
 
 **Examples**
 
-In this example, the `  IN  ` operator that checks to see if a username called `  corba  ` exists within the [`  Players  `](#example_tables) table:
+In this example, the `  IN  ` operator that checks to see if a username called `  corba  ` exists within the [`  Players  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) table:
 
-``` text
-SELECT
-  'corba' IN (SELECT username FROM Players) AS result;
-
-/*--------+
- | result |
- +--------+
- | TRUE   |
- +--------*/
-```
+    SELECT
+      'corba' IN (SELECT username FROM Players) AS result;
+    
+    /*--------+
+     | result |
+     +--------+
+     | TRUE   |
+     +--------*/
 
 ### `     EXISTS    ` subqueries
 
-``` text
-EXISTS( subquery )
-```
+    EXISTS( subquery )
 
 **Description**
 
@@ -150,24 +130,20 @@ Returns TRUE if the subquery produces one or more rows. Returns FALSE if the sub
 
 **Examples**
 
-In this example, the `  EXISTS  ` operator that checks to see if any rows are produced, using the [`  Players  `](#example_tables) table:
+In this example, the `  EXISTS  ` operator that checks to see if any rows are produced, using the [`  Players  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) table:
 
-``` text
-SELECT
-  EXISTS(SELECT username FROM Players WHERE team = 'yellow') AS result;
-
-/*--------+
- | result |
- +--------+
- | FALSE  |
- +--------*/
-```
+    SELECT
+      EXISTS(SELECT username FROM Players WHERE team = 'yellow') AS result;
+    
+    /*--------+
+     | result |
+     +--------+
+     | FALSE  |
+     +--------*/
 
 ## Table subqueries
 
-``` text
-FROM ( subquery ) [ [ AS ] alias ]
-```
+    FROM ( subquery ) [ [ AS ] alias ]
 
 **Description**
 
@@ -175,58 +151,52 @@ With table subqueries, the outer query treats the result of the subquery as a ta
 
 **Examples**
 
-In this example, a subquery returns a table of usernames from the [`  Players  `](#example_tables) table:
+In this example, a subquery returns a table of usernames from the [`  Players  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) table:
 
-``` text
-SELECT results.username
-FROM (SELECT * FROM Players) AS results;
-
-/*-----------+
- | username  |
- +-----------+
- | gorbie    |
- | junelyn   |
- | corba     |
- +-----------*/
-```
+    SELECT results.username
+    FROM (SELECT * FROM Players) AS results;
+    
+    /*-----------+
+     | username  |
+     +-----------+
+     | gorbie    |
+     | junelyn   |
+     | corba     |
+     +-----------*/
 
 ## Correlated subqueries
 
-A correlated subquery is a subquery that references a column from outside that subquery. Correlation prevents reusing of the subquery result. You can learn more about this [here](#evaluation_rules_subqueries) .
+A correlated subquery is a subquery that references a column from outside that subquery. Correlation prevents reusing of the subquery result. You can learn more about this [here](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#evaluation_rules_subqueries) .
 
 **Examples**
 
-In this example, a list of mascots that don't have any players assigned to them are returned. The [`  Mascots  `](#example_tables) and [`  Players  `](#example_tables) tables are referenced.
+In this example, a list of mascots that don't have any players assigned to them are returned. The [`  Mascots  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) and [`  Players  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) tables are referenced.
 
-``` text
-SELECT mascot
-FROM Mascots
-WHERE
-  NOT EXISTS(SELECT username FROM Players WHERE Mascots.team = Players.team);
+    SELECT mascot
+    FROM Mascots
+    WHERE
+      NOT EXISTS(SELECT username FROM Players WHERE Mascots.team = Players.team);
+    
+    /*----------+
+     | mascot   |
+     +----------+
+     | sparrow  |
+     +----------*/
 
-/*----------+
- | mascot   |
- +----------+
- | sparrow  |
- +----------*/
-```
+In this example, a correlated scalar subquery returns the mascots for a list of players, using the [`  Players  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) and [`  Mascots  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) tables:
 
-In this example, a correlated scalar subquery returns the mascots for a list of players, using the [`  Players  `](#example_tables) and [`  Mascots  `](#example_tables) tables:
-
-``` text
-SELECT
-  username,
-  (SELECT mascot FROM Mascots WHERE Players.team = Mascots.team) AS player_mascot
-FROM Players;
-
-/*---------------------------+
- | username  | player_mascot |
- +---------------------------+
- | gorbie    | cardinal      |
- | junelyn   | finch         |
- | corba     | parrot        |
- +---------------------------*/
-```
+    SELECT
+      username,
+      (SELECT mascot FROM Mascots WHERE Players.team = Mascots.team) AS player_mascot
+    FROM Players;
+    
+    /*---------------------------+
+     | username  | player_mascot |
+     +---------------------------+
+     | gorbie    | cardinal      |
+     | junelyn   | finch         |
+     | corba     | parrot        |
+     +---------------------------*/
 
 ## Volatile subqueries
 
@@ -234,23 +204,21 @@ A volatile subquery is a subquery that doesn't always produce the same result ov
 
 **Examples**
 
-In this example, a random number of usernames are returned from the [`  Players  `](#example_tables) table.
+In this example, a random number of usernames are returned from the [`  Players  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#example_tables) table.
 
-``` text
-SELECT
-  results.username
-FROM
-  (SELECT * FROM Players WHERE RAND() < 0.5) AS results;
-
--- The results aren't always the same when you execute
--- the preceding query, but will look similar to this:
-/*----------+
- | username |
- +----------+
- | gorbie   |
- | junelyn  |
- +----------*/
-```
+    SELECT
+      results.username
+    FROM
+      (SELECT * FROM Players WHERE RAND() < 0.5) AS results;
+    
+    -- The results aren't always the same when you execute
+    -- the preceding query, but will look similar to this:
+    /*----------+
+     | username |
+     +----------+
+     | gorbie   |
+     | junelyn  |
+     +----------*/
 
 ## Evaluation rules for subqueries
 
@@ -264,59 +232,51 @@ Some subqueries are evaluated once, others more often.
 
 Some examples reference a table called `  Players  ` :
 
-``` text
-/*-----------------------------+
- | username  | level   | team  |
- +-----------------------------+
- | gorbie    | 29      | red   |
- | junelyn   | 2       | blue  |
- | corba     | 43      | green |
- +-----------------------------*/
-```
+    /*-----------------------------+
+     | username  | level   | team  |
+     +-----------------------------+
+     | gorbie    | 29      | red   |
+     | junelyn   | 2       | blue  |
+     | corba     | 43      | green |
+     +-----------------------------*/
 
 Some examples reference a table called `  NPCs  ` :
 
-``` text
-/*-------------------+
- | username  | team  |
- +-------------------+
- | niles     | red   |
- | jujul     | red   |
- | effren    | blue  |
- +-------------------*/
-```
+    /*-------------------+
+     | username  | team  |
+     +-------------------+
+     | niles     | red   |
+     | jujul     | red   |
+     | effren    | blue  |
+     +-------------------*/
 
 Some examples reference a table called `  Mascots  ` :
 
-``` text
-/*-------------------+
- | mascot   | team   |
- +-------------------+
- | cardinal | red    |
- | parrot   | green  |
- | finch    | blue   |
- | sparrow  | yellow |
- +-------------------*/
-```
+    /*-------------------+
+     | mascot   | team   |
+     +-------------------+
+     | cardinal | red    |
+     | parrot   | green  |
+     | finch    | blue   |
+     | sparrow  | yellow |
+     +-------------------*/
 
 You can use this `  WITH  ` clause to emulate temporary table names for `  Players  ` and `  NPCs  ` in subqueries that support the `  WITH  ` clause.:
 
-``` text
-WITH
-  Players AS (
-    SELECT 'gorbie' AS username, 29 AS level, 'red' AS team UNION ALL
-    SELECT 'junelyn', 2 , 'blue' UNION ALL
-    SELECT 'corba', 43, 'green'),
-  NPCs AS (
-    SELECT 'niles' AS username, 'red' AS team UNION ALL
-    SELECT 'jujul', 'red' UNION ALL
-    SELECT 'effren', 'blue'),
-  Mascots AS (
-    SELECT 'cardinal' AS mascot , 'red' AS team UNION ALL
-    SELECT 'parrot', 'green' UNION ALL
-    SELECT 'finch', 'blue' UNION ALL
-    SELECT 'sparrow', 'yellow')
-SELECT * FROM (
-  SELECT username, team FROM Players UNION ALL
-  SELECT username, team FROM NPCs);
-```
+    WITH
+      Players AS (
+        SELECT 'gorbie' AS username, 29 AS level, 'red' AS team UNION ALL
+        SELECT 'junelyn', 2 , 'blue' UNION ALL
+        SELECT 'corba', 43, 'green'),
+      NPCs AS (
+        SELECT 'niles' AS username, 'red' AS team UNION ALL
+        SELECT 'jujul', 'red' UNION ALL
+        SELECT 'effren', 'blue'),
+      Mascots AS (
+        SELECT 'cardinal' AS mascot , 'red' AS team UNION ALL
+        SELECT 'parrot', 'green' UNION ALL
+        SELECT 'finch', 'blue' UNION ALL
+        SELECT 'sparrow', 'yellow')
+    SELECT * FROM (
+      SELECT username, team FROM Players UNION ALL
+      SELECT username, team FROM NPCs);

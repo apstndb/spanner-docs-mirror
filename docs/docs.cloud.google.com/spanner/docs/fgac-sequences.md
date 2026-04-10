@@ -1,4 +1,4 @@
-This page explains how [fine-grained access control](/spanner/docs/fgac-about) works with Spanner sequences for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
+This page explains how [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) works with Spanner sequences for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 For fine-grained access control users, you can grant either one or both of the following privileges to allow access to read sequence information or generate values from the sequence.
 
@@ -6,29 +6,21 @@ For fine-grained access control users, you can grant either one or both of the f
     
     ### GoogleSQL
     
-    ``` text
-    GRANT SELECT ON SEQUENCE SEQUENCE_NAME TO ROLE ROLE_NAME;
-    ```
+        GRANT SELECT ON SEQUENCE SEQUENCE_NAME TO ROLE ROLE_NAME;
     
     ### PostgreSQL
     
-    ``` text
-    GRANT SELECT ON SEQUENCE SEQUENCE_NAME TO ROLE_NAME;
-    ```
+        GRANT SELECT ON SEQUENCE SEQUENCE_NAME TO ROLE_NAME;
 
   - Grant `  UPDATE  ` on the sequence to allow calls to the sequence value generator.
     
     ### GoogleSQL
     
-    ``` text
-    GRANT UPDATE ON SEQUENCE SEQUENCE_NAME TO ROLE ROLE_NAME;
-    ```
+        GRANT UPDATE ON SEQUENCE SEQUENCE_NAME TO ROLE ROLE_NAME;
     
     ### PostgreSQL
     
-    ``` text
-    GRANT UPDATE ON SEQUENCE SEQUENCE_NAME TO ROLE_NAME;
-    ```
+        GRANT UPDATE ON SEQUENCE SEQUENCE_NAME TO ROLE_NAME;
 
 ## Required privileges for sequence operations
 
@@ -71,7 +63,7 @@ The following table contains details about which privileges you require when per
 
 ## What's next
 
-  - Learn more about using [sequences](/spanner/docs/primary-key-default-value#bit-reversed-sequence) in Spanner.
-  - Learn about `  SEQUENCE  ` for [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) .
-  - Learn about sequence functions in [GoogleSQL](/spanner/docs/reference/standard-sql/sequence_functions) or [PostgreSQL](/spanner/docs/reference/postgresql/functions-and-operators#sequence) .
-  - Learn about sequences in the `  INFORMATION_SCHEMA  ` in [GoogleSQL](/spanner/docs/information-schema#sequences) or [PostgreSQL](/spanner/docs/information-schema-pg#sequences) .
+  - Learn more about using [sequences](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#bit-reversed-sequence) in Spanner.
+  - Learn about `  SEQUENCE  ` for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) .
+  - Learn about sequence functions in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence) .
+  - Learn about sequences in the `  INFORMATION_SCHEMA  ` in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/information-schema#sequences) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/information-schema-pg#sequences) .

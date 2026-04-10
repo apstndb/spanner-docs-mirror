@@ -2,21 +2,19 @@ This page explains how to connect the PostgreSQL psycopg2 driver to a PostgreSQL
 
 Verify that PGAdapter is running on the same machine as the application that is connecting using the PostgreSQL psycopg2 driver.
 
-For more information, see [Start PGAdapter](/spanner/docs/pgadapter-start) .
+For more information, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
-``` text
-connection = psycopg2.connect(database="DATABASE_NAME",
-                              host="APPLICATION_HOST",
-                              port=PORT)
-
-cursor = connection.cursor()
-cursor.execute('select \'Hello World\'')
-for row in cursor:
-  print(row)
-
-cursor.close()
-connection.close()
-```
+    connection = psycopg2.connect(database="DATABASE_NAME",
+                                  host="APPLICATION_HOST",
+                                  port=PORT)
+    
+    cursor = connection.cursor()
+    cursor.execute('select \'Hello World\'')
+    for row in cursor:
+      print(row)
+    
+    cursor.close()
+    connection.close()
 
 Replace the following:
 
@@ -29,19 +27,17 @@ This section explains how to use Unix domain sockets to connect to a PostgreSQL-
 
 To use Unix domain sockets, PGAdapter must be running on the same host as the client application.
 
-``` text
-connection = psycopg2.connect(database="DATABASE_NAME",
-                              host="/tmp",
-                              port=PORT)
-
-cursor = connection.cursor()
-cursor.execute('select \'Hello World\'')
-for row in cursor:
-  print(row)
-
-cursor.close()
-connection.close()
-```
+    connection = psycopg2.connect(database="DATABASE_NAME",
+                                  host="/tmp",
+                                  port=PORT)
+    
+    cursor = connection.cursor()
+    cursor.execute('select \'Hello World\'')
+    for row in cursor:
+      print(row)
+    
+    cursor.close()
+    connection.close()
 
 Replace the following:
 
@@ -50,5 +46,5 @@ Replace the following:
 
 ## What's next
 
-  - Learn more about [PGAdapter](/spanner/docs/pgadapter) .
+  - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
   - For more information about PostgreSQL psycopg2 driver connection options, see [psycopg2 Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/psycopg2.md) in the PGAdapter GitHub repository.

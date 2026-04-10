@@ -1,4 +1,4 @@
-This page provides a detailed description of each client-side metric that Spanner offers. For more information about viewing and managing client-side metrics, see [View and manage client-side metrics](/spanner/docs/view-manage-client-side-metrics) .
+This page provides a detailed description of each client-side metric that Spanner offers. For more information about viewing and managing client-side metrics, see [View and manage client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) .
 
 Client-side metrics offer latency information about the client's RPC request *attempts* and *operations* to Spanner.
 
@@ -6,13 +6,13 @@ An attempt is a single RPC request from the client to Spanner. The client can ma
 
 An operation represents completion of all RPC requests, including all the attempts the client made to Spanner. An operation is completed when the client receives a response or exhausts all attempts.
 
-An RPC request first reaches the Google frontend (GFE) and then the Spanner API frontend (AFE). For more information, see [Latency points in a Spanner request](/spanner/docs/latency-points) .
+An RPC request first reaches the Google frontend (GFE) and then the Spanner API frontend (AFE). For more information, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .
 
-These metrics include `  DISTRIBUTION  ` and `  INT64  ` metric value types. For more information, see [Value types and metric kinds](/monitoring/api/v3/kinds-and-types) .
+These metrics include `  DISTRIBUTION  ` and `  INT64  ` metric value types. For more information, see [Value types and metric kinds](https://docs.cloud.google.com/monitoring/api/v3/kinds-and-types) .
 
 You can access client-side metrics using the Spanner client libraries for Java, Go, Node.js and Python.
 
-The client-side metrics support all Spanner methods in the [`  google.spanner.v1.Spanner  `](/spanner/docs/reference/rpc#google.spanner.v1.spanner) RPC API.
+The client-side metrics support all Spanner methods in the [`  google.spanner.v1.Spanner  `](https://docs.cloud.google.com/spanner/docs/reference/rpc#google.spanner.v1.spanner) RPC API.
 
 All client-side metrics have the following dimensions:
 
@@ -98,5 +98,5 @@ The Operation latencies metric has the following attributes:
 
 ## What's next
 
-  - [Client metrics overview](/spanner/docs/view-manage-client-side-metrics)
-  - [Signal capture overview](/spanner/docs/signal-capture-overview)
+  - [Client metrics overview](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics)
+  - [Signal capture overview](https://docs.cloud.google.com/spanner/docs/signal-capture-overview)

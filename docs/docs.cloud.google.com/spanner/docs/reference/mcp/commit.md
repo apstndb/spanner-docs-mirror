@@ -15,7 +15,7 @@ The following sample demonstrate how to use `  curl  ` to invoke the `  commit  
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
 curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 --header &#39;content-type: application/json&#39; \
 --header &#39;accept: application/json, text/event-stream&#39; \
@@ -52,7 +52,7 @@ The request for `  Commit  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;session&quot;: string,
   &quot;transactionId&quot;: string,
   &quot;precommitToken&quot;: {
@@ -98,7 +98,7 @@ Required. You must include the precommit token with the highest sequence number 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;precommitToken&quot;: string,
   &quot;seqNum&quot;: integer
 }</code></pre></td>
@@ -139,7 +139,7 @@ The response for `  Commit  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;commitTimestamp&quot;: string,
   &quot;commitStats&quot;: {
     object (CommitStats)
@@ -201,7 +201,7 @@ If specified, transaction has not committed yet. You must retry the commit with 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;seconds&quot;: string,
   &quot;nanos&quot;: integer
 }</code></pre></td>
@@ -236,7 +236,7 @@ Non-negative fractions of a second at nanosecond resolution. This field is the n
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;mutationCount&quot;: string
 }</code></pre></td>
 </tr>
@@ -264,7 +264,7 @@ The total number of mutations for the transaction. Knowing the `  mutation_count
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;precommitToken&quot;: string,
   &quot;seqNum&quot;: integer
 }</code></pre></td>

@@ -1,5 +1,5 @@
-  - [Resource](#RESOURCE_REPRESENTATION)
-  - [Methods](#METHODS_SUMMARY)
+  - [Resource](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backupOperations#RESOURCE_REPRESENTATION)
+  - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backupOperations#METHODS_SUMMARY)
 
 ## Resource
 

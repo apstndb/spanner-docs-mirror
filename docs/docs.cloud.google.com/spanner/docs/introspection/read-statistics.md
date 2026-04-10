@@ -16,7 +16,7 @@ Read statistics provide insight into how an application is using the database, a
 
 ## Access read statistics
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](/spanner/docs/manage-data-using-console) .
+**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 Spanner provides the read statistics in the `  SPANNER_SYS  ` schema. You can use the following ways to access `  SPANNER_SYS  ` data:
 
@@ -24,7 +24,7 @@ Spanner provides the read statistics in the `  SPANNER_SYS  ` schema. You can us
 
   - The `  gcloud spanner databases execute-sql  ` command.
 
-  - The [`  executeSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
+  - The [`  executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
 
 The following single read methods that Spanner provides don't support `  SPANNER_SYS  ` :
 
@@ -82,7 +82,7 @@ These tables have the following properties:
 <tr class="even">
 <td><code dir="ltr" translate="no">       REQUEST_TAG      </code></td>
 <td><code dir="ltr" translate="no">       STRING      </code></td>
-<td>The optional request tag for this read operation. For more information about using tags, see <a href="/spanner/docs/introspection/troubleshooting-with-tags#request_tags">Troubleshooting with request tags</a> . Statistics for multiple reads that have the same tag string are grouped in a single row with the `REQUEST_TAG` matching that tag string.</td>
+<td>The optional request tag for this read operation. For more information about using tags, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#request_tags">Troubleshooting with request tags</a> . Statistics for multiple reads that have the same tag string are grouped in a single row with the `REQUEST_TAG` matching that tag string.</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">       READ_TYPE      </code></td>
@@ -142,131 +142,61 @@ These tables have the following properties:
 <tr class="even">
 <td><code dir="ltr" translate="no">       AVG_DISK_IO_COST      </code></td>
 <td><code dir="ltr" translate="no">       FLOAT64      </code></td>
-<td><p>The average cost of this query in terms of Spanner HDD <a href="/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load">disk load</a> .</p>
-<p>Use this value to make relative HDD I/O cost comparisons between reads that you run in the database. Querying data on HDD storage incurs a charge against the HDD disk load capacity of the instance. A higher value indicates that you are using more HDD disk load and your query might be slower than if it was running on SSD. Furthermore, if your HDD disk load is at capacity, the performance of your queries might be further impacted. You can monitor the total <a href="/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load">HDD disk load</a> capacity of the instance as a percentage. To add more HDD disk load capacity, you can add more processing units or nodes to your instance. For more information, see <a href="/spanner/docs/create-manage-instances#change-compute-capacity">Change the compute capacity</a> . To improve query performance, also consider moving some data to SSD.</p>
-<p>For workloads that consume a lot of disk I/O, we recommend that you store frequently accessed data on SSD storage. Data accessed from SSD doesn't consume HDD disk load capacity. You can store selective tables, columns, or secondary indexes on SSD storage as needed, while keeping infrequently accessed data on HDD storage. For more information, see <a href="/spanner/docs/tiered-storage">Tiered storage overview</a> .</p></td>
+<td><p>The average cost of this query in terms of Spanner HDD <a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load">disk load</a> .</p>
+<p>Use this value to make relative HDD I/O cost comparisons between reads that you run in the database. Querying data on HDD storage incurs a charge against the HDD disk load capacity of the instance. A higher value indicates that you are using more HDD disk load and your query might be slower than if it was running on SSD. Furthermore, if your HDD disk load is at capacity, the performance of your queries might be further impacted. You can monitor the total <a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load">HDD disk load</a> capacity of the instance as a percentage. To add more HDD disk load capacity, you can add more processing units or nodes to your instance. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity">Change the compute capacity</a> . To improve query performance, also consider moving some data to SSD.</p>
+<p>For workloads that consume a lot of disk I/O, we recommend that you store frequently accessed data on SSD storage. Data accessed from SSD doesn't consume HDD disk load capacity. You can store selective tables, columns, or secondary indexes on SSD storage as needed, while keeping infrequently accessed data on HDD storage. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/tiered-storage">Tiered storage overview</a> .</p></td>
 </tr>
 </tbody>
 </table>
 
 ### Example queries
 
-This section includes several example SQL statements that retrieve read statistics. You can run these SQL statements using the [client libraries](/spanner/docs/reference/libraries) , the [gcloud spanner](/spanner/docs/gcloud-spanner#execute_sql_statements) , or the [Google Cloud console](/spanner/docs/create-query-database-console#run_a_query) .
+This section includes several example SQL statements that retrieve read statistics. You can run these SQL statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , the [gcloud spanner](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#execute_sql_statements) , or the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console#run_a_query) .
 
 #### List the basic statistics for each read shape in a given time period
 
 The following query returns the raw data for the top read shapes in the most recent 1-minute time intervals.
 
-``` text
-SELECT fprint,
-       read_columns,
-       execution_count,
-       avg_cpu_seconds,
-       avg_rows,
-       avg_bytes,
-       avg_locking_delay_seconds,
-       avg_client_wait_seconds
-FROM spanner_sys.read_stats_top_minute
-ORDER BY interval_end DESC LIMIT 3;
-```
+    SELECT fprint,
+           read_columns,
+           execution_count,
+           avg_cpu_seconds,
+           avg_rows,
+           avg_bytes,
+           avg_locking_delay_seconds,
+           avg_client_wait_seconds
+    FROM spanner_sys.read_stats_top_minute
+    ORDER BY interval_end DESC LIMIT 3;
 
 ##### Query output
 
-<table>
-<thead>
-<tr class="header">
-<th>fprint</th>
-<th>read_columns</th>
-<th>execution_count</th>
-<th>avg_cpu_seconds</th>
-<th>avg_rows</th>
-<th>avg_bytes</th>
-<th>avg_locking_delay_seconds</th>
-<th>avg_client_wait_seconds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       125062082139      </code></td>
-<td><code dir="ltr" translate="no">       ["Singers.id", "Singers.name"]      </code></td>
-<td><code dir="ltr" translate="no">       8514387      </code></td>
-<td><code dir="ltr" translate="no">       0.000661355290396507      </code></td>
-<td><code dir="ltr" translate="no">       310.79      </code></td>
-<td><code dir="ltr" translate="no">       205      </code></td>
-<td><code dir="ltr" translate="no">       8.3232564943763752e-06      </code></td>
-<td><code dir="ltr" translate="no">       0      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       151238888745      </code></td>
-<td><code dir="ltr" translate="no">       ["Singers.singerinfo"]      </code></td>
-<td><code dir="ltr" translate="no">       3341542      </code></td>
-<td><code dir="ltr" translate="no">       6.5992827184280315e-05      </code></td>
-<td><code dir="ltr" translate="no">       12784      </code></td>
-<td><code dir="ltr" translate="no">       54      </code></td>
-<td><code dir="ltr" translate="no">       4.6859741349028595e-07      </code></td>
-<td><code dir="ltr" translate="no">       0      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       14105484      </code></td>
-<td><code dir="ltr" translate="no">       ["Albums.id", "Albums.title"]      </code></td>
-<td><code dir="ltr" translate="no">       9306619      </code></td>
-<td><code dir="ltr" translate="no">       0.00017855774721667873      </code></td>
-<td><code dir="ltr" translate="no">       1165.4      </code></td>
-<td><code dir="ltr" translate="no">       2964.71875      </code></td>
-<td><code dir="ltr" translate="no">       1.4328191393074178e-06      </code></td>
-<td><code dir="ltr" translate="no">       0      </code></td>
-</tr>
-</tbody>
-</table>
+| fprint                        | read\_columns                                   | execution\_count         | avg\_cpu\_seconds                       | avg\_rows               | avg\_bytes                  | avg\_locking\_delay\_seconds            | avg\_client\_wait\_seconds |
+| ----------------------------- | ----------------------------------------------- | ------------------------ | --------------------------------------- | ----------------------- | --------------------------- | --------------------------------------- | -------------------------- |
+| `        125062082139       ` | `        ["Singers.id", "Singers.name"]       ` | `        8514387       ` | `        0.000661355290396507       `   | `        310.79       ` | `        205       `        | `        8.3232564943763752e-06       ` | `        0       `         |
+| `        151238888745       ` | `        ["Singers.singerinfo"]       `         | `        3341542       ` | `        6.5992827184280315e-05       ` | `        12784       `  | `        54       `         | `        4.6859741349028595e-07       ` | `        0       `         |
+| `        14105484       `     | `        ["Albums.id", "Albums.title"]       `  | `        9306619       ` | `        0.00017855774721667873       ` | `        1165.4       ` | `        2964.71875       ` | `        1.4328191393074178e-06       ` | `        0       `         |
 
 #### List the read shapes, ordered by highest total CPU usage
 
 The following query returns the read shapes with the highest CPU usage in the most recent hour:
 
-``` text
-SELECT read_columns,
-       execution_count,
-       avg_cpu_seconds,
-       execution_count * avg_cpu_seconds AS total_cpu
-FROM spanner_sys.read_stats_top_hour
-WHERE interval_end =
-  (SELECT MAX(interval_end)
-   FROM spanner_sys.read_stats_top_hour)
-ORDER BY total_cpu DESC LIMIT 3;
-```
+    SELECT read_columns,
+           execution_count,
+           avg_cpu_seconds,
+           execution_count * avg_cpu_seconds AS total_cpu
+    FROM spanner_sys.read_stats_top_hour
+    WHERE interval_end =
+      (SELECT MAX(interval_end)
+       FROM spanner_sys.read_stats_top_hour)
+    ORDER BY total_cpu DESC LIMIT 3;
 
 ##### Query output
 
-<table>
-<thead>
-<tr class="header">
-<th>read_columns</th>
-<th>execution_count</th>
-<th>avg_cpu_seconds</th>
-<th>total_cpu</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       ["Singers.id", "Singers.name"]      </code></td>
-<td><code dir="ltr" translate="no">       1647      </code></td>
-<td><code dir="ltr" translate="no">       0.00023380297430622681      </code></td>
-<td><code dir="ltr" translate="no">       0.2579      </code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       ["Albums.id", "Albums.title"]      </code></td>
-<td><code dir="ltr" translate="no">       720      </code></td>
-<td><code dir="ltr" translate="no">       0.00016738889440282034      </code></td>
-<td><code dir="ltr" translate="no">       0.221314999999999      </code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       ["Singers.singerinfo""]      </code></td>
-<td><code dir="ltr" translate="no">       3223      </code></td>
-<td><code dir="ltr" translate="no">       0.00037764625882302246      </code></td>
-<td><code dir="ltr" translate="no">       0.188053      </code></td>
-</tr>
-</tbody>
-</table>
+| read\_columns                                   | execution\_count      | avg\_cpu\_seconds                       | total\_cpu                         |
+| ----------------------------------------------- | --------------------- | --------------------------------------- | ---------------------------------- |
+| `        ["Singers.id", "Singers.name"]       ` | `        1647       ` | `        0.00023380297430622681       ` | `        0.2579       `            |
+| `        ["Albums.id", "Albums.title"]       `  | `        720       `  | `        0.00016738889440282034       ` | `        0.221314999999999       ` |
+| `        ["Singers.singerinfo""]       `        | `        3223       ` | `        0.00037764625882302246       ` | `        0.188053       `          |
 
 ## Aggregate statistics
 
@@ -302,133 +232,59 @@ Aggregate statistics tables have the following properties:
       - Leader refresh delay
       - Bytes returned count
     
-    For more information, see [Spanner metrics](/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
+    For more information, see [Spanner metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
 
 ### Table schema
 
-<table>
-<colgroup>
-<col style="width: 40%" />
-<col style="width: 10%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       INTERVAL_END      </code></td>
-<td><code dir="ltr" translate="no">       TIMESTAMP      </code></td>
-<td>End of the time interval that the included read shape executions occurred in.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       EXECUTION_COUNT      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
-<td>Number of times Spanner executed the read shape during the interval.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       AVG_ROWS      </code></td>
-<td><code dir="ltr" translate="no">       FLOAT64      </code></td>
-<td>Average number of rows that the reads returned.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       AVG_BYTES      </code></td>
-<td><code dir="ltr" translate="no">       FLOAT64      </code></td>
-<td>Average number of data bytes that the reads returned, excluding transmission encoding overhead.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       AVG_CPU_SECONDS      </code></td>
-<td><code dir="ltr" translate="no">       FLOAT64      </code></td>
-<td>Average number of Spanner server side CPU seconds executing the read, excluding prefetch CPU and other overhead.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       AVG_LOCKING_DELAY_SECONDS      </code></td>
-<td><code dir="ltr" translate="no">       FLOAT64      </code></td>
-<td>Average number of seconds spent waiting due to locking.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       AVG_CLIENT_WAIT_SECONDS      </code></td>
-<td><code dir="ltr" translate="no">       FLOAT64      </code></td>
-<td>Average number of seconds spent waiting due to throttling.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       AVG_LEADER_REFRESH_DELAY_SECONDS      </code></td>
-<td><code dir="ltr" translate="no">       FLOAT64      </code></td>
-<td>Average number of seconds spent coordinating the reads across instances in <a href="/spanner/docs/instances">multi-region configurations</a> .</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       RUN_IN_RW_TRANSACTION_EXECUTION_COUNT      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
-<td>The number of times that reads were run as part of read-write transactions. This column helps you determine if you can avoid lock contentions by moving some reads to read-only transactions.</td>
-</tr>
-</tbody>
-</table>
+| Column name                                            | Type                       | Description                                                                                                                                                                                   |
+| ------------------------------------------------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `        INTERVAL_END       `                          | `        TIMESTAMP       ` | End of the time interval that the included read shape executions occurred in.                                                                                                                 |
+| `        EXECUTION_COUNT       `                       | `        INT64       `     | Number of times Spanner executed the read shape during the interval.                                                                                                                          |
+| `        AVG_ROWS       `                              | `        FLOAT64       `   | Average number of rows that the reads returned.                                                                                                                                               |
+| `        AVG_BYTES       `                             | `        FLOAT64       `   | Average number of data bytes that the reads returned, excluding transmission encoding overhead.                                                                                               |
+| `        AVG_CPU_SECONDS       `                       | `        FLOAT64       `   | Average number of Spanner server side CPU seconds executing the read, excluding prefetch CPU and other overhead.                                                                              |
+| `        AVG_LOCKING_DELAY_SECONDS       `             | `        FLOAT64       `   | Average number of seconds spent waiting due to locking.                                                                                                                                       |
+| `        AVG_CLIENT_WAIT_SECONDS       `               | `        FLOAT64       `   | Average number of seconds spent waiting due to throttling.                                                                                                                                    |
+| `        AVG_LEADER_REFRESH_DELAY_SECONDS       `      | `        FLOAT64       `   | Average number of seconds spent coordinating the reads across instances in [multi-region configurations](https://docs.cloud.google.com/spanner/docs/instances) .                              |
+| `        RUN_IN_RW_TRANSACTION_EXECUTION_COUNT       ` | `        INT64       `     | The number of times that reads were run as part of read-write transactions. This column helps you determine if you can avoid lock contentions by moving some reads to read-only transactions. |
 
 ### Example queries
 
-This section includes several example SQL statements that retrieve aggregate read statistics. You can run these SQL statements using the [client libraries](/spanner/docs/reference/libraries) , the [gcloud spanner](/spanner/docs/gcloud-spanner#execute_sql_statements) , or the [Google Cloud console](/spanner/docs/create-query-database-console#run_a_query) .
+This section includes several example SQL statements that retrieve aggregate read statistics. You can run these SQL statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , the [gcloud spanner](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#execute_sql_statements) , or the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console#run_a_query) .
 
 #### Find the total CPU usage across all read shapes
 
 The following query returns the number of CPU hours consumed by read shapes in the most recent hour:
 
-``` text
-SELECT (avg_cpu_seconds * execution_count / 60 / 60)
-  AS total_cpu_hours
-FROM spanner_sys.read_stats_total_hour
-WHERE interval_end =
-  (SELECT MAX(interval_end)
-   FROM spanner_sys.read_stats_total_hour);
-```
+    SELECT (avg_cpu_seconds * execution_count / 60 / 60)
+      AS total_cpu_hours
+    FROM spanner_sys.read_stats_total_hour
+    WHERE interval_end =
+      (SELECT MAX(interval_end)
+       FROM spanner_sys.read_stats_total_hour);
 
 ##### Query output
 
-<table>
-<thead>
-<tr class="header">
-<th>total_cpu_hours</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       0.00026186111111111115      </code></td>
-</tr>
-</tbody>
-</table>
+| total\_cpu\_hours                       |
+| --------------------------------------- |
+| `        0.00026186111111111115       ` |
 
 #### Find the total execution count in a given time period
 
 The following query returns the total number of read shapes executed in the most recent complete 1-minute interval:
 
-``` text
-SELECT interval_end,
-       execution_count
-FROM spanner_sys.read_stats_total_minute
-WHERE interval_end =
-  (SELECT MAX(interval_end)
-   FROM spanner_sys.read_stats_total_minute);
-```
+    SELECT interval_end,
+           execution_count
+    FROM spanner_sys.read_stats_total_minute
+    WHERE interval_end =
+      (SELECT MAX(interval_end)
+       FROM spanner_sys.read_stats_total_minute);
 
 ##### Query output
 
-<table>
-<thead>
-<tr class="header">
-<th>interval_end</th>
-<th>execution_count</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       2020-05-28 11:02:00-07:00      </code></td>
-<td><code dir="ltr" translate="no">       12861966      </code></td>
-</tr>
-</tbody>
-</table>
+| interval\_end                              | execution\_count          |
+| ------------------------------------------ | ------------------------- |
+| `        2020-05-28 11:02:00-07:00       ` | `        12861966       ` |
 
 ## Data retention
 
@@ -454,141 +310,39 @@ Start your investigation by looking for a time when your application began to ex
 
 Having selected a time period to start our investigation, we'll look at statistics gathered in the `  READ_STATS_TOTAL_10MINUTE  ` table around that time. The results of this query might give us clues about how CPU and other read statistics changed over that period of time. The following query returns the aggregated read statistics from `  4:30 pm  ` to `  7:30 pm  ` (inclusive).
 
-``` text
-SELECT
-  interval_end,
-  ROUND(avg_cpu_seconds,4) as avg_cpu_seconds,
-  execution_count,
-  avg_locking_delay_seconds
-FROM SPANNER_SYS.READ_STATS_TOTAL_10MINUTE
-WHERE
-  interval_end >= "2020-05-28T16:30:00"
-  AND interval_end <= "2020-05-28T19:30:00"
-ORDER BY interval_end;
-```
+    SELECT
+      interval_end,
+      ROUND(avg_cpu_seconds,4) as avg_cpu_seconds,
+      execution_count,
+      avg_locking_delay_seconds
+    FROM SPANNER_SYS.READ_STATS_TOTAL_10MINUTE
+    WHERE
+      interval_end >= "2020-05-28T16:30:00"
+      AND interval_end <= "2020-05-28T19:30:00"
+    ORDER BY interval_end;
 
 The following data is an example of the result we get back from our query.
 
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">interval_end</th>
-<th style="text-align: right;">avg_cpu_seconds</th>
-<th style="text-align: right;">execution_count</th>
-<th style="text-align: left;">avg_locking_delay_seconds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>2020-05-28 16:40:00-07:00</strong></td>
-<td style="text-align: right;"><strong>0.0004</strong></td>
-<td style="text-align: right;"><strong>11111421</strong></td>
-<td style="text-align: left;"><strong>8.3232564943763752e-06</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2020-05-28 16:50:00-07:00</td>
-<td style="text-align: right;">0.0002</td>
-<td style="text-align: right;">8815637</td>
-<td style="text-align: left;">8.98734051776406e-05</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2020-05-28 17:00:00-07:00</td>
-<td style="text-align: right;">0.0001</td>
-<td style="text-align: right;">8260215</td>
-<td style="text-align: left;">6.039129247846453e-06</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2020-05-28 17:10:00-07:00</td>
-<td style="text-align: right;">0.0001</td>
-<td style="text-align: right;">8514387</td>
-<td style="text-align: left;">9.0535466616680686e-07</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>2020-05-28 17:20:00-07:00</strong></td>
-<td style="text-align: right;"><strong>0.0006</strong></td>
-<td style="text-align: right;"><strong>13715466</strong></td>
-<td style="text-align: left;"><strong>2.6801485272173765e-06</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>2020-05-28 17:30:00-07:00</strong></td>
-<td style="text-align: right;"><strong>0.0007</strong></td>
-<td style="text-align: right;"><strong>12861966</strong></td>
-<td style="text-align: left;"><strong>4.6859741349028595e-07</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>2020-05-28 17:40:00-07:00</strong></td>
-<td style="text-align: right;"><strong>0.0007</strong></td>
-<td style="text-align: right;"><strong>3755954</strong></td>
-<td style="text-align: left;"><strong>2.7131391918005383e-06</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>2020-05-28 17:50:00-07:00</strong></td>
-<td style="text-align: right;"><strong>0.0006</strong></td>
-<td style="text-align: right;"><strong>4248137</strong></td>
-<td style="text-align: left;"><strong>1.4328191393074178e-06</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>2020-05-28 18:00:00-07:00</strong></td>
-<td style="text-align: right;"><strong>0.0006</strong></td>
-<td style="text-align: right;"><strong>3986198</strong></td>
-<td style="text-align: left;"><strong>2.6973481999639748e-06</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>2020-05-28 18:10:00-07:00</strong></td>
-<td style="text-align: right;"><strong>0.0006</strong></td>
-<td style="text-align: right;"><strong>3510249</strong></td>
-<td style="text-align: left;"><strong>3.7577083563017905e-06</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2020-05-28 18:20:00-07:00</td>
-<td style="text-align: right;">0.0004</td>
-<td style="text-align: right;">3341542</td>
-<td style="text-align: left;">4.0940589703795433e-07</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2020-05-28 18:30:00-07:00</td>
-<td style="text-align: right;">0.0002</td>
-<td style="text-align: right;">8695147</td>
-<td style="text-align: left;">1.9914494947583975e-05</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2020-05-28 18:40:00-07:00</td>
-<td style="text-align: right;">0.0003</td>
-<td style="text-align: right;">11679702</td>
-<td style="text-align: left;">1.8331461539001595e-05</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2020-05-28 18:50:00-07:00</td>
-<td style="text-align: right;">0.0003</td>
-<td style="text-align: right;">9306619</td>
-<td style="text-align: left;">1.2527332321222135e-05</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2020-05-28 19:00:00-07:00</td>
-<td style="text-align: right;">0.0002</td>
-<td style="text-align: right;">8520508</td>
-<td style="text-align: left;">6.2268448078447915e-06</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>2020-05-28 19:10:00-07:00</strong></td>
-<td style="text-align: right;"><strong>0.0006</strong></td>
-<td style="text-align: right;"><strong>13715466</strong></td>
-<td style="text-align: left;"><strong>2.6801485272173765e-06</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>2020-05-28 19:20:00-07:00</strong></td>
-<td style="text-align: right;"><strong>0.0005</strong></td>
-<td style="text-align: right;"><strong>11947323</strong></td>
-<td style="text-align: left;"><strong>3.3029114639321295e-05</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2020-05-28 19:30:00-07:00</td>
-<td style="text-align: right;">0.0002</td>
-<td style="text-align: right;">8514387</td>
-<td style="text-align: left;">9.0535466616680686e-07</td>
-</tr>
-</tbody>
-</table>
+| interval\_end                 | avg\_cpu\_seconds | execution\_count | avg\_locking\_delay\_seconds |
+| :---------------------------- | ----------------: | ---------------: | :--------------------------- |
+| **2020-05-28 16:40:00-07:00** |        **0.0004** |     **11111421** | **8.3232564943763752e-06**   |
+| 2020-05-28 16:50:00-07:00     |            0.0002 |          8815637 | 8.98734051776406e-05         |
+| 2020-05-28 17:00:00-07:00     |            0.0001 |          8260215 | 6.039129247846453e-06        |
+| 2020-05-28 17:10:00-07:00     |            0.0001 |          8514387 | 9.0535466616680686e-07       |
+| **2020-05-28 17:20:00-07:00** |        **0.0006** |     **13715466** | **2.6801485272173765e-06**   |
+| **2020-05-28 17:30:00-07:00** |        **0.0007** |     **12861966** | **4.6859741349028595e-07**   |
+| **2020-05-28 17:40:00-07:00** |        **0.0007** |      **3755954** | **2.7131391918005383e-06**   |
+| **2020-05-28 17:50:00-07:00** |        **0.0006** |      **4248137** | **1.4328191393074178e-06**   |
+| **2020-05-28 18:00:00-07:00** |        **0.0006** |      **3986198** | **2.6973481999639748e-06**   |
+| **2020-05-28 18:10:00-07:00** |        **0.0006** |      **3510249** | **3.7577083563017905e-06**   |
+| 2020-05-28 18:20:00-07:00     |            0.0004 |          3341542 | 4.0940589703795433e-07       |
+| 2020-05-28 18:30:00-07:00     |            0.0002 |          8695147 | 1.9914494947583975e-05       |
+| 2020-05-28 18:40:00-07:00     |            0.0003 |         11679702 | 1.8331461539001595e-05       |
+| 2020-05-28 18:50:00-07:00     |            0.0003 |          9306619 | 1.2527332321222135e-05       |
+| 2020-05-28 19:00:00-07:00     |            0.0002 |          8520508 | 6.2268448078447915e-06       |
+| **2020-05-28 19:10:00-07:00** |        **0.0006** |     **13715466** | **2.6801485272173765e-06**   |
+| **2020-05-28 19:20:00-07:00** |        **0.0005** |     **11947323** | **3.3029114639321295e-05**   |
+| 2020-05-28 19:30:00-07:00     |            0.0002 |          8514387 | 9.0535466616680686e-07       |
 
 Here we see that average CPU time, `  avg_cpu_seconds  ` , is higher in the **highlighted** intervals. The `  interval_end  ` with the value **2020-05-28 19:20:00** has a higher CPU time, so we'll choose that interval to investigate further in the next step.
 
@@ -596,50 +350,23 @@ Here we see that average CPU time, `  avg_cpu_seconds  ` , is higher in the **hi
 
 Digging a little deeper, we now query the `  READ_STATS_TOP_10MINUTE  ` table for the interval which was picked in the preceding step. The results of this query can help indicate which read shapes cause high CPU usage.
 
-``` text
-SELECT
-  read_columns,
-  ROUND(avg_cpu_seconds,4) as avg_cpu_seconds,
-  execution_count,
-  avg_rows
-FROM SPANNER_SYS.READ_STATS_TOP_10MINUTE
-WHERE
-  interval_end = "2020-05-28T19:20:00"
-ORDER BY avg_cpu_seconds DESC LIMIT 3;
-```
+    SELECT
+      read_columns,
+      ROUND(avg_cpu_seconds,4) as avg_cpu_seconds,
+      execution_count,
+      avg_rows
+    FROM SPANNER_SYS.READ_STATS_TOP_10MINUTE
+    WHERE
+      interval_end = "2020-05-28T19:20:00"
+    ORDER BY avg_cpu_seconds DESC LIMIT 3;
 
-The following data as an example of the result we get back from our query, returning information about the top three read shapes ranked by `  avg_cpu_seconds  ` . Note the use of [`  ROUND  `](/spanner/docs/reference/standard-sql/mathematical_functions#round) in our query to restrict the output of `  avg_cpu_seconds  ` to 4 decimal places.
+The following data as an example of the result we get back from our query, returning information about the top three read shapes ranked by `  avg_cpu_seconds  ` . Note the use of [`  ROUND  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#round) in our query to restrict the output of `  avg_cpu_seconds  ` to 4 decimal places.
 
-<table>
-<thead>
-<tr class="header">
-<th>read_columns</th>
-<th style="text-align: right;">avg_cpu_seconds</th>
-<th style="text-align: right;">execution_count</th>
-<th style="text-align: left;">avg_rows</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       [TestHigherLatency._exists,TestHigherLatency.lang_status,TestHigherLatency.score,globalTagAffinity.shares]      </code> <sup>1</sup></td>
-<td style="text-align: right;">0.4192</td>
-<td style="text-align: right;">1182</td>
-<td style="text-align: left;">11650.42216582</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       [TestHigherLatency._exists,TestHigherLatency.lang_status,TestHigherLatency.likes,globalTagAffinity.score]      </code></td>
-<td style="text-align: right;">0.0852</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: left;">12784</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       [TestHigherLatency._exists,TestHigherLatency.lang_status,TestHigherLatency.score,globalTagAffinity.ugcCount]      </code></td>
-<td style="text-align: right;">0.0697</td>
-<td style="text-align: right;">1140</td>
-<td style="text-align: left;">310.7921052631</td>
-</tr>
-</tbody>
-</table>
+| read\_columns                                                                                                                            | avg\_cpu\_seconds | execution\_count | avg\_rows      |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ----------------: | ---------------: | :------------- |
+| `        [TestHigherLatency._exists,TestHigherLatency.lang_status,TestHigherLatency.score,globalTagAffinity.shares]       ` <sup>1</sup> |            0.4192 |             1182 | 11650.42216582 |
+| `        [TestHigherLatency._exists,TestHigherLatency.lang_status,TestHigherLatency.likes,globalTagAffinity.score]       `               |            0.0852 |                4 | 12784          |
+| `        [TestHigherLatency._exists,TestHigherLatency.lang_status,TestHigherLatency.score,globalTagAffinity.ugcCount]       `            |            0.0697 |             1140 | 310.7921052631 |
 
 <sup>1</sup> `  _exists  ` is an internal field that is used to check whether a certain row exists or not.
 
@@ -655,22 +382,20 @@ When you have gone through the preceding steps, consider whether supplying any o
 
   - Try the following query to find the top read shapes ranked by the number of times Spanner executed for each read shape:
     
-    ``` text
-    SELECT interval_end, read_columns, execution_count
-    FROM SPANNER_SYS.READ_STATS_TOP_MINUTE
-    ORDER BY execution_count DESC
-    LIMIT 10;
-    ```
+        SELECT interval_end, read_columns, execution_count
+        FROM SPANNER_SYS.READ_STATS_TOP_MINUTE
+        ORDER BY execution_count DESC
+        LIMIT 10;
 
-  - If you are looking for the lowest possible read latencies, especially when using multi-region instance configurations, use [stale reads instead of strong reads](/spanner/docs/reads#read_types) to reduce or remove the `  AVG_LEADER_REFRESH_DELAY_SECONDS  ` component of read latency.
+  - If you are looking for the lowest possible read latencies, especially when using multi-region instance configurations, use [stale reads instead of strong reads](https://docs.cloud.google.com/spanner/docs/reads#read_types) to reduce or remove the `  AVG_LEADER_REFRESH_DELAY_SECONDS  ` component of read latency.
     
     **Note:** Stale reads don't provide any latency benefits in regional configurations, so you should almost always use strong reads when your instance does not have a multi-region configuration.
 
-  - If you are only doing reads, and you can express your read using a [single read method](/spanner/docs/reads#single_read_methods) , you should use that single read method. Single reads don't lock, unlike read-write transactions, therefore you should use read-only transactions over more expensive read-write transactions when you are not writing data.
+  - If you are only doing reads, and you can express your read using a [single read method](https://docs.cloud.google.com/spanner/docs/reads#single_read_methods) , you should use that single read method. Single reads don't lock, unlike read-write transactions, therefore you should use read-only transactions over more expensive read-write transactions when you are not writing data.
 
 ## What's next
 
-  - Learn about other [Introspection tools](/spanner/docs/introspection) .
-  - Learn about other information Spanner stores for each database in the database's [information schema](/spanner/docs/information-schema) tables.
-  - Learn more about [SQL best practices](/spanner/docs/sql-best-practices) for Spanner.
-  - Learn more about [Investigating high CPU utilization](/spanner/docs/introspection/investigate-cpu-utilization) .
+  - Learn about other [Introspection tools](https://docs.cloud.google.com/spanner/docs/introspection) .
+  - Learn about other information Spanner stores for each database in the database's [information schema](https://docs.cloud.google.com/spanner/docs/information-schema) tables.
+  - Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) for Spanner.
+  - Learn more about [Investigating high CPU utilization](https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization) .

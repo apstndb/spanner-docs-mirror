@@ -14,7 +14,7 @@ EXAMPLES
 
 To describe the DDL for a given Cloud Spanner database, run:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases ddl describe my-database-id --instance=my-instance-id
 ```
 
@@ -56,7 +56,7 @@ FLAGS
 LIST COMMAND FLAGS
 
   - `  --filter  ` = `  EXPRESSION  `  
-    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
+    Apply a Boolean filter `  EXPRESSION  ` to each resource item to be listed. If the expression evaluates `  True  ` , then that item is listed. For more details and examples of filter expressions, run $ [gcloud topic filters](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --limit  ` = `  LIMIT  `  
     Maximum number of resources to list. The default is `  unlimited  ` . This flag interacts with other flags that are applied in this order: `  --flatten  ` , `  --sort-by  ` , `  --filter  ` , `  --limit  ` .
   - `  --page-size  ` = `  PAGE_SIZE  `  
@@ -76,10 +76,10 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner databases ddl describe
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases ddl describe
 ```

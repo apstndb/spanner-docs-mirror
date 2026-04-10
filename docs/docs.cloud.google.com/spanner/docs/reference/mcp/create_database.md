@@ -15,7 +15,7 @@ The following sample demonstrate how to use `  curl  ` to invoke the `  create_d
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
+<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
 curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 --header &#39;content-type: application/json&#39; \
 --header &#39;accept: application/json, text/event-stream&#39; \
@@ -52,7 +52,7 @@ The request for `  CreateDatabase  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;parent&quot;: string,
   &quot;createStatement&quot;: string,
   &quot;extraStatements&quot;: [
@@ -106,12 +106,10 @@ Optional. The dialect of the Cloud Spanner Database.
 
 Optional. Proto descriptors used by `  CREATE/ALTER PROTO BUNDLE  ` statements in 'extra\_statements'. Contains a protobuf-serialized [`  google.protobuf.FileDescriptorSet  `](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto) descriptor set. To generate it, [install](https://grpc.io/docs/protoc-installation/) and run `  protoc  ` with --include\_imports and --descriptor\_set\_out. For example, to generate for moon/shot/app.proto, run
 
-``` text
-$protoc  --proto_path=/app_path --proto_path=/lib_path \
-         --include_imports \
-         --descriptor_set_out=descriptors.data \
-         moon/shot/app.proto
-```
+    $protoc  --proto_path=/app_path --proto_path=/lib_path \
+             --include_imports \
+             --descriptor_set_out=descriptors.data \
+             moon/shot/app.proto
 
 For more details, see protobuffer [self description](https://developers.google.com/protocol-buffers/docs/techniques#self-description) .
 
@@ -130,7 +128,7 @@ A base64-encoded string.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;kmsKeyName&quot;: string,
   &quot;kmsKeyNames&quot;: [
     string
@@ -177,7 +175,7 @@ This resource represents a long-running operation that is the result of a networ
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;name&quot;: string,
   &quot;metadata&quot;: {
     &quot;@type&quot;: string,
@@ -252,7 +250,7 @@ An object containing fields of an arbitrary type. An additional field `  "@type"
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;typeUrl&quot;: string,
   &quot;value&quot;: string
 }</code></pre></td>
@@ -299,7 +297,7 @@ A base64-encoded string.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;code&quot;: integer,
   &quot;message&quot;: string,
   &quot;details&quot;: [

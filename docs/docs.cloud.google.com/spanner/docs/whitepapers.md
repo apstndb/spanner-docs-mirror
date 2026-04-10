@@ -10,19 +10,19 @@
     
     How Spanner provides scale, ACID transactions, high availability, and low latency.
 
-  - [](/spanner/docs/whitepapers/life-of-reads-and-writes)
+  - [](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes)
     
     ### Life of Spanner Reads and Writes
     
     How writes and reads work in Spanner and how Spanner ensures strong consistency.
 
-  - [](/spanner/docs/whitepapers/life-of-query)
+  - [](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query)
     
     ### Life of a Spanner Query
     
     How Spanner supports SQL queries.
 
-  - [](/spanner/docs/whitepapers/optimizing-schema-design)
+  - [](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design)
     
     ### Optimizing Schema Design for Spanner
     

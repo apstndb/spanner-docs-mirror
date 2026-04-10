@@ -14,7 +14,7 @@ EXAMPLES
 
 To describe a Cloud Spanner database, run:
 
-``` text
+``` wrap-code
 gcloud spanner databases describe my-database-id --instance=my-instance-id
 ```
 
@@ -58,10 +58,10 @@ NOTES
 
 These variants are also available:
 
-``` text
+``` wrap-code
 gcloud alpha spanner databases describe
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner databases describe
 ```

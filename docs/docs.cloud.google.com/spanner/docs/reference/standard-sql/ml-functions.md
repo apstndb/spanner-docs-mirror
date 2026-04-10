@@ -2,38 +2,16 @@ GoogleSQL for Spanner supports the following machine learning (ML) functions.
 
 ## Function list
 
-<table>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/ml-functions#aiclassify"><code dir="ltr" translate="no">        AI.CLASSIFY       </code></a></td>
-<td>Classifies a natural language input into one of specified categories.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/ml-functions#aiif"><code dir="ltr" translate="no">        AI.IF       </code></a></td>
-<td>Evaluates a natural language condition.</td>
-</tr>
-<tr class="odd">
-<td><a href="/spanner/docs/reference/standard-sql/ml-functions#aiscore"><code dir="ltr" translate="no">        AI.SCORE       </code></a></td>
-<td>Rates a natural language input and assigns it a score.</td>
-</tr>
-<tr class="even">
-<td><a href="/spanner/docs/reference/standard-sql/ml-functions#mlpredict"><code dir="ltr" translate="no">        ML.PREDICT       </code></a></td>
-<td>Applies ML computations defined by a model to each row of an input relation.</td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                        | Summary                                                                      |
+| --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [`         AI.CLASSIFY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiclassify) | Classifies a natural language input into one of specified categories.        |
+| [`         AI.IF        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiif)             | Evaluates a natural language condition.                                      |
+| [`         AI.SCORE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiscore)       | Rates a natural language input and assigns it a score.                       |
+| [`         ML.PREDICT        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict)   | Applies ML computations defined by a model to each row of an input relation. |
 
 ## `     AI.CLASSIFY    `
 
-``` text
-AI.CLASSIFY(prompt, categories)
-```
+    AI.CLASSIFY(prompt, categories)
 
 **Description**
 
@@ -52,17 +30,13 @@ The following are common use cases:
     
       - With descriptions: Use an `  ARRAY<STRUCT<STRING, STRING>>  ` value where each struct contains the category name, followed by a description of the category. The array can only contain string literals. For example, you can use colors to classify sentiment:
         
-        ``` text
-        [('green', 'positive'), ('yellow', 'neutral'), ('red', 'negative')]
-        ```
+            [('green', 'positive'), ('yellow', 'neutral'), ('red', 'negative')]
         
         You can optionally name the fields of the struct for your own readability, but the field names aren't used by the function:
         
-        ``` text
-        [STRUCT('green' AS label, 'positive' AS description),
-        STRUCT('yellow' AS label, 'neutral' AS description),
-        STRUCT('red' AS label, 'negative' AS description)]
-        ```
+            [STRUCT('green' AS label, 'positive' AS description),
+            STRUCT('yellow' AS label, 'neutral' AS description),
+            STRUCT('red' AS label, 'negative' AS description)]
     
       - Without descriptions: Use an `  ARRAY<STRING>  ` value. The array can only contain string literals. This works well when your categories are self-explanatory. For example, you can use the following categories to classify sentiment:
         
@@ -86,43 +60,37 @@ If the call to is unsuccessful for any reason, such as exceeding quota or model 
 
 The following query categorizes news articles into high-level categories:
 
-``` text
--- Classify text by topic
-SELECT
-  title,
-  body,
-  AI.CLASSIFY(
-    body,
-    ['tech', 'sport', 'business', 'politics', 'entertainment', 'other']) AS category
-FROM
-  news
-LIMIT 100;
-```
+    -- Classify text by topic
+    SELECT
+      title,
+      body,
+      AI.CLASSIFY(
+        body,
+        ['tech', 'sport', 'business', 'politics', 'entertainment', 'other']) AS category
+    FROM
+      news
+    LIMIT 100;
 
 The following query classifies movie reviews of *The English Patient* by sentiment according to a custom color scheme. For example, a review that is positive is classified as 'green'.
 
-``` text
--- Classify reviews by sentiment
-SELECT
-  AI.CLASSIFY(
-    ('Classify the review by sentiment: ', review),
-    categories =>
-         [('green', 'The review is positive.'),
-          ('yellow', 'The review is neutral.'),
-          ('red', 'The review is negative.')]) AS ai_review_rating,
-  reviewer_rating AS human_provided_rating,
-  review,
-FROM
-  reviews
-WHERE
-  title = 'The English Patient'
-```
+    -- Classify reviews by sentiment
+    SELECT
+      AI.CLASSIFY(
+        ('Classify the review by sentiment: ', review),
+        categories =>
+             [('green', 'The review is positive.'),
+              ('yellow', 'The review is neutral.'),
+              ('red', 'The review is negative.')]) AS ai_review_rating,
+      reviewer_rating AS human_provided_rating,
+      review,
+    FROM
+      reviews
+    WHERE
+      title = 'The English Patient'
 
 ## `     AI.IF    `
 
-``` text
-AI.IF(prompt)
-```
+    AI.IF(prompt)
 
 **Description**
 
@@ -153,55 +121,47 @@ If the call to is unsuccessful for any reason, such as exceeding quota or model 
 
 The following query uses the `  AI.IF  ` function to filter news stories to those that cover a natural disaster:
 
-``` text
--- Filter text by topic
-SELECT
-  title, body
-FROM
-  news
-WHERE
-  AI.IF(CONCAT(
-    'The following news story is about a natural disaster: ', body));
-```
+    -- Filter text by topic
+    SELECT
+      title, body
+    FROM
+      news
+    WHERE
+      AI.IF(CONCAT(
+        'The following news story is about a natural disaster: ', body));
 
 The following query first filters by the equality operator, and then filters using the `  AI.IF  ` function:
 
-``` text
--- Combine filters
-SELECT
-  title, body
-FROM
-   news
-WHERE
-  AI.IF(CONCAT('This news is related to Google: ', body))
-  AND category = 'tech'; -- Non-AI filters are evaluated first
-```
+    -- Combine filters
+    SELECT
+      title, body
+    FROM
+       news
+    WHERE
+      AI.IF(CONCAT('This news is related to Google: ', body))
+      AND category = 'tech'; -- Non-AI filters are evaluated first
 
 The following query joins tables based on whether the news is about a product:
 
-``` text
--- Join tables based on semantic understanding.
-SELECT
-  news.title, news.body, products.product_name
-FROM
-  news
-JOIN products
-  ON
-    AI.IF(
-      CONCAT(
-        'Determine if the following news story is about product ',
-        products.product_name,
-        ': ',
-        news.body))
-WHERE
-  category = 'tech';
-```
+    -- Join tables based on semantic understanding.
+    SELECT
+      news.title, news.body, products.product_name
+    FROM
+      news
+    JOIN products
+      ON
+        AI.IF(
+          CONCAT(
+            'Determine if the following news story is about product ',
+            products.product_name,
+            ': ',
+            news.body))
+    WHERE
+      category = 'tech';
 
 ## `     AI.SCORE    `
 
-``` text
-AI.SCORE(prompt)
-```
+    AI.SCORE(prompt)
 
 **Description**
 
@@ -233,72 +193,66 @@ If the call to is unsuccessful for any reason, such as exceeding quota or model 
 
 The following query uses the `  AI.SCORE  ` function to assign ratings based on movie reviews of *The English Patient* , alongside the ratings that the human reviewers gave. It returns the top 10 highest AI rated reviews.
 
-``` text
--- Rate reviews
-SELECT
-  AI.SCORE(CONCAT(
-    """
-    On a scale from 1 to 10, rate how much the reviewer liked the movie.
-    Review:
-    """, review)) AS ai_rating,
-  reviewer_rating AS human_rating,
-  review
-FROM
-  reviews
-WHERE
-  title = 'The English Patient'
-ORDER BY ai_rating DESC
-LIMIT 10;
-```
+    -- Rate reviews
+    SELECT
+      AI.SCORE(CONCAT(
+        """
+        On a scale from 1 to 10, rate how much the reviewer liked the movie.
+        Review:
+        """, review)) AS ai_rating,
+      reviewer_rating AS human_rating,
+      review
+    FROM
+      reviews
+    WHERE
+      title = 'The English Patient'
+    ORDER BY ai_rating DESC
+    LIMIT 10;
 
 The following query builds on the previous example by using the `  AI.IF  ` function to filter the results to show reviews that mention at least one of the film's main characters:
 
-``` text
--- Rate and filter reviews
-SELECT
-  AI.SCORE(
-    CONCAT(
-      'On a scale from 1 to 10, rate how much the reviewer liked the movie. Review:',
-      review)) AS ai_rating,
-  reviewer_rating AS human_rating,
-  review
-FROM
-  reviews
-WHERE
-  title = 'The English Patient'
-  AND AI.IF(
-    CONCAT("This review mentions at least one of the film's main characters: ", review))
-ORDER BY ai_rating DESC
-LIMIT 10;
-```
+    -- Rate and filter reviews
+    SELECT
+      AI.SCORE(
+        CONCAT(
+          'On a scale from 1 to 10, rate how much the reviewer liked the movie. Review:',
+          review)) AS ai_rating,
+      reviewer_rating AS human_rating,
+      review
+    FROM
+      reviews
+    WHERE
+      title = 'The English Patient'
+      AND AI.IF(
+        CONCAT("This review mentions at least one of the film's main characters: ", review))
+    ORDER BY ai_rating DESC
+    LIMIT 10;
 
 ## `     ML.PREDICT    `
 
-``` text
-ML.PREDICT(input_model, input_relation[, model_parameters])
-
-input_model:
-  MODEL model_name
-
-input_relation:
-  { input_table | input_subquery }
-
-input_table:
-  TABLE table_name
-
-model_parameters:
-  STRUCT(parameter_value AS parameter_name[, ...])
-```
+    ML.PREDICT(input_model, input_relation[, model_parameters])
+    
+    input_model:
+      MODEL model_name
+    
+    input_relation:
+      { input_table | input_subquery }
+    
+    input_table:
+      TABLE table_name
+    
+    model_parameters:
+      STRUCT(parameter_value AS parameter_name[, ...])
 
 **Description**
 
 `  ML.PREDICT  ` is a table-valued function that helps to access registered machine learning (ML) models and use them to generate ML predictions. This function applies ML computations defined by a model to each row of an input relation, and returns the results of those predictions. Additionally, you can use `  ML.PREDICT  ` to perform vector search. When you use `  ML.PREDICT  ` for vector search, it converts your natural language query text into an embedding.
 
-**Note:** Make sure that Spanner has access to the referenced Vertex AI endpoint as described in [Model endpoint access control](/spanner/docs/reference/standard-sql/data-definition-language#create_model_permissions) .
+**Note:** Make sure that Spanner has access to the referenced Vertex AI endpoint as described in [Model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model_permissions) .
 
 **Supported Argument Types**
 
-  - `  input_model  ` : The model to use for predictions. Replace `  model_name  ` with the name of the model. To create a model, see [`  CREATE_MODEL  `](/spanner/docs/reference/standard-sql/data-definition-language#create_model) .
+  - `  input_model  ` : The model to use for predictions. Replace `  model_name  ` with the name of the model. To create a model, see [`  CREATE_MODEL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) .
   - `  input_relation  ` : A table or subquery upon which to apply ML computations. The set of columns of the input relation must include all input columns of the input model; otherwise, the input won't have enough data to generate predictions and the query won't compile. Additionally, the set can also include arbitrary pass-through columns that will be included in the output. The order of the columns in the input relation doesn't matter. The columns of the input relation and model must be coercible.
   - `  input_table  ` : The table containing the input data for predictions, for example, a set of features. Replace `  table_name  ` with the name of the table.
   - `  input_subquery  ` : The subquery that's used to generate the prediction input data.
@@ -319,123 +273,82 @@ The examples in this section reference a model called `  DiamondAppraise  ` and 
 
   - `  DiamondAppraise  ` model:
     
-    <table>
-    <thead>
-    <tr class="header">
-    <th>Input columns</th>
-    <th>Output columns</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="odd">
-    <td><code dir="ltr" translate="no">         value FLOAT64        </code></td>
-    <td><code dir="ltr" translate="no">         value FLOAT64        </code></td>
-    </tr>
-    <tr class="even">
-    <td><code dir="ltr" translate="no">         carat FLOAT64        </code></td>
-    <td><code dir="ltr" translate="no">         lower_bound FLOAT64        </code></td>
-    </tr>
-    <tr class="odd">
-    <td><code dir="ltr" translate="no">         cut STRING        </code></td>
-    <td><code dir="ltr" translate="no">         upper_bound FLOAT64        </code></td>
-    </tr>
-    <tr class="even">
-    <td><code dir="ltr" translate="no">         color STRING(1)        </code></td>
-    <td></td>
-    </tr>
-    </tbody>
-    </table>
+    | Input columns                        | Output columns                           |
+    | ------------------------------------ | ---------------------------------------- |
+    | `          value FLOAT64         `   | `          value FLOAT64         `       |
+    | `          carat FLOAT64         `   | `          lower_bound FLOAT64         ` |
+    | `          cut STRING         `      | `          upper_bound FLOAT64         ` |
+    | `          color STRING(1)         ` |                                          |
+    
 
   - `  Diamonds  ` table:
     
-    <table>
-    <thead>
-    <tr class="header">
-    <th>Columns</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="odd">
-    <td><code dir="ltr" translate="no">         Id INT64        </code></td>
-    </tr>
-    <tr class="even">
-    <td><code dir="ltr" translate="no">         Carat FLOAT64        </code></td>
-    </tr>
-    <tr class="odd">
-    <td><code dir="ltr" translate="no">         Cut STRING        </code></td>
-    </tr>
-    <tr class="even">
-    <td><code dir="ltr" translate="no">         Color STRING        </code></td>
-    </tr>
-    </tbody>
-    </table>
+    | Columns                            |
+    | ---------------------------------- |
+    | `          Id INT64         `      |
+    | `          Carat FLOAT64         ` |
+    | `          Cut STRING         `    |
+    | `          Color STRING         `  |
+    
 
 The following query predicts the value of a diamond based on the diamond's carat, cut, and color.
 
-``` text
-SELECT id, color, value
-FROM ML.PREDICT(MODEL DiamondAppraise, TABLE Diamonds);
-
-+----+-------+-------+
-| id | color | value |
-+----+-------+-------+
-| 1  | I     | 280   |
-| 2  | G     | 447   |
-+----+-------+-------+
-```
+    SELECT id, color, value
+    FROM ML.PREDICT(MODEL DiamondAppraise, TABLE Diamonds);
+    
+    +----+-------+-------+
+    | id | color | value |
+    +----+-------+-------+
+    | 1  | I     | 280   |
+    | 2  | G     | 447   |
+    +----+-------+-------+
 
 You can include model-specific parameters. For example, in the following query, the `  maxOutputTokens  ` parameter specifies that `  output  ` , the model inference, can contain 10 or fewer tokens. This query succeeds because the model `  TextBison  ` contains a parameter called `  maxOutputTokens  ` .
 
-``` text
-SELECT prompt, output
-FROM ML.PREDICT(
-  MODEL TextBison,
-  (SELECT "Is 13 prime?" as prompt), STRUCT(10 AS maxOutputTokens));
-
-+----------------+---------------------+
-| prompt         | output             |
-+----------------+---------------------+
-| "Is 13 prime?" | "Yes, 13 is prime." |
-+----------------+---------------------+
-```
+    SELECT prompt, output
+    FROM ML.PREDICT(
+      MODEL TextBison,
+      (SELECT "Is 13 prime?" as prompt), STRUCT(10 AS maxOutputTokens));
+    
+    +----------------+---------------------+
+    | prompt         | output             |
+    +----------------+---------------------+
+    | "Is 13 prime?" | "Yes, 13 is prime." |
+    +----------------+---------------------+
 
 The following example generates an embedding for a natural language query. The example then uses that embedding to find the most similar entries in a database that are indexed by vector embeddings.
 
-``` text
--- Generate the embedding from a natural language prompt
-WITH embedding AS (
-  SELECT embeddings.values
-  FROM ML.PREDICT(
-    MODEL DiamondAppraise,
-      (SELECT "What is the most valuable diamond?" as prompt)
-  )
-)
--- Use embedding to find the most similar entries in the database
-SELECT id, color, value,
-  (APPROX_COSINE_DISTANCE(valueEmbedding,
-  embedding.values,
-  options => JSON '{"num_leaves_to_search": 10}')) as distance
-FROM products @{force_index=valueEmbeddingIndex}, embedding
-WHERE valueEmbedding IS NOT NULL
-ORDER BY distance
-LIMIT 5;
-```
+    -- Generate the embedding from a natural language prompt
+    WITH embedding AS (
+      SELECT embeddings.values
+      FROM ML.PREDICT(
+        MODEL DiamondAppraise,
+          (SELECT "What is the most valuable diamond?" as prompt)
+      )
+    )
+    -- Use embedding to find the most similar entries in the database
+    SELECT id, color, value,
+      (APPROX_COSINE_DISTANCE(valueEmbedding,
+      embedding.values,
+      options => JSON '{"num_leaves_to_search": 10}')) as distance
+    FROM products @{force_index=valueEmbeddingIndex}, embedding
+    WHERE valueEmbedding IS NOT NULL
+    ORDER BY distance
+    LIMIT 5;
 
 You can use `  ML.PREDICT  ` in any DQL/DML statements, such as `  INSERT  ` or `  UPDATE  ` . For example:
 
-``` text
-INSERT INTO AppraisedDiamond (id, color, carat, value)
-SELECT
-  1 AS id,
-  color,
-  carat,
-  value
-FROM
-  ML.PREDICT(MODEL DiamondAppraise,
-  (
+    INSERT INTO AppraisedDiamond (id, color, carat, value)
     SELECT
-      @carat AS carat,
-      @cut AS cut,
-      @color AS color
-  ));
-```
+      1 AS id,
+      color,
+      carat,
+      value
+    FROM
+      ML.PREDICT(MODEL DiamondAppraise,
+      (
+        SELECT
+          @carat AS carat,
+          @cut AS cut,
+          @color AS color
+      ));

@@ -10,11 +10,11 @@ EXAMPLES
 
 To update a row with SingerId=1,SingName=abc in table Singers under my-database and my-instance, run:
 
-``` text
+``` wrap-code
 gcloud beta spanner rows update --table=Singers --database=my-database --instance=my-instance --data=SingerId=1,SingerName=abc
 ```
 
-``` text
+``` wrap-code
 gcloud beta spanner rows update --table=Singers --database=my-database --instance=my-instance --flags-file=path/to/file.yaml
 ```
 
@@ -22,7 +22,7 @@ REQUIRED FLAGS
 
 `  --data  ` =\[ `  COLUMN_NAME  ` = `  VALUE  ` ,…\]
 
-The column names and values for the row being updated. For complicated input values, such as arrays, use the `  --flags-file  ` flag. See $ [gcloud topic flags-file](/sdk/gcloud/reference/topic/flags-file) for more information.
+The column names and values for the row being updated. For complicated input values, such as arrays, use the `  --flags-file  ` flag. See $ [gcloud topic flags-file](https://docs.cloud.google.com/sdk/gcloud/reference/topic/flags-file) for more information.
 
 `  --table  ` = `  TABLE  `
 
@@ -66,10 +66,10 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` text
+``` wrap-code
 gcloud spanner rows update
 ```
 
-``` text
+``` wrap-code
 gcloud alpha spanner rows update
 ```

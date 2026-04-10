@@ -1,6 +1,6 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [TypeCode](#TypeCode)
-  - [TypeAnnotationCode](#TypeAnnotationCode)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type#SCHEMA_REPRESENTATION)
+  - [TypeCode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type#TypeCode)
+  - [TypeAnnotationCode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type#TypeAnnotationCode)
 
 `  Type  ` indicates the type of a Cloud Spanner value, as might be stored in a table cell or returned from an SQL query.
 
@@ -15,7 +15,7 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;code&quot;: enum (TypeCode),
   &quot;arrayElementType&quot;: {
     object (Type)

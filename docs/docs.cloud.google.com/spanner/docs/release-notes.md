@@ -1,6 +1,6 @@
 This page documents production updates to Spanner. You can periodically check this page for announcements about new or updated features, bug fixes, known issues, and deprecated functionality.
 
-You can see the latest product updates for all of Google Cloud on the [Google Cloud](/release-notes) page, browse and filter all release notes in the [Google Cloud console](https://console.cloud.google.com/release-notes) , or programmatically access release notes in [BigQuery](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=google_cloud_release_notes&t=release_notes&page=table) .
+You can see the latest product updates for all of Google Cloud on the [Google Cloud](https://docs.cloud.google.com/release-notes) page, browse and filter all release notes in the [Google Cloud console](https://console.cloud.google.com/release-notes) , or programmatically access release notes in [BigQuery](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=google_cloud_release_notes&t=release_notes&page=table) .
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
@@ -16,55 +16,55 @@ The preview release increases the accuracy of SQL generation with value search q
 
 Feature
 
-Spanner offers conversational analytics, which lets users query their operational data using natural language. This feature is powered by the [Conversational Analytics API](https://docs.cloud.google.com/gemini/data-agents/conversational-analytics-api/overview) , which can help you translate complex human dialog into precise database queries to provide actionable insights. This feature is in [Preview](/products#product-launch-stages) . For more information, see [Conversational analytics for Spanner overview](/gemini/data-agents/conversational-analytics/spanner) .
+Spanner offers conversational analytics, which lets users query their operational data using natural language. This feature is powered by the [Conversational Analytics API](https://docs.cloud.google.com/gemini/data-agents/conversational-analytics-api/overview) , which can help you translate complex human dialog into precise database queries to provide actionable insights. This feature is in [Preview](https://docs.cloud.google.com/products#product-launch-stages) . For more information, see [Conversational analytics for Spanner overview](https://docs.cloud.google.com/gemini/data-agents/conversational-analytics/spanner) .
 
 Feature
 
-You can create BigQuery [non-incremental materialized views over Spanner data](/bigquery/docs/materialized-views-create#spanner) to improve query performance by periodically caching results. This feature is [generally available](https://cloud.google.com/products/#product-launch-stages) (GA).
+You can create BigQuery [non-incremental materialized views over Spanner data](https://docs.cloud.google.com/bigquery/docs/materialized-views-create#spanner) to improve query performance by periodically caching results. This feature is [generally available](https://cloud.google.com/products/#product-launch-stages) (GA).
 
 Feature
 
-You can use [Cloud resource connections with `  EXPORT DATA  ` statements](/bigquery/docs/export-to-spanner#export_using_a_cloud_resource_connection) to reverse ETL (extract, transform, load) BigQuery data to Spanner. This feature is [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) .
+You can use [Cloud resource connections with `  EXPORT DATA  ` statements](https://docs.cloud.google.com/bigquery/docs/export-to-spanner#export_using_a_cloud_resource_connection) to reverse ETL (extract, transform, load) BigQuery data to Spanner. This feature is [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) .
 
 ## March 25, 2026
 
 Feature
 
-The Spark Spanner connector supports writing a Spark Dataframe to a Spanner table using the Spark data source API. For more information, see [Use the Spark Spanner connector](/dataproc/docs/tutorials/spanner-connector-spark-example#write-spanner-tables) .
+The Spark Spanner connector supports writing a Spark Dataframe to a Spanner table using the Spark data source API. For more information, see [Use the Spark Spanner connector](https://docs.cloud.google.com/dataproc/docs/tutorials/spanner-connector-spark-example#write-spanner-tables) .
 
 ## March 19, 2026
 
 Feature
 
-Spanner now offers [AI functions](/spanner/docs/reference/standard-sql/ml-functions) , as a part of machine learning functions, that help you perform semantic operations using Large Language Models (LLMs) in SQL to classify, evaluate, and rank your data:
+Spanner now offers [AI functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions) , as a part of machine learning functions, that help you perform semantic operations using Large Language Models (LLMs) in SQL to classify, evaluate, and rank your data:
 
-  - [`  AI.CLASSIFY  `](/spanner/docs/reference/standard-sql/ml-functions#aiclassify) : Classify a natural language input into user-defined categories.
-  - [`  AI.IF  `](/spanner/docs/reference/standard-sql/ml-functions#aiif) : Evaluate a condition described in natural language.
-  - [`  AI.SCORE  `](/spanner/docs/reference/standard-sql/ml-functions#aiscore) : Rate natural language input and assign it a score.
+  - [`  AI.CLASSIFY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiclassify) : Classify a natural language input into user-defined categories.
+  - [`  AI.IF  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiif) : Evaluate a condition described in natural language.
+  - [`  AI.SCORE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiscore) : Rate natural language input and assign it a score.
 
 ## March 10, 2026
 
 Feature
 
-Spanner supports the optimistic concurrency control mode. Optimistic concurrency control is suitable for transactional workloads with low read-write contention. It assumes that conflicts in transactions are rare. Reads and queries within a read-write transaction proceed without acquiring locks. For more information, see [Concurrency control](/spanner/docs/concurrency-control) .
+Spanner supports the optimistic concurrency control mode. Optimistic concurrency control is suitable for transactional workloads with low read-write contention. It assumes that conflicts in transactions are rare. Reads and queries within a read-write transaction proceed without acquiring locks. For more information, see [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
 
 ## March 04, 2026
 
 Feature
 
-You can use [continuous queries to stream BigQuery data to Spanner in real time](/bigquery/docs/export-to-spanner#export_continuously) . This feature is [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) .
+You can use [continuous queries to stream BigQuery data to Spanner in real time](https://docs.cloud.google.com/bigquery/docs/export-to-spanner#export_continuously) . This feature is [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) .
 
 ## March 03, 2026
 
 Feature
 
-Spanner supports the `  ON CONFLICT  ` clause for GoogleSQL `  INSERT  ` statements to handle unique constraint violations. For more information, see [`  ON CONFLICT DO NOTHING  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-nothing) and [`  ON CONFLICT DO UPDATE  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-update) .
+Spanner supports the `  ON CONFLICT  ` clause for GoogleSQL `  INSERT  ` statements to handle unique constraint violations. For more information, see [`  ON CONFLICT DO NOTHING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-nothing) and [`  ON CONFLICT DO UPDATE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-update) .
 
 ## February 27, 2026
 
 Feature
 
-Spanner supports using the pending commit timestamp function as a default value and an `  ON UPDATE  ` expression for column definitions. For more information, see the GoogleSQL [`  ON UPDATE  ` clause](/spanner/docs/reference/standard-sql/data-definition-language#spanner-on-update) and the PostgreSQL [`  ON UPDATE  ` clause](/spanner/docs/reference/postgresql/data-definition-language#postgresql-on-update) .
+Spanner supports using the pending commit timestamp function as a default value and an `  ON UPDATE  ` expression for column definitions. For more information, see the GoogleSQL [`  ON UPDATE  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#spanner-on-update) and the PostgreSQL [`  ON UPDATE  ` clause](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#postgresql-on-update) .
 
 ## February 26, 2026
 
@@ -72,10 +72,10 @@ Feature
 
 Spanner provides JSON string versions of the following statistics columns for PostgreSQL-dialect databases:
 
-  - `  TOTAL_LATENCY_DISTRIBUTION_JSON_STRING  ` in [Transaction statistics](/spanner/docs/introspection/transaction-statistics)
-  - `  OPERATIONS_BY_TABLE_JSON_STRING  ` in [Transaction statistics](/spanner/docs/introspection/transaction-statistics)
-  - `  LATENCY_DISTRIBUTION_JSON_STRING  ` in [Query statistics](/spanner/docs/introspection/query-statistics)
-  - `  SAMPLE_LOCK_REQUESTS_JSON_STRING  ` in [Lock statistics](/spanner/docs/introspection/lock-statistics)
+  - `  TOTAL_LATENCY_DISTRIBUTION_JSON_STRING  ` in [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics)
+  - `  OPERATIONS_BY_TABLE_JSON_STRING  ` in [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics)
+  - `  LATENCY_DISTRIBUTION_JSON_STRING  ` in [Query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics)
+  - `  SAMPLE_LOCK_REQUESTS_JSON_STRING  ` in [Lock statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics)
 
 You can use these columns to retrieve statistics in JSON format from the `  SPANNER_SYS  ` tables.
 
@@ -85,27 +85,27 @@ Feature
 
 Spanner supports the following:
 
-  - [Monitor the usage of Enterprise edition and Enterprise Plus edition features](/spanner/docs/editions-overview#monitor-edition-feature-usage) in your Spanner instance.
-  - [Downgrade the instance's edition using the Google Cloud console](/spanner/docs/create-manage-instances#downgrade-edition) .
-  - [Verify edition compatibility when restoring from a backup](/spanner/docs/backup/restore-backups) . If the database uses higher-tier features, you must restore the backup to a destination instance that uses the same or a higher-tier edition.
-  - [Set custom edition constraints within your organization policies](/spanner/docs/spanner-custom-constraints#google-managed_constraints) , limiting the edition of your instance that your users can create.
+  - [Monitor the usage of Enterprise edition and Enterprise Plus edition features](https://docs.cloud.google.com/spanner/docs/editions-overview#monitor-edition-feature-usage) in your Spanner instance.
+  - [Downgrade the instance's edition using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-manage-instances#downgrade-edition) .
+  - [Verify edition compatibility when restoring from a backup](https://docs.cloud.google.com/spanner/docs/backup/restore-backups) . If the database uses higher-tier features, you must restore the backup to a destination instance that uses the same or a higher-tier edition.
+  - [Set custom edition constraints within your organization policies](https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints#google-managed_constraints) , limiting the edition of your instance that your users can create.
 
 Feature
 
-Spanner supports the following [managed autoscaler](/spanner/docs/managed-autoscaler) features:
+Spanner supports the following [managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) features:
 
-  - Autoscaling based on [total CPU utilization target](/spanner/docs/managed-autoscaler#how_managed_autoscaler_works) . When an instance's total CPU utilization exceeds or falls below the target that you have set, Spanner adds or removes compute capacity.
-  - Autoscaling for [instance partitions (in Preview)](/spanner/docs/geo-partitioning) .
+  - Autoscaling based on [total CPU utilization target](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#how_managed_autoscaler_works) . When an instance's total CPU utilization exceeds or falls below the target that you have set, Spanner adds or removes compute capacity.
+  - Autoscaling for [instance partitions (in Preview)](https://docs.cloud.google.com/spanner/docs/geo-partitioning) .
 
-For more information, see [Managed autoscaler](/spanner/docs/managed-autoscaler) .
+For more information, see [Managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) .
 
 ## February 24, 2026
 
 Feature
 
-Spanner provides `  UNSPLITTABLE_REASONS  ` in hotspot insights and split statistics views to detect when splits can't be split further. Unsplittable reasons can help you identify schema anti-patterns that require intervention. For more information, see [Find hotspots in your database](/spanner/docs/find-hotspots-in-database) and [Split statistics](/spanner/docs/introspection/hot-split-statistics) .
+Spanner provides `  UNSPLITTABLE_REASONS  ` in hotspot insights and split statistics views to detect when splits can't be split further. Unsplittable reasons can help you identify schema anti-patterns that require intervention. For more information, see [Find hotspots in your database](https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database) and [Split statistics](https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics) .
 
-This feature is [generally available (GA)](/products#product-launch-stages) .
+This feature is [generally available (GA)](https://docs.cloud.google.com/products#product-launch-stages) .
 
 ## February 17, 2026
 
@@ -113,7 +113,7 @@ Deprecated
 
 Control of MCP use with organization policies is deprecated. After March 17, 2026, organization policies that use the `  gcp.managed.allowedMCPServices  ` constraint won't work, and you can control MCP use with IAM deny policies.
 
-For more information about controlling MCP use, see [Control MCP use with IAM](/mcp/control-mcp-use-iam) .
+For more information about controlling MCP use, see [Control MCP use with IAM](https://docs.cloud.google.com/mcp/control-mcp-use-iam) .
 
 Change
 
@@ -121,7 +121,7 @@ After March 17, 2026, when you enable Spanner, the Spanner MCP server is automat
 
 Announcement
 
-New best practices are available for securing generative AI agents using Model Context Protocol (MCP) with Google Cloud databases. This guide covers key security measures like least privilege, native database controls, and secure agent design to help you build safer AI applications. For more information, see [Best practices for securing agent interactions with Model Context Protocol](/spanner/docs/secure-agent-interactions-mcp) .
+New best practices are available for securing generative AI agents using Model Context Protocol (MCP) with Google Cloud databases. This guide covers key security measures like least privilege, native database controls, and secure agent design to help you build safer AI applications. For more information, see [Best practices for securing agent interactions with Model Context Protocol](https://docs.cloud.google.com/spanner/docs/secure-agent-interactions-mcp) .
 
 This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
 
@@ -129,7 +129,7 @@ This feature is in [Preview](https://cloud.google.com/products/#product-launch-s
 
 Feature
 
-You can use the [Spanner remote MCP server](/spanner/docs/use-spanner-mcp) to interact with Spanner instances and databases from agentic AI applications such as Gemini CLI, agent mode in Gemini Code Assist, or Claude.ai.
+You can use the [Spanner remote MCP server](https://docs.cloud.google.com/spanner/docs/use-spanner-mcp) to interact with Spanner instances and databases from agentic AI applications such as Gemini CLI, agent mode in Gemini Code Assist, or Claude.ai.
 
 This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
 
@@ -139,13 +139,13 @@ Feature
 
 You can right-click a node in a Spanner Graph query visualization to access options like expanding or collapsing adjacent nodes, highlighting or hiding nodes, and viewing only a node's neighbors.
 
-For more information, see [Work with visualizations](/spanner/docs/graph/work-with-visualizations#choose-nodes-to-display) .
+For more information, see [Work with visualizations](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations#choose-nodes-to-display) .
 
 ## February 02, 2026
 
 Feature
 
-You can create and host [remote functions](/spanner/docs/cloud-run-remote-function) in Cloud Run and call them from Spanner queries using the GoogleSQL dialect. This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
+You can create and host [remote functions](https://docs.cloud.google.com/spanner/docs/cloud-run-remote-function) in Cloud Run and call them from Spanner queries using the GoogleSQL dialect. This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
 
 ## January 30, 2026
 
@@ -153,9 +153,9 @@ Feature
 
 Spanner supports the `  UUID  ` data type for both GoogleSQL and PostgreSQL-dialect databases. This data type stores universally unique identifiers (UUIDs) as 128-bit values.
 
-You can use the GoogleSQL [`  NEW_UUID()  `](/spanner/docs/reference/standard-sql/utility-functions#new_uuid) function or the PostgreSQL [`  gen_random_uuid()  `](/spanner/docs/reference/postgresql/functions#utility) to function to create UUID values.
+You can use the GoogleSQL [`  NEW_UUID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) function or the PostgreSQL [`  gen_random_uuid()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) to function to create UUID values.
 
-For more information, see [Use a universally unique identifier (UUID)](/spanner/docs/schema-design#uuid_primary_key) .
+For more information, see [Use a universally unique identifier (UUID)](https://docs.cloud.google.com/spanner/docs/schema-design#uuid_primary_key) .
 
 ## January 28, 2026
 
@@ -163,11 +163,11 @@ Feature
 
 Spanner supports the following compression functions:
 
-  - [`  ZSTD_COMPRESS  `](/spanner/docs/reference/standard-sql/compression-functions#zstd_compress)
-  - [`  ZSTD_DECOMPRESS_TO_BYTES  `](/spanner/docs/reference/standard-sql/compression-functions#zstd_decompress_to_bytes)
-  - [`  ZSTD_DECOMPRESS_TO_STRING  `](/spanner/docs/reference/standard-sql/compression-functions#zstd_decompress_to_string)
+  - [`  ZSTD_COMPRESS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions#zstd_compress)
+  - [`  ZSTD_DECOMPRESS_TO_BYTES  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions#zstd_decompress_to_bytes)
+  - [`  ZSTD_DECOMPRESS_TO_STRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions#zstd_decompress_to_string)
 
-These functions use the Zstandard (Zstd) lossless data compression algorithm to compress and decompress `  STRING  ` or `  BYTES  ` values. For more information, see [Compression functions](/spanner/docs/reference/standard-sql/compression-functions) .
+These functions use the Zstandard (Zstd) lossless data compression algorithm to compress and decompress `  STRING  ` or `  BYTES  ` values. For more information, see [Compression functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions) .
 
 ## January 26, 2026
 
@@ -176,66 +176,66 @@ Feature
 Columnar engine for Spanner is now in [Public Preview](https://cloud.google.com/products#product-launch-stages) . Columnar engine is a storage technique used with analytical queries to speed up scans up to 200 times faster on live operational data without affecting transaction workloads. In databases or tables enabled with columnar engine, this release:
 
   - Supports the ability to execute columnar queries automatically and perform faster columnar scans using vectorized execution.
-  - Provides a new [major compaction API](/spanner/docs/manual-data-compaction) to accelerate the conversion of non-columnar data into columnar data.
+  - Provides a new [major compaction API](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) to accelerate the conversion of non-columnar data into columnar data.
 
-For more information, see the [Columnar engine for Spanner overview](/spanner/docs/columnar-engine) .
+For more information, see the [Columnar engine for Spanner overview](https://docs.cloud.google.com/spanner/docs/columnar-engine) .
 
 ## January 20, 2026
 
 Feature
 
-You can create Spanner [regional instance configurations](/spanner/docs/instance-configurations#available-configurations-regional) in Bangkok, Thailand ( `  asia-southeast3  ` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://cloud.google.com/spanner/pricing) .
+You can create Spanner [regional instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Bangkok, Thailand ( `  asia-southeast3  ` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://cloud.google.com/spanner/pricing) .
 
 ## January 13, 2026
 
 Feature
 
-Several updates have been made to [full-text search](/spanner/docs/full-text-search) :
+Several updates have been made to [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) :
 
-  - [Named schemas](/spanner/docs/full-text-search/search-indexes#create_and_query_a_search_index_for_a_named_schema) support full-text search.
-  - Spanner search indexes can [accelerate pattern matching expressions](/spanner/docs/full-text-search/pattern-matching-function-acceleration) such as `  LIKE  ` , `  STARTS_WITH  ` , and `  ENDS_WITH  ` for pattern matching, and `  REGEXP_CONTAINS  ` for regular expression matching.
-  - [`  TOKENIZE_FULLTEXT  `](/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext) has an argument for removing diacritics. `  SEARCH  ` and `  SCORE  ` use this if the data was tokenized with this option.
-  - [`  TOKENIZE_SUBSTRING  `](/spanner/docs/full-text-search/substring-search) supports emojis.
+  - [Named schemas](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#create_and_query_a_search_index_for_a_named_schema) support full-text search.
+  - Spanner search indexes can [accelerate pattern matching expressions](https://docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration) such as `  LIKE  ` , `  STARTS_WITH  ` , and `  ENDS_WITH  ` for pattern matching, and `  REGEXP_CONTAINS  ` for regular expression matching.
+  - [`  TOKENIZE_FULLTEXT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext) has an argument for removing diacritics. `  SEARCH  ` and `  SCORE  ` use this if the data was tokenized with this option.
+  - [`  TOKENIZE_SUBSTRING  `](https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search) supports emojis.
 
 ## January 05, 2026
 
 Feature
 
-You can use [SQL views](/spanner/docs/views) to create a graph. For requirements, considerations, and the benefits of using SQL views to create a graph, see [Overview of graphs created from SQL views](/spanner/docs/graph/graph-with-views-overview) . To learn how to create a graph from views, see [Create a property graph from SQL views](/spanner/docs/graph/graph-with-views-how-to) .
+You can use [SQL views](https://docs.cloud.google.com/spanner/docs/views) to create a graph. For requirements, considerations, and the benefits of using SQL views to create a graph, see [Overview of graphs created from SQL views](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview) . To learn how to create a graph from views, see [Create a property graph from SQL views](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to) .
 
 ## December 18, 2025
 
 Feature
 
-The GoogleSQL function [`  ELEMENT_DEFINITION_NAME  `](/spanner/docs/reference/standard-sql/graph-gql-functions#element_definition_name) is available. `  ELEMENT_DEFINITION_NAME  ` returns the name of the graph element table underlying a graph element.
+The GoogleSQL function [`  ELEMENT_DEFINITION_NAME  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#element_definition_name) is available. `  ELEMENT_DEFINITION_NAME  ` returns the name of the graph element table underlying a graph element.
 
 ## December 17, 2025
 
 Feature
 
-You can build data agents that interact with the data in your database using conversational language. Use these data agents as tools to empower your applications. For more information, see [Data agents overview](/spanner/docs/data-agent-overview) . This feature is available in [Preview](https://cloud.google.com/products#product-launch-stages) , and access to it requires a [sign-up](https://forms.gle/pJByTWfenZAWbaXo7) .
+You can build data agents that interact with the data in your database using conversational language. Use these data agents as tools to empower your applications. For more information, see [Data agents overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) . This feature is available in [Preview](https://cloud.google.com/products#product-launch-stages) , and access to it requires a [sign-up](https://forms.gle/pJByTWfenZAWbaXo7) .
 
 ## December 12, 2025
 
 Feature
 
-Spanner supports the PostgreSQL `  generate_series()  ` function. You can use this function to create a sequence of numbers. For more information, see [Set returning functions](/spanner/docs/reference/postgresql/functions#set-returning-functions) .
+Spanner supports the PostgreSQL `  generate_series()  ` function. You can use this function to create a sequence of numbers. For more information, see [Set returning functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#set-returning-functions) .
 
 ## December 11, 2025
 
 Feature
 
-Spanner [Data Boost](/spanner/docs/databoost/databoost-overview) includes a the [Data Boost concurrent requests in milli-operations per second per region](/spanner/docs/databoost/databoost-quotas) quota, which applies fine-grained control over how multiple concurrent requests for your project share Data Boost resources. Instead of counting 1 request against 1 unit of quota under the existing [concurrency quota regime](/spanner/docs/databoost/databoost-quotas) , Data Boost splits a request at a granularity of 1/1000, allowing for a greater number of concurrent requests to make progress. For more information, see [Quotas and limits](/spanner/quotas#data_boost_limits) .
+Spanner [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) includes a the [Data Boost concurrent requests in milli-operations per second per region](https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas) quota, which applies fine-grained control over how multiple concurrent requests for your project share Data Boost resources. Instead of counting 1 request against 1 unit of quota under the existing [concurrency quota regime](https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas) , Data Boost splits a request at a granularity of 1/1000, allowing for a greater number of concurrent requests to make progress. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#data_boost_limits) .
 
 Feature
 
-Spanner Graph supports using the [`  ANY CHEAPEST  `](/spanner/docs/graph/work-with-paths#any-cheapest) path search prefix in a query to return the path with the lowest total compute cost. For more information, see [Path search prefix](/spanner/docs/reference/standard-sql/graph-patterns#search_prefix) in the [Spanner Graph Language](/spanner/docs/reference/standard-sql/graph-intro) reference.
+Spanner Graph supports using the [`  ANY CHEAPEST  `](https://docs.cloud.google.com/spanner/docs/graph/work-with-paths#any-cheapest) path search prefix in a query to return the path with the lowest total compute cost. For more information, see [Path search prefix](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#search_prefix) in the [Spanner Graph Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro) reference.
 
 ## December 10, 2025
 
 Feature
 
-Spanner supports the following new columns in the `  SPANNER_SYS  ` [oldest active queries](/spanner/docs/introspection/oldest-active-queries) table:
+Spanner supports the following new columns in the `  SPANNER_SYS  ` [oldest active queries](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries) table:
 
   - `  CLIENT_IP_ADDRESS  `
   - `  API_CLIENT_HEADER  `
@@ -244,7 +244,7 @@ Spanner supports the following new columns in the `  SPANNER_SYS  ` [oldest acti
   - `  PRIORITY  `
   - `  TRANSACTION_TYPE  `
 
-You can also view these columns in the Spanner **query insights** page on the Google Cloud console. For more information, see [Monitor active queries](/spanner/docs/monitor-active-queries#view-longest-running-queries) .
+You can also view these columns in the Spanner **query insights** page on the Google Cloud console. For more information, see [Monitor active queries](https://docs.cloud.google.com/spanner/docs/monitor-active-queries#view-longest-running-queries) .
 
 ## December 03, 2025
 
@@ -262,7 +262,7 @@ Query optimizer version 8 is the [default version](https://docs.cloud.google.com
 
 Feature
 
-The GoogleSQL function [`  IS_FIRST  `](/spanner/docs/reference/standard-sql/graph-sql-functions#is_first) is available for graph queries. `  IS_FIRST  ` returns `  true  ` if a row is in the first `  k  ` rows (1-based) within a window. You can use `  IS_FIRST  ` in graph queries to [limit traversed edges to improve query performance](/spanner/docs/graph/best-practices-tuning-queries#limit-traversed-edges) . You can also use `  IS_FIRST  ` to [sample intermediate nodes to optimize multi-hop queries](/spanner/docs/graph/best-practices-tuning-queries#use-is-first) .
+The GoogleSQL function [`  IS_FIRST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_first) is available for graph queries. `  IS_FIRST  ` returns `  true  ` if a row is in the first `  k  ` rows (1-based) within a window. You can use `  IS_FIRST  ` in graph queries to [limit traversed edges to improve query performance](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries#limit-traversed-edges) . You can also use `  IS_FIRST  ` to [sample intermediate nodes to optimize multi-hop queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries#use-is-first) .
 
 ## November 11, 2025
 
@@ -274,13 +274,13 @@ Feature
 
 Feature
 
-Spanner automatically provides recommendations to apply [schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) to your databases. You can view these schema issue recommendations on the Spanner Studio page for your database. For more information, see [View schema design best practice recommendations](/spanner/docs/manage-data-using-console#recommend-schema-best) . This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages%22%3E) .
+Spanner automatically provides recommendations to apply [schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) to your databases. You can view these schema issue recommendations on the Spanner Studio page for your database. For more information, see [View schema design best practice recommendations](https://docs.cloud.google.com/spanner/docs/manage-data-using-console#recommend-schema-best) . This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages%22%3E) .
 
 ## October 31, 2025
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -375,31 +375,31 @@ Feature
 
 Feature
 
-[Schema object drop protection](/spanner/docs/schema-drop-protection) is generally available. This feature protects schema objects such as tables, indexes, and columns from accidental deletion.
+[Schema object drop protection](https://docs.cloud.google.com/spanner/docs/schema-drop-protection) is generally available. This feature protects schema objects such as tables, indexes, and columns from accidental deletion.
 
 ## October 20, 2025
 
 Feature
 
-You can use the GoogleSQL [`  ML.PREDICT  ` function](/spanner/docs/reference/standard-sql/ml-functions#mlpredict) to convert your natural language query text into an embedding and perform approximate nearest neighbors (ANN) vector search.
+You can use the GoogleSQL [`  ML.PREDICT  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) to convert your natural language query text into an embedding and perform approximate nearest neighbors (ANN) vector search.
 
 ## October 02, 2025
 
 Feature
 
-You can use repeatable read isolation (in [Preview](https://cloud.google.com/products#product-launch-stages0) ) to reduce latency and transaction abort rates for workloads that have many reads contending with fewer writes. For more information, see [Repeatable read isolation](/spanner/docs/isolation-levels#repeatable-read) .
+You can use repeatable read isolation (in [Preview](https://cloud.google.com/products#product-launch-stages0) ) to reduce latency and transaction abort rates for workloads that have many reads contending with fewer writes. For more information, see [Repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) .
 
 ## October 01, 2025
 
 Feature
 
-The [Spanner CLI](/spanner/docs/spanner-cli) is generally available. Bundled with Google Cloud CLI, you can use the Spanner command-line interface to open an interactive session or automate SQL executions from the shell or an input file.
+The [Spanner CLI](https://docs.cloud.google.com/spanner/docs/spanner-cli) is generally available. Bundled with Google Cloud CLI, you can use the Spanner command-line interface to open an interactive session or automate SQL executions from the shell or an input file.
 
 ## September 30, 2025
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -620,35 +620,35 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-You can create BigQuery [non-incremental materialized views over Spanner data](/bigquery/docs/materialized-views-create#spanner) to improve query performance by periodically caching results. This feature is in [Preview](https://cloud.google.com/products#product-launch-stages) .
+You can create BigQuery [non-incremental materialized views over Spanner data](https://docs.cloud.google.com/bigquery/docs/materialized-views-create#spanner) to improve query performance by periodically caching results. This feature is in [Preview](https://cloud.google.com/products#product-launch-stages) .
 
 ## September 25, 2025
 
 Feature
 
-The Cassandra interface for Spanner is generally available. The Cassandra interface lets you take advantage of Spanner's fully managed, scalable, and highly available infrastructure using familiar Cassandra tools and syntax. For more information, see [Cassandra interface](/spanner/docs/non-relational/cassandra-overview) , [Migrate from Cassandra to Spanner](/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) , and [Connect to Spanner using the Cassandra interface](/spanner/docs/non-relational/connect-cassandra-adapter) .
+The Cassandra interface for Spanner is generally available. The Cassandra interface lets you take advantage of Spanner's fully managed, scalable, and highly available infrastructure using familiar Cassandra tools and syntax. For more information, see [Cassandra interface](https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview) , [Migrate from Cassandra to Spanner](https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) , and [Connect to Spanner using the Cassandra interface](https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter) .
 
 ## September 23, 2025
 
 Feature
 
-You can use [read lease](/spanner/docs/read-lease) regions to reduce latency for strong reads in multi-region or dual-region instances. Read leases use designated non-leader, read-write or read-only regions to serve strong reads locally, eliminating the network round trip to the leader region that is typically required. This feature is [generally available](https://cloud.google.com/products/#product-launch-stages) (GA).
+You can use [read lease](https://docs.cloud.google.com/spanner/docs/read-lease) regions to reduce latency for strong reads in multi-region or dual-region instances. Read leases use designated non-leader, read-write or read-only regions to serve strong reads locally, eliminating the network round trip to the leader region that is typically required. This feature is [generally available](https://cloud.google.com/products/#product-launch-stages) (GA).
 
 Feature
 
-You can use the dedicated [Gemini CLI extension for Spanner](/spanner/docs/pre-built-tools-with-mcp-toolbox) to execute SQL statements and query your Spanner instance using natural language controls.
+You can use the dedicated [Gemini CLI extension for Spanner](https://docs.cloud.google.com/spanner/docs/pre-built-tools-with-mcp-toolbox) to execute SQL statements and query your Spanner instance using natural language controls.
 
 ## September 22, 2025
 
 Feature
 
-You can run federated queries against [PostgreSQL dialect databases in Spanner](/spanner/docs/reference/postgresql/overview) using [BigQuery external datasets](/bigquery/docs/spanner-external-datasets) using GoogleSQL; this includes [cross-region federated queries](https://cloud.google.com/bigquery/docs/spanner-federated-queries#cross_region_queries) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
+You can run federated queries against [PostgreSQL dialect databases in Spanner](https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview) using [BigQuery external datasets](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets) using GoogleSQL; this includes [cross-region federated queries](https://cloud.google.com/bigquery/docs/spanner-federated-queries#cross_region_queries) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
 
 ## September 17, 2025
 
 Feature
 
-Spanner Graph support of schemaless schemas is [generally available](https://cloud.google.com/products#product-launch-stages) (GA). For more information, see [Manage schemaless data with Spanner Graph](/spanner/docs/graph/manage-schemaless-data) .
+Spanner Graph support of schemaless schemas is [generally available](https://cloud.google.com/products#product-launch-stages) (GA). For more information, see [Manage schemaless data with Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data) .
 
 ## September 03, 2025
 
@@ -658,13 +658,13 @@ You can import your own data into a Spanner database by using a CSV file, a MySQ
 
 Additionally, you can populate new databases in an existing Spanner instance from sample datasets that help you explore Spanner capabilities such as its relational model, full-text search, vector search, or Spanner Graph.
 
-For more information, see [Create and manage databases](/spanner/docs/create-manage-databases) .
+For more information, see [Create and manage databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases) .
 
 ## August 29, 2025
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -790,27 +790,27 @@ Feature
 
 You can terminate multiple active queries in your Spanner instance. Active queries are long-running queries that might affect the performance of your instance. Monitoring these queries can help you identify causes of instance latency and high CPU usage. Terminating queries might help free up resources and reduce the load on your instance.
 
-For more information, see [Monitor active queries](/spanner/docs/monitor-active-queries#terminate-query) .
+For more information, see [Monitor active queries](https://docs.cloud.google.com/spanner/docs/monitor-active-queries#terminate-query) .
 
 ## August 14, 2025
 
 Feature
 
-You can use [cross region federated queries](https://cloud.google.com/bigquery/docs/spanner-federated-queries#cross_region_queries) to query Spanner tables from regions other than the source BigQuery region. These cross region queries incur additional [Spanner network egress charges](/spanner/pricing#network) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
+You can use [cross region federated queries](https://cloud.google.com/bigquery/docs/spanner-federated-queries#cross_region_queries) to query Spanner tables from regions other than the source BigQuery region. These cross region queries incur additional [Spanner network egress charges](https://docs.cloud.google.com/spanner/pricing#network) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
 
 ## August 13, 2025
 
 Feature
 
-Spanner offers a predefined library of over [80 MySQL functions](/spanner/docs/reference/mysql/user_defined_functions_all) that you can install in a database. These functions let you perform operations that are common in the MySQL environments directly with Spanner. They can help reduce the changes required when migrating workloads from MySQL to Spanner.
+Spanner offers a predefined library of over [80 MySQL functions](https://docs.cloud.google.com/spanner/docs/reference/mysql/user_defined_functions_all) that you can install in a database. These functions let you perform operations that are common in the MySQL environments directly with Spanner. They can help reduce the changes required when migrating workloads from MySQL to Spanner.
 
-These functions are packaged as user-defined functions that can be installed from an open-source DDL script hosted on GitHub. For more information, see [Install MySQL functions in Spanner](/spanner/docs/install-mysql-functions) .
+These functions are packaged as user-defined functions that can be installed from an open-source DDL script hosted on GitHub. For more information, see [Install MySQL functions in Spanner](https://docs.cloud.google.com/spanner/docs/install-mysql-functions) .
 
 ## August 05, 2025
 
 Feature
 
-Columnar engine for Spanner is in Preview. Columnar engine is a storage technique used with analytics queries to speed up scans. Spanner columnar engine accelerates analytical query performance on live operational data by up to 200 times without affecting transaction workloads. This eliminates the need for ETL into separate data warehouses while maintaining strong consistency. For more information, see the [Columnar engine for Spanner overview](/spanner/docs/columnar-engine) .
+Columnar engine for Spanner is in Preview. Columnar engine is a storage technique used with analytics queries to speed up scans. Spanner columnar engine accelerates analytical query performance on live operational data by up to 200 times without affecting transaction workloads. This eliminates the need for ETL into separate data warehouses while maintaining strong consistency. For more information, see the [Columnar engine for Spanner overview](https://docs.cloud.google.com/spanner/docs/columnar-engine) .
 
 ## August 01, 2025
 
@@ -818,17 +818,17 @@ Feature
 
 When you create the free trial instance using the Google Cloud console, Spanner creates and preloads it with a sample database for an ecommerce store. You can use the free trial instance to explore the dataset and learn about Spanner capabilities with pre-loaded queries.
 
-For more information, see [Spanner free trial instances](/spanner/docs/free-trial-instance) .
+For more information, see [Spanner free trial instances](https://docs.cloud.google.com/spanner/docs/free-trial-instance) .
 
 ## July 31, 2025
 
 Feature
 
-You can use [continuous queries](/bigquery/docs/continuous-queries-introduction) to [export BigQuery data into Spanner in real time](/bigquery/docs/export-to-spanner) . This feature is in [preview](https://cloud.google.com/products#product-launch-stages) .
+You can use [continuous queries](https://docs.cloud.google.com/bigquery/docs/continuous-queries-introduction) to [export BigQuery data into Spanner in real time](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) . This feature is in [preview](https://cloud.google.com/products#product-launch-stages) .
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -883,13 +883,13 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-[Spanner Data Boost](/spanner/docs/databoost/databoost-overview) supports data stored on hard disk drives (HDD). This feature is [generally available](https://cloud.google.com/products/#product-launch-stages) (GA).
+[Spanner Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) supports data stored on hard disk drives (HDD). This feature is [generally available](https://cloud.google.com/products/#product-launch-stages) (GA).
 
 ## July 01, 2025
 
 Change
 
-The performance of the `  ANY  ` and the [`  ANY SHORTEST  `](/spanner/docs/graph/work-with-paths#any-shortest) algorithms have been improved. These algorithms are used to find Spanner Graph paths. For more information, see [`  ANY  ` and `  ANY SHORTEST  ` paths](/spanner/docs/graph/queries-overview#any-and-any-shortest-paths) .
+The performance of the `  ANY  ` and the [`  ANY SHORTEST  `](https://docs.cloud.google.com/spanner/docs/graph/work-with-paths#any-shortest) algorithms have been improved. These algorithms are used to find Spanner Graph paths. For more information, see [`  ANY  ` and `  ANY SHORTEST  ` paths](https://docs.cloud.google.com/spanner/docs/graph/queries-overview#any-and-any-shortest-paths) .
 
 ## June 30, 2025
 
@@ -902,15 +902,15 @@ Spanner supports the following new client-side metrics to the Cloud Spanner API 
   - GFE connectivity error count
   - GFE latencies
 
-These metrics can be used with server-side metrics to enable faster troubleshooting of performance and latency issues. For more information, see [Client-side metrics descriptions](/spanner/docs/client-side-metrics-descriptions) .
+These metrics can be used with server-side metrics to enable faster troubleshooting of performance and latency issues. For more information, see [Client-side metrics descriptions](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions) .
 
 Feature
 
-To troubleshoot or understand your Spanner queries better, you can download and save your [query execution plan](/spanner/docs/query-execution-plans) as a JSON file. You can use the content of this file to see a visualization of the query execution plan in Spanner Studio. For more information, see [Take a tour of the query plan visualizer](/spanner/docs/tune-query-with-visualizer#visual-plan-tour) .
+To troubleshoot or understand your Spanner queries better, you can download and save your [query execution plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) as a JSON file. You can use the content of this file to see a visualization of the query execution plan in Spanner Studio. For more information, see [Take a tour of the query plan visualizer](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer#visual-plan-tour) .
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -979,29 +979,29 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-You can directly connect and interact with your Spanner database using the Spanner CLI, an interactive shell for Spanner that is built into the Google Cloud CLI. You can use the Spanner CLI to start an interactive session and automate SQL executions from the shell or an input file. This feature is available in [Preview](https://cloud.google.com/products#product-launch-stages) . For more information, see [Spanner CLI quickstart](/spanner/docs/spanner-cli) .
+You can directly connect and interact with your Spanner database using the Spanner CLI, an interactive shell for Spanner that is built into the Google Cloud CLI. You can use the Spanner CLI to start an interactive session and automate SQL executions from the shell or an input file. This feature is available in [Preview](https://cloud.google.com/products#product-launch-stages) . For more information, see [Spanner CLI quickstart](https://docs.cloud.google.com/spanner/docs/spanner-cli) .
 
 ## June 20, 2025
 
 Feature
 
-A free trial creation workflow is available that makes it easier to start your Spanner free trial. With a free trial instance, you can learn and explore Spanner for 90 days at no cost. You can create relational (GoogleSQL and PostgreSQL) databases and deploy NoSQL models (Spanner Graph, vector search, and full-text search) in a single, fully managed database. For more information, see [Spanner free trial instances overview](/spanner/docs/free-trial-instance) .
+A free trial creation workflow is available that makes it easier to start your Spanner free trial. With a free trial instance, you can learn and explore Spanner for 90 days at no cost. You can create relational (GoogleSQL and PostgreSQL) databases and deploy NoSQL models (Spanner Graph, vector search, and full-text search) in a single, fully managed database. For more information, see [Spanner free trial instances overview](https://docs.cloud.google.com/spanner/docs/free-trial-instance) .
 
 ## June 11, 2025
 
 Feature
 
-Column operations statistics are [generally available](https://cloud.google.com/products#product-launch-stages) . They help you get insights into and monitor the usage of columns in your database. For more information, see [Column operations statistics](/spanner/docs/introspection/column-operations-statistics) .
+Column operations statistics are [generally available](https://cloud.google.com/products#product-launch-stages) . They help you get insights into and monitor the usage of columns in your database. For more information, see [Column operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics) .
 
 ## June 02, 2025
 
 Feature
 
-BigQuery supports using [Spanner external datasets](/bigquery/docs/spanner-external-datasets) with [authorized views](/bigquery/docs/authorized-views) , [authorized routines](/bigquery/docs/authorized-routines) , and [cloud resource connections](/bigquery/docs/create-cloud-resource-connection) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
+BigQuery supports using [Spanner external datasets](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets) with [authorized views](https://docs.cloud.google.com/bigquery/docs/authorized-views) , [authorized routines](https://docs.cloud.google.com/bigquery/docs/authorized-routines) , and [cloud resource connections](https://docs.cloud.google.com/bigquery/docs/create-cloud-resource-connection) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -1159,17 +1159,17 @@ Spanner supports [cross regional federated queries](https://cloud.google.com/big
 
 Feature
 
-Spanner enables efficient backup copying for [incremental backups](/spanner/docs/backup#incremental-backups) . When you copy an incremental backup, Spanner also copies all older backups in the chain needed to restore the backup. If the destination instance already contains a backup chain that ends with an older backup from the same source chain, Spanner avoids creating redundant copies to save storage and network costs. Spanner copies only the incremental backup and any older backups not present in the destination chain, and appends them to the existing chain.
+Spanner enables efficient backup copying for [incremental backups](https://docs.cloud.google.com/spanner/docs/backup#incremental-backups) . When you copy an incremental backup, Spanner also copies all older backups in the chain needed to restore the backup. If the destination instance already contains a backup chain that ends with an older backup from the same source chain, Spanner avoids creating redundant copies to save storage and network costs. Spanner copies only the incremental backup and any older backups not present in the destination chain, and appends them to the existing chain.
 
 While Spanner attempts to avoid redundant copies, in rare situations, Spanner might need to copy all the older backups in the chain, even if previously copied backups already exist in the destination instance.
 
-For more information, see [Incremental backups](/spanner/docs/backup#incremental-backups) .
+For more information, see [Incremental backups](https://docs.cloud.google.com/spanner/docs/backup#incremental-backups) .
 
 ## May 15, 2025
 
 Feature
 
-You can create a pre-filtered vector index that indexes only rows in your database that match a specific filter condition. Using a pre-filtered vector index improves both the performance and recall of approximate nearest neighbor (ANN) searchers by restricting the search to only apply to rows that satisfy the filtering condition. For more information, see [Filter a vector index](/spanner/docs/find-approximate-nearest-neighbors#filter-vector-index) .
+You can create a pre-filtered vector index that indexes only rows in your database that match a specific filter condition. Using a pre-filtered vector index improves both the performance and recall of approximate nearest neighbor (ANN) searchers by restricting the search to only apply to rows that satisfy the filtering condition. For more information, see [Filter a vector index](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#filter-vector-index) .
 
 ## May 13, 2025
 
@@ -1177,34 +1177,34 @@ Feature
 
 Spanner supports the `  INTERVAL  ` data type in GoogleSQL and PostgreSQL, which represents a duration or an amount of time.
 
-For more information, see [Interval functions in GoogleSQL](/spanner/docs/reference/standard-sql/interval_functions) and [PostgreSQL data types](/spanner/docs/reference/postgresql/data-types#interval-type) .
+For more information, see [Interval functions in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions) and [PostgreSQL data types](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#interval-type) .
 
 Feature
 
-Spanner supports the [`  SPLIT_SUBSTR()  `](/spanner/docs/reference/standard-sql/string_functions#split_substr) GoogleSQL function, which splits an input string using a delimiter and returns a substring composed of a specific number of segments, starting from a given segment index.
+Spanner supports the [`  SPLIT_SUBSTR()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#split_substr) GoogleSQL function, which splits an input string using a delimiter and returns a substring composed of a specific number of segments, starting from a given segment index.
 
 Spanner also supports the following GoogleSQL aliases:
 
-  - [`  ADDDATE()  `](/spanner/docs/reference/standard-sql/date_functions#adddate) : Alias for [`  DATE_ADD()  `](/spanner/docs/reference/standard-sql/date_functions#date_add)
-  - [`  SUBDATE()  `](/spanner/docs/reference/standard-sql/date_functions#subdate) : Alias for [`  DATE_SUB()  `](/spanner/docs/reference/standard-sql/date_functions#date_sub)
-  - [`  LCASE()  `](/spanner/docs/reference/standard-sql/string_functions#lcase) : Alias for [`  LOWER()  `](/spanner/docs/reference/standard-sql/string_functions#lower)
-  - [`  UCASE()  `](/spanner/docs/reference/standard-sql/string_functions#ucase) : Alias for [`  UPPER()  `](/spanner/docs/reference/standard-sql/string_functions#upper)
+  - [`  ADDDATE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#adddate) : Alias for [`  DATE_ADD()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#date_add)
+  - [`  SUBDATE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#subdate) : Alias for [`  DATE_SUB()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#date_sub)
+  - [`  LCASE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lcase) : Alias for [`  LOWER()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lower)
+  - [`  UCASE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ucase) : Alias for [`  UPPER()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#upper)
 
 ## May 01, 2025
 
 Feature
 
-Spanner Graph lets you model schemaless data with a dynamic label and properties. For more information, see [Manage schemaless data with Spanner Graph](/spanner/docs/graph/manage-schemaless-data) .
+Spanner Graph lets you model schemaless data with a dynamic label and properties. For more information, see [Manage schemaless data with Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data) .
 
 ## April 30, 2025
 
 Feature
 
-The `  enhance_query  ` option on the [`  SEARCH  `](/spanner/docs/reference/standard-sql/search_functions#search_fulltext) , [`  SCORE  `](/spanner/docs/reference/standard-sql/search_functions#score) , and [`  SNIPPET  `](/spanner/docs/reference/standard-sql/search_functions#snippet) functions provides automatic synonym matching and spell correction of single words, by default. Previously, if you provided a single word as the search string it likely didn't return any matches and required a phrase with context to perform the enhanced search.
+The `  enhance_query  ` option on the [`  SEARCH  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) , [`  SCORE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score) , and [`  SNIPPET  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#snippet) functions provides automatic synonym matching and spell correction of single words, by default. Previously, if you provided a single word as the search string it likely didn't return any matches and required a phrase with context to perform the enhanced search.
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -1311,41 +1311,41 @@ Feature
 
 Manually adding split points to your Spanner database is generally available. Spanner automatically splits, or partitions, data in response to traffic changes to spread load across all available resources in an instance. For large, anticipated traffic changes, such as for a product launch, you can pre-split the database with split boundaries that represent future traffic. This warmup can yield significant performance benefits for large scaling events.
 
-For more information about configuring split points for your database, see [Pre-splitting overview](/spanner/docs/pre-splitting-overview) .
+For more information about configuring split points for your database, see [Pre-splitting overview](https://docs.cloud.google.com/spanner/docs/pre-splitting-overview) .
 
 ## April 24, 2025
 
 Feature
 
-Spanner lets you use the [`  INTERLEAVE IN  ` clause](/spanner/docs/reference/standard-sql/data-definition-language#create_table) to colocate child rows with parent rows without enforcing the parent-child relationship. When you use `  INTERLEAVE IN  ` (without the `  PARENT  ` option), you can insert child rows before inserting the parent row. You can also delete the parent row without affecting the child rows. For more information, see [Create interleaved tables](/spanner/docs/schema-and-data-model#create-interleaved-tables) and [Indexes and interleaving](/spanner/docs/secondary-indexes#indexes_and_interleaving) .
+Spanner lets you use the [`  INTERLEAVE IN  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) to colocate child rows with parent rows without enforcing the parent-child relationship. When you use `  INTERLEAVE IN  ` (without the `  PARENT  ` option), you can insert child rows before inserting the parent row. You can also delete the parent row without affecting the child rows. For more information, see [Create interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) and [Indexes and interleaving](https://docs.cloud.google.com/spanner/docs/secondary-indexes#indexes_and_interleaving) .
 
 ## April 14, 2025
 
 Feature
 
-End-to-end tracing is generally available ( [GA](https://cloud.google.com/products#product-launch-stages) ). Spanner supports end-to-end tracing, along with client-side tracing in the Node.js and Python client libraries, in addition to Java and Go. For more information, see [Trace collection overview](/spanner/docs/tracing-overview) .
+End-to-end tracing is generally available ( [GA](https://cloud.google.com/products#product-launch-stages) ). Spanner supports end-to-end tracing, along with client-side tracing in the Node.js and Python client libraries, in addition to Java and Go. For more information, see [Trace collection overview](https://docs.cloud.google.com/spanner/docs/tracing-overview) .
 
 ## April 09, 2025
 
 Feature
 
-You can use Gemini assistance to help you use system insights to optimize and troubleshoot Spanner resources. For more information, see [Optimize and troubleshoot with Gemini assistance](/spanner/docs/observe-troubleshoot-with-gemini) .
+You can use Gemini assistance to help you use system insights to optimize and troubleshoot Spanner resources. For more information, see [Optimize and troubleshoot with Gemini assistance](https://docs.cloud.google.com/spanner/docs/observe-troubleshoot-with-gemini) .
 
 Feature
 
-Spanner offers Cassandra compatibility with API support and migration tools allowing seamless lift-and-shift migrations of Cassandra applications. For more information, see [Migrate from Cassandra to Spanner](/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) .
+Spanner offers Cassandra compatibility with API support and migration tools allowing seamless lift-and-shift migrations of Cassandra applications. For more information, see [Migrate from Cassandra to Spanner](https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) .
 
 ## April 04, 2025
 
 Feature
 
-Spanner includes the [`  PARAMETER_DEFAULT  ` column](/spanner/docs/information-schema#parameters) in the `  INFORMATION_SCHEMA.PARAMETERS  ` table. This column returns the default value of change stream read functions parameters.
+Spanner includes the [`  PARAMETER_DEFAULT  ` column](https://docs.cloud.google.com/spanner/docs/information-schema#parameters) in the `  INFORMATION_SCHEMA.PARAMETERS  ` table. This column returns the default value of change stream read functions parameters.
 
 ## April 03, 2025
 
 Feature
 
-In Spanner Graph you can view a visualization of graph elements returned by a Spanner Graph query and of a Spanner Graph schema. A graph query visualization helps you understand the query results by revealing patterns, dependencies, and anomalies in the returned graph elements. A graph schema visualization helps you understand how the nodes and edges in a schema are related. For more information, see [Work with Spanner Graph visualizations](/spanner/docs/graph/work-with-visualizations) .
+In Spanner Graph you can view a visualization of graph elements returned by a Spanner Graph query and of a Spanner Graph schema. A graph query visualization helps you understand the query results by revealing patterns, dependencies, and anomalies in the returned graph elements. A graph schema visualization helps you understand how the nodes and edges in a schema are related. For more information, see [Work with Spanner Graph visualizations](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations) .
 
 ## March 31, 2025
 
@@ -1371,19 +1371,19 @@ Spanner also supports the following PostgreSQL `  JSONB  ` operators:
   - concat: `  jsonb || jsonb -> jsonb  `
   - delete: `  jsonb - text -> jsonb  `
 
-For more information, see [JSON functions in GoogleSQL](/spanner/docs/reference/standard-sql/functions-all) and [Supported PostgreSQL functions](/spanner/docs/reference/postgresql/functions-and-operators) .
+For more information, see [JSON functions in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-all) and [Supported PostgreSQL functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators) .
 
 Feature
 
-The GoogleSQL [`  JSON_KEYS  `](/spanner/docs/reference/standard-sql/json_functions#json_keys) and PostgreSQL [`  json_object_keys  `](/spanner/docs/reference/postgresql/functions-and-operators#jsonb_functions) functions, which extract unique JSON keys from a JSON expression, are generally available.
+The GoogleSQL [`  JSON_KEYS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys) and PostgreSQL [`  json_object_keys  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_functions) functions, which extract unique JSON keys from a JSON expression, are generally available.
 
 Feature
 
-JSON search indexes are generally available in Spanner. This extension of Spanner's full-text index capabilities accelerates many JSON document queries, even without prior knowledge of the documents' structure. You can create search indexes over any JSON document stored in a `  JSON  ` column. The [`  JSON_CONTAINS  `](/spanner/docs/reference/standard-sql/json_functions#json_contains) function in GoogleSQL and the [`  @>  ` and `  <@  `](/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) operators in PostgreSQL can use search indexes to determine if one document structure is contained in another. Search indexing supports `  JSON  ` types in GoogleSQL-dialect databases and `  JSONB  ` in PostgreSQL-dialect databases. For more information, see [JSON search indexes](/spanner/docs/full-text-search/json-indexes) .
+JSON search indexes are generally available in Spanner. This extension of Spanner's full-text index capabilities accelerates many JSON document queries, even without prior knowledge of the documents' structure. You can create search indexes over any JSON document stored in a `  JSON  ` column. The [`  JSON_CONTAINS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains) function in GoogleSQL and the [`  @>  ` and `  <@  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) operators in PostgreSQL can use search indexes to determine if one document structure is contained in another. Search indexing supports `  JSON  ` types in GoogleSQL-dialect databases and `  JSONB  ` in PostgreSQL-dialect databases. For more information, see [JSON search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/json-indexes) .
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -1590,12 +1590,12 @@ Feature
 
 Spanner vector index and approximate nearest neighbor (ANN) distance functions in the GoogleSQL-dialect are Generally Available. If you have a table with a large amount of vector data, you can use a vector index to accelerate similarity searches and nearest neighbor queries. Spanner also supports the following:
 
-  - [`  ALTER VECTOR INDEX  `](/spanner/docs/reference/standard-sql/data-definition-language#alter-vector-index) DDL syntax
-  - [Import and export](/spanner/docs/import-export-overview) databases that use ANN
-  - Use the [`  STORING  ` clause](/spanner/docs/secondary-indexes#storing_clause) to store a copy of a column in the vector index to accelerate queries that filter by those columns
+  - [`  ALTER VECTOR INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-vector-index) DDL syntax
+  - [Import and export](https://docs.cloud.google.com/spanner/docs/import-export-overview) databases that use ANN
+  - Use the [`  STORING  ` clause](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing_clause) to store a copy of a column in the vector index to accelerate queries that filter by those columns
   - Use ANN in instances smaller than one node or 1000 processing units
 
-For more information, see [Find approximate nearest neighbors, create vector indexes, and query vector embeddings](/spanner/docs/find-approximate-nearest-neighbors) .
+For more information, see [Find approximate nearest neighbors, create vector indexes, and query vector embeddings](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
 
 Feature
 
@@ -1605,56 +1605,56 @@ Spanner ANN indexes are supported in Langchain. For more information, see [LangC
 
 Feature
 
-You can save and manage your SQL scripts in Spanner Studio. This feature is in [preview](https://cloud.google.com/products#product-launch-stages) . For more information, see [Saved queries overview](/spanner/docs/saved-queries) .
+You can save and manage your SQL scripts in Spanner Studio. This feature is in [preview](https://cloud.google.com/products#product-launch-stages) . For more information, see [Saved queries overview](https://docs.cloud.google.com/spanner/docs/saved-queries) .
 
 ## March 18, 2025
 
 Feature
 
-The default time zone of your Spanner databases can be set. For more information, see [Set the default time zone of a database](/spanner/docs/set-default-time-zone) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
+The default time zone of your Spanner databases can be set. For more information, see [Set the default time zone of a database](https://docs.cloud.google.com/spanner/docs/set-default-time-zone) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
 
 ## March 17, 2025
 
 Feature
 
-You can create an [external dataset](/bigquery/docs/spanner-external-datasets) in BigQuery that links to an existing database in Spanner. This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
+You can create an [external dataset](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets) in BigQuery that links to an existing database in Spanner. This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
 
 Feature
 
-You can use [`  EXPORT DATA  ` statements](/bigquery/docs/reference/standard-sql/other-statements) to [reverse ETL BigQuery data to Spanner](/bigquery/docs/export-to-spanner) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
+You can use [`  EXPORT DATA  ` statements](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/other-statements) to [reverse ETL BigQuery data to Spanner](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
 
 ## March 10, 2025
 
 Feature
 
-Tiered storage is Generally Available in Spanner. Tiered storage is a fully-managed feature that lets you store your data across solid-state drives (SSD) or hard disk drives (HDD). Using tiered storage lets you take advantage of both SSD storage, which supports the high performance of active data, and HDD storage, which supports infrequent data access at a lower cost. For more information, see [Tiered storage](/spanner/docs/tiered-storage) .
+Tiered storage is Generally Available in Spanner. Tiered storage is a fully-managed feature that lets you store your data across solid-state drives (SSD) or hard disk drives (HDD). Using tiered storage lets you take advantage of both SSD storage, which supports the high performance of active data, and HDD storage, which supports infrequent data access at a lower cost. For more information, see [Tiered storage](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
 
 Feature
 
 The following LangChain solutions can be used with Spanner Graph:
 
-  - Graph store for Spanner: Use to retrieve and store nodes and edges from a graph database. For more information, see [Graph store for Spanner](/spanner/docs/langchain#graph-store) .
-  - Graph QA chain for Spanner: Uses a graph to answer questions. For more information, see [Graph QA chain for Spanner](/spanner/docs/langchain#graph-qa) .
+  - Graph store for Spanner: Use to retrieve and store nodes and edges from a graph database. For more information, see [Graph store for Spanner](https://docs.cloud.google.com/spanner/docs/langchain#graph-store) .
+  - Graph QA chain for Spanner: Uses a graph to answer questions. For more information, see [Graph QA chain for Spanner](https://docs.cloud.google.com/spanner/docs/langchain#graph-qa) .
 
 ## March 04, 2025
 
 Feature
 
-You can create Spanner [regional instance configurations](https://cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Stockholm, Sweden ( `  europe-north2  ` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](/spanner/pricing) .
+You can create Spanner [regional instance configurations](https://cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Stockholm, Sweden ( `  europe-north2  ` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://docs.cloud.google.com/spanner/pricing) .
 
 Feature
 
-The following [multi-region instance configuration](/spanner/docs/instance-configurations#available-configurations-multi-region) is available in Europe - `  eur7  ` (Milan/Frankfurt/Turin).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) is available in Europe - `  eur7  ` (Milan/Frankfurt/Turin).
 
 ## February 28, 2025
 
 Feature
 
-[Full-text search](/spanner/docs/full-text-search) is generally available for PostgreSQL-dialect databases.
+[Full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) is generally available for PostgreSQL-dialect databases.
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -1844,21 +1844,21 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-The Java and Go clients for Spanner implement multiplexed sessions. This allows all requests to be concurrently sent over a single session, thus eliminating the requirement that you define the minimum and maximum session count. Instead, you can use any number of requests to the configured gRPC channels. This approach eliminates the possibility of session leaks and reduces the occurrences of `  Transaction outcome unknown  ` errors. You must set an environment variable in your client to opt in to this feature. For more information, see [Multiplexed sessions](/spanner/docs/sessions#multiplexed_sessions) .
+The Java and Go clients for Spanner implement multiplexed sessions. This allows all requests to be concurrently sent over a single session, thus eliminating the requirement that you define the minimum and maximum session count. Instead, you can use any number of requests to the configured gRPC channels. This approach eliminates the possibility of session leaks and reduces the occurrences of `  Transaction outcome unknown  ` errors. You must set an environment variable in your client to opt in to this feature. For more information, see [Multiplexed sessions](https://docs.cloud.google.com/spanner/docs/sessions#multiplexed_sessions) .
 
 ## February 11, 2025
 
 Feature
 
-[Managed autoscaler](/spanner/docs/managed-autoscaler) is Generally Available.
+[Managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) is Generally Available.
 
-Managed autoscaler also supports the ability to scale read-only replicas independently from read-write replicas. By setting the compute capacity limits and CPU utilization targets, you can configure the managed autoscaler for all replicas of an instance or independently scale read-only replicas. For more information, see [Asymmetric read-only autoscaling](/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
+Managed autoscaler also supports the ability to scale read-only replicas independently from read-write replicas. By setting the compute capacity limits and CPU utilization targets, you can configure the managed autoscaler for all replicas of an instance or independently scale read-only replicas. For more information, see [Asymmetric read-only autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
 
 ## February 10, 2025
 
 Feature
 
-Custom organization policies are generally available for Spanner. For more information, see [Add a custom organization policy](/spanner/docs/spanner-custom-constraints) .
+Custom organization policies are generally available for Spanner. For more information, see [Add a custom organization policy](https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints) .
 
 ## February 05, 2025
 
@@ -1870,16 +1870,16 @@ Informational foreign keys are supported by GoogleSQL only. Enforced foreign key
 
 For more information, see the following:
 
-  - [Types of foreign keys](/spanner/docs/foreign-keys/overview#types-of-foreign-keys)
-  - [Comparison of foreign key types](/spanner/docs/foreign-keys/overview#comparison-of-foreign-keys-types)
-  - [Choose which foreign key type to use](/spanner/docs/foreign-keys/overview#choose-foreign-key-type)
-  - [Use informational foreign keys](/spanner/docs/foreign-keys/overview#use-informational-foreign-keys)
+  - [Types of foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#types-of-foreign-keys)
+  - [Comparison of foreign key types](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#comparison-of-foreign-keys-types)
+  - [Choose which foreign key type to use](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#choose-foreign-key-type)
+  - [Use informational foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#use-informational-foreign-keys)
 
 ## January 31, 2025
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -1933,41 +1933,41 @@ A fix for this issue has been included in version [7.17.1](https://github.com/go
 
 Feature
 
-The Spanner index advisor is Generally Available in GoogleSQL and PostgreSQL-dialect databases. The index advisor analyzes your queries to recommend new indexes or changes to existing indexes to improve the performance of your queries. For more information, see [Use the Spanner index advisor](/spanner/docs/index-advisor) .
+The Spanner index advisor is Generally Available in GoogleSQL and PostgreSQL-dialect databases. The index advisor analyzes your queries to recommend new indexes or changes to existing indexes to improve the performance of your queries. For more information, see [Use the Spanner index advisor](https://docs.cloud.google.com/spanner/docs/index-advisor) .
 
 Feature
 
-Spanner supports [`  SERIAL  `](/spanner/docs/reference/postgresql/data-types#serial-types) and [`  AUTO_INCREMENT  `](/spanner/docs/reference/standard-sql/data-definition-language#table_statements) DDL syntax. `  SERIAL  ` is available in PostgreSQL-dialect databases and `  AUTO_INCREMENT  ` is available in GoogleSQL. They streamline the ability to generate `  IDENTITY  ` columns as primary keys. For more information, see [`  SERIAL  ` and `  AUTO_INCREMENT  `](/spanner/docs/primary-key-default-value#serial-auto-increment) .
+Spanner supports [`  SERIAL  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#serial-types) and [`  AUTO_INCREMENT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#table_statements) DDL syntax. `  SERIAL  ` is available in PostgreSQL-dialect databases and `  AUTO_INCREMENT  ` is available in GoogleSQL. They streamline the ability to generate `  IDENTITY  ` columns as primary keys. For more information, see [`  SERIAL  ` and `  AUTO_INCREMENT  `](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#serial-auto-increment) .
 
 ## January 28, 2025
 
 Feature
 
-You can downgrade your Spanner instance to a lower-tier [edition](/spanner/docs/editions-overview) . For more information, see [Downgrade the edition](/spanner/docs/create-manage-instances#downgrade-edition) .
+You can downgrade your Spanner instance to a lower-tier [edition](https://docs.cloud.google.com/spanner/docs/editions-overview) . For more information, see [Downgrade the edition](https://docs.cloud.google.com/spanner/docs/create-manage-instances#downgrade-edition) .
 
 ## January 27, 2025
 
 Feature
 
-Spanner supports the `  SELECT…FOR UPDATE  ` query syntax in GoogleSQL and PostgreSQL-dialect databases. When you use the `  SELECT  ` query to scan a table, add a `  FOR UPDATE  ` clause to enable exclusive locks on the scanned data in order to reduce aborts for workloads that operate on the same data concurrently. This is similar to the `  LOCK_SCANNED_RANGES  ` hint ( [GoogleSQL](/spanner/docs/reference/standard-sql/query-syntax#statement_hints) and [PostgreSQL](/spanner/docs/reference/postgresql/query-syntax#statement-hints) ). For more information, see [Use `  SELECT…FOR UPDATE  `](/spanner/docs/use-select-for-update) .
+Spanner supports the `  SELECT…FOR UPDATE  ` query syntax in GoogleSQL and PostgreSQL-dialect databases. When you use the `  SELECT  ` query to scan a table, add a `  FOR UPDATE  ` clause to enable exclusive locks on the scanned data in order to reduce aborts for workloads that operate on the same data concurrently. This is similar to the `  LOCK_SCANNED_RANGES  ` hint ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#statement-hints) ). For more information, see [Use `  SELECT…FOR UPDATE  `](https://docs.cloud.google.com/spanner/docs/use-select-for-update) .
 
 ## January 15, 2025
 
 Feature
 
-Spanner supports query statistics for previously executed partitioned data manipulation language ( [partitioned DML](/spanner/docs/dml-partitioned) ) statements. For more information, see [Query statistics](/spanner/docs/introspection/query-statistics) .
+Spanner supports query statistics for previously executed partitioned data manipulation language ( [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) ) statements. For more information, see [Query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) .
 
 ## January 10, 2025
 
 Feature
 
-Monitor and troubleshoot queries that are running in your Spanner instance. Active queries are long-running queries that might affect the performance of your instance. Monitoring these queries can help you identify causes of instance latency and high CPU usage. For more information, see [Monitor active queries](/spanner/docs/monitor-active-queries) .
+Monitor and troubleshoot queries that are running in your Spanner instance. Active queries are long-running queries that might affect the performance of your instance. Monitoring these queries can help you identify causes of instance latency and high CPU usage. For more information, see [Monitor active queries](https://docs.cloud.google.com/spanner/docs/monitor-active-queries) .
 
 ## December 30, 2024
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -2044,31 +2044,31 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner supports `  IDENTITY  ` columns. `  IDENTITY  ` columns lets you generate unique integer values for key and non-key columns, and aligns with the ANSI standard. For more information, see [`  IDENTITY  ` columns](/spanner/docs/primary-key-default-value#identity-columns) .
+Spanner supports `  IDENTITY  ` columns. `  IDENTITY  ` columns lets you generate unique integer values for key and non-key columns, and aligns with the ANSI standard. For more information, see [`  IDENTITY  ` columns](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#identity-columns) .
 
 ## December 02, 2024
 
 Announcement
 
-  - [Spanner Graph](/spanner/docs/graph/overview) is Generally Available ( [GA](https://cloud.google.com/products#product-launch-stages) ). For more information, see [Spanner Graph overview](/spanner/docs/graph/overview) .
+  - [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/overview) is Generally Available ( [GA](https://cloud.google.com/products#product-launch-stages) ). For more information, see [Spanner Graph overview](https://docs.cloud.google.com/spanner/docs/graph/overview) .
 
-  - [Spanner Graph](/spanner/docs/graph/overview) supports defining path variables and using path functions. For more information, see [Work with paths](/spanner/docs/graph/work-with-paths) .
+  - [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/overview) supports defining path variables and using path functions. For more information, see [Work with paths](https://docs.cloud.google.com/spanner/docs/graph/work-with-paths) .
 
-  - Information about how Spanner Graph supports the ISO international standard query language for graph databases is available. For more information, see [Spanner Graph and ISO standards](/spanner/docs/graph/iso-standards) .
+  - Information about how Spanner Graph supports the ISO international standard query language for graph databases is available. For more information, see [Spanner Graph and ISO standards](https://docs.cloud.google.com/spanner/docs/graph/iso-standards) .
 
-  - [Spanner Graph](/spanner/docs/graph/overview) supports vector similarity search to find K-nearest neighbors (KNN) and approximate nearest neighbors (ANN). For more information, see [Perform vector similarity search in Spanner Graph](/spanner/docs/graph/perform-vector-similarity-search) .
+  - [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/overview) supports vector similarity search to find K-nearest neighbors (KNN) and approximate nearest neighbors (ANN). For more information, see [Perform vector similarity search in Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/perform-vector-similarity-search) .
 
-  - [Full-text search](/spanner/docs/full-text-search) is available in Spanner Graph. For more information, see [Use full-text search with Spanner Graph](/spanner/docs/graph/full-text-search-and-graph) .
+  - [Full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) is available in Spanner Graph. For more information, see [Use full-text search with Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/full-text-search-and-graph) .
 
 Feature
 
-A predefined Identity and Access Management (IAM) role is available that lets you query a Spanner database using Data Boost. For more information, see details about the [Spanner Database Reader with Data Boost IAM role](/spanner/docs/iam#spanner.databaseReaderWithDataBoost) and [Run federated queries with Data Boost](/spanner/docs/databoost/databoost-run-queries) .
+A predefined Identity and Access Management (IAM) role is available that lets you query a Spanner database using Data Boost. For more information, see details about the [Spanner Database Reader with Data Boost IAM role](https://docs.cloud.google.com/spanner/docs/iam#spanner.databaseReaderWithDataBoost) and [Run federated queries with Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries) .
 
 ## November 29, 2024
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -2238,19 +2238,19 @@ Default backup schedules are available and automatically enabled for all new ins
 
 When enabled, Spanner creates a default backup schedule for every new database created in the instance. The default backup schedule creates a full backup every 24 hours. These backups have a retention period of 7 days.
 
-For more information, see [Default backup schedules](/spanner/docs/backup#default-backup-schedules) .
+For more information, see [Default backup schedules](https://docs.cloud.google.com/spanner/docs/backup#default-backup-schedules) .
 
 ## November 19, 2024
 
 Feature
 
-Spanner supports the [`  ALL_DIFFERENT  `](/spanner/docs/reference/standard-sql/graph-operators#all_different_predicate) graph predicate in GoogleSQL-dialect databases. You can use this predicate to see if the graph elements in a list are mutually distinct.
+Spanner supports the [`  ALL_DIFFERENT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#all_different_predicate) graph predicate in GoogleSQL-dialect databases. You can use this predicate to see if the graph elements in a list are mutually distinct.
 
 ## November 18, 2024
 
 Feature
 
-You can create Spanner [regional instance configurations](https://cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Querétaro, Mexico ( `  northamerica-south1  ` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](/spanner/pricing) .
+You can create Spanner [regional instance configurations](https://cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Querétaro, Mexico ( `  northamerica-south1  ` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://docs.cloud.google.com/spanner/pricing) .
 
 ## November 05, 2024
 
@@ -2263,13 +2263,13 @@ These metrics are included in the latest Spanner client libraries for the follow
   - Java in version 6.81.0 and later
   - Go in version 1.71.0 and later
 
-For more information, see [View and manage client-side metrics](/spanner/docs/view-manage-client-side-metrics) .
+For more information, see [View and manage client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) .
 
 ## October 31, 2024
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -2384,7 +2384,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-[Query Optimizer version 8](/spanner/docs/query-optimizer/versions#version-8) is available. Version 7 remains the default optimizer version.
+[Query Optimizer version 8](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions#version-8) is available. Version 7 remains the default optimizer version.
 
 ## October 18, 2024
 
@@ -2392,29 +2392,29 @@ Feature
 
 Spanner Graph supports the following functions:
 
-  - [`  DESTINATION_NODE_ID()  `](/spanner/docs/reference/standard-sql/graph-gql-functions#destination_node_id) : gets a unique identifier for a graph edge's destination node.
-  - [`  ELEMENT_ID()  `](/spanner/docs/reference/standard-sql/graph-gql-functions#element_id) : gets a unique identifier for a graph element.
-  - [`  SOURCE_NODE_ID()  `](/spanner/docs/reference/standard-sql/graph-gql-functions#source_node_id) : gets a unique identifier for a graph edge's source node.
+  - [`  DESTINATION_NODE_ID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#destination_node_id) : gets a unique identifier for a graph edge's destination node.
+  - [`  ELEMENT_ID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#element_id) : gets a unique identifier for a graph element.
+  - [`  SOURCE_NODE_ID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#source_node_id) : gets a unique identifier for a graph edge's source node.
 
 Feature
 
-Spanner supports customer-managed encryption keys (CMEK) to protect databases in custom, dual-region, and multi-region instance configurations. For more information, see [Customer-managed encryption keys (CMEK) overview](/spanner/docs/cmek) .
+Spanner supports customer-managed encryption keys (CMEK) to protect databases in custom, dual-region, and multi-region instance configurations. For more information, see [Customer-managed encryption keys (CMEK) overview](https://docs.cloud.google.com/spanner/docs/cmek) .
 
 ## October 17, 2024
 
 Feature
 
-Spanner offers [usage statistics](/spanner/docs/introspection/hot-split-statistics) for [database splits](/spanner/docs/schema-and-data-model#database-splits) along with the associated [System insights](/spanner/docs/find-hotspots-in-database) dashboard to help you identify hotspots on affected rows in your database.
+Spanner offers [usage statistics](https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics) for [database splits](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) along with the associated [System insights](https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database) dashboard to help you identify hotspots on affected rows in your database.
 
 Feature
 
-Directed reads are Generally Available. This feature provides the flexibility to route read-only transactions and single reads to a specific replica type or region in a multi-region instance configuration. For more information, see [Directed reads](/spanner/docs/directed-reads) .
+Directed reads are Generally Available. This feature provides the flexibility to route read-only transactions and single reads to a specific replica type or region in a multi-region instance configuration. For more information, see [Directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) .
 
 ## October 14, 2024
 
 Feature
 
-[Query Optimizer version 7](/spanner/docs/query-optimizer/versions#version-7) is generally available and is the default optimizer version.
+[Query Optimizer version 7](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions#version-7) is generally available and is the default optimizer version.
 
 ## October 10, 2024
 
@@ -2426,17 +2426,17 @@ An incremental backup contains only the data that has changed since the previous
 
 Incremental backups are available on the Enterprise and Enterprise Plus editions.
 
-For more information about incremental backups, see [Backups overview](/spanner/docs/backup#incremental-backups) .
+For more information about incremental backups, see [Backups overview](https://docs.cloud.google.com/spanner/docs/backup#incremental-backups) .
 
 Feature
 
-[Spanner](/spanner/docs) is available on [Database Center](/database-center/docs/overview) in [Preview](https://cloud.google.com/products#product-launch-stages) . You can track your Spanner resources in the fleet inventory section and the resource table in the Database Center. You can also use Database Center to monitor the following health issues for your Spanner resources:
+[Spanner](https://docs.cloud.google.com/spanner/docs) is available on [Database Center](https://docs.cloud.google.com/database-center/docs/overview) in [Preview](https://cloud.google.com/products#product-launch-stages) . You can track your Spanner resources in the fleet inventory section and the resource table in the Database Center. You can also use Database Center to monitor the following health issues for your Spanner resources:
 
   - Short backup retention
   - Last backup older than 24h
   - Not replicating across regions
 
-For more information about Database Center, see [Database Center overview](/database-center/docs/overview) . For more information about health issues supported for Spanner, see [Supported health issues](/database-center/docs/database-health-issues#supported-health-issues) .
+For more information about Database Center, see [Database Center overview](https://docs.cloud.google.com/database-center/docs/overview) . For more information about health issues supported for Spanner, see [Supported health issues](https://docs.cloud.google.com/database-center/docs/database-health-issues#supported-health-issues) .
 
 Feature
 
@@ -2446,13 +2446,13 @@ An open source Cassandra to Spanner proxy adapter is available. You can use it t
 
 Feature
 
-Spanner supports a subset of `  pg_system_catalog  ` tables and views. For more information, see [pg\_system\_catalog tables](/spanner/docs/reference/postgresql/pg-system-catalog-tables) and [pg\_system\_catalog views](/spanner/docs/reference/postgresql/pg-system-catalog-views) .
+Spanner supports a subset of `  pg_system_catalog  ` tables and views. For more information, see [pg\_system\_catalog tables](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables) and [pg\_system\_catalog views](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views) .
 
 ## October 07, 2024
 
 Feature
 
-[Full-text search overview](/spanner/docs/full-text-search) is generally available.
+[Full-text search overview](https://docs.cloud.google.com/spanner/docs/full-text-search) is generally available.
 
 Feature
 
@@ -2462,19 +2462,19 @@ Spanner lets you create and manage backup schedules. You can use backup schedule
   - The retention duration of the backups created.
   - The encryption type of the backups created.
 
-For more information about backup schedules, see [Backups overview](/spanner/docs/backup#backup-schedules) .
+For more information about backup schedules, see [Backups overview](https://docs.cloud.google.com/spanner/docs/backup#backup-schedules) .
 
 ## October 04, 2024
 
 Feature
 
-Spanner supports the [`  SAFE_TO_JSON  `](/spanner/docs/reference/standard-sql/json_functions#safe_to_json) function in GoogleSQL-dialect databases. You can use this function to convert SQL objects to JSON objects. Unlike [`  TO_JSON  `](/spanner/docs/reference/standard-sql/json_functions#to_json) , this function converts invalid JSON types to JSON null values, rather than errors.
+Spanner supports the [`  SAFE_TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) function in GoogleSQL-dialect databases. You can use this function to convert SQL objects to JSON objects. Unlike [`  TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) , this function converts invalid JSON types to JSON null values, rather than errors.
 
 ## October 03, 2024
 
 Feature
 
-You can create an [external dataset](/bigquery/docs/spanner-external-datasets) in BigQuery that links to an existing database in Spanner. This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
+You can create an [external dataset](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets) in BigQuery that links to an existing database in Spanner. This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
 
 ## October 02, 2024
 
@@ -2486,23 +2486,23 @@ You can perform vector similarity search using the Generally Available K-nearest
   - `  EUCLIDEAN_DISTANCE()  `
   - `  DOT_PRODUCT()  `
 
-For more information, see [Perform vector similarity search in Spanner by finding the K-nearest neighbors](/spanner/docs/find-k-nearest-neighbors) .
+For more information, see [Perform vector similarity search in Spanner by finding the K-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
 
 Feature
 
-The `  FLOAT32  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](/spanner/docs/reference/postgresql/data-types#supported) ) data types are Generally Available.
+The `  FLOAT32  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#supported) ) data types are Generally Available.
 
 ## October 01, 2024
 
 Feature
 
-Spanner supports end-to-end tracing in preview, along with client-side tracing in the Java and Go client libraries. You can opt-in for end-to-end traces to have more visibility into the application to Spanner latencies. For more information, see [Trace collection overview](/spanner/docs/tracing-overview) .
+Spanner supports end-to-end tracing in preview, along with client-side tracing in the Java and Go client libraries. You can opt-in for end-to-end traces to have more visibility into the application to Spanner latencies. For more information, see [Trace collection overview](https://docs.cloud.google.com/spanner/docs/tracing-overview) .
 
 ## September 30, 2024
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -2602,13 +2602,13 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner supports the [`  spanner.farm_fingerprint()  `](/spanner/docs/reference/postgresql/functions-and-operators#hash-functions) hash function in PostgreSQL-dialect databases.
+Spanner supports the [`  spanner.farm_fingerprint()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#hash-functions) hash function in PostgreSQL-dialect databases.
 
 ## September 24, 2024
 
 Feature
 
-Spanner offers editions, a tier-based pricing model that provides greater flexibility, better cost transparency, and opportunities for cost savings. You can choose between the *Standard* , *Enterprise* , and *Enterprise Plus* editions, letting you pick the right set of capabilities to fit your needs and budget. To learn more, see [Spanner editions overview](/spanner/docs/editions-overview) and this [blog](https://cloud.google.com/blog/products/databases/announcing-spanner-editions?e=48754805) post.
+Spanner offers editions, a tier-based pricing model that provides greater flexibility, better cost transparency, and opportunities for cost savings. You can choose between the *Standard* , *Enterprise* , and *Enterprise Plus* editions, letting you pick the right set of capabilities to fit your needs and budget. To learn more, see [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) and this [blog](https://cloud.google.com/blog/products/databases/announcing-spanner-editions?e=48754805) post.
 
 Feature
 
@@ -2616,13 +2616,13 @@ Spanner is enabled for use with Cloud KMS Autokey.
 
 Using keys generated by Autokey can help you consistently align with industry standards and recommended practices for data security, including the HSM protection level, separation of duties, key rotation, location, and key specificity. Keys requested using Autokey function identically to other Cloud HSM keys with the same settings.
 
-For more information, see [Customer-managed encryption keys (CMEK) overview](/spanner/docs/cmek) . To learn more about Cloud KMS Autokey, see the [Autokey overview](/kms/docs/autokey-overview) .
+For more information, see [Customer-managed encryption keys (CMEK) overview](https://docs.cloud.google.com/spanner/docs/cmek) . To learn more about Cloud KMS Autokey, see the [Autokey overview](https://docs.cloud.google.com/kms/docs/autokey-overview) .
 
 ## August 30, 2024
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -2779,7 +2779,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-The following [multi-region instance configuration](/spanner/docs/instance-configurations#available-configurations-multi-region) is available in North America - `  nam16  ` (Iowa/Northern Virginia/Columbus).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) is available in North America - `  nam16  ` (Iowa/Northern Virginia/Columbus).
 
 ## August 01, 2024
 
@@ -2787,19 +2787,19 @@ Feature
 
 Spanner offers Spanner Graph in [Preview](https://cloud.google.com/products#product-launch-stages) , which unites purpose-built graph database capabilities with Spanner. Spanner Graph includes a graph query interface compatible with the ISO Spanner Graph Language (GQL) standards, and interoperability between relational and graph models. For more information, see the following:
 
-  - [Set up and query Spanner Graph using the Google Cloud console](/spanner/docs/graph/set-up)
-  - [Spanner Graph overview](/spanner/docs/graph/overview)
-  - [Spanner Graph Language reference](/spanner/docs/reference/standard-sql/graph-intro)
+  - [Set up and query Spanner Graph using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/graph/set-up)
+  - [Spanner Graph overview](https://docs.cloud.google.com/spanner/docs/graph/overview)
+  - [Spanner Graph Language reference](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro)
 
 Feature
 
-Spanner full-text search ( [Preview](https://cloud.google.com/products#product-launch-stages) ) lets you search a table to find words, phrases, or integers, instead of just searching for exact matches in structured fields. Spanner full-text search capabilities also include making spelling corrections, automating language detection of search input, and ranking search results. To learn more, see the [Full-text search overview](/spanner/docs/full-text-search) .
+Spanner full-text search ( [Preview](https://cloud.google.com/products#product-launch-stages) ) lets you search a table to find words, phrases, or integers, instead of just searching for exact matches in structured fields. Spanner full-text search capabilities also include making spelling corrections, automating language detection of search input, and ranking search results. To learn more, see the [Full-text search overview](https://docs.cloud.google.com/spanner/docs/full-text-search) .
 
 ## July 31, 2024
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -2891,7 +2891,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner includes the `  JSON_ARRAY()  ` and `  JSON_OBJECT()  ` functions for building JSON types in GoogleSQL. For more information, see [JSON functions in GoogleSQL](/spanner/docs/reference/standard-sql/json_functions) .
+Spanner includes the `  JSON_ARRAY()  ` and `  JSON_OBJECT()  ` functions for building JSON types in GoogleSQL. For more information, see [JSON functions in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions) .
 
 ## July 16, 2024
 
@@ -2899,12 +2899,12 @@ Feature
 
 Spanner supports the following GoogleSQL JSON functions:
 
-  - [`  BOOL_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json) : Converts a JSON array of booleans to a SQL `  ARRAY<BOOL>  ` value.
-  - [`  FLOAT32  `](/spanner/docs/reference/standard-sql/json_functions#float_for_json) : Converts a JSON number to a SQL `  FLOAT32  ` value.
-  - [`  FLOAT32_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#float_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT32>  ` value.
-  - [`  FLOAT64_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#double_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT64>  ` value.
-  - [`  INT64_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json) : Converts a JSON array of numbers to a SQL `  INT64_ARRAY  ` value.
-  - [`  STRING_ARRAY  `](/spanner/docs/reference/standard-sql/json_functions#string_array_for_json) : Converts a JSON array of strings to a SQL `  ARRAY<STRING>  ` value.
+  - [`  BOOL_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json) : Converts a JSON array of booleans to a SQL `  ARRAY<BOOL>  ` value.
+  - [`  FLOAT32  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_for_json) : Converts a JSON number to a SQL `  FLOAT32  ` value.
+  - [`  FLOAT32_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT32>  ` value.
+  - [`  FLOAT64_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT64>  ` value.
+  - [`  INT64_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json) : Converts a JSON array of numbers to a SQL `  INT64_ARRAY  ` value.
+  - [`  STRING_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_array_for_json) : Converts a JSON array of strings to a SQL `  ARRAY<STRING>  ` value.
 
 Feature
 
@@ -2917,55 +2917,55 @@ Spanner supports the following PostgreSQL JSONB functions:
   - `  spanner.int64_array()  `
   - `  spanner.string_array()  `
 
-For more information, see [JSONB functions](/spanner/docs/reference/postgresql/functions-and-operators#jsonb_functions) and [Spanner specific JSONB functions](/spanner/docs/reference/postgresql/functions-and-operators#spanner-jsonb-functions) .
+For more information, see [JSONB functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_functions) and [Spanner specific JSONB functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-jsonb-functions) .
 
 Feature
 
-Spanner supports the GoogleSQL `  PDML_MAX_PARALLELISM  ` statement-level hint. For more information, see [Statement hints](/spanner/docs/reference/standard-sql/dml-syntax#statement_hints) .
+Spanner supports the GoogleSQL `  PDML_MAX_PARALLELISM  ` statement-level hint. For more information, see [Statement hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#statement_hints) .
 
 Feature
 
 The following are supported for the `  INSERT  ` statement:
 
-  - [`  INSERT OR UPDATE  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) and [`  INSERT OR IGNORE  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-ignore) DML statements support the [`  THEN RETURN  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) clause in GoogleSQL.
-  - [`  INSERT…ON CONFLICT  `](/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) DML statement supports the [`  RETURNING  `](/spanner/docs/reference/postgresql/dml-syntax#insert-returning) clause in PostgreSQL.
-  - [`  THEN RETURN  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) supports the `  WITH ACTION  ` clause in GoogleSQL.
+  - [`  INSERT OR UPDATE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) and [`  INSERT OR IGNORE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-ignore) DML statements support the [`  THEN RETURN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) clause in GoogleSQL.
+  - [`  INSERT…ON CONFLICT  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) DML statement supports the [`  RETURNING  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) clause in PostgreSQL.
+  - [`  THEN RETURN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) supports the `  WITH ACTION  ` clause in GoogleSQL.
 
 Feature
 
-Spanner supports geo-partitioning (in Preview). You can use geo-partitioning to segment and store rows in your database table across different configurations. For more information, see the [Geo-partitioning overview](/spanner/docs/geo-partitioning) .
+Spanner supports geo-partitioning (in Preview). You can use geo-partitioning to segment and store rows in your database table across different configurations. For more information, see the [Geo-partitioning overview](https://docs.cloud.google.com/spanner/docs/geo-partitioning) .
 
 ## July 12, 2024
 
 Feature
 
-Spanner supports dual-region instance configurations in Australia, Germany, India, and Japan. Dual-region configurations let you replicate data in multiple zones across two regions in a single country. This helps you meet your data residency requirements, while taking advantage of 99.999% availability. For more information, see [Dual-region configurations](/spanner/docs/instance-configurations#dual-region-configurations) .
+Spanner supports dual-region instance configurations in Australia, Germany, India, and Japan. Dual-region configurations let you replicate data in multiple zones across two regions in a single country. This helps you meet your data residency requirements, while taking advantage of 99.999% availability. For more information, see [Dual-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) .
 
 Feature
 
-Spanner supports the approximate nearest neighbor (ANN) distance functions ( `  APPROX_COSINE_DISTANCE()  ` , `  APPROX_EUCLIDEAN_DISTANCE()  ` , and `  APPROX_DOT_PRODUCT()  ` ) in the GoogleSQL dialect (in Preview). For tables with a lot of vector data, you can create a vector index using DDL statements. This accelerates similarity searches and nearest neighbor queries using these functions in standard SQL, without copying the data to a separate system. For more information, see [Find approximate nearest neighbors to index and query vector embeddings in Spanner](/spanner/docs/find-approximate-nearest-neighbors) .
+Spanner supports the approximate nearest neighbor (ANN) distance functions ( `  APPROX_COSINE_DISTANCE()  ` , `  APPROX_EUCLIDEAN_DISTANCE()  ` , and `  APPROX_DOT_PRODUCT()  ` ) in the GoogleSQL dialect (in Preview). For tables with a lot of vector data, you can create a vector index using DDL statements. This accelerates similarity searches and nearest neighbor queries using these functions in standard SQL, without copying the data to a separate system. For more information, see [Find approximate nearest neighbors to index and query vector embeddings in Spanner](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
 
 ## July 11, 2024
 
 Feature
 
-You can use [`  EXPORT DATA  `](/bigquery/docs/reference/standard-sql/other-statements) statements to [reverse ETL BigQuery data to Spanner](/bigquery/docs/export-to-spanner) . This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
+You can use [`  EXPORT DATA  `](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/other-statements) statements to [reverse ETL BigQuery data to Spanner](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) . This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
 
 ## July 03, 2024
 
 Feature
 
-Multiplexed sessions are generally available. Multiplexed session is a new session management model which simplifies the pool management in clients. For more information, see [Multiplexed sessions](/spanner/docs/sessions#multiplexed_sessions) .
+Multiplexed sessions are generally available. Multiplexed session is a new session management model which simplifies the pool management in clients. For more information, see [Multiplexed sessions](https://docs.cloud.google.com/spanner/docs/sessions#multiplexed_sessions) .
 
 Feature
 
-Spanner allows privileged users to cancel long-running queries. For more information, see [GoogleSQL Query cancellation](/spanner/docs/reference/standard-sql/stored-procedures#query-cancellation) or [PostgreSQL Query cancellation](/spanner/docs/reference/postgresql/stored-procedures-pg#query-cancellation) .
+Spanner allows privileged users to cancel long-running queries. For more information, see [GoogleSQL Query cancellation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures#query-cancellation) or [PostgreSQL Query cancellation](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg#query-cancellation) .
 
 ## June 28, 2024
 
 Libraries
 
-A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -3011,29 +3011,29 @@ A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
 
 Feature
 
-Named schemas is generally available. With named schemas, you can group database objects in a namespace to avoid naming conflicts and collectively manage their fine-grained access control permissions, see [Named schemas](/spanner/docs/schema-and-data-model#named-schemas) .
+Named schemas is generally available. With named schemas, you can group database objects in a namespace to avoid naming conflicts and collectively manage their fine-grained access control permissions, see [Named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .
 
 ## June 17, 2024
 
 Feature
 
-Generated columns don't require the `  STORED  ` attribute. Without this attribute, the generated column is evaluated at query or index time and doesn't require additional storage or write overhead. For more information, see [Create and manage generated columns](/spanner/docs/generated-column/how-to) .
+Generated columns don't require the `  STORED  ` attribute. Without this attribute, the generated column is evaluated at query or index time and doesn't require additional storage or write overhead. For more information, see [Create and manage generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) .
 
 ## June 03, 2024
 
 Feature
 
-[Query optimizer version 7](/spanner/docs/query-optimizer/versions#version-7) is generally available. Version 6 remains the default optimizer version.
+[Query optimizer version 7](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions#version-7) is generally available. Version 6 remains the default optimizer version.
 
 ## May 31, 2024
 
 Feature
 
-Spanner supports the protocol buffer data type in GoogleSQL. For more information, see [Work with protocol buffers in GoogleSQL](/spanner/docs/reference/standard-sql/protocol-buffers) .
+Spanner supports the protocol buffer data type in GoogleSQL. For more information, see [Work with protocol buffers in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers) .
 
 Libraries
 
-A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -3157,7 +3157,7 @@ A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
 
 Feature
 
-Spanner supports the following columns in the `  SPANNER_SYS  ` [query statistics](/spanner/docs/introspection/query-statistics) table:
+Spanner supports the following columns in the `  SPANNER_SYS  ` [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) table:
 
   - `  AVG_MEMORY_PEAK_USAGE_BYTES  `
   - `  AVG_MEMORY_USAGE_PERCENTAGE  `
@@ -3170,11 +3170,11 @@ Spanner supports the following columns in the `  SPANNER_SYS  ` [query statistic
 
 Feature
 
-Vector length annotation is generally available. For more information, see the [PostgreSQL vector length parameter](/spanner/docs/reference/postgresql/data-types#array-extensions) or the [GoogleSQL `  vector_length  ` parameter](/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
+Vector length annotation is generally available. For more information, see the [PostgreSQL vector length parameter](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array-extensions) or the [GoogleSQL `  vector_length  ` parameter](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
 
 Feature
 
-Spanner supports the `  read_request_latencies_by_change_stream  ` metric in Cloud Monitoring. Use this metric to view all read latencies and filter latencies by change stream or non-change stream reads. For more information, see [Available charts and metrics](/spanner/docs/monitoring-console#charts-metrics) .
+Spanner supports the `  read_request_latencies_by_change_stream  ` metric in Cloud Monitoring. Use this metric to view all read latencies and filter latencies by change stream or non-change stream reads. For more information, see [Available charts and metrics](https://docs.cloud.google.com/spanner/docs/monitoring-console#charts-metrics) .
 
 ## April 30, 2024
 
@@ -3182,18 +3182,18 @@ Feature
 
 Spanner supports the following for PostgreSQL arrays:
 
-  - [`  UNNEST  ` operator](/spanner/docs/reference/postgresql/query-syntax#unnest_operator)
-  - [Array slices](/spanner/docs/reference/postgresql/data-types#array_slices)
-  - [`  ANY  ` , `  SOME  ` , and `  ALL  ` array comparison operators](/spanner/docs/reference/postgresql/functions-and-operators#array_comparisons)
-  - [`  arrayoverlap  ` , `  arraycontains  ` , and `  arraycontained  ` functions and their operators](/spanner/docs/reference/postgresql/functions-and-operators#array_operators)
+  - [`  UNNEST  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#unnest_operator)
+  - [Array slices](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array_slices)
+  - [`  ANY  ` , `  SOME  ` , and `  ALL  ` array comparison operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array_comparisons)
+  - [`  arrayoverlap  ` , `  arraycontains  ` , and `  arraycontained  ` functions and their operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array_operators)
 
 Feature
 
-Through self-service and with zero downtime, you can add and remove read-only replicas in base instance configurations and move your Spanner instance to a different instance configuration. For more information, see [Move an instance](/spanner/docs/move-instance) .
+Through self-service and with zero downtime, you can add and remove read-only replicas in base instance configurations and move your Spanner instance to a different instance configuration. For more information, see [Move an instance](https://docs.cloud.google.com/spanner/docs/move-instance) .
 
 Libraries
 
-A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -3301,48 +3301,48 @@ A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
 
 Feature
 
-The following [Gemini in Databases](/gemini/docs/databases/overview) features are available in [Public Preview](https://cloud.google.com/products#product-launch-stages) :
+The following [Gemini in Databases](https://docs.cloud.google.com/gemini/docs/databases/overview) features are available in [Public Preview](https://cloud.google.com/products#product-launch-stages) :
 
-  - [Spanner Studio (GA)](/spanner/docs/manage-data-using-console) : lets users interact with the SQL database and run SQL queries from the Google Cloud console to access and manipulate data.
+  - [Spanner Studio (GA)](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) : lets users interact with the SQL database and run SQL queries from the Google Cloud console to access and manipulate data.
   - Spanner supports the use of Gemini models with GoogleSQL and PostgreSQL machine learning prediction functions.
 
-To learn how to enable and activate Gemini in Databases, see [Set up Gemini in Databases](/gemini/docs/databases/set-up-gemini) .
+To learn how to enable and activate Gemini in Databases, see [Set up Gemini in Databases](https://docs.cloud.google.com/gemini/docs/databases/set-up-gemini) .
 
 Feature
 
-Spanner supports using LangChain with the vector store, document loader, and chat message history objects. For more information, see [Build LLM-powered applications using LangChain](/spanner/docs/langchain) .
+Spanner supports using LangChain with the vector store, document loader, and chat message history objects. For more information, see [Build LLM-powered applications using LangChain](https://docs.cloud.google.com/spanner/docs/langchain) .
 
 Feature
 
-Spanner supports the `  dot_product()  ` function (in [Preview](https://cloud.google.com/products#product-launch-stages) ). For more information, see [Choose among vector distance functions to measure vector embeddings similarity](/spanner/docs/choose-vector-distance-function) .
+Spanner supports the `  dot_product()  ` function (in [Preview](https://cloud.google.com/products#product-launch-stages) ). For more information, see [Choose among vector distance functions to measure vector embeddings similarity](https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function) .
 
 Feature
 
-Spanner GoogleSQL supports [`  SAFE.ML.PREDICT()  `](/spanner/docs/ml#ml-functions) , which lets you to return a `  null  ` instead of an error in your predictions.
+Spanner GoogleSQL supports [`  SAFE.ML.PREDICT()  `](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) , which lets you to return a `  null  ` instead of an error in your predictions.
 
 Feature
 
-Spanner supports the use of [Gemini](/gemini/docs/databases/overview) models with GoogleSQL and PostgreSQL [machine learning prediction functions](/spanner/docs/ml#ml-functions) (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
+Spanner supports the use of [Gemini](https://docs.cloud.google.com/gemini/docs/databases/overview) models with GoogleSQL and PostgreSQL [machine learning prediction functions](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
 
 Feature
 
-Spanner supports the `  float32  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](/spanner/docs/reference/postgresql/data-types#supported) ) data type (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
+Spanner supports the `  float32  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#supported) ) data type (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
 
 Feature
 
-Spanner has extended the array data type with the `  VECTOR LENGTH  ` parameter (in [Preview](https://cloud.google.com/products#product-launch-stages) ). This optional parameter sets an array to a fixed size for use in a vector search. For more information, see the [PostgreSQL `  array  ` data type](/spanner/docs/reference/postgresql/data-types#array) or the [GoogleSQL `  array  ` data type](/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
+Spanner has extended the array data type with the `  VECTOR LENGTH  ` parameter (in [Preview](https://cloud.google.com/products#product-launch-stages) ). This optional parameter sets an array to a fixed size for use in a vector search. For more information, see the [PostgreSQL `  array  ` data type](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array) or the [GoogleSQL `  array  ` data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
 
 Feature
 
-You can [generate ML predictions using the Spanner emulator](/spanner/docs/ml-emulator) with GoogleSQL and PostgreSQL.
+You can [generate ML predictions using the Spanner emulator](https://docs.cloud.google.com/spanner/docs/ml-emulator) with GoogleSQL and PostgreSQL.
 
 Feature
 
-Spanner supports the `  ML_PREDICT_ROW()  ` function for PostgreSQL. You can use this function to generate predictions using SQL. To learn more about this function and how to use it, see [Using Spanner Vertex AI integration functions](/spanner/docs/ml#ml-functions) .
+Spanner supports the `  ML_PREDICT_ROW()  ` function for PostgreSQL. You can use this function to generate predictions using SQL. To learn more about this function and how to use it, see [Using Spanner Vertex AI integration functions](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) .
 
 Feature
 
-You can generate and backfill vector embeddings for textual data ( `  STRING  ` or `  JSON  ` ) stored in Spanner using GoogleSQL partitioned DML and the Vertex AI `  textembedding-gecko  ` model. For more information, see [Generate vector embeddings for textual data in bulk using partitioned DML](/spanner/docs/backfill-embeddings) .
+You can generate and backfill vector embeddings for textual data ( `  STRING  ` or `  JSON  ` ) stored in Spanner using GoogleSQL partitioned DML and the Vertex AI `  textembedding-gecko  ` model. For more information, see [Generate vector embeddings for textual data in bulk using partitioned DML](https://docs.cloud.google.com/spanner/docs/backfill-embeddings) .
 
 Feature
 
@@ -3354,27 +3354,27 @@ Spanner supports the following PostgreSQL `  JSONB  ` functions:
 
 The PostgreSQL `  CONCAT()  ` function also supports more than 4 arguments.
 
-For more information, see [Supported PostgreSQL functions](/spanner/docs/reference/postgresql/functions-and-operators#jsonb) .
+For more information, see [Supported PostgreSQL functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb) .
 
 ## April 08, 2024
 
 Feature
 
-You can add a [time to live (TTL)-based deletes filter](/spanner/docs/change-streams#ttl-filter) to your Spanner [change streams](/spanner/docs/change-streams) using the `  exclude_ttl_deletes  ` option.
+You can add a [time to live (TTL)-based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) to your Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) using the `  exclude_ttl_deletes  ` option.
 
 Feature
 
-Spanner [change streams](/spanner/docs/change-streams) support a [value capture type](/spanner/docs/change-streams#value-capture-type) called `  NEW_ROW_AND_OLD_VALUES  ` . This type captures all new values for both modified and unmodified columns, and old values for modified columns.
+Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) support a [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) called `  NEW_ROW_AND_OLD_VALUES  ` . This type captures all new values for both modified and unmodified columns, and old values for modified columns.
 
 Feature
 
-You can add a [table modification type filter](/spanner/docs/change-streams#mod-type-filter) to your Spanner [change streams](/spanner/docs/change-streams) to exclude `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` table modifications.
+You can add a [table modification type filter](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) to your Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) to exclude `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` table modifications.
 
 ## March 29, 2024
 
 Libraries
 
-A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -3515,43 +3515,43 @@ Duet AI in Google Cloud is now Gemini. See our [blog post](https://blog.google/t
 
 Feature
 
-You can optimize your writes by setting the maximum delay time of your Spanner write requests between 0 and 500 milliseconds. For more information, see [Throughput optimized writes](/spanner/docs/throughput-optimized-writes) .
+You can optimize your writes by setting the maximum delay time of your Spanner write requests between 0 and 500 milliseconds. For more information, see [Throughput optimized writes](https://docs.cloud.google.com/spanner/docs/throughput-optimized-writes) .
 
 ## March 20, 2024
 
 Feature
 
-Leader-aware routing dynamically routes read-write transactions to the leader region in Spanner multi-region instances, reducing latency and improving performance. For more information, see [Leader-aware routing](/spanner/docs/leader-aware-routing) .
+Leader-aware routing dynamically routes read-write transactions to the leader region in Spanner multi-region instances, reducing latency and improving performance. For more information, see [Leader-aware routing](https://docs.cloud.google.com/spanner/docs/leader-aware-routing) .
 
 ## March 19, 2024
 
 Feature
 
-Statistics for active partitioned data manipulation language (DML) queries are generally available. You can get insights on active partitioned DMLs queries and their progress from statistics tables in your Spanner database. For more information, see [Active partitioned DMLs statistics](/spanner/docs/introspection/active-partitioned-dmls) .
+Statistics for active partitioned data manipulation language (DML) queries are generally available. You can get insights on active partitioned DMLs queries and their progress from statistics tables in your Spanner database. For more information, see [Active partitioned DMLs statistics](https://docs.cloud.google.com/spanner/docs/introspection/active-partitioned-dmls) .
 
 ## March 11, 2024
 
 Feature
 
-Table renaming is generally available. This feature lets you rename tables in place or safely swap names using synonyms. For more information, see [Manage table names](/spanner/docs/table-name-synonym) .
+Table renaming is generally available. This feature lets you rename tables in place or safely swap names using synonyms. For more information, see [Manage table names](https://docs.cloud.google.com/spanner/docs/table-name-synonym) .
 
 ## March 04, 2024
 
 Feature
 
-Spanner supports a client library interface. The interface leverages auto-generated admin clients instead of hand-written admin clients for improved efficiency and maintainability. While the older client library interface remains supported, all Spanner admin features released after March 1, 2024 are available only through the client library interface. All code samples in the [Spanner documentation](/spanner/docs/reference/libraries#use_the_client_library_for_administrator_operations) are updated to use the client library interface. The older client interface code samples are archived in GitHub for [Java](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) , [Node.js](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archivedhttps://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) , [Python](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) , and [PHP](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+Spanner supports a client library interface. The interface leverages auto-generated admin clients instead of hand-written admin clients for improved efficiency and maintainability. While the older client library interface remains supported, all Spanner admin features released after March 1, 2024 are available only through the client library interface. All code samples in the [Spanner documentation](https://docs.cloud.google.com/spanner/docs/reference/libraries#use_the_client_library_for_administrator_operations) are updated to use the client library interface. The older client interface code samples are archived in GitHub for [Java](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) , [Node.js](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archivedhttps://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) , [Python](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) , and [PHP](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ## February 29, 2024
 
 Feature
 
-Spanner regional endpoint is available in `  me-central2  ` . You can use regional endpoints if your data location must be restricted and controlled to comply with regulatory requirements. For more information, see [Global and regional service endpoints](/spanner/docs/endpoints) .
+Spanner regional endpoint is available in `  me-central2  ` . You can use regional endpoints if your data location must be restricted and controlled to comply with regulatory requirements. For more information, see [Global and regional service endpoints](https://docs.cloud.google.com/spanner/docs/endpoints) .
 
 Libraries
 
 February 2024 Client libraries release note
 
-A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -3737,21 +3737,21 @@ Feature
 
 The following GoogleSQL JSON functions are [generally available](https://cloud.google.com/products#product-launch-stages) (GA):
 
-  - [`  LAX_BOOL  `](/spanner/docs/reference/standard-sql/json_functions#lax_bool) : Attempts to convert a JSON value to a SQL `  BOOL  ` value.
-  - [`  LAX_FLOAT64  `](/spanner/docs/reference/standard-sql/json_functions#lax_double) : Attempts to convert a JSON value to a SQL `  FLOAT64  ` value.
-  - [`  LAX_INT64  `](/spanner/docs/reference/standard-sql/json_functions#lax_int64) : Attempts to convert a JSON value to a SQL `  INT64  ` value.
-  - [`  LAX_STRING  `](/spanner/docs/reference/standard-sql/json_functions#lax_string) : Attempts to convert a JSON value to a SQL `  STRING  ` value.
-  - [`  BOOL  `](/spanner/docs/reference/standard-sql/json_functions#bool_for_json) : Converts a JSON boolean to a SQL `  BOOL  ` value.
-  - [`  FLOAT64  `](/spanner/docs/reference/standard-sql/json_functions#double_for_json) : Converts a JSON number to a SQL `  FLOAT64  ` value.
-  - [`  INT64  `](/spanner/docs/reference/standard-sql/json_functions#int64_for_json) : Converts a JSON number to a SQL `  INT64  ` value.
-  - [`  STRING  `](/spanner/docs/reference/standard-sql/json_functions#string_for_json) : Converts a JSON string to a SQL `  STRING  ` value.
-  - [`  JSON_TYPE  `](/spanner/docs/reference/standard-sql/json_functions#json_type) : Gets the JSON type of the outermost JSON value and converts the name of this type to a SQL `  STRING  ` value.
+  - [`  LAX_BOOL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_bool) : Attempts to convert a JSON value to a SQL `  BOOL  ` value.
+  - [`  LAX_FLOAT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_double) : Attempts to convert a JSON value to a SQL `  FLOAT64  ` value.
+  - [`  LAX_INT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) : Attempts to convert a JSON value to a SQL `  INT64  ` value.
+  - [`  LAX_STRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_string) : Attempts to convert a JSON value to a SQL `  STRING  ` value.
+  - [`  BOOL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_for_json) : Converts a JSON boolean to a SQL `  BOOL  ` value.
+  - [`  FLOAT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_for_json) : Converts a JSON number to a SQL `  FLOAT64  ` value.
+  - [`  INT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json) : Converts a JSON number to a SQL `  INT64  ` value.
+  - [`  STRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_for_json) : Converts a JSON string to a SQL `  STRING  ` value.
+  - [`  JSON_TYPE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_type) : Gets the JSON type of the outermost JSON value and converts the name of this type to a SQL `  STRING  ` value.
 
 ## February 21, 2024
 
 Feature
 
-[The OpenCensus libraries are archived](https://opentelemetry.io/blog/2023/sunsetting-opencensus/) . Spanner supports OpenTelemetry. We recommend all OpenCensus users to migrate to OpenTelemetry for your observability needs. For more information, see [Examine latency in a Spanner component with OpenTelemetry](/spanner/docs/capture-visualize-latency) .
+[The OpenCensus libraries are archived](https://opentelemetry.io/blog/2023/sunsetting-opencensus/) . Spanner supports OpenTelemetry. We recommend all OpenCensus users to migrate to OpenTelemetry for your observability needs. For more information, see [Examine latency in a Spanner component with OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-visualize-latency) .
 
 ## February 07, 2024
 
@@ -3765,7 +3765,7 @@ The `  information_schema.columns.spanner_type  ` and `  information_schema.inde
 
 Libraries
 
-A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -3850,33 +3850,33 @@ A monthly digest of client library updates from across the [Cloud SDK](/sdk) .
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Johannesburg, South Africa ( `  africa-south1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Johannesburg, South Africa ( `  africa-south1  ` ).
 
 ## January 30, 2024
 
 Feature
 
-Spanner directed reads is available in Preview. Directed reads provides the flexibility to route read-only transactions and single reads to a specific replica type or region in a multi-region instance configuration. For more information, see [Directed reads](/spanner/docs/directed-reads) .
+Spanner directed reads is available in Preview. Directed reads provides the flexibility to route read-only transactions and single reads to a specific replica type or region in a multi-region instance configuration. For more information, see [Directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) .
 
 ## January 23, 2024
 
 Feature
 
-Spanner supports the GoogleSQL [`  INSERT OR IGNORE  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-ignore) and [`  INSERT OR UPDATE  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) clauses.
+Spanner supports the GoogleSQL [`  INSERT OR IGNORE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-ignore) and [`  INSERT OR UPDATE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) clauses.
 
-Spanner supports the PostgreSQL [`  ON CONFLICT DO NOTHING  `](/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) and [`  ON CONFLICT DO UPDATE SET  `](/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) clauses.
+Spanner supports the PostgreSQL [`  ON CONFLICT DO NOTHING  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) and [`  ON CONFLICT DO UPDATE SET  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) clauses.
 
 ## January 22, 2024
 
 Feature
 
-Spanner supports `  COSINE_DISTANCE()  ` and `  EUCLIDEAN_DISTANCE()  ` functions (in Preview). You can use these vector distance functions to perform similarity vector search. For more information, see [Perform similarity vector search in Spanner by finding the K-nearest neighbors](/spanner/docs/find-k-nearest-neighbors) .
+Spanner supports `  COSINE_DISTANCE()  ` and `  EUCLIDEAN_DISTANCE()  ` functions (in Preview). You can use these vector distance functions to perform similarity vector search. For more information, see [Perform similarity vector search in Spanner by finding the K-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
 
 ## December 27, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -3923,19 +3923,19 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner supports partition queries whose query plans don't contain any distributed unions. To learn more about how to read data in parallel using partition queries, see [Read data in parallel](/spanner/docs/reads#read_data_in_parallel) .
+Spanner supports partition queries whose query plans don't contain any distributed unions. To learn more about how to read data in parallel using partition queries, see [Read data in parallel](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) .
 
 ## December 18, 2023
 
 Change
 
-The number of mutations per commit that Spanner supports has increased from 40,000 to 80,000. For more information, see [Quotas and limits](/spanner/quotas#limits-for) .
+The number of mutations per commit that Spanner supports has increased from 40,000 to 80,000. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#limits-for) .
 
 ## December 14, 2023
 
 Feature
 
-Data Catalog support in Spanner is generally available. For more information, see [Manage resources using Data Catalog](/spanner/docs/dc-integration) .
+Data Catalog support in Spanner is generally available. For more information, see [Manage resources using Data Catalog](https://docs.cloud.google.com/spanner/docs/dc-integration) .
 
 ## December 05, 2023
 
@@ -3943,22 +3943,22 @@ Feature
 
 Spanner supports the following PostgreSQL functions:
 
-  - [`  unnest  `](/spanner/docs/reference/postgresql/arrays)
-  - [`  array_length  `](/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
-  - [`  array(subquery)  `](/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
-  - [`  date_trunc  `](/spanner/docs/reference/postgresql/functions-and-operators#date-time-functions)
-  - [`  extract  `](/spanner/docs/reference/postgresql/functions-and-operators#date-time-functions)
-  - [`  spanner.date_bin  `](/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
-  - [`  spanner.timestamptz_add  `](/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
-  - [`  spanner.timestamptz_subtract  `](/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
+  - [`  unnest  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays)
+  - [`  array_length  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
+  - [`  array(subquery)  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
+  - [`  date_trunc  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-functions)
+  - [`  extract  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-functions)
+  - [`  spanner.date_bin  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
+  - [`  spanner.timestamptz_add  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
+  - [`  spanner.timestamptz_subtract  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
 
-For more information, see [working with arrays in PostgreSQL-dialect databases](/spanner/docs/reference/postgresql/arrays) .
+For more information, see [working with arrays in PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays) .
 
 ## November 30, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -4062,59 +4062,59 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner emulator support for the PostgreSQL dialect is generally available. To learn more about the emulator, see [Emulate Spanner locally](/spanner/docs/emulator) .
+Spanner emulator support for the PostgreSQL dialect is generally available. To learn more about the emulator, see [Emulate Spanner locally](https://docs.cloud.google.com/spanner/docs/emulator) .
 
 ## November 16, 2023
 
 Feature
 
-Spanner supports automatic cleanup of long running transactions (in Preview). To enhable this feature, use the Java or Go client library to automatically remove long running transactions that might cause session leaks and receive warning logs about problematic transactions. For more information, see [Automatic cleanup of session leaks](/spanner/docs/sessions#automatic_cleanup_of_session_leaks) .
+Spanner supports automatic cleanup of long running transactions (in Preview). To enhable this feature, use the Java or Go client library to automatically remove long running transactions that might cause session leaks and receive warning logs about problematic transactions. For more information, see [Automatic cleanup of session leaks](https://docs.cloud.google.com/spanner/docs/sessions#automatic_cleanup_of_session_leaks) .
 
 Feature
 
-Spanner supports Hibernate ORM 6.3 in GoogleSQL Hibernate dialect. For more information, see [Integrate Spanner with Hibernate ORM (GoogleSQL dialect)](/spanner/docs/use-hibernate) .
+Spanner supports Hibernate ORM 6.3 in GoogleSQL Hibernate dialect. For more information, see [Integrate Spanner with Hibernate ORM (GoogleSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-hibernate) .
 
 ## November 15, 2023
 
 Feature
 
-Spanner provides an integration workflow with Vertex AI Vector Search to enable vector similarity search on data stored in Spanner. For more information, see [Export embeddings from Spanner to Vector Search](/spanner/docs/vector-search-embeddings) .
+Spanner provides an integration workflow with Vertex AI Vector Search to enable vector similarity search on data stored in Spanner. For more information, see [Export embeddings from Spanner to Vector Search](https://docs.cloud.google.com/spanner/docs/vector-search-embeddings) .
 
 ## November 13, 2023
 
 Feature
 
-Managed autoscaler for compute capacity on Spanner instances is in preview. With managed autoscaler, Spanner automatically increases or decreases compute capacity on the instance in response to changing workload or storage needs and user defined goals. For more information, see [Managed autoscaler](/spanner/docs/managed-autoscaler) .
+Managed autoscaler for compute capacity on Spanner instances is in preview. With managed autoscaler, Spanner automatically increases or decreases compute capacity on the instance in response to changing workload or storage needs and user defined goals. For more information, see [Managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) .
 
 ## November 10, 2023
 
 Feature
 
-Spanner supports batch-oriented scans. For certain queries, Spanner chooses a batch-oriented processing mode to help improve scan throughput and performance. For more information, see [Optimize scans](/spanner/docs/sql-best-practices#optimize-scans) .
+Spanner supports batch-oriented scans. For certain queries, Spanner chooses a batch-oriented processing mode to help improve scan throughput and performance. For more information, see [Optimize scans](https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-scans) .
 
 ## November 07, 2023
 
 Feature
 
-Spanner supports the Go programming language ORM, GORM, with GoogleSQL-dialect databases. For more information, see [Integrate Spanner with GORM (GoogleSQL dialect)](/spanner/docs/use-gorm) .
+Spanner supports the Go programming language ORM, GORM, with GoogleSQL-dialect databases. For more information, see [Integrate Spanner with GORM (GoogleSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-gorm) .
 
 ## November 02, 2023
 
 Feature
 
-Table and index operations statistics are generally available. This feature helps you get insights and monitor usages of your tables and indexes in your database. For more information, see [Table operations statistics](/spanner/docs/introspection/table-operations-statistics) .
+Table and index operations statistics are generally available. This feature helps you get insights and monitor usages of your tables and indexes in your database. For more information, see [Table operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics) .
 
 ## October 31, 2023
 
 Feature
 
-The Spanner `  ExecuteBatchDml  ` API applies optimizations to groups of statements within a batch to enable faster and more efficient data updates. For more information, see [Improve latency with batch DML](/spanner/docs/dml-best-practices#batch-dml) .
+The Spanner `  ExecuteBatchDml  ` API applies optimizations to groups of statements within a batch to enable faster and more efficient data updates. For more information, see [Improve latency with batch DML](https://docs.cloud.google.com/spanner/docs/dml-best-practices#batch-dml) .
 
 ## October 30, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -4222,47 +4222,47 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner supports `  FULL JOIN  ` with `  USING  ` in PostgreSQL-dialect databases. For information about PostgreSQL queries in Spanner, see [PostgreSQL queries](/spanner/docs/reference/postgresql/query-syntax) .
+Spanner supports `  FULL JOIN  ` with `  USING  ` in PostgreSQL-dialect databases. For information about PostgreSQL queries in Spanner, see [PostgreSQL queries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax) .
 
 ## October 23, 2023
 
 Feature
 
-Spanner PostgreSQL supports the `  SELECT DISTINCT  ` statement. For more information, see [`  SELECT  `](/spanner/docs/reference/postgresql/query-syntax#select) .
+Spanner PostgreSQL supports the `  SELECT DISTINCT  ` statement. For more information, see [`  SELECT  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#select) .
 
 ## October 17, 2023
 
 Feature
 
-[Query Optimizer version 6](/spanner/docs/query-optimizer/versions) is generally available, and is the default optimizer version.
+[Query Optimizer version 6](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) is generally available, and is the default optimizer version.
 
 ## October 11, 2023
 
 Feature
 
-Spanner has made improvements that provide higher throughput for instances located in select Spanner regional and multi-region instance configurations. These improvements are available without additional cost or any configuration changes. For more information, see [Performance improvements](/spanner/docs/performance#improved-performance) .
+Spanner has made improvements that provide higher throughput for instances located in select Spanner regional and multi-region instance configurations. These improvements are available without additional cost or any configuration changes. For more information, see [Performance improvements](https://docs.cloud.google.com/spanner/docs/performance#improved-performance) .
 
 ## October 09, 2023
 
 Feature
 
-Spanner batch write is available in Preview. You can use Spanner batch write to commit multiple mutations non-atomically in a single request with low latency. For more information, see [Modify data using batch write](/spanner/docs/batch-write) .
+Spanner batch write is available in Preview. You can use Spanner batch write to commit multiple mutations non-atomically in a single request with low latency. For more information, see [Modify data using batch write](https://docs.cloud.google.com/spanner/docs/batch-write) .
 
 Feature
 
-Spanner Vertex AI integration supports Vertex AI Generative AI text embeddings and the [`  text-bison  `](/vertex-ai/docs/generative-ai/model-reference/text) model. For more information, see [Get Vertex AI text embeddings](/spanner/docs/ml-tutorial-embeddings) .
+Spanner Vertex AI integration supports Vertex AI Generative AI text embeddings and the [`  text-bison  `](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) model. For more information, see [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
 
 ## October 05, 2023
 
 Feature
 
-Spanner sampled query plans are available in GA. You can view samples of historic query plans and compare the performance of a query over time. For more information, see [Sampled query plans](/spanner/docs/query-execution-plans#sampled-plans) .
+Spanner sampled query plans are available in GA. You can view samples of historic query plans and compare the performance of a query over time. For more information, see [Sampled query plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans#sampled-plans) .
 
 ## September 25, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -4321,31 +4321,31 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Dammam, Saudi Arabia ( `  me-central2  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Dammam, Saudi Arabia ( `  me-central2  ` ).
 
 ## September 13, 2023
 
 Feature
 
-You can create definer's rights views in Spanner. A definer's rights view adds additional security functionality by providing different privileges on the view and the underlying schema objects. Users with access to a definer's rights view can see and query its contents even if they don't have access to the view's underlying schema objects. For more information, see [About views](/spanner/docs/views) .
+You can create definer's rights views in Spanner. A definer's rights view adds additional security functionality by providing different privileges on the view and the underlying schema objects. Users with access to a definer's rights view can see and query its contents even if they don't have access to the view's underlying schema objects. For more information, see [About views](https://docs.cloud.google.com/spanner/docs/views) .
 
 ## September 11, 2023
 
 Feature
 
-[Query optimizer version 6](/spanner/docs/query-optimizer/versions) is generally available. Version 5 remains the default optimizer version in production.
+[Query optimizer version 6](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) is generally available. Version 5 remains the default optimizer version in production.
 
 ## September 06, 2023
 
 Feature
 
-A Spanner [multi-region instance configuration](/spanner/docs/instance-configurations#multi-region-configurations) is available in Asia - `  asia2  ` (Mumbai/Delhi/Singapore).
+A Spanner [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) is available in Asia - `  asia2  ` (Mumbai/Delhi/Singapore).
 
 ## August 31, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -4466,7 +4466,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner Studio includes [Gemini](/duet-ai/docs/overview) (in Preview), an AI-powered collaborator in Google Cloud that accelerates SQL development by helping you write SQL statements. For more information, see [Write SQL with Gemini assistance](/spanner/docs/write-sql-duet-ai) .
+Spanner Studio includes [Gemini](https://docs.cloud.google.com/duet-ai/docs/overview) (in Preview), an AI-powered collaborator in Google Cloud that accelerates SQL development by helping you write SQL statements. For more information, see [Write SQL with Gemini assistance](https://docs.cloud.google.com/spanner/docs/write-sql-duet-ai) .
 
 ## August 24, 2023
 
@@ -4474,21 +4474,21 @@ Feature
 
 Spanner has added 13 PostgreSQL functions and operators:
 
-  - [`  ARRAY_UPPER(anyarray, dimension)  ` function](/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
-  - [`  QUOTE_IDENT(string)  ` function](/spanner/docs/reference/postgresql/functions-and-operators#string_functions)
-  - [`  SUBSTRING(string, pattern)  ` function](/spanner/docs/reference/postgresql/functions-and-operators#string_functions)
-  - [`  DATE - DATE  ` operator](/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
-  - [`  DATE - INTEGER  ` operator](/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
-  - [`  DATE + INTEGER  ` operator](/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
-  - [`  REGEXP_MATCH(string, pattern [, flags])  ` function](/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching)
-  - [`  REGEXP_SPLIT_TO_ARRAY(string, pattern [, flags])  ` function](/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching)
-  - [`  STRING !~ PATTERN  ` operator](/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching-operators)
-  - [`  TO_CHAR(timestamptz, format)  ` , `  TO_CHAR(double, format)  ` , `  TO_CHAR(bigint, format)  ` , `  TO_CHAR(numeric, format)  ` function](/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
-  - [`  TO_NUMBER(string, format)  ` function](/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
-  - [`  TO_DATE(string, format)  ` function](/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
-  - [`  TO_TIMESTAMP(string, format)  ` function](/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
+  - [`  ARRAY_UPPER(anyarray, dimension)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
+  - [`  QUOTE_IDENT(string)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#string_functions)
+  - [`  SUBSTRING(string, pattern)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#string_functions)
+  - [`  DATE - DATE  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
+  - [`  DATE - INTEGER  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
+  - [`  DATE + INTEGER  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
+  - [`  REGEXP_MATCH(string, pattern [, flags])  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching)
+  - [`  REGEXP_SPLIT_TO_ARRAY(string, pattern [, flags])  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching)
+  - [`  STRING !~ PATTERN  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching-operators)
+  - [`  TO_CHAR(timestamptz, format)  ` , `  TO_CHAR(double, format)  ` , `  TO_CHAR(bigint, format)  ` , `  TO_CHAR(numeric, format)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
+  - [`  TO_NUMBER(string, format)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
+  - [`  TO_DATE(string, format)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
+  - [`  TO_TIMESTAMP(string, format)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
 
-For more information, see [Supported PostgreSQL functions](/spanner/docs/reference/postgresql/functions-and-operators) .
+For more information, see [Supported PostgreSQL functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators) .
 
 ## August 23, 2023
 
@@ -4496,53 +4496,53 @@ Feature
 
 Spanner supports integer sequences and bit reversal.
 
-  - The `  SEQUENCE  ` DDL statement generates unique, uniformly distributed integers as part of a primary key `  DEFAULT  ` expression. For more information, see `  SEQUENCE  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) , [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ).
+  - The `  SEQUENCE  ` DDL statement generates unique, uniformly distributed integers as part of a primary key `  DEFAULT  ` expression. For more information, see `  SEQUENCE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ).
 
-  - The bit reverse function lets you map existing integer keys using the same logic as a bit-reversed sequence to avoid hotspotting. For more information, see `  BIT_REVERSE  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/bit_functions#bit_reverse) , [PostgreSQL](/spanner/docs/reference/postgresql/functions-and-operators#mathematical) ).
+  - The bit reverse function lets you map existing integer keys using the same logic as a bit-reversed sequence to avoid hotspotting. For more information, see `  BIT_REVERSE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions#bit_reverse) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) ).
 
-For overview information and scenarios for when to use these features, see [Primary key default values management](/spanner/docs/primary-key-default-value) .
+For overview information and scenarios for when to use these features, see [Primary key default values management](https://docs.cloud.google.com/spanner/docs/primary-key-default-value) .
 
 Feature
 
-Spanner supports generating a UUID (v4) as part of a table's primary key `  DEFAULT  ` expression using the [`  GENERATE_UUID  `](/spanner/docs/reference/standard-sql/functions-and-operators#generate_uuid) function in GoogleSQL or [`  generate_uuid()  `](/spanner/docs/reference/postgresql/functions-and-operators#utility) in PostgreSQL-dialect databases.
+Spanner supports generating a UUID (v4) as part of a table's primary key `  DEFAULT  ` expression using the [`  GENERATE_UUID  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-and-operators#generate_uuid) function in GoogleSQL or [`  generate_uuid()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) in PostgreSQL-dialect databases.
 
-For overview information and scenarios for when to use this feature, see [Primary key default values management](/spanner/docs/primary-key-default-value) .
+For overview information and scenarios for when to use this feature, see [Primary key default values management](https://docs.cloud.google.com/spanner/docs/primary-key-default-value) .
 
 ## August 22, 2023
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Berlin, Germany ( `  europe-west10  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Berlin, Germany ( `  europe-west10  ` ).
 
 ## August 21, 2023
 
 Feature
 
-Spanner Studio enhances the Spanner query editor in the Google Cloud console, with full support for SQL, DML, and DDL operations. The Spanner Studio also features an **Explorer** pane (in Preview) which lets you interactively browse, query, and modify your database. For more information, see [Manage your data using the Google Cloud console](/spanner/docs/manage-data-using-console) .
+Spanner Studio enhances the Spanner query editor in the Google Cloud console, with full support for SQL, DML, and DDL operations. The Spanner Studio also features an **Explorer** pane (in Preview) which lets you interactively browse, query, and modify your database. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 ## August 17, 2023
 
 Feature
 
-Data Boost for Spanner is available in all regions. For information about Data Boost, see [Data Boost overview](/spanner/docs/databoost/databoost-overview) .
+Data Boost for Spanner is available in all regions. For information about Data Boost, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
 
 ## August 15, 2023
 
 Feature
 
-Spanner lets you check the progress on long-running operations, such as backups, restores, and schema updates. This feature is [generally available (GA)](https://cloud.google.com/products#product-launch-stages) . For more information, see [Check the progress of a long-running schema update operation](/spanner/docs/manage-and-observe-long-running-operations#check_the_progress_of_a_long-running_schema_update_operation) and [Check the progress of a long-running backup or restore operation](/spanner/docs/manage-and-observe-long-running-operations#check_the_progress_of_a_long-running_backup_or_restore_operation) .
+Spanner lets you check the progress on long-running operations, such as backups, restores, and schema updates. This feature is [generally available (GA)](https://cloud.google.com/products#product-launch-stages) . For more information, see [Check the progress of a long-running schema update operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#check_the_progress_of_a_long-running_schema_update_operation) and [Check the progress of a long-running backup or restore operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#check_the_progress_of_a_long-running_backup_or_restore_operation) .
 
 ## August 08, 2023
 
 Feature
 
-Spanner database deletion protection is generally available. You can enable database deletion protection to prevent the accidental deletion of databases. For more information, see [Prevent accidental database deletion](/spanner/docs/prevent-database-deletion) .
+Spanner database deletion protection is generally available. You can enable database deletion protection to prevent the accidental deletion of databases. For more information, see [Prevent accidental database deletion](https://docs.cloud.google.com/spanner/docs/prevent-database-deletion) .
 
 ## July 31, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -4649,13 +4649,13 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner supports cascading deletes for foreign keys. For more information, see [Foreign key actions](/spanner/docs/foreign-keys/overview#how-to-define-foreign-key-action) .
+Spanner supports cascading deletes for foreign keys. For more information, see [Foreign key actions](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#how-to-define-foreign-key-action) .
 
 ## June 26, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -4733,13 +4733,13 @@ Spanner Data Boost lets you execute analytics queries and data exports with near
   - europe-west2 (London)
   - europe-west3 (Frankfurt)
 
-For more information, see [Data Boost overview](/spanner/docs/databoost/databoost-overview) .
+For more information, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
 
 ## June 22, 2023
 
 Feature
 
-Spanner Vertex AI integration is generally available. You can use Vertex AI with GoogleSQL to enhance your Spanner applications with machine learning capabilities. For more information, see [About Spanner Vertex AI integration](/spanner/docs/ml) .
+Spanner Vertex AI integration is generally available. You can use Vertex AI with GoogleSQL to enhance your Spanner applications with machine learning capabilities. For more information, see [About Spanner Vertex AI integration](https://docs.cloud.google.com/spanner/docs/ml) .
 
 ## June 09, 2023
 
@@ -4751,13 +4751,13 @@ In both the GoogleSQL and PostgreSQL dialects, adds support for the `  IF NOT EX
 
 Feature
 
-Fine-grained access control is available for PostgreSQL-dialect databases. For more information, see [About fine-grained access control](/spanner/docs/fgac-about) .
+Fine-grained access control is available for PostgreSQL-dialect databases. For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
 
 ## June 05, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -4904,23 +4904,23 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-Spanner lets you use a [generated column in the primary key](/spanner/docs/generated-column/how-to#primary-key-generated-column) .
+Spanner lets you use a [generated column in the primary key](https://docs.cloud.google.com/spanner/docs/generated-column/how-to#primary-key-generated-column) .
 
 Feature
 
-Spanner database deletion protection is available in Preview. You can enable database deletion protection to prevent the accidental deletion of databases. For more information, see [Prevent accidental database deletion](/spanner/docs/prevent-database-deletion) .
+Spanner database deletion protection is available in Preview. You can enable database deletion protection to prevent the accidental deletion of databases. For more information, see [Prevent accidental database deletion](https://docs.cloud.google.com/spanner/docs/prevent-database-deletion) .
 
 ## May 22, 2023
 
 Feature
 
-Spanner automatically increases the degree of parallelism on a query when the instance size allows. For more information on parallel execution of queries, see [Life of a Spanner Query](/spanner/docs/whitepapers/life-of-query#execution) .
+Spanner automatically increases the degree of parallelism on a query when the instance size allows. For more information on parallel execution of queries, see [Life of a Spanner Query](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query#execution) .
 
 ## May 09, 2023
 
 Feature
 
-Support for logging the processing duration of your Spanner read and write requests is available in Cloud Audit Logs. For more information, see [Processing duration](/spanner/docs/audit-logging#processing-duration) .
+Support for logging the processing duration of your Spanner read and write requests is available in Cloud Audit Logs. For more information, see [Processing duration](https://docs.cloud.google.com/spanner/docs/audit-logging#processing-duration) .
 
 ## May 02, 2023
 
@@ -4928,29 +4928,29 @@ Feature
 
 Spanner supports query capabilities for PostgreSQL dialect databases:
 
-  - Set operations (such as `  UNION  ` and `  INTERSECT  ` ) with [`  ORDER BY  ` , `  LIMIT  ` , or `  OFFSET  `](/spanner/docs/reference/postgresql/query-syntax#select) , or in [subqueries](/spanner/docs/reference/postgresql/subqueries)
+  - Set operations (such as `  UNION  ` and `  INTERSECT  ` ) with [`  ORDER BY  ` , `  LIMIT  ` , or `  OFFSET  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#select) , or in [subqueries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries)
   - Parameterized `  LIMIT  ` and `  OFFSET  ` operations
-  - [Statement hints](/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint) for configuring the query optimizer (such as `  optimizer_version  ` and `  optimizer_statistics_package  ` )
+  - [Statement hints](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint) for configuring the query optimizer (such as `  optimizer_version  ` and `  optimizer_statistics_package  ` )
 
 Feature
 
-Spanner sampled query plans are available in Preview. You can view samples of historic query plans and compare the performance of a query over time. For more information, see [Sampled query plans](/spanner/docs/query-execution-plans#sampled-plans) .
+Spanner sampled query plans are available in Preview. You can view samples of historic query plans and compare the performance of a query over time. For more information, see [Sampled query plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans#sampled-plans) .
 
 ## April 28, 2023
 
 Feature
 
-The number of indexes per table that Spanner supports increased from 32 to 128. For more information, see [Quotas & limits](/spanner/quotas#indexes) .
+The number of indexes per table that Spanner supports increased from 32 to 128. For more information, see [Quotas & limits](https://docs.cloud.google.com/spanner/quotas#indexes) .
 
 Feature
 
-The following [multi-region instance configurations](/spanner/docs/instance-configurations#available-configurations-multi-region) are available in North America: `  nam14  ` (Northern Virginia/Montréal/South Carolina) and `  nam15  ` (Dallas/Northern Virginia/Iowa).
+The following [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) are available in North America: `  nam14  ` (Northern Virginia/Montréal/South Carolina) and `  nam15  ` (Dallas/Northern Virginia/Iowa).
 
 ## April 24, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -5068,7 +5068,7 @@ Feature
 
 Spanner integration with Data Catalog is available in Preview in the `  europe-central2  ` region.
 
-For more information, see [Manage resources using Data Catalog](/spanner/docs/dc-integration) .
+For more information, see [Manage resources using Data Catalog](https://docs.cloud.google.com/spanner/docs/dc-integration) .
 
 ## March 31, 2023
 
@@ -5076,19 +5076,19 @@ Feature
 
 Spanner integration with Data Catalog is available in Preview. Data Catalog is a fully managed, scalable metadata management service within Dataplex Universal Catalog. It catalogs metadata about Spanner instances, databases, tables, columns, and views. For Preview, integration with Data Catalog isn't available in the `  europe-central2  ` region.
 
-For more information, see [Manage resources using Data Catalog](/spanner/docs/dc-integration) .
+For more information, see [Manage resources using Data Catalog](https://docs.cloud.google.com/spanner/docs/dc-integration) .
 
 ## March 30, 2023
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Doha, Qatar ( `  me-central1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Doha, Qatar ( `  me-central1  ` ).
 
 ## March 27, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -5158,7 +5158,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Turin, Italy ( `  europe-west12  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Turin, Italy ( `  europe-west12  ` ).
 
 ## March 21, 2023
 
@@ -5166,15 +5166,15 @@ Feature
 
 The following functions and expressions have been added to the GoogleSQL dialect:
 
-  - [`  ARRAY_FILTER  ` function](/spanner/docs/reference/standard-sql/array_functions#array_filter)
-  - [`  ARRAY_TRANSFORM  ` function](/spanner/docs/reference/standard-sql/array_functions#array_transform)
-  - [Lambda expressions](/spanner/docs/reference/standard-sql/functions-reference#lambdas)
+  - [`  ARRAY_FILTER  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_filter)
+  - [`  ARRAY_TRANSFORM  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_transform)
+  - [Lambda expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference#lambdas)
 
 ## March 20, 2023
 
 Feature
 
-You can use Google Cloud tags to group and organize your Spanner instances, and to condition Identity and Access Management (IAM) policies based on whether an instance has a specific tag. For more information, see [Control access and organize instances with tags](/spanner/docs/tags) .
+You can use Google Cloud tags to group and organize your Spanner instances, and to condition Identity and Access Management (IAM) policies based on whether an instance has a specific tag. For more information, see [Control access and organize instances with tags](https://docs.cloud.google.com/spanner/docs/tags) .
 
 ## March 17, 2023
 
@@ -5182,26 +5182,26 @@ Feature
 
 The following functions have been added to the GoogleSQL dialect:
 
-  - [`  ARRAY_INCLUDES_ALL  ` function](/spanner/docs/reference/standard-sql/array_functions#array_includes_all)
-  - [`  ARRAY_INCLUDES_ANY  ` function](/spanner/docs/reference/standard-sql/array_functions#array_includes_any)
-  - [`  ARRAY_MIN  ` function](/spanner/docs/reference/standard-sql/array_functions#array_min)
-  - [`  ARRAY_MAX  ` function](/spanner/docs/reference/standard-sql/array_functions#array_max)
+  - [`  ARRAY_INCLUDES_ALL  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes_all)
+  - [`  ARRAY_INCLUDES_ANY  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes_any)
+  - [`  ARRAY_MIN  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_min)
+  - [`  ARRAY_MAX  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_max)
 
 Feature
 
-Support for the GoogleSQL-dialect `  THEN RETURN  ` clause and the PostgreSQL-dialect `  RETURNING  ` clause is generally available. For more information, see [`  THEN RETURN  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) and [`  RETURNING  `](/spanner/docs/reference/postgresql/dml-syntax#insert-returning) .
+Support for the GoogleSQL-dialect `  THEN RETURN  ` clause and the PostgreSQL-dialect `  RETURNING  ` clause is generally available. For more information, see [`  THEN RETURN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) and [`  RETURNING  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) .
 
 ## March 09, 2023
 
 Feature
 
-Spanner fine-grained access control is generally available. Fine-grained access control combines the benefits of Identity and Access Management (IAM) with traditional SQL role-based access control. For more information, see [About fine-grained access control](/spanner/docs/fgac-about) .
+Spanner fine-grained access control is generally available. Fine-grained access control combines the benefits of Identity and Access Management (IAM) with traditional SQL role-based access control. For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
 
 ## March 03, 2023
 
 Feature
 
-Added support for the `  JSONB  ` array data type in the PostgreSQL dialect. For more information, see [Work with JSONB data](/spanner/docs/working-with-jsonb) .
+Added support for the `  JSONB  ` array data type in the PostgreSQL dialect. For more information, see [Work with JSONB data](https://docs.cloud.google.com/spanner/docs/working-with-jsonb) .
 
 ## March 01, 2023
 
@@ -5213,7 +5213,7 @@ Change streams are supported for PostgreSQL-dialect databases.
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -5297,7 +5297,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-The system insights dashboard displays metrics and scorecards for the resources that your instance or database uses and helps you get a high-level view of your system's performance. For more information, see [Monitor instances with system insights](/spanner/docs/monitoring-console) .
+The system insights dashboard displays metrics and scorecards for the resources that your instance or database uses and helps you get a high-level view of your system's performance. For more information, see [Monitor instances with system insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) .
 
 ## February 16, 2023
 
@@ -5333,13 +5333,13 @@ Spanner supports regional endpoints. You can use regional endpoints if your data
 
 Feature
 
-Table sizes statistics are generally available. Table size statistics help you get insights into the size of individual tables in your database. For more information, see [Table sizes statistics](/spanner/docs/introspection/table-sizes-statistics) .
+Table sizes statistics are generally available. Table size statistics help you get insights into the size of individual tables in your database. For more information, see [Table sizes statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics) .
 
 ## January 30, 2023
 
 Libraries
 
-A monthly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Node.js
 
@@ -5436,29 +5436,29 @@ A monthly digest of client library updates from across the [Google Cloud SDK](/s
 
 Feature
 
-The Spanner Kafka connector publishes change streams records to Kafka for application integration and event triggering. For more information, see [Build change streams connections to Kafka](/spanner/docs/change-streams/use-kafka) .
+The Spanner Kafka connector publishes change streams records to Kafka for application integration and event triggering. For more information, see [Build change streams connections to Kafka](https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka) .
 
 ## December 19, 2022
 
 Feature
 
-You can use the `  ALTER INDEX  ` statement to add columns into an index or drop non-key columns. For more information, see [Alter an index](/spanner/docs/secondary-indexes#alter_index) .
+You can use the `  ALTER INDEX  ` statement to add columns into an index or drop non-key columns. For more information, see [Alter an index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#alter_index) .
 
 ## December 14, 2022
 
 Feature
 
-Spanner offers the [Spanner change streams to Pub/Sub Dataflow template](/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-pubsub) , which streams Spanner data change records and writes them into Pub/Sub topics.
+Spanner offers the [Spanner change streams to Pub/Sub Dataflow template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-pubsub) , which streams Spanner data change records and writes them into Pub/Sub topics.
 
 Feature
 
-You can create a custom instance configuration and add optional read-only replicas to your custom instance configurations to scale reads and support low latency stale reads. For more information, see [Regional and multi-region configurations](/spanner/docs/instance-configurations#configuration) .
+You can create a custom instance configuration and add optional read-only replicas to your custom instance configurations to scale reads and support low latency stale reads. For more information, see [Regional and multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#configuration) .
 
 ## December 12, 2022
 
 Feature
 
-Support for moving a Spanner instance is generally available. You can request to move your Spanner instance from any instance configuration to any other instance configuration, including between regional and multi-region configurations. For more information, see [Move an instance](/spanner/docs/move-instance) .
+Support for moving a Spanner instance is generally available. You can request to move your Spanner instance from any instance configuration to any other instance configuration, including between regional and multi-region configurations. For more information, see [Move an instance](https://docs.cloud.google.com/spanner/docs/move-instance) .
 
 Feature
 
@@ -5487,35 +5487,35 @@ For more information, see [Database storage prices](https://cloud.google.com/spa
 
 Feature
 
-New SQL syntax, [`  RETURNING  `](/spanner/docs/reference/postgresql/dml-syntax#insert-returning) in the PostgreSQL dialect and [`  THEN RETURN  `](/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) in Google Standard SQL, selects and returns data from rows that were just updated as part of a `  DML  ` statement. This is especially useful for getting values from default or generated columns and can reduce latency over equivalent multi-statement transactions. The preview supports the Java, JDBC, Python, and Go Spanner clients as well as PostgreSQL drivers that connect through [PGAdapter](https://github.com/GoogleCloudPlatform/pgadapter#google-cloud-spanner-pgadapter) .
+New SQL syntax, [`  RETURNING  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) in the PostgreSQL dialect and [`  THEN RETURN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) in Google Standard SQL, selects and returns data from rows that were just updated as part of a `  DML  ` statement. This is especially useful for getting values from default or generated columns and can reduce latency over equivalent multi-statement transactions. The preview supports the Java, JDBC, Python, and Go Spanner clients as well as PostgreSQL drivers that connect through [PGAdapter](https://github.com/GoogleCloudPlatform/pgadapter#google-cloud-spanner-pgadapter) .
 
 ## December 02, 2022
 
 Feature
 
-The number of concurrent database restore operations per instance that Spanner supports has increased from five to ten. For more information, see [Backup and restore limits](/spanner/quotas#backup-limits) .
+The number of concurrent database restore operations per instance that Spanner supports has increased from five to ten. For more information, see [Backup and restore limits](https://docs.cloud.google.com/spanner/quotas#backup-limits) .
 
 ## November 15, 2022
 
 Feature
 
-Added support for the `  JSONB  ` data type in the Spanner PostgreSQL dialect. For more information, see [Work with JSONB data](/spanner/docs/working-with-jsonb) .
+Added support for the `  JSONB  ` data type in the Spanner PostgreSQL dialect. For more information, see [Work with JSONB data](https://docs.cloud.google.com/spanner/docs/working-with-jsonb) .
 
 Feature
 
-[Time to live (TTL)](/spanner/docs/ttl) is supported in PostgreSQL-dialect databases. With TTL, you can reduce storage costs, improve query performance, and simplify data retention by automatically removing unneeded data based on user-defined policies.
+[Time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl) is supported in PostgreSQL-dialect databases. With TTL, you can reduce storage costs, improve query performance, and simplify data retention by automatically removing unneeded data based on user-defined policies.
 
 ## November 08, 2022
 
 Feature
 
-Spanner supports cross-region and cross-project backup use cases. You can [copy a backup](/spanner/docs/backup/copy-backup) of your database from one instance to another instance in a different region or project to provide additional data protection and compliance capabilities.
+Spanner supports cross-region and cross-project backup use cases. You can [copy a backup](https://docs.cloud.google.com/spanner/docs/backup/copy-backup) of your database from one instance to another instance in a different region or project to provide additional data protection and compliance capabilities.
 
 ## November 07, 2022
 
 Libraries
 
-A weekly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A weekly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Go
 
@@ -5549,7 +5549,7 @@ Support for the NHibernate ORM is generally available, letting you use Spanner a
 
 Libraries
 
-A weekly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A weekly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -5587,7 +5587,7 @@ A weekly digest of client library updates from across the [Google Cloud SDK](/sd
 
 Libraries
 
-A weekly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A weekly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Node.js
 
@@ -5605,7 +5605,7 @@ A weekly digest of client library updates from across the [Google Cloud SDK](/sd
 
 Feature
 
-The number of concurrent database restore operations per instance that Spanner supports has increased from one to five. For more information, see [Backup and restore limits](/spanner/quotas#backup-limits) .
+The number of concurrent database restore operations per instance that Spanner supports has increased from one to five. For more information, see [Backup and restore limits](https://docs.cloud.google.com/spanner/quotas#backup-limits) .
 
 ## October 18, 2022
 
@@ -5613,15 +5613,15 @@ Feature
 
 The following generally available features help you identify and troubleshoot high latencies in specific databases:
 
-  - The [Lock insights dashboard](/spanner/docs/use-lock-and-transaction-insights#lock-insights) helps you identify latency spikes that are due to lock contentions.
+  - The [Lock insights dashboard](https://docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights#lock-insights) helps you identify latency spikes that are due to lock contentions.
 
-  - The [Transaction insights dashboard](/spanner/docs/use-lock-and-transaction-insights#txn-insights) helps you identify the transactions that cause lock contentions and, possibly, high latencies.
+  - The [Transaction insights dashboard](https://docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights#txn-insights) helps you identify the transactions that cause lock contentions and, possibly, high latencies.
 
 ## October 17, 2022
 
 Libraries
 
-A weekly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A weekly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -5647,13 +5647,13 @@ A weekly digest of client library updates from across the [Google Cloud SDK](/sd
 
 Feature
 
-Spanner Vertex AI integration is available in public preview. You can enhance your Spanner applications with machine learning capabilities by using Google Standard SQL. For more information, see [About Spanner Vertex AI integration](/spanner/docs/ml) .
+Spanner Vertex AI integration is available in public preview. You can enhance your Spanner applications with machine learning capabilities by using Google Standard SQL. For more information, see [About Spanner Vertex AI integration](https://docs.cloud.google.com/spanner/docs/ml) .
 
 ## October 10, 2022
 
 Libraries
 
-A weekly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A weekly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -5690,7 +5690,7 @@ A weekly digest of client library updates from across the [Google Cloud SDK](/sd
 
 Libraries
 
-A weekly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A weekly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Java
 
@@ -5729,17 +5729,17 @@ The following `  SPANNER_SYS  ` statistical tables have been enhanced with new c
 
 Change
 
-The number of mutations per commit that Spanner supports has increased from 20,000 to 40,000. For more information, see [Quotas and limits](/spanner/quotas#limits_for_creating_reading_updating_and_deleting_data) .
+The number of mutations per commit that Spanner supports has increased from 20,000 to 40,000. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#limits_for_creating_reading_updating_and_deleting_data) .
 
 Feature
 
-The [`  ARRAY_SLICE  `](/spanner/docs/reference/standard-sql/array_functions#array_slice) function is available to use in Google Standard SQL. This function returns an `  ARRAY  ` containing zero or more consecutive elements from an input array.
+The [`  ARRAY_SLICE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_slice) function is available to use in Google Standard SQL. This function returns an `  ARRAY  ` containing zero or more consecutive elements from an input array.
 
 ## September 26, 2022
 
 Libraries
 
-A weekly digest of client library updates from across the [Google Cloud SDK](/sdk) .
+A weekly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
 
 ### Node.js
 
@@ -5793,7 +5793,7 @@ A weekly digest of client library updates from across the [Google Cloud SDK](/sd
 
 Feature
 
-Fine-grained access control for Spanner is available in public preview. fine-grained access control control lets you secure your Spanner databases at the table and column level by using new RDBMS-style roles and `  GRANT  ` / `  REVOKE  ` SQL statements. With fine-grained access control, you can protect your transactional data and ensure that the right controls are in place when granting access to data. For more information, see [About fine-grained access control](/spanner/docs/fgac-about) .
+Fine-grained access control for Spanner is available in public preview. fine-grained access control control lets you secure your Spanner databases at the table and column level by using new RDBMS-style roles and `  GRANT  ` / `  REVOKE  ` SQL statements. With fine-grained access control, you can protect your transactional data and ensure that the right controls are in place when granting access to data. For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
 
 Feature
 
@@ -5803,43 +5803,43 @@ The Spanner Golang database/sql driver is generally available. Add the driver to
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Tel Aviv, Israel ( `  me-west1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Tel Aviv, Israel ( `  me-west1  ` ).
 
 ## September 09, 2022
 
 Feature
 
-[Query Optimizer version 5](/spanner/docs/query-optimizer/versions) is generally available, and is the default optimizer version.
+[Query Optimizer version 5](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) is generally available, and is the default optimizer version.
 
 ## September 08, 2022
 
 Feature
 
-Spanner free trial instances are generally available. With a free trial instance, you can learn and explore Spanner for 90 days at no cost. You can create Google Standard SQL or PostgreSQL-dialect databases and store up to 10 GB of data, with the option to upgrade at any time. For more information, see [About Spanner free trial instances](/spanner/docs/free-trial-instance) .
+Spanner free trial instances are generally available. With a free trial instance, you can learn and explore Spanner for 90 days at no cost. You can create Google Standard SQL or PostgreSQL-dialect databases and store up to 10 GB of data, with the option to upgrade at any time. For more information, see [About Spanner free trial instances](https://docs.cloud.google.com/spanner/docs/free-trial-instance) .
 
 ## August 17, 2022
 
 Feature
 
-The [`  DISABLE_INLINE  `](/spanner/docs/reference/standard-sql/functions-reference#function_hints) hint is available to use in a Google Standard SQL function call. This allows a function to be computed once instead of each time another part of a query references it.
+The [`  DISABLE_INLINE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference#function_hints) hint is available to use in a Google Standard SQL function call. This allows a function to be computed once instead of each time another part of a query references it.
 
 ## July 25, 2022
 
 Feature
 
-[Query Optimizer version 5](/spanner/docs/query-optimizer/versions) is generally available. Version 4 remains the default optimizer version in production.
+[Query Optimizer version 5](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) is generally available. Version 4 remains the default optimizer version in production.
 
 ## July 14, 2022
 
 Feature
 
-You can view aggregated Spanner statistics related to [transactions](/spanner/docs/introspection/transaction-statistics#transaction-stats-total) , [reads](/spanner/docs/introspection/read-statistics#read-stats-total) , [queries](/spanner/docs/introspection/query-statistics#query-stats-total) , and [lock contentions](/spanner/docs/introspection/lock-statistics#lock-stats-total) in GA in [Cloud Monitoring](/monitoring/docs) .
+You can view aggregated Spanner statistics related to [transactions](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#transaction-stats-total) , [reads](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics#read-stats-total) , [queries](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#query-stats-total) , and [lock contentions](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#lock-stats-total) in GA in [Cloud Monitoring](https://docs.cloud.google.com/monitoring/docs) .
 
 ## June 30, 2022
 
 Feature
 
-The [`  ANALYZE  ` DDL command](/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) lets administrators to manually update the [query statistics package](/spanner/docs/query-optimizer/overview#statistics-packages) that the optimizer uses to build query execution plans. This complements the existing automatic updates to provide faster feedback cycles when data, queries, or indexes change frequently.
+The [`  ANALYZE  ` DDL command](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) lets administrators to manually update the [query statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#statistics-packages) that the optimizer uses to build query execution plans. This complements the existing automatic updates to provide faster feedback cycles when data, queries, or indexes change frequently.
 
 ## June 29, 2022
 
@@ -5847,25 +5847,25 @@ Feature
 
 Query insights is [generally available](https://cloud.google.com/products#product-launch-stages) . Query insights helps you visually detect and identify query performance issues for Spanner databases. You can also dig deeper and analyse the query details to know the root cause of these issues.
 
-To learn more, see [Detect query performance issues with Query insights](/spanner/docs/using-query-insights) .
+To learn more, see [Detect query performance issues with Query insights](https://docs.cloud.google.com/spanner/docs/using-query-insights) .
 
 ## June 23, 2022
 
 Feature
 
-The PostgreSQL interface is generally available, making the capabilities of Spanner accessible from the PostgreSQL ecosystem. It includes a core subset of the PostgreSQL SQL dialect, support for the `  psql  ` command-line tool, native language clients, and integration into existing Google tools. For more information, see [PostgreSQL interface](/spanner/docs/postgresql-interface) .
+The PostgreSQL interface is generally available, making the capabilities of Spanner accessible from the PostgreSQL ecosystem. It includes a core subset of the PostgreSQL SQL dialect, support for the `  psql  ` command-line tool, native language clients, and integration into existing Google tools. For more information, see [PostgreSQL interface](https://docs.cloud.google.com/spanner/docs/postgresql-interface) .
 
 ## June 10, 2022
 
 Feature
 
-Commit timestamps let [a Spanner optimization that can reduce query I/O](/spanner/docs/sql-best-practices#commit-timestamps) when retrieving data written after a particular time.
+Commit timestamps let [a Spanner optimization that can reduce query I/O](https://docs.cloud.google.com/spanner/docs/sql-best-practices#commit-timestamps) when retrieving data written after a particular time.
 
 ## June 07, 2022
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Dallas ( `  us-south1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Dallas ( `  us-south1  ` ).
 
 ## May 31, 2022
 
@@ -5877,35 +5877,35 @@ Granular instance sizing is generally available. You can create production insta
 
 Feature
 
-Spanner [change streams](/spanner/docs/change-streams) capture and stream out inserts, updates, and deletes in near real-time—useful for analytics, archiving, and triggering downstream application workflows.
+Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) capture and stream out inserts, updates, and deletes in near real-time—useful for analytics, archiving, and triggering downstream application workflows.
 
 ## May 24, 2022
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) in Columbus ( `  us-east5  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) in Columbus ( `  us-east5  ` ).
 
 ## May 10, 2022
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) in Madrid ( `  europe-southwest1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) in Madrid ( `  europe-southwest1  ` ).
 
 ## May 03, 2022
 
 Feature
 
-You can create Spanner [regional instances](/spanner/docs/instance-configurations#available-configurations-regional) in Paris ( `  europe-west9  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Paris ( `  europe-west9  ` ).
 
 Feature
 
-[Query Optimizer version 4](/spanner/docs/query-optimizer/overview#version-history) is generally available, and is the default optimizer version.
+[Query Optimizer version 4](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#version-history) is generally available, and is the default optimizer version.
 
 ## April 20, 2022
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instance-configurations#regional_configurations) can be created in Milan ( `  europe-west8  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional_configurations) can be created in Milan ( `  europe-west8  ` ).
 
 ## April 14, 2022
 
@@ -5915,115 +5915,115 @@ You can define a default value for a non-key table column when creating or alter
 
 Feature
 
-A new three-continent, nine-replica [multi-region instance configuration](/spanner/docs/instance-configurations#configs-multi-region) is available for Spanner: `  nam-eur-asia3  ` (Iowa/South Carolina/Belgium/Netherlands/Taiwan/Oklahoma).
+A new three-continent, nine-replica [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configs-multi-region) is available for Spanner: `  nam-eur-asia3  ` (Iowa/South Carolina/Belgium/Netherlands/Taiwan/Oklahoma).
 
 ## April 05, 2022
 
 Feature
 
-Spanner allows you to [export a subset of your database tables](/spanner/docs/export#exporting_a_subset_of_tables) to Google Cloud Storage as Avro files.
+Spanner allows you to [export a subset of your database tables](https://docs.cloud.google.com/spanner/docs/export#exporting_a_subset_of_tables) to Google Cloud Storage as Avro files.
 
 ## March 25, 2022
 
 Feature
 
-All instances with a compute capacity of at least one node (1,000 processing units) have [a data storage allotment of 4 TB per node](/spanner/docs/compute-capacity#data_storage_limits) , an increase from 2 TB per node. Relatedly, instances smaller than one node have a data storage allotment of 409.6 GB for every 100 processing units.
+All instances with a compute capacity of at least one node (1,000 processing units) have [a data storage allotment of 4 TB per node](https://docs.cloud.google.com/spanner/docs/compute-capacity#data_storage_limits) , an increase from 2 TB per node. Relatedly, instances smaller than one node have a data storage allotment of 409.6 GB for every 100 processing units.
 
 ## March 22, 2022
 
 Breaking
 
-The data type of the `  COLUMN_DEFAULT  ` column in [the information schema `  COLUMNS  ` table](/spanner/docs/information-schema#information_schemacolumns) has changed from `  BYTES  ` to `  STRING  ` . This aligns better with industry standards and lets you make future improvements to Spanner.
+The data type of the `  COLUMN_DEFAULT  ` column in [the information schema `  COLUMNS  ` table](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemacolumns) has changed from `  BYTES  ` to `  STRING  ` . This aligns better with industry standards and lets you make future improvements to Spanner.
 
 ## March 10, 2022
 
 Feature
 
-Spanner offers [committed use discounts](/spanner/docs/cuds) . You can get significantly discounted prices in exchange for your commitment to use Spanner compute resources continuously for a year or longer.
+Spanner offers [committed use discounts](https://docs.cloud.google.com/spanner/docs/cuds) . You can get significantly discounted prices in exchange for your commitment to use Spanner compute resources continuously for a year or longer.
 
 ## March 08, 2022
 
 Feature
 
-You can see and manage the [views](/spanner/docs/views) of your Spanner databases from the Google Cloud console. To do so, visit a database's **Overview** page, and then click the **Views** tab.
+You can see and manage the [views](https://docs.cloud.google.com/spanner/docs/views) of your Spanner databases from the Google Cloud console. To do so, visit a database's **Overview** page, and then click the **Views** tab.
 
 ## March 03, 2022
 
 Feature
 
-You can view aggregated Spanner statistics related to [transactions](/spanner/docs/introspection/transaction-statistics#transaction-stats-total) , [reads](/spanner/docs/introspection/read-statistics#read-stats-total) , [queries](/spanner/docs/introspection/query-statistics#query-stats-total) , and [lock contentions](/spanner/docs/introspection/lock-statistics#lock-stats-total) in Preview in [Cloud Monitoring](/monitoring/docs) . Additionally, the retention period for these metrics at one-minute intervals has been increased from [six hours to six weeks](/monitoring/quotas#data_retention_policy) .
+You can view aggregated Spanner statistics related to [transactions](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#transaction-stats-total) , [reads](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics#read-stats-total) , [queries](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#query-stats-total) , and [lock contentions](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#lock-stats-total) in Preview in [Cloud Monitoring](https://docs.cloud.google.com/monitoring/docs) . Additionally, the retention period for these metrics at one-minute intervals has been increased from [six hours to six weeks](https://docs.cloud.google.com/monitoring/quotas#data_retention_policy) .
 
 ## March 01, 2022
 
 Feature
 
-Released [Query Optimizer version 4](/spanner/docs/query-optimizer/overview#version-history) . Version 3 remains the default optimizer version in production.
+Released [Query Optimizer version 4](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#version-history) . Version 3 remains the default optimizer version in production.
 
 Feature
 
-The following [multi-region instance configuration](/spanner/docs/instance-configurations#configs-multi-region) is available in North America - `  nam13  ` (Iowa/Oklahoma/Salt Lake City).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configs-multi-region) is available in North America - `  nam13  ` (Iowa/Oklahoma/Salt Lake City).
 
 ## February 11, 2022
 
 Feature
 
-Spanner [optimizes the way it processes groups of similar statements in DML batches](/spanner/docs/dml-best-practices#batch-dml) , significantly improving the speed at which it performs batched data writes under certain conditions.
+Spanner [optimizes the way it processes groups of similar statements in DML batches](https://docs.cloud.google.com/spanner/docs/dml-best-practices#batch-dml) , significantly improving the speed at which it performs batched data writes under certain conditions.
 
 ## February 08, 2022
 
 Feature
 
-[Query statistics](/spanner/docs/introspection/query-statistics) cover DML statements, including inserts, updates, and deletes.
+[Query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) cover DML statements, including inserts, updates, and deletes.
 
 ## February 07, 2022
 
 Feature
 
-[CPU Utilization metrics](/monitoring/api/metrics_gcp#gcp-spanner) in Spanner provide grouping by all task priorities: low, medium, and high.
+[CPU Utilization metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp#gcp-spanner) in Spanner provide grouping by all task priorities: low, medium, and high.
 
-Also, the monitoring console in Spanner lets you [view the CPU utilization of your instance by operation type](/spanner/docs/introspection/investigate-cpu-utilization) , filtered by task priority.
+Also, the monitoring console in Spanner lets you [view the CPU utilization of your instance by operation type](https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization) , filtered by task priority.
 
 ## January 25, 2022
 
 Breaking
 
-Starting no sooner than February 23, 2022, the data type of the `  COLUMN_DEFAULT  ` column in [the information schema's `  COLUMNS  ` table](/spanner/docs/information-schema#information_schemacolumns) will change from `  BYTES  ` to `  STRING  ` . This aligns better with industry standards, and lets you make future improvements to Spanner.
+Starting no sooner than February 23, 2022, the data type of the `  COLUMN_DEFAULT  ` column in [the information schema's `  COLUMNS  ` table](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemacolumns) will change from `  BYTES  ` to `  STRING  ` . This aligns better with industry standards, and lets you make future improvements to Spanner.
 
 ## November 16, 2021
 
 Announcement
 
-Spanner [regional instances](/spanner/docs/instance-configurations#regional_configurations) can be created in Santiago ( `  southamerica-west1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional_configurations) can be created in Santiago ( `  southamerica-west1  ` ).
 
 ## November 04, 2021
 
 Feature
 
-[Time to live (TTL)](/spanner/docs/ttl) is generally available. TTL reduces storage costs, improves query performance, and simplifies data retention by automatically removing unneeded data based on user-defined policies.
+[Time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl) is generally available. TTL reduces storage costs, improves query performance, and simplifies data retention by automatically removing unneeded data based on user-defined policies.
 
 ## October 29, 2021
 
 Feature
 
-The [`  django-spanner  ` plugin](https://github.com/googleapis/python-spanner-django) is available, letting you use Spanner as a backend database for the Django Web framework. For more information, see [Django ORM with Spanner](/spanner/docs/django-orm) .
+The [`  django-spanner  ` plugin](https://github.com/googleapis/python-spanner-django) is available, letting you use Spanner as a backend database for the Django Web framework. For more information, see [Django ORM with Spanner](https://docs.cloud.google.com/spanner/docs/django-orm) .
 
 ## October 27, 2021
 
 Feature
 
-When performing a CSV export, you can use [the `  spannerSnapshotTime  ` option](/dataflow/docs/guides/templates/provided-batch#cloud-spanner-to-cloud-storage-text) to export a specific past version of your data.
+When performing a CSV export, you can use [the `  spannerSnapshotTime  ` option](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#cloud-spanner-to-cloud-storage-text) to export a specific past version of your data.
 
 ## October 13, 2021
 
 Feature
 
-You can assign [`  request tags  ` and `  transaction tags  `](/spanner/docs/introspection/troubleshooting-with-tags) in your application code to easily troubleshoot query performance, transaction latency, and lock contentions by correlating introspection statistics to application code.
+You can assign [`  request tags  ` and `  transaction tags  `](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) in your application code to easily troubleshoot query performance, transaction latency, and lock contentions by correlating introspection statistics to application code.
 
 ## October 12, 2021
 
 Feature
 
-The [PostgreSQL interface](/spanner/docs/postgresql-interface) is available in [Preview](https://cloud.google.com/products#preview) , making the capabilities of Spanner accessible from the PostgreSQL ecosystem. The release supports a subset of the PostgreSQL SQL dialect, including core data types, functions, and operators. Applications can connect using updated Spanner drivers for JDBC, Java, Go, and Python. Starting initially with `  psql  ` , community tools can connect using `  PGAdapter  ` , a sidecar proxy that implements the PostgreSQL wire protocol. [Sign up](https://goo.gle/PostgreSQL-interface) for the preview today.
+The [PostgreSQL interface](https://docs.cloud.google.com/spanner/docs/postgresql-interface) is available in [Preview](https://cloud.google.com/products#preview) , making the capabilities of Spanner accessible from the PostgreSQL ecosystem. The release supports a subset of the PostgreSQL SQL dialect, including core data types, functions, and operators. Applications can connect using updated Spanner drivers for JDBC, Java, Go, and Python. Starting initially with `  psql  ` , community tools can connect using `  PGAdapter  ` , a sidecar proxy that implements the PostgreSQL wire protocol. [Sign up](https://goo.gle/PostgreSQL-interface) for the preview today.
 
 ## October 06, 2021
 
@@ -6035,33 +6035,33 @@ You can [specify the statistics package](https://cloud.google.com/spanner/docs/q
 
 Feature
 
-[Query Optimizer version 3](/spanner/docs/query-optimizer/overview#version-history) is the default optimizer version in production.
+[Query Optimizer version 3](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#version-history) is the default optimizer version in production.
 
 ## August 31, 2021
 
 Feature
 
-The [R2DBC driver](/spanner/docs/use-oss-r2dbc) for Spanner is available in [Preview](https://cloud.google.com/products#product-launch-stages) . This driver lets you connect to Spanner from fully reactive applications.
+The [R2DBC driver](https://docs.cloud.google.com/spanner/docs/use-oss-r2dbc) for Spanner is available in [Preview](https://cloud.google.com/products#product-launch-stages) . This driver lets you connect to Spanner from fully reactive applications.
 
 ## August 30, 2021
 
 Feature
 
-Added support for the JSON data type. For more information, see [Working with JSON data](/spanner/docs/working-with-json) .
+Added support for the JSON data type. For more information, see [Working with JSON data](https://docs.cloud.google.com/spanner/docs/working-with-json) .
 
 Feature
 
-In the Google Cloud console, a database's **Query** page supports multiple query tabs so you no longer have to clear one query to create and run another. Additionally, you can enter multiple query and DML statements in a single query tab. When you do so, the **Results** and **Explanation** subtabs let you choose which statement's results or query plan you want to view. See [A tour of the query editor](/spanner/docs/tune-query-with-visualizer#a-tour-of-the-query-editor) for details.
+In the Google Cloud console, a database's **Query** page supports multiple query tabs so you no longer have to clear one query to create and run another. Additionally, you can enter multiple query and DML statements in a single query tab. When you do so, the **Results** and **Explanation** subtabs let you choose which statement's results or query plan you want to view. See [A tour of the query editor](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer#a-tour-of-the-query-editor) for details.
 
 Feature
 
-Added support for [changing the leader region location](/spanner/docs/modifying-leader-region) of a Spanner database.
+Added support for [changing the leader region location](https://docs.cloud.google.com/spanner/docs/modifying-leader-region) of a Spanner database.
 
 ## August 20, 2021
 
 Feature
 
-Views are supported in Spanner databases. Use views to provide logical data-modeling to applications, to centralize query definitions and simplify maintenance, and to ensure stability of query definitions across schema changes. [Learn more](/spanner/docs/views) .
+Views are supported in Spanner databases. Use views to provide logical data-modeling to applications, to centralize query definitions and simplify maintenance, and to ensure stability of query definitions across schema changes. [Learn more](https://docs.cloud.google.com/spanner/docs/views) .
 
 Change
 
@@ -6071,71 +6071,71 @@ Spanner creates dedicated backup jobs to take backups instead of using an instan
 
 Feature
 
-Released [Query Optimizer version 3](/spanner/docs/query-optimizer/overview#version-history) . Query Optimizer v3 is currently set to **off** by default in production.
+Released [Query Optimizer version 3](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#version-history) . Query Optimizer v3 is currently set to **off** by default in production.
 
 ## August 04, 2021
 
 Announcement
 
-Spanner has an [end-to-end latency guide](/spanner/docs/latency-guide) . This guide describes the high-level components involved in a Cloud Spanner API request, and explains how to extract, capture, and visualize latencies associated with these components to know the source of the latencies.
+Spanner has an [end-to-end latency guide](https://docs.cloud.google.com/spanner/docs/latency-guide) . This guide describes the high-level components involved in a Cloud Spanner API request, and explains how to extract, capture, and visualize latencies associated with these components to know the source of the latencies.
 
 ## August 03, 2021
 
 Feature
 
-Added support for [changing instance configuration](/spanner/docs/instance-configurations#moving_an_instance_to_a_different_configuration) (Preview).
+Added support for [changing instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#moving_an_instance_to_a_different_configuration) (Preview).
 
 Announcement
 
-Spanner [regional instances](/spanner/docs/instance-configurations#regional_configurations) can be created in Toronto ( `  northamerica-northeast2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional_configurations) can be created in Toronto ( `  northamerica-northeast2  ` ).
 
 ## July 21, 2021
 
 Feature
 
-[Time to live](/spanner/docs/ttl) (TTL) is available in public preview. This feature lets database administrators periodically delete unneeded data from Spanner tables, and so decrease storage and backup costs and potentially increase query performance. To use this feature, a database owner defines a [row deletion policy](/spanner/docs/ttl#defining_a_row_deletion_policy) on a table schema.
+[Time to live](https://docs.cloud.google.com/spanner/docs/ttl) (TTL) is available in public preview. This feature lets database administrators periodically delete unneeded data from Spanner tables, and so decrease storage and backup costs and potentially increase query performance. To use this feature, a database owner defines a [row deletion policy](https://docs.cloud.google.com/spanner/docs/ttl#defining_a_row_deletion_policy) on a table schema.
 
 ## July 20, 2021
 
 Feature
 
-Granular instance sizing is available in public preview. Historically, the most granular unit for provisioning compute capacity on Spanner has been the node. To provide more granular control, we are introducing Processing Units (PUs); one Spanner node is equal to 1,000 PUs. You can provision in batches of 100 PUs, and get a proportionate amount of compute and storage resources. [Learn more](/spanner/docs/compute-capacity) .
+Granular instance sizing is available in public preview. Historically, the most granular unit for provisioning compute capacity on Spanner has been the node. To provide more granular control, we are introducing Processing Units (PUs); one Spanner node is equal to 1,000 PUs. You can provision in batches of 100 PUs, and get a proportionate amount of compute and storage resources. [Learn more](https://docs.cloud.google.com/spanner/docs/compute-capacity) .
 
 ## July 19, 2021
 
 Feature
 
-[Key Visualizer for Spanner](/spanner/docs/key-visualizer) is available. Key Visualizer is an interactive monitoring tool to analyze usage patterns in Spanner databases. It reveals trends and outliers in important performance and resource metrics.
+[Key Visualizer for Spanner](https://docs.cloud.google.com/spanner/docs/key-visualizer) is available. Key Visualizer is an interactive monitoring tool to analyze usage patterns in Spanner databases. It reveals trends and outliers in important performance and resource metrics.
 
 ## July 08, 2021
 
 Feature
 
-The `  NUMERIC  ` data type is [supported as a valid key column type](/spanner/docs/data-types) , so you can use `  NUMERIC  ` type columns when specifying primary keys, foreign keys, and secondary indexes.
+The `  NUMERIC  ` data type is [supported as a valid key column type](https://docs.cloud.google.com/spanner/docs/data-types) , so you can use `  NUMERIC  ` type columns when specifying primary keys, foreign keys, and secondary indexes.
 
 ## June 30, 2021
 
 Feature
 
-Spanner supports Cloud External Key Manager (Cloud EKM) when using [customer-managed encryption keys](/spanner/docs/cmek) . Cloud EKM also provides [Key Access Justification](/assured-workloads/key-access-justifications/docs/overview) to give you more visibility into key access requests.
+Spanner supports Cloud External Key Manager (Cloud EKM) when using [customer-managed encryption keys](https://docs.cloud.google.com/spanner/docs/cmek) . Cloud EKM also provides [Key Access Justification](https://docs.cloud.google.com/assured-workloads/key-access-justifications/docs/overview) to give you more visibility into key access requests.
 
 ## June 29, 2021
 
 Announcement
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Delhi ( `  asia-south2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Delhi ( `  asia-south2  ` ).
 
 ## June 21, 2021
 
 Announcement
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Melbourne ( `  australia-southeast2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Melbourne ( `  australia-southeast2  ` ).
 
 ## June 15, 2021
 
 Feature
 
-The SQL mathematical functions [`  EXP  `](/spanner/docs/mathematical_functions#exp) , [`  LN  `](/spanner/docs/mathematical_functions#ln) , [`  LOG  `](/spanner/docs/mathematical_functions#log) , [`  LOG10  `](/spanner/docs/mathematical_functions#log10) and [`  SQRT  `](/spanner/docs/mathematical_functions#sqrt) support `  NUMERIC  ` data as input. You no longer need to cast `  NUMERIC  ` data to `  FLOAT64  ` data before passing it as input to these functions.
+The SQL mathematical functions [`  EXP  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#exp) , [`  LN  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#ln) , [`  LOG  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#log) , [`  LOG10  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#log10) and [`  SQRT  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#sqrt) support `  NUMERIC  ` data as input. You no longer need to cast `  NUMERIC  ` data to `  FLOAT64  ` data before passing it as input to these functions.
 
 ## June 11, 2021
 
@@ -6147,7 +6147,7 @@ You can find common queries for monitoring and troubleshooting on the Query page
 
 Change
 
-We are replacing the **Insert a row** and **Edit a row** data forms in the Google Cloud console with pre-populated DML query templates on the **Query** page. These templates provide you more flexibility when adding and editing data. [Learn More](/spanner/docs/quickstart-console#insert_and_modify_data)
+We are replacing the **Insert a row** and **Edit a row** data forms in the Google Cloud console with pre-populated DML query templates on the **Query** page. These templates provide you more flexibility when adding and editing data. [Learn More](https://docs.cloud.google.com/spanner/docs/quickstart-console#insert_and_modify_data)
 
 ## May 27, 2021
 
@@ -6159,97 +6159,97 @@ We've enhanced the experience for creating, updating, and deleting schemas in th
 
 Feature
 
-[Transaction statistics](/spanner/docs/introspection/transaction-statistics) includes information about commit retries to help users debug performance issues caused by transaction aborts.
+[Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) includes information about commit retries to help users debug performance issues caused by transaction aborts.
 
 ## April 06, 2021
 
 Feature
 
-You can track the progress of long-running index backfill operations through the gcloud command line tool, [REST API](/spanner/docs/reference/rest/v1/UpdateDatabaseDdlMetadata) , and [RPC API](/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata) . For more information, see [Checking the progress of a secondary index backfill](/spanner/docs/secondary-indexes#index-progress) .
+You can track the progress of long-running index backfill operations through the gcloud command line tool, [REST API](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/UpdateDatabaseDdlMetadata) , and [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata) . For more information, see [Checking the progress of a secondary index backfill](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-progress) .
 
 ## March 31, 2021
 
 Feature
 
-You can use Customer-Managed Encryption Keys (CMEK) to protect databases in Spanner. CMEK in Spanner is generally available. For more information, see [CMEK](/spanner/docs/cmek) .
+You can use Customer-Managed Encryption Keys (CMEK) to protect databases in Spanner. CMEK in Spanner is generally available. For more information, see [CMEK](https://docs.cloud.google.com/spanner/docs/cmek) .
 
 Change
 
-The maximum number of JOIN statements allowed in a query has increased from 15 to 20. [Query limits](/spanner/quotas#query_limits) .
+The maximum number of JOIN statements allowed in a query has increased from 15 to 20. [Query limits](https://docs.cloud.google.com/spanner/quotas#query_limits) .
 
 Feature
 
-You can optionally specify the priority of data requests. For more information, see [CPU utilization and task priority](/spanner/docs/cpu-utilization#task-priority) .
+You can optionally specify the priority of data requests. For more information, see [CPU utilization and task priority](https://docs.cloud.google.com/spanner/docs/cpu-utilization#task-priority) .
 
 ## March 24, 2021
 
 Announcement
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Warsaw ( `  europe-central2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Warsaw ( `  europe-central2  ` ).
 
 ## March 17, 2021
 
 Feature
 
-The Google Cloud console query page has been updated with a revamped query editor, which offers improved autocomplete, prevalidation of your query, formatting options, and the ability to run a selection from your query. This update also includes a query plan visualizer. For a tour of these features and to learn more, see [Tuning a query using the query plan visualizer](/spanner/docs/tune-query-with-visualizer) .
+The Google Cloud console query page has been updated with a revamped query editor, which offers improved autocomplete, prevalidation of your query, formatting options, and the ability to run a selection from your query. This update also includes a query plan visualizer. For a tour of these features and to learn more, see [Tuning a query using the query plan visualizer](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer) .
 
 ## March 11, 2021
 
 Feature
 
-Spanner provides a metric, **CPU Utilization by operation types** , which breaks down CPU usage by user-initiated operations. For more information, see [CPU utilization metrics](/spanner/docs/cpu-utilization#metrics) .
+Spanner provides a metric, **CPU Utilization by operation types** , which breaks down CPU usage by user-initiated operations. For more information, see [CPU utilization metrics](https://docs.cloud.google.com/spanner/docs/cpu-utilization#metrics) .
 
 ## March 03, 2021
 
 Feature
 
-Spanner supports [point-in-time recovery (PITR)](/spanner/docs/pitr) , which lets you recover data from a specific point in time in the past.
+Spanner supports [point-in-time recovery (PITR)](https://docs.cloud.google.com/spanner/docs/pitr) , which lets you recover data from a specific point in time in the past.
 
 ## March 01, 2021
 
 Feature
 
-You can optionally receive the mutation count for a transaction in the commit response to optimize the transactions while staying within the mutation count limit. For more information, see [Retrieving commit statistics for a transaction](/spanner/docs/commit-statistics) .
+You can optionally receive the mutation count for a transaction in the commit response to optimize the transactions while staying within the mutation count limit. For more information, see [Retrieving commit statistics for a transaction](https://docs.cloud.google.com/spanner/docs/commit-statistics) .
 
 ## February 08, 2021
 
 Feature
 
-The Spanner Studio displays database storage utilization and warns you if you are approaching the recommended limit. For more information, see [storage utilization metrics](/spanner/docs/storage-utilization) .
+The Spanner Studio displays database storage utilization and warns you if you are approaching the recommended limit. For more information, see [storage utilization metrics](https://docs.cloud.google.com/spanner/docs/storage-utilization) .
 
 ## January 15, 2021
 
 Feature
 
-You can run SQL queries to retrieve [lock statistics](/spanner/docs/introspection/lock-statistics) to investigate lock conflicts in your database.
+You can run SQL queries to retrieve [lock statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) to investigate lock conflicts in your database.
 
 ## January 14, 2021
 
 Feature
 
-[Query statistics](/spanner/docs/introspection/query-statistics) includes information about queries that failed, queries that timed out, and queries that were canceled by the user.
+[Query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) includes information about queries that failed, queries that timed out, and queries that were canceled by the user.
 
 ## December 17, 2020
 
 Feature
 
-A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam12  ` (Iowa/Northern Virginia/Oregon/Oklahoma).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam12  ` (Iowa/Northern Virginia/Oregon/Oklahoma).
 
 Feature
 
-A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur6  ` (Netherlands/Frankfurt/Zurich).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur6  ` (Netherlands/Frankfurt/Zurich).
 
 ## December 07, 2020
 
 Feature
 
-Spanner supports the [LOCK\_SCANNED\_RANGES](/spanner/docs/query-syntax#statement-hints) statement hint which lets you request an exclusive lock on a set of ranges scanned by a transaction.
+Spanner supports the [LOCK\_SCANNED\_RANGES](https://docs.cloud.google.com/spanner/docs/query-syntax#statement-hints) statement hint which lets you request an exclusive lock on a set of ranges scanned by a transaction.
 
 ## November 09, 2020
 
 Feature
 
-A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam8  ` (Los Angeles/Oregon/Salt Lake City).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam8  ` (Los Angeles/Oregon/Salt Lake City).
 
 ## October 29, 2020
 
@@ -6257,31 +6257,31 @@ Feature
 
 The following updates for Spanner SQL are available:
 
-  - Ability to convert between `  BYTES  ` and base32-encoded strings using [FROM\_BASE32](/spanner/docs/functions-and-operators#from_base32) and [TO\_BASE32](/spanner/docs/functions-and-operators#to_base32) functions.
+  - Ability to convert between `  BYTES  ` and base32-encoded strings using [FROM\_BASE32](https://docs.cloud.google.com/spanner/docs/functions-and-operators#from_base32) and [TO\_BASE32](https://docs.cloud.google.com/spanner/docs/functions-and-operators#to_base32) functions.
 
-  - Support for [ARRAY\_IS\_DISTINCT](/spanner/docs/array_functions#array_is_distinct) .
+  - Support for [ARRAY\_IS\_DISTINCT](https://docs.cloud.google.com/spanner/docs/array_functions#array_is_distinct) .
 
 ## October 23, 2020
 
 Feature
 
-The following [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam7  ` (Iowa/North Virginia/Oklahoma).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam7  ` (Iowa/North Virginia/Oklahoma).
 
 ## October 15, 2020
 
 Feature
 
-A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam9  ` (North Virginia/Iowa/South Carolina/Oregon).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam9  ` (North Virginia/Iowa/South Carolina/Oregon).
 
 ## October 13, 2020
 
 Feature
 
-Generated columns support is [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define columns that are computed from other columns in a row. For more information, see [Creating and managing generated columns](/spanner/docs/generated-column/how-to) .
+Generated columns support is [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define columns that are computed from other columns in a row. For more information, see [Creating and managing generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) .
 
 Feature
 
-`  CHECK  ` constraints are [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define a boolean expression on the columns of a table and require that all rows in the table satisfy the expression. For more information, see [Creating and managing check constraints](/spanner/docs/check-constraint/how-to) .
+`  CHECK  ` constraints are [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define a boolean expression on the columns of a table and require that all rows in the table satisfy the expression. For more information, see [Creating and managing check constraints](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
 
 ## October 08, 2020
 
@@ -6289,8 +6289,8 @@ Feature
 
 The following updates to Spanner standard SQL are available :
 
-  - Support for [SELECT \* REPLACE](/spanner/docs/query-syntax#select_replace) and [SELECT \* EXCEPT](/spanner/docs/query-syntax#select_except) syntax.
-  - Documentation for [Net functions](/spanner/docs/net_functions) .
+  - Support for [SELECT \* REPLACE](https://docs.cloud.google.com/spanner/docs/query-syntax#select_replace) and [SELECT \* EXCEPT](https://docs.cloud.google.com/spanner/docs/query-syntax#select_except) syntax.
+  - Documentation for [Net functions](https://docs.cloud.google.com/spanner/docs/net_functions) .
 
 ## September 28, 2020
 
@@ -6302,121 +6302,121 @@ The [`  NUMERIC  ` data type](https://cloud.google.com/spanner/docs/data-types#n
 
 Feature
 
-An introspection tool is available in Spanner that provides insights into queries that are currently running in your database. Use [oldest active queries](/spanner/docs/introspection/oldest-active-queries) to analyze what queries are running and how they are impacting database performance characteristics.
+An introspection tool is available in Spanner that provides insights into queries that are currently running in your database. Use [oldest active queries](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries) to analyze what queries are running and how they are impacting database performance characteristics.
 
 ## August 20, 2020
 
 Feature
 
-The following [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam11  ` (Iowa/South Carolina).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam11  ` (Iowa/South Carolina).
 
 ## August 06, 2020
 
 Feature
 
-The following [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam10  ` (Iowa/Salt Lake).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam10  ` (Iowa/Salt Lake).
 
 ## July 30, 2020
 
 Feature
 
-The Spanner emulator is [generally available](https://cloud.google.com/products/#product-launch-stages) , letting you to develop and test applications locally. For more information, see [Emulate Spanner locally](/spanner/docs/emulator) .
+The Spanner emulator is [generally available](https://cloud.google.com/products/#product-launch-stages) , letting you to develop and test applications locally. For more information, see [Emulate Spanner locally](https://docs.cloud.google.com/spanner/docs/emulator) .
 
 ## July 15, 2020
 
 Feature
 
-You can run SQL queries to retrieve [read statistics](/spanner/docs/introspection/read-statistics) for your database over recent one-minute, 10-minute, and one-hour time periods.
+You can run SQL queries to retrieve [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) for your database over recent one-minute, 10-minute, and one-hour time periods.
 
 ## June 08, 2020
 
 Feature
 
-A [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in Asia - `  asia1  ` (Tokyo/Osaka).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in Asia - `  asia1  ` (Tokyo/Osaka).
 
 Feature
 
-A second [multi-region instance configuration](/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur5  ` (London/Belgium).
+A second [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur5  ` (London/Belgium).
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Jakarta (asia-southeast2).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Jakarta (asia-southeast2).
 
 ## June 03, 2020
 
 Change
 
-Spanner SQL supports the following statistical aggregate functions - STDDEV, VARIANCE. For more information, see [Statistical Aggregate Functions](/spanner/docs/statistical_aggregate_functions) .
+Spanner SQL supports the following statistical aggregate functions - STDDEV, VARIANCE. For more information, see [Statistical Aggregate Functions](https://docs.cloud.google.com/spanner/docs/statistical_aggregate_functions) .
 
 ## May 18, 2020
 
 Feature
 
-You can run SQL queries to retrieve [transaction statistics](/spanner/docs/transaction-stats-tables) for your database over recent one-minute, 10-minute, and one-hour time periods.
+You can run SQL queries to retrieve [transaction statistics](https://docs.cloud.google.com/spanner/docs/transaction-stats-tables) for your database over recent one-minute, 10-minute, and one-hour time periods.
 
 ## April 20, 2020
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Las Vegas (us-west4).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Las Vegas (us-west4).
 
 ## April 17, 2020
 
 Feature
 
-Spanner Backup and Restore is [generally available](https://cloud.google.com/products#product-launch-stages) , enabling you to create backups of Spanner databases on demand, and restore them. For more information, see [Backup and Restore](/spanner/docs/backup) .
+Spanner Backup and Restore is [generally available](https://cloud.google.com/products#product-launch-stages) , enabling you to create backups of Spanner databases on demand, and restore them. For more information, see [Backup and Restore](https://docs.cloud.google.com/spanner/docs/backup) .
 
 Feature
 
-Query Optimizer Versioning is [generally available](https://cloud.google.com/products#product-launch-stages) , enabling you to select which version of the optimizer to use for your database, application or query. For more information, see [Query optimizer](/spanner/docs/query-optimizer/overview) .
+Query Optimizer Versioning is [generally available](https://cloud.google.com/products#product-launch-stages) , enabling you to select which version of the optimizer to use for your database, application or query. For more information, see [Query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) .
 
 ## April 01, 2020
 
 Feature
 
-A [beta](https://cloud.google.com/products/#product-launch-stages) version of the Spanner emulator is available, enabling you to develop and test Spanner applications locally. For more information, see [Using the Spanner Emulator](/spanner/docs/emulator) .
+A [beta](https://cloud.google.com/products/#product-launch-stages) version of the Spanner emulator is available, enabling you to develop and test Spanner applications locally. For more information, see [Using the Spanner Emulator](https://docs.cloud.google.com/spanner/docs/emulator) .
 
 ## March 19, 2020
 
 Feature
 
-The open-source [C++ client library for Spanner](https://github.com/googleapis/google-cloud-cpp-spanner) is available. To get started using C++ with Spanner, [see this tutorial](/spanner/docs/getting-started/cpp) .
+The open-source [C++ client library for Spanner](https://github.com/googleapis/google-cloud-cpp-spanner) is available. To get started using C++ with Spanner, [see this tutorial](https://docs.cloud.google.com/spanner/docs/getting-started/cpp) .
 
 ## March 05, 2020
 
 Feature
 
-Foreign keys is [generally available](https://cloud.google.com/terms/launch-stages) . For more information, see [Foreign keys overview](/spanner/docs/foreign-keys/overview) .
+Foreign keys is [generally available](https://cloud.google.com/terms/launch-stages) . For more information, see [Foreign keys overview](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) .
 
 ## February 24, 2020
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Salt Lake City (us-west3).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Salt Lake City (us-west3).
 
 ## January 24, 2020
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Seoul (asia-northeast3).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Seoul (asia-northeast3).
 
 ## December 18, 2019
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Frankfurt ( `  europe-west3  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Frankfurt ( `  europe-west3  ` ).
 
 ## November 25, 2019
 
 Feature
 
-SQL queries support the [`  WITH  ` clause](/spanner/docs/query-syntax#with-clause) . This clause lets you bind the results of subqueries to temporary tables which makes it easier to structure complex queries and optimize them for a faster execution time.
+SQL queries support the [`  WITH  ` clause](https://docs.cloud.google.com/spanner/docs/query-syntax#with-clause) . This clause lets you bind the results of subqueries to temporary tables which makes it easier to structure complex queries and optimize them for a faster execution time.
 
 ## October 16, 2019
 
 Feature
 
-If you would like to use [Hibernate ORM](https://hibernate.org/orm/) with Spanner, we provide a guide to [help you connect Hibernate ORM to Spanner](/spanner/docs/use-hibernate) .
+If you would like to use [Hibernate ORM](https://hibernate.org/orm/) with Spanner, we provide a guide to [help you connect Hibernate ORM to Spanner](https://docs.cloud.google.com/spanner/docs/use-hibernate) .
 
 ## September 25, 2019
 
@@ -6428,67 +6428,67 @@ All Spanner instances, including 1-node and 2-node instances, are covered under 
 
 Change
 
-The Google Cloud console no longer provides a chart that shows the stacked throughput, by region, for instances with multi-region configurations. Instead, you can use the chart that shows total throughput for all regions. [Learn more about monitoring with the Google Cloud console](/spanner/docs/monitoring-console) .
+The Google Cloud console no longer provides a chart that shows the stacked throughput, by region, for instances with multi-region configurations. Instead, you can use the chart that shows total throughput for all regions. [Learn more about monitoring with the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) .
 
 ## August 07, 2019
 
 Feature
 
-An [open-source JDBC driver](/spanner/docs/open-source-jdbc) for Spanner is available. This open-source driver enables Java applications to access Spanner through the Java Database Connectivity (JDBC) API.
+An [open-source JDBC driver](https://docs.cloud.google.com/spanner/docs/open-source-jdbc) for Spanner is available. This open-source driver enables Java applications to access Spanner through the Java Database Connectivity (JDBC) API.
 
 ## July 31, 2019
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in São Paulo ( `  southamerica-east1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in São Paulo ( `  southamerica-east1  ` ).
 
 ## June 26, 2019
 
 Change
 
-If you write your applications in Java with the [Spring Framework](https://spring.io/projects/spring-framework) , we provide a guide to help you [add Spring Data Spanner to your application](/spanner/docs/adding-spring) . Spring Data Spanner can make it easier and more efficient to work with Spanner.
+If you write your applications in Java with the [Spring Framework](https://spring.io/projects/spring-framework) , we provide a guide to help you [add Spring Data Spanner to your application](https://docs.cloud.google.com/spanner/docs/adding-spring) . Spring Data Spanner can make it easier and more efficient to work with Spanner.
 
 Feature
 
-You can [import and export Spanner data in CSV format](/spanner/docs/import-export-csv) . You can use this feature to copy CSV data between Spanner and traditional relational database management systems, in combination with tools such as the `  mysqldump  ` tool for MySQL, the `  COPY  ` statement for PostgreSQL, or the `  bcp  ` tool for Microsoft SQL Server.
+You can [import and export Spanner data in CSV format](https://docs.cloud.google.com/spanner/docs/import-export-csv) . You can use this feature to copy CSV data between Spanner and traditional relational database management systems, in combination with tools such as the `  mysqldump  ` tool for MySQL, the `  COPY  ` statement for PostgreSQL, or the `  bcp  ` tool for Microsoft SQL Server.
 
 ## June 21, 2019
 
 Feature
 
-For SQL queries, Spanner automatically uses any [secondary indexes](/spanner/docs/secondary-indexes) that are likely to make the query more efficient.
+For SQL queries, Spanner automatically uses any [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) that are likely to make the query more efficient.
 
-If you notice a performance regression in an existing query, [follow these troubleshooting steps](/spanner/docs/troubleshooting-performance-regressions) , and [get support](/spanner/docs/getting-support) if you cannot resolve the issue.
+If you notice a performance regression in an existing query, [follow these troubleshooting steps](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions) , and [get support](https://docs.cloud.google.com/spanner/docs/getting-support) if you cannot resolve the issue.
 
 ## May 15, 2019
 
 Feature
 
-The Google Cloud console and the Cloud Monitoring console provide [latency charts](/spanner/docs/identify-latency-point) for Spanner. Use these charts to help you troubleshoot performance issues.
+The Google Cloud console and the Cloud Monitoring console provide [latency charts](https://docs.cloud.google.com/spanner/docs/identify-latency-point) for Spanner. Use these charts to help you troubleshoot performance issues.
 
 ## April 30, 2019
 
 Feature
 
-The Google Cloud console and the Cloud Monitoring console provide [CPU utilization charts](/spanner/docs/cpu-utilization) for additional CPU utilization metrics. You can also [set up alerts in Cloud Monitoring](/spanner/docs/monitoring-stackdriver#create-alert) to track these metrics.
+The Google Cloud console and the Cloud Monitoring console provide [CPU utilization charts](https://docs.cloud.google.com/spanner/docs/cpu-utilization) for additional CPU utilization metrics. You can also [set up alerts in Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-stackdriver#create-alert) to track these metrics.
 
 ## April 18, 2019
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Osaka ( `  asia-northeast2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Osaka ( `  asia-northeast2  ` ).
 
 ## March 14, 2019
 
 Feature
 
-Spanner lets you to send multiple DML statements in one transaction using [batch DML](/spanner/docs/dml-tasks#use-batch) .
+Spanner lets you to send multiple DML statements in one transaction using [batch DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#use-batch) .
 
 ## March 11, 2019
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Zürich ( `  europe-west6  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Zürich ( `  europe-west6  ` ).
 
 ## February 01, 2019
 
@@ -6499,89 +6499,89 @@ Published new documentation for migrating data to Spanner:
   - [Migrating from DynamoDB to Spanner](https://cloud.google.com/solutions/migrating-dynamodb-to-cloud-spanner)
   - [Migrating from MySQL to Spanner](https://cloud.google.com/solutions/migrating-mysql-to-spanner)
   - [Migrating from an Oracle OLTP system to Spanner](https://cloud.google.com/solutions/migrating-oracle-to-cloud-spanner)
-  - [Migrating from PostgreSQL to Spanner](/spanner/docs/migrating-postgres-spanner)
+  - [Migrating from PostgreSQL to Spanner](https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner)
 
 ## January 17, 2019
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Sydney ( `  australia-southeast1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Sydney ( `  australia-southeast1  ` ).
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in London ( `  europe-west2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in London ( `  europe-west2  ` ).
 
 ## January 11, 2019
 
 Feature
 
-Spanner supports [importing data from other databases](/spanner/docs/import-non-spanner) using the [Avro to Spanner template](/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) .
+Spanner supports [importing data from other databases](https://docs.cloud.google.com/spanner/docs/import-non-spanner) using the [Avro to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) .
 
 ## December 06, 2018
 
 Feature
 
-Announced general availability of the [Java client library](/spanner/docs/reference/libraries) for Spanner.
+Announced general availability of the [Java client library](https://docs.cloud.google.com/spanner/docs/reference/libraries) for Spanner.
 
 ## November 26, 2018
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Hong Kong ( `  asia-east2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Hong Kong ( `  asia-east2  ` ).
 
 ## November 13, 2018
 
 Feature
 
-The Google Cloud console displays [query statistics](/spanner/docs/query-statistics) , as measured by CPU usage, for Spanner queries over recent one-minute, 10-minute, one-hour, and one-day time periods. You can also run SQL queries over the [SPANNER\_SYS](/spanner/docs/query-stats-tables) tables to retrieve recent query statistics.
+The Google Cloud console displays [query statistics](https://docs.cloud.google.com/spanner/docs/query-statistics) , as measured by CPU usage, for Spanner queries over recent one-minute, 10-minute, one-hour, and one-day time periods. You can also run SQL queries over the [SPANNER\_SYS](https://docs.cloud.google.com/spanner/docs/query-stats-tables) tables to retrieve recent query statistics.
 
 ## October 29, 2018
 
 Feature
 
-Spanner [multi-region instance configurations](/spanner/docs/instances#available-configurations-multi-region) can be created in Europe ( `  eur3  ` ).
+Spanner [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) can be created in Europe ( `  eur3  ` ).
 
 ## October 26, 2018
 
 Feature
 
-The Google Cloud CLI command-line tool includes beta support for [inserting, updating, and deleting table rows](/spanner/docs/modify-gcloud#modifying_data_using_dml) using Partitioned DML.
+The Google Cloud CLI command-line tool includes beta support for [inserting, updating, and deleting table rows](https://docs.cloud.google.com/spanner/docs/modify-gcloud#modifying_data_using_dml) using Partitioned DML.
 
 ## October 22, 2018
 
 Feature
 
-Spanner [multi-region instance configurations](/spanner/docs/instances#available-configurations-multi-region) can be created in a second multi-region instance configuration in North America ( `  nam6  ` ).
+Spanner [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) can be created in a second multi-region instance configuration in North America ( `  nam6  ` ).
 
 ## October 10, 2018
 
 Feature
 
-Spanner supports [Data Manipulation Language (DML)](/spanner/docs/dml-tasks) statements, including [Partitioned DML](/spanner/docs/dml-partitioned) .
+Spanner supports [Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/dml-tasks) statements, including [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
 
 ## August 17, 2018
 
 Feature
 
-You can use the REST API or the `  gcloud  ` command-line tool to [export](/dataflow/docs/guides/templates/provided-batch#cloudspannertogcsavro) and [import](/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) Spanner databases.
+You can use the REST API or the `  gcloud  ` command-line tool to [export](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#cloudspannertogcsavro) and [import](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) Spanner databases.
 
 ## July 12, 2018
 
 Feature
 
-Spanner supports [exporting](/spanner/docs/export) and [importing](/spanner/docs/import) databases using the Google Cloud console.
+Spanner supports [exporting](https://docs.cloud.google.com/spanner/docs/export) and [importing](https://docs.cloud.google.com/spanner/docs/import) databases using the Google Cloud console.
 
 ## July 10, 2018
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Los Angeles ( `  us-west2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Los Angeles ( `  us-west2  ` ).
 
 ## June 11, 2018
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Finland ( `  europe-north1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Finland ( `  europe-north1  ` ).
 
 ## June 06, 2018
 
@@ -6589,89 +6589,89 @@ Change
 
 Published new and updated documentation for designing and updating schemas:
 
-  - [Schema and data model](/spanner/docs/schema-and-data-model)
-  - [Schema design](/spanner/docs/schema-design)
-  - [Schema updates](/spanner/docs/schema-updates)
+  - [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model)
+  - [Schema design](https://docs.cloud.google.com/spanner/docs/schema-design)
+  - [Schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates)
 
 ## May 10, 2018
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Singapore ( `  asia-southeast1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Singapore ( `  asia-southeast1  ` ).
 
 ## April 26, 2018
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in South Carolina ( `  us-east1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in South Carolina ( `  us-east1  ` ).
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Oregon ( `  us-west1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Oregon ( `  us-west1  ` ).
 
 ## April 24, 2018
 
 Feature
 
-The gcloud command-line tool includes beta support for [inserting, updating, and deleting rows](/spanner/docs/modify-gcloud) in a table.
+The gcloud command-line tool includes beta support for [inserting, updating, and deleting rows](https://docs.cloud.google.com/spanner/docs/modify-gcloud) in a table.
 
 ## March 28, 2018
 
 Feature
 
-Spanner supports the [commit timestamp column option](/spanner/docs/commit-timestamp) that you can use to automatically write the commit timestamp of a transaction into a column.
+Spanner supports the [commit timestamp column option](https://docs.cloud.google.com/spanner/docs/commit-timestamp) that you can use to automatically write the commit timestamp of a transaction into a column.
 
 ## March 15, 2018
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in the Netherlands ( `  europe-west4  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in the Netherlands ( `  europe-west4  ` ).
 
 ## March 02, 2018
 
 Feature
 
-Spanner supports [reading and querying data in parallel](/spanner/docs/reads#read_data_in_parallel) with multiple workers using the client libraries for Node.js and Ruby.
+Spanner supports [reading and querying data in parallel](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) with multiple workers using the client libraries for Node.js and Ruby.
 
 ## February 27, 2018
 
 Feature
 
-Spanner supports [reading and querying data in parallel](/spanner/docs/reads#read_data_in_parallel) with multiple workers using the client libraries for C\#, Go, Java, and PHP.
+Spanner supports [reading and querying data in parallel](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) with multiple workers using the client libraries for C\#, Go, Java, and PHP.
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Montréal ( `  northamerica-northeast1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Montréal ( `  northamerica-northeast1  ` ).
 
 ## February 20, 2018
 
 Feature
 
-Spanner supports both Admin Activity and Data Access [audit logs](/spanner/docs/audit-logging) as a part of Cloud Logging.
+Spanner supports both Admin Activity and Data Access [audit logs](https://docs.cloud.google.com/spanner/docs/audit-logging) as a part of Cloud Logging.
 
 ## January 31, 2018
 
 Feature
 
-Announced general availability of [IAM custom roles](/spanner/docs/iam#custom-roles) for Spanner.
+Announced general availability of [IAM custom roles](https://docs.cloud.google.com/spanner/docs/iam#custom-roles) for Spanner.
 
 ## January 18, 2018
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Northern Virginia ( `  us-east4  ` ) and Mumbai ( `  asia-south1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Northern Virginia ( `  us-east4  ` ) and Mumbai ( `  asia-south1  ` ).
 
 ## November 14, 2017
 
 Feature
 
-Spanner [multi-region instance configurations](/spanner/docs/instances#available-configurations-multi-region) are available. Multi-region instances can be created in one continent (nam3) or three continents (nam-eur-asia1).
+Spanner [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) are available. Multi-region instances can be created in one continent (nam3) or three continents (nam-eur-asia1).
 
 ## June 15, 2017
 
 Feature
 
-Spanner [regional instances](/spanner/docs/instances#available-configurations-regional) can be created in Tokyo ( `  asia-northeast1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Tokyo ( `  asia-northeast1  ` ).
 
 ## May 16, 2017
 
@@ -6681,7 +6681,7 @@ Announced general availability of the Cloud Spanner API.
 
 Feature
 
-The following documentation is available: [SQL best practices](/spanner/docs/sql-best-practices) , [Working with arrays in SQL](/spanner/docs/arrays) , [Using Spanner with Cloud Run functions](/spanner/docs/use-cloud-functions) , [Monitoring using Cloud Monitoring](/spanner/docs/monitoring) , [Applying IAM roles for databases, instances, and projects](/spanner/docs/grant-permissions) , [Integrating with other Google Cloud services](/spanner/docs/integrate-google-cloud-platform) .
+The following documentation is available: [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) , [Working with arrays in SQL](https://docs.cloud.google.com/spanner/docs/arrays) , [Using Spanner with Cloud Run functions](https://docs.cloud.google.com/spanner/docs/use-cloud-functions) , [Monitoring using Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring) , [Applying IAM roles for databases, instances, and projects](https://docs.cloud.google.com/spanner/docs/grant-permissions) , [Integrating with other Google Cloud services](https://docs.cloud.google.com/spanner/docs/integrate-google-cloud-platform) .
 
 ## February 14, 2017
 

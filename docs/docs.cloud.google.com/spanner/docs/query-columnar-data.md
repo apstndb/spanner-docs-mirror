@@ -1,8 +1,8 @@
-**Preview — [Spanner columnar engine](/spanner/docs/columnar-engine)**
+**Preview — [Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine)**
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](/spanner/docs/editions-overview) .
+**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
@@ -20,7 +20,7 @@ In addition, you can disable the automatic selection of columnar explicitly by u
 
 ## Query Spanner columnar data using BigQuery federated queries
 
-To read Spanner columnar data from BigQuery, you can either create an [external dataset](/bigquery/docs/spanner-external-datasets#create_an_external_dataset) or use the [`  EXTERNAL_QUERY  `](/bigquery/docs/reference/standard-sql/federated_query_functions#external_query) function.
+To read Spanner columnar data from BigQuery, you can either create an [external dataset](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets#create_an_external_dataset) or use the [`  EXTERNAL_QUERY  `](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/federated_query_functions#external_query) function.
 
 When you query external datasets, columnar data is automatically used if it's available and suitable for your query.
 
@@ -36,16 +36,14 @@ In the following example for using the query hint:
 
 <!-- end list -->
 
-``` text
-SELECT SUM(MarketingBudget) AS total_marketing_spend
-FROM
-  EXTERNAL_QUERY(
-    'my-project.us.albums',
-    '@{scan_method=columnar} SELECT AlbumInfo.MarketingBudget FROM AlbumInfo WHERE AlbumInfo.MarketingBudget < 500000;');
-```
+    SELECT SUM(MarketingBudget) AS total_marketing_spend
+    FROM
+      EXTERNAL_QUERY(
+        'my-project.us.albums',
+        '@{scan_method=columnar} SELECT AlbumInfo.MarketingBudget FROM AlbumInfo WHERE AlbumInfo.MarketingBudget < 500000;');
 
 ## What's next
 
-  - Learn about [columnar engine](/spanner/docs/columnar-engine) .
-  - Learn how to [enable columnar engine](/spanner/docs/configure-columnar-engine) .
-  - Learn how to [monitor columnar engine](/spanner/docs/monitor-columnar-engine) .
+  - Learn about [columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine) .
+  - Learn how to [enable columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine) .
+  - Learn how to [monitor columnar engine](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine) .

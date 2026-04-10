@@ -1,5 +1,5 @@
-  - [JSON representation](#SCHEMA_REPRESENTATION)
-  - [Type](#Type)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/EncryptionInfo#SCHEMA_REPRESENTATION)
+  - [Type](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/EncryptionInfo#Type)
 
 Encryption information for a Cloud Spanner database or backup.
 
@@ -14,7 +14,7 @@ Encryption information for a Cloud Spanner database or backup.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre class="text" dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
   &quot;encryptionType&quot;: enum (Type),
   &quot;encryptionStatus&quot;: {
     object (Status)

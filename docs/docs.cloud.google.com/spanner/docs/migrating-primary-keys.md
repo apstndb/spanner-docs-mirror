@@ -1,54 +1,52 @@
-This page describes how to migrate primary keys from your source database tables to Spanner GoogleSQL-dialect databases and PostgreSQL-dialect databases. Before performing the procedures on the page, review the [Primary key migration overview](/spanner/docs/primary-keys-overview) .
+This page describes how to migrate primary keys from your source database tables to Spanner GoogleSQL-dialect databases and PostgreSQL-dialect databases. Before performing the procedures on the page, review the [Primary key migration overview](https://docs.cloud.google.com/spanner/docs/primary-keys-overview) .
 
 ## Before you begin
 
-  - To get the permissions that you need to migrate primary keys to Spanner, ask your administrator to grant you the [Cloud Spanner Database Admin](/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` ) IAM role on your instance.
+  - To get the permissions that you need to migrate primary keys to Spanner, ask your administrator to grant you the [Cloud Spanner Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` ) IAM role on your instance.
     
-    **Note:** [IAM basic roles](/iam/docs/roles-overview#basic) might also contain permissions to migrate primary keys to Spanner. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
+    **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to migrate primary keys to Spanner. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
 
 ## Migrate auto-generated sequential keys
 
 If you are migrating from a database that uses sequential monotonic keys, such as [`  AUTO_INCREMENT  `](https://dev.mysql.com/doc/refman/8.0/en/example-auto-increment.html) in MySQL, [`  SERIAL  `](https://www.postgresql.org/docs/current/datatype-numeric.html#DATATYPE-SERIAL) in PostgreSQL, or the standard `  IDENTITY  ` type in SQL Server or Oracle, consider the following high-level migration strategy:
 
 1.  In Spanner, replicate the table structure from your source database, using an integer primary key.
-2.  For each column in Spanner that contains sequential values, create a sequence and assign the `  GET_NEXT_SEQUENCE_VALUE  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/sequence_functions#get_next_sequence_value) , [PostgreSQL](/spanner/docs/reference/postgresql/functions-and-operators#sequence) ) function as the default value for the column.
-3.  Migrate existing data with original keys from the source database into Spanner. Consider using the [Spanner migration tool](https://github.com/GoogleCloudPlatform/spanner-migration-tool) or a [Dataflow template](/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) .
-    1.  Optionally, you can establish [foreign key constraints](/spanner/docs/foreign-keys/how-to) for any dependent tables.
+2.  For each column in Spanner that contains sequential values, create a sequence and assign the `  GET_NEXT_SEQUENCE_VALUE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_next_sequence_value) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence) ) function as the default value for the column.
+3.  Migrate existing data with original keys from the source database into Spanner. Consider using the [Spanner migration tool](https://github.com/GoogleCloudPlatform/spanner-migration-tool) or a [Dataflow template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) .
+    1.  Optionally, you can establish [foreign key constraints](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) for any dependent tables.
 4.  Before you insert new data, adjust the Spanner sequence to skip the range of existing key values.
 5.  Insert new data, allowing the sequence to generate unique keys automatically.
 
 ### Sample migration workflow
 
-The following code defines the table structure and related sequence in Spanner using a [`  SEQUENCE  `](/spanner/docs/sequence-tasks) object and sets the object as the default primary value of the destination table:
+The following code defines the table structure and related sequence in Spanner using a [`  SEQUENCE  `](https://docs.cloud.google.com/spanner/docs/sequence-tasks) object and sets the object as the default primary value of the destination table:
 
 ### GoogleSQL
 
-``` text
-CREATE SEQUENCE singer_id_sequence OPTIONS (
-     SequenceKind = 'bit_reversed_positive'
-  );
-
-CREATE TABLE Singers (
-     SingerId INT64 DEFAULT
-     (GET_NEXT_SEQUENCE_VALUE(SEQUENCE SingerIdSequence)),
-     Name STRING(1024),
-     Biography STRING(MAX),
-  ) PRIMARY KEY (SingerId);
-
-CREATE TABLE Albums (
-     AlbumId INT64,
-     SingerId INT64,
-     AlbumName STRING(1024),
-     SongList STRING(MAX),
-     CONSTRAINT FK_singer_album
-     FOREIGN KEY (SingerId)
-       REFERENCES Singers (SingerId)
-  ) PRIMARY KEY (AlbumId);
-```
+    CREATE SEQUENCE singer_id_sequence OPTIONS (
+         SequenceKind = 'bit_reversed_positive'
+      );
+    
+    CREATE TABLE Singers (
+         SingerId INT64 DEFAULT
+         (GET_NEXT_SEQUENCE_VALUE(SEQUENCE SingerIdSequence)),
+         Name STRING(1024),
+         Biography STRING(MAX),
+      ) PRIMARY KEY (SingerId);
+    
+    CREATE TABLE Albums (
+         AlbumId INT64,
+         SingerId INT64,
+         AlbumName STRING(1024),
+         SongList STRING(MAX),
+         CONSTRAINT FK_singer_album
+         FOREIGN KEY (SingerId)
+           REFERENCES Singers (SingerId)
+      ) PRIMARY KEY (AlbumId);
 
 ### PostgreSQL
 
-``` text
+``` translate=
 CREATE SEQUENCE SingerIdSequence BIT_REVERSED_POSITIVE;
 
 CREATE TABLE Singers (
@@ -70,52 +68,42 @@ The `  bit_reversed_positive  ` option indicates that the values generated by th
 
 As you migrate existing rows from your source database to Spanner, the primary keys remain unchanged.
 
-For new inserts that don't specify a primary key, Spanner automatically retrieves a new value by calling the `  GET_NEXT_SEQUENCE_VALUE  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/sequence_functions#get_next_sequence_value) or [PostgreSQL](/spanner/docs/reference/postgresql/functions-and-operators#sequence) ) function.
+For new inserts that don't specify a primary key, Spanner automatically retrieves a new value by calling the `  GET_NEXT_SEQUENCE_VALUE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_next_sequence_value) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence) ) function.
 
-These values are uniformly distributed across the range `  [1, 2 63 ]  ` and there could be possible collisions with the existing keys. To prevent this, you can configure the sequence using `  ALTER_SEQUENCE  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#alter-sequence) or [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#alter_sequence) ) to skip the range of values covered by the existing keys.
+These values are uniformly distributed across the range `  [1, 2 63 ]  ` and there could be possible collisions with the existing keys. To prevent this, you can configure the sequence using `  ALTER_SEQUENCE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-sequence) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_sequence) ) to skip the range of values covered by the existing keys.
 
 Assume the `  singers  ` table was migrated from PostgreSQL, where its primary key `  singer_id  ` is of `  SERIAL  ` type. The following PostgreSQL shows your source database DDL:
 
 ### PostgreSQL
 
-``` text
-CREATE TABLE Singers (
-SingerId SERIAL PRIMARY KEY,
-Name varchar(1024),
-Biography varchar
-);
-```
+    CREATE TABLE Singers (
+    SingerId SERIAL PRIMARY KEY,
+    Name varchar(1024),
+    Biography varchar
+    );
 
 The primary key values are monotonically increasing. After the migration, you can retrieve the maximum value of the primary key `  singer_id  ` on Spanner. Use the following code in Spanner:
 
 ### GoogleSQL
 
-``` text
-SELECT MAX(SingerId) FROM Singers;
-```
+    SELECT MAX(SingerId) FROM Singers;
 
 ### PostgreSQL
 
-``` text
-SELECT MAX(SingerId) FROM Singers;
-```
+    SELECT MAX(SingerId) FROM Singers;
 
 Assume the returned value is 20,000. You can configure the Spanner sequence to skip the range `  [1, 21000]  ` . The additional 1,000 serves as a buffer to accommodate writes to the source database after the initial migration. New keys generated in Spanner don't conflict with the range of primary keys generated in the source PostgreSQL database. Use the following code in Spanner:
 
 ### GoogleSQL
 
-``` text
-ALTER SEQUENCE SingerIdSequence SET OPTIONS (
-skip_range_min = 1,
-skip_range_max = 21000
-);
-```
+    ALTER SEQUENCE SingerIdSequence SET OPTIONS (
+    skip_range_min = 1,
+    skip_range_max = 21000
+    );
 
 ### PostgreSQL
 
-``` text
-ALTER SEQUENCE SingerIdSequence SKIP RANGE 1 21000;
-```
+    ALTER SEQUENCE SingerIdSequence SKIP RANGE 1 21000;
 
 ### Use Spanner and your source database
 
@@ -131,9 +119,7 @@ Assume your source PostgreSQL database uses `  SERIAL  ` primary keys, which are
 
 ### PostgreSQL
 
-``` text
-ALTER TABLE Singers ALTER COLUMN SingerId TYPE bigint;
-```
+    ALTER TABLE Singers ALTER COLUMN SingerId TYPE bigint;
 
 You can set a `  CHECK  ` constraint to the table in the source PostgreSQL database to ensure the values of the `  SingerId  ` primary key are always smaller than or equal to `  2 31 -1  ` .
 
@@ -141,9 +127,7 @@ Use the following code on your source PostgreSQL database:
 
 ### PostgreSQL
 
-``` text
-ALTER TABLE Singers ADD CHECK (SingerId <= 2147483647);
-```
+    ALTER TABLE Singers ADD CHECK (SingerId <= 2147483647);
 
 In Spanner, we can alter the sequence to skip the `  [1, 2 31 -1]  ` range.
 
@@ -151,18 +135,14 @@ Use the following code in Spanner:
 
 ### GoogleSQL
 
-``` text
-ALTER SEQUENCE SingerIdSequence SET OPTIONS (
-skip_range_min = 1,
-skip_range_max = 2147483647 -- 231-1
-);
-```
+    ALTER SEQUENCE SingerIdSequence SET OPTIONS (
+    skip_range_min = 1,
+    skip_range_max = 2147483647 -- 231-1
+    );
 
 ### PostgreSQL
 
-``` text
-ALTER SEQUENCE SingerIdSequence SKIP RANGE 1 2147483648;
-```
+    ALTER SEQUENCE SingerIdSequence SKIP RANGE 1 2147483648;
 
 Your source PostgreSQL database always generates keys in the 32-bit integer space, while Spanner keys are restricted to the 64-bit integer space, larger than all of the 32-bit integer values. This ensures both your databases can independently generate primary keys that don't conflict.
 
@@ -172,36 +152,32 @@ UUIDv4 keys are effectively unique regardless of where they are generated. UUID 
 
 Consider the following high-level strategy to migrate UUID keys to Spanner:
 
-1.  Define your UUID keys in Spanner using string columns with a default expression. Use the `  GENERATE_UUID()  ` function ( [GoogleSQL](/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) , [PostgreSQL](/spanner/docs/reference/postgresql/functions-and-operators#utility) ).
+1.  Define your UUID keys in Spanner using string columns with a default expression. Use the `  GENERATE_UUID()  ` function ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) ).
 2.  Export the data from the source system, serializing the UUID keys as strings.
 3.  Import the primary keys into Spanner.
 4.  Optional: Enable foreign keys.
 
 Here's a sample migration workflow:
 
-In Spanner, define a UUID primary key column as a `  STRING  ` or `  TEXT  ` type and assign `  GENERATE_UUID()  ` ( [GoogleSQL](/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) or [PostgreSQL](/spanner/docs/reference/postgresql/functions-and-operators#utility) ) as its default value. Migrate all the data from your source database to Spanner. After migration, as new rows are inserted, Spanner calls `  GENERATE_UUID()  ` to generate new UUID values for the primary keys. For example, the primary key `  FanClubId  ` gets a UUIDv4 value when a new row is inserted in the table `  FanClubs  ` . Use the following code in Spanner:
+In Spanner, define a UUID primary key column as a `  STRING  ` or `  TEXT  ` type and assign `  GENERATE_UUID()  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) ) as its default value. Migrate all the data from your source database to Spanner. After migration, as new rows are inserted, Spanner calls `  GENERATE_UUID()  ` to generate new UUID values for the primary keys. For example, the primary key `  FanClubId  ` gets a UUIDv4 value when a new row is inserted in the table `  FanClubs  ` . Use the following code in Spanner:
 
 ### GoogleSQL
 
-``` text
-CREATE TABLE Fanclubs (
-FanClubId STRING(36) DEFAULT (GENERATE_UUID()),
-ClubName STRING(1024),
-) PRIMARY KEY (FanClubId);
-
-INSERT INTO FanClubs (ClubName) VALUES ("SwiftFanClub");
-```
+    CREATE TABLE Fanclubs (
+    FanClubId STRING(36) DEFAULT (GENERATE_UUID()),
+    ClubName STRING(1024),
+    ) PRIMARY KEY (FanClubId);
+    
+    INSERT INTO FanClubs (ClubName) VALUES ("SwiftFanClub");
 
 ### PostgreSQL
 
-``` text
-CREATE TABLE FanClubs (
-  FanClubId TEXT DEFAULT spanner.generate_uuid() PRIMARY KEY,
-  ClubName VARCHAR(1024)
-);
-
-INSERT INTO FanClubs (ClubName) VALUES ('SwiftFanClub');
-```
+    CREATE TABLE FanClubs (
+      FanClubId TEXT DEFAULT spanner.generate_uuid() PRIMARY KEY,
+      ClubName VARCHAR(1024)
+    );
+    
+    INSERT INTO FanClubs (ClubName) VALUES ('SwiftFanClub');
 
 ## Migrate your own primary keys
 
@@ -211,174 +187,152 @@ Assume you need to migrate a MySQL table `  students  ` with an `  AUTO_INCREMEN
 
 ### MySQL
 
-``` text
-CREATE TABLE Students (
-StudentId INT NOT NULL AUTO_INCREMENT,
-Info VARCHAR(2048),
-PRIMARY KEY (StudentId)
-);
-```
+    CREATE TABLE Students (
+    StudentId INT NOT NULL AUTO_INCREMENT,
+    Info VARCHAR(2048),
+    PRIMARY KEY (StudentId)
+    );
 
 In Spanner, you can add a generated column `  StudentIdHash  ` by creating a hash of the `  StudentId  ` column. For example:
 
-``` text
-StudentIdHash = FARM_FINGERPRINT(CAST(StudentId AS STRING))
-```
+    StudentIdHash = FARM_FINGERPRINT(CAST(StudentId AS STRING))
 
 You can use the following code in Spanner:
 
 ### GoogleSQL
 
-``` text
-CREATE TABLE student (
-  StudentIdHash INT64 AS (FARM_FINGERPRINT(cast(StudentId as string))) STORED,
-  StudentId INT64 NOT NULL,
-  Info STRING(2048),
-) PRIMARY KEY(StudentIdHash, StudentId);
-```
+    CREATE TABLE student (
+      StudentIdHash INT64 AS (FARM_FINGERPRINT(cast(StudentId as string))) STORED,
+      StudentId INT64 NOT NULL,
+      Info STRING(2048),
+    ) PRIMARY KEY(StudentIdHash, StudentId);
 
 ### PostgreSQL
 
-``` text
-CREATE TABLE Student (
-  StudentIdHash bigint GENERATED ALWAYS AS
-  (FARM_FINGERPRINT(cast(StudentId AS varchar))) STORED,
-  StudentId bigint NOT NULL,
-  Info varchar(2048),
-  PRIMARY KEY (StudentIdHash, StudentId)
-);
-```
+    CREATE TABLE Student (
+      StudentIdHash bigint GENERATED ALWAYS AS
+      (FARM_FINGERPRINT(cast(StudentId AS varchar))) STORED,
+      StudentId bigint NOT NULL,
+      Info varchar(2048),
+      PRIMARY KEY (StudentIdHash, StudentId)
+    );
 
 ## Migrate sequential key columns
 
-If your source database system generates sequential values for a key column, you can use a bit-reversed positive sequence ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ) in your Spanner schema to generate values that distribute evenly across the positive 64-bit integer number space. To prevent the Spanner sequence from generating a value that overlaps with a migrated value, you can define a skipped range for it.
+If your source database system generates sequential values for a key column, you can use a bit-reversed positive sequence ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ) in your Spanner schema to generate values that distribute evenly across the positive 64-bit integer number space. To prevent the Spanner sequence from generating a value that overlaps with a migrated value, you can define a skipped range for it.
 
 For example, you can skip the range from 1 to 4,294,967,296 (2^32) for the following two sequences, if you know the source database only generates 32-bit integers:
 
 ### GoogleSQL
 
-``` text
-CREATE SEQUENCE MyFirstSequence OPTIONS (
-  sequence_kind = "bit_reversed_positive",
-  skip_range_min = 1,
-  skip_range_max = 4294967296
-);
-
-ALTER SEQUENCE MySecondSequence SET OPTIONS (
-  skip_range_min = 1,
-  skip_range_max = 4294967296
-);
-```
+    CREATE SEQUENCE MyFirstSequence OPTIONS (
+      sequence_kind = "bit_reversed_positive",
+      skip_range_min = 1,
+      skip_range_max = 4294967296
+    );
+    
+    ALTER SEQUENCE MySecondSequence SET OPTIONS (
+      skip_range_min = 1,
+      skip_range_max = 4294967296
+    );
 
 ### PostgreSQL
 
-``` text
+``` translate=
 CREATE SEQUENCE MyFirstSequence BIT_REVERSED_POSITIVE
   SKIP RANGE 1 4294967296;
 
 ALTER SEQUENCE MySecondSequence SKIP RANGE 1 4294967296;
 ```
 
-If you're using [`  IDENTITY  ` columns](/spanner/docs/primary-key-default-value#identity-columns) to automatically generate integer values for your key columns, you can set skip ranges:
+If you're using [`  IDENTITY  ` columns](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#identity-columns) to automatically generate integer values for your key columns, you can set skip ranges:
 
 ### GoogleSQL
 
-To set a skip range, use the [`  GENERATED BY DEFAULT AS IDENTITY  `](/spanner/docs/reference/standard-sql/data-definition-language#create_table) command:
+To set a skip range, use the [`  GENERATED BY DEFAULT AS IDENTITY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) command:
 
-``` text
-ALTER DATABASE db SET OPTIONS (
-  default_sequence_kind = 'bit_reversed_positive',
-);
-
-CREATE TABLE MyFirstTable (
-  Id INT64 GENERATED BY DEFAULT AS IDENTITY (SKIP RANGE 1, 4294967296),
-  Name STRING(MAX),
-) PRIMARY KEY (Id);
-
-ALTER TABLE MyFirstTable ALTER COLUMN Id ALTER IDENTITY SET SKIP RANGE 1, 4294967296;
-```
+    ALTER DATABASE db SET OPTIONS (
+      default_sequence_kind = 'bit_reversed_positive',
+    );
+    
+    CREATE TABLE MyFirstTable (
+      Id INT64 GENERATED BY DEFAULT AS IDENTITY (SKIP RANGE 1, 4294967296),
+      Name STRING(MAX),
+    ) PRIMARY KEY (Id);
+    
+    ALTER TABLE MyFirstTable ALTER COLUMN Id ALTER IDENTITY SET SKIP RANGE 1, 4294967296;
 
 ### PostgreSQL
 
-To set a skip range, use the [`  GENERATED BY DEFAULT AS IDENTITY  `](/spanner/docs/reference/postgresql/data-definition-language#create_table) command:
+To set a skip range, use the [`  GENERATED BY DEFAULT AS IDENTITY  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) command:
 
-``` text
-ALTER DATABASE db
-    SET spanner.default_sequence_kind = 'bit_reversed_positive';
-
-CREATE TABLE MyFirstTable (
-  Id bigint GENERATED BY DEFAULT AS IDENTITY (SKIP RANGE 1 4294967296),
-  Name text,
-  PRIMARY KEY (Id)
-);
-
-ALTER TABLE MyFirstTable ALTER COLUMN Id SET SKIP RANGE 1 4294967296;
-```
+    ALTER DATABASE db
+        SET spanner.default_sequence_kind = 'bit_reversed_positive';
+    
+    CREATE TABLE MyFirstTable (
+      Id bigint GENERATED BY DEFAULT AS IDENTITY (SKIP RANGE 1 4294967296),
+      Name text,
+      PRIMARY KEY (Id)
+    );
+    
+    ALTER TABLE MyFirstTable ALTER COLUMN Id SET SKIP RANGE 1 4294967296;
 
 ## Migrate bit-reversed key columns
 
-If you already bit-reversed your key values to avoid hot spot issues in your source database, you can also use a Spanner bit-reversed positive sequence ( [GoogleSQL](/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ) to continue generating such values. To avoid generating duplicate values, you can configure the sequence to start its counter from a custom number.
+If you already bit-reversed your key values to avoid hot spot issues in your source database, you can also use a Spanner bit-reversed positive sequence ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ) to continue generating such values. To avoid generating duplicate values, you can configure the sequence to start its counter from a custom number.
 
 For example, if you reversed numbers from 1 to 1000 to generate primary key values, the Spanner sequence can start its counter from any number larger than 10,000. Optionally, you can choose a high number to leave a buffer for new writes that occur in the source database after data migration. In the following example, the counters start at 11,000:
 
 ### GoogleSQL
 
-``` text
-CREATE SEQUENCE MyFirstSequence OPTIONS (
-  sequence_kind = "bit_reversed_positive",
-  start_with_counter = 11000
-);
-
-ALTER SEQUENCE MySecondSequence SET OPTIONS (
-  start_with_counter = 11000
-);
-```
+    CREATE SEQUENCE MyFirstSequence OPTIONS (
+      sequence_kind = "bit_reversed_positive",
+      start_with_counter = 11000
+    );
+    
+    ALTER SEQUENCE MySecondSequence SET OPTIONS (
+      start_with_counter = 11000
+    );
 
 ### PostgreSQL
 
-``` text
-CREATE SEQUENCE MyFirstSequence BIT_REVERSED_POSITIVE
-  START COUNTER 11000;
+    CREATE SEQUENCE MyFirstSequence BIT_REVERSED_POSITIVE
+      START COUNTER 11000;
+    
+    ALTER SEQUENCE MySecondSequence RESTART COUNTER 11000;
 
-ALTER SEQUENCE MySecondSequence RESTART COUNTER 11000;
-```
-
-If you're using [`  IDENTITY  ` columns](/spanner/docs/primary-key-default-value#identity-columns) to automatically generate integer values for your key columns, you can set a start counter:
+If you're using [`  IDENTITY  ` columns](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#identity-columns) to automatically generate integer values for your key columns, you can set a start counter:
 
 ### GoogleSQL
 
-To set a start counter, use the [`  GENERATED BY DEFAULT AS IDENTITY  `](/spanner/docs/reference/standard-sql/data-definition-language#create_table) command:
+To set a start counter, use the [`  GENERATED BY DEFAULT AS IDENTITY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) command:
 
-``` text
-ALTER DATABASE db SET OPTIONS (
-  default_sequence_kind = 'bit_reversed_positive',
-);
-
-CREATE TABLE MyFirstTable (
-  Id INT64 GENERATED BY DEFAULT AS IDENTITY (START COUNTER WITH 11000),
-  Name STRING(MAX),
-) PRIMARY KEY (Id);
-
-ALTER TABLE MyFirstTable ALTER COLUMN Id ALTER IDENTITY RESTART COUNTER WITH 11000;
-```
+    ALTER DATABASE db SET OPTIONS (
+      default_sequence_kind = 'bit_reversed_positive',
+    );
+    
+    CREATE TABLE MyFirstTable (
+      Id INT64 GENERATED BY DEFAULT AS IDENTITY (START COUNTER WITH 11000),
+      Name STRING(MAX),
+    ) PRIMARY KEY (Id);
+    
+    ALTER TABLE MyFirstTable ALTER COLUMN Id ALTER IDENTITY RESTART COUNTER WITH 11000;
 
 ### PostgreSQL
 
-To set a start counter, use the [`  GENERATED BY DEFAULT AS IDENTITY  `](/spanner/docs/reference/postgresql/data-definition-language#create_table) command:
+To set a start counter, use the [`  GENERATED BY DEFAULT AS IDENTITY  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) command:
 
-``` text
-ALTER DATABASE db
-    SET spanner.default_sequence_kind = 'bit_reversed_positive';
-
-CREATE TABLE MyFirstTable (
-  Id bigint GENERATED BY DEFAULT AS IDENTITY (START COUNTER WITH 11000),
-  Name text,
-  PRIMARY KEY (Id)
-);
-
-ALTER TABLE MyFirstTable ALTER COLUMN Id RESTART COUNTER WITH 11000;
-```
+    ALTER DATABASE db
+        SET spanner.default_sequence_kind = 'bit_reversed_positive';
+    
+    CREATE TABLE MyFirstTable (
+      Id bigint GENERATED BY DEFAULT AS IDENTITY (START COUNTER WITH 11000),
+      Name text,
+      PRIMARY KEY (Id)
+    );
+    
+    ALTER TABLE MyFirstTable ALTER COLUMN Id RESTART COUNTER WITH 11000;
 
 ## What's next
 
-  - [Primary key migration overview](/spanner/docs/primary-keys-overview)
+  - [Primary key migration overview](https://docs.cloud.google.com/spanner/docs/primary-keys-overview)

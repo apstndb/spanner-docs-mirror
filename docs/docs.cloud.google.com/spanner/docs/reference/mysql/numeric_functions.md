@@ -1,43 +1,18 @@
-Spanner supports the following MySQL numeric functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](/spanner/docs/install-mysql-functions) .
+Spanner supports the following MySQL numeric functions. You need to implement the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](https://docs.cloud.google.com/spanner/docs/install-mysql-functions) .
 
 ## Function list
 
-<table>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#degrees"><code dir="ltr" translate="no">        mysql.DEGREES       </code></a></td>
-<td>Converts radians in to degrees.</td>
-</tr>
-<tr class="even">
-<td><a href="#log2"><code dir="ltr" translate="no">        mysql.LOG2       </code></a></td>
-<td>Returns the base-2 logarithm of the input parameter. Returns <code dir="ltr" translate="no">       NULL      </code> if the input parameter is out of range.</td>
-</tr>
-<tr class="odd">
-<td><a href="#pi"><code dir="ltr" translate="no">        mysql.PI       </code></a></td>
-<td>Returns the value of pi (π).</td>
-</tr>
-<tr class="even">
-<td><a href="#radians"><code dir="ltr" translate="no">        mysql.RADIANS       </code></a></td>
-<td>Converts degrees in to radians.</td>
-</tr>
-<tr class="odd">
-<td><a href="#truncate"><code dir="ltr" translate="no">        mysql.TRUNCATE       </code></a></td>
-<td>Truncates an input parameter to a specified number of decimal places.</td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                       | Summary                                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| [`         mysql.DEGREES        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/numeric_functions#degrees)   | Converts radians in to degrees.                                                                                            |
+| [`         mysql.LOG2        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/numeric_functions#log2)         | Returns the base-2 logarithm of the input parameter. Returns `        NULL       ` if the input parameter is out of range. |
+| [`         mysql.PI        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/numeric_functions#pi)             | Returns the value of pi (π).                                                                                               |
+| [`         mysql.RADIANS        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/numeric_functions#radians)   | Converts degrees in to radians.                                                                                            |
+| [`         mysql.TRUNCATE        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/numeric_functions#truncate) | Truncates an input parameter to a specified number of decimal places.                                                      |
 
 ## `     mysql.DEGREES    `
 
-``` text
-mysql.DEGREES(numeric_expression)
-```
+    mysql.DEGREES(numeric_expression)
 
 **Description**
 
@@ -59,23 +34,19 @@ If you provide a very large input value (greater than approximately 1e300), the 
 
 The following example converts π radians to degrees:
 
-``` text
-SELECT mysql.DEGREES(ACOS(-1)) as pi_in_degrees;
-
-/*
-+---------------+
-| pi_in_degrees |
-+---------------+
-| 180.0         |
-+---------------+
-*/
-```
+    SELECT mysql.DEGREES(ACOS(-1)) as pi_in_degrees;
+    
+    /*
+    +---------------+
+    | pi_in_degrees |
+    +---------------+
+    | 180.0         |
+    +---------------+
+    */
 
 ## `     mysql.LOG2    `
 
-``` text
-mysql.LOG2(numeric_expression)
-```
+    mysql.LOG2(numeric_expression)
 
 **Description**
 
@@ -97,23 +68,19 @@ The input value `  numeric_expression  ` must be greater than zero. If `  numeri
 
 The following example calculates the base-2 logarithm of 8:
 
-``` text
-SELECT mysql.LOG2(8) AS log2_of_8;
-
-/*
-+-----------+
-| log2_of_8 |
-+-----------+
-| 3.0       |
-+-----------+
-*/
-```
+    SELECT mysql.LOG2(8) AS log2_of_8;
+    
+    /*
+    +-----------+
+    | log2_of_8 |
+    +-----------+
+    | 3.0       |
+    +-----------+
+    */
 
 ## `     mysql.PI    `
 
-``` text
-mysql.PI()
-```
+    mysql.PI()
 
 **Description**
 
@@ -129,23 +96,19 @@ This function doesn't support any arguments.
 
 The following example returns the value of π:
 
-``` text
-SELECT mysql.PI() as pi_value;
-
-/*
-+-------------------+
-| pi_value          |
-+-------------------+
-| 3.141592653589793 |
-+-------------------+
-*/
-```
+    SELECT mysql.PI() as pi_value;
+    
+    /*
+    +-------------------+
+    | pi_value          |
+    +-------------------+
+    | 3.141592653589793 |
+    +-------------------+
+    */
 
 ## `     mysql.RADIANS    `
 
-``` text
-mysql.RADIANS(numeric_expression)
-```
+    mysql.RADIANS(numeric_expression)
 
 **Description**
 
@@ -163,23 +126,19 @@ This function supports the following argument:
 
 The following example converts 180 degrees to radians:
 
-``` text
-SELECT mysql.RADIANS(180) as radians_value;
-
-/*
-+-------------------+
-| radians_value     |
-+-------------------+
-| 3.141592653589793 |
-+-------------------+
-*/
-```
+    SELECT mysql.RADIANS(180) as radians_value;
+    
+    /*
+    +-------------------+
+    | radians_value     |
+    +-------------------+
+    | 3.141592653589793 |
+    +-------------------+
+    */
 
 ## `     mysql.TRUNCATE    `
 
-``` text
-mysql.TRUNCATE(numeric_expression, precision)
-```
+    mysql.TRUNCATE(numeric_expression, precision)
 
 **Description**
 
@@ -206,18 +165,16 @@ This function's behavior with two arguments, `  numeric_expression  ` (the numbe
 
 The following example demonstrates various uses of the `  TRUNCATE  ` function:
 
-``` text
-SELECT
-  mysql.TRUNCATE(123.4567, 2) as truncate_2_decimals,
-  mysql.TRUNCATE(123.987, 0) as truncate_to_integer,
-  mysql.TRUNCATE(123.456, -1) as truncate_tens_place,
-  mysql.TRUNCATE(-123.456, 1) as truncate_negative_num;
-
-/*
-+---------------------+---------------------+---------------------+-----------------------+
-| truncate_2_decimals | truncate_to_integer | truncate_tens_place | truncate_negative_num |
-+---------------------+---------------------+---------------------+-----------------------+
-| 123.45              | 123.0               | 120.0               | -123.4                |
-+---------------------+---------------------+---------------------+-----------------------+
-*/
-```
+    SELECT
+      mysql.TRUNCATE(123.4567, 2) as truncate_2_decimals,
+      mysql.TRUNCATE(123.987, 0) as truncate_to_integer,
+      mysql.TRUNCATE(123.456, -1) as truncate_tens_place,
+      mysql.TRUNCATE(-123.456, 1) as truncate_negative_num;
+    
+    /*
+    +---------------------+---------------------+---------------------+-----------------------+
+    | truncate_2_decimals | truncate_to_integer | truncate_tens_place | truncate_negative_num |
+    +---------------------+---------------------+---------------------+-----------------------+
+    | 123.45              | 123.0               | 120.0               | -123.4                |
+    +---------------------+---------------------+---------------------+-----------------------+
+    */
