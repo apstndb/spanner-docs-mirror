@@ -66,7 +66,7 @@ On the **Create your free trial instance** page, do the following:
 
 ### gcloud
 
-To create a free trial instance, use the [`  gcloud spanner instances create  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create) command.
+To create a free trial instance, use the [`gcloud spanner instances create`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create) command.
 
     gcloud spanner instances create INSTANCE_ID \
        --instance-type=free-instance --config=INSTANCE_CONFIG \
@@ -80,12 +80,12 @@ Replace the following:
 
   - INSTANCE\_DESCRIPTION : the name to display for the instance in the Google Cloud console. The instance name must be unique within your Google Cloud project.
 
-For example, to create a free trial instance named `  trial-instance  ` with the display name `  Trial Instance  ` using the regional instance configuration `  regional-us-east5  ` , run the following:
+For example, to create a free trial instance named `trial-instance` with the display name `Trial Instance` using the regional instance configuration `regional-us-east5` , run the following:
 
     gcloud spanner instances create trial-instance --config=regional-us-east5 \
       --instance-type=free-instance --description="Trial Instance"
 
-**Note:** Use the instance ID, not the display name, when referring to an instance in `  gcloud CLI  ` commands.
+**Note:** Use the instance ID, not the display name, when referring to an instance in `gcloud CLI` commands.
 
 After you create your free trial instance, you are prompted to continue learning and exploring Spanner by launching a step-by-step tutorial that teaches you how to create a database using a sample application. For more information, see [Get started with a sample application](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart#sample-app) .
 
@@ -117,9 +117,9 @@ You can access the sample application by using the Google Cloud CLI.
 
 1.  Complete the steps described in the [gcloud set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up) , which covers creating and setting a default Google Cloud project, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
     
-    Run the [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) command to set up your local development environment with authentication credentials.
+    Run the [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) command to set up your local development environment with authentication credentials.
 
-2.  Run the [`  gcloud spanner samples run  `](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/samples/run) command to download the sample application and start the backend gRPC service and workload generator for the given sample application:
+2.  Run the [`gcloud spanner samples run`](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/samples/run) command to download the sample application and start the backend gRPC service and workload generator for the given sample application:
     
         gcloud spanner samples run APPNAME --instance-id INSTANCE_ID
 
@@ -162,17 +162,17 @@ If you choose to use a CSV file, you also need to upload a separate JSON file th
         
           - TYPE : the data type of the column.
         
-          - (Optional) NOT\_NULL\_VALUE : whether the column can store null values or not. Valid inputs are `  true  ` or `  false  ` . Defaults to `  false  ` .
+          - (Optional) NOT\_NULL\_VALUE : whether the column can store null values or not. Valid inputs are `true` or `false` . Defaults to `false` .
         
-          - (Optional): PRIMARY\_KEY\_ORDER : determines the primary key order. Set the value is set to `  0  ` for a non-primary key column. Set the value to an integer, for example, `  1  ` for a primary key column. Lower numbered columns appear earlier in a compound primary key.
+          - (Optional): PRIMARY\_KEY\_ORDER : determines the primary key order. Set the value is set to `0` for a non-primary key column. Set the value to an integer, for example, `1` for a primary key column. Lower numbered columns appear earlier in a compound primary key.
         
-        The CSV file expects a comma for the field delimiter and a new line for the line delimiter by default. For more information on using custom delimiters, see the [`  gcloud alpha spanner databases import  `](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/import) reference.
+        The CSV file expects a comma for the field delimiter and a new line for the line delimiter by default. For more information on using custom delimiters, see the [`gcloud alpha spanner databases import`](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/import) reference.
     
       - Select a new or existing database as the destination.
 
 5.  Click **Import** .
 
-6.  Spanner opens the Cloud Shell and populates a command that installs the [Spanner migration tool](https://googlecloudplatform.github.io/spanner-migration-tool/) and runs the [`  gcloud alpha spanner databases import  `](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/import) command. Press the `  ENTER  ` key to import data into your database.x
+6.  Spanner opens the Cloud Shell and populates a command that installs the [Spanner migration tool](https://googlecloudplatform.github.io/spanner-migration-tool/) and runs the [`gcloud alpha spanner databases import`](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/import) command. Press the `ENTER` key to import data into your database.x
 
 ## Upgrade a free trial instance
 
@@ -202,7 +202,7 @@ The following steps explain how to upgrade your free trial instance.
 
 ### gcloud
 
-To upgrade your free trial instance to a paid Enterprise edition instance with the same instance configuration, run the following [`  gcloud spanner instances update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command:
+To upgrade your free trial instance to a paid Enterprise edition instance with the same instance configuration, run the following [`gcloud spanner instances update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command:
 
     gcloud spanner instances update INSTANCE_ID --instance-type=provisioned
 
@@ -226,7 +226,7 @@ To upgrade your free trial instance to a paid Enterprise edition instance with t
 
 ### gcloud
 
-To delete your free trial instance, use the following [`  gcloud spanner instances delete  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/delete) command:
+To delete your free trial instance, use the following [`gcloud spanner instances delete`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/delete) command:
 
     gcloud spanner instances delete INSTANCE_ID
 

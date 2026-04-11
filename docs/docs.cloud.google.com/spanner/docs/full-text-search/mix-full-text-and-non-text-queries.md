@@ -4,7 +4,7 @@ This page describes how to perform a search that mixes full-text and non-text da
 
 ## Perform a mixed full-text and non-text search
 
-[Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) support full-text, exact match, numeric columns, and JSON/JSONB columns. You can combine text and non-text conditions in the `  WHERE  ` clause similarly to multi-column search queries. The query optimizer tries to optimize non-text predicates with a search index. If that's not possible, Spanner evaluates the condition for every row that matches the search index. Referenced columns not stored in the search index are fetched from the base table.
+[Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) support full-text, exact match, numeric columns, and JSON/JSONB columns. You can combine text and non-text conditions in the `WHERE` clause similarly to multi-column search queries. The query optimizer tries to optimize non-text predicates with a search index. If that's not possible, Spanner evaluates the condition for every row that matches the search index. Referenced columns not stored in the search index are fetched from the base table.
 
 Consider the following example:
 
@@ -30,8 +30,8 @@ Consider the following example:
 
 Spanner PostgreSQL support has the following limitations:
 
-  - `  spanner.tokenize_number  ` function only supports the `  bigint  ` type.
-  - `  spanner.token  ` doesn't support tokenizing arrays.
+  - `spanner.tokenize_number` function only supports the `bigint` type.
+  - `spanner.token` doesn't support tokenizing arrays.
 
 <!-- end list -->
 
@@ -53,7 +53,7 @@ Spanner PostgreSQL support has the following limitations:
 
 The behavior of queries on this table include the following:
 
-  - `  Rating  ` and `  Genres  ` are included in the search index. Spanner accelerates conditions using search index posting lists. `  ARRAY_INCLUDES_ANY  ` , `  ARRAY_INCLUDES_ALL  ` are GoogleSQL functions and are not supported for PostgreSQL dialect.
+  - `Rating` and `Genres` are included in the search index. Spanner accelerates conditions using search index posting lists. `ARRAY_INCLUDES_ANY` , `ARRAY_INCLUDES_ALL` are GoogleSQL functions and are not supported for PostgreSQL dialect.
     
         SELECT Album
         FROM Albums
@@ -68,7 +68,7 @@ The behavior of queries on this table include the following:
               OR Rating > 4)
           AND NOT ARRAY_INCLUDES_ANY(Genres, ['jazz'])
 
-  - `  Likes  ` is stored in the index, but the schema doesn't request Spanner to build a token index for its possible values. Therefore, the full-text predicate on `  Title  ` and non-text predicate on `  Rating  ` is accelerated, but the predicate on `  Likes  ` isn't. In Spanner, the query fetches all documents with the term "car" in the `  Title  ` and a rating more than 4, then it filters documents that don't have at least 1000 likes. This query uses a lot of resources if almost all albums have the term "car" in their title and almost all of them have a rating of 5, but few albums have 1000 likes. In such cases, indexing `  Likes  ` similarly to `  Rating  ` saves resources.
+  - `Likes` is stored in the index, but the schema doesn't request Spanner to build a token index for its possible values. Therefore, the full-text predicate on `Title` and non-text predicate on `Rating` is accelerated, but the predicate on `Likes` isn't. In Spanner, the query fetches all documents with the term "car" in the `Title` and a rating more than 4, then it filters documents that don't have at least 1000 likes. This query uses a lot of resources if almost all albums have the term "car" in their title and almost all of them have a rating of 5, but few albums have 1000 likes. In such cases, indexing `Likes` similarly to `Rating` saves resources.
     
     ### GoogleSQL
     
@@ -86,7 +86,7 @@ The behavior of queries on this table include the following:
           AND rating > 4
           AND likes >= 1000
 
-  - `  Cover  ` isn't stored in the index. The following query does a [back join](https://docs.cloud.google.com/spanner/docs/query-execution-plans#index_and_back_join_queries) between `  AlbumsIndex  ` and `  Albums  ` to fetch `  Cover  ` for all matching albums.
+  - `Cover` isn't stored in the index. The following query does a [back join](https://docs.cloud.google.com/spanner/docs/query-execution-plans#index_and_back_join_queries) between `AlbumsIndex` and `Albums` to fetch `Cover` for all matching albums.
     
     ### GoogleSQL
     

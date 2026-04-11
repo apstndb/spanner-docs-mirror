@@ -4,24 +4,24 @@ gcloud alpha spanner databases config - manage Spanner database configurations
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases config  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases config` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage Spanner database configurations.
+`(ALPHA)` Manage Spanner database configurations.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  export  `  
-    `  (ALPHA)  ` Export the configuration for a Spanner database.
+    `(ALPHA)` Export the configuration for a Spanner database.
 
 NOTES
 

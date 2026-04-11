@@ -17,7 +17,7 @@ You can set TTL on Spanner tables by defining a row deletion policy in the datab
   - Each table can have its own policy.
   - Only one TTL policy can be specified per table.
   - You set up TTL differently for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
-  - The TTL policy doesn't delete rows that have the timestamp set to `  NULL  ` .
+  - The TTL policy doesn't delete rows that have the timestamp set to `NULL` .
   - Data inserted with expired timestamps is cleaned up when detected in the next TTL deletion cycle.
 
 ### TTL with GoogleSQL
@@ -32,11 +32,11 @@ For step-by-step instructions on how to create a GoogleSQL row deletion policy, 
 
 ### TTL with PostgreSQL
 
-Using PostgreSQL, a database owner can use a `  TTL INTERVAL  ` clause in the `  CREATE TABLE  ` or `  ALTER TABLE  ` statement to define a row deletion policy.
+Using PostgreSQL, a database owner can use a `TTL INTERVAL` clause in the `CREATE TABLE` or `ALTER TABLE` statement to define a row deletion policy.
 
-To set a row deletion policy on a PostgreSQL table, the table must have a column with the data type `  TIMESTAMPTZ  ` . The `  TTL INTERVAL  ` clause uses this column to set an interval specification for when a row is eligible for deletion.
+To set a row deletion policy on a PostgreSQL table, the table must have a column with the data type `TIMESTAMPTZ` . The `TTL INTERVAL` clause uses this column to set an interval specification for when a row is eligible for deletion.
 
-The clause must evaluate to a whole number of days. For example, `  '3 DAYS'  ` is allowed, and so is `  '4 DAYS 2 MINUTES - 2 MINUTES'  ` , but `  '4 DAYS 3 MINUTES'  ` is not allowed, and an error is returned. You cannot use negative numbers.
+The clause must evaluate to a whole number of days. For example, `'3 DAYS'` is allowed, and so is `'4 DAYS 2 MINUTES - 2 MINUTES'` , but `'4 DAYS 3 MINUTES'` is not allowed, and an error is returned. You cannot use negative numbers.
 
 TTL garbage collection deletes eligible rows continuously and in the background. Because this is an asynchronous background process, there is a delay between eligibility and deletion. The table might contain rows that is eligible for TTL deletion but for which TTL has not completed, yet. Typically, the delay is less than 72 hours.
 
@@ -50,11 +50,11 @@ When you restore a database from a backup, any row deletion policies that were c
 
 ### Data consistency
 
-A [backup](https://docs.cloud.google.com/spanner/docs/backup) is a consistent snapshot of your data at a particular point in time ( `  version_time  ` ). The backup can contain rows that might be eligible for TTL deletion but for which TTL has not yet completed. Similarly, Dataflow export jobs read the entire table at a fixed timestamp.
+A [backup](https://docs.cloud.google.com/spanner/docs/backup) is a consistent snapshot of your data at a particular point in time ( `version_time` ). The backup can contain rows that might be eligible for TTL deletion but for which TTL has not yet completed. Similarly, Dataflow export jobs read the entire table at a fixed timestamp.
 
 ### Auditing
 
-TTL supports auditing its deletions through [change streams](https://docs.cloud.google.com/spanner/docs/change-streams/details) . Change streams data records that track TTL changes to a database have the `  transaction_tag  ` field set to `  RowDeletionPolicy  ` and the `  is_system_transaction  ` field set to `  true  ` . Change streams readers are then able to filter out all the TTL records, or all the records except for the TTL ones, depending on their use case. See an example of [using Beam to filter by transaction tags](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#filter-by-tx-tag) .
+TTL supports auditing its deletions through [change streams](https://docs.cloud.google.com/spanner/docs/change-streams/details) . Change streams data records that track TTL changes to a database have the `transaction_tag` field set to `RowDeletionPolicy` and the `is_system_transaction` field set to `true` . Change streams readers are then able to filter out all the TTL records, or all the records except for the TTL ones, depending on their use case. See an example of [using Beam to filter by transaction tags](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#filter-by-tx-tag) .
 
 ## What's next
 

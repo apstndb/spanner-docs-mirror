@@ -10,7 +10,7 @@ This page explains how to add Spring Data Spanner to a Java application. For det
 
 ## Install the module
 
-If you use Maven, add the [Spring Cloud GCP Bill of Materials (BOM)](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#bill-of-materials) and Spring Data Spanner to your `  pom.xml  ` file. These dependencies provide the Spring Data Spanner components to your Spring [`  ApplicationContext  `](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html) :
+If you use Maven, add the [Spring Cloud GCP Bill of Materials (BOM)](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#bill-of-materials) and Spring Data Spanner to your `pom.xml` file. These dependencies provide the Spring Data Spanner components to your Spring [`ApplicationContext`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html) :
 
     <dependencyManagement>
       <dependencies>
@@ -50,11 +50,11 @@ This section describes some of the most commonly used configuration settings for
 
 To specify the default instance and database, set the following configuration properties for your application:
 
-| Property                                              | Description                                                                                                         |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `        spring.cloud.gcp.spanner.project-id       `  | Optional. The Google Cloud project ID. Overrides the value of `        spring.cloud.gcp.config.project-id       ` . |
-| `        spring.cloud.gcp.spanner.instance-id       ` | The Spanner instance ID.                                                                                            |
-| `        spring.cloud.gcp.spanner.database       `    | The database to connect to.                                                                                         |
+| Property                               | Description                                                                                          |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `spring.cloud.gcp.spanner.project-id`  | Optional. The Google Cloud project ID. Overrides the value of `spring.cloud.gcp.config.project-id` . |
+| `spring.cloud.gcp.spanner.instance-id` | The Spanner instance ID.                                                                             |
+| `spring.cloud.gcp.spanner.database`    | The database to connect to.                                                                          |
 
 ## Model Spanner data
 
@@ -66,50 +66,50 @@ You can use the following annotations to model simple relationships between enti
 
 Entity annotations
 
-`  @Column(name = " columnName ")  `
+`@Column(name = " columnName ")`
 
 Optional. Maps the property to a specific column in the Spanner table, overriding the naming strategy that automatically maps the names.
 
-When you omit this property, the default naming strategy for Spring Data Spanner maps Java `  camelCase  ` property names to `  PascalCase  ` column names. For example, the property `  singerId  ` maps to the column name `  SingerId  ` .
+When you omit this property, the default naming strategy for Spring Data Spanner maps Java `camelCase` property names to `PascalCase` column names. For example, the property `singerId` maps to the column name `SingerId` .
 
-`  @Embedded  `
+`@Embedded`
 
-Indicates that the property is an embedded object that can hold components of a primary key. If the property is actually used in the primary key, you must also include the `  @PrimaryKey  ` annotation.
+Indicates that the property is an embedded object that can hold components of a primary key. If the property is actually used in the primary key, you must also include the `@PrimaryKey` annotation.
 
-`  @Interleaved  `
+`@Interleaved`
 
-`  @Interleaved(lazy = true )  `
+`@Interleaved(lazy = true )`
 
 Indicates that a property contains a list of rows that are [interleaved](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) with the current row.
 
-By default, Spring Data Spanner fetches the interleaved rows at instance creation. To fetch the rows lazily, when you access the property, use `  @Interleaved(lazy = true)  ` .
+By default, Spring Data Spanner fetches the interleaved rows at instance creation. To fetch the rows lazily, when you access the property, use `@Interleaved(lazy = true)` .
 
-Example: If a `  Singer  ` entity can have interleaved `  Album  ` entries as children, add a `  List<Album>  ` property to the `  Singer  ` entity. Also, add an `  @Interleaved  ` annotation to the property.
+Example: If a `Singer` entity can have interleaved `Album` entries as children, add a `List<Album>` property to the `Singer` entity. Also, add an `@Interleaved` annotation to the property.
 
-`  @NotMapped  `
+`@NotMapped`
 
 Indicates that a property is not stored in the database and should be ignored.
 
-`  @PrimaryKey  `
+`@PrimaryKey`
 
-`  @PrimaryKey(keyOrder = N )  `
+`@PrimaryKey(keyOrder = N )`
 
-Indicates that the property is a component of the primary key, and identifies the position of the property within the primary key, starting at 1. The default `  keyOrder  ` is `  1  ` .
+Indicates that the property is a component of the primary key, and identifies the position of the property within the primary key, starting at 1. The default `keyOrder` is `1` .
 
-Example: `  @PrimaryKey(keyOrder = 3)  `
+Example: `@PrimaryKey(keyOrder = 3)`
 
-`  @Table(name = " TABLE_NAME ")  `
+`@Table(name = " TABLE_NAME ")`
 
 The table that the entity models. Each instance of the entity represents a record in the table. Replace `  TABLE_NAME  ` with the name of your table.
 
-Example: `  @Table(name = "Singers")  `
+Example: `@Table(name = "Singers")`
 
 If you need to model more complex relationships, see the [Spring Data Spanner reference](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/spanner.html) for details about other annotations that the module supports.
 
-The following examples show one way to model the `  Singers  ` and `  Albums  ` tables for Spring Data Spanner:
+The following examples show one way to model the `Singers` and `Albums` tables for Spring Data Spanner:
 
-  - For `  Singer  ` entities, the example includes an `  albums  ` property, with an `  @Interleaved  ` annotation. This property contains a list of albums that are interleaved with the `  Singer  ` entity. Spring Data Spanner populates this property automatically.
-  - For `  Album  ` entities, the example includes a `  relatedAlbums  ` property that is not stored in Spanner.
+  - For `Singer` entities, the example includes an `albums` property, with an `@Interleaved` annotation. This property contains a list of albums that are interleaved with the `Singer` entity. Spring Data Spanner populates this property automatically.
+  - For `Album` entities, the example includes a `relatedAlbums` property that is not stored in Spanner.
 
 <!-- end list -->
 
@@ -172,15 +172,15 @@ The following examples show one way to model the `  Singers  ` and `  Albums  ` 
 
 ## Query and modify data
 
-To query and modify data with Spring Data Spanner, you can acquire a [`  SpannerTemplate  `](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/blob/master/spring-cloud-gcp-data-spanner/src/main/java/com/google/cloud/spring/data/spanner/core/SpannerTemplate.java) bean, which implements [`  SpannerOperations  `](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/blob/master/spring-cloud-gcp-data-spanner/src/main/java/com/google/cloud/spring/data/spanner/core/SpannerOperations.java) . `  SpannerTemplate  ` provides methods for performing [SQL queries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) and modifying data with [Data Manipulation Language (DML) statements](https://docs.cloud.google.com/spanner/docs/dml-tasks) . You can also use this bean to access the [read API](https://docs.cloud.google.com/spanner/docs/reads) and [mutation API](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) for Spanner.
+To query and modify data with Spring Data Spanner, you can acquire a [`SpannerTemplate`](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/blob/master/spring-cloud-gcp-data-spanner/src/main/java/com/google/cloud/spring/data/spanner/core/SpannerTemplate.java) bean, which implements [`SpannerOperations`](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/blob/master/spring-cloud-gcp-data-spanner/src/main/java/com/google/cloud/spring/data/spanner/core/SpannerOperations.java) . `SpannerTemplate` provides methods for performing [SQL queries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) and modifying data with [Data Manipulation Language (DML) statements](https://docs.cloud.google.com/spanner/docs/dml-tasks) . You can also use this bean to access the [read API](https://docs.cloud.google.com/spanner/docs/reads) and [mutation API](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) for Spanner.
 
-In addition, you can extend the [`  SpannerRepository  `](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/blob/master/spring-cloud-gcp-data-spanner/src/main/java/com/google/cloud/spring/data/spanner/repository/SpannerRepository.java) interface to encapsulate all of the application logic that queries and modifies data in Spanner.
+In addition, you can extend the [`SpannerRepository`](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/blob/master/spring-cloud-gcp-data-spanner/src/main/java/com/google/cloud/spring/data/spanner/repository/SpannerRepository.java) interface to encapsulate all of the application logic that queries and modifies data in Spanner.
 
-The following sections explain how to work with `  SpannerTemplate  ` and `  SpannerRepository  ` .
+The following sections explain how to work with `SpannerTemplate` and `SpannerRepository` .
 
 ### Acquire a template bean
 
-Use the `  @Autowired  ` annotation to acquire a `  SpannerTemplate  ` bean automatically. You can then use the `  SpannerTemplate  ` throughout your class.
+Use the `@Autowired` annotation to acquire a `SpannerTemplate` bean automatically. You can then use the `SpannerTemplate` throughout your class.
 
 The following example shows a class that acquires and uses the bean:
 
@@ -217,11 +217,11 @@ The following example shows a class that acquires and uses the bean:
     
     }
 
-You can use the `  SpannerTemplate  ` bean to execute [read-only transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#read-only-transaction) and [read-write transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#readwrite-transaction) . In addition, you can use the [`  @Transactional  `](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#declarative-transactions-with-transactional-annotation) annotation to create declarative transactions.
+You can use the `SpannerTemplate` bean to execute [read-only transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#read-only-transaction) and [read-write transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#readwrite-transaction) . In addition, you can use the [`@Transactional`](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#declarative-transactions-with-transactional-annotation) annotation to create declarative transactions.
 
 ### Acquire a repository bean
 
-If you use a `  SpannerRepository  ` , you can use the `  @Autowired  ` annotation to acquire a bean that implements your repository's interface. A repository includes methods for running Java functions as [read-only transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#read-only-transaction) and [read-write transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#readwrite-transaction) . For lower-level operations, you can get the template bean that the repository uses.
+If you use a `SpannerRepository` , you can use the `@Autowired` annotation to acquire a bean that implements your repository's interface. A repository includes methods for running Java functions as [read-only transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#read-only-transaction) and [read-write transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#readwrite-transaction) . For lower-level operations, you can get the template bean that the repository uses.
 
 The following examples show the interface for a repository and a class that acquires and uses the bean:
 
@@ -279,9 +279,9 @@ The following examples show the interface for a repository and a class that acqu
 
 ## Manage Spanner
 
-To get information about your Spanner databases, update a schema with a Data Definition Language (DDL) statement, or complete other administrative tasks, you can acquire a [`  SpannerDatabaseAdminTemplate  `](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/blob/master/spring-cloud-gcp-data-spanner/src/main/java/com/google/cloud/spring/data/spanner/core/admin/SpannerDatabaseAdminTemplate.java) bean.
+To get information about your Spanner databases, update a schema with a Data Definition Language (DDL) statement, or complete other administrative tasks, you can acquire a [`SpannerDatabaseAdminTemplate`](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/blob/master/spring-cloud-gcp-data-spanner/src/main/java/com/google/cloud/spring/data/spanner/core/admin/SpannerDatabaseAdminTemplate.java) bean.
 
-Use the `  @Autowired  ` annotation to acquire the bean automatically. You can then use the `  SpannerDatabaseAdminTemplate  ` throughout your class.
+Use the `@Autowired` annotation to acquire the bean automatically. You can then use the `SpannerDatabaseAdminTemplate` throughout your class.
 
 The following example shows a class that acquires and uses the bean:
 

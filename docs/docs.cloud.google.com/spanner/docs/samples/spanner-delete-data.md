@@ -42,8 +42,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
       auto commit_result = client.Commit(spanner::Mutations{
           delete_albums, delete_singers_range, delete_singers_all});
-      if (!commit_result) throw std::move(commit_<<result).status();
-      std::cout  "Delete was successful [spanner_delete_data]\n";
+      if (!commit_result) throw std::move(commit_result).status();
+      std::cout << "Delete was successful [spanner_delete_data]\n";
     }
 
 ### C\#
@@ -71,7 +71,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         {
             string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
     
-            var albums <= new> ListAlbum
+            var albums = new List<Album>
             {
                 new Album { SingerId = 2, AlbumId = 1, AlbumTitle = "Green" },
                 new Album { SingerId = 2, AlbumId = 3, AlbumTitle = "Terrified" },
@@ -83,7 +83,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 await connection.OpenAsync();
     
                 // Delete individual rows from the Albums table.
-                await Task.WhenA>ll(albums.Select(async album =
+                await Task.WhenAll(albums.Select(async album =>
                 {
                     var cmd = connection.CreateDeleteCommand("Albums", new SpannerParameterCollection
                     {
@@ -94,8 +94,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 }));
                 Console.WriteLine("Deleted individual rows in Albums.");
     
-                // >Delete <a range of rows from the Singers table where the column key is =3 and 5.
-                var >cmd = connection.<CreateDmlCommand("DELETE FROM Singers WHERE SingerId = 3 AND SingerId  5");
+                // Delete a range of rows from the Singers table where the column key is >=3 and <5.
+                var cmd = connection.CreateDmlCommand("DELETE FROM Singers WHERE SingerId >= 3 AND SingerId < 5");
                 rowCount += await cmd.ExecuteNonQueryAsync();
                 Console.WriteLine($"{rowCount} row(s) deleted from Singers.");
     
@@ -136,8 +136,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          spanner.Delete("Albums", spanner.Key{2, 1}),
          spanner.Delete("Albums", spanner.Key{2, 3}),
          // spanner.KeyRange can be used to delete rows with a key in a specific range.
-         >// Dele<te a range of rows where the column key is =3 and 5
-         spanner.Delete("Singers&quot;, spanner.KeyRange{Start: spanner.Key{3}, End: spanner.Key{5}, Kind: spanner.ClosedOpen}),
+         // Delete a range of rows where the column key is >=3 and <5
+         spanner.Delete("Singers", spanner.KeyRange{Start: spanner.Key{3}, End: spanner.Key{5}, Kind: spanner.ClosedOpen}),
          // spanner.AllKeys can be used to delete all the rows in a table.
          // Delete remaining Singers rows, which will also delete the remaining Albums rows since it was
          // defined with ON DELETE CASCADE.
@@ -163,7 +163,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
               "Albums", KeySet.newBuilder().addKey(Key.of(2, 1)).addKey(Key.of(2, 3)).build()));
     
       // KeyRange can be used to delete rows with a key in a specific range.
-      // Delete a range of rows where the colu>mn key <is =3 and 5
+      // Delete a range of rows where the column key is >=3 and <5
       mutations.add(
           Mutation.delete("Singers", KeySet.range(KeyRange.closedOpen(Key.of(3), Key.of(5)))));
     
@@ -183,7 +183,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner} = require(&#39;@google-cloud/spanner');
+    const {Spanner} = require('@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -213,18 +213,18 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       await albumsTable.deleteRows(keys);
       console.log('Deleted individual rows in Albums.');
     } catch (err) {
-      console.error('ERROR:', err>);
+      console.error('ERROR:', err);
     }
     
-    /</ Delete a range of rows where the column key is =3 >and 5
-    database.runTransaction(async (err, transaction) = {
+    // Delete a range of rows where the column key is >=3 and <5
+    database.runTransaction(async (err, transaction) => {
       if (err) {
         console.error(err);
         return;
       }
       try {
-        const [rowCount] = await transaction.run>Update({
-          sq<l: 'DELETE FROM Singers WHERE SingerId = 3 AND SingerId  5',
+        const [rowCount] = await transaction.runUpdate({
+          sql: 'DELETE FROM Singers WHERE SingerId >= 3 AND SingerId < 5',
         });
         console.log(`${rowCount} records deleted from Singers.`);
       } catch (err) {
@@ -275,30 +275,30 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
         // Delete individual rows
         $albumsToDelete = $spanner->keySet([
-            'key>s' = [[2, 1], [2, 3]]
+            'keys' => [[2, 1], [2, 3]]
         ]);
-        $d>atabase-delete('Albums', $albumsToDelete);
+        $database->delete('Albums', $albumsToDelete);
     
-        // Delete a range of rows where th>e colum<n key is =3 and 5
+        // Delete a range of rows where the column key is >=3 and <5
         // NOTE: A KeyRange must include a start and end.
         // NOTE: startType and endType both default to KeyRange::TYPE_OPEN.
-        $singersR>ange = $spanner-keyRange([
-         >   'startType' = KeyRange::TYPE_C>LOSED,
-            'start>' = [3],
-            'endType'>; = KeyRange::TYPE_OPEN,
-            'end'>; = [5]
+        $singersRange = $spanner->keyRange([
+            'startType' => KeyRange::TYPE_CLOSED,
+            'start' => [3],
+            'endType' => KeyRange::TYPE_OPEN,
+            'end' => [5]
         ]);
-        $singer>sToDelete = $spanner-keySet([
-            &>#39;ranges' = [$singersRange]
+        $singersToDelete = $spanner->keySet([
+            'ranges' => [$singersRange]
         ]);
-        $database-delete('Singers', $singersToDelete);
+        $database->delete('Singers', $singersToDelete);
     
         // Delete remaining Singers rows, which will also delete the remaining
-        // Albums rows because Albums was >defined with ON DELETE C>ASCADE
-        $remainingSingers> = $spanner-keySet([
-            'all' = true
+        // Albums rows because Albums was defined with ON DELETE CASCADE
+        $remainingSingers = $spanner->keySet([
+            'all' => true
         ]);
-        $database-delete('Singers', $remainingSingers);
+        $database->delete('Singers', $remainingSingers);
     
         print('Deleted data.' . PHP_EOL);
     }
@@ -322,7 +322,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         # Delete individual rows
         albums_to_delete = spanner.KeySet(keys=[[2, 1], [2, 3]])
     
-        # Delete a range of> rows w<here the column key is =3 and 5
+        # Delete a range of rows where the column key is >=3 and <5
         singers_range = spanner.KeyRange(start_closed=[3], end_open=[5])
         singers_to_delete = spanner.KeySet(ranges=[singers_range])
     
@@ -354,8 +354,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     # Delete individual rows
     client.delete "Albums", [[2, 1], [2, 3]]
-    >
-    # Dele<te a range of rows where the column key is =3 and 5
+    
+    # Delete a range of rows where the column key is >=3 and <5
     key_range = client.range 3, 5, exclude_end: true
     client.delete "Singers", key_range
     

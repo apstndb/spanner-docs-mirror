@@ -1,14 +1,14 @@
 This page describes best practices for using data manipulation language (DML) and partitioned DML for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
-## Use a `     WHERE    ` clause to reduce the scope of locks
+## Use a `WHERE` clause to reduce the scope of locks
 
-You execute DML statements inside read-write transactions. When Spanner reads data, it acquires shared read locks on limited portions of the row ranges that you read. Specifically, it acquires these locks only on the columns you access. The locks can include data that does not satisfy the filter condition of the `  WHERE  ` clause.
+You execute DML statements inside read-write transactions. When Spanner reads data, it acquires shared read locks on limited portions of the row ranges that you read. Specifically, it acquires these locks only on the columns you access. The locks can include data that does not satisfy the filter condition of the `WHERE` clause.
 
 When Spanner modifies data using DML statements, it acquires exclusive locks on the specific data that you are modifying. In addition, it acquires shared locks in the same way as when you read data. If your request includes large row ranges, or an entire table, the shared locks might prevent other transactions from making progress in parallel.
 
-To modify data as efficiently as possible, use a `  WHERE  ` clause that enables Spanner to read only the necessary rows. You can achieve this goal with a filter on the primary key, or on the key of a secondary index. The `  WHERE  ` clause limits the scope of the shared locks and enables Spanner to process the update more efficiently.
+To modify data as efficiently as possible, use a `WHERE` clause that enables Spanner to read only the necessary rows. You can achieve this goal with a filter on the primary key, or on the key of a secondary index. The `WHERE` clause limits the scope of the shared locks and enables Spanner to process the update more efficiently.
 
-For example, suppose that one of the musicians in the `  Singers  ` table changes their first name, and you need to update the name in your database. You could execute the following DML statement, but it forces Spanner to scan the entire table and acquires shared locks that cover the entire table. As a result, Spanner must read more data than necessary, and concurrent transactions cannot modify the data in parallel:
+For example, suppose that one of the musicians in the `Singers` table changes their first name, and you need to update the name in your database. You could execute the following DML statement, but it forces Spanner to scan the entire table and acquires shared locks that cover the entire table. As a result, Spanner must read more data than necessary, and concurrent transactions cannot modify the data in parallel:
 
     -- ANTI-PATTERN: SENDING AN UPDATE WITHOUT THE PRIMARY KEY COLUMN
     -- IN THE WHERE CLAUSE
@@ -16,16 +16,16 @@ For example, suppose that one of the musicians in the `  Singers  ` table change
     UPDATE Singers SET FirstName = "Marcel"
     WHERE FirstName = "Marc" AND LastName = "Richards";
 
-To make the update more efficient, include the `  SingerId  ` column in the `  WHERE  ` clause. The `  SingerId  ` column is the only primary key column for the `  Singers  ` table:
+To make the update more efficient, include the `SingerId` column in the `WHERE` clause. The `SingerId` column is the only primary key column for the `Singers` table:
 
     -- ANTI-PATTERN: SENDING AN UPDATE THAT MUST SCAN THE ENTIRE TABLE
     
     UPDATE Singers SET FirstName = "Marcel"
     WHERE FirstName = "Marc" AND LastName = "Richards"
 
-If there is no index on `  FirstName  ` or `  LastName  ` , you need to scan the entire table to find the target singers. If you don't want to add a secondary index to make the update more efficient, then include the `  SingerId  ` column in the `  WHERE  ` clause.
+If there is no index on `FirstName` or `LastName` , you need to scan the entire table to find the target singers. If you don't want to add a secondary index to make the update more efficient, then include the `SingerId` column in the `WHERE` clause.
 
-The `  SingerId  ` column is the only primary key column for the `  Singers  ` table. To find it, run `  SELECT  ` in a separate, read-only transaction prior to the update transaction:
+The `SingerId` column is the only primary key column for the `Singers` table. To find it, run `SELECT` in a separate, read-only transaction prior to the update transaction:
 
 ``` 
   SELECT SingerId
@@ -44,23 +44,23 @@ Spanner buffers insertions, updates, and deletions performed using DML statement
 
 Avoid using both DML statements and mutations in the same transaction. If you use both in the same transaction, you need to account for the order of execution in your client library code. If a transaction contains both DML statements and mutations in the same request, Spanner executes the DML statements before the mutations.
 
-For operations that are only supported using mutations, you might want to combine DML statements and mutations in the same transaction—for example, [`  insert_or_update  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Mutation) .
+For operations that are only supported using mutations, you might want to combine DML statements and mutations in the same transaction—for example, [`insert_or_update`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Mutation) .
 
 If you use both, the buffer writes only at the very end of the transaction.
 
-## Use the `     PENDING_COMMIT_TIMESTAMP    ` function to write commit timestamps
+## Use the `PENDING_COMMIT_TIMESTAMP` function to write commit timestamps
 
 ### GoogleSQL
 
 You use the `  PENDING_COMMIT_TIMESTAMP  ` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
 
-**Note:** After you call the `  PENDING_COMMIT_TIMESTAMP  ` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the coloumn is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner produces an error.
+**Note:** After you call the `PENDING_COMMIT_TIMESTAMP` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the coloumn is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner produces an error.
 
 ### PostgreSQL
 
-You use the `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
+You use the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
 
-**Note:** After you call the `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` function, the table and any derived index is unreadable to any subsequent SQL statements in the transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner returns an error.
+**Note:** After you call the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function, the table and any derived index is unreadable to any subsequent SQL statements in the transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner returns an error.
 
 ## Partitioned DML and date and timestamp functions
 
@@ -74,9 +74,9 @@ Batch DML can apply optimizations to groups of statements within a batch to enab
 
   - **Execute writes with a single request**
     
-    Spanner automatically optimizes contiguous groups of similar `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` batched statements that have different parameter values, if they don't violate data dependencies.
+    Spanner automatically optimizes contiguous groups of similar `INSERT` , `UPDATE` , or `DELETE` batched statements that have different parameter values, if they don't violate data dependencies.
     
-    For example, consider a scenario where you want to insert a large set of new rows into a table called `  Albums  ` . To let Spanner optimize all the required `  INSERT  ` statements into a single, efficient server-side action, begin by writing an appropriate DML statement that uses SQL query parameters:
+    For example, consider a scenario where you want to insert a large set of new rows into a table called `Albums` . To let Spanner optimize all the required `INSERT` statements into a single, efficient server-side action, begin by writing an appropriate DML statement that uses SQL query parameters:
     
         INSERT INTO Albums (SingerId, AlbumId, AlbumTitle) VALUES (@Singer, @Album, @Title);
     
@@ -84,9 +84,9 @@ Batch DML can apply optimizations to groups of statements within a batch to enab
 
   - **Execute writes in parallel**
     
-    Spanner automatically optimizes contiguous groups of DML statements by executing in parallel when doing so doesn't violate data dependencies. This optimization brings performance benefits to a wider set of batched DML statements because it can apply to a mix of DML statement types ( `  INSERT  ` , `  UPDATE  ` and `  DELETE  ` ) and to both parameterized or non-parameterized DML statements.
+    Spanner automatically optimizes contiguous groups of DML statements by executing in parallel when doing so doesn't violate data dependencies. This optimization brings performance benefits to a wider set of batched DML statements because it can apply to a mix of DML statement types ( `INSERT` , `UPDATE` and `DELETE` ) and to both parameterized or non-parameterized DML statements.
     
-    For example, our sample schema has the tables `  Singers  ` , `  Albums  ` , and `  Accounts  ` . `  Albums  ` is interleaved within `  Singers  ` and stores information about albums for `  Singers  ` . The following contiguous group of statements writes new rows to multiple tables and doesn't have complex data dependencies.
+    For example, our sample schema has the tables `Singers` , `Albums` , and `Accounts` . `Albums` is interleaved within `Singers` and stores information about albums for `Singers` . The following contiguous group of statements writes new rows to multiple tables and doesn't have complex data dependencies.
     
         INSERT INTO Singers (SingerId, Name) VALUES(1, "John Doe");
         INSERT INTO Singers (SingerId, Name) VALUES(2, "Marcel Richards");
@@ -99,9 +99,9 @@ Batch DML can apply optimizations to groups of statements within a batch to enab
 
 ### Enable client-side batching in JDBC
 
-For Java applications using a Spanner-supported [JDBC driver](https://docs.cloud.google.com/spanner/docs/jdbc-drivers) , you can reduce latency by enabling client-side DML batching. The JDBC driver has a [connection property](https://github.com/googleapis/java-spanner-jdbc/blob/main/documentation/connection_properties.md) called `  auto_batch_dml  ` that, when enabled, buffers DML statements on the client and sends them to Spanner as a single batch. This can reduce the number of round trips to the server and improve overall performance.
+For Java applications using a Spanner-supported [JDBC driver](https://docs.cloud.google.com/spanner/docs/jdbc-drivers) , you can reduce latency by enabling client-side DML batching. The JDBC driver has a [connection property](https://github.com/googleapis/java-spanner-jdbc/blob/main/documentation/connection_properties.md) called `auto_batch_dml` that, when enabled, buffers DML statements on the client and sends them to Spanner as a single batch. This can reduce the number of round trips to the server and improve overall performance.
 
-By default, `  auto_batch_dml  ` is set to `  false  ` . You can enable it by setting it to `  true  ` in your JDBC connection string.
+By default, `auto_batch_dml` is set to `false` . You can enable it by setting it to `true` in your JDBC connection string.
 
 For example:
 
@@ -112,15 +112,15 @@ For example:
 
 With this connection property enabled, Spanner sends buffered DML statements as a batch when a non-DML statement is executed or when the current transaction is committed. This property only applies to read-write transactions; DML statements in autocommit mode are executed directly.
 
-By default, the update count for buffered DML statements is set to `  1  ` . You can change this by setting the `  auto_batch_dml_update_count  ` connection variable to a different value. For more information, see [JDBC supported connection properties](https://github.com/googleapis/java-spanner-jdbc/blob/main/documentation/connection_properties.md) .
+By default, the update count for buffered DML statements is set to `1` . You can change this by setting the `auto_batch_dml_update_count` connection variable to a different value. For more information, see [JDBC supported connection properties](https://github.com/googleapis/java-spanner-jdbc/blob/main/documentation/connection_properties.md) .
 
-## Use the `     last_statement    ` option to reduce DML latency
+## Use the `last_statement` option to reduce DML latency
 
-When the last statement in a read-write transaction is a DML statement, you can use the `  last_statement  ` query option to reduce latency. This option is available in the [`  executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) and [`  executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) query APIs.
+When the last statement in a read-write transaction is a DML statement, you can use the `last_statement` query option to reduce latency. This option is available in the [`executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) and [`executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) query APIs.
 
-Using this option defers some validation steps, such as unique constraint validation, until the transaction is committed. When using `  last_statement  ` , subsequent operations, such as reads, queries, and DML, in the same transaction are rejected. This option isn't compatible with mutations. If you include mutations in the same transaction, Spanner returns an error.
+Using this option defers some validation steps, such as unique constraint validation, until the transaction is committed. When using `last_statement` , subsequent operations, such as reads, queries, and DML, in the same transaction are rejected. This option isn't compatible with mutations. If you include mutations in the same transaction, Spanner returns an error.
 
-The `  last_statement  ` option is supported in the following client libraries:
+The `last_statement` option is supported in the following client libraries:
 
   - Go in version 1.77.0 or later
   - Java in version 2.27.0 or later

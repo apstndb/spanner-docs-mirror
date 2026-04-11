@@ -30,7 +30,7 @@ In your project, add Apache Maven dependencies for [MyBatis](https://mybatis.org
 
 ### Data source configuration
 
-Configure `  application.properties  ` to use the Spanner JDBC driver and to connect to a Spanner PostgreSQL-dialect database.
+Configure `application.properties` to use the Spanner JDBC driver and to connect to a Spanner PostgreSQL-dialect database.
 
     # This profile uses a Spanner PostgreSQL database.
     

@@ -13,7 +13,7 @@ Follow these steps to track overall Data Boost usage:
 
 3.  At the top of the page, select a time interval.
 
-4.  In the **Metric** drop-down list, in the **Filter by resource or metric name** field, enter `  spanner  ` and press `  Enter  ` to narrow the search.
+4.  In the **Metric** drop-down list, in the **Filter by resource or metric name** field, enter `spanner` and press `Enter` to narrow the search.
 
 5.  In the **Metric** list, select **Cloud Spanner Instance \> Instance \> Processing unit second** , and then click **Apply** .
     
@@ -55,7 +55,7 @@ To query the audit logs to view Data Boost usage by user, follow these steps:
 
 2.  In the navigation menu, click **Log Analytics** .
 
-3.  To show usage by user and database over the past 7 days, run the following query. To change the timespan for which usage is shown, modify the `  timestamp  ` expression in the `  WHERE  ` clause.
+3.  To show usage by user and database over the past 7 days, run the following query. To change the timespan for which usage is shown, modify the `timestamp` expression in the `WHERE` clause.
     
         SELECT
           SUM(CAST(JSON_VALUE(labels.data_boost_usage) AS INT64)) AS usage,

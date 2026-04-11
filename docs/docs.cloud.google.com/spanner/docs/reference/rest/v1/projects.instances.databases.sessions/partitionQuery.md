@@ -6,7 +6,7 @@
   - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery#body.aspect)
   - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery#try-it)
 
-Creates a set of partition tokens that can be used to execute a query operation in parallel. Each of the returned partition tokens can be used by `  sessions.executeStreamingSql  ` to specify a subset of the query result to read. The same session and read-only transaction must be used by the `  PartitionQueryRequest  ` used to create the partition tokens and the `  ExecuteSqlRequests  ` that use the partition tokens.
+Creates a set of partition tokens that can be used to execute a query operation in parallel. Each of the returned partition tokens can be used by `  sessions.executeStreamingSql  ` to specify a subset of the query result to read. The same session and read-only transaction must be used by the `PartitionQueryRequest` used to create the partition tokens and the `ExecuteSqlRequests` that use the partition tokens.
 
 Partition tokens become invalid when the session used to create them is deleted, is idle for too long, begins a new transaction, or becomes too old. When any of these happen, it isn't possible to resume the query, and the whole operation must be restarted from the beginning.
 
@@ -45,7 +45,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:partitionQuery  `
+`POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:partitionQuery`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -53,15 +53,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  session  `
+`session`
 
-`  string  `
+`string`
 
 Required. The session used to create the partitions.
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  session  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `session` :
 
-  - `  spanner.databases.partitionQuery  `
+  - `spanner.databases.partitionQuery`
 
 ### Request body
 
@@ -78,69 +78,52 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;transaction&quot;: {
-    object (TransactionSelector)
-  },
-  &quot;sql&quot;: string,
-  &quot;params&quot;: {
-    object
-  },
-  &quot;paramTypes&quot;: {
-    string: {
-      object (Type)
-    },
-    ...
-  },
-  &quot;partitionOptions&quot;: {
-    object (PartitionOptions)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;transaction&quot;: {object (TransactionSelector)},&quot;sql&quot;: string,&quot;params&quot;: {object},&quot;paramTypes&quot;: {string: {object (Type)},...},&quot;partitionOptions&quot;: {object (PartitionOptions)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  transaction  `
+`transaction`
 
-`  object ( TransactionSelector  ` )
+` object ( TransactionSelector  ` )
 
 sessions.read-only snapshot transactions are supported, read and write and single-use transactions are not.
 
-`  sql  `
+`sql`
 
-`  string  `
+`string`
 
 Required. The query request to generate partitions for. The request fails if the query isn't root partitionable. For a query to be root partitionable, it needs to satisfy a few conditions. For example, if the query execution plan contains a distributed union operator, then it must be the first operator in the plan. For more information about other conditions, see [sessions.read data in parallel](https://cloud.google.com/spanner/docs/reads#read_data_in_parallel) .
 
-The query request must not contain DML commands, such as `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` . Use `  sessions.executeStreamingSql  ` with a `  PartitionedDml  ` transaction for large, partition-friendly DML operations.
+The query request must not contain DML commands, such as `INSERT` , `UPDATE` , or `DELETE` . Use `  sessions.executeStreamingSql ` with a `PartitionedDml` transaction for large, partition-friendly DML operations.
 
-`  params  `
+`params`
 
-`  object ( Struct  ` format)
+` object ( Struct  ` format)
 
 Optional. Parameter names and values that bind to placeholders in the SQL string.
 
-A parameter placeholder consists of the `  @  ` character followed by the parameter name (for example, `  @firstName  ` ). Parameter names can contain letters, numbers, and underscores.
+A parameter placeholder consists of the `@` character followed by the parameter name (for example, `@firstName` ). Parameter names can contain letters, numbers, and underscores.
 
 Parameters can appear anywhere that a literal value is expected. The same parameter name can be used more than once, for example:
 
-`  "WHERE id > @msg_id AND id < @msg_id + 100"  `
+`"WHERE id > @msg_id AND id < @msg_id + 100"`
 
 It's an error to execute a SQL statement with unbound parameters.
 
-`  paramTypes  `
+`paramTypes`
 
-`  map (key: string, value: object ( Type  ` ))
+` map (key: string, value: object ( Type  ` ))
 
-Optional. It isn't always possible for Cloud Spanner to infer the right SQL type from a JSON value. For example, values of type `  BYTES  ` and values of type `  STRING  ` both appear in `  params  ` as JSON strings.
+Optional. It isn't always possible for Cloud Spanner to infer the right SQL type from a JSON value. For example, values of type `BYTES` and values of type `STRING` both appear in `  params  ` as JSON strings.
 
-In these cases, `  paramTypes  ` can be used to specify the exact SQL type for some or all of the SQL query parameters. See the definition of `  Type  ` for more information about SQL types.
+In these cases, `paramTypes` can be used to specify the exact SQL type for some or all of the SQL query parameters. See the definition of `  Type  ` for more information about SQL types.
 
-`  partitionOptions  `
+`partitionOptions`
 
-`  object ( PartitionOptions  ` )
+` object ( PartitionOptions  ` )
 
 Additional options that affect how many partitions are created.
 
@@ -152,7 +135,7 @@ If successful, the response body contains an instance of `  PartitionResponse  `
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.data  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.data`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

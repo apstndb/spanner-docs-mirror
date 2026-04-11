@@ -18,7 +18,7 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
@@ -41,7 +41,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -51,9 +51,9 @@ See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manag
 
 The samples repository contains a sample that shows how to use Spanner with JDBC.
 
-The `  pom.xml  ` adds the Spanner JDBC driver to the project's dependencies and configures the assembly plugin to build an executable JAR file with the Java class defined in this tutorial.
+The `pom.xml` adds the Spanner JDBC driver to the project's dependencies and configures the assembly plugin to build an executable JAR file with the Java class defined in this tutorial.
 
-Build the sample from the [`  samples/snippets  ` directory](https://github.com/googleapis/java-spanner-jdbc/blob/-/samples/snippets) :
+Build the sample from the [`samples/snippets` directory](https://github.com/googleapis/java-spanner-jdbc/blob/-/samples/snippets) :
 
     mvn package -DskipTests
 
@@ -174,7 +174,7 @@ The next step is to write data to your database.
 
 ## Create a JDBC connection
 
-Before you can do reads or writes, you must create a [`  Connection  `](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html) . All of your interactions with Spanner must go through a `  Connection  ` . The database name and other properties are specified in the JDBC connection URL and the `  java.util.Properties  ` set.
+Before you can do reads or writes, you must create a [`Connection`](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html) . All of your interactions with Spanner must go through a `Connection` . The database name and other properties are specified in the JDBC connection URL and the `java.util.Properties` set.
 
 ### GoogleSQL
 
@@ -230,18 +230,18 @@ Before you can do reads or writes, you must create a [`  Connection  `](https://
 
 For a full list of supported properties, see [Connection URL Properties](https://github.com/googleapis/java-spanner-jdbc?tab=readme-ov-file#connection-url-properties) .
 
-Each `  Connection  ` uses resources, so it is good practice to either close connections when they are no longer needed, or to use a connection pool to re-use connections throughout your application.
+Each `Connection` uses resources, so it is good practice to either close connections when they are no longer needed, or to use a connection pool to re-use connections throughout your application.
 
-Read more in the [`  Connection  `](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html) Javadoc reference.
+Read more in the [`Connection`](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html) Javadoc reference.
 
 ### Connect the JDBC driver to the emulator
 
 You can connect the JDBC driver to the Spanner emulator in two ways:
 
-  - Set the `  SPANNER_EMULATOR_HOST  ` environment variable: This instructs the JDBC driver to connect to the emulator. The Spanner instance and database in the JDBC connection URL must already exist on the emulator.
-  - Add `  autoConfigEmulator=true  ` to the connection URL: This instructs the JDBC driver to connect to the emulator, and to automatically create the Spanner instance and database in the JDBC connection URL if these don't exist.
+  - Set the `SPANNER_EMULATOR_HOST` environment variable: This instructs the JDBC driver to connect to the emulator. The Spanner instance and database in the JDBC connection URL must already exist on the emulator.
+  - Add `autoConfigEmulator=true` to the connection URL: This instructs the JDBC driver to connect to the emulator, and to automatically create the Spanner instance and database in the JDBC connection URL if these don't exist.
 
-This example shows how to use the `  autoConfigEmulator=true  ` connection URL option.
+This example shows how to use the `autoConfigEmulator=true` connection URL option.
 
 ### GoogleSQL
 
@@ -303,7 +303,7 @@ This example shows how to use the `  autoConfigEmulator=true  ` connection URL o
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
-You use the `  PreparedStatement.executeUpdate()  ` method to execute a DML statement.
+You use the `PreparedStatement.executeUpdate()` method to execute a DML statement.
 
 ### GoogleSQL
 
@@ -415,9 +415,9 @@ You should see:
 
 ## Write data with a DML batch
 
-You use the `  PreparedStatement#addBatch()  ` and `  PreparedStatement#executeBatch()  ` methods to execute multiple DML statements in one batch.
+You use the `PreparedStatement#addBatch()` and `PreparedStatement#executeBatch()` methods to execute multiple DML statements in one batch.
 
-**Tip:** You can also execute DML batches with the [`  START BATCH DML  ` command](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_batch_dml) .
+**Tip:** You can also execute DML batches with the [`START BATCH DML` command](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_batch_dml) .
 
 ### GoogleSQL
 
@@ -525,13 +525,13 @@ You should see:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-You can write data using a [`  Mutation  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation) object. A `  Mutation  ` object is a container for mutation operations. A `  Mutation  ` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
+You can write data using a [`Mutation`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation) object. A `Mutation` object is a container for mutation operations. A `Mutation` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
 
-The [`  newInsertBuilder()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertBuilder_java_lang_String_) method in the `  Mutation  ` class constructs an `  INSERT  ` mutation, which inserts a new row in a table. If the row already exists, the write fails. Alternatively, you can use the [`  newInsertOrUpdateBuilder  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertOrUpdateBuilder_java_lang_String_) method to construct an `  INSERT_OR_UPDATE  ` mutation, which updates column values if the row already exists.
+The [`newInsertBuilder()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertBuilder_java_lang_String_) method in the `Mutation` class constructs an `INSERT` mutation, which inserts a new row in a table. If the row already exists, the write fails. Alternatively, you can use the [`newInsertOrUpdateBuilder`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertOrUpdateBuilder_java_lang_String_) method to construct an `INSERT_OR_UPDATE` mutation, which updates column values if the row already exists.
 
-The [`  write()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner-jdbc/latest/com.google.cloud.spanner.jdbc.CloudSpannerJdbcConnection#com_google_cloud_spanner_jdbc_CloudSpannerJdbcConnection_write_com_google_cloud_spanner_Mutation_) method in the `  CloudSpannerJdbcConnection  ` interface writes the mutations. All mutations in a single batch are applied atomically.
+The [`write()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner-jdbc/latest/com.google.cloud.spanner.jdbc.CloudSpannerJdbcConnection#com_google_cloud_spanner_jdbc_CloudSpannerJdbcConnection_write_com_google_cloud_spanner_Mutation_) method in the `CloudSpannerJdbcConnection` interface writes the mutations. All mutations in a single batch are applied atomically.
 
-You can unwrap the `  CloudSpannerJdbcConnection  ` interface from a Spanner JDBC `  Connection  ` .
+You can unwrap the `CloudSpannerJdbcConnection` interface from a Spanner JDBC `Connection` .
 
 This code shows how to write the data using mutations:
 
@@ -689,7 +689,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
 ### GoogleSQL
 
@@ -718,10 +718,10 @@ In addition to executing a SQL statement on the command line, you can issue the 
 
 The following methods and classes are used to run the SQL query:
 
-  - The [`  createStatement()  `](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html#createStatement--) method in the `  Connection  ` interface: use this to create a new statement object for running a SQL statement.
-  - The [`  executeQuery(String)  `](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html#executeQuery-java.lang.String-) method of the `  Statement  ` class: use this method to execute a query against a database.
-  - The [`  Statement  `](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html) class: use this to execute a SQL string.
-  - The [`  ResultSet  `](https://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html) class: use this to access the data returned by a SQL statement.
+  - The [`createStatement()`](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html#createStatement--) method in the `Connection` interface: use this to create a new statement object for running a SQL statement.
+  - The [`executeQuery(String)`](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html#executeQuery-java.lang.String-) method of the `Statement` class: use this method to execute a query against a database.
+  - The [`Statement`](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html) class: use this to execute a SQL string.
+  - The [`ResultSet`](https://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html) class: use this to access the data returned by a SQL statement.
 
 Here's how to issue the query and access the data:
 
@@ -809,9 +809,9 @@ You should see the following result:
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
-Use a [`  java.sql.PreparedStatement  `](https://docs.oracle.com/javase/8/docs/api/java/sql/PreparedStatement.html) to execute a query with a parameter.
+Use a [`java.sql.PreparedStatement`](https://docs.oracle.com/javase/8/docs/api/java/sql/PreparedStatement.html) to execute a query with a parameter.
 
 ### GoogleSQL
 
@@ -895,7 +895,7 @@ You should see the following result:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -903,7 +903,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
 ### GoogleSQL
 
@@ -921,7 +921,7 @@ You should see:
 
 #### Use the Spanner JDBC driver
 
-Use the [`  execute(String)  `](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html#execute-java.lang.String-) method of the `  java.sql.Statement  ` class to modify the schema:
+Use the [`execute(String)`](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html#execute-java.lang.String-) method of the `java.sql.Statement` class to modify the schema:
 
 ### GoogleSQL
 
@@ -981,9 +981,9 @@ You should see:
 
 ### Execute a DDL batch
 
-We recommend that you execute multiple schema modifications in one batch. Use the [`  addBatch(String)  `](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html#addBatch-java.lang.String-) method of `  java.sql.Statement  ` to add multiple DDL statements to a batch.
+We recommend that you execute multiple schema modifications in one batch. Use the [`addBatch(String)`](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html#addBatch-java.lang.String-) method of `java.sql.Statement` to add multiple DDL statements to a batch.
 
-**Tip:** You can also execute DDL batches with the [`  START BATCH DDL  ` command](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_batch_ddl) .
+**Tip:** You can also execute DDL batches with the [`START BATCH DDL` command](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_batch_ddl) .
 
 ### GoogleSQL
 
@@ -1081,7 +1081,7 @@ You should see:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
 ### GoogleSQL
 
@@ -1287,7 +1287,7 @@ The result shows:
 
 You can update data using DML in a read-write transaction.
 
-Set `  AutoCommit=false  ` to execute read-write transactions in JDBC.
+Set `AutoCommit=false` to execute read-write transactions in JDBC.
 
 ### GoogleSQL
 
@@ -1484,7 +1484,7 @@ Run the sample with this command:
 
 ### Transaction tags and request tags
 
-Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to troubleshoot transactions and queries in Spanner. You can set transaction tags and request tags in the JDBC with the `  TRANSACTION_TAG  ` and `  STATEMENT_TAG  ` session variables.
+Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to troubleshoot transactions and queries in Spanner. You can set transaction tags and request tags in the JDBC with the `TRANSACTION_TAG` and `STATEMENT_TAG` session variables.
 
 ### GoogleSQL
 
@@ -1634,7 +1634,7 @@ Run the sample with this command:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Set `  ReadOnly=true  ` and `  AutoCommit=false  ` on a `  java.sql.Connection  ` , or use the `  SET TRANSACTION READ ONLY  ` SQL statement, to execute a read-only transaction.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Set `ReadOnly=true` and `AutoCommit=false` on a `java.sql.Connection` , or use the `SET TRANSACTION READ ONLY` SQL statement, to execute a read-only transaction.
 
 **Tip:** The JDBC driver supports multiple additional SQL statements for executing specific types of transactions and batches, and for accessing specific Spanner features. For a full list of supported statements, see [JDBC session management commands (GoogleSQL)](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands) or [JDBC session management commands (PostgreSQL)](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat) .
 
@@ -1777,7 +1777,7 @@ You should see output similar to:
 
 ### Partitioned queries and Data Boost
 
-The [`  partitionQuery  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) API divides a query into smaller pieces, or partitions, and uses multiple machines to fetch the partitions in parallel. Each partition is identified by a partition token. The PartitionQuery API has higher latency than the standard query API, because it is only intended for bulk operations such as exporting or scanning the whole database.
+The [`partitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) API divides a query into smaller pieces, or partitions, and uses multiple machines to fetch the partitions in parallel. Each partition is identified by a partition token. The PartitionQuery API has higher latency than the standard query API, because it is only intended for bulk operations such as exporting or scanning the whole database.
 
 [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) lets you execute analytics queries and data exports with near-zero impact to existing workloads on the provisioned Spanner instance. Data Boost only supports [partitioned queries](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) .
 
@@ -1945,7 +1945,7 @@ Run the sample with this command:
     java -jar target/jdbc-snippets/jdbc-samples.jar \
     pdmlpg test-instance example-db
 
-For more information on `  AUTOCOMMIT_DML_MODE  ` , see:
+For more information on `AUTOCOMMIT_DML_MODE` , see:
 
   - [GoogleSQL AUTOCOMMIT\_DML\_MODE](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#autocommit_dml_mode)
   - [PostgreSQL SPANNER.AUTOCOMMIT\_DML\_MODE](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat#spannerautocommit_dml_mode)

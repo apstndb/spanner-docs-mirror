@@ -17,65 +17,46 @@ A modification to one or more Cloud Spanner rows. Mutations can be applied to a 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-
-  // Union field operation can be only one of the following:
-  &quot;insert&quot;: {
-    object (Write)
-  },
-  &quot;update&quot;: {
-    object (Write)
-  },
-  &quot;insertOrUpdate&quot;: {
-    object (Write)
-  },
-  &quot;replace&quot;: {
-    object (Write)
-  },
-  &quot;delete&quot;: {
-    object (Delete)
-  }
-  // End of list of possible types for union field operation.
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{// Union field operation can be only one of the following:&quot;insert&quot;: {object (Write)},&quot;update&quot;: {object (Write)},&quot;insertOrUpdate&quot;: {object (Write)},&quot;replace&quot;: {object (Write)},&quot;delete&quot;: {object (Delete)}// End of list of possible types for union field operation.}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-Union field `  operation  ` . Required. The operation to perform. `  operation  ` can be only one of the following:
+Union field `operation` . Required. The operation to perform. `operation` can be only one of the following:
 
-`  insert  `
+`insert`
 
-`  object ( Write  ` )
+` object ( Write  ` )
 
-Insert new rows in a table. If any of the rows already exist, the write or transaction fails with error `  ALREADY_EXISTS  ` .
+Insert new rows in a table. If any of the rows already exist, the write or transaction fails with error `ALREADY_EXISTS` .
 
-`  update  `
+`update`
 
-`  object ( Write  ` )
+` object ( Write  ` )
 
-Update existing rows in a table. If any of the rows does not already exist, the transaction fails with error `  NOT_FOUND  ` .
+Update existing rows in a table. If any of the rows does not already exist, the transaction fails with error `NOT_FOUND` .
 
-`  insertOrUpdate  `
+`insertOrUpdate`
 
-`  object ( Write  ` )
+` object ( Write  ` )
 
 Like `  insert  ` , except that if the row already exists, then its column values are overwritten with the ones provided. Any column values not explicitly written are preserved.
 
-When using `  insertOrUpdate  ` , just as when using `  insert  ` , all `  NOT NULL  ` columns in the table must be given a value. This holds true even when the row already exists and will therefore actually be updated.
+When using `  insertOrUpdate  ` , just as when using `  insert  ` , all `NOT NULL` columns in the table must be given a value. This holds true even when the row already exists and will therefore actually be updated.
 
-`  replace  `
+`replace`
 
-`  object ( Write  ` )
+` object ( Write  ` )
 
-Like `  insert  ` , except that if the row already exists, it is deleted, and the column values provided are inserted instead. Unlike `  insertOrUpdate  ` , this means any values not explicitly written become `  NULL  ` .
+Like `  insert  ` , except that if the row already exists, it is deleted, and the column values provided are inserted instead. Unlike `  insertOrUpdate  ` , this means any values not explicitly written become `NULL` .
 
-In an interleaved table, if you create the child table with the `  ON DELETE CASCADE  ` annotation, then replacing a parent row also deletes the child rows. Otherwise, you must delete the child rows before you replace the parent row.
+In an interleaved table, if you create the child table with the `ON DELETE CASCADE` annotation, then replacing a parent row also deletes the child rows. Otherwise, you must delete the child rows before you replace the parent row.
 
-`  delete  `
+`delete`
 
-`  object ( Delete  ` )
+` object ( Delete  ` )
 
 Delete rows from a table. Succeeds whether or not the named rows were present.
 
@@ -109,25 +90,25 @@ Arguments to `  insert  ` , `  update  ` , `  insertOrUpdate  ` , and `  replace
 
 Fields
 
-`  table  `
+`table`
 
-`  string  `
+`string`
 
 Required. The table whose rows will be written.
 
-`  columns[]  `
+`columns[]`
 
-`  string  `
+`string`
 
 The names of the columns in `  table  ` to be written.
 
 The list of columns must contain enough columns to allow Cloud Spanner to derive values for all primary key columns in the row(s) to be modified.
 
-`  values[]  `
+`values[]`
 
-`  array ( ListValue  ` format)
+` array ( ListValue  ` format)
 
-The values to be written. `  values  ` can contain more than one list of values. If it does, then multiple rows are written, one for each entry in `  values  ` . Each list in `  values  ` must have exactly as many entries as there are entries in `  columns  ` above. Sending multiple lists is equivalent to sending multiple `  Mutation  ` s, each containing one `  values  ` entry and repeating `  table  ` and `  columns  ` . Individual values in each list are encoded as described `  here  ` .
+The values to be written. `values` can contain more than one list of values. If it does, then multiple rows are written, one for each entry in `values` . Each list in `values` must have exactly as many entries as there are entries in `  columns  ` above. Sending multiple lists is equivalent to sending multiple `Mutation` s, each containing one `values` entry and repeating `  table  ` and `  columns  ` . Individual values in each list are encoded as described `  here  ` .
 
 ## Delete
 
@@ -144,26 +125,21 @@ Arguments to `  delete  ` operations.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;table&quot;: string,
-  &quot;keySet&quot;: {
-    object (KeySet)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;table&quot;: string,&quot;keySet&quot;: {object (KeySet)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  table  `
+`table`
 
-`  string  `
+`string`
 
 Required. The table whose rows will be deleted.
 
-`  keySet  `
+`keySet`
 
-`  object ( KeySet  ` )
+` object ( KeySet  ` )
 
-Required. The primary keys of the rows within `  table  ` to delete. The primary keys must be specified in the order in which they appear in the `  PRIMARY KEY()  ` clause of the table's equivalent DDL statement (the DDL statement used to create the table). Delete is idempotent. The transaction will succeed even if some or all rows do not exist.
+Required. The primary keys of the rows within `  table  ` to delete. The primary keys must be specified in the order in which they appear in the `PRIMARY KEY()` clause of the table's equivalent DDL statement (the DDL statement used to create the table). Delete is idempotent. The transaction will succeed even if some or all rows do not exist.

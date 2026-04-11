@@ -1,10 +1,10 @@
-This page describes how to work with the `  JSONB  ` data type when using Spanner.
+This page describes how to work with the `JSONB` data type when using Spanner.
 
-`  JSONB  ` is a PostgreSQL data type used for holding semi-structured data in the Spanner PostgreSQL dialect. `  JSONB  ` holds data in JavaScript Object Notation (JSON) format, which follows the specification described in [RFC 7159](https://tools.ietf.org/pdf/rfc7159.pdf) .
+`JSONB` is a PostgreSQL data type used for holding semi-structured data in the Spanner PostgreSQL dialect. `JSONB` holds data in JavaScript Object Notation (JSON) format, which follows the specification described in [RFC 7159](https://tools.ietf.org/pdf/rfc7159.pdf) .
 
 ## Specifications
 
-The Spanner `  JSONB  ` data type stores a normalized representation of the input document. This implies the following:
+The Spanner `JSONB` data type stores a normalized representation of the input document. This implies the following:
 
   - Quotation marks and whitespace characters are not preserved.
 
@@ -12,12 +12,12 @@ The Spanner `  JSONB  ` data type stores a normalized representation of the inpu
 
   - Object keys are sorted first by key length and then lexicographically by the equivalent object key length. If there are duplicate object keys, only the last one is preserved.
 
-  - Primitive types ( `  string  ` , `  boolean  ` , `  number  ` , and `  null  ` ) have their type and value preserved.
+  - Primitive types ( `string` , `boolean` , `number` , and `null` ) have their type and value preserved.
     
-      - `  string  ` type values are preserved exactly.
-      - Trailing zeros are preserved. The output format for `  number  ` type values does not use scientific notation.
+      - `string` type values are preserved exactly.
+      - Trailing zeros are preserved. The output format for `number` type values does not use scientific notation.
 
-  - `  JSONB  ` `  null  ` values are treated as SQL non- `  NULL  ` . For example:
+  - `JSONB` `null` values are treated as SQL non- `NULL` . For example:
     
         SELECT null::jsonb IS NULL;  -- Returns true
         SELECT 'null'::jsonb IS NULL; -- Returns false
@@ -32,16 +32,16 @@ The Spanner `  JSONB  ` data type stores a normalized representation of the inpu
 
 ### Restrictions
 
-The following restrictions apply with Spanner `  JSONB  ` :
+The following restrictions apply with Spanner `JSONB` :
 
-  - Arguments to the `  to_jsonb  ` function can be only from the PostgreSQL data types that Spanner supports.
+  - Arguments to the `to_jsonb` function can be only from the PostgreSQL data types that Spanner supports.
   - Number type values can have 4,932 digits before the decimal point and 16,383 digits after the decimal point.
   - The maximum permitted size of the normalized storage format is 10 MB.
-  - `  JSONB  ` documents must be encoded in UTF-8. Transactions or queries with `  JSONB  ` documents encoded in other formats return an error.
+  - `JSONB` documents must be encoded in UTF-8. Transactions or queries with `JSONB` documents encoded in other formats return an error.
 
 ## Create a table with JSONB columns
 
-You can add a `  JSONB  ` column to a table when you create the table.
+You can add a `JSONB` column to a table when you create the table.
 
     CREATE TABLE Venues (
      VenueId   BIGINT PRIMARY KEY,
@@ -51,7 +51,7 @@ You can add a `  JSONB  ` column to a table when you create the table.
      DateOpened  TIMESTAMPTZ
     );
 
-A sample `  VenueFeatures  ` `  JSONB  ` object follows:
+A sample `VenueFeatures` `JSONB` object follows:
 
     {
         "rating": 4.5,
@@ -67,12 +67,12 @@ A sample `  VenueFeatures  ` `  JSONB  ` object follows:
 
 ## Add and remove JSONB columns from existing tables
 
-You can add a `  JSONB  ` column and drop it by using `  ALTER  ` statements as follows:
+You can add a `JSONB` column and drop it by using `ALTER` statements as follows:
 
     ALTER TABLE Venues ADD COLUMN VenueDetails JSONB;
     ALTER TABLE Venues DROP COLUMN VenueDetails;
 
-The following sample shows how to add a `  JSONB  ` column called `  VenueDetails  ` to the `  Venues  ` table using Spanner client libraries.
+The following sample shows how to add a `JSONB` column called `VenueDetails` to the `Venues` table using Spanner client libraries.
 
 ### C++
 
@@ -355,14 +355,14 @@ The following sample shows how to add a `  JSONB  ` column called `  VenueDetail
 
 ## Modify JSONB data
 
-You can modify a `  JSONB  ` column just like any other column.
+You can modify a `JSONB` column just like any other column.
 
 An example follows:
 
     UPDATE Venues SET VenueFeatures = '{"rating": 4.5, "tags":["multi-cuisine", "open-seating"] }'
       WHERE VenueId = 1;
 
-The following sample shows how to update `  JSONB  ` data using Spanner client libraries.
+The following sample shows how to update `JSONB` data using Spanner client libraries.
 
 ### C++
 
@@ -890,7 +890,7 @@ You can accelerate querying JSONB data by using [secondary indexes](https://docs
 
 Secondary indexes are useful when filtering against scalar values within a JSONB document. To use secondary indexes with JSONB, create a [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) that extracts the relevant scalar data and casts it to an appropriate SQL data type. You can then create a secondary index over this generated column. The index accelerates eligible queries that run against the generated column.
 
-In the following example, you create a `  VenuesByCapacity  ` index that the database uses to find the venues with capacities greater than 1000. Instead of checking every row, Spanner uses the index to locate the relevant rows, which improves query performance, especially for large tables.
+In the following example, you create a `VenuesByCapacity` index that the database uses to find the venues with capacities greater than 1000. Instead of checking every row, Spanner uses the index to locate the relevant rows, which improves query performance, especially for large tables.
 
     ALTER TABLE Venues (
     ADD COLUMN VenueCapacity BIGINT GENERATED ALWAYS AS ((VenueFeatures->>'capacity')::BIGINT) VIRTUAL,
@@ -909,7 +909,7 @@ In the following example, you create a `  VenuesByCapacity  ` index that the dat
 
 Search indexes are useful when you query against JSONB documents that are dynamic or varied. Unlike secondary indexes, you can [create search indexes](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_search_index) over any JSONB document stored in a JSONB column. The search index automatically adapts to variations across JSON documents, between different rows, and over time.
 
-In the following example, you create a `  VenuesByVenueDetails  ` search index that the database uses to find the venues with specific details such as size and operating schedule. Instead of checking every row, Spanner uses the index to locate the relevant rows, which improves query performance, especially for large tables.
+In the following example, you create a `VenuesByVenueDetails` search index that the database uses to find the venues with specific details such as size and operating schedule. Instead of checking every row, Spanner uses the index to locate the relevant rows, which improves query performance, especially for large tables.
 
     ALTER TABLE Venues
     ADD COLUMN VenueDetails_Tokens spanner.tokenlist
@@ -926,13 +926,13 @@ For more information, see [JSON search indexes](https://docs.cloud.google.com/sp
 
 ## Query JSONB data
 
-You can query `  JSONB  ` columns based on the values of the underlying fields. The following example extracts `  VenueId  ` and `  VenueName  ` from `  Venues  ` where `  VenueFeatures  ` has a `  rating  ` value greater than `  3.5  ` .
+You can query `JSONB` columns based on the values of the underlying fields. The following example extracts `VenueId` and `VenueName` from `Venues` where `VenueFeatures` has a `rating` value greater than `3.5` .
 
     SELECT VenueId, VenueName
     FROM Venues
     WHERE (VenueFeatures->>'rating')::FLOAT8 > 3.5;
 
-The following sample shows how to query `  JSONB  ` data using Spanner client libraries.
+The following sample shows how to query `JSONB` data using Spanner client libraries.
 
 ### C++
 
@@ -1276,7 +1276,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## Unsupported PostgreSQL JSONB features
 
-The following open source PostgreSQL `  JSONB  ` features aren't supported on Spanner `  JSONB  ` :
+The following open source PostgreSQL `JSONB` features aren't supported on Spanner `JSONB` :
 
   - Ordering, comparison, and aggregation
 
@@ -1284,11 +1284,11 @@ The following open source PostgreSQL `  JSONB  ` features aren't supported on Sp
 
   - Indexing, including the GIN index. You can use a Spanner search index instead, which accelerates the same JSONB operations as a GIN index. For more information, see [Index JSON data](https://docs.cloud.google.com/spanner/docs/working-with-jsonb#index) .
 
-  - Altering a `  JSONB  ` column to or from any other data type
+  - Altering a `JSONB` column to or from any other data type
 
   - Using parameterized queries with untyped JSONB parameters in tools that use the PostgreSQL wire protocol
 
-  - Using coercion in the query engine. Unlike open source PostgreSQL, implicit coercion from `  JSONB  ` to text isn't supported. You must use explicit casting from the `  JSONB  ` type to match function signatures. For example:
+  - Using coercion in the query engine. Unlike open source PostgreSQL, implicit coercion from `JSONB` to text isn't supported. You must use explicit casting from the `JSONB` type to match function signatures. For example:
     
     ``` 
         SELECT concat('abc'::text,  '{"key1":1}'::jsonb);  -- Returns error

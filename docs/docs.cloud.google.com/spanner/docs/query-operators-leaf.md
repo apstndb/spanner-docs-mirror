@@ -105,7 +105,7 @@ The following query demonstrates this operator:
      | 3 | 2 |
      +---+---*/
 
-The query flattens the array `  [1,2,3]  ` in column `  a  ` and shows the array position in column `  b  ` .
+The query flattens the array `[1,2,3]` in column `a` and shows the array position in column `b` .
 
 The execution plan appears as follows:
 
@@ -249,9 +249,9 @@ A *scan* operator scans a source of rows and returns them. These are the types o
 
 Whenever possible, Spanner applies predicates on keys as part of a scan. Scans execute more efficiently when Spanner applies predicates, because the scan does not need to read the entire table or index. Predicates appear in the execution plan as:
 
-  - Seekable condition: The seekable condition applies if Spanner can determine a specific row to access in the table. In general, this happens when the filter is on a prefix of the primary key. For example, if the primary key consists of `  Col1  ` and `  Col2  ` , then a `  WHERE  ` clause that includes explicit values for `  Col1  ` , or `  Col1  ` and `  Col2  ` is seekable. In that case, Spanner reads data only within the key range.
+  - Seekable condition: The seekable condition applies if Spanner can determine a specific row to access in the table. In general, this happens when the filter is on a prefix of the primary key. For example, if the primary key consists of `Col1` and `Col2` , then a `WHERE` clause that includes explicit values for `Col1` , or `Col1` and `Col2` is seekable. In that case, Spanner reads data only within the key range.
 
-If a query must look up all rows in a table, a full scan occurs, which appears in the execution plan as `  full scan: true  ` .
+If a query must look up all rows in a table, a full scan occurs, which appears in the execution plan as `full scan: true` .
 
 The following query demonstrates this operator:
 
@@ -269,7 +269,7 @@ The execution plan segment appears as follows:
 
 ![Scan operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/scan_operator.png)
 
-In the execution plan, the top-level [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) operator sends subplans to remote servers. Each subplan has a [serialize result](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result) operator and an index scan operator. The predicate `  Key Predicate: FirstName = 'Catalina'  ` restricts the scan to rows in the index `  SingersByFirstLastname  ` that have `  FirstName  ` equal to `  Catalina  ` . The index scan returns the output to the serialize result operator.
+In the execution plan, the top-level [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) operator sends subplans to remote servers. Each subplan has a [serialize result](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result) operator and an index scan operator. The predicate `Key Predicate: FirstName = 'Catalina'` restricts the scan to rows in the index `SingersByFirstLastname` that have `FirstName` equal to `Catalina` . The index scan returns the output to the serialize result operator.
 
 Spanner tightly couples scans with [Filter Scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#filter_scan) and considers them a single operator. If there is no **Seek Condition** , the operator shows as Full Scan.
 
@@ -284,7 +284,7 @@ Properties
 | Name                | Description                                                                                                                                                                                                                                                                                            |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Scan method         | Can be **Row** , **Batch** , or **Automatic** . In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. In Automatic execution, the operator starts scanning using the **Row** method but can change to **Batch** when needed. |
-| Seek condition      | A predicate on the primary key used to perform efficient lookups of a table. This property means that the entire table doesn't need to be scanned to produce the wanted set of rows. This property is only applicable to `          Table Scans         ` and `          Index Scans         ` .       |
+| Seek condition      | A predicate on the primary key used to perform efficient lookups of a table. This property means that the entire table doesn't need to be scanned to produce the wanted set of rows. This property is only applicable to `Table Scans` and `Index Scans` .                                             |
 | Variable assignment | List of the columns read from the table.                                                                                                                                                                                                                                                               |
 | Execution method    | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once.                                                                                                                                                                        |
 

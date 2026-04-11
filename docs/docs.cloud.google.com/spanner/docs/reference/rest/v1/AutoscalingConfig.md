@@ -21,40 +21,28 @@ Autoscaling configuration for an instance.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;autoscalingLimits&quot;: {
-    object (AutoscalingLimits)
-  },
-  &quot;autoscalingTargets&quot;: {
-    object (AutoscalingTargets)
-  },
-  &quot;asymmetricAutoscalingOptions&quot;: [
-    {
-      object (AsymmetricAutoscalingOption)
-    }
-  ]
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;autoscalingLimits&quot;: {object (AutoscalingLimits)},&quot;autoscalingTargets&quot;: {object (AutoscalingTargets)},&quot;asymmetricAutoscalingOptions&quot;: [{object (AsymmetricAutoscalingOption)}]}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  autoscalingLimits  `
+`autoscalingLimits`
 
-`  object ( AutoscalingLimits  ` )
+` object ( AutoscalingLimits  ` )
 
 Required. Autoscaling limits for an instance.
 
-`  autoscalingTargets  `
+`autoscalingTargets`
 
-`  object ( AutoscalingTargets  ` )
+` object ( AutoscalingTargets  ` )
 
 Required. The autoscaling targets for an instance.
 
-`  asymmetricAutoscalingOptions[]  `
+`asymmetricAutoscalingOptions[]`
 
-`  object ( AsymmetricAutoscalingOption  ` )
+` object ( AsymmetricAutoscalingOption  ` )
 
 Optional. Optional asymmetric autoscaling options. Replicas matching the replica selection criteria will be autoscaled independently from other replicas. The autoscaler will scale the replicas based on the utilization of replicas identified by the replica selection. Replica selections should not overlap with each other.
 
@@ -75,49 +63,38 @@ The autoscaling limits for the instance. Users can define the minimum and maximu
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-
-  // Union field min_limit can be only one of the following:
-  &quot;minNodes&quot;: integer,
-  &quot;minProcessingUnits&quot;: integer
-  // End of list of possible types for union field min_limit.
-
-  // Union field max_limit can be only one of the following:
-  &quot;maxNodes&quot;: integer,
-  &quot;maxProcessingUnits&quot;: integer
-  // End of list of possible types for union field max_limit.
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{// Union field min_limit can be only one of the following:&quot;minNodes&quot;: integer,&quot;minProcessingUnits&quot;: integer// End of list of possible types for union field min_limit.// Union field max_limit can be only one of the following:&quot;maxNodes&quot;: integer,&quot;maxProcessingUnits&quot;: integer// End of list of possible types for union field max_limit.}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-Union field `  min_limit  ` . The minimum compute capacity for the instance. `  min_limit  ` can be only one of the following:
+Union field `min_limit` . The minimum compute capacity for the instance. `min_limit` can be only one of the following:
 
-`  minNodes  `
+`minNodes`
 
-`  integer  `
+`integer`
 
 Minimum number of nodes allocated to the instance. If set, this number should be greater than or equal to 1.
 
-`  minProcessingUnits  `
+`minProcessingUnits`
 
-`  integer  `
+`integer`
 
 Minimum number of processing units allocated to the instance. If set, this number should be multiples of 1000.
 
-Union field `  max_limit  ` . The maximum compute capacity for the instance. The maximum compute capacity should be less than or equal to 10X the minimum compute capacity. `  max_limit  ` can be only one of the following:
+Union field `max_limit` . The maximum compute capacity for the instance. The maximum compute capacity should be less than or equal to 10X the minimum compute capacity. `max_limit` can be only one of the following:
 
-`  maxNodes  `
+`maxNodes`
 
-`  integer  `
+`integer`
 
 Maximum number of nodes allocated to the instance. If set, this number should be greater than or equal to minNodes.
 
-`  maxProcessingUnits  `
+`maxProcessingUnits`
 
-`  integer  `
+`integer`
 
 Maximum number of processing units allocated to the instance. If set, this number should be multiples of 1000 and be greater than or equal to minProcessingUnits.
 
@@ -147,21 +124,21 @@ The autoscaling targets for an instance.
 
 Fields
 
-`  highPriorityCpuUtilizationPercent  `
+`highPriorityCpuUtilizationPercent`
 
-`  integer  `
+`integer`
 
 Optional. The target high priority cpu utilization percentage that the autoscaler should be trying to achieve for the instance. This number is on a scale from 0 (no utilization) to 100 (full utilization). The valid range is \[10, 90\] inclusive. If not specified or set to 0, the autoscaler skips scaling based on high priority CPU utilization.
 
-`  totalCpuUtilizationPercent  `
+`totalCpuUtilizationPercent`
 
-`  integer  `
+`integer`
 
-Optional. The target total CPU utilization percentage that the autoscaler should be trying to achieve for the instance. This number is on a scale from 0 (no utilization) to 100 (full utilization). The valid range is \[10, 90\] inclusive. If not specified or set to 0, the autoscaler skips scaling based on total CPU utilization. If both `  highPriorityCpuUtilizationPercent  ` and `  totalCpuUtilizationPercent  ` are specified, the autoscaler provisions the larger of the two required compute capacities to satisfy both targets.
+Optional. The target total CPU utilization percentage that the autoscaler should be trying to achieve for the instance. This number is on a scale from 0 (no utilization) to 100 (full utilization). The valid range is \[10, 90\] inclusive. If not specified or set to 0, the autoscaler skips scaling based on total CPU utilization. If both `highPriorityCpuUtilizationPercent` and `totalCpuUtilizationPercent` are specified, the autoscaler provisions the larger of the two required compute capacities to satisfy both targets.
 
-`  storageUtilizationPercent  `
+`storageUtilizationPercent`
 
-`  integer  `
+`integer`
 
 Required. The target storage utilization percentage that the autoscaler should be trying to achieve for the instance. This number is on a scale from 0 (no utilization) to 100 (full utilization). The valid range is \[10, 99\] inclusive.
 
@@ -180,35 +157,28 @@ AsymmetricAutoscalingOption specifies the scaling of replicas identified by the 
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;replicaSelection&quot;: {
-    object (ReplicaSelection)
-  },
-  &quot;overrides&quot;: {
-    object (AutoscalingConfigOverrides)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;replicaSelection&quot;: {object (ReplicaSelection)},&quot;overrides&quot;: {object (AutoscalingConfigOverrides)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  replicaSelection  `
+`replicaSelection`
 
-`  object ( ReplicaSelection  ` )
+` object ( ReplicaSelection  ` )
 
 Required. Selects the replicas to which this AsymmetricAutoscalingOption applies. Only read-only replicas are supported.
 
-`  overrides  `
+`overrides`
 
-`  object ( AutoscalingConfigOverrides  ` )
+` object ( AutoscalingConfigOverrides  ` )
 
 Optional. Overrides applied to the top-level autoscaling configuration for the selected replicas.
 
 ## AutoscalingConfigOverrides
 
-Overrides the top-level autoscaling configuration for the replicas identified by `  replicaSelection  ` . All fields in this message are optional. Any unspecified fields will use the corresponding values from the top-level autoscaling configuration.
+Overrides the top-level autoscaling configuration for the replicas identified by `replicaSelection` . All fields in this message are optional. Any unspecified fields will use the corresponding values from the top-level autoscaling configuration.
 
 <table>
 <colgroup>
@@ -221,42 +191,34 @@ Overrides the top-level autoscaling configuration for the replicas identified by
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;autoscalingLimits&quot;: {
-    object (AutoscalingLimits)
-  },
-  &quot;autoscalingTargetHighPriorityCpuUtilizationPercent&quot;: integer,
-  &quot;autoscalingTargetTotalCpuUtilizationPercent&quot;: integer,
-  &quot;disableHighPriorityCpuAutoscaling&quot;: boolean,
-  &quot;disableTotalCpuAutoscaling&quot;: boolean
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;autoscalingLimits&quot;: {object (AutoscalingLimits)},&quot;autoscalingTargetHighPriorityCpuUtilizationPercent&quot;: integer,&quot;autoscalingTargetTotalCpuUtilizationPercent&quot;: integer,&quot;disableHighPriorityCpuAutoscaling&quot;: boolean,&quot;disableTotalCpuAutoscaling&quot;: boolean}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  autoscalingLimits  `
+`autoscalingLimits`
 
-`  object ( AutoscalingLimits  ` )
+` object ( AutoscalingLimits  ` )
 
 Optional. If specified, overrides the min/max limit in the top-level autoscaling configuration for the selected replicas.
 
-`  autoscalingTargetHighPriorityCpuUtilizationPercent  `
+`autoscalingTargetHighPriorityCpuUtilizationPercent`
 
-`  integer  `
+`integer`
 
 Optional. If specified, overrides the autoscaling target highPriorityCpuUtilizationPercent in the top-level autoscaling configuration for the selected replicas.
 
-`  autoscalingTargetTotalCpuUtilizationPercent  `
+`autoscalingTargetTotalCpuUtilizationPercent`
 
-`  integer  `
+`integer`
 
-Optional. If specified, overrides the autoscaling target `  totalCpuUtilizationPercent  ` in the top-level autoscaling configuration for the selected replicas.
+Optional. If specified, overrides the autoscaling target `totalCpuUtilizationPercent` in the top-level autoscaling configuration for the selected replicas.
 
-`  disableHighPriorityCpuAutoscaling  `
+`disableHighPriorityCpuAutoscaling`
 
-`  boolean  `
+`boolean`
 
 Optional. If true, disables high priority CPU autoscaling for the selected replicas and ignores `  highPriorityCpuUtilizationPercent  ` in the top-level autoscaling configuration.
 
@@ -266,9 +228,9 @@ If false, the `  autoscalingTargetHighPriorityCpuUtilizationPercent  ` field in 
 
 Setting both `  disableHighPriorityCpuAutoscaling  ` and `  disableTotalCpuAutoscaling  ` to true for the same replica is not supported.
 
-`  disableTotalCpuAutoscaling  `
+`disableTotalCpuAutoscaling`
 
-`  boolean  `
+`boolean`
 
 Optional. If true, disables total CPU autoscaling for the selected replicas and ignores `  totalCpuUtilizationPercent  ` in the top-level autoscaling configuration.
 

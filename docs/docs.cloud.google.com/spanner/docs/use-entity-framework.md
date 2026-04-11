@@ -23,7 +23,7 @@ To set up the Spanner Entity Framework Core provider in your application, add th
     
     </Project>
 
-As authentication for the Spanner Entity Framework Core provider, the [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location should be provided in the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable. Otherwise, the provider can also use the default credentials set in the Google Cloud CLI `  gcloud  ` application.
+As authentication for the Spanner Entity Framework Core provider, the [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location should be provided in the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. Otherwise, the provider can also use the default credentials set in the Google Cloud CLI `gcloud` application.
 
 ## Use the Spanner Entity Framework Core provider
 

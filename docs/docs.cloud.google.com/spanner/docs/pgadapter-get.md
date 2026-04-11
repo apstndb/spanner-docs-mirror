@@ -1,6 +1,6 @@
 This page explains how to get the PGAdapter binary. PGAdapter is used with PostgreSQL-dialect databases.
 
-  - To run the PGAdapter standalone in the JVM, download the latest `  jar  ` file and a new `  lib  ` directory that contains the required dependencies.
+  - To run the PGAdapter standalone in the JVM, download the latest `jar` file and a new `lib` directory that contains the required dependencies.
     
         wget https://storage.googleapis.com/pgadapter-jar-releases/pgadapter.tar.gz \
           && tar -xzvf pgadapter.tar.gz
@@ -15,7 +15,7 @@ This page explains how to get the PGAdapter binary. PGAdapter is used with Postg
 
   - To use PGAdapter in a process:
     
-    Add `  google-cloud-spanner-pgadapter  ` as a dependency to your project by adding the following code to your `  pom.xml  ` file:
+    Add `google-cloud-spanner-pgadapter` as a dependency to your project by adding the following code to your `pom.xml` file:
     
         <dependency>
           <groupId>com.google.cloud</groupId>

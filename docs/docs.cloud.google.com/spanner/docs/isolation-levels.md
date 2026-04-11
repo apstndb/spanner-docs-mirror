@@ -18,15 +18,15 @@ In Spanner, repeatable read isolation is implemented using a technique commonly 
 
 Unlike serializable isolation, repeatable read might lead to data anomalies if your application relies on specific data relationships or constraints that aren't enforced by the database schema, especially when the order of operations matter. In such cases, a transaction might read data, make decisions based on that data, and then write changes that violate those application-specific constraints, even if the database schema constraints are still met. This happens because repeatable read isolation allows concurrent transactions to proceed without strict serialization. One potential anomaly is known as a *write skew* , which arises from a particular kind of concurrent update, where each update is independently accepted, but their combined effect violates application data integrity. For example, imagine there's a hospital system where at least one doctor needs to be on-call at all times, and doctors can request to be taken off-call for a shift. Under repeatable read isolation, if both Dr. Richards and Dr. Smith are scheduled to be on-call for the same shift and concurrently try to request to be taken off-call, each request succeeds in parallel. This is because both transactions read that there is at least one other doctor who is scheduled to be on-call at the start of the transaction, causing data anomaly if the transactions succeed. On the other hand, using serializable isolation prevents these transactions from violating the constraint because serializable transactions will detect potential data anomalies and abort the transaction. Thereby ensuring application consistency by accepting higher abort rates.
 
-In the previous example, you can [use the `  SELECT FOR UPDATE  ` clause in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) . The `  SELECT…FOR UPDATE  ` clause verifies if the data it read at the chosen snapshot remains unchanged at commit time. Similarly, [DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks) and [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) , that read data internally to ensure the integrity of the writes, also verify that the data remains unchanged at commit time.
+In the previous example, you can [use the `SELECT FOR UPDATE` clause in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) . The `SELECT…FOR UPDATE` clause verifies if the data it read at the chosen snapshot remains unchanged at commit time. Similarly, [DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks) and [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) , that read data internally to ensure the integrity of the writes, also verify that the data remains unchanged at commit time.
 
 For more information, see [Use repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation) .
 
 ### Example use case
 
-The following example demonstrates the benefit of using repeatable read isolation to eliminate locking overhead. Both `  Transaction 1  ` and `  Transaction 2  ` run in repeatable read isolation.
+The following example demonstrates the benefit of using repeatable read isolation to eliminate locking overhead. Both `Transaction 1` and `Transaction 2` run in repeatable read isolation.
 
-`  Transaction 1  ` establishes a snapshot timestamp when the `  SELECT  ` statement runs.
+`Transaction 1` establishes a snapshot timestamp when the `SELECT` statement runs.
 
 ### GoogleSQL
 
@@ -66,7 +66,7 @@ The following example demonstrates the benefit of using repeatable read isolatio
     | 4          | 80000            |
     *------------+------------------*/
 
-Then, `  Transaction 2  ` establishes a snapshot timestamp after `  Transaction 1  ` begins but before it commits. Since `  Transaction 1  ` hasn't updated the data, the `  SELECT  ` query in `  Transaction 2  ` reads the same data as `  Transaction 1  ` .
+Then, `Transaction 2` establishes a snapshot timestamp after `Transaction 1` begins but before it commits. Since `Transaction 1` hasn't updated the data, the `SELECT` query in `Transaction 2` reads the same data as `Transaction 1` .
 
 ### GoogleSQL
 
@@ -96,7 +96,7 @@ Then, `  Transaction 2  ` establishes a snapshot timestamp after `  Transaction 
     
     COMMIT;
 
-`  Transaction 1  ` continues after `  Transaction 2  ` has committed.
+`Transaction 1` continues after `Transaction 2` has committed.
 
 ### GoogleSQL
 
@@ -124,13 +124,13 @@ Then, `  Transaction 2  ` establishes a snapshot timestamp after `  Transaction 
     | 300000     |
     *------------*/
 
-The `  UsedBudget  ` value that Spanner returns is the sum of the budget read by `  Transaction 1  ` . This sum reflects only the data present at the `  T1  ` snapshot. It doesn't include the budget that `  Transaction 2  ` added, because `  Transaction 2  ` committed after `  Transaction 1  ` established snapshot `  T1  ` . Using repeatable read means that `  Transaction 1  ` didn't have to abort even though `  Transaction 2  ` modified the data read by `  Transaction 1  ` . However, the result Spanner returns might or might not be the intended outcome.
+The `UsedBudget` value that Spanner returns is the sum of the budget read by `Transaction 1` . This sum reflects only the data present at the `T1` snapshot. It doesn't include the budget that `Transaction 2` added, because `Transaction 2` committed after `Transaction 1` established snapshot `T1` . Using repeatable read means that `Transaction 1` didn't have to abort even though `Transaction 2` modified the data read by `Transaction 1` . However, the result Spanner returns might or might not be the intended outcome.
 
 ### Read-write conflicts and correctness
 
-In the previous example, if the data queried by the `  SELECT  ` statements in `  Transaction 1  ` was used to make subsequent marketing budget decisions, there might be correctness issues.
+In the previous example, if the data queried by the `SELECT` statements in `Transaction 1` was used to make subsequent marketing budget decisions, there might be correctness issues.
 
-For example, assume there is a total budget of `  400,000  ` . Based on the result from the `  SELECT  ` statement in `  Transaction 1  ` , we might think there is `  100,000  ` left in the budget and decide to allocate it all to `  AlbumId = 4  ` .
+For example, assume there is a total budget of `400,000` . Based on the result from the `SELECT` statement in `Transaction 1` , we might think there is `100,000` left in the budget and decide to allocate it all to `AlbumId = 4` .
 
 ### GoogleSQL
 
@@ -150,9 +150,9 @@ For example, assume there is a total budget of `  400,000  ` . Based on the resu
     
     COMMIT;
 
-`  Transaction 1  ` commits successfully, even though `  Transaction 2  ` already allocated `  50,000  ` of the remaining `  100,000  ` budget to a new album `  AlbumId = 5  ` .
+`Transaction 1` commits successfully, even though `Transaction 2` already allocated `50,000` of the remaining `100,000` budget to a new album `AlbumId = 5` .
 
-You can use the `  SELECT...FOR UPDATE  ` syntax to validate that certain reads of a transaction are unchanged during the lifetime of the transaction in order to guarantee the correctness of the transaction. In the following example using `  SELECT...FOR UPDATE  ` , `  Transaction 1  ` aborts at commit time.
+You can use the `SELECT...FOR UPDATE` syntax to validate that certain reads of a transaction are unchanged during the lifetime of the transaction in order to guarantee the correctness of the transaction. In the following example using `SELECT...FOR UPDATE` , `Transaction 1` aborts at commit time.
 
 ### GoogleSQL
 
@@ -192,7 +192,7 @@ For more information, see [Use SELECT FOR UPDATE in repeatable read isolation](h
 
 By using repeatable read isolation level, concurrent writes on the same data only succeed if there are no conflicts.
 
-In the following example, `  Transaction 1  ` establishes a snapshot timestamp at the first `  SELECT  ` statement.
+In the following example, `Transaction 1` establishes a snapshot timestamp at the first `SELECT` statement.
 
 ### GoogleSQL
 
@@ -214,7 +214,7 @@ In the following example, `  Transaction 1  ` establishes a snapshot timestamp a
     FROM albums
     WHERE singerid = 1;
 
-The following `  Transaction 2  ` reads the same data as `  Transaction 1  ` and inserts a new item. `  Transaction 2  ` successfully commits without waiting or aborting.
+The following `Transaction 2` reads the same data as `Transaction 1` and inserts a new item. `Transaction 2` successfully commits without waiting or aborting.
 
 ### GoogleSQL
 
@@ -244,7 +244,7 @@ The following `  Transaction 2  ` reads the same data as `  Transaction 1  ` and
     
     COMMIT;
 
-`  Transaction 1  ` continues after `  Transaction 2  ` has committed.
+`Transaction 1` continues after `Transaction 2` has committed.
 
 ### GoogleSQL
 
@@ -260,7 +260,7 @@ The following `  Transaction 2  ` reads the same data as `  Transaction 1  ` and
     -- Transaction aborts
     COMMIT;
 
-`  Transaction 1  ` aborts since `  Transaction 2  ` already committed an insertion to the `  AlbumId = 5  ` row.
+`Transaction 1` aborts since `Transaction 2` already committed an insertion to the `AlbumId = 5` row.
 
 ## What's next
 

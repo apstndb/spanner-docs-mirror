@@ -81,16 +81,16 @@ The inventory table often holds in-game items, such as character equipment, card
 
 Similar to other relational databases, an inventory table in Spanner has a primary key that is a globally unique identifier for the item, as illustrated in the following table.
 
-| `        itemID       `        | `        type       ` | `        playerID       `      |
-| ------------------------------ | --------------------- | ------------------------------ |
-| `        7c14887e-8d45       ` | `        1       `    | `        6f1ede3b-25e2       ` |
-| `        8ca83609-bb93       ` | `        40       `   | `        6f1ede3b-25e2       ` |
-| `        33fedada-3400       ` | `        1       `    | `        5fa0aa7d-16da       ` |
-| `        e4714487-075e       ` | `        23       `   | `        5fa0aa7d-16da       ` |
-| `        d4fbfb92-a8bd       ` | `        14       `   | `        5fa0aa7d-16da       ` |
-| `        31b7067b-42ec       ` | `        3       `    | `        26a38c2c-123a       ` |
+| `itemID`        | `type` | `playerID`      |
+| --------------- | ------ | --------------- |
+| `7c14887e-8d45` | `1`    | `6f1ede3b-25e2` |
+| `8ca83609-bb93` | `40`   | `6f1ede3b-25e2` |
+| `33fedada-3400` | `1`    | `5fa0aa7d-16da` |
+| `e4714487-075e` | `23`   | `5fa0aa7d-16da` |
+| `d4fbfb92-a8bd` | `14`   | `5fa0aa7d-16da` |
+| `31b7067b-42ec` | `3`    | `26a38c2c-123a` |
 
-In the example inventory table, `  itemID  ` and `  playerID  ` are truncated for readability. An actual inventory table would also contain many other columns that aren't included in the example.
+In the example inventory table, `itemID` and `playerID` are truncated for readability. An actual inventory table would also contain many other columns that aren't included in the example.
 
 A typical approach in an RDBMS for tracking item ownership is to use a column as a foreign key that holds the current owner's player ID. This column is the primary key of a separate database table. In Spanner, you can use [interleaving](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) , which stores the inventory rows near the associated player table row for better performance. When using interleaved tables, keep the following in mind:
 
@@ -119,7 +119,7 @@ In order to speed up queries that filter for the game mode, consider the followi
             Score DESC
     )
 
-If everyone plays the same game mode called `  1  ` , this index creates a hotspot where `  GameMode=1  ` . If you want to get a ranking for this game mode, the index only scans the rows containing `  GameMode=1  ` , returning the ranking quickly.
+If everyone plays the same game mode called `1` , this index creates a hotspot where `GameMode=1` . If you want to get a ranking for this game mode, the index only scans the rows containing `GameMode=1` , returning the ranking quickly.
 
 If you change the order of the previous index, you can solve this hotspot problem:
 
@@ -128,7 +128,7 @@ If you change the order of the previous index, you can solve this hotspot proble
             GameMode
     )
 
-This index won't create a significant hotspot from players competing in the same game mode, provided their scores are distributed across the possible range. However, getting scores won't be as fast as with the previous index because the query scans all scores from all modes in order to determine if `  GameMode=1  ` .
+This index won't create a significant hotspot from players competing in the same game mode, provided their scores are distributed across the possible range. However, getting scores won't be as fast as with the previous index because the query scans all scores from all modes in order to determine if `GameMode=1` .
 
 As a result, the reordered index solves the previous hotspot on game mode but still has room for improvement, as illustrated in the following design.
 
@@ -187,7 +187,7 @@ Each player record has some numerical attributes associated with it that tracks 
 
 The studio wants to index this attribute in order to speed up important queries during gameplay.
 
-Based on this data, the studio created the following Spanner table, with a primary key using the `  PlayerID  ` and a secondary index on `  Attribute  ` .
+Based on this data, the studio created the following Spanner table, with a primary key using the `PlayerID` and a secondary index on `Attribute` .
 
     CREATE TABLE Player (
             PlayerID STRING(36) NOT NULL,
@@ -196,7 +196,7 @@ Based on this data, the studio created the following Spanner table, with a prima
     
     CREATE INDEX idx_attribute ON Player(Attribute)
 
-And the index was queried to find up to ten players with `  Attribute=23  ` , like this:
+And the index was queried to find up to ten players with `Attribute=23` , like this:
 
     SELECT PlayerID
             FROM Player@{force_index=idx_attribute}
@@ -207,11 +207,11 @@ According to the documentation on [optimizing schema design](https://docs.cloud.
 
 ![Players distributed across Spanner splits by their attribute.](https://docs.cloud.google.com/static/architecture/images/best-practices-cloud-spanner-gaming-database-2-indexed-by-attribute.svg)
 
-Although the synthetic data used in the load test is similar to the eventual steady state of the game where `  Attribute  ` values are well distributed, the game design dictates that all players start with `  Attribute=50  ` . Because each new player starts with `  Attribute=50  ` , when new players join they are inserted in the same part of the `  idx_attribute  ` secondary index. This means updates are routed to the same Spanner split, causing a hotspot during the game's launch window. This is an inefficient use of Spanner.
+Although the synthetic data used in the load test is similar to the eventual steady state of the game where `Attribute` values are well distributed, the game design dictates that all players start with `Attribute=50` . Because each new player starts with `Attribute=50` , when new players join they are inserted in the same part of the `idx_attribute` secondary index. This means updates are routed to the same Spanner split, causing a hotspot during the game's launch window. This is an inefficient use of Spanner.
 
 ![Players at launch with the same attribute creating a hotspot in a single Spanner split.](https://docs.cloud.google.com/static/architecture/images/best-practices-cloud-spanner-gaming-database-3-hotspot.svg)
 
-In the following diagram, adding an `  IndexPartition  ` column to the schema after the launch resolves the hotspot issue, and players are evenly distributed across the available Spanner splits. The updated command for creating the table and index looks like this:
+In the following diagram, adding an `IndexPartition` column to the schema after the launch resolves the hotspot issue, and players are evenly distributed across the available Spanner splits. The updated command for creating the table and index looks like this:
 
     CREATE TABLE Player (
             PlayerID STRING(36) NOT NULL,
@@ -223,11 +223,11 @@ In the following diagram, adding an `  IndexPartition  ` column to the schema af
 
 ![Adding an IndexPartition column to the schema evenly distributes players at launch.](https://docs.cloud.google.com/static/architecture/images/best-practices-cloud-spanner-gaming-database-4-splits.svg)
 
-The `  IndexPartition  ` value needs to have a limited range for efficient querying, but it should also have range that is at least double the number of splits for efficient distribution.
+The `IndexPartition` value needs to have a limited range for efficient querying, but it should also have range that is at least double the number of splits for efficient distribution.
 
-In this case, the studio manually assigned every player an `  IndexPartition  ` between `  1  ` and `  6  ` in the game application.
+In this case, the studio manually assigned every player an `IndexPartition` between `1` and `6` in the game application.
 
-Alternative methods could be to assign a random number to each player, or assigning a value derived from a hash on the `  PlayerID  ` value. See [What DBAs need to know about Spanner, part 1: Keys and indexes](https://cloud.google.com/blog/products/gcp/what-dbas-need-to-know-about-cloud-spanner-part-1-keys-and-indexes) for more application-level sharding strategies.
+Alternative methods could be to assign a random number to each player, or assigning a value derived from a hash on the `PlayerID` value. See [What DBAs need to know about Spanner, part 1: Keys and indexes](https://cloud.google.com/blog/products/gcp/what-dbas-need-to-know-about-cloud-spanner-part-1-keys-and-indexes) for more application-level sharding strategies.
 
 Updating the previous query to use this improved index looks like the following:
 
@@ -261,7 +261,7 @@ When you're evaluating performance, keep short cycle testing to a minimum becaus
 
 ### When removing data, delete rows instead of re-creating tables
 
-When you're working with Spanner, newly created tables haven't yet had an opportunity to undergo load-based or size-based splitting to improve performance. When you delete data by dropping a table and then recreating it, Spanner needs data, queries, and time to determine the correct splits for your table. If you are planning to repopulate a table with the same kind of data (for example, when running consecutive performance tests), you can instead run a `  DELETE  ` query on the rows containing data you no longer need. For the same reason, schema updates should use the provided Cloud Spanner API, and should avoid a manual strategy, such as creating a new table and copying the data from another table or a backup file.
+When you're working with Spanner, newly created tables haven't yet had an opportunity to undergo load-based or size-based splitting to improve performance. When you delete data by dropping a table and then recreating it, Spanner needs data, queries, and time to determine the correct splits for your table. If you are planning to repopulate a table with the same kind of data (for example, when running consecutive performance tests), you can instead run a `DELETE` query on the rows containing data you no longer need. For the same reason, schema updates should use the provided Cloud Spanner API, and should avoid a manual strategy, such as creating a new table and copying the data from another table or a backup file.
 
 ### Select a data locality to meet compliance requirements
 

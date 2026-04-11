@@ -6,10 +6,10 @@ You can measure and compare the request latencies between different components a
 
 1.  In your client application that uses your service, confirm there's a latency increase from end-to-end latency. Check the following dimensions from your client-side metrics. For more information, see [Client-side metrics descriptions](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions) .
     
-      - `  client_name  ` : the client library name and version.
-      - `  location  ` : the Google Cloud region where the client-side metrics are published. If your application is deployed outside Google Cloud, then the metrics are published to the `  global  ` region.
-      - `  method  ` : the RPC method name—for example, `  spanner.commit  ` .
-      - `  status  ` : the RPC status—for example, `  OK  ` or `  INTERNAL  ` .
+      - `client_name` : the client library name and version.
+      - `location` : the Google Cloud region where the client-side metrics are published. If your application is deployed outside Google Cloud, then the metrics are published to the `global` region.
+      - `method` : the RPC method name—for example, `spanner.commit` .
+      - `status` : the RPC status—for example, `OK` or `INTERNAL` .
     
     Group by these dimensions to see if the issue is limited to a specific client, status, or method. For dual-region or multi-regional workloads, see if the issue is limited to a specific client or Spanner region.
 
@@ -17,25 +17,25 @@ You can measure and compare the request latencies between different components a
 
 3.  Check latency in Spanner components by viewing the [client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) :
     
-    a. Check end-to-end latency using the [`  spanner.googleapis.com/client/operation_latencies  `](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#operation-latencies) metric.
+    a. Check end-to-end latency using the [`spanner.googleapis.com/client/operation_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#operation-latencies) metric.
     
-    b. Check [Google Front End](https://cloud.google.com//security/infrastructure/design#google-frontend-service.) (GFE) latency using the [`  spanner.googleapis.com/client/gfe_latencies  `](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-latencies) metric.
+    b. Check [Google Front End](https://cloud.google.com//security/infrastructure/design#google-frontend-service.) (GFE) latency using the [`spanner.googleapis.com/client/gfe_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-latencies) metric.
 
 4.  Check the following dimensions for [Spanner metrics](https://docs.cloud.google.com/spanner/docs/latency-metrics) :
     
-      - `  database  ` : the Spanner database name.
-      - `  method  ` : the RPC method name—for example, `  spanner.commit  ` .
-      - `  status  ` : the RPC status—for example, `  OK  ` or `  INTERNAL  ` .
+      - `database` : the Spanner database name.
+      - `method` : the RPC method name—for example, `spanner.commit` .
+      - `status` : the RPC status—for example, `OK` or `INTERNAL` .
     
     Group by these dimensions to see if the issue is limited to a specific database, status, or method. For dual-region or multi-regional workloads, check to see if the issue is limited to a specific region.
 
-5.  Check Spanner API request latency using the `  spanner.googleapis.com/api/request_latencies  ` metric. For more information, see [Spanner metrics](https://docs.cloud.google.com/spanner/docs/metrics) .
+5.  Check Spanner API request latency using the `spanner.googleapis.com/api/request_latencies` metric. For more information, see [Spanner metrics](https://docs.cloud.google.com/spanner/docs/metrics) .
     
     If you have high end-to-end latency, but low GFE latency, and a low Spanner API request latency, the application code might have an issue. It could also indicate a networking issue between the client and regional GFE. If your application has a performance issue that causes some code paths to be slow, then the end-to-end latency for each API request might increase. There might also be an issue in the client computing infrastructure that was not detected in the previous step.
     
     If you have a high GFE latency, but a low Spanner API request latency, it might have one of the following causes:
     
-      - Accessing a database from another region. This action can lead to high GFE latency and low Spanner API request latency. For example, traffic from a client in the `  us-east1  ` region that has an instance in the `  us-central1  ` region might have a high GFE latency but a lower Spanner API request latency.
+      - Accessing a database from another region. This action can lead to high GFE latency and low Spanner API request latency. For example, traffic from a client in the `us-east1` region that has an instance in the `us-central1` region might have a high GFE latency but a lower Spanner API request latency.
     
       - There's an issue at the GFE layer. Check the [Google Cloud Status Dashboard](https://status.cloud.google.com/) to see if there are any ongoing networking issues in your region. If there aren't any issues, then open a support case and include this information so that support engineers can help with troubleshooting the GFE.
 

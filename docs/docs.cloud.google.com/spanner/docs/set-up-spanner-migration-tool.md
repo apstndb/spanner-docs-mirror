@@ -3,7 +3,7 @@ This document describes how to install and run the Spanner migration tool (SMT) 
 ## Before you begin
 
 1.  [Install](https://docs.cloud.google.com/sdk/docs/install) the Google Cloud CLI.
-2.  To initialize the Google Cloud CLI, run the `  gcloud init  ` command.
+2.  To initialize the Google Cloud CLI, run the `gcloud init` command.
 
 ## Install Spanner migration tool
 
@@ -19,7 +19,7 @@ To install SMT, run the following command:
 
 ### gcloud
 
-You can install SMT by using the [`  gcloud components install  `](https://docs.cloud.google.com/sdk/gcloud/reference/components/install) command:
+You can install SMT by using the [`gcloud components install`](https://docs.cloud.google.com/sdk/gcloud/reference/components/install) command:
 
 ``` 
   gcloud components install spanner-migration-tool
@@ -29,7 +29,7 @@ For more information on installing SMT, see [Installing Spanner migration tool](
 
 ## Access Spanner migration tool
 
-You can use the [`  gcloud alpha spanner migrate  `](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/migrate) command to access and use SMT.
+You can use the [`gcloud alpha spanner migrate`](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/migrate) command to access and use SMT.
 
 To launch the SMT web UI, you can run the following command:
 
@@ -37,7 +37,7 @@ To launch the SMT web UI, you can run the following command:
   gcloud alpha spanner migrate web
 ```
 
-You need to provide your Google Cloud credentials to allow SMT to access resources. Click `  http://localhost:8080  ` on the response to the previous command to open the web UI.
+You need to provide your Google Cloud credentials to allow SMT to access resources. Click `http://localhost:8080` on the response to the previous command to open the web UI.
 
 **Note:** Keep the Google Cloud CLI tab open while you view the SMT web UI.
 

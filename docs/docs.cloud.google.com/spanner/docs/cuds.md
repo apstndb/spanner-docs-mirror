@@ -37,7 +37,7 @@ To purchase or manage Spanner committed use discounts for your Cloud Billing acc
 
 ## An example Spanner CUD
 
-In this example, we calculate your expected on-demand usage cost and use that information to determine the savings offered by a one or three-year commitment. For this example, we assume that you use Spanner instances in two different regions, allocating 10 nodes in `  us-central1  ` , and 20 nodes in `  us-west2  ` .
+In this example, we calculate your expected on-demand usage cost and use that information to determine the savings offered by a one or three-year commitment. For this example, we assume that you use Spanner instances in two different regions, allocating 10 nodes in `us-central1` , and 20 nodes in `us-west2` .
 
 **Note:** 1-year and 3-year commitments provide different discounts.
 
@@ -45,8 +45,8 @@ In this example, we calculate your expected on-demand usage cost and use that in
 
 Start by calculating your non-discounted cost for one month (730 hours). Find your desired Spanner SKUs in the [pricing page](https://cloud.google.com/spanner/pricing) and use the drop-down to select the regions. For the calculations, use the prices you see in the three columns, *Default* price (on-demand), 1-year CUD, and 3-year CUD prices:
 
-  - Node cost for `  us-central1  ` : $0.9 per node per hour on-demand cost \* 10 nodes = $9.00 per hour.
-  - Node cost for `  us-west2  ` : $1.08 per node per hour on-demand cost \* 20 nodes = $21.60 per hour.
+  - Node cost for `us-central1` : $0.9 per node per hour on-demand cost \* 10 nodes = $9.00 per hour.
+  - Node cost for `us-west2` : $1.08 per node per hour on-demand cost \* 20 nodes = $21.60 per hour.
   - On-demand costs across all regions: $9.00 + $21.60 = $30.60 per hour.
   - Total monthly on-demand cost: $30.60 per hour \* 730 hours in a month = $22,338 per month.
 
@@ -54,12 +54,12 @@ Start by calculating your non-discounted cost for one month (730 hours). Find yo
 
 Use the [Spanner pricing page](https://cloud.google.com/spanner/pricing) to get the hourly cost for a 1-year commitment for the regions and number of nodes, then perform the following calculations:
 
-  - Node cost for `  us-central1  ` : 10 nodes \* $0.72 per node per hour 1-year cost = $7.20 per hour.
-  - Node cost for `  us-west2  ` : 20 nodes \* $0.864 per node per hour 1-year cost = $17.28 per hour.
+  - Node cost for `us-central1` : 10 nodes \* $0.72 per node per hour 1-year cost = $7.20 per hour.
+  - Node cost for `us-west2` : 20 nodes \* $0.864 per node per hour 1-year cost = $17.28 per hour.
   - Total 1-year commitment hourly cost: $7.20 + $17.28 = $24.48 per hour.
   - Total monthly 1-year commitment cost: $24.48 per hour \* 730 hours in a month = $17,870.40 per month.
 
-Based on the results, you can make a commitment amount of `  $24.48  ` per hour to achieve the 20% discount and see the total savings over 1 year:
+Based on the results, you can make a commitment amount of `$24.48` per hour to achieve the 20% discount and see the total savings over 1 year:
 
   - Total 1-year committment savings: On-demand cost per month $22,338 - 1-year commitment cost per month $17,870.40 = $4467.60 \* 12 months = **$53,611.20** .
 
@@ -67,12 +67,12 @@ Based on the results, you can make a commitment amount of `  $24.48  ` per hour 
 
 Use the [Spanner pricing page](https://cloud.google.com/spanner/pricing) to get the hourly cost for a 3-year commitment for the regions and number of nodes, then perform the following calculations:
 
-  - Node cost for `  us-central1  ` : 10 nodes \* $0.54 per node per hour 3-year cost = $5.40 per hour.
-  - Node cost for `  us-west2  ` : 20 nodes \* $0.648 per node per hour 3-year cost = $12.96 per hour.
+  - Node cost for `us-central1` : 10 nodes \* $0.54 per node per hour 3-year cost = $5.40 per hour.
+  - Node cost for `us-west2` : 20 nodes \* $0.648 per node per hour 3-year cost = $12.96 per hour.
   - Total 3-year commitment hourly cost: $5.40 + $12.96 = $18.36 per hour.
   - Total monthly 3-year commitment cost: $18.36 per hour \* 730 hours in a month = $13,402.80 per month.
 
-Based on the results, you can make a commitment amount of `  $18.36  ` per hour to achieve the 40% discount and see the total savings over 3 years:
+Based on the results, you can make a commitment amount of `$18.36` per hour to achieve the 40% discount and see the total savings over 3 years:
 
   - Total 3-year committment savings: On-demand cost per month $22,338 - 3-year commitment cost per month $13,402.80 = $8935.20 \* 36 months = **$321,667.20** .
 

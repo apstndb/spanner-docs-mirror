@@ -45,7 +45,7 @@ Spanner's PostgreSQL interface offers two primary features that enable integrati
     
       - **PostgreSQL ecosystem tools:** you can use familiar tools like the [PostgreSQL JDBC driver](https://docs.cloud.google.com/spanner/docs/pg-jdbc-connect) and [PostgreSQL pgx driver](https://github.com/jackc/pgx) to connect your applications to a PostgreSQL interface database. For a list of supported drivers, ORMs, and tools see [PostgreSQL drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview#postgresql-drivers-and-orms) .
     
-      - **psql command-line tool** : the popular [`  psql  ` interactive environment](https://docs.cloud.google.com/spanner/docs/psql-commands) is supported, letting you run queries, explore metadata, and load data directly from your terminal.
+      - **psql command-line tool** : the popular [`psql` interactive environment](https://docs.cloud.google.com/spanner/docs/psql-commands) is supported, letting you run queries, explore metadata, and load data directly from your terminal.
     
       - **PGAdapter:** this lightweight proxy simplifies connection management and authentication. For more details, refer to the [PGAdapter overview](https://docs.cloud.google.com/spanner/docs/pgadapter) .
     

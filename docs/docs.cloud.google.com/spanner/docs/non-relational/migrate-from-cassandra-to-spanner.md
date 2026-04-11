@@ -75,9 +75,9 @@ Prerequisites
 
 Download and configure the ZDM Proxy
 
-1.  Go to the `  sources/cassandra  ` directory.
+1.  Go to the `sources/cassandra` directory.
 
-2.  Ensure the [`  entrypoint.sh  `](https://github.com/GoogleCloudPlatform/spanner-migration-tool/blob/master/sources/cassandra/entrypoint.sh) and [`  Dockerfile  `](https://github.com/GoogleCloudPlatform/spanner-migration-tool/blob/master/sources/cassandra/Dockerfile) files are in the same directory as the Dockerfile.
+2.  Ensure the [`entrypoint.sh`](https://github.com/GoogleCloudPlatform/spanner-migration-tool/blob/master/sources/cassandra/entrypoint.sh) and [`Dockerfile`](https://github.com/GoogleCloudPlatform/spanner-migration-tool/blob/master/sources/cassandra/Dockerfile) files are in the same directory as the Dockerfile.
 
 3.  Run the following command to build a local image:
     
@@ -85,7 +85,7 @@ Download and configure the ZDM Proxy
 
 Run the ZDM Proxy
 
-1.  Ensure the `  zdm-config.yaml  ` and `  keyfiles  ` are present locally where the the following command is run.
+1.  Ensure the `zdm-config.yaml` and `keyfiles` are present locally where the the following command is run.
 
 2.  Open the sample [zdm-config yaml](https://github.com/GoogleCloudPlatform/spanner-migration-tool/blob/master/sources/cassandra/sample-zdm-config.yaml) file.
 
@@ -105,11 +105,11 @@ Run the ZDM Proxy
 
 Verify the proxy setup
 
-1.  Use the [`  docker logs  `](https://docs.docker.com/reference/cli/docker/container/logs/) command to check the proxy logs for any errors during startup:
+1.  Use the [`docker logs`](https://docs.docker.com/reference/cli/docker/container/logs/) command to check the proxy logs for any errors during startup:
     
         docker logs container-id
 
-2.  Run the [`  cqlsh  `](https://cassandra.apache.org/doc/4.0/cassandra/tools/cqlsh.html) command to verify the proxy is set up correctly:
+2.  Run the [`cqlsh`](https://cassandra.apache.org/doc/4.0/cassandra/tools/cqlsh.html) command to verify the proxy is set up correctly:
     
         cqlsh VM-IP 14002
     
@@ -125,36 +125,36 @@ Prerequisites
   - Confirm that the application has default credentials with appropriate permissions to create resources.
   - Confirm that the service key file has the relevant permissions to write to Spanner. This file is used by the proxy.
   - Set up your Spanner instance, database, and schema.
-  - Confirm that the Dockerfile, `  entrypoint.sh  ` , and the service key file are in the same directory as the `  main.tf  ` file.
+  - Confirm that the Dockerfile, `entrypoint.sh` , and the service key file are in the same directory as the `main.tf` file.
 
 Configure Terraform variables
 
 1.  Ensure you have the Terraform template for the proxy deployment.
-2.  Update the `  terraform.tfvars  ` file with the variables for your setup.
+2.  Update the `terraform.tfvars` file with the variables for your setup.
 
 Template deployment using Terraform
 
 The Terraform script does the following:
 
   - Creates container-optimized VMs based on a specified count.
-  - Creates `  zdm-config.yaml  ` files for each VM, and allots a topology index to it. ZDM Proxy requires multi-VM setups to configure the topology using the `  PROXY_TOPOLOGY_ADDRESSES  ` and `  PROXY_TOPOLOGY_INDEX  ` fields in the configuration `  yaml  ` file.
+  - Creates `zdm-config.yaml` files for each VM, and allots a topology index to it. ZDM Proxy requires multi-VM setups to configure the topology using the `PROXY_TOPOLOGY_ADDRESSES` and `PROXY_TOPOLOGY_INDEX` fields in the configuration `yaml` file.
   - Transfers the relevant files to each VM, remotely runs Docker Build, and launches the containers.
 
 To deploy the template, do the following:
 
-1.  Use the [`  terraform init  `](https://developer.hashicorp.com/terraform/cli/commands/init) command to initialize Terraform:
+1.  Use the [`terraform init`](https://developer.hashicorp.com/terraform/cli/commands/init) command to initialize Terraform:
     
         terraform init
 
-2.  Run the [`  terraform plan  `](https://developer.hashicorp.com/terraform/cli/commands/plan) command to see what changes Terraform plans to make on your infrastructure:
+2.  Run the [`terraform plan`](https://developer.hashicorp.com/terraform/cli/commands/plan) command to see what changes Terraform plans to make on your infrastructure:
     
         terraform plan -var-file="terraform.tfvars"
 
-3.  When the resources look good, run the [`  terraform apply  `](https://developer.hashicorp.com/terraform/cli/commands/apply) command:
+3.  When the resources look good, run the [`terraform apply`](https://developer.hashicorp.com/terraform/cli/commands/apply) command:
     
         terraform apply -var-file="terraform.tfvars"
 
-4.  After the Terraform script stops, run the [`  cqlsh  `](https://cassandra.apache.org/doc/stable/cassandra/tools/cqlsh.html) command to ensure the VMs are accessible.
+4.  After the Terraform script stops, run the [`cqlsh`](https://cassandra.apache.org/doc/stable/cassandra/tools/cqlsh.html) command to ensure the VMs are accessible.
     
         cqlsh VM-IP 14002
     
@@ -214,7 +214,7 @@ One method of data validation is by comparing the number of rows in tables in th
 
   - When migrating with small datasets (less than 10 million rows per table), you can use this [count matching script](https://github.com/GoogleCloudPlatform/spanner-migration-tool/blob/master/sources/cassandra/validations/count/count.go) to count rows in Cassandra and Spanner. This approach returns exact counts in a short time. The default timeout in Cassandra is 10 seconds. Consider bumping up the driver request timeout and server side timeout if the script times out before finishing the count.
 
-  - When migrating large datasets (greater than 10 million rows per table), keep in mind that while Spanner count queries scale well, Cassandra queries tend to timeout. In such cases, we recommend using the [DataStax Bulk Loader tool](https://github.com/datastax/dsbulk) to get count rows from Cassandra tables. For Spanner counts, using the SQL `  count(*)  ` function is sufficient for most large scale loads. We recommend that you run the Bulk Loader for every Cassandra table and fetch counts from the Spanner table and compare the two. This can be done either manually or using a script.
+  - When migrating large datasets (greater than 10 million rows per table), keep in mind that while Spanner count queries scale well, Cassandra queries tend to timeout. In such cases, we recommend using the [DataStax Bulk Loader tool](https://github.com/datastax/dsbulk) to get count rows from Cassandra tables. For Spanner counts, using the SQL `count(*)` function is sufficient for most large scale loads. We recommend that you run the Bulk Loader for every Cassandra table and fetch counts from the Spanner table and compare the two. This can be done either manually or using a script.
 
 ### Validate for a row mismatch
 
@@ -231,10 +231,10 @@ The advantages to this method is that you finish faster than checking an entire 
 
 To sample random rows from Cassandra, you need to do the following:
 
-1.  Generate random numbers in the token range \[ `  -2^63  ` , `  2^63 - 1  ` \].
-2.  Fetch rows `  WHERE token(PARTITION_KEY) > GENERATED_NUMBER  ` .
+1.  Generate random numbers in the token range \[ `-2^63` , `2^63 - 1` \].
+2.  Fetch rows `WHERE token(PARTITION_KEY) > GENERATED_NUMBER` .
 
-The [`  validation.go  ` sample script](https://github.com/GoogleCloudPlatform/spanner-migration-tool/blob/master/sources/cassandra/validations/validation/validation.go) randomly fetches rows and validates them with rows in the Spanner database.
+The [`validation.go` sample script](https://github.com/GoogleCloudPlatform/spanner-migration-tool/blob/master/sources/cassandra/validations/validation/validation.go) randomly fetches rows and validates them with rows in the Spanner database.
 
 #### Validate the entire dataset
 
@@ -269,11 +269,11 @@ To perform the cutover, use the following steps:
 
 ## Perform reverse replication from Spanner to Cassandra
 
-You can perform reverse replication using the [`  Spanner to SourceDB  ` Dataflow template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/spanner-to-sourcedb) . Reverse replication is useful when you encounter unforeseen issues with Spanner and need to fall back to the original Cassandra database with minimal disruption to the service.
+You can perform reverse replication using the [`Spanner to SourceDB` Dataflow template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/spanner-to-sourcedb) . Reverse replication is useful when you encounter unforeseen issues with Spanner and need to fall back to the original Cassandra database with minimal disruption to the service.
 
 ## Tips to validate Cassandra using row matching
 
-It's slow and inefficient to perform full table scans in Cassandra (or any other database) using `  SELECT *  ` . To solve this problem, divide the Cassandra dataset into manageable partitions and process the partitions concurrently. To do this, you need to do the following:
+It's slow and inefficient to perform full table scans in Cassandra (or any other database) using `SELECT *` . To solve this problem, divide the Cassandra dataset into manageable partitions and process the partitions concurrently. To do this, you need to do the following:
 
 1.  [Split the dataset into token ranges](https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner#split-data-into-token-ranges)
 2.  [Query partitions in parallel](https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner#query-partitions-in-parallel)
@@ -284,11 +284,11 @@ It's slow and inefficient to perform full table scans in Cassandra (or any other
 
 ### Split the dataset into token ranges
 
-Cassandra distributes data across nodes based on partition key tokens. The token range for a Cassandra cluster spans from `  -2^63  ` to `  2^63 - 1  ` . You can define a fixed number of equally sized token ranges to divide the entire keyspace into smaller partitions. We recommend that you split the token range with a configurable `  partition_size  ` parameter that you can tune for quickly processing the entire range.
+Cassandra distributes data across nodes based on partition key tokens. The token range for a Cassandra cluster spans from `-2^63` to `2^63 - 1` . You can define a fixed number of equally sized token ranges to divide the entire keyspace into smaller partitions. We recommend that you split the token range with a configurable `partition_size` parameter that you can tune for quickly processing the entire range.
 
 ### Query partitions in parallel
 
-After you define the token ranges, you can launch multiple parallel processes or threads, each responsible for validating data within a specific range. For each range, you can construct CQL queries using the [`  token()  ` function](https://cassandra.apache.org/doc/latest/cassandra/developing/cql/functions.html#token) on your partition key ( `  pk  ` ).
+After you define the token ranges, you can launch multiple parallel processes or threads, each responsible for validating data within a specific range. For each range, you can construct CQL queries using the [`token()` function](https://cassandra.apache.org/doc/latest/cassandra/developing/cql/functions.html#token) on your partition key ( `pk` ).
 
 A sample query for a given token range would look like the following:
 
@@ -333,19 +333,19 @@ For examples in this section, assume you have a table with the following schema:
 
 To enable row-level TTL on an existing table, do the following:
 
-1.  Add the timestamp column for storing the expiration timestamp for each row. In this example, the column is named `  ExpiredAt  ` , but you can use any name.
+1.  Add the timestamp column for storing the expiration timestamp for each row. In this example, the column is named `ExpiredAt` , but you can use any name.
     
         ALTER TABLE Singers ADD COLUMN ExpiredAt TIMESTAMP;
 
-2.  Add the row deletion policy to automatically delete rows older than the expiration time. `  INTERVAL 0 DAY  ` means rows are deleted immediately upon reaching the expiration time.
+2.  Add the row deletion policy to automatically delete rows older than the expiration time. `INTERVAL 0 DAY` means rows are deleted immediately upon reaching the expiration time.
     
         ALTER TABLE Singers ADD ROW DELETION POLICY (OLDER_THAN(ExpiredAt, INTERVAL 0 DAY));
 
-3.  Set `  cassandra_ttl_mode  ` to `  row  ` to enable the row-level TTL.
+3.  Set `cassandra_ttl_mode` to `row` to enable the row-level TTL.
     
         ALTER TABLE Singers SET OPTIONS (cassandra_ttl_mode = 'row');
 
-4.  Optionally, set `  cassandra_default_ttl  ` to configure the default TTL value. The value is in seconds.
+4.  Optionally, set `cassandra_default_ttl` to configure the default TTL value. The value is in seconds.
     
         ALTER TABLE Singers SET OPTIONS (cassandra_default_ttl = 10000);
 
@@ -362,11 +362,11 @@ For examples in this section, assume you have a table with the following schema:
 
 To disable row-level TTL on an existing table, do the following:
 
-1.  Optionally, set `  cassandra_default_ttl  ` to zero to clean up the default TTL value.
+1.  Optionally, set `cassandra_default_ttl` to zero to clean up the default TTL value.
     
         ALTER TABLE Singers SET OPTIONS (cassandra_default_ttl = 0);
 
-2.  Set `  cassandra_ttl_mode  ` to `  none  ` to disable the row-level TTL.
+2.  Set `cassandra_ttl_mode` to `none` to disable the row-level TTL.
     
         ALTER TABLE Singers SET OPTIONS (cassandra_ttl_mode = 'none');
 

@@ -4,63 +4,63 @@ gcloud alpha spanner databases - manage Cloud Spanner databases
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases  ` `  GROUP  ` | `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases` `  GROUP  ` | `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage Cloud Spanner databases.
+`(ALPHA)` Manage Cloud Spanner databases.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 GROUPS
 
 `  GROUP  ` is one of the following:
 
   - `  config  `  
-    `  (ALPHA)  ` Manage Spanner database configurations.
+    `(ALPHA)` Manage Spanner database configurations.
   - `  ddl  `  
-    `  (ALPHA)  ` Manage the DDL for Cloud Spanner databases.
+    `(ALPHA)` Manage the DDL for Cloud Spanner databases.
   - `  roles  `  
-    `  (ALPHA)  ` Manage Cloud Spanner database roles.
+    `(ALPHA)` Manage Cloud Spanner database roles.
   - `  sessions  `  
-    `  (ALPHA)  ` Manage the sessions for Cloud Spanner databases.
+    `(ALPHA)` Manage the sessions for Cloud Spanner databases.
   - `  splits  `  
-    `  (ALPHA)  ` Manage the split points for Spanner databases.
+    `(ALPHA)` Manage the split points for Spanner databases.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  add-iam-policy-binding  `  
-    `  (ALPHA)  ` Add IAM policy binding to a Cloud Spanner database.
+    `(ALPHA)` Add IAM policy binding to a Cloud Spanner database.
   - `  change-quorum  `  
-    `  (ALPHA)  ` Change quorum of a Cloud Spanner database.
+    `(ALPHA)` Change quorum of a Cloud Spanner database.
   - `  create  `  
-    `  (ALPHA)  ` Create a Cloud Spanner database.
+    `(ALPHA)` Create a Cloud Spanner database.
   - `  delete  `  
-    `  (ALPHA)  ` Delete a Cloud Spanner database.
+    `(ALPHA)` Delete a Cloud Spanner database.
   - `  describe  `  
-    `  (ALPHA)  ` Describe a Cloud Spanner database.
+    `(ALPHA)` Describe a Cloud Spanner database.
   - `  execute-sql  `  
-    `  (ALPHA)  ` Executes a SQL query against a Cloud Spanner database.
+    `(ALPHA)` Executes a SQL query against a Cloud Spanner database.
   - `  get-iam-policy  `  
-    `  (ALPHA)  ` Get the IAM policy for a Cloud Spanner database.
+    `(ALPHA)` Get the IAM policy for a Cloud Spanner database.
   - `  import  `  
-    `  (ALPHA)  ` Import data from various source files to Cloud Spanner.
+    `(ALPHA)` Import data from various source files to Cloud Spanner.
   - `  list  `  
-    `  (ALPHA)  ` List the Cloud Spanner databases contained within the given instance.
+    `(ALPHA)` List the Cloud Spanner databases contained within the given instance.
   - `  remove-iam-policy-binding  `  
-    `  (ALPHA)  ` Remove IAM policy binding of a Cloud Spanner database.
+    `(ALPHA)` Remove IAM policy binding of a Cloud Spanner database.
   - `  restore  `  
-    `  (ALPHA)  ` Restore a Cloud Spanner database.
+    `(ALPHA)` Restore a Cloud Spanner database.
   - `  set-iam-policy  `  
-    `  (ALPHA)  ` Set the IAM policy for a Cloud Spanner database.
+    `(ALPHA)` Set the IAM policy for a Cloud Spanner database.
   - `  update  `  
-    `  (ALPHA)  ` Update a Cloud Spanner database.
+    `(ALPHA)` Update a Cloud Spanner database.
 
 NOTES
 

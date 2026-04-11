@@ -22,9 +22,9 @@ Encapsulates settings provided to GetIamPolicy.
 
 Fields
 
-`  requestedPolicyVersion  `
+`requestedPolicyVersion`
 
-`  integer  `
+`integer`
 
 Optional. The maximum policy version that will be used to format the policy.
 

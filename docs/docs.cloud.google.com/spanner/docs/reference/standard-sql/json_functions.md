@@ -20,135 +20,135 @@ The JSON functions are grouped into the following categories based on their beha
 <tbody>
 <tr class="odd">
 <td><span id="extractors"></span> Extractors</td>
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_query"><code dir="ltr" translate="no">        JSON_QUERY       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_value"><code dir="ltr" translate="no">        JSON_VALUE       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_query_array"><code dir="ltr" translate="no">        JSON_QUERY_ARRAY       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_value_array"><code dir="ltr" translate="no">        JSON_VALUE_ARRAY       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_query"><code dir="ltr" translate="no">JSON_QUERY</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_value"><code dir="ltr" translate="no">JSON_VALUE</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_query_array"><code dir="ltr" translate="no">JSON_QUERY_ARRAY</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_value_array"><code dir="ltr" translate="no">JSON_VALUE_ARRAY</code></a><br />
 </td>
 <td>Functions that extract JSON data.</td>
 </tr>
 <tr class="even">
 <td><span id="lax_converters"></span> Lax converters</td>
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_bool"><code dir="ltr" translate="no">        LAX_BOOL       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_double"><code dir="ltr" translate="no">        LAX_FLOAT64       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64"><code dir="ltr" translate="no">        LAX_INT64       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_string"><code dir="ltr" translate="no">        LAX_STRING       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_bool"><code dir="ltr" translate="no">LAX_BOOL</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_double"><code dir="ltr" translate="no">LAX_FLOAT64</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64"><code dir="ltr" translate="no">LAX_INT64</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_string"><code dir="ltr" translate="no">LAX_STRING</code></a><br />
 </td>
 <td>Functions that flexibly convert a JSON value to a SQL value without returning errors.</td>
 </tr>
 <tr class="odd">
 <td><span id="converters"></span> Converters</td>
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_for_json"><code dir="ltr" translate="no">        BOOL       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json"><code dir="ltr" translate="no">        BOOL_ARRAY       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_for_json"><code dir="ltr" translate="no">        FLOAT64       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_array_for_json"><code dir="ltr" translate="no">        FLOAT64_ARRAY       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_for_json"><code dir="ltr" translate="no">        FLOAT32       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_array_for_json"><code dir="ltr" translate="no">        FLOAT32_ARRAY       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json"><code dir="ltr" translate="no">        INT64       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json"><code dir="ltr" translate="no">        INT64_ARRAY       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_for_json"><code dir="ltr" translate="no">        STRING       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_array_for_json"><code dir="ltr" translate="no">        STRING_ARRAY       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_for_json"><code dir="ltr" translate="no">BOOL</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json"><code dir="ltr" translate="no">BOOL_ARRAY</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_for_json"><code dir="ltr" translate="no">FLOAT64</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_array_for_json"><code dir="ltr" translate="no">FLOAT64_ARRAY</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_for_json"><code dir="ltr" translate="no">FLOAT32</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_array_for_json"><code dir="ltr" translate="no">FLOAT32_ARRAY</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json"><code dir="ltr" translate="no">INT64</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json"><code dir="ltr" translate="no">INT64_ARRAY</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_for_json"><code dir="ltr" translate="no">STRING</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_array_for_json"><code dir="ltr" translate="no">STRING_ARRAY</code></a><br />
 </td>
 <td>Functions that convert a JSON value to a SQL value.</td>
 </tr>
 <tr class="even">
 <td><span id="other_converters"></span> Other converters</td>
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#parse_json"><code dir="ltr" translate="no">        PARSE_JSON       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json"><code dir="ltr" translate="no">        TO_JSON       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json"><code dir="ltr" translate="no">        SAFE_TO_JSON       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json_string"><code dir="ltr" translate="no">        TO_JSON_STRING       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#parse_json"><code dir="ltr" translate="no">PARSE_JSON</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json"><code dir="ltr" translate="no">TO_JSON</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json"><code dir="ltr" translate="no">SAFE_TO_JSON</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json_string"><code dir="ltr" translate="no">TO_JSON_STRING</code></a><br />
 </td>
 <td>Other conversion functions from or to JSON.</td>
 </tr>
 <tr class="odd">
 <td><span id="constructors"></span> Constructors</td>
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array"><code dir="ltr" translate="no">        JSON_ARRAY       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object"><code dir="ltr" translate="no">        JSON_OBJECT       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array"><code dir="ltr" translate="no">JSON_ARRAY</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object"><code dir="ltr" translate="no">JSON_OBJECT</code></a><br />
 </td>
 <td>Functions that create JSON.</td>
 </tr>
 <tr class="even">
 <td><span id="mutators"></span> Mutators</td>
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array_append"><code dir="ltr" translate="no">        JSON_ARRAY_APPEND       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array_insert"><code dir="ltr" translate="no">        JSON_ARRAY_INSERT       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_remove"><code dir="ltr" translate="no">        JSON_REMOVE       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_set"><code dir="ltr" translate="no">        JSON_SET       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_strip_nulls"><code dir="ltr" translate="no">        JSON_STRIP_NULLS       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array_append"><code dir="ltr" translate="no">JSON_ARRAY_APPEND</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array_insert"><code dir="ltr" translate="no">JSON_ARRAY_INSERT</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_remove"><code dir="ltr" translate="no">JSON_REMOVE</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_set"><code dir="ltr" translate="no">JSON_SET</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_strip_nulls"><code dir="ltr" translate="no">JSON_STRIP_NULLS</code></a><br />
 </td>
 <td>Functions that mutate existing JSON.</td>
 </tr>
 <tr class="odd">
 <td><span id="accessors"></span> Accessors</td>
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys"><code dir="ltr" translate="no">        JSON_KEYS       </code></a><br />
-<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_type"><code dir="ltr" translate="no">        JSON_TYPE       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys"><code dir="ltr" translate="no">JSON_KEYS</code></a><br />
+<a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_type"><code dir="ltr" translate="no">JSON_TYPE</code></a><br />
 </td>
 <td>Functions that provide access to JSON properties.</td>
 </tr>
 <tr class="even">
 <td><span id="predicates"></span> Predicates</td>
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains"><code dir="ltr" translate="no">        JSON_CONTAINS       </code></a><br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains"><code dir="ltr" translate="no">JSON_CONTAINS</code></a><br />
 </td>
-<td>Functions that return <code dir="ltr" translate="no">       BOOL      </code> when checking JSON documents for certain properties.</td>
+<td>Functions that return <code dir="ltr" translate="no">BOOL</code> when checking JSON documents for certain properties.</td>
 </tr>
 </tbody>
 </table>
 
 ## Function list
 
-| Name                                                                                                                                       | Summary                                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| [`         BOOL        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_for_json)                  | Converts a JSON boolean to a SQL `        BOOL       ` value.                                                                         |
-| [`         BOOL_ARRAY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json)      | Converts a JSON array of booleans to a SQL `        ARRAY<BOOL>       ` value.                                                        |
-| [`         FLOAT64        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_for_json)             | Converts a JSON number to a SQL `        FLOAT64       ` value.                                                                       |
-| [`         FLOAT64_ARRAY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_array_for_json) | Converts a JSON array of numbers to a SQL `        ARRAY<FLOAT64>       ` value.                                                      |
-| [`         FLOAT32        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_for_json)              | Converts a JSON number to a SQL `        FLOAT32       ` value.                                                                       |
-| [`         FLOAT32_ARRAY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_array_for_json)  | Converts a JSON array of numbers to a SQL `        ARRAY<FLOAT32>       ` value.                                                      |
-| [`         INT64        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json)                | Converts a JSON number to a SQL `        INT64       ` value.                                                                         |
-| [`         INT64_ARRAY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json)    | Converts a JSON array of numbers to a SQL `        ARRAY<INT64>       ` value.                                                        |
-| [`         JSON_ARRAY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array)               | Creates a JSON array.                                                                                                                 |
-| [`         JSON_ARRAY_APPEND        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array_append) | Appends JSON data to the end of a JSON array.                                                                                         |
-| [`         JSON_ARRAY_INSERT        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array_insert) | Inserts JSON data into a JSON array.                                                                                                  |
-| [`         JSON_CONTAINS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains)         | Checks if a JSON document contains another JSON document.                                                                             |
-| [`         JSON_KEYS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys)                 | Extracts unique JSON keys from a JSON expression.                                                                                     |
-| [`         JSON_OBJECT        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object)             | Creates a JSON object.                                                                                                                |
-| [`         JSON_QUERY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_query)               | Extracts a JSON value and converts it to a SQL JSON-formatted `        STRING       ` or `        JSON       ` value.                 |
-| [`         JSON_QUERY_ARRAY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_query_array)   | Extracts a JSON array and converts it to a SQL `        ARRAY<JSON-formatted STRING>       ` or `        ARRAY<JSON>       ` value.   |
-| [`         JSON_REMOVE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_remove)             | Produces JSON with the specified JSON data removed.                                                                                   |
-| [`         JSON_SET        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_set)                   | Inserts or replaces JSON data.                                                                                                        |
-| [`         JSON_STRIP_NULLS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_strip_nulls)   | Removes JSON nulls from JSON objects and JSON arrays.                                                                                 |
-| [`         JSON_TYPE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_type)                 | Gets the JSON type of the outermost JSON value and converts the name of this type to a SQL `        STRING       ` value.             |
-| [`         JSON_VALUE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_value)               | Extracts a JSON scalar value and converts it to a SQL `        STRING       ` value.                                                  |
-| [`         JSON_VALUE_ARRAY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_value_array)   | Extracts a JSON array of scalar values and converts it to a SQL `        ARRAY<STRING>       ` value.                                 |
-| [`         LAX_BOOL        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_bool)                   | Attempts to convert a JSON value to a SQL `        BOOL       ` value.                                                                |
-| [`         LAX_FLOAT64        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_double)              | Attempts to convert a JSON value to a SQL `        FLOAT64       ` value.                                                             |
-| [`         LAX_INT64        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64)                 | Attempts to convert a JSON value to a SQL `        INT64       ` value.                                                               |
-| [`         LAX_STRING        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_string)               | Attempts to convert a JSON value to a SQL `        STRING       ` value.                                                              |
-| [`         PARSE_JSON        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#parse_json)               | Converts a JSON-formatted `        STRING       ` value to a `        JSON       ` value.                                             |
-| [`         SAFE_TO_JSON        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json)           | Similar to the \`TO\_JSON\` function, but for each unsupported field in the input argument, produces a JSON null instead of an error. |
-| [`         STRING        ` (JSON)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_for_json)       | Converts a JSON string to a SQL `        STRING       ` value.                                                                        |
-| [`         STRING_ARRAY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_array_for_json)  | Converts a JSON array of strings to a SQL `        ARRAY<STRING>       ` value.                                                       |
-| [`         TO_JSON        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json)                     | Converts a SQL value to a JSON value.                                                                                                 |
-| [`         TO_JSON_STRING        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json_string)       | Converts a `        JSON       ` value to a SQL JSON-formatted `        STRING       ` value.                                         |
+| Name                                                                                                                      | Summary                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| [`BOOL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_for_json)                  | Converts a JSON boolean to a SQL `BOOL` value.                                                                                        |
+| [`BOOL_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json)      | Converts a JSON array of booleans to a SQL `ARRAY<BOOL>` value.                                                                       |
+| [`FLOAT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_for_json)             | Converts a JSON number to a SQL `FLOAT64` value.                                                                                      |
+| [`FLOAT64_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_array_for_json) | Converts a JSON array of numbers to a SQL `ARRAY<FLOAT64>` value.                                                                     |
+| [`FLOAT32`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_for_json)              | Converts a JSON number to a SQL `FLOAT32` value.                                                                                      |
+| [`FLOAT32_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_array_for_json)  | Converts a JSON array of numbers to a SQL `ARRAY<FLOAT32>` value.                                                                     |
+| [`INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json)                | Converts a JSON number to a SQL `INT64` value.                                                                                        |
+| [`INT64_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json)    | Converts a JSON array of numbers to a SQL `ARRAY<INT64>` value.                                                                       |
+| [`JSON_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array)               | Creates a JSON array.                                                                                                                 |
+| [`JSON_ARRAY_APPEND`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array_append) | Appends JSON data to the end of a JSON array.                                                                                         |
+| [`JSON_ARRAY_INSERT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array_insert) | Inserts JSON data into a JSON array.                                                                                                  |
+| [`JSON_CONTAINS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains)         | Checks if a JSON document contains another JSON document.                                                                             |
+| [`JSON_KEYS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys)                 | Extracts unique JSON keys from a JSON expression.                                                                                     |
+| [`JSON_OBJECT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object)             | Creates a JSON object.                                                                                                                |
+| [`JSON_QUERY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_query)               | Extracts a JSON value and converts it to a SQL JSON-formatted `STRING` or `JSON` value.                                               |
+| [`JSON_QUERY_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_query_array)   | Extracts a JSON array and converts it to a SQL `ARRAY<JSON-formatted STRING>` or `ARRAY<JSON>` value.                                 |
+| [`JSON_REMOVE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_remove)             | Produces JSON with the specified JSON data removed.                                                                                   |
+| [`JSON_SET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_set)                   | Inserts or replaces JSON data.                                                                                                        |
+| [`JSON_STRIP_NULLS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_strip_nulls)   | Removes JSON nulls from JSON objects and JSON arrays.                                                                                 |
+| [`JSON_TYPE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_type)                 | Gets the JSON type of the outermost JSON value and converts the name of this type to a SQL `STRING` value.                            |
+| [`JSON_VALUE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_value)               | Extracts a JSON scalar value and converts it to a SQL `STRING` value.                                                                 |
+| [`JSON_VALUE_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_value_array)   | Extracts a JSON array of scalar values and converts it to a SQL `ARRAY<STRING>` value.                                                |
+| [`LAX_BOOL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_bool)                   | Attempts to convert a JSON value to a SQL `BOOL` value.                                                                               |
+| [`LAX_FLOAT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_double)              | Attempts to convert a JSON value to a SQL `FLOAT64` value.                                                                            |
+| [`LAX_INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64)                 | Attempts to convert a JSON value to a SQL `INT64` value.                                                                              |
+| [`LAX_STRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_string)               | Attempts to convert a JSON value to a SQL `STRING` value.                                                                             |
+| [`PARSE_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#parse_json)               | Converts a JSON-formatted `STRING` value to a `JSON` value.                                                                           |
+| [`SAFE_TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json)           | Similar to the \`TO\_JSON\` function, but for each unsupported field in the input argument, produces a JSON null instead of an error. |
+| [`STRING` (JSON)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_for_json)       | Converts a JSON string to a SQL `STRING` value.                                                                                       |
+| [`STRING_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_array_for_json)  | Converts a JSON array of strings to a SQL `ARRAY<STRING>` value.                                                                      |
+| [`TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json)                     | Converts a SQL value to a JSON value.                                                                                                 |
+| [`TO_JSON_STRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json_string)       | Converts a `JSON` value to a SQL JSON-formatted `STRING` value.                                                                       |
 
-## `     BOOL    `
+## `BOOL`
 
     BOOL(json_expr)
 
 **Description**
 
-Converts a JSON boolean to a SQL `  BOOL  ` value.
+Converts a JSON boolean to a SQL `BOOL` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON 'true'
     
-    If the JSON value isn't a boolean, an error is produced. If the expression is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't a boolean, an error is produced. If the expression is SQL `NULL` , the function returns SQL `NULL` .
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -175,25 +175,25 @@ The following examples show how invalid requests are handled:
     SELECT BOOL(JSON 'null') AS result; -- Throws an error
     SELECT SAFE.BOOL(JSON '123') AS result; -- Returns a SQL NULL
 
-## `     BOOL_ARRAY    `
+## `BOOL_ARRAY`
 
     BOOL_ARRAY(json_expr)
 
 **Description**
 
-Converts a JSON array of booleans to a SQL `  ARRAY<BOOL>  ` value.
+Converts a JSON array of booleans to a SQL `ARRAY<BOOL>` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '[true]'
     
-    If the JSON value isn't an array of booleans, an error is produced. If the expression is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't an array of booleans, an error is produced. If the expression is SQL `NULL` , the function returns SQL `NULL` .
 
 **Return type**
 
-`  ARRAY<BOOL>  `
+`ARRAY<BOOL>`
 
 **Examples**
 
@@ -212,7 +212,7 @@ The following examples show how invalid requests are handled:
     SELECT BOOL_ARRAY(JSON '[null]') AS result; -- Throws an error
     SELECT BOOL_ARRAY(JSON 'null') AS result; -- Throws an error
 
-## `     FLOAT64    `
+## `FLOAT64`
 
     FLOAT64(
       json_expr
@@ -221,24 +221,24 @@ The following examples show how invalid requests are handled:
 
 **Description**
 
-Converts a JSON number to a SQL `  FLOAT64  ` value.
+Converts a JSON number to a SQL `FLOAT64` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '9.8'
     
-    If the JSON value isn't a number, an error is produced. If the expression is a SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't a number, an error is produced. If the expression is a SQL `NULL` , the function returns SQL `NULL` .
 
-  - `  wide_number_mode  ` : A named argument with a `  STRING  ` value. Defines what happens with a number that can't be represented as a `  FLOAT64  ` without loss of precision. This argument accepts one of the two case-sensitive values:
+  - `wide_number_mode` : A named argument with a `STRING` value. Defines what happens with a number that can't be represented as a `FLOAT64` without loss of precision. This argument accepts one of the two case-sensitive values:
     
-      - `  exact  ` : The function fails if the result can't be represented as a `  FLOAT64  ` without loss of precision.
-      - `  round  ` (default): The numeric value stored in JSON will be rounded to `  FLOAT64  ` . If such rounding isn't possible, the function fails.
+      - `exact` : The function fails if the result can't be represented as a `FLOAT64` without loss of precision.
+      - `round` (default): The numeric value stored in JSON will be rounded to `FLOAT64` . If such rounding isn't possible, the function fails.
 
 **Return type**
 
-`  FLOAT64  `
+`FLOAT64`
 
 **Examples**
 
@@ -290,7 +290,7 @@ The following examples show how invalid requests are handled:
     -- Returns a SQL NULL
     SELECT SAFE.FLOAT64(JSON '"strawberry"') AS result;
 
-## `     FLOAT64_ARRAY    `
+## `FLOAT64_ARRAY`
 
     FLOAT64_ARRAY(
       json_expr
@@ -299,24 +299,24 @@ The following examples show how invalid requests are handled:
 
 **Description**
 
-Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT64>  ` value.
+Converts a JSON array of numbers to a SQL `ARRAY<FLOAT64>` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '[9.8]'
     
-    If the JSON value isn't an array of numbers, an error is produced. If the expression is a SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't an array of numbers, an error is produced. If the expression is a SQL `NULL` , the function returns SQL `NULL` .
 
-  - `  wide_number_mode  ` : A named argument that takes a `  STRING  ` value. Defines what happens with a number that can't be represented as a `  FLOAT64  ` without loss of precision. This argument accepts one of the two case-sensitive values:
+  - `wide_number_mode` : A named argument that takes a `STRING` value. Defines what happens with a number that can't be represented as a `FLOAT64` without loss of precision. This argument accepts one of the two case-sensitive values:
     
-      - `  exact  ` : The function fails if the result can't be represented as a `  FLOAT64  ` without loss of precision.
-      - `  round  ` (default): The numeric value stored in JSON will be rounded to `  FLOAT64  ` . If such rounding isn't possible, the function fails.
+      - `exact` : The function fails if the result can't be represented as a `FLOAT64` without loss of precision.
+      - `round` (default): The numeric value stored in JSON will be rounded to `FLOAT64` . If such rounding isn't possible, the function fails.
 
 **Return type**
 
-`  ARRAY<FLOAT64>  `
+`ARRAY<FLOAT64>`
 
 **Examples**
 
@@ -358,7 +358,7 @@ The following examples show how invalid requests are handled:
     -- An error is thrown because the number can't be converted to DOUBLE without loss of precision
     SELECT FLOAT64_ARRAY(JSON '[18446744073709551615]', wide_number_mode=>'exact') as result;
 
-## `     FLOAT32    `
+## `FLOAT32`
 
     FLOAT32(
       json_expr
@@ -367,24 +367,24 @@ The following examples show how invalid requests are handled:
 
 **Description**
 
-Converts a JSON number to a SQL `  FLOAT32  ` value.
+Converts a JSON number to a SQL `FLOAT32` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '9.8'
     
-    If the JSON value isn't a number, an error is produced. If the expression is a SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't a number, an error is produced. If the expression is a SQL `NULL` , the function returns SQL `NULL` .
 
-  - `  wide_number_mode  ` : A named argument with a `  STRING  ` value. Defines what happens with a number that can't be represented as a `  FLOAT32  ` without loss of precision. This argument accepts one of the two case-sensitive values:
+  - `wide_number_mode` : A named argument with a `STRING` value. Defines what happens with a number that can't be represented as a `FLOAT32` without loss of precision. This argument accepts one of the two case-sensitive values:
     
-      - `  exact  ` : The function fails if the result can't be represented as a `  FLOAT32  ` without loss of precision.
-      - `  round  ` (default): The numeric value stored in JSON will be rounded to `  FLOAT32  ` . If such rounding isn't possible, the function fails.
+      - `exact` : The function fails if the result can't be represented as a `FLOAT32` without loss of precision.
+      - `round` (default): The numeric value stored in JSON will be rounded to `FLOAT32` . If such rounding isn't possible, the function fails.
 
 **Return type**
 
-`  FLOAT32  `
+`FLOAT32`
 
 **Examples**
 
@@ -436,7 +436,7 @@ The following examples show how invalid requests are handled:
     -- Returns a SQL NULL
     SELECT SAFE.FLOAT32(JSON '"strawberry"') AS result;
 
-## `     FLOAT32_ARRAY    `
+## `FLOAT32_ARRAY`
 
     FLOAT32_ARRAY(
       json_expr
@@ -445,24 +445,24 @@ The following examples show how invalid requests are handled:
 
 **Description**
 
-Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT32>  ` value.
+Converts a JSON array of numbers to a SQL `ARRAY<FLOAT32>` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '[9.8]'
     
-    If the JSON value isn't an array of numbers, an error is produced. If the expression is a SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't an array of numbers, an error is produced. If the expression is a SQL `NULL` , the function returns SQL `NULL` .
 
-  - `  wide_number_mode  ` : A named argument with a `  STRING  ` value. Defines what happens with a number that can't be represented as a `  FLOAT32  ` without loss of precision. This argument accepts one of the two case-sensitive values:
+  - `wide_number_mode` : A named argument with a `STRING` value. Defines what happens with a number that can't be represented as a `FLOAT32` without loss of precision. This argument accepts one of the two case-sensitive values:
     
-      - `  exact  ` : The function fails if the result can't be represented as a `  FLOAT32  ` without loss of precision.
-      - `  round  ` (default): The numeric value stored in JSON will be rounded to `  FLOAT32  ` . If such rounding isn't possible, the function fails.
+      - `exact` : The function fails if the result can't be represented as a `FLOAT32` without loss of precision.
+      - `round` (default): The numeric value stored in JSON will be rounded to `FLOAT32` . If such rounding isn't possible, the function fails.
 
 **Return type**
 
-`  ARRAY<FLOAT32>  `
+`ARRAY<FLOAT32>`
 
 **Examples**
 
@@ -504,25 +504,25 @@ The following examples show how invalid requests are handled:
     -- An error is thrown because the number can't be converted to FLOAT without loss of precision
     SELECT FLOAT32_ARRAY(JSON '[16777217]', wide_number_mode=>'exact') as result;
 
-## `     INT64    `
+## `INT64`
 
     INT64(json_expr)
 
 **Description**
 
-Converts a JSON number to a SQL `  INT64  ` value.
+Converts a JSON number to a SQL `INT64` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '999'
     
-    If the JSON value isn't a number, or the JSON number isn't in the SQL `  INT64  ` domain, an error is produced. If the expression is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't a number, or the JSON number isn't in the SQL `INT64` domain, an error is produced. If the expression is SQL `NULL` , the function returns SQL `NULL` .
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
@@ -558,25 +558,25 @@ The following examples show how invalid requests are handled:
     SELECT INT64(JSON 'null') AS result; -- Throws an error
     SELECT SAFE.INT64(JSON '"strawberry"') AS result;  -- Returns a SQL NULL
 
-## `     INT64_ARRAY    `
+## `INT64_ARRAY`
 
     INT64_ARRAY(json_expr)
 
 **Description**
 
-Converts a JSON array of numbers to a SQL `  INT64_ARRAY  ` value.
+Converts a JSON array of numbers to a SQL `INT64_ARRAY` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '[999]'
     
-    If the JSON value isn't an array of numbers, or the JSON numbers aren't in the SQL `  INT64  ` domain, an error is produced. If the expression is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't an array of numbers, or the JSON numbers aren't in the SQL `INT64` domain, an error is produced. If the expression is SQL `NULL` , the function returns SQL `NULL` .
 
 **Return type**
 
-`  ARRAY<INT64>  `
+`ARRAY<INT64>`
 
 **Examples**
 
@@ -604,7 +604,7 @@ The following examples show how invalid requests are handled:
     SELECT INT64_ARRAY(JSON '[null]') AS result; -- Throws an error
     SELECT INT64_ARRAY(JSON 'null') AS result; -- Throws an error
 
-## `     JSON_ARRAY    `
+## `JSON_ARRAY`
 
     JSON_ARRAY([value][, ...])
 
@@ -614,11 +614,11 @@ Creates a JSON array from zero or more SQL values.
 
 Arguments:
 
-  - `  value  ` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value to add to a JSON array.
+  - `value` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value to add to a JSON array.
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
@@ -684,7 +684,7 @@ You can create an empty JSON array. For example:
      | []        |
      +-----------*/
 
-## `     JSON_ARRAY_APPEND    `
+## `JSON_ARRAY_APPEND`
 
     JSON_ARRAY_APPEND(
       json_expr,
@@ -699,41 +699,41 @@ Appends JSON data to the end of a JSON array.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '["a", "b", "c"]'
 
-  - `  json_path_value_pair  ` : A value and the [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) for that value. This includes:
+  - `json_path_value_pair` : A value and the [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) for that value. This includes:
     
-      - `  json_path  ` : Append `  value  ` at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) in `  json_expr  ` .
+      - `json_path` : Append `value` at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) in `json_expr` .
     
-      - `  value  ` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value to append.
+      - `value` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value to append.
 
-  - `  append_each_element  ` : A named argument with a `  BOOL  ` value.
+  - `append_each_element` : A named argument with a `BOOL` value.
     
-      - If `  TRUE  ` (default), and `  value  ` is a SQL array, appends each element individually.
+      - If `TRUE` (default), and `value` is a SQL array, appends each element individually.
     
-      - If `  FALSE,  ` and `  value  ` is a SQL array, appends the array as one element.
+      - If `FALSE,` and `value` is a SQL array, appends the array as one element.
 
 Details:
 
   - Path value pairs are evaluated left to right. The JSON produced by evaluating one pair becomes the JSON against which the next pair is evaluated.
   - The operation is ignored if the path points to a JSON non-array value that isn't a JSON null.
-  - If `  json_path  ` points to a JSON null, the JSON null is replaced by a JSON array that contains `  value  ` .
+  - If `json_path` points to a JSON null, the JSON null is replaced by a JSON array that contains `value` .
   - If the path exists but has an incompatible type at any given path token, the path value pair operation is ignored.
   - The function applies all path value pair append operations even if an individual path value pair operation is invalid. For invalid operations, the operation is ignored and the function continues to process the rest of the path value pairs.
-  - If any `  json_path  ` is an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
-  - If `  json_expr  ` is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
-  - If `  append_each_element  ` is SQL `  NULL  ` , the function returns `  json_expr  ` .
-  - If `  json_path  ` is SQL `  NULL  ` , the `  json_path_value_pair  ` operation is ignored.
+  - If any `json_path` is an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
+  - If `json_expr` is SQL `NULL` , the function returns SQL `NULL` .
+  - If `append_each_element` is SQL `NULL` , the function returns `json_expr` .
+  - If `json_path` is SQL `NULL` , the `json_path_value_pair` operation is ignored.
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
-In the following example, path `  $  ` is matched and appends `  1  ` .
+In the following example, path `$` is matched and appends `1` .
 
     SELECT JSON_ARRAY_APPEND(JSON '["a", "b", "c"]', '$', 1) AS json_data
     
@@ -743,7 +743,7 @@ In the following example, path `  $  ` is matched and appends `  1  ` .
      | ["a","b","c",1] |
      +-----------------*/
 
-In the following example, `  append_each_element  ` defaults to `  TRUE  ` , so `  [1, 2]  ` is appended as individual elements.
+In the following example, `append_each_element` defaults to `TRUE` , so `[1, 2]` is appended as individual elements.
 
     SELECT JSON_ARRAY_APPEND(JSON '["a", "b", "c"]', '$', [1, 2]) AS json_data
     
@@ -753,7 +753,7 @@ In the following example, `  append_each_element  ` defaults to `  TRUE  ` , so 
      | ["a","b","c",1,2] |
      +-------------------*/
 
-In the following example, `  append_each_element  ` is `  FALSE  ` , so `  [1, 2]  ` is appended as one element.
+In the following example, `append_each_element` is `FALSE` , so `[1, 2]` is appended as one element.
 
     SELECT JSON_ARRAY_APPEND(
       JSON '["a", "b", "c"]',
@@ -766,7 +766,7 @@ In the following example, `  append_each_element  ` is `  FALSE  ` , so `  [1, 2
      | ["a","b","c",[1,2]] |
      +---------------------*/
 
-In the following example, `  append_each_element  ` is `  FALSE  ` , so `  [1, 2]  ` and `  [3, 4]  ` are each appended as one element.
+In the following example, `append_each_element` is `FALSE` , so `[1, 2]` and `[3, 4]` are each appended as one element.
 
     SELECT JSON_ARRAY_APPEND(
       JSON '["a", ["b"], "c"]',
@@ -780,7 +780,7 @@ In the following example, `  append_each_element  ` is `  FALSE  ` , so `  [1, 2
      | ["a",["b",[1,2,[3,4]]],"c"] |
      +-----------------------------*/
 
-In the following example, the first path `  $[1]  ` appends `  [1, 2]  ` as single elements, and then the second path `  $[1][1]  ` isn't a valid path to an array, so the second operation is ignored.
+In the following example, the first path `$[1]` appends `[1, 2]` as single elements, and then the second path `$[1][1]` isn't a valid path to an array, so the second operation is ignored.
 
     SELECT JSON_ARRAY_APPEND(
       JSON '["a", ["b"], "c"]',
@@ -793,7 +793,7 @@ In the following example, the first path `  $[1]  ` appends `  [1, 2]  ` as sing
      | ["a",["b",1,2],"c"] |
      +---------------------*/
 
-In the following example, path `  $.a  ` is matched and appends `  2  ` .
+In the following example, path `$.a` is matched and appends `2` .
 
     SELECT JSON_ARRAY_APPEND(JSON '{"a": [1]}', '$.a', 2) AS json_data
     
@@ -813,7 +813,7 @@ In the following example, a value is appended into a JSON null.
      | {"a":[10]} |
      +------------*/
 
-In the following example, path `  $.a  ` isn't an array, so the operation is ignored.
+In the following example, path `$.a` isn't an array, so the operation is ignored.
 
     SELECT JSON_ARRAY_APPEND(JSON '{"a": 1}', '$.a', 2) AS json_data
     
@@ -823,7 +823,7 @@ In the following example, path `  $.a  ` isn't an array, so the operation is ign
      | {"a":1}   |
      +-----------*/
 
-In the following example, path `  $.b  ` doesn't exist, so the operation is ignored.
+In the following example, path `$.b` doesn't exist, so the operation is ignored.
 
     SELECT JSON_ARRAY_APPEND(JSON '{"a": 1}', '$.b', 2) AS json_data
     
@@ -833,7 +833,7 @@ In the following example, path `  $.b  ` doesn't exist, so the operation is igno
      | {"a":1}   |
      +-----------*/
 
-## `     JSON_ARRAY_INSERT    `
+## `JSON_ARRAY_INSERT`
 
     JSON_ARRAY_INSERT(
       json_expr,
@@ -848,42 +848,42 @@ Produces a new JSON value that's created by inserting JSON data into a JSON arra
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '["a", "b", "c"]'
 
-  - `  json_path_value_pair  ` : A value and the [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) for that value. This includes:
+  - `json_path_value_pair` : A value and the [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) for that value. This includes:
     
-      - `  json_path  ` : Insert `  value  ` at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) in `  json_expr  ` .
+      - `json_path` : Insert `value` at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) in `json_expr` .
     
-      - `  value  ` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value to insert.
+      - `value` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value to insert.
 
-  - `  insert_each_element  ` : A named argument with a `  BOOL  ` value.
+  - `insert_each_element` : A named argument with a `BOOL` value.
     
-      - If `  TRUE  ` (default), and `  value  ` is a SQL array, inserts each element individually.
+      - If `TRUE` (default), and `value` is a SQL array, inserts each element individually.
     
-      - If `  FALSE,  ` and `  value  ` is a SQL array, inserts the array as one element.
+      - If `FALSE,` and `value` is a SQL array, inserts the array as one element.
 
 Details:
 
   - Path value pairs are evaluated left to right. The JSON produced by evaluating one pair becomes the JSON against which the next pair is evaluated.
   - The operation is ignored if the path points to a JSON non-array value that isn't a JSON null.
-  - If `  json_path  ` points to a JSON null, the JSON null is replaced by a JSON array of the appropriate size and padded on the left with JSON nulls.
+  - If `json_path` points to a JSON null, the JSON null is replaced by a JSON array of the appropriate size and padded on the left with JSON nulls.
   - If the path exists but has an incompatible type at any given path token, the path value pair operator is ignored.
   - The function applies all path value pair append operations even if an individual path value pair operation is invalid. For invalid operations, the operation is ignored and the function continues to process the rest of the path value pairs.
-  - If the array index in `  json_path  ` is larger than the size of the array, the function extends the length of the array to the index, fills in the array with JSON nulls, then adds `  value  ` at the index.
-  - If any `  json_path  ` is an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
-  - If `  json_expr  ` is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
-  - If `  insert_each_element  ` is SQL `  NULL  ` , the function returns `  json_expr  ` .
-  - If `  json_path  ` is SQL `  NULL  ` , the `  json_path_value_pair  ` operation is ignored.
+  - If the array index in `json_path` is larger than the size of the array, the function extends the length of the array to the index, fills in the array with JSON nulls, then adds `value` at the index.
+  - If any `json_path` is an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
+  - If `json_expr` is SQL `NULL` , the function returns SQL `NULL` .
+  - If `insert_each_element` is SQL `NULL` , the function returns `json_expr` .
+  - If `json_path` is SQL `NULL` , the `json_path_value_pair` operation is ignored.
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
-In the following example, path `  $[1]  ` is matched and inserts `  1  ` .
+In the following example, path `$[1]` is matched and inserts `1` .
 
     SELECT JSON_ARRAY_INSERT(JSON '["a", ["b", "c"], "d"]', '$[1]', 1) AS json_data
     
@@ -893,7 +893,7 @@ In the following example, path `  $[1]  ` is matched and inserts `  1  ` .
      | ["a",1,["b","c"],"d"] |
      +-----------------------*/
 
-In the following example, path `  $[1][0]  ` is matched and inserts `  1  ` .
+In the following example, path `$[1][0]` is matched and inserts `1` .
 
     SELECT JSON_ARRAY_INSERT(JSON '["a", ["b", "c"], "d"]', '$[1][0]', 1) AS json_data
     
@@ -903,7 +903,7 @@ In the following example, path `  $[1][0]  ` is matched and inserts `  1  ` .
      | ["a",[1,"b","c"],"d"] |
      +-----------------------*/
 
-In the following example, `  insert_each_element  ` defaults to `  TRUE  ` , so `  [1, 2]  ` is inserted as individual elements.
+In the following example, `insert_each_element` defaults to `TRUE` , so `[1, 2]` is inserted as individual elements.
 
     SELECT JSON_ARRAY_INSERT(JSON '["a", "b", "c"]', '$[1]', [1, 2]) AS json_data
     
@@ -913,7 +913,7 @@ In the following example, `  insert_each_element  ` defaults to `  TRUE  ` , so 
      | ["a",1,2,"b","c"] |
      +-------------------*/
 
-In the following example, `  insert_each_element  ` is `  FALSE  ` , so `  [1, 2]  ` is inserted as one element.
+In the following example, `insert_each_element` is `FALSE` , so `[1, 2]` is inserted as one element.
 
     SELECT JSON_ARRAY_INSERT(
       JSON '["a", "b", "c"]',
@@ -926,7 +926,7 @@ In the following example, `  insert_each_element  ` is `  FALSE  ` , so `  [1, 2
      | ["a",[1,2],"b","c"] |
      +---------------------*/
 
-In the following example, path `  $[7]  ` is larger than the length of the matched array, so the array is extended with JSON nulls and `  "e"  ` is inserted at the end of the array.
+In the following example, path `$[7]` is larger than the length of the matched array, so the array is extended with JSON nulls and `"e"` is inserted at the end of the array.
 
     SELECT JSON_ARRAY_INSERT(JSON '["a", "b", "c", "d"]', '$[7]', "e") AS json_data
     
@@ -936,7 +936,7 @@ In the following example, path `  $[7]  ` is larger than the length of the match
      | ["a","b","c","d",null,null,null,"e"] |
      +--------------------------------------*/
 
-In the following example, path `  $.a  ` is an object, so the operation is ignored.
+In the following example, path `$.a` is an object, so the operation is ignored.
 
     SELECT JSON_ARRAY_INSERT(JSON '{"a": {}}', '$.a[0]', 2) AS json_data
     
@@ -946,7 +946,7 @@ In the following example, path `  $.a  ` is an object, so the operation is ignor
      | {"a":{}}  |
      +-----------*/
 
-In the following example, path `  $  ` doesn't specify a valid array position, so the operation is ignored.
+In the following example, path `$` doesn't specify a valid array position, so the operation is ignored.
 
     SELECT JSON_ARRAY_INSERT(JSON '[1, 2]', '$', 3) AS json_data
     
@@ -976,17 +976,17 @@ In the following example, the operation is ignored because you can't insert data
      | 1         |
      +-----------*/
 
-## `     JSON_CONTAINS    `
+## `JSON_CONTAINS`
 
     JSON_CONTAINS(json_expr, json_expr)
 
 **Description**
 
-Checks if a JSON document contains another JSON document. This function returns `  true  ` if the first parameter JSON document contains the second parameter JSON document; otherwise the function returns `  false  ` . If any input argument is `  NULL  ` , a `  NULL  ` value is returned.
+Checks if a JSON document contains another JSON document. This function returns `true` if the first parameter JSON document contains the second parameter JSON document; otherwise the function returns `false` . If any input argument is `NULL` , a `NULL` value is returned.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '{"class": {"students": [{"name": "Jane"}]}}'
 
@@ -1012,7 +1012,7 @@ Details:
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -1077,7 +1077,7 @@ The following examples check if a JSON array contains a JSON object:
      |   true   |   false  |   false  |
      +----------*----------*----------*/
 
-## `     JSON_KEYS    `
+## `JSON_KEYS`
 
     JSON_KEYS(
       json_expr
@@ -1091,17 +1091,17 @@ Extracts unique JSON keys from a JSON expression.
 
 Arguments:
 
-  - `  json_expr  ` : `  JSON  ` . For example:
+  - `json_expr` : `JSON` . For example:
     
         JSON '{"class": {"students": [{"name": "Jane"}]}}'
 
-  - `  max_depth  ` : An `  INT64  ` value that represents the maximum depth of nested fields to search in `  json_expr  ` . If not set, the function searches the entire JSON document.
+  - `max_depth` : An `INT64` value that represents the maximum depth of nested fields to search in `json_expr` . If not set, the function searches the entire JSON document.
 
-  - `  mode  ` : A named argument with a `  STRING  ` value that can be one of the following:
+  - `mode` : A named argument with a `STRING` value that can be one of the following:
     
-      - `  strict  ` (default): Ignore any key that appears in an array.
-      - `  lax  ` : Also include keys contained in non-consecutively nested arrays.
-      - `  lax recursive  ` : Return all keys.
+      - `strict` (default): Ignore any key that appears in an array.
+      - `lax` : Also include keys contained in non-consecutively nested arrays.
+      - `lax recursive` : Return all keys.
 
 Details:
 
@@ -1109,13 +1109,13 @@ Details:
   - Keys don't include array indices.
   - Keys containing special characters are escaped using double quotes.
   - Keys are case sensitive and not normalized.
-  - If `  json_expr  ` or `  mode  ` is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
-  - If `  max_depth  ` is SQL `  NULL  ` , the function ignores the argument.
-  - If `  max_depth  ` is less than or equal to 0, then an error is returned.
+  - If `json_expr` or `mode` is SQL `NULL` , the function returns SQL `NULL` .
+  - If `max_depth` is SQL `NULL` , the function ignores the argument.
+  - If `max_depth` is less than or equal to 0, then an error is returned.
 
 **Return type**
 
-`  ARRAY<STRING>  `
+`ARRAY<STRING>`
 
 **Examples**
 
@@ -1129,7 +1129,7 @@ In the following example, there are no arrays, so all keys are returned.
      | [a, a.b]  |
      +-----------*/
 
-In the following example, `  max_depth  ` is set to 1 so "a.b" isn't included.
+In the following example, `max_depth` is set to 1 so "a.b" isn't included.
 
     SELECT JSON_KEYS(JSON '{"a": {"b":1}}', 1) AS json_keys
     
@@ -1139,7 +1139,7 @@ In the following example, `  max_depth  ` is set to 1 so "a.b" isn't included.
      | [a]       |
      +-----------*/
 
-In the following example, the `  json_expr  ` argument contains an array. Because the mode is `  strict  ` , keys inside the array are excluded.
+In the following example, the `json_expr` argument contains an array. Because the mode is `strict` , keys inside the array are excluded.
 
     SELECT JSON_KEYS(JSON '{"a":[{"b":1}, {"c":2}], "d":3}') AS json_keys
     
@@ -1149,7 +1149,7 @@ In the following example, the `  json_expr  ` argument contains an array. Becaus
      | [a, d]    |
      +-----------*/
 
-In the following example, the `  json_expr  ` argument contains an array. Because the mode is `  lax  ` , keys inside the array are included.
+In the following example, the `json_expr` argument contains an array. Because the mode is `lax` , keys inside the array are included.
 
     SELECT JSON_KEYS(
       JSON '{"a":[{"b":1}, {"c":2}], "d":3}',
@@ -1161,7 +1161,7 @@ In the following example, the `  json_expr  ` argument contains an array. Becaus
      | [a, a.b, a.c, d] |
      +------------------*/
 
-In the following example, the `  json_expr  ` argument contains consecutively nested arrays. Because the mode is `  lax  ` , keys inside the consecutively nested arrays aren't included.
+In the following example, the `json_expr` argument contains consecutively nested arrays. Because the mode is `lax` , keys inside the consecutively nested arrays aren't included.
 
     SELECT JSON_KEYS(JSON '{"a":[[{"b":1}]]}', mode => "lax") as json_keys
     
@@ -1171,7 +1171,7 @@ In the following example, the `  json_expr  ` argument contains consecutively ne
      | [a]       |
      +-----------*/
 
-In the following example, the `  json_expr  ` argument contains consecutively nested arrays. Because the mode is `  lax recursive  ` , every key is returned.
+In the following example, the `json_expr` argument contains consecutively nested arrays. Because the mode is `lax recursive` , every key is returned.
 
     SELECT JSON_KEYS(JSON '{"a":[[{"b":1}]]}', mode => "lax recursive") as json_keys
     
@@ -1181,7 +1181,7 @@ In the following example, the `  json_expr  ` argument contains consecutively ne
      | [a, a.b]  |
      +-----------*/
 
-In the following example, the `  json_expr  ` argument contains multiple arrays. Because the arrays aren't consecutively nested and the mode is `  lax  ` , keys inside the arrays are included.
+In the following example, the `json_expr` argument contains multiple arrays. Because the arrays aren't consecutively nested and the mode is `lax` , keys inside the arrays are included.
 
     SELECT JSON_KEYS(JSON '{"a":[{"b":[{"c":1}]}]}', mode => "lax") as json_keys
     
@@ -1191,7 +1191,7 @@ In the following example, the `  json_expr  ` argument contains multiple arrays.
      | [a, a.b, a.b.c] |
      +-----------------*/
 
-In the following example, the `  json_expr  ` argument contains both consecutively nested and single arrays. Because the mode is `  lax  ` , keys inside the consecutively nested arrays are excluded.
+In the following example, the `json_expr` argument contains both consecutively nested and single arrays. Because the mode is `lax` , keys inside the consecutively nested arrays are excluded.
 
     SELECT JSON_KEYS(JSON '{"a":[{"b":[[{"c":1}]]}]}', mode => "lax") as json_keys
     
@@ -1201,7 +1201,7 @@ In the following example, the `  json_expr  ` argument contains both consecutive
      | [a, a.b]  |
      +-----------*/
 
-In the following example, the `  json_expr  ` argument contains both consecutively nested and single arrays. Because the mode is `  lax recursive  ` , all keys are included.
+In the following example, the `json_expr` argument contains both consecutively nested and single arrays. Because the mode is `lax recursive` , all keys are included.
 
     SELECT JSON_KEYS(
       JSON '{"a":[{"b":[[{"c":1}]]}]}', mode => "lax recursive") as json_keys
@@ -1212,10 +1212,10 @@ In the following example, the `  json_expr  ` argument contains both consecutive
      | [a, a.b, a.b.c] |
      +-----------------*/
 
-## `     JSON_OBJECT    `
+## `JSON_OBJECT`
 
-  - [Signature 1](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object_signature1) : `  JSON_OBJECT([json_key, json_value][, ...])  `
-  - [Signature 2](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object_signature2) : `  JSON_OBJECT(json_key_array, json_value_array)  `
+  - [Signature 1](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object_signature1) : `JSON_OBJECT([json_key, json_value][, ...])`
+  - [Signature 2](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object_signature2) : `JSON_OBJECT(json_key_array, json_value_array)`
 
 #### Signature 1
 
@@ -1227,18 +1227,18 @@ Creates a JSON object, using key-value pairs.
 
 Arguments:
 
-  - `  json_key  ` : A `  STRING  ` value that represents a key.
-  - `  json_value  ` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value.
+  - `json_key` : A `STRING` value that represents a key.
+  - `json_value` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value.
 
 Details:
 
   - If two keys are passed in with the same name, only the first key-value pair is preserved.
   - The order of key-value pairs isn't preserved.
-  - If `  json_key  ` is `  NULL  ` , an error is produced.
+  - If `json_key` is `NULL` , an error is produced.
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
@@ -1295,7 +1295,7 @@ You can create a JSON object by passing in key-value pairs. For example:
      | {"hello":"world"} |
      +-------------------*/
 
-An error is produced if a SQL `  NULL  ` is passed in for a JSON key.
+An error is produced if a SQL `NULL` is passed in for a JSON key.
 
     -- Error: A key can't be NULL.
     SELECT JSON_OBJECT(NULL, 1) AS json_data
@@ -1314,20 +1314,20 @@ Creates a JSON object, using an array of keys and values.
 
 Arguments:
 
-  - `  json_key_array  ` : An array of zero or more `  STRING  ` keys.
-  - `  json_value_array  ` : An array of zero or more [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) values.
+  - `json_key_array` : An array of zero or more `STRING` keys.
+  - `json_value_array` : An array of zero or more [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) values.
 
 Details:
 
   - If two keys are passed in with the same name, only the first key-value pair is preserved.
   - The order of key-value pairs isn't preserved.
   - The number of keys must match the number of values, otherwise an error is produced.
-  - If any argument is `  NULL  ` , an error is produced.
-  - If a key in `  json_key_array  ` is `  NULL  ` , an error is produced.
+  - If any argument is `NULL` , an error is produced.
+  - If a key in `json_key_array` is `NULL` , an error is produced.
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
@@ -1383,7 +1383,7 @@ You can create a JSON object by passing in an array of keys and an array of valu
      | {"a":10,"b":["foo","bar"]} |
      +----------------------------*/
 
-The following query groups by `  id  ` and then creates an array of keys and values from the rows with the same `  id  ` :
+The following query groups by `id` and then creates an array of keys and values from the rows with the same `id` :
 
     WITH
       Fruits AS (
@@ -1408,7 +1408,7 @@ An error is produced if the size of the JSON keys and values arrays don't match:
     -- Error: The number of keys and values must match.
     SELECT JSON_OBJECT(['a', 'b'], [10]) AS json_data
 
-An error is produced if the array of JSON keys or JSON values is a SQL `  NULL  ` .
+An error is produced if the array of JSON keys or JSON values is a SQL `NULL` .
 
     -- Error: The keys array can't be NULL.
     SELECT JSON_OBJECT(CAST(NULL AS ARRAY<STRING>), [10, 20]) AS json_data
@@ -1416,7 +1416,7 @@ An error is produced if the array of JSON keys or JSON values is a SQL `  NULL  
     -- Error: The values array can't be NULL.
     SELECT JSON_OBJECT(['a', 'b'], CAST(NULL AS ARRAY<INT64>)) AS json_data
 
-## `     JSON_QUERY    `
+## `JSON_QUERY`
 
     JSON_QUERY(json_string_expr, json_path)
 
@@ -1424,34 +1424,34 @@ An error is produced if the array of JSON keys or JSON values is a SQL `  NULL  
 
 **Description**
 
-Extracts a JSON value and converts it to a SQL JSON-formatted `  STRING  ` or `  JSON  ` value. This function uses double quotes to escape invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) characters in JSON keys. For example: `  "a.b"  ` .
+Extracts a JSON value and converts it to a SQL JSON-formatted `STRING` or `JSON` value. This function uses double quotes to escape invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) characters in JSON keys. For example: `"a.b"` .
 
 Arguments:
 
-  - `  json_string_expr  ` : A JSON-formatted string. For example:
+  - `json_string_expr` : A JSON-formatted string. For example:
     
         '{"class": {"students": [{"name": "Jane"}]}}'
     
-    Extracts a SQL `  NULL  ` when a JSON-formatted string `  null  ` is encountered. For example:
+    Extracts a SQL `NULL` when a JSON-formatted string `null` is encountered. For example:
     
         SELECT JSON_QUERY("null", "$") -- Returns a SQL NULL
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '{"class": {"students": [{"name": "Jane"}]}}'
     
-    Extracts a JSON `  null  ` when a JSON `  null  ` is encountered.
+    Extracts a JSON `null` when a JSON `null` is encountered.
     
         SELECT JSON_QUERY(JSON 'null', "$") -- Returns a JSON 'null'
 
-  - `  json_path  ` : The [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) . This identifies the data that you want to obtain from the input.
+  - `json_path` : The [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) . This identifies the data that you want to obtain from the input.
 
 There are differences between the JSON-formatted string and JSON input types. For details, see [Differences between the JSON and JSON-formatted STRING types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#differences_json_and_string) .
 
 **Return type**
 
-  - `  json_string_expr  ` : A JSON-formatted `  STRING  `
-  - `  json_expr  ` : `  JSON  `
+  - `json_string_expr` : A JSON-formatted `STRING`
+  - `json_expr` : `JSON`
 
 **Examples**
 
@@ -1612,7 +1612,7 @@ In the following examples, JSON data is extracted and returned as JSON-formatted
     SELECT JSON_QUERY(JSON '{"a": null}', "$.a"); -- Returns a JSON 'null'
     SELECT JSON_QUERY(JSON '{"a": null}', "$.b"); -- Returns a SQL NULL
 
-## `     JSON_QUERY_ARRAY    `
+## `JSON_QUERY_ARRAY`
 
     JSON_QUERY_ARRAY(json_string_expr[, json_path])
 
@@ -1620,30 +1620,30 @@ In the following examples, JSON data is extracted and returned as JSON-formatted
 
 **Description**
 
-Extracts a JSON array and converts it to a SQL `  ARRAY<JSON-formatted STRING>  ` or `  ARRAY<JSON>  ` value. In addition, this function uses double quotes to escape invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) characters in JSON keys. For example: `  "a.b"  ` .
+Extracts a JSON array and converts it to a SQL `ARRAY<JSON-formatted STRING>` or `ARRAY<JSON>` value. In addition, this function uses double quotes to escape invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) characters in JSON keys. For example: `"a.b"` .
 
 Arguments:
 
-  - `  json_string_expr  ` : A JSON-formatted string. For example:
+  - `json_string_expr` : A JSON-formatted string. For example:
     
         '["a", "b", {"key": "c"}]'
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '["a", "b", {"key": "c"}]'
 
-  - `  json_path  ` : The [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) . This identifies the data that you want to obtain from the input. If this optional parameter isn't provided, then the JSONPath `  $  ` symbol is applied, which means that all of the data is analyzed.
+  - `json_path` : The [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) . This identifies the data that you want to obtain from the input. If this optional parameter isn't provided, then the JSONPath `$` symbol is applied, which means that all of the data is analyzed.
 
 There are differences between the JSON-formatted string and JSON input types. For details, see [Differences between the JSON and JSON-formatted STRING types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#differences_json_and_string) .
 
 **Return type**
 
-  - `  json_string_expr  ` : `  ARRAY<JSON-formatted STRING>  `
-  - `  json_expr  ` : `  ARRAY<JSON>  `
+  - `json_string_expr` : `ARRAY<JSON-formatted STRING>`
+  - `json_expr` : `ARRAY<JSON>`
 
 **Examples**
 
-This extracts items in JSON to an array of `  JSON  ` values:
+This extracts items in JSON to an array of `JSON` values:
 
     SELECT JSON_QUERY_ARRAY(
       JSON '{"fruits": ["apples", "oranges", "grapes"]}', '$.fruits'
@@ -1703,7 +1703,7 @@ This extracts string values in a JSON-formatted string to an array:
      | [apples, oranges, grapes] |
      +---------------------------*/
 
-This extracts only the items in the `  fruit  ` property to an array:
+This extracts only the items in the `fruit` property to an array:
 
     SELECT JSON_QUERY_ARRAY(
       '{"fruit": [{"apples": 5, "oranges": 10}, {"apples": 2, "oranges": 4}], "vegetables": [{"lettuce": 7, "kale": 8}]}',
@@ -1729,7 +1729,7 @@ These are equivalent:
      | ["apples", "oranges", "grapes"] |
      +---------------------------------*/
 
-In cases where a JSON key uses invalid JSONPath characters, you can escape those characters using double quotes: `  " "  ` . For example:
+In cases where a JSON key uses invalid JSONPath characters, you can escape those characters using double quotes: `" "` . For example:
 
     SELECT JSON_QUERY_ARRAY('{"a.b": {"c": ["world"]}}', '$."a.b".c') AS hello;
     
@@ -1771,19 +1771,19 @@ The following examples show how invalid requests and empty arrays are handled:
      | []     |
      +--------*/
 
-## `     JSON_REMOVE    `
+## `JSON_REMOVE`
 
     JSON_REMOVE(json_expr, json_path[, ...])
 
-Produces a new SQL `  JSON  ` value with the specified JSON data removed.
+Produces a new SQL `JSON` value with the specified JSON data removed.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '{"class": {"students": [{"name": "Jane"}]}}'
 
-  - `  json_path  ` : Remove data at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) in `  json_expr  ` .
+  - `json_path` : Remove data at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) in `json_expr` .
 
 Details:
 
@@ -1793,16 +1793,16 @@ Details:
   - If the path matches a JSON object key, this function deletes the key-value pair.
   - If the path matches an array element, this function deletes the specific element from the matched array.
   - If removing the path results in an empty JSON object or empty JSON array, the empty structure is preserved.
-  - If `  json_path  ` is `  $  ` or an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
-  - If `  json_path  ` is SQL `  NULL  ` , the path operation is ignored.
+  - If `json_path` is `$` or an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
+  - If `json_path` is SQL `NULL` , the path operation is ignored.
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
-In the following example, the path `  $[1]  ` is matched and removes `  ["b", "c"]  ` .
+In the following example, the path `$[1]` is matched and removes `["b", "c"]` .
 
     SELECT JSON_REMOVE(JSON '["a", ["b", "c"], "d"]', '$[1]') AS json_data
     
@@ -1823,7 +1823,7 @@ You can use the field access operator to pass JSON data into this function. For 
      | {"c":20}  |
      +-----------*/
 
-In the following example, the first path `  $[1]  ` is matched and removes `  ["b", "c"]  ` . Then, the second path `  $[1]  ` is matched and removes `  "d"  ` .
+In the following example, the first path `$[1]` is matched and removes `["b", "c"]` . Then, the second path `$[1]` is matched and removes `"d"` .
 
     SELECT JSON_REMOVE(JSON '["a", ["b", "c"], "d"]', '$[1]', '$[1]') AS json_data
     
@@ -1843,7 +1843,7 @@ The structure of an empty array is preserved when all elements are deleted from 
      | []        |
      +-----------*/
 
-In the following example, the path `  $.a.b.c  ` is matched and removes the `  "c":"d"  ` key-value pair from the JSON object.
+In the following example, the path `$.a.b.c` is matched and removes the `"c":"d"` key-value pair from the JSON object.
 
     SELECT JSON_REMOVE(JSON '{"a": {"b": {"c": "d"}}}', '$.a.b.c') AS json_data
     
@@ -1853,7 +1853,7 @@ In the following example, the path `  $.a.b.c  ` is matched and removes the `  "
      | {"a":{"b":{}}} |
      +----------------*/
 
-In the following example, the path `  $.a.b  ` is matched and removes the `  "b": {"c":"d"}  ` key-value pair from the JSON object.
+In the following example, the path `$.a.b` is matched and removes the `"b": {"c":"d"}` key-value pair from the JSON object.
 
     SELECT JSON_REMOVE(JSON '{"a": {"b": {"c": "d"}}}', '$.a.b') AS json_data
     
@@ -1863,7 +1863,7 @@ In the following example, the path `  $.a.b  ` is matched and removes the `  "b"
      | {"a":{}}  |
      +-----------*/
 
-In the following example, the path `  $.b  ` isn't valid, so the operation makes no changes.
+In the following example, the path `$.b` isn't valid, so the operation makes no changes.
 
     SELECT JSON_REMOVE(JSON '{"a": 1}', '$.b') AS json_data
     
@@ -1873,7 +1873,7 @@ In the following example, the path `  $.b  ` isn't valid, so the operation makes
      | {"a":1}   |
      +-----------*/
 
-In the following example, path `  $.a.b  ` and `  $.b  ` don't exist, so those operations are ignored, but the others are processed.
+In the following example, path `$.a.b` and `$.b` don't exist, so those operations are ignored, but the others are processed.
 
     SELECT JSON_REMOVE(JSON '{"a": [1, 2, 3]}', '$.a[0]', '$.a.b', '$.b', '$.a[0]') AS json_data
     
@@ -1883,7 +1883,7 @@ In the following example, path `  $.a.b  ` and `  $.b  ` don't exist, so those o
      | {"a":[3]} |
      +-----------*/
 
-If you pass in `  $  ` as the path, an error is produced. For example:
+If you pass in `$` as the path, an error is produced. For example:
 
     -- Error: The JSONPath can't be '$'
     SELECT JSON_REMOVE(JSON '{}', '$') AS json_data
@@ -1898,7 +1898,7 @@ In the following example, the operation is ignored because you can't remove data
      | null      |
      +-----------*/
 
-## `     JSON_SET    `
+## `JSON_SET`
 
     JSON_SET(
       json_expr,
@@ -1909,57 +1909,57 @@ In the following example, the operation is ignored because you can't remove data
     json_path_value_pair:
       json_path, value
 
-Produces a new SQL `  JSON  ` value with the specified JSON data inserted or replaced.
+Produces a new SQL `JSON` value with the specified JSON data inserted or replaced.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '{"class": {"students": [{"name": "Jane"}]}}'
 
-  - `  json_path_value_pair  ` : A value and the [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) for that value. This includes:
+  - `json_path_value_pair` : A value and the [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) for that value. This includes:
     
-      - `  json_path  ` : Insert or replace `  value  ` at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) in `  json_expr  ` .
+      - `json_path` : Insert or replace `value` at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) in `json_expr` .
     
-      - `  value  ` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value to insert.
+      - `value` : A [JSON encoding-supported](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) value to insert.
 
-  - `  create_if_missing  ` : A named argument that takes a `  BOOL  ` value.
+  - `create_if_missing` : A named argument that takes a `BOOL` value.
     
-      - If `  TRUE  ` (default), replaces or inserts data if the path doesn't exist.
+      - If `TRUE` (default), replaces or inserts data if the path doesn't exist.
     
-      - If `  FALSE  ` , only existing JSONPath values are replaced. If the path doesn't exist, the set operation is ignored.
+      - If `FALSE` , only existing JSONPath values are replaced. If the path doesn't exist, the set operation is ignored.
 
 Details:
 
   - Path value pairs are evaluated left to right. The JSON produced by evaluating one pair becomes the JSON against which the next pair is evaluated.
 
-  - If a matched path has an existing value, it overwrites the existing data with `  value  ` .
+  - If a matched path has an existing value, it overwrites the existing data with `value` .
 
-  - If `  create_if_missing  ` is `  TRUE  ` :
+  - If `create_if_missing` is `TRUE` :
     
       - If a path doesn't exist, the remainder of the path is recursively created.
-      - If the matched path prefix points to a JSON null, the remainder of the path is recursively created, and `  value  ` is inserted.
+      - If the matched path prefix points to a JSON null, the remainder of the path is recursively created, and `value` is inserted.
       - If a path token points to a JSON array and the specified index is *larger* than the size of the array, pads the JSON array with JSON nulls, recursively creates the remainder of the path at the specified index, and inserts the path value pair.
 
   - This function applies all path value pair set operations even if an individual path value pair operation is invalid. For invalid operations, the operation is ignored and the function continues to process the rest of the path value pairs.
 
   - If the path exists but has an incompatible type at any given path token, no update happens for that specific path value pair.
 
-  - If any `  json_path  ` is an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
+  - If any `json_path` is an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
 
-  - If `  json_expr  ` is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+  - If `json_expr` is SQL `NULL` , the function returns SQL `NULL` .
 
-  - If `  json_path  ` is SQL `  NULL  ` , the `  json_path_value_pair  ` operation is ignored.
+  - If `json_path` is SQL `NULL` , the `json_path_value_pair` operation is ignored.
 
-  - If `  create_if_missing  ` is SQL `  NULL  ` , the set operation is ignored.
+  - If `create_if_missing` is SQL `NULL` , the set operation is ignored.
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
-In the following example, the path `  $  ` matches the entire `  JSON  ` value and replaces it with `  {"b": 2, "c": 3}  ` .
+In the following example, the path `$` matches the entire `JSON` value and replaces it with `{"b": 2, "c": 3}` .
 
     SELECT JSON_SET(JSON '{"a": 1}', '$', JSON '{"b": 2, "c": 3}') AS json_data
     
@@ -1969,7 +1969,7 @@ In the following example, the path `  $  ` matches the entire `  JSON  ` value a
      | {"b":2,"c":3} |
      +---------------*/
 
-In the following example, `  create_if_missing  ` is `  FALSE  ` and the path `  $.b  ` doesn't exist, so the set operation is ignored.
+In the following example, `create_if_missing` is `FALSE` and the path `$.b` doesn't exist, so the set operation is ignored.
 
     SELECT JSON_SET(
       JSON '{"a": 1}',
@@ -1982,7 +1982,7 @@ In the following example, `  create_if_missing  ` is `  FALSE  ` and the path ` 
      | '{"a": 1}' |
      +------------*/
 
-In the following example, `  create_if_missing  ` is `  TRUE  ` and the path `  $.a  ` exists, so the value is replaced.
+In the following example, `create_if_missing` is `TRUE` and the path `$.a` exists, so the value is replaced.
 
     SELECT JSON_SET(
       JSON '{"a": 1}',
@@ -1995,7 +1995,7 @@ In the following example, `  create_if_missing  ` is `  TRUE  ` and the path `  
      | '{"a": 999}' |
      +--------------*/
 
-In the following example, the path `  $.a  ` is matched, but `  $.a.b  ` doesn't exist, so the new path and the value are inserted.
+In the following example, the path `$.a` is matched, but `$.a.b` doesn't exist, so the new path and the value are inserted.
 
     SELECT JSON_SET(JSON '{"a": {}}', '$.a.b', 100) AS json_data
     
@@ -2005,7 +2005,7 @@ In the following example, the path `  $.a  ` is matched, but `  $.a.b  ` doesn't
      | {"a":{"b":100}} |
      +-----------------*/
 
-In the following example, the path prefix `  $  ` points to a JSON null, so the remainder of the path is created for the value `  100  ` .
+In the following example, the path prefix `$` points to a JSON null, so the remainder of the path is created for the value `100` .
 
     SELECT JSON_SET(JSON 'null', '$.a.b', 100) AS json_data
     
@@ -2015,7 +2015,7 @@ In the following example, the path prefix `  $  ` points to a JSON null, so the 
      | {"a":{"b":100}} |
      +-----------------*/
 
-In the following example, the path `  $.a.c  ` implies that the value at `  $.a  ` is a JSON object but it's not. This part of the operation is ignored, but the other parts of the operation are completed successfully.
+In the following example, the path `$.a.c` implies that the value at `$.a` is a JSON object but it's not. This part of the operation is ignored, but the other parts of the operation are completed successfully.
 
     SELECT JSON_SET(
       JSON '{"a": 1}',
@@ -2029,7 +2029,7 @@ In the following example, the path `  $.a.c  ` implies that the value at `  $.a 
      | {"a":1,"b":2,"d":3} |
      +---------------------*/
 
-In the following example, the path `  $.a[2]  ` implies that the value for `  $.a  ` is an array, but it's not, so the operation is ignored for that value.
+In the following example, the path `$.a[2]` implies that the value for `$.a` is an array, but it's not, so the operation is ignored for that value.
 
     SELECT JSON_SET(
       JSON '{"a": 1}',
@@ -2042,7 +2042,7 @@ In the following example, the path `  $.a[2]  ` implies that the value for `  $.
      | {"a":1,"b":2} |
      +---------------*/
 
-In the following example, the path `  $[1]  ` is matched and replaces the array element value with `  foo  ` .
+In the following example, the path `$[1]` is matched and replaces the array element value with `foo` .
 
     SELECT JSON_SET(JSON '["a", ["b", "c"], "d"]', '$[1]', "foo") AS json_data
     
@@ -2052,7 +2052,7 @@ In the following example, the path `  $[1]  ` is matched and replaces the array 
      | ["a","foo","d"] |
      +-----------------*/
 
-In the following example, the path `  $[1][0]  ` is matched and replaces the array element value with `  foo  ` .
+In the following example, the path `$[1][0]` is matched and replaces the array element value with `foo` .
 
     SELECT JSON_SET(JSON '["a", ["b", "c"], "d"]', '$[1][0]', "foo") AS json_data
     
@@ -2062,7 +2062,7 @@ In the following example, the path `  $[1][0]  ` is matched and replaces the arr
      | ["a",["foo","c"],"d"] |
      +-----------------------*/
 
-In the following example, the path prefix `  $  ` points to a JSON null, so the remainder of the path is created. The resulting array is padded with JSON nulls and appended with `  foo  ` .
+In the following example, the path prefix `$` points to a JSON null, so the remainder of the path is created. The resulting array is padded with JSON nulls and appended with `foo` .
 
     SELECT JSON_SET(JSON 'null', '$[0][3]', "foo")
     
@@ -2072,7 +2072,7 @@ In the following example, the path prefix `  $  ` points to a JSON null, so the 
      | [[null,null,null,"foo"]] |
      +--------------------------*/
 
-In the following example, the path `  $[1]  ` is matched, the matched array is extended since `  $[1][4]  ` is larger than the existing array, and then `  foo  ` is inserted in the array.
+In the following example, the path `$[1]` is matched, the matched array is extended since `$[1][4]` is larger than the existing array, and then `foo` is inserted in the array.
 
     SELECT JSON_SET(JSON '["a", ["b", "c"], "d"]', '$[1][4]', "foo") AS json_data
     
@@ -2082,7 +2082,7 @@ In the following example, the path `  $[1]  ` is matched, the matched array is e
      | ["a",["b","c",null,null,"foo"],"d"] |
      +-------------------------------------*/
 
-In the following example, the path `  $[1][0][0]  ` implies that the value of `  $[1][0]  ` is an array, but it isn't, so the operation is ignored.
+In the following example, the path `$[1][0][0]` implies that the value of `$[1][0]` is an array, but it isn't, so the operation is ignored.
 
     SELECT JSON_SET(JSON '["a", ["b", "c"], "d"]', '$[1][0][0]', "foo") AS json_data
     
@@ -2092,7 +2092,7 @@ In the following example, the path `  $[1][0][0]  ` implies that the value of ` 
      | ["a",["b","c"],"d"] |
      +---------------------*/
 
-In the following example, the path `  $[1][2]  ` is larger than the length of the matched array. The array length is extended and the remainder of the path is recursively created. The operation continues to the path `  $[1][2][1]  ` and inserts `  foo  ` .
+In the following example, the path `$[1][2]` is larger than the length of the matched array. The array length is extended and the remainder of the path is recursively created. The operation continues to the path `$[1][2][1]` and inserts `foo` .
 
     SELECT JSON_SET(JSON '["a", ["b", "c"], "d"]', '$[1][2][1]', "foo") AS json_data
     
@@ -2102,7 +2102,7 @@ In the following example, the path `  $[1][2]  ` is larger than the length of th
      | ["a",["b","c",[null,"foo"]],"d"] |
      +----------------------------------*/
 
-In the following example, because the `  JSON  ` object is empty, key `  b  ` is inserted, and the remainder of the path is recursively created.
+In the following example, because the `JSON` object is empty, key `b` is inserted, and the remainder of the path is recursively created.
 
     SELECT JSON_SET(JSON '{}', '$.b[2].d', 100) AS json_data
     
@@ -2126,7 +2126,7 @@ In the following example, multiple values are set.
      | {"a":"v1","b":{"c":3,"e":"v2"},"d":[4,null,"v3"]} |
      +---------------------------------------------------*/
 
-## `     JSON_STRIP_NULLS    `
+## `JSON_STRIP_NULLS`
 
     JSON_STRIP_NULLS(
       json_expr
@@ -2139,30 +2139,30 @@ Recursively removes JSON nulls from JSON objects and JSON arrays.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '{"a": null, "b": "c"}'
 
-  - `  json_path  ` : Remove JSON nulls at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) for `  json_expr  ` .
+  - `json_path` : Remove JSON nulls at this [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) for `json_expr` .
 
-  - `  include_arrays  ` : A named argument that's either `  TRUE  ` (default) or `  FALSE  ` . If `  TRUE  ` or omitted, the function removes JSON nulls from JSON arrays. If `  FALSE  ` , doesn't.
+  - `include_arrays` : A named argument that's either `TRUE` (default) or `FALSE` . If `TRUE` or omitted, the function removes JSON nulls from JSON arrays. If `FALSE` , doesn't.
 
-  - `  remove_empty  ` : A named argument that's either `  TRUE  ` or `  FALSE  ` (default). If `  TRUE  ` , the function removes empty JSON objects after JSON nulls are removed. If `  FALSE  ` or omitted, doesn't.
+  - `remove_empty` : A named argument that's either `TRUE` or `FALSE` (default). If `TRUE` , the function removes empty JSON objects after JSON nulls are removed. If `FALSE` or omitted, doesn't.
     
-    If `  remove_empty  ` is `  TRUE  ` and `  include_arrays  ` is `  TRUE  ` or omitted, the function additionally removes empty JSON arrays.
+    If `remove_empty` is `TRUE` and `include_arrays` is `TRUE` or omitted, the function additionally removes empty JSON arrays.
 
 Details:
 
   - If a value is a JSON null, the associated key-value pair is removed.
-  - If `  remove_empty  ` is set to `  TRUE  ` , the function recursively removes empty containers after JSON nulls are removed.
+  - If `remove_empty` is set to `TRUE` , the function recursively removes empty containers after JSON nulls are removed.
   - If the function generates JSON with nothing in it, the function returns a JSON null.
-  - If `  json_path  ` is an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
-  - If `  json_expr  ` is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
-  - If `  json_path  ` , `  include_arrays  ` , or `  remove_empty  ` is SQL `  NULL  ` , the function returns `  json_expr  ` .
+  - If `json_path` is an invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) , an error is produced.
+  - If `json_expr` is SQL `NULL` , the function returns SQL `NULL` .
+  - If `json_path` , `include_arrays` , or `remove_empty` is SQL `NULL` , the function returns `json_expr` .
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
@@ -2186,7 +2186,7 @@ In the following example, all JSON nulls are removed from a JSON array.
      | [1,2]     |
      +-----------*/
 
-In the following example, `  include_arrays  ` is set as `  FALSE  ` so that JSON nulls aren't removed from JSON arrays.
+In the following example, `include_arrays` is set as `FALSE` so that JSON nulls aren't removed from JSON arrays.
 
     SELECT JSON_STRIP_NULLS(JSON '[1, null, 2, null]', include_arrays=>FALSE) AS json_data
     
@@ -2196,7 +2196,7 @@ In the following example, `  include_arrays  ` is set as `  FALSE  ` so that JSO
      | [1,null,2,null] |
      +-----------------*/
 
-In the following example, `  remove_empty  ` is omitted and defaults to `  FALSE  ` , and the empty structures are retained.
+In the following example, `remove_empty` is omitted and defaults to `FALSE` , and the empty structures are retained.
 
     SELECT JSON_STRIP_NULLS(JSON '[1, null, 2, null, [null]]') AS json_data
     
@@ -2206,7 +2206,7 @@ In the following example, `  remove_empty  ` is omitted and defaults to `  FALSE
      | [1,2,[]]  |
      +-----------*/
 
-In the following example, `  remove_empty  ` is set as `  TRUE  ` , and the empty structures are removed.
+In the following example, `remove_empty` is set as `TRUE` , and the empty structures are removed.
 
     SELECT JSON_STRIP_NULLS(
       JSON '[1, null, 2, null, [null]]',
@@ -2218,7 +2218,7 @@ In the following example, `  remove_empty  ` is set as `  TRUE  ` , and the empt
      | [1,2]     |
      +-----------*/
 
-In the following examples, `  remove_empty  ` is set as `  TRUE  ` , and the empty structures are removed. Because no JSON data is left the function returns JSON null.
+In the following examples, `remove_empty` is set as `TRUE` , and the empty structures are removed. Because no JSON data is left the function returns JSON null.
 
     SELECT JSON_STRIP_NULLS(JSON '{"a": null}', remove_empty=>TRUE) AS json_data
     
@@ -2271,25 +2271,25 @@ In the following example, because no JSON data is left, the function returns a J
      | null      |
      +-----------*/
 
-## `     JSON_TYPE    `
+## `JSON_TYPE`
 
     JSON_TYPE(json_expr)
 
 **Description**
 
-Gets the JSON type of the outermost JSON value and converts the name of this type to a SQL `  STRING  ` value. The names of these JSON types can be returned: `  object  ` , `  array  ` , `  string  ` , `  number  ` , `  boolean  ` , `  null  `
+Gets the JSON type of the outermost JSON value and converts the name of this type to a SQL `STRING` value. The names of these JSON types can be returned: `object` , `array` , `string` , `number` , `boolean` , `null`
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '{"name": "sky", "color": "blue"}'
     
-    If this expression is SQL `  NULL  ` , the function returns SQL `  NULL  ` . If the extracted JSON value isn't a valid JSON type, an error is produced.
+    If this expression is SQL `NULL` , the function returns SQL `NULL` . If the extracted JSON value isn't a valid JSON type, an error is produced.
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -2319,7 +2319,7 @@ Arguments:
      | false                            | boolean |
      +----------------------------------+---------*/
 
-## `     JSON_VALUE    `
+## `JSON_VALUE`
 
     JSON_VALUE(json_string_expr[, json_path])
 
@@ -2327,31 +2327,31 @@ Arguments:
 
 **Description**
 
-Extracts a JSON scalar value and converts it to a SQL `  STRING  ` value. In addition, this function:
+Extracts a JSON scalar value and converts it to a SQL `STRING` value. In addition, this function:
 
   - Removes the outermost quotes and unescapes the values.
-  - Returns a SQL `  NULL  ` if a non-scalar value is selected.
-  - Uses double quotes to escape invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) characters in JSON keys. For example: `  "a.b"  ` .
+  - Returns a SQL `NULL` if a non-scalar value is selected.
+  - Uses double quotes to escape invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) characters in JSON keys. For example: `"a.b"` .
 
 Arguments:
 
-  - `  json_string_expr  ` : A JSON-formatted string. For example:
+  - `json_string_expr` : A JSON-formatted string. For example:
     
         '{"name": "Jakob", "age": "6"}'
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '{"name": "Jane", "age": "6"}'
 
-  - `  json_path  ` : The [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) . This identifies the data that you want to obtain from the input. If this optional parameter isn't provided, then the JSONPath `  $  ` symbol is applied, which means that all of the data is analyzed.
+  - `json_path` : The [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) . This identifies the data that you want to obtain from the input. If this optional parameter isn't provided, then the JSONPath `$` symbol is applied, which means that all of the data is analyzed.
     
-    If `  json_path  ` returns a JSON `  null  ` or a non-scalar value (in other words, if `  json_path  ` refers to an object or an array), then a SQL `  NULL  ` is returned.
+    If `json_path` returns a JSON `null` or a non-scalar value (in other words, if `json_path` refers to an object or an array), then a SQL `NULL` is returned.
 
 There are differences between the JSON-formatted string and JSON input types. For details, see [Differences between the JSON and JSON-formatted STRING types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#differences_json_and_string) .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -2365,7 +2365,7 @@ In the following example, JSON data is extracted and returned as a scalar value.
      | 6          |
      +------------*/
 
-The following example compares how results are returned for the `  JSON_QUERY  ` and `  JSON_VALUE  ` functions.
+The following example compares how results are returned for the `JSON_QUERY` and `JSON_VALUE` functions.
 
     SELECT JSON_QUERY('{"name": "Jakob", "age": "6"}', '$.name') AS json_name,
       JSON_VALUE('{"name": "Jakob", "age": "6"}', '$.name') AS scalar_name,
@@ -2397,7 +2397,7 @@ In cases where a JSON key uses invalid JSONPath characters, you can escape those
      | world |
      +-------*/
 
-## `     JSON_VALUE_ARRAY    `
+## `JSON_VALUE_ARRAY`
 
     JSON_VALUE_ARRAY(json_string_expr[, json_path])
 
@@ -2405,34 +2405,34 @@ In cases where a JSON key uses invalid JSONPath characters, you can escape those
 
 **Description**
 
-Extracts a JSON array of scalar values and converts it to a SQL `  ARRAY<STRING>  ` value. In addition, this function:
+Extracts a JSON array of scalar values and converts it to a SQL `ARRAY<STRING>` value. In addition, this function:
 
   - Removes the outermost quotes and unescapes the values.
-  - Returns a SQL `  NULL  ` if the selected value isn't an array or not an array containing only scalar values.
-  - Uses double quotes to escape invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) characters in JSON keys. For example: `  "a.b"  ` .
+  - Returns a SQL `NULL` if the selected value isn't an array or not an array containing only scalar values.
+  - Uses double quotes to escape invalid [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) characters in JSON keys. For example: `"a.b"` .
 
 Arguments:
 
-  - `  json_string_expr  ` : A JSON-formatted string. For example:
+  - `json_string_expr` : A JSON-formatted string. For example:
     
         '["apples", "oranges", "grapes"]'
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '["apples", "oranges", "grapes"]'
 
-  - `  json_path  ` : The [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) . This identifies the data that you want to obtain from the input. If this optional parameter isn't provided, then the JSONPath `  $  ` symbol is applied, which means that all of the data is analyzed.
+  - `json_path` : The [JSONPath](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#JSONPath_format) . This identifies the data that you want to obtain from the input. If this optional parameter isn't provided, then the JSONPath `$` symbol is applied, which means that all of the data is analyzed.
 
 There are differences between the JSON-formatted string and JSON input types. For details, see [Differences between the JSON and JSON-formatted STRING types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#differences_json_and_string) .
 
 Caveats:
 
-  - A JSON `  null  ` in the input array produces a SQL `  NULL  ` as the output for that JSON `  null  ` .
-  - If a JSONPath matches an array that contains scalar objects and a JSON `  null  ` , then the output is an array of the scalar objects and a SQL `  NULL  ` .
+  - A JSON `null` in the input array produces a SQL `NULL` as the output for that JSON `null` .
+  - If a JSONPath matches an array that contains scalar objects and a JSON `null` , then the output is an array of the scalar objects and a SQL `NULL` .
 
 **Return type**
 
-`  ARRAY<STRING>  `
+`ARRAY<STRING>`
 
 **Examples**
 
@@ -2448,7 +2448,7 @@ This extracts items in JSON to a string array:
      | [apples, oranges, grapes] |
      +---------------------------*/
 
-The following example compares how results are returned for the `  JSON_QUERY_ARRAY  ` and `  JSON_VALUE_ARRAY  ` functions.
+The following example compares how results are returned for the `JSON_QUERY_ARRAY` and `JSON_VALUE_ARRAY` functions.
 
     SELECT JSON_QUERY_ARRAY('["apples", "oranges"]') AS json_array,
            JSON_VALUE_ARRAY('["apples", "oranges"]') AS string_array;
@@ -2497,7 +2497,7 @@ These are equivalent:
      | [apples, oranges, grapes] |
      +---------------------------*/
 
-In cases where a JSON key uses invalid JSONPath characters, you can escape those characters using double quotes: `  " "  ` . For example:
+In cases where a JSON key uses invalid JSONPath characters, you can escape those characters using double quotes: `" "` . For example:
 
     SELECT JSON_VALUE_ARRAY('{"a.b": {"c": ["world"]}}', '$."a.b".c') AS hello;
     
@@ -2586,37 +2586,37 @@ The following examples explore how invalid requests and empty arrays are handled
      | [world, NULL, 1] |
      +------------------*/
 
-## `     LAX_BOOL    `
+## `LAX_BOOL`
 
     LAX_BOOL(json_expr)
 
 **Description**
 
-Attempts to convert a JSON value to a SQL `  BOOL  ` value.
+Attempts to convert a JSON value to a SQL `BOOL` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON 'true'
 
 Details:
 
-  - If `  json_expr  ` is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
-  - See the conversion rules in the next section for additional `  NULL  ` handling.
+  - If `json_expr` is SQL `NULL` , the function returns SQL `NULL` .
+  - See the conversion rules in the next section for additional `NULL` handling.
 
 **Conversion rules**
 
-| From JSON type     | To SQL `        BOOL       `                                                                                                                                                                                                                                                                          |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| boolean            | If the JSON boolean is `        true       ` , returns `        TRUE       ` . Otherwise, returns `        FALSE       ` .                                                                                                                                                                            |
-| string             | If the JSON string is `        'true'       ` , returns `        TRUE       ` . If the JSON string is `        'false'       ` , returns `        FALSE       ` . If the JSON string is any other value or has whitespace in it, returns `        NULL       ` . This conversion is case-insensitive. |
-| number             | If the JSON number is a representation of `        0       ` , returns `        FALSE       ` . Otherwise, returns `        TRUE       ` .                                                                                                                                                            |
-| other type or null | `        NULL       `                                                                                                                                                                                                                                                                                 |
+| From JSON type     | To SQL `BOOL`                                                                                                                                                                                                              |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| boolean            | If the JSON boolean is `true` , returns `TRUE` . Otherwise, returns `FALSE` .                                                                                                                                              |
+| string             | If the JSON string is `'true'` , returns `TRUE` . If the JSON string is `'false'` , returns `FALSE` . If the JSON string is any other value or has whitespace in it, returns `NULL` . This conversion is case-insensitive. |
+| number             | If the JSON number is a representation of `0` , returns `FALSE` . Otherwise, returns `TRUE` .                                                                                                                              |
+| other type or null | `NULL`                                                                                                                                                                                                                     |
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -2690,37 +2690,37 @@ Examples with inputs that are JSON numbers:
      | TRUE   |
      +--------*/
 
-## `     LAX_FLOAT64    `
+## `LAX_FLOAT64`
 
     LAX_FLOAT64(json_expr)
 
 **Description**
 
-Attempts to convert a JSON value to a SQL `  FLOAT64  ` value.
+Attempts to convert a JSON value to a SQL `FLOAT64` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '9.8'
 
 Details:
 
-  - If `  json_expr  ` is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
-  - See the conversion rules in the next section for additional `  NULL  ` handling.
+  - If `json_expr` is SQL `NULL` , the function returns SQL `NULL` .
+  - See the conversion rules in the next section for additional `NULL` handling.
 
 **Conversion rules**
 
-| From JSON type     | To SQL `        FLOAT64       `                                                                                                                                                                                     |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| boolean            | `        NULL       `                                                                                                                                                                                               |
-| string             | If the JSON string represents a JSON number, parses it as a JSON number, and then safe casts the result as a `        FLOAT64       ` value. If the JSON string can't be converted, returns `        NULL       ` . |
-| number             | Casts the JSON number as a `        FLOAT64       ` value. Large JSON numbers are rounded.                                                                                                                          |
-| other type or null | `        NULL       `                                                                                                                                                                                               |
+| From JSON type     | To SQL `FLOAT64`                                                                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| boolean            | `NULL`                                                                                                                                                                                |
+| string             | If the JSON string represents a JSON number, parses it as a JSON number, and then safe casts the result as a `FLOAT64` value. If the JSON string can't be converted, returns `NULL` . |
+| number             | Casts the JSON number as a `FLOAT64` value. Large JSON numbers are rounded.                                                                                                           |
+| other type or null | `NULL`                                                                                                                                                                                |
 
 **Return type**
 
-`  FLOAT64  `
+`FLOAT64`
 
 **Examples**
 
@@ -2850,37 +2850,37 @@ Examples with inputs that are JSON strings:
      | NULL   |
      +--------*/
 
-## `     LAX_INT64    `
+## `LAX_INT64`
 
     LAX_INT64(json_expr)
 
 **Description**
 
-Attempts to convert a JSON value to a SQL `  INT64  ` value.
+Attempts to convert a JSON value to a SQL `INT64` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '999'
 
 Details:
 
-  - If `  json_expr  ` is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
-  - See the conversion rules in the next section for additional `  NULL  ` handling.
+  - If `json_expr` is SQL `NULL` , the function returns SQL `NULL` .
+  - See the conversion rules in the next section for additional `NULL` handling.
 
 **Conversion rules**
 
-| From JSON type     | To SQL `        INT64       `                                                                                                                                                                                       |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| boolean            | If the JSON boolean is `        true       ` , returns `        1       ` . If `        false       ` , returns `        0       ` .                                                                                |
-| string             | If the JSON string represents a JSON number, parses it as a JSON number, and then safe casts the results as an `        INT64       ` value. If the JSON string can't be converted, returns `        NULL       ` . |
-| number             | Casts the JSON number as an `        INT64       ` value. If the JSON number can't be converted, returns `        NULL       ` .                                                                                    |
-| other type or null | `        NULL       `                                                                                                                                                                                               |
+| From JSON type     | To SQL `INT64`                                                                                                                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| boolean            | If the JSON boolean is `true` , returns `1` . If `false` , returns `0` .                                                                                                              |
+| string             | If the JSON string represents a JSON number, parses it as a JSON number, and then safe casts the results as an `INT64` value. If the JSON string can't be converted, returns `NULL` . |
+| number             | Casts the JSON number as an `INT64` value. If the JSON number can't be converted, returns `NULL` .                                                                                    |
+| other type or null | `NULL`                                                                                                                                                                                |
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
@@ -3002,37 +3002,37 @@ Examples with inputs that are JSON strings:
      | NULL   |
      +--------*/
 
-## `     LAX_STRING    `
+## `LAX_STRING`
 
     LAX_STRING(json_expr)
 
 **Description**
 
-Attempts to convert a JSON value to a SQL `  STRING  ` value.
+Attempts to convert a JSON value to a SQL `STRING` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '"name"'
 
 Details:
 
-  - If `  json_expr  ` is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
-  - See the conversion rules in the next section for additional `  NULL  ` handling.
+  - If `json_expr` is SQL `NULL` , the function returns SQL `NULL` .
+  - See the conversion rules in the next section for additional `NULL` handling.
 
 **Conversion rules**
 
-| From JSON type     | To SQL `        STRING       `                                                                                                                  |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| boolean            | If the JSON boolean is `        true       ` , returns `        'true'       ` . If `        false       ` , returns `        'false'       ` . |
-| string             | Returns the JSON string as a `        STRING       ` value.                                                                                     |
-| number             | Returns the JSON number as a `        STRING       ` value.                                                                                     |
-| other type or null | `        NULL       `                                                                                                                           |
+| From JSON type     | To SQL `STRING`                                                                     |
+| ------------------ | ----------------------------------------------------------------------------------- |
+| boolean            | If the JSON boolean is `true` , returns `'true'` . If `false` , returns `'false'` . |
+| string             | Returns the JSON string as a `STRING` value.                                        |
+| number             | Returns the JSON number as a `STRING` value.                                        |
+| other type or null | `NULL`                                                                              |
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -3098,7 +3098,7 @@ Examples with inputs that are JSON numbers:
      | 1e+100 |
      +--------*/
 
-## `     PARSE_JSON    `
+## `PARSE_JSON`
 
     PARSE_JSON(
       json_string_expr
@@ -3107,33 +3107,33 @@ Examples with inputs that are JSON numbers:
 
 **Description**
 
-Converts a JSON-formatted `  STRING  ` value to a [`  JSON  ` value](https://www.json.org/json-en.html) .
+Converts a JSON-formatted `STRING` value to a [`JSON` value](https://www.json.org/json-en.html) .
 
 Arguments:
 
-  - `  json_string_expr  ` : A JSON-formatted string. For example:
+  - `json_string_expr` : A JSON-formatted string. For example:
     
         '{"class": {"students": [{"name": "Jane"}]}}'
 
-  - `  wide_number_mode  ` : A named argument with a `  STRING  ` value. Determines how to handle numbers that can't be stored in a `  JSON  ` value without the loss of precision. If used, `  wide_number_mode  ` must include one of the following values:
+  - `wide_number_mode` : A named argument with a `STRING` value. Determines how to handle numbers that can't be stored in a `JSON` value without the loss of precision. If used, `wide_number_mode` must include one of the following values:
     
-      - `  exact  ` (default): Only accept numbers that can be stored without loss of precision. If a number that can't be stored without loss of precision is encountered, the function throws an error.
-      - `  round  ` : If a number that can't be stored without loss of precision is encountered, attempt to round it to a number that can be stored without loss of precision. If the number can't be rounded, the function throws an error.
+      - `exact` (default): Only accept numbers that can be stored without loss of precision. If a number that can't be stored without loss of precision is encountered, the function throws an error.
+      - `round` : If a number that can't be stored without loss of precision is encountered, attempt to round it to a number that can be stored without loss of precision. If the number can't be rounded, the function throws an error.
     
-    If a number appears in a JSON object or array, the `  wide_number_mode  ` argument is applied to the number in the object or array.
+    If a number appears in a JSON object or array, the `wide_number_mode` argument is applied to the number in the object or array.
 
 Numbers from the following domains can be stored in JSON without loss of precision:
 
-  - 64-bit signed/unsigned integers, such as `  INT64  `
-  - `  FLOAT64  `
+  - 64-bit signed/unsigned integers, such as `INT64`
+  - `FLOAT64`
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
-In the following example, a JSON-formatted string is converted to `  JSON  ` .
+In the following example, a JSON-formatted string is converted to `JSON` .
 
     SELECT PARSE_JSON('{"coordinates": [10, 20], "id": 1}') AS json_data;
     
@@ -3146,7 +3146,7 @@ In the following example, a JSON-formatted string is converted to `  JSON  ` .
 The following queries fail because:
 
   - The number that was passed in can't be stored without loss of precision.
-  - `  wide_number_mode=>'exact'  ` is used implicitly in the first query and explicitly in the second query.
+  - `wide_number_mode=>'exact'` is used implicitly in the first query and explicitly in the second query.
 
 <!-- end list -->
 
@@ -3181,25 +3181,25 @@ You can also use valid JSON-formatted strings that don't represent name/value pa
      | "red"                        |
      +------------------------------*/
 
-## `     SAFE_TO_JSON    `
+## `SAFE_TO_JSON`
 
     SAFE_TO_JSON(sql_value)
 
 **Description**
 
-Similar to the `  TO_JSON  ` function, but for each unsupported field in the input argument, produces a JSON null instead of an error.
+Similar to the `TO_JSON` function, but for each unsupported field in the input argument, produces a JSON null instead of an error.
 
 Arguments:
 
-  - `  sql_value  ` : The SQL value to convert to a JSON value. You can review the GoogleSQL data types that this function supports and their [JSON encodings](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) .
+  - `sql_value` : The SQL value to convert to a JSON value. You can review the GoogleSQL data types that this function supports and their [JSON encodings](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) .
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Example**
 
-The following queries are functionally the same, except that `  SAFE_TO_JSON  ` produces a JSON null instead of an error when a hypothetical unsupported data type is encountered:
+The following queries are functionally the same, except that `SAFE_TO_JSON` produces a JSON null instead of an error when a hypothetical unsupported data type is encountered:
 
     -- Produces a JSON null.
     SELECT SAFE_TO_JSON(CAST(b'' AS UNSUPPORTED_TYPE)) as result;
@@ -3207,7 +3207,7 @@ The following queries are functionally the same, except that `  SAFE_TO_JSON  ` 
     -- Produces an error.
     SELECT TO_JSON(CAST(b'' AS UNSUPPORTED_TYPE), stringify_wide_numbers=>TRUE) as result;
 
-In the following query, the value for `  ut  ` is ignored because the value is an unsupported type:
+In the following query, the value for `ut` is ignored because the value is an unsupported type:
 
     SELECT SAFE_TO_JSON(STRUCT(CAST(b'' AS UNSUPPORTED_TYPE) AS ut) AS result;
     
@@ -3233,27 +3233,27 @@ The following array produces a JSON null instead of an error because the data ty
 
 **Caveats**
 
-The output of `  SAFE_TO_JSON  ` may change over time: If JSON support is added to a formerly unsupported type, then `  SAFE_TO_JSON  ` starts producing the type's JSON representation instead of `  null  ` .
+The output of `SAFE_TO_JSON` may change over time: If JSON support is added to a formerly unsupported type, then `SAFE_TO_JSON` starts producing the type's JSON representation instead of `null` .
 
-## `     STRING    `
+## `STRING`
 
     STRING(json_expr)
 
 **Description**
 
-Converts a JSON string to a SQL `  STRING  ` value.
+Converts a JSON string to a SQL `STRING` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '"purple"'
     
-    If the JSON value isn't a string, an error is produced. If the expression is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't a string, an error is produced. If the expression is SQL `NULL` , the function returns SQL `NULL` .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -3280,25 +3280,25 @@ The following examples show how invalid requests are handled:
     SELECT STRING(JSON 'null') AS result; -- Throws an error
     SELECT SAFE.STRING(JSON '123') AS result; -- Returns a SQL NULL
 
-## `     STRING_ARRAY    `
+## `STRING_ARRAY`
 
     STRING_ARRAY(json_expr)
 
 **Description**
 
-Converts a JSON array of strings to a SQL `  ARRAY<STRING>  ` value.
+Converts a JSON array of strings to a SQL `ARRAY<STRING>` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '["purple", "blue"]'
     
-    If the JSON value isn't an array of strings, an error is produced. If the expression is SQL `  NULL  ` , the function returns SQL `  NULL  ` .
+    If the JSON value isn't an array of strings, an error is produced. If the expression is SQL `NULL` , the function returns SQL `NULL` .
 
 **Return type**
 
-`  ARRAY<STRING>  `
+`ARRAY<STRING>`
 
 **Examples**
 
@@ -3317,7 +3317,7 @@ The following examples show how invalid requests are handled:
     SELECT STRING_ARRAY(JSON '[null]') AS result; -- Throws an error
     SELECT STRING_ARRAY(JSON 'null') AS result; -- Throws an error
 
-## `     TO_JSON    `
+## `TO_JSON`
 
     TO_JSON(
       sql_value
@@ -3330,24 +3330,24 @@ Converts a SQL value to a JSON value.
 
 Arguments:
 
-  - `  sql_value  ` : The SQL value to convert to a JSON value. You can review the GoogleSQL data types that this function supports and their JSON encodings [here](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) .
+  - `sql_value` : The SQL value to convert to a JSON value. You can review the GoogleSQL data types that this function supports and their JSON encodings [here](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_encodings) .
 
-  - `  stringify_wide_numbers  ` : A named argument that's either `  TRUE  ` or `  FALSE  ` (default).
+  - `stringify_wide_numbers` : A named argument that's either `TRUE` or `FALSE` (default).
     
-      - If `  TRUE  ` , numeric values outside of the `  FLOAT64  ` type domain are encoded as strings.
-      - If `  FALSE  ` (default), numeric values outside of the `  FLOAT64  ` type domain aren't encoded as strings, but are stored as JSON numbers. If a numerical value can't be stored in JSON without loss of precision, an error is thrown.
+      - If `TRUE` , numeric values outside of the `FLOAT64` type domain are encoded as strings.
+      - If `FALSE` (default), numeric values outside of the `FLOAT64` type domain aren't encoded as strings, but are stored as JSON numbers. If a numerical value can't be stored in JSON without loss of precision, an error is thrown.
     
-    The following numerical data types are affected by the `  stringify_wide_numbers  ` argument:
+    The following numerical data types are affected by the `stringify_wide_numbers` argument:
 
-  - `  INT64  `
+  - `INT64`
 
-  - `  NUMERIC  `
+  - `NUMERIC`
     
-    If one of these numerical data types appears in a container data type such as an `  ARRAY  ` or `  STRUCT  ` , the `  stringify_wide_numbers  ` argument is applied to the numerical data types in the container data type.
+    If one of these numerical data types appears in a container data type such as an `ARRAY` or `STRUCT` , the `stringify_wide_numbers` argument is applied to the numerical data types in the container data type.
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Examples**
 
@@ -3404,7 +3404,7 @@ In the following example, only large numeric values are converted to JSON string
      | {"id":2}                  |
      +---------------------------*/
 
-In this example, the values `  9007199254740993  ` ( `  INT64  ` ) and `  2.1  ` ( `  FLOAT64  ` ) are converted to the common supertype `  FLOAT64  ` , which isn't affected by the `  stringify_wide_numbers  ` argument.
+In this example, the values `9007199254740993` ( `INT64` ) and `2.1` ( `FLOAT64` ) are converted to the common supertype `FLOAT64` , which isn't affected by the `stringify_wide_numbers` argument.
 
     With T1 AS (
       (SELECT 9007199254740993 AS id) UNION ALL
@@ -3468,7 +3468,7 @@ In the following example, a graph path is converted into a JSON array.
      | ]                                                                  |
      +--------------------------------------------------------------------/*
 
-In the following example, each graph node called `  src  ` is converted into a JSON object:
+In the following example, each graph node called `src` is converted into a JSON object:
 
     GRAPH FinGraph
     MATCH (src:Account {id: 7})-[t1:Transfers]->(dst:Account)
@@ -3501,27 +3501,27 @@ In the following example, each graph node called `  src  ` is converted into a J
      | }                                                                  |
      +--------------------------------------------------------------------*/
 
-## `     TO_JSON_STRING    `
+## `TO_JSON_STRING`
 
     TO_JSON_STRING(json_expr)
 
 **Description**
 
-Converts a JSON value to a SQL JSON-formatted `  STRING  ` value.
+Converts a JSON value to a SQL JSON-formatted `STRING` value.
 
 Arguments:
 
-  - `  json_expr  ` : JSON. For example:
+  - `json_expr` : JSON. For example:
     
         JSON '{"class": {"students": [{"name": "Jane"}]}}'
 
 **Return type**
 
-A JSON-formatted `  STRING  `
+A JSON-formatted `STRING`
 
 **Example**
 
-Convert a JSON value to a JSON-formatted `  STRING  ` value.
+Convert a JSON value to a JSON-formatted `STRING` value.
 
     SELECT TO_JSON_STRING(JSON '{"id": 1, "coordinates": [10, 20]}') AS json_string
     
@@ -3537,20 +3537,20 @@ Convert a JSON value to a JSON-formatted `  STRING  ` value.
 
 Many JSON functions accept two input types:
 
-  - [`  JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type) type
-  - `  STRING  ` type
+  - [`JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type) type
+  - `STRING` type
 
-The `  STRING  ` version of the extraction functions behaves differently than the `  JSON  ` version, mainly because `  JSON  ` type values are always validated whereas JSON-formatted `  STRING  ` type values aren't.
+The `STRING` version of the extraction functions behaves differently than the `JSON` version, mainly because `JSON` type values are always validated whereas JSON-formatted `STRING` type values aren't.
 
-#### Non-validation of `     STRING    ` inputs
+#### Non-validation of `STRING` inputs
 
-The following `  STRING  ` is invalid JSON because it's missing a trailing `  }  ` :
+The following `STRING` is invalid JSON because it's missing a trailing `}` :
 
     {"hello": "world"
 
 The JSON function reads the input from the beginning and stops as soon as the field to extract is found, without reading the remainder of the input. A parsing error isn't produced.
 
-With the `  JSON  ` type, however, `  JSON '{"hello": "world"'  ` returns a parsing error.
+With the `JSON` type, however, `JSON '{"hello": "world"'` returns a parsing error.
 
 For example:
 
@@ -3568,7 +3568,7 @@ For example:
 
 #### No strict validation of extracted values
 
-In the following examples, duplicated keys aren't removed when using a JSON-formatted string. Similarly, keys order is preserved. For the `  JSON  ` type, `  JSON '{"key": 1, "key": 2}'  ` will result in `  JSON '{"key":1}'  ` during parsing.
+In the following examples, duplicated keys aren't removed when using a JSON-formatted string. Similarly, keys order is preserved. For the `JSON` type, `JSON '{"key": 1, "key": 2}'` will result in `JSON '{"key":1}'` during parsing.
 
     SELECT JSON_QUERY('{"key": 1, "key": 2}', "$") AS string;
     
@@ -3586,11 +3586,11 @@ In the following examples, duplicated keys aren't removed when using a JSON-form
      | {"key":1} |
      +-----------*/
 
-#### JSON `     null    `
+#### JSON `null`
 
-When using a JSON-formatted `  STRING  ` type in a JSON function, a JSON `  null  ` value is extracted as a SQL `  NULL  ` value.
+When using a JSON-formatted `STRING` type in a JSON function, a JSON `null` value is extracted as a SQL `NULL` value.
 
-When using a JSON type in a JSON function, a JSON `  null  ` value returns a JSON `  null  ` value.
+When using a JSON type in a JSON function, a JSON `null` value returns a JSON `null` value.
 
     WITH t AS (
       SELECT '{"name": null}' AS json_string, JSON '{"name": null}' AS json)
@@ -3610,12 +3610,12 @@ When using a JSON type in a JSON function, a JSON `  null  ` value returns a JSO
 
 You can encode a SQL value as a JSON value with the following functions:
 
-  - `  TO_JSON  `
-  - `  JSON_SET  ` (uses `  TO_JSON  ` encoding)
-  - `  JSON_ARRAY  ` (uses `  TO_JSON  ` encoding)
-  - `  JSON_ARRAY_APPEND  ` (uses `  TO_JSON  ` encoding)
-  - `  JSON_ARRAY_INSERT  ` (uses `  TO_JSON  ` encoding)
-  - `  JSON_OBJECT  ` (uses `  TO_JSON  ` encoding)
+  - `TO_JSON`
+  - `JSON_SET` (uses `TO_JSON` encoding)
+  - `JSON_ARRAY` (uses `TO_JSON` encoding)
+  - `JSON_ARRAY_APPEND` (uses `TO_JSON` encoding)
+  - `JSON_ARRAY_INSERT` (uses `TO_JSON` encoding)
+  - `JSON_OBJECT` (uses `TO_JSON` encoding)
 
 The following SQL to JSON encodings are supported:
 
@@ -3636,202 +3636,202 @@ The following SQL to JSON encodings are supported:
 <tr class="odd">
 <td>NULL</td>
 <td><p>null</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       NULL      </code><br />
-JSON output: <code dir="ltr" translate="no">       null      </code></td>
+<td>SQL input: <code dir="ltr" translate="no">NULL</code><br />
+JSON output: <code dir="ltr" translate="no">null</code></td>
 </tr>
 <tr class="even">
 <td>BOOL</td>
 <td>boolean</td>
-<td>SQL input: <code dir="ltr" translate="no">       TRUE      </code><br />
-JSON output: <code dir="ltr" translate="no">       true      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">TRUE</code><br />
+JSON output: <code dir="ltr" translate="no">true</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       FALSE      </code><br />
-JSON output: <code dir="ltr" translate="no">       false      </code><br />
+SQL input: <code dir="ltr" translate="no">FALSE</code><br />
+JSON output: <code dir="ltr" translate="no">false</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td>INT64</td>
 <td><p>number or string</p>
-<p>If the <code dir="ltr" translate="no">        stringify_wide_numbers       </code> argument is <code dir="ltr" translate="no">        TRUE       </code> and the value is outside of the FLOAT64 type domain, the value is encoded as a string. If the value can't be stored in JSON without loss of precision, the function fails. Otherwise, the value is encoded as a number.</p>
-<p>If the <code dir="ltr" translate="no">        stringify_wide_numbers       </code> isn't used or is <code dir="ltr" translate="no">        FALSE       </code> , numeric values outside of the `FLOAT64` type domain aren't encoded as strings, but are stored as JSON numbers. If a numerical value can't be stored in JSON without loss of precision, an error is thrown.</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       9007199254740992      </code><br />
-JSON output: <code dir="ltr" translate="no">       9007199254740992      </code><br />
+<p>If the <code dir="ltr" translate="no">stringify_wide_numbers</code> argument is <code dir="ltr" translate="no">TRUE</code> and the value is outside of the FLOAT64 type domain, the value is encoded as a string. If the value can't be stored in JSON without loss of precision, the function fails. Otherwise, the value is encoded as a number.</p>
+<p>If the <code dir="ltr" translate="no">stringify_wide_numbers</code> isn't used or is <code dir="ltr" translate="no">FALSE</code> , numeric values outside of the `FLOAT64` type domain aren't encoded as strings, but are stored as JSON numbers. If a numerical value can't be stored in JSON without loss of precision, an error is thrown.</p></td>
+<td>SQL input: <code dir="ltr" translate="no">9007199254740992</code><br />
+JSON output: <code dir="ltr" translate="no">9007199254740992</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       9007199254740993      </code><br />
-JSON output: <code dir="ltr" translate="no">       9007199254740993      </code><br />
+SQL input: <code dir="ltr" translate="no">9007199254740993</code><br />
+JSON output: <code dir="ltr" translate="no">9007199254740993</code><br />
 
 <hr />
-SQL input with stringify_wide_numbers=&gt;TRUE: <code dir="ltr" translate="no">       9007199254740992      </code><br />
-JSON output: <code dir="ltr" translate="no">       9007199254740992      </code><br />
+SQL input with stringify_wide_numbers=&gt;TRUE: <code dir="ltr" translate="no">9007199254740992</code><br />
+JSON output: <code dir="ltr" translate="no">9007199254740992</code><br />
 
 <hr />
-SQL input with stringify_wide_numbers=&gt;TRUE: <code dir="ltr" translate="no">       9007199254740993      </code><br />
-JSON output: <code dir="ltr" translate="no">       "9007199254740993"      </code><br />
+SQL input with stringify_wide_numbers=&gt;TRUE: <code dir="ltr" translate="no">9007199254740993</code><br />
+JSON output: <code dir="ltr" translate="no">"9007199254740993"</code><br />
 </td>
 </tr>
 <tr class="even">
 <td>INTERVAL</td>
 <td>string</td>
-<td>SQL input: <code dir="ltr" translate="no">       INTERVAL '10:20:30.52' HOUR TO SECOND      </code><br />
-JSON output: <code dir="ltr" translate="no">       "PT10H20M30.52S"      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">INTERVAL '10:20:30.52' HOUR TO SECOND</code><br />
+JSON output: <code dir="ltr" translate="no">"PT10H20M30.52S"</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       INTERVAL 1 SECOND      </code><br />
-JSON output: <code dir="ltr" translate="no">       "PT1S"      </code><br />
+SQL input: <code dir="ltr" translate="no">INTERVAL 1 SECOND</code><br />
+JSON output: <code dir="ltr" translate="no">"PT1S"</code><br />
 
 <hr />
-<code dir="ltr" translate="no">       INTERVAL -25 MONTH      </code><br />
-JSON output: <code dir="ltr" translate="no">       "P-2Y-1M"      </code><br />
+<code dir="ltr" translate="no">INTERVAL -25 MONTH</code><br />
+JSON output: <code dir="ltr" translate="no">"P-2Y-1M"</code><br />
 
 <hr />
-<code dir="ltr" translate="no">       INTERVAL '1 5:30' DAY TO MINUTE      </code><br />
-JSON output: <code dir="ltr" translate="no">       "P1DT5H30M"      </code><br />
+<code dir="ltr" translate="no">INTERVAL '1 5:30' DAY TO MINUTE</code><br />
+JSON output: <code dir="ltr" translate="no">"P1DT5H30M"</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td>NUMERIC</td>
 <td><p>number or string</p>
-<p>If the <code dir="ltr" translate="no">        stringify_wide_numbers       </code> argument is <code dir="ltr" translate="no">        TRUE       </code> and the value is outside of the FLOAT64 type domain, it's encoded as a string. Otherwise, it's encoded as a number.</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       -1      </code><br />
-JSON output: <code dir="ltr" translate="no">       -1      </code><br />
+<p>If the <code dir="ltr" translate="no">stringify_wide_numbers</code> argument is <code dir="ltr" translate="no">TRUE</code> and the value is outside of the FLOAT64 type domain, it's encoded as a string. Otherwise, it's encoded as a number.</p></td>
+<td>SQL input: <code dir="ltr" translate="no">-1</code><br />
+JSON output: <code dir="ltr" translate="no">-1</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       0      </code><br />
-JSON output: <code dir="ltr" translate="no">       0      </code><br />
+SQL input: <code dir="ltr" translate="no">0</code><br />
+JSON output: <code dir="ltr" translate="no">0</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       9007199254740993      </code><br />
-JSON output: <code dir="ltr" translate="no">       9007199254740993      </code><br />
+SQL input: <code dir="ltr" translate="no">9007199254740993</code><br />
+JSON output: <code dir="ltr" translate="no">9007199254740993</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       123.56      </code><br />
-JSON output: <code dir="ltr" translate="no">       123.56      </code><br />
+SQL input: <code dir="ltr" translate="no">123.56</code><br />
+JSON output: <code dir="ltr" translate="no">123.56</code><br />
 
 <hr />
-SQL input with stringify_wide_numbers=&gt;TRUE: <code dir="ltr" translate="no">       9007199254740993      </code><br />
-JSON output: <code dir="ltr" translate="no">       "9007199254740993"      </code><br />
+SQL input with stringify_wide_numbers=&gt;TRUE: <code dir="ltr" translate="no">9007199254740993</code><br />
+JSON output: <code dir="ltr" translate="no">"9007199254740993"</code><br />
 
 <hr />
-SQL input with stringify_wide_numbers=&gt;TRUE: <code dir="ltr" translate="no">       123.56      </code><br />
-JSON output: <code dir="ltr" translate="no">       123.56      </code><br />
+SQL input with stringify_wide_numbers=&gt;TRUE: <code dir="ltr" translate="no">123.56</code><br />
+JSON output: <code dir="ltr" translate="no">123.56</code><br />
 </td>
 </tr>
 <tr class="even">
 <td>FLOAT64</td>
 <td><p>number or string</p>
-<p><code dir="ltr" translate="no">        +/-inf       </code> and <code dir="ltr" translate="no">        NaN       </code> are encoded as <code dir="ltr" translate="no">        Infinity       </code> , <code dir="ltr" translate="no">        -Infinity       </code> , and <code dir="ltr" translate="no">        NaN       </code> . Otherwise, this value is encoded as a number.</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       1.0      </code><br />
-JSON output: <code dir="ltr" translate="no">       1      </code><br />
+<p><code dir="ltr" translate="no">+/-inf</code> and <code dir="ltr" translate="no">NaN</code> are encoded as <code dir="ltr" translate="no">Infinity</code> , <code dir="ltr" translate="no">-Infinity</code> , and <code dir="ltr" translate="no">NaN</code> . Otherwise, this value is encoded as a number.</p></td>
+<td>SQL input: <code dir="ltr" translate="no">1.0</code><br />
+JSON output: <code dir="ltr" translate="no">1</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       9007199254740993      </code><br />
-JSON output: <code dir="ltr" translate="no">       9007199254740993      </code><br />
+SQL input: <code dir="ltr" translate="no">9007199254740993</code><br />
+JSON output: <code dir="ltr" translate="no">9007199254740993</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       "+inf"      </code><br />
-JSON output: <code dir="ltr" translate="no">       "Infinity"      </code><br />
+SQL input: <code dir="ltr" translate="no">"+inf"</code><br />
+JSON output: <code dir="ltr" translate="no">"Infinity"</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       "-inf"      </code><br />
-JSON output: <code dir="ltr" translate="no">       "-Infinity"      </code><br />
+SQL input: <code dir="ltr" translate="no">"-inf"</code><br />
+JSON output: <code dir="ltr" translate="no">"-Infinity"</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       "NaN"      </code><br />
-JSON output: <code dir="ltr" translate="no">       "NaN"      </code><br />
+SQL input: <code dir="ltr" translate="no">"NaN"</code><br />
+JSON output: <code dir="ltr" translate="no">"NaN"</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td>STRING</td>
 <td><p>string</p>
-<p>Encoded as a string, escaped according to the JSON standard. Specifically, <code dir="ltr" translate="no">        "       </code> , <code dir="ltr" translate="no">        \,       </code> and the control characters from <code dir="ltr" translate="no">        U+0000       </code> to <code dir="ltr" translate="no">        U+001F       </code> are escaped.</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       "abc"      </code><br />
-JSON output: <code dir="ltr" translate="no">       "abc"      </code><br />
+<p>Encoded as a string, escaped according to the JSON standard. Specifically, <code dir="ltr" translate="no">"</code> , <code dir="ltr" translate="no">\,</code> and the control characters from <code dir="ltr" translate="no">U+0000</code> to <code dir="ltr" translate="no">U+001F</code> are escaped.</p></td>
+<td>SQL input: <code dir="ltr" translate="no">"abc"</code><br />
+JSON output: <code dir="ltr" translate="no">"abc"</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       "\"abc\""      </code><br />
-JSON output: <code dir="ltr" translate="no">       "\"abc\""      </code><br />
+SQL input: <code dir="ltr" translate="no">"\"abc\""</code><br />
+JSON output: <code dir="ltr" translate="no">"\"abc\""</code><br />
 </td>
 </tr>
 <tr class="even">
 <td>BYTES</td>
 <td><p>string</p>
 <p>Uses RFC 4648 Base64 data encoding.</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       b"Google"      </code><br />
-JSON output: <code dir="ltr" translate="no">       "R29vZ2xl"      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">b"Google"</code><br />
+JSON output: <code dir="ltr" translate="no">"R29vZ2xl"</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td>ENUM</td>
 <td><p>string</p>
 <p>Invalid enum values are encoded as their number, such as 0 or 42.</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       Color.Red      </code><br />
-JSON output: <code dir="ltr" translate="no">       "Red"      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">Color.Red</code><br />
+JSON output: <code dir="ltr" translate="no">"Red"</code><br />
 </td>
 </tr>
 <tr class="even">
 <td>DATE</td>
 <td>string</td>
-<td>SQL input: <code dir="ltr" translate="no">       DATE '2017-03-06'      </code><br />
-JSON output: <code dir="ltr" translate="no">       "2017-03-06"      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">DATE '2017-03-06'</code><br />
+JSON output: <code dir="ltr" translate="no">"2017-03-06"</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td>TIMESTAMP</td>
 <td><p>string</p>
 <p>Encoded as ISO 8601 date and time, where T separates the date and time and Z (Zulu/UTC) represents the time zone.</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       TIMESTAMP '2017-03-06 12:34:56.789012'      </code><br />
-JSON output: <code dir="ltr" translate="no">       "2017-03-06T12:34:56.789012Z"      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">TIMESTAMP '2017-03-06 12:34:56.789012'</code><br />
+JSON output: <code dir="ltr" translate="no">"2017-03-06T12:34:56.789012Z"</code><br />
 </td>
 </tr>
 <tr class="even">
 <td>UUID</td>
 <td><p>string</p>
 <p>Encoded as lowercase hexadecimal format as specified in <a href="https://www.rfc-editor.org/rfc/rfc9562#name-uuid-format">RFC 9562</a> .</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       CAST('f81d4fae-7dec-11d0-a765-00a0c91e6bf6' AS UUID)      </code><br />
-JSON output: <code dir="ltr" translate="no">       "f81d4fae-7dec-11d0-a765-00a0c91e6bf6"      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">CAST('f81d4fae-7dec-11d0-a765-00a0c91e6bf6' AS UUID)</code><br />
+JSON output: <code dir="ltr" translate="no">"f81d4fae-7dec-11d0-a765-00a0c91e6bf6"</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td>JSON</td>
 <td><p>data of the input JSON</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       JSON '{"item": "pen", "price": 10}'      </code><br />
-JSON output: <code dir="ltr" translate="no">       {"item":"pen", "price":10}      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">JSON '{"item": "pen", "price": 10}'</code><br />
+JSON output: <code dir="ltr" translate="no">{"item":"pen", "price":10}</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       [1, 2, 3]      </code><br />
-JSON output: <code dir="ltr" translate="no">       [1, 2, 3]      </code><br />
+SQL input: <code dir="ltr" translate="no">[1, 2, 3]</code><br />
+JSON output: <code dir="ltr" translate="no">[1, 2, 3]</code><br />
 </td>
 </tr>
 <tr class="even">
 <td>ARRAY</td>
 <td><p>array</p>
 <p>Can contain zero or more elements.</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       ["red", "blue", "green"]      </code><br />
-JSON output: <code dir="ltr" translate="no">       ["red","blue","green"]      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">["red", "blue", "green"]</code><br />
+JSON output: <code dir="ltr" translate="no">["red","blue","green"]</code><br />
 
 <hr />
-SQL input: <code dir="ltr" translate="no">       [1, 2, 3]      </code><br />
-JSON output: <code dir="ltr" translate="no">       [1,2,3]      </code><br />
+SQL input: <code dir="ltr" translate="no">[1, 2, 3]</code><br />
+JSON output: <code dir="ltr" translate="no">[1,2,3]</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td>STRUCT</td>
 <td><p>object</p>
 <p>The object can contain zero or more key-value pairs. Each value is formatted according to its type.</p>
-<p>For <code dir="ltr" translate="no">        TO_JSON       </code> , a field is included in the output string and any duplicates of this field are omitted.</p>
-<p>Anonymous fields are represented with <code dir="ltr" translate="no">        ""       </code> .</p>
-<p>Invalid UTF-8 field names might result in unparseable JSON. String values are escaped according to the JSON standard. Specifically, <code dir="ltr" translate="no">        "       </code> , <code dir="ltr" translate="no">        \,       </code> and the control characters from <code dir="ltr" translate="no">        U+0000       </code> to <code dir="ltr" translate="no">        U+001F       </code> are escaped.</p></td>
-<td>SQL input: <code dir="ltr" translate="no">       STRUCT(12 AS purchases, TRUE AS inStock)      </code><br />
-JSON output: <code dir="ltr" translate="no">       {"inStock": true,"purchases":12}      </code><br />
+<p>For <code dir="ltr" translate="no">TO_JSON</code> , a field is included in the output string and any duplicates of this field are omitted.</p>
+<p>Anonymous fields are represented with <code dir="ltr" translate="no">""</code> .</p>
+<p>Invalid UTF-8 field names might result in unparseable JSON. String values are escaped according to the JSON standard. Specifically, <code dir="ltr" translate="no">"</code> , <code dir="ltr" translate="no">\,</code> and the control characters from <code dir="ltr" translate="no">U+0000</code> to <code dir="ltr" translate="no">U+001F</code> are escaped.</p></td>
+<td>SQL input: <code dir="ltr" translate="no">STRUCT(12 AS purchases, TRUE AS inStock)</code><br />
+JSON output: <code dir="ltr" translate="no">{"inStock": true,"purchases":12}</code><br />
 </td>
 </tr>
 <tr class="even">
 <td>PROTO</td>
 <td><p>object</p>
 <p>The object can contain zero or more key-value pairs. Each value is formatted according to its type.</p>
-<p>Field names with underscores are converted to camel case in accordance with <a href="https://developers.google.com/protocol-buffers/docs/proto3#json">protobuf json conversion</a> . Field values are formatted according to <a href="https://developers.google.com/protocol-buffers/docs/proto3#json">protobuf json conversion</a> . If a <code dir="ltr" translate="no">        field_value       </code> is a non-empty repeated field or submessage, the elements and fields are indented to the appropriate level.</p>
+<p>Field names with underscores are converted to camel case in accordance with <a href="https://developers.google.com/protocol-buffers/docs/proto3#json">protobuf json conversion</a> . Field values are formatted according to <a href="https://developers.google.com/protocol-buffers/docs/proto3#json">protobuf json conversion</a> . If a <code dir="ltr" translate="no">field_value</code> is a non-empty repeated field or submessage, the elements and fields are indented to the appropriate level.</p>
 <ul>
 <li>Field names that aren't valid UTF-8 might result in unparseable JSON.</li>
 <li>Field annotations are ignored.</li>
@@ -3839,16 +3839,16 @@ JSON output: <code dir="ltr" translate="no">       {"inStock": true,"purchases":
 <li>Submessages are formatted as values of PROTO type.</li>
 <li>Extension fields are included in the output, where the extension field name is enclosed in brackets and prefixed with the full name of the extension type.</li>
 </ul></td>
-<td>SQL input: <code dir="ltr" translate="no">       NEW Item(12 AS purchases,TRUE AS in_Stock)      </code><br />
-JSON output: <code dir="ltr" translate="no">       {"purchases":12,"inStock": true}      </code><br />
+<td>SQL input: <code dir="ltr" translate="no">NEW Item(12 AS purchases,TRUE AS in_Stock)</code><br />
+JSON output: <code dir="ltr" translate="no">{"purchases":12,"inStock": true}</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td>GRAPH_ELEMENT</td>
-<td><p>( <code dir="ltr" translate="no">        TO_JSON       </code> only)</p>
+<td><p>( <code dir="ltr" translate="no">TO_JSON</code> only)</p>
 <p>object</p>
 <p>The object can contain zero or more key-value pairs. Each value is formatted according to its type.</p>
-<p>For <code dir="ltr" translate="no">        TO_JSON       </code> , graph element (node or edge) objects are supported.</p>
+<p>For <code dir="ltr" translate="no">TO_JSON</code> , graph element (node or edge) objects are supported.</p>
 <ul>
 <li>The graph element identifier is only valid within the scope of the same query response and can't be used to correlate entities across different queries.</li>
 <li>Field names that aren't valid UTF-8 might result in unparseable JSON.</li>
@@ -3867,7 +3867,7 @@ JSON output (truncated):<br />
 </tr>
 <tr class="even">
 <td>GRAPH_PATH</td>
-<td><p>( <code dir="ltr" translate="no">        TO_JSON       </code> only)</p>
+<td><p>( <code dir="ltr" translate="no">TO_JSON</code> only)</p>
 <p>array</p>
 <p>The array can contain one or more objects that represent graph elements in a graph path.</p></td>
 <td>SQL:<br />
@@ -3876,7 +3876,7 @@ JSON output (truncated):<br />
 MATCH account_ownership = (p:Person)-[o:Owns]-&gt;(a:Account)
 RETURN TO_JSON(account_ownership) AS results</code></pre>
 <br />
-JSON output for <code dir="ltr" translate="no">       account_ownership      </code> (truncated):<br />
+JSON output for <code dir="ltr" translate="no">account_ownership</code> (truncated):<br />
 
 <pre dir="ltr" data-is-upgraded="" translate="no"><code>[
   {&quot;identifier&quot;:&quot;ZGFuYQ==&quot;,&quot;kind&quot;:&quot;node&quot;,&quot;labels&quot;:[&quot;Person&quot;], ...},
@@ -3893,7 +3893,7 @@ With the JSONPath format, you can identify the values you want to obtain from a 
 
 If a key in a JSON functions contains a JSON format operator, refer to each JSON function for how to escape them.
 
-A JSON function returns `  NULL  ` if the JSONPath format doesn't match a value in a JSON-formatted string. If the selected value for a scalar function isn't scalar, such as an object or an array, the function returns `  NULL  ` . If the JSONPath format is invalid, an error is produced.
+A JSON function returns `NULL` if the JSONPath format doesn't match a value in a JSON-formatted string. If the selected value for a scalar function isn't scalar, such as an object or an array, the function returns `NULL` . If the JSONPath format is invalid, an error is produced.
 
 #### Operators for JSONPath
 
@@ -3914,35 +3914,35 @@ The JSONPath format supports these operators:
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       $      </code></td>
+<td><code dir="ltr" translate="no">$</code></td>
 <td>Root object or element. The JSONPath format must start with this operator, which refers to the outermost level of the JSON-formatted string.</td>
 <td><p>JSON-formatted string:<br />
-<code dir="ltr" translate="no">        '{"class" : {"students" : [{"name" : "Jane"}]}}'       </code></p>
+<code dir="ltr" translate="no">'{"class" : {"students" : [{"name" : "Jane"}]}}'</code></p>
 <p>JSON path:<br />
-<code dir="ltr" translate="no">        "$"       </code></p>
+<code dir="ltr" translate="no">"$"</code></p>
 <p>JSON result:<br />
-<code dir="ltr" translate="no">        {"class":{"students":[{"name":"Jane"}]}}       </code><br />
+<code dir="ltr" translate="no">{"class":{"students":[{"name":"Jane"}]}}</code><br />
 </p></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       .      </code></td>
+<td><code dir="ltr" translate="no">.</code></td>
 <td>Child operator. You can identify child values using dot-notation.</td>
 <td><p>JSON-formatted string:<br />
-<code dir="ltr" translate="no">        '{"class" : {"students" : [{"name" : "Jane"}]}}'       </code></p>
+<code dir="ltr" translate="no">'{"class" : {"students" : [{"name" : "Jane"}]}}'</code></p>
 <p>JSON path:<br />
-<code dir="ltr" translate="no">        "$.class.students"       </code></p>
+<code dir="ltr" translate="no">"$.class.students"</code></p>
 <p>JSON result:<br />
-<code dir="ltr" translate="no">        [{"name":"Jane"}]       </code></p></td>
+<code dir="ltr" translate="no">[{"name":"Jane"}]</code></p></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       []      </code></td>
+<td><code dir="ltr" translate="no">[]</code></td>
 <td>Subscript operator. If the object is a JSON array, you can use brackets to specify the array index.</td>
 <td><p>JSON-formatted string:<br />
-<code dir="ltr" translate="no">        '{"class" : {"students" : [{"name" : "Jane"}]}}'       </code></p>
+<code dir="ltr" translate="no">'{"class" : {"students" : [{"name" : "Jane"}]}}'</code></p>
 <p>JSON path:<br />
-<code dir="ltr" translate="no">        "$.class.students[0]"       </code></p>
+<code dir="ltr" translate="no">"$.class.students[0]"</code></p>
 <p>JSON result:<br />
-<code dir="ltr" translate="no">        {"name":"Jane"}       </code></p></td>
+<code dir="ltr" translate="no">{"name":"Jane"}</code></p></td>
 </tr>
 </tbody>
 </table>

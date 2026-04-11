@@ -2,9 +2,9 @@ A generated column is a column that is always computed from other columns in a r
 
 ## Add a generated column to a new table
 
-In the following `  CREATE TABLE  ` snippet, we create a table to store information about users. We have columns for `  FirstName  ` and `  LastName  ` and define a generated column for `  FullName  ` , which is the concatenation of `  FirstName  ` and `  LastName  ` . The SQL in parentheses is called the *generation expression* .
+In the following `CREATE TABLE` snippet, we create a table to store information about users. We have columns for `FirstName` and `LastName` and define a generated column for `FullName` , which is the concatenation of `FirstName` and `LastName` . The SQL in parentheses is called the *generation expression* .
 
-A generated column can be marked as `  STORED  ` to save the cost of evaluating the expression at query time. As a result, the value of `  FullName  ` is only computed when a new row is inserted or when `  FirstName  ` or `  LastName  ` is updated for an existing row. The computed value is stored along with other columns in the table.
+A generated column can be marked as `STORED` to save the cost of evaluating the expression at query time. As a result, the value of `FullName` is only computed when a new row is inserted or when `FirstName` or `LastName` is updated for an existing row. The computed value is stored along with other columns in the table.
 
 ### GoogleSQL
 
@@ -27,7 +27,7 @@ A generated column can be marked as `  STORED  ` to save the cost of evaluating 
     PRIMARY KEY(id)
     );
 
-You can create a non-stored generated column by omitting the `  STORED  ` attribute in the DDL. This kind of generated column is evaluated at query time and can make a query simpler. In PostgreSQL, you can create a non-stored generated column using the `  VIRTUAL  ` attribute.
+You can create a non-stored generated column by omitting the `STORED` attribute in the DDL. This kind of generated column is evaluated at query time and can make a query simpler. In PostgreSQL, you can create a non-stored generated column using the `VIRTUAL` attribute.
 
 ### GoogleSQL
 
@@ -43,23 +43,23 @@ You can create a non-stored generated column by omitting the `  STORED  ` attrib
     
       - The expression can't contain [subqueries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) .
     
-      - Expressions with non-deterministic functions such as [`  PENDING_COMMIT_TIMESTAMP()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#pending_commit_timestamp) , [`  CURRENT_DATE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#current_date) , and [`  CURRENT_TIMESTAMP()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#current_timestamp) can't be made into a `  STORED  ` generated column or a generated column that is indexed.
+      - Expressions with non-deterministic functions such as [`PENDING_COMMIT_TIMESTAMP()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#pending_commit_timestamp) , [`CURRENT_DATE()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#current_date) , and [`CURRENT_TIMESTAMP()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#current_timestamp) can't be made into a `STORED` generated column or a generated column that is indexed.
     
-      - You can't modify the expression of a `  STORED  ` or indexed generated column.
+      - You can't modify the expression of a `STORED` or indexed generated column.
 
-  - For GoogleSQL-dialect databases, a non-stored generated column of type `  STRING  ` or `  BYTES  ` must have a length of `  MAX  ` .
+  - For GoogleSQL-dialect databases, a non-stored generated column of type `STRING` or `BYTES` must have a length of `MAX` .
 
-  - For PostgreSQL-dialect databases, a non-stored, or virtual, generated column of type `  VARCHAR  ` must have a length of `  MAX  ` .
+  - For PostgreSQL-dialect databases, a non-stored, or virtual, generated column of type `VARCHAR` must have a length of `MAX` .
 
-  - The `  STORED  ` attribute that follows the expression stores the result of the expression along with other columns of the table. Subsequent updates to any of the referenced columns cause Spanner to re-evaluate and store the expression.
+  - The `STORED` attribute that follows the expression stores the result of the expression along with other columns of the table. Subsequent updates to any of the referenced columns cause Spanner to re-evaluate and store the expression.
 
-  - Generated columns that are not `  STORED  ` can't be marked as `  NOT NULL  ` .
+  - Generated columns that are not `STORED` can't be marked as `NOT NULL` .
 
   - Direct writes to generated columns aren't allowed.
 
-  - Column option `  allow_commit_timestamp  ` isn't allowed on generated columns or any columns that generated columns reference.
+  - Column option `allow_commit_timestamp` isn't allowed on generated columns or any columns that generated columns reference.
 
-  - For `  STORED  ` or generated columns that are indexed, you can't change the data type of the column, or of any columns that the generated column references.
+  - For `STORED` or generated columns that are indexed, you can't change the data type of the column, or of any columns that the generated column references.
 
   - You can't drop a column a generated column references.
 
@@ -69,14 +69,14 @@ You can create a non-stored generated column by omitting the `  STORED  ` attrib
     
       - The generated primary key can reference, at most, one non-key column.
     
-      - The generated primary key can't depend on a non-key column with a `  DEFAULT  ` clause.
+      - The generated primary key can't depend on a non-key column with a `DEFAULT` clause.
 
   - The following rules apply when using generated key columns:
     
       - Read APIs: You must fully specify the key columns, including the generated key columns.
-      - Mutation APIs: For `  INSERT  ` , `  INSERT_OR_UPDATE  ` , and `  REPLACE  ` , Spanner doesn't allow you to specify generated key columns. For `  UPDATE  ` , you can optionally specify generated key columns. For `  DELETE  ` , you need to fully specify the key columns including the generated keys.
-      - DML: You can't explicitly write to generated keys in `  INSERT  ` or `  UPDATE  ` statements.
-      - Query: In general, we recommend that you use the generated key column as a filter in your query. Optionally, if the expression for the generated key column uses only one column as a reference, the query can apply an equality ( `  =  ` ) or `  IN  ` condition to the referenced column. For more information and an example, see [Create a unique key derived from a value column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to#primary-key-generated-column) .
+      - Mutation APIs: For `INSERT` , `INSERT_OR_UPDATE` , and `REPLACE` , Spanner doesn't allow you to specify generated key columns. For `UPDATE` , you can optionally specify generated key columns. For `DELETE` , you need to fully specify the key columns including the generated keys.
+      - DML: You can't explicitly write to generated keys in `INSERT` or `UPDATE` statements.
+      - Query: In general, we recommend that you use the generated key column as a filter in your query. Optionally, if the expression for the generated key column uses only one column as a reference, the query can apply an equality ( `=` ) or `IN` condition to the referenced column. For more information and an example, see [Create a unique key derived from a value column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to#primary-key-generated-column) .
 
 The generated column can be queried just like any other column, as shown in the following example.
 
@@ -90,7 +90,7 @@ The generated column can be queried just like any other column, as shown in the 
     SELECT id, fullname
     FROM users;
 
-The query using `  Fullname  ` is equivalent to the query with the generated expression. Hence a generated column can make the query simpler.
+The query using `Fullname` is equivalent to the query with the generated expression. Hence a generated column can make the query simpler.
 
 ### GoogleSQL
 
@@ -106,7 +106,7 @@ The query using `  Fullname  ` is equivalent to the query with the generated exp
 
 You can also index or use a generated column as a foreign key.
 
-To help with lookups on our `  FullName  ` generated column, we can create a secondary index as shown in the following snippet.
+To help with lookups on our `FullName` generated column, we can create a secondary index as shown in the following snippet.
 
 ### GoogleSQL
 
@@ -118,7 +118,7 @@ To help with lookups on our `  FullName  ` generated column, we can create a sec
 
 ## Add a generated column to an existing table
 
-Using the following `  ALTER TABLE  ` statement, we can add a generated column to the `  Users  ` table to generate and store the user's initials.
+Using the following `ALTER TABLE` statement, we can add a generated column to the `Users` table to generate and store the user's initials.
 
 ### GoogleSQL
 
@@ -136,7 +136,7 @@ If you add a stored generated column to an existing table, a long-running operat
 
 What if we only wanted to query users who are over 18? A full scan of the table would be inefficient, so we use a partial index.
 
-1.  Use the following statement to add another generated column which returns the user's age if they are over 18, and returns `  NULL  ` otherwise.
+1.  Use the following statement to add another generated column which returns the user's age if they are over 18, and returns `NULL` otherwise.
     
     ### GoogleSQL
     
@@ -148,7 +148,7 @@ What if we only wanted to query users who are over 18? A full scan of the table 
         ALTER TABLE Users ADD COLUMN AgeAbove18 BIGINT
         GENERATED ALWAYS AS (nullif( Age , least( 18, Age) )) VIRTUAL;
 
-2.  Create an index on this new column, and disable the indexing of `  NULL  ` values with the `  NULL_FILTERED  ` keyword in GoogleSQL or the `  IS NOT NULL  ` predicate in PostgreSQL. This partial index is smaller and more efficient than a normal index because it excludes everyone who is 18 or younger.
+2.  Create an index on this new column, and disable the indexing of `NULL` values with the `NULL_FILTERED` keyword in GoogleSQL or the `IS NOT NULL` predicate in PostgreSQL. This partial index is smaller and more efficient than a normal index because it excludes everyone who is 18 or younger.
     
     ### GoogleSQL
     
@@ -160,7 +160,7 @@ What if we only wanted to query users who are over 18? A full scan of the table 
         CREATE INDEX UsersAbove18ByAge ON users (AgeAbove18)
         WHERE AgeAbove18 IS NOT NULL;
 
-3.  To retrieve the `  Id  ` and `  Age  ` of all users who are over 18, run the following query.
+3.  To retrieve the `Id` and `Age` of all users who are over 18, run the following query.
     
     ### GoogleSQL
     
@@ -188,11 +188,11 @@ What if we only wanted to query users who are over 18? A full scan of the table 
         FROM users /*@ FORCE_INDEX = UsersAbove18ByAge */
         WHERE AgeAbove18 > 21;
     
-    An indexed generated column can save the cost of evaluating an expression at query time and avoid storing the values twice (in the base table and index) as compared to a `  STORED  ` generated column.
+    An indexed generated column can save the cost of evaluating an expression at query time and avoid storing the values twice (in the base table and index) as compared to a `STORED` generated column.
 
 ## Remove a generated column
 
-The following DDL statement drops a generated column from the `  Users  ` table:
+The following DDL statement drops a generated column from the `Users` table:
 
 ### GoogleSQL
 
@@ -218,13 +218,13 @@ The following DDL statement drops a generated column from the `  Users  ` table:
     ALTER TABLE users ADD COLUMN Initials VARCHAR(2)
     GENERATED ALWAYS AS (lastname || ' ' || firstname) VIRTUAL;
 
-Updating the expression of a `  STORED  ` generated column or an indexed non-stored generated column isn't allowed.
+Updating the expression of a `STORED` generated column or an indexed non-stored generated column isn't allowed.
 
 ## Create a primary key on a generated column
 
-In Spanner, you can use a `  STORED  ` generated column in the primary key.
+In Spanner, you can use a `STORED` generated column in the primary key.
 
-The following example shows a DDL statement that creates the `  UserInfoLog  ` table with a `  ShardId  ` generated column. The value of the `  ShardId  ` column depends on another column. It's derived by using a `  MOD  ` function on the `  UserId  ` column. `  ShardId  ` is declared as part of the primary key.
+The following example shows a DDL statement that creates the `UserInfoLog` table with a `ShardId` generated column. The value of the `ShardId` column depends on another column. It's derived by using a `MOD` function on the `UserId` column. `ShardId` is declared as part of the primary key.
 
 ### GoogleSQL
 
@@ -244,10 +244,10 @@ The following example shows a DDL statement that creates the `  UserInfoLog  ` t
       FullName VARCHAR(1024) NOT NULL,
       PRIMARY KEY(ShardId, UserId));
 
-Normally, to efficiently access a specific row you need to specify all key columns. In the previous example, this would mean providing both a `  ShardId  ` and `  UserId  ` . However, Spanner can sometimes infer the value of the generated primary key column if it depends on a single other column and if the value of the column it depends on is fully determined. This is true if the column referenced by the generated primary key column meets one of the following conditions:
+Normally, to efficiently access a specific row you need to specify all key columns. In the previous example, this would mean providing both a `ShardId` and `UserId` . However, Spanner can sometimes infer the value of the generated primary key column if it depends on a single other column and if the value of the column it depends on is fully determined. This is true if the column referenced by the generated primary key column meets one of the following conditions:
 
-  - It's equal to a constant value or bound parameter in the `  WHERE  ` clause, or
-  - It gets its value set by an `  IN  ` operator in the `  WHERE  ` clause
+  - It's equal to a constant value or bound parameter in the `WHERE` clause, or
+  - It gets its value set by an `IN` operator in the `WHERE` clause
   - It gets its value from an equi-join condition
 
 For example, for the following query:
@@ -262,7 +262,7 @@ For example, for the following query:
     SELECT * FROM UserInfoLog
     AS T WHERE T.UserId=1;
 
-Spanner can infer the value of `  ShardId  ` from the provided `  UserId  ` . The previous query is equivalent to the following query after query optimization:
+Spanner can infer the value of `ShardId` from the provided `UserId` . The previous query is equivalent to the following query after query optimization:
 
 ### GoogleSQL
 
@@ -276,7 +276,7 @@ Spanner can infer the value of `  ShardId  ` from the provided `  UserId  ` . Th
     AS T WHERE T.ShardId = MOD(1, 2048)
     AND T.UserId=1;
 
-The next example shows how to create the `  Students  ` table and use an expression that retrieves the `  id  ` field of the `  StudentInfo  ` JSON column and uses it as the primary key:
+The next example shows how to create the `Students` table and use an expression that retrieves the `id` field of the `StudentInfo` JSON column and uses it as the primary key:
 
 ### GoogleSQL
 
@@ -296,7 +296,7 @@ The next example shows how to create the `  Students  ` table and use an express
 
 ## View properties of a generated column
 
-Spanner's `  INFORMATION_SCHEMA  ` contains information about the generated columns on your database. The following are some examples of the questions you can answer when you query the information schema.
+Spanner's `INFORMATION_SCHEMA` contains information about the generated columns on your database. The following are some examples of the questions you can answer when you query the information schema.
 
 *What generated columns are defined in my database?*
 
@@ -312,14 +312,14 @@ Spanner's `  INFORMATION_SCHEMA  ` contains information about the generated colu
     FROM INFORMATION_SCHEMA.COLUMNS as c
     WHERE c.GENERATION_EXPRESSION IS NOT NULL;
 
-`  IS_STORED  ` is either `  YES  ` for stored generated columns, `  NO  ` for non-stored generated columns, or `  NULL  ` for non-generated columns.
+`IS_STORED` is either `YES` for stored generated columns, `NO` for non-stored generated columns, or `NULL` for non-generated columns.
 
-*What is the current state of generated columns in table `  Users  ` ?*
+*What is the current state of generated columns in table `Users` ?*
 
-If you have added a generated column to an existing table, you might want to pass `  SPANNER_STATE  ` in a query to find out the current state of the column. `  SPANNER_STATE  ` returns the following values:
+If you have added a generated column to an existing table, you might want to pass `SPANNER_STATE` in a query to find out the current state of the column. `SPANNER_STATE` returns the following values:
 
-  - `  COMMITTED  ` : The column is fully usable.
-  - `  WRITE_ONLY  ` : The column is being backfilled. No read is allowed.
+  - `COMMITTED` : The column is fully usable.
+  - `WRITE_ONLY` : The column is being backfilled. No read is allowed.
 
 Use the following query to find the state of a column:
 
@@ -339,9 +339,9 @@ Use the following query to find the state of a column:
 
 ## Performance
 
-A `  STORED  ` generated column doesn't affect the performance of a read or query operation. However, non-stored generated columns used in a query can impact its performance due to the overhead of evaluating the generated column expression.
+A `STORED` generated column doesn't affect the performance of a read or query operation. However, non-stored generated columns used in a query can impact its performance due to the overhead of evaluating the generated column expression.
 
-Performance of write operations (DML statements and mutations) is impacted when using either a `  STORED  ` generated column or a generated column that's indexed. The overhead is due to evaluating the generated column expression when the write operation inserts or modifies any of the columns referenced in the generated column expression. Since the overhead varies depending on the write workload for the application, schema design, and dataset characteristics, we recommend that you benchmark your applications before using a generated column.
+Performance of write operations (DML statements and mutations) is impacted when using either a `STORED` generated column or a generated column that's indexed. The overhead is due to evaluating the generated column expression when the write operation inserts or modifies any of the columns referenced in the generated column expression. Since the overhead varies depending on the write workload for the application, schema design, and dataset characteristics, we recommend that you benchmark your applications before using a generated column.
 
 ## What's next
 

@@ -8,17 +8,17 @@ Execution plans support GoogleSQL-dialect databases and PostgreSQL-dialect datab
 
 The exact mapping between SQL constructs and query execution operators depends on the query optimization. The following table shows some common mappings:
 
-| **SQL**                                            | **Query execution operator**                                                                                                                                                            |
-| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Table reference                                    | [Table Scan, Index Scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan)                                                                                          |
-| `        WHERE       `                             | [Filter Scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#filter_scan) , [Filter](https://docs.cloud.google.com/spanner/docs/query-operators-unary#filter)          |
-| `        GROUP BY       `                          | [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)                                                                                                 |
-| Scalar function (such as `        ISNULL       ` ) | [Compute](https://docs.cloud.google.com/spanner/docs/query-operators-unary#compute)                                                                                                     |
-| Aggregate function (such as `        SUM       ` ) | [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)                                                                                                 |
-| `        JOIN       `                              | Any join operator; see [Joins](https://docs.cloud.google.com/spanner/docs/query-operators-binary)                                                                                       |
-| Subquery                                           | [Scalar](https://docs.cloud.google.com/spanner/docs/query-operators-scalar-subqueries) or [Array](https://docs.cloud.google.com/spanner/docs/query-operators-array-subqueries) subquery |
-| `        LIMIT       `                             | [Limit](https://docs.cloud.google.com/spanner/docs/query-operators-unary#limit) , [Sort Limit](https://docs.cloud.google.com/spanner/docs/query-operators-unary#sort)                   |
-| `        ORDER BY       `                          | [Sort, Sort Limit](https://docs.cloud.google.com/spanner/docs/query-operators-unary#sort)                                                                                               |
+| **SQL**                             | **Query execution operator**                                                                                                                                                            |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Table reference                     | [Table Scan, Index Scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan)                                                                                          |
+| `WHERE`                             | [Filter Scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#filter_scan) , [Filter](https://docs.cloud.google.com/spanner/docs/query-operators-unary#filter)          |
+| `GROUP BY`                          | [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)                                                                                                 |
+| Scalar function (such as `ISNULL` ) | [Compute](https://docs.cloud.google.com/spanner/docs/query-operators-unary#compute)                                                                                                     |
+| Aggregate function (such as `SUM` ) | [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)                                                                                                 |
+| `JOIN`                              | Any join operator; see [Joins](https://docs.cloud.google.com/spanner/docs/query-operators-binary)                                                                                       |
+| Subquery                            | [Scalar](https://docs.cloud.google.com/spanner/docs/query-operators-scalar-subqueries) or [Array](https://docs.cloud.google.com/spanner/docs/query-operators-array-subqueries) subquery |
+| `LIMIT`                             | [Limit](https://docs.cloud.google.com/spanner/docs/query-operators-unary#limit) , [Sort Limit](https://docs.cloud.google.com/spanner/docs/query-operators-unary#sort)                   |
+| `ORDER BY`                          | [Sort, Sort Limit](https://docs.cloud.google.com/spanner/docs/query-operators-unary#sort)                                                                                               |
 
 ## Query execution operators
 
@@ -43,7 +43,7 @@ Operators that have a single relational child.
 
 | Name                                                                                                            | Summary                                                                                                                           |
 | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)                         | Implements `        GROUP BY       ` SQL statements and aggregate functions.                                                      |
+| [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)                         | Implements `GROUP BY` SQL statements and aggregate functions.                                                                     |
 | [Apply mutations](https://docs.cloud.google.com/spanner/docs/query-operators-unary#apply-mutations)             | Applies the mutations from a Data Manipulation Language (DML) statement to the table.                                             |
 | [Create batch](https://docs.cloud.google.com/spanner/docs/query-operators-unary#create_batch)                   | Batches its input rows into a sequence.                                                                                           |
 | [Compute](https://docs.cloud.google.com/spanner/docs/query-operators-unary#compute)                             | Produces output by reading its input rows and adding one or more additional columns that are computed using scalar expressions.   |

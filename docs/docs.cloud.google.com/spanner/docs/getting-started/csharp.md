@@ -18,21 +18,21 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
 ## Prepare your local C\# environment
 
-1.  Set the `  PROJECT_ID  ` environment variable to your Google Cloud project ID.
+1.  Set the `PROJECT_ID` environment variable to your Google Cloud project ID.
     
-    1.  First, set `  PROJECT_ID  ` for the current PowerShell session:
+    1.  First, set `PROJECT_ID` for the current PowerShell session:
         
         ``` notranslate
         $env:PROJECT_ID = "MY_PROJECT_ID"
         ```
     
-    2.  Then, set `  PROJECT_ID  ` for all processes created after this command:
+    2.  Then, set `PROJECT_ID` for all processes created after this command:
         
         ``` notranslate
         [Environment]::SetEnvironmentVariable("PROJECT_ID", "MY_PROJECT_ID", "User")
@@ -48,15 +48,15 @@ In particular, make sure that you run [`  gcloud auth application-default login 
     
     3.  Under "Service account", choose **Compute Engine default service account** , and leave **JSON** selected under "Key type". Click **Create** . Your computer downloads a JSON file.
 
-3.  Set up credentials. For a file named `  FILENAME .json  ` in `  CURRENT_USER  ` 's Downloads directory, located on the `  C  ` drive, run the following commands to set `  GOOGLE_APPLICATION_CREDENTIALS  ` to point to the JSON key:
+3.  Set up credentials. For a file named `  FILENAME .json ` in `  CURRENT_USER  ` 's Downloads directory, located on the `  C  ` drive, run the following commands to set `GOOGLE_APPLICATION_CREDENTIALS` to point to the JSON key:
     
-    1.  First, to set `  GOOGLE_APPLICATION_CREDENTIALS  ` for this PowerShell session:
+    1.  First, to set `GOOGLE_APPLICATION_CREDENTIALS` for this PowerShell session:
         
         ``` notranslate
         $env:GOOGLE_APPLICATION_CREDENTIALS = "C:\Users\CURRENT_USER\Downloads\FILENAME.json"
         ```
     
-    2.  Then, to set `  GOOGLE_APPLICATION_CREDENTIALS  ` for all processes created after this command:
+    2.  Then, to set `GOOGLE_APPLICATION_CREDENTIALS` for all processes created after this command:
         
         ``` notranslate
         [Environment]::SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "C:\Users\CURRENT_USER\Downloads\FILENAME.json", "User")
@@ -68,7 +68,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
     
     Alternatively, you can [download the sample](https://github.com/GoogleCloudPlatform/dotnet-docs-samples/archive/main.zip) as a zip file and extract it.
 
-5.  Open `  Spanner.sln  ` , located in the `  dotnet-docs-samples\spanner\api  ` directory of the downloaded repository, with Visual Studio 2017 or later, then build it.
+5.  Open `Spanner.sln` , located in the `dotnet-docs-samples\spanner\api` directory of the downloaded repository, with Visual Studio 2017 or later, then build it.
 
 6.  Change to the directory within the downloaded repository that contains the compiled application. For example:
     
@@ -78,7 +78,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -209,7 +209,7 @@ The next step is to write data to your database.
 
 ## Create a database client
 
-Before you can do reads or writes, you must create a [`  SpannerConnection  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection) :
+Before you can do reads or writes, you must create a [`SpannerConnection`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection) :
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -250,9 +250,9 @@ Before you can do reads or writes, you must create a [`  SpannerConnection  `](h
         }
     }
 
-You can think of a `  SpannerConnection  ` as a database connection: all of your interactions with Spanner must go through a `  SpannerConnection  ` .
+You can think of a `SpannerConnection` as a database connection: all of your interactions with Spanner must go through a `SpannerConnection` .
 
-Read more in the [`  SpannerConnection  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection) reference.
+Read more in the [`SpannerConnection`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection) reference.
 
 <span id="write_data"></span>
 
@@ -260,7 +260,7 @@ Read more in the [`  SpannerConnection  `](https://docs.cloud.google.com/dotnet/
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
-You use the `  ExecuteNonQueryAsync()  ` method to execute a DML statement.
+You use the `ExecuteNonQueryAsync()` method to execute a DML statement.
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -288,7 +288,7 @@ You use the `  ExecuteNonQueryAsync()  ` method to execute a DML statement.
         }
     }
 
-Run the sample using the `  writeUsingDml  ` argument.
+Run the sample using the `writeUsingDml` argument.
 
     dotnet run writeUsingDml $env:PROJECT_ID test-instance example-db
 
@@ -304,7 +304,7 @@ You should see:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-You can insert data using the [`  connection.CreateInsertCommand()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateInsertCommand_System_String_Google_Cloud_Spanner_Data_SpannerParameterCollection_) method, which creates a new `  SpannerCommand  ` to insert rows into a table. The [`  SpannerCommand.ExecuteNonQueryAsync()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteNonQueryAsync_System_Threading_CancellationToken_) method adds new rows to the table.
+You can insert data using the [`connection.CreateInsertCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateInsertCommand_System_String_Google_Cloud_Spanner_Data_SpannerParameterCollection_) method, which creates a new `SpannerCommand` to insert rows into a table. The [`SpannerCommand.ExecuteNonQueryAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteNonQueryAsync_System_Threading_CancellationToken_) method adds new rows to the table.
 
 This code shows how to insert data using mutations:
 
@@ -386,7 +386,7 @@ This code shows how to insert data using mutations:
         }
     }
 
-Run the sample using the `  insertSampleData  ` argument.
+Run the sample using the `insertSampleData` argument.
 
     dotnet run insertSampleData $env:PROJECT_ID test-instance example-db
 
@@ -402,7 +402,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
@@ -422,7 +422,7 @@ The result shows:
 
 In addition to executing a SQL statement on the command line, you can issue the same SQL statement programmatically using the Spanner client library for C\#.
 
-Use [`  ExecuteReaderAsync()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteReaderAsync) to run the SQL query.
+Use [`ExecuteReaderAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteReaderAsync) to run the SQL query.
 
     using Google.Cloud.Spanner.Data;
     using System.Collections.Generic;
@@ -475,7 +475,7 @@ You should see the following result:
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
 ### GoogleSQL
 
@@ -574,7 +574,7 @@ You should see the following result:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -582,7 +582,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
 ### GoogleSQL
 
@@ -600,7 +600,7 @@ You should see:
 
 #### Use the Spanner client library for C\#
 
-Use [`  CreateDdlCommand()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDdlCommand_System_String_System_String___) to modify the schema:
+Use [`CreateDdlCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDdlCommand_System_String_System_String___) to modify the schema:
 
 ### GoogleSQL
 
@@ -644,7 +644,7 @@ Use [`  CreateDdlCommand()  `](https://docs.cloud.google.com/dotnet/docs/referen
         }
     }
 
-Run the sample using the `  addColumn  ` command.
+Run the sample using the `addColumn` command.
 
     dotnet run addColumn $env:PROJECT_ID test-instance example-db
 
@@ -654,7 +654,7 @@ You should see:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -686,7 +686,7 @@ The following code writes data to the new column. It sets `  MarketingBudget  ` 
         }
     }
 
-Run the sample using the `  writeDataToNewColumn  ` command.
+Run the sample using the `writeDataToNewColumn` command.
 
     dotnet run writeDataToNewColumn $env:PROJECT_ID test-instance example-db
 
@@ -732,7 +732,7 @@ Here's the code to execute the query:
         }
     }
 
-To execute this query, run the sample using the `  queryNewColumn  ` argument.
+To execute this query, run the sample using the `queryNewColumn` argument.
 
     dotnet run queryNewColumn $env:PROJECT_ID test-instance example-db
 
@@ -748,7 +748,7 @@ You should see:
 
 You can update data using DML in a read-write transaction.
 
-You use the `  ExecuteNonQueryAsync()  ` method to execute a DML statement.
+You use the `ExecuteNonQueryAsync()` method to execute a DML statement.
 
 ### GoogleSQL
 
@@ -843,7 +843,7 @@ You use the `  ExecuteNonQueryAsync()  ` method to execute a DML statement.
         }
     }
 
-Run the sample using the `  writeWithTransactionUsingDml  ` argument.
+Run the sample using the `writeWithTransactionUsingDml` argument.
 
     dotnet run writeWithTransactionUsingDml $env:PROJECT_ID test-instance example-db
 
@@ -855,7 +855,7 @@ You should see:
 
 ## Use a secondary index
 
-Suppose you wanted to fetch all rows of `  Albums  ` that have `  AlbumTitle  ` values in a certain range. You could read all values from the `  AlbumTitle  ` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
+Suppose you wanted to fetch all rows of `Albums` that have `AlbumTitle` values in a certain range. You could read all values from the `AlbumTitle` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
 
 Adding a secondary index to an existing table requires a schema update. Like other schema updates, Spanner supports adding an index while the database continues to serve traffic. Spanner automatically backfills the index with your existing data. Backfills might take a few minutes to complete, but you don't need to take the database offline or avoid writing to the indexed table during this process. For more details, see [Add a secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#adding_an_index) .
 
@@ -867,7 +867,7 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 #### On the command line
 
-Use the following [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
+Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
     gcloud spanner databases ddl update example-db --instance=test-instance \
         --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
@@ -878,7 +878,7 @@ You should see:
 
 #### Using the Spanner client library for C\#
 
-Use [`  CreateDdlCommand()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDdlCommand_System_String_System_String___) to add an index:
+Use [`CreateDdlCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDdlCommand_System_String_System_String___) to add an index:
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -898,7 +898,7 @@ Use [`  CreateDdlCommand()  `](https://docs.cloud.google.com/dotnet/docs/referen
         }
     }
 
-Run the sample using the `  addIndex  ` command.
+Run the sample using the `addIndex` command.
 
 ``` 
   dotnet run addIndex $env:PROJECT_ID test-instance example-db
@@ -912,9 +912,9 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 ### Add an index for index-only reads
 
-You might have noticed that the previous read example doesn't include reading the `  MarketingBudget  ` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
+You might have noticed that the previous read example doesn't include reading the `MarketingBudget` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
 
-Create an alternate definition of `  AlbumsByAlbumTitle  ` that stores a copy of `  MarketingBudget  ` in the index.
+Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `MarketingBudget` in the index.
 
 #### On the command line
 
@@ -934,7 +934,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 #### Using the Spanner client library for C\#
 
-Use [`  CreateDdlCommand()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDdlCommand_System_String_System_String___) to add an index with a `  STORING  ` clause:
+Use [`CreateDdlCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDdlCommand_System_String_System_String___) to add an index with a `STORING` clause:
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -954,7 +954,7 @@ Use [`  CreateDdlCommand()  `](https://docs.cloud.google.com/dotnet/docs/referen
         }
     }
 
-Run the sample using the `  addStoringIndex  ` command.
+Run the sample using the `addStoringIndex` command.
 
     dotnet run addStoringIndex $env:PROJECT_ID test-instance example-db
 
@@ -962,7 +962,7 @@ You should see:
 
     Added the AlbumsByAlbumTitle2 index.
 
-Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , and `  MarketingBudget  ` columns from the `  AlbumsByAlbumTitle2  ` index:
+Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
 Read data using the storing index you created by executing a query that explicitly specifies the index:
 
@@ -1003,7 +1003,7 @@ Read data using the storing index you created by executing a query that explicit
         }
     }
 
-Run the sample using the `  queryDataWithStoringIndex  ` command.
+Run the sample using the `queryDataWithStoringIndex` command.
 
     dotnet run queryDataWithStoringIndex $env:PROJECT_ID test-instance example-db
 
@@ -1014,7 +1014,7 @@ You should see output similar to:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use the .NET framework's [`  TransactionScope()  `](https://msdn.microsoft.com/en-us/library/system.transactions.transactionscope) along with [`  OpenAsReadOnlyAsync()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_OpenAsReadOnlyAsync_Google_Cloud_Spanner_Data_TimestampBound_System_Threading_CancellationToken_) for executing read-only transactions.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use the .NET framework's [`TransactionScope()`](https://msdn.microsoft.com/en-us/library/system.transactions.transactionscope) along with [`OpenAsReadOnlyAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_OpenAsReadOnlyAsync_Google_Cloud_Spanner_Data_TimestampBound_System_Threading_CancellationToken_) for executing read-only transactions.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
@@ -1145,7 +1145,7 @@ The following shows how to run a query and perform a read in the same read-only 
         }
     }
 
-Run the sample using the `  queryDataWithTransaction  ` command.
+Run the sample using the `queryDataWithTransaction` command.
 
     dotnet run queryDataWithTransaction $env:PROJECT_ID test-instance example-db
 

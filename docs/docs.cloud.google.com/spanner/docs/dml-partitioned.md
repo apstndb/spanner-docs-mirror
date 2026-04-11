@@ -1,7 +1,7 @@
 Partitioned [Data Manipulation Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax) (partitioned DML) is designed for the following types of bulk updates and deletes:
 
-  - Periodic cleanup and garbage collection. Examples are deleting old rows or setting columns to `  NULL  ` .
-  - Backfilling new columns with default values. An example is using an `  UPDATE  ` statement to set a new column's value to `  False  ` where it is currently `  NULL  ` .
+  - Periodic cleanup and garbage collection. Examples are deleting old rows or setting columns to `NULL` .
+  - Backfilling new columns with default values. An example is using an `UPDATE` statement to set a new column's value to `False` where it is currently `NULL` .
 
 Partitioned DML isn't suitable for small-scale transaction processing. If you want to run a statement on a few rows, use transactional DMLs with identifiable primary keys. For more information, see [Using DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#using-dml) .
 
@@ -19,18 +19,18 @@ Spanner supports two execution modes for DML statements:
 
 The following table highlights some of the differences between the two execution modes.
 
-| DML                                                                      | Partitioned DML                                                                                                                                         |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Rows that don't match the `        WHERE       ` clause might be locked. | Only rows that match the `        WHERE       ` clause are locked.                                                                                      |
-| Transaction size limits apply.                                           | Spanner handles the transaction limits and per-transaction concurrency limits.                                                                          |
-| Statements don't need to be idempotent.                                  | A DML statement must be [idempotent](https://docs.cloud.google.com/spanner/docs/dml-partitioned#partitionable-idempotent) to ensure consistent results. |
-| A transaction can include multiple DML and SQL statements.               | A partitioned transaction can include only one DML statement.                                                                                           |
-| There are no restrictions on complexity of statements.                   | Statements must be [fully partitionable](https://docs.cloud.google.com/spanner/docs/dml-partitioned#partitionable-idempotent) .                         |
-| You create read-write transactions in your client code.                  | Spanner creates the transactions.                                                                                                                       |
+| DML                                                        | Partitioned DML                                                                                                                                         |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Rows that don't match the `WHERE` clause might be locked.  | Only rows that match the `WHERE` clause are locked.                                                                                                     |
+| Transaction size limits apply.                             | Spanner handles the transaction limits and per-transaction concurrency limits.                                                                          |
+| Statements don't need to be idempotent.                    | A DML statement must be [idempotent](https://docs.cloud.google.com/spanner/docs/dml-partitioned#partitionable-idempotent) to ensure consistent results. |
+| A transaction can include multiple DML and SQL statements. | A partitioned transaction can include only one DML statement.                                                                                           |
+| There are no restrictions on complexity of statements.     | Statements must be [fully partitionable](https://docs.cloud.google.com/spanner/docs/dml-partitioned#partitionable-idempotent) .                         |
+| You create read-write transactions in your client code.    | Spanner creates the transactions.                                                                                                                       |
 
 ## Partitionable and idempotent
 
-When a partitioned DML statement runs, rows in one partition don't have access to rows in other partitions, and you cannot choose how Spanner creates the partitions. Partitioning ensures scalability, but it also means that partitioned DML statements must be *fully partitionable* . That is, the partitioned DML statement must be expressible as the union of a set of statements, where each statement accesses a single row of the table and each statement accesses no other tables. For example, a DML statement that accesses multiple tables or performs a self-join is not partitionable. If the DML statement is not partitionable, Spanner returns the error `  BadUsage  ` .
+When a partitioned DML statement runs, rows in one partition don't have access to rows in other partitions, and you cannot choose how Spanner creates the partitions. Partitioning ensures scalability, but it also means that partitioned DML statements must be *fully partitionable* . That is, the partitioned DML statement must be expressible as the union of a set of statements, where each statement accesses a single row of the table and each statement accesses no other tables. For example, a DML statement that accesses multiple tables or performs a self-join is not partitionable. If the DML statement is not partitionable, Spanner returns the error `BadUsage` .
 
 These DML statements are fully partitionable, because each statement can be applied to a single row in the table:
 
@@ -56,7 +56,7 @@ This DML statement is not idempotent:
 
 ## Delete rows from parent tables with indexed child tables
 
-When you use a partitioned DML statement to delete rows in a parent table, the operation might fail with the error: `  The transaction contains too many mutations  ` . This occurs if the parent table has interleaved child tables that contain a global index. Mutations to the child table rows themselves aren't counted against the transaction's [mutation limit](https://docs.cloud.google.com/spanner/quotas#limits-for) . However, the corresponding mutations to the index entries are counted. If a large number of child table index entries are affected, the transaction might exceed the mutation limit.
+When you use a partitioned DML statement to delete rows in a parent table, the operation might fail with the error: `The transaction contains too many mutations` . This occurs if the parent table has interleaved child tables that contain a global index. Mutations to the child table rows themselves aren't counted against the transaction's [mutation limit](https://docs.cloud.google.com/spanner/quotas#limits-for) . However, the corresponding mutations to the index entries are counted. If a large number of child table index entries are affected, the transaction might exceed the mutation limit.
 
 To avoid this error, delete the rows in two separate partitioned DML statements:
 
@@ -67,7 +67,7 @@ This two-step process helps keep the mutation count within the allowed limits fo
 
 ## Row locking
 
-Spanner acquires a lock only if a row is a candidate for update or deletion. This behavior is different from [DML execution](https://docs.cloud.google.com/spanner/docs/dml-tasks#locking) , which might read-lock rows that don't match the `  WHERE  ` clause.
+Spanner acquires a lock only if a row is a candidate for update or deletion. This behavior is different from [DML execution](https://docs.cloud.google.com/spanner/docs/dml-tasks#locking) , which might read-lock rows that don't match the `WHERE` clause.
 
 ## Execution and transactions
 
@@ -80,7 +80,7 @@ Spanner does not apply the partitioned DML statements atomically across the enti
 Partitioned DML does not support commit or rollback. Spanner executes and applies the DML statement immediately.
 
   - If you cancel the operation, Spanner cancels the executing partitions and doesn't start the remaining partitions. Spanner does not roll back any partitions that have already executed.
-  - If the execution of the statement causes an error, then execution stops across all partitions and Spanner returns that error for the entire operation. Some examples of errors are violations of data type constraints, violations of `  UNIQUE INDEX  ` , and violations of `  ON DELETE NO ACTION  ` . Depending on the point in time when the execution failed, the statement might have successfully run against some partitions, and might never have been run against other partitions.
+  - If the execution of the statement causes an error, then execution stops across all partitions and Spanner returns that error for the entire operation. Some examples of errors are violations of data type constraints, violations of `UNIQUE INDEX` , and violations of `ON DELETE NO ACTION` . Depending on the point in time when the execution failed, the statement might have successfully run against some partitions, and might never have been run against other partitions.
 
 If the partitioned DML statement succeeds, then Spanner ran the statement at least once against each partition of the key range.
 
@@ -98,7 +98,7 @@ Spanner allows a maximum of 20,000 concurrent partitioned DML statements per dat
 
 Spanner does not support some features for partitioned DML:
 
-  - `  INSERT  ` is not supported.
+  - `INSERT` is not supported.
   - Google Cloud console: You can't execute partitioned DML statements in the Google Cloud console.
   - Query plans and profiling: The Google Cloud CLI and the client libraries don't support query plans and profiling.
   - Subqueries that read from another table, or a different row of the same table.
@@ -110,18 +110,18 @@ For complex scenarios, such as moving a table or transformations that require jo
 Apply the following best practices to improve the performance of your partitioned DML statements:
 
   - **Avoid high concurrency:** Running a large number of partitioned DML statements concurrently (for example, more than 100) might lead to lock contention on internal system tables, degrading performance. Instead of running a high number of concurrent statements, use a single partitioned DML statement.
-  - **Utilize [`  PDML_MAX_PARALLELISM  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#statement_hints) :** To increase the throughput of a single partitioned DML statement, especially on tables with many splits, set a higher value for the `  PDML_MAX_PARALLELISM  ` statement hint. This allows the single statement to use more parallelism internally. Setting a higher value for `  PDML_MAX_PARALLELISM  ` results in more compute usage, so you should try to balance compute usage and increased processing speed.
+  - **Utilize [`PDML_MAX_PARALLELISM`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#statement_hints) :** To increase the throughput of a single partitioned DML statement, especially on tables with many splits, set a higher value for the `PDML_MAX_PARALLELISM` statement hint. This allows the single statement to use more parallelism internally. Setting a higher value for `PDML_MAX_PARALLELISM` results in more compute usage, so you should try to balance compute usage and increased processing speed.
   - **Let Spanner handle partitioning:** Avoid manually sharding your data (for example, using primary key ranges) and running separate partitioned DML statements on each shard. Partitioned DML is designed to efficiently partition the work across the entire table. Custom sharding often increases overhead and might worsen contention.
   - **Understand partitioning scope:** Partitioned DML operations are parallelized across all splits in the entire database, not just the splits containing data for the table being modified. This means that for databases with a large number of splits, there might be overhead even if the target table is small or the modified data is localized. Partitioned DML might not be the most efficient choice for modifying a very small portion of a large database.
   - **Consider alternatives for frequent, small deletions:** For use cases involving frequent deletions of a small number of known rows, using DML statements within transactions or the [BatchWrite API](https://docs.cloud.google.com/spanner/docs/batch-write) might offer better performance and lower overhead than using partitioned DML.
 
 ## Examples
 
-The following code example updates the `  MarketingBudget  ` column of the `  Albums  ` table.
+The following code example updates the `MarketingBudget` column of the `Albums` table.
 
 ### C++
 
-You use the `  ExecutePartitionedDml()  ` function to execute a partitioned DML statement.
+You use the `ExecutePartitionedDml()` function to execute a partitioned DML statement.
 
     void DmlPartitionedUpdate(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -135,7 +135,7 @@ You use the `  ExecutePartitionedDml()  ` function to execute a partitioned DML 
 
 ### C\#
 
-You use the `  ExecutePartitionedUpdateAsync()  ` method to execute a partitioned DML statement.
+You use the `ExecutePartitionedUpdateAsync()` method to execute a partitioned DML statement.
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -160,7 +160,7 @@ You use the `  ExecutePartitionedUpdateAsync()  ` method to execute a partitione
 
 ### Go
 
-You use the `  PartitionedUpdate()  ` method to execute a partitioned DML statement.
+You use the `PartitionedUpdate()` method to execute a partitioned DML statement.
 
     import (
      "context"
@@ -189,7 +189,7 @@ You use the `  PartitionedUpdate()  ` method to execute a partitioned DML statem
 
 ### Java
 
-You use the `  executePartitionedUpdate()  ` method to execute a partitioned DML statement.
+You use the `executePartitionedUpdate()` method to execute a partitioned DML statement.
 
     static void updateUsingPartitionedDml(DatabaseClient dbClient) {
       String sql = "UPDATE Albums SET MarketingBudget = 100000 WHERE SingerId > 1";
@@ -199,7 +199,7 @@ You use the `  executePartitionedUpdate()  ` method to execute a partitioned DML
 
 ### Node.js
 
-You use the `  runPartitionedUpdate()  ` method to execute a partitioned DML statement.
+You use the `runPartitionedUpdate()` method to execute a partitioned DML statement.
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -234,7 +234,7 @@ You use the `  runPartitionedUpdate()  ` method to execute a partitioned DML sta
 
 ### PHP
 
-You use the `  executePartitionedUpdate()  ` method to execute a partitioned DML statement.
+You use the `executePartitionedUpdate()` method to execute a partitioned DML statement.
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -270,7 +270,7 @@ You use the `  executePartitionedUpdate()  ` method to execute a partitioned DML
 
 ### Python
 
-You use the `  execute_partitioned_dml()  ` method to execute a partitioned DML statement.
+You use the `execute_partitioned_dml()` method to execute a partitioned DML statement.
 
     # instance_id = "your-spanner-instance"
     # database_id = "your-spanner-db-id"
@@ -287,7 +287,7 @@ You use the `  execute_partitioned_dml()  ` method to execute a partitioned DML 
 
 ### Ruby
 
-You use the `  execute_partitioned_update()  ` method to execute a partitioned DML statement.
+You use the `execute_partitioned_update()` method to execute a partitioned DML statement.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -304,7 +304,7 @@ You use the `  execute_partitioned_update()  ` method to execute a partitioned D
     
     puts "#{row_count} records updated."
 
-The following code example deletes rows from the `  Singers  ` table, based on the `  SingerId  ` column.
+The following code example deletes rows from the `Singers` table, based on the `SingerId` column.
 
 ### C++
 

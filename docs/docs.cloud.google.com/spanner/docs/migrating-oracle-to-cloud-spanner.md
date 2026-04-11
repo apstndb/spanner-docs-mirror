@@ -14,7 +14,7 @@ Spanner does not support running user code in the database level, so as part of 
 
 ### Sequences
 
-We recommend using UUID Version 4 as the default method to generate primary key values. The `  GENERATE_UUID()  ` function ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) ) returns UUID Version 4 values as a `  STRING  ` type.
+We recommend using UUID Version 4 as the default method to generate primary key values. The `GENERATE_UUID()` function ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) ) returns UUID Version 4 values as a `STRING` type.
 
 If you need to generate 64-bit integer values, Spanner supports positive bit-reversed sequences ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ), which produce values that distribute evenly across the positive 64-bit number space. You can use these numbers to avoid hotspotting issues.
 
@@ -34,13 +34,13 @@ If you need more complex data constraints, implement them in the application lay
 
 The following table discusses the types of constraints commonly found in Oracle® databases, and how to implement them with Spanner.
 
-| Constraint                                                                     | Implementation with Spanner                                                                                         |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| Not null                                                                       | `        NOT NULL       ` column constraint                                                                         |
-| Unique                                                                         | Secondary index with `        UNIQUE       ` constraint                                                             |
-| Foreign key (for normal tables)                                                | See [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) . |
-| Foreign key `        ON DELETE/ON UPDATE       ` actions                       | Only possible for interleaved tables, otherwise implemented in the application layer                                |
-| Value checks and validation via `        CHECK       ` constraints or triggers | Implemented in the application layer                                                                                |
+| Constraint                                                      | Implementation with Spanner                                                                                         |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Not null                                                        | `NOT NULL` column constraint                                                                                        |
+| Unique                                                          | Secondary index with `UNIQUE` constraint                                                                            |
+| Foreign key (for normal tables)                                 | See [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) . |
+| Foreign key `ON DELETE/ON UPDATE` actions                       | Only possible for interleaved tables, otherwise implemented in the application layer                                |
+| Value checks and validation via `CHECK` constraints or triggers | Implemented in the application layer                                                                                |
 
 ### Supported data types
 
@@ -48,7 +48,7 @@ Oracle® databases and Spanner support different sets of data types. The followi
 
 You might also have to perform additional transformations on your data as described in the Notes column to make Oracle data fit in your Spanner database.
 
-For example, you can store a large `  BLOB  ` as an object in a Cloud Storage bucket rather than in the database, and then store the URI reference to the Cloud Storage object in the database as a `  STRING  ` .
+For example, you can store a large `BLOB` as an object in a Cloud Storage bucket rather than in the database, and then store the URI reference to the Cloud Storage object in the database as a `STRING` .
 
 <table>
 <colgroup>
@@ -65,70 +65,70 @@ For example, you can store a large `  BLOB  ` as an object in a Cloud Storage bu
 </thead>
 <tbody>
 <tr class="odd">
-<td>Character types ( <code dir="ltr" translate="no">       CHAR      </code> , <code dir="ltr" translate="no">       VARCHAR      </code> , <code dir="ltr" translate="no">       NCHAR      </code> , <code dir="ltr" translate="no">       NVARCHAR      </code> )</td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td>Character types ( <code dir="ltr" translate="no">CHAR</code> , <code dir="ltr" translate="no">VARCHAR</code> , <code dir="ltr" translate="no">NCHAR</code> , <code dir="ltr" translate="no">NVARCHAR</code> )</td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td>Note: Spanner uses Unicode strings throughout.<br />
 Oracle supports a maximum length of 32,000 bytes or characters (depending on type), while Spanner supports up to 2,621,440 characters.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       BLOB      </code> , <code dir="ltr" translate="no">       LONG RAW      </code> , <code dir="ltr" translate="no">       BFILE      </code></td>
-<td><code dir="ltr" translate="no">       BYTES      </code> or <code dir="ltr" translate="no">       STRING      </code> containing URI to the object.</td>
-<td>Small objects (less than 10 MiB) can be stored as <code dir="ltr" translate="no">       BYTES      </code> .<br />
+<td><code dir="ltr" translate="no">BLOB</code> , <code dir="ltr" translate="no">LONG RAW</code> , <code dir="ltr" translate="no">BFILE</code></td>
+<td><code dir="ltr" translate="no">BYTES</code> or <code dir="ltr" translate="no">STRING</code> containing URI to the object.</td>
+<td>Small objects (less than 10 MiB) can be stored as <code dir="ltr" translate="no">BYTES</code> .<br />
 Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       CLOB      </code> , <code dir="ltr" translate="no">       NCLOB      </code> , <code dir="ltr" translate="no">       LONG      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> (either containing data or URI to external object)</td>
-<td>Small objects (less than 2,621,440 characters) can be stored as <code dir="ltr" translate="no">       STRING      </code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
+<td><code dir="ltr" translate="no">CLOB</code> , <code dir="ltr" translate="no">NCLOB</code> , <code dir="ltr" translate="no">LONG</code></td>
+<td><code dir="ltr" translate="no">STRING</code> (either containing data or URI to external object)</td>
+<td>Small objects (less than 2,621,440 characters) can be stored as <code dir="ltr" translate="no">STRING</code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       NUMBER      </code> , <code dir="ltr" translate="no">       NUMERIC      </code> , <code dir="ltr" translate="no">       DECIMAL      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> , <code dir="ltr" translate="no">       FLOAT64      </code> , <code dir="ltr" translate="no">       INT64      </code></td>
-<td>The Oracle <code dir="ltr" translate="no">       NUMBER      </code> data type is equivalent to the GoogleSQL <code dir="ltr" translate="no">       NUMERIC      </code> data type. Each supports 38 digits of precision and nine digits of scale: (P,S) = (38,9). The PostgreSQL <code dir="ltr" translate="no">       NUMERIC      </code> data type stores <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">arbitrary precision numeric data</a> . The <code dir="ltr" translate="no">       FLOAT64      </code> GoogleSQL data type supports up to 16 digits of precision.<br />
+<td><code dir="ltr" translate="no">NUMBER</code> , <code dir="ltr" translate="no">NUMERIC</code> , <code dir="ltr" translate="no">DECIMAL</code></td>
+<td><code dir="ltr" translate="no">STRING</code> , <code dir="ltr" translate="no">FLOAT64</code> , <code dir="ltr" translate="no">INT64</code></td>
+<td>The Oracle <code dir="ltr" translate="no">NUMBER</code> data type is equivalent to the GoogleSQL <code dir="ltr" translate="no">NUMERIC</code> data type. Each supports 38 digits of precision and nine digits of scale: (P,S) = (38,9). The PostgreSQL <code dir="ltr" translate="no">NUMERIC</code> data type stores <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">arbitrary precision numeric data</a> . The <code dir="ltr" translate="no">FLOAT64</code> GoogleSQL data type supports up to 16 digits of precision.<br />
 </td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       INT      </code> , <code dir="ltr" translate="no">       INTEGER      </code> , <code dir="ltr" translate="no">       SMALLINT      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
+<td><code dir="ltr" translate="no">INT</code> , <code dir="ltr" translate="no">INTEGER</code> , <code dir="ltr" translate="no">SMALLINT</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       BINARY_FLOAT      </code> , <code dir="ltr" translate="no">       BINARY_DOUBLE      </code></td>
-<td><code dir="ltr" translate="no">       FLOAT64      </code></td>
+<td><code dir="ltr" translate="no">BINARY_FLOAT</code> , <code dir="ltr" translate="no">BINARY_DOUBLE</code></td>
+<td><code dir="ltr" translate="no">FLOAT64</code></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       DATE      </code></td>
-<td><code dir="ltr" translate="no">       DATE      </code></td>
-<td>The default <code dir="ltr" translate="no">       STRING      </code> representation of the Spanner <code dir="ltr" translate="no">       DATE      </code> type is <code dir="ltr" translate="no">       yyyy-mm-dd      </code> , which is different from Oracle's, so use caution when automatically converting to and from <code dir="ltr" translate="no">       STRING      </code> representations of dates. SQL functions are provided to convert dates to a formatted string.</td>
+<td><code dir="ltr" translate="no">DATE</code></td>
+<td><code dir="ltr" translate="no">DATE</code></td>
+<td>The default <code dir="ltr" translate="no">STRING</code> representation of the Spanner <code dir="ltr" translate="no">DATE</code> type is <code dir="ltr" translate="no">yyyy-mm-dd</code> , which is different from Oracle's, so use caution when automatically converting to and from <code dir="ltr" translate="no">STRING</code> representations of dates. SQL functions are provided to convert dates to a formatted string.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       DATETIME      </code></td>
-<td><code dir="ltr" translate="no">       TIMESTAMP      </code></td>
-<td>Spanner stores time independent of timezone. If you need to store a timezone, you need to use a separate <code dir="ltr" translate="no">       STRING      </code> column. SQL functions are provided to convert timestamps to a formatted string using timezones.</td>
+<td><code dir="ltr" translate="no">DATETIME</code></td>
+<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
+<td>Spanner stores time independent of timezone. If you need to store a timezone, you need to use a separate <code dir="ltr" translate="no">STRING</code> column. SQL functions are provided to convert timestamps to a formatted string using timezones.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       XML      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> (either containing data or URI to external object)</td>
-<td>Small XML objects (less than 2,621,440 characters) can be stored as <code dir="ltr" translate="no">       STRING      </code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
+<td><code dir="ltr" translate="no">XML</code></td>
+<td><code dir="ltr" translate="no">STRING</code> (either containing data or URI to external object)</td>
+<td>Small XML objects (less than 2,621,440 characters) can be stored as <code dir="ltr" translate="no">STRING</code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       URI      </code> , <code dir="ltr" translate="no">       DBURI      </code> , <code dir="ltr" translate="no">       XDBURI      </code> , <code dir="ltr" translate="no">       HTTPURI      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><code dir="ltr" translate="no">URI</code> , <code dir="ltr" translate="no">DBURI</code> , <code dir="ltr" translate="no">XDBURI</code> , <code dir="ltr" translate="no">HTTPURI</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       ROWID      </code></td>
-<td><code dir="ltr" translate="no">       PRIMARY KEY      </code></td>
-<td>Spanner uses the table's primary key to sort and reference rows internally, so in Spanner it is effectively the same as the <code dir="ltr" translate="no">       ROWID      </code> data type.</td>
+<td><code dir="ltr" translate="no">ROWID</code></td>
+<td><code dir="ltr" translate="no">PRIMARY KEY</code></td>
+<td>Spanner uses the table's primary key to sort and reference rows internally, so in Spanner it is effectively the same as the <code dir="ltr" translate="no">ROWID</code> data type.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       SDO_GEOMETRY      </code> , <code dir="ltr" translate="no">       SDO_TOPO_GEOMETRY_SDO_GEORASTER      </code></td>
+<td><code dir="ltr" translate="no">SDO_GEOMETRY</code> , <code dir="ltr" translate="no">SDO_TOPO_GEOMETRY_SDO_GEORASTER</code></td>
 <td></td>
 <td>Spanner does not support geospatial data types. You will have to store this data using standard data types, and implement any searching and filtering logic in the application layer.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       ORDAudio      </code> , <code dir="ltr" translate="no">       ORDDicom      </code> , <code dir="ltr" translate="no">       ORDDoc      </code> , <code dir="ltr" translate="no">       ORDImage      </code> , <code dir="ltr" translate="no">       ORDVideo      </code> , <code dir="ltr" translate="no">       ORDImageSignature      </code></td>
+<td><code dir="ltr" translate="no">ORDAudio</code> , <code dir="ltr" translate="no">ORDDicom</code> , <code dir="ltr" translate="no">ORDDoc</code> , <code dir="ltr" translate="no">ORDImage</code> , <code dir="ltr" translate="no">ORDVideo</code> , <code dir="ltr" translate="no">ORDImageSignature</code></td>
 <td></td>
 <td>Spanner does not support media data types. Consider using Cloud Storage to store media data.</td>
 </tr>
@@ -182,15 +182,15 @@ You can also create [secondary indexes](https://docs.cloud.google.com/spanner/do
 
 Spanner implements secondary indexes in the same way as tables, so the column values to be used as index keys have [the same constraints](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#primary_keys) as the primary keys of tables. This also means that indexes have the same consistency guarantees as Spanner tables.
 
-Value lookups using secondary indexes are effectively the same as a query with a table join. You can improve the performance of queries using indexes by storing copies the original table's column values in the secondary index using the `  STORING  ` clause, making it a [covering index](https://wikipedia.org/wiki/Database_index#Covering_index) .
+Value lookups using secondary indexes are effectively the same as a query with a table join. You can improve the performance of queries using indexes by storing copies the original table's column values in the secondary index using the `STORING` clause, making it a [covering index](https://wikipedia.org/wiki/Database_index#Covering_index) .
 
-Spanner's query optimizer will only automatically use secondary indexes when the index itself stores all the columns being queried (a covered query). To force the use of an index when querying columns in the original table, you must use a [`  FORCE INDEX  ` directive](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index_directive) in the SQL statement, for example:
+Spanner's query optimizer will only automatically use secondary indexes when the index itself stores all the columns being queried (a covered query). To force the use of an index when querying columns in the original table, you must use a [`FORCE INDEX` directive](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index_directive) in the SQL statement, for example:
 
     SELECT *
     FROM MyTable@{FORCE_INDEX=MyTableIndex}
     WHERE IndexedColumn=@value
 
-Indexes can be used to enforce unique values within a table column, by defining a [`  UNIQUE  ` index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#unique_indexes) on that column. Adding duplicate values will be prevented by the index.
+Indexes can be used to enforce unique values within a table column, by defining a [`UNIQUE` index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#unique_indexes) on that column. Adding duplicate values will be prevented by the index.
 
 Here is an example DDL statement creating a secondary index for the Albums table:
 
@@ -202,9 +202,9 @@ Note that if you create additional indexes after your data is loaded, populating
 
 Spanner uses the [ANSI 2011 dialect of SQL with extensions](https://docs.cloud.google.com/spanner/docs/query-syntax) , and has many functions and operators to help translate and aggregate your data. You must convert any SQL queries that use Oracle-specific syntax, functions, and types to be compatible with Spanner.
 
-While Spanner does not support structured data as column definitions, structured data can be used in SQL queries using `  ARRAY  ` and `  STRUCT  ` types.
+While Spanner does not support structured data as column definitions, structured data can be used in SQL queries using `ARRAY` and `STRUCT` types.
 
-For example, a query could be written to return all Albums for an artist using an `  ARRAY  ` of `  STRUCTs  ` in a single query (taking advantage of the pre-joined data). For more information see the [Notes about subqueries](https://docs.cloud.google.com/spanner/docs/query-syntax#notes-about-subqueries) section of the documentation.
+For example, a query could be written to return all Albums for an artist using an `ARRAY` of `STRUCTs` in a single query (taking advantage of the pre-joined data). For more information see the [Notes about subqueries](https://docs.cloud.google.com/spanner/docs/query-syntax#notes-about-subqueries) section of the documentation.
 
 SQL queries can be profiled using the Spanner Studio page in the Google Cloud Console to execute the query. In general, queries that perform full table scans on large tables are very expensive, and should be used sparingly.
 
@@ -281,8 +281,8 @@ You can write an application that subscribes to one of these streams and that ap
   - Repeatedly performing the following:
       - Receiveing the data produced by one of the Oracle database CDC streams.
       - Interpreting the data produced by the CDC stream.
-      - Converting the data into Spanner `  INSERT  ` statements.
-      - Executing the Spanner `  INSERT  ` statements.
+      - Converting the data into Spanner `INSERT` statements.
+      - Executing the Spanner `INSERT` statements.
 
 Database migration technology is middleware technology that has implemented the required features as part of its functionality. The database migration platform is installed as a separate component either at the source location or the target location, in accordance with customer requirements. The database migration platform only requires connectivity configuration of the databases involved in order to specify and start continuous data transfer from the source to the target database.
 

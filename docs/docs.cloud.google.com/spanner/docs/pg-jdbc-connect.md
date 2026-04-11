@@ -36,7 +36,7 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
     
     Replace the following:
     
-      - PORT : the port number where PGAdapter is running. Set to `  5432  ` in most cases or `  0  ` to use a dynamically assigned port.
+      - PORT : the port number where PGAdapter is running. Set to `5432` in most cases or `0` to use a dynamically assigned port.
 
 3.  Make sure the PostgreSQL JDBC driver driver is loaded.
     
@@ -58,7 +58,7 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
     
     Replace the following:
     
-      - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `  localhost  ` .
+      - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `localhost` .
     
     The PGAdapter GitHub repository contains a [sample application.](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/jdbc)
 
@@ -86,8 +86,8 @@ try (Connection connection = DriverManager.getConnection("jdbc:postgresql://APPL
 
 Replace the following:
 
-  - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `  localhost  ` .
-  - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `  5432  ` .
+  - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `localhost` .
+  - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `5432` .
 
 ### Spanner JDBC driver
 

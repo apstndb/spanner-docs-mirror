@@ -6,7 +6,7 @@ The [Spanner support for Active Record](https://github.com/googleapis/ruby-spann
 
 ## Setting up the Spanner support for Active Record
 
-To setup the Spanner support for Active Record in your application, edit the `  Gemfile  ` of your Rails application and add the [activerecord-spanner-adapter](https://rubygems.org/gems/activerecord-spanner-adapter) gem.
+To setup the Spanner support for Active Record in your application, edit the `Gemfile` of your Rails application and add the [activerecord-spanner-adapter](https://rubygems.org/gems/activerecord-spanner-adapter) gem.
 
     gem 'activerecord-spanner-adapter'
 
@@ -14,7 +14,7 @@ Next, run bundle to install the gem.
 
     bundle install
 
-As authentication for the Spanner support for Active Record, the [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location should be provided in the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable. Otherwise, the Spanner support for Active Record can also use the default credentials set in the Google Cloud SDK `  gcloud  ` application.
+As authentication for the Spanner support for Active Record, the [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location should be provided in the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. Otherwise, the Spanner support for Active Record can also use the default credentials set in the Google Cloud SDK `gcloud` application.
 
 ## Using the Spanner support for Active Record
 

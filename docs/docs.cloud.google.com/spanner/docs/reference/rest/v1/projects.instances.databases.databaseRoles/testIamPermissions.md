@@ -8,7 +8,7 @@
 
 Returns permissions that the caller has on the specified database or backup resource.
 
-Attempting this RPC on a non-existent Cloud Spanner database will result in a NOT\_FOUND error if the user has `  spanner.databases.list  ` permission on the containing Cloud Spanner instance. Otherwise returns an empty set of permissions. Calling this method on a backup that does not exist will result in a NOT\_FOUND error if the user has `  spanner.backups.list  ` permission on the containing instance. Calling this method on a backup schedule that does not exist will result in a NOT\_FOUND error if the user has `  spanner.backupSchedules.list  ` permission on the containing database.
+Attempting this RPC on a non-existent Cloud Spanner database will result in a NOT\_FOUND error if the user has `spanner.databases.list` permission on the containing Cloud Spanner instance. Otherwise returns an empty set of permissions. Calling this method on a backup that does not exist will result in a NOT\_FOUND error if the user has `spanner.backups.list` permission on the containing instance. Calling this method on a backup schedule that does not exist will result in a NOT\_FOUND error if the user has `spanner.backupSchedules.list` permission on the containing database.
 
 ### HTTP request
 
@@ -45,7 +45,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{resource=projects/*/instances/*/databases/*/databaseRoles/*}:testIamPermissions  `
+`POST https://spanner.googleapis.com/v1/{resource=projects/*/instances/*/databases/*/databaseRoles/*}:testIamPermissions`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -53,11 +53,11 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  resource  `
+`resource`
 
-`  string  `
+`string`
 
-REQUIRED: The Cloud Spanner resource for which permissions are being tested. The format is `  projects/<project ID>/instances/<instance ID>  ` for instance resources and `  projects/<project ID>/instances/<instance ID>/databases/<database ID>  ` for database resources.
+REQUIRED: The Cloud Spanner resource for which permissions are being tested. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources.
 
 ### Request body
 
@@ -85,9 +85,9 @@ The request body contains data with the following structure:
 
 Fields
 
-`  permissions[]  `
+`permissions[]`
 
-`  string  `
+`string`
 
 REQUIRED: The set of permissions to check for 'resource'. Permissions with wildcards (such as '\*', 'spanner.\*', 'spanner.instances.\*') are not allowed.
 
@@ -99,7 +99,7 @@ If successful, the response body contains an instance of `  TestIamPermissionsRe
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

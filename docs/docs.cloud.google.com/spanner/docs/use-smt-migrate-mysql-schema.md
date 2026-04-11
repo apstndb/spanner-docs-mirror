@@ -50,7 +50,7 @@ You can view and edit the table's primary key from the **Primary key** tab in th
 
 You can also use auto-generated columns for primary keys. You can choose one of the following to create auto-generated columns.
 
-  - **[UUID function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid)** : generate a UUID v4 as part of the table's primary key `  default  ` expression.
+  - **[UUID function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid)** : generate a UUID v4 as part of the table's primary key `default` expression.
   - **[Bit-reverse function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions#bit_reverse)** : map existing integer keys as a bit-reversed sequence.
 
 #### Foreign key

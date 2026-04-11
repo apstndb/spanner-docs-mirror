@@ -26,7 +26,7 @@ Spanner client libraries support trace collection using [OpenTelemetry](https://
 
 ### Export traces using OTLP
 
-As part of your OpenTelemetry configuration, you use an exporter to send trace data to an observability backend. We recommend using an [OpenTelemetry Protocol (OTLP) exporter](https://opentelemetry.io/docs/specs/otel/protocol/exporter/) that sends data using the OpenTelemetry protocol. You can configure the OTLP exporter to send traces directly to observability backends that support OTLP, such as Cloud Trace using [`  Telemetry API  `](https://docs.cloud.google.com/stackdriver/docs/reference/telemetry/overview) , or to an OpenTelemetry [collector](https://opentelemetry.io/docs/collector/) .
+As part of your OpenTelemetry configuration, you use an exporter to send trace data to an observability backend. We recommend using an [OpenTelemetry Protocol (OTLP) exporter](https://opentelemetry.io/docs/specs/otel/protocol/exporter/) that sends data using the OpenTelemetry protocol. You can configure the OTLP exporter to send traces directly to observability backends that support OTLP, such as Cloud Trace using [`Telemetry API`](https://docs.cloud.google.com/stackdriver/docs/reference/telemetry/overview) , or to an OpenTelemetry [collector](https://opentelemetry.io/docs/collector/) .
 
 ## Limitations
 

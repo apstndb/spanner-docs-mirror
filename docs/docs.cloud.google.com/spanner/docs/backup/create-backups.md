@@ -11,8 +11,8 @@ For more information about backups, see [Backups overview](https://docs.cloud.go
 
   - To get the permissions that you need to create backups, ask your administrator to grant you the following IAM roles on the instance:
     
-      - Create, view, update, and delete backups: [Cloud Spanner Backup Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupAdmin) ( `  roles/spanner.backupAdmin  ` )
-      - Create and view backups: [Cloud Spanner Backup Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupWriter) ( `  roles/spanner.backupWriter  ` )
+      - Create, view, update, and delete backups: [Cloud Spanner Backup Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupAdmin) ( `roles/spanner.backupAdmin` )
+      - Create and view backups: [Cloud Spanner Backup Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupWriter) ( `roles/spanner.backupWriter` )
     
     **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to create backups. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
 
@@ -34,7 +34,7 @@ You must specify the following information when creating a backup:
   - A name for the backup resource.
   - An expiration date (up to 1 year from backup creation time).
 
-Optionally, you can specify a [`  versionTime  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) for the source database, which lets you back up your database to an earlier point in time. The `  versionTime  ` field is typically used either to synchronize the backups of multiple databases or to recover data using [point-in-time recovery (PITR)](https://docs.cloud.google.com/spanner/docs/pitr) . If `  versionTime  ` is not specified, then it is set to the `  createTime  ` of the backup.
+Optionally, you can specify a [`versionTime`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) for the source database, which lets you back up your database to an earlier point in time. The `versionTime` field is typically used either to synchronize the backups of multiple databases or to recover data using [point-in-time recovery (PITR)](https://docs.cloud.google.com/spanner/docs/pitr) . If `versionTime` is not specified, then it is set to the `createTime` of the backup.
 
 You can also create backups on a specified frequency by using a backup schedule. For more information, see [Create and manage backup schedules](https://docs.cloud.google.com/spanner/docs/backup/create-manage-backup-schedules) .
 
@@ -63,8 +63,8 @@ Before using any of the command data below, make the following replacements:
   - INSTANCE\_ID : the Spanner instance ID.
   - DATABASE\_ID : the Spanner database ID.
   - BACKUP\_NAME : the Spanner backup name.
-  - RETENTION\_PERIOD : the retention period of the backup created. For example, if you want the retention duration to be one day, you can use `  86400s  ` .
-  - ENCRYPTION\_TYPE : the encryption type of backup created. Valid values are `  USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION  ` , `  GOOGLE_DEFAULT_ENCRYPTION  ` , or `  CUSTOMER_MANAGED_ENCRYPTION  ` . If you use `  CUSTOMER_MANAGED_ENCRYPTION  ` , you must specify a `  kmsKeyName  ` .
+  - RETENTION\_PERIOD : the retention period of the backup created. For example, if you want the retention duration to be one day, you can use `86400s` .
+  - ENCRYPTION\_TYPE : the encryption type of backup created. Valid values are `USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION` , `GOOGLE_DEFAULT_ENCRYPTION` , or `CUSTOMER_MANAGED_ENCRYPTION` . If you use `CUSTOMER_MANAGED_ENCRYPTION` , you must specify a `kmsKeyName` .
 
 Execute the following command:
 
@@ -110,16 +110,16 @@ Check operation [projects/PROJECT_ID/instances/INSTANCE_ID/backups/BACKUP_NAME/o
 
 Here are some usage notes:
 
-  - To set the backup's expiration date, specify either the `  --retention-period  ` or `  --expiration-date  ` flag. For information on date syntax, see [`  gcloud topic datetimes  `](https://docs.cloud.google.com/sdk/gcloud/reference/topic/datetimes) .
+  - To set the backup's expiration date, specify either the `--retention-period` or `--expiration-date` flag. For information on date syntax, see [`gcloud topic datetimes`](https://docs.cloud.google.com/sdk/gcloud/reference/topic/datetimes) .
   - The name of the backup must be unique in the instance.
-  - The command returns immediately because of the `  --async  ` flag. Without the flag, the command will wait for the backup operation to complete.
-  - Specify the `  --help  ` flag to get help for any command.
+  - The command returns immediately because of the `--async` flag. Without the flag, the command will wait for the backup operation to complete.
+  - Specify the `--help` flag to get help for any command.
 
 To check the progress of a backup operation, see [Check the operation progress](https://docs.cloud.google.com/spanner/docs/backup/manage-backups#check-operation-progress) .
 
 ### Client libraries
 
-The following code sample creates a backup at a specific [`  version_time  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup.FIELDS.version_time) and then waits for it to complete. Once complete, it verifies that the backup is ready and retrieves some information about it, such as its name, size, and create time.
+The following code sample creates a backup at a specific [`version_time`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup.FIELDS.version_time) and then waits for it to complete. Once complete, it verifies that the backup is ready and retrieves some information about it, such as its name, size, and create time.
 
 ### C++
 

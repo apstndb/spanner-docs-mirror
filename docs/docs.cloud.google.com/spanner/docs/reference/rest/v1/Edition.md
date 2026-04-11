@@ -2,18 +2,18 @@ The edition selected for this instance. Different editions provide different cap
 
 Enums
 
-`  EDITION_UNSPECIFIED  `
+`EDITION_UNSPECIFIED`
 
 Edition not specified.
 
-`  STANDARD  `
+`STANDARD`
 
 Standard edition.
 
-`  ENTERPRISE  `
+`ENTERPRISE`
 
 Enterprise edition.
 
-`  ENTERPRISE_PLUS  `
+`ENTERPRISE_PLUS`
 
 Enterprise Plus edition.

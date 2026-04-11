@@ -4,32 +4,32 @@ gcloud alpha spanner instance-partitions - manage Spanner instance partitions
 
 SYNOPSIS
 
-`  gcloud alpha spanner instance-partitions  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner instance-partitions` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage Spanner instance partitions.
+`(ALPHA)` Manage Spanner instance partitions.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  create  `  
-    `  (ALPHA)  ` Create a Spanner instance partition.
+    `(ALPHA)` Create a Spanner instance partition.
   - `  delete  `  
-    `  (ALPHA)  ` Delete a Spanner instance partition. You can't delete the default instance partition using this command.
+    `(ALPHA)` Delete a Spanner instance partition. You can't delete the default instance partition using this command.
   - `  describe  `  
-    `  (ALPHA)  ` Describe a Spanner instance partition.
+    `(ALPHA)` Describe a Spanner instance partition.
   - `  list  `  
-    `  (ALPHA)  ` List the Spanner instance partitions contained within the given instance.
+    `(ALPHA)` List the Spanner instance partitions contained within the given instance.
   - `  update  `  
-    `  (ALPHA)  ` Update a Spanner instance partition. You can't update the default instance partition using this command.
+    `(ALPHA)` Update a Spanner instance partition. You can't update the default instance partition using this command.
 
 NOTES
 

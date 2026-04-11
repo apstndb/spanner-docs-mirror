@@ -46,7 +46,7 @@ The Autoscaler tool manages Spanner instances through the configuration defined 
 
 Spanner instances can have multiple configurations on different Cloud Scheduler jobs. For example, an instance can have one Autoscaler configuration with the linear method for normal operations, but also have another Autoscaler configuration with the direct method for planned batch workloads.
 
-When the Cloud Scheduler job runs, it sends a Pub/Sub message to the Polling Pub/Sub topic. The payload of this message is the JSON array of the configuration objects for all the instances configured in the same job. See the complete list of configuration options in the [Poller `  README  ` file](https://github.com/cloudspannerecosystem/autoscaler/blob/main/src/poller/README.md#configuration-parameters) .
+When the Cloud Scheduler job runs, it sends a Pub/Sub message to the Polling Pub/Sub topic. The payload of this message is the JSON array of the configuration objects for all the instances configured in the same job. See the complete list of configuration options in the [Poller `README` file](https://github.com/cloudspannerecosystem/autoscaler/blob/main/src/poller/README.md#configuration-parameters) .
 
 ## Per-project topology
 

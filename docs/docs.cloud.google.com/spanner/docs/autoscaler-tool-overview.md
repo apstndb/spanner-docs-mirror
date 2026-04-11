@@ -80,7 +80,7 @@ The Autoscaler tool uses the ratio of the observed utilization over the utilizat
 
 The formula to calculate the new number of nodes or processing units is as follows:
 
-`  newSize = currentSize * currentUtilization / utilizationThreshold  `
+`newSize = currentSize * currentUtilization / utilizationThreshold`
 
 #### Direct
 
@@ -112,7 +112,7 @@ We recommend that you use the default thresholds as described in [Creating alert
 
 ### Custom metrics
 
-While the default metrics in the Autoscaler tool address most performance and scaling scenarios, there are some instances when you might need to specify your own metrics used for determining when to scale in and out. For these scenarios, you define custom metrics in the configuration using the [`  metrics  `](https://github.com/cloudspannerecosystem/autoscaler/blob/main/src/poller/README.md#custom-metrics-thresholds-and-margins) property.
+While the default metrics in the Autoscaler tool address most performance and scaling scenarios, there are some instances when you might need to specify your own metrics used for determining when to scale in and out. For these scenarios, you define custom metrics in the configuration using the [`metrics`](https://github.com/cloudspannerecosystem/autoscaler/blob/main/src/poller/README.md#custom-metrics-thresholds-and-margins) property.
 
 ### Margins
 

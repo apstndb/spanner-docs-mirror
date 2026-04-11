@@ -6,7 +6,7 @@ The [Spanner dialect for SQLAlchemy](https://github.com/googleapis/python-spanne
 
 ## Set up the Spanner dialect for SQLAlchemy
 
-To set up the Spanner dialect for SQLAlchemy in your application, install the [`  sqlalchemy-spanner package  `](https://pypi.org/project/sqlalchemy-spanner/) .
+To set up the Spanner dialect for SQLAlchemy in your application, install the [`sqlalchemy-spanner package`](https://pypi.org/project/sqlalchemy-spanner/) .
 
     pip3 install sqlalchemy-spanner
 
@@ -16,7 +16,7 @@ Alternatively, you can install from source.
     cd python-spanner-sqlalchemy
     python setup.py install
 
-As authentication for the Spanner dialect for SQLAlchemy, provide the [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location in the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable. Otherwise, the dialect can also use the default credentials set in the gcloud CLI application.
+As authentication for the Spanner dialect for SQLAlchemy, provide the [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location in the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. Otherwise, the dialect can also use the default credentials set in the gcloud CLI application.
 
 ## Use the Spanner dialect for SQLAlchemy
 

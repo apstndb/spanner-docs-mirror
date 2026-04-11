@@ -99,7 +99,7 @@ Obtaining efficient execution plans is challenging because Spanner divides data 
   - local execution of *subplans* in servers that contain the data
   - orchestration and aggregation of multiple remote executions with aggressive distribution pruning
 
-Spanner uses the primitive operator [`  distributed union  `](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , along with its variants [`  distributed cross apply  `](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-cross-apply) and [`  distributed outer apply  `](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-outer-apply) , to enable this model.
+Spanner uses the primitive operator [`distributed union`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , along with its variants [`distributed cross apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-cross-apply) and [`distributed outer apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-outer-apply) , to enable this model.
 
 ## Sampled query plans
 
@@ -113,7 +113,7 @@ Some common use cases for sampled query plans include:
 
   - Observe query plan changes due to [schema changes](https://docs.cloud.google.com/spanner/docs/schema-updates) (for example, adding or removing an index).
   - Observe query plan changes due to an [optimizer version update](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) .
-  - Observe query plan changes due to [new optimizer statistics](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) , which are collected every three days automatically or performed manually using the [`  ANALYZE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) command.
+  - Observe query plan changes due to [new optimizer statistics](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) , which are collected every three days automatically or performed manually using the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) command.
 
 If the performance of a query shows significant difference over time or if you want to improve the performance of a query, see [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) to construct optimized query statements that help Spanner find efficient execution plans.
 
@@ -134,7 +134,7 @@ The following examples illustrate this pattern in more detail.
 
 ### Aggregate queries
 
-An aggregate query implements `  GROUP BY  ` queries.
+An aggregate query implements `GROUP BY` queries.
 
 For example, using this query:
 
@@ -158,7 +158,7 @@ Conceptually, this is the execution plan:
 
 Spanner sends the execution plan to a root server that coordinates the query execution and performs the remote distribution of subplans.
 
-This execution plan starts with a [*distributed union*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , which distributes subplans to remote servers whose splits satisfy `  SingerId < 100  ` . After the scan on individual splits completes, the *stream aggregate* operator aggregates rows to get the counts for each `  SingerId  ` . The *serialize result* operator then serializes the result. Finally, the *distributed union* combines all results together and returns the query results.
+This execution plan starts with a [*distributed union*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , which distributes subplans to remote servers whose splits satisfy `SingerId < 100` . After the scan on individual splits completes, the *stream aggregate* operator aggregates rows to get the counts for each `SingerId` . The *serialize result* operator then serializes the result. Finally, the *distributed union* combines all results together and returns the query results.
 
 You can learn more about aggregates at [aggregate operator](https://docs.cloud.google.com/spanner/docs/query-execution-operators#aggregate) .
 
@@ -172,7 +172,7 @@ For example, using this query:
     FROM Albums AS al, Songs AS so
     WHERE al.SingerId = so.SingerId AND al.AlbumId = so.AlbumId;
 
-(This query assumes that `  Songs  ` is interleaved in `  Albums  ` .)
+(This query assumes that `Songs` is interleaved in `Albums` .)
 
 These are the results:
 
@@ -194,9 +194,9 @@ This is the execution plan:
 
 ![Co-located join query execution plan](https://docs.cloud.google.com/static/spanner/docs/images/co-located-query-plan.png)
 
-This execution plan starts with a [*distributed union*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , which distributes subplans to remote servers that have splits of the table `  Albums  ` . Because `  Songs  ` is an interleaved table of `  Albums  ` , each remote server is able to execute the entire subplan on each remote server without requiring a join to a different server.
+This execution plan starts with a [*distributed union*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , which distributes subplans to remote servers that have splits of the table `Albums` . Because `Songs` is an interleaved table of `Albums` , each remote server is able to execute the entire subplan on each remote server without requiring a join to a different server.
 
-The subplans contain a [*cross apply*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#cross-apply) . Each cross apply performs a *table* [*scan*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#scan) on table `  Albums  ` to retrieve `  SingerId  ` , `  AlbumId  ` , and `  AlbumTitle  ` . The cross apply then maps output from the table scan to output from an *index scan* on index `  SongsBySingerAlbumSongNameDesc  ` , subject to a [filter](https://docs.cloud.google.com/spanner/docs/query-execution-operators#filter) of the `  SingerId  ` in the index matching the `  SingerId  ` from the table scan output. Each cross apply sends its results to a [*serialize result*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#serialize_result) operator which serializes the `  AlbumTitle  ` and `  SongName  ` data and returns results to the local *distributed unions* . The distributed union aggregates results from the local distributed unions and returns them as the query result.
+The subplans contain a [*cross apply*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#cross-apply) . Each cross apply performs a *table* [*scan*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#scan) on table `Albums` to retrieve `SingerId` , `AlbumId` , and `AlbumTitle` . The cross apply then maps output from the table scan to output from an *index scan* on index `SongsBySingerAlbumSongNameDesc` , subject to a [filter](https://docs.cloud.google.com/spanner/docs/query-execution-operators#filter) of the `SingerId` in the index matching the `SingerId` from the table scan output. Each cross apply sends its results to a [*serialize result*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#serialize_result) operator which serializes the `AlbumTitle` and `SongName` data and returns results to the local *distributed unions* . The distributed union aggregates results from the local distributed unions and returns them as the query result.
 
 ### Index and back join queries
 
@@ -224,13 +224,13 @@ This is the execution plan:
 
 ![Back join query execution plan](https://docs.cloud.google.com/static/spanner/docs/images/back-join-query-plan.png)
 
-The resulting execution plan is complicated because the index `  SongsBySongName  ` does not contain column `  Duration  ` . To obtain the `  Duration  ` value, Spanner needs to *back join* the indexed results to the table `  Songs  ` . This is a join but it is not co-located because the `  Songs  ` table and the global index `  SongsBySongName  ` are not interleaved. The resulting execution plan is more complex than the co-located join example because Spanner performs optimizations to speed up the execution if data isn't co-located.
+The resulting execution plan is complicated because the index `SongsBySongName` does not contain column `Duration` . To obtain the `Duration` value, Spanner needs to *back join* the indexed results to the table `Songs` . This is a join but it is not co-located because the `Songs` table and the global index `SongsBySongName` are not interleaved. The resulting execution plan is more complex than the co-located join example because Spanner performs optimizations to speed up the execution if data isn't co-located.
 
-The top operator is a [*distributed cross apply*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-cross-apply) . This input side of this operator are batches of rows from the index `  SongsBySongName  ` that satisfy the predicate `  STARTS_WITH(s.SongName, "B")  ` . The distributed cross apply then maps these batches to remote servers whose splits contain the `  Duration  ` data. The remote servers use a *table scan* to retrieve the `  Duration  ` column. The table scan uses the filter `  Condition:($Songs_key_TrackId' = $batched_Songs_key_TrackId)  ` , which joins `  TrackId  ` from the `  Songs  ` table to `  TrackId  ` of the rows that were batched from the index `  SongsBySongName  ` .
+The top operator is a [*distributed cross apply*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-cross-apply) . This input side of this operator are batches of rows from the index `SongsBySongName` that satisfy the predicate `STARTS_WITH(s.SongName, "B")` . The distributed cross apply then maps these batches to remote servers whose splits contain the `Duration` data. The remote servers use a *table scan* to retrieve the `Duration` column. The table scan uses the filter `Condition:($Songs_key_TrackId' = $batched_Songs_key_TrackId)` , which joins `TrackId` from the `Songs` table to `TrackId` of the rows that were batched from the index `SongsBySongName` .
 
-The results are aggregated into the final query answer. In turn, the input side of the distributed cross apply contains a distributed union/local distributed union pair to evaluate rows from the index that satisfy the `  STARTS_WITH  ` predicate.
+The results are aggregated into the final query answer. In turn, the input side of the distributed cross apply contains a distributed union/local distributed union pair to evaluate rows from the index that satisfy the `STARTS_WITH` predicate.
 
-Consider a slightly different query that doesn't select the `  s.Duration  ` column:
+Consider a slightly different query that doesn't select the `s.Duration` column:
 
     SELECT s.SongName
     FROM Songs@{force_index=SongsBySongName} AS s

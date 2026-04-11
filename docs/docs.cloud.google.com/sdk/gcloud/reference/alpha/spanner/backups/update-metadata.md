@@ -4,11 +4,11 @@ gcloud alpha spanner backups update-metadata - updates the metadata of a Cloud S
 
 SYNOPSIS
 
-`  gcloud alpha spanner backups update-metadata  ` ( `  BACKUP  ` : `  --instance  ` = `  INSTANCE  ` ) ( `  --expiration-date  ` = `  EXPIRATION_DATE  ` | `  --retention-period  ` = `  RETENTION_PERIOD  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner backups update-metadata` ( `  BACKUP  ` : `  --instance  ` = `  INSTANCE  ` ) ( `  --expiration-date  ` = `  EXPIRATION_DATE  ` | `  --retention-period  ` = `  RETENTION_PERIOD  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Updates the metadata of a Cloud Spanner a backup.
+`(ALPHA)` Updates the metadata of a Cloud Spanner a backup.
 
 EXAMPLES
 
@@ -28,48 +28,48 @@ POSITIONAL ARGUMENTS
 
 Backup resource - The Cloud Spanner backup to update. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  backup  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `backup` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 This must be specified.
 
   - `  BACKUP  `  
     ID of the backup or fully qualified identifier for the backup.
     
-    To set the `  backup  ` attribute:
+    To set the `backup` attribute:
     
-      - provide the argument `  backup  ` on the command line.
+      - provide the argument `backup` on the command line.
     
     This positional argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --instance  ` = `  INSTANCE  `  
-    The name of the Cloud Spanner instance. To set the `  instance  ` attribute:
+  - `--instance` = `  INSTANCE  `  
+    The name of the Cloud Spanner instance. To set the `instance` attribute:
     
-      - provide the argument `  backup  ` on the command line with a fully specified name;
-      - provide the argument `  --instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `backup` on the command line with a fully specified name;
+      - provide the argument `--instance` on the command line;
+      - set the property `spanner/instance` .
 
 REQUIRED FLAGS
 
 Exactly one of these must be specified:
 
-  - `  --expiration-date  ` = `  EXPIRATION_DATE  `  
-    Expiration time of the backup, must be at least 6 hours and at most 366 days from the time of creation. See `  $ gcloud topic datetimes  ` for information on date/time formats.
-  - `  --retention-period  ` = `  RETENTION_PERIOD  `  
-    Retention period of the backup relative from now, must be at least 6 hours and at most a year from the time of creation. See `  $ gcloud topic datetimes  ` for information on duration formats.
+  - `--expiration-date` = `  EXPIRATION_DATE  `  
+    Expiration time of the backup, must be at least 6 hours and at most 366 days from the time of creation. See ` $ gcloud topic datetimes  ` for information on date/time formats.
+  - `--retention-period` = `  RETENTION_PERIOD  `  
+    Retention period of the backup relative from now, must be at least 6 hours and at most a year from the time of creation. See ` $ gcloud topic datetimes  ` for information on duration formats.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 API REFERENCE
 
-This command uses the `  spanner/v1  ` API. The full documentation for this API can be found at: <https://cloud.google.com/spanner/>
+This command uses the `spanner/v1` API. The full documentation for this API can be found at: <https://cloud.google.com/spanner/>
 
 NOTES
 

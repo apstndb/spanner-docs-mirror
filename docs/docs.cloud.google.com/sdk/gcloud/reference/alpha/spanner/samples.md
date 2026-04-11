@@ -4,11 +4,11 @@ gcloud alpha spanner samples - cloud Spanner sample apps
 
 SYNOPSIS
 
-`  gcloud alpha spanner samples  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner samples` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Each Cloud Spanner sample application includes a backend gRPC service backed by a Cloud Spanner database and a workload script that generates service traffic.
+`(ALPHA)` Each Cloud Spanner sample application includes a backend gRPC service backed by a Cloud Spanner database and a workload script that generates service traffic.
 
 These sample apps are open source and available at <https://github.com/GoogleCloudPlatform/cloud-spanner-samples> .
 
@@ -22,22 +22,22 @@ GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  backend  `  
-    `  (ALPHA)  ` Run the backend gRPC service for the given Cloud Spanner sample app.
+    `(ALPHA)` Run the backend gRPC service for the given Cloud Spanner sample app.
   - `  init  `  
-    `  (ALPHA)  ` Initialize a Cloud Spanner sample app.
+    `(ALPHA)` Initialize a Cloud Spanner sample app.
   - `  list  `  
-    `  (ALPHA)  ` List available sample applications.
+    `(ALPHA)` List available sample applications.
   - `  run  `  
-    `  (ALPHA)  ` Run the given Cloud Spanner sample app.
+    `(ALPHA)` Run the given Cloud Spanner sample app.
   - `  workload  `  
-    `  (ALPHA)  ` Generate gRPC traffic for a given sample app's backend service.
+    `(ALPHA)` Generate gRPC traffic for a given sample app's backend service.
 
 NOTES
 

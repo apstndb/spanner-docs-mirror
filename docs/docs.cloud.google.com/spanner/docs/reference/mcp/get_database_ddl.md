@@ -1,8 +1,8 @@
-## Tool: `       get_database_ddl      `
+## Tool: `get_database_ddl`
 
 Get database schema for a given database.
 
-The following sample demonstrate how to use `  curl  ` to invoke the `  get_database_ddl  ` MCP tool.
+The following sample demonstrate how to use `curl` to invoke the `get_database_ddl` MCP tool.
 
 <table>
 <colgroup>
@@ -37,7 +37,7 @@ curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 
 ## Input Schema
 
-The request for `  GetDatabaseDdl  ` .
+The request for `GetDatabaseDdl` .
 
 ### GetDatabaseDdlRequest
 
@@ -61,15 +61,15 @@ The request for `  GetDatabaseDdl  ` .
 
 Fields
 
-`  database  `
+`database`
 
-`  string  `
+`string`
 
-Required. The database whose schema we wish to get. Values are of the form `  projects/<project>/instances/<instance>/databases/<database>  `
+Required. The database whose schema we wish to get. Values are of the form `projects/<project>/instances/<instance>/databases/<database>`
 
 ## Output Schema
 
-The response for `  GetDatabaseDdl  ` .
+The response for `GetDatabaseDdl` .
 
 ### GetDatabaseDdlResponse
 
@@ -96,15 +96,15 @@ The response for `  GetDatabaseDdl  ` .
 
 Fields
 
-`  statements[]  `
+`statements[]`
 
-`  string  `
+`string`
 
 A list of formatted DDL statements defining the schema of the database specified in the request.
 
-`  protoDescriptors  `
+`protoDescriptors`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
 Proto descriptors stored in the database. Contains a protobuf-serialized [google.protobuf.FileDescriptorSet](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto) . For more details, see protobuffer [self description](https://developers.google.com/protocol-buffers/docs/techniques#self-description) .
 

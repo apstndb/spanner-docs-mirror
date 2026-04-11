@@ -35,7 +35,7 @@ For information about other MCP servers and information about security and gover
     
     **Roles required to enable APIs**
     
-    To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+    To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
     
     [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=spanner)
     
@@ -45,8 +45,8 @@ For information about other MCP servers and information about security and gover
 
 To get the permissions that you need to use the Spanner MCP server, ask your administrator to grant you the following IAM roles on the project where you want to use the Spanner MCP server:
 
-  - Make MCP tool calls: [MCP Tool User](https://docs.cloud.google.com/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `  roles/mcp.toolUser  ` )
-  - Use Spanner MCP tools: [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `  roles/spanner.admin  ` )
+  - Make MCP tool calls: [MCP Tool User](https://docs.cloud.google.com/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `roles/mcp.toolUser` )
+  - Use Spanner MCP tools: [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `roles/spanner.admin` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
@@ -56,17 +56,17 @@ These predefined roles contain the permissions required to use the Spanner MCP s
 
 The following permissions are required to use the Spanner MCP server:
 
-  - Make MCP tool calls: `  mcp.tools.call  `
+  - Make MCP tool calls: `mcp.tools.call`
   - Use Spanner MCP tools:
-      - `  spanner.instances.create  `
-      - `  spanner.instances.get  `
-      - `  spanner.databases.create  `
-      - `  spanner.databases.update  `
-      - `  spanner.sessions.create  `
-      - `  spanner.instanceOperations.get  `
-      - `  spanner.databases.getDdl  `
-      - `  spanner.databases.select  `
-      - `  spanner.databases.write  `
+      - `spanner.instances.create`
+      - `spanner.instances.get`
+      - `spanner.databases.create`
+      - `spanner.databases.update`
+      - `spanner.sessions.create`
+      - `spanner.instanceOperations.get`
+      - `spanner.databases.getDdl`
+      - `spanner.databases.select`
+      - `spanner.databases.write`
 
 You might also be able to get these permissions with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
@@ -84,10 +84,10 @@ OAuth 2.0 uses scopes and credentials to determine if an authenticated principal
 
 Spanner has the following MCP tool OAuth scopes:
 
-| Scope URI for gcloud CLI                                       | Description                                                       |
-| -------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `        https://www.googleapis.com/auth/spanner.admin       ` | Allows access to administer your Spanner instances and databases. |
-| `        https://www.googleapis.com/auth/spanner.data       `  | Allows access to view and manage data in a Spanner database.      |
+| Scope URI for gcloud CLI                        | Description                                                       |
+| ----------------------------------------------- | ----------------------------------------------------------------- |
+| `https://www.googleapis.com/auth/spanner.admin` | Allows access to administer your Spanner instances and databases. |
+| `https://www.googleapis.com/auth/spanner.data`  | Allows access to view and manage data in a Spanner database.      |
 
 For more information about these scopes, see [Spanner API](https://developers.google.com/identity/protocols/oauth2/scopes#spanner) .
 
@@ -100,7 +100,7 @@ In your AI application, look for a way to connect to a remote MCP server. You ar
 For the Spanner MCP server, enter the following as required:
 
   - **Server name** : Spanner MCP server
-  - **Server URL** or **Endpoint** : `  https://spanner.googleapis.com/mcp  `
+  - **Server URL** or **Endpoint** : `https://spanner.googleapis.com/mcp`
   - **Transport** : HTTP
   - **Authentication details** : Depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information on authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
   - **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Spanner MCP server.
@@ -121,7 +121,7 @@ To view details of available MCP tools and their descriptions for the Spanner MC
 
 ### List tools
 
-Use the [MCP inspector](https://modelcontextprotocol.io/docs/tools/inspector) to list tools, or send a `  tools/list  ` HTTP request directly to the Spanner remote MCP server. The `  tools/list  ` method doesn't require authentication.
+Use the [MCP inspector](https://modelcontextprotocol.io/docs/tools/inspector) to list tools, or send a `tools/list` HTTP request directly to the Spanner remote MCP server. The `tools/list` method doesn't require authentication.
 
     POST /mcp HTTP/1.1
     Host: spanner.googleapis.com
@@ -140,25 +140,25 @@ The following are sample use cases for the Spanner MCP server.
 
 An application developer can use the Spanner MCP server to provision resources, create databases, and populate sample data.
 
-**Sample prompt** : Create a regional Spanner instance in the PROJECT\_ID project in the `  us-central1  ` regional instance configuration. Create a database for tracking inventory and populate 5 sample products.
+**Sample prompt** : Create a regional Spanner instance in the PROJECT\_ID project in the `us-central1` regional instance configuration. Create a database for tracking inventory and populate 5 sample products.
 
-Replace `  PROJECT_ID  ` with your Google Cloud project ID.
+Replace `PROJECT_ID` with your Google Cloud project ID.
 
 **Workflow** :
 
 The workflow for developing an application might look like the following:
 
-  - The agent calls the `  create_instance  ` tool to provision a new Spanner instance using the specified instance configuration. The agent might invoke the `  get_operation  ` tool to verify if the instance is ready to be used.
+  - The agent calls the `create_instance` tool to provision a new Spanner instance using the specified instance configuration. The agent might invoke the `get_operation` tool to verify if the instance is ready to be used.
 
-  - The agent calls the `  create_database  ` tool for creating a new database with the required schema. The agent might call the `  get_operation  ` tool to check the status of the database creation operation.
+  - The agent calls the `create_database` tool for creating a new database with the required schema. The agent might call the `get_operation` tool to check the status of the database creation operation.
 
-  - The agent can use a combination of `  create_session  ` , `  execute_sql  ` , and the `  commit  ` tools to insert sample data.
+  - The agent can use a combination of `create_session` , `execute_sql` , and the `commit` tools to insert sample data.
 
-  - Optionally, the agent can call the `  execute_sql  ` tool to query and validate the sample data creation.
+  - Optionally, the agent can call the `execute_sql` tool to query and validate the sample data creation.
 
 ### Operational insights and database configuration management
 
-Spanner administrators can use the Spanner MCP server to gather information about Spanner instances and databases using tools like `  list_instances  ` , `  get_instance  ` , `  list_databases  ` , and `  get_database_ddl  ` .
+Spanner administrators can use the Spanner MCP server to gather information about Spanner instances and databases using tools like `list_instances` , `get_instance` , `list_databases` , and `get_database_ddl` .
 
 **Sample prompts** :
 
@@ -190,7 +190,7 @@ You must enable Model Armor APIs before you can use Model Armor.
     
     **Roles required to enable APIs**
     
-    To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+    To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
     
     [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=modelarmor.googleapis.com)
 
@@ -237,9 +237,9 @@ Replace `  PROJECT_ID  ` with your Google Cloud project ID.
 
 Note the following settings:
 
-  - `  INSPECT_AND_BLOCK  ` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
-  - `  ENABLED  ` : The setting that enables a filter or enforcement.
-  - `  MEDIUM_AND_ABOVE  ` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Model Armor confidence levels](https://docs.cloud.google.com/model-armor/overview#ma-confidence-levels) .
+  - `INSPECT_AND_BLOCK` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
+  - `ENABLED` : The setting that enables a filter or enforcement.
+  - `MEDIUM_AND_ABOVE` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Model Armor confidence levels](https://docs.cloud.google.com/model-armor/overview#ma-confidence-levels) .
 
 #### Disable scanning MCP traffic with Model Armor
 

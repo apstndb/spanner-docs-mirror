@@ -78,7 +78,7 @@ You can create an instance with the Google Cloud console, the [Google Cloud CLI]
 
 ### gcloud
 
-Use the [`  gcloud spanner instances create  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create) command to create an instance. Specify the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) as the number of nodes or processing units that you want on the instance.
+Use the [`gcloud spanner instances create`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create) command to create an instance. Specify the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) as the number of nodes or processing units that you want on the instance.
 
     gcloud spanner instances create INSTANCE_ID \
     --edition=EDITION \
@@ -100,14 +100,14 @@ Replace the following:
 
   - INSTANCE-ID : a permanent identifier that is unique within your Google Cloud project. You can't change the instance ID later.
 
-  - INSTANCE-CONFIG : a permanent identifier of your instance configuration, which defines the geographic location of the instance and affects how data is replicated. For custom instance configurations, it starts with `  custom-  ` . For more information, see [instance configurations](https://docs.cloud.google.com/spanner/docs/instances) .
+  - INSTANCE-CONFIG : a permanent identifier of your instance configuration, which defines the geographic location of the instance and affects how data is replicated. For custom instance configurations, it starts with `custom-` . For more information, see [instance configurations](https://docs.cloud.google.com/spanner/docs/instances) .
 
   - INSTANCE\_DESCRIPTION : the name to display for the instance in the Google Cloud console. The instance name must be unique within your Google Cloud project.
 
   - DEFAULT\_BACKUP\_SCHEDULE\_TYPE : the default backup schedule type that is used in the instance. Must be one of the following values:
     
-      - `  AUTOMATIC  ` : a default backup schedule is created automatically when a new database is created in the instance. The default backup schedule creates a full backup every 24 hours. These full backups are retained for 7 days. You can edit or delete the default backup schedule once it's created.
-      - `  NONE  ` : a default backup schedule isn't created automatically when a new database is created in the instance.
+      - `AUTOMATIC` : a default backup schedule is created automatically when a new database is created in the instance. The default backup schedule creates a full backup every 24 hours. These full backups are retained for 7 days. You can edit or delete the default backup schedule once it's created.
+      - `NONE` : a default backup schedule isn't created automatically when a new database is created in the instance.
 
   - NODE-COUNT : the compute capacity of the instance, expressed as a number of nodes. Each node equals 1000 processing units.
 
@@ -115,7 +115,7 @@ Replace the following:
 
 ### Add managed autoscaling
 
-You can also create [Enterprise edition and Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) instances to use managed autoscaling with the [`  gcloud spanner instances create  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create) command. For more information, see [Managed autoscaler for Spanner](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) .
+You can also create [Enterprise edition and Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) instances to use managed autoscaling with the [`gcloud spanner instances create`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create) command. For more information, see [Managed autoscaler for Spanner](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) .
 
 Use the following command to create an instance with managed autoscaler.
 
@@ -166,7 +166,7 @@ or
 Replace the following:
 
   - INSTANCE-ID : a permanent identifier that is unique within your Google Cloud project. You can't change the instance ID later.
-  - INSTANCE-CONFIG : a permanent identifier of your instance configuration, which defines the geographic location of the instance and affects how data is replicated. For custom instance configurations, it starts with `  custom-  ` . For more information, see [instance configurations](https://docs.cloud.google.com/spanner/docs/instances) .
+  - INSTANCE-CONFIG : a permanent identifier of your instance configuration, which defines the geographic location of the instance and affects how data is replicated. For custom instance configurations, it starts with `custom-` . For more information, see [instance configurations](https://docs.cloud.google.com/spanner/docs/instances) .
   - INSTANCE-DESCRIPTION : the name to display for the instance in the Google Cloud console. The instance name must be unique within your Google Cloud project.
   - MINIMUM\_PROCESSING\_UNITS , MINIMUM\_NODES : the minimum number of processing units or nodes when scaling down. For more information, see [Determine the minimum limit](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-minimum) .
   - MAXIMUM\_PROCESSING\_UNITS , MAXIMUM\_NODES : the maximum number of processing units or nodes when scaling up. For more information, see [Determine the maximum limit](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-maximum) .
@@ -176,24 +176,24 @@ Replace the following:
 
 Optional flags:
 
-  - `  --asymmetric-autoscaling-option  ` : use this flag to enable [asymmetric autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) . Replace the following parameters:
+  - `--asymmetric-autoscaling-option` : use this flag to enable [asymmetric autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) . Replace the following parameters:
     
       - ASYMMETRIC\_AUTOSCALING\_LOCATION : if the flag is used, then this parameter is required. The location of the read-only region that you want to scale asymmetrically.
       - ASYMMETRIC\_AUTOSCALING\_MIN : optional parameter. The minimum number of nodes when scaling down. If not specified, this value is inherited from the base instance configuration.
       - ASYMMETRIC\_AUTOSCALING\_MAX : optional parameter. The maximum number of nodes when scaling up. If not specified, this value is inherited from the base instance configuration.
       - ASYMMETRIC\_HIGH\_PRIORITY\_CPU\_TARGET : optional parameter. The target percentage of CPU to use, based on the [priority of the task](https://docs.cloud.google.com/spanner/docs/cpu-utilization#task-priority) . If not specified, this value is inherited from the base instance configuration. If you're optimizing for cost, then use a higher percentage. Replicas can have a different target percentage than the base instance and from other replicas, but for failover scenarios, we recommend that replicas use consistent targets across different replicas. For more information, see [Failover concerns](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#failover-concerns) .
       - ASYMMETRIC\_TOTAL\_CPU\_TARGET : optional parameter. Set the target from 10 to 90% for the [total CPU](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-total-cpu) . If not specified, this value is inherited from the base instance configuration. If you're optimizing for cost, then use a higher percentage. Replicas can have a different target percentage than the base instance and from other replicas, but for failover scenarios, we recommend that replicas use consistent targets across different replicas. For more information, see [Asymmetric read-only autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
-      - `  disable_total_cpu_autoscaling  ` : set this parameter to `  TRUE  ` if you don't want the autoscaler to autoscale total CPU on replicas. Don't specify this parameter if you want the instance to inherit the `  total_cpu_autoscaling  ` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
-      - `  disable_high_priority_cpu_autoscaling  ` : set the `  disable_high_priority_cpu_autoscaling  ` to `  TRUE  ` if you don't want the autoscaler to autoscale the high priority CPU on replicas. Don't specify this parameter if you want the instance to inherit the `  high_priority_cpu_autoscaling  ` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
+      - `disable_total_cpu_autoscaling` : set this parameter to `TRUE` if you don't want the autoscaler to autoscale total CPU on replicas. Don't specify this parameter if you want the instance to inherit the `total_cpu_autoscaling` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
+      - `disable_high_priority_cpu_autoscaling` : set the `disable_high_priority_cpu_autoscaling` to `TRUE` if you don't want the autoscaler to autoscale the high priority CPU on replicas. Don't specify this parameter if you want the instance to inherit the `high_priority_cpu_autoscaling` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
 
 ### Examples for using custom configurations
 
-To create an instance `  test-instance  ` in the base regional instance configuration `  us-central1  ` , run:
+To create an instance `test-instance` in the base regional instance configuration `us-central1` , run:
 
     gcloud spanner instances create test-instance --edition=STANDARD --config=regional-us-central1 \
       --description="Test Instance" --nodes=1
 
-To create an instance `  custom-eur6-instance  ` in the custom multi-region instance configuration `  custom-eur6  ` , first [create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
+To create an instance `custom-eur6-instance` in the custom multi-region instance configuration `custom-eur6` , first [create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
 
 Then, run:
 
@@ -1350,7 +1350,7 @@ The Google Cloud console shows a list of your Spanner instances, along with each
 
 ### gcloud
 
-Use the [`  gcloud spanner instances list  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/list) command:
+Use the [`gcloud spanner instances list`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/list) command:
 
     gcloud spanner instances list
 
@@ -1380,7 +1380,7 @@ You can upgrade your Standard edition instances to a higher-tier edition. Standa
 
 ### gcloud
 
-Use the [`  gcloud spanner instances update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to upgrade your instance's edition:
+Use the [`gcloud spanner instances update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to upgrade your instance's edition:
 
     gcloud spanner instances update INSTANCE_ID --edition=EDITION \
     [--async]
@@ -1392,7 +1392,7 @@ Replace the following:
 
 Optional flags:
 
-  - `  --async  ` : Use this flag if you want your request to return immediately, without waiting for the operation in progress to complete. You can check the status of your request by running [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) .
+  - `--async` : Use this flag if you want your request to return immediately, without waiting for the operation in progress to complete. You can check the status of your request by running [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) .
 
 ### Go
 
@@ -1598,7 +1598,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 You can downgrade your Spanner instances to a lower-tier edition. You must stop using the higher-tier edition features in order to downgrade. Enterprise edition instances can be downgraded to the Standard edition. Enterprise Plus edition instances can be downgraded to the Enterprise edition or Standard edition. The edition downgrade takes approximately 10 minutes to complete with zero downtime.
 
-To monitor the usage of Enterprise edition and Enterprise Plus edition edition features in your instance, use the [Feature usage](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `  instance/edition/feature_usage  ` ) monitoring metric. For more information, see [Monitor edition usage](https://docs.cloud.google.com/spanner/docs/editions-overview#monitor-edition-usage)
+To monitor the usage of Enterprise edition and Enterprise Plus edition edition features in your instance, use the [Feature usage](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `instance/edition/feature_usage` ) monitoring metric. For more information, see [Monitor edition usage](https://docs.cloud.google.com/spanner/docs/editions-overview#monitor-edition-usage)
 
 ### Console
 
@@ -1616,7 +1616,7 @@ To monitor the usage of Enterprise edition and Enterprise Plus edition edition f
 
 ### gcloud
 
-Use the [`  gcloud spanner instances update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to downgrade your instance's edition:
+Use the [`gcloud spanner instances update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to downgrade your instance's edition:
 
     gcloud spanner instances update INSTANCE_ID --edition=EDITION
 
@@ -1643,7 +1643,7 @@ Replace the following:
 
 ### gcloud
 
-Use the [`  gcloud spanner instances update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command:
+Use the [`gcloud spanner instances update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command:
 
     gcloud spanner instances update INSTANCE_ID --description=INSTANCE_NAME
 
@@ -1686,7 +1686,7 @@ If you see a dialog that says you have insufficient quota to add compute capacit
 
 ### gcloud
 
-Use the [`  gcloud spanner instances update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command. When using this command, specify the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) as a number of nodes or processing units.
+Use the [`gcloud spanner instances update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command. When using this command, specify the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) as a number of nodes or processing units.
 
     gcloud spanner instances update INSTANCE_ID --nodes=NODE_COUNT
     [--async]
@@ -1704,7 +1704,7 @@ Replace the following:
 
 Optional flags:
 
-  - `  --async  ` : Use this flag if you want your request to return immediately, without waiting for the operation in progress to complete. You can check the status of your request by running [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) .
+  - `--async` : Use this flag if you want your request to return immediately, without waiting for the operation in progress to complete. You can check the status of your request by running [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) .
 
 ### Enable or modify managed autoscaler on an instance
 
@@ -1753,7 +1753,7 @@ You can enable or modify autoscaling on a Spanner instance using the Google Clou
 
 ### gcloud
 
-Use the [`  gcloud spanner instances update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to add the managed autoscaler to an instance. For more information and limitations, see [`  Google Cloud CLI  ` flags and limitations](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#flags_and_limitations) .
+Use the [`gcloud spanner instances update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to add the managed autoscaler to an instance. For more information and limitations, see [`Google Cloud CLI` flags and limitations](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#flags_and_limitations) .
 
 You can add the managed autoscaler with the following command:
 
@@ -1804,7 +1804,7 @@ Replace the following:
 
 Optional flags:
 
-  - `  --asymmetric-autoscaling-option  ` : Use this flag to enable [asymmetric autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
+  - `--asymmetric-autoscaling-option` : Use this flag to enable [asymmetric autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
     
     Replace the following parameters:
     
@@ -1813,8 +1813,8 @@ Optional flags:
       - ASYMMETRIC\_AUTOSCALING\_MAX : optional parameter. The maximum number of nodes when scaling up. If not specified, this value is inherited from the base instance configuration.
       - ASYMMETRIC\_HIGH\_PRIORITY\_CPU\_TARGET : optional parameter. The target percentage of CPU to use, based on the [priority of the task](https://docs.cloud.google.com/spanner/docs/cpu-utilization#task-priority) . If not specified, this value is inherited from the base instance configuration. If you're optimizing for cost, then use a higher percentage. Replicas can have a different target percentage than the base instance and from other replicas, but for failover scenarios, we recommend that replicas use consistent targets across different replicas. For more information, see [Failover concerns](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#failover-concerns) .
       - ASYMMETRIC\_TOTAL\_CPU\_TARGET : optional parameter. Set the target from 10 to 90% for the [total CPU](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-total-cpu) . If not specified, this value is inherited from the base instance configuration. If you're optimizing for cost, then use a higher percentage. Replicas can have a different target percentage than the base instance and from other replicas, but for failover scenarios, we recommend that replicas use consistent targets across different replicas. For more information, see [Asymmetric read-only autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
-      - `  disable_total_cpu_autoscaling  ` : set this parameter to `  TRUE  ` if you don't want the autoscaler to autoscale total CPU on replicas. Don't specify this parameter if you want the instance to inherit the `  total_cpu_autoscaling  ` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
-      - `  disable_high_priority_cpu_autoscaling  ` : set the `  disable_high_priority_cpu_autoscaling  ` to `  TRUE  ` if you don't want the autoscaler to autoscale the high priority CPU on replicas. Don't specify this parameter if you want the instance to inherit the `  high_priority_cpu_autoscaling  ` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
+      - `disable_total_cpu_autoscaling` : set this parameter to `TRUE` if you don't want the autoscaler to autoscale total CPU on replicas. Don't specify this parameter if you want the instance to inherit the `total_cpu_autoscaling` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
+      - `disable_high_priority_cpu_autoscaling` : set the `disable_high_priority_cpu_autoscaling` to `TRUE` if you don't want the autoscaler to autoscale the high priority CPU on replicas. Don't specify this parameter if you want the instance to inherit the `high_priority_cpu_autoscaling` target from the base instance. You can't disable both total CPU and high priority CPU on the same replica.
 
 After you add the managed autoscaler to an instance, you can also modify the managed autoscaler settings. For example, if you want to increase the maximum number of processing units to 10000, run the following command:
 
@@ -1839,7 +1839,7 @@ You can change whether a Spanner instance uses manual or managed scaling by usin
 
 ### gcloud
 
-Use the [`  gcloud spanner instances update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to update the instance.
+Use the [`gcloud spanner instances update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to update the instance.
 
 Use the following command to change an instance from using the managed autoscaler to manual scaling:
 
@@ -1892,7 +1892,7 @@ Default backup schedules are automatically enabled for all new instances. You ca
 
 ### gcloud
 
-Use the [`  gcloud spanner instances update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to edit the default backup schedules type.
+Use the [`gcloud spanner instances update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/update) command to edit the default backup schedules type.
 
 You can edit the default backup schedule type by running the following command:
 
@@ -1907,8 +1907,8 @@ Replace the following:
 
   - DEFAULT\_BACKUP\_SCHEDULE\_TYPE : the default backup schedule type that is used in the instance. Must be one of the following values:
     
-      - `  AUTOMATIC  ` : a default backup schedule is created automatically when a new database is created in the instance. The default backup schedule creates a full backup every 24 hours. These full backups are retained for 7 days. You can edit or delete the default backup schedule once it's created.
-      - `  NONE  ` : a default backup schedule isn't created automatically when a new database is created in the instance.
+      - `AUTOMATIC` : a default backup schedule is created automatically when a new database is created in the instance. The default backup schedule creates a full backup every 24 hours. These full backups are retained for 7 days. You can edit or delete the default backup schedule once it's created.
+      - `NONE` : a default backup schedule isn't created automatically when a new database is created in the instance.
 
 ### C\#
 
@@ -2185,7 +2185,7 @@ If you want to delete an instance that has one or more databases with deletion p
 
 ### gcloud
 
-Use the [`  gcloud spanner instances delete  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/list) command, replacing INSTANCE\_ID with the instance ID:
+Use the [`gcloud spanner instances delete`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/list) command, replacing INSTANCE\_ID with the instance ID:
 
     gcloud spanner instances delete INSTANCE_ID
 

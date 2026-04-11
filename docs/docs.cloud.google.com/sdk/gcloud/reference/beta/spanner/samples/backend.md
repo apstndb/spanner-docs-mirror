@@ -4,11 +4,11 @@ gcloud beta spanner samples backend - run the backend gRPC service for the given
 
 SYNOPSIS
 
-`  gcloud beta spanner samples backend  ` `  APPNAME  ` `  --instance-id  ` = `  INSTANCE_ID  ` \[ `  --database-id  ` = `  DATABASE_ID  ` \] \[ `  --duration  ` = `  DURATION  ` ; default="1h"\] \[ `  --port  ` = `  PORT  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner samples backend` `  APPNAME  ` `  --instance-id  ` = `  INSTANCE_ID  ` \[ `  --database-id  ` = `  DATABASE_ID  ` \] \[ `  --duration  ` = `  DURATION  ` ; default="1h"\] \[ `  --port  ` = `  PORT  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` This command starts the backend gRPC service for the given sample application. Before starting the service, create the database and load any initial data with:
+`(BETA)` This command starts the backend gRPC service for the given sample application. Before starting the service, create the database and load any initial data with:
 
 ``` wrap-code
 gcloud beta spanner samples init APPNAME --instance-id=INSTANCE_ID
@@ -41,23 +41,23 @@ POSITIONAL ARGUMENTS
 
 REQUIRED FLAGS
 
-  - `  --instance-id  ` = `  INSTANCE_ID  `  
+  - `--instance-id` = `  INSTANCE_ID  `  
     The Cloud Spanner instance ID for the sample app.
 
 OPTIONAL FLAGS
 
-  - `  --database-id  ` = `  DATABASE_ID  `  
+  - `--database-id` = `  DATABASE_ID  `  
     The Cloud Spanner database ID for the sample app.
-  - `  --duration  ` = `  DURATION  ` ; default="1h"  
+  - `--duration` = `  DURATION  ` ; default="1h"  
     Duration of time allowed to run before stopping the service.
-  - `  --port  ` = `  PORT  `  
+  - `--port` = `  PORT  `  
     Port on which to receive gRPC requests.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

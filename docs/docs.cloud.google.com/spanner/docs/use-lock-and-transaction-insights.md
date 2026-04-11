@@ -22,7 +22,7 @@ Lock insights and Transaction insights are available in both regional and multi-
 
 ### Data retention
 
-The maximum data retention for the data that's shown on the Lock insights and Transaction insights dashboards is 30 days. For graphs, data is retrieved from `  SPANNER_SYS.*  ` tables, which have a maximum retention period of 30 days.
+The maximum data retention for the data that's shown on the Lock insights and Transaction insights dashboards is 30 days. For graphs, data is retrieved from `SPANNER_SYS.*` tables, which have a maximum retention period of 30 days.
 
 For more information about these tables and data retention, see [Lock statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) and [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) .
 
@@ -35,24 +35,24 @@ You need different IAM roles and permissions depending on whether you are an IAM
 To get the permissions that you need to view the Lock and Transaction insights page, ask your administrator to grant you the following IAM roles on the instance:
 
   - All:
-      - Cloud Spanner Viewer ( `  roles/spanner.viewer  ` )
-      - [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
+      - Cloud Spanner Viewer ( `roles/spanner.viewer` )
+      - [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
 
-The following permissions in the [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` ) role are required to view the Lock and Transaction insights page:
+The following permissions in the [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` ) role are required to view the Lock and Transaction insights page:
 
-  - `  spanner.databases.beginReadOnlyTransaction  `
-  - `  spanner.databases.select  `
-  - `  spanner.sessions.create  `
+  - `spanner.databases.beginReadOnlyTransaction`
+  - `spanner.databases.select`
+  - `spanner.sessions.create`
 
 ### Fine-grained access control user
 
 If you are a fine-grained access control user, ensure that you:
 
-  - Have the [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-      - Only have fine-grained access control privileges and are granted the `  spanner_sys_reader  ` system role or one of its member roles.
-  - Select the `  spanner_sys_reader  ` or a member roles as your current system role on the database overview page.
+  - Have the [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+      - Only have fine-grained access control privileges and are granted the `spanner_sys_reader` system role or one of its member roles.
+  - Select the `spanner_sys_reader` or a member roles as your current system role on the database overview page.
 
-**Note:** If you already have an IAM database-level permission such as `  spanner.databases.select  ` , the Google Cloud console assumes you are an IAM user. You cannot select the `  spanner_sys_reader  ` on the database overview page as an IAM user.
+**Note:** If you already have an IAM database-level permission such as `spanner.databases.select` , the Google Cloud console assumes you are an IAM user. You cannot select the `spanner_sys_reader` on the database overview page as an IAM user.
 
 For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) and [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
 
@@ -76,7 +76,7 @@ To confirm a spike in write latencies at the 99th percentile, follow these steps
     
     The Google Cloud console displays charts of data for the instance.
 
-4.  On the **Latency** chart, set **Function** to `  Write  ` and **Percentile** to `  99th  ` .
+4.  On the **Latency** chart, set **Function** to `Write` and **Percentile** to `99th` .
 
 5.  Check the refreshed chart to check if it shows any spikes.
 
@@ -96,7 +96,7 @@ To check for high lock wait time, follow these steps:
     
     The Google Cloud console displays the **Total lock wait** chart, which shows the lock wait time for each database in the instance.
     
-    The data shown is for `  1 hour  ` by default, as the time selector at the upper-right corner of the Lock insights dashboard shows. To see data for a wider range, select another option, such as `  1 day  ` .
+    The data shown is for `1 hour` by default, as the time selector at the upper-right corner of the Lock insights dashboard shows. To see data for a wider range, select another option, such as `1 day` .
     
     For more information, see [Working with charts](https://docs.cloud.google.com/monitoring/charts/working-with-charts) .
 
@@ -114,9 +114,9 @@ To check for high lock wait time, follow these steps:
 
 ### Analyze the lock wait data
 
-The **Lock Insights** table shows the following columns from the [`  SPANNER_SYS.LOCK_STATS  `](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) system tables:
+The **Lock Insights** table shows the following columns from the [`SPANNER_SYS.LOCK_STATS`](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) system tables:
 
-  - **Row range start key** : The row key where the lock conflict occurred. When the conflict involves a range of rows, the value represents the start key of the range. A plus sign ( `  +  ` ) signifies a range.
+  - **Row range start key** : The row key where the lock conflict occurred. When the conflict involves a range of rows, the value represents the start key of the range. A plus sign ( `+` ) signifies a range.
   - **Lock wait** : The total lock wait time visually represented on a horizontal bar. By default, the table uses this column for sorts and shows the row range start key with the highest lock wait time at the top.
   - **Lock wait (seconds)** : The cumulative lock wait time of lock conflicts recorded for all columns in the row key range, in seconds.
   - **Lock wait (%)** : The wait time of the lock conflicts recorded for all columns in the row key range as a percentage of the total lock wait time for all row key ranges in the database.
@@ -165,7 +165,7 @@ To view the latency of transactions, follow these steps:
     
     Alternatively, in the Lock insights dashboard, click **View transactions** to filter transactions reading or writing to a specific sample column.
     
-    The data shown is for `  1 hour  ` by default, as the time selector at the upper-right corner of the Transaction insights dashboard shows.
+    The data shown is for `1 hour` by default, as the time selector at the upper-right corner of the Transaction insights dashboard shows.
 
 The dashboard shows the following charts:
 
@@ -177,10 +177,10 @@ The dashboard shows the following charts:
 
 ### Analyze the transaction data
 
-You can view and analyze data for each transaction in the table below the charts. The table shows metrics data from the [`  SPANNER_SYS.TXN_STATS  `](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) system tables in the following columns:
+You can view and analyze data for each transaction in the table below the charts. The table shows metrics data from the [`SPANNER_SYS.TXN_STATS`](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) system tables in the following columns:
 
   - **Fingerprint** : The hash of the transaction tag, if it exists. Otherwise, the hash is calculated based on the operations involved in the transaction. The value is a link that leads to the [Transaction Details page](https://docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights#txn-dets) .
-  - **Transaction tag** : The optional [transaction tag](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#transaction_tags) for the transaction. Statistical data for multiple transactions that have the same tag string is grouped in a single row with the `  TRANSACTION_TAG  ` label matching the tag string.
+  - **Transaction tag** : The optional [transaction tag](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#transaction_tags) for the transaction. Statistical data for multiple transactions that have the same tag string is grouped in a single row with the `TRANSACTION_TAG` label matching the tag string.
   - **Tables affected** : The tables affected by the transaction.
   - **Table.column Read** : The columns that the transaction read from.
   - **Table.column Written** : The columns that the transaction wrote to.

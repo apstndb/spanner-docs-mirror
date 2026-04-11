@@ -4,7 +4,7 @@ Because you can't use Spanner to create a stored procedure, Spanner doesn't supp
 
 ## Run a stored system procedure
 
-To run a stored system procedure, you use the [`  CALL  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#call) statement:
+To run a stored system procedure, you use the [`CALL`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#call) statement:
 
     CALL procedure_name(parameters);
 
@@ -22,17 +22,17 @@ This section describes the query cancellation stored system procedure.
 
 #### Syntax
 
-The `  cancel_query  ` stored system procedure cancels a query. You specify the query to cancel using its `  query_id  ` .
+The `cancel_query` stored system procedure cancels a query. You specify the query to cancel using its `query_id` .
 
     CALL spanner.cancel_query(query_id)
 
 #### Description
 
-The `  cancel_query  ` stored system procedure has the following parameters:
+The `cancel_query` stored system procedure has the following parameters:
 
-| Parameter                 | Type                    | Description                                             |
-| ------------------------- | ----------------------- | ------------------------------------------------------- |
-| `        query_id       ` | `        STRING       ` | Specifies the ID for the query that you want to cancel. |
+| Parameter  | Type     | Description                                             |
+| ---------- | -------- | ------------------------------------------------------- |
+| `query_id` | `STRING` | Specifies the ID for the query that you want to cancel. |
 
 Query cancellations might fail because of one or more of the following:
 

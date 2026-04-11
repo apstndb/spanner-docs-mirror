@@ -37,9 +37,9 @@ Where:
 
 #### Implement RRF in a Spanner query
 
-Vector metrics (such as [`  APPROX_DOT_PRODUCT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product) ) and text search scores (such as [`  SCORE_NGRAMS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score_ngrams) ) operate on incompatible scales. To resolve this, the following example implements RRF to normalize data based on rank position rather than raw scores.
+Vector metrics (such as [`APPROX_DOT_PRODUCT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product) ) and text search scores (such as [`SCORE_NGRAMS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score_ngrams) ) operate on incompatible scales. To resolve this, the following example implements RRF to normalize data based on rank position rather than raw scores.
 
-The query uses `  UNNEST(ARRAY(...) WITH OFFSET  ` ) to assign a rank to the top 100 candidates from each method. It then calculates a standardized score using the inverse of those rankings and aggregates the results to return the top five matches.
+The query uses `UNNEST(ARRAY(...) WITH OFFSET` ) to assign a rank to the top 100 candidates from each method. It then calculates a standardized score using the inverse of those rankings and aggregates the results to return the top five matches.
 
     SELECT SUM(1 / (60 + rank)) AS rrf_score, key
     FROM (
@@ -72,7 +72,7 @@ The query uses `  UNNEST(ARRAY(...) WITH OFFSET  ` ) to assign a rank to the top
 
 Score-based fusion is effective when the relevance scores from different methods are comparable or you can normalize them, which might enable a more precise ranking that incorporates the actual relevance weight of each method.
 
-*Relative score fusion (RSF)* is a score-based method that normalizes scores from different methods relative to the highest and lowest scores within each method, typically using the `  MIN()  ` and `  MAX()  ` functions. The RSF score of a document retrieved by a set of retrievers is calculated as follows:
+*Relative score fusion (RSF)* is a score-based method that normalizes scores from different methods relative to the highest and lowest scores within each method, typically using the `MIN()` and `MAX()` functions. The RSF score of a document retrieved by a set of retrievers is calculated as follows:
 
 \\\[ score(d\\epsilon D)\\ =\\ \\sum\\limits\_{r\\epsilon R}^{}({w}\_{r}\*(scor{e}\_{r}(d)\\ -\\ mi{n}\_{r})\\ /\\ (ma{x}\_{r\\ }-mi{n}\_{r})\\ ) \\\]
 
@@ -84,7 +84,7 @@ Where:
 
 #### Implement RSF in a Spanner query
 
-To implement RSF, you must normalize the scores from the vector and FTS to a common scale. The following example calculates the minimum and maximum scores in separate `  WITH  ` clauses to derive the normalization factors. It then combines the results using a `  FULL OUTER JOIN  ` , summing the normalized scores from the approximate nearest neighbor (ANN) search (converted from `  cosine_distance  ` ) and the FTS.
+To implement RSF, you must normalize the scores from the vector and FTS to a common scale. The following example calculates the minimum and maximum scores in separate `WITH` clauses to derive the normalization factors. It then combines the results using a `FULL OUTER JOIN` , summing the normalized scores from the approximate nearest neighbor (ANN) search (converted from `cosine_distance` ) and the FTS.
 
     WITH ann AS (
       SELECT key, APPROX_COSINE_DISTANCE(@vector, embedding,
@@ -140,8 +140,8 @@ Filtered searches use FTS to create a filter that reduces the set of documents c
 
 The example search in this section takes the following steps to narrow down the vector search space to the subset of data that match the keywords:
 
-  - Uses `  SEARCH (text_tokens, 'Green')  ` to find rows where the `  text_tokens  ` column contains the text `  Green  ` . The top 1000 rows are returned by a [resort order defined by the search index](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#search-index-sort-order) .
-  - Uses a vector function, `  DOT_PRODUCT(@vector, embedding)  ` to calculate the similarity between the query vector (@vector) and the stored document vector (embedding). It then sorts the results and returns the final top 10 matches.
+  - Uses `SEARCH (text_tokens, 'Green')` to find rows where the `text_tokens` column contains the text `Green` . The top 1000 rows are returned by a [resort order defined by the search index](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#search-index-sort-order) .
+  - Uses a vector function, `DOT_PRODUCT(@vector, embedding)` to calculate the similarity between the query vector (@vector) and the stored document vector (embedding). It then sorts the results and returns the final top 10 matches.
 
 <!-- end list -->
 
@@ -159,17 +159,17 @@ The example search in this section takes the following steps to narrow down the 
 
 ML-based reranking is a computationally intensive but highly precise approach. It applies a machine learning model to a small candidate set that has been reduced by FTS, vector search, or a combination of both. For more information about Spanner Vertex AI integration, see the [Spanner Vertex AI integration overview](https://docs.cloud.google.com/spanner/docs/ml) .
 
-You can integrate ML reranking using the Spanner [`  ML.PREDICT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function with a deployed Vertex AI model.
+You can integrate ML reranking using the Spanner [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function with a deployed Vertex AI model.
 
 ### Implement ML-based reranking
 
 1.  [Deploy a reranker model](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) (such as from [HuggingFace](https://huggingface.co/) ) to a Vertex AI endpoint.
 
-2.  [Create a Spanner `  MODEL  ` object](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) that points to the Vertex AI endpoint. For example, in the following `  Reranker  ` model example:
+2.  [Create a Spanner `MODEL` object](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) that points to the Vertex AI endpoint. For example, in the following `Reranker` model example:
     
-      - `  text ARRAY<string(max)>  ` is the documents.
-      - `  text_pair ARRAY<string(max)>  ` is the query text in the example.
-      - `  score  ` is the relevance scores assigned by the ML model for the input pairs of texts.
+      - `text ARRAY<string(max)>` is the documents.
+      - `text_pair ARRAY<string(max)>` is the query text in the example.
+      - `score` is the relevance scores assigned by the ML model for the input pairs of texts.
     
     <!-- end list -->
     
@@ -181,7 +181,7 @@ You can integrate ML reranking using the Spanner [`  ML.PREDICT  `](https://docs
         endpoint = '...'
         );
 
-3.  Use a subquery to retrieve the initial candidates (such as the top 100 results from an ANN search) and pass them to `  ML.PREDICT  ` . The function returns a new score column for the final ordering.
+3.  Use a subquery to retrieve the initial candidates (such as the top 100 results from an ANN search) and pass them to `ML.PREDICT` . The function returns a new score column for the final ordering.
     
         SELECT key
         FROM ML.PREDICT(

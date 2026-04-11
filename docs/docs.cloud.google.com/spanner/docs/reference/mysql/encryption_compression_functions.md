@@ -2,38 +2,38 @@ Spanner supports the following MySQL encryption and compression functions. You n
 
 ## Function list
 
-| Name                                                                                                                              | Summary                      |
-| --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| [`         mysql.SHA2        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/encryption_compression_functions#sha2) | Calculates a SHA-2 checksum. |
+| Name                                                                                                             | Summary                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| [`mysql.SHA2`](https://docs.cloud.google.com/spanner/docs/reference/mysql/encryption_compression_functions#sha2) | Calculates a SHA-2 checksum. |
 
-## `     mysql.SHA2    `
+## `mysql.SHA2`
 
     mysql.SHA2(bytes_expression, hash_length)
 
 **Description**
 
-Calculates an SHA-2 checksum for the input `  BYTES  ` .
+Calculates an SHA-2 checksum for the input `BYTES` .
 
 This function supports the following arguments:
 
-  - `  bytes_expression  ` : The `  BYTES  ` value for which to calculate the checksum.
-  - `  hash_length  ` : The chosen bit length of the hash. Supported values are 256 and 512.
+  - `bytes_expression` : The `BYTES` value for which to calculate the checksum.
+  - `hash_length` : The chosen bit length of the hash. Supported values are 256 and 512.
 
 **Return data type**
 
-`  STRING  `
+`STRING`
 
 **Differences from MySQL**
 
-The MySQL version of `  SHA2()  ` also supports SHA-224 and SHA-384 hash lengths, which this function does not. Additionally, this function returns the checksum as a hexadecimal `  STRING  ` , while the MySQL version returns binary data.
+The MySQL version of `SHA2()` also supports SHA-224 and SHA-384 hash lengths, which this function does not. Additionally, this function returns the checksum as a hexadecimal `STRING` , while the MySQL version returns binary data.
 
 **Limitations**
 
-This function only supports hash lengths of 256 and 512 bits. The output is always a hexadecimal string, not binary data. If you provide an unsupported `  hash_length  ` , the function returns an error.
+This function only supports hash lengths of 256 and 512 bits. The output is always a hexadecimal string, not binary data. If you provide an unsupported `hash_length` , the function returns an error.
 
 **Example**
 
-The following example calculates the SHA-256 checksum for a `  BYTES  ` value:
+The following example calculates the SHA-256 checksum for a `BYTES` value:
 
     SELECT mysql.SHA2(B'GoogleCloud', 256) as sha256_checksum;
     

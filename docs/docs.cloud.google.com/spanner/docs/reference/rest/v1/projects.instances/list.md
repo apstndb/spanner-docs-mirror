@@ -44,7 +44,7 @@ us-west8
 us-east7
 
   
-`  GET https://spanner.googleapis.com/v1/{parent=projects/*}/instances  `
+`GET https://spanner.googleapis.com/v1/{parent=projects/*}/instances`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -52,59 +52,59 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  parent  `
+`parent`
 
-`  string  `
+`string`
 
-Required. The name of the project for which a list of instances is requested. Values are of the form `  projects/<project>  ` .
+Required. The name of the project for which a list of instances is requested. Values are of the form `projects/<project>` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  parent  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `parent` :
 
-  - `  spanner.instances.list  `
+  - `spanner.instances.list`
 
 ### Query parameters
 
 Parameters
 
-`  pageSize  `
+`pageSize`
 
-`  integer  `
+`integer`
 
 Number of instances to be returned in the response. If 0 or less, defaults to the server's maximum allowed page size.
 
-`  pageToken  `
+`pageToken`
 
-`  string  `
+`string`
 
-If non-empty, `  pageToken  ` should contain a `  nextPageToken  ` from a previous `  ListInstancesResponse  ` .
+If non-empty, `pageToken` should contain a `  nextPageToken  ` from a previous `  ListInstancesResponse  ` .
 
-`  filter  `
+`filter`
 
-`  string  `
+`string`
 
 An expression for filtering the results of the request. Filter rules are case insensitive. The fields eligible for filtering are:
 
-  - `  name  `
-  - `  displayName  `
-  - `  labels.key  ` where key is the name of a label
+  - `name`
+  - `displayName`
+  - `labels.key` where key is the name of a label
 
 Some examples of using filters are:
 
-  - `  name:*  ` --\> The instance has a name.
-  - `  name:Howl  ` --\> The instance's name contains the string "howl".
-  - `  name:HOWL  ` --\> Equivalent to above.
-  - `  NAME:howl  ` --\> Equivalent to above.
-  - `  labels.env:*  ` --\> The instance has the label "env".
-  - `  labels.env:dev  ` --\> The instance has the label "env" and the value of the label contains the string "dev".
-  - `  name:howl labels.env:dev  ` --\> The instance's name contains "howl" and it has the label "env" with its value containing "dev".
+  - `name:*` --\> The instance has a name.
+  - `name:Howl` --\> The instance's name contains the string "howl".
+  - `name:HOWL` --\> Equivalent to above.
+  - `NAME:howl` --\> Equivalent to above.
+  - `labels.env:*` --\> The instance has the label "env".
+  - `labels.env:dev` --\> The instance has the label "env" and the value of the label contains the string "dev".
+  - `name:howl labels.env:dev` --\> The instance's name contains "howl" and it has the label "env" with its value containing "dev".
 
-`  instanceDeadline  `
+`instanceDeadline`
 
-`  string ( Timestamp  ` format)
+` string ( Timestamp  ` format)
 
 Deadline used while retrieving metadata for instances. Instances whose metadata cannot be retrieved within this deadline will be added to `  unreachable  ` in `  ListInstancesResponse  ` .
 
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
 
 ### Request body
 
@@ -127,38 +127,28 @@ If successful, the response body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;instances&quot;: [
-    {
-      object (Instance)
-    }
-  ],
-  &quot;nextPageToken&quot;: string,
-  &quot;unreachable&quot;: [
-    string
-  ]
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;instances&quot;: [{object (Instance)}],&quot;nextPageToken&quot;: string,&quot;unreachable&quot;: [string]}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  instances[]  `
+`instances[]`
 
-`  object ( Instance  ` )
+` object ( Instance  ` )
 
 The list of requested instances.
 
-`  nextPageToken  `
+`nextPageToken`
 
-`  string  `
+`string`
 
-`  nextPageToken  ` can be sent in a subsequent `  instances.list  ` call to fetch more of the matching instances.
+`nextPageToken` can be sent in a subsequent `  instances.list  ` call to fetch more of the matching instances.
 
-`  unreachable[]  `
+`unreachable[]`
 
-`  string  `
+`string`
 
 The list of unreachable instances. It includes the names of instances whose metadata could not be retrieved within `  instanceDeadline  ` .
 
@@ -166,7 +156,7 @@ The list of unreachable instances. It includes the names of instances whose meta
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

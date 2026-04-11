@@ -10,7 +10,7 @@ You can start PGAdapter in the following ways:
 
 ## Before you begin
 
-Before starting PGAdapter, ensure that you have authenticated with either a user account or service account on the machine where PGAdapter will be running. If you are using a service account, you must know the location of the JSON key file (the credentials file). You can then either specify the credentials path with the PGAdapter `  -c  ` option, or by setting the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable.
+Before starting PGAdapter, ensure that you have authenticated with either a user account or service account on the machine where PGAdapter will be running. If you are using a service account, you must know the location of the JSON key file (the credentials file). You can then either specify the credentials path with the PGAdapter `-c` option, or by setting the `GOOGLE_APPLICATION_CREDENTIALS` environment variable.
 
 For more information, see:
 
@@ -42,20 +42,20 @@ Start PGAdapter with the following command.
 
 The following options are required:
 
-  - `  -p project_id  `  
+  - ` -p project_id  `  
     ID of the project that the Spanner database is running in.
-  - `  -i instance_id  `  
+  - ` -i instance_id  `  
     Spanner instance ID.
-  - `  -d database_ID  `  
+  - ` -d database_ID  `  
     ID of the Spanner database to connect to.
 
 The following options are optional:
 
-  - `  -r databaseRole= database_role  `  
+  - ` -r databaseRole= database_role  `  
     Database role to use for the session. For more information, see [Authorization with PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter#pgadapter-authorization) .
 
-  - `  -c credentials_file_path  `  
-    Full path for the keys file containing the service account credentials in JSON format. If this option is not set, credentials are read from the path specified by the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable.
+  - ` -c credentials_file_path  `  
+    Full path for the keys file containing the service account credentials in JSON format. If this option is not set, credentials are read from the path specified by the `GOOGLE_APPLICATION_CREDENTIALS` environment variable.
     
     To learn how to create a service account and download a JSON-formatted key file, see [Creating a service account](https://cloud.google.com/docs/authentication/production#create_service_account) .
     
@@ -63,19 +63,19 @@ The following options are optional:
     
     You can omit this option if you first authenticate with the Google Cloud CLI with the following command:
     
-    `  gcloud auth application-default login  `
+    `gcloud auth application-default login`
     
     For more information, see [Set up authentication and authorization.](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_authentication_and_authorization)
 
-  - `  -s port  `  
+  - ` -s port  `  
     Port that PGAdapter listens on. Defaults to 5432 (the default PostgreSQL port).
 
-  - `  -v version_number  `  
+  - ` -v version_number  `  
     Version number of PostgreSQL to expose to the client during connection. Default value is 14.1
     
     Some PostgreSQL applications and drivers enable additional features depending on this version number. Spanner might not support these features. See [Drivers and Clients](https://github.com/GoogleCloudPlatform/pgadapter#drivers-and-clients) for a full list of supported clients.
 
-  - `  -x  `  
+  - `-x`  
     Enable connections from hosts other than localhost. *Don't use when starting PGAdapter in standalone mode. Use only when starting within a Docker container* .
     
     By default, as a security measure, PGAdapter accepts connections only from localhost.
@@ -102,24 +102,24 @@ Start PGAdapter with the following command.
 
 In addition to the PGAdapter options to specify project, instance, database, and credentials, the following options are required:
 
-  - `  -p 127.0.0.1: HOST-PORT : DOCKER-PORT  `  
-    This Docker option maps the port `  DOCKER-PORT  ` inside the Docker container to the port `  HOST-PORT  ` outside the container. `  DOCKER-PORT  ` must match how PGAdapter is configured inside the container. It defaults to 5432. `  HOST-PORT  ` is the port that Docker should listen on outside the container for connection requests. It must always be an available port on localhost.
+  - ` -p 127.0.0.1: HOST-PORT : DOCKER-PORT  `  
+    This Docker option maps the port `DOCKER-PORT` inside the Docker container to the port `HOST-PORT` outside the container. `DOCKER-PORT` must match how PGAdapter is configured inside the container. It defaults to 5432. `HOST-PORT` is the port that Docker should listen on outside the container for connection requests. It must always be an available port on localhost.
     
     For more information, see [Publish or expose port (-p, --expose)](https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port--p---expose) in the Docker documentation.
 
-  - `  -v CREDENTIALS_FILE_PATH : in_container_mount_point  `  
+  - ` -v CREDENTIALS_FILE_PATH : in_container_mount_point  `  
     This Docker option bind mounts a shared volume. It maps the host path outside the container to a volume (mount point) inside the container. The host and container paths are separated by a colon (:).
     
-    This option lets PGAdapter access the JSON credentials file that is outside the container. In the preceding example, the `  -c  ` option references the in-container mount point. This example names the in-container mount point `  /acct_credentials.json  ` . You can name it whatever you want.
+    This option lets PGAdapter access the JSON credentials file that is outside the container. In the preceding example, the `-c` option references the in-container mount point. This example names the in-container mount point `/acct_credentials.json` . You can name it whatever you want.
     
     For more information, see [VOLUME (shared filesystems)](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) in the Docker documentation.
 
-  - `  -x  `  
+  - `-x`  
     Enable connections from hosts other than localhost. This is needed because the port insider the container that is mapped to the host port does not appear to PGAdapter as localhost.
 
 The following options are optional:
 
-  - `  -r databaseRole= database_role  `  
+  - ` -r databaseRole= database_role  `  
     Database role to use for the session. For more information, see [Authorization with PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter#pgadapter-authorization) .
 
 In the following example, the Docker port and host port are both set to the PostgreSQL database service default port 5432.
@@ -250,10 +250,10 @@ The PGAdapter GitHub repository contains a [step-by-step guide and a sample appl
 
 Create and start a PGAdapter instance with your Java code. This is the recommended setup for Java applications.
 
-If you are using a service account for authentication, ensure that the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable is set to the path of the credentials file.
+If you are using a service account for authentication, ensure that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable is set to the path of the credentials file.
 
-1.  Add `  google-cloud-spanner-pgadapter  ` as a dependency to your project. For details, see [Get PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-get) .
-2.  Build a server using the `  com.google.cloud.spanner.pgadapter.ProxyServer  ` class.
+1.  Add `google-cloud-spanner-pgadapter` as a dependency to your project. For details, see [Get PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-get) .
+2.  Build a server using the `com.google.cloud.spanner.pgadapter.ProxyServer` class.
 
 The PGAdapter GitHub repository contains a [full sample application](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/jdbc) .
 
@@ -265,7 +265,7 @@ The following guidelines can help you configure the CPU and memory resources for
 
 Because PGAdapter doesn't cache much data, it requires memory to convert query results from the Spanner gRPC format to the PostgreSQL wire protocol format. This is especially relevant for workloads with large binary columns because Spanner and PostgreSQL handle these data types differently.
 
-To determine how much memory to allocate, use the following formula for memory allocation, where `  <var>number of concurrent connections</var>  ` is the number of simultaneous connections your application handles:
+To determine how much memory to allocate, use the following formula for memory allocation, where `<var>number of concurrent connections</var>` is the number of simultaneous connections your application handles:
 
 384 MB + (2 MB \* number of concurrent connections )
 
@@ -288,9 +288,9 @@ Start with a baseline CPU allocation. Monitor its usage under a realistic load t
 
 ## What's next
 
-  - [Connect `  psql  ` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/psql-connect)
-  - [Connect `  JDBC  ` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-jdbc-connect)
-  - [Connect `  pgx  ` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-pgx-connect)
-  - [Connect `  psycopg2  ` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-psycopg2-connect)
-  - [Connect `  psycopg3  ` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-psycopg3-connect)
-  - [Connect `  node-postgres  ` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-node-postgres-connect)
+  - [Connect `psql` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/psql-connect)
+  - [Connect `JDBC` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-jdbc-connect)
+  - [Connect `pgx` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-pgx-connect)
+  - [Connect `psycopg2` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-psycopg2-connect)
+  - [Connect `psycopg3` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-psycopg3-connect)
+  - [Connect `node-postgres` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-node-postgres-connect)

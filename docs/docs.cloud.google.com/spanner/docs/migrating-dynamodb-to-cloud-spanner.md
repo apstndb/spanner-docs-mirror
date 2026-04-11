@@ -49,7 +49,7 @@ In this tutorial, you run commands in Cloud Shell. Cloud Shell gives you access 
     
     At the bottom of the Google Cloud console, a [Cloud Shell](https://docs.cloud.google.com/shell/docs/how-cloud-shell-works) session starts and displays a command-line prompt. Cloud Shell is a shell environment with the Google Cloud CLI already installed and with values already set for your current project. It can take a few seconds for the session to initialize.
 
-2.  Set the default Compute Engine zone. For example, `  us-central1-b  ` . gcloud config set compute/zone us-central1-b
+2.  Set the default Compute Engine zone. For example, `us-central1-b` . gcloud config set compute/zone us-central1-b
 
 3.  Clone the GitHub repository containing the sample code. git clone https://github.com/GoogleCloudPlatform/dynamodb-spanner-migration.git
 
@@ -72,9 +72,9 @@ In this section, you create an AWS IAM role that AWS Lambda uses at a later step
 1.  In the AWS console, go to the **IAM** section, click **Roles** , and then select **Create role** .
 2.  Under **Trusted entity type** , ensure that **AWS service** is selected.
 3.  Under **Use case** , select **Lambda** , and then click **Next** .
-4.  In the **Permission policies** filter box, enter `  AWSLambdaDynamoDBExecutionRole  ` and press `  Return  ` to search.
+4.  In the **Permission policies** filter box, enter `AWSLambdaDynamoDBExecutionRole` and press `Return` to search.
 5.  Select the **AWSLambdaDynamoDBExecutionRole** checkbox, and then click **Next** .
-6.  In the **Role name** box, enter `  dynamodb-spanner-lambda-role  ` , and then click **Create role** .
+6.  In the **Role name** box, enter `dynamodb-spanner-lambda-role` , and then click **Create role** .
 
 ### Create an AWS IAM user
 
@@ -82,7 +82,7 @@ Follow these steps to create an AWS IAM user with programmatic access to AWS res
 
 1.  While you are still in the **IAM** section of the AWS console, click **Users** , and then select **Add users** .
 
-2.  In the **User name** box, enter `  dynamodb-spanner-migration  ` .
+2.  In the **User name** box, enter `dynamodb-spanner-migration` .
 
 3.  Under **Access type** , select the checkbox to the left of **Access key - Programmatic access** .
     
@@ -92,9 +92,9 @@ Follow these steps to create an AWS IAM user with programmatic access to AWS res
 
 5.  Click **Attach existing policies directly** , and using the **Search** box to filter, select the checkbox next to each of the following three policies:
     
-      - `  AmazonDynamoDBFullAccess  `
-      - `  AmazonS3FullAccess  `
-      - `  AWSLambda_FullAccess  `
+      - `AmazonDynamoDBFullAccess`
+      - `AmazonS3FullAccess`
+      - `AWSLambda_FullAccess`
 
 6.  Click **Next: Tags** and **Next: Review** , and then click **Create user** .
 
@@ -115,8 +115,8 @@ Follow these steps to create an AWS IAM user with programmatic access to AWS res
     Default output format [None]:
     ```
     
-      - Enter the `  ACCESS KEY ID  ` and `  SECRET ACCESS KEY  ` from the AWS IAM account that you created.
-      - In the **Default region name** field, enter `  us-west-2  ` . Leave other fields at their default values.
+      - Enter the `ACCESS KEY ID` and `SECRET ACCESS KEY` from the AWS IAM account that you created.
+      - In the **Default region name** field, enter `us-west-2` . Leave other fields at their default values.
 
 2.  Close the AWS IAM console window.
 
@@ -150,12 +150,12 @@ Both Amazon DynamoDB and Spanner support creating an index on a non-primary key 
 
 To facilitate this tutorial, you migrate the following sample table from Amazon DynamoDB to Spanner:
 
-|              | Amazon DynamoDB                                                                                | Spanner                                                                                 |
-| ------------ | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| Table name   | `        Migration       `                                                                     | `        Migration       `                                                              |
-| Primary key  | `        "Username" : String       `                                                           | `        "Username" : STRING(1024)       `                                              |
-| Key type     | Hash                                                                                           | n/a                                                                                     |
-| Other fields | `        Zipcode: Number Subscribed: Boolean ReminderDate: String PointsEarned: Number       ` | `        Zipcode: INT64 Subscribed: BOOL ReminderDate: DATE PointsEarned: INT64       ` |
+|              | Amazon DynamoDB                                                                 | Spanner                                                                  |
+| ------------ | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Table name   | `Migration`                                                                     | `Migration`                                                              |
+| Primary key  | `"Username" : String`                                                           | `"Username" : STRING(1024)`                                              |
+| Key type     | Hash                                                                            | n/a                                                                      |
+| Other fields | `Zipcode: Number Subscribed: Boolean ReminderDate: String PointsEarned: Number` | `Zipcode: INT64 Subscribed: BOOL ReminderDate: DATE PointsEarned: INT64` |
 
 ## Prepare the Amazon DynamoDB table
 
@@ -168,7 +168,7 @@ In the following section, you create an Amazon DynamoDB source table and populat
             --key-schema AttributeName=Username,KeyType=HASH \
             --provisioned-throughput ReadCapacityUnits=75,WriteCapacityUnits=75
 
-2.  Verify that the table status is `  ACTIVE  ` .
+2.  Verify that the table status is `ACTIVE` .
     
         aws dynamodb describe-table --table-name Migration \
             --query 'Table.TableStatus'
@@ -187,7 +187,7 @@ In this example, you create a table schema at the same time as the database. It 
 
 **Note:** Both Amazon DynamoDB and Spanner support the use of secondary indexes. The best practices for [bulk loading](https://docs.cloud.google.com/spanner/docs/bulk-loading) Spanner recommend that you create secondary indexes *after* you load your initial data. You [set up a secondary index](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#apply_secondary_indexes) later in this tutorial.
 
-1.  Create a Spanner instance in the same region where you set the default Compute Engine zone. For example, `  us-central1  ` .
+1.  Create a Spanner instance in the same region where you set the default Compute Engine zone. For example, `us-central1` .
     
         gcloud beta spanner instances create spanner-migration \
             --config=regional-us-central1 --processing-units=100 \
@@ -241,7 +241,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     Created service account [spanner-migration].
     ```
 
-4.  Create an IAM policy binding so that the service account has permission to publish to Pub/Sub. Replace `  GOOGLE_CLOUD_PROJECT  ` with the name of your Google Cloud project.
+4.  Create an IAM policy binding so that the service account has permission to publish to Pub/Sub. Replace `GOOGLE_CLOUD_PROJECT` with the name of your Google Cloud project.
     
         gcloud projects add-iam-policy-binding GOOGLE_CLOUD_PROJECT \
             --role roles/pubsub.publisher \
@@ -282,7 +282,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
             --query 'Roles[?RoleName==`dynamodb-spanner-lambda-role`].[Arn]' \
             --output text)
 
-8.  Use the `  pubsub-lambda.zip  ` package to create the AWS Lambda function.
+8.  Use the `pubsub-lambda.zip` package to create the AWS Lambda function.
     
         aws lambda create-function --function-name dynamodb-spanner-lambda \
             --runtime python3.9 --role ${LAMBDA_ROLE} \
@@ -319,7 +319,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
             --function-name dynamodb-spanner-lambda --enabled \
             --starting-position TRIM_HORIZON
 
-11. To optimize responsiveness during testing, add `  --batch-size 1  ` to the end of the previous command, which triggers the function every time you create, update, or delete an item.
+11. To optimize responsiveness during testing, add `--batch-size 1` to the end of the previous command, which triggers the function every time you create, update, or delete an item.
     
     You will see output similar to the following:
     
@@ -348,11 +348,11 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
 
 3.  In the AWS Management Console, go to **DynamoDB** , and click **Tables** .
 
-4.  Click the `  Migration  ` table.
+4.  Click the `Migration` table.
 
 5.  Under the **Exports and stream** tab, click **Export to S3** .
 
-6.  Enable `  point-in-time-recovery  ` (PITR) if prompted.
+6.  Enable `point-in-time-recovery` (PITR) if prompted.
 
 7.  Click **Browse S3** to choose the S3 bucket you created earlier.
 
@@ -387,7 +387,7 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
     
         gcloud storage buckets create gs://${BUCKET}
 
-2.  [Sync](https://docs.cloud.google.com/sdk/gcloud/reference/storage/rsync) the files from Amazon S3 into Cloud Storage. For most copy operations, the `  rsync  ` command is effective. If your export files are large (several GBs or more), use the [Cloud Storage transfer service](https://docs.cloud.google.com/storage-transfer/docs/overview) to manage the transfer in the background.
+2.  [Sync](https://docs.cloud.google.com/sdk/gcloud/reference/storage/rsync) the files from Amazon S3 into Cloud Storage. For most copy operations, the `rsync` command is effective. If your export files are large (several GBs or more), use the [Cloud Storage transfer service](https://docs.cloud.google.com/storage-transfer/docs/overview) to manage the transfer in the background.
     
         gcloud storage rsync s3://${BUCKET} gs://${BUCKET} --recursive --delete-unmatched-destination-objects
 
@@ -454,7 +454,7 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
      Zipcode: 58057
     ```
 
-5.  Query the Amazon DynamoDB table with the same `  Username  ` that was returned from the Spanner query in the previous step. For example, `  aallen2538  ` . The value is specific to the sample data in your database.
+5.  Query the Amazon DynamoDB table with the same `Username` that was returned from the Spanner query in the previous step. For example, `aallen2538` . The value is specific to the sample data in your database.
     
         aws dynamodb get-item --table-name Migration \
             --key '{"Username": {"S": "aadams4495"}}'
@@ -514,7 +514,7 @@ The Lambda function you created is configured to capture changes to the source A
         --runner=DataflowRunner \
         --region=us-central1"
     
-    **Note:** To improve responsiveness during testing, you can set the [Windowing](https://beam.apache.org/documentation/programming-guide/#windowing) to `  5  ` seconds by adding `  --window 5  ` to the end of this command. The default is set to `  60  ` seconds.
+    **Note:** To improve responsiveness during testing, you can set the [Windowing](https://beam.apache.org/documentation/programming-guide/#windowing) to `5` seconds by adding `--window 5` to the end of this command. The default is set to `60` seconds.
     
     1.  Similar to the [batch load](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#batch_import_the_data) step, to watch the progress of the job, in the Google Cloud console, go to Dataflow.
         
@@ -767,7 +767,7 @@ To avoid incurring charges to your Google Cloud account for the resources used i
 **Caution** : Deleting a project has the following effects:
 
   - **Everything in the project is deleted.** If you used an existing project for the tasks in this document, when you delete it, you also delete any other work you've done in the project.
-  - **Custom project IDs are lost.** When you created this project, you might have created a custom project ID that you want to use in the future. To preserve the URLs that use the project ID, such as an `  appspot.com  ` URL, delete selected resources inside the project instead of deleting the whole project.
+  - **Custom project IDs are lost.** When you created this project, you might have created a custom project ID that you want to use in the future. To preserve the URLs that use the project ID, such as an `appspot.com` URL, delete selected resources inside the project instead of deleting the whole project.
 
 In the Google Cloud console, go to the **Manage resources** page.
 

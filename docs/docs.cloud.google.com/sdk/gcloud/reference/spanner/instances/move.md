@@ -4,7 +4,7 @@ gcloud spanner instances move - move the Cloud Spanner instance to the specified
 
 SYNOPSIS
 
-`  gcloud spanner instances move  ` `  INSTANCE  ` `  --target-config  ` = `  TARGET_CONFIG  ` \[ `  --target-database-move-configs  ` =\[^:^ `  database-id  ` = `  DATABASE_ID  ` : `  kms-key-names  ` = `  KEY1  ` , `  KEY2  ` , …\]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instances move` `  INSTANCE  ` `  --target-config  ` = `  TARGET_CONFIG  ` \[ `  --target-database-move-configs  ` =\[^:^ `  database-id  ` = `  DATABASE_ID  ` : `  kms-key-names  ` = `  KEY1  ` , `  KEY2  ` , …\]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -25,28 +25,28 @@ POSITIONAL ARGUMENTS
 
 REQUIRED FLAGS
 
-  - `  --target-config  ` = `  TARGET_CONFIG  `  
+  - `--target-config` = `  TARGET_CONFIG  `  
     Target Instance configuration to move the instances.
 
 OPTIONAL FLAGS
 
-  - `  --target-database-move-configs  ` =\[^:^ `  database-id  ` = `  DATABASE_ID  ` : `  kms-key-names  ` = `  KEY1  ` , `  KEY2  ` ,…\]  
-    Database level configurations for each database to be moved. Currently only used for CMEK-enabled databases to specificy the target database KMS keys. Sets `  target_database_move_configs  ` value.
+  - `--target-database-move-configs` =\[^:^ `  database-id  ` = `  DATABASE_ID  ` : `  kms-key-names  ` = `  KEY1  ` , `  KEY2  ` ,…\]  
+    Database level configurations for each database to be moved. Currently only used for CMEK-enabled databases to specificy the target database KMS keys. Sets `target_database_move_configs` value.
     
-      - `  database-id  `  
-        Required, sets `  database-id  ` value.
-      - `  kms-key-names  `  
-        Sets `  kms-key-names  ` value.
+      - `database-id`  
+        Required, sets `database-id` value.
+      - `kms-key-names`  
+        Sets `kms-key-names` value.
     
-    `  Shorthand Example:  `
+    `Shorthand Example:`
     
         --target-database-move-configs=database-id=string,kms-key-names=string --target-database-move-configs=database-id=string,kms-key-names=string
     
-    `  JSON Example:  `
+    `JSON Example:`
     
         --target-database-move-configs='[{"database-id": "string", "kms-key-names": "string"}]'
     
-    `  File Example:  `
+    `File Example:`
     
         --target-database-move-configs=path_to_file.(yaml|json)
 
@@ -54,7 +54,7 @@ GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

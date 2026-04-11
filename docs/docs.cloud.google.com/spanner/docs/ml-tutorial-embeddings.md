@@ -32,7 +32,7 @@ Depending on the model you use, generating embeddings might take some time. For 
 
 **Register a text embeddings model in Spanner**
 
-In GoogleSQL, you must register a model before using it with the `  ML.PREDICT  ` function. To register the Vertex AI text embedding model in a Spanner database, [execute](https://docs.cloud.google.com/spanner/docs/schema-updates) the following DDL [statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) :
+In GoogleSQL, you must register a model before using it with the `ML.PREDICT` function. To register the Vertex AI text embedding model in a Spanner database, [execute](https://docs.cloud.google.com/spanner/docs/schema-updates) the following DDL [statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) :
 
     CREATE MODEL MODEL_NAME
     INPUT(
@@ -58,11 +58,11 @@ Replace the following:
 
 Spanner grants appropriate permissions automatically. If it doesn't, review the [model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#model_endpoint_access_control) .
 
-Schema discovery and validation is not available for Generative AI models. You are required to provide `  INPUT  ` and `  OUTPUT  ` clauses which match against the models schema. For the full schema of the text embedding model, see [Get text embeddings](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-text-embeddings) .
+Schema discovery and validation is not available for Generative AI models. You are required to provide `INPUT` and `OUTPUT` clauses which match against the models schema. For the full schema of the text embedding model, see [Get text embeddings](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-text-embeddings) .
 
 **Generate text embeddings**
 
-To generate embeddings, pass a piece of text directly to the [`  ML.PREDICT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function using the following SQL:
+To generate embeddings, pass a piece of text directly to the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function using the following SQL:
 
     SELECT embeddings.values
     FROM ML.PREDICT(
@@ -127,7 +127,7 @@ For workloads that are less performance sensitive, you can generate and insert e
 
 **Generate text embeddings**
 
-To generate embeddings, pass a piece of text directly to the [`  spanner.ML_PREDICT_ROW  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#ml) function using the following SQL:
+To generate embeddings, pass a piece of text directly to the [`spanner.ML_PREDICT_ROW`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#ml) function using the following SQL:
 
     SELECT
       spanner.ML_PREDICT_ROW(
@@ -228,9 +228,9 @@ Replace the following:
 
 ## Update text embeddings
 
-To update your embeddings or to ingest data in realtime, use the `  UPDATE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#update-statement) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#update-statement) ) statement.
+To update your embeddings or to ingest data in realtime, use the `UPDATE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#update-statement) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#update-statement) ) statement.
 
-To update the `  Products  ` table in the previous example, use the following SQL:
+To update the `Products` table in the previous example, use the following SQL:
 
 ### GoogleSQL
 

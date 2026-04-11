@@ -24,7 +24,7 @@ You can check the status of your dual-region quorum in the following ways:
     
       - If quorum is met in both regions, the status shows *Dual-region* .
     
-      - If a manual or Google-managed failover has been performed, you see the name of the serving region (for example, `  asia-south1  ` ).
+      - If a manual or Google-managed failover has been performed, you see the name of the serving region (for example, `asia-south1` ).
 
 ### Use the System insights dashboard
 
@@ -38,7 +38,7 @@ You can use the Monitoring REST API or gcloud CLI to check the health of your du
 
 ### Monitoring REST API
 
-Use the Monitoring [`  projects.timeSeries.list  `](https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list) API to query the [Dual-region quorum health timeline](https://docs.cloud.google.com/spanner/docs/monitoring-console#system_insights_scorecards_charts_and_metrics) to check if a region is healthy at a given time.
+Use the Monitoring [`projects.timeSeries.list`](https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list) API to query the [Dual-region quorum health timeline](https://docs.cloud.google.com/spanner/docs/monitoring-console#system_insights_scorecards_charts_and_metrics) to check if a region is healthy at a given time.
 
 Before using any of the request data, make the following replacements:
 
@@ -68,9 +68,9 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     curl -X GET \
          -H "Authorization: Bearer $(gcloud auth print-access-token)" \
@@ -80,9 +80,9 @@ Save the request body in a file named `  request.json  ` , and execute the follo
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     $cred = gcloud auth print-access-token
     $headers = @{ "Authorization" = "Bearer $cred" }
@@ -133,16 +133,16 @@ If you don't see a similar response, your region might not be healthy, and you m
 
 ### gcloud CLI
 
-1.  Download the [`  dual-region-quorum-health-check-script.sh  `](https://docs.cloud.google.com/static/spanner/docs/dual-region-quorum-health-check-script.sh) file.
+1.  Download the [`dual-region-quorum-health-check-script.sh`](https://docs.cloud.google.com/static/spanner/docs/dual-region-quorum-health-check-script.sh) file.
     
-    This bash script checks the region health of your single region. If the region is healthy, then the script runs the [`  gcloud spanner databases change-quorum  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/change-quorum) command to manually failover the dual-region quorum from dual-region to single region.
+    This bash script checks the region health of your single region. If the region is healthy, then the script runs the [`gcloud spanner databases change-quorum`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/change-quorum) command to manually failover the dual-region quorum from dual-region to single region.
 
 2.  Replace the following variables in the script:
     
-      - `  PROJECT  ` : your project ID.
-      - `  INSTANCE  ` : your instance ID.
-      - `  DATABASE  ` : your database ID.
-      - `  SERVING_LOCATION  ` : the location of the region in the dual-region that you want to check.
+      - `PROJECT` : your project ID.
+      - `INSTANCE` : your instance ID.
+      - `DATABASE` : your database ID.
+      - `SERVING_LOCATION` : the location of the region in the dual-region that you want to check.
 
 3.  Run the script in the development environment of your choice. For more information, see [Install the gcloud CLI and set up the Spanner API](https://docs.cloud.google.com/spanner/docs/getting-started/set-up) .
 
@@ -168,11 +168,11 @@ To failover manually if there is a regional outage or a network partitioning iss
     
     The **Cloud Shell** opens.
 
-6.  To change the dual-region quorum from dual-region to a single region, enter the following command found in the gcloud CLI tab: `  gcloud spanner databases change-quorum  ` . For detailed instructions, refer to the `  gcloud  ` tab.
+6.  To change the dual-region quorum from dual-region to a single region, enter the following command found in the gcloud CLI tab: `gcloud spanner databases change-quorum` . For detailed instructions, refer to the `gcloud` tab.
 
 ### gcloud CLI
 
-Use the [`  gcloud spanner databases change-quorum  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/change-quorum) command to change the dual-region quorum from dual-region to a single region.
+Use the [`gcloud spanner databases change-quorum`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/change-quorum) command to change the dual-region quorum from dual-region to a single region.
 
     gcloud spanner databases change-quorum
         DATABASE_ID --instance=INSTANCE_ID
@@ -185,13 +185,13 @@ Replace the following:
 
   - `  INSTANCE_ID  ` : The permanent identifier for the instance.
 
-  - `  SERVING_LOCATION  ` : The regional instance configuration to which you want to failover. For example, if `  asia-south1  ` (Mumbai) is unhealthy, and you want to failover to `  asia-south2  ` (Delhi), input `  asia-south2  ` . Make sure the `  SERVING_LOCATION  ` is the healthy region. Choosing a wrong region to failover results in database unavailability, which is unrecoverable before the region is back online.
+  - `  SERVING_LOCATION  ` : The regional instance configuration to which you want to failover. For example, if `asia-south1` (Mumbai) is unhealthy, and you want to failover to `asia-south2` (Delhi), input `asia-south2` . Make sure the `SERVING_LOCATION` is the healthy region. Choosing a wrong region to failover results in database unavailability, which is unrecoverable before the region is back online.
 
 Optional flags:
 
-  - `  --etag= ETAG  ` : The `  ETAG  ` argument can be used for replay protection.
+  - ` --etag= ETAG  ` : The `  ETAG  ` argument can be used for replay protection.
 
-To check the status of your quorum change operation, run the [`  gcloud spanner databases describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/describe) command. The `  quorumInfo  ` field provides information about the operation.
+To check the status of your quorum change operation, run the [`gcloud spanner databases describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/describe) command. The `quorumInfo` field provides information about the operation.
 
     gcloud spanner databases describe DATABASE_ID
         --instance=INSTANCE_ID
@@ -216,11 +216,11 @@ To failback manually after the disrupted region is healthy or after the network 
     
     The Cloud Shell opens.
 
-6.  To change the dual-region quorum from single region to a dual-region, enter the following command found in the gcloud CLI tab: `  gcloud spanner databases change-quorum  ` . For detailed instructions, refer to the `  gcloud  ` tab.
+6.  To change the dual-region quorum from single region to a dual-region, enter the following command found in the gcloud CLI tab: `gcloud spanner databases change-quorum` . For detailed instructions, refer to the `gcloud` tab.
 
 ### gcloud CLI
 
-Use the [`  gcloud spanner databases change-quorum  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/change-quorum) command to change the dual-region quorum from single region to a dual-region.
+Use the [`gcloud spanner databases change-quorum`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/change-quorum) command to change the dual-region quorum from single region to a dual-region.
 
     gcloud spanner databases change-quorum
         DATABASE_ID --instance=INSTANCE_ID
@@ -235,9 +235,9 @@ Replace the following:
 
 Optional flags:
 
-  - `  --etag= ETAG  ` : The `  ETAG  ` argument can be used for optimistic concurrency control.
+  - ` --etag= ETAG  ` : The `  ETAG  ` argument can be used for optimistic concurrency control.
 
-To check the status of your quorum change operation, run the [`  gcloud spanner databases describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/describe) command. The `  quorumInfo  ` field provides information about the operation.
+To check the status of your quorum change operation, run the [`gcloud spanner databases describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/describe) command. The `quorumInfo` field provides information about the operation.
 
     gcloud spanner databases describe DATABASE_ID
         --instance=INSTANCE_ID

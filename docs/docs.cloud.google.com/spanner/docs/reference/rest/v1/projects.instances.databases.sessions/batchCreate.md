@@ -46,7 +46,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{database=projects/*/instances/*/databases/*}/sessions:batchCreate  `
+`POST https://spanner.googleapis.com/v1/{database=projects/*/instances/*/databases/*}/sessions:batchCreate`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -54,15 +54,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  database  `
+`database`
 
-`  string  `
+`string`
 
 Required. The database in which the new sessions are created.
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  database  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `database` :
 
-  - `  spanner.sessions.create  `
+  - `spanner.sessions.create`
 
 ### Request body
 
@@ -79,29 +79,24 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;sessionTemplate&quot;: {
-    object (Session)
-  },
-  &quot;sessionCount&quot;: integer
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;sessionTemplate&quot;: {object (Session)},&quot;sessionCount&quot;: integer}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  sessionTemplate  `
+`sessionTemplate`
 
-`  object ( Session  ` )
+` object ( Session  ` )
 
 Parameters to apply to each created session.
 
-`  sessionCount  `
+`sessionCount`
 
-`  integer  `
+`integer`
 
-Required. The number of sessions to be created in this batch call. At least one session is created. The API can return fewer than the requested number of sessions. If a specific number of sessions are desired, the client can make additional calls to `  sessions.batchCreate  ` (adjusting `  sessionCount  ` as necessary).
+Required. The number of sessions to be created in this batch call. At least one session is created. The API can return fewer than the requested number of sessions. If a specific number of sessions are desired, the client can make additional calls to `sessions.batchCreate` (adjusting `  sessionCount  ` as necessary).
 
 ### Response body
 
@@ -120,22 +115,16 @@ If successful, the response body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;session&quot;: [
-    {
-      object (Session)
-    }
-  ]
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;session&quot;: [{object (Session)}]}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  session[]  `
+`session[]`
 
-`  object ( Session  ` )
+` object ( Session  ` )
 
 The freshly created sessions.
 
@@ -143,7 +132,7 @@ The freshly created sessions.
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.data  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.data`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

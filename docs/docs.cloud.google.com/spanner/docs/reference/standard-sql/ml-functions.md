@@ -2,14 +2,14 @@ GoogleSQL for Spanner supports the following machine learning (ML) functions.
 
 ## Function list
 
-| Name                                                                                                                        | Summary                                                                      |
-| --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| [`         AI.CLASSIFY        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiclassify) | Classifies a natural language input into one of specified categories.        |
-| [`         AI.IF        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiif)             | Evaluates a natural language condition.                                      |
-| [`         AI.SCORE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiscore)       | Rates a natural language input and assigns it a score.                       |
-| [`         ML.PREDICT        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict)   | Applies ML computations defined by a model to each row of an input relation. |
+| Name                                                                                                       | Summary                                                                      |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [`AI.CLASSIFY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiclassify) | Classifies a natural language input into one of specified categories.        |
+| [`AI.IF`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiif)             | Evaluates a natural language condition.                                      |
+| [`AI.SCORE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiscore)       | Rates a natural language input and assigns it a score.                       |
+| [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict)   | Applies ML computations defined by a model to each row of an input relation. |
 
-## `     AI.CLASSIFY    `
+## `AI.CLASSIFY`
 
     AI.CLASSIFY(prompt, categories)
 
@@ -24,11 +24,11 @@ The following are common use cases:
 
 **Definitions**
 
-  - `  prompt  ` : A `  STRING  ` value that specifies the input to classify. For example, `  'apple'  ` .
+  - `prompt` : A `STRING` value that specifies the input to classify. For example, `'apple'` .
 
-  - `  categories  ` : The categories by which to classify the input. You can specify categories with or without descriptions:
+  - `categories` : The categories by which to classify the input. You can specify categories with or without descriptions:
     
-      - With descriptions: Use an `  ARRAY<STRUCT<STRING, STRING>>  ` value where each struct contains the category name, followed by a description of the category. The array can only contain string literals. For example, you can use colors to classify sentiment:
+      - With descriptions: Use an `ARRAY<STRUCT<STRING, STRING>>` value where each struct contains the category name, followed by a description of the category. The array can only contain string literals. For example, you can use colors to classify sentiment:
         
             [('green', 'positive'), ('yellow', 'neutral'), ('red', 'negative')]
         
@@ -38,23 +38,23 @@ The following are common use cases:
             STRUCT('yellow' AS label, 'neutral' AS description),
             STRUCT('red' AS label, 'negative' AS description)]
     
-      - Without descriptions: Use an `  ARRAY<STRING>  ` value. The array can only contain string literals. This works well when your categories are self-explanatory. For example, you can use the following categories to classify sentiment:
+      - Without descriptions: Use an `ARRAY<STRING>` value. The array can only contain string literals. This works well when your categories are self-explanatory. For example, you can use the following categories to classify sentiment:
         
-        `  ['positive', 'neutral', 'negative']  `
+        `['positive', 'neutral', 'negative']`
     
-    To handle input that doesn't closely match a category, consider including an `  'Other'  ` category.
+    To handle input that doesn't closely match a category, consider including an `'Other'` category.
 
 **Details**
 
-`  AI.CLASSIFY  ` returns a `  STRING  ` value containing the provided category that best fits the input.
+`AI.CLASSIFY` returns a `STRING` value containing the provided category that best fits the input.
 
 The prompt value is evaluated using [Vertex AI Gemini LLM](https://docs.cloud.google.com/vertex-ai/generative-ai/docs) in the same project as the database. Enable the API before calling this function. [pricing](https://cloud.google.com/vertex-ai/pricing) applies.
 
-If the call to is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `  NULL  ` instead.
+If the call to is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
 
 **Return Type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -88,15 +88,15 @@ The following query classifies movie reviews of *The English Patient* by sentime
     WHERE
       title = 'The English Patient'
 
-## `     AI.IF    `
+## `AI.IF`
 
     AI.IF(prompt)
 
 **Description**
 
-Evaluates a condition described in natural language and returns a `  BOOL  ` .
+Evaluates a condition described in natural language and returns a `BOOL` .
 
-You can use the `  AI.IF  ` function to filter and join data based on conditions described in natural language or multimodal input. The following are common use cases:
+You can use the `AI.IF` function to filter and join data based on conditions described in natural language or multimodal input. The following are common use cases:
 
   - **Sentiment analysis** : Find customer reviews with negative sentiment.
   - **Topic analysis** : Identify news articles related to a specific subject.
@@ -105,21 +105,21 @@ You can use the `  AI.IF  ` function to filter and join data based on conditions
 
 **Definitions**
 
-  - `  prompt  ` : A `  STRING  ` value that specified the prompt to send to the model. For example, `  'Is Seattle a US city?'  ` .
+  - `prompt` : A `STRING` value that specified the prompt to send to the model. For example, `'Is Seattle a US city?'` .
 
 **Details**
 
 The prompt value is evaluated using [Vertex AI Gemini LLM](https://docs.cloud.google.com/vertex-ai/generative-ai/docs) in the same project as the database. Enable the API before calling this function. [pricing](https://cloud.google.com/vertex-ai/pricing) applies.
 
-If the call to is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `  NULL  ` instead.
+If the call to is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
 
 **Return Type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
-The following query uses the `  AI.IF  ` function to filter news stories to those that cover a natural disaster:
+The following query uses the `AI.IF` function to filter news stories to those that cover a natural disaster:
 
     -- Filter text by topic
     SELECT
@@ -130,7 +130,7 @@ The following query uses the `  AI.IF  ` function to filter news stories to thos
       AI.IF(CONCAT(
         'The following news story is about a natural disaster: ', body));
 
-The following query first filters by the equality operator, and then filters using the `  AI.IF  ` function:
+The following query first filters by the equality operator, and then filters using the `AI.IF` function:
 
     -- Combine filters
     SELECT
@@ -159,15 +159,15 @@ The following query joins tables based on whether the news is about a product:
     WHERE
       category = 'tech';
 
-## `     AI.SCORE    `
+## `AI.SCORE`
 
     AI.SCORE(prompt)
 
 **Description**
 
-Rates inputs based on a scoring system that you describe and returns a `  FLOAT64  ` value.
+Rates inputs based on a scoring system that you describe and returns a `FLOAT64` value.
 
-Use the `  AI.SCORE  ` function with the `  ORDER BY  ` clause to rank items. The following are common use cases:
+Use the `AI.SCORE` function with the `ORDER BY` clause to rank items. The following are common use cases:
 
   - **Retail** : Find the top 5 most negative customer reviews about a product.
   - **Hiring** : Find the top 10 resumes that appear most qualified for a job post.
@@ -175,23 +175,23 @@ Use the `  AI.SCORE  ` function with the `  ORDER BY  ` clause to rank items. Th
 
 **Definitions**
 
-  - `  prompt  ` : A `  STRING  ` value that specifies the input to score. For example, `  CONCAT('Rate this review: ', review_col, ' Use a scale from 1-10.')  ` .
+  - `prompt` : A `STRING` value that specifies the input to score. For example, `CONCAT('Rate this review: ', review_col, ' Use a scale from 1-10.')` .
 
 **Details**
 
-`  AI.SCORE  ` returns a `  FLOAT64  ` indicating the score assigned to the input. There is no fixed default range for the score. For best results, provide a scoring range in the prompt.
+`AI.SCORE` returns a `FLOAT64` indicating the score assigned to the input. There is no fixed default range for the score. For best results, provide a scoring range in the prompt.
 
 The prompt value is evaluated using [Vertex AI Gemini LLM](https://docs.cloud.google.com/vertex-ai/generative-ai/docs) in the same project as the database. Enable the API before calling this function. [pricing](https://cloud.google.com/vertex-ai/pricing) applies.
 
-If the call to is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `  NULL  ` instead.
+If the call to is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
 
 **Return Type**
 
-`  FLOAT64  `
+`FLOAT64`
 
 **Examples**
 
-The following query uses the `  AI.SCORE  ` function to assign ratings based on movie reviews of *The English Patient* , alongside the ratings that the human reviewers gave. It returns the top 10 highest AI rated reviews.
+The following query uses the `AI.SCORE` function to assign ratings based on movie reviews of *The English Patient* , alongside the ratings that the human reviewers gave. It returns the top 10 highest AI rated reviews.
 
     -- Rate reviews
     SELECT
@@ -209,7 +209,7 @@ The following query uses the `  AI.SCORE  ` function to assign ratings based on 
     ORDER BY ai_rating DESC
     LIMIT 10;
 
-The following query builds on the previous example by using the `  AI.IF  ` function to filter the results to show reviews that mention at least one of the film's main characters:
+The following query builds on the previous example by using the `AI.IF` function to filter the results to show reviews that mention at least one of the film's main characters:
 
     -- Rate and filter reviews
     SELECT
@@ -228,7 +228,7 @@ The following query builds on the previous example by using the `  AI.IF  ` func
     ORDER BY ai_rating DESC
     LIMIT 10;
 
-## `     ML.PREDICT    `
+## `ML.PREDICT`
 
     ML.PREDICT(input_model, input_relation[, model_parameters])
     
@@ -246,17 +246,17 @@ The following query builds on the previous example by using the `  AI.IF  ` func
 
 **Description**
 
-`  ML.PREDICT  ` is a table-valued function that helps to access registered machine learning (ML) models and use them to generate ML predictions. This function applies ML computations defined by a model to each row of an input relation, and returns the results of those predictions. Additionally, you can use `  ML.PREDICT  ` to perform vector search. When you use `  ML.PREDICT  ` for vector search, it converts your natural language query text into an embedding.
+`ML.PREDICT` is a table-valued function that helps to access registered machine learning (ML) models and use them to generate ML predictions. This function applies ML computations defined by a model to each row of an input relation, and returns the results of those predictions. Additionally, you can use `ML.PREDICT` to perform vector search. When you use `ML.PREDICT` for vector search, it converts your natural language query text into an embedding.
 
 **Note:** Make sure that Spanner has access to the referenced Vertex AI endpoint as described in [Model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model_permissions) .
 
 **Supported Argument Types**
 
-  - `  input_model  ` : The model to use for predictions. Replace `  model_name  ` with the name of the model. To create a model, see [`  CREATE_MODEL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) .
-  - `  input_relation  ` : A table or subquery upon which to apply ML computations. The set of columns of the input relation must include all input columns of the input model; otherwise, the input won't have enough data to generate predictions and the query won't compile. Additionally, the set can also include arbitrary pass-through columns that will be included in the output. The order of the columns in the input relation doesn't matter. The columns of the input relation and model must be coercible.
-  - `  input_table  ` : The table containing the input data for predictions, for example, a set of features. Replace `  table_name  ` with the name of the table.
-  - `  input_subquery  ` : The subquery that's used to generate the prediction input data.
-  - `  model_parameters  ` : A `  STRUCT  ` value that contains parameters supported by `  model_name  ` . These parameters are passed to the model inference.
+  - `input_model` : The model to use for predictions. Replace `model_name` with the name of the model. To create a model, see [`CREATE_MODEL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) .
+  - `input_relation` : A table or subquery upon which to apply ML computations. The set of columns of the input relation must include all input columns of the input model; otherwise, the input won't have enough data to generate predictions and the query won't compile. Additionally, the set can also include arbitrary pass-through columns that will be included in the output. The order of the columns in the input relation doesn't matter. The columns of the input relation and model must be coercible.
+  - `input_table` : The table containing the input data for predictions, for example, a set of features. Replace `table_name` with the name of the table.
+  - `input_subquery` : The subquery that's used to generate the prediction input data.
+  - `model_parameters` : A `STRUCT` value that contains parameters supported by `model_name` . These parameters are passed to the model inference.
 
 **Return Type**
 
@@ -269,26 +269,26 @@ A table with the following columns:
 
 **Examples**
 
-The examples in this section reference a model called `  DiamondAppraise  ` and an input table called `  Diamonds  ` with the following columns:
+The examples in this section reference a model called `DiamondAppraise` and an input table called `Diamonds` with the following columns:
 
-  - `  DiamondAppraise  ` model:
+  - `DiamondAppraise` model:
     
-    | Input columns                        | Output columns                           |
-    | ------------------------------------ | ---------------------------------------- |
-    | `          value FLOAT64         `   | `          value FLOAT64         `       |
-    | `          carat FLOAT64         `   | `          lower_bound FLOAT64         ` |
-    | `          cut STRING         `      | `          upper_bound FLOAT64         ` |
-    | `          color STRING(1)         ` |                                          |
+    | Input columns     | Output columns        |
+    | ----------------- | --------------------- |
+    | `value FLOAT64`   | `value FLOAT64`       |
+    | `carat FLOAT64`   | `lower_bound FLOAT64` |
+    | `cut STRING`      | `upper_bound FLOAT64` |
+    | `color STRING(1)` |                       |
     
 
-  - `  Diamonds  ` table:
+  - `Diamonds` table:
     
-    | Columns                            |
-    | ---------------------------------- |
-    | `          Id INT64         `      |
-    | `          Carat FLOAT64         ` |
-    | `          Cut STRING         `    |
-    | `          Color STRING         `  |
+    | Columns         |
+    | --------------- |
+    | `Id INT64`      |
+    | `Carat FLOAT64` |
+    | `Cut STRING`    |
+    | `Color STRING`  |
     
 
 The following query predicts the value of a diamond based on the diamond's carat, cut, and color.
@@ -303,7 +303,7 @@ The following query predicts the value of a diamond based on the diamond's carat
     | 2  | G     | 447   |
     +----+-------+-------+
 
-You can include model-specific parameters. For example, in the following query, the `  maxOutputTokens  ` parameter specifies that `  output  ` , the model inference, can contain 10 or fewer tokens. This query succeeds because the model `  TextBison  ` contains a parameter called `  maxOutputTokens  ` .
+You can include model-specific parameters. For example, in the following query, the `maxOutputTokens` parameter specifies that `output` , the model inference, can contain 10 or fewer tokens. This query succeeds because the model `TextBison` contains a parameter called `maxOutputTokens` .
 
     SELECT prompt, output
     FROM ML.PREDICT(
@@ -336,7 +336,7 @@ The following example generates an embedding for a natural language query. The e
     ORDER BY distance
     LIMIT 5;
 
-You can use `  ML.PREDICT  ` in any DQL/DML statements, such as `  INSERT  ` or `  UPDATE  ` . For example:
+You can use `ML.PREDICT` in any DQL/DML statements, such as `INSERT` or `UPDATE` . For example:
 
     INSERT INTO AppraisedDiamond (id, color, carat, value)
     SELECT

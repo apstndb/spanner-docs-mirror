@@ -1,8 +1,8 @@
-## Tool: `       execute_sql      `
+## Tool: `execute_sql`
 
 Execute SQL statement using a given session. \* execute\_sql tool can be used to execute DQL as well as DML statements. \* Use commit tool to commit result of a DML statement. \* DDL statements are only supported using update\_database\_schema tool.
 
-The following sample demonstrate how to use `  curl  ` to invoke the `  execute_sql  ` MCP tool.
+The following sample demonstrate how to use `curl` to invoke the `execute_sql` MCP tool.
 
 <table>
 <colgroup>
@@ -37,7 +37,7 @@ curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 
 ## Input Schema
 
-The request for `  ExecuteSql  ` .
+The request for `ExecuteSql` .
 
 ### ExecuteSqlRequest
 
@@ -52,65 +52,54 @@ The request for `  ExecuteSql  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;session&quot;: string,
-  &quot;sql&quot;: string,
-  &quot;seqno&quot;: string,
-
-  // Union field transaction can be only one of the following:
-  &quot;singleUseTransaction&quot;: boolean,
-  &quot;readOnlyTransaction&quot;: boolean,
-  &quot;readWriteTransaction&quot;: boolean,
-  &quot;existingTransactionId&quot;: string
-  // End of list of possible types for union field transaction.
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;session&quot;: string,&quot;sql&quot;: string,&quot;seqno&quot;: string,// Union field transaction can be only one of the following:&quot;singleUseTransaction&quot;: boolean,&quot;readOnlyTransaction&quot;: boolean,&quot;readWriteTransaction&quot;: boolean,&quot;existingTransactionId&quot;: string// End of list of possible types for union field transaction.}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  session  `
+`session`
 
-`  string  `
+`string`
 
-Required. The session in which the SQL query is executed. Format: `  projects/{project}/instances/{instance}/databases/{database}/sessions/{session}  `
+Required. The session in which the SQL query is executed. Format: `projects/{project}/instances/{instance}/databases/{database}/sessions/{session}`
 
-`  sql  `
+`sql`
 
-`  string  `
+`string`
 
 Required. The SQL query to execute.
 
-`  seqno  `
+`seqno`
 
-`  string ( int64 format)  `
+`string ( int64 format)`
 
 Optional. Sequence number of the request within a transaction. The sequence number must be monotonically increasing within the transaction. If a request arrives for the first time with an out-of-order sequence number, the transaction can be aborted.
 
-Union field `  transaction  ` . The transaction in which the SQL query is executed. If not set, a single use transaction will be used. For DML, use read\_write\_transaction or specify existing\_transaction\_id for previously created read-write transaction when multiple statements are part of transaction. `  transaction  ` can be only one of the following:
+Union field `transaction` . The transaction in which the SQL query is executed. If not set, a single use transaction will be used. For DML, use read\_write\_transaction or specify existing\_transaction\_id for previously created read-write transaction when multiple statements are part of transaction. `transaction` can be only one of the following:
 
-`  singleUseTransaction  `
+`singleUseTransaction`
 
-`  boolean  `
+`boolean`
 
 Use a single use transaction for query execution.
 
-`  readOnlyTransaction  `
+`readOnlyTransaction`
 
-`  boolean  `
+`boolean`
 
 Begin a new read-only transaction.
 
-`  readWriteTransaction  `
+`readWriteTransaction`
 
-`  boolean  `
+`boolean`
 
 Begin a new read-write transaction.
 
-`  existingTransactionId  `
+`existingTransactionId`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
 Use an existing transaction.
 
@@ -118,7 +107,7 @@ A base64-encoded string.
 
 ## Output Schema
 
-Results for `  execute_sql  ` tool
+Results for `execute_sql` tool
 
 ### ResultSet
 
@@ -133,40 +122,30 @@ Results for `  execute_sql  ` tool
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;metadata&quot;: {
-    object (ResultSetMetadata)
-  },
-  &quot;rows&quot;: [
-    array
-  ],
-  &quot;precommitToken&quot;: {
-    object (MultiplexedSessionPrecommitToken)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;metadata&quot;: {object (ResultSetMetadata)},&quot;rows&quot;: [array],&quot;precommitToken&quot;: {object (MultiplexedSessionPrecommitToken)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  metadata  `
+`metadata`
 
-`  object ( ResultSetMetadata  ` )
+` object ( ResultSetMetadata  ` )
 
 Metadata about the result set, such as row type information.
 
-`  rows[]  `
+`rows[]`
 
-`  array ( ListValue  ` format)
+` array ( ListValue  ` format)
 
-Each element in `  rows  ` is a row whose format is defined by \[metadata.row\_type\]\[ResultSetMetadata.row\_type\]. The ith element in each row matches the ith field in \[metadata.row\_type\]\[ResultSetMetadata.row\_type\]. Elements are encoded based on type as described `  here  ` .
+Each element in `rows` is a row whose format is defined by \[metadata.row\_type\]\[ResultSetMetadata.row\_type\]. The ith element in each row matches the ith field in \[metadata.row\_type\]\[ResultSetMetadata.row\_type\]. Elements are encoded based on type as described `here` .
 
-`  precommitToken  `
+`precommitToken`
 
-`  object ( MultiplexedSessionPrecommitToken  ` )
+` object ( MultiplexedSessionPrecommitToken  ` )
 
-Optional. A precommit token is included if the read-write transaction is on a multiplexed session. Pass the precommit token with the highest sequence number from this transaction attempt to the `  Commit  ` request for this transaction.
+Optional. A precommit token is included if the read-write transaction is on a multiplexed session. Pass the precommit token with the highest sequence number from this transaction attempt to the `Commit` request for this transaction.
 
 ### ResultSetMetadata
 
@@ -181,45 +160,35 @@ Optional. A precommit token is included if the read-write transaction is on a mu
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;rowType&quot;: {
-    object (StructType)
-  },
-  &quot;transaction&quot;: {
-    object (Transaction)
-  },
-  &quot;undeclaredParameters&quot;: {
-    object (StructType)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;rowType&quot;: {object (StructType)},&quot;transaction&quot;: {object (Transaction)},&quot;undeclaredParameters&quot;: {object (StructType)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  rowType  `
+`rowType`
 
-`  object ( StructType  ` )
+` object ( StructType  ` )
 
-Indicates the field names and types for the rows in the result set. For example, a SQL query like `  "SELECT UserId, UserName FROM Users"  ` could return a `  row_type  ` value like:
+Indicates the field names and types for the rows in the result set. For example, a SQL query like `"SELECT UserId, UserName FROM Users"` could return a `row_type` value like:
 
     "fields": [
       { "name": "UserId", "type": { "code": "INT64" } },
       { "name": "UserName", "type": { "code": "STRING" } },
     ]
 
-`  transaction  `
+`transaction`
 
-`  object ( Transaction  ` )
+` object ( Transaction  ` )
 
 If the read or SQL query began a transaction as a side-effect, the information about the new transaction is yielded here.
 
-`  undeclaredParameters  `
+`undeclaredParameters`
 
-`  object ( StructType  ` )
+` object ( StructType  ` )
 
-A SQL query can be parameterized. In PLAN mode, these parameters can be undeclared. This indicates the field names and types for those undeclared parameters in the SQL query. For example, a SQL query like `  "SELECT * FROM Users where UserId = @userId and UserName = @userName "  ` could return a `  undeclared_parameters  ` value like:
+A SQL query can be parameterized. In PLAN mode, these parameters can be undeclared. This indicates the field names and types for those undeclared parameters in the SQL query. For example, a SQL query like `"SELECT * FROM Users where UserId = @userId and UserName = @userName "` could return a `undeclared_parameters` value like:
 
     "fields": [
       { "name": "UserId", "type": { "code": "INT64" } },
@@ -239,24 +208,18 @@ A SQL query can be parameterized. In PLAN mode, these parameters can be undeclar
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;fields&quot;: [
-    {
-      object (Field)
-    }
-  ]
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;fields&quot;: [{object (Field)}]}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  fields[]  `
+`fields[]`
 
-`  object ( Field  ` )
+` object ( Field  ` )
 
-The list of fields that make up this struct. Order is significant, because values of this struct type are represented as lists, where the order of field values matches the order of fields in the `  StructType  ` . In turn, the order of fields matches the order of columns in a read request, or the order of fields in the `  SELECT  ` clause of a query.
+The list of fields that make up this struct. Order is significant, because values of this struct type are represented as lists, where the order of field values matches the order of fields in the `  StructType  ` . In turn, the order of fields matches the order of columns in a read request, or the order of fields in the `SELECT` clause of a query.
 
 ### Field
 
@@ -271,27 +234,22 @@ The list of fields that make up this struct. Order is significant, because value
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;name&quot;: string,
-  &quot;type&quot;: {
-    object (Type)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;name&quot;: string,&quot;type&quot;: {object (Type)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
-The name of the field. For reads, this is the column name. For SQL queries, it is the column alias (e.g., `  "Word"  ` in the query `  "SELECT 'hello' AS Word"  ` ), or the column name (e.g., `  "ColName"  ` in the query `  "SELECT ColName FROM Table"  ` ). Some columns might have an empty name (e.g., `  "SELECT UPPER(ColName)"  ` ). Note that a query result can contain multiple fields with the same name.
+The name of the field. For reads, this is the column name. For SQL queries, it is the column alias (e.g., `"Word"` in the query `"SELECT 'hello' AS Word"` ), or the column name (e.g., `"ColName"` in the query `"SELECT ColName FROM Table"` ). Some columns might have an empty name (e.g., `"SELECT UPPER(ColName)"` ). Note that a query result can contain multiple fields with the same name.
 
-`  type  `
+`type`
 
-`  object ( Type  ` )
+` object ( Type  ` )
 
 The type of the field.
 
@@ -308,52 +266,42 @@ The type of the field.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;code&quot;: enum (TypeCode),
-  &quot;arrayElementType&quot;: {
-    object (Type)
-  },
-  &quot;structType&quot;: {
-    object (StructType)
-  },
-  &quot;typeAnnotation&quot;: enum (TypeAnnotationCode),
-  &quot;protoTypeFqn&quot;: string
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;code&quot;: enum (TypeCode),&quot;arrayElementType&quot;: {object (Type)},&quot;structType&quot;: {object (StructType)},&quot;typeAnnotation&quot;: enum (TypeAnnotationCode),&quot;protoTypeFqn&quot;: string}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  code  `
+`code`
 
-`  enum ( TypeCode  ` )
+`enum ( TypeCode` )
 
-Required. The `  TypeCode  ` for this type.
+Required. The `TypeCode` for this type.
 
-`  arrayElementType  `
+`arrayElementType`
 
-`  object ( Type  ` )
+` object ( Type  ` )
 
-If `  code  ` == `  ARRAY  ` , then `  array_element_type  ` is the type of the array elements.
+If `code` == `ARRAY` , then `array_element_type` is the type of the array elements.
 
-`  structType  `
+`structType`
 
-`  object ( StructType  ` )
+` object ( StructType  ` )
 
-If `  code  ` == `  STRUCT  ` , then `  struct_type  ` provides type information for the struct's fields.
+If `code` == `STRUCT` , then `struct_type` provides type information for the struct's fields.
 
-`  typeAnnotation  `
+`typeAnnotation`
 
-`  enum ( TypeAnnotationCode  ` )
+`enum ( TypeAnnotationCode` )
 
-The `  TypeAnnotationCode  ` that disambiguates SQL type that Spanner will use to represent values of this type during query processing. This is necessary for some type codes because a single `  TypeCode  ` can be mapped to different SQL types depending on the SQL dialect. `  type_annotation  ` typically is not needed to process the content of a value (it doesn't affect serialization) and clients can ignore it on the read path.
+The `TypeAnnotationCode` that disambiguates SQL type that Spanner will use to represent values of this type during query processing. This is necessary for some type codes because a single `TypeCode` can be mapped to different SQL types depending on the SQL dialect. `type_annotation` typically is not needed to process the content of a value (it doesn't affect serialization) and clients can ignore it on the read path.
 
-`  protoTypeFqn  `
+`protoTypeFqn`
 
-`  string  `
+`string`
 
-If `  code  ` == `  PROTO  ` or `  code  ` == `  ENUM  ` , then `  proto_type_fqn  ` is the fully qualified name of the proto type representing the proto/enum definition.
+If `code` == `PROTO` or `code` == `ENUM` , then `proto_type_fqn` is the fully qualified name of the proto type representing the proto/enum definition.
 
 ### Transaction
 
@@ -368,44 +316,38 @@ If `  code  ` == `  PROTO  ` or `  code  ` == `  ENUM  ` , then `  proto_type_fq
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;id&quot;: string,
-  &quot;readTimestamp&quot;: string,
-  &quot;precommitToken&quot;: {
-    object (MultiplexedSessionPrecommitToken)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;id&quot;: string,&quot;readTimestamp&quot;: string,&quot;precommitToken&quot;: {object (MultiplexedSessionPrecommitToken)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  id  `
+`id`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
-`  id  ` may be used to identify the transaction in subsequent `  Read  ` , `  ExecuteSql  ` , `  Commit  ` , or `  Rollback  ` calls.
+`id` may be used to identify the transaction in subsequent `Read` , `ExecuteSql` , `Commit` , or `Rollback` calls.
 
 Single-use read-only transactions do not have IDs, because single-use transactions do not support multiple requests.
 
 A base64-encoded string.
 
-`  readTimestamp  `
+`readTimestamp`
 
-`  string ( Timestamp  ` format)
+` string ( Timestamp  ` format)
 
-For snapshot read-only transactions, the read timestamp chosen for the transaction. Not returned by default: see `  TransactionOptions.ReadOnly.return_read_timestamp  ` .
+For snapshot read-only transactions, the read timestamp chosen for the transaction. Not returned by default: see `TransactionOptions.ReadOnly.return_read_timestamp` .
 
-A timestamp in RFC3339 UTC "Zulu" format, accurate to nanoseconds. Example: `  "2014-10-02T15:01:23.045123456Z"  ` .
+A timestamp in RFC3339 UTC "Zulu" format, accurate to nanoseconds. Example: `"2014-10-02T15:01:23.045123456Z"` .
 
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
 
-`  precommitToken  `
+`precommitToken`
 
-`  object ( MultiplexedSessionPrecommitToken  ` )
+` object ( MultiplexedSessionPrecommitToken  ` )
 
-A precommit token is included in the response of a BeginTransaction request if the read-write transaction is on a multiplexed session and a mutation\_key was specified in the `  BeginTransaction  ` . The precommit token with the highest sequence number from this transaction attempt should be passed to the `  Commit  ` request for this transaction.
+A precommit token is included in the response of a BeginTransaction request if the read-write transaction is on a multiplexed session and a mutation\_key was specified in the `BeginTransaction` . The precommit token with the highest sequence number from this transaction attempt should be passed to the `Commit` request for this transaction.
 
 ### Timestamp
 
@@ -430,15 +372,15 @@ A precommit token is included in the response of a BeginTransaction request if t
 
 Fields
 
-`  seconds  `
+`seconds`
 
-`  string ( int64 format)  `
+`string ( int64 format)`
 
 Represents seconds of UTC time since Unix epoch 1970-01-01T00:00:00Z. Must be between -62135596800 and 253402300799 inclusive (which corresponds to 0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z).
 
-`  nanos  `
+`nanos`
 
-`  integer  `
+`integer`
 
 Non-negative fractions of a second at nanosecond resolution. This field is the nanosecond portion of the duration, not an alternative to seconds. Negative second values with fractions must still have non-negative nanos values that count forward in time. Must be between 0 and 999,999,999 inclusive.
 
@@ -465,17 +407,17 @@ Non-negative fractions of a second at nanosecond resolution. This field is the n
 
 Fields
 
-`  precommitToken  `
+`precommitToken`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
 Opaque precommit token.
 
 A base64-encoded string.
 
-`  seqNum  `
+`seqNum`
 
-`  integer  `
+`integer`
 
 An incrementing seq number is generated on every precommit token that is returned. Clients should remember the precommit token with the highest sequence number from the current transaction attempt.
 
@@ -503,9 +445,9 @@ An incrementing seq number is generated on every precommit token that is returne
 
 Fields
 
-`  values[]  `
+`values[]`
 
-`  value ( Value  ` format)
+` value ( Value  ` format)
 
 Repeated field of dynamically typed values.
 
@@ -522,62 +464,50 @@ Repeated field of dynamically typed values.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-
-  // Union field kind can be only one of the following:
-  &quot;nullValue&quot;: null,
-  &quot;numberValue&quot;: number,
-  &quot;stringValue&quot;: string,
-  &quot;boolValue&quot;: boolean,
-  &quot;structValue&quot;: {
-    object
-  },
-  &quot;listValue&quot;: array
-  // End of list of possible types for union field kind.
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{// Union field kind can be only one of the following:&quot;nullValue&quot;: null,&quot;numberValue&quot;: number,&quot;stringValue&quot;: string,&quot;boolValue&quot;: boolean,&quot;structValue&quot;: {object},&quot;listValue&quot;: array// End of list of possible types for union field kind.}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-Union field `  kind  ` . The kind of value. `  kind  ` can be only one of the following:
+Union field `kind` . The kind of value. `kind` can be only one of the following:
 
-`  nullValue  `
+`nullValue`
 
-`  null  `
+`null`
 
 Represents a null value.
 
-`  numberValue  `
+`numberValue`
 
-`  number  `
+`number`
 
 Represents a double value.
 
-`  stringValue  `
+`stringValue`
 
-`  string  `
+`string`
 
 Represents a string value.
 
-`  boolValue  `
+`boolValue`
 
-`  boolean  `
+`boolean`
 
 Represents a boolean value.
 
-`  structValue  `
+`structValue`
 
-`  object ( Struct  ` format)
+` object ( Struct  ` format)
 
 Represents a structured value.
 
-`  listValue  `
+`listValue`
 
-`  array ( ListValue  ` format)
+` array ( ListValue  ` format)
 
-Represents a repeated `  Value  ` .
+Represents a repeated `Value` .
 
 ### Struct
 
@@ -604,13 +534,13 @@ Represents a repeated `  Value  ` .
 
 Fields
 
-`  fields  `
+`fields`
 
-`  map (key: string, value: value ( Value  ` format))
+` map (key: string, value: value ( Value  ` format))
 
 Unordered map of dynamically typed values.
 
-An object containing a list of `  "key": value  ` pairs. Example: `  { "name": "wrench", "mass": "1.3kg", "count": "3" }  ` .
+An object containing a list of `"key": value` pairs. Example: `{ "name": "wrench", "mass": "1.3kg", "count": "3" }` .
 
 ### FieldsEntry
 
@@ -635,13 +565,13 @@ An object containing a list of `  "key": value  ` pairs. Example: `  { "name": "
 
 Fields
 
-`  key  `
+`key`
 
-`  string  `
+`string`
 
-`  value  `
+`value`
 
-`  value ( Value  ` format)
+` value ( Value  ` format)
 
 ### Tool Annotations
 

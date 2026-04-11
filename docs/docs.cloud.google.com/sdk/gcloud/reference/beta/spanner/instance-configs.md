@@ -4,32 +4,32 @@ gcloud beta spanner instance-configs - manage Cloud Spanner instance configs
 
 SYNOPSIS
 
-`  gcloud beta spanner instance-configs  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner instance-configs` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage Cloud Spanner instance configs.
+`(BETA)` Manage Cloud Spanner instance configs.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  create  `  
-    `  (BETA)  ` Create a Cloud Spanner instance configuration.
+    `(BETA)` Create a Cloud Spanner instance configuration.
   - `  delete  `  
-    `  (BETA)  ` Delete a Cloud Spanner instance configuration.
+    `(BETA)` Delete a Cloud Spanner instance configuration.
   - `  describe  `  
-    `  (BETA)  ` Describe a Cloud Spanner instance configuration.
+    `(BETA)` Describe a Cloud Spanner instance configuration.
   - `  list  `  
-    `  (BETA)  ` List the available Cloud Spanner instance configurations.
+    `(BETA)` List the available Cloud Spanner instance configurations.
   - `  update  `  
-    `  (BETA)  ` Update a Cloud Spanner instance configuration.
+    `(BETA)` Update a Cloud Spanner instance configuration.
 
 NOTES
 

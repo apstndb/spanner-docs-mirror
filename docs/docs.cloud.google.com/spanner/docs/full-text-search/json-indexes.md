@@ -6,7 +6,7 @@ For more information, see [Index JSON data](https://docs.cloud.google.com/spanne
 
 ## Tokenize JSON and JSONB
 
-You can use the `  TOKENIZE_JSON  ` function to create a JSON index in GoogleSQL, or the `  TOKENIZE_JSONB  ` function to create a JSONB index in PostgreSQL. For details, see [`  TOKENIZE_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_json) and [`  TOKENIZE_JSONB  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#indexing) .
+You can use the `TOKENIZE_JSON` function to create a JSON index in GoogleSQL, or the `TOKENIZE_JSONB` function to create a JSONB index in PostgreSQL. For details, see [`TOKENIZE_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_json) and [`TOKENIZE_JSONB`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#indexing) .
 
 ## JSON and JSONB queries
 
@@ -14,15 +14,15 @@ You can use a search index to accelerate queries that include *JSON containment*
 
   - In GoogleSQL:
     
-      - Express JSON containment in your schema by using the [`  JSON_CONTAINS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains) function.
-      - Construct key existence conditions using the field access, array subscript operators, and `  IS NOT NULL  ` . The field access and array subscript operators describe a JSON document path. `  IS NOT NULL  ` checks for the existence of this path (for example, `  doc.sub.path[@index].key IS NOT NULL  ` ).
+      - Express JSON containment in your schema by using the [`JSON_CONTAINS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains) function.
+      - Construct key existence conditions using the field access, array subscript operators, and `IS NOT NULL` . The field access and array subscript operators describe a JSON document path. `IS NOT NULL` checks for the existence of this path (for example, `doc.sub.path[@index].key IS NOT NULL` ).
 
   - In PostgreSQL:
     
-      - Express JSONB containment using the `  @>  ` and `  <@  ` operators. For more information, see [JSONB operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) .
-      - Construct key existence conditions using the `  ?  ` , `  ?|  ` , and `  ?&  ` operators. For more information, see [JSONB operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) .
+      - Express JSONB containment using the `@>` and `<@` operators. For more information, see [JSONB operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) .
+      - Construct key existence conditions using the `?` , `?|` , and `?&` operators. For more information, see [JSONB operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) .
 
-In your queries, you can include multiple JSON conditions of any type in the search index. You can also include the JSON conditions in a logical combination using `  AND  ` , `  OR  ` , and `  NOT  ` .
+In your queries, you can include multiple JSON conditions of any type in the search index. You can also include the JSON conditions in a logical combination using `AND` , `OR` , and `NOT` .
 
 ### Check search index usage
 
@@ -30,8 +30,8 @@ To check that that your query uses a search index, look for a *Search index scan
 
 ## Restrictions
 
-  - Search indexes, including JSON and JSONB search indexes, are used only in read-only transactions. Spanner might use relevant secondary indexes in a read-write transaction. If you attempt to force the use of a search index in a read-write transaction, the following error occurs: `  ERROR: spanner: code = "InvalidArgument", desc = "The search index AlbumsIndex cannot be used in transactional queries by default."  `
-  - Attempts to store certain large or very complex JSON documents in a search index might return a `  too many search token bytes  ` error. The output token size from this JSON document must be smaller than 10 MB. If you don't need the entire document to be searchable, consider extracting a smaller subset of the document (for example, by using a generated column) and searching over the column instead.
+  - Search indexes, including JSON and JSONB search indexes, are used only in read-only transactions. Spanner might use relevant secondary indexes in a read-write transaction. If you attempt to force the use of a search index in a read-write transaction, the following error occurs: `ERROR: spanner: code = "InvalidArgument", desc = "The search index AlbumsIndex cannot be used in transactional queries by default."`
+  - Attempts to store certain large or very complex JSON documents in a search index might return a `too many search token bytes` error. The output token size from this JSON document must be smaller than 10 MB. If you don't need the entire document to be searchable, consider extracting a smaller subset of the document (for example, by using a generated column) and searching over the column instead.
 
 ## What's next
 

@@ -10,17 +10,17 @@ The following is a summary of the updates made to the query optimizer in each re
 
 ### Version 8: October 28th, 2024 (default and latest)
 
-  - `  WITH  ` clauses are considered when making cost-based plan choices.
+  - `WITH` clauses are considered when making cost-based plan choices.
 
   - Improved performance of distributed cross apply and indexed lookup queries.
 
-  - Improved `  JOIN  ` reordering.
+  - Improved `JOIN` reordering.
 
-  - Improved performance of queries with large `  IN (...)  ` clauses.
+  - Improved performance of queries with large `IN (...)` clauses.
 
-  - Improved `  GROUP BY  ` performance in certain cases.
+  - Improved `GROUP BY` performance in certain cases.
 
-  - Other improvements including more efficient handling of queries with `  LIMIT  ` , foreign keys, and index selection.
+  - Other improvements including more efficient handling of queries with `LIMIT` , foreign keys, and index selection.
 
 ### Version 7: May 22nd, 2024
 
@@ -40,7 +40,7 @@ The following is a summary of the updates made to the query optimizer in each re
 
 ### Version 5: July 15th, 2022
 
-  - Improved cost model for index selection, distribution management, sort placement and `  GROUP BY  ` selection.
+  - Improved cost model for index selection, distribution management, sort placement and `GROUP BY` selection.
 
   - Added support for cost-based join algorithm selection that chooses between hash and apply join. Merge join still requires using a query hint.
 
@@ -55,7 +55,7 @@ The following is a summary of the updates made to the query optimizer in each re
       - Improved index selection when optimizer statistics are outdated.
       - Prefer secondary indexes with predicates on leading indexed columns even if the optimizer statistics are not available or report the base table is small.
 
-  - Introduces single pass hash join, enabled by the new hint `  hash_join_execution  ` .
+  - Introduces single pass hash join, enabled by the new hint `hash_join_execution` .
     
     Join Hint:
     
@@ -76,7 +76,7 @@ The following is a summary of the updates made to the query optimizer in each re
       - The number of executions on the right child of the hash join is larger than the number of executions on the hash join operator.
       - The latency on the right child of the hash join operator is also high.
     
-    By default ( `  hash_join_execution=multi_pass  ` ), if the build side input of the hash join is too large to fit in memory, the build side is split into multiple batches and we might scan the probe side multiple times. With the new mode ( `  hash_join_execution=one_pass  ` ), a hash join will spill to disk if its build side input cannot fit in memory and will always scan the probe side only once.
+    By default ( `hash_join_execution=multi_pass` ), if the build side input of the hash join is too large to fit in memory, the build side is split into multiple batches and we might scan the probe side multiple times. With the new mode ( `hash_join_execution=one_pass` ), a hash join will spill to disk if its build side input cannot fit in memory and will always scan the probe side only once.
 
   - An improvement in selecting how many keys are used for seeking.
 
@@ -128,7 +128,7 @@ The following is a summary of the updates made to the query optimizer in each re
 
   - Introduces the [distributed merge union](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-merge-union) operator, which is enabled by default when applicable. This operation improves the performance of queries.
 
-  - A small improvement to the performance of a scan under a `  GROUP BY  ` when there is no MAX or MIN aggregate (or HAVING MAX/MAX) in the SELECT list. Prior to this change, Spanner loaded the extra non-grouped column even if it was not required by the query.
+  - A small improvement to the performance of a scan under a `GROUP BY` when there is no MAX or MIN aggregate (or HAVING MAX/MAX) in the SELECT list. Prior to this change, Spanner loaded the extra non-grouped column even if it was not required by the query.
     
     For example, consider the following table:
     
@@ -151,13 +151,13 @@ The following is a summary of the updates made to the query optimizer in each re
           PRIMARY KEY(a, b, c)
         );
     
-    Prior to this change, the following query would have loaded column `  c  ` even though it is not required by the query.
+    Prior to this change, the following query would have loaded column `c` even though it is not required by the query.
     
         SELECT a, b
         FROM myTable
         GROUP BY a, b
 
-  - Improves the performance of some queries with `  LIMIT  ` when there is a cross apply operator introduced by joins and the query asks for sorted results with LIMIT. After this change, the optimizer applies the sorting with the limit on the input side of cross apply first.
+  - Improves the performance of some queries with `LIMIT` when there is a cross apply operator introduced by joins and the query asks for sorted results with LIMIT. After this change, the optimizer applies the sorting with the limit on the input side of cross apply first.
     
     Example:
     
@@ -177,7 +177,7 @@ The following is a summary of the updates made to the query optimizer in each re
         ORDER BY a1.albumid
         LIMIT 2;
 
-  - Improves query performance by pushing more computations through `  JOIN  ` .
+  - Improves query performance by pushing more computations through `JOIN` .
     
     Pushes more computations which may include a subquery or struct construction through join. That improves the query performance in a few ways such as: More computations can be done in a distributed fashion and more operations that depend on the pushed computations can be pushed down as well. For example, the query has a limit and the sort order depends on those computations, then the limit can be pushed through join as well.
     
@@ -197,8 +197,8 @@ The following is a summary of the updates made to the query optimizer in each re
 ### Version 2: March 1st, 2020
 
   - Adds optimizations in index selection.
-  - Improves the performance of `  REGEXP_CONTAINS  ` and `  LIKE  ` predicates under certain circumstances.
-  - Improves the performance of a scan under a `  GROUP BY  ` in certain situations.
+  - Improves the performance of `REGEXP_CONTAINS` and `LIKE` predicates under certain circumstances.
+  - Improves the performance of a scan under a `GROUP BY` in certain situations.
 
 ### Version 1: June 18th, 2019
 

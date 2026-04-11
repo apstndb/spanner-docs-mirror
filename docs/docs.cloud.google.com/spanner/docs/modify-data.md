@@ -28,9 +28,9 @@ To get started, select to view a Spanner table in the Google Cloud console.
 
 1.  On the table's **Data** page, click **Insert** .
     
-    The Google Cloud console displays the table's Spanner Studio page with a new query tab containing template `  INSERT  ` and `  SELECT  ` statements that you edit to insert a row in the table and view the result of that insertion.
+    The Google Cloud console displays the table's Spanner Studio page with a new query tab containing template `INSERT` and `SELECT` statements that you edit to insert a row in the table and view the result of that insertion.
 
-2.  Edit the `  INSERT  ` statement to the values you want, and edit the `  SELECT  ` statement's `  WHERE  ` clause to match the primary key value of the row you are inserting.
+2.  Edit the `INSERT` statement to the values you want, and edit the `SELECT` statement's `WHERE` clause to match the primary key value of the row you are inserting.
     
     See [INSERT statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-statement) and [Literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#literals) for information about the syntax Spanner supports.
 
@@ -42,9 +42,9 @@ To get started, select to view a Spanner table in the Google Cloud console.
 
 1.  On the table's **Data** page, select the row you want to edit, then click **Edit** .
     
-    The Google Cloud console displays the table's **Spanner Studio** page with a new query tab containing template `  UPDATE  ` and `  SELECT  ` statements that you edit to update the row in the table and view the result of that update. Note that the `  WHERE  ` clauses of both statements denote the row you selected to edit.
+    The Google Cloud console displays the table's **Spanner Studio** page with a new query tab containing template `UPDATE` and `SELECT` statements that you edit to update the row in the table and view the result of that update. Note that the `WHERE` clauses of both statements denote the row you selected to edit.
 
-2.  Edit the `  UPDATE  ` statement to reflect the updates you want to make.
+2.  Edit the `UPDATE` statement to reflect the updates you want to make.
     
     See [UPDATE statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#update-statement) and [Literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#literals) for information about the syntax Spanner supports.
 
@@ -54,7 +54,7 @@ To get started, select to view a Spanner table in the Google Cloud console.
 
 ## Delete data
 
-**Note:** Deleting a row will also delete its child rows if the child rows have `  ON DELETE CASCADE  ` enabled. However, if the child rows do not have this setting enabled, you will first have to delete all the child rows in order to delete the parent row.
+**Note:** Deleting a row will also delete its child rows if the child rows have `ON DELETE CASCADE` enabled. However, if the child rows do not have this setting enabled, you will first have to delete all the child rows in order to delete the parent row.
 
 1.  On the table's **Data** page, select one or more rows that you want to delete, then click **Delete** .
     

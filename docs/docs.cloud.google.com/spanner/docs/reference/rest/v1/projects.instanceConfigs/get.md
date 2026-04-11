@@ -42,7 +42,7 @@ us-west8
 us-east7
 
   
-`  GET https://spanner.googleapis.com/v1/{name=projects/*/instanceConfigs/*}  `
+`GET https://spanner.googleapis.com/v1/{name=projects/*/instanceConfigs/*}`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -50,15 +50,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
-Required. The name of the requested instance configuration. Values are of the form `  projects/<project>/instanceConfigs/<config>  ` .
+Required. The name of the requested instance configuration. Values are of the form `projects/<project>/instanceConfigs/<config>` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  name  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `name` :
 
-  - `  spanner.instanceConfigs.get  `
+  - `spanner.instanceConfigs.get`
 
 ### Request body
 
@@ -72,7 +72,7 @@ If successful, the response body contains an instance of `  InstanceConfig  ` .
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

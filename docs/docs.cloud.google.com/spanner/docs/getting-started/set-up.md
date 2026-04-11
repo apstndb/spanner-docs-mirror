@@ -6,8 +6,8 @@ If you want to use Spanner with the Google Cloud console, see [Quickstart using 
 
 To get the permissions that you need to use and interact with Spanner databases, ask your administrator to grant you the following IAM roles:
 
-  - Read and write data: [Cloud Spanner Database User](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `  roles/spanner.databaseUser  ` ) on the instance
-  - Read-only access to databases: [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` ) on the instance
+  - Read and write data: [Cloud Spanner Database User](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `roles/spanner.databaseUser` ) on the instance
+  - Read-only access to databases: [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` ) on the instance
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
@@ -21,7 +21,7 @@ You might also be able to get the required permissions through [custom roles](ht
 
 2.  Create a new Google Cloud project, or open an existing project by clicking on the project name.
 
-3.  Open a terminal window, and set your project as the default project for the Google Cloud CLI, replacing `  MY_PROJECT_ID  ` with your project ID (not your project name):
+3.  Open a terminal window, and set your project as the default project for the Google Cloud CLI, replacing `MY_PROJECT_ID` with your project ID (not your project name):
     
         gcloud config set project MY_PROJECT_ID
 
@@ -107,7 +107,7 @@ You can use service account impersonation to generate an access token for REST A
 
 ## Run the Google Cloud CLI
 
-Now that you've set up your development environment and authentication, run the [`  gcloud  ` command-line](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) tool to interact with Spanner:
+Now that you've set up your development environment and authentication, run the [`gcloud` command-line](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) tool to interact with Spanner:
 
     gcloud spanner instance-configs list
 

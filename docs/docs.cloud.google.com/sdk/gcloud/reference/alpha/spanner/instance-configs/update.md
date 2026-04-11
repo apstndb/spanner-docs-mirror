@@ -4,11 +4,11 @@ gcloud alpha spanner instance-configs update - update a Cloud Spanner instance c
 
 SYNOPSIS
 
-`  gcloud alpha spanner instance-configs update  ` `  INSTANCE_CONFIG  ` \[ `  --async  ` \] \[ `  --display-name  ` = `  DISPLAY_NAME  ` \] \[ `  --etag  ` = `  ETAG  ` \] \[ `  --update-labels  ` =\[ `  KEY  ` = `  VALUE  ` , …\]\] \[ `  --validate-only  ` \] \[ `  --clear-labels  ` | `  --remove-labels  ` =\[ `  KEY  ` , …\]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner instance-configs update` `  INSTANCE_CONFIG  ` \[ `  --async  ` \] \[ `  --display-name  ` = `  DISPLAY_NAME  ` \] \[ `  --etag  ` = `  ETAG  ` \] \[ `  --update-labels  ` =\[ `  KEY  ` = `  VALUE  ` , …\]\] \[ `  --validate-only  ` \] \[ `  --clear-labels  ` | `  --remove-labels  ` =\[ `  KEY  ` , …\]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Update a Cloud Spanner instance configuration.
+`(ALPHA)` Update a Cloud Spanner instance configuration.
 
 EXAMPLES
 
@@ -43,32 +43,32 @@ POSITIONAL ARGUMENTS
 
 FLAGS
 
-`  --async  `
+`--async`
 
 Return immediately, without waiting for the operation in progress to complete.
 
-`  --display-name  ` = `  DISPLAY_NAME  `
+`--display-name` = `  DISPLAY_NAME  `
 
 The name of this instance configuration as it appears in UIs.
 
-`  --etag  ` = `  ETAG  `
+`--etag` = `  ETAG  `
 
 Used for optimistic concurrency control.
 
-`  --update-labels  ` =\[ `  KEY  ` = `  VALUE  ` ,…\]
+`--update-labels` =\[ `  KEY  ` = `  VALUE  ` ,…\]
 
 List of label KEY=VALUE pairs to update. If a label exists, its value is modified. Otherwise, a new label is created.
 
-Keys must start with a lowercase character and contain only hyphens ( `  -  ` ), underscores ( `  _  ` ), lowercase characters, and numbers. Values must contain only hyphens ( `  -  ` ), underscores ( `  _  ` ), lowercase characters, and numbers.
+Keys must start with a lowercase character and contain only hyphens ( `-` ), underscores ( `_` ), lowercase characters, and numbers. Values must contain only hyphens ( `-` ), underscores ( `_` ), lowercase characters, and numbers.
 
-`  --validate-only  `
+`--validate-only`
 
 Use this flag to validate that the request will succeed before executing it.
 
 At most one of these can be specified:
 
-  - `  --clear-labels  `  
-    Remove all labels. If `  --update-labels  ` is also specified then `  --clear-labels  ` is applied first.
+  - `--clear-labels`  
+    Remove all labels. If `--update-labels` is also specified then `--clear-labels` is applied first.
     
     For example, to remove all labels:
     
@@ -82,14 +82,14 @@ At most one of these can be specified:
     gcloud alpha spanner instance-configs update --clear-labels --update-labels foo=bar,baz=qux
     ```
 
-  - `  --remove-labels  ` =\[ `  KEY  ` ,…\]  
-    List of label keys to remove. If a label does not exist it is silently ignored. If `  --update-labels  ` is also specified then `  --update-labels  ` is applied first.
+  - `--remove-labels` =\[ `  KEY  ` ,…\]  
+    List of label keys to remove. If a label does not exist it is silently ignored. If `--update-labels` is also specified then `--update-labels` is applied first.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

@@ -8,12 +8,12 @@ Spanner accelerates approximate nearest neighbor (ANN) vector searches by using 
 
 The vector index uses a tree-based structure to partition data and facilitate faster searches. Spanner offers both two-level and three-level tree configurations:
 
-  - Two-level tree configuration: Leaf nodes ( `  num_leaves  ` ) contain groups of closely related vectors along with their corresponding centroid. The root level consists of the centroids from all leaf nodes.
-  - Three-level tree configuration: Similar in concept to a two-level tree, while introducing an additional branch layer ( `  num_branches  ` ), from which leaf node centroids are further partitioned to form the root level ( `  num_leaves  ` ).
+  - Two-level tree configuration: Leaf nodes ( `num_leaves` ) contain groups of closely related vectors along with their corresponding centroid. The root level consists of the centroids from all leaf nodes.
+  - Three-level tree configuration: Similar in concept to a two-level tree, while introducing an additional branch layer ( `num_branches` ), from which leaf node centroids are further partitioned to form the root level ( `num_leaves` ).
 
-Spanner picks an index for you. However, if you know that a specific index works best, then you can use the [`  FORCE_INDEX  ` hint](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) to choose to use the most appropriate vector index for your use case.
+Spanner picks an index for you. However, if you know that a specific index works best, then you can use the [`FORCE_INDEX` hint](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) to choose to use the most appropriate vector index for your use case.
 
-For more information, see [`  VECTOR INDEX  ` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
+For more information, see [`VECTOR INDEX` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
 
 ### Limitations
 
@@ -25,13 +25,13 @@ To optimize the recall and performance of a vector index, we recommend that you:
 
   - Create your vector index after most of the rows with embeddings are written to your database. You might also need to periodically rebuild the vector index after you insert new data. For more information, see [Rebuild the vector index](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices#rebuild) .
 
-  - Use the `  STORING  ` clause to store a copy of a column in the vector index. If a column value is stored in the vector index, then Spanner performs filtering at the index's leaf level to improve query performance. We recommend that you store a column if it's used in a filtering condition. For more information about using `  STORING  ` in an index, see [Create an index for index-only scans](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) .
+  - Use the `STORING` clause to store a copy of a column in the vector index. If a column value is stored in the vector index, then Spanner performs filtering at the index's leaf level to improve query performance. We recommend that you store a column if it's used in a filtering condition. For more information about using `STORING` in an index, see [Create an index for index-only scans](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) .
 
-  - Use non-embedding key columns in the vector index. Key columns are similar to `  STORING  ` columns, but allow the query engine to perform filtering more efficiently during vector search. For more information, see [Create vector index](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_vector_index) .
+  - Use non-embedding key columns in the vector index. Key columns are similar to `STORING` columns, but allow the query engine to perform filtering more efficiently during vector search. For more information, see [Create vector index](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_vector_index) .
 
-When you create your table, the embedding column must be an array of the `  FLOAT32  ` (recommended) or `  FLOAT64  ` data type, and have a *vector\_length* annotation, indicating the dimension of the vectors. The optimal vector length depends on your workload, dataset size, and available computational resources. Experiment with different dimensions to find the smallest size that maintains accuracy and performance for your application.
+When you create your table, the embedding column must be an array of the `FLOAT32` (recommended) or `FLOAT64` data type, and have a *vector\_length* annotation, indicating the dimension of the vectors. The optimal vector length depends on your workload, dataset size, and available computational resources. Experiment with different dimensions to find the smallest size that maintains accuracy and performance for your application.
 
-The following DDL statement creates a `  Documents  ` table with an embedding column `  DocEmbedding  ` with a vector length:
+The following DDL statement creates a `Documents` table with an embedding column `DocEmbedding` with a vector length:
 
     CREATE TABLE Documents (
       UserId INT64 NOT NULL,
@@ -43,14 +43,14 @@ The following DDL statement creates a `  Documents  ` table with an embedding co
       WordCount INT64
     ) PRIMARY KEY (DocId);
 
-After you populate your `  Documents  ` table, you can create a vector index with a two-level tree and 1000 leaf nodes on the `  Documents  ` table with an embedding column `  DocEmbedding  ` using the cosine distance:
+After you populate your `Documents` table, you can create a vector index with a two-level tree and 1000 leaf nodes on the `Documents` table with an embedding column `DocEmbedding` using the cosine distance:
 
     CREATE VECTOR INDEX DocEmbeddingIndex
       ON Documents(DocEmbedding)
       STORING (WordCount)
       OPTIONS (distance_type = 'COSINE', tree_depth = 2, num_leaves = 1000);
 
-If your embedding column isn't marked as `  NOT NULL  ` in the table definition, you must declare it with a `  WHERE COLUMN_NAME IS NOT NULL  ` clause in the vector index definition, where `  COLUMN_NAME  ` is the name of your embedding column. To create a vector index with a three-level tree and 1000000 leaf nodes on the nullable embedding column `  NullableDocEmbedding  ` using the cosine distance:
+If your embedding column isn't marked as `NOT NULL` in the table definition, you must declare it with a `WHERE COLUMN_NAME IS NOT NULL` clause in the vector index definition, where `COLUMN_NAME` is the name of your embedding column. To create a vector index with a three-level tree and 1000000 leaf nodes on the nullable embedding column `NullableDocEmbedding` using the cosine distance:
 
     CREATE VECTOR INDEX DocEmbeddingThreeLevelIndex
       ON Documents(NullableDocEmbedding)
@@ -62,7 +62,7 @@ If your embedding column isn't marked as `  NOT NULL  ` in the table definition,
 
 You can also create a filtered vector index to find the most similar items in your database that match the filter condition. A filtered vector index selectively indexes rows that satisfy the specified filter conditions, improving search performance.
 
-In the following example, the table `  Documents2  ` has a column called `  Category  ` . In our vector search, we want to index the "Tech" category so we create a generated column that evaluates to `  NULL  ` if the category condition isn't met.
+In the following example, the table `Documents2` has a column called `Category` . In our vector search, we want to index the "Tech" category so we create a generated column that evaluates to `NULL` if the category condition isn't met.
 
     CREATE TABLE Documents2 (
       UserId INT64 NOT NULL,
@@ -75,7 +75,7 @@ In the following example, the table `  Documents2  ` has a column called `  Cate
       DocEmbedding ARRAY<FLOAT32>(vector_length=>128)
     ) PRIMARY KEY (DocId);
 
-Then, we create a vector index with a filter. The `  TechDocEmbeddingIndex  ` vector index only indexes documents in the "Tech" category.
+Then, we create a vector index with a filter. The `TechDocEmbeddingIndex` vector index only indexes documents in the "Tech" category.
 
     CREATE VECTOR INDEX TechDocEmbeddingIndex
       ON Documents2(DocEmbedding)
@@ -83,7 +83,7 @@ Then, we create a vector index with a filter. The `  TechDocEmbeddingIndex  ` ve
       WHERE DocEmbedding IS NOT NULL AND NullIfFiltered IS NOT NULL
       OPTIONS (...);
 
-When Spanner runs the following query, which has filters that match the `  TechDocEmbeddingIndex  ` , it automatically picks and is accelerated by `  TechDocEmbeddingIndex  ` . The query only searches documents in the "Tech" category. You can also use `  {@FORCE_INDEX=TechDocEmbeddingIndex}  ` to force Spanner to use `  TechDocEmbeddingIndex  ` explicitly.
+When Spanner runs the following query, which has filters that match the `TechDocEmbeddingIndex` , it automatically picks and is accelerated by `TechDocEmbeddingIndex` . The query only searches documents in the "Tech" category. You can also use `{@FORCE_INDEX=TechDocEmbeddingIndex}` to force Spanner to use `TechDocEmbeddingIndex` explicitly.
 
     SELECT *
     FROM Documents2
@@ -91,11 +91,11 @@ When Spanner runs the following query, which has filters that match the `  TechD
     ORDER BY APPROX_(....)
     LIMIT 10;
 
-**Note:** In this query, if you replace `  NullIfFiltered IS NOT NULL  ` with `  Category = 'Tech'  ` , then the query won't match the vector index `  TechDocEmbeddingIndex  ` .
+**Note:** In this query, if you replace `NullIfFiltered IS NOT NULL` with `Category = 'Tech'` , then the query won't match the vector index `TechDocEmbeddingIndex` .
 
 To improve query performance, you can include non-embedding key columns in your vector index. This allows the query engine to more efficiently perform filtering during vector search.
 
-In the `  CREATE VECTOR INDEX  ` statement, you must list these additional key columns after the embedding column. For example, the following statement creates a vector index that includes the `  DocName  ` and `  Author  ` key columns for more efficient filtering:
+In the `CREATE VECTOR INDEX` statement, you must list these additional key columns after the embedding column. For example, the following statement creates a vector index that includes the `DocName` and `Author` key columns for more efficient filtering:
 
     CREATE VECTOR INDEX DocEmbeddingIndexWithKeys
       ON Documents2(DocEmbedding, DocName, Author)
@@ -107,8 +107,8 @@ In the `  CREATE VECTOR INDEX  ` statement, you must list these additional key c
 
   - Learn more about Spanner [approximate nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
 
-  - Learn more about the [GoogleSQL `  APPROXIMATE_COSINE_DISTANCE()  ` , `  APPROXIMATE_EUCLIDEAN_DISTANCE()  ` , `  APPROXIMATE_DOT_PRODUCT()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
+  - Learn more about the [GoogleSQL `APPROXIMATE_COSINE_DISTANCE()` , `APPROXIMATE_EUCLIDEAN_DISTANCE()` , `APPROXIMATE_DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
 
-  - Learn more about the [GoogleSQL `  VECTOR INDEX  ` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
+  - Learn more about the [GoogleSQL `VECTOR INDEX` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
 
   - Learn more about [vector index best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) .

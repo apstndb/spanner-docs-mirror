@@ -13,7 +13,7 @@ By default, Spanner uses pessimistic concurrency with [serializable isolation](h
 
 In pessimistic concurrency, transactions acquire locks on data during both the execution and commit phases of the transaction.
 
-  - **For reads:** When a transaction reads data, it acquires a [shared read ( `  ReaderShared  ` ) lock](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes) during the execution phase. These locks are held until the transaction commits.
+  - **For reads:** When a transaction reads data, it acquires a [shared read ( `ReaderShared` ) lock](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes) during the execution phase. These locks are held until the transaction commits.
   - **For DML and writes:**
       - During execution, for data modified by DML or writes, the transaction might acquire read locks on row-existence.
       - At commit time, the transaction attempts to acquire write or exclusive locks for the written data. Write locks block concurrent reads, but might not block concurrent writes, especially when they both use write locks. This means multiple transactions can proceed to commit, and write-write conflicts are resolved at commit time using the wound-wait algorithm. All locks are held until the transaction commits.
@@ -37,7 +37,7 @@ Pessimistic concurrency is suitable for workloads with high read-write and write
 
 Spanner also provides optimistic concurrency control. When you use repeatable read isolation, the default mode is optimistic concurrency control. You can also configure serializable isolation to use optimistic concurrency control.
 
-Optimistic concurrency control assumes that conflicts are rare. Reads and queries even within a read-write transaction proceed without acquiring locks. With Spanner's default serializable isolation, reads are validated at commit time. This ensures that no other concurrently committed transaction modified the data previously read by the transaction. If you use [repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) , reads with either a `  FOR UPDATE  ` or `  lock_scanned_ranges=exclusive  ` hint are validated at commit time. If Spanner detects a conflict, it aborts the transaction.
+Optimistic concurrency control assumes that conflicts are rare. Reads and queries even within a read-write transaction proceed without acquiring locks. With Spanner's default serializable isolation, reads are validated at commit time. This ensures that no other concurrently committed transaction modified the data previously read by the transaction. If you use [repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) , reads with either a `FOR UPDATE` or `lock_scanned_ranges=exclusive` hint are validated at commit time. If Spanner detects a conflict, it aborts the transaction.
 
 ### How optimistic concurrency works
 
@@ -54,7 +54,7 @@ For an optimistic transaction with reads and writes, Spanner performs a validati
   - No concurrently committed writes conflict with the data read by this transaction; that is, no writes were committed after the read timestamp but before this transaction commits its own writes.
   - The schema wasn't modified since the read timestamp.
 
-The isolation level determines the set of reads that are validated. With serializable isolation, all reads are validated. With repeatable read isolation, reads with either a `  FOR UPDATE  ` or `  lock_scanned_ranges=exclusive  ` hint are validated at commit time.
+The isolation level determines the set of reads that are validated. With serializable isolation, all reads are validated. With repeatable read isolation, reads with either a `FOR UPDATE` or `lock_scanned_ranges=exclusive` hint are validated at commit time.
 
 Under high contention, optimistic transactions might repeatedly abort. In contrast, pessimistic transactions resolve read-write conflicts by allowing the older transaction to commit and retrying the newer transaction.
 
@@ -368,15 +368,15 @@ You can use the Spanner client libraries, REST, and RPC API to specify the concu
 
 ### REST
 
-The Spanner [TransactionOptions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions) REST API provides a `  ReadLockMode  ` enum within the `  ReadWrite  ` message that lets you select either the `  PESSIMISTIC  ` or `  OPTIMISTIC  ` lock mode.
+The Spanner [TransactionOptions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions) REST API provides a `ReadLockMode` enum within the `ReadWrite` message that lets you select either the `PESSIMISTIC` or `OPTIMISTIC` lock mode.
 
 ### RPC
 
-The Spanner [Transactionoptions](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#transactionoptions) RPC API provides a `  ReadLockMode  ` enum within the `  ReadWrite  ` message that lets you select either the `  PESSIMISTIC  ` or `  OPTIMISTIC  ` lock mode.
+The Spanner [Transactionoptions](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#transactionoptions) RPC API provides a `ReadLockMode` enum within the `ReadWrite` message that lets you select either the `PESSIMISTIC` or `OPTIMISTIC` lock mode.
 
 ### Drivers
 
-You can use Spanner's drivers to set `  read_lock_mode  ` as a connection parameter at the connection level or as a `  SET  ` statement option at the transaction level. For more information about each driver, see [Overview of drivers](https://docs.cloud.google.com/spanner/docs/drivers-overview) .
+You can use Spanner's drivers to set `read_lock_mode` as a connection parameter at the connection level or as a `SET` statement option at the transaction level. For more information about each driver, see [Overview of drivers](https://docs.cloud.google.com/spanner/docs/drivers-overview) .
 
 ## What's next
 

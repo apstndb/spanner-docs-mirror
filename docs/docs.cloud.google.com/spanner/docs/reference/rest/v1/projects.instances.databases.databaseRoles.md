@@ -7,10 +7,10 @@ There is no persistent data associated with this resource.
 
 ## Methods
 
-### `             list           `
+### `            list           `
 
 Lists Cloud Spanner database roles.
 
-### `             testIamPermissions           `
+### `            testIamPermissions           `
 
 Returns permissions that the caller has on the specified database or backup resource.

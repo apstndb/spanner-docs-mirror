@@ -10,16 +10,16 @@ To learn more about CMEK, see the [Customer-managed encryption keys (CMEK) overv
       - [Cloud HSM keys](https://docs.cloud.google.com/kms/docs/hsm#create-a-key)
       - [Cloud External Key Manager keys](https://docs.cloud.google.com/kms/docs/ekm)
     
-    The key must be in the same location as your Spanner instance. For example, if your Spanner instance configuration is in `  us-west1  ` , then your [Cloud KMS key ring location](https://docs.cloud.google.com/kms/docs/locations) must also be `  us-west1  ` .
+    The key must be in the same location as your Spanner instance. For example, if your Spanner instance configuration is in `us-west1` , then your [Cloud KMS key ring location](https://docs.cloud.google.com/kms/docs/locations) must also be `us-west1` .
     
     Not every Spanner [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configs-multi-region) has a corresponding Cloud KMS key ring location. For Spanner databases in [custom, dual-region, or multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#configuration) , you can use multiple regional (single-region) Cloud KMS keys to protect your database. For example:
     
-      - If your Spanner database is in the multi-region instance configuration `  nam14  ` , then you can create Cloud KMS keys in `  us-east4  ` , `  northamerica-northeast1  ` , and `  us-east1  ` .
-      - If your database is in a custom instance configuration that uses `  nam3  ` as the base instance configuration with an additional read-only replica in `  us-central2  ` , then you can create Cloud KMS keys in `  us-east4  ` , `  us-east1  ` , `  us-central1  ` , and `  us-central2  ` .
+      - If your Spanner database is in the multi-region instance configuration `nam14` , then you can create Cloud KMS keys in `us-east4` , `northamerica-northeast1` , and `us-east1` .
+      - If your database is in a custom instance configuration that uses `nam3` as the base instance configuration with an additional read-only replica in `us-central2` , then you can create Cloud KMS keys in `us-east4` , `us-east1` , `us-central1` , and `us-central2` .
     
     **Note:** Protecting a CMEK database with a mix of Cloud KMS multi-region and single-region keys is not supported.
     
-    Optional: To see a list of the replica locations in your Spanner instance configuration, use the [`  gcloud spanner instances get-locations  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/get-locations) command:
+    Optional: To see a list of the replica locations in your Spanner instance configuration, use the [`gcloud spanner instances get-locations`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/get-locations) command:
     
         gcloud spanner instances get-locations <var>INSTANCE_ID</var>
     
@@ -35,15 +35,15 @@ To learn more about CMEK, see the [Customer-managed encryption keys (CMEK) overv
             gcloud beta services identity create --service=spanner.googleapis.com \
                 --project=PROJECT_ID
         
-        If you're prompted to install the **gcloud Beta Commands** component, type `  Y  ` . After installation, the command is automatically restarted.
+        If you're prompted to install the **gcloud Beta Commands** component, type `Y` . After installation, the command is automatically restarted.
         
-        The [`  gcloud services identity  `](https://docs.cloud.google.com/sdk/gcloud/reference/beta/services/identity/create) command creates or gets the [service agent](https://docs.cloud.google.com/iam/docs/service-account-types#service-agent) that Spanner can use to access the Cloud KMS key on your behalf.
+        The [`gcloud services identity`](https://docs.cloud.google.com/sdk/gcloud/reference/beta/services/identity/create) command creates or gets the [service agent](https://docs.cloud.google.com/iam/docs/service-account-types#service-agent) that Spanner can use to access the Cloud KMS key on your behalf.
         
         The service account ID is formatted like an email address:
         
             Service identity created: service-xxx@gcp-sa-spanner.iam.gserviceaccount.com
     
-    2.  Grant the [Cloud KMS CryptoKey Encrypter/Decrypter](https://docs.cloud.google.com/kms/docs/reference/permissions-and-roles#predefined) ( `  cloudkms.cryptoKeyEncrypterDecrypter  ` ) role to the service account for each region ( `  --location  ` ) in your Spanner instance configuration. To do so, run the [`  gcloud kms keys add-iam-policybinding  `](https://docs.cloud.google.com/sdk/gcloud/reference/kms/keys/add-iam-policy-binding) command:
+    2.  Grant the [Cloud KMS CryptoKey Encrypter/Decrypter](https://docs.cloud.google.com/kms/docs/reference/permissions-and-roles#predefined) ( `cloudkms.cryptoKeyEncrypterDecrypter` ) role to the service account for each region ( `--location` ) in your Spanner instance configuration. To do so, run the [`gcloud kms keys add-iam-policybinding`](https://docs.cloud.google.com/sdk/gcloud/reference/kms/keys/add-iam-policy-binding) command:
         
             gcloud kms keys add-iam-policy-binding KMS_KEY \
                 --location KMS_KEY_LOCATION \
@@ -56,7 +56,7 @@ To learn more about CMEK, see the [Customer-managed encryption keys (CMEK) overv
         
             Updated IAM policy for key [KMS_KEY]
         
-        If you're using multiple Cloud KMS keys to protect your database, run the `  gcloud kms keys add-iam-policybinding  ` command for all the your keys.
+        If you're using multiple Cloud KMS keys to protect your database, run the `gcloud kms keys add-iam-policybinding` command for all the your keys.
         
         This role ensures that the service account has permission to both encrypt and decrypt with the Cloud KMS key. For more information, see [Cloud KMS permissions and roles](https://docs.cloud.google.com/kms/docs/reference/permissions-and-roles) .
 
@@ -90,7 +90,7 @@ Use the console to create databases in regional instance configurations.
 
 ### gcloud
 
-To create a CMEK-enabled database in a regional, custom, or multi-region instance configuration, run the [`  gcloud spanner databases create  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/create) command:
+To create a CMEK-enabled database in a regional, custom, or multi-region instance configuration, run the [`gcloud spanner databases create`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/create) command:
 
     gcloud spanner databases create DATABASE \
       --project=SPANNER_PROJECT_ID \
@@ -101,13 +101,13 @@ To create a CMEK-enabled database in a regional, custom, or multi-region instanc
       --kms-keyring=KMS_KEYRING \
       --kms-keys=KMS_KEY_1[, KMS_KEY_2 ... ]
 
-To verify that a database is CMEK-enabled, run the [`  gcloud spanner databases describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/describe) command:
+To verify that a database is CMEK-enabled, run the [`gcloud spanner databases describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/describe) command:
 
     gcloud spanner databases describe DATABASE \
       --project=SPANNER_PROJECT_ID \
       --instance=INSTANCE_ID
 
-CMEK-enabled databases include a field for `  encryptionConfig  ` , as shown in the following example output:
+CMEK-enabled databases include a field for `encryptionConfig` , as shown in the following example output:
 
     encryptionConfig:
       kmsKeyNames:projects/my-kms-project/locations/eur5/keyRings/my-kms-key-ring/cryptoKeys/my-kms-key
@@ -1049,9 +1049,9 @@ To create a CMEK-enabled database in a multi-region instance configuration:
 
 ## View the key versions in use
 
-The database's [`  encryption_info  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.encryption_info) field shows information about key versions.
+The database's [`encryption_info`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.encryption_info) field shows information about key versions.
 
-When a database's key version changes, the change isn't immediately propagated to `  encryption_info  ` . There might be a delay before the change is reflected in this field.
+When a database's key version changes, the change isn't immediately propagated to `encryption_info` . There might be a delay before the change is reflected in this field.
 
 ### Console
 
@@ -1069,7 +1069,7 @@ When a database's key version changes, the change isn't immediately propagated t
 
 ### gcloud
 
-You can get a database's `  encryption_info  ` by running the [`  gcloud spanner databases describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/describe) or [`  gcloud spanner databases list  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/list) command. For example:
+You can get a database's `encryption_info` by running the [`gcloud spanner databases describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/describe) or [`gcloud spanner databases list`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/list) command. For example:
 
     gcloud spanner databases describe DATABASE \
         --project=SPANNER_PROJECT_ID \
@@ -1099,7 +1099,7 @@ Here's an example output:
             --instance=INSTANCE_ID \
             --sql='SELECT * FROM Users'
     
-    The following error message appears: `  KMS key required by the Spanner resource is not accessible.  `
+    The following error message appears: `KMS key required by the Spanner resource is not accessible.`
 
 ## Enable the key
 
@@ -1158,7 +1158,7 @@ The **Backups** table displays encryption information for each backup.
 
 ### gcloud
 
-To create a CMEK-enabled backup in a regional, custom, or multi-region instance configuration, run the [`  gcloud spanner backups create  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/create) command:
+To create a CMEK-enabled backup in a regional, custom, or multi-region instance configuration, run the [`gcloud spanner backups create`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/create) command:
 
     gcloud spanner backups create BACKUP \
         --project=SPANNER_PROJECT_ID \
@@ -1947,8 +1947,7 @@ To create a CMEK-enabled backup in a regional instance configuration:
             );
         } else {
             print('Backup is not ready!' . PHP_EOL);
-        }
-    }
+     }}
 
 To create a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -2020,8 +2019,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
             );
         } else {
             print('Backup is not ready!' . PHP_EOL);
-        }
-    }
+     }}
 
 **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
@@ -2242,7 +2240,7 @@ Use the console to copy a backup in a regional instance configuration.
 
 ### gcloud
 
-To copy a backup, with a new encryption configuration, to a different instance in the same project, run the following [`  gcloud spanner backups copy  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/copy) command:
+To copy a backup, with a new encryption configuration, to a different instance in the same project, run the following [`gcloud spanner backups copy`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/copy) command:
 
     gcloud spanner backups copy --async \
         --source-instance=INSTANCE_ID \
@@ -2253,7 +2251,7 @@ To copy a backup, with a new encryption configuration, to a different instance i
         --encryption-type=CUSTOMER_MANAGED_ENCRYPTION \
         --kms-keys=KMS_KEY_1[, KMS_KEY_2 ... ]
 
-To copy a backup, with a new encryption configuration, to a different instance in a different project, run the following [`  gcloud spanner backups copy  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/copy) command:
+To copy a backup, with a new encryption configuration, to a different instance in a different project, run the following [`gcloud spanner backups copy`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/copy) command:
 
     gcloud spanner backups copy --async \
         --source-backup=SOURCE_BACKUP_NAME \
@@ -2863,7 +2861,7 @@ Use the console to restore a backup in a regional instance configuration.
 
 ### gcloud
 
-To restore a backup, with a new encryption configuration, run the following [`  gcloud spanner databases restore  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/restore) command:
+To restore a backup, with a new encryption configuration, run the following [`gcloud spanner databases restore`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/restore) command:
 
     gcloud spanner databases restore --async \
         --project=SPANNER_PROJECT_ID \
@@ -3761,6 +3759,6 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
         resource.labels.key_ring_id="KMS_KEY_RING_ID"
         resource.labels.crypto_key_id="KMS_KEY_ID"
     
-    Under normal operations, encrypt and decrypt actions are logged with `  INFO  ` severity. These entries are logged as the zones in your Spanner instance poll the Cloud KMS key about every five minutes.
+    Under normal operations, encrypt and decrypt actions are logged with `INFO` severity. These entries are logged as the zones in your Spanner instance poll the Cloud KMS key about every five minutes.
     
-    If Spanner fails to access the key, the operations are logged as `  ERROR  ` .
+    If Spanner fails to access the key, the operations are logged as `ERROR` .

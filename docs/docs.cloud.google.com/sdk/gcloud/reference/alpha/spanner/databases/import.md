@@ -4,11 +4,11 @@ gcloud alpha spanner databases import - import data from various source files to
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases import  ` `  --database  ` = `  DATABASE  ` `  --instance  ` = `  INSTANCE  ` `  --source-format  ` = `  SOURCE_FORMAT  ` `  --source-uri  ` = `  SOURCE_URI  ` \[ `  --csv-field-delimiter  ` = `  CSV_FIELD_DELIMITER  ` \] \[ `  --csv-line-delimiter  ` = `  CSV_LINE_DELIMITER  ` \] \[ `  --database-dialect  ` = `  DATABASE_DIALECT  ` \] \[ `  --schema-uri  ` = `  SCHEMA_URI  ` \] \[ `  --table-name  ` = `  TABLE_NAME  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases import` `  --database  ` = `  DATABASE  ` `  --instance  ` = `  INSTANCE  ` `  --source-format  ` = `  SOURCE_FORMAT  ` `  --source-uri  ` = `  SOURCE_URI  ` \[ `  --csv-field-delimiter  ` = `  CSV_FIELD_DELIMITER  ` \] \[ `  --csv-line-delimiter  ` = `  CSV_LINE_DELIMITER  ` \] \[ `  --database-dialect  ` = `  DATABASE_DIALECT  ` \] \[ `  --schema-uri  ` = `  SCHEMA_URI  ` \] \[ `  --table-name  ` = `  TABLE_NAME  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Import data from various source files to Cloud Spanner.
+`(ALPHA)` Import data from various source files to Cloud Spanner.
 
 EXAMPLES
 
@@ -24,33 +24,33 @@ gcloud alpha spanner databases import --instance=instanceA --database=databaseA 
 
 REQUIRED FLAGS
 
-  - `  --database  ` = `  DATABASE  `  
+  - `--database` = `  DATABASE  `  
     Cloud Spanner database ID.
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     Cloud Spanner instance ID.
-  - `  --source-format  ` = `  SOURCE_FORMAT  `  
+  - `--source-format` = `  SOURCE_FORMAT  `  
     Format of the file with data to import.Supported formats: csv or mysqldump or pgdump
-  - `  --source-uri  ` = `  SOURCE_URI  `  
+  - `--source-uri` = `  SOURCE_URI  `  
     URI of the file with data to import
 
 OPTIONAL FLAGS
 
-  - `  --csv-field-delimiter  ` = `  CSV_FIELD_DELIMITER  `  
+  - `--csv-field-delimiter` = `  CSV_FIELD_DELIMITER  `  
     Field delimiter for CSV files.
-  - `  --csv-line-delimiter  ` = `  CSV_LINE_DELIMITER  `  
+  - `--csv-line-delimiter` = `  CSV_LINE_DELIMITER  `  
     Line delimiter for CSV files.
-  - `  --database-dialect  ` = `  DATABASE_DIALECT  `  
-    Dialect for the spanner database. `  DATABASE_DIALECT  ` must be one of: `  POSTGRESQL  ` , `  GOOGLE_STANDARD_SQL  ` .
-  - `  --schema-uri  ` = `  SCHEMA_URI  `  
+  - `--database-dialect` = `  DATABASE_DIALECT  `  
+    Dialect for the spanner database. `  DATABASE_DIALECT  ` must be one of: `POSTGRESQL` , `GOOGLE_STANDARD_SQL` .
+  - `--schema-uri` = `  SCHEMA_URI  `  
     URI of the file with schema of the data to import
-  - `  --table-name  ` = `  TABLE_NAME  `  
+  - `--table-name` = `  TABLE_NAME  `  
     Cloud Spanner table name
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

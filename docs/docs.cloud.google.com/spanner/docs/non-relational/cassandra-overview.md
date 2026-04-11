@@ -103,119 +103,119 @@ The following table shows supported Cassandra data types and maps each data type
 
 **Numeric types**
 
-`  tinyint  ` (8-bit signed integer)
+`tinyint` (8-bit signed integer)
 
-`  INT64  ` (64-bit signed integer)
+`INT64` (64-bit signed integer)
 
 Spanner supports a single 64-bit wide data type for signed integers.
 
-`  smallint  ` (16-bit signed integer)
+`smallint` (16-bit signed integer)
 
-`  int  ` (32-bit signed integer)
+`int` (32-bit signed integer)
 
-`  bigint  ` (64-bit signed integer)
+`bigint` (64-bit signed integer)
 
-`  float  ` (32-bit IEEE-754 floating point)
+`float` (32-bit IEEE-754 floating point)
 
-`  FLOAT32  ` (32-bit IEEE-754 floating point)
+`FLOAT32` (32-bit IEEE-754 floating point)
 
-`  double  ` (64-bit IEEE-754 floating point)
+`double` (64-bit IEEE-754 floating point)
 
-`  FLOAT64  ` (64-bit IEEE-754 floating point)
+`FLOAT64` (64-bit IEEE-754 floating point)
 
-`  decimal  `
+`decimal`
 
-For fixed precision decimal numbers, use the `  NUMERIC  ` data type (precision 38 scale 9).
+For fixed precision decimal numbers, use the `NUMERIC` data type (precision 38 scale 9).
 
-`  varint  ` (variable precision integer)
+`varint` (variable precision integer)
 
 **String types**
 
-`  text  `
+`text`
 
-`  STRING(MAX)  `
+`STRING(MAX)`
 
-Both `  text  ` and `  varchar  ` store and validate for UTF-8 strings. In Spanner, `  STRING  ` columns need to specify their maximum length. There is no impact on storage; this is for validation purposes.
+Both `text` and `varchar` store and validate for UTF-8 strings. In Spanner, `STRING` columns need to specify their maximum length. There is no impact on storage; this is for validation purposes.
 
-`  varchar  `
+`varchar`
 
-`  ascii  `
+`ascii`
 
-`  STRING(MAX)  `
+`STRING(MAX)`
 
-`  uuid  `
+`uuid`
 
-`  STRING(MAX)  `
+`STRING(MAX)`
 
-`  timeuuid  `
+`timeuuid`
 
-`  STRING(MAX)  `
+`STRING(MAX)`
 
-`  inet  `
+`inet`
 
-`  STRING(MAX)  `
+`STRING(MAX)`
 
-`  blob  `
+`blob`
 
-`  BYTES(MAX)  `
+`BYTES(MAX)`
 
-To store binary data, use the `  BYTES  ` data type.
+To store binary data, use the `BYTES` data type.
 
 **Date and time types**
 
-`  date  `
+`date`
 
-`  DATE  `
+`DATE`
 
-`  time  `
+`time`
 
-`  INT64  `
+`INT64`
 
-Spanner doesn't support a dedicated time data type. Use `  INT64  ` to store nanosecond duration.
+Spanner doesn't support a dedicated time data type. Use `INT64` to store nanosecond duration.
 
-`  timestamp  `
+`timestamp`
 
-`  TIMESTAMP  `
+`TIMESTAMP`
 
-`  duration  `
+`duration`
 
-`  STRING(MAX)  `
+`STRING(MAX)`
 
-Spanner doesn't support a stored duration type. Use `  STRING  ` to store duration.
+Spanner doesn't support a stored duration type. Use `STRING` to store duration.
 
 **Container types**
 
-`  set  `
+`set`
 
-`  ARRAY  `
+`ARRAY`
 
-Spanner doesn't support a dedicated `  set  ` data type. Use `  ARRAY  ` columns to represent a `  set  ` .
+Spanner doesn't support a dedicated `set` data type. Use `ARRAY` columns to represent a `set` .
 
-`  list  `
+`list`
 
-`  ARRAY  `
+`ARRAY`
 
-Use `  ARRAY  ` to store a list of typed objects.
+Use `ARRAY` to store a list of typed objects.
 
-`  map  `
+`map`
 
-`  JSON  `
+`JSON`
 
-Spanner doesn't support a dedicated map type. Use `  JSON  ` columns to represent maps.
+Spanner doesn't support a dedicated map type. Use `JSON` columns to represent maps.
 
 **Other types**
 
-`  boolean  `
+`boolean`
 
-`  BOOL  `
+`BOOL`
 
-`  counter  `
+`counter`
 
-`  INT64  `
+`INT64`
 
 #### Data type Annotations
 
-The `  cassandra_type  ` column option lets you define mappings between the Cassandra and Spanner data types. When you create a table in Spanner that you intend to interact with it using Cassandra-compatible queries, you can use the `  cassandra_type  ` option to specify the corresponding Cassandra data type for each column. This mapping is then used by Spanner to correctly interpret and convert data when transferring it between the two database systems.
+The `cassandra_type` column option lets you define mappings between the Cassandra and Spanner data types. When you create a table in Spanner that you intend to interact with it using Cassandra-compatible queries, you can use the `cassandra_type` option to specify the corresponding Cassandra data type for each column. This mapping is then used by Spanner to correctly interpret and convert data when transferring it between the two database systems.
 
 For example, if there's a table in Cassandra with the following schema:
 
@@ -246,28 +246,28 @@ In Spanner, you use type annotations to map to the Cassandra data types, as show
       ...
     ) PRIMARY KEY (albumId);
 
-In the previous example, the `  OPTIONS  ` clause maps the column's Spanner data type to its corresponding Cassandra data type.
+In the previous example, the `OPTIONS` clause maps the column's Spanner data type to its corresponding Cassandra data type.
 
-  - `  albumId  ` (Spanner `  STRING(MAX)  ` ) is mapped to `  uuid  ` in Cassandra.
-  - `  title  ` (Spanner `  STRING(MAX)  ` ) is mapped to `  varchar  ` in Cassandra.
-  - `  artists  ` (Spanner `  ARRAY<STRING(MAX)>  ` ) is mapped to `  set<varchar>  ` in Cassandra.
-  - `  tags  ` (Spanner `  JSON  ` ) is mapped to `  map<varchar,varchar>  ` in Cassandra.
-  - `  numberOfSongs  ` (Spanner `  INT64  ` ) is mapped to `  tinyint  ` in Cassandra.
-  - `  releaseDate  ` (Spanner `  DATE  ` ) is mapped to `  date  ` in Cassandra.
-  - `  copiesSold  ` (Spanner `  INT64  ` ) is mapped to `  bigint  ` in Cassandra.
-  - `  score  ` (Spanner `  ARRAY<INT64>  ` ) is mapped to `  frozen<set<int>>  ` in Cassandra.
+  - `albumId` (Spanner `STRING(MAX)` ) is mapped to `uuid` in Cassandra.
+  - `title` (Spanner `STRING(MAX)` ) is mapped to `varchar` in Cassandra.
+  - `artists` (Spanner `ARRAY<STRING(MAX)>` ) is mapped to `set<varchar>` in Cassandra.
+  - `tags` (Spanner `JSON` ) is mapped to `map<varchar,varchar>` in Cassandra.
+  - `numberOfSongs` (Spanner `INT64` ) is mapped to `tinyint` in Cassandra.
+  - `releaseDate` (Spanner `DATE` ) is mapped to `date` in Cassandra.
+  - `copiesSold` (Spanner `INT64` ) is mapped to `bigint` in Cassandra.
+  - `score` (Spanner `ARRAY<INT64>` ) is mapped to `frozen<set<int>>` in Cassandra.
 
-##### Modify the `     cassandra_type    ` option
+##### Modify the `cassandra_type` option
 
-You can use the `  ALTER TABLE  ` statement to add or modify the `  cassandra_type  ` option on existing columns.
+You can use the `ALTER TABLE` statement to add or modify the `cassandra_type` option on existing columns.
 
-To add a `  cassandra_type  ` option to a column that doesn't have it yet, use the following statement:
+To add a `cassandra_type` option to a column that doesn't have it yet, use the following statement:
 
     ALTER TABLE Albums ALTER COLUMN uuid SET OPTIONS (cassandra_type='uuid');
 
-In this example, the `  uuid  ` column in the Albums table is updated with the `  cassandra_type  ` option set to `  uuid  ` .
+In this example, the `uuid` column in the Albums table is updated with the `cassandra_type` option set to `uuid` .
 
-To modify an existing `  cassandra_type  ` option, use the `  ALTER TABLE  ` statement with the new `  cassandra_type  ` value. For example, to change the `  cassandra_type  ` of the `  numberOfSongs  ` column in the Albums table from `  tinyint  ` to `  bigint  ` , use the following statement:
+To modify an existing `cassandra_type` option, use the `ALTER TABLE` statement with the new `cassandra_type` value. For example, to change the `cassandra_type` of the `numberOfSongs` column in the Albums table from `tinyint` to `bigint` , use the following statement:
 
     ALTER TABLE Albums ALTER COLUMN numberOfSongs SET OPTIONS (cassandra_type='bigint');
 
@@ -284,9 +284,9 @@ You are only permitted to modify the following types:
 
 ##### Direct and nuanced mappings
 
-In many cases, the mapping between Spanner and Cassandra data types is straightforward. For example, a Spanner `  STRING(MAX)  ` maps to a Cassandra `  varchar  ` , and a Spanner `  INT64  ` maps to a Cassandra `  bigint  ` .
+In many cases, the mapping between Spanner and Cassandra data types is straightforward. For example, a Spanner `STRING(MAX)` maps to a Cassandra `varchar` , and a Spanner `INT64` maps to a Cassandra `bigint` .
 
-However, there are situations where the mapping requires more consideration and adjustment. For example, you might need to map a Cassandra `  smallint  ` to a Spanner `  INT64  ` .
+However, there are situations where the mapping requires more consideration and adjustment. For example, you might need to map a Cassandra `smallint` to a Spanner `INT64` .
 
 ### Supported Cassandra functions
 
@@ -295,13 +295,13 @@ This section lists the Cassandra functions supported in Spanner.
 The following list shows Spanner support for Cassandra functions.
 
   - All [aggregate functions](https://cassandra.apache.org/doc/4.1/cassandra/cql/functions.html#aggregate-functions)
-  - All [datetime functions](https://cassandra.apache.org/doc/4.1/cassandra/cql/functions.html#datetime-functions) except for `  currentTimeUUID  `
+  - All [datetime functions](https://cassandra.apache.org/doc/4.1/cassandra/cql/functions.html#datetime-functions) except for `currentTimeUUID`
   - All [cast functions](https://cassandra.apache.org/doc/4.1/cassandra/cql/functions.html#cast) except for blob conversion functions
-  - All [lightweight transaction functions](https://docs.datastax.com/en/cql-oss/3.3/cql/cql_using/useInsertLWT.html) except for [`  BATCH  `](https://docs.datastax.com/en/cql-oss/3.x/cql/cql_reference/cqlBatch.html) conditions
+  - All [lightweight transaction functions](https://docs.datastax.com/en/cql-oss/3.3/cql/cql_using/useInsertLWT.html) except for [`BATCH`](https://docs.datastax.com/en/cql-oss/3.x/cql/cql_reference/cqlBatch.html) conditions
 
 ### Time to live (TTL)
 
-When migrating from Cassandra, add a row deletion policy to your Spanner table in order to use the `  USING TTL  ` option in `  INSERT  ` or `  UPDATE  ` statements or the Spanner TTL.
+When migrating from Cassandra, add a row deletion policy to your Spanner table in order to use the `USING TTL` option in `INSERT` or `UPDATE` statements or the Spanner TTL.
 
 The Spanner TTL logic operates at the *row level* , in contrast to Cassandra, where TTL logic can be applied at the *cell level* . To use the Spanner TTL, you must include a timestamp column and a time interval in the row deletion policy. Spanner deletes the row after the row exceeds the specified duration relative to the timestamp.
 
@@ -315,8 +315,8 @@ It's important to understand that the Cassandra interface provides the capabilit
 
 The following list provides more information on unsupported Cassandra features:
 
-  - **Some CQL language features aren't supported** : user defined types and functions, `  token  ` function.
-  - **Spanner and Google Cloud control plane** : databases with Cassandra interfaces use Spanner and Google Cloud tools to provision, secure, monitor, and optimize instances. Spanner doesn't support tools, such as `  nodetool  ` for administrative activities.
+  - **Some CQL language features aren't supported** : user defined types and functions, `token` function.
+  - **Spanner and Google Cloud control plane** : databases with Cassandra interfaces use Spanner and Google Cloud tools to provision, secure, monitor, and optimize instances. Spanner doesn't support tools, such as `nodetool` for administrative activities.
 
 ### DDL support
 
@@ -333,13 +333,13 @@ CQL DDL statements are not directly supported using Cassandra interface. For DDL
     Spanner lets you connect to databases from a variety of clients:
     
       - Cassandra Adapter can be used as an in-process helper or as a sidecar proxy to connect your Cassandra applications to Cassandra interface. For more information, see [Connect to Spanner using the Cassandra Adapter](https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter) .
-      - Cassandra Adapter can be started as a standalone process locally and connected using `  CQLSH  ` . For more information, see [Connect the Cassandra interface to your application](https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter#standalone) .
+      - Cassandra Adapter can be started as a standalone process locally and connected using `CQLSH` . For more information, see [Connect the Cassandra interface to your application](https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter#standalone) .
     
     </div>
 
 ### Access control with Identity and Access Management
 
-You need to have the `  spanner.databases.adapt  ` , `  spanner.databases.select  ` , and `  spanner.databases.write  ` permissions to perform read and write operations against the Cassandra endpoint. For more information, see the [IAM overview](https://docs.cloud.google.com/spanner/docs/iam) .
+You need to have the `spanner.databases.adapt` , `spanner.databases.select` , and `spanner.databases.write` permissions to perform read and write operations against the Cassandra endpoint. For more information, see the [IAM overview](https://docs.cloud.google.com/spanner/docs/iam) .
 
 For more information about how to grant Spanner IAM permissions, see [Apply IAM roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
 
@@ -347,24 +347,24 @@ For more information about how to grant Spanner IAM permissions, see [Apply IAM 
 
 Spanner provides the following metrics to help you monitor the Cassandra Adapter:
 
-  - `  spanner.googleapis.com/api/adapter_request_count  ` : captures and exposes the number of adapter requests that Spanner performs per second, or the number of errors that occurs on the Spanner server per second.
-  - `  spanner.googleapis.com/api/adapter_request_latencies  ` : captures and exposes the amount of time that Spanner takes to handle adapter requests.
+  - `spanner.googleapis.com/api/adapter_request_count` : captures and exposes the number of adapter requests that Spanner performs per second, or the number of errors that occurs on the Spanner server per second.
+  - `spanner.googleapis.com/api/adapter_request_latencies` : captures and exposes the amount of time that Spanner takes to handle adapter requests.
 
 You can create a custom Cloud Monitoring dashboard to display and monitor metrics for Cassandra Adapter. The custom dashboard contains the following charts:
 
-  - **P99 Request Latencies** : The 99th percentile distribution of server request latencies per `  message_type  ` for your database.
+  - **P99 Request Latencies** : The 99th percentile distribution of server request latencies per `message_type` for your database.
 
-  - **P50 Request Latencies** : The 50th percentile distribution of server request latencies per `  message_type  ` for your database.
+  - **P50 Request Latencies** : The 50th percentile distribution of server request latencies per `message_type` for your database.
 
-  - **API Request Count by Message Type** : The API request count per `  message_type  ` for your database.
+  - **API Request Count by Message Type** : The API request count per `message_type` for your database.
 
-  - **API Request Count by Operation Type** : The API request count per `  op_type  ` for your database.
+  - **API Request Count by Operation Type** : The API request count per `op_type` for your database.
 
   - **Error Rates** : The API error rates for your database.
 
 ### Google Cloud console
 
-1.  Download the [`  cassandra-adapter-dashboard.json  `](https://docs.cloud.google.com/static/spanner/docs/non-relational/cassandra-adapter-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
+1.  Download the [`cassandra-adapter-dashboard.json`](https://docs.cloud.google.com/static/spanner/docs/non-relational/cassandra-adapter-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
 
 2.  In the Google Cloud console, go to the dashboard **Dashboards** page:
     
@@ -376,21 +376,21 @@ You can create a custom Cloud Monitoring dashboard to display and monitor metric
 
 4.  In the dashboard toolbar, click the **Dashboard settings** icon. Then select **JSON** , followed by **JSON Editor** .
 
-5.  In the **JSON Editor** pane, copy the contents of the `  cassandra-adapter-dashboard.json  ` file you downloaded and paste it in the editor.
+5.  In the **JSON Editor** pane, copy the contents of the `cassandra-adapter-dashboard.json` file you downloaded and paste it in the editor.
 
 6.  To apply your changes to the dashboard, click **Apply changes** . If you don't want to use this dashboard, navigate back to the Dashboards Overview page.
 
-7.  After the dashboard is created, click **Add Filter** . Then select either `  project_id  ` or `  instance_id  ` to monitor the Cassandra Adapter.
+7.  After the dashboard is created, click **Add Filter** . Then select either `project_id` or `instance_id` to monitor the Cassandra Adapter.
 
 ### gcloud CLI
 
-1.  Download the [`  cassandra-adapter-dashboard.json  `](https://docs.cloud.google.com/static/spanner/docs/non-relational/cassandra-adapter-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
+1.  Download the [`cassandra-adapter-dashboard.json`](https://docs.cloud.google.com/static/spanner/docs/non-relational/cassandra-adapter-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
 
-2.  To create a dashboard in a project, use the `  gcloud monitoring dashboards create  ` command:
+2.  To create a dashboard in a project, use the `gcloud monitoring dashboards create` command:
     
         gcloud monitoring dashboards create --config-from-file=cassandra-adapter-dashboard.json
     
-    For more information, see the [`  gcloud monitoring dashboards create  `](https://docs.cloud.google.com/sdk/gcloud/reference/monitoring/dashboards/create) reference.
+    For more information, see the [`gcloud monitoring dashboards create`](https://docs.cloud.google.com/sdk/gcloud/reference/monitoring/dashboards/create) reference.
 
 Additionally, the following Spanner metrics are helpful for monitoring the Cassandra Adapter:
 

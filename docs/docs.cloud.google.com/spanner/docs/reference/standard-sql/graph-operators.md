@@ -2,17 +2,17 @@ Graph Query Language (GQL) supports all GoogleSQL [operators](https://docs.cloud
 
 ## Graph operators list
 
-| Name                                                                                                                                                        | Summary                                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Graph concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#graph_concatenation_operator)              | Combines multiple graph paths into one and preserves the original order of the nodes and edges.                                                 |
-| [Graph logical operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#graph_logical_operators)                        | Tests for the truth of a condition in a graph label and produces either `        TRUE       ` or `        FALSE       ` .                       |
-| [Graph predicates](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#graph_predicates)                                      | Tests for the truth of a condition for a graph element and produces `        TRUE       ` , `        FALSE       ` , or `        NULL       ` . |
-| [`         ALL_DIFFERENT        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#all_different_predicate)     | In a graph, checks to see if the elements in a list are all different.                                                                          |
-| [`         IS DESTINATION        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_destination_predicate)   | In a graph, checks to see if a node is or isn't the destination of an edge.                                                                     |
-| [`         IS LABELED        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_labeled_predicate)           | In a graph, checks to see if a node or edge label satisfies a label expression.                                                                 |
-| [`         IS SOURCE        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_source_predicate)             | In a graph, checks to see if a node is or isn't the source of an edge.                                                                          |
-| [`         PROPERTY_EXISTS        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#property_exists_predicate) | In a graph, checks to see if a property exists for an element.                                                                                  |
-| [`         SAME        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#same_predicate)                       | In a graph, checks if all graph elements in a list bind to the same node or edge.                                                               |
+| Name                                                                                                                                           | Summary                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| [Graph concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#graph_concatenation_operator) | Combines multiple graph paths into one and preserves the original order of the nodes and edges.    |
+| [Graph logical operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#graph_logical_operators)           | Tests for the truth of a condition in a graph label and produces either `TRUE` or `FALSE` .        |
+| [Graph predicates](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#graph_predicates)                         | Tests for the truth of a condition for a graph element and produces `TRUE` , `FALSE` , or `NULL` . |
+| [`ALL_DIFFERENT` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#all_different_predicate)         | In a graph, checks to see if the elements in a list are all different.                             |
+| [`IS DESTINATION` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_destination_predicate)       | In a graph, checks to see if a node is or isn't the destination of an edge.                        |
+| [`IS LABELED` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_labeled_predicate)               | In a graph, checks to see if a node or edge label satisfies a label expression.                    |
+| [`IS SOURCE` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_source_predicate)                 | In a graph, checks to see if a node is or isn't the source of an edge.                             |
+| [`PROPERTY_EXISTS` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#property_exists_predicate)     | In a graph, checks to see if a property exists for an element.                                     |
+| [`SAME` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#same_predicate)                           | In a graph, checks if all graph elements in a list bind to the same node or edge.                  |
 
 ## Graph concatenation operator
 
@@ -24,7 +24,7 @@ Combines multiple graph paths into one and preserves the original order of the n
 
 Arguments:
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents a graph path to concatenate.
+  - `graph_path` : A `GRAPH_PATH` value that represents a graph path to concatenate.
 
 **Details**
 
@@ -52,11 +52,11 @@ The first node in each subsequent path is removed from the concatenated path.
       q=(mid)-[t2:Transfers]->(dst:Account)
     LET full_path = p || q
 
-If any `  graph_path  ` is `  NULL  ` , produces `  NULL  ` .
+If any `graph_path` is `NULL` , produces `NULL` .
 
 **Example**
 
-In the following query, a path called `  p  ` and `  q  ` are concatenated. Notice that `  mid  ` is used at the end of the first path and at the beginning of the second path. Also notice that the duplicate `  mid  ` is removed from the concatenated path called `  full_path  ` :
+In the following query, a path called `p` and `q` are concatenated. Notice that `mid` is used at the end of the first path and at the beginning of the second path. Also notice that the duplicate `mid` is removed from the concatenated path called `full_path` :
 
     GRAPH FinGraph
     MATCH
@@ -78,7 +78,7 @@ In the following query, a path called `  p  ` and `  q  ` are concatenated. Noti
      | ...         | ...           | ...         | ...           | ...         | ...       |
      +-------------------------------------------------------------------------------------/*
 
-The following query produces an error because the last node for `  p  ` must be the first node for `  q  ` :
+The following query produces an error because the last node for `p` must be the first node for `q` :
 
     -- Error: `mid1` and `mid2` aren't equal.
     GRAPH FinGraph
@@ -88,7 +88,7 @@ The following query produces an error because the last node for `  p  ` must be 
     LET full_path = p || q
     RETURN TO_JSON(full_path) AS results
 
-The following query produces an error because the path called `  p  ` is `  NULL  ` :
+The following query produces an error because the path called `p` is `NULL` :
 
     -- Error: a graph path is NULL.
     GRAPH FinGraph
@@ -102,42 +102,42 @@ The following query produces an error because the path called `  p  ` is `  NULL
 
 GoogleSQL supports the following logical operators in [element pattern label expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#element_pattern_definition) :
 
-| Name                 | Syntax                  | Description                                                                                                                               |
-| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `        NOT       ` | `        !X       `     | Returns `        TRUE       ` if `        X       ` isn't included, otherwise, returns `        FALSE       ` .                           |
-| `        OR       `  | `        X \| Y       ` | Returns `        TRUE       ` if either `        X       ` or `        Y       ` is included, otherwise, returns `        FALSE       ` . |
-| `        AND       ` | `        X & Y       `  | Returns `        TRUE       ` if both `        X       ` and `        Y       ` are included, otherwise, returns `        FALSE       ` . |
+| Name  | Syntax   | Description                                                                   |
+| ----- | -------- | ----------------------------------------------------------------------------- |
+| `NOT` | `!X`     | Returns `TRUE` if `X` isn't included, otherwise, returns `FALSE` .            |
+| `OR`  | `X \| Y` | Returns `TRUE` if either `X` or `Y` is included, otherwise, returns `FALSE` . |
+| `AND` | `X & Y`  | Returns `TRUE` if both `X` and `Y` are included, otherwise, returns `FALSE` . |
 
 ## Graph predicates
 
-GoogleSQL supports the following graph-specific predicates in graph expressions. A predicate can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` .
+GoogleSQL supports the following graph-specific predicates in graph expressions. A predicate can produce `TRUE` , `FALSE` , or `NULL` .
 
-  - [`  ALL_DIFFERENT  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#all_different_predicate)
-  - [`  PROPERTY_EXISTS  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#property_exists_predicate)
-  - [`  IS SOURCE  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_source_predicate)
-  - [`  IS DESTINATION  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_destination_predicate)
-  - [`  IS LABELED  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_labeled_predicate)
-  - [`  SAME  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#same_predicate)
+  - [`ALL_DIFFERENT` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#all_different_predicate)
+  - [`PROPERTY_EXISTS` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#property_exists_predicate)
+  - [`IS SOURCE` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_source_predicate)
+  - [`IS DESTINATION` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_destination_predicate)
+  - [`IS LABELED` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#is_labeled_predicate)
+  - [`SAME` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#same_predicate)
 
-## `     ALL_DIFFERENT    ` predicate
+## `ALL_DIFFERENT` predicate
 
     ALL_DIFFERENT(element, element[, ...])
 
 **Description**
 
-In a graph, checks to see if the elements in a list are all different. Returns `  TRUE  ` if none of the elements in the list equal one another, otherwise `  FALSE  ` .
+In a graph, checks to see if the elements in a list are all different. Returns `TRUE` if none of the elements in the list equal one another, otherwise `FALSE` .
 
 **Definitions**
 
-  - `  element  ` : The graph pattern variable for a node or edge element.
+  - `element` : The graph pattern variable for a node or edge element.
 
 **Details**
 
-Produces an error if `  element  ` is `  NULL  ` .
+Produces an error if `element` is `NULL` .
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -157,18 +157,18 @@ Produces an error if `  element  ` is `  NULL  ` .
      | TRUE    |
      +---------*/
 
-## `     IS DESTINATION    ` predicate
+## `IS DESTINATION` predicate
 
     node IS [ NOT ] DESTINATION [ OF ] edge
 
 **Description**
 
-In a graph, checks to see if a node is or isn't the destination of an edge. Can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` .
+In a graph, checks to see if a node is or isn't the destination of an edge. Can produce `TRUE` , `FALSE` , or `NULL` .
 
 Arguments:
 
-  - `  node  ` : The graph pattern variable for the node element.
-  - `  edge  ` : The graph pattern variable for the edge element.
+  - `node` : The graph pattern variable for the node element.
+  - `edge` : The graph pattern variable for the edge element.
 
 **Examples**
 
@@ -202,18 +202,18 @@ Arguments:
      | 20   | 16   |
      +-------------*/
 
-## `     IS LABELED    ` predicate
+## `IS LABELED` predicate
 
     element IS [ NOT ] LABELED label_expression
 
 **Description**
 
-In a graph, checks to see if a node or edge label satisfies a label expression. Can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` if `  element  ` is `  NULL  ` .
+In a graph, checks to see if a node or edge label satisfies a label expression. Can produce `TRUE` , `FALSE` , or `NULL` if `element` is `NULL` .
 
 Arguments:
 
-  - `  element  ` : The graph pattern variable for a graph node or edge element.
-  - `  label_expression  ` : The label expression to verify. For more information, see [Label expression definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#label_expression_definition) .
+  - `element` : The graph pattern variable for a graph node or edge element.
+  - `label_expression` : The label expression to verify. For more information, see [Label expression definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#label_expression_definition) .
 
 **Examples**
 
@@ -268,18 +268,18 @@ Arguments:
      | 7    | NULL   | NULL         |
      +------+-----------------------+*/
 
-## `     IS SOURCE    ` predicate
+## `IS SOURCE` predicate
 
     node IS [ NOT ] SOURCE [ OF ] edge
 
 **Description**
 
-In a graph, checks to see if a node is or isn't the source of an edge. Can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` .
+In a graph, checks to see if a node is or isn't the source of an edge. Can produce `TRUE` , `FALSE` , or `NULL` .
 
 Arguments:
 
-  - `  node  ` : The graph pattern variable for the node element.
-  - `  edge  ` : The graph pattern variable for the edge element.
+  - `node` : The graph pattern variable for the node element.
+  - `edge` : The graph pattern variable for the edge element.
 
 **Examples**
 
@@ -313,18 +313,18 @@ Arguments:
      | 20   | 16   |
      +-------------*/
 
-## `     PROPERTY_EXISTS    ` predicate
+## `PROPERTY_EXISTS` predicate
 
     PROPERTY_EXISTS(element, element_property)
 
 **Description**
 
-In a graph, checks to see if a property exists for an element. Can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` .
+In a graph, checks to see if a property exists for an element. Can produce `TRUE` , `FALSE` , or `NULL` .
 
 Arguments:
 
-  - `  element  ` : The graph pattern variable for a node or edge element.
-  - `  element_property  ` : The name of the property to look for in `  element  ` . The property name must refer to a property in the graph. If the property doesn't exist in the graph, an error is produced. The property name is resolved in a case-insensitive manner.
+  - `element` : The graph pattern variable for a node or edge element.
+  - `element_property` : The name of the property to look for in `element` . The property name must refer to a property in the graph. If the property doesn't exist in the graph, an error is produced. The property name is resolved in a case-insensitive manner.
 
 **Example**
 
@@ -340,21 +340,21 @@ Arguments:
      | Lee  |
      +------*/
 
-## `     SAME    ` predicate
+## `SAME` predicate
 
     SAME (element, element[, ...])
 
 **Description**
 
-In a graph, checks if all graph elements in a list bind to the same node or edge. Returns `  TRUE  ` if the elements bind to the same node or edge, otherwise `  FALSE  ` .
+In a graph, checks if all graph elements in a list bind to the same node or edge. Returns `TRUE` if the elements bind to the same node or edge, otherwise `FALSE` .
 
 Arguments:
 
-  - `  element  ` : The graph pattern variable for a node or edge element.
+  - `element` : The graph pattern variable for a node or edge element.
 
 **Details**
 
-Produces an error if `  element  ` is `  NULL  ` .
+Produces an error if `element` is `NULL` .
 
 **Example**
 

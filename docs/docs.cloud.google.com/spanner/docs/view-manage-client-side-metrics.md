@@ -10,13 +10,13 @@ Client-side metrics are measured from the time a request leaves your application
     
     [Enable the Monitoring API](https://console.cloud.google.com/flows/enableapi?apiid=monitoring.googleapis.com)
 
-2.  To ensure that your service account has the necessary permission to access client-side metrics, ask your administrator to grant the [Monitoring Metric Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.metricWriter) ( `  roles/monitoring.metricWriter  ` ) IAM role to your service account on the project.
+2.  To ensure that your service account has the necessary permission to access client-side metrics, ask your administrator to grant the [Monitoring Metric Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.metricWriter) ( `roles/monitoring.metricWriter` ) IAM role to your service account on the project.
     
     **Important:** You must grant this role to your service account, *not* to your user account. Failure to grant the role to the correct principal might result in permission errors.
     
     For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
     
-    This predefined role contains the `  monitoring.timeSeries.create  ` permission, which is required to access client-side metrics.
+    This predefined role contains the `monitoring.timeSeries.create` permission, which is required to access client-side metrics.
     
     Your administrator might also be able to give your service account this permission with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
@@ -39,7 +39,7 @@ To view the client-side metrics in the Metrics Explorer, do the following:
 
 3.  Click **Select a metric** .
 
-4.  Search for `  spanner.googleapis.com/client  ` .
+4.  Search for `spanner.googleapis.com/client` .
 
 5.  Select the metric, and then click **Apply** .
 

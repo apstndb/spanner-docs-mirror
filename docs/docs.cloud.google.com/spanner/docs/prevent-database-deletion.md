@@ -19,9 +19,9 @@ If you delete your project, Spanner database deletion protection doesn't prevent
 
 To enable the deletion protection setting of your database, you must have certain [IAM permissions](https://docs.cloud.google.com/spanner/docs/iam) .
 
-You need to have the `  spanner.databases.update  ` permission to enable or disable database deletion protection. If you only need to view the status of your database configuration, you need to have the `  spanner.databases.list  ` or `  spanner.databases.get  ` permission. For information on how to grant Spanner IAM permissions, see [Apply IAM permissions](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
+You need to have the `spanner.databases.update` permission to enable or disable database deletion protection. If you only need to view the status of your database configuration, you need to have the `spanner.databases.list` or `spanner.databases.get` permission. For information on how to grant Spanner IAM permissions, see [Apply IAM permissions](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
 
-If you have the predefined [Spanner Database Admin `  roles/spanner.databaseAdmin  `](https://docs.cloud.google.com/spanner/docs/iam#spanner.databaseAdmin) role for your database, you can update and enable database deletion protection.
+If you have the predefined [Spanner Database Admin `roles/spanner.databaseAdmin`](https://docs.cloud.google.com/spanner/docs/iam#spanner.databaseAdmin) role for your database, you can update and enable database deletion protection.
 
 You can enable the database deletion protection setting on an existing database to prevent the accidental deletion of the database.
 
@@ -48,7 +48,7 @@ The following options are required:
 
 The following options are optional:
 
-  - `  --async  `  
+  - `--async`  
     Return immediately, without waiting for the operation in progress to complete.
 
 ### Client libraries
@@ -389,7 +389,7 @@ You can determine if your database has its deletion protection enabled by viewin
 
 ### gcloud
 
-To check if a database has deletion protection enabled, you can run the `  gcloud spanner databases describe  ` command to get detailed information about a database, or you can run the `  gcloud spanner databases list  ` to get detailed information about databases within an instance.
+To check if a database has deletion protection enabled, you can run the `gcloud spanner databases describe` command to get detailed information about a database, or you can run the `gcloud spanner databases list` to get detailed information about databases within an instance.
 
 ``` 
   gcloud spanner databases describe
@@ -405,7 +405,7 @@ The following options are required:
   - `  DATABASE_ID  `  
     ID of the database.
 
-If deletion protection is enabled, you'll see an `  enableDropProtection: true  ` parameter in the output.
+If deletion protection is enabled, you'll see an `enableDropProtection: true` parameter in the output.
 
 ## Disable database deletion protection
 
@@ -432,7 +432,7 @@ The following options are required:
 
 The following options are optional:
 
-  - `  --async  `  
+  - `--async`  
     Return immediately, without waiting for the operation in progress to complete.
 
 ## What's next

@@ -2,20 +2,20 @@ GoogleSQL for Spanner supports the following hash functions.
 
 ## Function list
 
-| Name                                                                                                                                     | Summary                                                                                                                            |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| [`         FARM_FINGERPRINT        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions#farm_fingerprint) | Computes the fingerprint of a `        STRING       ` or `        BYTES       ` value, using the FarmHash Fingerprint64 algorithm. |
-| [`         SHA1        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions#sha1)                         | Computes the hash of a `        STRING       ` or `        BYTES       ` value, using the SHA-1 algorithm.                         |
-| [`         SHA256        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions#sha256)                     | Computes the hash of a `        STRING       ` or `        BYTES       ` value, using the SHA-256 algorithm.                       |
-| [`         SHA512        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions#sha512)                     | Computes the hash of a `        STRING       ` or `        BYTES       ` value, using the SHA-512 algorithm.                       |
+| Name                                                                                                                    | Summary                                                                                              |
+| ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| [`FARM_FINGERPRINT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions#farm_fingerprint) | Computes the fingerprint of a `STRING` or `BYTES` value, using the FarmHash Fingerprint64 algorithm. |
+| [`SHA1`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions#sha1)                         | Computes the hash of a `STRING` or `BYTES` value, using the SHA-1 algorithm.                         |
+| [`SHA256`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions#sha256)                     | Computes the hash of a `STRING` or `BYTES` value, using the SHA-256 algorithm.                       |
+| [`SHA512`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions#sha512)                     | Computes the hash of a `STRING` or `BYTES` value, using the SHA-512 algorithm.                       |
 
-## `     FARM_FINGERPRINT    `
+## `FARM_FINGERPRINT`
 
     FARM_FINGERPRINT(value)
 
 **Description**
 
-Computes the fingerprint of the `  STRING  ` or `  BYTES  ` input using the `  Fingerprint64  ` function from the [open-source FarmHash library](https://github.com/google/farmhash) . The output of this function for a particular input will never change.
+Computes the fingerprint of the `STRING` or `BYTES` input using the `Fingerprint64` function from the [open-source FarmHash library](https://github.com/google/farmhash) . The output of this function for a particular input will never change.
 
 **Return type**
 
@@ -41,13 +41,13 @@ INT64
      | 3 |       | true  | -4880158226897771312 |
      +---+-------+-------+----------------------*/
 
-## `     SHA1    `
+## `SHA1`
 
     SHA1(input)
 
 **Description**
 
-Computes the hash of the input using the [SHA-1 algorithm](https://en.wikipedia.org/wiki/SHA-1) . The input can either be `  STRING  ` or `  BYTES  ` . The string version treats the input as an array of bytes.
+Computes the hash of the input using the [SHA-1 algorithm](https://en.wikipedia.org/wiki/SHA-1) . The input can either be `STRING` or `BYTES` . The string version treats the input as an array of bytes.
 
 This function returns 20 bytes.
 
@@ -55,7 +55,7 @@ This function returns 20 bytes.
 
 **Return type**
 
-`  BYTES  `
+`BYTES`
 
 **Example**
 
@@ -68,37 +68,37 @@ This function returns 20 bytes.
      | Ck1VqNd45QIvq3AZd8XYQLvEhtA= |
      +------------------------------*/
 
-## `     SHA256    `
+## `SHA256`
 
     SHA256(input)
 
 **Description**
 
-Computes the hash of the input using the [SHA-256 algorithm](https://en.wikipedia.org/wiki/SHA-2) . The input can either be `  STRING  ` or `  BYTES  ` . The string version treats the input as an array of bytes.
+Computes the hash of the input using the [SHA-256 algorithm](https://en.wikipedia.org/wiki/SHA-2) . The input can either be `STRING` or `BYTES` . The string version treats the input as an array of bytes.
 
 This function returns 32 bytes.
 
 **Return type**
 
-`  BYTES  `
+`BYTES`
 
 **Example**
 
     SELECT SHA256("Hello World") as sha256;
 
-## `     SHA512    `
+## `SHA512`
 
     SHA512(input)
 
 **Description**
 
-Computes the hash of the input using the [SHA-512 algorithm](https://en.wikipedia.org/wiki/SHA-2) . The input can either be `  STRING  ` or `  BYTES  ` . The string version treats the input as an array of bytes.
+Computes the hash of the input using the [SHA-512 algorithm](https://en.wikipedia.org/wiki/SHA-2) . The input can either be `STRING` or `BYTES` . The string version treats the input as an array of bytes.
 
 This function returns 64 bytes.
 
 **Return type**
 
-`  BYTES  `
+`BYTES`
 
 **Example**
 

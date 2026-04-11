@@ -22,7 +22,7 @@ Data Boost offers the following benefits:
 
 ## Permissions
 
-Any principal that runs a query or export that requests Data Boost must have the `  spanner.databases.useDataBoost  ` Identity and Access Management (IAM) permission. We recommend that you use the `  Cloud Spanner Database Reader With DataBoost  ` ( `  roles/spanner.databaseReaderWithDataBoost  ` ) IAM role.
+Any principal that runs a query or export that requests Data Boost must have the `spanner.databases.useDataBoost` Identity and Access Management (IAM) permission. We recommend that you use the `Cloud Spanner Database Reader With DataBoost` ( `roles/spanner.databaseReaderWithDataBoost` ) IAM role.
 
 ## Billing and quotas
 

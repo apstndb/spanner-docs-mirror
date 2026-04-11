@@ -2,17 +2,17 @@ This page defines the syntax of the SQL data definition language (DDL) statement
 
 ## Notations used in the syntax
 
-  - Square brackets `  [ ]  ` indicate optional clauses.
-  - Curly braces `  { }  ` enclose a set of options.
-  - The vertical bar `  |  ` indicates a logical OR.
-  - A comma followed by an ellipsis indicates that the preceding `  item  ` can repeat in a comma-separated list.
-      - `  item [, ...]  ` indicates one or more items, and
-      - `  [item, ...]  ` indicates zero or more items.
+  - Square brackets `[ ]` indicate optional clauses.
+  - Curly braces `{ }` enclose a set of options.
+  - The vertical bar `|` indicates a logical OR.
+  - A comma followed by an ellipsis indicates that the preceding `item` can repeat in a comma-separated list.
+      - `item [, ...]` indicates one or more items, and
+      - `[item, ...]` indicates zero or more items.
   - Purple-colored text, such as `  item  ` , marks Spanner extensions to open source PostgreSQL.
-  - Parentheses `  ( )  ` indicate literal parentheses.
-  - A comma `  ,  ` indicates the literal comma.
-  - Angle brackets `  <>  ` indicate literal angle brackets.
-  - Uppercase words, such as `  INSERT  ` , are keywords.
+  - Parentheses `( )` indicate literal parentheses.
+  - A comma `,` indicates the literal comma.
+  - Angle brackets `<>` indicate literal angle brackets.
+  - Uppercase words, such as `INSERT` , are keywords.
 
 ## Names
 
@@ -28,7 +28,7 @@ Naming rules in PostgreSQL-dialect databases are the same as those used in [open
         CREATE TABLE MyTable (col1 bigint PRIMARY KEY);
         CREATE SCHEMA MyTable;
 
-  - Table and schema object names are case-sensitive but not case preserving. Case reverts to lowercase in the database. As an example, consider the table `  singers  ` created with the following statement.
+  - Table and schema object names are case-sensitive but not case preserving. Case reverts to lowercase in the database. As an example, consider the table `singers` created with the following statement.
     
         CREATE TABLE singers (
           singerid bigint NOT NULL PRIMARY KEY,
@@ -57,7 +57,7 @@ Naming rules in PostgreSQL-dialect databases are the same as those used in [open
 
 ## SCHEMA statements
 
-This section has information about `  SCHEMA  ` statements.
+This section has information about `SCHEMA` statements.
 
 ### CREATE SCHEMA
 
@@ -67,10 +67,10 @@ Creates a new schema and assigns a name.
 
 #### Spanner differences from open source PostgreSQL
 
-`  schema_name  `
+`schema_name`
 
-  - Contains a name for a schema. If not used, the default schema is used, which is the same schema referred to by using `  public  ` .
-  - When querying data, use fully qualified names (FQNs) to specify objects that belong to a specific schema. FQNs combine the schema name and the object name to identify database objects. For example, `  products.albums  ` for the `  products  ` schema and `  albums  ` table. For more information, see [Named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .
+  - Contains a name for a schema. If not used, the default schema is used, which is the same schema referred to by using `public` .
+  - When querying data, use fully qualified names (FQNs) to specify objects that belong to a specific schema. FQNs combine the schema name and the object name to identify database objects. For example, `products.albums` for the `products` schema and `albums` table. For more information, see [Named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .
 
 ### DROP SCHEMA
 
@@ -80,14 +80,14 @@ Removes a named schema.
 
 #### Spanner differences from open source PostgreSQL
 
-`  schema_name  `
+`schema_name`
 
   - Contains the name of the schema that you want to drop.
-  - `  CASCADE  ` is not supported.
+  - `CASCADE` is not supported.
 
 ## DATABASE statements
 
-This section has information about `  DATABASE  ` statements.
+This section has information about `DATABASE` statements.
 
 ### CREATE DATABASE
 
@@ -129,33 +129,33 @@ Changes the definition of a database.
 
 #### Spanner differences from open source PostgreSQL
 
-`  spanner.default_leader { TO | = } { ' region ' | DEFAULT }  `
+`spanner.default_leader { TO | = } { ' region ' | DEFAULT }`
 
-  - This configuration parameter lets you specify the leader for your database. The only regions eligible to become the leader region for your database are the read-write regions in the [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) configuration. Use `  DEFAULT  ` to choose the default leader region of the base instance configuration. For more information about leader regions and voting replicas, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
+  - This configuration parameter lets you specify the leader for your database. The only regions eligible to become the leader region for your database are the read-write regions in the [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) configuration. Use `DEFAULT` to choose the default leader region of the base instance configuration. For more information about leader regions and voting replicas, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
 
-`  spanner.optimizer_version { TO | = } { 1 ... 8 | DEFAULT }  `
+`spanner.optimizer_version { TO | = } { 1 ... 8 | DEFAULT }`
 
-  - This configuration parameter lets you specify the query optimizer version to use. Use `  DEFAULT  ` for the current default version, as listed in [Query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) .
+  - This configuration parameter lets you specify the query optimizer version to use. Use `DEFAULT` for the current default version, as listed in [Query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) .
 
-`  spanner.optimizer_statistics_package { TO | = } { ' package_name ' | DEFAULT }  `
+`spanner.optimizer_statistics_package { TO | = } { ' package_name ' | DEFAULT }`
 
-  - This configuration parameter lets you specify the query optimizer statistics package name to use. By default, this is the latest collected statistics package, but you can specify any available statistics package version. Use `  DEFAULT  ` for the latest version. For more information, see [Query statistics package versioning](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer) .
+  - This configuration parameter lets you specify the query optimizer statistics package name to use. By default, this is the latest collected statistics package, but you can specify any available statistics package version. Use `DEFAULT` for the latest version. For more information, see [Query statistics package versioning](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer) .
 
-`  spanner.version_retention_period { TO | = } { ' duration ' | DEFAULT }  `
+`spanner.version_retention_period { TO | = } { ' duration ' | DEFAULT }`
 
-  - This configuration parameter lets you specify the period for which Spanner retains all versions of data and schema for the database. The duration must use the range `  [1h, 7d]  ` and you can use days, hours, minutes, or seconds for the range. For example, the values `  1d  ` , `  24h  ` , `  1440m  ` , and `  86400s  ` are equivalent. Setting the value to `  DEFAULT  ` resets the retention period to the default, which is 1 hour. You can use this option for point-in-time recovery. For more information, see [Point-in-time Recovery](https://docs.cloud.google.com/spanner/docs/pitr) .
+  - This configuration parameter lets you specify the period for which Spanner retains all versions of data and schema for the database. The duration must use the range `[1h, 7d]` and you can use days, hours, minutes, or seconds for the range. For example, the values `1d` , `24h` , `1440m` , and `86400s` are equivalent. Setting the value to `DEFAULT` resets the retention period to the default, which is 1 hour. You can use this option for point-in-time recovery. For more information, see [Point-in-time Recovery](https://docs.cloud.google.com/spanner/docs/pitr) .
 
-`  spanner.default_sequence_kind { TO | = } { ' bit_reversed_positive ' | DEFAULT }  `
+`spanner.default_sequence_kind { TO | = } { ' bit_reversed_positive ' | DEFAULT }`
 
-  - This configuration parameter lets you specify the default sequence kind for your database. `  bit_reversed_positive  ` is the only valid sequence kind. The `  bit_reversed_positive  ` option specifies that the values generated by the sequence are of type `  bigint  ` , are greater than zero, and aren't sequential. You don't need to specify a sequence type when using `  default_sequence_kind  ` . When you use `  default_sequence_kind  ` for a sequence or identity column, you can't change the sequence kind later. For more information, see [Primary key default values management](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#serial-auto-increment) .
+  - This configuration parameter lets you specify the default sequence kind for your database. `  bit_reversed_positive  ` is the only valid sequence kind. The `bit_reversed_positive` option specifies that the values generated by the sequence are of type `bigint` , are greater than zero, and aren't sequential. You don't need to specify a sequence type when using `default_sequence_kind` . When you use `default_sequence_kind` for a sequence or identity column, you can't change the sequence kind later. For more information, see [Primary key default values management](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#serial-auto-increment) .
 
-`  spanner.default_time_zone { TO | = } { ' time_zone_name ' | DEFAULT }  `
+`spanner.default_time_zone { TO | = } { ' time_zone_name ' | DEFAULT }`
 
-  - This configuration parameter lets you specify the default time zone for your database. If set to `  DEFAULT  ` , the system uses `  America/Los_Angeles  ` . Specifying a time zone within a `  DATE  ` or `  TIMESTAMP  ` function overrides this setting. The `  time_zone_name  ` must be a valid entry from the [IANA Time Zone Database](https://www.iana.org/time-zones) . This option can only be set on empty databases without any tables.
+  - This configuration parameter lets you specify the default time zone for your database. If set to `DEFAULT` , the system uses `America/Los_Angeles` . Specifying a time zone within a `DATE` or `TIMESTAMP` function overrides this setting. The `time_zone_name` must be a valid entry from the [IANA Time Zone Database](https://www.iana.org/time-zones) . This option can only be set on empty databases without any tables.
 
-`  spanner.read_lease_regions { TO | = } { ' read_lease_region_name ' | DEFAULT }  `
+`spanner.read_lease_regions { TO | = } { ' read_lease_region_name ' | DEFAULT }`
 
-  - This configuration parameter sets the [read lease](https://docs.cloud.google.com/spanner/docs/read-lease) region for your database. By default, or when you set it to `  DEFAULT  ` , the database doesn't use any read lease regions. If you set one or more read lease regions for your database, Spanner gives the right to serve reads locally to one or more non-leader, read-write, or read-only regions. This lets the non-leader regions directly serve strong reads and reduce strong read latency.
+  - This configuration parameter sets the [read lease](https://docs.cloud.google.com/spanner/docs/read-lease) region for your database. By default, or when you set it to `DEFAULT` , the database doesn't use any read lease regions. If you set one or more read lease regions for your database, Spanner gives the right to serve reads locally to one or more non-leader, read-write, or read-only regions. This lets the non-leader regions directly serve strong reads and reduce strong read latency.
 
 ## PLACEMENT statements
 
@@ -163,11 +163,11 @@ Changes the definition of a database.
 
 This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-This section has information about `  PLACEMENT  ` statements.
+This section has information about `PLACEMENT` statements.
 
 ### CREATE PLACEMENT
 
-Use the `  CREATE PLACEMENT  ` statement to define a placement to partition row data in your database. For more information, see [Geo-partitioning overview](https://docs.cloud.google.com/spanner/docs/geo-partitioning) .
+Use the `CREATE PLACEMENT` statement to define a placement to partition row data in your database. For more information, see [Geo-partitioning overview](https://docs.cloud.google.com/spanner/docs/geo-partitioning) .
 
 #### Syntax
 
@@ -179,7 +179,7 @@ Use the `  CREATE PLACEMENT  ` statement to define a placement to partition row 
 
 #### Description
 
-`  CREATE PLACEMENT  ` defines a new placement in the current database.
+`CREATE PLACEMENT` defines a new placement in the current database.
 
 #### Parameters
 
@@ -195,13 +195,13 @@ Use the `  CREATE PLACEMENT  ` statement to define a placement to partition row 
 
   - This optional parameter sets the default leader region for the partition. This parameter is similar to [setting the default leader](https://docs.cloud.google.com/spanner/docs/instance-configurations#configure-leader-region) at the database level, except it applies to only the partition.
 
-`  read_lease_regions { TO | = } { ' read_lease_region_name ' | DEFAULT }  `
+`read_lease_regions { TO | = } { ' read_lease_region_name ' | DEFAULT }`
 
-  - This configuration parameter sets one or more [read lease](https://docs.cloud.google.com/spanner/docs/read-lease) regions for your placement. By default, or when you set it to `  DEFAULT  ` , the placement doesn't use any read lease regions. If you set one or more read lease regions for your database, Spanner gives the right to serve reads locally to one or more non-leader, read-write, or read-only regions. This lets the non-leader regions directly serve strong reads and reduce strong read latency.
+  - This configuration parameter sets one or more [read lease](https://docs.cloud.google.com/spanner/docs/read-lease) regions for your placement. By default, or when you set it to `DEFAULT` , the placement doesn't use any read lease regions. If you set one or more read lease regions for your database, Spanner gives the right to serve reads locally to one or more non-leader, read-write, or read-only regions. This lets the non-leader regions directly serve strong reads and reduce strong read latency.
 
 ### DROP PLACEMENT
 
-Use the `  DROP PLACEMENT  ` statement to delete a placement.
+Use the `DROP PLACEMENT` statement to delete a placement.
 
 #### Syntax
 
@@ -209,7 +209,7 @@ Use the `  DROP PLACEMENT  ` statement to delete a placement.
 
 #### Description
 
-`  DROP PLACEMENT  ` drops a placement.
+`DROP PLACEMENT` drops a placement.
 
 #### Parameters
 
@@ -219,11 +219,11 @@ Use the `  DROP PLACEMENT  ` statement to delete a placement.
 
 ## LOCALITY GROUP statements
 
-This section has information about `  LOCALITY GROUP  ` statements.
+This section has information about `LOCALITY GROUP` statements.
 
 ### CREATE LOCALITY GROUP
 
-Use the `  CREATE LOCALITY GROUP  ` statement to define a locality group to store some columns separately or to use tiered storage. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) and [Tiered storage overview](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
+Use the `CREATE LOCALITY GROUP` statement to define a locality group to store some columns separately or to use tiered storage. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) and [Tiered storage overview](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
 
 #### Syntax
 
@@ -234,7 +234,7 @@ Use the `  CREATE LOCALITY GROUP  ` statement to define a locality group to stor
 
 #### Description
 
-`  CREATE LOCALITY GROUP  ` defines a new locality group in the current database.
+`CREATE LOCALITY GROUP` defines a new locality group in the current database.
 
 #### Parameters
 
@@ -246,11 +246,11 @@ Use the `  CREATE LOCALITY GROUP  ` statement to define a locality group to stor
 
   - Use `  STORAGE  ` to define the storage type of the locality group. You can set the storage type as 'ssd' or 'hdd'.
 
-  - Use `  SSD_TO_HDD_SPILL_TIMESPAN  ` to define the amount of time that data is stored in SSD storage before it moves to HDD storage. After the specified time passes, Spanner migrates the data to HDD storage during its normal compaction cycle, which typically occurs over the course of seven days from the specified time. The duration must be at least one hour ( `  1h  ` ) and at most 365 days ( `  365d  ` ) long. It can be specified in days, hours, minutes, or seconds. For example, the values `  1d  ` , `  24h  ` , `  1440m  ` , and `  86400s  ` are equivalent.
+  - Use `  SSD_TO_HDD_SPILL_TIMESPAN  ` to define the amount of time that data is stored in SSD storage before it moves to HDD storage. After the specified time passes, Spanner migrates the data to HDD storage during its normal compaction cycle, which typically occurs over the course of seven days from the specified time. The duration must be at least one hour ( `1h` ) and at most 365 days ( `365d` ) long. It can be specified in days, hours, minutes, or seconds. For example, the values `1d` , `24h` , `1440m` , and `86400s` are equivalent.
 
 ### ALTER LOCALITY GROUP
 
-Use the `  ALTER LOCALITY GROUP  ` statement to change the storage option or age-based policy of a locality group.
+Use the `ALTER LOCALITY GROUP` statement to change the storage option or age-based policy of a locality group.
 
 #### Syntax
 
@@ -261,7 +261,7 @@ Use the `  ALTER LOCALITY GROUP  ` statement to change the storage option or age
 
 #### Description
 
-`  ALTER LOCALITY GROUP  ` changes the storage option or age-based policy of a locality group. You can change these options together or individually.
+`ALTER LOCALITY GROUP` changes the storage option or age-based policy of a locality group. You can change these options together or individually.
 
 #### Parameters
 
@@ -273,11 +273,11 @@ Use the `  ALTER LOCALITY GROUP  ` statement to change the storage option or age
 
   - Use `  STORAGE  ` to define the new storage type of the locality group.
 
-  - Use the `  SSD_TO_HDD_SPILL_TIMESPAN = 'duration'  ` option to set the new age-based policy of the locality group. The duration must be at least one hour ( `  1h  ` ) and at most 365 days ( `  365d  ` ) long. It can be specified in days, hours, minutes, or seconds. For example, the values `  1d  ` , `  24h  ` , `  1440m  ` , and `  86400s  ` are equivalent.
+  - Use the `SSD_TO_HDD_SPILL_TIMESPAN = 'duration'` option to set the new age-based policy of the locality group. The duration must be at least one hour ( `1h` ) and at most 365 days ( `365d` ) long. It can be specified in days, hours, minutes, or seconds. For example, the values `1d` , `24h` , `1440m` , and `86400s` are equivalent.
 
 ### DROP LOCALITY GROUP
 
-Use the `  DROP LOCALITY GROUP  ` statement to drop the locality group. You can't drop a locality group if it contains data. You must first move all data that's in the locality group to another locality group.
+Use the `DROP LOCALITY GROUP` statement to drop the locality group. You can't drop a locality group if it contains data. You must first move all data that's in the locality group to another locality group.
 
 #### Syntax
 
@@ -285,11 +285,11 @@ Use the `  DROP LOCALITY GROUP  ` statement to drop the locality group. You can'
 
 #### Description
 
-`  DROP LOCALITY GROUP  ` drops the locality group.
+`DROP LOCALITY GROUP` drops the locality group.
 
 ## INDEX statements
 
-This section has information about `  INDEX  ` statements.
+This section has information about `INDEX` statements.
 
 <span id="create_index"></span>
 
@@ -309,13 +309,13 @@ This section has information about `  INDEX  ` statements.
 
 #### Spanner differences from open source PostgreSQL
 
-`  [ INTERLEAVE IN parent_table_name ]  `
+`[ INTERLEAVE IN parent_table_name ]`
 
-  - `  INTERLEAVE IN  ` clause defines a table to interleave the index in (see [Index options](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design#index-options) for more details). If T is the table into which the index is interleaved, then the primary key of T must be the key prefix of the index, with each key matching in type, sort order, and nullability. Matching by name is not required.
+  - `INTERLEAVE IN` clause defines a table to interleave the index in (see [Index options](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design#index-options) for more details). If T is the table into which the index is interleaved, then the primary key of T must be the key prefix of the index, with each key matching in type, sort order, and nullability. Matching by name is not required.
 
-`  [ WHERE predicate ]  `
+`[ WHERE predicate ]`
 
-  - The `  predicate  ` can refer only to columns that are specified earlier in the `  CREATE INDEX  ` statement, not to any column in the underlying table.
+  - The `  predicate  ` can refer only to columns that are specified earlier in the `CREATE INDEX` statement, not to any column in the underlying table.
 
 <span id="alter_index"></span>
 
@@ -335,13 +335,13 @@ Removes a secondary index.
 
 ## SEARCH INDEX statements
 
-This section has information about `  SEARCH INDEX  ` statements.
+This section has information about `SEARCH INDEX` statements.
 
 <span id="create_search_index"></span>
 
 ### CREATE SEARCH INDEX
 
-Use the `  CREATE SEARCH INDEX  ` statement to define search indexes. For more information, see [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
+Use the `CREATE SEARCH INDEX` statement to define search indexes. For more information, see [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
 
 #### Syntax
 
@@ -365,7 +365,7 @@ Use the `  CREATE SEARCH INDEX  ` statement to define search indexes. For more i
 
 #### Description
 
-You can use `  CREATE SEARCH INDEX  ` to create search indexes for `  TOKENLIST  ` columns. Adding a search index on a column makes it more efficient to search data in the source column of the `  TOKENLIST  ` .
+You can use `CREATE SEARCH INDEX` to create search indexes for `TOKENLIST` columns. Adding a search index on a column makes it more efficient to search data in the source column of the `TOKENLIST` .
 
 #### Parameters
 
@@ -379,27 +379,27 @@ You can use `  CREATE SEARCH INDEX  ` to create search indexes for `  TOKENLIST 
 
 `  tokenlist_column_name  `
 
-  - A list of `  TOKENLIST  ` columns to be indexed for search.
+  - A list of `TOKENLIST` columns to be indexed for search.
 
-`  INCLUDE  `
+`INCLUDE`
 
   - Provides a mechanism for duplicating data from the table into the search index.
 
-`  PARTITION BY  `
+`PARTITION BY`
 
   - Indicates a list of columns to partition the search index by. Partition columns subdivide the index into smaller units, one for each unique partition. Queries can only search within a single partition at a time. Queries against partitioned indexes are generally more efficient than queries against unpartitioned indexes because only splits from a single partition need to be read.
 
-`  ORDER BY  `
+`ORDER BY`
 
-  - A list of `  bigint  ` columns used to sort the rows within each partition of the search index. The column must be `  NOT NULL  ` , or the index must define `  WHERE IS NOT NULL  ` . This property can support at most one column.
+  - A list of `bigint` columns used to sort the rows within each partition of the search index. The column must be `NOT NULL` , or the index must define `WHERE IS NOT NULL` . This property can support at most one column.
 
-`  WHERE column_name IS NOT NULL  `
+`WHERE column_name IS NOT NULL`
 
-  - Rows that contain `  NULL  ` in any of the columns listed in this clause don't get included in the index. The columns must be present in the `  ORDER BY  ` or `  INCLUDE  ` clause.
+  - Rows that contain `NULL` in any of the columns listed in this clause don't get included in the index. The columns must be present in the `ORDER BY` or `INCLUDE` clause.
 
-`  INTERLEAVE IN  `
+`INTERLEAVE IN`
 
-  - Similar to `  INTERLEAVE IN  ` for secondary indexes, search indexes can be interleaved in an ancestor table of the base table. The primary reason to use interleaved search indexes is to colocate base table data with index data for small partitions.
+  - Similar to `INTERLEAVE IN` for secondary indexes, search indexes can be interleaved in an ancestor table of the base table. The primary reason to use interleaved search indexes is to colocate base table data with index data for small partitions.
 
   - Interleaved search indexes have the following limitations:
     
@@ -407,17 +407,17 @@ You can use `  CREATE SEARCH INDEX  ` to create search indexes for `  TOKENLIST 
       - Search indexes can only be created on top-level tables. They can't be interleaved with child tables.
       - Like interleaved tables and secondary indexes, the parent table's key must be a prefix of the partitioning columns of the interleaved search index.
 
-`  WITH  `
+`WITH`
 
   - Specifies options to use when creating search indexes:
     
-      - `  sort_order_sharding  ` : Permits specifying sharding of the index. The default value is `  false  ` in which case the index is uniformly sharded.
+      - `sort_order_sharding` : Permits specifying sharding of the index. The default value is `false` in which case the index is uniformly sharded.
 
 <span id="alter_search_index"></span>
 
 ### ALTER SEARCH INDEX
 
-Use the `  ALTER SEARCH INDEX  ` statement to add or remove columns from the search indexes.
+Use the `ALTER SEARCH INDEX` statement to add or remove columns from the search indexes.
 
 #### Syntax
 
@@ -425,7 +425,7 @@ Use the `  ALTER SEARCH INDEX  ` statement to add or remove columns from the sea
 
 #### Description
 
-Add a `  TOKENLIST  ` column into a search index or remove an existing `  TOKENLIST  ` column from a search index. Use `  INCLUDE COLUMN  ` to add or remove stored columns from a search index.
+Add a `TOKENLIST` column into a search index or remove an existing `TOKENLIST` column from a search index. Use `INCLUDE COLUMN` to add or remove stored columns from a search index.
 
 #### Parameters
 
@@ -449,13 +449,13 @@ Removes a search index.
 
 #### Description
 
-Use the `  DROP SEARCH INDEX  ` statement to drop a search index.
+Use the `DROP SEARCH INDEX` statement to drop a search index.
 
 #### Parameters
 
-`  IF EXISTS  `
+`IF EXISTS`
 
-  - The `  DROP  ` statement has no effect if the specified search index doesn't exist.
+  - The `DROP` statement has no effect if the specified search index doesn't exist.
 
 `  index_name  `
 
@@ -463,7 +463,7 @@ Use the `  DROP SEARCH INDEX  ` statement to drop a search index.
 
 ## SEQUENCE statements
 
-This section describes `  SEQUENCE  ` statements.
+This section describes `SEQUENCE` statements.
 
 ### CREATE SEQUENCE
 
@@ -480,14 +480,14 @@ Creates a sequence object with the specified attributes.
 
 #### Spanner differences from open source PostgreSQL
 
-Bit-reversed positive sequences don't support the following open source PostgreSQL `  SEQUENCE  ` clauses:
+Bit-reversed positive sequences don't support the following open source PostgreSQL `SEQUENCE` clauses:
 
-  - `  [ AS data_type ]  `
-  - `  [ INCREMENT [ BY ] increment ]  `
-  - `  [ MINVALUE minvalue ] [ MAXVALUE maxvalue ]  `
-  - `  [ START [ WITH ] start ]  `
-  - `  [ CACHE cache ]  `
-  - `  [ CYCLE ]  `
+  - `[ AS data_type ]`
+  - `[ INCREMENT [ BY ] increment ]`
+  - `[ MINVALUE minvalue ] [ MAXVALUE maxvalue ]`
+  - `[ START [ WITH ] start ]`
+  - `[ CACHE cache ]`
+  - `[ CYCLE ]`
 
 Spanner extends open source PostgreSQL with the following:
 
@@ -495,23 +495,23 @@ Spanner extends open source PostgreSQL with the following:
 
   - Inputs a string to indicate the type of sequence to use. At this time, `  bit_reversed_positive  ` is the only valid sequence kind.
 
-`  [ SKIP RANGE skip_range_min skip_range_max ]  `
+`[ SKIP RANGE skip_range_min skip_range_max ]`
 
-  - Restricts the sequence from generating values in that range. The skipped range is inclusive. Since bit-reversed positive sequences only generate positive values, setting a negative `  SKIP RANGE  ` has no effect.
+  - Restricts the sequence from generating values in that range. The skipped range is inclusive. Since bit-reversed positive sequences only generate positive values, setting a negative `SKIP RANGE` has no effect.
 
-  - `  skip_range_min  ` and `  skip_range_max  ` are both `  bigint  ` value types. They both have a default value of null. The accepted values for `  skip_range_min  ` is any value that is lesser than or equal to `  skip_range_max  ` . The accepted values for `  skip_range_max  ` is any value that is more than or equal to `  skip_range_min  ` .
+  - `skip_range_min` and `skip_range_max` are both `bigint` value types. They both have a default value of null. The accepted values for `skip_range_min` is any value that is lesser than or equal to `skip_range_max` . The accepted values for `skip_range_max` is any value that is more than or equal to `skip_range_min` .
 
-`  [ START COUNTER [ WITH ] start_with_counter ]  `
+`[ START COUNTER [ WITH ] start_with_counter ]`
 
-  - Sets the next value for the internal sequence counter. For example, the next time that Spanner obtains a value from the bit-reversed sequence, it begins with `  start_with_counter  ` . Spanner bit reverses this value before returning it to the client.
+  - Sets the next value for the internal sequence counter. For example, the next time that Spanner obtains a value from the bit-reversed sequence, it begins with `start_with_counter` . Spanner bit reverses this value before returning it to the client.
 
-  - `  start_with_counter  ` is an `  bigint  ` value type. The default value is `  1  ` and it accepts positive `  bigint  ` values.
+  - `start_with_counter` is an `bigint` value type. The default value is `1` and it accepts positive `bigint` values.
 
-  - When the counter reaches the maximum in the `  bigint  ` number space, the sequence no longer generate values. The sequence generator function, `  nextval()  ` returns an error when it reaches the maximum number of values.
+  - When the counter reaches the maximum in the `bigint` number space, the sequence no longer generate values. The sequence generator function, `nextval()` returns an error when it reaches the maximum number of values.
 
 #### Examples
 
-In the following example, you create a positive bit-reversed positive sequence. When you create a table, you can use `  nextval  ` , the sequence generator function, as the default value of the primary key column, `  SingerId  ` . Values the sequence generates are positive and bit-reversed.
+In the following example, you create a positive bit-reversed positive sequence. When you create a table, you can use `nextval` , the sequence generator function, as the default value of the primary key column, `SingerId` . Values the sequence generates are positive and bit-reversed.
 
     CREATE SEQUENCE mysequence bit_reversed_positive;
     
@@ -523,9 +523,9 @@ In the following example, you create a positive bit-reversed positive sequence. 
 
 ### ALTER SEQUENCE
 
-`  ALTER SEQUENCE  ` makes changes to the specified sequence. Executing this statement doesn't affect values that the sequence previously generated. If the `  ALTER SEQUENCE  ` statement doesn't include an option, the current value of the option remains the same.
+`ALTER SEQUENCE` makes changes to the specified sequence. Executing this statement doesn't affect values that the sequence previously generated. If the `ALTER SEQUENCE` statement doesn't include an option, the current value of the option remains the same.
 
-After you execute `  ALTER SEQUENCE  ` , the specified sequence uses the new schema options.
+After you execute `ALTER SEQUENCE` , the specified sequence uses the new schema options.
 
     ALTER SEQUENCE [ IF EXISTS ] sequence_name
     [ NO MINVALUE ]
@@ -536,27 +536,27 @@ After you execute `  ALTER SEQUENCE  ` , the specified sequence uses the new sch
 
 #### Spanner differences from open source PostgreSQL
 
-Bit-reversed positive sequences don't support the following open source PostgreSQL `  ALTER SEQUENCE  ` clauses:
+Bit-reversed positive sequences don't support the following open source PostgreSQL `ALTER SEQUENCE` clauses:
 
-  - `  [ AS data_type ]  `
-  - `  [ INCREMENT [ BY ] increment ]  `
-  - `  [ MINVALUE minvalue ]  `
-  - `  [ MAXVALUE maxvalue ]  `
-  - `  [ START [ WITH ] start ]  `
-  - `  [ RESTART [ WITH ] restart ]  `
-  - `  [ CACHE cache ]  `
-  - `  ALTER SEQUENCE [ IF EXISTS ] name SET { LOGGED | UNLOGGED }  `
-  - `  ALTER SEQUENCE [ IF EXISTS ] name OWNER TO { new_owner | CURRENT_ROLE | CURRENT_USER | SESSION_USER }  `
-  - `  ALTER SEQUENCE [ IF EXISTS ] name RENAME TO new_name  `
-  - `  ALTER SEQUENCE [ IF EXISTS ] name SET SCHEMA new_schema  `
+  - `[ AS data_type ]`
+  - `[ INCREMENT [ BY ] increment ]`
+  - `[ MINVALUE minvalue ]`
+  - `[ MAXVALUE maxvalue ]`
+  - `[ START [ WITH ] start ]`
+  - `[ RESTART [ WITH ] restart ]`
+  - `[ CACHE cache ]`
+  - `ALTER SEQUENCE [ IF EXISTS ] name SET { LOGGED | UNLOGGED }`
+  - `ALTER SEQUENCE [ IF EXISTS ] name OWNER TO { new_owner | CURRENT_ROLE | CURRENT_USER | SESSION_USER }`
+  - ` ALTER SEQUENCE [ IF EXISTS ] name RENAME TO new_name  `
+  - ` ALTER SEQUENCE [ IF EXISTS ] name SET SCHEMA new_schema  `
 
 Spanner extends open source PostgreSQL with the following:
 
-`  [ SKIP RANGE skip_range_min skip_range_max ]  `
+`[ SKIP RANGE skip_range_min skip_range_max ]`
 
-  - Restricts the sequence from generating values in the specified range. Since positive bit-reversed sequences only generate positive values, setting a negative `  SKIP RANGE  ` has no effect.
+  - Restricts the sequence from generating values in the specified range. Since positive bit-reversed sequences only generate positive values, setting a negative `SKIP RANGE` has no effect.
 
-`  [ RESTART COUNTER [WITH] counter_restart  ` \]
+` [ RESTART COUNTER [WITH] counter_restart  ` \]
 
   - Sets the current sequence counter to the user-specified value.
 
@@ -580,18 +580,18 @@ Drops a sequence.
 
 #### Spanner differences from open source PostgreSQL
 
-Bit-reversed positive sequences don't support the following open source PostgreSQL `  DROP SEQUENCE  ` clauses:
+Bit-reversed positive sequences don't support the following open source PostgreSQL `DROP SEQUENCE` clauses:
 
-  - `  [CASCADE]  `
-  - `  [RESTRICT]  `
+  - `[CASCADE]`
+  - `[RESTRICT]`
 
 #### Description
 
-`  DROP SEQUENCE  ` drops a specific sequence. Spanner can't drop a sequence if its name appears in a sequence function used in a column default value or view.
+`DROP SEQUENCE` drops a specific sequence. Spanner can't drop a sequence if its name appears in a sequence function used in a column default value or view.
 
 ## STATISTICS statements
 
-This section has information about `  STATISTICS  ` statements.
+This section has information about `STATISTICS` statements.
 
 ### ALTER STATISTICS
 
@@ -613,9 +613,9 @@ Sets optional attributes of a query optimizer statistics package.
 
 #### Description
 
-`  ALTER STATISTICS  ` sets optional attributes of a query optimizer statistics package.
+`ALTER STATISTICS` sets optional attributes of a query optimizer statistics package.
 
-`  SET OPTIONS  `
+`SET OPTIONS`
 
   - Use this clause to set an option on the specified statistics package.
 
@@ -632,7 +632,7 @@ Sets optional attributes of a query optimizer statistics package.
 
 `  options_def  `
 
-  - The `  allow_gc = { true | false }  ` option lets you specify whether a given statistics package undergoes garbage collection. A package must be set as `  allow_gc=false  ` if the package is used in a query hint. For more information, see [Garbage collection of statistics packages](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#statistics-gc) .
+  - The `allow_gc = { true | false }` option lets you specify whether a given statistics package undergoes garbage collection. A package must be set as `allow_gc=false` if the package is used in a query hint. For more information, see [Garbage collection of statistics packages](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#statistics-gc) .
 
 ### ANALYZE
 
@@ -644,11 +644,11 @@ Starts a new query optimizer statistics package construction.
 
 #### Description
 
-`  ANALYZE  ` starts a new query optimizer statistics package construction.
+`ANALYZE` starts a new query optimizer statistics package construction.
 
 ## TABLE statements
 
-This section has information about `  TABLE  ` statements.
+This section has information about `TABLE` statements.
 
 ### CREATE TABLE
 
@@ -704,17 +704,17 @@ Defines a new table.
         | START COUNTER [ WITH ] start_with_counter
         | NO CYCLE }
 
-`  PRIMARY KEY  ` `  ( column_name )  `
+`PRIMARY KEY` `( column_name )`
 
 In Spanner a primary key is required when creating a new table.
 
-`  HIDDEN  `
+`HIDDEN`
 
-Hides a column if it shouldn't appear in `  SELECT *  ` statements. If the column is hidden, you can still select it using its name. For example, `  SELECT Id, Name, ColHidden FROM TableWithHiddenColumn  ` .
+Hides a column if it shouldn't appear in `SELECT *` statements. If the column is hidden, you can still select it using its name. For example, `SELECT Id, Name, ColHidden FROM TableWithHiddenColumn` .
 
-The primary use case for `  HIDDEN  ` columns is to omit `  TOKENLIST  ` columns from a `  SELECT *  ` statement.
+The primary use case for `HIDDEN` columns is to omit `TOKENLIST` columns from a `SELECT *` statement.
 
-`  DEFAULT  ` `  expression  `
+`DEFAULT` `  expression  `
 
   - This clause sets a default value for the column.
 
@@ -722,11 +722,11 @@ The primary use case for `  HIDDEN  ` columns is to omit `  TOKENLIST  ` columns
 
   - You can't create a column with a default value if it's a generated column.
 
-  - You can insert your own value into a column that has a default value, overriding the default value. You can also use `  UPDATE ... SET  ` `  column-name  ` `  = DEFAULT  ` to reset a non-key column to its default value.
+  - You can insert your own value into a column that has a default value, overriding the default value. You can also use `UPDATE ... SET` `  column-name  ` `= DEFAULT` to reset a non-key column to its default value.
 
   - A generated column or a check constraint can depend on a column with a default value.
 
-  - A column can only use `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` as a default value if it has the `  SPANNER.COMMIT_TIMESTAMP  ` type (this is the only default value allowed for this type).
+  - A column can only use `SPANNER.PENDING_COMMIT_TIMESTAMP()` as a default value if it has the `SPANNER.COMMIT_TIMESTAMP` type (this is the only default value allowed for this type).
 
   - You can use a literal or any valid SQL expression that is assignable to the column data type as an `  expression  ` , with the following properties and restrictions:
     
@@ -734,36 +734,36 @@ The primary use case for `  HIDDEN  ` columns is to omit `  TOKENLIST  ` columns
       - The expression can't reference other columns.
       - The expression can't contain subqueries, query parameters, aggregates, or analytic functions.
 
-`  ON UPDATE  ` `  expression  `
+`ON UPDATE` `  expression  `
 
-  - This clause configures a column to automatically update its value whenever a row is modified. This is typically used to maintain "last updated" timestamps without requiring manual input in every `  UPDATE  ` statement.
+  - This clause configures a column to automatically update its value whenever a row is modified. This is typically used to maintain "last updated" timestamps without requiring manual input in every `UPDATE` statement.
 
   - The column is set to the result of the expression whenever an update occurs on any non-key column in the row.
 
   - The expression is triggered even if the update statement sets a column to its current value (that is, no actual data change occurs).
 
-  - You can bypass the automated value by explicitly providing a value for the column within your [`  UPDATE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#update-statement) or [`  INSERT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-statement) statement.
+  - You can bypass the automated value by explicitly providing a value for the column within your [`UPDATE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#update-statement) or [`INSERT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-statement) statement.
 
-  - To use the `  ON UPDATE  ` clause, the column must satisfy these conditions:
+  - To use the `ON UPDATE` clause, the column must satisfy these conditions:
     
-      - Must not be part of the table’s `  PRIMARY KEY  ` .
-      - Must have a `  DEFAULT  ` expression that is identical to the `  ON UPDATE  ` expression.
-      - Must be a commit timestamp column, and the expression must be `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` .
+      - Must not be part of the table’s `PRIMARY KEY` .
+      - Must have a `DEFAULT` expression that is identical to the `ON UPDATE` expression.
+      - Must be a commit timestamp column, and the expression must be `SPANNER.PENDING_COMMIT_TIMESTAMP()` .
 
-`  GENERATED BY DEFAULT AS IDENTITY [ (  ` `  sequence_option_clause  ` `  ... )]  `
+`GENERATED BY DEFAULT AS IDENTITY [ (` `  sequence_option_clause  ` `... )]`
 
   - This clause auto-generates integer values for the column.
-  - `  BIT_REVERSED_POSITIVE  ` is the only valid type.
+  - `BIT_REVERSED_POSITIVE` is the only valid type.
   - An identity column can be a key or non-key column.
   - An identity column can't have a default value or be a generated column.
-  - You can insert your own value into an identity column. You can also reset a non-key column to use generated value by using `  UPDATE ... SET  ` `  column-name  ` `  = DEFAULT  ` .
+  - You can insert your own value into an identity column. You can also reset a non-key column to use generated value by using `UPDATE ... SET` `  column-name  ` `= DEFAULT` .
   - A generated column or a check constraint can depend on an identity column.
   - An identity column accepts the following option clauses:
-      - `  BIT_REVERSED_POSITIVE  ` indicates the type of identity column.
-      - `  SKIP RANGE  ` `  skip_range_min  ` , `  skip_range_max  ` allows the underlying sequence to skip the numbers in this range when calling `  GET_NEXT_SEQUENCE_VALUE  ` . The skipped range is an integer value and inclusive. The accepted values for `  skip_range_min  ` is any value that is less than or equal to `  skip_range_max  ` . The accepted values for `  skip_range_max  ` is any value that is greater than or equal to `  skip_range_min  ` .
-      - `  START COUNTER WITH  ` `  start_with_counter  ` is a positive `  bigint  ` value that Spanner uses to set the next value for the internal sequence counter. For example, when Spanner obtains a value from the bit-reversed sequence, it begins with `  start_with_counter  ` . Spanner bit reverses this value before returning it. The default value is `  1  ` .
+      - `BIT_REVERSED_POSITIVE` indicates the type of identity column.
+      - `SKIP RANGE` `  skip_range_min  ` , `  skip_range_max  ` allows the underlying sequence to skip the numbers in this range when calling `GET_NEXT_SEQUENCE_VALUE` . The skipped range is an integer value and inclusive. The accepted values for `skip_range_min` is any value that is less than or equal to `skip_range_max` . The accepted values for `skip_range_max` is any value that is greater than or equal to `skip_range_min` .
+      - `START COUNTER WITH` `  start_with_counter  ` is a positive `bigint` value that Spanner uses to set the next value for the internal sequence counter. For example, when Spanner obtains a value from the bit-reversed sequence, it begins with `start_with_counter` . Spanner bit reverses this value before returning it. The default value is `1` .
 
-`  GENERATED ALWAYS AS (  ` `  expression  ` `  ) { STORED | VIRTUAL }  `
+`GENERATED ALWAYS AS (` `  expression  ` `) { STORED | VIRTUAL }`
 
   - This clause creates a column as a *generated column* . Its value is defined as a function of other columns in the same row.
 
@@ -773,13 +773,13 @@ The primary use case for `  HIDDEN  ` columns is to omit `  TOKENLIST  ` columns
     
       - The expression can't contain subqueries.
     
-      - The expression can't contain nondeterministic functions such as `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` , `  CURRENT_DATE  ` , and `  CURRENT_TIMESTAMP  ` .
+      - The expression can't contain nondeterministic functions such as `SPANNER.PENDING_COMMIT_TIMESTAMP()` , `CURRENT_DATE` , and `CURRENT_TIMESTAMP` .
     
       - You can't modify the expression of a generated column.
 
-  - The `  STORED  ` attribute that follows the expression causes Spanner to store the result of the function along with other columns of the table. Subsequent updates to any of the referenced columns cause Spanner to re-evaluate and store the expression.
+  - The `STORED` attribute that follows the expression causes Spanner to store the result of the function along with other columns of the table. Subsequent updates to any of the referenced columns cause Spanner to re-evaluate and store the expression.
 
-  - The `  VIRTUAL  ` attribute that follows the expression in Spanner doesn't store the result of the expression in the table.
+  - The `VIRTUAL` attribute that follows the expression in Spanner doesn't store the result of the expression in the table.
 
   - Spanner doesn't allow direct writes to generated columns.
 
@@ -795,47 +795,47 @@ The primary use case for `  HIDDEN  ` columns is to omit `  TOKENLIST  ` columns
     
       - The generated primary key can reference, at most, one non-key column.
     
-      - The generated primary key can't depend on a non-key column with a `  DEFAULT  ` clause.
+      - The generated primary key can't depend on a non-key column with a `DEFAULT` clause.
     
       - The DML doesn't let you explicitly write to generated primary keys.
 
 #### Spanner differences from open source PostgreSQL
 
-Spanner might choose a different name for an anonymous constraint than would open source PostgreSQL. Therefore, if you depend on constraint names, use `  CONSTRAINT constraint_name  ` to specify them explicitly.
+Spanner might choose a different name for an anonymous constraint than would open source PostgreSQL. Therefore, if you depend on constraint names, use ` CONSTRAINT constraint_name  ` to specify them explicitly.
 
 Spanner extends open source PostgreSQL with the following:
 
-`  INTERLEAVE IN PARENT parent_table_name [ ON DELETE ( CASCADE | NO ACTION ) ]  `
+`INTERLEAVE IN PARENT parent_table_name [ ON DELETE ( CASCADE | NO ACTION ) ]`
 
   - This clause defines a [child-to-parent](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#parent-child) table relationship, which results in a physical interleaving of parent and child rows. The primary-key columns of a parent must positionally match, both in name and type, a prefix of the primary-key columns of any child. Adding rows to the child table fails if the corresponding parent row doesn't exist. The parent row can either already exist in the database or can be inserted before the insertion of the child rows in the same transaction.
 
-  - The optional `  ON DELETE  ` clause defines the behavior of rows in a child table when a transaction attempts to delete the parent row. The supported options are:
+  - The optional `ON DELETE` clause defines the behavior of rows in a child table when a transaction attempts to delete the parent row. The supported options are:
     
-      - `  CASCADE  ` which deletes the child rows.
+      - `CASCADE` which deletes the child rows.
     
-      - `  NO ACTION  ` which doesn't delete the child rows. If deleting a parent would leave behind child rows, thus violating parent-child referential integrity, the transaction attempt fails.
+      - `NO ACTION` which doesn't delete the child rows. If deleting a parent would leave behind child rows, thus violating parent-child referential integrity, the transaction attempt fails.
     
-    If you omit the `  ON DELETE  ` clause, the behavior is that of `  ON DELETE NO ACTION  ` .
+    If you omit the `ON DELETE` clause, the behavior is that of `ON DELETE NO ACTION` .
 
-`  INTERLEAVE IN parent_table_name  `
+` INTERLEAVE IN parent_table_name  `
 
-  - `  INTERLEAVE IN  ` defines the same parent-child relationship and physical interleaving of parent and child rows as `  INTERLEAVE IN PARENT  ` , but the parent-child referential integrity constraint isn't enforced. Rows in the child table can be inserted before the corresponding rows in the parent table. Like with `  IN PARENT  ` , the primary-key columns of a parent must positionally match, both in name and type, a prefix of the primary-key columns of any child.
+  - `INTERLEAVE IN` defines the same parent-child relationship and physical interleaving of parent and child rows as `INTERLEAVE IN PARENT` , but the parent-child referential integrity constraint isn't enforced. Rows in the child table can be inserted before the corresponding rows in the parent table. Like with `IN PARENT` , the primary-key columns of a parent must positionally match, both in name and type, a prefix of the primary-key columns of any child.
 
-`  TTL INTERVAL interval_spec ON timestamp_column_name  `
+` TTL INTERVAL interval_spec ON timestamp_column_name  `
 
   - This clause defines a [time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl) policy on the table, which lets Spanner periodically delete data from the table.
     
-      - *`  interval_spec  `* is the number of days past the timestamp in the `  timestamp_column_name  ` in which Spanner marks the row for deletion. You must use a non-negative integer for the value and it must evaluate to a whole number of days. For example, `  '3 days'  ` is allowed, but `  '3 days - 2 minutes'  ` returns an error.
+      - *`interval_spec`* is the number of days past the timestamp in the `timestamp_column_name` in which Spanner marks the row for deletion. You must use a non-negative integer for the value and it must evaluate to a whole number of days. For example, `'3 days'` is allowed, but `'3 days - 2 minutes'` returns an error.
     
       - `  timestamp_column_name  ` is the name of the timestamp column.
 
-`  LOCALITY GROUP locality_group_name  `
+` LOCALITY GROUP locality_group_name  `
 
   - This clause defines a [locality group](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) for the table, which determines its tiered storage policy.
     
       - `  locality_group_name  ` is the name of the locality group.
 
-`  [ SYNONYM ( synonym )]  `
+`[ SYNONYM ( synonym )]`
 
   - Defines a [synonym](https://docs.cloud.google.com/spanner/docs/table-name-synonym#add-synonym) for a table, which is an additional name that an application can use to access the table. A table can have one synonym. You can only use a synonym in queries and DML. You can't use the synonym for DDL or schema changes. You can see the synonym in the DDL representation of the table.
 
@@ -899,46 +899,46 @@ Changes the definition of a table.
         | START COUNTER [ WITH ] start_with_counter
         | NO CYCLE }
 
-  - You can specify `  NOT NULL  ` in an `  ALTER TABLE...ADD [ COLUMN ]  ` statement if you specify `  DEFAULT  ` `  expression  ` or `  GENERATED ALWAYS AS (  ` `  expression  ` `  ) STORED  ` for the column.
+  - You can specify `NOT NULL` in an `ALTER TABLE...ADD [ COLUMN ]` statement if you specify `DEFAULT` `  expression  ` or `GENERATED ALWAYS AS (` `  expression  ` `) STORED` for the column.
 
-  - If you include `  DEFAULT  ` `  expression  ` or `  GENERATED ALWAYS AS (  ` `  expression  ` `  ) STORED  ` , Spanner evaluates the expression and backfills the computed value for existing rows. The backfill operation is asynchronous. This backfill operation only happens when Spanner issues an `  ADD COLUMN  ` statement.
+  - If you include `DEFAULT` `  expression  ` or `GENERATED ALWAYS AS (` `  expression  ` `) STORED` , Spanner evaluates the expression and backfills the computed value for existing rows. The backfill operation is asynchronous. This backfill operation only happens when Spanner issues an `ADD COLUMN` statement.
 
-  - `  ALTER COLUMN  ` statements that you use to `  SET  ` or `  DROP  ` the default value or `  ON UPDATE  ` value of an existing column don't affect existing rows. There is no backfill operation on `  ALTER COLUMN  ` .
+  - `ALTER COLUMN` statements that you use to `SET` or `DROP` the default value or `ON UPDATE` value of an existing column don't affect existing rows. There is no backfill operation on `ALTER COLUMN` .
 
-  - The `  DEFAULT  ` clause has restrictions. See the description of this clause in `  CREATE TABLE  ` .
+  - The `DEFAULT` clause has restrictions. See the description of this clause in `  CREATE TABLE  ` .
 
-  - The `  ON UPDATE  ` clause has restrictions. See the description of this clause in `  CREATE TABLE  ` .
+  - The `ON UPDATE` clause has restrictions. See the description of this clause in `  CREATE TABLE  ` .
 
 #### Spanner differences from open source PostgreSQL
 
   - These Spanner restrictions apply when dropping a column:
       - You can't drop a column that a CHECK constraint references.
       - You can't drop a primary key column.
-  - Spanner might choose a different name for an anonymous constraint than open source PostgreSQL. Therefore, if you depend on constraint names, specify them explicitly using `  CONSTRAINT constraint_name  ` .
-  - The following Spanner restrictions apply when altering a column (using the `  ALTER COLUMN  ` clause):
-      - The statement must contain exactly two `  ALTER COLUMN  ` clauses applied to the same column. One clause must alter (or keep as is) the column's data type and another clause must alter (or keep as is) the column's nullability. For example, if column `  c1  ` is nullable and you want it to stay nullable after the execution of the `  ALTER TABLE  ` statement, you need to add `  ALTER COLUMN c1 DROP NOT NULL  ` . For example: `  ALTER TABLE t1 ALTER COLUMN c1 TYPE VARCHAR(10), ALTER COLUMN c1 DROP NOT NULL;  `
+  - Spanner might choose a different name for an anonymous constraint than open source PostgreSQL. Therefore, if you depend on constraint names, specify them explicitly using ` CONSTRAINT constraint_name  ` .
+  - The following Spanner restrictions apply when altering a column (using the `ALTER COLUMN` clause):
+      - The statement must contain exactly two `ALTER COLUMN` clauses applied to the same column. One clause must alter (or keep as is) the column's data type and another clause must alter (or keep as is) the column's nullability. For example, if column `c1` is nullable and you want it to stay nullable after the execution of the `ALTER TABLE` statement, you need to add `ALTER COLUMN c1 DROP NOT NULL` . For example: `ALTER TABLE t1 ALTER COLUMN c1 TYPE VARCHAR(10), ALTER COLUMN c1 DROP NOT NULL;`
       - Spanner only supports operations that the [Supported schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates#supported-updates) section describes.
-  - For all operations (ADD or DROP) except `  ALTER COLUMN  ` , Spanner supports only a single operation per `  ALTER TABLE  ` statement.
+  - For all operations (ADD or DROP) except `ALTER COLUMN` , Spanner supports only a single operation per `ALTER TABLE` statement.
 
 Spanner extends open source PostgreSQL with the following:
 
-`  ADD TTL INTERVAL  ` , `  ALTER TTL INTERVAL  `
+`ADD TTL INTERVAL` , `ALTER TTL INTERVAL`
 
   - This clause defines or alters a [time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl) policy on the table, which lets Spanner periodically delete data from the table.
-  - *`  interval_spec  `* is the number of days past the timestamp in the `  timestamp_column_name  ` in which Spanner marks the row for deletion. You must use a non-negative integer for its value and it must evaluate to a whole number of days. For example, Spanner permits you to use `  '3 days'  ` , but `  '3 days - 2 minutes'  ` returns an error.
-  - *`  timestamp_column_name  `* is a column with the data type `  TIMESTAMPTZ  ` . You need to create this column if it doesn't exist already. Columns with [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) are valid, as are [generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) . However, you can't specify a generated column that references a commit timestamp column.
+  - *`interval_spec`* is the number of days past the timestamp in the `timestamp_column_name` in which Spanner marks the row for deletion. You must use a non-negative integer for its value and it must evaluate to a whole number of days. For example, Spanner permits you to use `'3 days'` , but `'3 days - 2 minutes'` returns an error.
+  - *`timestamp_column_name`* is a column with the data type `TIMESTAMPTZ` . You need to create this column if it doesn't exist already. Columns with [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) are valid, as are [generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) . However, you can't specify a generated column that references a commit timestamp column.
 
-`  ADD SYNONYM  `
+`ADD SYNONYM`
 
-  - Adds a synonym to a table to give it an alternate name. You can use the synonym for reads, writes, queries, and for use with DML. You can't use `  ADD SYNONYM  ` with DDL, such as to create an index. A table can have one synonym. For more information, see [Add a synonym to a table](https://docs.cloud.google.com/spanner/docs/table-name-synonym#add-synonym) .
+  - Adds a synonym to a table to give it an alternate name. You can use the synonym for reads, writes, queries, and for use with DML. You can't use `ADD SYNONYM` with DDL, such as to create an index. A table can have one synonym. For more information, see [Add a synonym to a table](https://docs.cloud.google.com/spanner/docs/table-name-synonym#add-synonym) .
 
-`  DROP SYNONYM  `
+`DROP SYNONYM`
 
   - Removes a synonym from a table. For more information, see [Remove a synonym from a table](https://docs.cloud.google.com/spanner/docs/table-name-synonym#remove-synonym) .
 
-`  RENAME TO  `
+`RENAME TO`
 
-  - Renames a table without creating a synonym. In addition, you can concatenate multiple `  ALTER TABLE RENAME TO  ` statements (delimited by a comma) to atomically rename multiple tables. For more information, see [Rename a table](https://docs.cloud.google.com/spanner/docs/table-name-synonym#rename-table) .
+  - Renames a table without creating a synonym. In addition, you can concatenate multiple `ALTER TABLE RENAME TO` statements (delimited by a comma) to atomically rename multiple tables. For more information, see [Rename a table](https://docs.cloud.google.com/spanner/docs/table-name-synonym#rename-table) .
     
     For example, to change the names of multiple tables atomically, do the following:
     
@@ -947,13 +947,13 @@ Spanner extends open source PostgreSQL with the following:
             ALTER TABLE albums
                     RENAME TO recordings;
 
-`  RENAME WITH SYNONYM TO  `
+`RENAME WITH SYNONYM TO`
 
   - Adds a synonym to a table so that when you rename the table, you can add the old table name to the synonym. This gives you time to update applications with the new table name while still allowing them to access the table with the old name. For more information, see [Rename a table and add a synonym](https://docs.cloud.google.com/spanner/docs/table-name-synonym#rename-add-synonym) .
 
-`  SET INTERLEAVE IN  `
+`SET INTERLEAVE IN`
 
-  - `  SET INTERLEAVE IN PARENT  ` migrates an interleaved table to use `  IN PARENT  ` semantics, which require that the parent row exist for each child row. While executing this schema change, the child rows are validated to ensure there are no referential integrity violations. If there are, the schema change fails. If no `  ON DELETE  ` clause is specified, `  NO ACTION  ` is the default. Note that directly migrating from an `  INTERLEAVE IN  ` table to `  IN PARENT ON DELETE CASCADE  ` is not supported. This must be done in two steps. The first step is to migrate `  INTERLEAVE IN  ` to `  INTERLEAVE IN PARENT T [ON DELETE NO ACTION]  ` and the second step is to migrate to `  INTERLEAVE IN PARENT T ON DELETE CASCADE  ` . If referential integrity validation fails, use a query like the following to identify missing parent rows.
+  - `SET INTERLEAVE IN PARENT` migrates an interleaved table to use `IN PARENT` semantics, which require that the parent row exist for each child row. While executing this schema change, the child rows are validated to ensure there are no referential integrity violations. If there are, the schema change fails. If no `ON DELETE` clause is specified, `NO ACTION` is the default. Note that directly migrating from an `INTERLEAVE IN` table to `IN PARENT ON DELETE CASCADE` is not supported. This must be done in two steps. The first step is to migrate `INTERLEAVE IN` to `INTERLEAVE IN PARENT T [ON DELETE NO ACTION]` and the second step is to migrate to `INTERLEAVE IN PARENT T ON DELETE CASCADE` . If referential integrity validation fails, use a query like the following to identify missing parent rows.
     
     ``` 
         SELECT pk1, pk2 FROM child
@@ -961,9 +961,9 @@ Spanner extends open source PostgreSQL with the following:
         SELECT pk1, pk2 FROM parent;
     ```
 
-  - `  SET INTERLEAVE IN  ` , like `  SET INTERLEAVE IN PARENT  ` , migrates an `  INTERLEAVE IN PARENT  ` interleaved table to `  INTERLEAVE IN  ` , thus removing the parent-child enforcement between the two tables.
+  - `SET INTERLEAVE IN` , like `SET INTERLEAVE IN PARENT` , migrates an `INTERLEAVE IN PARENT` interleaved table to `INTERLEAVE IN` , thus removing the parent-child enforcement between the two tables.
 
-  - The `  ON DELETE  ` clause is only supported when migrating to `  INTERLEAVE IN PARENT  ` .
+  - The `ON DELETE` clause is only supported when migrating to `INTERLEAVE IN PARENT` .
 
 ### DROP TABLE
 
@@ -977,11 +977,11 @@ Spanner can't drop a table that has indexes. However, in open source PostgreSQL,
 
 ## VIEW statements
 
-This section has information about `  VIEW  ` statements.
+This section has information about `VIEW` statements.
 
 ### CREATE OR REPLACE VIEW
 
-Defines a new view or replaces an existing view. If `  CREATE VIEW  ` is used and the view already exists, the statement fails. Use `  CREATE OR REPLACE VIEW  ` to replace the view or security type of a view. For more information, see [About views](https://docs.cloud.google.com/spanner/docs/views) .
+Defines a new view or replaces an existing view. If `CREATE VIEW` is used and the view already exists, the statement fails. Use `CREATE OR REPLACE VIEW` to replace the view or security type of a view. For more information, see [About views](https://docs.cloud.google.com/spanner/docs/views) .
 
     { CREATE | CREATE OR REPLACE } VIEW view_name
       SQL SECURITY { INVOKER | DEFINER }
@@ -995,7 +995,7 @@ Removes a view. Only the view is dropped; the objects that it references are not
 
 ## CHANGE STREAM statements
 
-This section has information about `  CHANGE STREAM  ` statements.
+This section has information about `CHANGE STREAM` statements.
 
 ### CREATE CHANGE STREAM
 
@@ -1018,35 +1018,35 @@ Defines a new [change stream](https://docs.cloud.google.com/spanner/docs/change-
           | exclude_update = { false | true }
           | exclude_delete = { false | true } }
 
-`  FOR {  ` `  table_columns  ` `  [, ... ] | ALL }  `
+`FOR {` `  table_columns  ` `[, ... ] | ALL }`
 
-  - The `  FOR  ` clause defines the tables and columns that the change stream watches.
+  - The `FOR` clause defines the tables and columns that the change stream watches.
 
   - You can specify a list of `  table_columns  ` to watch, where `  table_columns  ` can be either of the following:
     
       - `  table_name  ` : This watches the entire table, including all of the future columns when they are added to this table.
     
-      - `  table_name  ` `  ( [  ` `  column_name  ` `  , ... ] )  ` : You can optionally specify a list of zero or more non-key columns following the table name. This watches only the primary key and the listed non-key columns of the table. With an empty list of non-key columns, `  table_name  ` `  ()  ` watches only the primary key.
+      - `  table_name  ` `( [` `  column_name  ` `, ... ] )` : You can optionally specify a list of zero or more non-key columns following the table name. This watches only the primary key and the listed non-key columns of the table. With an empty list of non-key columns, `  table_name  ` `()` watches only the primary key.
     
     **Note:** The change stream always watches the primary key columns. You only need to list the non-key columns. Listing any primary key columns is not allowed.
 
-  - `  ALL  ` lets you watch all tables and columns in the entire database, including all of the future tables and columns as soon as they are created.
+  - `ALL` lets you watch all tables and columns in the entire database, including all of the future tables and columns as soon as they are created.
 
-  - When you omit the `  FOR  ` clause, the change stream watches nothing.
+  - When you omit the `FOR` clause, the change stream watches nothing.
 
-`  WITH (  ` `  configuration_parameter_def  ` `  [, ... ] )  `
+`WITH (` `  configuration_parameter_def  ` `[, ... ] )`
 
-  - The `  retention_period = 'duration'  ` configuration parameter lets you specify how long a change stream retains its data. For duration you must use the range `  [1d, 7d]  ` which you can specify in days, hours, minutes, or seconds. For example, the values `  1d  ` , `  24h  ` , `  1440m  ` , and `  86400s  ` are equivalent. The default is 1 day. For details, see [Data retention](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) .
+  - The `retention_period = 'duration'` configuration parameter lets you specify how long a change stream retains its data. For duration you must use the range `[1d, 7d]` which you can specify in days, hours, minutes, or seconds. For example, the values `1d` , `24h` , `1440m` , and `86400s` are equivalent. The default is 1 day. For details, see [Data retention](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) .
 
-  - The `  value_capture_type  ` configuration parameter controls which values to capture for a changed row. It can be `  OLD_AND_NEW_VALUES  ` (default), `  NEW_VALUES  ` , `  NEW_ROW  ` , OR `  NEW_ROW_AND_OLD_VALUES  ` . For details, see [Value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) .
+  - The `value_capture_type` configuration parameter controls which values to capture for a changed row. It can be `OLD_AND_NEW_VALUES` (default), `NEW_VALUES` , `NEW_ROW` , OR `NEW_ROW_AND_OLD_VALUES` . For details, see [Value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) .
 
-  - The `  exclude_ttl_deletes  ` configuration parameter lets you filter out [time to live based deletes](https://docs.cloud.google.com/spanner/docs/ttl#filter) from your change stream. When you set this filter, only future TTL-based deletes are removed. It can be set to `  false  ` (default) or `  true  ` . For more information, see [TTL-based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) .
+  - The `exclude_ttl_deletes` configuration parameter lets you filter out [time to live based deletes](https://docs.cloud.google.com/spanner/docs/ttl#filter) from your change stream. When you set this filter, only future TTL-based deletes are removed. It can be set to `false` (default) or `true` . For more information, see [TTL-based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) .
 
-  - The `  exclude_insert  ` configuration parameter lets you filter out all `  INSERT  ` table modifications from your change stream. It can be set to `  false  ` (default) or `  true  ` . For more information, see [Table modification type filters](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) .
+  - The `exclude_insert` configuration parameter lets you filter out all `INSERT` table modifications from your change stream. It can be set to `false` (default) or `true` . For more information, see [Table modification type filters](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) .
 
-  - The `  exclude_update  ` configuration parameter lets you filter out all `  UPDATE  ` table modifications from your change stream. It can be set to `  false  ` (default) or `  true  ` . For more information, see [Table modification type filters](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) .
+  - The `exclude_update` configuration parameter lets you filter out all `UPDATE` table modifications from your change stream. It can be set to `false` (default) or `true` . For more information, see [Table modification type filters](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) .
 
-  - The `  exclude_delete  ` configuration parameter lets you filter out all `  DELETE  ` table modifications from your change stream. It can be set to `  false  ` (default) or `  true  ` . For more information, see [Table modification type filters](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) .
+  - The `exclude_delete` configuration parameter lets you filter out all `DELETE` table modifications from your change stream. It can be set to `false` (default) or `true` . For more information, see [Table modification type filters](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) .
 
 ### ALTER CHANGE STREAM
 
@@ -1075,23 +1075,23 @@ Changes the definition of a change stream. For more information, see [Modify a c
         { retention_period | value_capture_type | exclude_ttl_deletes
         | exclude_insert | exclude_update | exclude_delete }
 
-`  SET FOR {  ` `  table_columns  ` `  [, ... ] | ALL }  `
+`SET FOR {` `  table_columns  ` `[, ... ] | ALL }`
 
-  - Sets a new `  FOR  ` clause to modify what the change stream watches, using the same syntax as `  CREATE CHANGE STREAM  ` .
+  - Sets a new `FOR` clause to modify what the change stream watches, using the same syntax as `  CREATE CHANGE STREAM  ` .
 
-`  DROP FOR ALL  `
+`DROP FOR ALL`
 
   - [Suspends a change stream](https://docs.cloud.google.com/spanner/docs/change-streams/manage#suspend) to watch nothing.
 
-`  SET  `
+`SET`
 
-  - Sets configuration parameters on the change stream (such as `  retention_period  ` , `  value_capture_type  ` , `  exclude_ttl_deletes  ` , `  exclude_insert  ` , `  exclude_update  ` and `  exclude_delete  ` ), using the same syntax as `  CREATE CHANGE STREAM  ` .
+  - Sets configuration parameters on the change stream (such as `retention_period` , `value_capture_type` , `exclude_ttl_deletes` , `exclude_insert` , `exclude_update` and `exclude_delete` ), using the same syntax as `  CREATE CHANGE STREAM  ` .
 
-  - Setting an option to `  null  ` is equivalent to setting it to the default value.
+  - Setting an option to `null` is equivalent to setting it to the default value.
 
-`  RESET  `
+`RESET`
 
-  - Resets configuration parameters on the change stream (such as `  retention_period  ` , `  value_capture_type  ` , `  exclude_ttl_deletes  ` , `  exclude_insert  ` , `  exclude_update  ` , and `  exclude_delete  ` ) to the default values.
+  - Resets configuration parameters on the change stream (such as `retention_period` , `value_capture_type` , `exclude_ttl_deletes` , `exclude_insert` , `exclude_update` , and `exclude_delete` ) to the default values.
 
 ### DROP CHANGE STREAM
 
@@ -1101,7 +1101,7 @@ Removes a change stream and deletes its data change records.
 
 ## ROLE statements
 
-This section has information about `  ROLE  ` statements.
+This section has information about `ROLE` statements.
 
 ### CREATE ROLE
 
@@ -1113,17 +1113,17 @@ Defines a new database role.
 
 #### Description
 
-`  CREATE ROLE  ` defines a new database role. Database roles are collections of [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) privileges. You can create only one role with this statement.
+`CREATE ROLE` defines a new database role. Database roles are collections of [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) privileges. You can create only one role with this statement.
 
 #### Parameters
 
 `  database_role_name  `
 
-  - The name of the database role to create. Role names can't start with `  pg_  ` . The role name `  public  ` and role names starting with `  spanner_  ` are reserved for [system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
+  - The name of the database role to create. Role names can't start with `pg_` . The role name `public` and role names starting with `spanner_` are reserved for [system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
 
 #### Example
 
-This example creates the database role `  hr_manager  ` .
+This example creates the database role `hr_manager` .
 
     CREATE ROLE hr_manager;
 
@@ -1137,7 +1137,7 @@ Drops a database role.
 
 #### Description
 
-`  DROP ROLE  ` drops a database role. You can drop only one role with this statement.
+`DROP ROLE` drops a database role. You can drop only one role with this statement.
 
 You can't drop a database role if it has any privileges granted to it. All privileges granted to a database role must be revoked before the role can be dropped. You can drop a database role whether or not access to it is granted to IAM principals.
 
@@ -1153,13 +1153,13 @@ You can't drop [system roles](https://docs.cloud.google.com/spanner/docs/fgac-sy
 
 #### Example
 
-This example drops the database role `  hr_manager  ` .
+This example drops the database role `hr_manager` .
 
     DROP ROLE hr_manager;
 
 ## GRANT and REVOKE statements
 
-This section has information about `  GRANT  ` and `  REVOKE  ` statements.
+This section has information about `GRANT` and `REVOKE` statements.
 
 ### GRANT
 
@@ -1204,7 +1204,7 @@ Grants roles to database objects.
 
 #### Description
 
-For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) , grants privileges on one or more tables, views, change streams, or change stream read functions to database roles. Also grants database roles to other database roles to create a database role hierarchy with inheritance. When granting `  SELECT  ` , `  INSERT  ` , or `  UPDATE  ` on a table, optionally grants privileges on only a subset of table columns.
+For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) , grants privileges on one or more tables, views, change streams, or change stream read functions to database roles. Also grants database roles to other database roles to create a database role hierarchy with inheritance. When granting `SELECT` , `INSERT` , or `UPDATE` on a table, optionally grants privileges on only a subset of table columns.
 
 #### Parameters
 
@@ -1234,45 +1234,45 @@ For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fga
 
 #### Notes and restrictions
 
-  - Identifiers for database objects named in the `  GRANT  ` statement must use the case that was specified when the object was created. For example, if you created a table with a name that is in all lowercase with a capitalized first letter, you must use that same case in the `  GRANT  ` statement. For each change stream, PostgreSQL automatically creates a change stream read function with a name that consists of a prefix added to the change stream name, so ensure that you use the proper case for both the prefix and the change stream name. For more information about change stream read functions, see [Change stream query syntax](https://docs.cloud.google.com/spanner/docs/change-streams/details#change_stream_query_syntax) .
+  - Identifiers for database objects named in the `GRANT` statement must use the case that was specified when the object was created. For example, if you created a table with a name that is in all lowercase with a capitalized first letter, you must use that same case in the `GRANT` statement. For each change stream, PostgreSQL automatically creates a change stream read function with a name that consists of a prefix added to the change stream name, so ensure that you use the proper case for both the prefix and the change stream name. For more information about change stream read functions, see [Change stream query syntax](https://docs.cloud.google.com/spanner/docs/change-streams/details#change_stream_query_syntax) .
 
   - When granting column-level privileges on multiple tables, each table must contain the named columns.
 
-  - If a table contains a column that is marked `  NOT NULL  ` and has no default value, you can't insert into the table unless you have the `  INSERT  ` privilege on that column.
+  - If a table contains a column that is marked `NOT NULL` and has no default value, you can't insert into the table unless you have the `INSERT` privilege on that column.
 
-  - After granting `  SELECT  ` on a change stream to a role, grant `  EXECUTE  ` on the change stream's read function to that role. For information about change stream read functions, see [Change stream read functions and query syntax](https://docs.cloud.google.com/spanner/docs/change-streams/details#change_stream_query_syntax) .
+  - After granting `SELECT` on a change stream to a role, grant `EXECUTE` on the change stream's read function to that role. For information about change stream read functions, see [Change stream read functions and query syntax](https://docs.cloud.google.com/spanner/docs/change-streams/details#change_stream_query_syntax) .
 
-  - Granting `  SELECT  ` on a table doesn't grant `  SELECT  ` on the change stream that tracks it. You must make a separate grant for the change stream.
+  - Granting `SELECT` on a table doesn't grant `SELECT` on the change stream that tracks it. You must make a separate grant for the change stream.
 
 #### Examples
 
-The following example grants `  SELECT  ` on the `  employees  ` table to the `  hr_rep  ` role. Grantees of the `  hr_rep  ` role can read all columns of `  employees  ` .
+The following example grants `SELECT` on the `employees` table to the `hr_rep` role. Grantees of the `hr_rep` role can read all columns of `employees` .
 
     GRANT SELECT ON TABLE employees TO hr_rep;
 
-The next example is the same as the previous example, but with the optional `  TABLE  ` keyword omitted.
+The next example is the same as the previous example, but with the optional `TABLE` keyword omitted.
 
-`  GRANT SELECT ON employees TO hr_rep;  `
+`GRANT SELECT ON employees TO hr_rep;`
 
-The next example grants `  SELECT  ` on a subset of columns of the `  contractors  ` table to the `  hr_rep  ` role. Grantees of the `  hr_rep  ` role can only read the named columns.
+The next example grants `SELECT` on a subset of columns of the `contractors` table to the `hr_rep` role. Grantees of the `hr_rep` role can only read the named columns.
 
     GRANT SELECT(name, address, phone) ON TABLE contractors TO hr_rep;
 
-The next example mixes table-level and column-level grants. `  hr_manager  ` can read all table columns, but can update only the `  location  ` column.
+The next example mixes table-level and column-level grants. `hr_manager` can read all table columns, but can update only the `location` column.
 
     GRANT SELECT, UPDATE(location) ON TABLE employees TO hr_manager;
 
-The next example makes column-level grants on two tables. Both tables must contain the `  name  ` , `  level  ` , and `  location  ` columns.
+The next example makes column-level grants on two tables. Both tables must contain the `name` , `level` , and `location` columns.
 
     GRANT SELECT (name, level, location), UPDATE (location)
     ON TABLE employees, contractors
     TO hr_manager;
 
-The next example grants `  INSERT  ` on a subset of columns of the `  employees  ` table.
+The next example grants `INSERT` on a subset of columns of the `employees` table.
 
     GRANT INSERT(name, cost_center, location, manager) ON TABLE employees TO hr_manager;
 
-The next example grants the database role `  pii_access  ` to the roles `  hr_manager  ` and `  hr_director  ` . The `  hr_manager  ` and `  hr_director  ` roles are *members* of `  pii_access  ` and inherit the privileges that were granted to `  pii_access  ` . For more information, see [Database role hierarchies and inheritance](https://docs.cloud.google.com/spanner/docs/fgac-about#role_hierarchy) .
+The next example grants the database role `pii_access` to the roles `hr_manager` and `hr_director` . The `hr_manager` and `hr_director` roles are *members* of `pii_access` and inherit the privileges that were granted to `pii_access` . For more information, see [Database role hierarchies and inheritance](https://docs.cloud.google.com/spanner/docs/fgac-about#role_hierarchy) .
 
     GRANT pii_access TO hr_manager, hr_director;
 
@@ -1314,7 +1314,7 @@ Revokes privileges on one or more tables, views, change streams, or change strea
 
 #### Description
 
-For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) , revokes privileges on one or more tables, views, change streams, or change stream read functions from database roles. Also revokes database roles from other database roles. When revoking `  SELECT  ` , `  INSERT  ` , or `  UPDATE  ` on a table, optionally revokes privileges on only a subset of table columns.
+For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) , revokes privileges on one or more tables, views, change streams, or change stream read functions from database roles. Also revokes database roles from other database roles. When revoking `SELECT` , `INSERT` , or `UPDATE` on a table, optionally revokes privileges on only a subset of table columns.
 
 #### Parameters
 
@@ -1344,27 +1344,27 @@ For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fga
 
 #### Notes and restrictions
 
-  - Identifiers for database objects named in the `  REVOKE  ` statement must use the case that was specified when the object was created. For example, if you created a table with a name that is in all lowercase with a capitalized first letter, you must use that same case in the `  REVOKE  ` statement. For each change stream, PostgreSQL automatically creates a change stream read function with a name that consists of a prefix added to the change stream name, so ensure that you use the proper case for both the prefix and the change stream name. For more information about change stream read functions, see [Change stream query syntax](https://docs.cloud.google.com/spanner/docs/change-streams/details#change_stream_query_syntax) .
+  - Identifiers for database objects named in the `REVOKE` statement must use the case that was specified when the object was created. For example, if you created a table with a name that is in all lowercase with a capitalized first letter, you must use that same case in the `REVOKE` statement. For each change stream, PostgreSQL automatically creates a change stream read function with a name that consists of a prefix added to the change stream name, so ensure that you use the proper case for both the prefix and the change stream name. For more information about change stream read functions, see [Change stream query syntax](https://docs.cloud.google.com/spanner/docs/change-streams/details#change_stream_query_syntax) .
 
   - When revoking column-level privileges on multiple tables, each table must contain the named columns.
 
-  - A `  REVOKE  ` statement at the column level has no effect if privileges were granted at the table level.
+  - A `REVOKE` statement at the column level has no effect if privileges were granted at the table level.
 
-  - After revoking `  SELECT  ` on a change stream from a role, revoke `  EXECUTE  ` on the change stream's read function from that role.
+  - After revoking `SELECT` on a change stream from a role, revoke `EXECUTE` on the change stream's read function from that role.
 
-  - Revoking `  SELECT  ` on a change stream doesn't revoke any privileges on the table that it tracks.
+  - Revoking `SELECT` on a change stream doesn't revoke any privileges on the table that it tracks.
 
 #### Examples
 
-The following example revokes `  SELECT  ` on the `  employees  ` table from the role `  hr_rep  ` .
+The following example revokes `SELECT` on the `employees` table from the role `hr_rep` .
 
     REVOKE SELECT ON TABLE employees FROM hr_rep;
 
-The next example is the same as the previous example, but with the optional `  TABLE  ` keyword omitted.
+The next example is the same as the previous example, but with the optional `TABLE` keyword omitted.
 
     REVOKE SELECT ON employees FROM hr_rep;
 
-The next example revokes `  SELECT  ` on a subset of columns of the `  contractors  ` table from the role `  hr_rep  ` .
+The next example revokes `SELECT` on a subset of columns of the `contractors` table from the role `hr_rep` .
 
     REVOKE SELECT(name, address, phone) ON TABLE contractors FROM hr_rep;
 
@@ -1372,18 +1372,18 @@ The next example shows revoking both table-level and column-level privileges in 
 
     REVOKE SELECT, UPDATE(location) ON TABLE employees FROM hr_manager;
 
-The next example revokes column-level grants on two tables. Both tables must contain the `  name  ` , `  level  ` , and `  location  ` columns.
+The next example revokes column-level grants on two tables. Both tables must contain the `name` , `level` , and `location` columns.
 
     REVOKE
       SELECT (name, level, location),
       UPDATE (location)
     ON TABLE employees, contractors
 
-The next example revokes `  INSERT  ` on a subset of columns.
+The next example revokes `INSERT` on a subset of columns.
 
     REVOKE INSERT(name, cost_center, location, manager) ON TABLE employees FROM
     hr_manager;
 
-The following example revokes the database role `  pii_access  ` from the `  hr_manager  ` and `  hr_director  ` database roles. The `  hr_manager  ` and `  hr_director  ` roles lose any privileges that they inherited from `  pii_access  ` .
+The following example revokes the database role `pii_access` from the `hr_manager` and `hr_director` database roles. The `hr_manager` and `hr_director` roles lose any privileges that they inherited from `pii_access` .
 
     REVOKE pii_access FROM hr_manager, hr_director;

@@ -26,9 +26,9 @@ After you [create your Spanner instance partitions](https://docs.cloud.google.co
 
 5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-6.  Enter the `  CREATE PLACEMENT  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement.
+6.  Enter the `CREATE PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement.
     
-    For example, you can run the following to create a placement table `  europeplacement  ` in the instance partition `  europe-partition  ` :
+    For example, you can run the following to create a placement table `europeplacement` in the instance partition `europe-partition` :
     
     ### GoogleSQL
     
@@ -44,9 +44,9 @@ After you [create your Spanner instance partitions](https://docs.cloud.google.co
 
 ### gcloud
 
-To create a placement with the Google Cloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To create a placement with the Google Cloud CLI command, use [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
-For example, create a placement in the instance partition `  europe-partition  ` :
+For example, create a placement in the instance partition `europe-partition` :
 
 ### GoogleSQL
 
@@ -64,7 +64,7 @@ For example, create a placement in the instance partition `  europe-partition  `
 
 You can set the default leader region of a placement if its location is in a dual-region or multi-region. The new leader region must be one of the two read-write regions within the dual-region or multi-region placement location. For more information, see the [Dual-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) and [Multi-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) tables.
 
-If you don't set a leader region, your placement uses the default leader region as specified by its location. For a list of the leader region for each dual-region or multi-region location, see the [Dual-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) and [Multi-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) tables. The default leader region is denoted with an *L* . For example, the default leader region of `  nam8  ` is in Los Angeles( `  us-west2  ` ). The following instructions explain how to set it to Oregon( `  us-west1  ` ).
+If you don't set a leader region, your placement uses the default leader region as specified by its location. For a list of the leader region for each dual-region or multi-region location, see the [Dual-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) and [Multi-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) tables. The default leader region is denoted with an *L* . For example, the default leader region of `nam8` is in Los Angeles( `us-west2` ). The following instructions explain how to set it to Oregon( `us-west1` ).
 
 ### Console
 
@@ -80,9 +80,9 @@ If you don't set a leader region, your placement uses the default leader region 
 
 5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-6.  Enter the `  CREATE PLACEMENT  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement.
+6.  Enter the `CREATE PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement.
     
-    For example, you can run the following to create a placement table `  nam8placement  ` in the instance partition `  nam8-partition  ` with the default leader location set as `  us-west1  ` :
+    For example, you can run the following to create a placement table `nam8placement` in the instance partition `nam8-partition` with the default leader location set as `us-west1` :
     
     ### GoogleSQL
     
@@ -99,9 +99,9 @@ If you don't set a leader region, your placement uses the default leader region 
 
 ### gcloud
 
-To create a placement with the gcloud CLI command, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To create a placement with the gcloud CLI command, use [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
-For example, create a placement table `  nam8placement  ` in the instance partition `  nam8-partition  ` with the default leader location set as `  us-west1  ` :
+For example, create a placement table `nam8placement` in the instance partition `nam8-partition` with the default leader location set as `us-west1` :
 
 ### GoogleSQL
 
@@ -126,9 +126,9 @@ Before you drop a placement, you must remove all row data from the placement. Af
 
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-3.  Enter the `  DROP PLACEMENT  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop-placement) ) DDL statement.
+3.  Enter the `DROP PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop-placement) ) DDL statement.
     
-    For example, you can run the following to drop the placement table `  europeplacement  ` :
+    For example, you can run the following to drop the placement table `europeplacement` :
     
     ### GoogleSQL
     
@@ -140,9 +140,9 @@ Before you drop a placement, you must remove all row data from the placement. Af
 
 ### gcloud
 
-To drop a placement with the gcloud CLI command, use `  gcloud spanner databases ddl update  ` .
+To drop a placement with the gcloud CLI command, use `gcloud spanner databases ddl update` .
 
-For example, drop placement `  europeplacement  ` :
+For example, drop placement `europeplacement` :
 
     gcloud spanner databases ddl update example-db \
       --instance=test-instance \
@@ -150,7 +150,7 @@ For example, drop placement `  europeplacement  ` :
 
 ### Drop placement errors
 
-If the placement is in use, then the `  DROP PLACEMENT  ` operation fails with an error message such as: "Statement failed: Placement PLACEMENT\_NAME cannot be dropped because it is in use by placement table PLACEMENT\_TABLE\_NAME .". If you encounter this error, do the following:
+If the placement is in use, then the `DROP PLACEMENT` operation fails with an error message such as: "Statement failed: Placement PLACEMENT\_NAME cannot be dropped because it is in use by placement table PLACEMENT\_TABLE\_NAME .". If you encounter this error, do the following:
 
 1.  Modify your application to stop inserting or updating rows with the placement you want to drop.
 
@@ -168,9 +168,9 @@ If the placement is in use, then the `  DROP PLACEMENT  ` operation fails with a
         
         The previous placement-specific DML statements only work with partitioned DML. They will fail as regular DML statements. For more information, see [Limitations](https://docs.cloud.google.com/spanner/docs/geo-partitioning#limitations) . You can also use the mutation API to move or drop placement rows.
 
-### Cancel a `     DROP PLACEMENT    ` operation
+### Cancel a `DROP PLACEMENT` operation
 
-You can cancel a `  DROP PLACEMENT  ` operation anytime before the long-running operation completely deletes the placement from the database schema. For details on how to obtain the long-running operation ID to check the status, or to cancel the operation, see [Manage and observe long-running operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations) .
+You can cancel a `DROP PLACEMENT` operation anytime before the long-running operation completely deletes the placement from the database schema. For details on how to obtain the long-running operation ID to check the status, or to cancel the operation, see [Manage and observe long-running operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations) .
 
 ## Create a table with a placement key
 
@@ -180,9 +180,9 @@ You can cancel a `  DROP PLACEMENT  ` operation anytime before the long-running 
 
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-3.  Enter the `  CREATE TABLE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) ) DDL statement.
+3.  Enter the `CREATE TABLE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) ) DDL statement.
     
-    For example, you can create a `  Singers  ` table that uses a placement key to partition singer data:
+    For example, you can create a `Singers` table that uses a placement key to partition singer data:
     
     ### GoogleSQL
     
@@ -204,9 +204,9 @@ You can cancel a `  DROP PLACEMENT  ` operation anytime before the long-running 
 
 ### gcloud
 
-To create a table, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To create a table, use [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
-For example, you can create a `  Singers  ` table that uses a placement key to partition singer data:
+For example, you can create a `Singers` table that uses a placement key to partition singer data:
 
 ### GoogleSQL
 
@@ -222,14 +222,14 @@ For example, you can create a `  Singers  ` table that uses a placement key to p
 
 ## Edit a table with a placement key
 
-You can't drop a placement key from a table. You also can't add a placement key to a table after it has been created. However, you can use the `  ALTER TABLE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) ) DDL statement to change other fields in the table, for example, by adding and dropping non-placement key columns.
+You can't drop a placement key from a table. You also can't add a placement key to a table after it has been created. However, you can use the `ALTER TABLE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) ) DDL statement to change other fields in the table, for example, by adding and dropping non-placement key columns.
 
 ## Delete a table with a placement key
 
 Before you delete a table with a placement key, you must first:
 
 1.  Delete all rows in the placement table.
-2.  Wait for the [`  version_retention_period  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) for the database to pass. For more information, see [Point-in-time recovery](https://docs.cloud.google.com/spanner/docs/pitr) . Then, following these steps:
+2.  Wait for the [`version_retention_period`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) for the database to pass. For more information, see [Point-in-time recovery](https://docs.cloud.google.com/spanner/docs/pitr) . Then, following these steps:
 
 ### Console
 
@@ -237,17 +237,17 @@ Before you delete a table with a placement key, you must first:
 
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-3.  Enter the `  DROP TABLE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop-table) ) DDL statement.
+3.  Enter the `DROP TABLE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop-table) ) DDL statement.
     
-    For example, drop the `  Singers  ` table:
+    For example, drop the `Singers` table:
     
         DROP TABLE Singers;
 
 ### gcloud
 
-To drop a table, use [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To drop a table, use [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
-For example, drop the `  Singers  ` table:
+For example, drop the `Singers` table:
 
     gcloud spanner databases ddl update example-db \
       --instance=test-instance \
@@ -261,18 +261,18 @@ For example, drop the `  Singers  ` table:
 
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
-3.  Enter the `  INSERT INTO  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-statement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-statement) ) DDL statement.
+3.  Enter the `INSERT INTO` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-statement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-statement) ) DDL statement.
     
-    For example, add a singer, Marc Richards, to the `  Singers  ` table and partition it in `  europeplacement  ` :
+    For example, add a singer, Marc Richards, to the `Singers` table and partition it in `europeplacement` :
     
         INSERT INTO Singers(SingerId, SingerName, Location)
         VALUES (1, 'Marc Richards', 'europeplacement')
 
 ### gcloud
 
-To write data to a table, use [`  gcloud spanner rows insert  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/insert) .
+To write data to a table, use [`gcloud spanner rows insert`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/insert) .
 
-For example, add a singer, Marc Richards, to the `  Singers  ` table and partition it in `  europeplacement  ` :
+For example, add a singer, Marc Richards, to the `Singers` table and partition it in `europeplacement` :
 
     gcloud spanner rows insert --table=Singers --database=example-db \
       --instance=test-instance --data=SingerId=1,SingerName='Marc Richards',Location='europeplacement'
@@ -287,7 +287,7 @@ For example, add a singer, Marc Richards, to the `  Singers  ` table and partiti
 
 3.  Use [DML](https://docs.cloud.google.com/spanner/docs/dml-tasks) or [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) to update data in a placement table.
     
-    For example, update the name of `  singerid=1  ` in the `  Singers  ` table to `  Catalina Smith  ` :
+    For example, update the name of `singerid=1` in the `Singers` table to `Catalina Smith` :
     
         UPDATE Singers s
         SET s.name='Catalina Smith'
@@ -295,9 +295,9 @@ For example, add a singer, Marc Richards, to the `  Singers  ` table and partiti
 
 ### gcloud
 
-To update data in a placement table, use [`  gcloud spanner rows update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/update) .
+To update data in a placement table, use [`gcloud spanner rows update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/update) .
 
-For example, update the name of `  singerid=1  ` in the `  Singers  ` table to `  Catalina Smith  ` :
+For example, update the name of `singerid=1` in the `Singers` table to `Catalina Smith` :
 
     gcloud spanner rows update --table=Singers --database=example-db \
       --instance=test-instance --data=SingerId=1,SingerName='Catalina Smith'
@@ -314,7 +314,7 @@ For example, update the name of `  singerid=1  ` in the `  Singers  ` table to `
 
 4.  Use [DML](https://docs.cloud.google.com/spanner/docs/dml-tasks) or [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) to move data to the new instance partition.
     
-    For example, move `  singerid=1  ` in the `  Singers  ` table to `  asiaplacement  ` :
+    For example, move `singerid=1` in the `Singers` table to `asiaplacement` :
     
         UPDATE Singers s
         SET s.location='asiaplacement'
@@ -322,9 +322,9 @@ For example, update the name of `  singerid=1  ` in the `  Singers  ` table to `
 
 ### gcloud
 
-After creating the instance partition and placement where you want to move your data, use [`  gcloud spanner rows update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/update) .
+After creating the instance partition and placement where you want to move your data, use [`gcloud spanner rows update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/update) .
 
-For example, move `  singerid=1  ` in the `  Singers  ` table to `  asiaplacement  ` :
+For example, move `singerid=1` in the `Singers` table to `asiaplacement` :
 
     gcloud spanner rows update --table=Singers --database=example-db \
       --instance=test-instance --data=SingerId=1,Location='asiaplacement'
@@ -339,16 +339,16 @@ For example, move `  singerid=1  ` in the `  Singers  ` table to `  asiaplacemen
 
 3.  Use [DML](https://docs.cloud.google.com/spanner/docs/dml-tasks) or [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) to delete data.
     
-    For example, delete `  singerid=1  ` in the `  Singers  ` table:
+    For example, delete `singerid=1` in the `Singers` table:
     
         DELETE FROM Singers s
         WHERE s.id=1;
 
 ### gcloud
 
-To delete data, use [`  gcloud spanner rows delete  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/delete) .
+To delete data, use [`gcloud spanner rows delete`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/delete) .
 
-For example, delete `  singerid=1  ` in the `  Singers  ` table:
+For example, delete `singerid=1` in the `Singers` table:
 
     gcloud spanner rows delete --table=Singers --database=example-db \
       --instance=test-instance --keys=1
@@ -363,15 +363,15 @@ For example, delete `  singerid=1  ` in the `  Singers  ` table:
 
 3.  Run your query.
     
-    For example, query the `  Singers  ` table:
+    For example, query the `Singers` table:
     
         SELECT * FROM Singers s WHERE s.SingerId=1;
 
 ### gcloud
 
-To query data, use [`  gcloud spanner databases execute-sql  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) .
+To query data, use [`gcloud spanner databases execute-sql`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) .
 
-For example, query the `  Singers  ` table:
+For example, query the `Singers` table:
 
     gcloud spanner databases execute-sql example-db \
       --instance=test-instance \

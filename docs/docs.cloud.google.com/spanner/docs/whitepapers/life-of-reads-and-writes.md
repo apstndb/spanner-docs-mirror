@@ -10,9 +10,9 @@ There are some datasets that are too large to fit on a single machine. There are
 
 We also want to make sure that data is accessible despite failures. To ensure this, we replicate each split to multiple machines in distinct failure domains. Consistent replication to the different copies of the split is managed by the Paxos algorithm. In Paxos, as long as a majority of the voting replicas for the split are up, one of those replicas can be elected **leader** to process writes and allow other replicas to serve reads.
 
-Spanner provides both **read-only transactions** and **read-write transactions** . The former are the preferred transaction-type for operations (including SQL `  SELECT  ` statements) that do not mutate your data. Read-only transactions still provide strong consistency and operate, by-default, on the latest copy of your data. But they are able to run without the need for any form of locking internally, which makes them faster and more scalable. Read-write transactions are used for transactions that insert, update, or delete data; this includes transactions that perform reads followed by a write. They are still highly scalable, but read-write transactions introduce locking and must be orchestrated by Paxos leaders. Note that locking is transparent to Spanner clients.
+Spanner provides both **read-only transactions** and **read-write transactions** . The former are the preferred transaction-type for operations (including SQL `SELECT` statements) that do not mutate your data. Read-only transactions still provide strong consistency and operate, by-default, on the latest copy of your data. But they are able to run without the need for any form of locking internally, which makes them faster and more scalable. Read-write transactions are used for transactions that insert, update, or delete data; this includes transactions that perform reads followed by a write. They are still highly scalable, but read-write transactions introduce locking and must be orchestrated by Paxos leaders. Note that locking is transparent to Spanner clients.
 
-Many previous distributed database systems have elected not to provide strong consistency guarantees because of the costly cross-machine communication that is usually required. Spanner is able to provide strongly consistent snapshots across the entire database using a Google-developed technology called [TrueTime](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) . Like the Flux Capacitor in a circa-1985 time machine, **TrueTime** is what makes Spanner possible. It is an API that allows any machine in Google datacenters to know the exact global time with a high degree of accuracy (that is, within a few milliseconds). This allows different Spanner machines to reason about the ordering of transactional operations (and have that ordering match what the client has observed) often without any communication at all. Google had to outfit its datacenters with special hardware (atomic clocks\!) in order to make TrueTime work. The resulting time precision and accuracy is much higher than can be achieved by other protocols (such as NTP). In particular, Spanner assigns a timestamp to all reads and writes. A transaction at timestamp `  T1  ` is guaranteed to reflect the results of all writes that happened before `  T1  ` . If a machine wants to satisfy a read at `  T2  ` , it must ensure that its view of the data is up-to-date through at least `  T2  ` . Because of TrueTime, this determination is usually very cheap. The protocols for ensuring consistency of the data are complicated, but they are discussed more in the original Spanner [paper](https://research.google.com/archive/spanner.html) and in this [paper](https://research.google/pubs/spanner-truetime-and-the-cap-theorem/) about Spanner and consistency.
+Many previous distributed database systems have elected not to provide strong consistency guarantees because of the costly cross-machine communication that is usually required. Spanner is able to provide strongly consistent snapshots across the entire database using a Google-developed technology called [TrueTime](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) . Like the Flux Capacitor in a circa-1985 time machine, **TrueTime** is what makes Spanner possible. It is an API that allows any machine in Google datacenters to know the exact global time with a high degree of accuracy (that is, within a few milliseconds). This allows different Spanner machines to reason about the ordering of transactional operations (and have that ordering match what the client has observed) often without any communication at all. Google had to outfit its datacenters with special hardware (atomic clocks\!) in order to make TrueTime work. The resulting time precision and accuracy is much higher than can be achieved by other protocols (such as NTP). In particular, Spanner assigns a timestamp to all reads and writes. A transaction at timestamp `T1` is guaranteed to reflect the results of all writes that happened before `T1` . If a machine wants to satisfy a read at `T2` , it must ensure that its view of the data is up-to-date through at least `T2` . Because of TrueTime, this determination is usually very cheap. The protocols for ensuring consistency of the data are complicated, but they are discussed more in the original Spanner [paper](https://research.google.com/archive/spanner.html) and in this [paper](https://research.google/pubs/spanner-truetime-and-the-cap-theorem/) about Spanner and consistency.
 
 ### Aside: Distributed Filesystems
 
@@ -43,7 +43,7 @@ In this example, we have a table with a simple integer primary key.
 | 7     | \[1997,2456) |
 | 8     | \[2456,∞)    |
 
-Given the schema for `  ExampleTable  ` above, the primary key space is partitioned into splits. For example: If there is a row in `  ExampleTable  ` with an `  Id  ` of `  3700  ` , it will live in Split 8. As detailed above, Split 8 itself is replicated across multiple machines.
+Given the schema for `ExampleTable` above, the primary key space is partitioned into splits. For example: If there is a row in `ExampleTable` with an `Id` of `3700` , it will live in Split 8. As detailed above, Split 8 itself is replicated across multiple machines.
 
 <https://docs.cloud.google.com/spanner/docs/images/api_layer.png>
 
@@ -51,15 +51,15 @@ In this example Spanner instance, the customer has five nodes, and the instance 
 
 ## Single-split write
 
-Let's say the client wants to insert a new row `  (7, "Seven")  ` into `  ExampleTable  ` .
+Let's say the client wants to insert a new row `(7, "Seven")` into `ExampleTable` .
 
-1.  API Layer looks up the split that owns the key range containing `  7  ` . It lives in Split 1.
+1.  API Layer looks up the split that owns the key range containing `7` . It lives in Split 1.
 
 2.  API Layer sends the write request to the Leader of Split 1.
 
 3.  Leader begins a **transaction** .
 
-4.  Leader attempts to get a **write lock** on the row `  Id=7  ` . This is a local operation. If another concurrent read-write transaction is currently reading this row, then the other transaction has a **read lock** and the current transaction blocks until it can acquire the write lock.
+4.  Leader attempts to get a **write lock** on the row `Id=7` . This is a local operation. If another concurrent read-write transaction is currently reading this row, then the other transaction has a **read lock** and the current transaction blocks until it can acquire the write lock.
     
     1.  It is possible that transaction A is waiting for a lock held by transaction B, and transaction B is waiting for a lock held by transaction A. Since neither transaction releases any lock until it acquires all locks, this can lead to deadlock. Spanner uses a standard "wound-wait" deadlock prevention algorithm to ensure that transactions make progress. In particular, a "younger" transaction will wait for a lock held by an "older" transaction, but an "older" transaction will "wound" (abort) a younger transaction holding a lock requested by the older transaction. Therefore we never have deadlock cycles of lock waiters.
 
@@ -94,28 +94,28 @@ Let's say the table contains four thousand rows:
 | ...  | ...             |
 | 4000 | "four thousand" |
 
-And let's say the client wants to read the value for row `  1000  ` and write a value to rows `  2000  ` , `  3000  ` , and `  4000  ` within a transaction. This will be executed within a read-write transaction as follows:
+And let's say the client wants to read the value for row `1000` and write a value to rows `2000` , `3000` , and `4000` within a transaction. This will be executed within a read-write transaction as follows:
 
 1.  Client begins a read-write transaction, *t* .
 
 2.  Client issues a read request for row 1000 to the API Layer and tags it as part of *t* .
 
-3.  API Layer looks up the split that owns the key `  1000  ` . It lives in Split 4.
+3.  API Layer looks up the split that owns the key `1000` . It lives in Split 4.
 
 4.  API Layer sends a read request to the Leader of Split 4 and tags it as part of *t* .
 
-5.  Leader of Split 4 attempts to get a **read lock** on the row `  Id=1000  ` . This is a local operation. If another concurrent transaction has a write lock on this row, then the current transaction blocks until it can acquire the lock. However, this read lock does not prevent other transactions from getting read locks.
+5.  Leader of Split 4 attempts to get a **read lock** on the row `Id=1000` . This is a local operation. If another concurrent transaction has a write lock on this row, then the current transaction blocks until it can acquire the lock. However, this read lock does not prevent other transactions from getting read locks.
     
     1.  As in the single split case, deadlock is prevented via "wound-wait".
 
-6.  Leader looks up the value for `  Id  ` `  1000  ` ("One Thousand") and returns the read result to the client.
+6.  Leader looks up the value for `Id` `1000` ("One Thousand") and returns the read result to the client.
     
       
     ***Later...***  
 
-7.  Client issues a Commit request for transaction t. This commit request contains 3 mutations: ( `  [2000, "Dos Mil"]  ` , `  [3000, "Tres Mil"]  ` , and `  [4000, "Quatro Mil"]  ` ).
+7.  Client issues a Commit request for transaction t. This commit request contains 3 mutations: ( `[2000, "Dos Mil"]` , `[3000, "Tres Mil"]` , and `[4000, "Quatro Mil"]` ).
     
-    1.  All of the splits involved in a transaction become **participants** in the transaction. In this case, Split 4 (which served the read for key `  1000  ` ), Split 7 (which will handle the mutation for key `  2000  ` ) and Split 8 (which will handle the mutations for key `  3000  ` and key `  4000  ` ) are participants.
+    1.  All of the splits involved in a transaction become **participants** in the transaction. In this case, Split 4 (which served the read for key `1000` ), Split 7 (which will handle the mutation for key `2000` ) and Split 8 (which will handle the mutations for key `3000` and key `4000` ) are participants.
 
 8.  One participant becomes the coordinator. In this case perhaps the leader for Split 7 becomes the coordinator. The job of the coordinator is to make sure the transaction either commits or aborts atomically across all participants. That is, it will not commit at one participant and abort at another.
     
@@ -123,16 +123,16 @@ And let's say the client wants to read the value for row `  1000  ` and write a 
 
 9.  Participants acquire locks. (This is the first phase of two-phase commit.)
     
-    1.  Split 7 acquires a write lock on key `  2000  ` .
-    2.  Split 8 acquires a write lock on key `  3000  ` and key `  4000  ` .
-    3.  Split 4 verifies that it still holds a read lock on key `  1000  ` (in other words, that the lock was not lost due to a machine crash or the wound-wait algorithm.)
+    1.  Split 7 acquires a write lock on key `2000` .
+    2.  Split 8 acquires a write lock on key `3000` and key `4000` .
+    3.  Split 4 verifies that it still holds a read lock on key `1000` (in other words, that the lock was not lost due to a machine crash or the wound-wait algorithm.)
     4.  Each participant split records its set of locks by replicating them to (at least) a majority of split replicas. This ensures the locks can remain held even across server failures.
     5.  If all the participants successfully notify the coordinator that their locks are held, then the overall transaction can commit. This ensures there is a point in time in which all the locks needed by the transaction are held, and this point in time becomes the commit point of the transaction, ensuring that we can properly order the effects of this transaction against other transactions that came before or after.
     6.  It is possible that locks cannot be acquired (for example, if we learn there might be a deadlock via the wound-wait algorithm). If any participant says it cannot commit the transaction, the whole transaction aborts.
 
 10. If all participants, and the coordinator, successfully acquire locks, Coordinator (Split 7) decides to commit the transaction. It assigns a timestamp to the transaction based on **TrueTime** .
     
-    1.  This commit decision, as well as the mutations for key `  2000  ` , are replicated to the members of Split 7. Once a majority of the Split 7 replicas record the commit decision to stable storage, the transaction is committed.
+    1.  This commit decision, as well as the mutations for key `2000` , are replicated to the members of Split 7. Once a majority of the Split 7 replicas record the commit decision to stable storage, the transaction is committed.
 
 11. The Coordinator communicates the transaction outcome to all of the Participants. (This is the second phase of two-phase commit.)
     
@@ -150,9 +150,9 @@ All of this happens in typically a handful of milliseconds, though typically a f
 
 ## Strong read (multi-split)
 
-Let's say the client wants to read all rows where `  Id >= 0  ` and `  Id < 700  ` as part of a read-only transaction.
+Let's say the client wants to read all rows where `Id >= 0` and `Id < 700` as part of a read-only transaction.
 
-1.  API Layer looks up the splits that own any keys in the range `  [0, 700)  ` . These rows are owned by Split 0, Split 1, and Split 2.
+1.  API Layer looks up the splits that own any keys in the range `[0, 700)` . These rows are owned by Split 0, Split 1, and Split 2.
 
 2.  Since this is a strong read across multiple machines, API Layer picks the read timestamp by using the current TrueTime. This ensures that both reads return data from the same snapshot of the database.
     

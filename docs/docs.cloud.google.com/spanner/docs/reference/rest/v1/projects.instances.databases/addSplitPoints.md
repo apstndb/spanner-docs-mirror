@@ -47,7 +47,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{database=projects/*/instances/*/databases/*}:addSplitPoints  `
+`POST https://spanner.googleapis.com/v1/{database=projects/*/instances/*/databases/*}:addSplitPoints`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -55,15 +55,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  database  `
+`database`
 
-`  string  `
+`string`
 
-Required. The database on whose tables or indexes the split points are to be added. Values are of the form `  projects/<project>/instances/<instance>/databases/<database>  ` .
+Required. The database on whose tables or indexes the split points are to be added. Values are of the form `projects/<project>/instances/<instance>/databases/<database>` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  database  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `database` :
 
-  - `  spanner.databases.addSplitPoints  `
+  - `spanner.databases.addSplitPoints`
 
 ### Request body
 
@@ -80,29 +80,22 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;splitPoints&quot;: [
-    {
-      object (SplitPoints)
-    }
-  ],
-  &quot;initiator&quot;: string
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;splitPoints&quot;: [{object (SplitPoints)}],&quot;initiator&quot;: string}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  splitPoints[]  `
+`splitPoints[]`
 
-`  object ( SplitPoints  ` )
+` object ( SplitPoints  ` )
 
 Required. The split points to add.
 
-`  initiator  `
+`initiator`
 
-`  string  `
+`string`
 
 Optional. A user-supplied tag associated with the split points. For example, "initial\_data\_load", "special\_event\_1". Defaults to "CloudAddSplitPointsAPI" if not specified. The length of the tag must not exceed 50 characters, or else it is trimmed. Only valid UTF8 characters are allowed.
 
@@ -114,8 +107,8 @@ If successful, the response body is empty.
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
@@ -134,47 +127,38 @@ The split points of a table or an index.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;table&quot;: string,
-  &quot;index&quot;: string,
-  &quot;keys&quot;: [
-    {
-      object (Key)
-    }
-  ],
-  &quot;expireTime&quot;: string
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;table&quot;: string,&quot;index&quot;: string,&quot;keys&quot;: [{object (Key)}],&quot;expireTime&quot;: string}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  table  `
+`table`
 
-`  string  `
+`string`
 
 The table to split.
 
-`  index  `
+`index`
 
-`  string  `
+`string`
 
-The index to split. If specified, the `  table  ` field must refer to the index's base table.
+The index to split. If specified, the `table` field must refer to the index's base table.
 
-`  keys[]  `
+`keys[]`
 
-`  object ( Key  ` )
+` object ( Key  ` )
 
 Required. The list of split keys. In essence, the split boundaries.
 
-`  expireTime  `
+`expireTime`
 
-`  string ( Timestamp  ` format)
+` string ( Timestamp  ` format)
 
 Optional. The expiration timestamp of the split points. A timestamp in the past means immediate expiration. The maximum value can be 30 days in the future. Defaults to 10 days in the future if not specified.
 
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
 
 ## Key
 
@@ -200,8 +184,8 @@ A split key.
 
 Fields
 
-`  keyParts  `
+`keyParts`
 
-`  array ( ListValue  ` format)
+` array ( ListValue  ` format)
 
 Required. The column values making up the split key.

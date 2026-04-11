@@ -9,11 +9,11 @@ Spanner supports two types of tags; ***request*** tags and ***transaction*** tag
 | [TopN Transaction Statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#table_schema) | Transaction tags                               |
 | [TopN Lock Statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#table_schema)               | Transaction tags                               |
 
-**Note:** Tags with the prefix `  sys_cloud_console_  ` are created by the Google Cloud console.
+**Note:** Tags with the prefix `sys_cloud_console_` are created by the Google Cloud console.
 
 ## Request tags
 
-You can add an optional request tag to a query or a read request. Spanner groups statistics by request tag, which is visible in the `  REQUEST_TAG  ` field of both the [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) and [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) tables.
+You can add an optional request tag to a query or a read request. Spanner groups statistics by request tag, which is visible in the `REQUEST_TAG` field of both the [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) and [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) tables.
 
 ### When to use request tags
 
@@ -280,13 +280,13 @@ Let's take the following data as an example of the results we get back from our 
 | select \* from orders;                             | app=catalogsearch,env=dev,action=list | 55                   | 0.02                      | 16            | 33.35          |
 | SELECT SingerId, FirstName, LastName FROM Singers; | \[empty string\]                      | 154                  | 0.048                     | 42            | 486.33         |
 
-From this table of results, we can see that if you have assigned a `  REQUEST_TAG  ` for a query, then it gets populated in the statistics table. If there is no request tag assigned, it is displayed as an empty string.
+From this table of results, we can see that if you have assigned a `REQUEST_TAG` for a query, then it gets populated in the statistics table. If there is no request tag assigned, it is displayed as an empty string.
 
-For the tagged queries, the statistics are aggregated per tag (e.g. request tag `  app=concert,env=dev,action=select  ` has an average latency of **0.025** seconds). If there is no tag assigned then the statistics are aggregated per query (e.g. the query in the third row has an average latency of **0.048** seconds).
+For the tagged queries, the statistics are aggregated per tag (e.g. request tag `app=concert,env=dev,action=select` has an average latency of **0.025** seconds). If there is no tag assigned then the statistics are aggregated per query (e.g. the query in the third row has an average latency of **0.048** seconds).
 
 ## Transaction tags
 
-An optional transaction tag can be added to individual transactions. Spanner groups statistics by transaction tag, which is visible in the `  TRANSACTION_TAG  ` field of [transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) tables.
+An optional transaction tag can be added to individual transactions. Spanner groups statistics by transaction tag, which is visible in the `TRANSACTION_TAG` field of [transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) tables.
 
 ### When to use transaction tags
 
@@ -741,15 +741,15 @@ Venues.Capacity]</td>
 </tbody>
 </table>
 
-From this table of results, we can see that if you have assigned a `  TRANSACTION_TAG  ` to a transaction, then it gets populated in the transaction statistics table. If there is no transaction tag assigned, it is displayed as an empty string.
+From this table of results, we can see that if you have assigned a `TRANSACTION_TAG` to a transaction, then it gets populated in the transaction statistics table. If there is no transaction tag assigned, it is displayed as an empty string.
 
-For the tagged transactions, the statistics are aggregated per transaction tag (e.g. transaction tag `  app=concert,env=dev  ` a has an average latency of **0.3508** seconds). If there is no tag assigned then the statistics are aggregated per `  FPRINT  ` (e.g. **77848338483** in the third row has an average latency of **0.048** seconds).
+For the tagged transactions, the statistics are aggregated per transaction tag (e.g. transaction tag `app=concert,env=dev` a has an average latency of **0.3508** seconds). If there is no tag assigned then the statistics are aggregated per `FPRINT` (e.g. **77848338483** in the third row has an average latency of **0.048** seconds).
 
 ### How to view transaction tags in Lock Statistics table
 
 The following query returns the lock statistics over 10 minute intervals.
 
-The [`  CAST()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#casting) function converts the `  row_range_start_key  ` BYTES field to a STRING.
+The [`CAST()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#casting) function converts the `row_range_start_key` BYTES field to a STRING.
 
     SELECT
        CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
@@ -799,7 +799,7 @@ TRANSACTION_TAG: [empty string]</td>
 </tbody>
 </table>
 
-From this table of results, we can see that if you have assigned a `  TRANSACTION_TAG  ` to a transaction, then it gets populated in the lock statistics table. If there is no transaction tag assigned, it is displayed as an empty string.
+From this table of results, we can see that if you have assigned a `TRANSACTION_TAG` to a transaction, then it gets populated in the lock statistics table. If there is no transaction tag assigned, it is displayed as an empty string.
 
 ## Mapping between API methods and request/transaction tag
 
@@ -867,9 +867,9 @@ No
 
 Yes
 
-<sup>1</sup> For change stream queries executed using the Apache Beam SpannerIO Dataflow connector, the `  REQUEST_TAG  ` contains a Dataflow job name.
+<sup>1</sup> For change stream queries executed using the Apache Beam SpannerIO Dataflow connector, the `REQUEST_TAG` contains a Dataflow job name.
 
-**Note:** When you use a client library you can set a `  TRANSACTION_TAG  ` at the beginning of the read-write transaction call which gets applied to all the individual operations inside that transaction.
+**Note:** When you use a client library you can set a `TRANSACTION_TAG` at the beginning of the read-write transaction call which gets applied to all the individual operations inside that transaction.
 
 ## Limitations
 
@@ -881,7 +881,7 @@ When adding tags to your reads, queries, and transactions, consider the followin
 
   - Any leading underscore (\_) characters are removed from the string.
 
-  - Tags are case-sensitive. For example, if you add the request tag `  APP=cart,ENV=dev  ` to one set of queries, and add `  app=cart,env=dev  ` to another set of queries, Spanner aggregates statistics separately for each tag.
+  - Tags are case-sensitive. For example, if you add the request tag `APP=cart,ENV=dev` to one set of queries, and add `app=cart,env=dev` to another set of queries, Spanner aggregates statistics separately for each tag.
 
   - Tags may be missing from the statistics tables under the following circumstance:
     
@@ -893,9 +893,9 @@ When assigning tags to your database operations, it is important to consider wha
 
 You can choose any tag you wish within the stated [limitations](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#limitations) . However, we recommend constructing a tag string as a set of **key-value** pairs separated by commas.
 
-For example, assume that you are using a Spanner database for an e-commerce use case. You might want to include information about the application, development environment, and the action being taken by the query in the request tag that you are going to assign to a particular query. You can consider assigning the tag string in the key-value format as `  app=cart,env=dev,action=update  ` .This means the query is called from the cart application in the development environment, and is used to update the cart.
+For example, assume that you are using a Spanner database for an e-commerce use case. You might want to include information about the application, development environment, and the action being taken by the query in the request tag that you are going to assign to a particular query. You can consider assigning the tag string in the key-value format as `app=cart,env=dev,action=update` .This means the query is called from the cart application in the development environment, and is used to update the cart.
 
-Suppose you have another query from a catalog search application and you assign the tag string as `  app=catalogsearch,env=dev,action=list  ` . Now if any of these queries show up in the query statistics table as high latency queries, you can easily identify the source by using the tag.
+Suppose you have another query from a catalog search application and you assign the tag string as `app=catalogsearch,env=dev,action=list` . Now if any of these queries show up in the query statistics table as high latency queries, you can easily identify the source by using the tag.
 
 Here are some examples of how a tagging pattern can be used to organize your operation statistics. These examples are not meant to be exhaustive; you can also combine them in your tag string using a delimiter such as a comma.
 
@@ -953,9 +953,9 @@ service=shipping</td>
 
 ## Things to Note
 
-  - When you assign a `  REQUEST_TAG  ` , statistics for multiple queries that have the same tag string are grouped in a single row in [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) table. Only the text of one of those queries is shown in the `  TEXT  ` field.
-  - When you assign a `  REQUEST_TAG  ` , statistics for multiple reads that have the same tag string are grouped in a single row in [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) table. The set of all columns that are read are added to the `  READ_COLUMNS  ` field.
-  - When you assign a `  TRANSACTION_TAG  ` , statistics for transactions that have the same tag string are grouped in a single row in [transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) table. The set of all columns that are written by the transactions are added to the `  WRITE_CONSTRUCTIVE_COLUMNS  ` field and the set of all columns that are read are added to the `  READ_COLUMNS  ` field.
+  - When you assign a `REQUEST_TAG` , statistics for multiple queries that have the same tag string are grouped in a single row in [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) table. Only the text of one of those queries is shown in the `TEXT` field.
+  - When you assign a `REQUEST_TAG` , statistics for multiple reads that have the same tag string are grouped in a single row in [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) table. The set of all columns that are read are added to the `READ_COLUMNS` field.
+  - When you assign a `TRANSACTION_TAG` , statistics for transactions that have the same tag string are grouped in a single row in [transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) table. The set of all columns that are written by the transactions are added to the `WRITE_CONSTRUCTIVE_COLUMNS` field and the set of all columns that are read are added to the `READ_COLUMNS` field.
 
 **Note:** Avoid using personally identifiable information (PII) or other user data in a tag. Tags are not designed to handle sensitive information.
 
@@ -995,7 +995,7 @@ Similarly, Request Tag can be used to find the source of a problematic query fro
 
 If you have used the application name or microservice name in the tag string, it helps in filtering the transaction statistics table by tags that contain that application name or microservice name.
 
-Suppose you have added new transactions to the **payment** app and you want to look at latencies and other statistics of those new transactions. If you have used the name of the payment application within the tag, you can filter the transaction statistics table for only those tags that contain `  app=payment  ` .
+Suppose you have added new transactions to the **payment** app and you want to look at latencies and other statistics of those new transactions. If you have used the name of the payment application within the tag, you can filter the transaction statistics table for only those tags that contain `app=payment` .
 
 The following query returns the transaction statistics for payment app over 10 minute intervals.
 
@@ -1021,7 +1021,7 @@ Similarly, you can find queries or reads from a specific application in [query s
 
 ### Discovering the transactions involved in lock conflict
 
-To find out which transactions and row keys experienced the high lock wait times, we query the `  LOCK_STAT_TOP_10MINUTE  ` table, which lists the row keys, columns, and corresponding transactions that are involved in the lock conflict.
+To find out which transactions and row keys experienced the high lock wait times, we query the `LOCK_STAT_TOP_10MINUTE` table, which lists the row keys, columns, and corresponding transactions that are involved in the lock conflict.
 
     SELECT CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
            t.total_lock_wait_seconds,
@@ -1070,7 +1070,7 @@ app=cart,service=redis</td>
 </tbody>
 </table>
 
-From this table of results, we can see the conflict happened on the `  Singers  ` table at key **SingerId=32** . The `  Singers.SingerInfo  ` is the column where the lock conflict happened between `  ReaderShared  ` and `  WriterShared  ` . You can also identify corresponding transactions ( `  app=cart,service=order  ` and `  app=cart,service=redis  ` ) that are experiencing the conflict.
+From this table of results, we can see the conflict happened on the `Singers` table at key **SingerId=32** . The `Singers.SingerInfo` is the column where the lock conflict happened between `ReaderShared` and `WriterShared` . You can also identify corresponding transactions ( `app=cart,service=order` and `app=cart,service=redis` ) that are experiencing the conflict.
 
 Once the transactions causing the lock conflicts are identified, you can now focus on these transactions by using [Transaction Statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) to get a better sense of what the transactions are doing and if you can avoid a conflict or reduce the time for which the locks are held. For more information, see [Best practices to reduce lock contention](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#applying_best_practices_to_reduce_lock_contention) .
 

@@ -1,8 +1,8 @@
-This page describes how to set a timeout for transactions using the Spanner client libraries. The transaction fails with a `  DEADLINE_EXCEEDED  ` error if the transaction can't finish within the given timeout value.
+This page describes how to set a timeout for transactions using the Spanner client libraries. The transaction fails with a `DEADLINE_EXCEEDED` error if the transaction can't finish within the given timeout value.
 
 You can set timeout values for transactions and for [RPC request statements](https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry) . Setting a longer timeout value for the transaction than the timeout value for the statement that is executed in the transaction doesn't increase the timeout for the statement, which is constrained by its own timeout value.
 
-Also, if the timeout error occurs during the execution of the [`  Commit  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Commit) request, it's still possible that the transaction was committed.
+Also, if the timeout error occurs during the execution of the [`Commit`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Commit) request, it's still possible that the transaction was committed.
 
 You can set a transaction timeout using the Go, Java, Python, and Node.js client libraries.
 

@@ -4,11 +4,11 @@ gcloud beta spanner instances remove-iam-policy-binding - remove IAM policy bind
 
 SYNOPSIS
 
-`  gcloud beta spanner instances remove-iam-policy-binding  ` \[ `  INSTANCE  ` \] `  --member  ` = `  PRINCIPAL  ` `  --role  ` = `  ROLE  ` \[ `  --all  ` | `  --condition  ` =\[ `  KEY  ` = `  VALUE  ` , …\] | `  --condition-from-file  ` = `  PATH_TO_FILE  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner instances remove-iam-policy-binding` \[ `  INSTANCE  ` \] `  --member  ` = `  PRINCIPAL  ` `  --role  ` = `  ROLE  ` \[ `  --all  ` | `  --condition  ` =\[ `  KEY  ` = `  VALUE  ` , …\] | `  --condition-from-file  ` = `  PATH_TO_FILE  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Remove an IAM policy binding of a Cloud Spanner instance. One binding consists of a member, a role, and an optional condition.
+`(BETA)` Remove an IAM policy binding of a Cloud Spanner instance. One binding consists of a member, a role, and an optional condition.
 
 EXAMPLES
 
@@ -21,9 +21,7 @@ gcloud beta spanner instances remove-iam-policy-binding my-instance --member='us
 To remove an IAM policy binding which expires at the end of the year 2018 for the role of 'roles/spanner.admin' and the user 'test-user@gmail.com' with instance 'my-instance', run:
 
 ``` wrap-code
-gcloud beta spanner instances remove-iam-policy-binding my-instance --member='user:test-user@gmail.com' --role='roles/spanner.admin' --condition='expression=request.time <
- timestamp("2019-01-01T00:00:00Z"),title=expires_end_of_2018,descrip\
-tion=Expires at midnight on 2018-12-31'
+gcloud beta spanner instances remove-iam-policy-binding my-instance --member='user:test-user@gmail.com' --role='roles/spanner.admin' --condition='expression=request.time < timestamp("2019-01-01T00:00:00Z"),title=expires_end_of_2018,descrip\tion=Expires at midnight on 2018-12-31'
 ```
 
 See <https://cloud.google.com/iam/docs/managing-policies> for details of policy role and member types.
@@ -32,74 +30,74 @@ POSITIONAL ARGUMENTS
 
 Instance resource - The Cloud Spanner instance to remove the IAM policy binding from. This represents a Cloud resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  instance  ` on the command line with a fully specified name;
-  - set the property `  spanner/instance  ` with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `instance` on the command line with a fully specified name;
+  - set the property `spanner/instance` with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 \[ `  INSTANCE  ` \]
 
 ID of the instance or fully qualified identifier for the instance.
 
-To set the `  instance  ` attribute:
+To set the `instance` attribute:
 
-  - provide the argument `  instance  ` on the command line;
-  - set the property `  spanner/instance  ` .
+  - provide the argument `instance` on the command line;
+  - set the property `spanner/instance` .
 
 REQUIRED FLAGS
 
-  - `  --member  ` = `  PRINCIPAL  `  
-    The principal to remove the binding for. Should be of the form `  user|group|serviceAccount:email  ` or `  domain:domain  ` .
+  - `--member` = `  PRINCIPAL  `  
+    The principal to remove the binding for. Should be of the form `user|group|serviceAccount:email` or `domain:domain` .
     
-    Examples: `  user:test-user@gmail.com  ` , `  group:admins@example.com  ` , `  serviceAccount:test123@example.domain.com  ` , or `  domain:example.domain.com  ` .
+    Examples: `user:test-user@gmail.com` , `group:admins@example.com` , `serviceAccount:test123@example.domain.com` , or `domain:example.domain.com` .
     
-    Deleted principals have an additional `  deleted:  ` prefix and a `  ?uid=UID  ` suffix, where `  UID  ` is a unique identifier for the principal. Example: `  deleted:user:test-user@gmail.com?uid=123456789012345678901  ` .
+    Deleted principals have an additional `deleted:` prefix and a `?uid=UID` suffix, where `  UID  ` is a unique identifier for the principal. Example: `deleted:user:test-user@gmail.com?uid=123456789012345678901` .
     
     Some resources also accept the following special values:
     
-      - `  allUsers  ` - Special identifier that represents anyone who is on the internet, with or without a Google account.
-      - `  allAuthenticatedUsers  ` - Special identifier that represents anyone who is authenticated with a Google account or a service account.
+      - `allUsers` - Special identifier that represents anyone who is on the internet, with or without a Google account.
+      - `allAuthenticatedUsers` - Special identifier that represents anyone who is authenticated with a Google account or a service account.
 
-  - `  --role  ` = `  ROLE  `  
+  - `--role` = `  ROLE  `  
     The role to remove the principal from.
 
 OPTIONAL FLAGS
 
 At most one of these can be specified:
 
-  - `  --all  `  
+  - `--all`  
     Remove all bindings with this role and principal, irrespective of any conditions.
 
-  - `  --condition  ` =\[ `  KEY  ` = `  VALUE  ` ,…\]  
-    The condition of the binding that you want to remove. When the condition is explicitly specified as `  None  ` ( `  --condition=None  ` ), a binding without a condition is removed. Otherwise, only a binding with a condition that exactly matches the specified condition (including the optional description) is removed. For more on conditions, refer to the conditions overview guide: <https://cloud.google.com/iam/docs/conditions-overview>
+  - `--condition` =\[ `  KEY  ` = `  VALUE  ` ,…\]  
+    The condition of the binding that you want to remove. When the condition is explicitly specified as `None` ( `--condition=None` ), a binding without a condition is removed. Otherwise, only a binding with a condition that exactly matches the specified condition (including the optional description) is removed. For more on conditions, refer to the conditions overview guide: <https://cloud.google.com/iam/docs/conditions-overview>
     
-    When using the `  --condition  ` flag, include the following key-value pairs:
+    When using the `--condition` flag, include the following key-value pairs:
     
-      - `  expression  `  
+      - `expression`  
         (Required) Condition expression that evaluates to True or False. This uses a subset of Common Expression Language syntax.
         
-        If the condition expression includes a comma, use a different delimiter to separate the key-value pairs. Specify the delimiter before listing the key-value pairs. For example, to specify a colon ( `  :  ` ) as the delimiter, do the following: `  --condition=^:^title=TITLE:expression=EXPRESSION  ` . For more information, see <https://cloud.google.com/sdk/gcloud/reference/topic/escaping> .
+        If the condition expression includes a comma, use a different delimiter to separate the key-value pairs. Specify the delimiter before listing the key-value pairs. For example, to specify a colon ( `:` ) as the delimiter, do the following: `--condition=^:^title=TITLE:expression=EXPRESSION` . For more information, see <https://cloud.google.com/sdk/gcloud/reference/topic/escaping> .
     
-      - `  title  `  
+      - `title`  
         (Required) A short string describing the purpose of the expression.
     
-      - `  description  `  
+      - `description`  
         (Optional) Additional description for the expression.
 
-  - `  --condition-from-file  ` = `  PATH_TO_FILE  `  
-    Path to a local JSON or YAML file that defines the condition. To see available fields, see the help for `  --condition  ` . Use a full or relative path to a local file containing the value of condition.
+  - `--condition-from-file` = `  PATH_TO_FILE  `  
+    Path to a local JSON or YAML file that defines the condition. To see available fields, see the help for `--condition` . Use a full or relative path to a local file containing the value of condition.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 API REFERENCE
 
-This command uses the `  spanner/v1  ` API. The full documentation for this API can be found at: <https://cloud.google.com/spanner/>
+This command uses the `spanner/v1` API. The full documentation for this API can be found at: <https://cloud.google.com/spanner/>
 
 NOTES
 

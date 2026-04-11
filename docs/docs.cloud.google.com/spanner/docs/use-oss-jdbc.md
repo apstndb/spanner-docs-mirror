@@ -4,7 +4,7 @@ This page shows you how to perform basic operations in Spanner using the [Spanne
 
 ## Install the JDBC driver
 
-Follow the steps in [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) to set up authentication, and then add the Spanner JDBC driver dependencies, shown in the following snippet, to your `  pom.xml  ` file.
+Follow the steps in [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) to set up authentication, and then add the Spanner JDBC driver dependencies, shown in the following snippet, to your `pom.xml` file.
 
     <dependencyManagement>
       <dependencies>
@@ -30,7 +30,7 @@ Follow the steps in [Spanner client libraries](https://docs.cloud.google.com/spa
         </exclusions>
       </dependency>
 
-In case you are using a framework that requires the Java class name in order to load the JDBC driver, it is `  com.google.cloud.spanner.jdbc.JdbcDriver  ` . See the [API documentation for JdbcDriver](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner-jdbc/latest/com.google.cloud.spanner.jdbc.JdbcDriver) for how to set up a connection.
+In case you are using a framework that requires the Java class name in order to load the JDBC driver, it is `com.google.cloud.spanner.jdbc.JdbcDriver` . See the [API documentation for JdbcDriver](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner-jdbc/latest/com.google.cloud.spanner.jdbc.JdbcDriver) for how to set up a connection.
 
 ## Connect to a Spanner database
 
@@ -40,7 +40,7 @@ The driver automatically detects the SQL dialect (GoogleSQL or PostgreSQL) of th
 
 ## Connect to the emulator
 
-To connect to the [emulator](https://docs.cloud.google.com/spanner/docs/emulator) , set the `  SPANNER_EMULATOR_HOST  ` environment variable, for example:
+To connect to the [emulator](https://docs.cloud.google.com/spanner/docs/emulator) , set the `SPANNER_EMULATOR_HOST` environment variable, for example:
 
 ### Linux / macOS
 
@@ -50,9 +50,9 @@ To connect to the [emulator](https://docs.cloud.google.com/spanner/docs/emulator
 
     set SPANNER_EMULATOR_HOST=localhost:9010
 
-This instructs the Spanner JDBC driver driver to connect to the emulator running on the `  localhost  ` instead of the default production service.
+This instructs the Spanner JDBC driver driver to connect to the emulator running on the `localhost` instead of the default production service.
 
-**Note:** Although less common, you can specify the host in the connection string, for example `  jdbc:cloudspanner://localhost:9010/projects/test-project/instances/test-instance/databases/test-db;usePlainText=true  ` . The host in the connection string always takes precedence regardless of whether `  SPANNER_EMULATOR_HOST  ` is set. Also, you must specify `  usePlainText=true  ` in the connection string because the emulator does not support SSL/TLS.
+**Note:** Although less common, you can specify the host in the connection string, for example `jdbc:cloudspanner://localhost:9010/projects/test-project/instances/test-instance/databases/test-db;usePlainText=true` . The host in the connection string always takes precedence regardless of whether `SPANNER_EMULATOR_HOST` is set. Also, you must specify `usePlainText=true` in the connection string because the emulator does not support SSL/TLS.
 
 ## Examples
 
@@ -60,7 +60,7 @@ The following code examples cover some common use cases.
 
 ### Run a schema update
 
-The following code example adds the `  Singers  ` table to the database by first creating a JDBC connection and then creating the table:
+The following code example adds the `Singers` table to the database by first creating a JDBC connection and then creating the table:
 
     import java.sql.Connection;
     import java.sql.DriverManager;
@@ -101,7 +101,7 @@ The following code example adds the `  Singers  ` table to the database by first
 
 ### Use a transaction in autocommit mode to add rows
 
-If you don't need to commit multiple operations as a group, you can use a transaction in autocommit mode, which is the default behavior. The following code example uses a transaction in autocommit mode to add rows to the `  Singers  ` table:
+If you don't need to commit multiple operations as a group, you can use a transaction in autocommit mode, which is the default behavior. The following code example uses a transaction in autocommit mode to add rows to the `Singers` table:
 
     import java.math.BigDecimal;
     import java.sql.Connection;
@@ -174,7 +174,7 @@ If you don't need to commit multiple operations as a group, you can use a transa
 
 ### Control how multiple operations are committed as a group
 
-If you want to control whether Spanner commits multiple operations together as a group, you can disable autocommit mode. The following code example uses `  connection.setAutoCommit(false)  ` and `  connection.commit()  ` to add rows to the `  Singers  ` table.
+If you want to control whether Spanner commits multiple operations together as a group, you can disable autocommit mode. The following code example uses `connection.setAutoCommit(false)` and `connection.commit()` to add rows to the `Singers` table.
 
     import com.google.common.collect.ImmutableList;
     import java.math.BigDecimal;
@@ -246,7 +246,7 @@ If you want to control whether Spanner commits multiple operations together as a
 
 ### Run a SQL query
 
-The following code example returns all rows in the `  Singers  ` table ordered by the singer's last name:
+The following code example returns all rows in the `Singers` table ordered by the singer's last name:
 
     import java.sql.Connection;
     import java.sql.DriverManager;

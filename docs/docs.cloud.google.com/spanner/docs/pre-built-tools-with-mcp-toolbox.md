@@ -10,13 +10,13 @@ Alternatively, other IDEs and developer tools supporting the MCP can connect thr
 
 The Spanner integration with Gemini CLI is through an open-source extension that offers additional capabilities compared to the standard MCP Toolbox connection. The extension offers an installation process and a set of tools, in addition to providing detailed information on installation, configuration, and usage examples. If you use the Gemini CLI extension, you don't need to install MCP Toolbox. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
 
-The `  spanner  ` extension includes tools for listing tables, and executing SQL and SQL DQL statements.
+The `spanner` extension includes tools for listing tables, and executing SQL and SQL DQL statements.
 
-| Tools                            | Example natural language prompt                                |
-| -------------------------------- | -------------------------------------------------------------- |
-| `        list_tables       `     | What tables do I have in my Spanner instance?                  |
-| `        execute_sql       `     | Insert test data into the products table.                      |
-| `        execute_sql_dql       ` | What products in the electronics category are sold in America? |
+| Tools             | Example natural language prompt                                |
+| ----------------- | -------------------------------------------------------------- |
+| `list_tables`     | What tables do I have in my Spanner instance?                  |
+| `execute_sql`     | Insert test data into the products table.                      |
+| `execute_sql_dql` | What products in the electronics category are sold in America? |
 
 ## Before you begin
 
@@ -32,9 +32,9 @@ The `  spanner  ` extension includes tools for listing tables, and executing SQL
 
 3.  Configure the required roles and permissions to complete this task. The user invoking the LLM agents needs the following roles at the database level:
     
-      - Cloud Spanner Database Reader ( `  roles/spanner.databaseReader  ` ) to execute DQL queries and list tables.
+      - Cloud Spanner Database Reader ( `roles/spanner.databaseReader` ) to execute DQL queries and list tables.
     
-      - Cloud Spanner Database User ( `  roles/spanner.databaseUser  ` ) to execute DML queries.
+      - Cloud Spanner Database User ( `roles/spanner.databaseUser` ) to execute DML queries.
 
 4.  Configure [Application Default Credentials (ADC)](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) for your environment.
 
@@ -93,7 +93,7 @@ This section describes how to configure various developer tools to connect to yo
       - `  PROJECT_ID  ` : your Google Cloud project ID.
       - `  INSTANCE_NAME  ` : your Spanner instance name.
       - `  DATABASE_NAME  ` : your Spanner database name.
-      - `  DIALECT_NAME  ` : your Spanner SQL dialect. Accepts `  googlesql  ` or `  postgresql  ` . Defaults to `  googlesql  ` if undefined.
+      - `  DIALECT_NAME  ` : your Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
 
 4.  Start the Gemini CLI in interactive mode:
     
@@ -111,8 +111,8 @@ We strongly recommend configuring Gemini Code Assist to use the [Gemini CLI](htt
   
 1\. Install the [Gemini Code Assist](https://marketplace.visualstudio.com/items?itemName=Google.geminicodeassist) extension in VS Code.  
 2\. [Enable agent mode](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode) and switch the agent model to Gemini.  
-3\. In your project root directory, create a folder named `  .gemini  ` and, within it, a `  settings.json  ` file.  
-4\. Add one of the following configurations based on your Spanner dialect in the `  settings.json  ` file.  
+3\. In your project root directory, create a folder named `.gemini` and, within it, a `settings.json` file.  
+4\. Add one of the following configurations based on your Spanner dialect in the `settings.json` file.  
 5\. Replace the following variables with your values:  
 
   - `  PROJECT_ID  ` : your Google Cloud project ID.
@@ -160,7 +160,7 @@ Spanner with **PostgreSQL** dialect:
 
   
 1\. Install [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) .  
-2\. Create `  .mcp.json  ` file in your project root, if it doesn't exist.  
+2\. Create `.mcp.json` file in your project root, if it doesn't exist.  
 3\. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
   
 Spanner with **GoogleSQL** dialect:  
@@ -294,8 +294,8 @@ A green active status appears after the server connects successfully.
 ### Cursor
 
   
-1\. Create the `  .cursor  ` directory in your project root if it doesn't exist.  
-2\. Create the `  .cursor/mcp.json  ` file if it doesn't exist and open it.  
+1\. Create the `.cursor` directory in your project root if it doesn't exist.  
+2\. Create the `.cursor/mcp.json` file if it doesn't exist and open it.  
 3\. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
   
 Spanner with **GoogleSQL** dialect:  
@@ -340,8 +340,8 @@ Spanner with **PostgreSQL** dialect:
 ### Visual Studio Code (Copilot)
 
   
-1\. Open [VS Code](https://code.visualstudio.com/docs/copilot/overview) and create `  .vscode  ` directory in your project root if it does not exist.  
-2\. Create the `  .vscode/mcp.json  ` file if it doesn't exist, and open it.  
+1\. Open [VS Code](https://code.visualstudio.com/docs/copilot/overview) and create `.vscode` directory in your project root if it does not exist.  
+2\. Create the `.vscode/mcp.json` file if it doesn't exist, and open it.  
 3\. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
   
 Spanner with **GoogleSQL** dialect:  
@@ -445,7 +445,7 @@ To connect to a custom MCP server, do the following steps:
 
 1.  Open [Antigravity](https://antigravity.google/docs/mcp) and open the editor's **agent panel** .
 2.  Click the **Menu** icon at the top of the panel and select **MCP Servers** .
-3.  Click **Manage MCP Servers \> View raw config** to open the `  mcp_config.json  ` file.
+3.  Click **Manage MCP Servers \> View raw config** to open the `mcp_config.json` file.
 4.  Add the following configuration, replace the environment variables with your values, and save.
 
 <!-- end list -->
@@ -472,4 +472,4 @@ Replace the following:
   - `  PROJECT_ID  ` : your Google Cloud project ID.
   - `  INSTANCE_NAME  ` : your Spanner instance name.
   - `  DATABASE_NAME  ` : your Spanner database name.
-  - `  DIALECT_NAME  ` : your Spanner SQL dialect. Accepts `  googlesql  ` or `  postgresql  ` . If you don't specify a dialect, the default is `  googlesql  ` .
+  - `  DIALECT_NAME  ` : your Spanner SQL dialect. Accepts `googlesql` or `postgresql` . If you don't specify a dialect, the default is `googlesql` .

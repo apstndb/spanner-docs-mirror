@@ -132,7 +132,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
 
 3.  Click **Insert** .
     
-    The Google Cloud console displays the Singers table's Spanner Studio page with a new query tab that contains the `  INSERT  ` statement that you edit to insert a row in the Singers table and view the result of that insertion:
+    The Google Cloud console displays the Singers table's Spanner Studio page with a new query tab that contains the `INSERT` statement that you edit to insert a row in the Singers table and view the result of that insertion:
     
     ### GoogleSQL
     
@@ -188,7 +188,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
     
     Notice that PostgreSQL converts the column names to all lower case.
 
-4.  Edit the `  INSERT  ` statement's `  VALUES  ` clause.
+4.  Edit the `INSERT` statement's `VALUES` clause.
     
     ### GoogleSQL
     
@@ -256,7 +256,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
 
 6.  In the Explorer, click more\_vert **View actions** next to the **Singers** table, and then click **Insert data** .
 
-7.  Edit the `  INSERT  ` statement's `  VALUES  ` clause and the `  SELECT  ` statement's `  WHERE  ` clause:
+7.  Edit the `INSERT` statement's `VALUES` clause and the `SELECT` statement's `WHERE` clause:
     
     ### GoogleSQL
     
@@ -332,9 +332,9 @@ You can also insert empty string values when you enter data.
 
 1.  Click **Insert** to add a row.
     
-    Spanner again displays the Singers table's **Spanner Studio** page with a new query tab that contains the same `  INSERT  ` and `  SELECT  ` statements.
+    Spanner again displays the Singers table's **Spanner Studio** page with a new query tab that contains the same `INSERT` and `SELECT` statements.
 
-2.  Edit the template `  INSERT  ` statement's `  VALUES  ` clause and `  SELECT  ` statement's `  WHERE  ` clause:
+2.  Edit the template `INSERT` statement's `VALUES` clause and `SELECT` statement's `WHERE` clause:
     
     ### GoogleSQL
     
@@ -390,7 +390,7 @@ You can also insert empty string values when you enter data.
       singerid=3;
     ```
     
-    Notice that the value provided for the last name column is an empty string, `  ''  ` , not a `  NULL  ` value.
+    Notice that the value provided for the last name column is an empty string, `''` , not a `NULL` value.
 
 3.  Click play\_circle **Run** .
     
@@ -398,7 +398,7 @@ You can also insert empty string values when you enter data.
 
 4.  In the Explorer, click more\_vert **View actions** next to the **Singers** table, and then click **Preview Data** .
 
-5.  Click play\_circle **Run** . The `  Singers  ` table now has three rows, and the row with the primary key value of `  3  ` has an empty string in the `  LastName  ` column:
+5.  Click play\_circle **Run** . The `Singers` table now has three rows, and the row with the primary key value of `3` has an empty string in the `LastName` column:
     
     ### GoogleSQL
     
@@ -410,9 +410,9 @@ You can also insert empty string values when you enter data.
 
 ### Edit data
 
-1.  On the Singers table's **Data** page, select the checkbox on the row with the primary key value of `  3  ` , and then click **Edit** .
+1.  On the Singers table's **Data** page, select the checkbox on the row with the primary key value of `3` , and then click **Edit** .
     
-    The Spanner displays the **Spanner Studio** page with a new tab containing template `  UPDATE  ` and `  SET  ` statements that you can edit. Note that the `  WHERE  ` clauses of both statements indicate that the row to update is the one with the primary key value of `  3  ` .
+    The Spanner displays the **Spanner Studio** page with a new tab containing template `UPDATE` and `SET` statements that you can edit. Note that the `WHERE` clauses of both statements indicate that the row to update is the one with the primary key value of `3` .
     
     ### GoogleSQL
     
@@ -456,7 +456,7 @@ You can also insert empty string values when you enter data.
       singerid='3';
     ```
 
-2.  Edit the `  UPDATE  ` statement's `  SET  ` clause to update only the birth date:
+2.  Edit the `UPDATE` statement's `SET` clause to update only the birth date:
     
     ### GoogleSQL
     
@@ -512,7 +512,7 @@ You can also insert empty string values when you enter data.
 
 ### Delete data
 
-1.  On the Singers table's **Data** page, select the checkbox on the row with `  2  ` in the first column, and then click **Delete** .
+1.  On the Singers table's **Data** page, select the checkbox on the row with `2` in the first column, and then click **Delete** .
 
 2.  In the dialog that appears, click **Confirm** .
     

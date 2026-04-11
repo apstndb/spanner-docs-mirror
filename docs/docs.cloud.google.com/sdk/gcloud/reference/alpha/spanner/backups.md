@@ -4,42 +4,42 @@ gcloud alpha spanner backups - manage Cloud Spanner backups
 
 SYNOPSIS
 
-`  gcloud alpha spanner backups  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner backups` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage Cloud Spanner backups.
+`(ALPHA)` Manage Cloud Spanner backups.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  add-iam-policy-binding  `  
-    `  (ALPHA)  ` Add IAM policy binding to a Cloud Spanner backup.
+    `(ALPHA)` Add IAM policy binding to a Cloud Spanner backup.
   - `  copy  `  
-    `  (ALPHA)  ` Copies a backup of a Cloud Spanner database.
+    `(ALPHA)` Copies a backup of a Cloud Spanner database.
   - `  create  `  
-    `  (ALPHA)  ` Creates a backup of a Cloud Spanner database.
+    `(ALPHA)` Creates a backup of a Cloud Spanner database.
   - `  delete  `  
-    `  (ALPHA)  ` Delete an existing backup.
+    `(ALPHA)` Delete an existing backup.
   - `  describe  `  
-    `  (ALPHA)  ` Retrieves information about a backup.
+    `(ALPHA)` Retrieves information about a backup.
   - `  get-iam-policy  `  
-    `  (ALPHA)  ` Get the IAM policy for a Cloud Spanner backup.
+    `(ALPHA)` Get the IAM policy for a Cloud Spanner backup.
   - `  list  `  
-    `  (ALPHA)  ` List existing Cloud Spanner Cloud Spanner backups.
+    `(ALPHA)` List existing Cloud Spanner Cloud Spanner backups.
   - `  remove-iam-policy-binding  `  
-    `  (ALPHA)  ` Remove IAM policy binding of a Cloud Spanner backup.
+    `(ALPHA)` Remove IAM policy binding of a Cloud Spanner backup.
   - `  set-iam-policy  `  
-    `  (ALPHA)  ` Set the IAM policy for a Cloud Spanner backup.
+    `(ALPHA)` Set the IAM policy for a Cloud Spanner backup.
   - `  update-metadata  `  
-    `  (ALPHA)  ` Updates the metadata of a Cloud Spanner a backup.
+    `(ALPHA)` Updates the metadata of a Cloud Spanner a backup.
 
 NOTES
 

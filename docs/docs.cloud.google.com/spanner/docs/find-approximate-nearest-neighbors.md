@@ -12,9 +12,9 @@ In an ANN search, the k-returned vectors aren't the true top k-nearest neighbors
 
 For more details about the approximate distance functions supported in Spanner, see the following GoogleSQL reference pages:
 
-  - [`  APPROX_COSINE_DISTANCE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_cosine_distance)
-  - [`  APPROX_EUCLIDEAN_DISTANCE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_euclidean_distance)
-  - [`  APPROX_DOT_PRODUCT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product)
+  - [`APPROX_COSINE_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_cosine_distance)
+  - [`APPROX_EUCLIDEAN_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_euclidean_distance)
+  - [`APPROX_DOT_PRODUCT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product)
 
 ## Query vector embeddings
 
@@ -23,14 +23,14 @@ Spanner accelerates approximate nearest neighbor (ANN) vector searches by using 
 Restrictions when using the approximate distance functions include the following:
 
   - The approximate distance function must calculate the distance between an embedding column and a constant expression (for example, a parameter or a literal).
-  - The approximate distance function output must be used in a `  ORDER BY  ` clause as the sole sort key, and a `  LIMIT  ` must be specified after the `  ORDER BY  ` .
-  - The query must explicitly filter out rows that aren't indexed. In most cases, this means that the query must include a `  WHERE <column_name> IS NOT NULL  ` clause that matches the vector index definition, unless the column is already marked as `  NOT NULL  ` in the table definition.
+  - The approximate distance function output must be used in a `ORDER BY` clause as the sole sort key, and a `LIMIT` must be specified after the `ORDER BY` .
+  - The query must explicitly filter out rows that aren't indexed. In most cases, this means that the query must include a `WHERE <column_name> IS NOT NULL` clause that matches the vector index definition, unless the column is already marked as `NOT NULL` in the table definition.
 
 For a detailed list of limitations, see the [approximate distance function reference page](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) .
 
 **Examples**
 
-Consider a `  Documents  ` table that has a `  DocEmbedding  ` column of precomputed text embeddings from the `  DocContents  ` bytes column, and a `  NullableDocEmbedding  ` column populated from other sources that might be null.
+Consider a `Documents` table that has a `DocEmbedding` column of precomputed text embeddings from the `DocContents` bytes column, and a `NullableDocEmbedding` column populated from other sources that might be null.
 
     CREATE TABLE Documents (
     UserId       INT64 NOT NULL,
@@ -42,7 +42,7 @@ Consider a `  Documents  ` table that has a `  DocEmbedding  ` column of precomp
     WordCount    INT64
     ) PRIMARY KEY (UserId, DocId);
 
-To search for the nearest 100 vectors to `  [1.0, 2.0, 3.0]  ` :
+To search for the nearest 100 vectors to `[1.0, 2.0, 3.0]` :
 
     SELECT DocId
     FROM Documents
@@ -66,9 +66,9 @@ If the embedding column is nullable:
 
   - Learn more about Spanner [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) .
 
-  - Learn more about the [GoogleSQL `  APPROXIMATE_COSINE_DISTANCE()  ` , `  APPROXIMATE_EUCLIDEAN_DISTANCE()  ` , `  APPROXIMATE_DOT_PRODUCT()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
+  - Learn more about the [GoogleSQL `APPROXIMATE_COSINE_DISTANCE()` , `APPROXIMATE_EUCLIDEAN_DISTANCE()` , `APPROXIMATE_DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
 
-  - Learn more about the [GoogleSQL `  VECTOR INDEX  ` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
+  - Learn more about the [GoogleSQL `VECTOR INDEX` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
 
   - Learn more about [vector index best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) .
 

@@ -12,7 +12,7 @@ Spanner does not support running user code in the database level, so as part of 
 
 ### Sequences
 
-Spanner recommends using UUID Version 4 as the default method to generate primary key values. The `  GENERATE_UUID()  ` function ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) ) returns UUID Version 4 values represented as `  STRING  ` type.
+Spanner recommends using UUID Version 4 as the default method to generate primary key values. The `GENERATE_UUID()` function ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) ) returns UUID Version 4 values represented as `STRING` type.
 
 If you need to generate integer values, Spanner supports bit-reversed positive sequences ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ), which produce values that distribute evenly across the positive 64-bit number space. You can use these numbers to avoid hotspotting issues.
 
@@ -45,7 +45,7 @@ Note that after you designate your primary key, you can't add or remove a primar
 
 ### Indexes
 
-PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-types.html) are similar to [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) in Spanner. In a Spanner database you use secondary indexes to index commonly searched columns for better performance, and to replace any `  UNIQUE  ` constraints specified in your tables. For example, if your PostgreSQL DDL has this statement:
+PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-types.html) are similar to [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) in Spanner. In a Spanner database you use secondary indexes to index commonly searched columns for better performance, and to replace any `UNIQUE` constraints specified in your tables. For example, if your PostgreSQL DDL has this statement:
 
 ``` 
      CREATE TABLE customer (
@@ -67,15 +67,15 @@ You can use the following statement in your Spanner DDL:
     CREATE UNIQUE INDEX customer_emails ON customer(email);
 ```
 
-You can find the indexes for any of your PostgreSQL tables by running the [`  \di  `](https://www.postgresql.org/docs/10/static/app-psql.html) meta-command in `  psql  ` .
+You can find the indexes for any of your PostgreSQL tables by running the [`\di`](https://www.postgresql.org/docs/10/static/app-psql.html) meta-command in `psql` .
 
-After you determine the indexes that you need, add [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) statements to create them. Follow the guidance at [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
+After you determine the indexes that you need, add [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) statements to create them. Follow the guidance at [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
 
-Spanner implements indexes as tables, so indexing monotonically increasing columns (like those containing `  TIMESTAMP  ` data) can cause a hotspot. See [What DBAs need to know about Spanner, part 1: Keys and indexes](https://cloudplatform.googleblog.com/2018/06/What-DBAs-need-to-know-about-Cloud-Spanner-part-1-Keys-and-indexes.html) for more information on methods to avoid hotspots.
+Spanner implements indexes as tables, so indexing monotonically increasing columns (like those containing `TIMESTAMP` data) can cause a hotspot. See [What DBAs need to know about Spanner, part 1: Keys and indexes](https://cloudplatform.googleblog.com/2018/06/What-DBAs-need-to-know-about-Cloud-Spanner-part-1-Keys-and-indexes.html) for more information on methods to avoid hotspots.
 
 Spanner implements secondary indexes in the same way as tables, so the column values to be used as index keys will have the same constraints as the primary keys of tables. This also means that indexes have the same consistency characteristics as Spanner tables.
 
-Value lookups using secondary indexes are effectively the same as a query with a table join. You can improve the performance of queries using indexes by storing copies of the original table's column values in the secondary index using the `  INCLUDE  ` clause, making it a [covering index](https://wikipedia.org/wiki/Database_index#Covering_index) .
+Value lookups using secondary indexes are effectively the same as a query with a table join. You can improve the performance of queries using indexes by storing copies of the original table's column values in the secondary index using the `INCLUDE` clause, making it a [covering index](https://wikipedia.org/wiki/Database_index#Covering_index) .
 
 Spanner's query optimizer is more likely to use a secondary index when the index itself stores all the columns being queried (a covered query). To force the use of an index when querying columns that are not stored in the index, you must use a [FORCE INDEX directive](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index_directive) in the SQL statement, for example:
 
@@ -103,7 +103,7 @@ Spanner has a feature where you can define two tables as having a 1-many, [paren
 
 The child table's primary key must start with the primary key column(s) of the parent table. From the child row's perspective, the parent row primary key is referred to as a foreign key. You can define up to 6 levels of parent-child relationships.
 
-You can define `  ON DELETE  ` actions for child tables to determine what happens when the parent row is deleted: either all child rows are deleted, or the parent row deletion is blocked while child rows exist.
+You can define `ON DELETE` actions for child tables to determine what happens when the parent row is deleted: either all child rows are deleted, or the parent row deletion is blocked while child rows exist.
 
 Here is an example of creating an Albums table interleaved in the parent Singers table defined earlier:
 
@@ -167,7 +167,7 @@ SQL queries can be profiled using the Spanner Studio page in the Google Cloud co
 
 Create the instance and create a database in the PostgreSQL dialect. Then create your schema using the PostgreSQL data definition language (DDL).
 
-Use [`  pg_dump  `](https://www.postgresql.org/docs/current/static/app-pgdump.html) to create DDL statements that define the objects in your PostgreSQL database, and then modify the statements as described in the preceding sections. After you update the DDL statements, use the DDL statements to create your database in the Spanner instance.
+Use [`pg_dump`](https://www.postgresql.org/docs/current/static/app-pgdump.html) to create DDL statements that define the objects in your PostgreSQL database, and then modify the statements as described in the preceding sections. After you update the DDL statements, use the DDL statements to create your database in the Spanner instance.
 
 For more information, see:
 
@@ -187,6 +187,6 @@ There are two ways to migrate your data:
     
     The Spanner migration tool supports both schema and data migration. You can import a [pg\_dump](https://www.postgresql.org/docs/current/app-pgdump.html) file or a CSV file, or you can import data using a direct connection to the open source PostgreSQL database.
 
-  - By using the `  COPY FROM STDIN  ` command.
+  - By using the `COPY FROM STDIN` command.
     
     For details, see [COPY command for importing data](https://docs.cloud.google.com/spanner/docs/psql-commands#copy-command) .

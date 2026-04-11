@@ -54,7 +54,7 @@ When you [rotate the CMEK key](https://docs.cloud.google.com/kms/docs/key-rotati
 
 ## Enable CMEK
 
-To use CMEK for Spanner databases, you must create a new database and specify the Cloud KMS key at the time of [database creation](https://docs.cloud.google.com/spanner/docs/use-cmek#create-db) . Spanner is able to access the key on your behalf after you grant the [Cloud KMS CryptoKey Encrypter/Decrypter](https://docs.cloud.google.com/kms/docs/reference/permissions-and-roles#predefined) ( `  roles/cloudkms.cryptoKeyEncrypterDecrypter  ` ) role to a Google-managed [Spanner service account](https://docs.cloud.google.com/iam/docs/service-account-types#google-managed) . For detailed instructions, see [Secure a database with CMEK](https://docs.cloud.google.com/spanner/docs/use-cmek) .
+To use CMEK for Spanner databases, you must create a new database and specify the Cloud KMS key at the time of [database creation](https://docs.cloud.google.com/spanner/docs/use-cmek#create-db) . Spanner is able to access the key on your behalf after you grant the [Cloud KMS CryptoKey Encrypter/Decrypter](https://docs.cloud.google.com/kms/docs/reference/permissions-and-roles#predefined) ( `roles/cloudkms.cryptoKeyEncrypterDecrypter` ) role to a Google-managed [Spanner service account](https://docs.cloud.google.com/iam/docs/service-account-types#google-managed) . For detailed instructions, see [Secure a database with CMEK](https://docs.cloud.google.com/spanner/docs/use-cmek) .
 
 Spanner's [data access APIs](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1) , such as those that are used to manage sessions and execute transactions on data, are exactly the same for both CMEK and Google-owned and Google-managed encryption keys. Applications don't need to specify keys or encryption configurations when reading or writing data. All encryption is handled by the service.
 
@@ -66,9 +66,9 @@ Key management operations are performed using Cloud KMS. Spanner can't detect or
 
 After the database is created, Spanner calls Cloud KMS about every five minutes to make sure that the key is still valid.
 
-If Spanner detects that your Cloud KMS key has been disabled or destroyed, an operation to make your database inaccessible begins immediately. Any subsequent calls to the database, including sessions, reads, and writes, return a `  FAILED_PRECONDITION  ` error: `  KMS key required by the Spanner resource is not accessible.  ` If Spanner's calls to Cloud KMS detect that a formerly disabled key has been re-enabled, Cloud KMS restores access to the Spanner database automatically.
+If Spanner detects that your Cloud KMS key has been disabled or destroyed, an operation to make your database inaccessible begins immediately. Any subsequent calls to the database, including sessions, reads, and writes, return a `FAILED_PRECONDITION` error: `KMS key required by the Spanner resource is not accessible.` If Spanner's calls to Cloud KMS detect that a formerly disabled key has been re-enabled, Cloud KMS restores access to the Spanner database automatically.
 
-In addition, if a database is protected by multiple regional keys and all keys are disabled or destroyed, then Spanner immediately starts to make your database inaccessible. If Spanner detects that only a subset of the database's keys are disabled or destroyed, then it disables the database over a period of time within 12 hours. Disabling or destroying only a subset of keys in a CMEK-enabled database is strongly discouraged and might result in uncertain behavior. To prevent this from happening, you can use the [Spanner CMEK Keys metric](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `  instance/replica/cmek/total_keys  ` ) to trigger an alert if a subset of keys are disabled or destroyed. For more information, see [Create alert for disabling a subset of CMEK](https://docs.cloud.google.com/spanner/docs/cmek#create-alert-subset-CMEK) .
+In addition, if a database is protected by multiple regional keys and all keys are disabled or destroyed, then Spanner immediately starts to make your database inaccessible. If Spanner detects that only a subset of the database's keys are disabled or destroyed, then it disables the database over a period of time within 12 hours. Disabling or destroying only a subset of keys in a CMEK-enabled database is strongly discouraged and might result in uncertain behavior. To prevent this from happening, you can use the [Spanner CMEK Keys metric](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `instance/replica/cmek/total_keys` ) to trigger an alert if a subset of keys are disabled or destroyed. For more information, see [Create alert for disabling a subset of CMEK](https://docs.cloud.google.com/spanner/docs/cmek#create-alert-subset-CMEK) .
 
 **Warning:** If a database remains disabled for more than seven consecutive days, Spanner automatically deletes it. To avoid permanent data loss, don't leave CMEK keys in an inaccessible state for an extended time.
 
@@ -78,7 +78,7 @@ We strongly recommend against disabling or destroying only a subset of keys in a
 
 ### Create alert for disabling a subset of CMEK
 
-You can use the [Spanner CMEK Keys](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `  /instance/replica/cmek/total_keys  ` ) metric to trigger an alert if a subset of CMEK are disabled or destroyed. To create this alerting policy, expand the following steps and settings:
+You can use the [Spanner CMEK Keys](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `/instance/replica/cmek/total_keys` ) metric to trigger an alert if a subset of CMEK are disabled or destroyed. To create this alerting policy, expand the following steps and settings:
 
 #### Steps to create an [alerting policy](https://docs.cloud.google.com/monitoring/alerts/using-alerting-ui#create-policy) .
 
@@ -140,33 +140,33 @@ Value</th>
 In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
 In the <strong>Metrics</strong> menu, select <strong>CMEK Keys</strong> .<br />
 <br />
-(The metric.type is <code dir="ltr" translate="no">         spanner.googleapis.com/instance/replica/cmek/total_keys        </code> ).</td>
+(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/replica/cmek/total_keys</code> ).</td>
 </tr>
 <tr class="even">
 <td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">         instance_id =                   INSTANCE_ID         </code><br />
-<code dir="ltr" translate="no">         is_key_revoked = TRUE        </code></td>
+<td><code dir="ltr" translate="no">instance_id =           INSTANCE_ID         </code><br />
+<code dir="ltr" translate="no">is_key_revoked = TRUE</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Across time series<br />
 Time series group by</strong></td>
-<td><code dir="ltr" translate="no">         database        </code><br />
+<td><code dir="ltr" translate="no">database</code><br />
 </td>
 </tr>
 <tr class="even">
 <td><strong>Across time series<br />
 Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">         sum        </code><br />
+<td><code dir="ltr" translate="no">sum</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">         10 m        </code><br />
+<td><code dir="ltr" translate="no">10 m</code><br />
 </td>
 </tr>
 <tr class="even">
 <td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">         mean        </code></td>
+<td><code dir="ltr" translate="no">mean</code></td>
 </tr>
 </tbody>
 </table>
@@ -187,23 +187,23 @@ Value</th>
 <tbody>
 <tr class="odd">
 <td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">         Threshold        </code></td>
+<td><code dir="ltr" translate="no">Threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Alert trigger</strong></td>
-<td><code dir="ltr" translate="no">         Any time series violates        </code></td>
+<td><code dir="ltr" translate="no">Any time series violates</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">         Above threshold        </code></td>
+<td><code dir="ltr" translate="no">Above threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Threshold</strong></td>
-<td><code dir="ltr" translate="no">         0        </code></td>
+<td><code dir="ltr" translate="no">0</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">         1 hr        </code></td>
+<td><code dir="ltr" translate="no">1 hr</code></td>
 </tr>
 </tbody>
 </table>
@@ -228,33 +228,33 @@ Value</th>
 In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
 In the <strong>Metrics</strong> menu, select <strong>CMEK Keys</strong> .<br />
 <br />
-(The metric.type is <code dir="ltr" translate="no">         spanner.googleapis.com/instance/replica/cmek/total_keys        </code> ).</td>
+(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/replica/cmek/total_keys</code> ).</td>
 </tr>
 <tr class="even">
 <td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">         instance_id =                   INSTANCE_ID         </code><br />
-<code dir="ltr" translate="no">         is_key_revoked = FALSE        </code></td>
+<td><code dir="ltr" translate="no">instance_id =           INSTANCE_ID         </code><br />
+<code dir="ltr" translate="no">is_key_revoked = FALSE</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Across time series<br />
 Time series group by</strong></td>
-<td><code dir="ltr" translate="no">         database        </code><br />
+<td><code dir="ltr" translate="no">database</code><br />
 </td>
 </tr>
 <tr class="even">
 <td><strong>Across time series<br />
 Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">         sum        </code><br />
+<td><code dir="ltr" translate="no">sum</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">         10 m        </code><br />
+<td><code dir="ltr" translate="no">10 m</code><br />
 </td>
 </tr>
 <tr class="even">
 <td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">         mean        </code></td>
+<td><code dir="ltr" translate="no">mean</code></td>
 </tr>
 </tbody>
 </table>
@@ -275,23 +275,23 @@ Value</th>
 <tbody>
 <tr class="odd">
 <td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">         Threshold        </code></td>
+<td><code dir="ltr" translate="no">Threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Alert trigger</strong></td>
-<td><code dir="ltr" translate="no">         Any time series violates        </code></td>
+<td><code dir="ltr" translate="no">Any time series violates</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">         Above threshold        </code></td>
+<td><code dir="ltr" translate="no">Above threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Threshold</strong></td>
-<td><code dir="ltr" translate="no">         0        </code></td>
+<td><code dir="ltr" translate="no">0</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">         1 hr        </code></td>
+<td><code dir="ltr" translate="no">1 hr</code></td>
 </tr>
 </tbody>
 </table>
@@ -312,7 +312,7 @@ Value</th>
 <tbody>
 <tr class="odd">
 <td><strong>Multi-condition trigger</strong></td>
-<td><code dir="ltr" translate="no">         All conditions are met        </code></td>
+<td><code dir="ltr" translate="no">All conditions are met</code></td>
 </tr>
 </tbody>
 </table>
@@ -333,7 +333,7 @@ If you're using multiple regional keys to protect a Spanner database, only those
 
 When you use a Cloud EKM key, Google has no control over the availability of your externally-managed key in the external key management partner system.
 
-If an externally-managed key is unavailable, Spanner continues to support full database operations on a best-effort basis for up to one hour. After one hour, if Spanner is still unable to connect with Cloud KMS, then Spanner begins taking the database offline as a protective measure. Calls to the database will fail with a `  FAILED_PRECONDITION  ` error: `  External key error: Could not find a key resource at the key URI.  `
+If an externally-managed key is unavailable, Spanner continues to support full database operations on a best-effort basis for up to one hour. After one hour, if Spanner is still unable to connect with Cloud KMS, then Spanner begins taking the database offline as a protective measure. Calls to the database will fail with a `FAILED_PRECONDITION` error: `External key error: Could not find a key resource at the key URI.`
 
 If you're using multiple Cloud EKM keys to protect your Spanner database, only those replicas that are protected by the unavailable key are affected by the unavailability.
 
@@ -357,13 +357,13 @@ All backups created by [backup schedules](https://docs.cloud.google.com/spanner/
 
 You can use CMEK or Google-owned and Google-managed encryption keys to protect Spanner databases that use [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) . When using geo-partitioning, you must use a regional Cloud KMS key for each instance replica locatoin, including those in the instance partition configuration. Multi-region keys aren't supported. Each regional Cloud KMS key must be located in the same region as the corresponding Spanner instance replica or instance partition location.
 
-For example, if your Spanner database is in the multi-region instance configuration `  nam3  ` , with instance partitions located in `  europe-west1  ` and `  europe-west2  ` , then you must create Cloud KMS keys in the following regions:
+For example, if your Spanner database is in the multi-region instance configuration `nam3` , with instance partitions located in `europe-west1` and `europe-west2` , then you must create Cloud KMS keys in the following regions:
 
-  - `  us-east4  ` (part of `  nam3  ` )
-  - `  us-east1  ` (part of `  nam3  ` )
-  - `  us-central1  ` (part of `  nam3  ` )
-  - `  europe-west1  ` (location of instance partition)
-  - `  europe-west2  ` (location of instance partition)
+  - `us-east4` (part of `nam3` )
+  - `us-east1` (part of `nam3` )
+  - `us-central1` (part of `nam3` )
+  - `europe-west1` (location of instance partition)
+  - `europe-west2` (location of instance partition)
 
 For more information, see [Secure a database with CMEK](https://docs.cloud.google.com/spanner/docs/use-cmek#create-db) .
 

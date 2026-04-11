@@ -4,40 +4,40 @@ gcloud beta spanner backup-schedules - manage Cloud Spanner backup schedules
 
 SYNOPSIS
 
-`  gcloud beta spanner backup-schedules  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner backup-schedules` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage Cloud Spanner backup schedules.
+`(BETA)` Manage Cloud Spanner backup schedules.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  add-iam-policy-binding  `  
-    `  (BETA)  ` Add IAM policy binding to a Cloud Spanner backup schedule.
+    `(BETA)` Add IAM policy binding to a Cloud Spanner backup schedule.
   - `  create  `  
-    `  (BETA)  ` Create a Cloud Spanner backup schedule.
+    `(BETA)` Create a Cloud Spanner backup schedule.
   - `  delete  `  
-    `  (BETA)  ` Delete a Cloud Spanner backup schedule.
+    `(BETA)` Delete a Cloud Spanner backup schedule.
   - `  describe  `  
-    `  (BETA)  ` Describe a Cloud Spanner backup schedule.
+    `(BETA)` Describe a Cloud Spanner backup schedule.
   - `  get-iam-policy  `  
-    `  (BETA)  ` Get the IAM policy for a Cloud Spanner backup schedule.
+    `(BETA)` Get the IAM policy for a Cloud Spanner backup schedule.
   - `  list  `  
-    `  (BETA)  ` List Cloud Spanner backup schedules.
+    `(BETA)` List Cloud Spanner backup schedules.
   - `  remove-iam-policy-binding  `  
-    `  (BETA)  ` Remove IAM policy binding of a Cloud Spanner backup schedule.
+    `(BETA)` Remove IAM policy binding of a Cloud Spanner backup schedule.
   - `  set-iam-policy  `  
-    `  (BETA)  ` Set the IAM policy for a Cloud Spanner backup schedule.
+    `(BETA)` Set the IAM policy for a Cloud Spanner backup schedule.
   - `  update  `  
-    `  (BETA)  ` Update a Cloud Spanner backup schedule.
+    `(BETA)` Update a Cloud Spanner backup schedule.
 
 NOTES
 

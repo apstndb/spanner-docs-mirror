@@ -4,11 +4,11 @@ gcloud beta spanner instances get-locations - get the location of every replica 
 
 SYNOPSIS
 
-`  gcloud beta spanner instances get-locations  ` `  INSTANCE  ` \[ `  --verbose  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner instances get-locations` `  INSTANCE  ` \[ `  --verbose  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Get the location of every replica in a Cloud Spanner instance.
+`(BETA)` Get the location of every replica in a Cloud Spanner instance.
 
 EXAMPLES
 
@@ -25,14 +25,14 @@ POSITIONAL ARGUMENTS
 
 FLAGS
 
-  - `  --verbose  `  
+  - `--verbose`  
     Indicates that both regions and types of replicas be returned.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

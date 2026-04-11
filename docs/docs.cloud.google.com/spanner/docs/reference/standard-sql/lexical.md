@@ -15,7 +15,7 @@ Identifiers are names that are associated with columns, tables, fields, path exp
   - Can contain any characters, including spaces and symbols.
   - Can't be empty.
   - Have the same escape sequences as [string literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#string_and_bytes_literals) .
-  - If an identifier is the same as a [reserved keyword](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#reserved_keywords) , the identifier must be quoted. For example, the identifier `  FROM  ` must be quoted. Additional rules apply for [path expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#path_expressions) and [field names](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#field_names) .
+  - If an identifier is the same as a [reserved keyword](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#reserved_keywords) , the identifier must be quoted. For example, the identifier `FROM` must be quoted. Additional rules apply for [path expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#path_expressions) and [field names](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#field_names) .
 
 ### Identifier examples
 
@@ -84,10 +84,10 @@ A path expression describes how to navigate to an object in a graph of objects a
     subsequent_part:
       { unquoted_identifier | quoted_identifier | number }
 
-  - `  path  ` : A graph of one or more objects.
-  - `  path_expression  ` : An object in a graph of objects.
-  - `  first_part  ` : A path expression can start with a quoted or unquoted identifier. If the path expressions starts with a [reserved keyword](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#reserved_keywords) , it must be a quoted identifier.
-  - `  subsequent_part  ` : Subsequent parts of a path expression can include non-identifiers, such as reserved keywords. If a subsequent part of a path expressions starts with a [reserved keyword](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#reserved_keywords) , it may be quoted or unquoted.
+  - `path` : A graph of one or more objects.
+  - `path_expression` : An object in a graph of objects.
+  - `first_part` : A path expression can start with a quoted or unquoted identifier. If the path expressions starts with a [reserved keyword](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#reserved_keywords) , it must be a quoted identifier.
+  - `subsequent_part` : Subsequent parts of a path expression can include non-identifiers, such as reserved keywords. If a subsequent part of a path expressions starts with a [reserved keyword](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#reserved_keywords) , it may be quoted or unquoted.
 
 Examples:
 
@@ -112,7 +112,7 @@ A literal represents a constant value of a built-in data type. Some, but not all
 
 A string literal represents a constant value of the [string data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#string_type) . A bytes literal represents a constant value of the [bytes data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#bytes_type) .
 
-Both string and bytes literals must be *quoted* , either with single ( `  '  ` ) or double ( `  "  ` ) quotation marks, or *triple-quoted* with groups of three single ( `  '''  ` ) or three double ( `  """  ` ) quotation marks.
+Both string and bytes literals must be *quoted* , either with single ( `'` ) or double ( `"` ) quotation marks, or *triple-quoted* with groups of three single ( `'''` ) or three double ( `"""` ) quotation marks.
 
 #### Formats for quoted literals
 
@@ -135,59 +135,59 @@ The following table lists all of the ways you can format a quoted literal.
 <tr class="odd">
 <td>Quoted string</td>
 <td><ul>
-<li><code dir="ltr" translate="no">         "abc"        </code></li>
-<li><code dir="ltr" translate="no">         "it's"        </code></li>
-<li><code dir="ltr" translate="no">         'it\'s'        </code></li>
-<li><code dir="ltr" translate="no">         'Title: "Boy"'        </code></li>
+<li><code dir="ltr" translate="no">"abc"</code></li>
+<li><code dir="ltr" translate="no">"it's"</code></li>
+<li><code dir="ltr" translate="no">'it\'s'</code></li>
+<li><code dir="ltr" translate="no">'Title: "Boy"'</code></li>
 </ul></td>
-<td>Quoted strings enclosed by single ( <code dir="ltr" translate="no">       '      </code> ) quotes can contain unescaped double ( <code dir="ltr" translate="no">       "      </code> ) quotes, as well as the inverse.<br />
-Backslashes ( <code dir="ltr" translate="no">       \      </code> ) introduce escape sequences. See the Escape Sequences table below.<br />
-Quoted strings can't contain newlines, even when preceded by a backslash ( <code dir="ltr" translate="no">       \      </code> ).</td>
+<td>Quoted strings enclosed by single ( <code dir="ltr" translate="no">'</code> ) quotes can contain unescaped double ( <code dir="ltr" translate="no">"</code> ) quotes, as well as the inverse.<br />
+Backslashes ( <code dir="ltr" translate="no">\</code> ) introduce escape sequences. See the Escape Sequences table below.<br />
+Quoted strings can't contain newlines, even when preceded by a backslash ( <code dir="ltr" translate="no">\</code> ).</td>
 </tr>
 <tr class="even">
 <td>Triple-quoted string</td>
 <td><ul>
-<li><code dir="ltr" translate="no">         """abc"""        </code></li>
-<li><code dir="ltr" translate="no">         '''it's'''        </code></li>
-<li><code dir="ltr" translate="no">         '''Title:"Boy"'''        </code></li>
-<li><code dir="ltr" translate="no">         '''two                  lines'''        </code></li>
-<li><code dir="ltr" translate="no">         '''why\?'''        </code></li>
+<li><code dir="ltr" translate="no">"""abc"""</code></li>
+<li><code dir="ltr" translate="no">'''it's'''</code></li>
+<li><code dir="ltr" translate="no">'''Title:"Boy"'''</code></li>
+<li><code dir="ltr" translate="no">'''two  lines'''</code></li>
+<li><code dir="ltr" translate="no">'''why\?'''</code></li>
 </ul></td>
 <td>Embedded newlines and quotes are allowed without escaping - see fourth example.<br />
-Backslashes ( <code dir="ltr" translate="no">       \      </code> ) introduce escape sequences. See Escape Sequences table below.<br />
-A trailing unescaped backslash ( <code dir="ltr" translate="no">       \      </code> ) at the end of a line isn't allowed.<br />
+Backslashes ( <code dir="ltr" translate="no">\</code> ) introduce escape sequences. See Escape Sequences table below.<br />
+A trailing unescaped backslash ( <code dir="ltr" translate="no">\</code> ) at the end of a line isn't allowed.<br />
 End the string with three unescaped quotes in a row that match the starting quotes.</td>
 </tr>
 <tr class="odd">
 <td>Raw string</td>
 <td><ul>
-<li><code dir="ltr" translate="no">         r"abc+"        </code></li>
-<li><code dir="ltr" translate="no">         r'''abc+'''        </code></li>
-<li><code dir="ltr" translate="no">         r"""abc+"""        </code></li>
-<li><code dir="ltr" translate="no">         r'f\(abc,(.*),def\)'        </code></li>
+<li><code dir="ltr" translate="no">r"abc+"</code></li>
+<li><code dir="ltr" translate="no">r'''abc+'''</code></li>
+<li><code dir="ltr" translate="no">r"""abc+"""</code></li>
+<li><code dir="ltr" translate="no">r'f\(abc,(.*),def\)'</code></li>
 </ul></td>
-<td>Quoted or triple-quoted literals that have the raw string literal prefix ( <code dir="ltr" translate="no">       r      </code> or <code dir="ltr" translate="no">       R      </code> ) are interpreted as raw strings (sometimes described as regex strings).<br />
-Backslash characters ( <code dir="ltr" translate="no">       \      </code> ) don't act as escape characters. If a backslash followed by another character occurs inside the string literal, both characters are preserved.<br />
+<td>Quoted or triple-quoted literals that have the raw string literal prefix ( <code dir="ltr" translate="no">r</code> or <code dir="ltr" translate="no">R</code> ) are interpreted as raw strings (sometimes described as regex strings).<br />
+Backslash characters ( <code dir="ltr" translate="no">\</code> ) don't act as escape characters. If a backslash followed by another character occurs inside the string literal, both characters are preserved.<br />
 A raw string can't end with an odd number of backslashes.<br />
 Raw strings are useful for constructing regular expressions. The prefix is case-insensitive.</td>
 </tr>
 <tr class="even">
 <td>Bytes</td>
 <td><ul>
-<li><code dir="ltr" translate="no">         B"abc"        </code></li>
-<li><code dir="ltr" translate="no">         B'''abc'''        </code></li>
-<li><code dir="ltr" translate="no">         b"""abc"""        </code></li>
+<li><code dir="ltr" translate="no">B"abc"</code></li>
+<li><code dir="ltr" translate="no">B'''abc'''</code></li>
+<li><code dir="ltr" translate="no">b"""abc"""</code></li>
 </ul></td>
-<td>Quoted or triple-quoted literals that have the bytes literal prefix ( <code dir="ltr" translate="no">       b      </code> or <code dir="ltr" translate="no">       B      </code> ) are interpreted as bytes.</td>
+<td>Quoted or triple-quoted literals that have the bytes literal prefix ( <code dir="ltr" translate="no">b</code> or <code dir="ltr" translate="no">B</code> ) are interpreted as bytes.</td>
 </tr>
 <tr class="odd">
 <td>Raw bytes</td>
 <td><ul>
-<li><code dir="ltr" translate="no">         br'abc+'        </code></li>
-<li><code dir="ltr" translate="no">         RB"abc+"        </code></li>
-<li><code dir="ltr" translate="no">         RB'''abc'''        </code></li>
+<li><code dir="ltr" translate="no">br'abc+'</code></li>
+<li><code dir="ltr" translate="no">RB"abc+"</code></li>
+<li><code dir="ltr" translate="no">RB'''abc'''</code></li>
 </ul></td>
-<td>A bytes literal can be interpreted as raw bytes if both the <code dir="ltr" translate="no">       r      </code> and <code dir="ltr" translate="no">       b      </code> prefixes are present. These prefixes can be combined in any order and are case-insensitive. For example, <code dir="ltr" translate="no">       rb'abc*'      </code> and <code dir="ltr" translate="no">       rB'abc*'      </code> and <code dir="ltr" translate="no">       br'abc*'      </code> are all equivalent. See the description for raw string to learn more about what you can do with a raw literal.</td>
+<td>A bytes literal can be interpreted as raw bytes if both the <code dir="ltr" translate="no">r</code> and <code dir="ltr" translate="no">b</code> prefixes are present. These prefixes can be combined in any order and are case-insensitive. For example, <code dir="ltr" translate="no">rb'abc*'</code> and <code dir="ltr" translate="no">rB'abc*'</code> and <code dir="ltr" translate="no">br'abc*'</code> are all equivalent. See the description for raw string to learn more about what you can do with a raw literal.</td>
 </tr>
 </tbody>
 </table>
@@ -209,73 +209,73 @@ The following table lists all valid escape sequences for representing non-alphan
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       \a      </code></td>
+<td><code dir="ltr" translate="no">\a</code></td>
 <td>Bell</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       \b      </code></td>
+<td><code dir="ltr" translate="no">\b</code></td>
 <td>Backspace</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       \f      </code></td>
+<td><code dir="ltr" translate="no">\f</code></td>
 <td>Formfeed</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       \n      </code></td>
+<td><code dir="ltr" translate="no">\n</code></td>
 <td>Newline</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       \r      </code></td>
+<td><code dir="ltr" translate="no">\r</code></td>
 <td>Carriage Return</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       \t      </code></td>
+<td><code dir="ltr" translate="no">\t</code></td>
 <td>Tab</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       \v      </code></td>
+<td><code dir="ltr" translate="no">\v</code></td>
 <td>Vertical Tab</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       \\      </code></td>
-<td>Backslash ( <code dir="ltr" translate="no">       \      </code> )</td>
+<td><code dir="ltr" translate="no">\\</code></td>
+<td>Backslash ( <code dir="ltr" translate="no">\</code> )</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       \?      </code></td>
-<td>Question Mark ( <code dir="ltr" translate="no">       ?      </code> )</td>
+<td><code dir="ltr" translate="no">\?</code></td>
+<td>Question Mark ( <code dir="ltr" translate="no">?</code> )</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       \"      </code></td>
-<td>Double Quote ( <code dir="ltr" translate="no">       "      </code> )</td>
+<td><code dir="ltr" translate="no">\"</code></td>
+<td>Double Quote ( <code dir="ltr" translate="no">"</code> )</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       \'      </code></td>
-<td>Single Quote ( <code dir="ltr" translate="no">       '      </code> )</td>
+<td><code dir="ltr" translate="no">\'</code></td>
+<td>Single Quote ( <code dir="ltr" translate="no">'</code> )</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       \`      </code></td>
-<td>Backtick ( <code dir="ltr" translate="no">       `      </code> )</td>
+<td><code dir="ltr" translate="no">\`</code></td>
+<td>Backtick ( <code dir="ltr" translate="no">`</code> )</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       \ooo      </code></td>
+<td><code dir="ltr" translate="no">\ooo</code></td>
 <td>Octal escape, with exactly 3 digits (in the range 0–7). Decodes to a single Unicode character (in string literals) or byte (in bytes literals).</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       \xhh      </code> or <code dir="ltr" translate="no">       \Xhh      </code></td>
+<td><code dir="ltr" translate="no">\xhh</code> or <code dir="ltr" translate="no">\Xhh</code></td>
 <td>Hex escape, with exactly 2 hex digits (0–9 or A–F or a–f). Decodes to a single Unicode character (in string literals) or byte (in bytes literals). Examples:
 <ul>
-<li><code dir="ltr" translate="no">         '\x41'        </code> == <code dir="ltr" translate="no">         'A'        </code></li>
-<li><code dir="ltr" translate="no">         '\x41B'        </code> is <code dir="ltr" translate="no">         'AB'        </code></li>
-<li><code dir="ltr" translate="no">         '\x4'        </code> is an error</li>
+<li><code dir="ltr" translate="no">'\x41'</code> == <code dir="ltr" translate="no">'A'</code></li>
+<li><code dir="ltr" translate="no">'\x41B'</code> is <code dir="ltr" translate="no">'AB'</code></li>
+<li><code dir="ltr" translate="no">'\x4'</code> is an error</li>
 </ul></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       \uhhhh      </code></td>
+<td><code dir="ltr" translate="no">\uhhhh</code></td>
 <td>Unicode escape, with lowercase 'u' and exactly 4 hex digits. Valid only in string literals or identifiers.<br />
 Note that the range D800-DFFF isn't allowed, as these are surrogate unicode values.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       \Uhhhhhhhh      </code></td>
+<td><code dir="ltr" translate="no">\Uhhhhhhhh</code></td>
 <td>Unicode escape, with uppercase 'U' and exactly 8 hex digits. Valid only in string literals or identifiers.<br />
 The range D800-DFFF isn't allowed, as these values are surrogate unicode values. Also, values greater than 10FFFF aren't allowed.</td>
 </tr>
@@ -284,19 +284,19 @@ The range D800-DFFF isn't allowed, as these values are surrogate unicode values.
 
 ### Integer literals
 
-Integer literals are either a sequence of decimal digits (0–9) or a hexadecimal value that's prefixed with " `  0x  ` " or " `  0X  ` ". Integers can be prefixed by " `  +  ` " or " `  -  ` " to represent positive and negative values, respectively. Examples:
+Integer literals are either a sequence of decimal digits (0–9) or a hexadecimal value that's prefixed with " `0x` " or " `0X` ". Integers can be prefixed by " `+` " or " `-` " to represent positive and negative values, respectively. Examples:
 
     123
     0xABC
     -123
 
-An integer literal is interpreted as an `  INT64  ` .
+An integer literal is interpreted as an `INT64` .
 
 A integer literal represents a constant value of the [integer data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#integer_types) .
 
-### `     NUMERIC    ` literals
+### `NUMERIC` literals
 
-You can construct `  NUMERIC  ` literals using the `  NUMERIC  ` keyword followed by a floating point value in quotes.
+You can construct `NUMERIC` literals using the `NUMERIC` keyword followed by a floating point value in quotes.
 
 Examples:
 
@@ -307,7 +307,7 @@ Examples:
     SELECT NUMERIC '1.23456e05';
     SELECT NUMERIC '-9.876e-3';
 
-A `  NUMERIC  ` literal represents a constant value of the [`  NUMERIC  ` data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#decimal_types) .
+A `NUMERIC` literal represents a constant value of the [`NUMERIC` data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#decimal_types) .
 
 ### Floating point literals
 
@@ -317,7 +317,7 @@ Syntax options:
     [+-][DIGITS].DIGITS[e[+-]DIGITS]
     DIGITSe[+-]DIGITS
 
-`  DIGITS  ` represents one or more decimal numbers (0 through 9) and `  e  ` represents the exponent marker (e or E).
+`DIGITS` represents one or more decimal numbers (0 through 9) and `e` represents the exponent marker (e or E).
 
 Examples:
 
@@ -340,7 +340,7 @@ A floating-point literal represents a constant value of the [floating-point data
 
 ### Array literals
 
-Array literals are comma-separated lists of elements enclosed in square brackets. The `  ARRAY  ` keyword is optional, and an explicit element type T is also optional.
+Array literals are comma-separated lists of elements enclosed in square brackets. The `ARRAY` keyword is optional, and an explicit element type T is also optional.
 
 Examples:
 
@@ -358,14 +358,14 @@ A struct literal is a struct whose fields are all literals. Struct literals can 
 
 Note that tuple syntax requires at least two fields, in order to distinguish it from an ordinary parenthesized expression. To write a struct literal with a single field, use typeless struct syntax or typed struct syntax.
 
-| Example                                          | Output Type                                    |
-| ------------------------------------------------ | ---------------------------------------------- |
-| `        (1, 2, 3)       `                       | `        STRUCT<INT64, INT64, INT64>       `   |
-| `        (1, 'abc')       `                      | `        STRUCT<INT64, STRING>       `         |
-| `        STRUCT(1 AS foo, 'abc' AS bar)       `  | `        STRUCT<foo INT64, bar STRING>       ` |
-| `        STRUCT<INT64, STRING>(1, 'abc')       ` | `        STRUCT<INT64, STRING>       `         |
-| `        STRUCT(1)       `                       | `        STRUCT<INT64>       `                 |
-| `        STRUCT<INT64>(1)       `                | `        STRUCT<INT64>       `                 |
+| Example                           | Output Type                     |
+| --------------------------------- | ------------------------------- |
+| `(1, 2, 3)`                       | `STRUCT<INT64, INT64, INT64>`   |
+| `(1, 'abc')`                      | `STRUCT<INT64, STRING>`         |
+| `STRUCT(1 AS foo, 'abc' AS bar)`  | `STRUCT<foo INT64, bar STRING>` |
+| `STRUCT<INT64, STRING>(1, 'abc')` | `STRUCT<INT64, STRING>`         |
+| `STRUCT(1)`                       | `STRUCT<INT64>`                 |
+| `STRUCT<INT64>(1)`                | `STRUCT<INT64>`                 |
 
 A struct literal represents a constant value of the [struct data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#struct_type) .
 
@@ -375,7 +375,7 @@ Syntax:
 
     DATE 'date_canonical_format'
 
-Date literals contain the `  DATE  ` keyword followed by [`  date_canonical_format  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical_format_for_date_literals) , a string literal that conforms to the canonical date format, enclosed in single quotation marks. Date literals support a range between the years 1 and 9999, inclusive. Dates outside of this range are invalid.
+Date literals contain the `DATE` keyword followed by [`date_canonical_format`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical_format_for_date_literals) , a string literal that conforms to the canonical date format, enclosed in single quotation marks. Date literals support a range between the years 1 and 9999, inclusive. Dates outside of this range are invalid.
 
 For example, the following date literal represents September 27, 2014:
 
@@ -385,7 +385,7 @@ String literals in canonical date format also implicitly coerce to DATE type whe
 
     SELECT * FROM foo WHERE date_col = "2014-09-27"
 
-the string literal `  "2014-09-27"  ` will be coerced to a date literal.
+the string literal `"2014-09-27"` will be coerced to a date literal.
 
 A date literal represents a constant value of the [date data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) .
 
@@ -395,7 +395,7 @@ Syntax:
 
     TIMESTAMP 'timestamp_canonical_format'
 
-Timestamp literals contain the `  TIMESTAMP  ` keyword and [`  timestamp_canonical_format  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical_format_for_timestamp_literals) , a string literal that conforms to the canonical timestamp format, enclosed in single quotation marks.
+Timestamp literals contain the `TIMESTAMP` keyword and [`timestamp_canonical_format`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical_format_for_timestamp_literals) , a string literal that conforms to the canonical timestamp format, enclosed in single quotation marks.
 
 Timestamp literals support a range between the years 1 and 9999, inclusive. Timestamps outside of this range are invalid.
 
@@ -411,15 +411,15 @@ For example, the following timestamp represents 12:30 p.m. on September 27, 2014
 
 For more information about time zones, see [Time zone](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#timezone) .
 
-String literals with the canonical timestamp format, including those with time zone names, implicitly coerce to a timestamp literal when used where a timestamp expression is expected. For example, in the following query, the string literal `  "2014-09-27 12:30:00.45 America/Los_Angeles"  ` is coerced to a timestamp literal.
+String literals with the canonical timestamp format, including those with time zone names, implicitly coerce to a timestamp literal when used where a timestamp expression is expected. For example, in the following query, the string literal `"2014-09-27 12:30:00.45 America/Los_Angeles"` is coerced to a timestamp literal.
 
     SELECT * FROM foo
     WHERE timestamp_col = "2014-09-27 12:30:00.45 America/Los_Angeles"
 
 A timestamp literal can include these optional characters:
 
-  - `  T  ` or `  t  `
-  - `  Z  ` or `  z  `
+  - `T` or `t`
+  - `Z` or `z`
 
 If you use one of these characters, a space can't be included before or after it. These are valid:
 
@@ -458,7 +458,7 @@ An interval literal represents a constant value of the [interval data type](http
   - [Interval literal with a single datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#interval_literal_single)
   - [Interval literal with a datetime part range](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#interval_literal_range)
 
-An interval literal can be used directly inside of the `  SELECT  ` statement and as an argument in some functions that support the interval data type.
+An interval literal can be used directly inside of the `SELECT` statement and as an argument in some functions that support the interval data type.
 
 #### Interval literal with a single datetime part
 
@@ -466,7 +466,7 @@ Syntax:
 
     INTERVAL int64_expression datetime_part
 
-The single datetime part syntax includes an `  INT64  ` expression and a single [interval-supported datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) . For example:
+The single datetime part syntax includes an `INT64` expression and a single [interval-supported datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) . For example:
 
     -- 0 years, 0 months, 5 days, 0 hours, 0 minutes, 0 seconds (0-0 5 0:0:0)
     INTERVAL 5 DAY
@@ -576,24 +576,24 @@ A JSON literal represents a constant value of the [JSON data type](https://docs.
 
 GoogleSQL follows these rules for case sensitivity:
 
-| Category                                             | Case-sensitive? | Notes                                                                                                                                                                                                                                                                                                                      |
-| ---------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Keywords                                             | No              |                                                                                                                                                                                                                                                                                                                            |
-| Function names                                       | No              |                                                                                                                                                                                                                                                                                                                            |
-| Table names                                          | See Notes       | Table names are usually case-insensitive, but they might be case-sensitive when querying a database that uses case-sensitive table names.                                                                                                                                                                                  |
-| Column names                                         | No              |                                                                                                                                                                                                                                                                                                                            |
-| Field names                                          | No              |                                                                                                                                                                                                                                                                                                                            |
-| All type names except for protocol buffer type names | No              |                                                                                                                                                                                                                                                                                                                            |
-| Protocol buffer type names                           | Yes             |                                                                                                                                                                                                                                                                                                                            |
-| Enum type names                                      | Yes             |                                                                                                                                                                                                                                                                                                                            |
-| String values                                        | Yes             | Any value of type `        STRING       ` preserves its case. For example, the result of an expression that produces a `        STRING       ` value or a column value that's of type `        STRING       ` .                                                                                                            |
-| String comparisons                                   | Yes             | However, string comparisons are case-insensitive in [collations](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts) that are case-insensitive. This behavior also applies to operations affected by collation, such as `        GROUP BY       ` and `        DISTINCT       ` clauses. |
-| Aliases within a query                               | No              |                                                                                                                                                                                                                                                                                                                            |
-| Regular expression matching                          | See Notes       | Regular expression matching is case-sensitive by default, unless the expression itself specifies that it should be case-insensitive.                                                                                                                                                                                       |
-| `        LIKE       ` matching                       | Yes             |                                                                                                                                                                                                                                                                                                                            |
-| Property graph names                                 | No              |                                                                                                                                                                                                                                                                                                                            |
-| Property graph label names                           | No              |                                                                                                                                                                                                                                                                                                                            |
-| Property graph property names                        | No              |                                                                                                                                                                                                                                                                                                                            |
+| Category                                             | Case-sensitive? | Notes                                                                                                                                                                                                                                                                                        |
+| ---------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Keywords                                             | No              |                                                                                                                                                                                                                                                                                              |
+| Function names                                       | No              |                                                                                                                                                                                                                                                                                              |
+| Table names                                          | See Notes       | Table names are usually case-insensitive, but they might be case-sensitive when querying a database that uses case-sensitive table names.                                                                                                                                                    |
+| Column names                                         | No              |                                                                                                                                                                                                                                                                                              |
+| Field names                                          | No              |                                                                                                                                                                                                                                                                                              |
+| All type names except for protocol buffer type names | No              |                                                                                                                                                                                                                                                                                              |
+| Protocol buffer type names                           | Yes             |                                                                                                                                                                                                                                                                                              |
+| Enum type names                                      | Yes             |                                                                                                                                                                                                                                                                                              |
+| String values                                        | Yes             | Any value of type `STRING` preserves its case. For example, the result of an expression that produces a `STRING` value or a column value that's of type `STRING` .                                                                                                                           |
+| String comparisons                                   | Yes             | However, string comparisons are case-insensitive in [collations](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts) that are case-insensitive. This behavior also applies to operations affected by collation, such as `GROUP BY` and `DISTINCT` clauses. |
+| Aliases within a query                               | No              |                                                                                                                                                                                                                                                                                              |
+| Regular expression matching                          | See Notes       | Regular expression matching is case-sensitive by default, unless the expression itself specifies that it should be case-insensitive.                                                                                                                                                         |
+| `LIKE` matching                                      | Yes             |                                                                                                                                                                                                                                                                                              |
+| Property graph names                                 | No              |                                                                                                                                                                                                                                                                                              |
+| Property graph label names                           | No              |                                                                                                                                                                                                                                                                                              |
+| Property graph property names                        | No              |                                                                                                                                                                                                                                                                                              |
 
 ## Reserved keywords
 
@@ -719,13 +719,13 @@ WITHIN<br />
 
 ## Terminating semicolons
 
-You can optionally use a terminating semicolon ( `  ;  ` ) when you submit a query string statement through an Application Programming Interface (API).
+You can optionally use a terminating semicolon ( `;` ) when you submit a query string statement through an Application Programming Interface (API).
 
 In a request containing multiple statements, you must separate statements with semicolons, but the semicolon is generally optional after the final statement. Some interactive tools require statements to have a terminating semicolon.
 
 ## Trailing commas
 
-You can optionally use a trailing comma ( `  ,  ` ) at the end of a column list in a `  SELECT  ` statement. You might have a trailing comma as the result of programmatically creating a column list.
+You can optionally use a trailing comma ( `,` ) at the end of a column list in a `SELECT` statement. You might have a trailing comma as the result of programmatically creating a column list.
 
 **Example**
 
@@ -755,13 +755,13 @@ Syntax:
 
     @parameter_name
 
-A named query parameter is denoted using an [identifier](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#identifiers) preceded by the `  @  ` character.
+A named query parameter is denoted using an [identifier](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#identifiers) preceded by the `@` character.
 
 A named query parameter can start with an identifier or a reserved keyword. An identifier can be unquoted or quoted.
 
 **Example:**
 
-This example returns all rows where `  LastName  ` is equal to the value of the named query parameter `  myparam  ` .
+This example returns all rows where `LastName` is equal to the value of the named query parameter `myparam` .
 
     SELECT * FROM Roster WHERE LastName = @myparam
 
@@ -779,18 +779,18 @@ The purpose of a hint is to modify the execution strategy for a query without ch
   - [STATEMENT hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints)
   - [TABLE hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#table_hints)
 
-Hint syntax requires the `  @  ` character followed by curly braces. You can create one hint or a group of hints. The optional `  engine_name.  ` prefix allows for multiple engines to define hints with the same `  hint_name  ` . This is important if you need to suggest different engine-specific execution strategies or different engines support different hints.
+Hint syntax requires the `@` character followed by curly braces. You can create one hint or a group of hints. The optional `engine_name.` prefix allows for multiple engines to define hints with the same `hint_name` . This is important if you need to suggest different engine-specific execution strategies or different engines support different hints.
 
 You can assign [identifiers](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#identifiers) and [literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#literals) to hints.
 
-  - Identifiers are useful for hints that are meant to act like enums. You can use an identifier to avoid using a quoted string. In the resolved AST, identifier hints are represented as string literals, so `  @{hint="abc"}  ` is the same as `  @{hint=abc}  ` . Identifier hints can also be used for hints that take a table name or column name as a single identifier.
+  - Identifiers are useful for hints that are meant to act like enums. You can use an identifier to avoid using a quoted string. In the resolved AST, identifier hints are represented as string literals, so `@{hint="abc"}` is the same as `@{hint=abc}` . Identifier hints can also be used for hints that take a table name or column name as a single identifier.
   - NULL literals are allowed and are inferred as integers.
 
-Hints are meant to apply only to the node they are attached to, and not to a larger scope. For example, a hint on a `  JOIN  ` in the middle of the `  FROM  ` clause is meant to apply to that `  JOIN  ` only, and not other `  JOIN  ` s in the `  FROM  ` clause. Statement-level hints can be used for hints that modify execution of an entire statement, for example an overall memory budget or deadline.
+Hints are meant to apply only to the node they are attached to, and not to a larger scope. For example, a hint on a `JOIN` in the middle of the `FROM` clause is meant to apply to that `JOIN` only, and not other `JOIN` s in the `FROM` clause. Statement-level hints can be used for hints that modify execution of an entire statement, for example an overall memory budget or deadline.
 
 **Examples**
 
-In this example, a literal is assigned to a hint. This hint is only used with two database engines called `  database_engine_a  ` and `  database_engine_b  ` . The value for the hint is different for each database engine.
+In this example, a literal is assigned to a hint. This hint is only used with two database engines called `database_engine_a` and `database_engine_b` . The value for the hint is different for each database engine.
 
     @{ database_engine_a.file_count=23, database_engine_b.file_count=10 }
 
@@ -823,7 +823,7 @@ Use a single-line comment if you want the comment to appear on a line by itself.
 
 ### Inline comments
 
-Use an inline comment if you want the comment to appear on the same line as a statement. A comment that's prepended with `  #  ` or `  --  ` must appear to the right of a statement.
+Use an inline comment if you want the comment to appear on the same line as a statement. A comment that's prepended with `#` or `--` must appear to the right of a statement.
 
 **Examples**
 

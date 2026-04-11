@@ -43,7 +43,7 @@ us-west8
 us-east7
 
   
-`  GET https://spanner.googleapis.com/v1/{name=projects/*/instances/*}  `
+`GET https://spanner.googleapis.com/v1/{name=projects/*/instances/*}`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -51,27 +51,27 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
-Required. The name of the requested instance. Values are of the form `  projects/<project>/instances/<instance>  ` .
+Required. The name of the requested instance. Values are of the form `projects/<project>/instances/<instance>` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  name  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `name` :
 
-  - `  spanner.instances.get  `
+  - `spanner.instances.get`
 
 ### Query parameters
 
 Parameters
 
-`  fieldMask  `
+`fieldMask`
 
-`  string ( FieldMask  ` format)
+` string ( FieldMask  ` format)
 
 If fieldMask is present, specifies the subset of `  Instance  ` fields that should be returned. If absent, all `  Instance  ` fields are returned.
 
-This is a comma-separated list of fully qualified names of fields. Example: `  "user.displayName,photo"  ` .
+This is a comma-separated list of fully qualified names of fields. Example: `"user.displayName,photo"` .
 
 ### Request body
 
@@ -85,7 +85,7 @@ If successful, the response body contains an instance of `  Instance  ` .
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

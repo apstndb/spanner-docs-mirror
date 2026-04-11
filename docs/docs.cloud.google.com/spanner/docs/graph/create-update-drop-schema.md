@@ -18,7 +18,7 @@ When you create a property graph schema, be sure to consider the [best practices
 
 ### Create node input tables
 
-The following creates two node input tables, `  Person  ` and `  Account  ` , which serve as input for the node definitions in the example property graph:
+The following creates two node input tables, `Person` and `Account` , which serve as input for the node definitions in the example property graph:
 
 ``` 
   CREATE TABLE Person (
@@ -39,7 +39,7 @@ The following creates two node input tables, `  Person  ` and `  Account  ` , wh
 
 ### Create edge input tables
 
-The following code creates two edge input tables, `  PersonOwnAccount  ` and `  AccountTransferAccount  ` , as input for the edge definitions in the example property graph:
+The following code creates two edge input tables, `PersonOwnAccount` and `AccountTransferAccount` , as input for the edge definitions in the example property graph:
 
 ``` 
   CREATE TABLE PersonOwnAccount (
@@ -63,7 +63,7 @@ The following code creates two edge input tables, `  PersonOwnAccount  ` and `  
 
 ### Define a property graph
 
-The following code uses tables and the `  CREATE PROPERTY GRAPH  ` statement to define a property graph. This statement defines a property graph named `  FinGraph  ` with `  Account  ` and `  Person  ` nodes, and `  PersonOwnAccount  ` and `  AccountTransferAccount  ` edges:
+The following code uses tables and the `CREATE PROPERTY GRAPH` statement to define a property graph. This statement defines a property graph named `FinGraph` with `Account` and `Person` nodes, and `PersonOwnAccount` and `AccountTransferAccount` edges:
 
 ``` 
   CREATE PROPERTY GRAPH FinGraph
@@ -85,21 +85,21 @@ The following code uses tables and the `  CREATE PROPERTY GRAPH  ` statement to 
 
 ## Update a property graph schema
 
-After you create a property graph schema, you update it by using the `  CREATE OR REPLACE PROPERTY GRAPH  ` statement. This statement applies the changes by recreating the graph schema with the desired update.
+After you create a property graph schema, you update it by using the `CREATE OR REPLACE PROPERTY GRAPH` statement. This statement applies the changes by recreating the graph schema with the desired update.
 
 You can make the following changes to a property graph schema:
 
-  - [Add a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#add-new-node-or-edge) : Create the new input tables for the nodes and edges, and then use the `  CREATE OR REPLACE PROPERTY GRAPH  ` statement to add the new definitions to the graph.
+  - [Add a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#add-new-node-or-edge) : Create the new input tables for the nodes and edges, and then use the `CREATE OR REPLACE PROPERTY GRAPH` statement to add the new definitions to the graph.
 
-  - [Update a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-node-or-edge) : Update the underlying input table with new node and edge definitions. Then, use the `  CREATE OR REPLACE PROPERTY GRAPH  ` statement to update the definitions in the graph.
+  - [Update a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-node-or-edge) : Update the underlying input table with new node and edge definitions. Then, use the `CREATE OR REPLACE PROPERTY GRAPH` statement to update the definitions in the graph.
 
-  - [Remove a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#remove-node-or-edge) : Use the `  CREATE OR REPLACE PROPERTY GRAPH  ` statement and omit the definitions that you want to remove from the graph.
+  - [Remove a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#remove-node-or-edge) : Use the `CREATE OR REPLACE PROPERTY GRAPH` statement and omit the definitions that you want to remove from the graph.
 
 ### Add new node or edge definitions
 
 To add a new node and a new edge definition, follow these steps:
 
-1.  Add a new node definition input table, `  Company  ` , and a new edge definition input table, `  PersonInvestCompany  ` .
+1.  Add a new node definition input table, `Company` , and a new edge definition input table, `PersonInvestCompany` .
     
         CREATE TABLE Company (
           id               INT64 NOT NULL,
@@ -113,7 +113,7 @@ To add a new node and a new edge definition, follow these steps:
         ) PRIMARY KEY (id, company_id),
           INTERLEAVE IN PARENT Person ON DELETE CASCADE;
 
-2.  Update the `  FinGraph  ` schema by adding the new `  Company  ` node definition and the new `  PersonInvestCompany  ` edge definition.
+2.  Update the `FinGraph` schema by adding the new `Company` node definition and the new `PersonInvestCompany` edge definition.
     
         CREATE OR REPLACE PROPERTY GRAPH FinGraph
           NODE TABLES (
@@ -138,16 +138,16 @@ To add a new node and a new edge definition, follow these steps:
 
 ### Update node or edge definitions
 
-To update an existing node or edge definition, you first alter the underlying input table, and then use the `  CREATE OR REPLACE PROPERTY GRAPH  ` statement to apply the schema changes to the graph. To customize the properties exposed from the input tables, use the [`  PROPERTIES clause  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#element_table_property_definition) . For more information, see [Customize labels and properties](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#customize-labels-properties) .
+To update an existing node or edge definition, you first alter the underlying input table, and then use the `CREATE OR REPLACE PROPERTY GRAPH` statement to apply the schema changes to the graph. To customize the properties exposed from the input tables, use the [`PROPERTIES clause`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#element_table_property_definition) . For more information, see [Customize labels and properties](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#customize-labels-properties) .
 
 The following steps show how to update the underlying table of a schema, then apply the update to the schema.
 
-1.  Add the `  mailing_address  ` column to the `  Person  ` underlying input table.
+1.  Add the `mailing_address` column to the `Person` underlying input table.
     
         ALTER TABLE Person
         ADD COLUMN mailing_address STRING(MAX);
 
-2.  Apply the changes to the `  Person  ` table to the schema. Use the `  CREATE OR REPLACE PROPERTY GRAPH  ` statement. The `  Person  ` node definition reflects the updated `  Person  ` table definition because the input table schema changed.
+2.  Apply the changes to the `Person` table to the schema. Use the `CREATE OR REPLACE PROPERTY GRAPH` statement. The `Person` node definition reflects the updated `Person` table definition because the input table schema changed.
     
         CREATE OR REPLACE PROPERTY GRAPH FinGraph
           NODE TABLES (
@@ -169,7 +169,7 @@ The following steps show how to update the underlying table of a schema, then ap
 
 To remove existing node or edge definitions, recreate the property graph without those node or edge tables.
 
-The following removes the `  Person  ` node definition and the `  PersonOwnAccount  ` edge definition by omitting them in the `  CREATE OR REPLACE PROPERTY GRAPH  ` statement.
+The following removes the `Person` node definition and the `PersonOwnAccount` edge definition by omitting them in the `CREATE OR REPLACE PROPERTY GRAPH` statement.
 
 ``` 
   CREATE OR REPLACE PROPERTY GRAPH FinGraph
@@ -186,9 +186,9 @@ The following removes the `  Person  ` node definition and the `  PersonOwnAccou
 
 ## Drop a property graph schema
 
-To drop a graph schema from the underlying input tables, use the `  DROP PROPERTY GRAPH  ` DDL statement. You can't delete the data from the underlying table when you drop a schema.
+To drop a graph schema from the underlying input tables, use the `DROP PROPERTY GRAPH` DDL statement. You can't delete the data from the underlying table when you drop a schema.
 
-The following code drops the `  FinGraph  ` property graph schema:
+The following code drops the `FinGraph` property graph schema:
 
     DROP PROPERTY GRAPH FinGraph;
 
@@ -196,7 +196,7 @@ The following code drops the `  FinGraph  ` property graph schema:
 
 Spanner Graph supports creating property graphs within a [named schema](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .
 
-The following example creates two named schemas `  sch1  ` and `  sch2  ` , a node and edge table in the `  sch1  ` schema, and a node and property graph in the `  sch2  ` schema:
+The following example creates two named schemas `sch1` and `sch2` , a node and edge table in the `sch1` schema, and a node and property graph in the `sch2` schema:
 
     CREATE SCHEMA sch1;
     CREATE SCHEMA sch2;

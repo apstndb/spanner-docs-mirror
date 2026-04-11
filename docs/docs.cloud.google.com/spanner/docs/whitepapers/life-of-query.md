@@ -6,7 +6,7 @@ Spanner supports [SQL queries](https://docs.cloud.google.com/spanner/docs/refere
     FROM Singers AS s
     WHERE s.FirstName = @firstName;
 
-The construct `  @firstName  ` is a reference to a query parameter. You can use a query parameter anywhere a literal value can be used. Using parameters in programmatic APIs is strongly recommended. Use of query parameters helps avoid [SQL injection](https://en.wikipedia.org/wiki/SQL_injection) attacks and the resulting queries are more likely to benefit from various server-side caches. For more information, see [Caching](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query#caching) .
+The construct `@firstName` is a reference to a query parameter. You can use a query parameter anywhere a literal value can be used. Using parameters in programmatic APIs is strongly recommended. Use of query parameters helps avoid [SQL injection](https://en.wikipedia.org/wiki/SQL_injection) attacks and the resulting queries are more likely to benefit from various server-side caches. For more information, see [Caching](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query#caching) .
 
 Query parameters must be bound to a value when the query is executed. For example:
 
@@ -18,7 +18,7 @@ Query parameters must be bound to a value when the query is executed. For exampl
      }
     }
 
-Once Spanner receives an API call, it analyzes the query and bound parameters to determine which Spanner server node should process the query. The server sends back a stream of result rows that are consumed by the calls to `  ResultSet.next()  ` .
+Once Spanner receives an API call, it analyzes the query and bound parameters to determine which Spanner server node should process the query. The server sends back a stream of result rows that are consumed by the calls to `ResultSet.next()` .
 
 ## Query execution
 
@@ -35,7 +35,7 @@ Query execution begins with the arrival of an "execute query" request at some Sp
 
 ## Parsing
 
-The SQL parser analyzes the query text and converts it to an [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) . It extracts the basic query structure `  (SELECT … FROM … WHERE …)  ` and does syntactic checks.
+The SQL parser analyzes the query text and converts it to an [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) . It extracts the basic query structure `(SELECT … FROM … WHERE …)` and does syntactic checks.
 
 ## Algebra
 
@@ -53,21 +53,21 @@ When a query involves multiple splits, Spanner can execute the query in parallel
 
 ## Caching
 
-Many of the artifacts of query processing are automatically cached and re-used for subsequent queries. This includes query algebras, executable query plans, etc. The caching is based on the query text, names and types of bound parameters. This is why using bound parameters (like `  @firstName  ` in the example above) is better than using literal values in the query text. The former can be cached once and reused regardless of the actual bound value. See [Optimizing Spanner Query Performance](https://docs.cloud.google.com/spanner/docs/whitepapers/improving-query-performance) for more details.
+Many of the artifacts of query processing are automatically cached and re-used for subsequent queries. This includes query algebras, executable query plans, etc. The caching is based on the query text, names and types of bound parameters. This is why using bound parameters (like `@firstName` in the example above) is better than using literal values in the query text. The former can be cached once and reused regardless of the actual bound value. See [Optimizing Spanner Query Performance](https://docs.cloud.google.com/spanner/docs/whitepapers/improving-query-performance) for more details.
 
 ## Error handling
 
-The `  executeQuery  ` (or `  executeStreamingSql  ` ) and `  streamingRead  ` methods return a stream of `  PartialResultSet  ` messages. For efficiency, a single row or column value might be split across multiple `  PartialResultSet  ` messages, especially for large data.
+The `executeQuery` (or `executeStreamingSql` ) and `streamingRead` methods return a stream of `PartialResultSet` messages. For efficiency, a single row or column value might be split across multiple `PartialResultSet` messages, especially for large data.
 
 This stream can be interrupted by transient network errors, split handoffs, or server restarts. Split handoffs might occur during load balancing and server restarts might occur during upgrades.
 
-To handle these interruptions, Spanner includes opaque `  resume_token  ` strings in some `  PartialResultSet  ` messages.
+To handle these interruptions, Spanner includes opaque `resume_token` strings in some `PartialResultSet` messages.
 
-Key points about `  resume_token  ` :
+Key points about `resume_token` :
 
-  - Not every `  PartialResultSet  ` contains a `  resume_token  ` .
-  - A `  resume_token  ` is typically included only at the end of a complete row, marking a safe resumption point.
-  - `  PartialResultSet  ` with a `  chunked_value  ` (for large values split across messages) won't have a `  resume_token  ` until the entire value and row are sent.
-  - To resume an interrupted stream, send a new request with the *last received* non-empty `  resume_token  ` .
+  - Not every `PartialResultSet` contains a `resume_token` .
+  - A `resume_token` is typically included only at the end of a complete row, marking a safe resumption point.
+  - `PartialResultSet` with a `chunked_value` (for large values split across messages) won't have a `resume_token` until the entire value and row are sent.
+  - To resume an interrupted stream, send a new request with the *last received* non-empty `resume_token` .
 
-The Spanner client libraries automatically manage this buffering and recovery. They assemble complete rows from `  PartialResultSet  ` messages and track the latest `  resume_token  ` . If the connection drops, the library uses the last valid token to restart the stream, discarding any partial data received after that token. This process ensures you see a continuous, duplicate-free stream of complete rows, even if transient failures occur.
+The Spanner client libraries automatically manage this buffering and recovery. They assemble complete rows from `PartialResultSet` messages and track the latest `resume_token` . If the connection drops, the library uses the last valid token to restart the stream, discarding any partial data received after that token. This process ensures you see a continuous, duplicate-free stream of complete rows, even if transient failures occur.

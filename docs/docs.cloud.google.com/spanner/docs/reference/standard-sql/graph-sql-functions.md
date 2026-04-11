@@ -2,26 +2,26 @@ GoogleSQL for Spanner supports the following GQL functions:
 
 ## Function list
 
-| Name                                                                                                                                                        | Summary                                                                                                        |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| [`         DESTINATION_NODE_ID        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#destination_node_id)         | Gets a unique identifier of a graph edge's destination node.                                                   |
-| [`         EDGES        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#edges)                                     | Gets the edges in a graph path. The resulting array retains the original order in the graph path.              |
-| [`         ELEMENT_DEFINITION_NAME        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#element_definition_name) | Gets a graph element's element definition name.                                                                |
-| [`         ELEMENT_ID        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#element_id)                           | Gets a graph element's unique identifier.                                                                      |
-| [`         IS_ACYCLIC        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_acyclic)                           | Checks if a graph path has a repeating node.                                                                   |
-| [`         IS_FIRST        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_first)                               | Returns `        true       ` if this row is in the first `        k       ` rows (1-based) within the window. |
-| [`         IS_SIMPLE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_simple)                             | Checks if a graph path is simple.                                                                              |
-| [`         IS_TRAIL        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_trail)                               | Checks if a graph path has a repeating edge.                                                                   |
-| [`         LABELS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#labels)                                   | Gets the labels associated with a graph element.                                                               |
-| [`         NODES        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#nodes)                                     | Gets the nodes in a graph path. The resulting array retains the original order in the graph path.              |
-| [`         PATH        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#path)                                       | Creates a graph path from a list of graph elements.                                                            |
-| [`         PATH_FIRST        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#path_first)                           | Gets the first node in a graph path.                                                                           |
-| [`         PATH_LAST        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#path_last)                             | Gets the last node in a graph path.                                                                            |
-| [`         PATH_LENGTH        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#path_length)                         | Gets the number of edges in a graph path.                                                                      |
-| [`         PROPERTY_NAMES        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#property_names)                   | Gets the property names associated with a graph element.                                                       |
-| [`         SOURCE_NODE_ID        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#source_node_id)                   | Gets a unique identifier of a graph edge's source node.                                                        |
+| Name                                                                                                                                       | Summary                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| [`DESTINATION_NODE_ID`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#destination_node_id)         | Gets a unique identifier of a graph edge's destination node.                                      |
+| [`EDGES`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#edges)                                     | Gets the edges in a graph path. The resulting array retains the original order in the graph path. |
+| [`ELEMENT_DEFINITION_NAME`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#element_definition_name) | Gets a graph element's element definition name.                                                   |
+| [`ELEMENT_ID`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#element_id)                           | Gets a graph element's unique identifier.                                                         |
+| [`IS_ACYCLIC`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_acyclic)                           | Checks if a graph path has a repeating node.                                                      |
+| [`IS_FIRST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_first)                               | Returns `true` if this row is in the first `k` rows (1-based) within the window.                  |
+| [`IS_SIMPLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_simple)                             | Checks if a graph path is simple.                                                                 |
+| [`IS_TRAIL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_trail)                               | Checks if a graph path has a repeating edge.                                                      |
+| [`LABELS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#labels)                                   | Gets the labels associated with a graph element.                                                  |
+| [`NODES`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#nodes)                                     | Gets the nodes in a graph path. The resulting array retains the original order in the graph path. |
+| [`PATH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#path)                                       | Creates a graph path from a list of graph elements.                                               |
+| [`PATH_FIRST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#path_first)                           | Gets the first node in a graph path.                                                              |
+| [`PATH_LAST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#path_last)                             | Gets the last node in a graph path.                                                               |
+| [`PATH_LENGTH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#path_length)                         | Gets the number of edges in a graph path.                                                         |
+| [`PROPERTY_NAMES`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#property_names)                   | Gets the property names associated with a graph element.                                          |
+| [`SOURCE_NODE_ID`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#source_node_id)                   | Gets a unique identifier of a graph edge's source node.                                           |
 
-## `     DESTINATION_NODE_ID    `
+## `DESTINATION_NODE_ID`
 
     DESTINATION_NODE_ID(edge_element)
 
@@ -31,15 +31,15 @@ Gets a unique identifier of a graph edge's destination node. The unique identifi
 
 **Definitions**
 
-  - `  edge_element  ` : A `  GRAPH_ELEMENT  ` value that represents an edge.
+  - `edge_element` : A `GRAPH_ELEMENT` value that represents an edge.
 
 **Details**
 
-Returns `  NULL  ` if `  edge_element  ` is `  NULL  ` .
+Returns `NULL` if `edge_element` is `NULL` .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -57,7 +57,7 @@ Returns `  NULL  ` if `  edge_element  ` is `  NULL  ` .
 
 Note that the actual identifiers obtained may be different from what's shown above.
 
-## `     EDGES    `
+## `EDGES`
 
     EDGES(graph_path)
 
@@ -67,15 +67,15 @@ Gets the edges in a graph path. The resulting array retains the original order i
 
 **Definitions**
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents a graph path.
+  - `graph_path` : A `GRAPH_PATH` value that represents a graph path.
 
 **Details**
 
-If `  graph_path  ` is `  NULL  ` , returns `  NULL  ` .
+If `graph_path` is `NULL` , returns `NULL` .
 
 **Return type**
 
-`  ARRAY<GRAPH_ELEMENT>  `
+`ARRAY<GRAPH_ELEMENT>`
 
 **Examples**
 
@@ -107,7 +107,7 @@ If `  graph_path  ` is `  NULL  ` , returns `  NULL  ` .
     LET es = EDGES(p)
     RETURN TO_JSON(es) AS edges
 
-## `     ELEMENT_DEFINITION_NAME    `
+## `ELEMENT_DEFINITION_NAME`
 
     ELEMENT_DEFINITION_NAME(element)
 
@@ -117,15 +117,15 @@ Returns the name of the graph element table underlying the graph element.
 
 **Arguments**
 
-  - `  element  ` : A `  GRAPH_ELEMENT  ` value.
+  - `element` : A `GRAPH_ELEMENT` value.
 
 **Details**
 
-Returns `  NULL  ` if `  element  ` is `  NULL  ` .
+Returns `NULL` if `element` is `NULL` .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -144,7 +144,7 @@ Returns `  NULL  ` if `  element  ` is `  NULL  ` .
      | Lee  | Person                       | Owns                         |
      +--------------------------------------------------------------------*/
 
-## `     ELEMENT_ID    `
+## `ELEMENT_ID`
 
     ELEMENT_ID(element)
 
@@ -154,15 +154,15 @@ Gets a graph element's unique identifier. The unique identifier is only valid fo
 
 **Definitions**
 
-  - `  element  ` : A `  GRAPH_ELEMENT  ` value.
+  - `element` : A `GRAPH_ELEMENT` value.
 
 **Details**
 
-Returns `  NULL  ` if `  element  ` is `  NULL  ` .
+Returns `NULL` if `element` is `NULL` .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -180,27 +180,27 @@ Returns `  NULL  ` if `  element  ` is `  NULL  ` .
 
 Note that the actual identifiers obtained may be different from what's shown above.
 
-## `     IS_ACYCLIC    `
+## `IS_ACYCLIC`
 
     IS_ACYCLIC(graph_path)
 
 **Description**
 
-Checks if a graph path has a repeating node. Returns `  TRUE  ` if a repetition isn't found, otherwise returns `  FALSE  ` .
+Checks if a graph path has a repeating node. Returns `TRUE` if a repetition isn't found, otherwise returns `FALSE` .
 
 **Definitions**
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents a graph path.
+  - `graph_path` : A `GRAPH_PATH` value that represents a graph path.
 
 **Details**
 
 Two nodes are considered equal if they compare as equal.
 
-Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
+Returns `NULL` if `graph_path` is `NULL` .
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -220,7 +220,7 @@ Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
      | 20                | FALSE           |
      +-------------------------------------*/
 
-## `     IS_FIRST    `
+## `IS_FIRST`
 
     IS_FIRST(k)
     OVER over_clause
@@ -234,36 +234,36 @@ Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
 
 **Description**
 
-Returns `  true  ` if the current row is in the first `  k  ` rows (1-based) in the window; otherwise, returns `  false  ` . This function doesn't require the `  ORDER BY  ` clause.
+Returns `true` if the current row is in the first `k` rows (1-based) in the window; otherwise, returns `false` . This function doesn't require the `ORDER BY` clause.
 
 **Details**
 
-  - The `  k  ` value must be positive; otherwise, a runtime error is raised.
-  - If any rows are tied or if `  ORDER BY  ` is omitted, the result is non-deterministic. If the `  ORDER BY  ` clause is unspecified or if all rows are tied, the result is equivalent to `  ANY-k  ` .
+  - The `k` value must be positive; otherwise, a runtime error is raised.
+  - If any rows are tied or if `ORDER BY` is omitted, the result is non-deterministic. If the `ORDER BY` clause is unspecified or if all rows are tied, the result is equivalent to `ANY-k` .
 
 **Return Type**
 
-`  BOOL  `
+`BOOL`
 
-## `     IS_SIMPLE    `
+## `IS_SIMPLE`
 
     IS_SIMPLE(graph_path)
 
 **Description**
 
-Checks if a graph path is simple. Returns `  TRUE  ` if the path has no repeated nodes, or if the only repeated nodes are its head and tail. Otherwise, returns `  FALSE  ` .
+Checks if a graph path is simple. Returns `TRUE` if the path has no repeated nodes, or if the only repeated nodes are its head and tail. Otherwise, returns `FALSE` .
 
 **Definitions**
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents a graph path.
+  - `graph_path` : A `GRAPH_PATH` value that represents a graph path.
 
 **Details**
 
-Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
+Returns `NULL` if `graph_path` is `NULL` .
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -284,25 +284,25 @@ Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
      | TRUE           | 20    | 7     | 16    | 20    |
      +----------------+-------+-------+-------+-------*/
 
-## `     IS_TRAIL    `
+## `IS_TRAIL`
 
     IS_TRAIL(graph_path)
 
 **Description**
 
-Checks if a graph path has a repeating edge. Returns `  TRUE  ` if a repetition isn't found, otherwise returns `  FALSE  ` .
+Checks if a graph path has a repeating edge. Returns `TRUE` if a repetition isn't found, otherwise returns `FALSE` .
 
 **Definitions**
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents a graph path.
+  - `graph_path` : A `GRAPH_PATH` value that represents a graph path.
 
 **Details**
 
-Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
+Returns `NULL` if `graph_path` is `NULL` .
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -322,7 +322,7 @@ Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
      | TRUE          | 7     | 16    | 20    |
      +---------------+-------+-------+-------*/
 
-## `     LABELS    `
+## `LABELS`
 
     LABELS(element)
 
@@ -332,17 +332,17 @@ Gets the labels associated with a graph element and preserves the original case 
 
 **Definitions**
 
-  - `  element  ` : A `  GRAPH_ELEMENT  ` value that represents the graph element to extract labels from.
+  - `element` : A `GRAPH_ELEMENT` value that represents the graph element to extract labels from.
 
 **Details**
 
-Returns `  NULL  ` if `  element  ` is `  NULL  ` .
+Returns `NULL` if `element` is `NULL` .
 
 **Note:** Labels in a graph element are uniquely identified by their names. Labels are case insensitive. A defined label in the schema always takes precedence over [dynamic label](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_label_definition) when their names conflict. To learn how to model dynamic labels, see the [dynamic label definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_label_definition) .
 
 **Return type**
 
-`  ARRAY<STRING>  `
+`ARRAY<STRING>`
 
 **Examples**
 
@@ -361,7 +361,7 @@ Returns `  NULL  ` if `  element  ` is `  NULL  ` .
      | [Person]  | 3  |
      +----------------*/
 
-## `     NODES    `
+## `NODES`
 
     NODES(graph_path)
 
@@ -371,15 +371,15 @@ Gets the nodes in a graph path. The resulting array retains the original order i
 
 **Definitions**
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents a graph path.
+  - `graph_path` : A `GRAPH_PATH` value that represents a graph path.
 
 **Details**
 
-Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
+Returns `NULL` if `graph_path` is `NULL` .
 
 **Return type**
 
-`  ARRAY<GRAPH_ELEMENT>  `
+`ARRAY<GRAPH_ELEMENT>`
 
 **Examples**
 
@@ -403,7 +403,7 @@ Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
      | ["Account"] | "Rainy Day Fund" |
      +--------------------------------*/
 
-## `     PATH    `
+## `PATH`
 
     PATH(graph_element[, ...])
 
@@ -413,19 +413,19 @@ Creates a graph path from a list of graph elements.
 
 **Definitions**
 
-  - `  graph_element  ` : A `  GRAPH_ELEMENT  ` value that represents a graph element, such as a node or edge, to add to a graph path.
+  - `graph_element` : A `GRAPH_ELEMENT` value that represents a graph element, such as a node or edge, to add to a graph path.
 
 **Details**
 
 This function produces an error if:
 
-  - A graph element is `  NULL  ` .
+  - A graph element is `NULL` .
   - Nodes aren't interleaved with edges.
   - An edge doesn't connect to neighboring nodes.
 
 **Return type**
 
-`  GRAPH_PATH  `
+`GRAPH_PATH`
 
 **Examples**
 
@@ -464,7 +464,7 @@ This function produces an error if:
     LET p = PATH(src, t2, mid)
     RETURN TO_JSON(p) AS results
 
-## `     PATH_FIRST    `
+## `PATH_FIRST`
 
     PATH_FIRST(graph_path)
 
@@ -474,15 +474,15 @@ Gets the first node in a graph path.
 
 **Definitions**
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents the graph path to extract the first node from.
+  - `graph_path` : A `GRAPH_PATH` value that represents the graph path to extract the first node from.
 
 **Details**
 
-Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
+Returns `NULL` if `graph_path` is `NULL` .
 
 **Return type**
 
-`  GRAPH_ELEMENT  `
+`GRAPH_ELEMENT`
 
 **Examples**
 
@@ -505,7 +505,7 @@ Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
      | Account | Rainy Day Fund |
      +--------------------------*/
 
-## `     PATH_LAST    `
+## `PATH_LAST`
 
     PATH_LAST(graph_path)
 
@@ -515,15 +515,15 @@ Gets the last node in a graph path.
 
 **Definitions**
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents the graph path to extract the last node from.
+  - `graph_path` : A `GRAPH_PATH` value that represents the graph path to extract the last node from.
 
 **Details**
 
-Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
+Returns `NULL` if `graph_path` is `NULL` .
 
 **Return type**
 
-`  GRAPH_ELEMENT  `
+`GRAPH_ELEMENT`
 
 **Examples**
 
@@ -546,7 +546,7 @@ Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
      | Account | Rainy Day Fund |
      +--------------------------*/
 
-## `     PATH_LENGTH    `
+## `PATH_LENGTH`
 
     PATH_LENGTH(graph_path)
 
@@ -556,15 +556,15 @@ Gets the number of edges in a graph path.
 
 **Definitions**
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents the graph path with the edges to count.
+  - `graph_path` : A `GRAPH_PATH` value that represents the graph path with the edges to count.
 
 **Details**
 
-Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
+Returns `NULL` if `graph_path` is `NULL` .
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
@@ -584,7 +584,7 @@ Returns `  NULL  ` if `  graph_path  ` is `  NULL  ` .
      | 2       |
      +---------*/
 
-## `     PROPERTY_NAMES    `
+## `PROPERTY_NAMES`
 
     PROPERTY_NAMES(element)
 
@@ -596,15 +596,15 @@ Gets the name of each property associated with a graph element and preserves the
 
 **Arguments**
 
-  - `  element  ` : A `  GRAPH_ELEMENT  ` value.
+  - `element` : A `GRAPH_ELEMENT` value.
 
 **Details**
 
-Returns `  NULL  ` if `  element  ` is `  NULL  ` .
+Returns `NULL` if `element` is `NULL` .
 
 **Return type**
 
-`  ARRAY<STRING>  `
+`ARRAY<STRING>`
 
 **Examples**
 
@@ -623,7 +623,7 @@ Returns `  NULL  ` if `  element  ` is `  NULL  ` .
      | [birthday, city, country, id, name]      | 3  |
      +-----------------------------------------------*/
 
-## `     SOURCE_NODE_ID    `
+## `SOURCE_NODE_ID`
 
     SOURCE_NODE_ID(edge_element)
 
@@ -633,15 +633,15 @@ Gets a unique identifier of a graph edge's source node. The unique identifier is
 
 **Definitions**
 
-  - `  edge_element  ` : A `  GRAPH_ELEMENT  ` value that represents an edge.
+  - `edge_element` : A `GRAPH_ELEMENT` value that represents an edge.
 
 **Details**
 
-Returns `  NULL  ` if `  edge_element  ` is `  NULL  ` .
+Returns `NULL` if `edge_element` is `NULL` .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 

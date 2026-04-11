@@ -20,9 +20,9 @@ The system insights dashboard includes the following sections, with numbers corr
 
 To get the permissions that you need to view or modify insights dashboards, including custom dashboards, ask your administrator to grant you the following IAM roles on the project:
 
-  - To create and edit custom dashboards: [Monitoring Dashboard Configuration Editor](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.dashboardEditor) ( `  roles/monitoring.dashboardEditor  ` )
-  - To open and view Metrics Explorer charts: [Monitoring Dashboard Configuration Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.dashboardViewer) ( `  roles/monitoring.dashboardViewer  ` )
-  - To create and edit Metrics Explorer alerts: [Monitoring Editor](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.editor) ( `  roles/monitoring.editor  ` )
+  - To create and edit custom dashboards: [Monitoring Dashboard Configuration Editor](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.dashboardEditor) ( `roles/monitoring.dashboardEditor` )
+  - To open and view Metrics Explorer charts: [Monitoring Dashboard Configuration Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.dashboardViewer) ( `roles/monitoring.dashboardViewer` )
+  - To create and edit Metrics Explorer alerts: [Monitoring Editor](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.editor) ( `roles/monitoring.editor` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
@@ -32,9 +32,9 @@ These predefined roles contain the permissions required to view or modify insigh
 
 The following permissions are required to view or modify insights dashboards, including custom dashboards:
 
-  - To create custom dashboards: `  monitoring.dashboards.create  `
-  - To edit custom dashboards: `  monitoring.dashboards.update  `
-  - To view custom dashboards: `  monitoring.dashboards.get, monitoring.dashboards.list  `
+  - To create custom dashboards: `monitoring.dashboards.create`
+  - To edit custom dashboards: `monitoring.dashboards.update`
+  - To view custom dashboards: `monitoring.dashboards.get, monitoring.dashboards.list`
 
 You might also be able to get these permissions with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
@@ -101,7 +101,7 @@ The toolbar on each chart provides the following standard options. Some elements
     
       - To view the metric in [Metrics Explorer](https://docs.cloud.google.com/monitoring/charts/metrics-explorer) , click **View in Metrics Explorer** . You can view other Spanner metrics in the Metrics Explorer after selecting the **Spanner Database** resource type.
 
-The following table describes the charts that appear by default on the system insights dashboard. The metric type for each chart is listed. The metric type strings follow this prefix: `  spanner.googleapis.com/  ` . [Metric type](https://docs.cloud.google.com/monitoring/api/v3/metric-model#metric_types) describes measurements that can be collected from a monitored resource.
+The following table describes the charts that appear by default on the system insights dashboard. The metric type for each chart is listed. The metric type strings follow this prefix: `spanner.googleapis.com/` . [Metric type](https://docs.cloud.google.com/monitoring/api/v3/metric-model#metric_types) describes measurements that can be collected from a monitored resource.
 
 <table>
 <colgroup>
@@ -128,7 +128,7 @@ Dual-region quorum health timeline<br />
 <br />
 <a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/dual_region_quorum_availability</a></td>
 <td><br />
-This chart is only shown for <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations">dual-region instance configurations</a> . It shows the health of three quorums: the dual-region quorum ( <code dir="ltr" translate="no">       Global      </code> ), and the single region quorum in each region (for example, <code dir="ltr" translate="no">       Sydney      </code> and <code dir="ltr" translate="no">       Melbourne      </code> ).<br />
+This chart is only shown for <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations">dual-region instance configurations</a> . It shows the health of three quorums: the dual-region quorum ( <code dir="ltr" translate="no">Global</code> ), and the single region quorum in each region (for example, <code dir="ltr" translate="no">Sydney</code> and <code dir="ltr" translate="no">Melbourne</code> ).<br />
 <br />
 It shows an orange bar in the timeline when there is a service disruption. You can hover over the bar to see the start and end times of the disruption. Use this chart alongside the error rates and latency metrics to help you make self-managed, when-to-failover decisions in the case of regional failures. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#failover-failback">Failover and failback</a> .<br />
 <br />
@@ -541,7 +541,7 @@ Leader distribution<br />
 <td><br />
 For dual-region or multi-region instances, you can view the number of databases with the majority of leaders (&gt;=50%) in a given region. Under the <strong>Regions</strong> list menu, if you select a specific region, the chart shows the total number of databases within that instance that have the selected region as the leader region. If you select <strong>All regions</strong> under the <strong>Regions</strong> list menu, the chart shows one line for each region, and each line shows the total number of databases in the instance that has that region as its leader region.<br />
 <br />
-For databases in a dual-region or multi-region instance, you can view the percentage of leaders grouped by region. For example, if a database has five leaders, one in <code dir="ltr" translate="no">       us-west1      </code> and four in <code dir="ltr" translate="no">       us-east1      </code> at a point-in-time, the "All regions" chart shows two lines (one per region). One line for <code dir="ltr" translate="no">       us-west1      </code> is at 20%, and the other line for <code dir="ltr" translate="no">       us-east1      </code> is at 80%. The us-west1 chart shows one single line at 20%, and the us-east1 chart shows one single line at 80%.<br />
+For databases in a dual-region or multi-region instance, you can view the percentage of leaders grouped by region. For example, if a database has five leaders, one in <code dir="ltr" translate="no">us-west1</code> and four in <code dir="ltr" translate="no">us-east1</code> at a point-in-time, the "All regions" chart shows two lines (one per region). One line for <code dir="ltr" translate="no">us-west1</code> is at 20%, and the other line for <code dir="ltr" translate="no">us-east1</code> is at 80%. The us-west1 chart shows one single line at 20%, and the us-east1 chart shows one single line at 80%.<br />
 <br />
 Note that if a database was recently created or a leader region was recently modified, the charts might not stabilize right away.<br />
 <br />
@@ -682,7 +682,7 @@ Database storage by table<br />
 <td><br />
 The amount of data that is stored in the instance or database, grouped by tables in the selected database. This value is measured in binary bytes, such as KiB, MiB, or GiB.<br />
 <br />
-This chart obtains its data by querying <code dir="ltr" translate="no">       SPANNER_SYS.TABLE_SIZES_STATS_1HOUR      </code> . For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics">Table sizes statistics</a> .</td>
+This chart obtains its data by querying <code dir="ltr" translate="no">SPANNER_SYS.TABLE_SIZES_STATS_1HOUR</code> . For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics">Table sizes statistics</a> .</td>
 <td><br />
 <em>close</em></td>
 <td><br />
@@ -852,13 +852,13 @@ The maximum data retention for most metrics on the system insights dashboard is 
 
 To view the system insights page, you need the following Identity and Access Management (IAM) permissions in addition to the [Spanner permissions](https://docs.cloud.google.com/monitoring/access-control) and Spanner permissions at the instance and database levels:
 
-  - `  spanner.databases.beginReadOnlyTransaction  `
-  - `  spanner.databases.select  `
-  - `  spanner.sessions.create  `
+  - `spanner.databases.beginReadOnlyTransaction`
+  - `spanner.databases.select`
+  - `spanner.sessions.create`
 
 For more information about Spanner IAM permissions, see [Access control with IAM](https://docs.cloud.google.com/spanner/docs/iam) .
 
-If you enable [managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) on your instance, you also need `  logging.logEntries.list  ` , `  logging.logs.list  ` , and `  logging.logServices.list  ` permissions to view managed autoscaler logs.
+If you enable [managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) on your instance, you also need `logging.logEntries.list` , `logging.logs.list` , and `logging.logServices.list` permissions to view managed autoscaler logs.
 
 For more information about this permission, see [Predefined roles](https://docs.cloud.google.com/logging/docs/access-control#permissions_and_roles) .
 

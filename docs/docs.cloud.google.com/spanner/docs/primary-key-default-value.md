@@ -7,18 +7,18 @@ This page discusses strategies to use to generate primary key values in your tab
 
 ## Methods to automatically generate primary keys
 
-To automatically generate primary key values, you can use the following strategies in a column that has `  DEFAULT  ` expressions:
+To automatically generate primary key values, you can use the following strategies in a column that has `DEFAULT` expressions:
 
   - A UUID function that generates UUID Version 4 values.
-  - `  IDENTITY  ` columns that automatically generate integer values for key and non-key columns.
-  - `  SERIAL  ` in PostgreSQL and `  AUTO_INCREMENT  ` in GoogleSQL, which are DDL aliases for `  IDENTITY  ` columns.
-  - A schema object, `  SEQUENCE  ` , that has a `  bit_reversed_positive  ` option. `  SEQUENCE  ` is available for both GoogleSQL and PostgreSQL.
+  - `IDENTITY` columns that automatically generate integer values for key and non-key columns.
+  - `SERIAL` in PostgreSQL and `AUTO_INCREMENT` in GoogleSQL, which are DDL aliases for `IDENTITY` columns.
+  - A schema object, `SEQUENCE` , that has a `bit_reversed_positive` option. `SEQUENCE` is available for both GoogleSQL and PostgreSQL.
 
 ### Universally unique identifier (UUID)
 
 Spanner can automatically generate a UUID Version 4 to use as a primary key. UUIDs work well for new applications and tables with many rows. They are roughly uniformly distributed across the key space which prevents hotspots at scale. UUID generation can create a large number of values (2 <sup>122</sup> ) and each value is effectively unique. For example, you would need 2.71×10 <sup>18</sup> values for a 50% probability of collision, or 1 billion per second for 86 years. This ensures unique values when you use it in large tables. UUIDs are unique whether you generate them in the database or the client. We recommend that you use UUIDs when possible. You can safely mix client-generated and Spanner-generated UUIDs in the same table if the client-generated UUIDs are serialized as lower case, in accordance with [RFC 4122](https://tools.ietf.org/html/rfc4122) .
 
-For a column that needs default values, you can use the [`  NEW_UUID  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) GoogleSQL function or the [`  gen_random_uuid()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) PostgreSQL function to generate them. The following example shows how to create a table where the `  FanId  ` key column has a generated UUID in the value column as its default value.
+For a column that needs default values, you can use the [`NEW_UUID`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) GoogleSQL function or the [`gen_random_uuid()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) PostgreSQL function to generate them. The following example shows how to create a table where the `FanId` key column has a generated UUID in the value column as its default value.
 
 ### GoogleSQL
 
@@ -53,17 +53,17 @@ This statement returns a result similar to the following:
 
 For more information about the generated UUID functions, see the [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) reference page.
 
-### `     IDENTITY    ` columns
+### `IDENTITY` columns
 
-With `  IDENTITY  ` columns, you can automatically generate integer values for key and non-key columns. `  IDENTITY  ` columns don't require users to manually maintain an underlying sequence, or manage the relationship between the column and the underlying sequence. When an auto-generated identity column is dropped, the underlying sequence is automatically deleted as well.
+With `IDENTITY` columns, you can automatically generate integer values for key and non-key columns. `IDENTITY` columns don't require users to manually maintain an underlying sequence, or manage the relationship between the column and the underlying sequence. When an auto-generated identity column is dropped, the underlying sequence is automatically deleted as well.
 
-You can use `  IDENTITY  ` columns by either providing a starting integer value when generating the sequence, or letting Spanner generate the integer sequence for you. To provide a starting integer value, you must use the `  START COUNTER WITH  ` option and use a positive `  INT64  ` starting value. Spanner uses this value to set the next value for its auto-generated internal sequence counter and bit-reverses the value before inserting it into the this column.
+You can use `IDENTITY` columns by either providing a starting integer value when generating the sequence, or letting Spanner generate the integer sequence for you. To provide a starting integer value, you must use the `START COUNTER WITH` option and use a positive `INT64` starting value. Spanner uses this value to set the next value for its auto-generated internal sequence counter and bit-reverses the value before inserting it into the this column.
 
-In Spanner, `  IDENTITY  ` columns are supported in both GoogleSQL and PostgreSQL.
+In Spanner, `IDENTITY` columns are supported in both GoogleSQL and PostgreSQL.
 
 ### GoogleSQL
 
-The following example shows how to use `  IDENTITY  ` columns to create an auto-generated integer primary key column for `  SingerId  ` when creating a new table using the [`  CREATE TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) command:
+The following example shows how to use `IDENTITY` columns to create an auto-generated integer primary key column for `SingerId` when creating a new table using the [`CREATE TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) command:
 
     CREATE TABLE Singers (
       SingerId INT64 GENERATED BY DEFAULT AS IDENTITY (BIT_REVERSED_POSITIVE),
@@ -71,7 +71,7 @@ The following example shows how to use `  IDENTITY  ` columns to create an auto-
       Rank INT64
     ) PRIMARY KEY (SingerId);
 
-You can also specify the counter start for the column using the `  START_WITH_COUNTER  ` option. In the following example, an auto-generated integer column is created for `  SingerId  ` that has bit-reversed positive values and an internal counter that starts at 1,000.
+You can also specify the counter start for the column using the `START_WITH_COUNTER` option. In the following example, an auto-generated integer column is created for `SingerId` that has bit-reversed positive values and an internal counter that starts at 1,000.
 
     CREATE TABLE Singers (
       SingerId INT64 GENERATED BY DEFAULT AS IDENTITY (BIT_REVERSED_POSITIVE START COUNTER WITH 1000),
@@ -81,7 +81,7 @@ You can also specify the counter start for the column using the `  START_WITH_CO
 
 ### PostgreSQL
 
-The following example shows how to use `  IDENTITY  ` columns to create an auto-generated integer column for `  SingerId  ` when creating a new table using the [`  CREATE TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) command:
+The following example shows how to use `IDENTITY` columns to create an auto-generated integer column for `SingerId` when creating a new table using the [`CREATE TABLE`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) command:
 
     CREATE TABLE Singers (
       SingerId bigint GENERATED BY DEFAULT AS IDENTITY (BIT_REVERSED_POSITIVE),
@@ -89,7 +89,7 @@ The following example shows how to use `  IDENTITY  ` columns to create an auto-
       PRIMARY KEY (SingerId)
     );
 
-You can also specify the counter start for the column using the `  START COUNTER WITH  ` option. In the following example, an auto-generated integer column is created for `  SingerId  ` which generates bit-reversed positive values and the internal counter, before bit-reversing, starts from 1,000.
+You can also specify the counter start for the column using the `START COUNTER WITH` option. In the following example, an auto-generated integer column is created for `SingerId` which generates bit-reversed positive values and the internal counter, before bit-reversing, starts from 1,000.
 
     CREATE TABLE Singers (
       SingerId bigint GENERATED BY DEFAULT AS IDENTITY (BIT_REVERSED_POSITIVE START COUNTER WITH 1000),
@@ -97,9 +97,9 @@ You can also specify the counter start for the column using the `  START COUNTER
       PRIMARY KEY (SingerId)
     );
 
-### `     SERIAL    ` and `     AUTO_INCREMENT    `
+### `SERIAL` and `AUTO_INCREMENT`
 
-Spanner supports `  SERIAL  ` in PostgreSQL and `  AUTO_INCREMENT  ` in GoogleSQL which are DDL aliases to [`  IDENTITY  ` columns](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#identity-columns) and are used for creating unique integer columns. You must first set the database `  default_sequence_kind  ` option before using `  SERIAL  ` or `  AUTO_INCREMENT  ` . You can use the following SQL statement to set the database `  default_squence_kind  ` option:
+Spanner supports `SERIAL` in PostgreSQL and `AUTO_INCREMENT` in GoogleSQL which are DDL aliases to [`IDENTITY` columns](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#identity-columns) and are used for creating unique integer columns. You must first set the database `default_sequence_kind` option before using `SERIAL` or `AUTO_INCREMENT` . You can use the following SQL statement to set the database `default_squence_kind` option:
 
 ### GoogleSQL
 
@@ -119,7 +119,7 @@ Spanner supports `  SERIAL  ` in PostgreSQL and `  AUTO_INCREMENT  ` in GoogleSQ
       name text
     );
 
-Note that since `  SERIAL  ` and `  AUTO_INCREMENT  ` map to IDENTITY columns, you won't see them when you serialize your schema. For this schema, the output of `  GetDatabaseDDL  ` would be:
+Note that since `SERIAL` and `AUTO_INCREMENT` map to IDENTITY columns, you won't see them when you serialize your schema. For this schema, the output of `GetDatabaseDDL` would be:
 
 ### GoogleSQL
 
@@ -144,11 +144,11 @@ Note that since `  SERIAL  ` and `  AUTO_INCREMENT  ` map to IDENTITY columns, y
 
 A *bit-reversed sequence* is a schema object that produces a sequence of integers and bit-reverses them. This object uses bit reversal on a private, internal Spanner counter to ensure uniqueness. The resulting [bit-reversed values](https://docs.cloud.google.com/spanner/docs/schema-design#bit_reverse_primary_key) helps avoid hotspots at scale when used in a primary key.
 
-In Spanner, you use `  SEQUENCE  ` DDL statements along with the `  bit_reversed_positive  ` attribute to create, alter, or drop a sequence that produces bit-reversed positive values ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ).
+In Spanner, you use `SEQUENCE` DDL statements along with the `bit_reversed_positive` attribute to create, alter, or drop a sequence that produces bit-reversed positive values ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ).
 
 Each sequence maintains a set of internal counters and uses them to generate a value. The sequence counter provides the input to the bit-reversing algorithm.
 
-When you define a column with a `  DEFAULT  ` expression that uses the GoogleSQL `  GET_NEXT_SEQUENCE_VALUE  ` or the PostgreSQL `  nextval  ` function as its default value, Spanner automatically calls the function and puts the bit-reversed output values into the column. Bit-reversed sequences are especially useful for primary keys, because bit-reversed values are evenly distributed across the key space so that they don't cause hotspots.
+When you define a column with a `DEFAULT` expression that uses the GoogleSQL `GET_NEXT_SEQUENCE_VALUE` or the PostgreSQL `nextval` function as its default value, Spanner automatically calls the function and puts the bit-reversed output values into the column. Bit-reversed sequences are especially useful for primary keys, because bit-reversed values are evenly distributed across the key space so that they don't cause hotspots.
 
 The following example shows how to create a bit-reversed sequence and a table where its key column uses the sequence as the default value:
 
@@ -205,21 +205,21 @@ The following sections describe each scenario.
 
 For new applications, Spanner recommends using [universally unique identifier (UUID)](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#universally_unique_identifier_uuid) for primary keys. For more information, see [Use a universally unique identifier (UUID)](https://docs.cloud.google.com/spanner/docs/schema-design#uuid_primary_key) .
 
-If your existing application requires `  INT64  ` keys in GoogleSQL, or `  bigint  ` keys in PostgreSQL, Spanner offers the bit-reversed positive sequence schema object ( [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) or [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) ).
+If your existing application requires `INT64` keys in GoogleSQL, or `bigint` keys in PostgreSQL, Spanner offers the bit-reversed positive sequence schema object ( [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) or [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) ).
 
 ### Migrations
 
 For migrations of tables to Spanner, you have the following options:
 
   - If you are using UUIDs in your source database, on Spanner, you can use a UUID type column and the generated UUID function ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) ) as its default value.
-  - If you are using an integer primary key, and your application only needs the key to be unique, you can use a key column in `  INT64  ` and use a bit-reversed positive sequence for the default value for the primary key. See [Migrating bit-reversed key columns](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys#migrate-sequential-key-columns) .
-  - Spanner doesn't support a way to generate monotonic values. If you're using a monotonic key, such as the PostgreSQL `  SERIAL  ` type, or MySQL `  AUTO_INCREMENT  ` attribute, and you need new monotonic keys on Spanner, you can use a composite key. For more information, see [Swap the order of keys](https://docs.cloud.google.com/spanner/docs/schema-design#fix_swap_key_order) and [Hash the unique key and spread the writes across logical shards](https://docs.cloud.google.com/spanner/docs/schema-design#fix_hash_the_key) .
-  - If your application is manually bit-reversing your `  INT64  ` key in GoogleSQL or `  bigint  ` key in PostgreSQL, you can use a bit-reversed positive sequence ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ) and have it generate new key values for you. For more information, see [Migrating bit-reversed key columns](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys#migrate-bit-reversed-key-columns) .
+  - If you are using an integer primary key, and your application only needs the key to be unique, you can use a key column in `INT64` and use a bit-reversed positive sequence for the default value for the primary key. See [Migrating bit-reversed key columns](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys#migrate-sequential-key-columns) .
+  - Spanner doesn't support a way to generate monotonic values. If you're using a monotonic key, such as the PostgreSQL `SERIAL` type, or MySQL `AUTO_INCREMENT` attribute, and you need new monotonic keys on Spanner, you can use a composite key. For more information, see [Swap the order of keys](https://docs.cloud.google.com/spanner/docs/schema-design#fix_swap_key_order) and [Hash the unique key and spread the writes across logical shards](https://docs.cloud.google.com/spanner/docs/schema-design#fix_hash_the_key) .
+  - If your application is manually bit-reversing your `INT64` key in GoogleSQL or `bigint` key in PostgreSQL, you can use a bit-reversed positive sequence ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ) and have it generate new key values for you. For more information, see [Migrating bit-reversed key columns](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys#migrate-bit-reversed-key-columns) .
 
 ## What's next
 
   - Learn more about using [sequences with fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-sequences) .
-  - Learn about DDL `  SEQUENCE  ` statements for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) .
+  - Learn about DDL `SEQUENCE` statements for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) .
   - Learn about sequence functions in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence) .
   - Learn about sequences in the INFORMATION\_SCHEMA in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/information-schema#sequences) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/information-schema-pg#sequences) .
   - Learn about sequence options in the INFORMATION\_SCHEMA for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/information-schema#sequence_options) .

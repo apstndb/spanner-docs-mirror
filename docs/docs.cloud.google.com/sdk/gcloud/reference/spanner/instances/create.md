@@ -4,7 +4,7 @@ gcloud spanner instances create - create a Cloud Spanner instance
 
 SYNOPSIS
 
-`  gcloud spanner instances create  ` `  INSTANCE  ` `  --config  ` = `  CONFIG  ` `  --description  ` = `  DESCRIPTION  ` \[ `  --async  ` \] \[ `  --default-backup-schedule-type  ` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  ` \] \[ `  --edition  ` = `  EDITION  ` \] \[ `  --expire-behavior  ` = `  EXPIRE_BEHAVIOR  ` \] \[ `  --instance-type  ` = `  INSTANCE_TYPE  ` \] \[ `  --nodes  ` = `  NODES  ` | `  --processing-units  ` = `  PROCESSING_UNITS  ` | \[ `  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  ` ( `  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  ` `  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  ` ) ( `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  ` `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  ` | `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  ` `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  ` ) : `  --asymmetric-autoscaling-option  ` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \], \[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \], \[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \], \[ `  location  ` = `  LOCATION  ` \], \[ `  max_nodes  ` = `  MAX_NODES  ` \], \[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \], \[ `  min_nodes  ` = `  MIN_NODES  ` \], \[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \], \[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \] `  --[no-]disable-downscaling  ` \]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instances create` `  INSTANCE  ` `  --config  ` = `  CONFIG  ` `  --description  ` = `  DESCRIPTION  ` \[ `  --async  ` \] \[ `  --default-backup-schedule-type  ` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  ` \] \[ `  --edition  ` = `  EDITION  ` \] \[ `  --expire-behavior  ` = `  EXPIRE_BEHAVIOR  ` \] \[ `  --instance-type  ` = `  INSTANCE_TYPE  ` \] \[ `  --nodes  ` = `  NODES  ` | `  --processing-units  ` = `  PROCESSING_UNITS  ` | \[ `  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  ` ( `  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  ` `  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  ` ) ( `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  ` `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  ` | `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  ` `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  ` ) : `  --asymmetric-autoscaling-option  ` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \], \[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \], \[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \], \[ `  location  ` = `  LOCATION  ` \], \[ `  max_nodes  ` = `  MAX_NODES  ` \], \[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \], \[ `  min_nodes  ` = `  MIN_NODES  ` \], \[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \], \[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \] `  --[no-]disable-downscaling  ` \]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -25,66 +25,66 @@ POSITIONAL ARGUMENTS
 
 REQUIRED FLAGS
 
-  - `  --config  ` = `  CONFIG  `  
+  - `--config` = `  CONFIG  `  
     Instance configuration defines the geographic placement and replication of the databases in that instance. Available configurations can be found by running "gcloud spanner instance-configs list"
-  - `  --description  ` = `  DESCRIPTION  `  
+  - `--description` = `  DESCRIPTION  `  
     Description of the instance.
 
 OPTIONAL FLAGS
 
-`  --async  `
+`--async`
 
 Return immediately, without waiting for the operation in progress to complete.
 
-`  --default-backup-schedule-type  ` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  `
+`--default-backup-schedule-type` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  `
 
 The default backup schedule type that is used in the instance. `  DEFAULT_BACKUP_SCHEDULE_TYPE  ` must be one of:
 
-  - `  AUTOMATIC  `  
+  - `AUTOMATIC`  
     A default backup schedule is created automatically when a new database is created in an instance. You can edit or delete the default backup schedule once it's created. The default backup schedule creates a full backup every 24 hours. These full backups are retained for 7 days.
-  - `  DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED  `  
+  - `DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED`  
     Not specified.
-  - `  NONE  `  
+  - `NONE`  
     No default backup schedule is created automatically when a new database is created in an instance.
 
-`  --edition  ` = `  EDITION  `
+`--edition` = `  EDITION  `
 
 Spanner edition. `  EDITION  ` must be one of:
 
-  - `  EDITION_UNSPECIFIED  `  
+  - `EDITION_UNSPECIFIED`  
     Spanner's legacy pricing model. For more information, see the [Spanner editions overview](https://cloud.google.com/spanner/docs/editions-overview)
-  - `  ENTERPRISE  `  
+  - `ENTERPRISE`  
     Enterprise edition
-  - `  ENTERPRISE_PLUS  `  
+  - `ENTERPRISE_PLUS`  
     Enterprise Plus edition
-  - `  STANDARD  `  
+  - `STANDARD`  
     Standard edition
 
-`  --expire-behavior  ` = `  EXPIRE_BEHAVIOR  `
+`--expire-behavior` = `  EXPIRE_BEHAVIOR  `
 
 The expire behavior of a free trial instance. `  EXPIRE_BEHAVIOR  ` must be one of:
 
-  - `  free-to-provisioned  `  
+  - `free-to-provisioned`  
     When the free trial instance expires, upgrade the instance to a provisioned instance.
-  - `  remove-after-grace-period  `  
+  - `remove-after-grace-period`  
     When the free trial instance expires, disable the instance, and delete it after the grace period passes if it has not been upgraded to a provisioned instance.
 
-`  --instance-type  ` = `  INSTANCE_TYPE  `
+`--instance-type` = `  INSTANCE_TYPE  `
 
 Specifies the type for this instance. `  INSTANCE_TYPE  ` must be one of:
 
-  - `  free-instance  `  
+  - `free-instance`  
     Free trial instances provide no guarantees for dedicated resources, both node\_count and processing\_units should be 0. They come with stricter usage limits and limited support.
-  - `  provisioned  `  
+  - `provisioned`  
     Provisioned instances have dedicated resources, standard usage limits, and support.
 
 At most one of these can be specified:
 
-`  --nodes  ` = `  NODES  `
+`--nodes` = `  NODES  `
 
 Number of nodes for the instance.
 
-`  --processing-units  ` = `  PROCESSING_UNITS  `
+`--processing-units` = `  PROCESSING_UNITS  `
 
 Number of processing units for the instance.
 
@@ -92,27 +92,27 @@ Or at least one of these can be specified:
 
 Autoscaling
 
-`  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  `
+`--autoscaling-storage-target` = `  AUTOSCALING_STORAGE_TARGET  `
 
 Specifies the target percentage of storage the autoscaled instance can utilize.
 
 This flag argument must be specified if any of the other arguments in this group are specified.
 
-`  --asymmetric-autoscaling-option  ` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \],\[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \],\[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \],\[ `  location  ` = `  LOCATION  ` \],\[ `  max_nodes  ` = `  MAX_NODES  ` \],\[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \],\[ `  min_nodes  ` = `  MIN_NODES  ` \],\[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \],\[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \]
+`--asymmetric-autoscaling-option` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \],\[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \],\[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \],\[ `  location  ` = `  LOCATION  ` \],\[ `  max_nodes  ` = `  MAX_NODES  ` \],\[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \],\[ `  min_nodes  ` = `  MIN_NODES  ` \],\[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \],\[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \]
 
 Specifies the asymmetric autoscaling option for the instance.
 
-`  --[no-]disable-downscaling  `
+`--[no-]disable-downscaling`
 
-Set the flag to disable downscaling for the autoscaled instance. Use `  --disable-downscaling  ` to enable and `  --no-disable-downscaling  ` to disable.
+Set the flag to disable downscaling for the autoscaled instance. Use `--disable-downscaling` to enable and `--no-disable-downscaling` to disable.
 
 Specify one or both CPU targets:
 
 At least one of these must be specified:
 
-  - `  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  `  
+  - `--autoscaling-high-priority-cpu-target` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  `  
     Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
-  - `  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  `  
+  - `--autoscaling-total-cpu-target` = `  AUTOSCALING_TOTAL_CPU_TARGET  `  
     Specifies the target percentage of total CPU the autoscaled instance can utilize.
 
 Autoscaling limits can be defined in either nodes or processing units.
@@ -120,23 +120,23 @@ Autoscaling limits can be defined in either nodes or processing units.
 Exactly one of these must be specified:
 
   - Autoscaling limits in nodes:  
-    `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  `  
+    `--autoscaling-max-nodes` = `  AUTOSCALING_MAX_NODES  `  
     Maximum number of nodes for the autoscaled instance.
     
     This flag argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  `  
+  - `--autoscaling-min-nodes` = `  AUTOSCALING_MIN_NODES  `  
     Minimum number of nodes for the autoscaled instance.
     
     This flag argument must be specified if any of the other arguments in this group are specified.
 
   - Autoscaling limits in processing units:  
-    `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  `  
+    `--autoscaling-max-processing-units` = `  AUTOSCALING_MAX_PROCESSING_UNITS  `  
     Maximum number of processing units for the autoscaled instance.
     
     This flag argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  `  
+  - `--autoscaling-min-processing-units` = `  AUTOSCALING_MIN_PROCESSING_UNITS  `  
     Minimum number of processing units for the autoscaled instance.
     
     This flag argument must be specified if any of the other arguments in this group are specified.
@@ -145,7 +145,7 @@ GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** Views are supported in PostgreSQL-dialect databases with some difference from open source PostgreSQL. In Spanner, views are read-only. Views can't be the target of an `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` statement.
+**PostgreSQL interface note:** Views are supported in PostgreSQL-dialect databases with some difference from open source PostgreSQL. In Spanner, views are read-only. Views can't be the target of an `INSERT` , `UPDATE` , or `DELETE` statement.
 
 This document introduces and describes Spanner views.
 
@@ -24,7 +24,7 @@ If you create a view with definer's rights, a database role needs privileges on 
 
 Permissions required to create the view
 
-To create, grant, and revoke access to either view types, you must have database-level `  spanner.database.updateDdl  ` permission.
+To create, grant, and revoke access to either view types, you must have database-level `spanner.database.updateDdl` permission.
 
 Privileges required to query the view
 
@@ -68,7 +68,7 @@ If a view has invoker's rights, it means that when a user, the invoker, executes
 
 A definer's rights view adds additional security functionality to the view. It provides different privileges on the view and the underlying schema objects. Like for invoker's rights views, users must have database-level permissions to create definer's rights views. The main difference is that when a database role queries a definer's rights view, Spanner verifies that the role has access to the view itself (and only the view). Therefore, even if the user who queries the view doesn't have access to all the underlying schema objects, they can access the view and see its contents. Definer's rights views give users access to fresh data, limited to the rows defined in the view.
 
-Spanner Identity and Access Management (IAM) permissions are granted at the database level. Use [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) alongside definer's rights view, otherwise the definer's rights view doesn't add any additional access control. This is because if the user has read permissions on the database, they have read permissions on all schema objects in the database. After you configure fine-grained access control on your database, fine-grained access control users with the `  SELECT  ` privilege on the view and users with database-level permissions on the database can query the view. The difference is that the fine-grained access control user doesn't need privileges on the underlying objects.
+Spanner Identity and Access Management (IAM) permissions are granted at the database level. Use [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) alongside definer's rights view, otherwise the definer's rights view doesn't add any additional access control. This is because if the user has read permissions on the database, they have read permissions on all schema objects in the database. After you configure fine-grained access control on your database, fine-grained access control users with the `SELECT` privilege on the view and users with database-level permissions on the database can query the view. The difference is that the fine-grained access control user doesn't need privileges on the underlying objects.
 
 ## Limitations of views
 
@@ -76,7 +76,7 @@ Views have limitations compared to actual tables that make them inappropriate fo
 
   - **Views are read-only. They cannot be used to add, update or delete data.**
     
-    You cannot use views in DML statements ( `  INSERT  ` , `  UPDATE  ` , `  DELETE  ` ).
+    You cannot use views in DML statements ( `INSERT` , `UPDATE` , `DELETE` ).
 
   - **The query that defines a view cannot use query parameters.**
 
@@ -92,7 +92,7 @@ Views have limitations compared to actual tables that make them inappropriate fo
     
     Running a query that contains a definer's rights view in Data Boost results in an error.
 
-  - **The recommended [query mode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode) for accessing a definer's rights view is `  NORMAL  ` mode.**
+  - **The recommended [query mode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode) for accessing a definer's rights view is `NORMAL` mode.**
     
     Users who don't have access to the underlying schema objects of a definer's rights view receive an error when querying in a query mode other than normal.
 
@@ -117,7 +117,7 @@ Views have limitations compared to actual tables that make them inappropriate fo
       END) = 'QUALIFIED';
     ```
     
-    A user can run a query in the form of `  SELECT * FROM QualifiedStudentScores s WHERE s.Level = 7 AND 1/(s.Score - 20) = 1;  ` . This query might fail with a division by zero error if there is a student in level 7 who got a score of 20 points, even though the view limits data to 50 points and above for that level.
+    A user can run a query in the form of `SELECT * FROM QualifiedStudentScores s WHERE s.Level = 7 AND 1/(s.Score - 20) = 1;` . This query might fail with a division by zero error if there is a student in level 7 who got a score of 20 points, even though the view limits data to 50 points and above for that level.
 
 ## Query performance when using views
 

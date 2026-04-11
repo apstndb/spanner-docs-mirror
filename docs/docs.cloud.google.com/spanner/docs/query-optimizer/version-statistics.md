@@ -1,12 +1,12 @@
-Spanner provides a built-in `  SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS  ` table to keep track of query optimizer versions. You can retrieve this data using SQL queries.
+Spanner provides a built-in `SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS` table to keep track of query optimizer versions. You can retrieve this data using SQL queries.
 
-## `     SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS    ` table schema
+## `SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS` table schema
 
-| Column name                   | Type                   | Description                                 |
-| ----------------------------- | ---------------------- | ------------------------------------------- |
-| `        VERSION       `      | `        INT64       ` | The optimizer version.                      |
-| `        RELEASE_DATE       ` | `        DATE       `  | The release date of the optimizer version.  |
-| `        IS_DEFAULT       `   | `        BOOL       `  | Whether the version is the default version. |
+| Column name    | Type    | Description                                 |
+| -------------- | ------- | ------------------------------------------- |
+| `VERSION`      | `INT64` | The optimizer version.                      |
+| `RELEASE_DATE` | `DATE`  | The release date of the optimizer version.  |
+| `IS_DEFAULT`   | `BOOL`  | Whether the version is the default version. |
 
 ### List all supported optimizer versions
 

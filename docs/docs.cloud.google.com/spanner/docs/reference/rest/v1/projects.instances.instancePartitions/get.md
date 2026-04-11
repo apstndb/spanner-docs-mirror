@@ -42,7 +42,7 @@ us-west8
 us-east7
 
   
-`  GET https://spanner.googleapis.com/v1/{name=projects/*/instances/*/instancePartitions/*}  `
+`GET https://spanner.googleapis.com/v1/{name=projects/*/instances/*/instancePartitions/*}`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -50,15 +50,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
-Required. The name of the requested instance partition. Values are of the form `  projects/{project}/instances/{instance}/instancePartitions/{instancePartition}  ` .
+Required. The name of the requested instance partition. Values are of the form `projects/{project}/instances/{instance}/instancePartitions/{instancePartition}` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  name  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `name` :
 
-  - `  spanner.instancePartitions.get  `
+  - `spanner.instancePartitions.get`
 
 ### Request body
 
@@ -72,7 +72,7 @@ If successful, the response body contains an instance of `  InstancePartition  `
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

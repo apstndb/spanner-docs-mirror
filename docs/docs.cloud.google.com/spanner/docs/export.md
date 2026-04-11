@@ -8,7 +8,7 @@ To export a Spanner database, first you need to enable the Spanner, Cloud Storag
 
 **Roles required to enable APIs**
 
-To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 [Enable the APIs](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com,storage_component,compute,dataflow)
 
@@ -36,15 +36,15 @@ The quota requirements for export jobs are as follows:
 
 To get the permissions that you need to export a database, ask your administrator to grant you the following IAM roles on your Dataflow worker service account:
 
-  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `  roles/dataflow.worker  ` )
-  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `  roles/storage.admin  ` )
-  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
-  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` )
+  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `roles/dataflow.worker` )
+  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `roles/storage.admin` )
+  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
+  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
 
 **Note:** The Spanner Database Admin role is only required for import jobs.
 
-To use the independent compute resources of Spanner Data Boost during an export, you also need the `  spanner.databases.useDataBoost  ` IAM permission. For more information, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
+To use the independent compute resources of Spanner Data Boost during an export, you also need the `spanner.databases.useDataBoost` IAM permission. For more information, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
 
 ## Export a database
 
@@ -123,9 +123,9 @@ Change streams exported as Avro files contain only the schema of the change stre
 
 ### A note on exporting sequences
 
-Sequences ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ) are schema objects that you use to generate unique integer values. Spanner exports each of the schema object to the Avro schema as a record field, with its sequence kind, skipped range, and counter as properties of the field. Note that to prevent a sequence from being reset and generating duplicate values after import, during schema export, the `  GET_INTERNAL_SEQUENCE_STATE()  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_internal_sequence_state) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence) ) function captures the sequence counter. Spanner adds a buffer of 1000 to the counter, and writes the new counter value to the record field. This approach avoids duplicate value errors that might happen after import. If there are more writes to the source database during data export, you should adjust the actual sequence counter by using the `  ALTER SEQUENCE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_sequence) ) statement.
+Sequences ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ) are schema objects that you use to generate unique integer values. Spanner exports each of the schema object to the Avro schema as a record field, with its sequence kind, skipped range, and counter as properties of the field. Note that to prevent a sequence from being reset and generating duplicate values after import, during schema export, the `GET_INTERNAL_SEQUENCE_STATE()` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_internal_sequence_state) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence) ) function captures the sequence counter. Spanner adds a buffer of 1000 to the counter, and writes the new counter value to the record field. This approach avoids duplicate value errors that might happen after import. If there are more writes to the source database during data export, you should adjust the actual sequence counter by using the `ALTER SEQUENCE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_sequence) ) statement.
 
-At import, the sequence starts from this new counter instead of the counter found in the schema. Alternatively, you can use the `  ALTER SEQUENCE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_sequence) ) statement to update the sequence with a new counter.
+At import, the sequence starts from this new counter instead of the counter found in the schema. Alternatively, you can use the `ALTER SEQUENCE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_sequence) ) statement to update the sequence with a new counter.
 
 ### View your export in Cloud Storage
 
@@ -135,17 +135,17 @@ To view the folder that contains your exported database in the Google Cloud cons
 
 The bucket now contains a folder with the exported database inside. The folder name begins with your instance's ID, database name, and the timestamp of your export job. The folder contains:
 
-  - A `  spanner-export.json  ` file
+  - A `spanner-export.json` file
 
-  - A `  TableName -manifest.json  ` file for each table in the database you exported.
+  - A `  TableName -manifest.json ` file for each table in the database you exported.
 
-  - One or more `  TableName .avro- ##### -of- #####  ` files. The first number in the extension `  .avro- ##### -of- #####  ` represents the index of the Avro file, starting at zero, and the second represents the number of Avro files generated for each table.
+  - One or more `  TableName .avro- ##### -of- #####  ` files. The first number in the extension ` .avro- ##### -of- #####  ` represents the index of the Avro file, starting at zero, and the second represents the number of Avro files generated for each table.
     
-    For example, `  Songs.avro-00001-of-00002  ` is the second of two files that contain the data for the `  Songs  ` table.
+    For example, `Songs.avro-00001-of-00002` is the second of two files that contain the data for the `Songs` table.
 
-  - A `  ChangeStreamName -manifest.json  ` file for each [change stream](https://docs.cloud.google.com/spanner/docs/change-streams) in the database you exported.
+  - A `  ChangeStreamName -manifest.json ` file for each [change stream](https://docs.cloud.google.com/spanner/docs/change-streams) in the database you exported.
 
-  - A `  ChangeStreamName .avro-00000-of-00001  ` file for each change stream. This file contains empty data with only the Avro schema of the change stream.
+  - A `  ChangeStreamName .avro-00000-of-00001 ` file for each change stream. This file contains empty data with only the Avro schema of the change stream.
 
 ## Choose a region for your import job
 
@@ -177,7 +177,7 @@ If you are using the Dataflow page in Google Cloud console, the **Cloud Spanner 
 
 ### gcloud
 
-Run the [`  gcloud dataflow jobs run  `](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `  tableNames  ` argument. For example:
+Run the [`gcloud dataflow jobs run`](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `tableNames` argument. For example:
 
     gcloud dataflow jobs run my-export-job \
     --gcs-location='gs://dataflow-templates/latest/Cloud_Spanner_to_GCS_Avro' \
@@ -186,7 +186,7 @@ Run the [`  gcloud dataflow jobs run  `](https://docs.cloud.google.com/sdk/gclou
     --max-workers=10 \
     --network=network-123
 
-Specifying multiple tables in gcloud requires [dictionary-type argument escaping](https://docs.cloud.google.com/sdk/gcloud/reference/topic/escaping) . The following example uses ' `  |  ` ' as the escape character:
+Specifying multiple tables in gcloud requires [dictionary-type argument escaping](https://docs.cloud.google.com/sdk/gcloud/reference/topic/escaping) . The following example uses ' `|` ' as the escape character:
 
 ``` 
  gcloud dataflow jobs run my-export-job \
@@ -197,7 +197,7 @@ Specifying multiple tables in gcloud requires [dictionary-type argument escaping
 --network=network-123
 ```
 
-The `  shouldExportRelatedTables  ` parameter is a convenient option to automatically export all [parent tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#parent-child_table_relationships) of the chosen tables. For example, in this [schema hierarchy](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating_a_hierarchy_of_interleaved_tables) with tables `  Singers  ` , `  Albums  ` and `  Songs  ` , you only need to specify `  Songs  ` . The `  shouldExportRelatedTables  ` option will also export `  Singers  ` and `  Albums  ` because `  Songs  ` is a descendant of both.
+The `shouldExportRelatedTables` parameter is a convenient option to automatically export all [parent tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#parent-child_table_relationships) of the chosen tables. For example, in this [schema hierarchy](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating_a_hierarchy_of_interleaved_tables) with tables `Singers` , `Albums` and `Songs` , you only need to specify `Songs` . The `shouldExportRelatedTables` option will also export `Singers` and `Albums` because `Songs` is a descendant of both.
 
     gcloud dataflow jobs run my-export-job \
     --gcs-location='gs://dataflow-templates/latest/Cloud_Spanner_to_GCS_Avro' \
@@ -280,7 +280,7 @@ If you are using the Dataflow console, the **Max workers** parameter is located 
 
 ### gcloud
 
-Run the [`  gcloud dataflow jobs run  `](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `  max-workers  ` argument. For example:
+Run the [`gcloud dataflow jobs run`](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `max-workers` argument. For example:
 
 ``` 
   gcloud dataflow jobs run my-export-job \
@@ -300,7 +300,7 @@ The following error might occur when you export your Spanner databases:
     must specify a subnet if the network resource is in custom subnet mode.
     HTTP Code: 400
 
-This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `  default  ` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks) .
+This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `default` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks) .
 
 ## Optimize slow running export jobs
 

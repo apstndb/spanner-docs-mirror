@@ -58,14 +58,14 @@ The backfill migration terraform template performs the backfill migration from y
     
     **Important:** You must grant these roles to the service account, *not* to your user account. Failure to grant the roles to the correct principal might result in permission errors.
     
-      - [Dataflow Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.admin) ( `  roles/dataflow.admin  ` )
-      - [Datastream Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/datastream#datastream.admin) ( `  roles/datastream.admin  ` )
-      - [Security Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/iam#iam.securityAdmin) ( `  roles/iam.securityAdmin  ` )
-      - [Service Account Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/iam#iam.serviceAccountAdmin) ( `  roles/iam.serviceAccountAdmin  ` )
-      - [Pub/Sub Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/pubsub#pubsub.admin) ( `  roles/pubsub.admin  ` )
-      - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `  roles/storage.admin  ` )
-      - [Compute Network Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/compute#compute.networkAdmin) ( `  roles/compute.networkAdmin  ` )
-      - [Viewer](https://docs.cloud.google.com/iam/docs/roles-overview#basic) ( `  roles/viewer  ` )
+      - [Dataflow Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.admin) ( `roles/dataflow.admin` )
+      - [Datastream Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/datastream#datastream.admin) ( `roles/datastream.admin` )
+      - [Security Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/iam#iam.securityAdmin) ( `roles/iam.securityAdmin` )
+      - [Service Account Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/iam#iam.serviceAccountAdmin) ( `roles/iam.serviceAccountAdmin` )
+      - [Pub/Sub Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/pubsub#pubsub.admin) ( `roles/pubsub.admin` )
+      - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `roles/storage.admin` )
+      - [Compute Network Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/compute#compute.networkAdmin) ( `roles/compute.networkAdmin` )
+      - [Viewer](https://docs.cloud.google.com/iam/docs/roles-overview#basic) ( `roles/viewer` )
     
     For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
     
@@ -75,46 +75,46 @@ The backfill migration terraform template performs the backfill migration from y
     
     The following permissions are required to perform live migration:
     
-      - `  compute.globalAddresses.create  `
-      - `  compute.globalAddresses.createInternal  `
-      - `  compute.globalAddresses.createInternal  `
-      - `  compute.globalAddresses.delete  `
-      - `  compute.globalAddresses.deleteInternal  `
-      - `  compute.globalAddresses.get  `
-      - `  compute.globalOperations.get  `
-      - `  compute.networks.addPeering  `
-      - `  compute.networks.get  `
-      - `  compute.networks.listPeeringRoutes  `
-      - `  compute.networks.removePeering  `
-      - `  compute.networks.use  `
-      - `  compute.routes.get  `
-      - `  compute.routes.list  `
-      - `  compute.subnetworks.get  `
-      - `  compute.subnetworks.list  `
-      - `  dataflow.jobs.cancel  `
-      - `  dataflow.jobs.create  `
-      - `  dataflow.jobs.updateContents  `
-      - `  datastream.connectionProfiles.create  `
-      - `  datastream.connectionProfiles.delete  `
-      - `  datastream.privateConnections.create  `
-      - `  datastream.privateConnections.delete  `
-      - `  datastream.streams.create  `
-      - `  datastream.streams.delete  `
-      - `  datastream.streams.update  `
-      - `  iam.roles.get  `
-      - `  iam.serviceAccounts.actAs  `
-      - `  pubsub.subscriptions.create  `
-      - `  pubsub.subscriptions.delete  `
-      - `  pubsub.topics.attachSubscription  `
-      - `  pubsub.topics.create  `
-      - `  pubsub.topics.delete  `
-      - `  pubsub.topics.getIamPolicy  `
-      - `  pubsub.topics.setIamPolicy  `
-      - `  resourcemanager.projects.setIamPolicy  `
-      - `  storage.buckets.create  `
-      - `  storage.buckets.delete  `
-      - `  storage.buckets.update  `
-      - `  storage.objects.delete  `
+      - `compute.globalAddresses.create`
+      - `compute.globalAddresses.createInternal`
+      - `compute.globalAddresses.createInternal`
+      - `compute.globalAddresses.delete`
+      - `compute.globalAddresses.deleteInternal`
+      - `compute.globalAddresses.get`
+      - `compute.globalOperations.get`
+      - `compute.networks.addPeering`
+      - `compute.networks.get`
+      - `compute.networks.listPeeringRoutes`
+      - `compute.networks.removePeering`
+      - `compute.networks.use`
+      - `compute.routes.get`
+      - `compute.routes.list`
+      - `compute.subnetworks.get`
+      - `compute.subnetworks.list`
+      - `dataflow.jobs.cancel`
+      - `dataflow.jobs.create`
+      - `dataflow.jobs.updateContents`
+      - `datastream.connectionProfiles.create`
+      - `datastream.connectionProfiles.delete`
+      - `datastream.privateConnections.create`
+      - `datastream.privateConnections.delete`
+      - `datastream.streams.create`
+      - `datastream.streams.delete`
+      - `datastream.streams.update`
+      - `iam.roles.get`
+      - `iam.serviceAccounts.actAs`
+      - `pubsub.subscriptions.create`
+      - `pubsub.subscriptions.delete`
+      - `pubsub.topics.attachSubscription`
+      - `pubsub.topics.create`
+      - `pubsub.topics.delete`
+      - `pubsub.topics.getIamPolicy`
+      - `pubsub.topics.setIamPolicy`
+      - `resourcemanager.projects.setIamPolicy`
+      - `storage.buckets.create`
+      - `storage.buckets.delete`
+      - `storage.buckets.update`
+      - `storage.objects.delete`
     
     Your administrator might also be able to give the service account these permissions with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
@@ -178,23 +178,23 @@ You can prepare the [Terraform template](https://github.com/GoogleCloudPlatform/
 
 The Terraform variables are described in the following list:
 
-  - `  project  ` : the Google Cloud project ID.
-  - `  region  ` : the Google Cloud region.
-  - `  mysql_host  ` : your source MySQL instance IP address.
-  - `  mysql_username  ` : your source mySQL instance username.
-  - `  mysql_password  ` : your source mySQL instance password.
-  - `  mysql_port  ` : the source MySQL instance port number.
-  - `  database  ` : your source MySQL database name in the instance.
-  - `  vpc_name  ` : the name of an existing VPC that's used by Datastream.
-  - `  range  ` : The IP range on the VPC that you've reserved for Datastream to use.
-  - `  skip_dataflow  ` : set this value to `  true  ` to disable Dataflow from creating Dataflow jobs.
-  - `  enable_backfill  ` : set this value to `  false  ` to disable the Terraform template from creating Dataflow jobs.
-  - `  spanner_database_id  ` : the target Spanner database ID.
-  - `  spanner_instance_id  ` : the target Spanner instance ID.
-  - `  max_workers  ` : determines the maximum number of workers Dataflow creates.
-  - `  min_workers  ` : determines the maximum number of workers Dataflow creates.
-  - `  network  ` : the name of an existing VPC that is going to be used by Dataflow.
-  - `  subnetwork  ` : the name of the designated subnetwork in the VPC that Dataflow can create workers.
+  - `project` : the Google Cloud project ID.
+  - `region` : the Google Cloud region.
+  - `mysql_host` : your source MySQL instance IP address.
+  - `mysql_username` : your source mySQL instance username.
+  - `mysql_password` : your source mySQL instance password.
+  - `mysql_port` : the source MySQL instance port number.
+  - `database` : your source MySQL database name in the instance.
+  - `vpc_name` : the name of an existing VPC that's used by Datastream.
+  - `range` : The IP range on the VPC that you've reserved for Datastream to use.
+  - `skip_dataflow` : set this value to `true` to disable Dataflow from creating Dataflow jobs.
+  - `enable_backfill` : set this value to `false` to disable the Terraform template from creating Dataflow jobs.
+  - `spanner_database_id` : the target Spanner database ID.
+  - `spanner_instance_id` : the target Spanner instance ID.
+  - `max_workers` : determines the maximum number of workers Dataflow creates.
+  - `min_workers` : determines the maximum number of workers Dataflow creates.
+  - `network` : the name of an existing VPC that is going to be used by Dataflow.
+  - `subnetwork` : the name of the designated subnetwork in the VPC that Dataflow can create workers.
 
 ### Run the CDC Terraform template
 
@@ -265,17 +265,17 @@ Spanner offers a Terraform template to perform the backfill migration. The Terra
 
 The Terraform variables are described in the following list:
 
-  - `  job_name  ` : the Dataflow job name.
-  - `  project  ` : the Google Cloud project ID where the Dataflow job needs to run.
-  - `  region  ` : the Google Cloud region.
-  - `  working_directory_bucket  ` : the Cloud Storage bucket for uploading the session file and creating the output directory.
-  - `  working_directory_prefix  ` : the Cloud Storage bucket prefix for The Dataflow working directory.
-  - `  source_config_url  ` : your source MySQL instance IP address.
-  - `  username  ` : your source mySQL instance username.
-  - `  password  ` : your source mySQL instance password.
-  - `  instance_id  ` : the target Spanner instance ID.
-  - `  database_id  ` : the target Spanner database ID.
-  - `  spanner_project_id  ` : the project ID where your Spanner instance is. This project ID can be different than the project you're running Dataflow on.
+  - `job_name` : the Dataflow job name.
+  - `project` : the Google Cloud project ID where the Dataflow job needs to run.
+  - `region` : the Google Cloud region.
+  - `working_directory_bucket` : the Cloud Storage bucket for uploading the session file and creating the output directory.
+  - `working_directory_prefix` : the Cloud Storage bucket prefix for The Dataflow working directory.
+  - `source_config_url` : your source MySQL instance IP address.
+  - `username` : your source mySQL instance username.
+  - `password` : your source mySQL instance password.
+  - `instance_id` : the target Spanner instance ID.
+  - `database_id` : the target Spanner database ID.
+  - `spanner_project_id` : the project ID where your Spanner instance is. This project ID can be different than the project you're running Dataflow on.
 
 ### Run the backfill migration Terraform template
 
@@ -327,14 +327,14 @@ To retry writing these rows from the dead-letter queue directory to Spanner befo
 
 The gcloud CLI command variables are described in the following list:
 
-  - `  job_name  ` : the Dataflow job name.
-  - `  region  ` : the Google Cloud region.
-  - `  inputFilePattern  ` : the Cloud Storage bucket location of the input file pattern.
-  - `  datastreamSourceType  ` : the source type, for example, MySQL.
-  - `  instanceId  ` : the target Spanner instance ID.
-  - `  databaseId  ` : the target Spanner database ID.
-  - `  sessionFilePath  ` : the Cloud Storage bucket path to the session file.
-  - `  deadLetterQueueDirectory  ` : the Cloud Storage bucket path to the DLQ directory.
+  - `job_name` : the Dataflow job name.
+  - `region` : the Google Cloud region.
+  - `inputFilePattern` : the Cloud Storage bucket location of the input file pattern.
+  - `datastreamSourceType` : the source type, for example, MySQL.
+  - `instanceId` : the target Spanner instance ID.
+  - `databaseId` : the target Spanner database ID.
+  - `sessionFilePath` : the Cloud Storage bucket path to the session file.
+  - `deadLetterQueueDirectory` : the Cloud Storage bucket path to the DLQ directory.
 
 ## Finish the CDC migration
 
@@ -344,7 +344,7 @@ After almost all the data from the Cloud Storage bucket is written to Spanner, s
 
 This causes a short downtime while Spanner catches up to the source MySQL instance. After all the changes are written to Spanner, your application can start using Spanner as their database.
 
-To finish the CDC migration, change the value of the `  skip_dataflow  ` Terraform parameter to `  false  ` and rerun the live migration [Terraform template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/datastream-to-spanner/terraform/samples/mysql-end-to-end) .
+To finish the CDC migration, change the value of the `skip_dataflow` Terraform parameter to `false` and rerun the live migration [Terraform template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/datastream-to-spanner/terraform/samples/mysql-end-to-end) .
 
 Run the Terraform configuration using the following command:
 

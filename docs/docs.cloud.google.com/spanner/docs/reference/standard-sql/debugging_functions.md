@@ -2,11 +2,11 @@ GoogleSQL for Spanner supports the following debugging functions.
 
 ## Function list
 
-| Name                                                                                                                    | Summary                                        |
-| ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| [`         ERROR        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/debugging_functions#error) | Produces an error with a custom error message. |
+| Name                                                                                                   | Summary                                        |
+| ------------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| [`ERROR`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/debugging_functions#error) | Produces an error with a custom error message. |
 
-## `     ERROR    `
+## `ERROR`
 
     ERROR(error_message)
 
@@ -16,11 +16,11 @@ Returns an error.
 
 **Definitions**
 
-  - `  error_message  ` : A `  STRING  ` value that represents the error message to produce. Any whitespace characters beyond a single space are trimmed from the results.
+  - `error_message` : A `STRING` value that represents the error message to produce. Any whitespace characters beyond a single space are trimmed from the results.
 
 **Details**
 
-`  ERROR  ` is treated like any other expression that may result in an error: there is no special guarantee of evaluation order.
+`ERROR` is treated like any other expression that may result in an error: there is no special guarantee of evaluation order.
 
 **Return Data Type**
 
@@ -48,13 +48,13 @@ In the following example, the query returns an error message if the value of the
     
     -- Found unexpected value: baz
 
-The following example demonstrates bad usage of the `  ERROR  ` function. In this example, GoogleSQL might evaluate the `  ERROR  ` function before or after the `  x > 0  ` condition, because GoogleSQL doesn't guarantee ordering between `  WHERE  ` clause conditions. Therefore, the results with the `  ERROR  ` function might vary.
+The following example demonstrates bad usage of the `ERROR` function. In this example, GoogleSQL might evaluate the `ERROR` function before or after the `x > 0` condition, because GoogleSQL doesn't guarantee ordering between `WHERE` clause conditions. Therefore, the results with the `ERROR` function might vary.
 
     SELECT *
     FROM (SELECT -1 AS x)
     WHERE x > 0 AND ERROR('Example error');
 
-In the next example, the `  WHERE  ` clause evaluates an `  IF  ` condition, which ensures that GoogleSQL only evaluates the `  ERROR  ` function if the condition fails.
+In the next example, the `WHERE` clause evaluates an `IF` condition, which ensures that GoogleSQL only evaluates the `ERROR` function if the condition fails.
 
     SELECT *
     FROM (SELECT -1 AS x)

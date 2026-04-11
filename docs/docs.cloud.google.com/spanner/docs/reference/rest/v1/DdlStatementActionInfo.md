@@ -26,20 +26,20 @@ Action information extracted from a DDL statement. This proto is used to display
 
 Fields
 
-`  action  `
+`action`
 
-`  string  `
+`string`
 
 The action for the DDL statement, for example, CREATE, ALTER, DROP, GRANT, etc. This field is a non-empty string.
 
-`  entityType  `
+`entityType`
 
-`  string  `
+`string`
 
-The entity type for the DDL statement, for example, TABLE, INDEX, VIEW, etc. This field can be empty string for some DDL statement, for example, for statement "ANALYZE", `  entityType  ` = "".
+The entity type for the DDL statement, for example, TABLE, INDEX, VIEW, etc. This field can be empty string for some DDL statement, for example, for statement "ANALYZE", `entityType` = "".
 
-`  entityNames[]  `
+`entityNames[]`
 
-`  string  `
+`string`
 
-The entity names being operated on the DDL statement. For example, 1. For statement "CREATE TABLE t1(...)", `  entityNames  ` = \["t1"\]. 2. For statement "GRANT ROLE r1, r2 ...", `  entityNames  ` = \["r1", "r2"\]. 3. For statement "ANALYZE", `  entityNames  ` = \[\].
+The entity names being operated on the DDL statement. For example, 1. For statement "CREATE TABLE t1(...)", `entityNames` = \["t1"\]. 2. For statement "GRANT ROLE r1, r2 ...", `entityNames` = \["r1", "r2"\]. 3. For statement "ANALYZE", `entityNames` = \[\].

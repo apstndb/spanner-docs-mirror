@@ -4,17 +4,17 @@ This page describes how to use vector search in Spanner Graph to find K-nearest 
 
 Spanner Graph supports the following distance functions to [perform KNN vector similarity search](https://docs.cloud.google.com/spanner/docs/graph/perform-vector-similarity-search#find-knn) :
 
-  - [`  COSINE_DISTANCE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#cosine_distance) : measures the shortest distance between two vectors.
-  - [`  EUCLIDEAN_DISTANCE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#euclidean_distance) : measures the cosine of the angle between two vectors.
-  - [`  DOT_PRODUCT()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#dot_product) : calculates the cosine of the angle multiplied by the product of corresponding vector magnitudes. If you know that all the vector embeddings in your dataset are normalized, then you can use `  DOT_PRODUCT()  ` as a distance function.
+  - [`COSINE_DISTANCE()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#cosine_distance) : measures the shortest distance between two vectors.
+  - [`EUCLIDEAN_DISTANCE()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#euclidean_distance) : measures the cosine of the angle between two vectors.
+  - [`DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#dot_product) : calculates the cosine of the angle multiplied by the product of corresponding vector magnitudes. If you know that all the vector embeddings in your dataset are normalized, then you can use `DOT_PRODUCT()` as a distance function.
 
 For more information, see [Perform vector similarity search in Spanner by finding the K-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
 
 Spanner Graph also supports the following approximate distance functions to [perform ANN vector similarity search](https://docs.cloud.google.com/spanner/docs/graph/perform-vector-similarity-search#create-vector-index-find-ann) :
 
-  - [`  APPROX_COSINE_DISTANCE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_cosine_distance) : measures the approximate shortest distance between two vectors.
-  - [`  APPROX_EUCLIDEAN_DISTANCE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_euclidean_distance) : measures the approximate cosine of the angle between two vectors.
-  - [`  APPROX_DOT_PRODUCT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product) : calculates the approximate cosine of the angle multiplied by the product of corresponding vector magnitudes. If you know that all the vector embeddings in your dataset are normalized, then you can use `  DOT_PRODUCT()  ` as a distance function.
+  - [`APPROX_COSINE_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_cosine_distance) : measures the approximate shortest distance between two vectors.
+  - [`APPROX_EUCLIDEAN_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_euclidean_distance) : measures the approximate cosine of the angle between two vectors.
+  - [`APPROX_DOT_PRODUCT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product) : calculates the approximate cosine of the angle multiplied by the product of corresponding vector magnitudes. If you know that all the vector embeddings in your dataset are normalized, then you can use `DOT_PRODUCT()` as a distance function.
 
 For more information, see [Find approximate nearest neighbors, create vector index, and query vector embeddings](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
 
@@ -32,18 +32,18 @@ After you insert the essential graph data, make the following updates to your da
 
 To make the required updates to your graph database, do the following:
 
-1.  Add a new column, `  nick_name_embeddings  ` , to the `  Account  ` input table.
+1.  Add a new column, `nick_name_embeddings` , to the `Account` input table.
     
         ALTER TABLE Account
         ADD COLUMN nick_name_embeddings ARRAY<FLOAT32>(vector_length=>4);
 
-2.  Add data to the `  nick_name  ` column.
+2.  Add data to the `nick_name` column.
     
         UPDATE Account SET nick_name = "Fund for a refreshing tropical vacation" WHERE id = 7;
         UPDATE Account SET nick_name = "Fund for a rainy day!" WHERE id = 16;
         UPDATE Account SET nick_name = "Saving up for travel" WHERE id = 20;
 
-3.  Create embeddings for the text in the `  nick_name  ` column, and populate them into the new `  nick_name_embeddings  ` column.
+3.  Create embeddings for the text in the `nick_name` column, and populate them into the new `nick_name_embeddings` column.
     
     To generate Vertex AI embeddings for your operational data in Spanner Graph, see [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
     
@@ -53,14 +53,14 @@ To make the required updates to your graph database, do the following:
         UPDATE Account SET nick_name_embeddings = ARRAY<FLOAT32>[0.4, 0.9, 0.7, 0.1] WHERE id = 16;
         UPDATE Account SET nick_name_embeddings = ARRAY<FLOAT32>[0.2, 0.5, 0.6, 0.6] WHERE id = 20;
 
-4.  Add two new columns to the `  AccountTransferAccount  ` input table: `  notes  ` and `  notes_embeddings  ` .
+4.  Add two new columns to the `AccountTransferAccount` input table: `notes` and `notes_embeddings` .
     
         ALTER TABLE AccountTransferAccount
         ADD COLUMN notes STRING(MAX);
         ALTER TABLE AccountTransferAccount
         ADD COLUMN notes_embeddings ARRAY<FLOAT32>(vector_length=>4);
 
-5.  Create embeddings for the text in the `  notes  ` column, and populate them into the `  notes_embeddings  ` column.
+5.  Create embeddings for the text in the `notes` column, and populate them into the `notes_embeddings` column.
     
     To generate Vertex AI embeddings for your operational data in Spanner Graph, see [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
     
@@ -79,7 +79,7 @@ To make the required updates to your graph database, do the following:
           notes_embeddings = ARRAY<FLOAT32>[0.4, 0.5, 0.7, 0.9]
         WHERE id = 20 AND to_id = 16;
 
-6.  After adding new columns to the `  Account  ` and `  AccountTransferAccount  ` input tables, update the property graph definition using the following statements. For more information, see [Update existing node or edge definitions](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-existing-node-or-edge) .
+6.  After adding new columns to the `Account` and `AccountTransferAccount` input tables, update the property graph definition using the following statements. For more information, see [Update existing node or edge definitions](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-existing-node-or-edge) .
     
         CREATE OR REPLACE PROPERTY GRAPH FinGraph
         NODE TABLES (Account, Person)
@@ -96,11 +96,11 @@ To make the required updates to your graph database, do the following:
 
 ## Find K-nearest neighbors
 
-In the following example, use the `  EUCLIDEAN_DISTANCE()  ` function to perform KNN vector search on the nodes and edges of your graph database.
+In the following example, use the `EUCLIDEAN_DISTANCE()` function to perform KNN vector search on the nodes and edges of your graph database.
 
 ### Perform KNN vector search on graph nodes
 
-You can perform a KNN vector search on the `  nick_name_embeddings  ` property of the `  Account  ` node. This KNN vector search returns the account owner's `  name  ` and the account's `  nick_name  ` . In the following example, the result shows the top two K-nearest neighbors for *accounts for leisure travel and vacation* , which is represented by the `  [0.2, 0.4, 0.9, 0.6]  ` vector embedding.
+You can perform a KNN vector search on the `nick_name_embeddings` property of the `Account` node. This KNN vector search returns the account owner's `name` and the account's `nick_name` . In the following example, the result shows the top two K-nearest neighbors for *accounts for leisure travel and vacation* , which is represented by the `[0.2, 0.4, 0.9, 0.6]` vector embedding.
 
     GRAPH FinGraph
     MATCH (p:Person)-[:Owns]->(a:Account)
@@ -119,7 +119,7 @@ You can perform a KNN vector search on the `  nick_name_embeddings  ` property o
 
 ### Perform KNN vector search on graph edges
 
-You can perform a KNN vector search on the `  notes_embeddings  ` property of the `  Owns  ` edge. This KNN vector search returns the account owner's `  name  ` and the transfer's `  notes  ` . In the following example, the result shows the top two K-nearest neighbors for *food expenses* , which is represented by the `  [0.2, 0.4, 0.9, 0.6]  ` vector embedding.
+You can perform a KNN vector search on the `notes_embeddings` property of the `Owns` edge. This KNN vector search returns the account owner's `name` and the transfer's `notes` . In the following example, the result shows the top two K-nearest neighbors for *food expenses* , which is represented by the `[0.2, 0.4, 0.9, 0.6]` vector embedding.
 
     GRAPH FinGraph
     MATCH (p:Person)-[:Owns]->(:Account)-[t:Transfers]->(:Account)
@@ -141,9 +141,9 @@ You can perform a KNN vector search on the `  notes_embeddings  ` property of th
 
 **Note:** You can't use ANN search to search the edges in a Spanner Graph database.
 
-To perform an ANN search, you must create a [specialized vector index](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#vector-index) that Spanner Graph uses to accelerate the vector search. The vector index must use a specific distance metric. You can choose the distance metric most appropriate for your use case by setting the `  distance_type  ` parameter to one of `  COSINE  ` , `  DOT_PRODUCT  ` or `  EUCLIDEAN  ` . For more information, see [VECTOR INDEX statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
+To perform an ANN search, you must create a [specialized vector index](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#vector-index) that Spanner Graph uses to accelerate the vector search. The vector index must use a specific distance metric. You can choose the distance metric most appropriate for your use case by setting the `distance_type` parameter to one of `COSINE` , `DOT_PRODUCT` or `EUCLIDEAN` . For more information, see [VECTOR INDEX statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
 
-In the following example, you create a vector index using the euclidean distance type on the `  nick_name_embedding  ` column of the `  Account  ` input table:
+In the following example, you create a vector index using the euclidean distance type on the `nick_name_embedding` column of the `Account` input table:
 
     CREATE VECTOR INDEX NickNameEmbeddingIndex
     ON Account(nick_name_embeddings)
@@ -152,7 +152,7 @@ In the following example, you create a vector index using the euclidean distance
 
 ### Perform ANN vector search on graph nodes
 
-After you create a vector index, you can perform a ANN vector search on the `  nick_name  ` property of the `  Account  ` node. The ANN vector search returns the account owner's `  name  ` and the account's `  nick_name  ` . In the following example, the result shows the top two approximate nearest neighbors for *accounts for leisure travel and vacation* , which is represented by the `  [0.2, 0.4, 0.9, 0.6]  ` vector embedding.
+After you create a vector index, you can perform a ANN vector search on the `nick_name` property of the `Account` node. The ANN vector search returns the account owner's `name` and the account's `nick_name` . In the following example, the result shows the top two approximate nearest neighbors for *accounts for leisure travel and vacation* , which is represented by the `[0.2, 0.4, 0.9, 0.6]` vector embedding.
 
 The [graph hint](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_hints) forces the query optimizer to use the specified, vector index in the query execution plan.
 

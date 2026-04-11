@@ -5,7 +5,7 @@ The Spanner index advisor analyzes your queries to recommend new or altered inde
   - Run a query and view its [query execution plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans)
   - Use the Spanner [Query insights dashboard](https://docs.cloud.google.com/spanner/docs/using-query-insights)
 
-To view the `  CREATE INDEX  ` and `  ALTER INDEX  ` recommendations, you can use the Google Cloud console.
+To view the `CREATE INDEX` and `ALTER INDEX` recommendations, you can use the Google Cloud console.
 
 For more information about Spanner indexes, see [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
 
@@ -13,7 +13,7 @@ For more information about Spanner indexes, see [Secondary indexes](https://docs
 
 Spanner index advisor has the following limitations:
 
-  - Only provides `  CREATE INDEX  ` and `  ALTER INDEX  ` recommendations. Doesn't provide `  DROP INDEX  ` recommendations for existing indexes.
+  - Only provides `CREATE INDEX` and `ALTER INDEX` recommendations. Doesn't provide `DROP INDEX` recommendations for existing indexes.
 
   - An index recommendation is only shown if it provides a noticeable performance benefit.
 
@@ -51,7 +51,7 @@ To view the query execution plan, run a query in the Google Cloud console:
 
 ### Apply recommendations
 
-The Spanner index recommendation provides complete `  CREATE INDEX  ` and `  ALTER INDEX  ` DDL statements for recommended indexes.
+The Spanner index recommendation provides complete `CREATE INDEX` and `ALTER INDEX` DDL statements for recommended indexes.
 
 To apply the index advisor's recommendation, copy and run the index advisor's DDL statement into the Spanner Studio editor exactly as presented.
 
@@ -85,7 +85,7 @@ To view and apply index advisor recommendations from the Query insights dashboar
 
 ### Apply recommendations
 
-The Spanner index recommendation provides complete `  CREATE INDEX  ` and `  ALTER INDEX  ` DDL statements for recommended indexes.
+The Spanner index recommendation provides complete `CREATE INDEX` and `ALTER INDEX` DDL statements for recommended indexes.
 
 To apply the index advisor's recommendation, copy and run the index advisor's DDL statement into the Spanner Studio editor exactly as presented.
 

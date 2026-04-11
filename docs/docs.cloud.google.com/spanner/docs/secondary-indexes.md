@@ -1,8 +1,8 @@
-In a Spanner database, Spanner automatically creates an index for each table's primary key. For example, you don't need to do anything to index the primary key of `  Singers  ` , because it's automatically indexed for you.
+In a Spanner database, Spanner automatically creates an index for each table's primary key. For example, you don't need to do anything to index the primary key of `Singers` , because it's automatically indexed for you.
 
-You can also create *secondary indexes* for other columns. Adding a secondary index on a column makes it more efficient to look up data in that column. For example, if you need to quickly look up an album by title, you should create a secondary index on `  AlbumTitle  ` , so that Spanner does not need to scan the entire table.
+You can also create *secondary indexes* for other columns. Adding a secondary index on a column makes it more efficient to look up data in that column. For example, if you need to quickly look up an album by title, you should create a secondary index on `AlbumTitle` , so that Spanner does not need to scan the entire table.
 
-If the lookup in the previous example is done within a read-write transaction, then the more efficient lookup also avoids holding locks on the entire table, which allows concurrent inserts and updates to the table for rows outside of the `  AlbumTitle  ` lookup range.
+If the lookup in the previous example is done within a read-write transaction, then the more efficient lookup also avoids holding locks on the entire table, which allows concurrent inserts and updates to the table for rows outside of the `AlbumTitle` lookup range.
 
 In addition to the benefits they bring to lookups, secondary indexes can also help Spanner execute [scans](https://docs.cloud.google.com/spanner/docs/query-execution-operators#scan) more efficiently, enabling *index scans* rather than full table scans.
 
@@ -10,7 +10,7 @@ Spanner stores the following data in each secondary index:
 
   - All key columns from the base table
   - All columns that are included in the index
-  - All columns specified in the optional [`  STORING  ` clause (GoogleSQL-dialect databases) or `  INCLUDE  ` clause (PostgreSQL-dialect databases)](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) of the index definition.
+  - All columns specified in the optional [`STORING` clause (GoogleSQL-dialect databases) or `INCLUDE` clause (PostgreSQL-dialect databases)](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) of the index definition.
 
 Over time, Spanner analyzes your tables to ensure that your secondary indexes are used for the appropriate queries.
 
@@ -36,9 +36,9 @@ Be aware that using the [commit timestamp](https://docs.cloud.google.com/spanner
 
 **Note:** If you are adding many secondary indexes to a database, follow the [guidance for large schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates#large-updates) when you create the indexes.
 
-Use the `  CREATE INDEX  ` statement to define a secondary index in your schema. Here are some examples:
+Use the `CREATE INDEX` statement to define a secondary index in your schema. Here are some examples:
 
-To index all `  Singers  ` in the database by their first and last name:
+To index all `Singers` in the database by their first and last name:
 
 ### GoogleSQL
 
@@ -48,7 +48,7 @@ To index all `  Singers  ` in the database by their first and last name:
 
     CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
 
-To create an index of all `  Songs  ` in the database by the value of `  SongName  ` :
+To create an index of all `Songs` in the database by the value of `SongName` :
 
 ### GoogleSQL
 
@@ -58,7 +58,7 @@ To create an index of all `  Songs  ` in the database by the value of `  SongNam
 
     CREATE INDEX SongsBySongName ON Songs(SongName);
 
-To index only the songs for a particular singer, use the [`  INTERLEAVE IN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-index-interleave) clause to interleave the index in the table `  Singers  ` :
+To index only the songs for a particular singer, use the [`INTERLEAVE IN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-index-interleave) clause to interleave the index in the table `Singers` :
 
 ### GoogleSQL
 
@@ -82,7 +82,7 @@ To index only the songs on a particular album:
     CREATE INDEX SongsBySingerAlbumSongName ON Songs(SingerId, AlbumId, SongName)
         INTERLEAVE IN Albums;
 
-To index by descending order of `  SongName  ` :
+To index by descending order of `SongName` :
 
 ### GoogleSQL
 
@@ -94,9 +94,9 @@ To index by descending order of `  SongName  ` :
     CREATE INDEX SongsBySingerAlbumSongNameDesc ON Songs(SingerId, AlbumId, SongName DESC)
         INTERLEAVE IN Albums;
 
-Note that the previous `  DESC  ` annotation applies only to `  SongName  ` . To index by descending order of other index keys, annotate them with `  DESC  ` as well: `  SingerId DESC, AlbumId DESC  ` .
+Note that the previous `DESC` annotation applies only to `SongName` . To index by descending order of other index keys, annotate them with `DESC` as well: `SingerId DESC, AlbumId DESC` .
 
-Also note that `  PRIMARY_KEY  ` is a reserved word and cannot be used as the name of an index. It is the name given to the [pseudo-index](https://docs.cloud.google.com/spanner/docs/information-schema#indexes) that is created when a table with PRIMARY KEY specification is created
+Also note that `PRIMARY_KEY` is a reserved word and cannot be used as the name of an index. It is the name given to the [pseudo-index](https://docs.cloud.google.com/spanner/docs/information-schema#indexes) that is created when a table with PRIMARY KEY specification is created
 
 For more details and best practices for choosing non-interleaved indexes and interleaved indexes, see [Index options](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design#index-options) and [Use an interleaved index on a column whose value monotonically increases or decreases](https://docs.cloud.google.com/spanner/docs/schema-design#creating-indexes) .
 
@@ -135,22 +135,22 @@ For example, consider the following schema:
       PublisherName STRING(MAX)
     ) PRIMARY KEY (Id);
 
-To index all `  Singers  ` in the database by their first and last name, you must create an index. Here's how to define the index `  SingersByFirstLastName  ` :
+To index all `Singers` in the database by their first and last name, you must create an index. Here's how to define the index `SingersByFirstLastName` :
 
     CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
 
-If you want to create an index of `  Songs  ` on `  (SingerId, AlbumId, SongName)  ` , you could do the following:
+If you want to create an index of `Songs` on `(SingerId, AlbumId, SongName)` , you could do the following:
 
     CREATE INDEX SongsBySingerAlbumSongName
         ON Songs(SingerId, AlbumId, SongName);
 
-Or you could create an index that is interleaved with an ancestor of `  Songs  ` , such as the following:
+Or you could create an index that is interleaved with an ancestor of `Songs` , such as the following:
 
     CREATE INDEX SongsBySingerAlbumSongName
         ON Songs(SingerId, AlbumId, SongName),
         INTERLEAVE IN Albums;
 
-Further, you could also create an index of `  Songs  ` on `  (PublisherId, SingerId, AlbumId, SongName)  ` that's interleaved with a table that isn't an ancestor of `  Songs  ` , like `  Publishers  ` . Note that the primary key for the `  Publishers  ` table ( `  id  ` ), is not a prefix of the indexed columns in the following example. This is still allowed because `  Publishers.Id  ` and `  Songs.PublisherId  ` share the same type, sort order, and nullability.
+Further, you could also create an index of `Songs` on `(PublisherId, SingerId, AlbumId, SongName)` that's interleaved with a table that isn't an ancestor of `Songs` , like `Publishers` . Note that the primary key for the `Publishers` table ( `id` ), is not a prefix of the indexed columns in the following example. This is still allowed because `Publishers.Id` and `Songs.PublisherId` share the same type, sort order, and nullability.
 
     CREATE INDEX SongsByPublisherSingerAlbumSongName
         ON Songs(PublisherId, SingerId, AlbumId, SongName),
@@ -168,7 +168,7 @@ Further, you could also create an index of `  Songs  ` on `  (PublisherId, Singe
 
 ### gcloud
 
-Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) to check the progress of an operation.
+Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) to check the progress of an operation.
 
 1.  Get the operation ID:
     
@@ -182,14 +182,14 @@ Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk
     
     Usage notes:
     
-      - To limit the list, specify the `  --filter  ` flag. For example:
+      - To limit the list, specify the `--filter` flag. For example:
         
-          - `  --filter="metadata.name:example-db"  ` only lists the operations on a specific database.
-          - `  --filter="error:*"  ` only lists the backup operations that failed.
+          - `--filter="metadata.name:example-db"` only lists the operations on a specific database.
+          - `--filter="error:*"` only lists the backup operations that failed.
         
-        For information on filter syntax, see [gcloud topic filters](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . For information on filtering backup operations, see the `  filter  ` field in [ListBackupOperationsRequest](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#listbackupoperationsrequest) .
+        For information on filter syntax, see [gcloud topic filters](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . For information on filtering backup operations, see the `filter` field in [ListBackupOperationsRequest](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#listbackupoperationsrequest) .
     
-      - The `  --type  ` flag is not case sensitive.
+      - The `--type` flag is not case sensitive.
     
     The output looks similar to the following:
     
@@ -198,7 +198,7 @@ Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk
                         CREATE INDEX SongsBySingerAlbumSongName ON Songs(SingerId, AlbumId, SongName), INTERLEAVE IN Albums
         _auto_op_234567                                                                                                      True   CreateDatabaseMetadata
 
-2.  Run [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) :
+2.  Run [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) :
     
         gcloud spanner operations describe \
         --instance=INSTANCE-NAME \
@@ -212,7 +212,7 @@ Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk
       - PROJECT-NAME : The project name.
       - OPERATION-ID : The operation ID of the operation that you want to check.
     
-    The `  progress  ` section in the output shows the percentage of the operation that's complete. The output looks similar to the following::
+    The `progress` section in the output shows the percentage of the operation that's complete. The output looks similar to the following::
     
         done: true
         ...
@@ -255,7 +255,7 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -265,7 +265,7 @@ Execute the following command:
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -302,7 +302,7 @@ You should receive a JSON response similar to the following:
 }
 ```
 
-For `  gcloud  ` and REST, you can find the progress of each index backfill statement in the `  progress  ` section. For each statement in the statement array, there is a corresponding field in the progress array. This progress array order corresponds to the order of the statements array. Once available, the `  startTime  ` , `  progressPercent  ` , and `  endTime  ` fields are populated accordingly. Note that the output doesn't show an estimated time for when the backfill progress will complete.
+For `gcloud` and REST, you can find the progress of each index backfill statement in the `progress` section. For each statement in the statement array, there is a corresponding field in the progress array. This progress array order corresponds to the order of the statements array. Once available, the `startTime` , `progressPercent` , and `endTime` fields are populated accordingly. Note that the output doesn't show an estimated time for when the backfill progress will complete.
 
 If the operation takes too long, you can cancel it. For more information, see [Cancel index creation](https://docs.cloud.google.com/spanner/docs/secondary-indexes#cancel-create) .
 
@@ -310,20 +310,20 @@ If the operation takes too long, you can cancel it. For more information, see [C
 
 There are different scenarios that you can encounter when trying to check the progress of an index backfill. Index creation statements that require an index backfill are part of schema update operations, and there can be several statements that are part of a schema update operation.
 
-The first scenario is the simplest, which is when the index creation statement is the first statement in the schema update operation. Since the index creation statement is the first statement, it is the first one processed and executed due to the [order of execution](https://docs.cloud.google.com/spanner/docs/schema-updates#order_of_execution_of_statements_in_batches) . Immediately, the `  startTime  ` field of the index creation statement will populate with the start time of the schema update operation. Next, the index creation statement's `  progressPercent  ` field is populated when the progress of the index backfill is over 0%. Finally, the `  endTime  ` field is populated once the statement is committed.
+The first scenario is the simplest, which is when the index creation statement is the first statement in the schema update operation. Since the index creation statement is the first statement, it is the first one processed and executed due to the [order of execution](https://docs.cloud.google.com/spanner/docs/schema-updates#order_of_execution_of_statements_in_batches) . Immediately, the `startTime` field of the index creation statement will populate with the start time of the schema update operation. Next, the index creation statement's `progressPercent` field is populated when the progress of the index backfill is over 0%. Finally, the `endTime` field is populated once the statement is committed.
 
-The second scenario is when the index creation statement is not the first statement in the schema update operation. No fields related to the index creation statement will populate until the previous statement(s) have been committed due to the [order of execution](https://docs.cloud.google.com/spanner/docs/schema-updates#order_of_execution_of_statements_in_batches) . Similar to the previous scenario, once the previous statements are committed, the `  startTime  ` field of the index creation statement populates first, followed by the `  progressPercent  ` field. Lastly, the `  endTime  ` field populates once the statement finishes committing.
+The second scenario is when the index creation statement is not the first statement in the schema update operation. No fields related to the index creation statement will populate until the previous statement(s) have been committed due to the [order of execution](https://docs.cloud.google.com/spanner/docs/schema-updates#order_of_execution_of_statements_in_batches) . Similar to the previous scenario, once the previous statements are committed, the `startTime` field of the index creation statement populates first, followed by the `progressPercent` field. Lastly, the `endTime` field populates once the statement finishes committing.
 
 ## Cancel index creation
 
-You can use the Google Cloud CLI to cancel index creation. To retrieve a list of schema-update operations for a Spanner database, use the [`  gcloud spanner operations list  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/list) command, and include the `  --filter  ` option:
+You can use the Google Cloud CLI to cancel index creation. To retrieve a list of schema-update operations for a Spanner database, use the [`gcloud spanner operations list`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/list) command, and include the `--filter` option:
 
     gcloud spanner operations list \
         --instance=INSTANCE \
         --database=DATABASE \
         --filter="@TYPE:UpdateDatabaseDdlMetadata"
 
-Find the `  OPERATION_ID  ` for the operation you want to cancel, then use the [`  gcloud spanner operations cancel  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/cancel) command to cancel it:
+Find the `OPERATION_ID` for the operation you want to cancel, then use the [`gcloud spanner operations cancel`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/cancel) command to cancel it:
 
     gcloud spanner operations cancel OPERATION_ID \
         --instance=INSTANCE \
@@ -351,14 +351,14 @@ To view information about existing indexes in a database, you can use the Google
 
 ### gcloud
 
-Use the `  gcloud spanner databases ddl describe  ` command:
+Use the `gcloud spanner databases ddl describe` command:
 
 ``` 
     gcloud spanner databases ddl describe DATABASE \
         --instance=INSTANCE
 ```
 
-The gcloud CLI prints the [Data Definition Language (DDL)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) statements to create the database's tables and indexes. The [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) statements describe the existing indexes. For example:
+The gcloud CLI prints the [Data Definition Language (DDL)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) statements to create the database's tables and indexes. The [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) statements describe the existing indexes. For example:
 
 ``` 
     --- |-
@@ -376,7 +376,7 @@ The gcloud CLI prints the [Data Definition Language (DDL)](https://docs.cloud.go
 
 ## Query with a specific index
 
-The following sections explain how to specify an index in a SQL statement and with the read interface for Spanner. The examples in these sections assume that you added a `  MarketingBudget  ` column to the `  Albums  ` table and created an index called `  AlbumsByAlbumTitle  ` :
+The following sections explain how to specify an index in a SQL statement and with the read interface for Spanner. The examples in these sections assume that you added a `MarketingBudget` column to the `Albums` table and created an index called `AlbumsByAlbumTitle` :
 
 ### GoogleSQL
 
@@ -406,13 +406,13 @@ The following sections explain how to specify an index in a SQL statement and wi
 
 ### Specify an index in a SQL statement
 
-When you use SQL to query a Spanner table, Spanner automatically uses any indexes that are likely to make the query more efficient. As a result, you don't need to specify an index for SQL queries. However, for queries that are critical for your workload, Google advises you to use `  FORCE_INDEX  ` directives in your SQL statements for more consistent performance.
+When you use SQL to query a Spanner table, Spanner automatically uses any indexes that are likely to make the query more efficient. As a result, you don't need to specify an index for SQL queries. However, for queries that are critical for your workload, Google advises you to use `FORCE_INDEX` directives in your SQL statements for more consistent performance.
 
 **Note:** After you make significant changes to the data or schema of your database, [constructing a new statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#construct-statistics-package) can improve the query optimizer's automatic index selection.
 
 In a few cases, Spanner might choose an index that causes query latency to increase. If you've followed the [troubleshooting steps for performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions) and confirmed that it makes sense to try a different index for the query, you can specify the index as part of your query.
 
-To specify an index in a SQL statement, use the [`  FORCE_INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#table-hints) hint to provide an *index directive* . Index directives use the following syntax:
+To specify an index in a SQL statement, use the [`FORCE_INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#table-hints) hint to provide an *index directive* . Index directives use the following syntax:
 
 ### GoogleSQL
 
@@ -456,17 +456,17 @@ The following example shows a SQL query that specifies an index:
         FROM Albums /*@ FORCE_INDEX = AlbumsByAlbumTitle */
         WHERE AlbumTitle >= 'Aardvark' AND AlbumTitle < 'Goo';
 
-An index directive might force Spanner's query processor to read additional columns that are required by the query but not stored in the index. The query processor retrieves these columns by joining the index and the base table. To avoid this extra join, use a [`  STORING  ` clause (GoogleSQL-dialect databases) or `  INCLUDE  ` clause (PostgreSQL-dialect databases)](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) to store the additional columns in the index.
+An index directive might force Spanner's query processor to read additional columns that are required by the query but not stored in the index. The query processor retrieves these columns by joining the index and the base table. To avoid this extra join, use a [`STORING` clause (GoogleSQL-dialect databases) or `INCLUDE` clause (PostgreSQL-dialect databases)](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) to store the additional columns in the index.
 
-In the previous example, the `  MarketingBudget  ` column is not stored in the index, but the SQL query selects this column. As a result, Spanner must look up the `  MarketingBudget  ` column in the base table, then join it with data from the index, to return the query results.
+In the previous example, the `MarketingBudget` column is not stored in the index, but the SQL query selects this column. As a result, Spanner must look up the `MarketingBudget` column in the base table, then join it with data from the index, to return the query results.
 
 Spanner raises an error if the index directive has any of the following issues:
 
   - The index does not exist.
   - The index is on a different base table.
-  - The query is missing a [required `  NULL  ` filtering expression](https://docs.cloud.google.com/spanner/docs/secondary-indexes#null-indexing-disable) for a [`  NULL_FILTERED  `](https://docs.cloud.google.com/spanner/docs/secondary-indexes#null-indexing) index.
+  - The query is missing a [required `NULL` filtering expression](https://docs.cloud.google.com/spanner/docs/secondary-indexes#null-indexing-disable) for a [`NULL_FILTERED`](https://docs.cloud.google.com/spanner/docs/secondary-indexes#null-indexing) index.
 
-The following examples show how to write and execute queries that fetch the values of `  AlbumId  ` , `  AlbumTitle  ` , and `  MarketingBudget  ` using the index `  AlbumsByAlbumTitle  ` :
+The following examples show how to write and execute queries that fetch the values of `AlbumId` , `AlbumTitle` , and `MarketingBudget` using the index `AlbumsByAlbumTitle` :
 
 ### C++
 
@@ -812,20 +812,20 @@ When you use the read interface to Spanner, and you want Spanner to use an index
 
 In addition, your index must contain all of the data that appears in the query results, excluding columns that are part of the primary key. This restriction exists because the read interface does not support joins between the index and the base table. If you need to include other columns in the query results, you have a few options:
 
-  - Use a [`  STORING  ` or `  INCLUDE  ` clause](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) to store the additional columns in the index.
+  - Use a [`STORING` or `INCLUDE` clause](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) to store the additional columns in the index.
   - Query without including the additional columns, then use the primary keys to send another query that reads the additional columns.
 
 Spanner returns values from the index in ascending sort order by index key. To retrieve values in descending order, complete these steps:
 
-  - Annotate the index key with `  DESC  ` . For example:
+  - Annotate the index key with `DESC` . For example:
     
         CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle DESC);
     
-    The `  DESC  ` annotation applies to a single index key. If the index includes more than one key, and you want the query results to appear in descending order based on all keys, include a `  DESC  ` annotation for each key.
+    The `DESC` annotation applies to a single index key. If the index includes more than one key, and you want the query results to appear in descending order based on all keys, include a `DESC` annotation for each key.
 
   - If the read specifies a key range, ensure that the key range is also in descending order. In other words, the value of the start key must be greater than the value of the end key.
 
-The following example shows how to retrieve the values of `  AlbumId  ` and `  AlbumTitle  ` using the index `  AlbumsByAlbumTitle  ` :
+The following example shows how to retrieve the values of `AlbumId` and `AlbumTitle` using the index `AlbumsByAlbumTitle` :
 
 ### C++
 
@@ -1088,12 +1088,12 @@ The following example shows how to retrieve the values of `  AlbumId  ` and `  A
 
 ## Create an index for index-only scans
 
-Optionally, you can use the `  STORING  ` clause (for GoogleSQL-dialect databases) or `  INCLUDE  ` clause (for PostgreSQL-dialect databases) to store a copy of a column in the index. This type of index provides advantages for queries and read calls using the index, at the cost of using extra storage:
+Optionally, you can use the `STORING` clause (for GoogleSQL-dialect databases) or `INCLUDE` clause (for PostgreSQL-dialect databases) to store a copy of a column in the index. This type of index provides advantages for queries and read calls using the index, at the cost of using extra storage:
 
-  - SQL queries that use the index and select columns stored in the `  STORING  ` or `  INCLUDE  ` clause don't require an extra join to the base table.
-  - `  read()  ` calls that use the index can read columns stored by the `  STORING  ` / `  INCLUDE  ` clause.
+  - SQL queries that use the index and select columns stored in the `STORING` or `INCLUDE` clause don't require an extra join to the base table.
+  - `read()` calls that use the index can read columns stored by the `STORING` / `INCLUDE` clause.
 
-For example, suppose you created an alternate version of `  AlbumsByAlbumTitle  ` that stores a copy of the `  MarketingBudget  ` column in the index (note the `  STORING  ` or `  INCLUDE  ` clause in bold):
+For example, suppose you created an alternate version of `AlbumsByAlbumTitle` that stores a copy of the `MarketingBudget` column in the index (note the `STORING` or `INCLUDE` clause in bold):
 
 ### GoogleSQL
 
@@ -1103,9 +1103,9 @@ For example, suppose you created an alternate version of `  AlbumsByAlbumTitle  
 
     CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget);
 
-With the old `  AlbumsByAlbumTitle  ` index, Spanner must join the index with the base table, then retrieve the column from the base table. With the new `  AlbumsByAlbumTitle2  ` index, Spanner reads the column directly from the index, which is more efficient.
+With the old `AlbumsByAlbumTitle` index, Spanner must join the index with the base table, then retrieve the column from the base table. With the new `AlbumsByAlbumTitle2` index, Spanner reads the column directly from the index, which is more efficient.
 
-If you use the read interface instead of SQL, the new `  AlbumsByAlbumTitle2  ` index also lets you read the `  MarketingBudget  ` column directly:
+If you use the read interface instead of SQL, the new `AlbumsByAlbumTitle2` index also lets you read the `MarketingBudget` column directly:
 
 ### C++
 
@@ -1392,7 +1392,7 @@ If you use the read interface instead of SQL, the new `  AlbumsByAlbumTitle2  ` 
 
 ## Alter an index
 
-You can use the `  ALTER INDEX  ` statement to add additional columns into an existing index or drop columns. This can update the columns list defined by the `  STORING  ` clause (GoogleSQL-dialect databases) or `  INCLUDE  ` clause (PostgreSQL-dialect databases) when you create the index. You can't use this statement to add columns to or drop columns from the index key. For example, instead of creating a new index `  AlbumsByAlbumTitle2  ` , you can use `  ALTER INDEX  ` to add a column into `  AlbumsByAlbumTitle  ` , as shown in the following example:
+You can use the `ALTER INDEX` statement to add additional columns into an existing index or drop columns. This can update the columns list defined by the `STORING` clause (GoogleSQL-dialect databases) or `INCLUDE` clause (PostgreSQL-dialect databases) when you create the index. You can't use this statement to add columns to or drop columns from the index key. For example, instead of creating a new index `AlbumsByAlbumTitle2` , you can use `ALTER INDEX` to add a column into `AlbumsByAlbumTitle` , as shown in the following example:
 
 ### GoogleSQL
 
@@ -1402,7 +1402,7 @@ You can use the `  ALTER INDEX  ` statement to add additional columns into an ex
 
     ALTER INDEX AlbumsByAlbumTitle ADD INCLUDE COLUMN MarketingBudget
 
-When you add a new column into an existing index, Spanner uses a background backfilling process. While the backfill is ongoing, the column in the index is not readable, so you might not get the expected performance boost. You can use the `  gcloud spanner operations  ` command to list the long-running operation and view its status. For more information, see [describe operation](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-progress) .
+When you add a new column into an existing index, Spanner uses a background backfilling process. While the backfill is ongoing, the column in the index is not readable, so you might not get the expected performance boost. You can use the `gcloud spanner operations` command to list the long-running operation and view its status. For more information, see [describe operation](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-progress) .
 
 You can also use [cancel operation](https://docs.cloud.google.com/spanner/docs/secondary-indexes#cancel-create) to cancel a running operation.
 
@@ -1420,15 +1420,15 @@ The following example shows how to drop a column from an index:
 
 ## Index of NULL values
 
-By default, Spanner indexes `  NULL  ` values. For example, recall the definition of the index `  SingersByFirstLastName  ` on the table `  Singers  ` :
+By default, Spanner indexes `NULL` values. For example, recall the definition of the index `SingersByFirstLastName` on the table `Singers` :
 
     CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
 
-All rows of `  Singers  ` are indexed even if either `  FirstName  ` or `  LastName  ` , or both, are `  NULL  ` .
+All rows of `Singers` are indexed even if either `FirstName` or `LastName` , or both, are `NULL` .
 
 <https://docs.cloud.google.com/static/spanner/docs/images/indexing_nulls.svg>
 
-When `  NULL  ` values are indexed, you can perform efficient SQL queries and reads over data that includes `  NULL  ` values. For example, use this SQL query statement to find all `  Singers  ` with a `  NULL  ` `  FirstName  ` :
+When `NULL` values are indexed, you can perform efficient SQL queries and reads over data that includes `NULL` values. For example, use this SQL query statement to find all `Singers` with a `NULL` `FirstName` :
 
 ### GoogleSQL
 
@@ -1446,7 +1446,7 @@ When `  NULL  ` values are indexed, you can perform efficient SQL queries and re
 
 ### Sort order for NULL values
 
-Spanner sorts `  NULL  ` as the smallest value for any given type. For a column in ascending ( `  ASC  ` ) order, `  NULL  ` values sort first. For a column in descending ( `  DESC  ` ) order, `  NULL  ` values sort last.
+Spanner sorts `NULL` as the smallest value for any given type. For a column in ascending ( `ASC` ) order, `NULL` values sort first. For a column in descending ( `DESC` ) order, `NULL` values sort last.
 
 <span id="disabling_the_indexing_of_nulls"></span>
 
@@ -1454,27 +1454,27 @@ Spanner sorts `  NULL  ` as the smallest value for any given type. For a column 
 
 ### GoogleSQL
 
-To disable the indexing of nulls, add the `  NULL_FILTERED  ` keyword to the index definition. `  NULL_FILTERED  ` indexes are particularly useful for indexing sparse columns, where most rows contain a `  NULL  ` value. In these cases, the `  NULL_FILTERED  ` index can be considerably smaller and more efficient to maintain than a normal index that includes `  NULL  ` values.
+To disable the indexing of nulls, add the `NULL_FILTERED` keyword to the index definition. `NULL_FILTERED` indexes are particularly useful for indexing sparse columns, where most rows contain a `NULL` value. In these cases, the `NULL_FILTERED` index can be considerably smaller and more efficient to maintain than a normal index that includes `NULL` values.
 
-Here's an alternate definition of `  SingersByFirstLastName  ` that does not index `  NULL  ` values:
+Here's an alternate definition of `SingersByFirstLastName` that does not index `NULL` values:
 
     CREATE NULL_FILTERED INDEX SingersByFirstLastNameNoNulls
         ON Singers(FirstName, LastName);
 
-The `  NULL_FILTERED  ` keyword applies to all index key columns. You cannot specify `  NULL  ` filtering on a per-column basis.
+The `NULL_FILTERED` keyword applies to all index key columns. You cannot specify `NULL` filtering on a per-column basis.
 
 ### PostgreSQL
 
-To filter out rows with null values in one or more indexed columns, use the `  WHERE COLUMN IS NOT NULL  ` predicate. Null-filtered indexes are particularly useful for indexing sparse columns, where most rows contain a `  NULL  ` value. In these cases, the null-filtered index can be considerably smaller and more efficient to maintain than a normal index that includes `  NULL  ` values.
+To filter out rows with null values in one or more indexed columns, use the `WHERE COLUMN IS NOT NULL` predicate. Null-filtered indexes are particularly useful for indexing sparse columns, where most rows contain a `NULL` value. In these cases, the null-filtered index can be considerably smaller and more efficient to maintain than a normal index that includes `NULL` values.
 
-Here's an alternate definition of `  SingersByFirstLastName  ` that does not index `  NULL  ` values:
+Here's an alternate definition of `SingersByFirstLastName` that does not index `NULL` values:
 
     CREATE INDEX SingersByFirstLastNameNoNulls
         ON Singers(FirstName, LastName)
         WHERE FirstName IS NOT NULL
         AND LastName IS NOT NULL;
 
-Filtering out `  NULL  ` values prevents Spanner from using it for some queries. For example, Spanner does not use the index for this query, because the index omits any `  Singers  ` rows for which `  LastName  ` is `  NULL  ` ; as a result, using the index would prevent the query from returning the correct rows:
+Filtering out `NULL` values prevents Spanner from using it for some queries. For example, Spanner does not use the index for this query, because the index omits any `Singers` rows for which `LastName` is `NULL` ; as a result, using the index would prevent the query from returning the correct rows:
 
 ### GoogleSQL
 
@@ -1504,11 +1504,11 @@ To enable Spanner to use the index, you must rewrite the query so it excludes th
 
 ## Index proto fields
 
-Use [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) to index fields in protocol buffers stored in `  PROTO  ` columns, as long as the fields being indexed use the primitive or `  ENUM  ` data types.
+Use [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) to index fields in protocol buffers stored in `PROTO` columns, as long as the fields being indexed use the primitive or `ENUM` data types.
 
 If you define an index on a protocol message field, you can't modify or remove that field from the proto schema. For more information, see [Updates to schemas that contain an index on proto fields](https://docs.cloud.google.com/spanner/docs/secondary-indexes#updates-schemas-index-proto) .
 
-The following is an example of the `  Singers  ` table with a `  SingerInfo  ` proto message column. To define an index on the `  nationality  ` field of the `  PROTO  ` , you need to create a stored generated column:
+The following is an example of the `Singers` table with a `SingerInfo` proto message column. To define an index on the `nationality` field of the `PROTO` , you need to create a stored generated column:
 
 ### GoogleSQL
 
@@ -1521,7 +1521,7 @@ The following is an example of the `  Singers  ` table with a `  SingerInfo  ` p
       SingerNationality STRING(MAX) AS (SingerInfo.nationality) STORED
     ) PRIMARY KEY (SingerId);
 
-It has the following definition of the `  googlesql.example.SingerInfo  ` proto type:
+It has the following definition of the `googlesql.example.SingerInfo` proto type:
 
 ### GoogleSQL
 
@@ -1539,7 +1539,7 @@ It has the following definition of the `  googlesql.example.SingerInfo  ` proto 
       }
     }
 
-Then define an index on the `  nationality  ` field of the proto:
+Then define an index on the `nationality` field of the proto:
 
 ### GoogleSQL
 
@@ -1564,15 +1564,15 @@ If you define an index on a protocol message field, you can't modify or remove t
 
 ## Unique indexes
 
-Indexes can be declared `  UNIQUE  ` . `  UNIQUE  ` indexes add a constraint to the data being indexed that prohibits duplicate entries for a given index key. This constraint is enforced by Spanner at transaction commit time. Specifically, any transaction that would cause multiple index entries for the same key to exist will fail to commit.
+Indexes can be declared `UNIQUE` . `UNIQUE` indexes add a constraint to the data being indexed that prohibits duplicate entries for a given index key. This constraint is enforced by Spanner at transaction commit time. Specifically, any transaction that would cause multiple index entries for the same key to exist will fail to commit.
 
-If a table contains non- `  UNIQUE  ` data in it to begin with, attempting to create a `  UNIQUE  ` index on it will fail.
+If a table contains non- `UNIQUE` data in it to begin with, attempting to create a `UNIQUE` index on it will fail.
 
 <span id="a_note_about_unique_null_filtered_indexes"></span>
 
 ### A note about UNIQUE NULL\_FILTERED indexes
 
-A `  UNIQUE NULL_FILTERED  ` index does not enforce index key uniqueness when at least one of the index's key parts is NULL.
+A `UNIQUE NULL_FILTERED` index does not enforce index key uniqueness when at least one of the index's key parts is NULL.
 
 For example, suppose that you created the following table and index:
 
@@ -1602,22 +1602,22 @@ For example, suppose that you created the following table and index:
         AND Key2 IS NOT NULL
         AND Col1 IS NOT NULL;
 
-The following two rows in `  ExampleTable  ` have the same values for the secondary index keys `  Key1  ` , `  Key2  ` and `  Col1  ` :
+The following two rows in `ExampleTable` have the same values for the secondary index keys `Key1` , `Key2` and `Col1` :
 
     1, NULL, 1, 1
     1, NULL, 2, 1
 
-Because `  Key2  ` is `  NULL  ` and the index is null-filtered, the rows won't be present in the index `  ExampleIndex  ` . Because they are not inserted into the index, the index won't reject them for violating uniqueness on `  (Key1, Key2, Col1)  ` .
+Because `Key2` is `NULL` and the index is null-filtered, the rows won't be present in the index `ExampleIndex` . Because they are not inserted into the index, the index won't reject them for violating uniqueness on `(Key1, Key2, Col1)` .
 
-If you want the index to enforce the uniqueness of values of the tuple ( `  Key1  ` , `  Key2  ` , `  Col1  ` ), then you must annotate `  Key2  ` with `  NOT NULL  ` in the table definition or create the index without filtering nulls.
+If you want the index to enforce the uniqueness of values of the tuple ( `Key1` , `Key2` , `Col1` ), then you must annotate `Key2` with `NOT NULL` in the table definition or create the index without filtering nulls.
 
 <span id="dropping_an_index"></span>
 
 ## Drop an index
 
-Use the `  DROP INDEX  ` statement to drop a secondary index from your schema.
+Use the `DROP INDEX` statement to drop a secondary index from your schema.
 
-To drop the index named `  SingersByFirstLastName  ` :
+To drop the index named `SingersByFirstLastName` :
 
     DROP INDEX SingersByFirstLastName;
 
@@ -1627,17 +1627,17 @@ When Spanner needs to perform a table scan (rather than an indexed lookup) to fe
 
 In particular, if you need Spanner to frequently scan a table's primary key or other index in reverse order, then you can increase its efficiency through a secondary index that makes the chosen order explicit.
 
-For example, the following query always returns a fast result, even though Spanner needs to scan `  Songs  ` to find the lowest value of `  SongId  ` :
+For example, the following query always returns a fast result, even though Spanner needs to scan `Songs` to find the lowest value of `SongId` :
 
     SELECT SongId FROM Songs LIMIT 1;
 
-`  SongId  ` is the table's primary key, stored (as with all primary keys) in ascending order. Spanner can scan that key's index and find the first result rapidly.
+`SongId` is the table's primary key, stored (as with all primary keys) in ascending order. Spanner can scan that key's index and find the first result rapidly.
 
-However, without the help of a secondary index, the following query wouldn't return as quickly, especially if `  Songs  ` holds a lot of data:
+However, without the help of a secondary index, the following query wouldn't return as quickly, especially if `Songs` holds a lot of data:
 
     SELECT SongId FROM Songs ORDER BY SongId DESC LIMIT 1;
 
-Even though `  SongId  ` is the table's primary key, Spanner has no way to fetch the column's highest value without resorting to a full table scan.
+Even though `SongId` is the table's primary key, Spanner has no way to fetch the column's highest value without resorting to a full table scan.
 
 Adding the following index would allow this query to return more quickly:
 

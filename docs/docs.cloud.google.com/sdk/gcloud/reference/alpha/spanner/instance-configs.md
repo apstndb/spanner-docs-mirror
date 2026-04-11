@@ -4,32 +4,32 @@ gcloud alpha spanner instance-configs - manage Cloud Spanner instance configs
 
 SYNOPSIS
 
-`  gcloud alpha spanner instance-configs  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner instance-configs` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage Cloud Spanner instance configs.
+`(ALPHA)` Manage Cloud Spanner instance configs.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  create  `  
-    `  (ALPHA)  ` Create a Cloud Spanner instance configuration.
+    `(ALPHA)` Create a Cloud Spanner instance configuration.
   - `  delete  `  
-    `  (ALPHA)  ` Delete a Cloud Spanner instance configuration.
+    `(ALPHA)` Delete a Cloud Spanner instance configuration.
   - `  describe  `  
-    `  (ALPHA)  ` Describe a Cloud Spanner instance configuration.
+    `(ALPHA)` Describe a Cloud Spanner instance configuration.
   - `  list  `  
-    `  (ALPHA)  ` List the available Cloud Spanner instance configurations.
+    `(ALPHA)` List the available Cloud Spanner instance configurations.
   - `  update  `  
-    `  (ALPHA)  ` Update a Cloud Spanner instance configuration.
+    `(ALPHA)` Update a Cloud Spanner instance configuration.
 
 NOTES
 

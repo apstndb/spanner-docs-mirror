@@ -26,7 +26,7 @@ End-to-end latency is the length of time (in milliseconds) between the first byt
 
 ![Spanner architecture diagram for end-to-end latency.](https://docs.cloud.google.com/static/spanner/docs/images/client-round-trip-latency.png)
 
-The [`  spanner.googleapis.com/client/operation_latencies  `](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#operation-latencies) metric provides the time between the first byte of the API request sent to the last byte of the response received. This includes retries performed by the client library.
+The [`spanner.googleapis.com/client/operation_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#operation-latencies) metric provides the time between the first byte of the API request sent to the last byte of the response received. This includes retries performed by the client library.
 
 For more information, see [View and manage client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) .
 
@@ -40,7 +40,7 @@ Google Front End (GFE) latency is the length of time (in milliseconds) between w
 
 Every response from Spanner (REST or gRPC) includes a header that contains the total time between the GFE and the backend (the Spanner service) for the request and the response. This helps to differentiate better the source of the latency between the client and the GFE.
 
-The [`  spanner.googleapis.com/client/gfe_latencies  `](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-latencies) metric captures and exposes GFE latency for Spanner requests.
+The [`spanner.googleapis.com/client/gfe_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-latencies) metric captures and exposes GFE latency for Spanner requests.
 
 For more information, see [View and manage client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) .
 
@@ -52,7 +52,7 @@ Spanner API request latency is the length of time (in seconds) from when the Spa
 
 ![Spanner architecture diagram for Spanner API request latency.](https://docs.cloud.google.com/static/spanner/docs/images/cloud-spanner-API-request-latency.png)
 
-The `  spanner.googleapis.com/api/request_latencies  ` metric captures and exposes Spanner AFE latency for Spanner requests. For more information, see [Spanner metrics](https://docs.cloud.google.com/spanner/docs/metrics) .
+The `spanner.googleapis.com/api/request_latencies` metric captures and exposes Spanner AFE latency for Spanner requests. For more information, see [Spanner metrics](https://docs.cloud.google.com/spanner/docs/metrics) .
 
 ## Query latency
 
@@ -62,7 +62,7 @@ Query latency is the length of time (in milliseconds) that it takes to run SQL q
 
 Query latency is available for the [executeSql](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#ExecuteSqlRequest) API.
 
-If the [`  QueryMode  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#querymode) parameter is set to `  WITH_STATS  ` or `  WITH_PLAN_AND_STATS  ` , then Spanner's [`  ResultSetStats  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#resultsetstats) are available in the responses. `  ResultSetStats  ` includes the elapsed time for running queries in the Spanner database.
+If the [`QueryMode`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#querymode) parameter is set to `WITH_STATS` or `WITH_PLAN_AND_STATS` , then Spanner's [`ResultSetStats`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#resultsetstats) are available in the responses. `ResultSetStats` includes the elapsed time for running queries in the Spanner database.
 
 To capture and visualize query latency, see [Capture query latency with OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry#capture-query-latency) .
 

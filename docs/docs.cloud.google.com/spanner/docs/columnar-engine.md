@@ -30,11 +30,11 @@ This section describes best practices when using columnar engine.
 
 ### Large scan optimization
 
-Columnar engine optimizes queries that scan large amounts of data. For smaller data scans or queries with quickly satisfied `  LIMIT  ` clauses, row-based scans might be more efficient.
+Columnar engine optimizes queries that scan large amounts of data. For smaller data scans or queries with quickly satisfied `LIMIT` clauses, row-based scans might be more efficient.
 
 ### Essential columns
 
-If you use `  SELECT *  ` , Spanner reads all columns from columnar storage. To maximize performance, specify only necessary columns. For example, `  SELECT column1, column2 FROM ...  ` .
+If you use `SELECT *` , Spanner reads all columns from columnar storage. To maximize performance, specify only necessary columns. For example, `SELECT column1, column2 FROM ...` .
 
 ### Performance bottleneck identification
 

@@ -14,9 +14,9 @@ The first incoming working table is a table with a single row. The last outgoing
 
 ## Linear query statement
 
-A linear query statement consists of multiple statements from the [statement list](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#language_list) . It always ends with a [`  RETURN  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) .
+A linear query statement consists of multiple statements from the [statement list](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#language_list) . It always ends with a [`RETURN` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) .
 
-Each statement generates intermediate results (the working table) and then passes those results to the next statement. The output of a linear query statement comes from the final `  RETURN  ` statement.
+Each statement generates intermediate results (the working table) and then passes those results to the next statement. The output of a linear query statement comes from the final `RETURN` statement.
 
 #### Examples
 
@@ -58,15 +58,15 @@ A set operator between two linear query statements with the same set of output c
      | Lee  |    2     |
      +------+----------*/
 
-## Chaining linear query statements with the `     NEXT    ` statement
+## Chaining linear query statements with the `NEXT` statement
 
-You can use the `  NEXT  ` keyword to chain multiple linear query statements into one.
+You can use the `NEXT` keyword to chain multiple linear query statements into one.
 
 The final linear query statement must produce non-GQL data types, but linear query statements that proceed it can produce GQL data types, such as nodes and edges.
 
 #### Examples
 
-The following is an example of a graph query chaining multiple linear query statements using `  NEXT  ` :
+The following is an example of a graph query chaining multiple linear query statements using `NEXT` :
 
     GRAPH FinGraph
     

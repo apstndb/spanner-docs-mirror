@@ -2,30 +2,30 @@ GoogleSQL for Spanner supports the following protocol buffer functions.
 
 ## Function list
 
-| Name                                                                                                                                            | Summary                                                    |
-| ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [`         REPLACE_FIELDS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions#replace_fields) | Replaces the values in one or more protocol buffer fields. |
+| Name                                                                                                                           | Summary                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| [`REPLACE_FIELDS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions#replace_fields) | Replaces the values in one or more protocol buffer fields. |
 
-## `     REPLACE_FIELDS    `
+## `REPLACE_FIELDS`
 
     REPLACE_FIELDS(proto_expression, value AS field_path [, ... ])
 
 **Description**
 
-Returns a copy of a protocol buffer, replacing the values in one or more fields. `  field_path  ` is a delimited path to the protocol buffer field that's replaced. When using `  replace_fields  ` , the following limitations apply:
+Returns a copy of a protocol buffer, replacing the values in one or more fields. `field_path` is a delimited path to the protocol buffer field that's replaced. When using `replace_fields` , the following limitations apply:
 
-  - If `  value  ` is `  NULL  ` , it un-sets `  field_path  ` or returns an error if the last component of `  field_path  ` is a required field.
+  - If `value` is `NULL` , it un-sets `field_path` or returns an error if the last component of `field_path` is a required field.
   - Replacing subfields will succeed only if the message containing the field is set.
   - Replacing subfields of repeated field isn't allowed.
-  - A repeated field can be replaced with an `  ARRAY  ` value.
+  - A repeated field can be replaced with an `ARRAY` value.
 
 **Return type**
 
-Type of `  proto_expression  `
+Type of `proto_expression`
 
 **Examples**
 
-The following example uses protocol buffer messages `  Book  ` and `  BookDetails  ` .
+The following example uses protocol buffer messages `Book` and `BookDetails` .
 
     message Book {
       required string title = 1;
@@ -38,7 +38,7 @@ The following example uses protocol buffer messages `  Book  ` and `  BookDetail
       optional int32 chapters = 2;
     };
 
-This statement replaces the values of the field `  title  ` and subfield `  chapters  ` of proto type `  Book  ` . Note that field `  details  ` must be set for the statement to succeed.
+This statement replaces the values of the field `title` and subfield `chapters` of proto type `Book` . Note that field `details` must be set for the statement to succeed.
 
     SELECT REPLACE_FIELDS(
       NEW Book(
@@ -69,7 +69,7 @@ The function can replace value of repeated fields.
      | details: {chapters: 10 }}                                                   |
      +-----------------------------------------------------------------------------*/
 
-The function can also set a field to `  NULL  ` .
+The function can also set a field to `NULL` .
 
     SELECT REPLACE_FIELDS(
       NEW Book("The Hummingbird" AS title,

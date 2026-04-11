@@ -4,11 +4,11 @@ gcloud beta spanner instances delete - delete a Cloud Spanner instance
 
 SYNOPSIS
 
-`  gcloud beta spanner instances delete  ` `  INSTANCE  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner instances delete` `  INSTANCE  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Delete a Cloud Spanner instance.
+`(BETA)` Delete a Cloud Spanner instance.
 
 EXAMPLES
 
@@ -27,7 +27,7 @@ GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

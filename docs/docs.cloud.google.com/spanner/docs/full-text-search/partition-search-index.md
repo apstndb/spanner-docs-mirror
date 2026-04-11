@@ -2,11 +2,11 @@
 
 Spanner supports both unpartitioned and partitioned [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) . This page describes how to create a partitioned search index in Spanner.
 
-An unpartitioned index is created when the `  PARTITION BY  ` clause is omitted in the index definition. In an unpartitioned index, a query needs to read from all the index splits. This limits the potential scalability of full-text search queries.
+An unpartitioned index is created when the `PARTITION BY` clause is omitted in the index definition. In an unpartitioned index, a query needs to read from all the index splits. This limits the potential scalability of full-text search queries.
 
-Partitioned indexes, on the other hand, subdivide the index into smaller units, one for each unique partition. Queries can only search within a single partition at a time, specified by an equality condition in the `  WHERE  ` clause. Queries against partitioned indexes are generally more efficient than queries against unpartitioned indexes because Spanner only needs to read data for a single partition. Partitioning the search index is analogous to the key prefix of a secondary index.
+Partitioned indexes, on the other hand, subdivide the index into smaller units, one for each unique partition. Queries can only search within a single partition at a time, specified by an equality condition in the `WHERE` clause. Queries against partitioned indexes are generally more efficient than queries against unpartitioned indexes because Spanner only needs to read data for a single partition. Partitioning the search index is analogous to the key prefix of a secondary index.
 
-For example, suppose there are 1,000,000 `  SingerIds  ` in a database and the following two indexes:
+For example, suppose there are 1,000,000 `SingerIds` in a database and the following two indexes:
 
 ### GoogleSQL
 
@@ -44,7 +44,7 @@ For example, suppose there are 1,000,000 `  SingerIds  ` in a database and the f
     ON albums(albumtitle_tokens)
     PARTITION BY singerid;
 
-The following query selects the `  AlbumsIndexBySingerId  ` index because it only searches data for a single singer. This type of query typically uses fewer resources.
+The following query selects the `AlbumsIndexBySingerId` index because it only searches data for a single singer. This type of query typically uses fewer resources.
 
 ### GoogleSQL
 
@@ -60,7 +60,7 @@ The following query selects the `  AlbumsIndexBySingerId  ` index because it onl
     WHERE singerid = 'singer1'
     AND spanner.search(albumtitle_tokens, 'happy')
 
-It's also possible to [force](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#index_selection) a query to use `  AlbumsUnpartitionedIndex  ` to return the same results. However, it uses more resources, because the query needs to access all index splits and filter through all albums for all singers to find the token "happy", rather than just the splits corresponding to singer `  singer1  ` .
+It's also possible to [force](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#index_selection) a query to use `AlbumsUnpartitionedIndex` to return the same results. However, it uses more resources, because the query needs to access all index splits and filter through all albums for all singers to find the token "happy", rather than just the splits corresponding to singer `singer1` .
 
 However, there are times when the application needs to search through all of the albums rather than the albums for a specific singer. In these cases, you must use an unpartitioned index:
 

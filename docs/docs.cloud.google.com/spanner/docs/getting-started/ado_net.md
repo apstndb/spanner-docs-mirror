@@ -18,7 +18,7 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
@@ -38,7 +38,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -48,7 +48,7 @@ See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manag
 
 The samples repository contains a sample that shows how to use Spanner with ADO.NET.
 
-Take a look through the `  SampleRunner.cs  ` file, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
+Take a look through the `SampleRunner.cs` file, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
 
 ## Create a database
 
@@ -217,7 +217,7 @@ Before you can do reads or writes, you must create a connection to interact with
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
-You use the `  DbCommand#ExecuteNonQuery  ` method to execute a DML statement.
+You use the `DbCommand#ExecuteNonQuery` method to execute a DML statement.
 
 ### GoogleSQL
 
@@ -307,7 +307,7 @@ The result should show:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-You can insert data using the `  batch.CreateInsertCommand()  ` method, which creates a new `  SpannerBatchCommand  ` to insert rows into a table. The `  SpannerBatchCommand.ExecuteNonQueryAsync()  ` method adds new rows to the table.
+You can insert data using the `batch.CreateInsertCommand()` method, which creates a new `SpannerBatchCommand` to insert rows into a table. The `SpannerBatchCommand.ExecuteNonQueryAsync()` method adds new rows to the table.
 
 The following code shows how to write data using mutations:
 
@@ -431,7 +431,7 @@ The following code shows how to write data using mutations:
         Console.WriteLine($"Inserted {affected} rows.");
     }
 
-Run the following example using the `  write  ` argument:
+Run the following example using the `write` argument:
 
 ### GoogleSQL
 
@@ -449,7 +449,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
 ### GoogleSQL
 
@@ -478,10 +478,10 @@ In addition to executing a SQL statement on the command line, you can issue the 
 
 The following methods are used to execute a SQL query:
 
-  - The [`  ExecuteReader  `](https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/retrieving-data-using-a-datareader) method in the `  DbCommand  ` class: use this to execute a SQL statement that returns rows, such as a query or a DML statement with a `  THEN RETURN  ` clause.
-  - The [`  DbDataReader  `](https://learn.microsoft.com/en-us/dotnet/api/system.data.common.dbdatareader) class: use this to access the data returned by a SQL statement.
+  - The [`ExecuteReader`](https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/retrieving-data-using-a-datareader) method in the `DbCommand` class: use this to execute a SQL statement that returns rows, such as a query or a DML statement with a `THEN RETURN` clause.
+  - The [`DbDataReader`](https://learn.microsoft.com/en-us/dotnet/api/system.data.common.dbdatareader) class: use this to access the data returned by a SQL statement.
 
-The following example uses the `  ExecuteReaderAsync  ` method:
+The following example uses the `ExecuteReaderAsync` method:
 
 ### GoogleSQL
 
@@ -541,9 +541,9 @@ The result should show:
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
-The Spanner ADO.NET driver supports both positional and named query parameters. A `  ?  ` in a SQL statement indicates a positional query parameter. Add query parameter values to the `  Parameters  ` of the `  DbCommand  ` . For example:
+The Spanner ADO.NET driver supports both positional and named query parameters. A `?` in a SQL statement indicates a positional query parameter. Add query parameter values to the `Parameters` of the `DbCommand` . For example:
 
 ### GoogleSQL
 
@@ -599,7 +599,7 @@ The result shows:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -607,7 +607,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
 ### GoogleSQL
 
@@ -625,7 +625,7 @@ You should see:
 
 #### Use the Spanner ADO.NET driver
 
-Use the `  ExecuteNonQueryAsync  ` method to modify the schema:
+Use the `ExecuteNonQueryAsync` method to modify the schema:
 
 ### GoogleSQL
 
@@ -671,7 +671,7 @@ The result shows:
 
 ### Execute a DDL batch
 
-We recommend that you execute multiple schema modifications in one batch. Use the ADO.NET `  CreateBatch  ` method to create a batch. The following example creates two tables in one batch:
+We recommend that you execute multiple schema modifications in one batch. Use the ADO.NET `CreateBatch` method to create a batch. The following example creates two tables in one batch:
 
 ### GoogleSQL
 
@@ -755,7 +755,7 @@ The result shows:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
 ### GoogleSQL
 
@@ -825,7 +825,7 @@ The result shows:
 
 You can also execute a SQL query to fetch the values that you just wrote.
 
-The following example uses the `  ExecuteReaderAsync  ` method to execute a query:
+The following example uses the `ExecuteReaderAsync` method to execute a query:
 
 ### GoogleSQL
 
@@ -885,7 +885,7 @@ You should see:
 
 You can update data using DML in a read-write transaction.
 
-Call `  connection.BeginTransactionAsync()  ` to execute read-write transactions in ADO.NET.
+Call `connection.BeginTransactionAsync()` to execute read-write transactions in ADO.NET.
 
 ### GoogleSQL
 
@@ -1165,7 +1165,7 @@ Run the example with the following command:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Call `  connection.BeginReadOnlyTransactionAsync()  ` to execute a read-only transaction.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Call `connection.BeginReadOnlyTransactionAsync()` to execute a read-only transaction.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 

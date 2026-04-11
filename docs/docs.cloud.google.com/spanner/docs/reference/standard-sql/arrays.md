@@ -1,12 +1,12 @@
-In GoogleSQL for Spanner, an array is an ordered list consisting of zero or more values of the same data type. You can construct arrays of a simple data type, such as `  INT64  ` , or a complex data type, such as `  STRUCT  ` . However, arrays of arrays aren't supported. To learn more about the `  ARRAY  ` data type, see [Array type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type) .
+In GoogleSQL for Spanner, an array is an ordered list consisting of zero or more values of the same data type. You can construct arrays of a simple data type, such as `INT64` , or a complex data type, such as `STRUCT` . However, arrays of arrays aren't supported. To learn more about the `ARRAY` data type, see [Array type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type) .
 
-With GoogleSQL, you can construct array literals, build arrays from subqueries using the [`  ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions) function, and aggregate values into an array using the [`  ARRAY_AGG  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#array_agg) function.
+With GoogleSQL, you can construct array literals, build arrays from subqueries using the [`ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions) function, and aggregate values into an array using the [`ARRAY_AGG`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#array_agg) function.
 
-You can combine arrays using functions like `  ARRAY_CONCAT()  ` , and convert arrays to strings using `  ARRAY_TO_STRING()  ` .
+You can combine arrays using functions like `ARRAY_CONCAT()` , and convert arrays to strings using `ARRAY_TO_STRING()` .
 
 ## Accessing array elements
 
-Consider the following table called `  Sequences  ` . This table contains the column `  some_numbers  ` of the `  ARRAY  ` data type.
+Consider the following table called `Sequences` . This table contains the column `some_numbers` of the `ARRAY` data type.
 
     WITH
       Sequences AS (
@@ -24,7 +24,7 @@ Consider the following table called `  Sequences  ` . This table contains the co
      | [5, 10]             |
      +---------------------*/
 
-To access array elements in the `  some_numbers  ` column, specify which type of indexing you want to use: either [`  OFFSET(index)  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#array_subscript_operator) for zero-based indexes, or [`  ORDINAL(index)  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#array_subscript_operator) for one-based indexes:
+To access array elements in the `some_numbers` column, specify which type of indexing you want to use: either [`OFFSET(index)`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#array_subscript_operator) for zero-based indexes, or [`ORDINAL(index)`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#array_subscript_operator) for one-based indexes:
 
     SELECT
       some_numbers,
@@ -40,9 +40,9 @@ To access array elements in the `  some_numbers  ` column, specify which type of
      | [5, 10]            | 10       | 5         |
      +--------------------+----------+-----------*/
 
-**Note:** `  OFFSET  ` and `  ORDINAL  ` will raise errors if the index is out of range. To avoid this, you can use `  SAFE_OFFSET  ` or `  SAFE_ORDINAL  ` to return `  NULL  ` instead of raising an error.
+**Note:** `OFFSET` and `ORDINAL` will raise errors if the index is out of range. To avoid this, you can use `SAFE_OFFSET` or `SAFE_ORDINAL` to return `NULL` instead of raising an error.
 
-To access the first or last element in an array, use the [`  ARRAY_FIRST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_first) or [`  ARRAY_LAST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_last) function:
+To access the first or last element in an array, use the [`ARRAY_FIRST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_first) or [`ARRAY_LAST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_last) function:
 
     SELECT
       some_numbers,
@@ -58,7 +58,7 @@ To access the first or last element in an array, use the [`  ARRAY_FIRST  `](htt
      | [5, 10]            | 5             | 10           |
      +--------------------+---------------+--------------*/
 
-With the `  ARRAY_FIRST  ` and `  ARRAY_LAST  ` functions, if an array is empty, the function produces an error:
+With the `ARRAY_FIRST` and `ARRAY_LAST` functions, if an array is empty, the function produces an error:
 
     WITH
       Sequences AS (
@@ -75,7 +75,7 @@ With the `  ARRAY_FIRST  ` and `  ARRAY_LAST  ` functions, if an array is empty,
     
     -- Error: ARRAY_LAST can't get the last element of an empty array.
 
-To handle empty arrays when accessing first and last elements, you can use the [`  ARRAY_LENGTH  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_length) function within a `  SAFE_OFFSET  ` of `  -1  ` . The query returns `  NULL  ` values for any empty arrays instead of an error:
+To handle empty arrays when accessing first and last elements, you can use the [`ARRAY_LENGTH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_length) function within a `SAFE_OFFSET` of `-1` . The query returns `NULL` values for any empty arrays instead of an error:
 
     SELECT
       some_numbers,
@@ -90,11 +90,11 @@ To handle empty arrays when accessing first and last elements, you can use the [
      | []                 | NULL         |
      +--------------------+--------------*/
 
-`  ARRAY_LENGTH(array)  ` returns the number of elements in the array. Because array offsets are 0-based, `  ARRAY_LENGTH(array) - 1  ` gives the offset of the last element. If the array is empty, `  ARRAY_LENGTH  ` is 0, and the offset becomes -1. `  SAFE_OFFSET(-1)  ` returns `  NULL  ` , so this approach safely handles empty arrays.
+`ARRAY_LENGTH(array)` returns the number of elements in the array. Because array offsets are 0-based, `ARRAY_LENGTH(array) - 1` gives the offset of the last element. If the array is empty, `ARRAY_LENGTH` is 0, and the offset becomes -1. `SAFE_OFFSET(-1)` returns `NULL` , so this approach safely handles empty arrays.
 
 ## Finding lengths
 
-The [`  ARRAY_LENGTH  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_length) function returns the length of an array.
+The [`ARRAY_LENGTH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_length) function returns the length of an array.
 
     WITH Sequences AS
       (SELECT [0, 1, 1, 2, 3, 5] AS some_numbers
@@ -114,9 +114,9 @@ The [`  ARRAY_LENGTH  `](https://docs.cloud.google.com/spanner/docs/reference/st
 
 ## Converting elements in an array to rows in a table
 
-To convert an `  ARRAY  ` into a set of rows, also known as "flattening," use the [`  UNNEST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) operator. `  UNNEST  ` takes an `  ARRAY  ` and returns a table with a single row for each element in the `  ARRAY  ` .
+To convert an `ARRAY` into a set of rows, also known as "flattening," use the [`UNNEST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) operator. `UNNEST` takes an `ARRAY` and returns a table with a single row for each element in the `ARRAY` .
 
-Because `  UNNEST  ` destroys the order of the `  ARRAY  ` elements, you may wish to restore order to the table. To do so, use the optional `  WITH OFFSET  ` clause to return an additional column with the offset for each array element, then use the `  ORDER BY  ` clause to order the rows by their offset.
+Because `UNNEST` destroys the order of the `ARRAY` elements, you may wish to restore order to the table. To do so, use the optional `WITH OFFSET` clause to return an additional column with the offset for each array element, then use the `ORDER BY` clause to order the rows by their offset.
 
 **Example**
 
@@ -139,13 +139,13 @@ Because `  UNNEST  ` destroys the order of the `  ARRAY  ` elements, you may wis
      | fred     | 7      |
      +----------+--------*/
 
-To flatten an entire column of type `  ARRAY  ` while preserving the values of the other columns in each row, use a correlated [`  INNER JOIN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#inner_join) to join the table containing the `  ARRAY  ` column to the `  UNNEST  ` output of that `  ARRAY  ` column.
+To flatten an entire column of type `ARRAY` while preserving the values of the other columns in each row, use a correlated [`INNER JOIN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#inner_join) to join the table containing the `ARRAY` column to the `UNNEST` output of that `ARRAY` column.
 
-With a [correlated](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#correlated_join) join, the `  UNNEST  ` operator references the `  ARRAY  ` typed column from each row in the source table, which appears previously in the `  FROM  ` clause. For each row `  N  ` in the source table, `  UNNEST  ` flattens the `  ARRAY  ` from row `  N  ` into a set of rows containing the `  ARRAY  ` elements, and then a correlated `  INNER JOIN  ` or `  CROSS JOIN  ` combines this new set of rows with the single row `  N  ` from the source table.
+With a [correlated](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#correlated_join) join, the `UNNEST` operator references the `ARRAY` typed column from each row in the source table, which appears previously in the `FROM` clause. For each row `N` in the source table, `UNNEST` flattens the `ARRAY` from row `N` into a set of rows containing the `ARRAY` elements, and then a correlated `INNER JOIN` or `CROSS JOIN` combines this new set of rows with the single row `N` from the source table.
 
 **Examples**
 
-The following example uses [`  UNNEST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) to return a row for each element in the array column. Because of the `  INNER JOIN  ` , the `  id  ` column contains the `  id  ` values for the row in `  Sequences  ` that contains each number.
+The following example uses [`UNNEST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) to return a row for each element in the array column. Because of the `INNER JOIN` , the `id` column contains the `id` values for the row in `Sequences` that contains each number.
 
     WITH
       Sequences AS (
@@ -175,7 +175,7 @@ The following example uses [`  UNNEST  `](https://docs.cloud.google.com/spanner/
      |    3 |                10 |
      +------+-------------------*/
 
-Note that for correlated joins the `  UNNEST  ` operator is optional and the `  INNER JOIN  ` can be expressed as a `  CROSS JOIN  ` or a comma cross join. Using the comma cross join shorthand notation, the previous example is consolidated as follows:
+Note that for correlated joins the `UNNEST` operator is optional and the `INNER JOIN` can be expressed as a `CROSS JOIN` or a comma cross join. Using the comma cross join shorthand notation, the previous example is consolidated as follows:
 
     WITH
       Sequences AS (
@@ -206,7 +206,7 @@ Note that for correlated joins the `  UNNEST  ` operator is optional and the `  
 
 ## Querying nested and repeated fields
 
-If a table contains an `  ARRAY  ` of `  STRUCT  ` or `  PROTO  ` values, you can [flatten the `  ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays#flattening_arrays) to query the fields of the `  STRUCT  ` or `  PROTO  ` . You can also flatten `  ARRAY  ` type fields of `  STRUCT  ` values and repeated fields of `  PROTO  ` values. GoogleSQL treats repeated `  PROTO  ` fields as `  ARRAY  ` s.
+If a table contains an `ARRAY` of `STRUCT` or `PROTO` values, you can [flatten the `ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays#flattening_arrays) to query the fields of the `STRUCT` or `PROTO` . You can also flatten `ARRAY` type fields of `STRUCT` values and repeated fields of `PROTO` values. GoogleSQL treats repeated `PROTO` fields as `ARRAY` s.
 
 For code samples in the Spanner client libraries, see the following:
 
@@ -219,9 +219,9 @@ For code samples in the Spanner client libraries, see the following:
   - [Python](https://github.com/googleapis/python-spanner/blob/a1d8b06c9719e258d0ad9140b2708b48e0b0e2ef/samples/samples/snippets.py#L1741-L1763)
   - [Ruby](https://github.com/GoogleCloudPlatform/ruby-docs-samples/blob/c517edb41fdb2e3b4fff4bd14278ac3cc6e84d10/spanner/spanner_samples.rb#L1040-L1060)
 
-### Querying `     STRUCT    ` elements in an array
+### Querying `STRUCT` elements in an array
 
-The following example uses `  UNNEST  ` with `  INNER JOIN  ` to flatten an `  ARRAY  ` of `  STRUCT  ` s.
+The following example uses `UNNEST` with `INNER JOIN` to flatten an `ARRAY` of `STRUCT` s.
 
     SELECT
       race,
@@ -301,13 +301,13 @@ You can find specific information from repeated fields. For example, the followi
      | 800M | Rudisha       |
      +------+---------------*/
 
-### Querying `     PROTO    ` elements in an array
+### Querying `PROTO` elements in an array
 
-To query the fields of `  PROTO  ` elements in an `  ARRAY  ` , use `  UNNEST  ` and `  INNER JOIN  ` .
+To query the fields of `PROTO` elements in an `ARRAY` , use `UNNEST` and `INNER JOIN` .
 
 **Example**
 
-The following query shows the contents of a table where one row contains an `  ARRAY  ` of `  PROTO  ` s. All of the `  PROTO  ` field values in the `  ARRAY  ` appear in a single row.
+The following query shows the contents of a table where one row contains an `ARRAY` of `PROTO` s. All of the `PROTO` field values in the `ARRAY` appear in a single row.
 
     WITH
       Albums AS (
@@ -342,11 +342,11 @@ The following query shows the contents of a table where one row contains an `  A
      |             | chart_name: "Oricon" rank: 24]  |
      +-------------+---------------------------------*/
 
-To return the value of the individual fields of the `  PROTO  ` values inside of an `  ARRAY  ` , use `  UNNEST  ` to flatten the `  ARRAY  ` , then use an `  INNER JOIN  ` to apply the `  UNNEST  ` operator to each row of the `  ARRAY  ` column. The `  INNER JOIN  ` also joins the duplicated values of other columns to the result of `  UNNEST  ` , so you can query these columns together with the fields of the `  PROTO  ` values in the `  ARRAY  ` .
+To return the value of the individual fields of the `PROTO` values inside of an `ARRAY` , use `UNNEST` to flatten the `ARRAY` , then use an `INNER JOIN` to apply the `UNNEST` operator to each row of the `ARRAY` column. The `INNER JOIN` also joins the duplicated values of other columns to the result of `UNNEST` , so you can query these columns together with the fields of the `PROTO` values in the `ARRAY` .
 
 **Example**
 
-The following example uses `  UNNEST  ` to flatten the `  ARRAY  ` `  charts  ` . The `  INNER JOIN  ` applies the `  UNNEST  ` operator to every row in the `  charts  ` column and joins the duplicated value of `  table.album_name  ` to the `  chart  ` table. This allows the query to include the `  table.album_name  ` column in the `  SELECT  ` list together with the `  PROTO  ` fields `  chart.chart_name  ` and `  chart.rank  ` .
+The following example uses `UNNEST` to flatten the `ARRAY` `charts` . The `INNER JOIN` applies the `UNNEST` operator to every row in the `charts` column and joins the duplicated value of `table.album_name` to the `chart` table. This allows the query to include the `table.album_name` column in the `SELECT` list together with the `PROTO` fields `chart.chart_name` and `chart.rank` .
 
     WITH
       Albums AS (
@@ -381,7 +381,7 @@ The following example uses `  UNNEST  ` to flatten the `  ARRAY  ` `  charts  ` 
      | Rubber Soul | Oricon     |   24 |
      +-------------+------------+------*/
 
-### Querying `     ARRAY    ` -type fields in a struct
+### Querying `ARRAY` -type fields in a struct
 
 You can also get information from nested repeated fields. For example, the following statement returns the runner who had the fastest lap in an 800M race.
 
@@ -416,7 +416,7 @@ You can also get information from nested repeated fields. For example, the follo
      | 800M | Kipketer                |
      +------+-------------------------*/
 
-Notice that the preceding query uses the comma operator ( `  ,  ` ) to perform a cross join and flatten the array. This is equivalent to using an explicit `  CROSS JOIN  ` , or the following example which uses an explicit `  INNER JOIN  ` :
+Notice that the preceding query uses the comma operator ( `,` ) to perform a cross join and flatten the array. This is equivalent to using an explicit `CROSS JOIN` , or the following example which uses an explicit `INNER JOIN` :
 
     WITH
       Races AS (
@@ -448,7 +448,7 @@ Notice that the preceding query uses the comma operator ( `  ,  ` ) to perform a
      | 800M | Kipketer                |
      +------+-------------------------*/
 
-Flattening arrays with `  INNER JOIN  ` excludes rows that have empty or `  NULL  ` arrays. If you want to include these rows, use `  LEFT JOIN  ` .
+Flattening arrays with `INNER JOIN` excludes rows that have empty or `NULL` arrays. If you want to include these rows, use `LEFT JOIN` .
 
     WITH
       Races AS (
@@ -492,9 +492,9 @@ Flattening arrays with `  INNER JOIN  ` excludes rows that have empty or `  NULL
 
 ### Querying repeated fields
 
-GoogleSQL represents a repeated field of a `  PROTO  ` as an `  ARRAY  ` . You can query this `  ARRAY  ` using `  UNNEST  ` and `  INNER JOIN  ` .
+GoogleSQL represents a repeated field of a `PROTO` as an `ARRAY` . You can query this `ARRAY` using `UNNEST` and `INNER JOIN` .
 
-The following example queries a table containing a column of type `  PROTO  ` with the alias `  album  ` and the repeated field `  song  ` . All values of `  song  ` for each `  album  ` appear on the same row.
+The following example queries a table containing a column of type `PROTO` with the alias `album` and the repeated field `song` . All values of `song` for each `album` appear on the same row.
 
 **Example**
 
@@ -522,11 +522,11 @@ The following example queries a table containing a column of type `  PROTO  ` wi
      | The Beatles | Rubber Soul      | [Drive My Car, The Word, Michelle]      |
      +-------------+------------------+-----------------------------------------*/
 
-To query the individual values of a repeated field, reference the field name using dot notation to return an `  ARRAY  ` , and [flatten the `  ARRAY  ` using `  UNNEST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays#flattening_arrays) . Use `  INNER JOIN  ` to apply the `  UNNEST  ` operator to each row and join the flattened `  ARRAY  ` to the duplicated value of any non-repeated fields or columns in that row.
+To query the individual values of a repeated field, reference the field name using dot notation to return an `ARRAY` , and [flatten the `ARRAY` using `UNNEST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays#flattening_arrays) . Use `INNER JOIN` to apply the `UNNEST` operator to each row and join the flattened `ARRAY` to the duplicated value of any non-repeated fields or columns in that row.
 
 **Example**
 
-The following example queries the table from the previous example and returns the values of the repeated field as an `  ARRAY  ` . The `  UNNEST  ` operator flattens the `  ARRAY  ` that represents the repeated field `  song  ` . `  INNER JOIN  ` applies the `  UNNEST  ` operator to each row and joins the output of `  UNNEST  ` to the duplicated value of the column `  band_name  ` and the non-repeated field `  album_name  ` within that row.
+The following example queries the table from the previous example and returns the values of the repeated field as an `ARRAY` . The `UNNEST` operator flattens the `ARRAY` that represents the repeated field `song` . `INNER JOIN` applies the `UNNEST` operator to each row and joins the output of `UNNEST` to the duplicated value of the column `band_name` and the non-repeated field `album_name` within that row.
 
     WITH Bands AS (
       SELECT
@@ -564,9 +564,9 @@ You can construct an array using array literals or array functions. To learn mor
 
 ## Creating arrays from subqueries
 
-A common task when working with arrays is turning a subquery result into an array. In GoogleSQL, you can accomplish this using the [`  ARRAY()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions) function.
+A common task when working with arrays is turning a subquery result into an array. In GoogleSQL, you can accomplish this using the [`ARRAY()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions) function.
 
-For example, consider the following operation on the `  Sequences  ` table:
+For example, consider the following operation on the `Sequences` table:
 
     WITH Sequences AS
       (SELECT [0, 1, 1, 2, 3, 5] AS some_numbers
@@ -585,13 +585,13 @@ For example, consider the following operation on the `  Sequences  ` table:
      | [5, 10]            | [10, 20]            |
      +--------------------+---------------------*/
 
-This example starts with a table named Sequences. This table contains a column, `  some_numbers  ` , of type `  ARRAY<INT64>  ` .
+This example starts with a table named Sequences. This table contains a column, `some_numbers` , of type `ARRAY<INT64>` .
 
-The query itself contains a subquery. This subquery selects each row in the `  some_numbers  ` column and uses [`  UNNEST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) to return the array as a set of rows. Next, it multiplies each value by two, and then re-combines the rows back into an array using the `  ARRAY()  ` operator.
+The query itself contains a subquery. This subquery selects each row in the `some_numbers` column and uses [`UNNEST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) to return the array as a set of rows. Next, it multiplies each value by two, and then re-combines the rows back into an array using the `ARRAY()` operator.
 
 ## Filtering arrays
 
-The following example uses a `  WHERE  ` clause in the `  ARRAY()  ` operator's subquery to filter the returned rows.
+The following example uses a `WHERE` clause in the `ARRAY()` operator's subquery to filter the returned rows.
 
 **Note:** In the following examples, the resulting rows are not ordered.
 
@@ -613,9 +613,9 @@ The following example uses a `  WHERE  ` clause in the `  ARRAY()  ` operator's 
      | []                     |
      +------------------------*/
 
-Notice that the third row contains an empty array, because the elements in the corresponding original row ( `  [5, 10]  ` ) didn't meet the filter requirement of `  x < 5  ` .
+Notice that the third row contains an empty array, because the elements in the corresponding original row ( `[5, 10]` ) didn't meet the filter requirement of `x < 5` .
 
-You can also filter arrays by using `  SELECT DISTINCT  ` to return only unique elements within an array.
+You can also filter arrays by using `SELECT DISTINCT` to return only unique elements within an array.
 
     WITH Sequences AS
       (SELECT [0, 1, 1, 2, 3, 5] AS some_numbers)
@@ -629,7 +629,7 @@ You can also filter arrays by using `  SELECT DISTINCT  ` to return only unique 
      | [0, 1, 2, 3, 5] |
      +-----------------*/
 
-You can also filter rows of arrays by using the [`  IN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#in_operators) keyword. This keyword filters rows containing arrays by determining if a specific value matches an element in the array.
+You can also filter rows of arrays by using the [`IN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#in_operators) keyword. This keyword filters rows containing arrays by determining if a specific value matches an element in the array.
 
     WITH Sequences AS
       (SELECT [0, 1, 1, 2, 3, 5] AS some_numbers
@@ -649,19 +649,19 @@ You can also filter rows of arrays by using the [`  IN  `](https://docs.cloud.go
      | []                 |
      +--------------------*/
 
-Notice again that the third row contains an empty array, because the array in the corresponding original row ( `  [5, 10]  ` ) didn't contain `  2  ` .
+Notice again that the third row contains an empty array, because the array in the corresponding original row ( `[5, 10]` ) didn't contain `2` .
 
 ## Scanning arrays
 
-To check if an array contains a specific value, use the [`  IN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#in_operators) operator with [`  UNNEST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) . To check if an array contains a value matching a condition, use the [`  EXISTS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#exists_operator) operator with `  UNNEST  ` .
+To check if an array contains a specific value, use the [`IN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#in_operators) operator with [`UNNEST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) . To check if an array contains a value matching a condition, use the [`EXISTS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#exists_operator) operator with `UNNEST` .
 
 ### Scanning for specific values
 
-To scan an array for a specific value, use the `  IN  ` operator with `  UNNEST  ` .
+To scan an array for a specific value, use the `IN` operator with `UNNEST` .
 
 **Example**
 
-The following example returns `  true  ` if the array contains the number 2.
+The following example returns `true` if the array contains the number 2.
 
     SELECT 2 IN UNNEST([0, 1, 1, 2, 3, 5]) AS contains_value;
     
@@ -671,11 +671,11 @@ The following example returns `  true  ` if the array contains the number 2.
      | true           |
      +----------------*/
 
-To return the rows of a table where the array column contains a specific value, filter the results of `  IN UNNEST  ` using the `  WHERE  ` clause.
+To return the rows of a table where the array column contains a specific value, filter the results of `IN UNNEST` using the `WHERE` clause.
 
 **Example**
 
-The following example returns the `  id  ` value for the rows where the array column contains the value 2.
+The following example returns the `id` value for the rows where the array column contains the value 2.
 
     WITH Sequences AS
       (SELECT 1 AS id, [0, 1, 1, 2, 3, 5] AS some_numbers
@@ -695,11 +695,11 @@ The following example returns the `  id  ` value for the rows where the array co
 
 ### Scanning for values that satisfy a condition
 
-To scan an array for values that match a condition, use `  UNNEST  ` to return a table of the elements in the array, use `  WHERE  ` to filter the resulting table in a subquery, and use `  EXISTS  ` to check if the filtered table contains any rows.
+To scan an array for values that match a condition, use `UNNEST` to return a table of the elements in the array, use `WHERE` to filter the resulting table in a subquery, and use `EXISTS` to check if the filtered table contains any rows.
 
 **Example**
 
-The following example returns the `  id  ` value for the rows where the array column contains values greater than 5.
+The following example returns the `id` value for the rows where the array column contains values greater than 5.
 
     WITH
       Sequences AS (
@@ -720,13 +720,13 @@ The following example returns the `  id  ` value for the rows where the array co
      | 3             |
      +---------------*/
 
-#### Scanning for `     STRUCT    ` field values that satisfy a condition
+#### Scanning for `STRUCT` field values that satisfy a condition
 
-To search an array of `  STRUCT  ` values for a field whose value matches a condition, use `  UNNEST  ` to return a table with a column for each `  STRUCT  ` field, then filter non-matching rows from the table using `  WHERE EXISTS  ` .
+To search an array of `STRUCT` values for a field whose value matches a condition, use `UNNEST` to return a table with a column for each `STRUCT` field, then filter non-matching rows from the table using `WHERE EXISTS` .
 
 **Example**
 
-The following example returns the rows where the array column contains a `  STRUCT  ` whose field `  b  ` has a value greater than 3.
+The following example returns the rows where the array column contains a `STRUCT` whose field `b` has a value greater than 3.
 
     WITH
       Sequences AS (
@@ -749,7 +749,7 @@ The following example returns the rows where the array column contains a `  STRU
 
 ## Arrays and aggregation
 
-With GoogleSQL, you can aggregate values into an array using `  ARRAY_AGG()  ` .
+With GoogleSQL, you can aggregate values into an array using `ARRAY_AGG()` .
 
     WITH Fruits AS
       (SELECT "apple" AS fruit
@@ -764,9 +764,9 @@ With GoogleSQL, you can aggregate values into an array using `  ARRAY_AGG()  ` .
      | [apple, pear, banana] |
      +-----------------------*/
 
-The array returned by `  ARRAY_AGG()  ` is in an arbitrary order, since the order in which the function concatenates values isn't guaranteed.
+The array returned by `ARRAY_AGG()` is in an arbitrary order, since the order in which the function concatenates values isn't guaranteed.
 
-You can also apply aggregate functions such as `  SUM()  ` to the elements in an array. For example, the following query returns the sum of array elements for each row of the `  Sequences  ` table.
+You can also apply aggregate functions such as `SUM()` to the elements in an array. For example, the following query returns the sum of array elements for each row of the `Sequences` table.
 
     WITH Sequences AS
       (SELECT [0, 1, 1, 2, 3, 5] AS some_numbers
@@ -785,7 +785,7 @@ You can also apply aggregate functions such as `  SUM()  ` to the elements in an
      | [5, 10]            | 15   |
      +--------------------+------*/
 
-GoogleSQL also supports an aggregate function, `  ARRAY_CONCAT_AGG()  ` , which concatenates the elements of an array column across rows.
+GoogleSQL also supports an aggregate function, `ARRAY_CONCAT_AGG()` , which concatenates the elements of an array column across rows.
 
     WITH Aggregates AS
       (SELECT [1,2] AS numbers
@@ -800,11 +800,11 @@ GoogleSQL also supports an aggregate function, `  ARRAY_CONCAT_AGG()  ` , which 
      | [1, 2, 3, 4, 5, 6]                               |
      +--------------------------------------------------*/
 
-**Note:** The array returned by `  ARRAY_CONCAT_AGG()  ` is non-deterministic, since the order in which the function concatenates values is not guaranteed.
+**Note:** The array returned by `ARRAY_CONCAT_AGG()` is non-deterministic, since the order in which the function concatenates values is not guaranteed.
 
 ## Converting arrays to strings
 
-The `  ARRAY_TO_STRING()  ` function allows you to convert an `  ARRAY<STRING>  ` to a single `  STRING  ` value or an `  ARRAY<BYTES>  ` to a single `  BYTES  ` value where the resulting value is the ordered concatenation of the array elements.
+The `ARRAY_TO_STRING()` function allows you to convert an `ARRAY<STRING>` to a single `STRING` value or an `ARRAY<BYTES>` to a single `BYTES` value where the resulting value is the ordered concatenation of the array elements.
 
 The second argument is the separator that the function will insert between inputs to produce the output; this second argument must be of the same type as the elements of the first argument.
 
@@ -821,11 +821,11 @@ Example:
      | Hello World |
      +-------------*/
 
-The optional third argument takes the place of `  NULL  ` values in the input array.
+The optional third argument takes the place of `NULL` values in the input array.
 
-  - If you omit this argument, then the function ignores `  NULL  ` array elements.
+  - If you omit this argument, then the function ignores `NULL` array elements.
 
-  - If you provide an empty string, the function inserts a separator for `  NULL  ` array elements.
+  - If you provide an empty string, the function inserts a separator for `NULL` array elements.
 
 Example:
 
@@ -843,7 +843,7 @@ Example:
 
 ## Combining arrays
 
-In some cases, you might want to combine multiple arrays into a single array. You can accomplish this using the `  ARRAY_CONCAT()  ` function.
+In some cases, you might want to combine multiple arrays into a single array. You can accomplish this using the `ARRAY_CONCAT()` function.
 
     SELECT ARRAY_CONCAT([1, 2], [3, 4], [5, 6]) AS count_to_six;
     
@@ -855,7 +855,7 @@ In some cases, you might want to combine multiple arrays into a single array. Yo
 
 ## Updating arrays
 
-Consider the following table called `  arrays_table  ` . The first column in the table is an array of integers and the second column contains two nested arrays of integers.
+Consider the following table called `arrays_table` . The first column in the table is an array of integers and the second column contains two nested arrays of integers.
 
     WITH arrays_table AS (
       SELECT
@@ -874,7 +874,7 @@ Consider the following table called `  arrays_table  ` . The first column in the
      | [3, 4]        | [30, 40]                  | [130, 400]                 |
      +---------------*---------------------------*----------------------------*/
 
-You can update arrays in a table by using the `  UPDATE  ` statement. The following example inserts the number 5 into the `  regular_array  ` column, and inserts the elements from the `  first_array  ` field of the `  nested_arrays  ` column into the `  second_array  ` field:
+You can update arrays in a table by using the `UPDATE` statement. The following example inserts the number 5 into the `regular_array` column, and inserts the elements from the `first_array` field of the `nested_arrays` column into the `second_array` field:
 
     UPDATE
       arrays_table
@@ -894,7 +894,7 @@ You can update arrays in a table by using the `  UPDATE  ` statement. The follow
 
 ## Building arrays of arrays
 
-GoogleSQL doesn't support building [arrays of arrays](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type) directly. Instead, you must create an array of structs, with each struct containing a field of type `  ARRAY  ` . To illustrate this, consider the following `  Points  ` table:
+GoogleSQL doesn't support building [arrays of arrays](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type) directly. Instead, you must create an array of structs, with each struct containing a field of type `ARRAY` . To illustrate this, consider the following `Points` table:
 
     CREATE TABLE Points (
       point ARRAY<INT64>,
@@ -913,7 +913,7 @@ Assume the table is populated with the following rows:
      | 5  | [5, 7]   |
      +----+----------*/
 
-Now, let's say you wanted to create an array consisting of each `  point  ` in the `  Points  ` table. To accomplish this, wrap the array returned from each row in a `  STRUCT  ` , as shown below.
+Now, let's say you wanted to create an array consisting of each `point` in the `Points` table. To accomplish this, wrap the array returned from each row in a `STRUCT` , as shown below.
 
     WITH Points AS
       (SELECT [1, 5] AS point

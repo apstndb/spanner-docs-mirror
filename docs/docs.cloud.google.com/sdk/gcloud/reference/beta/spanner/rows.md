@@ -4,28 +4,28 @@ gcloud beta spanner rows - manage the rows in Cloud Spanner databases
 
 SYNOPSIS
 
-`  gcloud beta spanner rows  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner rows` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage the rows in Cloud Spanner databases.
+`(BETA)` Manage the rows in Cloud Spanner databases.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  delete  `  
-    `  (BETA)  ` Delete a row in a Cloud Spanner database.
+    `(BETA)` Delete a row in a Cloud Spanner database.
   - `  insert  `  
-    `  (BETA)  ` Insert a row in a Cloud Spanner database.
+    `(BETA)` Insert a row in a Cloud Spanner database.
   - `  update  `  
-    `  (BETA)  ` Update a row in a Cloud Spanner database.
+    `(BETA)` Update a row in a Cloud Spanner database.
 
 NOTES
 

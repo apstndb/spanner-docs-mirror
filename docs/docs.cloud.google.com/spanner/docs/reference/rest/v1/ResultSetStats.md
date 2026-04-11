@@ -26,34 +26,22 @@ Additional statistics about a `  ResultSet  ` or `  PartialResultSet  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;queryPlan&quot;: {
-    object (QueryPlan)
-  },
-  &quot;queryStats&quot;: {
-    object
-  },
-
-  // Union field row_count can be only one of the following:
-  &quot;rowCountExact&quot;: string,
-  &quot;rowCountLowerBound&quot;: string
-  // End of list of possible types for union field row_count.
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;queryPlan&quot;: {object (QueryPlan)},&quot;queryStats&quot;: {object},// Union field row_count can be only one of the following:&quot;rowCountExact&quot;: string,&quot;rowCountLowerBound&quot;: string// End of list of possible types for union field row_count.}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  queryPlan  `
+`queryPlan`
 
-`  object ( QueryPlan  ` )
+` object ( QueryPlan  ` )
 
 `  QueryPlan  ` for the query associated with this result.
 
-`  queryStats  `
+`queryStats`
 
-`  object ( Struct  ` format)
+` object ( Struct  ` format)
 
 Aggregated statistics from the execution of the query. Only present when the query is profiled. For example, a query could return the statistics as follows:
 
@@ -63,17 +51,17 @@ Aggregated statistics from the execution of the query. Only present when the que
       "cpu_time": "1.19 secs"
     }
 
-Union field `  row_count  ` . The number of rows modified by the DML statement. `  row_count  ` can be only one of the following:
+Union field `row_count` . The number of rows modified by the DML statement. `row_count` can be only one of the following:
 
-`  rowCountExact  `
+`rowCountExact`
 
-`  string ( int64 format)  `
+`string ( int64 format)`
 
 Standard DML returns an exact count of rows that were modified.
 
-`  rowCountLowerBound  `
+`rowCountLowerBound`
 
-`  string ( int64 format)  `
+`string ( int64 format)`
 
 Partitioned DML doesn't offer exactly-once semantics, so it returns a lower bound of the rows modified.
 
@@ -92,31 +80,22 @@ Contains an ordered list of nodes appearing in the query plan.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;planNodes&quot;: [
-    {
-      object (PlanNode)
-    }
-  ],
-  &quot;queryAdvice&quot;: {
-    object (QueryAdvisorResult)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;planNodes&quot;: [{object (PlanNode)}],&quot;queryAdvice&quot;: {object (QueryAdvisorResult)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  planNodes[]  `
+`planNodes[]`
 
-`  object ( PlanNode  ` )
+` object ( PlanNode  ` )
 
-The nodes in the query plan. Plan nodes are returned in pre-order starting with the plan root. Each `  PlanNode  ` 's `  id  ` corresponds to its index in `  planNodes  ` .
+The nodes in the query plan. Plan nodes are returned in pre-order starting with the plan root. Each `  PlanNode  ` 's `id` corresponds to its index in `planNodes` .
 
-`  queryAdvice  `
+`queryAdvice`
 
-`  object ( QueryAdvisorResult  ` )
+` object ( QueryAdvisorResult  ` )
 
 Optional. The advise/recommendations for a query. Currently this field will be serving index recommendations for a query.
 
@@ -135,64 +114,46 @@ Node information for nodes appearing in a `  QueryPlan.plan_nodes  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;index&quot;: integer,
-  &quot;kind&quot;: enum (Kind),
-  &quot;displayName&quot;: string,
-  &quot;childLinks&quot;: [
-    {
-      object (ChildLink)
-    }
-  ],
-  &quot;shortRepresentation&quot;: {
-    object (ShortRepresentation)
-  },
-  &quot;metadata&quot;: {
-    object
-  },
-  &quot;executionStats&quot;: {
-    object
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;index&quot;: integer,&quot;kind&quot;: enum (Kind),&quot;displayName&quot;: string,&quot;childLinks&quot;: [{object (ChildLink)}],&quot;shortRepresentation&quot;: {object (ShortRepresentation)},&quot;metadata&quot;: {object},&quot;executionStats&quot;: {object}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  index  `
+`index`
 
-`  integer  `
+`integer`
 
-The `  PlanNode  ` 's index in `  node list  ` .
+The `PlanNode` 's index in `  node list  ` .
 
-`  kind  `
+`kind`
 
-`  enum ( Kind  ` )
+` enum ( Kind  ` )
 
 Used to determine the type of node. May be needed for visualizing different kinds of nodes differently. For example, If the node is a `  SCALAR  ` node, it will have a condensed representation which can be used to directly embed a description of the node in its parent.
 
-`  displayName  `
+`displayName`
 
-`  string  `
+`string`
 
 The display name for the node.
 
-`  childLinks[]  `
+`childLinks[]`
 
-`  object ( ChildLink  ` )
+` object ( ChildLink  ` )
 
-List of child node `  index  ` es and their relationship to this parent.
+List of child node `index` es and their relationship to this parent.
 
-`  shortRepresentation  `
+`shortRepresentation`
 
-`  object ( ShortRepresentation  ` )
+` object ( ShortRepresentation  ` )
 
 Condensed representation for `  SCALAR  ` nodes.
 
-`  metadata  `
+`metadata`
 
-`  object ( Struct  ` format)
+` object ( Struct  ` format)
 
 Attributes relevant to the node contained in a group of key-value pairs. For example, a Parameter Reference node could have the following information in its metadata:
 
@@ -201,9 +162,9 @@ Attributes relevant to the node contained in a group of key-value pairs. For exa
       "parameterType": "array"
     }
 
-`  executionStats  `
+`executionStats`
 
-`  object ( Struct  ` format)
+` object ( Struct  ` format)
 
 The execution statistics associated with the node, contained in a group of key-value pairs. Only present if the plan was returned as a result of a profile query. For example, number of executions, number of rows/time per execution etc.
 
@@ -213,15 +174,15 @@ The kind of `  PlanNode  ` . Distinguishes between the two different kinds of no
 
 Enums
 
-`  KIND_UNSPECIFIED  `
+`KIND_UNSPECIFIED`
 
 Not specified.
 
-`  RELATIONAL  `
+`RELATIONAL`
 
-Denotes a Relational operator node in the expression tree. Relational operators represent iterative processing of rows during query execution. For example, a `  TableScan  ` operation that reads rows from a table.
+Denotes a Relational operator node in the expression tree. Relational operators represent iterative processing of rows during query execution. For example, a `TableScan` operation that reads rows from a table.
 
-`  SCALAR  `
+`SCALAR`
 
 Denotes a Scalar node in the expression tree. Scalar nodes represent non-iterable entities in the query plan. For example, constants or arithmetic operators appearing inside predicate expressions or references to column names.
 
@@ -251,27 +212,27 @@ Metadata associated with a parent-child relationship appearing in a `  PlanNode 
 
 Fields
 
-`  childIndex  `
+`childIndex`
 
-`  integer  `
+`integer`
 
 The node to which the link points.
 
-`  type  `
+`type`
 
-`  string  `
+`string`
 
 The type of the link. For example, in Hash Joins this could be used to distinguish between the build child and the probe child, or in the case of the child being an output variable, to represent the tag associated with the output variable.
 
-`  variable  `
+`variable`
 
-`  string  `
+`string`
 
-Only present if the child node is `  SCALAR  ` and corresponds to an output variable of the parent node. The field carries the name of the output variable. For example, a `  TableScan  ` operator that reads rows from a table will have child links to the `  SCALAR  ` nodes representing the output variables created for each column that is read by the operator. The corresponding `  variable  ` fields will be set to the variable names assigned to the columns.
+Only present if the child node is `  SCALAR  ` and corresponds to an output variable of the parent node. The field carries the name of the output variable. For example, a `TableScan` operator that reads rows from a table will have child links to the `SCALAR` nodes representing the output variables created for each column that is read by the operator. The corresponding `variable` fields will be set to the variable names assigned to the columns.
 
 ## ShortRepresentation
 
-Condensed representation of a node and its subtree. Only present for `  SCALAR  ` `  PlanNode(s)  ` .
+Condensed representation of a node and its subtree. Only present for `SCALAR` `  PlanNode(s)  ` .
 
 <table>
 <colgroup>
@@ -297,17 +258,17 @@ Condensed representation of a node and its subtree. Only present for `  SCALAR  
 
 Fields
 
-`  description  `
+`description`
 
-`  string  `
+`string`
 
 A string representation of the expression subtree rooted at this node.
 
-`  subqueries  `
+`subqueries`
 
-`  map (key: string, value: integer)  `
+`map (key: string, value: integer)`
 
-A mapping of (subquery variable name) -\> (subquery node id) for cases where the `  description  ` string of this node references a `  SCALAR  ` subquery contained in the expression subtree rooted at this node. The referenced `  SCALAR  ` subquery may not necessarily be a direct child of this node.
+A mapping of (subquery variable name) -\> (subquery node id) for cases where the `description` string of this node references a `SCALAR` subquery contained in the expression subtree rooted at this node. The referenced `SCALAR` subquery may not necessarily be a direct child of this node.
 
 ## QueryAdvisorResult
 
@@ -324,22 +285,16 @@ Output of query advisor analysis.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;indexAdvice&quot;: [
-    {
-      object (IndexAdvice)
-    }
-  ]
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;indexAdvice&quot;: [{object (IndexAdvice)}]}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  indexAdvice[]  `
+`indexAdvice[]`
 
-`  object ( IndexAdvice  ` )
+` object ( IndexAdvice  ` )
 
 Optional. Index Recommendation for a query. This is an optional field and the recommendation will only be available when the recommendation guarantees significant improvement in query performance.
 
@@ -370,14 +325,14 @@ Recommendation to add new indexes to run queries more efficiently.
 
 Fields
 
-`  ddl[]  `
+`ddl[]`
 
-`  string  `
+`string`
 
 Optional. DDL statements to add new indexes that will improve the query.
 
-`  improvementFactor  `
+`improvementFactor`
 
-`  number  `
+`number`
 
 Optional. Estimated latency improvement factor. For example if the query currently takes 500 ms to run and the estimated latency with new indexes is 100 ms this field will be 5.

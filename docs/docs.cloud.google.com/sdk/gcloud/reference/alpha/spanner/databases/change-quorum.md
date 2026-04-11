@@ -4,11 +4,11 @@ gcloud alpha spanner databases change-quorum - change quorum of a Cloud Spanner 
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases change-quorum  ` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) ( `  --dual-region  ` | `  --serving-location  ` = `  SERVING_LOCATION  ` `  --single-region  ` ) \[ `  --etag  ` = `  ETAG  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases change-quorum` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) ( `  --dual-region  ` | `  --serving-location  ` = `  SERVING_LOCATION  ` `  --single-region  ` ) \[ `  --etag  ` = `  ETAG  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Change quorum of a Cloud Spanner database.
+`(ALPHA)` Change quorum of a Cloud Spanner database.
 
 EXAMPLES
 
@@ -18,7 +18,7 @@ To trigger change quorum from single-region mode to dual-region mode, run:
 gcloud alpha spanner databases change-quorum my-database-id --instance=my-instance-id --dual-region
 ```
 
-To trigger change quorum from dual-region mode to single-region mode with serving location as `  asia-south1  ` , run:
+To trigger change quorum from dual-region mode to single-region mode with serving location as `asia-south1` , run:
 
 ``` wrap-code
 gcloud alpha spanner databases change-quorum my-database-id --instance=my-instance-id --single-region --serving-location=asia-south1
@@ -34,61 +34,61 @@ POSITIONAL ARGUMENTS
 
 Database resource - The Cloud Spanner database to change quorum. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  database  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `database` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 This must be specified.
 
   - `  DATABASE  `  
     ID of the database or fully qualified identifier for the database.
     
-    To set the `  database  ` attribute:
+    To set the `database` attribute:
     
-      - provide the argument `  database  ` on the command line.
+      - provide the argument `database` on the command line.
     
     This positional argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     The Cloud Spanner instance for the database.
     
-    To set the `  instance  ` attribute:
+    To set the `instance` attribute:
     
-      - provide the argument `  database  ` on the command line with a fully specified name;
-      - provide the argument `  --instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `database` on the command line with a fully specified name;
+      - provide the argument `--instance` on the command line;
+      - set the property `spanner/instance` .
 
 REQUIRED FLAGS
 
 Exactly one of these must be specified:
 
   - Command-line flag for dual-region quorum change:  
-    `  --dual-region  `  
+    `--dual-region`  
     Switch to dual-region quorum type.
 
   - Command-line flags for single-region quorum change:  
-    `  --serving-location  ` = `  SERVING_LOCATION  `  
+    `--serving-location` = `  SERVING_LOCATION  `  
     The cloud Spanner location.
     
     This flag argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --single-region  `  
+  - `--single-region`  
     Switch to single-region quorum type.
     
     This flag argument must be specified if any of the other arguments in this group are specified.
 
 OPTIONAL FLAGS
 
-  - `  --etag  ` = `  ETAG  `  
+  - `--etag` = `  ETAG  `  
     Used for optimistic concurrency control.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

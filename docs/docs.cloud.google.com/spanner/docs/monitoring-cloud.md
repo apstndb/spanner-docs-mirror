@@ -63,9 +63,9 @@ To get started with this example, follow these steps:
 
 To add latency metrics to the chart, follow these steps:
 
-1.  In the **Find resource type and metric** box, enter the value `  spanner.googleapis.com/api/request_latencies  ` , then click the row that appears below the box.
+1.  In the **Find resource type and metric** box, enter the value `spanner.googleapis.com/api/request_latencies` , then click the row that appears below the box.
 
-2.  In the **Filter** box, enter the value `  instance_id  ` , then enter the instance ID you want to examine and click **Apply** .
+2.  In the **Filter** box, enter the value `instance_id` , then enter the instance ID you want to examine and click **Apply** .
 
 3.  In the **Aggregator** drop-down list, click **max** .
 
@@ -79,8 +79,8 @@ To add latency metrics to the chart, follow these steps:
 To add CPU utilization metrics to the chart, follow these steps:
 
 1.  Click **add Add metric** .
-2.  In the **Find resource type and metric** box, enter the value `  spanner.googleapis.com/instance/cpu/utilization  ` , then click the row that appears below the box.
-3.  In the **Filter** box, enter the value `  instance_id  ` , then enter the instance ID you want to examine and click **Apply** .
+2.  In the **Find resource type and metric** box, enter the value `spanner.googleapis.com/instance/cpu/utilization` , then click the row that appears below the box.
+3.  In the **Filter** box, enter the value `instance_id` , then enter the instance ID you want to examine and click **Apply** .
 4.  In the **Aggregator** drop-down list, click **max** .
 
 You now have a chart that shows the CPU utilization and latency metrics for a Spanner instance. If both metrics are higher than expected at the same time, you can [take additional steps to correct the issue](https://docs.cloud.google.com/spanner/docs/latency-metrics) .
@@ -155,33 +155,33 @@ Value</th>
 In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
 In the <strong>Metrics</strong> menu, select <strong>CPU Utilization by priority</strong> .<br />
 <br />
-(The metric.type is <code dir="ltr" translate="no">         spanner.googleapis.com/instance/cpu/utilization_by_priority        </code> ).</td>
+(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/cpu/utilization_by_priority</code> ).</td>
 </tr>
 <tr class="even">
 <td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">         instance_id =                   YOUR_INSTANCE_ID         </code><br />
-<code dir="ltr" translate="no">         priority = high        </code></td>
+<td><code dir="ltr" translate="no">instance_id =           YOUR_INSTANCE_ID         </code><br />
+<code dir="ltr" translate="no">priority = high</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Across time series<br />
 Time series group by</strong></td>
-<td><code dir="ltr" translate="no">         location        </code> for multi-region instances;<br />
+<td><code dir="ltr" translate="no">location</code> for multi-region instances;<br />
 leave it blank for regional instances.</td>
 </tr>
 <tr class="even">
 <td><strong>Across time series<br />
 Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">         sum        </code><br />
+<td><code dir="ltr" translate="no">sum</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">         10 m        </code><br />
+<td><code dir="ltr" translate="no">10 m</code><br />
 </td>
 </tr>
 <tr class="even">
 <td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">         mean        </code></td>
+<td><code dir="ltr" translate="no">mean</code></td>
 </tr>
 </tbody>
 </table>
@@ -202,24 +202,24 @@ Value</th>
 <tbody>
 <tr class="odd">
 <td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">         Threshold        </code></td>
+<td><code dir="ltr" translate="no">Threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Alert trigger</strong></td>
-<td><code dir="ltr" translate="no">         Any time series violates        </code></td>
+<td><code dir="ltr" translate="no">Any time series violates</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">         Above threshold        </code></td>
+<td><code dir="ltr" translate="no">Above threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Threshold value</strong></td>
-<td><code dir="ltr" translate="no">         45%        </code> for multi-region instances;<br />
-<code dir="ltr" translate="no">         65%        </code> for regional instances.</td>
+<td><code dir="ltr" translate="no">45%</code> for multi-region instances;<br />
+<code dir="ltr" translate="no">65%</code> for regional instances.</td>
 </tr>
 <tr class="odd">
 <td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">         10 minutes        </code></td>
+<td><code dir="ltr" translate="no">10 minutes</code></td>
 </tr>
 </tbody>
 </table>
@@ -286,26 +286,26 @@ Value</th>
 In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
 In the <strong>Metrics</strong> menu, select <strong>Smoothed CPU utilization</strong> .<br />
 <br />
-(The metric.type is <code dir="ltr" translate="no">         spanner.googleapis.com/instance/cpu/smoothed_utilization        </code> ).</td>
+(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/cpu/smoothed_utilization</code> ).</td>
 </tr>
 <tr class="even">
 <td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">         instance_id =                   YOUR_INSTANCE_ID         </code></td>
+<td><code dir="ltr" translate="no">instance_id =           YOUR_INSTANCE_ID         </code></td>
 </tr>
 <tr class="odd">
 <td><strong>Across time series<br />
 Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">         sum        </code><br />
+<td><code dir="ltr" translate="no">sum</code><br />
 </td>
 </tr>
 <tr class="even">
 <td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">         10 m        </code><br />
+<td><code dir="ltr" translate="no">10 m</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">         mean        </code></td>
+<td><code dir="ltr" translate="no">mean</code></td>
 </tr>
 </tbody>
 </table>
@@ -326,23 +326,23 @@ Value</th>
 <tbody>
 <tr class="odd">
 <td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">         Threshold        </code></td>
+<td><code dir="ltr" translate="no">Threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Alert trigger</strong></td>
-<td><code dir="ltr" translate="no">         Any time series violates        </code></td>
+<td><code dir="ltr" translate="no">Any time series violates</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">         Above threshold        </code></td>
+<td><code dir="ltr" translate="no">Above threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Threshold</strong></td>
-<td><code dir="ltr" translate="no">         90%        </code></td>
+<td><code dir="ltr" translate="no">90%</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">         10 minutes        </code></td>
+<td><code dir="ltr" translate="no">10 minutes</code></td>
 </tr>
 </tbody>
 </table>
@@ -409,26 +409,26 @@ Value</th>
 In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
 In the <strong>Metrics</strong> menu, select <strong>Storage used</strong> .<br />
 <br />
-(The metric.type is <code dir="ltr" translate="no">         spanner.googleapis.com/instance/storage/utilization        </code> ).</td>
+(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/storage/utilization</code> ).</td>
 </tr>
 <tr class="even">
 <td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">         instance_id =                   YOUR_INSTANCE_ID         </code></td>
+<td><code dir="ltr" translate="no">instance_id =           YOUR_INSTANCE_ID         </code></td>
 </tr>
 <tr class="odd">
 <td><strong>Across time series<br />
 Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">         sum        </code><br />
+<td><code dir="ltr" translate="no">sum</code><br />
 </td>
 </tr>
 <tr class="even">
 <td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">         10 m        </code><br />
+<td><code dir="ltr" translate="no">10 m</code><br />
 </td>
 </tr>
 <tr class="odd">
 <td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">         max        </code></td>
+<td><code dir="ltr" translate="no">max</code></td>
 </tr>
 </tbody>
 </table>
@@ -449,15 +449,15 @@ Value</th>
 <tbody>
 <tr class="odd">
 <td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">         Threshold        </code></td>
+<td><code dir="ltr" translate="no">Threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Condition triggers if</strong></td>
-<td><code dir="ltr" translate="no">         Any time series violates        </code></td>
+<td><code dir="ltr" translate="no">Any time series violates</code></td>
 </tr>
 <tr class="odd">
 <td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">         Above threshold        </code></td>
+<td><code dir="ltr" translate="no">Above threshold</code></td>
 </tr>
 <tr class="even">
 <td><strong>Threshold value</strong></td>
@@ -465,7 +465,7 @@ Value</th>
 </tr>
 <tr class="odd">
 <td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">         10 minutes        </code></td>
+<td><code dir="ltr" translate="no">10 minutes</code></td>
 </tr>
 </tbody>
 </table>

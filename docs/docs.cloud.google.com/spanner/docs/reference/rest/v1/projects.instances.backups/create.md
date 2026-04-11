@@ -7,7 +7,7 @@
   - [IAM Permissions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#body.aspect_1)
   - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#try-it)
 
-Starts creating a new Cloud Spanner Backup. The returned backup long-running operation will have a name of the format `  projects/<project>/instances/<instance>/backups/<backup>/operations/<operationId>  ` and can be used to track creation of the backup. The metadata field type is `  CreateBackupMetadata  ` . The response field type is `  Backup  ` , if successful. Cancelling the returned operation will stop the creation and delete the backup. There can be only one pending backup creation per database. Backup creation of different databases can run concurrently.
+Starts creating a new Cloud Spanner Backup. The returned backup long-running operation will have a name of the format `projects/<project>/instances/<instance>/backups/<backup>/operations/<operationId>` and can be used to track creation of the backup. The metadata field type is `  CreateBackupMetadata  ` . The response field type is `  Backup  ` , if successful. Cancelling the returned operation will stop the creation and delete the backup. There can be only one pending backup creation per database. Backup creation of different databases can run concurrently.
 
 ### HTTP request
 
@@ -44,7 +44,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{parent=projects/*/instances/*}/backups  `
+`POST https://spanner.googleapis.com/v1/{parent=projects/*/instances/*}/backups`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -52,31 +52,31 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  parent  `
+`parent`
 
-`  string  `
+`string`
 
-Required. The name of the instance in which the backup is created. This must be the same instance that contains the database the backup is created from. The backup will be stored in the locations specified in the instance configuration of this instance. Values are of the form `  projects/<project>/instances/<instance>  ` .
+Required. The name of the instance in which the backup is created. This must be the same instance that contains the database the backup is created from. The backup will be stored in the locations specified in the instance configuration of this instance. Values are of the form `projects/<project>/instances/<instance>` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  parent  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `parent` :
 
-  - `  spanner.backups.create  `
+  - `spanner.backups.create`
 
 ### Query parameters
 
 Parameters
 
-`  backupId  `
+`backupId`
 
-`  string  `
+`string`
 
-Required. The id of the backup to be created. The `  backupId  ` appended to `  parent  ` forms the full backup name of the form `  projects/<project>/instances/<instance>/backups/<backupId>  ` .
+Required. The id of the backup to be created. The `backupId` appended to `parent` forms the full backup name of the form `projects/<project>/instances/<instance>/backups/<backupId>` .
 
-`  encryptionConfig  `
+`encryptionConfig`
 
-`  object ( CreateBackupEncryptionConfig  ` )
+` object ( CreateBackupEncryptionConfig  ` )
 
-Optional. The encryption configuration used to encrypt the backup. If this field is not specified, the backup will use the same encryption configuration as the database by default, namely `  encryptionType  ` = `  USE_DATABASE_ENCRYPTION  ` .
+Optional. The encryption configuration used to encrypt the backup. If this field is not specified, the backup will use the same encryption configuration as the database by default, namely `  encryptionType  ` = `USE_DATABASE_ENCRYPTION` .
 
 ### Request body
 
@@ -90,19 +90,19 @@ If successful, the response body contains a newly created instance of `  Operati
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
 ### IAM Permissions
 
-Requires the following [IAM](https://cloud.google.com/iam/docs) permission on the `  database  ` resource:
+Requires the following [IAM](https://cloud.google.com/iam/docs) permission on the `database` resource:
 
-  - `  spanner.databases.createBackup  `
+  - `spanner.databases.createBackup`
 
-Requires the following [IAM](https://cloud.google.com/iam/docs) permission on the `  parent  ` resource:
+Requires the following [IAM](https://cloud.google.com/iam/docs) permission on the `parent` resource:
 
-  - `  spanner.backups.create  `
+  - `spanner.backups.create`
 
 For more information, see the [IAM documentation](https://cloud.google.com/iam/docs) .

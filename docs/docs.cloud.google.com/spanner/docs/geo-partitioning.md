@@ -24,7 +24,7 @@ The following are common use cases:
 
 ## How geo-partitioning works
 
-All Spanner instances have a main instance partition that is called the `  default  ` instance partition. If you don't create additional instance partitions, all database objects are stored in the default partition, which is in the same location as your instance configuration. If you want to partition the data in a database, you must create additional instance partitions in your instance.
+All Spanner instances have a main instance partition that is called the `default` instance partition. If you don't create additional instance partitions, all database objects are stored in the default partition, which is in the same location as your instance configuration. If you want to partition the data in a database, you must create additional instance partitions in your instance.
 
 To use geo-partitioning in a database:
 
@@ -40,7 +40,7 @@ The placement key for each row in a placement table must be assigned to one of t
 
   - A value which matches the name of one of the user-created placements defined for that database; or
 
-  - The placement key value, `  default  ` , which stores the data in the default placement.
+  - The placement key value, `default` , which stores the data in the default placement.
 
 For instructions on how to use instance partitions, see [create and manage instance partitions](https://docs.cloud.google.com/spanner/docs/create-manage-partitions) .
 
@@ -62,7 +62,7 @@ The following limitations apply during the [Preview](https://cloud.google.com/pr
 
   - You can't create an instance partition using a [dual-region configuration](https://docs.cloud.google.com/spanner/docs/geo-partitioning#limitations) .
   - For each instance partition, the compute capacity must be at least one node (1000 processing units).
-  - For a given instance, you can't create more than one instance partition that uses the same base instance configuration. For example, within `  test-instance  ` , you can't create two partitions, `  partition-1  ` and `  partition-2  ` that both use `  us-central1  ` as the instance partition configuration.
+  - For a given instance, you can't create more than one instance partition that uses the same base instance configuration. For example, within `test-instance` , you can't create two partitions, `partition-1` and `partition-2` that both use `us-central1` as the instance partition configuration.
   - For every node in your instance partition, you can place a maximum of 100 million placement rows. You can view the number of placement rows that have been placed in each of your instance partitions on the Instance partitions page of the Google Cloud console.
   - For every node in your destination instance partition, Spanner can [move](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#move-row) around 10 placement rows per second.
   - You can't create [incremental backups](https://docs.cloud.google.com/spanner/docs/backup#incremental-backups) or [copy the backup](https://docs.cloud.google.com/spanner/docs/backup#how-backup-copy-works) .
@@ -71,17 +71,17 @@ The following limitations apply during the [Preview](https://cloud.google.com/pr
   - You can't move an instance that has instance partitions. (You can move individual rows into different instance partitions so you don't need to move the instance.)
   - Using instance partitions doesn't guarantee compliance and regulatory requirements.
   - [Change streams](https://docs.cloud.google.com/spanner/docs/change-streams) don't support partitioned data.
-  - If you use an `  INSERT  ` or `  DELETE  ` DML statement for a placement table, that statement must be the only statement in the [transaction](https://docs.cloud.google.com/spanner/docs/transactions) .
-  - The read-write transaction mode lets you reference only the primary keys of a placement table in the `  WHERE  ` clause. If you need to reference a non-primary key column of a placement table in the `  WHERE  ` clause, then you can use one of the following alternatives:
+  - If you use an `INSERT` or `DELETE` DML statement for a placement table, that statement must be the only statement in the [transaction](https://docs.cloud.google.com/spanner/docs/transactions) .
+  - The read-write transaction mode lets you reference only the primary keys of a placement table in the `WHERE` clause. If you need to reference a non-primary key column of a placement table in the `WHERE` clause, then you can use one of the following alternatives:
       - If you only need read-only access, switch to the read-only transaction mode.
-      - If you need to make updates, either use the partitioned DML transaction mode, or find the primary keys in a read-only transaction query, and then, in a separate read-write transaction, reference the returned primary keys in the `  WHERE  ` clause.
+      - If you need to make updates, either use the partitioned DML transaction mode, or find the primary keys in a read-only transaction query, and then, in a separate read-write transaction, reference the returned primary keys in the `WHERE` clause.
   - You can't use [named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .
   - You can't create instance partitions in [free trial instances](https://docs.cloud.google.com/spanner/docs/free-trial-instance) or granular-sized instances smaller than one node (1000 processing units).
   - You can't alter a placement. Instead, you can [create a new placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#create-placement) , use [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) to update the placement of your data to a new placement, and then [drop the original placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#drop-placement) .
 
 ## Access control with IAM
 
-You need to have the `  spanner.instancePartitions.create  ` , `  spanner.instancePartitions.update  ` , and `  spanner.instancePartitions.delete  ` permissions to create and manage instance partitions. If you only need to view the instance partitions, you need to have the `  spanner.instancePartitions.list  ` or `  spanner.instancePartitions.get  ` permission. For more information, see [IAM overview](https://docs.cloud.google.com/spanner/docs/iam) .
+You need to have the `spanner.instancePartitions.create` , `spanner.instancePartitions.update` , and `spanner.instancePartitions.delete` permissions to create and manage instance partitions. If you only need to view the instance partitions, you need to have the `spanner.instancePartitions.list` or `spanner.instancePartitions.get` permission. For more information, see [IAM overview](https://docs.cloud.google.com/spanner/docs/iam) .
 
 For information on how to grant Spanner IAM permissions, see [Apply IAM permissions](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
 

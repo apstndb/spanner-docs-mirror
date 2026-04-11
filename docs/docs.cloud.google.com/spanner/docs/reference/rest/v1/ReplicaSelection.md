@@ -22,8 +22,8 @@ ReplicaSelection identifies replicas with common properties.
 
 Fields
 
-`  location  `
+`location`
 
-`  string  `
+`string`
 
 Required. Name of the location of the replicas (for example, "us-central1").

@@ -34,6 +34,6 @@ To move a database, follow these steps:
     
     If you need to create a new instance, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations) .
 
-2.  Use the [`  gcloud spanner instances move  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/move) command to move the database to the new instance.
+2.  Use the [`gcloud spanner instances move`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/move) command to move the database to the new instance.
 
-To prevent a database from being created in a region, add the region to the `  denied_values  ` list when you set the organization policy for the database. For more information, see [Set the organization policy](https://docs.cloud.google.com/resource-manager/docs/organization-policy/defining-locations#setting_the_organization_policy) .
+To prevent a database from being created in a region, add the region to the `denied_values` list when you set the organization policy for the database. For more information, see [Set the organization policy](https://docs.cloud.google.com/resource-manager/docs/organization-policy/defining-locations#setting_the_organization_policy) .

@@ -36,9 +36,9 @@ There are several ways to zoom in or out:
 
   - Scroll up or down within the heatmap.
   - Click the **Rectangular Zoom** *crop* button, then click and drag to select an area to enlarge.
-  - Press and hold the `  Shift  ` key, then click and drag to select an area to enlarge.
-  - Return to the previous area of the heatmap by pressing the `  Backspace  ` or `  Delete  ` key.
-  - Zoom out to view the entire table by clicking the **Reset Zoom** *zoom\_out\_map* button or pressing the `  R  ` key.
+  - Press and hold the `Shift` key, then click and drag to select an area to enlarge.
+  - Return to the previous area of the heatmap by pressing the `Backspace` or `Delete` key.
+  - Zoom out to view the entire table by clicking the **Reset Zoom** *zoom\_out\_map* button or pressing the `R` key.
 
 ## Pinning details about a metric
 
@@ -60,7 +60,7 @@ To view multiple metrics and their values at the same time, click **Show info pa
 
 To examine several metrics at once, use the following tools in the info panel:
 
-  - To show or hide miniature heatmaps for all metrics, click `  Expand All  ` or `  Collapse All  ` at the top right.
+  - To show or hide miniature heatmaps for all metrics, click `Expand All` or `Collapse All` at the top right.
 
   - To show an individual metric's heatmap, click the metric name.
 

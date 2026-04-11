@@ -4,26 +4,26 @@ gcloud alpha spanner databases splits - manage the split points for Spanner data
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases splits  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases splits` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage the split points for Spanner databases.
+`(ALPHA)` Manage the split points for Spanner databases.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  add  `  
-    `  (ALPHA)  ` Add split points to a Spanner database.
+    `(ALPHA)` Add split points to a Spanner database.
   - `  list  `  
-    `  (ALPHA)  ` List split points that are added by a user to a Spanner database.
+    `(ALPHA)` List split points that are added by a user to a Spanner database.
 
 NOTES
 

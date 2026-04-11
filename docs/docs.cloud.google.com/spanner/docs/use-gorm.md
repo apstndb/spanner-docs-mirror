@@ -1,6 +1,6 @@
 GORM is an object-relational mapping tool for the Go programming language. It provides a framework for mapping an object-oriented domain model to a relational database.
 
-You can integrate GoogleSQL-dialect databases with GORM using the open source [Spanner Dialect](https://github.com/googleapis/go-gorm-spanner) ( `  SpannerDialect  ` ).
+You can integrate GoogleSQL-dialect databases with GORM using the open source [Spanner Dialect](https://github.com/googleapis/go-gorm-spanner) ( `SpannerDialect` ).
 
 ## Set up GORM with Spanner GoogleSQL-dialect databases
 

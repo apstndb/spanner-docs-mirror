@@ -25,11 +25,11 @@ To try out a codelab, see [Getting started with Spanner Graph](https://codelabs.
 
 <!-- end list -->
 
-4.  To get the permissions that you need to create instances and databases, ask your administrator to grant you the [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `  roles/spanner.admin  ` ) IAM role on your project.
+4.  To get the permissions that you need to create instances and databases, ask your administrator to grant you the [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `roles/spanner.admin` ) IAM role on your project.
 
 <!-- end list -->
 
-5.  To get the permissions that you need to query Spanner graphs if you're not granted the Cloud Spanner Admin role, ask your administrator to grant you the [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` ) IAM role on your project.
+5.  To get the permissions that you need to query Spanner graphs if you're not granted the Cloud Spanner Admin role, ask your administrator to grant you the [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` ) IAM role on your project.
 
 ## Create a Spanner instance
 
@@ -55,7 +55,7 @@ When you first use Spanner, you must create an *instance* , which allocates reso
 
 5.  Click **Continue** .
 
-6.  In **Instance name** , enter an instance name, for example, `  test-instance  ` .
+6.  In **Instance name** , enter an instance name, for example, `test-instance` .
 
 7.  In **Instance ID** , keep or change the instance ID. Your instance ID defaults to your instance name, but you can change it. Your instance name and instance ID can be the same or different.
 
@@ -87,15 +87,15 @@ This section shows you how to create a Spanner Graph database using a Spanner Gr
     
     [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
-2.  Click the instance you created, for example, `  Test Instance  ` .
+2.  Click the instance you created, for example, `Test Instance` .
 
 3.  In **Overview** , under the name of your instance, click **Create database** .
 
-4.  In **Database name** , enter a database name. For example, `  example-db  ` .
+4.  In **Database name** , enter a database name. For example, `example-db` .
 
 5.  In **Select database dialect** , choose Google Standard SQL. Spanner Graph isn't available in the PostgreSQL dialect.
 
-6.  Enter the following schema into the **DDL Templates** editor tab. The schema contains two node table definitions, `  Person  ` and `  Account  ` , and two edge table definitions, `  PersonOwnAccount  ` and `  AccountTransferAccount  ` . Spanner Graph uses relational tables to define graphs, so you see both relational tables and graph statements in the schema. To learn more about the Spanner Graph schema, see the [Spanner Graph schema overview](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) :
+6.  Enter the following schema into the **DDL Templates** editor tab. The schema contains two node table definitions, `Person` and `Account` , and two edge table definitions, `PersonOwnAccount` and `AccountTransferAccount` . Spanner Graph uses relational tables to define graphs, so you see both relational tables and graph statements in the schema. To learn more about the Spanner Graph schema, see the [Spanner Graph schema overview](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) :
     
         CREATE TABLE Person (
           id               INT64 NOT NULL,
@@ -882,9 +882,9 @@ After inserting data into your graph, you can query it to find patterns and rela
     
     The **Results** tab displays the following paths from Dana, who owns account number 20:
     
-      - To `  Account {id:7}  ` owned by Alex.
+      - To `Account {id:7}` owned by Alex.
     
-      - To `  Account {id:16}  ` owned by Lee.
+      - To `Account {id:16}` owned by Lee.
         
         ![Example graph query results.](https://docs.cloud.google.com/static/spanner/docs/images/spanner-graph-query.png)
 

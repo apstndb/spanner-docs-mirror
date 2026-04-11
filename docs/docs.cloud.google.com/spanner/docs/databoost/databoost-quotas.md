@@ -1,4 +1,4 @@
-Spanner Data Boost is subject to quotas that limit the number of concurrent `  ExecuteStreamingSQL  ` and `  StreamingRead  ` calls executing per project and per region. When the number of concurrent requests exceeds the quota, requests fail with `  RESOURCE EXHAUSTED  ` errors.
+Spanner Data Boost is subject to quotas that limit the number of concurrent `ExecuteStreamingSQL` and `StreamingRead` calls executing per project and per region. When the number of concurrent requests exceeds the quota, requests fail with `RESOURCE EXHAUSTED` errors.
 
 ## Check your quota
 
@@ -8,7 +8,7 @@ To check the concurrency quota in your project, follow these steps:
     
     [Go to Quotas](https://console.cloud.google.com/iam-admin/quotas)
 
-2.  In the **Filter** field, enter `  databoost  ` . From the list, select one of the following:
+2.  In the **Filter** field, enter `databoost` . From the list, select one of the following:
     
       - **DataBoostQuotaPerProjectPerRegion** to view the Data Boost concurrent requests quota.
       - **DataBoostMilliQuotaPerProjectPerRegion** to view the Data Boost concurrent requests quota in milli-operations.
@@ -28,7 +28,7 @@ To monitor your quota usage, follow these steps:
 
 3.  At the top of the page, select a time interval.
 
-4.  In the **Metric** drop-down list, in the **Filter by resource or metric name** field, enter `  consumer  ` and press `  Enter  ` to narrow the search.
+4.  In the **Metric** drop-down list, in the **Filter by resource or metric name** field, enter `consumer` and press `Enter` to narrow the search.
 
 5.  To view the Data Boost concurrent requests quota:
     
@@ -64,11 +64,11 @@ To monitor the limit for the Data Boost concurrent requests milli-operations quo
 
 ## Set an alert for Data Boost usage
 
-You can create an alert policy that notifies you when the number of concurrent [partitioned queries](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) that request Data Boost (concurrent `  ExecuteStreamingSQL  ` and `  StreamingRead  ` calls) per project and per region exceeds a particular threshold. To do so, follow these steps:
+You can create an alert policy that notifies you when the number of concurrent [partitioned queries](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) that request Data Boost (concurrent `ExecuteStreamingSQL` and `StreamingRead` calls) per project and per region exceeds a particular threshold. To do so, follow these steps:
 
 1.  Follow the instructions in [Create metric-threshold alerting policies](https://cloud.google.com/monitoring/alerts/using-alerting-ui) .
 
-2.  In the **Select a metric** drop-down list, in the **Filter by resource or metric name** field, enter `  consumer  ` and press `  Enter  ` to narrow the search.
+2.  In the **Select a metric** drop-down list, in the **Filter by resource or metric name** field, enter `consumer` and press `Enter` to narrow the search.
 
 3.  To set an alert on the Data Boost concurrent requests quota usage:
     
@@ -96,7 +96,7 @@ If the rate of quota-exceeded errors is high, when using Dataflow with Data Boos
 
 ## Block a principal from consuming Data Boost resources
 
-If one principal is consistently exceeding the amount of Data Boost resources that they can be reasonably expected to consume, you can block the principal from using Data Boost resources by revoking the `  spanner.databases.useDataBoost  ` Identity and Access Management (IAM) permission from the principal. You can automate revoking the permission by configuring an alert's notification channel as a webhook that invokes a Cloud Function. For more information, see the following topics:
+If one principal is consistently exceeding the amount of Data Boost resources that they can be reasonably expected to consume, you can block the principal from using Data Boost resources by revoking the `spanner.databases.useDataBoost` Identity and Access Management (IAM) permission from the principal. You can automate revoking the permission by configuring an alert's notification channel as a webhook that invokes a Cloud Function. For more information, see the following topics:
 
   - [Create a notification channel](https://cloud.google.com/monitoring/support/notification-options#creating_channels)
 
@@ -106,7 +106,7 @@ If one principal is consistently exceeding the amount of Data Boost resources th
 
   - [Modify the allow policy](https://cloud.google.com/iam/docs/granting-changing-revoking-access#modifying-policy) for sample code that revokes a role.
     
-    **Note:** A best practice is to add the `  spanner.databases.useDataBoost  ` permission to a custom IAM role.
+    **Note:** A best practice is to add the `spanner.databases.useDataBoost` permission to a custom IAM role.
 
 ## What's next
 

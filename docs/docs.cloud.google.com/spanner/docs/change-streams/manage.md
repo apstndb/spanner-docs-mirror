@@ -10,11 +10,11 @@ To create a change stream, you need to provide its name and the schema objects i
 
   - [Specify the data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) to override the default, one-day retention period.
 
-  - [Specify the value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) to override the default value capture type `  OLD_AND_NEW_VALUES  ` .
+  - [Specify the value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) to override the default value capture type `OLD_AND_NEW_VALUES` .
 
   - [Apply a TTL-based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) to filter out TTL-based deletes from your change streams.
 
-  - [Apply a table modifications filter](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) to exclude all `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` table modifications.
+  - [Apply a table modifications filter](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) to exclude all `INSERT` , `UPDATE` , or `DELETE` table modifications.
 
   - [Enable a transaction-level records exclusion](https://docs.cloud.google.com/spanner/docs/change-streams#transaction-exclusion) to exclude certain transactions from your change streams.
 
@@ -60,12 +60,12 @@ The following examples illustrate the creation of change streams with various co
 
 ### Watch an entire database
 
-To create a change stream that watches every data change performed throughout a database's tables, use the `  ALL  ` keyword:
+To create a change stream that watches every data change performed throughout a database's tables, use the `ALL` keyword:
 
     CREATE CHANGE STREAM EverythingStream
     FOR ALL;
 
-The `  ALL  ` configuration [implicitly includes](https://docs.cloud.google.com/spanner/docs/change-streams#implicit-watching) all of the database's future data tables and columns, as soon as they get created. It [doesn't include](https://docs.cloud.google.com/spanner/docs/change-streams#what-gets-captured) views, information schema tables, or other objects aside from normal data tables.
+The `ALL` configuration [implicitly includes](https://docs.cloud.google.com/spanner/docs/change-streams#implicit-watching) all of the database's future data tables and columns, as soon as they get created. It [doesn't include](https://docs.cloud.google.com/spanner/docs/change-streams#what-gets-captured) views, information schema tables, or other objects aside from normal data tables.
 
 ### Watch specific tables
 
@@ -78,7 +78,7 @@ Spanner [automatically updates](https://docs.cloud.google.com/spanner/docs/chang
 
 ### Watch specific columns
 
-Use the `  table ( column_1 [, column_2 , ...])  ` syntax to watch changes to one or more specific, non-key columns within tables that you name:
+Use the `  table ( column_1 [, column_2 , ...]) ` syntax to watch changes to one or more specific, non-key columns within tables that you name:
 
     CREATE CHANGE STREAM NamesAndTitles
     FOR Singers(FirstName, LastName), Albums(Title);
@@ -94,7 +94,7 @@ You can combine table-watching and column-watching syntax from the previous two 
 
 ### Specify a longer retention period
 
-To specify a [change stream data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) longer than the default of one day, set the `  retention_period  ` to a period of up to thirty days, expressed as either hours ( `  h  ` ) or days ( `  d  ` ).
+To specify a [change stream data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) longer than the default of one day, set the `retention_period` to a period of up to thirty days, expressed as either hours ( `h` ) or days ( `d` ).
 
 Two examples:
 
@@ -120,7 +120,7 @@ Two examples:
 
 ### Specify a different value capture type
 
-To specify a [change stream value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) other than `  OLD_AND_NEW_VALUES  ` , set the `  value_capture_type  ` to either `  NEW_VALUES  ` or `  NEW_ROW  ` , as shown in the following examples:
+To specify a [change stream value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) other than `OLD_AND_NEW_VALUES` , set the `value_capture_type` to either `NEW_VALUES` or `NEW_ROW` , as shown in the following examples:
 
 ### GoogleSQL
 
@@ -144,7 +144,7 @@ To specify a [change stream value capture type](https://docs.cloud.google.com/sp
 
 ### Filter TTL-based deletes
 
-You can filter [TTL-based deletes](https://docs.cloud.google.com/spanner/docs/ttl) from your change stream's scope using the `  exclude_ttl_deletes  ` filter.
+You can filter [TTL-based deletes](https://docs.cloud.google.com/spanner/docs/ttl) from your change stream's scope using the `exclude_ttl_deletes` filter.
 
 For more information on how this filter work, see [Time to live based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) .
 
@@ -159,7 +159,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your new change stream
 
-The following example creates a change stream called `  NewFilterChangeStream  ` that excludes all TTL-based deletes:
+The following example creates a change stream called `NewFilterChangeStream` that excludes all TTL-based deletes:
 
     CREATE CHANGE STREAM NewFilterChangeStream FOR ALL
     OPTIONS (exclude_ttl_deletes = true)
@@ -175,7 +175,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your new change stream
 
-The following example creates a change stream called `  NewFilterChangeStream  ` that excludes all TTL-based deletes:
+The following example creates a change stream called `NewFilterChangeStream` that excludes all TTL-based deletes:
 
     CREATE CHANGE STREAM NewFilterChangeStream FOR ALL
     WITH (exclude_ttl_deletes = true)
@@ -186,9 +186,9 @@ To add or remove the TTL-based deletes filter from an existing change stream, se
 
 Filter one or more of these table modifications from your change stream's scope using the following available filter options:
 
-  - `  exclude_insert  ` : exclude all `  INSERT  ` table modifications
-  - `  exclude_update  ` : exclude all `  UPDATE  ` table modifications
-  - `  exclude_delete  ` : exclude all `  DELETE  ` table modifications
+  - `exclude_insert` : exclude all `INSERT` table modifications
+  - `exclude_update` : exclude all `UPDATE` table modifications
+  - `exclude_delete` : exclude all `DELETE` table modifications
 
 For more information on how these filters work, see [Table modification type filters](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) .
 
@@ -202,9 +202,9 @@ To create a change stream with one or more table modification type filters, run 
 Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your new change stream
-  - MOD\_TYPE\_FILTER\_NAME : the filter you want to add: `  exclude_insert  ` , `  exclude_update  ` , or `  exclude_delete  ` . If adding more than one filter at a time, separate each with a comma.
+  - MOD\_TYPE\_FILTER\_NAME : the filter you want to add: `exclude_insert` , `exclude_update` , or `exclude_delete` . If adding more than one filter at a time, separate each with a comma.
 
-The following example creates a change stream called `  NewFilterChangeStream  ` that excludes the `  INSERT  ` and `  UPDATE  ` table modification types:
+The following example creates a change stream called `NewFilterChangeStream` that excludes the `INSERT` and `UPDATE` table modification types:
 
     CREATE CHANGE STREAM NewFilterChangeStream FOR ALL
     OPTIONS (exclude_insert = true, exclude_update = true)
@@ -219,9 +219,9 @@ To create a change stream with one or more table modification type filters, run 
 Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your new change stream
-  - MOD\_TYPE\_FILTER\_NAME : the filter you want to add: `  exclude_insert  ` , `  exclude_update  ` , or `  exclude_delete  ` . If adding more than one filter at a time, separate each with a comma.
+  - MOD\_TYPE\_FILTER\_NAME : the filter you want to add: `exclude_insert` , `exclude_update` , or `exclude_delete` . If adding more than one filter at a time, separate each with a comma.
 
-The following example creates a change stream called `  NewFilterChangeStream  ` that excludes the `  INSERT  ` and `  UPDATE  ` table modification types:
+The following example creates a change stream called `NewFilterChangeStream` that excludes the `INSERT` and `UPDATE` table modification types:
 
     CREATE CHANGE STREAM NewFilterChangeStream FOR ALL
     WITH (exclude_insert = true, exclude_update = true)
@@ -230,7 +230,7 @@ To add or remove a table modification type filter from an existing change stream
 
 ### Enable exclusion of transaction-level records
 
-You can enable your change streams to exclude records from specified write transactions by setting the `  allow_txn_exclusion  ` option when you create a change stream, or by [modifying an existing change stream](https://docs.cloud.google.com/spanner/docs/change-streams/manage#modify-allow-transaction-exclusion) .
+You can enable your change streams to exclude records from specified write transactions by setting the `allow_txn_exclusion` option when you create a change stream, or by [modifying an existing change stream](https://docs.cloud.google.com/spanner/docs/change-streams/manage#modify-allow-transaction-exclusion) .
 
 For more information on how this option works, see [Transaction-level records exclusion](https://docs.cloud.google.com/spanner/docs/change-streams#transaction-exclusion) .
 
@@ -245,7 +245,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of the new change stream
 
-The following example creates a change stream named `  NewChangeStream  ` that can exclude records from specified write transactions:
+The following example creates a change stream named `NewChangeStream` that can exclude records from specified write transactions:
 
     CREATE CHANGE STREAM NewChangeStream FOR ALL
     OPTIONS (allow_txn_exclusion = true)
@@ -261,7 +261,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of the new change stream
 
-The following example creates a change stream named `  NewChangeStream  ` that can exclude records from specified write transactions,:
+The following example creates a change stream named `NewChangeStream` that can exclude records from specified write transactions,:
 
     CREATE CHANGE STREAM NewChangeStream FOR ALL
     WITH (allow_txn_exclusion = true)
@@ -270,7 +270,7 @@ To enable or disable the transaction-level records exclusion from an existing ch
 
 #### Specify a write transaction to be excluded from change streams
 
-To specify a write transaction to be excluded from change streams, you must set the `  exclude_txn_from_change_streams  ` parameter to `  true  ` . The following code samples shows how you can specify a write transaction to be excluded from change streams using the client library.
+To specify a write transaction to be excluded from change streams, you must set the `exclude_txn_from_change_streams` parameter to `true` . The following code samples shows how you can specify a write transaction to be excluded from change streams using the client library.
 
 ### Go
 
@@ -345,11 +345,11 @@ To specify a write transaction to be excluded from change streams, you must set 
 
 ## Modify a change stream
 
-To modify a change stream's configuration, use an `  ALTER CHANGE STREAM  ` DDL statement. It uses syntax similar to `  CREATE CHANGE STREAM  ` . You can change which columns a stream watches, or the length of its data retention period. You can also suspend its watching altogether while retaining its data change records.
+To modify a change stream's configuration, use an `ALTER CHANGE STREAM` DDL statement. It uses syntax similar to `CREATE CHANGE STREAM` . You can change which columns a stream watches, or the length of its data retention period. You can also suspend its watching altogether while retaining its data change records.
 
 ### Modify what a change stream watches
 
-This example adds the entire `  Songs  ` table to the `  NamesAndAlbums  ` change stream configured earlier:
+This example adds the entire `Songs` table to the `NamesAndAlbums` change stream configured earlier:
 
     ALTER CHANGE STREAM NamesAndAlbums
     SET FOR Singers(FirstName, LastName), Albums, Songs;
@@ -358,9 +358,9 @@ Spanner replaces the named change stream's behavior with the new configuration u
 
 ### Modify a change stream's data retention period
 
-To modify the length of time that a change stream retains its internal records, set the `  retention_period  ` in an `  ALTER CHANGE STREAM  ` DDL statement.
+To modify the length of time that a change stream retains its internal records, set the `retention_period` in an `ALTER CHANGE STREAM` DDL statement.
 
-This example adjusts the data retention period to the `  NamesAndAlbums  ` change stream created previously:
+This example adjusts the data retention period to the `NamesAndAlbums` change stream created previously:
 
 ### GoogleSQL
 
@@ -374,9 +374,9 @@ This example adjusts the data retention period to the `  NamesAndAlbums  ` chang
 
 ### Modify a change stream's value capture type
 
-To modify the value capture type of a change stream, set the `  value_capture_type  ` clause in an `  ALTER CHANGE STREAM  ` DDL statement.
+To modify the value capture type of a change stream, set the `value_capture_type` clause in an `ALTER CHANGE STREAM` DDL statement.
 
-This example adjusts the value capture type to `  NEW_VALUES  ` .
+This example adjusts the value capture type to `NEW_VALUES` .
 
 ### GoogleSQL
 
@@ -388,11 +388,11 @@ This example adjusts the value capture type to `  NEW_VALUES  ` .
     ALTER CHANGE STREAM NamesAndAlbums
     SET ( value_capture_type = 'NEW_VALUES' );
 
-**Note:** Modifying the value capture type of a change stream doesn't cause columns to backfill. For example, modifying the value capture type from `  NEW_VALUES  ` to `  OLD_AND_NEW_VALUES  ` doesn't cause backfill of old values for a change stream.
+**Note:** Modifying the value capture type of a change stream doesn't cause columns to backfill. For example, modifying the value capture type from `NEW_VALUES` to `OLD_AND_NEW_VALUES` doesn't cause backfill of old values for a change stream.
 
 ### Modify TTL-based deletes filter
 
-To modify the [TTL-based deletes](https://docs.cloud.google.com/spanner/docs/ttl) filter for a change stream, set the `  exclude_ttl_deletes  ` filter in an `  ALTER CHANGE STREAM  ` DDL statement. You can use this to add the filter to or remove the filter from your existing change streams.
+To modify the [TTL-based deletes](https://docs.cloud.google.com/spanner/docs/ttl) filter for a change stream, set the `exclude_ttl_deletes` filter in an `ALTER CHANGE STREAM` DDL statement. You can use this to add the filter to or remove the filter from your existing change streams.
 
 For more information on how these filters work, see [Time to live based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) .
 
@@ -400,7 +400,7 @@ For more information on how these filters work, see [Time to live based deletes 
 
 ### GoogleSQL
 
-To add the TTL-based deletes filter to an existing change stream, run the following to set the filter to `  true  ` :
+To add the TTL-based deletes filter to an existing change stream, run the following to set the filter to `true` :
 
     ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
     SET OPTIONS (exclude_ttl_deletes = true)
@@ -409,7 +409,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your existing change stream
 
-In the following example, the `  exclude_ttl_deletes  ` filter is added to an existing change stream called `  NewFilterChangeStream  ` that excludes all TTL-based deletes:
+In the following example, the `exclude_ttl_deletes` filter is added to an existing change stream called `NewFilterChangeStream` that excludes all TTL-based deletes:
 
     ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
     SET OPTIONS (exclude_ttl_deletes = true)
@@ -418,7 +418,7 @@ This excludes all future TTL-based deletes from the change stream.
 
 ### PostgreSQL
 
-To add the TTL-based deletes filter to an existing change stream, run the following to set the filter to `  true  ` :
+To add the TTL-based deletes filter to an existing change stream, run the following to set the filter to `true` :
 
     ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
     SET (exclude_ttl_deletes = true)
@@ -427,7 +427,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your existing change stream
 
-In the following example, the `  exclude_ttl_deletes  ` filter is added to an existing change stream called `  NewFilterChangeStream  ` that excludes all TTL-based deletes:
+In the following example, the `exclude_ttl_deletes` filter is added to an existing change stream called `NewFilterChangeStream` that excludes all TTL-based deletes:
 
     ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
     SET (exclude_ttl_deletes = true)
@@ -438,7 +438,7 @@ This excludes all future TTL-based deletes from the change stream.
 
 ### GoogleSQL
 
-To remove the TTL-based deletes filter to an existing change stream, run the following to set the filter to `  false  ` :
+To remove the TTL-based deletes filter to an existing change stream, run the following to set the filter to `false` :
 
     ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
     SET OPTIONS (exclude_ttl_deletes = false)
@@ -447,18 +447,18 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your new change stream
 
-In the following example, the `  exclude_ttl_deletes  ` filter is removed from an existing change stream called `  NewFilterChangeStream  ` :
+In the following example, the `exclude_ttl_deletes` filter is removed from an existing change stream called `NewFilterChangeStream` :
 
     ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
     SET OPTIONS (exclude_ttl_deletes = false)
 
 This includes all future TTL-based deletes to the change stream.
 
-You can also set the filter to `  null  ` to remove the TTL-based deletes filter.
+You can also set the filter to `null` to remove the TTL-based deletes filter.
 
 ### PostgreSQL
 
-To remove the TTL-based deletes filter to an existing change stream, run the following to set the filter to `  false  ` :
+To remove the TTL-based deletes filter to an existing change stream, run the following to set the filter to `false` :
 
     ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
     SET (exclude_ttl_deletes = false)
@@ -467,24 +467,24 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your new change stream
 
-In the following example, the `  exclude_ttl_deletes  ` filter is removed from an existing change stream called `  NewFilterChangeStream  ` :
+In the following example, the `exclude_ttl_deletes` filter is removed from an existing change stream called `NewFilterChangeStream` :
 
     ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
     SET (exclude_ttl_deletes = false)
 
 This includes all future TTL-based deletes to the change stream.
 
-You can also set the filter to `  null  ` to remove the TTL-based deletes filter.
+You can also set the filter to `null` to remove the TTL-based deletes filter.
 
 ### Modify filter by table modification type
 
-To modify the table modification type filters for a change stream, set the filter type in an `  ALTER CHANGE STREAM  ` DDL statement. You can use this to add a new filter to or remove an existing filter from your change stream.
+To modify the table modification type filters for a change stream, set the filter type in an `ALTER CHANGE STREAM` DDL statement. You can use this to add a new filter to or remove an existing filter from your change stream.
 
 #### Add a table modification type filter to an existing change stream
 
 ### GoogleSQL
 
-To add one or more new table modification type filters to an existing change stream, run the following to set the filter to `  true  ` :
+To add one or more new table modification type filters to an existing change stream, run the following to set the filter to `true` :
 
     ALTER CHANGE STREAM CHANGE_STREAM_NAME
     SET OPTIONS (MOD_TYPE_FILTER_NAME = true)
@@ -492,16 +492,16 @@ To add one or more new table modification type filters to an existing change str
 Replace the following:
 
   - CHANGE\_STREAM\_NAME : replace with the name of your existing change stream
-  - MOD\_TYPE\_FILTER\_NAME : replace with the filter you want to add: `  exclude_insert  ` , `  exclude_update  ` , or `  exclude_delete  ` . If adding more than one filter at a time, separate each filter with a comma.
+  - MOD\_TYPE\_FILTER\_NAME : replace with the filter you want to add: `exclude_insert` , `exclude_update` , or `exclude_delete` . If adding more than one filter at a time, separate each filter with a comma.
 
-In the following example, the `  exclude_delete  ` filter is added to an existing change stream called `  NewFilterChangeStream  ` :
+In the following example, the `exclude_delete` filter is added to an existing change stream called `NewFilterChangeStream` :
 
     ALTER CHANGE STREAM NewFilterChangeStream
     SET OPTIONS (exclude_delete = true)
 
 ### PostgreSQL
 
-To add one or more new table modification type filters to an existing change stream, run the following to set the filter to `  true  ` :
+To add one or more new table modification type filters to an existing change stream, run the following to set the filter to `true` :
 
     ALTER CHANGE STREAM CHANGE_STREAM_NAME
     SET (MOD_TYPE_FILTER_NAME = true)
@@ -509,9 +509,9 @@ To add one or more new table modification type filters to an existing change str
 Replace the following:
 
   - CHANGE\_STREAM\_NAME : replace with the name of your existing change stream
-  - MOD\_TYPE\_FILTER\_NAME : replace with the filter you want to add: `  exclude_insert  ` , `  exclude_update  ` , or `  exclude_delete  ` . If adding more than one filter at a time, separate each filter with a comma.
+  - MOD\_TYPE\_FILTER\_NAME : replace with the filter you want to add: `exclude_insert` , `exclude_update` , or `exclude_delete` . If adding more than one filter at a time, separate each filter with a comma.
 
-In the following example, the `  exclude_delete  ` filter is added to an existing change stream called `  NewFilterChangeStream  ` :
+In the following example, the `exclude_delete` filter is added to an existing change stream called `NewFilterChangeStream` :
 
     ALTER CHANGE STREAM NewFilterChangeStream
     SET (exclude_delete = true)
@@ -520,7 +520,7 @@ In the following example, the `  exclude_delete  ` filter is added to an existin
 
 ### GoogleSQL
 
-To remove one or more existing table modification type filters in change stream, run the following to set the filter to `  false  ` :
+To remove one or more existing table modification type filters in change stream, run the following to set the filter to `false` :
 
     ALTER CHANGE STREAM CHANGE_STREAM_NAME
     SET OPTIONS (MOD_TYPE_FILTER_NAME = false)
@@ -528,18 +528,18 @@ To remove one or more existing table modification type filters in change stream,
 Replace the following:
 
   - CHANGE\_STREAM\_NAME : replace with the name of your existing change stream
-  - MOD\_TYPE\_FILTER\_NAME : replace with the filter you want to remove: `  exclude_insert  ` , `  exclude_update  ` , or `  exclude_delete  ` . If removing more than one filter at a time, separate each with a comma.
+  - MOD\_TYPE\_FILTER\_NAME : replace with the filter you want to remove: `exclude_insert` , `exclude_update` , or `exclude_delete` . If removing more than one filter at a time, separate each with a comma.
 
-In the following example, the `  exclude_delete  ` filter is removed from an existing change stream called `  NewFilterChangeStream  ` :
+In the following example, the `exclude_delete` filter is removed from an existing change stream called `NewFilterChangeStream` :
 
     ALTER CHANGE STREAM NewFilterChangeStream
     SET OPTIONS (exclude_delete = false)
 
-You can also remove a table modification filter by setting the filter back to default value. To do this, set the filter value to `  null  ` .
+You can also remove a table modification filter by setting the filter back to default value. To do this, set the filter value to `null` .
 
 ### PostgreSQL
 
-To remove one or more existing table modification type filters in change stream, run the following to set the filter to `  false  ` :
+To remove one or more existing table modification type filters in change stream, run the following to set the filter to `false` :
 
     ALTER CHANGE STREAM CHANGE_STREAM_NAME
     SET (MOD_TYPE_FILTER_NAME = false)
@@ -547,18 +547,18 @@ To remove one or more existing table modification type filters in change stream,
 Replace the following:
 
   - CHANGE\_STREAM\_NAME : replace with the name of your existing change stream
-  - MOD\_TYPE\_FILTER\_NAME : replace with the filter you want to remove: `  exclude_insert  ` , `  exclude_update  ` , or `  exclude_delete  ` . If removing more than one filter at a time, separate each with a comma.
+  - MOD\_TYPE\_FILTER\_NAME : replace with the filter you want to remove: `exclude_insert` , `exclude_update` , or `exclude_delete` . If removing more than one filter at a time, separate each with a comma.
 
-In the following example, the `  exclude_delete  ` filter is removed from an existing change stream called `  NewFilterChangeStream  ` :
+In the following example, the `exclude_delete` filter is removed from an existing change stream called `NewFilterChangeStream` :
 
     ALTER CHANGE STREAM NewFilterChangeStream
     SET (exclude_delete = false)
 
-You can also remove a table modification filter by setting the filter back to default value. To do this, set the filter value to `  null  ` .
+You can also remove a table modification filter by setting the filter back to default value. To do this, set the filter value to `null` .
 
 ### Modify change stream to allow exclusion of transaction-level records
 
-You can modify your change stream to allow it to exclude records from specified write transactions. To do this, set the `  allow_txn_exclusion  ` option to `  true  ` in an `  ALTER CHANGE STREAM  ` DDL statement. If you don't set this option, or if you set it to `  false  ` , then the change stream watches all write transactions.
+You can modify your change stream to allow it to exclude records from specified write transactions. To do this, set the `allow_txn_exclusion` option to `true` in an `ALTER CHANGE STREAM` DDL statement. If you don't set this option, or if you set it to `false` , then the change stream watches all write transactions.
 
 For more information about how this option works, see [Transaction-level records exclusion](https://docs.cloud.google.com/spanner/docs/change-streams#transaction-exclusion) .
 
@@ -575,7 +575,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your existing change stream
 
-In the following example, the `  allow_txn_exclusion  ` option is enabled on an existing change stream, `  NewAllowedChangeStream  ` :
+In the following example, the `allow_txn_exclusion` option is enabled on an existing change stream, `NewAllowedChangeStream` :
 
     ALTER CHANGE STREAM NewAllowedChangeStream FOR ALL
     SET OPTIONS (allow_txn_exclusion = true)
@@ -593,7 +593,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your existing change stream
 
-In the following example, the `  allow_txn_exclusion  ` option is enabled on an existing change stream, `  NewAllowedChangeStream  ` :
+In the following example, the `allow_txn_exclusion` option is enabled on an existing change stream, `NewAllowedChangeStream` :
 
     ALTER CHANGE STREAM NewAllowedChangeStream FOR ALL
     SET (allow_txn_exclusion = true)
@@ -613,7 +613,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your change stream
 
-In the following example, the `  allow_txn_exclusion  ` option is disabled on an existing change stream called `  NewAllowedChangeStream  ` :
+In the following example, the `allow_txn_exclusion` option is disabled on an existing change stream called `NewAllowedChangeStream` :
 
     ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
     SET OPTIONS (allow_txn_exclusion = false)
@@ -631,7 +631,7 @@ Replace the following:
 
   - CHANGE\_STREAM\_NAME : the name of your change stream
 
-In the following example, the `  allow_txn_exclusion  ` option is disabled on an existing change stream called `  NewAllowedChangeStream  ` :
+In the following example, the `allow_txn_exclusion` option is disabled on an existing change stream called `NewAllowedChangeStream` :
 
     ALTER CHANGE STREAM NewAllowedChangeStream FOR ALL
     SET (allow_txn_exclusion = false)
@@ -642,19 +642,19 @@ The change stream watches all write transactions.
 
 If you want to have a change stream halt its activity but retain its internal records—at least for the life of its data retention period—you can alter it so that it watches nothing.
 
-To do this, issue an `  ALTER CHANGE STREAM  ` DDL statement that replaces the change stream's definition with the special phrase `  DROP FOR ALL  ` . For example:
+To do this, issue an `ALTER CHANGE STREAM` DDL statement that replaces the change stream's definition with the special phrase `DROP FOR ALL` . For example:
 
     ALTER CHANGE STREAM MyStream DROP FOR ALL;
 
 The stream continues to exist in the database, but watches no objects, and generates no further data change records. Its existing change records remain intact, subject to the stream's data retention policy.
 
-To resume a suspended stream, issue another `  ALTER CHANGE STREAM  ` statement with its previous configuration.
+To resume a suspended stream, issue another `ALTER CHANGE STREAM` statement with its previous configuration.
 
-**Note:** You can create a change stream in a suspended state by omitting the `  FOR  ` clause entirely from the DDL: `  CREATE CHANGE STREAM MyStream;  ` .
+**Note:** You can create a change stream in a suspended state by omitting the `FOR` clause entirely from the DDL: `CREATE CHANGE STREAM MyStream;` .
 
 ## Delete a change stream
 
-To permanently delete a change stream, issue a `  DROP CHANGE STREAM  ` statement that includes the stream's name:
+To permanently delete a change stream, issue a `DROP CHANGE STREAM` statement that includes the stream's name:
 
     DROP CHANGE STREAM NamesAndAlbums;
 
@@ -680,23 +680,23 @@ This displays a list of all of that database's change streams, and summarizes th
 
 ### View definitions of change streams as DDL
 
-Viewing a database's schema as DDL includes descriptions of all its change streams, where they appear as `  CREATE CHANGE STREAM  ` statements.
+Viewing a database's schema as DDL includes descriptions of all its change streams, where they appear as `CREATE CHANGE STREAM` statements.
 
   - To do this from the console, click The **Show equivalent DDL** link on the database's page in the Google Cloud console.
 
-  - To do this from the command line, use [the `  ddl describe  ` command of Google Cloud CLI](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/describe) .
+  - To do this from the command line, use [the `ddl describe` command of Google Cloud CLI](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/describe) .
 
 ### Query the information schema about change streams
 
 You can directly query a database's [information schema](https://docs.cloud.google.com/spanner/docs/information-schema) about its change streams. The following tables contain the metadata that defines change streams' names, the tables and columns that they watch, and their retention periods:
 
-  - [`  information_schema.change_streams  `](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemachange_streams)
+  - [`information_schema.change_streams`](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemachange_streams)
 
-  - [`  information_schema.change_stream_tables  `](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemachange_stream_tables)
+  - [`information_schema.change_stream_tables`](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemachange_stream_tables)
 
-  - [`  information_schema.change_stream_columns  `](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemachange_stream_columns)
+  - [`information_schema.change_stream_columns`](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemachange_stream_columns)
 
-  - [`  information_schema.change_stream_options  `](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemachange_stream_options)
+  - [`information_schema.change_stream_options`](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemachange_stream_options)
 
 ## Change streams best practices
 

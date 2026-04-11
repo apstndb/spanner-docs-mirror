@@ -2,7 +2,7 @@
   - [KeyRange](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/KeySet#KeyRange)
       - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/KeySet#KeyRange.SCHEMA_REPRESENTATION)
 
-`  KeySet  ` defines a collection of Cloud Spanner keys and/or key ranges. All the keys are expected to be in the same table or index. The keys need not be sorted in any particular way.
+`KeySet` defines a collection of Cloud Spanner keys and/or key ranges. All the keys are expected to be in the same table or index. The keys need not be sorted in any particular way.
 
 If the same key is specified multiple times in the set (for example if two ranges, two keys, or a key and a range overlap), Cloud Spanner behaves as if the key were only specified once.
 
@@ -17,40 +17,30 @@ If the same key is specified multiple times in the set (for example if two range
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;keys&quot;: [
-    array
-  ],
-  &quot;ranges&quot;: [
-    {
-      object (KeyRange)
-    }
-  ],
-  &quot;all&quot;: boolean
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;keys&quot;: [array],&quot;ranges&quot;: [{object (KeyRange)}],&quot;all&quot;: boolean}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  keys[]  `
+`keys[]`
 
-`  array ( ListValue  ` format)
+` array ( ListValue  ` format)
 
-A list of specific keys. Entries in `  keys  ` should have exactly as many elements as there are columns in the primary or index key with which this `  KeySet  ` is used. Individual key values are encoded as described `  here  ` .
+A list of specific keys. Entries in `keys` should have exactly as many elements as there are columns in the primary or index key with which this `KeySet` is used. Individual key values are encoded as described `  here  ` .
 
-`  ranges[]  `
+`ranges[]`
 
-`  object ( KeyRange  ` )
+` object ( KeyRange  ` )
 
 A list of key ranges. See `  KeyRange  ` for more information about key range specifications.
 
-`  all  `
+`all`
 
-`  boolean  `
+`boolean`
 
-For convenience `  all  ` can be set to `  true  ` to indicate that this `  KeySet  ` matches all keys in the table or index. Note that any keys specified in `  keys  ` or `  ranges  ` are only yielded once.
+For convenience `all` can be set to `true` to indicate that this `KeySet` matches all keys in the table or index. Note that any keys specified in `keys` or `ranges` are only yielded once.
 
 ## KeyRange
 
@@ -72,21 +62,21 @@ The following keys name rows in this table:
     ["Bob", "2014-09-23"]
     ["Alfred", "2015-06-12"]
 
-Since the `  UserEvents  ` table's `  PRIMARY KEY  ` clause names two columns, each `  UserEvents  ` key has two elements; the first is the `  UserName  ` , and the second is the `  EventDate  ` .
+Since the `UserEvents` table's `PRIMARY KEY` clause names two columns, each `UserEvents` key has two elements; the first is the `UserName` , and the second is the `EventDate` .
 
-Key ranges with multiple components are interpreted lexicographically by component using the table or index key's declared sort order. For example, the following range returns all events for user `  "Bob"  ` that occurred in the year 2015:
+Key ranges with multiple components are interpreted lexicographically by component using the table or index key's declared sort order. For example, the following range returns all events for user `"Bob"` that occurred in the year 2015:
 
     "startClosed": ["Bob", "2015-01-01"]
     "endClosed": ["Bob", "2015-12-31"]
 
 Start and end keys can omit trailing key components. This affects the inclusion and exclusion of rows that exactly match the provided key components: if the key is closed, then rows that exactly match the provided components are included; if the key is open, then rows that exactly match are not included.
 
-For example, the following range includes all events for `  "Bob"  ` that occurred during and after the year 2000:
+For example, the following range includes all events for `"Bob"` that occurred during and after the year 2000:
 
     "startClosed": ["Bob", "2000-01-01"]
     "endClosed": ["Bob"]
 
-The next example retrieves all events for `  "Bob"  ` :
+The next example retrieves all events for `"Bob"` :
 
     "startClosed": ["Bob"]
     "endClosed": ["Bob"]
@@ -101,12 +91,12 @@ The following range includes all rows in the table:
     "startClosed": []
     "endClosed": []
 
-This range returns all users whose `  UserName  ` begins with any character from A to C:
+This range returns all users whose `UserName` begins with any character from A to C:
 
     "startClosed": ["A"]
     "endOpen": ["D"]
 
-This range returns all users whose `  UserName  ` begins with B:
+This range returns all users whose `UserName` begins with B:
 
     "startClosed": ["B"]
     "endOpen": ["C"]
@@ -123,7 +113,7 @@ The following range retrieves all rows with key values between 1 and 100 inclusi
     "startClosed": ["100"]
     "endClosed": ["1"]
 
-Note that 100 is passed as the start, and 1 is passed as the end, because `  Key  ` is a descending column in the schema.
+Note that 100 is passed as the start, and 1 is passed as the end, because `Key` is a descending column in the schema.
 
 <table>
 <colgroup>
@@ -136,48 +126,37 @@ Note that 100 is passed as the start, and 1 is passed as the end, because `  Key
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-
-  // Union field start_key_type can be only one of the following:
-  &quot;startClosed&quot;: array,
-  &quot;startOpen&quot;: array
-  // End of list of possible types for union field start_key_type.
-
-  // Union field end_key_type can be only one of the following:
-  &quot;endClosed&quot;: array,
-  &quot;endOpen&quot;: array
-  // End of list of possible types for union field end_key_type.
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{// Union field start_key_type can be only one of the following:&quot;startClosed&quot;: array,&quot;startOpen&quot;: array// End of list of possible types for union field start_key_type.// Union field end_key_type can be only one of the following:&quot;endClosed&quot;: array,&quot;endOpen&quot;: array// End of list of possible types for union field end_key_type.}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-Union field `  start_key_type  ` . The start key must be provided. It can be either closed or open. `  start_key_type  ` can be only one of the following:
+Union field `start_key_type` . The start key must be provided. It can be either closed or open. `start_key_type` can be only one of the following:
 
-`  startClosed  `
+`startClosed`
 
-`  array ( ListValue  ` format)
+` array ( ListValue  ` format)
 
-If the start is closed, then the range includes all rows whose first `  len(startClosed)  ` key columns exactly match `  startClosed  ` .
+If the start is closed, then the range includes all rows whose first `len(startClosed)` key columns exactly match `startClosed` .
 
-`  startOpen  `
+`startOpen`
 
-`  array ( ListValue  ` format)
+` array ( ListValue  ` format)
 
-If the start is open, then the range excludes rows whose first `  len(startOpen)  ` key columns exactly match `  startOpen  ` .
+If the start is open, then the range excludes rows whose first `len(startOpen)` key columns exactly match `startOpen` .
 
-Union field `  end_key_type  ` . The end key must be provided. It can be either closed or open. `  end_key_type  ` can be only one of the following:
+Union field `end_key_type` . The end key must be provided. It can be either closed or open. `end_key_type` can be only one of the following:
 
-`  endClosed  `
+`endClosed`
 
-`  array ( ListValue  ` format)
+` array ( ListValue  ` format)
 
-If the end is closed, then the range includes all rows whose first `  len(endClosed)  ` key columns exactly match `  endClosed  ` .
+If the end is closed, then the range includes all rows whose first `len(endClosed)` key columns exactly match `endClosed` .
 
-`  endOpen  `
+`endOpen`
 
-`  array ( ListValue  ` format)
+` array ( ListValue  ` format)
 
-If the end is open, then the range excludes rows whose first `  len(endOpen)  ` key columns exactly match `  endOpen  ` .
+If the end is open, then the range excludes rows whose first `len(endOpen)` key columns exactly match `endOpen` .

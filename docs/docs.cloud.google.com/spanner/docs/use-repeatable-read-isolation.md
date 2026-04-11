@@ -235,7 +235,7 @@ You can set the isolation level on read-write transactions at the database clien
 
 ### REST
 
-You can use the [`  TransactionOptions.isolation_level  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#isolationlevel) REST API to set the isolation level on read-write and read-only transactions at the transaction-level. The valid options are `  TransactionOptions.SERIALIZABLE  ` and `  TransactionOptions.REPEATABLE_READ  ` . By default, Spanner sets the isolation level to serializable isolation.
+You can use the [`TransactionOptions.isolation_level`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#isolationlevel) REST API to set the isolation level on read-write and read-only transactions at the transaction-level. The valid options are `TransactionOptions.SERIALIZABLE` and `TransactionOptions.REPEATABLE_READ` . By default, Spanner sets the isolation level to serializable isolation.
 
 ## Limitations
 
@@ -244,8 +244,8 @@ The following set of limitations exist in the repeatable read isolation Preview.
   - You might experience issues if your schema has [check constraints](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
       - There is a known issue that prevents check constraints from being validated, which can result in constraint violations when transactions commit. Therefore we don't recommend using repeatable read isolation in Preview if your schema has check constraints.
   - You might experience issues if concurrent schema changes occur in your database while transactions are executing.
-      - If your DML statements use the [`  last_statement  ` option](https://docs.cloud.google.com/spanner/docs/dml-best-practices#use-last-statement) and a concurrent schema change occurs while the DML statement executes, it might internally retry and return an error stating that the DML was retried incorrectly after the `  last_statement  ` option was set. Retrying the transaction after the schema change applies resolves this issue.
-      - If requests in a transaction experience a `  DEADLINE_EXCEEDED  ` error from the client, retry the transaction after the schema change applies to resolve the issue.
+      - If your DML statements use the [`last_statement` option](https://docs.cloud.google.com/spanner/docs/dml-best-practices#use-last-statement) and a concurrent schema change occurs while the DML statement executes, it might internally retry and return an error stating that the DML was retried incorrectly after the `last_statement` option was set. Retrying the transaction after the schema change applies resolves this issue.
+      - If requests in a transaction experience a `DEADLINE_EXCEEDED` error from the client, retry the transaction after the schema change applies to resolve the issue.
 
 ## Unsupported use cases
 

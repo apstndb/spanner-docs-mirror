@@ -2,14 +2,14 @@ GoogleSQL for Spanner supports statistical aggregate functions. To learn about t
 
 ## Function list
 
-| Name                                                                                                                                            | Summary                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| [`         STDDEV        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#stddev)           | An alias of the `        STDDEV_SAMP       ` function.           |
-| [`         STDDEV_SAMP        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#stddev_samp) | Computes the sample (unbiased) standard deviation of the values. |
-| [`         VAR_SAMP        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#var_samp)       | Computes the sample (unbiased) variance of the values.           |
-| [`         VARIANCE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#variance)       | An alias of `        VAR_SAMP       ` .                          |
+| Name                                                                                                                           | Summary                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| [`STDDEV`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#stddev)           | An alias of the `STDDEV_SAMP` function.                          |
+| [`STDDEV_SAMP`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#stddev_samp) | Computes the sample (unbiased) standard deviation of the values. |
+| [`VAR_SAMP`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#var_samp)       | Computes the sample (unbiased) variance of the values.           |
+| [`VARIANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#variance)       | An alias of `VAR_SAMP` .                                         |
 
-## `     STDDEV    `
+## `STDDEV`
 
     STDDEV(
       [ DISTINCT ]
@@ -21,7 +21,7 @@ GoogleSQL for Spanner supports statistical aggregate functions. To learn about t
 
 An alias of [STDDEV\_SAMP](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#stddev_samp) .
 
-## `     STDDEV_SAMP    `
+## `STDDEV_SAMP`
 
     STDDEV_SAMP(
       [ DISTINCT ]
@@ -31,22 +31,22 @@ An alias of [STDDEV\_SAMP](https://docs.cloud.google.com/spanner/docs/reference/
 
 **Description**
 
-Returns the sample (unbiased) standard deviation of the values. The return result is between `  0  ` and `  +Inf  ` .
+Returns the sample (unbiased) standard deviation of the values. The return result is between `0` and `+Inf` .
 
-All numeric types are supported. If the input is `  NUMERIC  ` then the internal aggregation is stable with the final output converted to a `  FLOAT64  ` . Otherwise the input is converted to a `  FLOAT64  ` before aggregation, resulting in a potentially unstable result.
+All numeric types are supported. If the input is `NUMERIC` then the internal aggregation is stable with the final output converted to a `FLOAT64` . Otherwise the input is converted to a `FLOAT64` before aggregation, resulting in a potentially unstable result.
 
-This function ignores any `  NULL  ` inputs. If there are fewer than two non- `  NULL  ` inputs, this function returns `  NULL  ` .
+This function ignores any `NULL` inputs. If there are fewer than two non- `NULL` inputs, this function returns `NULL` .
 
-`  NaN  ` is produced if:
+`NaN` is produced if:
 
-  - Any input value is `  NaN  `
+  - Any input value is `NaN`
   - Any input value is positive infinity or negative infinity.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Return Data Type**
 
-`  FLOAT64  `
+`FLOAT64`
 
 **Examples**
 
@@ -90,7 +90,7 @@ To learn more about the optional aggregate clauses that you can pass into this f
      | NaN     |
      +---------*/
 
-## `     VAR_SAMP    `
+## `VAR_SAMP`
 
     VAR_SAMP(
       [ DISTINCT ]
@@ -100,22 +100,22 @@ To learn more about the optional aggregate clauses that you can pass into this f
 
 **Description**
 
-Returns the sample (unbiased) variance of the values. The return result is between `  0  ` and `  +Inf  ` .
+Returns the sample (unbiased) variance of the values. The return result is between `0` and `+Inf` .
 
-All numeric types are supported. If the input is `  NUMERIC  ` then the internal aggregation is stable with the final output converted to a `  FLOAT64  ` . Otherwise the input is converted to a `  FLOAT64  ` before aggregation, resulting in a potentially unstable result.
+All numeric types are supported. If the input is `NUMERIC` then the internal aggregation is stable with the final output converted to a `FLOAT64` . Otherwise the input is converted to a `FLOAT64` before aggregation, resulting in a potentially unstable result.
 
-This function ignores any `  NULL  ` inputs. If there are fewer than two non- `  NULL  ` inputs, this function returns `  NULL  ` .
+This function ignores any `NULL` inputs. If there are fewer than two non- `NULL` inputs, this function returns `NULL` .
 
-`  NaN  ` is produced if:
+`NaN` is produced if:
 
-  - Any input value is `  NaN  `
+  - Any input value is `NaN`
   - Any input value is positive infinity or negative infinity.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Return Data Type**
 
-`  FLOAT64  `
+`FLOAT64`
 
 **Examples**
 
@@ -159,7 +159,7 @@ To learn more about the optional aggregate clauses that you can pass into this f
      | NaN     |
      +---------*/
 
-## `     VARIANCE    `
+## `VARIANCE`
 
     VARIANCE(
       [ DISTINCT ]

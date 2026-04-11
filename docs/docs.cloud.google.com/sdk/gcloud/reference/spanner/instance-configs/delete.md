@@ -4,7 +4,7 @@ gcloud spanner instance-configs delete - delete a Cloud Spanner instance configu
 
 SYNOPSIS
 
-`  gcloud spanner instance-configs delete  ` `  INSTANCE_CONFIG  ` \[ `  --etag  ` = `  ETAG  ` \] \[ `  --validate-only  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instance-configs delete` `  INSTANCE_CONFIG  ` \[ `  --etag  ` = `  ETAG  ` \] \[ `  --validate-only  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -25,16 +25,16 @@ POSITIONAL ARGUMENTS
 
 FLAGS
 
-  - `  --etag  ` = `  ETAG  `  
+  - `--etag` = `  ETAG  `  
     Used for optimistic concurrency control as a way to help prevent simultaneous deletes of an instance config from overwriting each other.
-  - `  --validate-only  `  
+  - `--validate-only`  
     If specified, validate that the deletion will succeed without deleting the instance config.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

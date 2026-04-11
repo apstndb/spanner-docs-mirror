@@ -8,7 +8,7 @@ If you need to commit a large number of blind writes, but don't require an atomi
 
 ### C++
 
-You write data using the `  InsertMutationBuilder()  ` function. `  Client::Commit()  ` adds new rows to a table. All inserts in a single batch are applied atomically.
+You write data using the `InsertMutationBuilder()` function. `Client::Commit()` adds new rows to a table. All inserts in a single batch are applied atomically.
 
 This code shows how to write the data:
 
@@ -40,9 +40,9 @@ This code shows how to write the data:
 
 ### C\#
 
-You can insert data using the [`  connection.CreateInsertCommand()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateInsertCommand_System_String_Google_Cloud_Spanner_Data_SpannerParameterCollection_) method, which creates a new `  SpannerCommand  ` to insert rows into a table. The [`  SpannerCommand.ExecuteNonQueryAsync()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteNonQueryAsync_System_Threading_CancellationToken_) method adds new rows to the table.
+You can insert data using the [`connection.CreateInsertCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateInsertCommand_System_String_Google_Cloud_Spanner_Data_SpannerParameterCollection_) method, which creates a new `SpannerCommand` to insert rows into a table. The [`SpannerCommand.ExecuteNonQueryAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteNonQueryAsync_System_Threading_CancellationToken_) method adds new rows to the table.
 
-**Note:** You can run multiple transactions in parallel using a single `  SpannerConnection  ` object. When running additional transactions, you must ensure that the `  SpannerConnection  ` object is in the `  Open  ` state before you execute additional transaction commands by calling the [`  SpannerCommand.ExecuteNonQueryAsync()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_OpenAsync_System_Threading_CancellationToken_) method, as seen in the following example.
+**Note:** You can run multiple transactions in parallel using a single `SpannerConnection` object. When running additional transactions, you must ensure that the `SpannerConnection` object is in the `Open` state before you execute additional transaction commands by calling the [`SpannerCommand.ExecuteNonQueryAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_OpenAsync_System_Threading_CancellationToken_) method, as seen in the following example.
 
 This code shows how to insert data:
 
@@ -126,11 +126,11 @@ This code shows how to insert data:
 
 ### Go
 
-You write data using a [`  Mutation  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Mutation) . A `  Mutation  ` is a container for mutation operations. A `  Mutation  ` represents a sequence of inserts, updates, or deletes that can be applied atomically to different rows and tables in a Spanner database.
+You write data using a [`Mutation`](https://pkg.go.dev/cloud.google.com/go/spanner/#Mutation) . A `Mutation` is a container for mutation operations. A `Mutation` represents a sequence of inserts, updates, or deletes that can be applied atomically to different rows and tables in a Spanner database.
 
-Use [`  Mutation.InsertOrUpdate()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#InsertOrUpdate) to construct an `  INSERT_OR_UPDATE  ` mutation, which adds a new row or updates column values if the row already exists. Alternatively, use [`  Mutation.Insert()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Insert) method to construct an `  INSERT  ` mutation, which adds a new row.
+Use [`Mutation.InsertOrUpdate()`](https://pkg.go.dev/cloud.google.com/go/spanner/#InsertOrUpdate) to construct an `INSERT_OR_UPDATE` mutation, which adds a new row or updates column values if the row already exists. Alternatively, use [`Mutation.Insert()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Insert) method to construct an `INSERT` mutation, which adds a new row.
 
-[`  Client.Apply()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Apply) applies mutations atomically to a database.
+[`Client.Apply()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Apply) applies mutations atomically to a database.
 
 This code shows how to write the data:
 
@@ -169,11 +169,11 @@ This code shows how to write the data:
 
 ### Java
 
-You write data using a [`  Mutation  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation) object. A `  Mutation  ` object is a container for mutation operations. A `  Mutation  ` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
+You write data using a [`Mutation`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation) object. A `Mutation` object is a container for mutation operations. A `Mutation` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
 
-The [`  newInsertBuilder()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertBuilder_java_lang_String_) method in the `  Mutation  ` class constructs an `  INSERT  ` mutation, which inserts a new row in a table. If the row already exists, the write fails. Alternatively, you can use the [`  newInsertOrUpdateBuilder  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertOrUpdateBuilder_java_lang_String_) method to construct an `  INSERT_OR_UPDATE  ` mutation, which updates column values if the row already exists.
+The [`newInsertBuilder()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertBuilder_java_lang_String_) method in the `Mutation` class constructs an `INSERT` mutation, which inserts a new row in a table. If the row already exists, the write fails. Alternatively, you can use the [`newInsertOrUpdateBuilder`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertOrUpdateBuilder_java_lang_String_) method to construct an `INSERT_OR_UPDATE` mutation, which updates column values if the row already exists.
 
-The [`  write()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_write_java_lang_Iterable_com_google_cloud_spanner_Mutation__) method in the `  DatabaseClient  ` class writes the mutations. All mutations in a single batch are applied atomically.
+The [`write()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_write_java_lang_Iterable_com_google_cloud_spanner_Mutation__) method in the `DatabaseClient` class writes the mutations. All mutations in a single batch are applied atomically.
 
 This code shows how to write the data:
 
@@ -221,7 +221,7 @@ This code shows how to write the data:
 
 ### Node.js
 
-You write data using a [`  Table  `](https://googleapis.dev/nodejs/spanner/latest/Table.html) object. The [`  Table.insert()  `](https://googleapis.dev/nodejs/spanner/latest/Table.html#insert) method adds new rows to the table. All inserts in a single batch are applied atomically.
+You write data using a [`Table`](https://googleapis.dev/nodejs/spanner/latest/Table.html) object. The [`Table.insert()`](https://googleapis.dev/nodejs/spanner/latest/Table.html#insert) method adds new rows to the table. All inserts in a single batch are applied atomically.
 
 This code shows how to write the data:
 
@@ -277,7 +277,7 @@ This code shows how to write the data:
 
 ### PHP
 
-You write data using the [`  Database::insertBatch  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=insertBatch) method. `  insertBatch  ` adds new rows to a table. All inserts in a single batch are applied atomically.
+You write data using the [`Database::insertBatch`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=insertBatch) method. `insertBatch` adds new rows to a table. All inserts in a single batch are applied atomically.
 
 This code shows how to write the data:
 
@@ -324,9 +324,9 @@ This code shows how to write the data:
 
 ### Python
 
-You write data using a [`  Batch  `](https://docs.cloud.google.com/python/docs/reference/spanner/latest/batch-api) object. A `  Batch  ` object is a container for mutation operations. A mutation represents a sequence of inserts, updates, or deletes that can be applied atomically to different rows and tables in a Spanner database.
+You write data using a [`Batch`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/batch-api) object. A `Batch` object is a container for mutation operations. A mutation represents a sequence of inserts, updates, or deletes that can be applied atomically to different rows and tables in a Spanner database.
 
-The [`  insert()  `](https://docs.cloud.google.com/python/docs/reference/spanner/latest/batch-usage#inserting-records-using-a-batch) method in the `  Batch  ` class is used to add one or more insert mutations to the batch. All mutations in a single batch are applied atomically.
+The [`insert()`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/batch-usage#inserting-records-using-a-batch) method in the `Batch` class is used to add one or more insert mutations to the batch. All mutations in a single batch are applied atomically.
 
 This code shows how to write the data:
 
@@ -369,7 +369,7 @@ This code shows how to write the data:
 
 ### Ruby
 
-You write data using a [`  Client  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) object. The [`  Client#commit  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#commit-instance_method) method creates and commits a transaction for writes that execute atomically at a single logical point in time across columns, rows, and tables in a database.
+You write data using a [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) object. The [`Client#commit`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#commit-instance_method) method creates and commits a transaction for writes that execute atomically at a single logical point in time across columns, rows, and tables in a database.
 
 This code shows how to write the data:
 
@@ -405,11 +405,11 @@ This code shows how to write the data:
 
 **Note:** Spanner needs to read the data in its tables to determine whether to write new values. You must use a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) to perform the reads and writes atomically.
 
-Suppose that sales of `  Albums(1, 1)  ` are lower than expected. As a result, you want to move $200,000 from the marketing budget of `  Albums(2, 2)  ` to `  Albums(1, 1)  ` , but only if the money is available in the budget of `  Albums(2, 2)  ` .
+Suppose that sales of `Albums(1, 1)` are lower than expected. As a result, you want to move $200,000 from the marketing budget of `Albums(2, 2)` to `Albums(1, 1)` , but only if the money is available in the budget of `Albums(2, 2)` .
 
 ### C++
 
-Use the `  Transaction()  ` function to run a transaction for a client.
+Use the `Transaction()` function to run a transaction for a client.
 
 Here's the code to run the transaction:
 
@@ -462,7 +462,7 @@ Here's the code to run the transaction:
 
 ### C\#
 
-For .NET Standard 2.0 (or .NET 4.5) and newer, you can use the .NET framework's [`  TransactionScope()  `](https://msdn.microsoft.com/en-us/library/system.transactions.transactionscope) to run a transaction. For all supported versions of .NET, you can create a transaction by setting the result of `  SpannerConnection.BeginTransactionAsync  ` as the `  Transaction  ` property of `  SpannerCommand  ` .
+For .NET Standard 2.0 (or .NET 4.5) and newer, you can use the .NET framework's [`TransactionScope()`](https://msdn.microsoft.com/en-us/library/system.transactions.transactionscope) to run a transaction. For all supported versions of .NET, you can create a transaction by setting the result of `SpannerConnection.BeginTransactionAsync` as the `Transaction` property of `SpannerCommand` .
 
 Here are the two ways to run the transaction:
 
@@ -630,13 +630,13 @@ Here are the two ways to run the transaction:
 
 ### Go
 
-Use the [`  ReadWriteTransaction  `](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadWriteTransaction) type for executing a body of work in the context of a read-write transaction. [`  Client.ReadWriteTransaction()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.ReadWriteTransaction) returns a `  ReadWriteTransaction  ` object.
+Use the [`ReadWriteTransaction`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadWriteTransaction) type for executing a body of work in the context of a read-write transaction. [`Client.ReadWriteTransaction()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.ReadWriteTransaction) returns a `ReadWriteTransaction` object.
 
-The sample uses [`  ReadWriteTransaction.ReadRow()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadWriteTransaction.ReadRow) to retrieve a row of data.
+The sample uses [`ReadWriteTransaction.ReadRow()`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadWriteTransaction.ReadRow) to retrieve a row of data.
 
-The sample also uses [`  ReadWriteTransaction.BufferWrite()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadWriteTransaction.BufferWrite) , which adds a list of mutations to the set of updates that will be applied when the transaction is committed.
+The sample also uses [`ReadWriteTransaction.BufferWrite()`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadWriteTransaction.BufferWrite) , which adds a list of mutations to the set of updates that will be applied when the transaction is committed.
 
-The sample also uses the [`  Key  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Key) type, which represents a row key in a Spanner table or index.
+The sample also uses the [`Key`](https://pkg.go.dev/cloud.google.com/go/spanner/#Key) type, which represents a row key in a Spanner table or index.
 
     import (
      "context"
@@ -692,11 +692,11 @@ The sample also uses the [`  Key  `](https://pkg.go.dev/cloud.google.com/go/span
 
 ### Java
 
-Use the [`  TransactionRunner  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionRunner) interface for executing a body of work in the context of a read-write transaction. This interface contains the method [`  run()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionRunner#com_google_cloud_spanner_TransactionRunner__T_run_com_google_cloud_spanner_TransactionRunner_TransactionCallable_T__) , which is used to execute a read- write transaction, with retries as necessary. The [`  readWriteTransaction  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_readWriteTransaction_) method of the `  DatabaseClient  ` class returns a `  TransactionRunner  ` object for executing a single logical transaction.
+Use the [`TransactionRunner`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionRunner) interface for executing a body of work in the context of a read-write transaction. This interface contains the method [`run()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionRunner#com_google_cloud_spanner_TransactionRunner__T_run_com_google_cloud_spanner_TransactionRunner_TransactionCallable_T__) , which is used to execute a read- write transaction, with retries as necessary. The [`readWriteTransaction`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_readWriteTransaction_) method of the `DatabaseClient` class returns a `TransactionRunner` object for executing a single logical transaction.
 
-The [`  TransactionRunner.TransactionCallable  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionRunner.TransactionCallable) class contains a `  run()  ` method for performing a single attempt of a transaction. `  run()  ` takes a [`  TransactionContext  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionContext) object, which is a context for a transaction.
+The [`TransactionRunner.TransactionCallable`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionRunner.TransactionCallable) class contains a `run()` method for performing a single attempt of a transaction. `run()` takes a [`TransactionContext`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionContext) object, which is a context for a transaction.
 
-The sample uses the [`  Struct  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Struct) class, which is handy for storing the results of the `  readRow()  ` calls. The sample also uses the [`  Key  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Key) class, which represents a row key in a Spanner table or index.
+The sample uses the [`Struct`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Struct) class, which is handy for storing the results of the `readRow()` calls. The sample also uses the [`Key`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Key) class, which represents a row key in a Spanner table or index.
 
 Here's the code to run the transaction:
 
@@ -745,7 +745,7 @@ Here's the code to run the transaction:
 
 ### Node.js
 
-Use [`  Database.runTransaction()  `](https://googleapis.dev/nodejs/spanner/latest/Database.html#runTransaction) to run a transaction.
+Use [`Database.runTransaction()`](https://googleapis.dev/nodejs/spanner/latest/Database.html#runTransaction) to run a transaction.
 
 Here's the code to run the transaction:
 
@@ -863,7 +863,7 @@ Here's the code to run the transaction:
 
 ### PHP
 
-Use [`  Database::runTransaction  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=runTransaction) to run a transaction.
+Use [`Database::runTransaction`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=runTransaction) to run a transaction.
 
 Here's the code to run the transaction:
 
@@ -951,7 +951,7 @@ Here's the code to run the transaction:
 
 ### Python
 
-Use the [`  run_in_transaction()  `](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api#google.cloud.spanner_v1.database.Database.run_in_transaction) method of the [`  Database  `](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api) class to run a transaction.
+Use the [`run_in_transaction()`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api#google.cloud.spanner_v1.database.Database.run_in_transaction) method of the [`Database`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api) class to run a transaction.
 
 Here's the code to run the transaction:
 
@@ -1021,7 +1021,7 @@ Here's the code to run the transaction:
 
 ### Ruby
 
-Use the [`  transaction  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#transaction-instance_method) method of the [`  Client  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class to run a transaction.
+Use the [`transaction`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#transaction-instance_method) method of the [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class to run a transaction.
 
 Here's the code to run the transaction:
 
@@ -1059,13 +1059,13 @@ Each client library provides multiple ways to delete rows:
   - Delete all the rows in a table.
   - Delete a single row by specifying the key column values for the row.
   - Delete a group of rows by creating a key range.
-  - Delete rows in an interleaved table by deleting the parent rows, if the interleaved table includes `  ON DELETE CASCADE  ` in its schema definition.
+  - Delete rows in an interleaved table by deleting the parent rows, if the interleaved table includes `ON DELETE CASCADE` in its schema definition.
 
 **Note:** The limit of mutations per commit is 80,000. Each secondary index on a table is an additional mutation per row. For example, on a table with one secondary index, you can delete up to 40,000 rows in a commit. To delete a large amount of data, use [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) . Partitioned DML handles transaction limits and is optimized to handle large-scale deletions.
 
 ### C++
 
-Delete rows using the `  DeleteMutationBuilder()  ` function for a client.
+Delete rows using the `DeleteMutationBuilder()` function for a client.
 
 This code shows how to delete the data:
 
@@ -1099,9 +1099,9 @@ This code shows how to delete the data:
 
 ### C\#
 
-Delete rows using the [`  connection.CreateDeleteCommand()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDeleteCommand_System_String_Google_Cloud_Spanner_Data_SpannerParameterCollection_) method, which creates a new `  SpannerCommand  ` to delete rows. The [`  SpannerCommand.ExecuteNonQueryAsync()  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteNonQueryAsync_System_Threading_CancellationToken_) method deletes the rows from the table.
+Delete rows using the [`connection.CreateDeleteCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDeleteCommand_System_String_Google_Cloud_Spanner_Data_SpannerParameterCollection_) method, which creates a new `SpannerCommand` to delete rows. The [`SpannerCommand.ExecuteNonQueryAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteNonQueryAsync_System_Threading_CancellationToken_) method deletes the rows from the table.
 
-This example deletes the rows in the `  Singers  ` table individually. The rows in the `  Albums  ` table are deleted because the `  Albums  ` table is interleaved in the `  Singers  ` table and is defined with `  ON DELETE CASCADE  ` .
+This example deletes the rows in the `Singers` table individually. The rows in the `Albums` table are deleted because the `Albums` table is interleaved in the `Singers` table and is defined with `ON DELETE CASCADE` .
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -1162,9 +1162,9 @@ This example deletes the rows in the `  Singers  ` table individually. The rows 
 
 ### Go
 
-Delete rows using a [`  Mutation  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Mutation) . Use the [`  Mutation.Delete()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Delete) method to construct a `  DELETE  ` mutation, which deletes a row. The [`  Client.Apply()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Apply) method applies mutations atomically to the database.
+Delete rows using a [`Mutation`](https://pkg.go.dev/cloud.google.com/go/spanner/#Mutation) . Use the [`Mutation.Delete()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Delete) method to construct a `DELETE` mutation, which deletes a row. The [`Client.Apply()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Apply) method applies mutations atomically to the database.
 
-This example deletes the rows in the `  Albums  ` table individually, and then deletes all the rows in the `  Singers  ` table using a [KeyRange](https://pkg.go.dev/cloud.google.com/go/spanner/#KeyRange) .
+This example deletes the rows in the `Albums` table individually, and then deletes all the rows in the `Singers` table using a [KeyRange](https://pkg.go.dev/cloud.google.com/go/spanner/#KeyRange) .
 
     import (
      "context"
@@ -1200,9 +1200,9 @@ This example deletes the rows in the `  Albums  ` table individually, and then d
 
 ### Java
 
-Delete rows using the [`  Mutation.delete()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_delete_java_lang_String_com_google_cloud_spanner_Key_) method.
+Delete rows using the [`Mutation.delete()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_delete_java_lang_String_com_google_cloud_spanner_Key_) method.
 
-This examples uses the [`  KeySet.all()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.KeySet#com_google_cloud_spanner_KeySet_all__) method to delete all the rows in the `  Albums  ` table. After deleting the rows in the `  Albums  ` table, the example deletes the rows in the `  Singers  ` table individually using keys created with the [`  KeySet.singleKey()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.KeySet#com_google_cloud_spanner_KeySet_singleKey_com_google_cloud_spanner_Key_) method.
+This examples uses the [`KeySet.all()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.KeySet#com_google_cloud_spanner_KeySet_all__) method to delete all the rows in the `Albums` table. After deleting the rows in the `Albums` table, the example deletes the rows in the `Singers` table individually using keys created with the [`KeySet.singleKey()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.KeySet#com_google_cloud_spanner_KeySet_singleKey_com_google_cloud_spanner_Key_) method.
 
     static void deleteExampleData(DatabaseClient dbClient) {
       List<Mutation> mutations = new ArrayList<>();
@@ -1229,9 +1229,9 @@ This examples uses the [`  KeySet.all()  `](https://docs.cloud.google.com/java/d
 
 ### Node.js
 
-Delete rows using the [`  table.deleteRows()  `](https://googleapis.dev/nodejs/spanner/latest/Table.html#deleteRows) method.
+Delete rows using the [`table.deleteRows()`](https://googleapis.dev/nodejs/spanner/latest/Table.html#deleteRows) method.
 
-This example uses the `  table.deleteRows()  ` method to delete all the rows from the `  Singers  ` table. The rows in the `  Albums  ` table are deleted because the `  Albums  ` table is interleaved in `  Singers  ` table and is defined with `  ON DELETE CASCADE  ` .
+This example uses the `table.deleteRows()` method to delete all the rows from the `Singers` table. The rows in the `Albums` table are deleted because the `Albums` table is interleaved in `Singers` table and is defined with `ON DELETE CASCADE` .
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -1303,13 +1303,13 @@ This example uses the `  table.deleteRows()  ` method to delete all the rows fro
 
 ### PHP
 
-Delete rows using the [`  Database::delete() method  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=delete) . The [`  Database::delete()  ` method](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=delete) page includes an example.
+Delete rows using the [`Database::delete() method`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=delete) . The [`Database::delete()` method](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=delete) page includes an example.
 
 ### Python
 
-Delete rows using the [`  Batch.delete()  `](https://docs.cloud.google.com/python/docs/reference/spanner/latest/batch-usage#delete-records-using-a-batch) method.
+Delete rows using the [`Batch.delete()`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/batch-usage#delete-records-using-a-batch) method.
 
-This example deletes all the rows in the `  Albums  ` and `  Singers  ` tables individually using a [`  KeySet  `](https://docs.cloud.google.com/python/docs/reference/spanner/latest/keyset-api) object.
+This example deletes all the rows in the `Albums` and `Singers` tables individually using a [`KeySet`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/keyset-api) object.
 
     def delete_data(instance_id, database_id):
         """Deletes sample data from the given database.
@@ -1341,7 +1341,7 @@ This example deletes all the rows in the `  Albums  ` and `  Singers  ` tables i
 
 ### Ruby
 
-Delete rows using the [`  Client#delete  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#delete-instance_method) method. The [`  Client#delete  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#delete-instance_method) page includes an example.
+Delete rows using the [`Client#delete`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#delete-instance_method) method. The [`Client#delete`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#delete-instance_method) page includes an example.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"

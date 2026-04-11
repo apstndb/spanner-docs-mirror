@@ -4,11 +4,11 @@ gcloud beta spanner samples run - run the given Cloud Spanner sample app
 
 SYNOPSIS
 
-`  gcloud beta spanner samples run  ` `  APPNAME  ` `  --instance-id  ` = `  INSTANCE_ID  ` \[ `  --no-cleanup  ` \] \[ `  --database-id  ` = `  DATABASE_ID  ` \] \[ `  --duration  ` = `  DURATION  ` ; default="1h"\] \[ `  --skip-init  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner samples run` `  APPNAME  ` `  --instance-id  ` = `  INSTANCE_ID  ` \[ `  --no-cleanup  ` \] \[ `  --database-id  ` = `  DATABASE_ID  ` \] \[ `  --duration  ` = `  DURATION  ` ; default="1h"\] \[ `  --skip-init  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Each Cloud Spanner sample application includes a backend gRPC service backed by a Cloud Spanner database and a workload script that generates service traffic. This command creates and initializes the Cloud Spanner database and runs both the backend service and workload script.
+`(BETA)` Each Cloud Spanner sample application includes a backend gRPC service backed by a Cloud Spanner database and a workload script that generates service traffic. This command creates and initializes the Cloud Spanner database and runs both the backend service and workload script.
 
 These sample apps are open source and available at <https://github.com/GoogleCloudPlatform/cloud-spanner-samples> .
 
@@ -33,25 +33,25 @@ POSITIONAL ARGUMENTS
 
 REQUIRED FLAGS
 
-  - `  --instance-id  ` = `  INSTANCE_ID  `  
+  - `--instance-id` = `  INSTANCE_ID  `  
     The Cloud Spanner instance ID for the sample app.
 
 OPTIONAL FLAGS
 
-  - `  --cleanup  `  
-    Delete the instance after running the sample app. Enabled by default, use `  --no-cleanup  ` to disable.
-  - `  --database-id  ` = `  DATABASE_ID  `  
+  - `--cleanup`  
+    Delete the instance after running the sample app. Enabled by default, use `--no-cleanup` to disable.
+  - `--database-id` = `  DATABASE_ID  `  
     ID of the new Cloud Spanner database to create for the sample app.
-  - `  --duration  ` = `  DURATION  ` ; default="1h"  
+  - `--duration` = `  DURATION  ` ; default="1h"  
     Duration of time allowed to run the sample app before stopping the service.
-  - `  --skip-init  `  
+  - `--skip-init`  
     Use an existing database instead of creating a new one.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

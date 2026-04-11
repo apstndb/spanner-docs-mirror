@@ -16,7 +16,7 @@ A typical remote function deployment has the following steps:
 
 ## Required roles
 
-To ensure that your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) has the necessary permissions to use Spanner remote functions, ask your administrator to grant the [Spanner API Service Agent](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.serviceAgent) ( `  roles/spanner.serviceAgent  ` ) IAM role to your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) on the project.
+To ensure that your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) has the necessary permissions to use Spanner remote functions, ask your administrator to grant the [Spanner API Service Agent](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.serviceAgent) ( `roles/spanner.serviceAgent` ) IAM role to your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) on the project.
 
 **Important:** You must grant this role to your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com), *not* to your user account. Failure to grant the role to the correct principal might result in permission errors.
 
@@ -28,15 +28,15 @@ Your administrator might also be able to give your Spanner agent service account
 
 Remote functions support the following data types as argument or return types:
 
-  - `  ARRAY  ` (of any of the following supported types)
-  - `  BOOLEAN  `
-  - `  BYTES  `
-  - `  DATE  `
-  - `  JSON  `
-  - `  INTEGER  `
-  - `  NUMERIC  `
-  - `  STRING  `
-  - `  TIMESTAMP  `
+  - `ARRAY` (of any of the following supported types)
+  - `BOOLEAN`
+  - `BYTES`
+  - `DATE`
+  - `JSON`
+  - `INTEGER`
+  - `NUMERIC`
+  - `STRING`
+  - `TIMESTAMP`
 
 ## Limitations
 
@@ -83,12 +83,12 @@ Spanner sends HTTPS POST requests with JSON bodies in the following format:
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       requestId      </code></td>
+<td><code dir="ltr" translate="no">requestId</code></td>
 <td>Request identifier. Unique over multiple requests sent to the endpoint in a GoogleSQL query.</td>
 <td>Always provided. String.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       calls      </code></td>
+<td><code dir="ltr" translate="no">calls</code></td>
 <td>A batch of input data.</td>
 <td>Always provided. A JSON array.
 <p>Each element is a JSON array that represents a JSON-encoded argument list for a single remote function call.</p></td>
@@ -125,14 +125,14 @@ Spanner expects the endpoint to return an HTTPS response in the following format
 <td>Value Range</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       replies      </code></td>
+<td><code dir="ltr" translate="no">replies</code></td>
 <td>A batch of return values.</td>
 <td>JSON array.
 <p>Each element corresponds to a JSON encoded return value of the external function.</p>
-Size of the array must match the size of the JSON array of <code dir="ltr" translate="no">       calls      </code> in the HTTPS request. For example, if the JSON array in <code dir="ltr" translate="no">       calls      </code> has 4 elements, this JSON array needs to have 4 elements as well. Required for a successful response.</td>
+Size of the array must match the size of the JSON array of <code dir="ltr" translate="no">calls</code> in the HTTPS request. For example, if the JSON array in <code dir="ltr" translate="no">calls</code> has 4 elements, this JSON array needs to have 4 elements as well. Required for a successful response.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       errorMessage      </code></td>
+<td><code dir="ltr" translate="no">errorMessage</code></td>
 <td>Error message when the HTTPS response code other than 200 is returned. For non-retryable errors, Spanner returns this error message to the user. Required in failed responses. Typically less than 1 KB.</td>
 <td>String.</td>
 </tr>
@@ -196,7 +196,7 @@ The following sample Python code implements adding all the integer arguments of 
       except Exception as e:
         return jsonify( { "errorMessage": str(e) } ), 400
 
-Assuming that the function is deployed in the project PROJECT\_ID in region `  us-east1  ` as the function name `  remote_add  ` , it can be accessed using the endpoint `  https://us-east1- PROJECT_ID .cloudfunctions.net/remote_add  ` .
+Assuming that the function is deployed in the project PROJECT\_ID in region `us-east1` as the function name `remote_add` , it can be accessed using the endpoint `https://us-east1- PROJECT_ID .cloudfunctions.net/remote_add` .
 
 ### Cloud Run
 
@@ -235,7 +235,7 @@ The following sample Python code implements a web service, which can be built an
 
 To build and deploy the code, see [Quickstart: Build and deploy a Python (Flask) web app to Cloud Run](https://docs.cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-python-service) .
 
-Assuming that the Cloud Run service is deployed in the project PROJECT\_ID in region `  us-east1  ` as the service name `  remote_add  ` , it can be accessed using the endpoint `  https://remote_add-<project_id_hash>-ue.a.run.app  ` .
+Assuming that the Cloud Run service is deployed in the project PROJECT\_ID in region `us-east1` as the service name `remote_add` , it can be accessed using the endpoint `https://remote_add-<project_id_hash>-ue.a.run.app` .
 
 ## Create a remote function
 
@@ -243,7 +243,7 @@ To create a remote function:
 
 ### SQL
 
-Run the following `  CREATE FUNCTION  ` statement in Spanner:
+Run the following `CREATE FUNCTION` statement in Spanner:
 
     CREATE FUNCTION REMOTE_FUNCTION_NAME(x INT64, y INT64) RETURNS INT64 NOT DETERMINISTIC LANGUAGE REMOTE OPTIONS (
       endpoint = `ENDPOINT_URL`,
@@ -252,9 +252,9 @@ Run the following `  CREATE FUNCTION  ` statement in Spanner:
 
 Replace the following:
 
-  - `  REMOTE_FUNCTION_NAME  ` : the name of your remote function. For example, `  sum_func  ` .
-  - `  ENDPOINT_URL  ` : the Cloud Run functions or Cloud Run endpoint created in the prior step.
-  - `  MAX_BATCHING_ROWS  ` (optional): the maximum number of rows to be sent as part of a request. If not specified, Spanner determines the batch size automatically.
+  - `REMOTE_FUNCTION_NAME` : the name of your remote function. For example, `sum_func` .
+  - `ENDPOINT_URL` : the Cloud Run functions or Cloud Run endpoint created in the prior step.
+  - `MAX_BATCHING_ROWS` (optional): the maximum number of rows to be sent as part of a request. If not specified, Spanner determines the batch size automatically.
 
 ## Use remote function in a query
 

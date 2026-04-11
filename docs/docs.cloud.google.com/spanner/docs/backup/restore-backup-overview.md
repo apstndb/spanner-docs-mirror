@@ -1,4 +1,4 @@
-You can restore a backup of a Spanner database into a new database. The restored database will have all the data and schema from the original database at the `  version_time  ` of the backup, including all database options that are set with the [`  ALTER DATABASE SET OPTIONS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) command. However, the following aren't included in the restored database:
+You can restore a backup of a Spanner database into a new database. The restored database will have all the data and schema from the original database at the `version_time` of the backup, including all database options that are set with the [`ALTER DATABASE SET OPTIONS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) command. However, the following aren't included in the restored database:
 
   - Identity and Access Management (IAM) permissions (except for those inherited from the instance containing the restored database). You must apply appropriate IAM permissions after the restore completes.
   - Internal data of any change streams.
@@ -16,7 +16,7 @@ You can use restore from a backup in the following ways:
 
 ## How database restoration from a backup works
 
-When you restore a Spanner database, you must specify a source backup and a new target database. You cannot restore to an existing database. The newly restored database must be in the same project as the backup and be in an instance with the same [instance configuration](https://docs.cloud.google.com/spanner/docs/instances#configuration) and same (or higher-tier) [Spanner edition](https://docs.cloud.google.com/spanner/docs/editions-overview) as the backup. For example, if a backup is in an instance configured `  us-west3  ` and uses the Enterprise edition, it can be restored to any instance in the project that is also configured `  us-west3  ` and uses the Enterprise edition. If you restore a backup in an Enterprise edition instance into a Standard edition instance, the restore might fail if the database uses Enterprise edition features. The [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) of the instances doesn't need to be the same.
+When you restore a Spanner database, you must specify a source backup and a new target database. You cannot restore to an existing database. The newly restored database must be in the same project as the backup and be in an instance with the same [instance configuration](https://docs.cloud.google.com/spanner/docs/instances#configuration) and same (or higher-tier) [Spanner edition](https://docs.cloud.google.com/spanner/docs/editions-overview) as the backup. For example, if a backup is in an instance configured `us-west3` and uses the Enterprise edition, it can be restored to any instance in the project that is also configured `us-west3` and uses the Enterprise edition. If you restore a backup in an Enterprise edition instance into a Standard edition instance, the restore might fail if the database uses Enterprise edition features. The [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) of the instances doesn't need to be the same.
 
 The restore process is designed for high-availability. You can restore the database provided that the majority quorum of the regions and zones in the *target instance* is available.
 
@@ -34,38 +34,38 @@ If you need to restore the backup to a different region or project, first, [copy
 
 A restored database transitions through three [states](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#state) , tracked by two [long-running operations](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) .
 
-  - `  CREATING  ` : Spanner begins restoring by creating a new database and mounting files from the backup. During this initial `  CREATING  ` state, the restored database is not yet ready for use. This state typically completes within one hour. Once the `  CREATING  ` state is complete, your database is ready to use.
+  - `CREATING` : Spanner begins restoring by creating a new database and mounting files from the backup. During this initial `CREATING` state, the restored database is not yet ready for use. This state typically completes within one hour. Once the `CREATING` state is complete, your database is ready to use.
     
-    To track the progress of this state, you can query the [long-running restore operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) that Spanner makes available during this process. It returns a [`  RestoreDatabaseMetadata  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata) object.
+    To track the progress of this state, you can query the [long-running restore operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) that Spanner makes available during this process. It returns a [`RestoreDatabaseMetadata`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata) object.
     
-    Note the following caveats regarding the `  CREATING  ` state:
+    Note the following caveats regarding the `CREATING` state:
     
       - If you are restoring to a different instance, the restore operation belongs to the instance containing the restored database, not the instance containing the backup.
-      - Spanner won't allow you to delete the backup while it is being restored. You can delete it after the restore completes and the database enters the `  READY  ` state.
-      - An instance can have at most ten databases in the `  CREATING  ` state due to restoration from backups. You won't be able to restore another backup to the instance until one of the ten restored databases transitions to the `  READY_OPTIMIZING  ` or `  READY  ` state.
+      - Spanner won't allow you to delete the backup while it is being restored. You can delete it after the restore completes and the database enters the `READY` state.
+      - An instance can have at most ten databases in the `CREATING` state due to restoration from backups. You won't be able to restore another backup to the instance until one of the ten restored databases transitions to the `READY_OPTIMIZING` or `READY` state.
 
-  - `  READY_OPTIMIZING  ` : After Spanner mounts the backup, it starts to copy the backup data into the new database while optimizing its stored size. Your database is ready for use during this process. This phase of the restore usually takes a few hours to complete for databases less than 100TB in size.
+  - `READY_OPTIMIZING` : After Spanner mounts the backup, it starts to copy the backup data into the new database while optimizing its stored size. Your database is ready for use during this process. This phase of the restore usually takes a few hours to complete for databases less than 100TB in size.
     
-    While you can use your database as usual during `  READY_OPTIMIZING  ` , the following caveats apply:
+    While you can use your database as usual during `READY_OPTIMIZING` , the following caveats apply:
     
       - Read latencies might be slightly higher than usual.
       - [Storage metrics](https://docs.cloud.google.com/spanner/docs/storage-utilization) display the size of the new database, not the backup. Therefore, with the data transfer still in progress, Spanner storage metrics might show results that don't reflect the total size of all your data.
-      - As with the `  CREATING  ` state, Spanner won't allow you to delete the mounted backup.
+      - As with the `CREATING` state, Spanner won't allow you to delete the mounted backup.
     
-    Spanner makes another [long-running restore operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) available during this state, this time returning a [`  OptimizeRestoredDatabaseMetadata  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/OptimizeRestoredDatabaseMetadata) metadata object.
+    Spanner makes another [long-running restore operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) available during this state, this time returning a [`OptimizeRestoredDatabaseMetadata`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/OptimizeRestoredDatabaseMetadata) metadata object.
 
-  - `  READY  ` : Once the copy-and-optimize operation completes, the database transitions to the `  READY  ` state. The database is fully restored, and no longer references or requires the backup.
+  - `READY` : Once the copy-and-optimize operation completes, the database transitions to the `READY` state. The database is fully restored, and no longer references or requires the backup.
 
 ## Access control (IAM)
 
-The role `  spanner.restoreAdmin  ` gives you permission to restore from a backup. For more information, see [Access control with IAM](https://docs.cloud.google.com/spanner/docs/backup#iam) .
+The role `spanner.restoreAdmin` gives you permission to restore from a backup. For more information, see [Access control with IAM](https://docs.cloud.google.com/spanner/docs/backup#iam) .
 
 The following roles also have access to Spanner restore operations:
 
-  - `  spanner.admin  ` : has full access to restore. This role has complete access to all Spanner resources.
-  - `  owner  ` : has full access to restore.
-  - `  editor  ` : has full access to restore.
-  - `  viewer  ` : has access to view restore and restore operations. This role can't create, update, delete, or copy a backup.
+  - `spanner.admin` : has full access to restore. This role has complete access to all Spanner resources.
+  - `owner` : has full access to restore.
+  - `editor` : has full access to restore.
+  - `viewer` : has access to view restore and restore operations. This role can't create, update, delete, or copy a backup.
 
 ## Pricing
 

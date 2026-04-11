@@ -1,8 +1,8 @@
-## Tool: `       create_session      `
+## Tool: `create_session`
 
 Create a session in a given database for query executions using execute\_sql tool. \* Session can be reused to execute multiple concurrent operations.
 
-The following sample demonstrate how to use `  curl  ` to invoke the `  create_session  ` MCP tool.
+The following sample demonstrate how to use `curl` to invoke the `create_session` MCP tool.
 
 <table>
 <colgroup>
@@ -37,7 +37,7 @@ curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 
 ## Input Schema
 
-The request for `  CreateSession  ` .
+The request for `CreateSession` .
 
 ### CreateSessionRequest
 
@@ -61,11 +61,11 @@ The request for `  CreateSession  ` .
 
 Fields
 
-`  database  `
+`database`
 
-`  string  `
+`string`
 
-Required. The database in which the new session is created. Format: `  projects/{project}/instances/{instance}/databases/{database}  `
+Required. The database in which the new session is created. Format: `projects/{project}/instances/{instance}/databases/{database}`
 
 ## Output Schema
 
@@ -93,11 +93,11 @@ A session for Spanner API.
 
 Fields
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
-Output only. The resource name of the session. Format: `  projects/{project}/instances/{instance}/databases/{database}/sessions/{session}  `
+Output only. The resource name of the session. Format: `projects/{project}/instances/{instance}/databases/{database}/sessions/{session}`
 
 ### Tool Annotations
 

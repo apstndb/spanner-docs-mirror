@@ -43,7 +43,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:beginTransaction  `
+`POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:beginTransaction`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -51,16 +51,16 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  session  `
+`session`
 
-`  string  `
+`string`
 
 Required. The session in which the transaction runs.
 
-Authorization requires one or more of the following [IAM](https://cloud.google.com/iam/docs/) permissions on the specified resource `  session  ` :
+Authorization requires one or more of the following [IAM](https://cloud.google.com/iam/docs/) permissions on the specified resource `session` :
 
-  - `  spanner.databases.beginReadOnlyTransaction  `
-  - `  spanner.databases.beginOrRollbackReadWriteTransaction  `
+  - `spanner.databases.beginReadOnlyTransaction`
+  - `spanner.databases.beginOrRollbackReadWriteTransaction`
 
 ### Request body
 
@@ -77,38 +77,28 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;options&quot;: {
-    object (TransactionOptions)
-  },
-  &quot;requestOptions&quot;: {
-    object (RequestOptions)
-  },
-  &quot;mutationKey&quot;: {
-    object (Mutation)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;options&quot;: {object (TransactionOptions)},&quot;requestOptions&quot;: {object (RequestOptions)},&quot;mutationKey&quot;: {object (Mutation)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  options  `
+`options`
 
-`  object ( TransactionOptions  ` )
+` object ( TransactionOptions  ` )
 
 Required. Options for the new transaction.
 
-`  requestOptions  `
+`requestOptions`
 
-`  object ( RequestOptions  ` )
+` object ( RequestOptions  ` )
 
-Common options for this request. Priority is ignored for this request. Setting the priority in this `  requestOptions  ` struct doesn't do anything. To set the priority for a transaction, set it on the reads and writes that are part of this transaction instead.
+Common options for this request. Priority is ignored for this request. Setting the priority in this `requestOptions` struct doesn't do anything. To set the priority for a transaction, set it on the reads and writes that are part of this transaction instead.
 
-`  mutationKey  `
+`mutationKey`
 
-`  object ( Mutation  ` )
+` object ( Mutation  ` )
 
 Optional. Required for read-write transactions on a multiplexed session that commit mutations but don't perform any reads or queries. You must randomly select one of the mutations from the mutation set and send it as a part of this request.
 
@@ -120,7 +110,7 @@ If successful, the response body contains an instance of `  Transaction  ` .
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.data  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.data`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

@@ -28,7 +28,7 @@ In your project, add Apache Maven dependencies for [MyBatis](https://mybatis.org
 
 ### Data source configuration
 
-Configure `  application.properties  ` to use the Spanner JDBC driver and to connect to a Spanner GoogleSQL-dialect database.
+Configure `application.properties` to use the Spanner JDBC driver and to connect to a Spanner GoogleSQL-dialect database.
 
     spanner.project=my-project
     spanner.instance=my-instance

@@ -121,7 +121,7 @@ You can capture client round-trip latency using the following code:
      return matches[1], matches[2], matches[3], nil
     }
 
-The code sample appends the string `  roundtrip_latency  ` to the metric name when it's exported to Cloud Monitoring. You can search for this metric in Monitoring using the appended string.
+The code sample appends the string `roundtrip_latency` to the metric name when it's exported to Cloud Monitoring. You can search for this metric in Monitoring using the appended string.
 
 ## Capture GFE latency
 
@@ -275,7 +275,7 @@ You can capture GFE latency using the following code:
      return nil
     }
 
-The code sample appends the string `  spanner/gfe_latency  ` to the metric name when it's exported to Monitoring. You can search for this metric in Monitoring using the appended string.
+The code sample appends the string `spanner/gfe_latency` to the metric name when it's exported to Monitoring. You can search for this metric in Monitoring using the appended string.
 
 ## Capture Cloud Spanner API request latency
 
@@ -444,7 +444,7 @@ You can capture query latency using the following code:
      }
     }
 
-The code sample appends the string `  spanner/query_stats_elapsed  ` to the metric name when it's exported to Monitoring. You can search for this metric on Monitoring using the appended string.
+The code sample appends the string `spanner/query_stats_elapsed` to the metric name when it's exported to Monitoring. You can search for this metric on Monitoring using the appended string.
 
 ## View metrics in the Metrics Explorer
 
@@ -458,9 +458,9 @@ The code sample appends the string `  spanner/query_stats_elapsed  ` to the metr
 
 4.  Search for a latency metrics using the following strings:
     
-      - `  roundtrip_latency  ` : for the client round-trip latency metric.
-      - `  spanner/gfe_latency  ` : for the GFE latency metric.
-      - `  spanner/query_stats_elapsed  ` : for the query latency metric.
+      - `roundtrip_latency` : for the client round-trip latency metric.
+      - `spanner/gfe_latency` : for the GFE latency metric.
+      - `spanner/query_stats_elapsed` : for the query latency metric.
 
 5.  Select the metric, then click **Apply** .
 

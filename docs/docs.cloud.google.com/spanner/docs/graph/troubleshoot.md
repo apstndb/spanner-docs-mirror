@@ -12,7 +12,7 @@ Schema results are based on the dataset used in [Set up and query Spanner Graph]
 
 #### Error message
 
-``  Neither the primary keys nor any unique index defined on the property graph element source table `Person` provides the uniqueness guarantee for graph element `Person` belonging to the graph `FinGraph`. You want to redefine the element key columns (`name`) based on the source table's primary keys, or create a unique index on the element's key columns.  ``
+``Neither the primary keys nor any unique index defined on the property graph element source table `Person` provides the uniqueness guarantee for graph element `Person` belonging to the graph `FinGraph`. You want to redefine the element key columns (`name`) based on the source table's primary keys, or create a unique index on the element's key columns.``
 
 #### Example error
 
@@ -42,7 +42,7 @@ Alternatively, create a unique index on the element key columns.
 
 #### Error message
 
-`  Account is defined more than once; use a unique name.  `
+`Account is defined more than once; use a unique name.`
 
 #### Example error
 
@@ -76,7 +76,7 @@ Use a unique name for the edge definition.
 
 #### Error message
 
-`  The label Entity is defined with different property declarations. There is one instance of this label defined with properties of [id]. Another instance is defined with properties of [name].  `
+`The label Entity is defined with different property declarations. There is one instance of this label defined with properties of [id]. Another instance is defined with properties of [name].`
 
 #### Example error
 
@@ -100,7 +100,7 @@ You must use the same set of property names under the same label.
 
 #### Error message
 
-`  The property declaration of name has type conflicts. There is an existing declaration of type INT64. There is a conflicting one of type STRING.  `
+`The property declaration of name has type conflicts. There is an existing declaration of type INT64. There is a conflicting one of type STRING.`
 
 #### Example error
 
@@ -122,7 +122,7 @@ You must use the same set of property names under the same label.
 
 #### Error message
 
-`  Property value expression of count cannot contain a subquery.  `
+`Property value expression of count cannot contain a subquery.`
 
 #### Example error
 
@@ -139,7 +139,7 @@ N/A. This condition is disallowed.
 
 #### Error message
 
-`  Property location has more than one definition in the element table Person  `
+`Property location has more than one definition in the element table Person`
 
 #### Example error
 
@@ -178,7 +178,7 @@ Query results are based on the dataset used in [Set up and query Spanner Graph](
 
 #### Error message
 
-`  Returning expressions of type GRAPH_ELEMENT is not allowed  `
+`Returning expressions of type GRAPH_ELEMENT is not allowed`
 
 #### Example error
 
@@ -192,11 +192,11 @@ Query results are based on the dataset used in [Set up and query Spanner Graph](
     MATCH (n:Account)
     RETURN TO_JSON(n) AS n;
 
-### Property specification can't be used with `     WHERE    ` clause
+### Property specification can't be used with `WHERE` clause
 
 #### Error message
 
-`  WHERE clause cannot be used together with property specification  `
+`WHERE clause cannot be used together with property specification`
 
 #### Example error
 
@@ -225,11 +225,11 @@ You can use one of the following suggested fixes.
 
 ##### Error message
 
-`  Name 'account_id', defined in the previous statement, can only be referenced in the outermost WHERE clause of MATCH  `
+`Name 'account_id', defined in the previous statement, can only be referenced in the outermost WHERE clause of MATCH`
 
 ##### Description
 
-Reference to variables defined in previous statements is not allowed within the `  MATCH  ` pattern. In the graph query, names defined by previous statements can only be used in the outermost `  WHERE  ` clause of `  MATCH  ` .
+Reference to variables defined in previous statements is not allowed within the `MATCH` pattern. In the graph query, names defined by previous statements can only be used in the outermost `WHERE` clause of `MATCH` .
 
 ##### Example error
 
@@ -250,7 +250,7 @@ Reference to variables defined in previous statements is not allowed within the 
 
 #### Error message
 
-`  The name account is already defined; redefining graph element variables in a subquery is not allowed. To refer to the same graph element, use a different name and add an explicit filter that checks for equality.  `
+`The name account is already defined; redefining graph element variables in a subquery is not allowed. To refer to the same graph element, use a different name and add an explicit filter that checks for equality.`
 
 #### Description
 
@@ -279,19 +279,19 @@ In the graph query, graph element names cannot be redefined in an inner graph su
 
 Query results are based on the dataset used in [Set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
 
-### Different `     WHERE    ` and `     FILTER    ` result in different outputs
+### Different `WHERE` and `FILTER` result in different outputs
 
 #### Description
 
-`  FILTER  ` is a statement; `  WHERE  ` is a clause, as part of the `  MATCH  ` , `  OPTIONAL MATCH  ` statements.
+`FILTER` is a statement; `WHERE` is a clause, as part of the `MATCH` , `OPTIONAL MATCH` statements.
 
-In the first example, the `  WHERE  ` clause adds additional constraints to the patterns described in the `  OPTIONAL MATCH  ` statement. This isn't a filter after the matching is finished.
+In the first example, the `WHERE` clause adds additional constraints to the patterns described in the `OPTIONAL MATCH` statement. This isn't a filter after the matching is finished.
 
-In the second example, the `  FILTER  ` statement is a filter after the matching is finished.
+In the second example, the `FILTER` statement is a filter after the matching is finished.
 
 #### Example issue
 
-The following examples have different outputs because `  WHERE  ` and `  FILTER  ` are different.
+The following examples have different outputs because `WHERE` and `FILTER` are different.
 
 **Example 1**
 
@@ -321,9 +321,9 @@ Empty results.
 
 In the graph query language, a variable declared multiple times refers to the same graph element in all occurrences.
 
-In Example 1, there is no `  Account  ` node whose `  id  ` is both `  7  ` and `  16  ` . As a result, empty results are returned.
+In Example 1, there is no `Account` node whose `id` is both `7` and `16` . As a result, empty results are returned.
 
-In Example 2, the name `  n  ` is not returned from the previous statement (only `  id  ` is returned). So the second `  MATCH  ` finds the `  Account  ` node whose `  id  ` is `  16  ` .
+In Example 2, the name `n` is not returned from the previous statement (only `id` is returned). So the second `MATCH` finds the `Account` node whose `id` is `16` .
 
 #### Example issue
 
@@ -357,22 +357,22 @@ Empty results.
 | --------- |
 | 16        |
 
-### `     ORDER BY    ` is ignored if there is a succeeding statement that is not `     LIMIT    `
+### `ORDER BY` is ignored if there is a succeeding statement that is not `LIMIT`
 
 #### Description
 
-In the graph query language, the `  ORDER BY  ` statement is ignored unless one of the following is true:
+In the graph query language, the `ORDER BY` statement is ignored unless one of the following is true:
 
-  - `  ORDER BY  ` is the last statement.
-  - `  ORDER BY  ` is immediately followed by `  LIMIT  ` .
+  - `ORDER BY` is the last statement.
+  - `ORDER BY` is immediately followed by `LIMIT` .
 
-In Example 1, `  LIMIT  ` doesn't immediately follow `  ORDER BY  ` ; the final `  LIMIT  ` is separated. This means that `  ORDER BY  ` is ignored by the engine.
+In Example 1, `LIMIT` doesn't immediately follow `ORDER BY` ; the final `LIMIT` is separated. This means that `ORDER BY` is ignored by the engine.
 
-In Example 2, `  ORDER BY  ` is applicable because `  LIMIT  ` immediately follows `  ORDER BY  ` .
+In Example 2, `ORDER BY` is applicable because `LIMIT` immediately follows `ORDER BY` .
 
 #### Example issue
 
-The following examples have different outputs because the `  ORDER BY  ` statement is ignored when it's used without `  LIMIT  ` in Example 1.
+The following examples have different outputs because the `ORDER BY` statement is ignored when it's used without `LIMIT` in Example 1.
 
 **Example 1**
 
@@ -402,16 +402,16 @@ The following examples have different outputs because the `  ORDER BY  ` stateme
 
 #### Description
 
-In the dataset used in the error example, the `  ANY  ` direction edge pattern matches each `  Transfers  ` edge in the graph twice.
+In the dataset used in the error example, the `ANY` direction edge pattern matches each `Transfers` edge in the graph twice.
 
-In Example 1, a `  Transfers  ` edge from `  Account(id=x)  ` to `  Account(id=y)  ` can be matched twice, as follows:
+In Example 1, a `Transfers` edge from `Account(id=x)` to `Account(id=y)` can be matched twice, as follows:
 
-  - n= `  Account(id=x)  ` , m= `  Account(id=y)  `
-  - n= `  Account(id=y)  ` , m= `  Account(id=x)  `
+  - n= `Account(id=x)` , m= `Account(id=y)`
+  - n= `Account(id=y)` , m= `Account(id=x)`
 
-There is only one match in Example 2, where n= `  Account(id=x)  ` and m= `  Account(id=y)  ` .
+There is only one match in Example 2, where n= `Account(id=x)` and m= `Account(id=y)` .
 
-As a result, the query in Example 1 returns `  10  ` and the query in Example 2 returns `  5  ` .
+As a result, the query in Example 1 returns `10` and the query in Example 2 returns `5` .
 
 #### Example issue
 
@@ -445,11 +445,11 @@ Mutation results are based on the dataset used in [Set up and query Spanner Grap
 
 #### Error message
 
-`  Parent row for row [...] in table AccountTransferAccount is missing. Row cannot be written.  `
+`Parent row for row [...] in table AccountTransferAccount is missing. Row cannot be written.`
 
 #### Description
 
-`  AccountTransferAccount  ` edge table is `  INTERLEAVED INTO PARENT Account node  ` table. To create the `  Transfer  ` edge, its parent `  Account  ` node must already exist.
+`AccountTransferAccount` edge table is `INTERLEAVED INTO PARENT Account node` table. To create the `Transfer` edge, its parent `Account` node must already exist.
 
 #### Example error
 
@@ -458,17 +458,17 @@ Mutation results are based on the dataset used in [Set up and query Spanner Grap
 
 #### Recommended fix
 
-Create the leading `  Account  ` node first, then create the `  Transfer  ` edge.
+Create the leading `Account` node first, then create the `Transfer` edge.
 
 ### Missing destination node violates foreign key constraint
 
 #### Error message
 
-`  Foreign key constraint FK_TransferTo is violated on table AccountTransferAccount. Cannot find referenced values in Account(id)  `
+`Foreign key constraint FK_TransferTo is violated on table AccountTransferAccount. Cannot find referenced values in Account(id)`
 
 #### Description
 
-The `  AccountTransferAccount  ` table refers to `  Accounttable  ` through a `  ForeignKey  ` called `  FK_TransferTo  ` . To create the `  Transfer  ` edge, the referenced tailing node `  Account  ` node must already exist.
+The `AccountTransferAccount` table refers to `Accounttable` through a `ForeignKey` called `FK_TransferTo` . To create the `Transfer` edge, the referenced tailing node `Account` node must already exist.
 
 #### Example error
 
@@ -477,17 +477,17 @@ The `  AccountTransferAccount  ` table refers to `  Accounttable  ` through a ` 
 
 #### Recommended fix
 
-Create the tailing Account node first, then create the `  Transfer  ` edge.
+Create the tailing Account node first, then create the `Transfer` edge.
 
 ### Orphaned outgoing edge violates parent-child relationship
 
 #### Error message
 
-`  Integrity constraint violation during DELETE/REPLACE. Found child row [...] in table AccountTransferAccount  `
+`Integrity constraint violation during DELETE/REPLACE. Found child row [...] in table AccountTransferAccount`
 
 #### Description
 
-`  AccountTransferAccount  ` edge table is `  INTERLEAVED INTO PARENT  ` `  Account  ` node table and the `  Account  ` node to be deleted still has outgoing edges attached to it.
+`AccountTransferAccount` edge table is `INTERLEAVED INTO PARENT` `Account` node table and the `Account` node to be deleted still has outgoing edges attached to it.
 
 #### Example error
 
@@ -495,17 +495,17 @@ Create the tailing Account node first, then create the `  Transfer  ` edge.
 
 #### Recommended fix
 
-Delete all outgoing `  Transfer  ` edges first, then delete the `  Account  ` node. Alternatively, define [`  ON DELETE CASCADE  `](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) for `  INTERLEAVE  ` and have Spanner automatically delete those edges.
+Delete all outgoing `Transfer` edges first, then delete the `Account` node. Alternatively, define [`ON DELETE CASCADE`](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) for `INTERLEAVE` and have Spanner automatically delete those edges.
 
 ### Orphaned incoming edge violates parent-child relationship
 
 #### Error message
 
-`  Foreign key constraint violation when deleting or updating referenced row(s): referencing row(s) found in table AccountTransferAccount  `
+`Foreign key constraint violation when deleting or updating referenced row(s): referencing row(s) found in table AccountTransferAccount`
 
 #### Description
 
-`  AccountTransferAccount  ` edge table refers to `  Account  ` node table through a `  ForeignKey  ` , and the `  Account  ` node to be deleted still has incoming edges attached to it.
+`AccountTransferAccount` edge table refers to `Account` node table through a `ForeignKey` , and the `Account` node to be deleted still has incoming edges attached to it.
 
 #### Example error
 
@@ -513,4 +513,4 @@ Delete all outgoing `  Transfer  ` edges first, then delete the `  Account  ` no
 
 #### Recommended fix
 
-Delete all incoming `  Transfer  ` edges first, then delete the `  Account  ` node. Alternatively, define [`  ON DELETE CASCADE  `](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) for `  ForeignKey  ` and have Spanner automatically delete those edges.
+Delete all incoming `Transfer` edges first, then delete the `Account` node. Alternatively, define [`ON DELETE CASCADE`](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) for `ForeignKey` and have Spanner automatically delete those edges.

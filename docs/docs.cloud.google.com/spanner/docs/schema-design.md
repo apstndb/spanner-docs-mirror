@@ -12,7 +12,7 @@ To avoid creating hotspots in your database, carefully [choose a primary key](ht
 
 A common cause of hotspots is using a key that [monotonically increases or decreases](https://en.wikipedia.org/wiki/Monotonic_function) , such as a timestamp. Monotonic keys cause all new entries to write to the same range of your key space. Because Spanner uses key ranges to distribute data across servers, a monotonic key directs all insert traffic to a single server, creating a bottleneck.
 
-For example, suppose you want to maintain a last access timestamp column on rows of the `  UserAccessLogs  ` table. The following table definition uses a timestamp-based primary key as the first key part. We don't recommend this if the table sees a high rate of insertion:
+For example, suppose you want to maintain a last access timestamp column on rows of the `UserAccessLogs` table. The following table definition uses a timestamp-based primary key as the first key part. We don't recommend this if the table sees a high rate of insertion:
 
 ### GoogleSQL
 
@@ -35,26 +35,26 @@ The problem here is that rows are written to this table in order of last access 
 
 The following diagram illustrates this pitfall:
 
-The previous `  UserAccessLogs  ` table includes five example rows of data, which represent five different users taking some sort of user action about a millisecond apart from each other. The diagram also annotates the order in which Spanner inserts the rows (the labeled arrows indicate the order of writes for each row). Because inserts are ordered by timestamp, and the timestamp value is always increasing, Spanner always adds the inserts to the end of the table and directs them at the same split. (As discussed in [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) , a split is a set of rows from one or more related tables that Spanner stores in order of row key.)
+The previous `UserAccessLogs` table includes five example rows of data, which represent five different users taking some sort of user action about a millisecond apart from each other. The diagram also annotates the order in which Spanner inserts the rows (the labeled arrows indicate the order of writes for each row). Because inserts are ordered by timestamp, and the timestamp value is always increasing, Spanner always adds the inserts to the end of the table and directs them at the same split. (As discussed in [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) , a split is a set of rows from one or more related tables that Spanner stores in order of row key.)
 
 This is problematic because Spanner assigns work to different servers in units of splits, so the server assigned to this particular split ends up handling all the insert requests. As the frequency of user access events increases, the frequency of insert requests to the corresponding server also increases. The server then becomes prone to becoming a hotspot, and looks like the red border and background shown in the previous image. In this simplified illustration, each server handles at most one split but Spanner can assign each server more than one split.
 
 When Spanner appends more rows to the table, the split grows, and when it reaches approximately 8 GiB, Spanner creates another split, as described in [Load-based splitting](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#load-based_splitting) . Spanner appends subsequent new rows to this new split, and the server assigned to the split becomes the new potential hotspot.
 
-When hotspots occur, you might observe that your inserts are slow and other work on the same server might slow down. Changing the order of the `  LastAccess  ` column to ascending order doesn't solve this problem because then all the writes are inserted at the top of the table instead, which still sends all the inserts to a single server.
+When hotspots occur, you might observe that your inserts are slow and other work on the same server might slow down. Changing the order of the `LastAccess` column to ascending order doesn't solve this problem because then all the writes are inserted at the top of the table instead, which still sends all the inserts to a single server.
 
 **Schema design best practice \#1: Do not choose a column whose value monotonically increases or decreases as the first key part for a high write rate table.**
 
 ### Use a universally unique identifier (UUID)
 
-You can use a universally unique identifier (UUID) as defined by [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562) as the primary key. We recommend using [UUID Version 4](https://datatracker.ietf.org/doc/html/rfc9562#name-uuid-version-4) , because it uses random values in the bit sequence. We don't recommend Version 1 UUIDs because they store the timestamp in the high order bits. You can store UUID Version 4 values in a `  UUID  ` column on Spanner.
+You can use a universally unique identifier (UUID) as defined by [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562) as the primary key. We recommend using [UUID Version 4](https://datatracker.ietf.org/doc/html/rfc9562#name-uuid-version-4) , because it uses random values in the bit sequence. We don't recommend Version 1 UUIDs because they store the timestamp in the high order bits. You can store UUID Version 4 values in a `UUID` column on Spanner.
 
 Consider the following before deciding to use UUIDs:
 
-  - They function independently of the record's content. Unlike semantic keys such as `  SingerId  ` and `  AlbumId  ` , a UUID is strictly a unique identifier unrelated to the data itself.
+  - They function independently of the record's content. Unlike semantic keys such as `SingerId` and `AlbumId` , a UUID is strictly a unique identifier unrelated to the data itself.
   - They don't keep locality between related records, which is why using a UUID eliminates hotspots.
 
-For a `  UUID  ` column, you can use the Spanner [`  NEW_UUID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) GoogleSQL function or the [`  gen_random_uuid()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) PostgreSQL function to create UUID values.
+For a `UUID` column, you can use the Spanner [`NEW_UUID()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) GoogleSQL function or the [`gen_random_uuid()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) PostgreSQL function to create UUID values.
 
 For example, for the following table:
 
@@ -77,7 +77,7 @@ For example, for the following table:
     userid text);
 ```
 
-You can use the generated UUID function to create new `  LogEntryId  ` values.
+You can use the generated UUID function to create new `LogEntryId` values.
 
 ### GoogleSQL
 
@@ -89,7 +89,7 @@ You can use the generated UUID function to create new `  LogEntryId  ` values.
     INSERT INTO UserAccessLogs (LastAccess, UserId)
     VALUES ('2016-01-25 10:10:10.555555-05:00', 'TomSmith');
 
-For a `  UUID  ` column, you can use the Spanner [`  NEW_UUID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) GoogleSQL function or the [`  gen_random_uuid()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) PostgreSQL function as the column default value so that Spanner automatically generates UUID values.
+For a `UUID` column, you can use the Spanner [`NEW_UUID()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) GoogleSQL function or the [`gen_random_uuid()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) PostgreSQL function as the column default value so that Spanner automatically generates UUID values.
 
 For example, for the following table:
 
@@ -109,7 +109,7 @@ For example, for the following table:
       lastaccess timestamptz NOT NULL,
       userid text);
 
-You can insert GoogleSQL `  NEW_UUID()  ` or PostgreSQL `  gen_random_uuid()  ` to generate the `  LogEntryId  ` values. These functions produce a `  UUID  ` value, so the `  LogEntryId  ` column must use the `  UUID  ` type for GoogleSQL or PostgreSQL.
+You can insert GoogleSQL `NEW_UUID()` or PostgreSQL `gen_random_uuid()` to generate the `LogEntryId` values. These functions produce a `UUID` value, so the `LogEntryId` column must use the `UUID` type for GoogleSQL or PostgreSQL.
 
 ### GoogleSQL
 
@@ -143,7 +143,7 @@ You can also insert UUID values you've generated elsewhere, such as your backend
 
 ### Bit-reverse sequential values
 
-You should verify that numerical ( `  INT64  ` in GoogleSQL or `  bigint  ` in PostgreSQL) primary keys aren't sequentially increasing or decreasing. Sequential primary keys can cause hotspots at scale. One way to avoid this problem is to bit-reverse the sequential values, making sure to distribute primary key values evenly across the key space.
+You should verify that numerical ( `INT64` in GoogleSQL or `bigint` in PostgreSQL) primary keys aren't sequentially increasing or decreasing. Sequential primary keys can cause hotspots at scale. One way to avoid this problem is to bit-reverse the sequential values, making sure to distribute primary key values evenly across the key space.
 
 Spanner supports bit-reversed sequence, which generates unique integer bit-reversed values. You can use a sequence in the first (or only) component in a primary key to avoid hotspot issues. For more information, see [Bit-reversed sequence](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#bit-reversed-sequence) .
 
@@ -168,11 +168,11 @@ One way to spread writes over the key space more uniformly is to swap the order 
     PRIMARY KEY (UserId, LastAccess)
     );
 
-In this modified schema, inserts are now first ordered by `  UserId  ` , rather than by chronological last access timestamp. This schema spreads writes among different splits because it's unlikely that a single user produces thousands of events per second.
+In this modified schema, inserts are now first ordered by `UserId` , rather than by chronological last access timestamp. This schema spreads writes among different splits because it's unlikely that a single user produces thousands of events per second.
 
-The following image shows the five rows from the `  UserAccessLogs  ` table that Spanner orders with `  UserId  ` instead of access timestamp:
+The following image shows the five rows from the `UserAccessLogs` table that Spanner orders with `UserId` instead of access timestamp:
 
-Here Spanner might divide the `  UserAccessLogs  ` data into three splits, with each split containing approximately a thousand rows of ordered `  UserId  ` values. Even though the user events occurred about a millisecond apart, each event was raised by a different user, so the order of inserts is much less likely to create a hotspot compared with using the timestamp for ordering. To learn more about how splits are created, see [Load-based splitting](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#load-based_splitting)
+Here Spanner might divide the `UserAccessLogs` data into three splits, with each split containing approximately a thousand rows of ordered `UserId` values. Even though the user events occurred about a millisecond apart, each event was raised by a different user, so the order of inserts is much less likely to create a hotspot compared with using the timestamp for ordering. To learn more about how splits are created, see [Load-based splitting](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#load-based_splitting)
 
 See also the related best practice for [ordering timestamp-based keys](https://docs.cloud.google.com/spanner/docs/schema-design#ordering_timestamp-based_keys) .
 
@@ -180,7 +180,7 @@ See also the related best practice for [ordering timestamp-based keys](https://d
 
 Another common technique for spreading the load across multiple servers is to create a column that contains the hash of the actual unique key, then use the hash column (or the hash column and the unique key columns together) as the primary key. This pattern helps avoid hotspots, because new rows are spread more evenly across the key space.
 
-You can use the hash value to create logical shards, or partitions, in your database. In a physically sharded database, the rows are spread across several database servers. In a logically sharded database, the data in the table define the shards. For example, to spread writes to the `  UserAccessLogs  ` table across N logical shards, you could prepend a `  ShardId  ` key column to the table:
+You can use the hash value to create logical shards, or partitions, in your database. In a physically sharded database, the rows are spread across several database servers. In a logically sharded database, the data in the table define the shards. For example, to spread writes to the `UserAccessLogs` table across N logical shards, you could prepend a `ShardId` key column to the table:
 
 ### GoogleSQL
 
@@ -201,7 +201,7 @@ You can use the hash value to create logical shards, or partitions, in your data
     PRIMARY KEY (shardid, lastaccess, userid)
     );
 
-To compute the `  ShardId  ` , hash a combination of the primary key columns and then calculate modulo N of the hash. For example:
+To compute the `ShardId` , hash a combination of the primary key columns and then calculate modulo N of the hash. For example:
 
 ### GoogleSQL
 
@@ -211,7 +211,7 @@ Your choice of hash function and combination of columns determines how the rows 
 
 The following diagram illustrates how using a hash to create three logical shards can spread write throughput more evenly across servers:
 
-Here the `  UserAccessLogs  ` table is ordered by `  ShardId  ` , which is calculated as a hash function of key columns. The five `  UserAccessLogs  ` rows are chunked into three logical shards, each of which is coincidentally in a different split. The inserts are spread evenly among the splits, which balances write throughput to the three servers that handle the splits.
+Here the `UserAccessLogs` table is ordered by `ShardId` , which is calculated as a hash function of key columns. The five `UserAccessLogs` rows are chunked into three logical shards, each of which is coincidentally in a different split. The inserts are spread evenly among the splits, which balances write throughput to the three servers that handle the splits.
 
 Spanner also lets you create a hash function in a [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) .
 
@@ -232,7 +232,7 @@ Your choice of hash function determines how well your insertions are spread acro
   - Read efficiency. Reads across all hash values are faster if there are fewer hash values to scan.
   - Node count.
 
-When using a `  ShardId  ` to prevent hotspots, use the following guidelines to choose the value of N, the number of logical shards:
+When using a `ShardId` to prevent hotspots, use the following guidelines to choose the value of N, the number of logical shards:
 
   - **Correlate N with the number of nodes:** set N to be equal to the number of nodes you expect your instance to have. For example, if you expect your instance to scale up to 10 nodes, a value of N=10 is an effective starting point. This helps Spanner distribute the write load evenly across the nodes.
 
@@ -244,10 +244,10 @@ When using a `  ShardId  ` to prevent hotspots, use the following guidelines to 
 
 If you have a table for your history that uses the timestamp as a key, consider using descending order for the key column if any of the following apply:
 
-  - **If you want to read the most recent history, you're using an interleaved table for the history, and you're reading the parent row** . In this case, with a `  DESC  ` timestamp column, the latest history entries are stored adjacent to the parent row. Otherwise, reading the parent row and its recent history will require a seek in the middle to skip over the older history.
-  - **If you're reading sequential entries in reverse chronological order, and you don't know exactly how far back you're going** . For example, you might use a SQL query with a `  LIMIT  ` to get the most recent N events, or you might plan to cancel the read after you've read a certain number of rows. In these cases, you want to start with the most recent entries and read sequentially older entries until your condition has been met, which Spanner does more efficiently for timestamp keys that Spanner stores in descending order.
+  - **If you want to read the most recent history, you're using an interleaved table for the history, and you're reading the parent row** . In this case, with a `DESC` timestamp column, the latest history entries are stored adjacent to the parent row. Otherwise, reading the parent row and its recent history will require a seek in the middle to skip over the older history.
+  - **If you're reading sequential entries in reverse chronological order, and you don't know exactly how far back you're going** . For example, you might use a SQL query with a `LIMIT` to get the most recent N events, or you might plan to cancel the read after you've read a certain number of rows. In these cases, you want to start with the most recent entries and read sequentially older entries until your condition has been met, which Spanner does more efficiently for timestamp keys that Spanner stores in descending order.
 
-Add the `  DESC  ` keyword to make the timestamp key descending. For example:
+Add the `DESC` keyword to make the timestamp key descending. For example:
 
 ### GoogleSQL
 
@@ -263,7 +263,7 @@ Add the `  DESC  ` keyword to make the timestamp key descending. For example:
 
 Similar to the previous primary key example that you should avoid, it's also a bad idea to create non-interleaved indexes on columns whose values are monotonically increasing or decreasing, even if they aren't primary key columns.
 
-For example, suppose you define the following table, in which `  LastAccess  ` is a non-primary-key column:
+For example, suppose you define the following table, in which `LastAccess` is a non-primary-key column:
 
 ### GoogleSQL
 
@@ -282,7 +282,7 @@ For example, suppose you define the following table, in which `  LastAccess  ` i
     PRIMARY KEY (userid)
     );
 
-It might seem convenient to define an index on the `  LastAccess  ` column for quickly querying the database for user accesses "since time X", like this:
+It might seem convenient to define an index on the `LastAccess` column for quickly querying the database for user accesses "since time X", like this:
 
 ### GoogleSQL
 

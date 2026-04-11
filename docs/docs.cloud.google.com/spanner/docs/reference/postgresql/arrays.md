@@ -10,7 +10,7 @@ The following is an example of how to create a table that declares arrays:
         services_rendered     text[]
     );
 
-You name an array by adding square brackets ( `  []  ` ) to the data type name of the array elements. The previous statement creates a table named `  lawn_care_business  ` with two one-dimensional arrays. The first array, `  quarterly_fee  ` , is an `  integer  ` array. The second array, `  services_rendered  ` , is a `  text  ` array.
+You name an array by adding square brackets ( `[]` ) to the data type name of the array elements. The previous statement creates a table named `lawn_care_business` with two one-dimensional arrays. The first array, `quarterly_fee` , is an `integer` array. The second array, `services_rendered` , is a `text` array.
 
 You can also specify the size of arrays when creating them:
 
@@ -47,23 +47,23 @@ Format
 
 PostgreSQL example
 
-`  integer  `
+`integer`
 
-`  '{value1, value2, value3, value4}'  `
+`'{value1, value2, value3, value4}'`
 
-`  INSERT INTO lawn_care_business VALUES ('Bagdan', '{1000, 1000, 1000, 1000}', '{"mowing", "fertilizing"}'); INSERT INTO lawn_care_business VALUES ('Esmae', '{2000, 2500, 2500, 2500}', '{"mowing", "fertilizing", "weeding"}');  `
+`INSERT INTO lawn_care_business VALUES ('Bagdan', '{1000, 1000, 1000, 1000}', '{"mowing", "fertilizing"}'); INSERT INTO lawn_care_business VALUES ('Esmae', '{2000, 2500, 2500, 2500}', '{"mowing", "fertilizing", "weeding"}');`
 
-`  string  `
+`string`
 
-`  '{"text1", "text2"}'  `
+`'{"text1", "text2"}'`
 
 When inputting values using this format you should be aware of the following caveats:
 
   - You can put double quotes around any value, even integers.
   - You must put double quotes around a string if it contains a comma or curly brace.
-  - To enter a `  NULL  ` value, enter either `  null  ` or `  NULL  ` . If you want a string that merely says NULL, enter "NULL".
+  - To enter a `NULL` value, enter either `null` or `NULL` . If you want a string that merely says NULL, enter "NULL".
 
-You can also use the `  ARRAY  ` constructor syntax to input values into an array:
+You can also use the `ARRAY` constructor syntax to input values into an array:
 
 Data type
 
@@ -71,15 +71,15 @@ Format
 
 PostgreSQL example
 
-`  integer  `
+`integer`
 
-`  ARRAY[value1, value2, value3, value4]  `
+`ARRAY[value1, value2, value3, value4]`
 
-`  INSERT INTO lawn_care_business VALUES ('Bagdan', ARRAY[1000, 1000, 1000, 1000], ARRAY['mowing', 'fertilizing']); INSERT INTO lawn_care_business VALUES ('Esmae', ARRAY[2000, 2500, 2500, 2500], ARRAY['mowing', 'fertilizing', 'weeding']);  `
+`INSERT INTO lawn_care_business VALUES ('Bagdan', ARRAY[1000, 1000, 1000, 1000], ARRAY['mowing', 'fertilizing']); INSERT INTO lawn_care_business VALUES ('Esmae', ARRAY[2000, 2500, 2500, 2500], ARRAY['mowing', 'fertilizing', 'weeding']);`
 
-`  string  `
+`string`
 
-`  ARRAY['text1', 'text2']  `
+`ARRAY['text1', 'text2']`
 
 ## Access array values
 
@@ -95,7 +95,7 @@ Result:
  Esmae
 ```
 
-PostgreSQL arrays are 1-based, meaning that for an array of size **n** , the first element is `  array[1]  ` and the last element is at `  array[n]  ` .
+PostgreSQL arrays are 1-based, meaning that for an array of size **n** , the first element is `array[1]` and the last element is at `array[n]` .
 
 The following query gets the third quarter fee for all clients:
 
@@ -117,7 +117,7 @@ To modify the values of an array, you must provide the values for each element i
     UPDATE lawn_care_business SET quarterly_fee = '{2500,2500,2800,2800}'
         WHERE client_name = 'Esmae';
 
-The following example updates the same information using `  ARRAY  ` expression syntax:
+The following example updates the same information using `ARRAY` expression syntax:
 
     UPDATE lawn_care_business SET quarterly_fee = ARRAY[2500,2500,2800,2800]
         WHERE client_name = 'Esmae';
@@ -145,7 +145,7 @@ Each value must be checked when searching for a value in an array. If you know t
 
 ## Finding lengths
 
-The `  array_length  ` function returns the length of an array.
+The `array_length` function returns the length of an array.
 
     SELECT some_numbers,
     array_length(some_numbers, 1) AS len
@@ -164,9 +164,9 @@ The `  array_length  ` function returns the length of an array.
 
 ## Converting elements in an array to rows in a table
 
-To convert an `  ARRAY  ` into a set of rows, also known as flattening, use the [`  UNNEST  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#unnest_operator) operator. `  UNNEST  ` takes an `  ARRAY  ` and returns a table with a single row for each element in the `  ARRAY  ` .
+To convert an `ARRAY` into a set of rows, also known as flattening, use the [`UNNEST`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#unnest_operator) operator. `UNNEST` takes an `ARRAY` and returns a table with a single row for each element in the `ARRAY` .
 
-Because `  UNNEST  ` rearranges the order of the `  ARRAY  ` elements, you might want to restore order to the table. To do so, use the optional `  WITH ORDINALITY  ` clause to return an additional column with the index for each array element, then use the `  ORDER BY  ` clause to order the rows by their offset.
+Because `UNNEST` rearranges the order of the `ARRAY` elements, you might want to restore order to the table. To do so, use the optional `WITH ORDINALITY` clause to return an additional column with the index for each array element, then use the `ORDER BY` clause to order the rows by their offset.
 
 #### Example
 
@@ -190,7 +190,7 @@ Because `  UNNEST  ` rearranges the order of the `  ARRAY  ` elements, you might
 
 ## Creating arrays from subqueries
 
-You can convert a subquery result into an array using the [`  ARRAY()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions) function.
+You can convert a subquery result into an array using the [`ARRAY()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions) function.
 
 #### Example
 
@@ -212,11 +212,11 @@ You can convert a subquery result into an array using the [`  ARRAY()  `](https:
  *--------------------+---------------------*/
 ```
 
-The suquery called sequences in the example contains a column, `  some_numbers  ` , of type `  bigint[]  ` . The query contains another subquery that selects each row in the `  some_numbers  ` column and uses [`  UNNEST  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#unnest_operator) to return the array as a set of rows. Then, it multiplies each value by two, and re-combines the rows into an array using the `  ARRAY()  ` operator.
+The suquery called sequences in the example contains a column, `some_numbers` , of type `bigint[]` . The query contains another subquery that selects each row in the `some_numbers` column and uses [`UNNEST`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#unnest_operator) to return the array as a set of rows. Then, it multiplies each value by two, and re-combines the rows into an array using the `ARRAY()` operator.
 
 ## Filtering arrays
 
-The following examples use subqueries and the `  WHERE  ` clause to filter an array in the query.
+The following examples use subqueries and the `WHERE` clause to filter an array in the query.
 
     SELECT
       ARRAY(SELECT x * 2
@@ -234,9 +234,9 @@ The following examples use subqueries and the `  WHERE  ` clause to filter an ar
      | []                     |
      *------------------------*/
 
-Notice that the third row contains an empty array, because the elements in the corresponding original row ( `  [5, 10]  ` ) did not meet the filter requirement of `  x < 5  ` .
+Notice that the third row contains an empty array, because the elements in the corresponding original row ( `[5, 10]` ) did not meet the filter requirement of `x < 5` .
 
-You can also filter arrays by using `  SELECT DISTINCT  ` to return only unique elements within an array.
+You can also filter arrays by using `SELECT DISTINCT` to return only unique elements within an array.
 
     SELECT ARRAY(
         SELECT DISTINCT x
@@ -252,13 +252,13 @@ You can also filter arrays by using `  SELECT DISTINCT  ` to return only unique 
 
 ## Scanning arrays
 
-To check if an array contains a specific value, use the [`  ANY  ` / `  SOME  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array_comparisons) clause. To check if an array contains a value matching a condition, use either the `  ALL  ` clause or `  EXISTS  ` operator with [`  UNNEST  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#unnest_operator) .
+To check if an array contains a specific value, use the [`ANY` / `SOME`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array_comparisons) clause. To check if an array contains a value matching a condition, use either the `ALL` clause or `EXISTS` operator with [`UNNEST`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#unnest_operator) .
 
 ### Scanning for specific values
 
-To scan an array for a specific value, use the `  ANY  ` / `  SOME  ` clause.
+To scan an array for a specific value, use the `ANY` / `SOME` clause.
 
-The following example returns `  true  ` if the array contains the number `  2  ` .
+The following example returns `true` if the array contains the number `2` .
 
     SELECT 2 = ANY(ARRAY[0, 1, 1, 2, 3, 5]) AS contains_value;
     
@@ -268,11 +268,11 @@ The following example returns `  true  ` if the array contains the number `  2  
      | true           |
      *----------------*/
 
-To return the rows of a table where the array column contains a specific value, filter the results of `  ANY  ` / `  SOME  ` using the `  WHERE  ` clause.
+To return the rows of a table where the array column contains a specific value, filter the results of `ANY` / `SOME` using the `WHERE` clause.
 
 #### Example
 
-The following example returns the `  id  ` value for the rows where the array column contains the value `  2  ` .
+The following example returns the `id` value for the rows where the array column contains the value `2` .
 
     SELECT id AS matching_rows
     FROM  (
@@ -292,11 +292,11 @@ The following example returns the `  id  ` value for the rows where the array co
 
 ### Scanning for values that satisfy a condition
 
-To scan an array for values that match a condition, use `  UNNEST  ` with subqueries to return a table of the elements in the array, use `  WHERE  ` to filter the resulting table in the subquery, and use `  EXISTS  ` to check if the filtered table contains any rows.
+To scan an array for values that match a condition, use `UNNEST` with subqueries to return a table of the elements in the array, use `WHERE` to filter the resulting table in the subquery, and use `EXISTS` to check if the filtered table contains any rows.
 
 #### Example
 
-The following example returns the `  id  ` value for rows where the array contains values greater than `  5  ` .
+The following example returns the `id` value for rows where the array contains values greater than `5` .
 
     SELECT id AS matching_rows
     FROM (
@@ -317,7 +317,7 @@ The following example returns the `  id  ` value for rows where the array contai
 
 ## Arrays and aggregation
 
-You can aggregate values into an array using `  ARRAY_AGG()  ` .
+You can aggregate values into an array using `ARRAY_AGG()` .
 
     SELECT ARRAY_AGG(fruit) AS fruit_basket
     FROM (
@@ -331,9 +331,9 @@ You can aggregate values into an array using `  ARRAY_AGG()  ` .
      | [apple, pear, banana] |
      *-----------------------*/
 
-The array returned by `  ARRAY_AGG()  ` is in an arbitrary order, since the order in which the function concatenates values is not guaranteed.
+The array returned by `ARRAY_AGG()` is in an arbitrary order, since the order in which the function concatenates values is not guaranteed.
 
-You can also apply aggregate functions such as `  SUM()  ` to the elements in an array. For example, the following query returns the sum of elements for each row of the subquery result.
+You can also apply aggregate functions such as `SUM()` to the elements in an array. For example, the following query returns the sum of elements for each row of the subquery result.
 
     SELECT some_numbers,
       (SELECT SUM(x)
@@ -353,7 +353,7 @@ You can also apply aggregate functions such as `  SUM()  ` to the elements in an
 
 ## Converting arrays to strings
 
-The `  array_to_string()  ` function lets you convert a text array to a single text value where the resulting value is the ordered concatenation of the array elements.
+The `array_to_string()` function lets you convert a text array to a single text value where the resulting value is the ordered concatenation of the array elements.
 
 The second argument is the separator that the function inserts between inputs to produce the output; this second argument must use the same type as the elements of the first argument.
 
@@ -370,10 +370,10 @@ The second argument is the separator that the function inserts between inputs to
      | Hello World |
      *-------------*/
 
-The optional third argument takes the place of `  NULL  ` values in the input array.
+The optional third argument takes the place of `NULL` values in the input array.
 
-  - If you omit this argument, then the function ignores `  NULL  ` array elements.
-  - If you provide an empty string, the function inserts the separator specified in the second argument for `  NULL  ` array elements.
+  - If you omit this argument, then the function ignores `NULL` array elements.
+  - If you provide an empty string, the function inserts the separator specified in the second argument for `NULL` array elements.
 
 #### Example
 
@@ -391,7 +391,7 @@ The optional third argument takes the place of `  NULL  ` values in the input ar
 
 ## Combining arrays
 
-In some cases, you might want to combine multiple arrays into a single array. You can accomplish this using the `  ||  ` operator.
+In some cases, you might want to combine multiple arrays into a single array. You can accomplish this using the `||` operator.
 
     SELECT ARRAY[1, 2] || ARRAY[3, 4] || ARRAY[5, 6] AS count_to_six;
     

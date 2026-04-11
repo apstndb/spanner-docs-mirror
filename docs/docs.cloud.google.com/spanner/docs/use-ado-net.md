@@ -12,7 +12,7 @@ To use the Spanner ADO.NET driver in your application, add the following package
 
 ## Use the Spanner ADO.NET driver
 
-To create a ADO.NET connection to a Spanner database, create a `  SpannerConnectionStringBuilder  ` with a fully qualified database name as the connection string:
+To create a ADO.NET connection to a Spanner database, create a `SpannerConnectionStringBuilder` with a fully qualified database name as the connection string:
 
 ### GoogleSQL
 

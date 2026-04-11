@@ -71,7 +71,7 @@ Tiered storage offers the following benefits by letting you use both SSD and HDD
 
 By default, when you create a new instance, data is only stored on SSD storage. Similarly, data in existing instances is also only stored on SSD storage.
 
-If you choose to use tiered storage to store some data in HDD storage, you must create a [locality group](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) , which is used to define the tiered storage policy for data in your schema. When you create a locality group, you can define the storage type, either `  ssd  ` or `  hdd  ` . Optionally, you can also define the amount of time that data is stored on SSD storage before it's moved to HDD storage. This time is relative to the data's commit timestamp. After the specified time passes, Spanner migrates the data to HDD storage during its normal compaction cycle, which typically occurs over the course of seven days from the specified time. This is known as an age-based tiered storage policy. When using an age-based tiered storage policy, the minimum amount of time that data must be stored on SSD before it's moved to HDD storage is one hour.
+If you choose to use tiered storage to store some data in HDD storage, you must create a [locality group](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) , which is used to define the tiered storage policy for data in your schema. When you create a locality group, you can define the storage type, either `ssd` or `hdd` . Optionally, you can also define the amount of time that data is stored on SSD storage before it's moved to HDD storage. This time is relative to the data's commit timestamp. After the specified time passes, Spanner migrates the data to HDD storage during its normal compaction cycle, which typically occurs over the course of seven days from the specified time. This is known as an age-based tiered storage policy. When using an age-based tiered storage policy, the minimum amount of time that data must be stored on SSD before it's moved to HDD storage is one hour.
 
 With your locality groups defined, when you create your tables, you can set the tiered storage policy at the database, table, column, or secondary index-level. The tiered storage policy determines how and where data is stored. For instructions, see [Create and manage locality groups](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups) .
 
@@ -86,7 +86,7 @@ The following behaviors apply when using tiered storage:
 
 ## Back up and restore
 
-You can back up and restore your data using [Spanner backups](https://docs.cloud.google.com/spanner/docs/backup) . The backup contains all storage schema information, including [`  INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS  `](https://docs.cloud.google.com/spanner/docs/tiered-storage#information-schema) , which specifies the storage type of each locality group. To restore a backup that contains locality groups to a new instance, the destination instance must be in the Spanner Enterprise edition or Spanner Enterprise Plus edition.
+You can back up and restore your data using [Spanner backups](https://docs.cloud.google.com/spanner/docs/backup) . The backup contains all storage schema information, including [`INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS`](https://docs.cloud.google.com/spanner/docs/tiered-storage#information-schema) , which specifies the storage type of each locality group. To restore a backup that contains locality groups to a new instance, the destination instance must be in the Spanner Enterprise edition or Spanner Enterprise Plus edition.
 
 ## Data Boost
 
@@ -104,32 +104,32 @@ The following observability features are available for tiered storage.
 
 Spanner provides the following metrics to help you monitor your tiered storage usage and data using Cloud Monitoring:
 
-  - `  spanner.googleapis.com/instance/storage/used_bytes  ` (Total storage): Shows the total bytes of data stored on SSD and HDD storage.
-  - `  spanner.googleapis.com/instance/storage/combined/limit_bytes  ` : Shows the combined SSD and HDD storage limit.
-  - `  spanner.googleapis.com/instance/storage/combined/limit_bytes_per_processing_unit  ` : Shows the combined SSD and HDD storage limit for each processing unit.
-  - `  spanner.googleapis.com/instance/storage/combined/utilization  ` : Shows the combined SSD and HDD storage utilization, compared against the combined storage limit.
-  - `  spanner.googleapis.com/instance/disk_load  ` : Shows the HDD usage in percentage. If your instance reaches 100% HDD disk load, you experience significant increased latency.
+  - `spanner.googleapis.com/instance/storage/used_bytes` (Total storage): Shows the total bytes of data stored on SSD and HDD storage.
+  - `spanner.googleapis.com/instance/storage/combined/limit_bytes` : Shows the combined SSD and HDD storage limit.
+  - `spanner.googleapis.com/instance/storage/combined/limit_bytes_per_processing_unit` : Shows the combined SSD and HDD storage limit for each processing unit.
+  - `spanner.googleapis.com/instance/storage/combined/utilization` : Shows the combined SSD and HDD storage utilization, compared against the combined storage limit.
+  - `spanner.googleapis.com/instance/disk_load` : Shows the HDD usage in percentage. If your instance reaches 100% HDD disk load, you experience significant increased latency.
 
-If you have existing queries that filter existing metrics by `  storage_class:ssd  ` , you must remove the filter to see your HDD usage.
+If you have existing queries that filter existing metrics by `storage_class:ssd` , you must remove the filter to see your HDD usage.
 
 To learn more about monitoring your Spanner resources, see [Monitor instances with system insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) and [Monitor instances with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
 ### Information schema
 
-`  INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS  ` contains the list of locality groups and options in your Spanner database. It includes information for the `  default  ` locality group. For more information, see [`  locality_group_options  ` for GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema) and [`  locality_group_options  ` for PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema-pg) .
+`INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS` contains the list of locality groups and options in your Spanner database. It includes information for the `default` locality group. For more information, see [`locality_group_options` for GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema) and [`locality_group_options` for PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema-pg) .
 
 ### Built-in statistics tables
 
 The following built-in statistics tables are available for databases using tiered storage:
 
-  - `  SPANNER_SYS.TABLE_SIZES_STATS_1HOUR  ` : Shows HDD and SSD storage usage for each table in your database.
-  - `  SPANNER_SYS.TABLE_SIZES_STATS_PER_LOCALITY_GROUP_1HOUR  ` : Shows HDD and SSD storage usage for each locality group in your database.
+  - `SPANNER_SYS.TABLE_SIZES_STATS_1HOUR` : Shows HDD and SSD storage usage for each table in your database.
+  - `SPANNER_SYS.TABLE_SIZES_STATS_PER_LOCALITY_GROUP_1HOUR` : Shows HDD and SSD storage usage for each locality group in your database.
 
 For more information, see [Table sizes statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics) .
 
 The query statistics and read statistics tables have the following column that is related to tiered storage:
 
-  - `  AVG_DISK_IO_COST  ` : The average cost of this query in terms of Spanner [HDD disk load](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load) . Use this value to make relative HDD I/O cost comparisons between reads that you run in the database. A higher value indicates that you are using more HDD disk load and your query might be slower than if it was running on SSD. Furthermore, if your HDD disk load is at capacity, the performance of your queries might be further impacted.
+  - `AVG_DISK_IO_COST` : The average cost of this query in terms of Spanner [HDD disk load](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load) . Use this value to make relative HDD I/O cost comparisons between reads that you run in the database. A higher value indicates that you are using more HDD disk load and your query might be slower than if it was running on SSD. Furthermore, if your HDD disk load is at capacity, the performance of your queries might be further impacted.
 
 For more information, see [Query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) and [Read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) .
 

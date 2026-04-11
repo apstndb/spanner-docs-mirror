@@ -4,17 +4,17 @@ This feature is subject to the "Pre-GA Offerings Terms" in the General Service T
 
 **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
-This tutorial describes how to set up and use context sets in Spanner using the Google Cloud console and integrate it with your application. Learn how to build the context set file, create a context set that uses the context set file, use [MCP Toolbox](https://github.com/googleapis/genai-toolbox) to call the [QueryData API](https://docs.cloud.google.com/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases) to generate SQL queries for natural language questions, and integrate it with your application.
+This tutorial describes how to set up and use QueryData in Spanner using the Google Cloud console and integrate it with your application. Learn how to build the context set file, create a context set that uses the context set file, use [MCP Toolbox](https://github.com/googleapis/genai-toolbox) to call the [QueryData API](https://docs.cloud.google.com/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases) to generate SQL queries for natural language questions, and integrate it with your application.
 
-For more information, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
+For more information, see [QueryData overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
 
 ## Objectives
 
   - Create database tables and populate them with data.
   - Build a context set file with Gemini CLI and MCP toolbox.
   - Create a context set and upload context set file.
-  - Test the context set and generate SQL queries in Studio.
-  - Integrate the context set with your application using [Gemini Data Analytics QueryData](https://googleapis.github.io/genai-toolbox/resources/tools/cloudgda/cloud-gda-query/) tool in MCP Toolbox.
+  - Test QueryData and generate SQL queries in Studio.
+  - Integrate QueryData with your application using [Gemini Data Analytics QueryData](https://googleapis.github.io/genai-toolbox/resources/tools/cloudgda/cloud-gda-query/) tool in MCP Toolbox.
   - Add grounding to LLM responses using value search queries.
 
 ## Costs
@@ -55,12 +55,12 @@ This tutorial requires you to have a database in your Spanner instance. For more
 ### Required roles and permissions
 
   - Add an IAM user or service account to the cluster. For more information, see [Apply IAM roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
-  - Grant the `  spanner.databaseReader  ` and `  geminidataanalytics.queryDataUser  ` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](https://docs.cloud.google.com/sdk/gcloud/reference/projects/add-iam-policy-binding) .
+  - Grant the `spanner.databaseReader` and `geminidataanalytics.queryDataUser` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](https://docs.cloud.google.com/sdk/gcloud/reference/projects/add-iam-policy-binding) .
   - [Grant roles and permissions](https://docs.cloud.google.com/spanner/docs/grant-permissions#project-level_permissions) to the IAM user at the project-level for the required databases.
 
-## Create the `     flights    ` and `     airports    ` schema and tables
+## Create the `flights` and `airports` schema and tables
 
-In this section, you create the `  flights  ` and `  airports  ` database tables for this tutorial.
+In this section, you create the `flights` and `airports` database tables for this tutorial.
 
 1.  In the Google Cloud console, go to the Spanner page.
     
@@ -72,7 +72,7 @@ In this section, you create the `  flights  ` and `  airports  ` database tables
 
 4.  Click **New SQL editor tab** or **New tab** to open a new tab.
 
-5.  To create the `  airports  ` table and schema, execute the following SQL statement:
+5.  To create the `airports` table and schema, execute the following SQL statement:
     
         CREATE TABLE IF NOT EXISTS airports (
           id INT64 PRIMARY KEY,
@@ -82,7 +82,7 @@ In this section, you create the `  flights  ` and `  airports  ` database tables
           country STRING(MAX)
         );
 
-6.  Create the `  flights  ` table and schema:
+6.  Create the `flights` table and schema:
     
         CREATE TABLE flights (
           id INT64 NOT NULL,
@@ -96,11 +96,11 @@ In this section, you create the `  flights  ` and `  airports  ` database tables
           arrival_gate STRING(10)
         ) PRIMARY KEY (id);
 
-## Populate the `     flights    ` and `     airports    ` tables
+## Populate the `flights` and `airports` tables
 
-In this section, you populate the `  flights  ` and `  airports  ` tables using the provided SQL scripts.
+In this section, you populate the `flights` and `airports` tables using the provided SQL scripts.
 
-1.  Populate the `  airports  ` table.
+1.  Populate the `airports` table.
     
     #### See SQL script
     
@@ -171,7 +171,7 @@ In this section, you populate the `  flights  ` and `  airports  ` tables using 
         (5305, 'ASE', 'Aspen-Pitkin Co/Sardy Field', 'Aspen', 'United States'),
         (5362, 'MMH', 'Mammoth Yosemite Airport', 'Mammoth Lakes', 'United States');
 
-2.  Populate the `  flights  ` table.
+2.  Populate the `flights` table.
     
     #### See SQL script
     
@@ -571,7 +571,7 @@ In this section, you populate the `  flights  ` and `  airports  ` tables using 
 
 ## Create tokenized columns and search indexes
 
-Use Spanner built-in text search capabilities to enable QueryData to accurately map unstructured natural language phrases, such as typos or partial names, to specific values in your database. This requires generating a hidden `  TOKENLIST  ` column that breaks your strings down into `  n-grams  ` , and building a search index on that column.
+Use Spanner built-in text search capabilities to enable QueryData to accurately map unstructured natural language phrases, such as typos or partial names, to specific values in your database. This requires generating a hidden `TOKENLIST` column that breaks your strings down into `n-grams` , and building a search index on that column.
 
 To create tokenized columns and search indexes, execute the following SQL statements:
 
@@ -587,7 +587,7 @@ To create tokenized columns and search indexes, execute the following SQL statem
 
 ## Create a context set in Studio
 
-In this section, create a context set named `  flights-assistant  ` . This context set doesn't include any context set file uploaded to it.
+In this section, create a context set named `flights-assistant` . This context set doesn't include any context set file uploaded to it.
 
 1.  In the Google Cloud console, go to the Spanner page.
     
@@ -601,13 +601,13 @@ In this section, create a context set named `  flights-assistant  ` . This conte
 
 5.  Click **Create context set** .
 
-6.  In **Context set name** , enter `  flights-assistant  ` .
+6.  In **Context set name** , enter `flights-assistant` .
 
 7.  Click **Create** .
 
-## Test the context set in Studio
+## Test QueryData in Studio
 
-In this section, ask the `  flights-assistant  ` context set a natural language question to generate a SQL query. Since the context set doesn't have any context set file uploaded to it, even after asking a question with context such as `  nighttime traffic  ` , QueryData generates a sub-optimal query.
+In this section, use the `flights-assistant` context set by asking natural language questions to generate a SQL query. Since the context set doesn't have any context set file uploaded to it, even after asking a question with context such as `nighttime traffic` , QueryData generates a sub-optimal query.
 
 1.  In the **Explorer pane** , next to your context set, click **View actions** .
 
@@ -637,7 +637,7 @@ In this section, ask the `  flights-assistant  ` context set a natural language 
     
         Tell me flights that can help me beat nighttime traffic if traveling from New York
     
-    The database fails to understand the term `  nighttime  ` traffic. This might prevent it from generating a SQL query or cause it to generate a query that ignores the term, as the following query shows.
+    The database fails to understand the term `nighttime` traffic. This might prevent it from generating a SQL query or cause it to generate a query that ignores the term, as the following query shows.
     
     **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
     
@@ -708,11 +708,11 @@ To set up your environment, perform the following steps:
     
     **Note:** The extension requires a Gemini API key during installation to authenticate with the Gemini API, and to enable context generation. For more information about how to find your API key, see [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key) .
     
-    Ensure that the version is `  0.4.2  ` or higher. To update the DB Context Enrichment extension, run the following command:
+    Ensure that the version is `0.4.2` or higher. To update the DB Context Enrichment extension, run the following command:
     
         gemini extensions update mcp-db-context-enrichment
 
-5.  To update the DB Context Enrichment extension or to replace the `  GEMINI_API_KEY  ` , run the following command:
+5.  To update the DB Context Enrichment extension or to replace the `GEMINI_API_KEY` , run the following command:
     
         gemini extensions config mcp-db-context-enrichment GEMINI_API_KEY
     
@@ -726,11 +726,11 @@ To set up your environment, perform the following steps:
 
 8.  Set up Database Connection. The extension requires a database connection for context generation, which is supported by the [MCP Toolbox](https://mcp-toolbox.dev/documentation/introduction/) and defined within the tools.yaml configuration file.
     
-    To create the `  tools.yaml  ` configuration file in your current directory, enter a prompt such as `  Help me set up the database connection  ` and follow the instructions provided by the skill. For more information about the `  tools.yaml  ` file, see [MCP Toolbox documentation](https://mcp-toolbox.dev/documentation/configuration/) .
+    To create the `tools.yaml` configuration file in your current directory, enter a prompt such as `Help me set up the database connection` and follow the instructions provided by the skill. For more information about the `tools.yaml` file, see [MCP Toolbox documentation](https://mcp-toolbox.dev/documentation/configuration/) .
     
-    **Note:** If this connection is not established, the extension returns error messages, such as `  Error Discovering tools from mcp_toolbox  ` , and context generation fails to work.
+    **Note:** If this connection is not established, the extension returns error messages, such as `Error Discovering tools from mcp_toolbox` , and context generation fails to work.
 
-9.  To reload the configuration after creating the `  tools.yaml  ` file is created, run the following command in the Gemini CLI:
+9.  To reload the configuration after creating the `tools.yaml` file is created, run the following command in the Gemini CLI:
     
         /mcp reload
 
@@ -740,11 +740,11 @@ To set up your environment, perform the following steps:
 
 ### Generate template context
 
-In this section, to address the issue from the previous section where QueryData didn't recognize the term `  nighttime traffic  ` , define the term in the context set file as traffic occurring between `  5:00 PM  ` and `  7:00 PM  ` .
+In this section, to address the issue from the previous section where QueryData didn't recognize the term `nighttime traffic` , define the term in the context set file as traffic occurring between `5:00 PM` and `7:00 PM` .
 
 To generate template context, perform the following steps:
 
-1.  Run the `  /generate_targeted_templates  ` command and follow the workflow:
+1.  Run the `/generate_targeted_templates` command and follow the workflow:
     
         /generate_targeted_templates
 
@@ -752,7 +752,7 @@ To generate template context, perform the following steps:
     
         Tell me flights that can help me beat nighttime traffic if traveling from New York
 
-3.  Provide a corresponding SQL query that you want to add to the query template. This query template defines the term `  nighttime  ` as occurring between `  5:00 PM  ` and `  7:00 PM  ` .
+3.  Provide a corresponding SQL query that you want to add to the query template. This query template defines the term `nighttime` as occurring between `5:00 PM` and `7:00 PM` .
     
         SELECT
           f.airline,
@@ -773,15 +773,15 @@ To generate template context, perform the following steps:
         ORDER BY
           f.departure_time;
 
-4.  Press **Enter** . Gemini converts your input into a specific format that refines the context set's performance across a wide range of user queries. For more information, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview#context-set) .
+4.  Press **Enter** . Gemini converts your input into a specific format that refines the context set's performance across a wide range of user queries. For more information, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-set) .
     
-    Optionally, run the `  /generate_bulk_templates  ` workflow to let Gemini CLI generate more context by scanning your database schema and suggesting related context.
+    Optionally, run the `/generate_bulk_templates` workflow to let Gemini CLI generate more context by scanning your database schema and suggesting related context.
     
-    **Note:** The `  /generate_bulk_templates  ` workflow requires the list schema tool for fetching database schemas and the execute SQL tool for SQL validation, as the previous `  tools.yaml  ` configuration shows.
+    **Note:** The `/generate_bulk_templates` workflow requires the list schema tool for fetching database schemas and the execute SQL tool for SQL validation, as the previous `tools.yaml` configuration shows.
 
 5.  Review the generated query template. You can either save the query template as a new agent context file or append it to an existing agent context file.
 
-6.  Select the option to create a new agent context file. Gemini creates a filename `  INSTANCE_ID _ DATABASE_ID _context_set_ TIMESTAMP .json  ` in the same directory, with the following content:
+6.  Select the option to create a new agent context file. Gemini creates a filename `  INSTANCE_ID _ DATABASE_ID _context_set_ TIMESTAMP .json ` in the same directory, with the following content:
     
         {
           "templates": [
@@ -804,11 +804,11 @@ In this section, you generate value search context to help context set logic map
 
 To generate value search context, perform the following steps:
 
-1.  Run the `  /generate_targeted_value_searches  ` command:
+1.  Run the `/generate_targeted_value_searches` command:
     
         /generate_targeted_value_searches
 
-2.  Enter `  spanner  ` to select Spanner as the database.
+2.  Enter `spanner` to select Spanner as the database.
 
 3.  Enter the value search configuration as follows:
     
@@ -825,7 +825,7 @@ To generate value search context, perform the following steps:
 
 7.  Enter the database instance and database name for which the context set file was generated.
     
-    The existing context file is updated with the value search definition. Gemini creates a filename `  INSTANCE_ID _ DATABASE_ID _context_set_ TIMESTAMP .json  ` in the same directory, with the following content:
+    The existing context file is updated with the value search definition. Gemini creates a filename `  INSTANCE_ID _ DATABASE_ID _context_set_ TIMESTAMP .json ` in the same directory, with the following content:
     
     ``` 
       {
@@ -881,9 +881,9 @@ To upload the context, perform the following steps:
 
 8.  Click **Save** .
 
-## Generate SQL query using context set
+## Generate SQL query using QueryData
 
-In this section, you use the context set file you uploaded to ask natural language questions. This lets you verify that QueryData correctly understands and applies definitions for terms like `  nighttime traffic  ` and other related phrases
+In this section, you use the context set file you uploaded to ask natural language questions. This lets you verify that QueryData correctly understands and applies definitions for terms like `nighttime traffic` and other related phrases
 
 **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
 
@@ -919,7 +919,7 @@ To generate SQL queries, perform the following steps:
         ORDER BY
           f.departure_time;
     
-    This is the same question you added to QueryData's context. Observe that QueryData can now accurately interpret the term `  nighttime traffic  ` .
+    This is the same question you added to QueryData's context. Observe that QueryData can now accurately interpret the term `nighttime traffic` .
     
     Although the context originates from one particular question, QueryData uses it to enhance SQL generation for a wide range of similar questions.
 
@@ -929,7 +929,7 @@ To generate SQL queries, perform the following steps:
     
         What are the flights that can help me avoid evening traffic if departing from Boston
     
-    Since the question replaces the term `  nighttime traffic  ` with a similar term, `  evening traffic  ` , QueryData provides a consistent answer to this question by applying the same interpretation.
+    Since the question replaces the term `nighttime traffic` with a similar term, `evening traffic` , QueryData provides a consistent answer to this question by applying the same interpretation.
     
     The generated SQL query looks similar to the following:
     
@@ -975,9 +975,9 @@ To generate SQL queries, perform the following steps:
     
     Observe that QueryData can now accurately interpret that "Houston Intercontinental" relates to the "George Bush Intercontinental Houston Airport" in the database.
 
-## Integrate the context set with your application
+## Integrate QueryData with your application
 
-In this section, you create a QueryData agent for a flight-finding application. This QueryData agent provides a conversational interface to the `  flights  ` and `  airports  ` table you created earlier. It also explains how to create and integrate this QueryData agent into your application using [Agent Development Kit (ADK)](https://github.com/google/adk-python) , the Gemini Data Analytics QueryData MCP tool, and context set to improve quality of the responses.
+In this section, you create a QueryData agent for a flight-finding application. This QueryData agent provides a conversational interface to the `flights` and `airports` table you created earlier. It also explains how to create and integrate this QueryData agent into your application using [Agent Development Kit (ADK)](https://github.com/google/adk-python) , the Gemini Data Analytics QueryData MCP tool, and context set to improve quality of the responses.
 
 **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
 
@@ -987,9 +987,9 @@ In this section, you create a QueryData agent for a flight-finding application. 
     
         gcloud auth application-default login
 
-3.  Find the context set ID. For more information about how to find the context set ID, see [Find the context set ID](https://docs.cloud.google.com/spanner/docs/data-agent-overview#agent-context) .
+3.  Find the context set ID. For more information about how to find the context set ID, see [Find the context set ID](https://docs.cloud.google.com/spanner/docs/context-sets-overview#find-context-id) .
 
-4.  Create the `  tools.yaml  ` configuration to connect to the QueryData agent using the MCP toolbox. For more information, see [Gemini Data Analytics Source](https://mcp-toolbox.dev/integrations/cloudgda/source/) and Gemini Data Analytics QueryData Tool.
+4.  Create the `tools.yaml` configuration to connect to the QueryData agent using the MCP toolbox. For more information, see [Gemini Data Analytics Source](https://mcp-toolbox.dev/integrations/cloudgda/source/) and Gemini Data Analytics QueryData Tool.
     
         kind: source
         name: gda-api-source
@@ -1026,7 +1026,7 @@ In this section, you create a QueryData agent for a flight-finding application. 
       - `  DATABASE_ID  ` : The name of the database to connect to.
       - `  CONTEXT_SET_ID  ` : The context set ID. For more information about how to find the context set ID, see [Find the context set ID](https://docs.cloud.google.com/spanner/docs/inspect-data-agent#find-agent-context-id) .
 
-5.  Run the MCP Toolbox server with the `  tools.yaml  ` file.
+5.  Run the MCP Toolbox server with the `tools.yaml` file.
     
         ./toolbox --config "tools.yaml"
     
@@ -1034,20 +1034,15 @@ In this section, you create a QueryData agent for a flight-finding application. 
 
 6.  Create an ADK application that invokes [Gemini Data Analytics QueryData tool](https://mcp-toolbox.dev/integrations/cloudgda/tools/cloud-gda-query/) using the MCP Toolbox's Python SDK. For more information about how to use the MCP Toolbox's Python SDK, see the [quickstart for Toolbox](https://mcp-toolbox.dev/documentation/getting-started/local_quickstart/) and for Python ADK, see the [quickstart for ADK](https://google.github.io/adk-docs/get-started/python/) .
     
-    1.  Create a directory to store the application, for example `  flight-assistant-app  ` .
+    1.  Create a directory to store the application, for example `flight-assistant-app` .
     
-    2.  Change directory to the `  flight-assistant-app  ` directory.
+    2.  Change directory to the `flight-assistant-app` directory.
         
-            mkdir flight-assistant-app
-            cd flight-assistant-app
+            mkdir flight-assistant-appcd flight-assistant-app
     
-    3.  Run the following commands under the `  flight-assistant-app  ` directory to create a virtual environment and install required components.
+    3.  Run the following commands under the `flight-assistant-app` directory to create a virtual environment and install required components.
         
-            python3 -m venv .venv
-            source .venv/bin/activate
-            pip install toolbox-core
-            pip install google-genai
-            pip install google-adk
+            python3 -m venv .venvsource .venv/bin/activatepip install toolbox-corepip install google-genaipip install google-adk
     
     4.  Set up an ADK agent.
         
@@ -1055,11 +1050,11 @@ In this section, you create a QueryData agent for a flight-finding application. 
             
                 adk create my_agent
         
-        2.  Select the `  gemini-2.5-flash  ` model.
+        2.  Select the `gemini-2.5-flash` model.
         
         3.  Select **Google AI** , and enter your Gemini API key. For more information about how to find your API key, see [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key) .
     
-    5.  Replace the contents of the `  agent.py  ` file with the following Flight Data Assistant sample application code.
+    5.  Replace the contents of the `agent.py` file with the following Flight Data Assistant sample application code.
         
             from typing import cast
             
@@ -1115,13 +1110,13 @@ In this section, you create a QueryData agent for a flight-finding application. 
                 tools=cast(list[ToolUnion], [mcp_tool]),
             )
     
-    **Note:** The instruction contains a system prompt that sets up a `  flight assistant  ` QueryData agent. It also instructs the agent how to use the Gemini Data Analytics QueryData tool you set up in the `  tools.yaml  ` file you created earlier in step 5.
+    **Note:** The instruction contains a system prompt that sets up a `flight assistant` QueryData agent. It also instructs the agent how to use the Gemini Data Analytics QueryData tool you set up in the `tools.yaml` file you created earlier in step 5.
 
-7.  Run the following commands under the `  flight-assistant-app  ` directory to start the application and access the ADK web server at `  http://127.0.0.1:8000  ` .
+7.  Run the following commands under the `flight-assistant-app` directory to start the application and access the ADK web server at `http://127.0.0.1:8000` .
     
         adk web --port 8000
 
-8.  Enter any text, such as `  hello  ` , to start interacting with the agent.
+8.  Enter any text, such as `hello` , to start interacting with the agent.
     
     The ADK agent answers general questions and calls the required MCP tools.
 
@@ -1129,7 +1124,7 @@ In this section, you create a QueryData agent for a flight-finding application. 
     
         How many flights depart from the west side?
     
-    The MCP tool is called to answer this question. However, since the term `  the west  ` is ambiguous and doesn't specify any airports, the MCP tool returns a disambiguation question which the agent uses to construct a response.
+    The MCP tool is called to answer this question. However, since the term `the west` is ambiguous and doesn't specify any airports, the MCP tool returns a disambiguation question which the agent uses to construct a response.
     
         I cannot determine how many flights depart from the 'west side' as the database does not contain information about which airports are considered to be on the 'west side'. However, I can help you with questions like:
         
@@ -1143,7 +1138,7 @@ In this section, you create a QueryData agent for a flight-finding application. 
     
         Help me find flights from San Francisco that avoid the evening rush hour.
     
-    Based on the QueryData context added earlier, the MCP tool understands that `  evening traffic  ` occurs between 5 PM and 7 PM. The MCP tool returns the associated data for the agent to use in constructing its response.
+    Based on the QueryData context added earlier, the MCP tool understands that `evening traffic` occurs between 5 PM and 7 PM. The MCP tool returns the associated data for the agent to use in constructing its response.
     
         Here are the flights departing from San Francisco that avoid the evening rush hour (defined as 5 PM to 7 PM):
         
@@ -1179,7 +1174,7 @@ In this section, you create a QueryData agent for a flight-finding application. 
 
 The ADK web UI lets you inspect the request and response from the Gemini Data Analytics QueryData MCP tool. You can use this response to observe the tool responses such as generated SQL query, result set, intent explanation, disambiguation question, and natural language answer, to help you confirm the correctness of your agent's responses.
 
-For example, for the input text `  How many flights depart from the west side?  ` you entered earlier, click the agent bubble. In the **Event** tab in the left navigation, expand the `  functionResponse  ` to see the following response.
+For example, for the input text `How many flights depart from the west side?` you entered earlier, click the agent bubble. In the **Event** tab in the left navigation, expand the `functionResponse` to see the following response.
 
     "{"disambiguationQuestion": ["[NOT_ENOUGH_INFO] The database schema does not
     contain information about which airports are on the 'west side'. Therefore, I
@@ -1190,13 +1185,13 @@ For example, for the input text `  How many flights depart from the west side?  
 
 ### Refine response accuracy
 
-You can continuously refine the accuracy of responses from the Gemini Data Analytics QueryData tool by adding additional context. Use the Gemini CLI to generate context, and then upload the updated context set file to the existing `  flights-assistant  ` QueryData agent. For more information, see [Build contexts using Gemini CLI](https://docs.cloud.google.com/alloydb/docs/ai/build-context-gemini-cli) . The console immediately ingests new context after you upload it, enabling you to enhance the agent's accuracy without any application downtime.
+You can continuously refine the accuracy of responses from the Gemini Data Analytics QueryData tool by adding additional context. Use the Gemini CLI to generate context, and then upload the updated context set file to the existing `flights-assistant` QueryData agent. For more information, see [Build contexts using Gemini CLI](https://docs.cloud.google.com/alloydb/docs/ai/build-context-gemini-cli) . The console immediately ingests new context after you upload it, enabling you to enhance the agent's accuracy without any application downtime.
 
 ### Multiple agents
 
-In your development environment, you can perform A/B testing on multiple QueryData agent contexts by assigning distinct names to tools in your `  tools.yaml  ` file. For example, you can create unique `  tools.yaml  ` configurations by defining two `  cloud-gemini-data-analytics-query  ` tools with different names, such as `  cloud_gda_query_tool_v1  ` and `  cloud_gda_query_tool_v2  ` . This setup lets you implement application logic that programmatically selects the required context version by choosing the corresponding tool name.
+In your development environment, you can perform A/B testing on multiple QueryData agent contexts by assigning distinct names to tools in your `tools.yaml` file. For example, you can create unique `tools.yaml` configurations by defining two `cloud-gemini-data-analytics-query` tools with different names, such as `cloud_gda_query_tool_v1` and `cloud_gda_query_tool_v2` . This setup lets you implement application logic that programmatically selects the required context version by choosing the corresponding tool name.
 
-The following example `  tools.yaml  ` shows how to set up multiple QueryData agents for a database source:
+The following example `tools.yaml` shows how to set up multiple QueryData agents for a database source:
 
     kind: source
     name: gda-api-source
@@ -1251,7 +1246,7 @@ Before you delete the instance, delete the context set that you created.
 
 4.  In the **Explorer pane** , next to your context set, click **View actions** .
 
-5.  In the **Delete context set** window, enter `  flight-assistant  ` in the confirmation box.
+5.  In the **Delete context set** window, enter `flight-assistant` in the confirmation box.
 
 6.  Click **Confirm** .
 
@@ -1271,5 +1266,5 @@ When you delete the instance that you created in the [before you begin](https://
 
 ## What's next
 
-  - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
+  - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/context-sets-overview) .
   - Learn how to [define authored context for database data sources](https://docs.cloud.google.com/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases) .

@@ -20,13 +20,13 @@ For more information about installing the C++ library, see the [Setting up a C++
 
 ### C\#
 
-To install the `  Google.Cloud.Spanner.Data  ` client library in Visual Studio, do the following:
+To install the `Google.Cloud.Spanner.Data` client library in Visual Studio, do the following:
 
 1.  Right-click your solution in Visual Studio and select **Manage Nuget packages for solution** .
 
 2.  Select the **Include prerelease** checkbox.
 
-3.  Search for and install the package named `  Google.Cloud.Spanner.Data  ` .
+3.  Search for and install the package named `Google.Cloud.Spanner.Data` .
     
     For more information, see [Setting Up a C\# Development Environment](https://docs.cloud.google.com/dotnet/docs/setup) .
 
@@ -42,7 +42,7 @@ For more information, see [Setting Up a Go Development Environment](https://docs
 
 **Note:** If your application uses the Spring Framework, a [Spring Data module](https://docs.cloud.google.com/spanner/docs/adding-spring) is also available.
 
-If you are using [Maven](https://maven.apache.org/) , add the following to your `  pom.xml  ` file. For more information about BOMs, see [The Google Cloud Platform Libraries BOM](https://cloud.google.com/java/docs/bom) .
+If you are using [Maven](https://maven.apache.org/) , add the following to your `pom.xml` file. For more information about BOMs, see [The Google Cloud Platform Libraries BOM](https://cloud.google.com/java/docs/bom) .
 
     <dependencyManagement>
       <dependencies>
@@ -449,7 +449,7 @@ The following list contains links to more resources related to the client librar
   - [API reference](https://docs.cloud.google.com/cpp/docs/reference/spanner/latests)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
   - [Issue tracker](https://github.com/googleapis/google-cloud-cpp/issues)
-  - [`  google-cloud-spanner  ` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D%5Bc%2B%2B%5D)
+  - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D%5Bc%2B%2B%5D)
   - [Source code](https://github.com/googleapis/google-cloud-cpp)
   - [Getting started in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
 
@@ -460,7 +460,7 @@ The following list contains links to more resources related to the client librar
   - [API reference](https://docs.cloud.google.com/dotnet/docs/reference)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
   - [Issue tracker](https://github.com/googleapis/google-cloud-dotnet/issues)
-  - [`  google-cloud-spanner  ` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bc%23%5D)
+  - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bc%23%5D)
   - [Source code](https://github.com/googleapis/google-cloud-dotnet)
   - [Getting started in C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
 
@@ -471,7 +471,7 @@ The following list contains links to more resources related to the client librar
   - [API reference](https://pkg.go.dev/cloud.google.com/go/spanner/)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
   - [Issue tracker](https://github.com/googleapis/google-cloud-go/issues)
-  - [`  google-cloud-spanner  ` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bgo%5D)
+  - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bgo%5D)
   - [Source code](https://github.com/googleapis/google-cloud-go)
   - [Getting started in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
 
@@ -482,7 +482,7 @@ The following list contains links to more resources related to the client librar
   - [API reference](https://cloud.google.com/java/docs/reference/google-cloud-spanner/latest/overview)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
   - [Issue tracker](https://github.com/googleapis/java-spanner/issues)
-  - [`  google-cloud-spanner  ` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bjava%5D)
+  - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bjava%5D)
   - [Source code](https://github.com/googleapis/java-spanner)
   - [Getting started in Java](https://docs.cloud.google.com/spanner/docs/getting-started/java)
 
@@ -493,7 +493,7 @@ The following list contains links to more resources related to the client librar
   - [API reference](https://googleapis.dev/nodejs/spanner/latest)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
   - [Issue tracker](https://github.com/googleapis/nodejs-spanner/issues)
-  - [`  google-cloud-spanner  ` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bnode.js%5D)
+  - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bnode.js%5D)
   - [Source code](https://github.com/googleapis/nodejs-spanner)
   - [Getting started in Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs)
 
@@ -504,7 +504,7 @@ The following list contains links to more resources related to the client librar
   - [API reference](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/readme)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
   - [Issue tracker](https://github.com/googleapis/google-cloud-php/issues)
-  - [`  google-cloud-spanner  ` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bphp%5D)
+  - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bphp%5D)
   - [Source code](https://github.com/googleapis/google-cloud-php)
   - [Getting started in PHP](https://docs.cloud.google.com/spanner/docs/getting-started/php)
 
@@ -515,7 +515,7 @@ The following list contains links to more resources related to the client librar
   - [API reference](https://docs.cloud.google.com/python/docs/reference/spanner/latest)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
   - [Issue tracker](https://github.com/googleapis/python-spanner/issues)
-  - [`  google-cloud-spanner  ` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bpython%5D)
+  - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bpython%5D)
   - [Source code](https://github.com/googleapis/python-spanner)
   - [Getting started in Python](https://docs.cloud.google.com/spanner/docs/getting-started/python)
 
@@ -526,7 +526,7 @@ The following list contains links to more resources related to the client librar
   - [API reference](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latest)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
   - [Issue tracker](https://github.com/googleapis/google-cloud-ruby/issues)
-  - [`  google-cloud-spanner  ` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bruby%5D)
+  - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bruby%5D)
   - [Source code](https://github.com/googleapis/google-cloud-ruby)
   - [Getting started in Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby)
 

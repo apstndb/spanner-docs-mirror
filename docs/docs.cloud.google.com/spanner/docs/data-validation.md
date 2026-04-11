@@ -5,7 +5,7 @@ The [Data Validation Tool (DVT)](https://pypi.org/project/google-pso-data-valida
   - Check that all tables were created and that all schema mappings are correct.
   - Match the total number of rows for each table.
   - Extract random rows to verify consistency.
-  - Validate your columns, for example, use `  count  ` , `  sum  ` , `  avg  ` , `  min  ` , `  max  ` , or `  group by  ` .
+  - Validate your columns, for example, use `count` , `sum` , `avg` , `min` , `max` , or `group by` .
   - Compare any cyclic redundancy checks or hash functions at the row level.
 
 To perform more specific validations, build custom checks during migration.

@@ -4,7 +4,7 @@ The Spannerdatabase/sql driver supports both GoogleSQL-dialect databases and Pos
 
 ## Install the Spanner database/sql driver
 
-To use the Spanner database/sql driver in your application, add the following module to your `  go.mod  ` file:
+To use the Spanner database/sql driver in your application, add the following module to your `go.mod` file:
 
 ``` 
   github.com/googleapis/go-sql-spanner
@@ -12,7 +12,7 @@ To use the Spanner database/sql driver in your application, add the following mo
 
 ## Use the Spanner database/sql driver
 
-To create a database/sql connection to a Spanner database, use `  spanner  ` as the driver name and a fully qualified database name as the connection string:
+To create a database/sql connection to a Spanner database, use `spanner` as the driver name and a fully qualified database name as the connection string:
 
 ### GoogleSQL
 

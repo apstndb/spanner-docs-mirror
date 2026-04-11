@@ -4,7 +4,7 @@ gcloud beta spanner rows update - update a row in a Cloud Spanner database
 
 SYNOPSIS
 
-`  gcloud beta spanner rows update  ` `  --data  ` = \[ `  COLUMN_NAME  ` = `  VALUE  ` , …\] `  --table  ` = `  TABLE  ` ( `  --database  ` = `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner rows update` `  --data  ` = \[ `  COLUMN_NAME  ` = `  VALUE  ` , …\] `  --table  ` = `  TABLE  ` ( `  --database  ` = `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 EXAMPLES
 
@@ -20,47 +20,47 @@ gcloud beta spanner rows update --table=Singers --database=my-database --instanc
 
 REQUIRED FLAGS
 
-`  --data  ` =\[ `  COLUMN_NAME  ` = `  VALUE  ` ,…\]
+`--data` =\[ `  COLUMN_NAME  ` = `  VALUE  ` ,…\]
 
-The column names and values for the row being updated. For complicated input values, such as arrays, use the `  --flags-file  ` flag. See $ [gcloud topic flags-file](https://docs.cloud.google.com/sdk/gcloud/reference/topic/flags-file) for more information.
+The column names and values for the row being updated. For complicated input values, such as arrays, use the `--flags-file` flag. See $ [gcloud topic flags-file](https://docs.cloud.google.com/sdk/gcloud/reference/topic/flags-file) for more information.
 
-`  --table  ` = `  TABLE  `
+`--table` = `  TABLE  `
 
 The Cloud Spanner table name.
 
 Database resource - The Cloud Spanner database in which to update a row. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  --database  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `--database` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 This must be specified.
 
-  - `  --database  ` = `  DATABASE  `  
+  - `--database` = `  DATABASE  `  
     ID of the database or fully qualified identifier for the database.
     
-    To set the `  database  ` attribute:
+    To set the `database` attribute:
     
-      - provide the argument `  --database  ` on the command line.
+      - provide the argument `--database` on the command line.
     
     This flag argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     The Cloud Spanner instance for the database.
     
-    To set the `  instance  ` attribute:
+    To set the `instance` attribute:
     
-      - provide the argument `  --database  ` on the command line with a fully specified name;
-      - provide the argument `  --instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `--database` on the command line with a fully specified name;
+      - provide the argument `--instance` on the command line;
+      - set the property `spanner/instance` .
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

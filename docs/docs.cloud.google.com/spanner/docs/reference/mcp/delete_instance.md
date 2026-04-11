@@ -1,8 +1,8 @@
-## Tool: `       delete_instance      `
+## Tool: `delete_instance`
 
 Delete a Spanner instance.
 
-The following sample demonstrate how to use `  curl  ` to invoke the `  delete_instance  ` MCP tool.
+The following sample demonstrate how to use `curl` to invoke the `delete_instance` MCP tool.
 
 <table>
 <colgroup>
@@ -37,7 +37,7 @@ curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 
 ## Input Schema
 
-The request for `  DeleteInstance  ` .
+The request for `DeleteInstance` .
 
 ### DeleteInstanceRequest
 
@@ -61,11 +61,11 @@ The request for `  DeleteInstance  ` .
 
 Fields
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
-Required. The name of the instance to be deleted. Values are of the form `  projects/<project>/instances/<instance>  `
+Required. The name of the instance to be deleted. Values are of the form `projects/<project>/instances/<instance>`
 
 ## Output Schema
 

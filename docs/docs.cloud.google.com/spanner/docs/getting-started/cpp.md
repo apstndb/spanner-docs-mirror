@@ -20,7 +20,7 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
@@ -40,11 +40,11 @@ In particular, make sure that you run [`  gcloud auth application-default login 
     
         bazel build //google/cloud/spanner/samples:samples
 
-5.  Set up authentication and authorization for the `  google-cloud-cpp  ` project.
+5.  Set up authentication and authorization for the `google-cloud-cpp` project.
     
         gcloud auth application-default login
 
-6.  Create an environment variable called `  PROJECT_ID  ` . Replace \[MY\_PROJECT\_ID\] with your Google Cloud project ID. You can find this ID in your project's [Welcome](https://console.cloud.google.com/welcome) page.
+6.  Create an environment variable called `PROJECT_ID` . Replace \[MY\_PROJECT\_ID\] with your Google Cloud project ID. You can find this ID in your project's [Welcome](https://console.cloud.google.com/welcome) page.
     
         export PROJECT_ID=[MY_PROJECT_ID]
 
@@ -52,7 +52,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -62,7 +62,7 @@ See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manag
 
 The samples repository contains a sample that shows how to use Spanner with C++.
 
-Take a look through the `  google/cloud/spanner/samples/samples.cc  ` file, which shows how to create a database and modify a database schema. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
+Take a look through the `google/cloud/spanner/samples/samples.cc` file, which shows how to create a database and modify a database schema. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
 
 ## Create a database
 
@@ -79,7 +79,7 @@ Take a look through the `  google/cloud/spanner/samples/samples.cc  ` file, whic
     bazel run //google/cloud/spanner/samples:postgresql_samples -- \
           interleaved-table PROJECT_ID test-instance example-db
 
-**Note:** Some Bazel syntax, such as `  --  ` , looks similar to bash syntax but is not. For more information, see the Bazel [Commands and Options](https://docs.bazel.build/versions/master/user-manual.html) page.
+**Note:** Some Bazel syntax, such as `--` , looks similar to bash syntax but is not. For more information, see the Bazel [Commands and Options](https://docs.bazel.build/versions/master/user-manual.html) page.
 
 You should see:
 
@@ -180,15 +180,15 @@ The next step is to write data to your database.
 
 ## Create a database client
 
-Before you can do reads or writes, you must create a `  Client  ` :
+Before you can do reads or writes, you must create a `Client` :
 
     auto database = spanner::Database(project_id, instance_id, database_id);
     auto connection = spanner::MakeConnection(database);
     auto client = spanner::Client(connection);
 
-A `  Client  ` lets you read, write, query, and execute transactions on a Spanner database. Typically you create a `  Client  ` when your application starts up, then you re-use that `  Client  ` to read, write, and execute transactions. Each client uses resources in Spanner. The destructor of `  Client  ` automatically cleans up the `  Client  ` resources, including network connections.
+A `Client` lets you read, write, query, and execute transactions on a Spanner database. Typically you create a `Client` when your application starts up, then you re-use that `Client` to read, write, and execute transactions. Each client uses resources in Spanner. The destructor of `Client` automatically cleans up the `Client` resources, including network connections.
 
-Read more about `  Client  ` in the [Google Cloud Spanner C++ Reference](https://docs.cloud.google.com/cpp/docs/reference/spanner/latest) .
+Read more about `Client` in the [Google Cloud Spanner C++ Reference](https://docs.cloud.google.com/cpp/docs/reference/spanner/latest) .
 
 <span id="write_data"></span>
 
@@ -196,7 +196,7 @@ Read more about `  Client  ` in the [Google Cloud Spanner C++ Reference](https:/
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
-You use the `  Client::ExecuteDml()  ` function to execute a DML statement.
+You use the `Client::ExecuteDml()` function to execute a DML statement.
 
     void DmlGettingStartedInsert(google::cloud::spanner::Client client) {
       using ::google::cloud::StatusOr;
@@ -219,7 +219,7 @@ You use the `  Client::ExecuteDml()  ` function to execute a DML statement.
       std::cout << "Insert was successful [spanner_dml_getting_started_insert]\n";
     }
 
-Run the sample using the `  getting-started-insert  ` argument.
+Run the sample using the `getting-started-insert` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         getting-started-insert PROJECT_ID test-instance example-db
@@ -236,7 +236,7 @@ You should see:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-You write data using a `  Client  ` object. The `  Client::Commit()  ` function creates and commits a transaction for writes that execute atomically at a single logical point in time across columns, rows, and tables in a database.
+You write data using a `Client` object. The `Client::Commit()` function creates and commits a transaction for writes that execute atomically at a single logical point in time across columns, rows, and tables in a database.
 
 This code shows how to write the data using mutations:
 
@@ -266,7 +266,7 @@ This code shows how to write the data using mutations:
       std::cout << "Insert was successful [spanner_insert_data]\n";
     }
 
-Run the sample using the `  insert-data  ` argument.
+Run the sample using the `insert-data` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         insert-data PROJECT_ID test-instance example-db
@@ -283,7 +283,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
@@ -303,7 +303,7 @@ The result shows:
 
 In addition to executing a SQL statement on the command line, you can issue the same SQL statement programmatically using the Spanner client library for C++.
 
-You use the `  Client::ExecuteQuery()  ` function to run the SQL query. Here's how to issue the query and access the data:
+You use the `Client::ExecuteQuery()` function to run the SQL query. Here's how to issue the query and access the data:
 
     void QueryData(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -320,7 +320,7 @@ You use the `  Client::ExecuteQuery()  ` function to run the SQL query. Here's h
       std::cout << "Query completed for [spanner_query_data]\n";
     }
 
-Run the sample using the `  query_data  ` argument.
+Run the sample using the `query_data` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         query-data PROJECT_ID test-instance example-db
@@ -341,7 +341,7 @@ You should see the following result:
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
 ### GoogleSQL
 
@@ -396,7 +396,7 @@ You should see the following result:
 
 In addition to Spanner's SQL interface, Spanner also supports a read interface.
 
-You use the `  Client::Read()  ` function to read rows from the database. Use a `  KeySet  ` object to define a collection of keys and key ranges to read.
+You use the `Client::Read()` function to read rows from the database. Use a `KeySet` object to define a collection of keys and key ranges to read.
 
 Here's how to read the data:
 
@@ -416,7 +416,7 @@ Here's how to read the data:
       std::cout << "Read completed for [spanner_read_data]\n";
     }
 
-Run the sample using the `  read-data  ` argument.
+Run the sample using the `read-data` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         read-data PROJECT_ID test-instance example-db
@@ -431,7 +431,7 @@ You should see output similar to:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -439,7 +439,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
 ### GoogleSQL
 
@@ -457,7 +457,7 @@ You should see:
 
 #### Use the Spanner client library for C++
 
-Use the `  DatabaseAdminClient::UpdateDatabase()  ` function to modify the schema.
+Use the `DatabaseAdminClient::UpdateDatabase()` function to modify the schema.
 
 ### GoogleSQL
 
@@ -494,7 +494,7 @@ Use the `  DatabaseAdminClient::UpdateDatabase()  ` function to modify the schem
       std::cout << "Column added.\nNew DDL:\n" << metadata->DebugString();
     }
 
-Run the sample using the `  add-column  ` command.
+Run the sample using the `add-column` command.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         add-column PROJECT_ID test-instance example-db
@@ -505,7 +505,7 @@ You should see:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
     void UpdateData(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -519,7 +519,7 @@ The following code writes data to the new column. It sets `  MarketingBudget  ` 
       std::cout << "Update was successful [spanner_update_data]\n";
     }
 
-Run the sample using the `  update-data  ` argument.
+Run the sample using the `update-data` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         update-data PROJECT_ID test-instance example-db
@@ -551,7 +551,7 @@ Here's the code to execute the query:
       std::cout << "Read completed for [spanner_read_data_with_new_column]\n";
     }
 
-To execute this query, run the sample using the `  query-new-column  ` argument.
+To execute this query, run the sample using the `query-new-column` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         query-new-column PROJECT_ID test-instance example-db
@@ -568,7 +568,7 @@ You should see:
 
 You can update data using DML in a read-write transaction.
 
-You use the `  Client::ExecuteDml()  ` function to execute a DML statement.
+You use the `Client::ExecuteDml()` function to execute a DML statement.
 
 ### GoogleSQL
 
@@ -678,7 +678,7 @@ You use the `  Client::ExecuteDml()  ` function to execute a DML statement.
       std::cout << "Update was successful.\n";
     }
 
-Run the sample using the `  getting-started-update  ` argument.
+Run the sample using the `getting-started-update` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         getting-started-update PROJECT_ID test-instance example-db
@@ -691,7 +691,7 @@ You should see:
 
 ## Use a secondary index
 
-Suppose you wanted to fetch all rows of `  Albums  ` that have `  AlbumTitle  ` values in a certain range. You could read all values from the `  AlbumTitle  ` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
+Suppose you wanted to fetch all rows of `Albums` that have `AlbumTitle` values in a certain range. You could read all values from the `AlbumTitle` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
 
 Adding a secondary index to an existing table requires a schema update. Like other schema updates, Spanner supports adding an index while the database continues to serve traffic. Spanner automatically backfills the index with your existing data. Backfills might take a few minutes to complete, but you don't need to take the database offline or avoid writing to the indexed table during this process. For more details, see [Add a secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#adding_an_index) .
 
@@ -703,7 +703,7 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 #### On the command line
 
-Use the following [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
+Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
     gcloud spanner databases ddl update example-db --instance=test-instance \
         --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
@@ -714,7 +714,7 @@ You should see:
 
 #### Using the Spanner client library for C++
 
-You use the `  DatabaseAdminClient::UpdateDatabase()  ` function to add an index:
+You use the `DatabaseAdminClient::UpdateDatabase()` function to add an index:
 
     void AddIndex(google::cloud::spanner_admin::DatabaseAdminClient client,
                   std::string const& project_id, std::string const& instance_id,
@@ -732,7 +732,7 @@ You use the `  DatabaseAdminClient::UpdateDatabase()  ` function to add an index
                 << metadata->DebugString();
     }
 
-Run the sample using the `  add-index  ` argument.
+Run the sample using the `add-index` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         add-index PROJECT_ID test-instance example-db
@@ -751,9 +751,9 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 For SQL queries, Spanner automatically uses an appropriate index. In the read interface, you must specify the index in your request.
 
-To use the index in the read interface, use the `  Client::Read()  ` function, which reads zero or more rows from a database using an index.
+To use the index in the read interface, use the `Client::Read()` function, which reads zero or more rows from a database using an index.
 
-The following code fetches all `  AlbumId  ` , and `  AlbumTitle  ` columns from the `  AlbumsByAlbumTitle  ` index.
+The following code fetches all `AlbumId` , and `AlbumTitle` columns from the `AlbumsByAlbumTitle` index.
 
     void ReadDataWithIndex(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -772,7 +772,7 @@ The following code fetches all `  AlbumId  ` , and `  AlbumTitle  ` columns from
       std::cout << "Read completed for [spanner_read_data_with_index]\n";
     }
 
-Run the sample using the `  read-data-with-index  ` argument.
+Run the sample using the `read-data-with-index` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         read-data-with-index PROJECT_ID test-instance example-db
@@ -787,9 +787,9 @@ You should see:
 
 ### Add an index for index-only reads
 
-You might have noticed that the previous read example doesn't include reading the `  MarketingBudget  ` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
+You might have noticed that the previous read example doesn't include reading the `MarketingBudget` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
 
-Create an alternate definition of `  AlbumsByAlbumTitle  ` that stores a copy of `  MarketingBudget  ` in the index.
+Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `MarketingBudget` in the index.
 
 #### On the command line
 
@@ -809,7 +809,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 #### Using the Spanner client library for C++
 
-You use the `  DatabaseAdminClient::UpdateDatabase()  ` function to add an index with a `  STORING  ` clause for :
+You use the `DatabaseAdminClient::UpdateDatabase()` function to add an index with a `STORING` clause for :
 
     void AddStoringIndex(google::cloud::spanner_admin::DatabaseAdminClient client,
                          std::string const& project_id,
@@ -827,7 +827,7 @@ You use the `  DatabaseAdminClient::UpdateDatabase()  ` function to add an index
                 << metadata->DebugString();
     }
 
-Run the sample using the `  add-storing-index  ` argument.
+Run the sample using the `add-storing-index` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         add-storing-index PROJECT_ID test-instance example-db
@@ -842,7 +842,7 @@ You should see output similar to this:
       nanos: 416682000
     }
 
-Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , and `  MarketingBudget  ` columns from the `  AlbumsByAlbumTitle2  ` index:
+Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
 Read data using the storing index you created by executing a query that explicitly specifies the index:
 
@@ -870,7 +870,7 @@ Read data using the storing index you created by executing a query that explicit
       std::cout << "Read completed for [spanner_read_data_with_storing_index]\n";
     }
 
-Run the sample using the `  read-data-with-storing-index  ` argument.
+Run the sample using the `read-data-with-storing-index` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         read-data-with-storing-index PROJECT_ID test-instance example-db
@@ -885,7 +885,7 @@ You should see output similar to:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. The `  Transaction  ` type is used to represent all kinds of transactions. Use the `  MakeReadOnlyTransaction()  ` factory function to create a read-only transaction.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. The `Transaction` type is used to represent all kinds of transactions. Use the `MakeReadOnlyTransaction()` factory function to create a read-only transaction.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
@@ -918,7 +918,7 @@ The following shows how to run a query and perform a read in the same read-only 
       }
     }
 
-Run the sample using the `  read-only-transaction  ` argument.
+Run the sample using the `read-only-transaction` argument.
 
     bazel run //google/cloud/spanner/samples:samples -- \
         read-only-transaction PROJECT_ID test-instance example-db

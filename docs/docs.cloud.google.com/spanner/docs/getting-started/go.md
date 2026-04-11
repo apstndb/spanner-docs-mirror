@@ -18,7 +18,7 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
@@ -26,7 +26,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
 
 1.  Install Go ( [download](https://golang.org/doc/install) ) on your development machine if it is not already installed.
 
-2.  Configure the `  GOPATH  ` environment variable if it is not already configured, as described in [Test your installation](https://golang.org/doc/install#testing) .
+2.  Configure the `GOPATH` environment variable if it is not already configured, as described in [Test your installation](https://golang.org/doc/install#testing) .
 
 3.  Download the samples to your machine.
     
@@ -36,7 +36,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
     
         cd $GOPATH/src/github.com/GoogleCloudPlatform/golang-samples/spanner/spanner_snippets
 
-5.  Set the `  PROJECT_ID  ` environment variable to your Google Cloud project ID:
+5.  Set the `PROJECT_ID` environment variable to your Google Cloud project ID:
     
         export PROJECT_ID=[MY_PROJECT_ID]
 
@@ -44,7 +44,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -54,7 +54,7 @@ See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manag
 
 The samples repository contains a sample that shows how to use Spanner with Go.
 
-Take a look through the `  snippet.go  ` file, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
+Take a look through the `snippet.go` file, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
 
 ## Create a database
 
@@ -207,7 +207,7 @@ The next step is to write data to your database.
 
 ## Create a database client
 
-Before you can do reads or writes, you must create a [`  Client  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Client) :
+Before you can do reads or writes, you must create a [`Client`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client) :
 
     import (
      "context"
@@ -238,13 +238,13 @@ Before you can do reads or writes, you must create a [`  Client  `](https://pkg.
      return nil
     }
 
-You can think of a `  Client  ` as a database connection: all of your interactions with Spanner must go through a `  Client  ` . Typically you create a `  Client  ` when your application starts up, then you re-use that `  Client  ` to read, write, and execute transactions. Each client uses resources in Spanner.
+You can think of a `Client` as a database connection: all of your interactions with Spanner must go through a `Client` . Typically you create a `Client` when your application starts up, then you re-use that `Client` to read, write, and execute transactions. Each client uses resources in Spanner.
 
-If you create multiple clients in the same app, you should call [`  Client.Close()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Close) to clean up the client's resources, including network connections, as soon as it is no longer needed.
+If you create multiple clients in the same app, you should call [`Client.Close()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Close) to clean up the client's resources, including network connections, as soon as it is no longer needed.
 
-Read more in the [`  Client  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Client) reference.
+Read more in the [`Client`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client) reference.
 
-The code in the previous example also shows how to create a [`  DatabaseAdminClient  `](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient) , which is used to create a database.
+The code in the previous example also shows how to create a [`DatabaseAdminClient`](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient) , which is used to create a database.
 
 <span id="write_data"></span>
 
@@ -252,7 +252,7 @@ The code in the previous example also shows how to create a [`  DatabaseAdminCli
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
-You use the `  Update()  ` method to execute a DML statement.
+You use the `Update()` method to execute a DML statement.
 
 ### GoogleSQL
 
@@ -326,7 +326,7 @@ You use the `  Update()  ` method to execute a DML statement.
      return err
     }
 
-Run the sample using the `  dmlwrite  ` argument for Google SQL and the `  pgdmlwrite  ` argument for PostgreSQL:
+Run the sample using the `dmlwrite` argument for Google SQL and the `pgdmlwrite` argument for PostgreSQL:
 
 ### GoogleSQL
 
@@ -348,11 +348,11 @@ You should see:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-A [`  Mutation  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Mutation) is a container for mutation operations. A `  Mutation  ` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
+A [`Mutation`](https://pkg.go.dev/cloud.google.com/go/spanner/#Mutation) is a container for mutation operations. A `Mutation` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
 
-Use [`  Mutation.InsertOrUpdate()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#InsertOrUpdate) to construct an `  INSERT_OR_UPDATE  ` mutation, which adds a new row or updates column values if the row already exists. Alternatively, use the [`  Mutation.Insert()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Insert) method to construct an `  INSERT  ` mutation, which adds a new row.
+Use [`Mutation.InsertOrUpdate()`](https://pkg.go.dev/cloud.google.com/go/spanner/#InsertOrUpdate) to construct an `INSERT_OR_UPDATE` mutation, which adds a new row or updates column values if the row already exists. Alternatively, use the [`Mutation.Insert()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Insert) method to construct an `INSERT` mutation, which adds a new row.
 
-[`  Client.Apply()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Apply) applies mutations atomically to a database.
+[`Client.Apply()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Apply) applies mutations atomically to a database.
 
 This code shows how to write the data using mutations:
 
@@ -389,7 +389,7 @@ This code shows how to write the data using mutations:
      return err
     }
 
-Run the sample using the `  write  ` argument:
+Run the sample using the `write` argument:
 
     go run snippet.go write projects/PROJECT_ID/instances/test-instance/databases/example-db
 
@@ -403,7 +403,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
@@ -425,10 +425,10 @@ In addition to executing a SQL statement on the command line, you can issue the 
 
 The following methods and types are used to run the SQL query:
 
-  - [`  Client.Single()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Single) : use this to read the value of one or more columns from one or more rows in a Spanner table. `  Client.Single  ` returns a [`  ReadOnlyTransaction  `](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction) , which is used for running a read or SQL statement.
-  - [`  ReadOnlyTransaction.Query()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction.Query) : use this method to execute a query against a database.
-  - The [`  Statement  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Statement) type: use this to construct a SQL string.
-  - The [`  Row  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Row) type: use this to access the data returned by a SQL statement or read call.
+  - [`Client.Single()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Single) : use this to read the value of one or more columns from one or more rows in a Spanner table. `Client.Single` returns a [`ReadOnlyTransaction`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction) , which is used for running a read or SQL statement.
+  - [`ReadOnlyTransaction.Query()`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction.Query) : use this method to execute a query against a database.
+  - The [`Statement`](https://pkg.go.dev/cloud.google.com/go/spanner/#Statement) type: use this to construct a SQL string.
+  - The [`Row`](https://pkg.go.dev/cloud.google.com/go/spanner/#Row) type: use this to access the data returned by a SQL statement or read call.
 
 Here's how to issue the query and access the data:
 
@@ -469,7 +469,7 @@ Here's how to issue the query and access the data:
      }
     }
 
-Run the sample using the `  query  ` argument.
+Run the sample using the `query` argument.
 
     go run snippet.go query projects/PROJECT_ID/instances/test-instance/databases/example-db
 
@@ -485,7 +485,7 @@ You should see the following result:
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
 ### GoogleSQL
 
@@ -584,7 +584,7 @@ Here is an example of using a parameter in the `  WHERE  ` clause to query recor
      }
     }
 
-Run the sample using the `  querywithparameter  ` argument for Google SQL and the `  pgqueryparameter  ` argument for PostgreSQL.
+Run the sample using the `querywithparameter` argument for Google SQL and the `pgqueryparameter` argument for PostgreSQL.
 
 ### GoogleSQL
 
@@ -602,7 +602,7 @@ You should see output similar to:
 
 In addition to Spanner's SQL interface, Spanner also supports a read interface.
 
-Use [`  ReadOnlyTransaction.Read()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction.Read) to read rows from the database. Use [`  KeySet  `](https://pkg.go.dev/cloud.google.com/go/spanner/#KeySet) to define a collection of keys and key ranges to read.
+Use [`ReadOnlyTransaction.Read()`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction.Read) to read rows from the database. Use [`KeySet`](https://pkg.go.dev/cloud.google.com/go/spanner/#KeySet) to define a collection of keys and key ranges to read.
 
 Here's how to read the data:
 
@@ -643,7 +643,7 @@ Here's how to read the data:
      }
     }
 
-Run the sample using the `  read  ` argument.
+Run the sample using the `read` argument.
 
     go run snippet.go read projects/PROJECT_ID/instances/test-instance/databases/example-db
 
@@ -657,7 +657,7 @@ You should see output similar to:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -665,7 +665,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
 ### GoogleSQL
 
@@ -683,7 +683,7 @@ You should see:
 
 #### Use the Spanner client library for Go
 
-Use [`  DatabaseAdminClient.UpdateDatabaseDdl()  `](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient.UpdateDatabaseDdl) to modify the schema:
+Use [`DatabaseAdminClient.UpdateDatabaseDdl()`](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient.UpdateDatabaseDdl) to modify the schema:
 
 ### GoogleSQL
 
@@ -753,7 +753,7 @@ Use [`  DatabaseAdminClient.UpdateDatabaseDdl()  `](https://pkg.go.dev/cloud.goo
      return nil
     }
 
-Run the sample using the `  addnewcolumn  ` argument for Google SQL and the `  pgaddnewcolumn  ` argument for PostgreSQL.
+Run the sample using the `addnewcolumn` argument for Google SQL and the `pgaddnewcolumn` argument for PostgreSQL.
 
 ### GoogleSQL
 
@@ -769,7 +769,7 @@ You should see:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
     import (
      "context"
@@ -795,7 +795,7 @@ The following code writes data to the new column. It sets `  MarketingBudget  ` 
      return err
     }
 
-Run the sample using the `  update  ` argument.
+Run the sample using the `update` argument.
 
     go run snippet.go update projects/PROJECT_ID/instances/test-instance/databases/example-db
 
@@ -903,7 +903,7 @@ Here's the code to execute the query:
      }
     }
 
-To execute this query, run the sample using the `  querynewcolumn  ` argument for Google SQL and the `  pgquerynewcolumn  ` argument for PostgreSQL.
+To execute this query, run the sample using the `querynewcolumn` argument for Google SQL and the `pgquerynewcolumn` argument for PostgreSQL.
 
 ### GoogleSQL
 
@@ -925,7 +925,7 @@ You should see:
 
 You can update data using DML in a read-write transaction.
 
-You use the `  Update()  ` method to execute a DML statement.
+You use the `Update()` method to execute a DML statement.
 
 ### GoogleSQL
 
@@ -1081,7 +1081,7 @@ You use the `  Update()  ` method to execute a DML statement.
      return err
     }
 
-Run the sample using the `  dmlwritetxn  ` argument.
+Run the sample using the `dmlwritetxn` argument.
 
     go run snippet.go dmlwritetxn projects/PROJECT_ID/instances/test-instance/databases/example-db
 
@@ -1093,7 +1093,7 @@ You should see:
 
 ## Use a secondary index
 
-Suppose you wanted to fetch all rows of `  Albums  ` that have `  AlbumTitle  ` values in a certain range. You could read all values from the `  AlbumTitle  ` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
+Suppose you wanted to fetch all rows of `Albums` that have `AlbumTitle` values in a certain range. You could read all values from the `AlbumTitle` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
 
 Adding a secondary index to an existing table requires a schema update. Like other schema updates, Spanner supports adding an index while the database continues to serve traffic. Spanner automatically backfills the index with your existing data. Backfills might take a few minutes to complete, but you don't need to take the database offline or avoid writing to the indexed table during this process. For more details, see [Add a secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#adding_an_index) .
 
@@ -1105,7 +1105,7 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 #### On the command line
 
-Use the following [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
+Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
     gcloud spanner databases ddl update example-db --instance=test-instance \
         --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
@@ -1116,7 +1116,7 @@ You should see:
 
 #### Using the Spanner client library for Go
 
-Use [`  UpdateDatabaseDdl()  `](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient.UpdateDatabaseDdl) to add an index:
+Use [`UpdateDatabaseDdl()`](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient.UpdateDatabaseDdl) to add an index:
 
     import (
      "context"
@@ -1158,9 +1158,9 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 For SQL queries, Spanner automatically uses an appropriate index. In the read interface, you must specify the index in your request.
 
-To use the index in the read interface, use [`  ReadOnlyTransaction.ReadUsingIndex()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction.ReadUsingIndex) , which reads zero or more rows from a database using an index.
+To use the index in the read interface, use [`ReadOnlyTransaction.ReadUsingIndex()`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction.ReadUsingIndex) , which reads zero or more rows from a database using an index.
 
-The following code fetches all `  AlbumId  ` , and `  AlbumTitle  ` columns from the `  AlbumsByAlbumTitle  ` index.
+The following code fetches all `AlbumId` , and `AlbumTitle` columns from the `AlbumsByAlbumTitle` index.
 
     import (
      "context"
@@ -1199,7 +1199,7 @@ The following code fetches all `  AlbumId  ` , and `  AlbumTitle  ` columns from
      }
     }
 
-Run the sample using the `  readindex  ` argument.
+Run the sample using the `readindex` argument.
 
     go run snippet.go readindex projects/PROJECT_ID/instances/test-instance/databases/example-db
 
@@ -1213,9 +1213,9 @@ You should see:
 
 ### Add an index for index-only reads
 
-You might have noticed that the previous read example doesn't include reading the `  MarketingBudget  ` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
+You might have noticed that the previous read example doesn't include reading the `MarketingBudget` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
 
-Create an alternate definition of `  AlbumsByAlbumTitle  ` that stores a copy of `  MarketingBudget  ` in the index.
+Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `MarketingBudget` in the index.
 
 #### On the command line
 
@@ -1235,7 +1235,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 #### Using the Spanner client library for Go
 
-Use [`  UpdateDatabaseDdl()  `](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient.UpdateDatabaseDdl) to add an index with a `  STORING  ` clause for GoogleSQL and `  INCLUDE  ` clause for PostgreSQL:
+Use [`UpdateDatabaseDdl()`](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient.UpdateDatabaseDdl) to add an index with a `STORING` clause for GoogleSQL and `INCLUDE` clause for PostgreSQL:
 
 ### GoogleSQL
 
@@ -1309,7 +1309,7 @@ Use [`  UpdateDatabaseDdl()  `](https://pkg.go.dev/cloud.google.com/go/spanner//
      return nil
     }
 
-Run the sample using the `  addstoringindex  ` argument.
+Run the sample using the `addstoringindex` argument.
 
 ### GoogleSQL
 
@@ -1323,7 +1323,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
     Added storing index
 
-Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , and `  MarketingBudget  ` columns from the `  AlbumsByAlbumTitle2  ` index:
+Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
     import (
      "context"
@@ -1368,7 +1368,7 @@ Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , a
      }
     }
 
-Run the sample using the `  readstoringindex  ` argument.
+Run the sample using the `readstoringindex` argument.
 
     go run snippet.go readstoringindex projects/PROJECT_ID/instances/test-instance/databases/example-db
 
@@ -1382,7 +1382,7 @@ You should see output similar to:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use the [`  ReadOnlyTransaction  `](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction) type for executing read-only transactions. Use [`  Client.ReadOnlyTransaction()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.ReadOnlyTransaction) to get a `  ReadOnlyTransaction  ` .
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use the [`ReadOnlyTransaction`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction) type for executing read-only transactions. Use [`Client.ReadOnlyTransaction()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.ReadOnlyTransaction) to get a `ReadOnlyTransaction` .
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
@@ -1445,7 +1445,7 @@ The following shows how to run a query and perform a read in the same read-only 
      }
     }
 
-Run the sample using the `  readonlytransaction  ` argument.
+Run the sample using the `readonlytransaction` argument.
 
     go run snippet.go readonlytransaction projects/PROJECT_ID/instances/test-instance/databases/example-db
 

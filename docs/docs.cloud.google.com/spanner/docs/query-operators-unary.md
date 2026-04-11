@@ -102,7 +102,7 @@ You can use the following Data Manipulation Language (DML) statements to add dat
 
 ## Aggregate
 
-An *aggregate* operator implements `  GROUP BY  ` SQL statements and aggregate functions (such as `  COUNT  ` ). The input for an aggregate operator is logically partitioned into groups arranged on key columns (or into a single group if `  GROUP BY  ` isn't present). For each group, zero or more aggregates are computed.
+An *aggregate* operator implements `GROUP BY` SQL statements and aggregate functions (such as `COUNT` ). The input for an aggregate operator is logically partitioned into groups arranged on key columns (or into a single group if `GROUP BY` isn't present). For each group, zero or more aggregates are computed.
 
 The following query demonstrates this operator:
 
@@ -119,13 +119,13 @@ The following query demonstrates this operator:
      |        2 | 225.875 |     8 |
      +----------+---------+-------*/
 
-The query groups by `  SingerId  ` and performs an `  AVG  ` aggregation and a `  COUNT  ` aggregation.
+The query groups by `SingerId` and performs an `AVG` aggregation and a `COUNT` aggregation.
 
 The execution plan segment appears as follows:
 
 ![Aggregate operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/aggregate_operator.png)
 
-Aggregate operators can be *stream-based* or *hash-based* . The previous execution plan shows a stream-based aggregate. Stream-based aggregates read from pre-sorted input (if `  GROUP BY  ` is present) and compute the group without blocking. Hash-based aggregates build hash tables to maintain incremental aggregates of multiple input rows simultaneously. Stream-based aggregates are faster and use less memory than hash-based aggregates, but require the input to be sorted (either by key columns or [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) ).
+Aggregate operators can be *stream-based* or *hash-based* . The previous execution plan shows a stream-based aggregate. Stream-based aggregates read from pre-sorted input (if `GROUP BY` is present) and compute the group without blocking. Hash-based aggregates build hash tables to maintain incremental aggregates of multiple input rows simultaneously. Stream-based aggregates are faster and use less memory than hash-based aggregates, but require the input to be sorted (either by key columns or [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) ).
 
 For distributed scenarios, the aggregate operator splits into a local-global pair. Each remote server performs the local aggregation on its input rows, and then returns its results to the root server. The root server performs the global aggregation.
 
@@ -267,7 +267,7 @@ The execution plan appears as follows:
 
 ![Compute struct operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/compute_struct_operator.png)
 
-In the execution plan, the array subquery operator receives input from a compute struct operator. The compute struct operator creates a structure from the `  SongName  ` and `  SongGenre  ` columns in the `  Songs  ` table.
+In the execution plan, the array subquery operator receives input from a compute struct operator. The compute struct operator creates a structure from the `SongName` and `SongGenre` columns in the `Songs` table.
 
 #### Properties and execution statistics
 
@@ -313,7 +313,7 @@ The execution plan appears as follows:
 
 ![Filter operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/filter_operator.png)
 
-Spanner implements the predicate for singers whose last name starts with `  Rich  ` as a filter. The filter receives input from an index [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) and outputs rows where `  LastName  ` starts with `  Rich  ` .
+Spanner implements the predicate for singers whose last name starts with `Rich` as a filter. The filter receives input from an index [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) and outputs rows where `LastName` starts with `Rich` .
 
 #### Properties and execution statistics
 
@@ -342,7 +342,7 @@ Execution statistics
 
 ## Limit
 
-A *limit* operator constrains the number of rows returned. An optional `  OFFSET  ` parameter specifies the starting row to return. In distributed scenarios, the limit operator splits into a local-global pair. Each remote server applies the local limit for its output rows, and then returns its results to the root server. The root server aggregates the rows sent by the remote servers and then applies the global limit.
+A *limit* operator constrains the number of rows returned. An optional `OFFSET` parameter specifies the starting row to return. In distributed scenarios, the limit operator splits into a local-global pair. Each remote server applies the local limit for its output rows, and then returns its results to the root server. The root server aggregates the rows sent by the remote servers and then applies the global limit.
 
 The following query demonstrates this operator:
 
@@ -391,7 +391,7 @@ Execution statistics
 
 ## Random ID assign
 
-A *random ID assign* operator produces output by reading its input rows and adding a random number to each row. It works with a `  Filter  ` or `  Sort  ` operator to achieve sampling methods. Supported sampling methods are [Bernoulli](https://en.wikipedia.org/wiki/Bernoulli_distribution) and [Reservoir](https://en.wikipedia.org/wiki/Reservoir_sampling) .
+A *random ID assign* operator produces output by reading its input rows and adding a random number to each row. It works with a `Filter` or `Sort` operator to achieve sampling methods. Supported sampling methods are [Bernoulli](https://en.wikipedia.org/wiki/Bernoulli_distribution) and [Reservoir](https://en.wikipedia.org/wiki/Reservoir_sampling) .
 
 For example, the following query uses Bernoulli sampling with a sampling rate of 10 percent.
 
@@ -408,7 +408,7 @@ Because the result is a sample, the result could vary each time the query is run
 
 ![Bernoulli sample operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/bernoulli_sample_operator.png)
 
-In this execution plan, the `  Random Id Assign  ` operator receives its input from a [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) operator, which receives its input from an [index scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) . The operator returns the rows with random ids and the `  Filter  ` operator then applies a scalar predicate on the random ids and returns approximately 10 percent of the rows.
+In this execution plan, the `Random Id Assign` operator receives its input from a [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) operator, which receives its input from an [index scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) . The operator returns the rows with random ids and the `Filter` operator then applies a scalar predicate on the random ids and returns approximately 10 percent of the rows.
 
 The following example uses [Reservoir](https://en.wikipedia.org/wiki/Reservoir_sampling)
 
@@ -430,7 +430,7 @@ This is the execution plan:
 
 ![Reservoir sample operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/reservoir_sample_operator.png)
 
-In this execution plan, the `  Random Id Assign  ` operator receives its input from a [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) operator, which receives its input from an [index scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) . The operator returns the rows with random ids and the `  Sort  ` operator then applies the sort order on the random ids and applies `  LIMIT  ` with 2 rows.
+In this execution plan, the `Random Id Assign` operator receives its input from a [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) operator, which receives its input from an [index scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) . The operator returns the rows with random ids and the `Sort` operator then applies the sort order on the random ids and applies `LIMIT` with 2 rows.
 
 #### Properties and execution statistics
 
@@ -463,7 +463,7 @@ A *local split union* operator finds table [splits](https://docs.cloud.google.co
 
 A *local split union* appears in execution plans that scan a [placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements) table. Placements can increase the number of splits in a table, making it more efficient to scan splits in batches based on their physical storage locations.
 
-For example, suppose the `  Singers  ` table uses a placement key to partition singer data:
+For example, suppose the `Singers` table uses a placement key to partition singer data:
 
     CREATE TABLE Singers (
         SingerId INT64 NOT NULL,
@@ -480,7 +480,7 @@ This is the execution plan:
 
 ![Local split union operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/local_split_union_operator.png)
 
-The [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) sends a subquery to each batch of splits physically stored together in the same server. On each server, the *local split union* finds splits storing `  Singers  ` data, executes the subquery on each split, and returns the combined results. In this way, the distributed union and local split union work together to efficiently scan the `  Singers  ` table. Without a local split union, the distributed union would send one RPC per split instead of per split batch, resulting in redundant RPC round trips when there's more than one split per batch.
+The [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) sends a subquery to each batch of splits physically stored together in the same server. On each server, the *local split union* finds splits storing `Singers` data, executes the subquery on each split, and returns the combined results. In this way, the distributed union and local split union work together to efficiently scan the `Singers` table. Without a local split union, the distributed union would send one RPC per split instead of per split batch, resulting in redundant RPC round trips when there's more than one split per batch.
 
 #### Properties and execution statistics
 
@@ -509,7 +509,7 @@ Execution statistics
 
 ## DataBlockToRowAdapter
 
-The Spanner query optimizer automatically inserts a `  DataBlockToRowAdapter  ` operator between a pair of operators that operate using different execution methods. Its input is an operator using the batch-oriented execution method and its output is fed into an operator executing in the row-oriented execution method. For more information, see [Optimize query execution](https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-query-execution) .
+The Spanner query optimizer automatically inserts a `DataBlockToRowAdapter` operator between a pair of operators that operate using different execution methods. Its input is an operator using the batch-oriented execution method and its output is fed into an operator executing in the row-oriented execution method. For more information, see [Optimize query execution](https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-query-execution) .
 
 #### Properties and execution statistics
 
@@ -538,7 +538,7 @@ Execution statistics
 
 ## RowToDataBlockAdapter
 
-The Spanner query optimizer automatically inserts a `  RowToDataBlockAdapter  ` operator between a pair of operators that operate using different execution methods. Its input is an operator using the row-oriented execution method and its output is fed into an operator executing in the batch-oriented execution method. For more information, see [Optimize query execution](https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-query-execution) .
+The Spanner query optimizer automatically inserts a `RowToDataBlockAdapter` operator between a pair of operators that operate using different execution methods. Its input is an operator using the row-oriented execution method and its output is fed into an operator executing in the batch-oriented execution method. For more information, see [Optimize query execution](https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-query-execution) .
 
 #### Properties and execution statistics
 
@@ -593,7 +593,7 @@ The execution plan appears as follows:
 
 ![Serialize result operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/serialize_result_operator.png)
 
-The serialize result operator creates a result that contains, for each row of the `  Singers  ` table, an array of `  SongName  ` and `  SongGenre  ` pairs for the songs by the singer.
+The serialize result operator creates a result that contains, for each row of the `Singers` table, an array of `SongName` and `SongGenre` pairs for the songs by the singer.
 
 #### Properties and execution statistics
 
@@ -650,7 +650,7 @@ The execution plan appears as follows:
 
 In this execution plan, the sort operator receives its input rows from a [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) operator, sorts the input rows, and returns the sorted rows to a [serialize result](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result) operator.
 
-To constrain the number of rows returned, a sort operator can optionally have `  LIMIT  ` and `  OFFSET  ` parameters. For distributed scenarios, a sort operator with a `  LIMIT  ` or `  OFFSET  ` operator splits into a local-global pair. Each remote server applies the sort order and the local limit or offset for its input rows, and then returns its results to the root server. The root server aggregates the rows sent by the remote servers, sorts them, and then applies the global limit/offset.
+To constrain the number of rows returned, a sort operator can optionally have `LIMIT` and `OFFSET` parameters. For distributed scenarios, a sort operator with a `LIMIT` or `OFFSET` operator splits into a local-global pair. Each remote server applies the sort order and the local limit or offset for its input rows, and then returns its results to the root server. The root server aggregates the rows sent by the remote servers, sorts them, and then applies the global limit/offset.
 
 The following query demonstrates this operator:
 

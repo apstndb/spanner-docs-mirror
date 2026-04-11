@@ -2,9 +2,9 @@ Cloud Spanner is a managed, mission-critical, globally consistent and scalable r
 
 ## Service: spanner.googleapis.com
 
-The Service name `  spanner.googleapis.com  ` is needed to create RPC client stubs.
+The Service name `spanner.googleapis.com` is needed to create RPC client stubs.
 
-## `         google.longrunning.Operations       `
+## `        google.longrunning.Operations       `
 
 Methods
 
@@ -28,7 +28,7 @@ Lists operations that match the specified filter in the request.
 
 Waits until the specified long-running operation is done or reaches at most a specified timeout, returning the latest state.
 
-## `         google.spanner.adapter.v1.Adapter       `
+## `        google.spanner.adapter.v1.Adapter       `
 
 Methods
 
@@ -40,7 +40,7 @@ Handles a single message from the client and returns the result as a stream.
 
 Creates a new session to be used for requests made by the adapter.
 
-## `         google.spanner.admin.database.v1.DatabaseAdmin       `
+## `        google.spanner.admin.database.v1.DatabaseAdmin       `
 
 Methods
 
@@ -50,7 +50,7 @@ Adds split points to specified tables and indexes of a database.
 
 `  ChangeQuorum  `
 
-`  ChangeQuorum  ` is strictly restricted to databases that use dual-region instance configurations.
+`ChangeQuorum` is strictly restricted to databases that use dual-region instance configurations.
 
 `  CopyBackup  `
 
@@ -152,7 +152,7 @@ Updates a Cloud Spanner database.
 
 Updates the schema of a Cloud Spanner database by creating/altering/dropping tables, columns, indexes, etc.
 
-## `         google.spanner.admin.instance.v1.InstanceAdmin       `
+## `        google.spanner.admin.instance.v1.InstanceAdmin       `
 
 Methods
 
@@ -240,7 +240,7 @@ Updates an instance configuration.
 
 Updates an instance partition, and begins allocating or releasing resources as requested.
 
-## `         google.spanner.v1.Spanner       `
+## `        google.spanner.v1.Spanner       `
 
 Methods
 

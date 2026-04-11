@@ -6,7 +6,7 @@ The security, privacy, risk, and compliance for Spanner use a [shared responsibi
 
 When you get started with Spanner, you enable the following APIs:
 
-  - [`  https://spanner.googleapis.com  `](https://docs.cloud.google.com/spanner/docs/reference/rest?rep_location=global)
+  - [`https://spanner.googleapis.com`](https://docs.cloud.google.com/spanner/docs/reference/rest?rep_location=global)
 
 For more information, see [Quickstart: Create and query a database in Spanner using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/quickstart-console) .
 
@@ -50,7 +50,7 @@ When you enable Spanner, the following Spanner service agent is created:
 
 The predefined organization policies that apply to Spanner include the following:
 
-  - Limit the creation of instances that use Spanner editions ( `  constraints/spanner.managed.restrictCloudSpannerEditions  ` )
+  - Limit the creation of instances that use Spanner editions ( `constraints/spanner.managed.restrictCloudSpannerEditions` )
 
 For more information about policies, see [Use organization policies for Spanner](https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints) .
 
@@ -114,9 +114,9 @@ Spanner acts as a data processor for Customer Data. Google also acts as a data c
 
 Spanner writes the following types of audit logs:
 
-  - **Admin Activity audit logs** : Includes `  ADMIN WRITE  ` operations that write metadata or configuration information.
+  - **Admin Activity audit logs** : Includes `ADMIN WRITE` operations that write metadata or configuration information.
 
-  - **Data Access audit logs** : Includes `  ADMIN READ  ` operations that read metadata or configuration information. Also includes `  DATA READ  ` and `  DATA WRITE  ` operations that read or write user-provided data.
+  - **Data Access audit logs** : Includes `ADMIN READ` operations that read metadata or configuration information. Also includes `DATA READ` and `DATA WRITE` operations that read or write user-provided data.
 
   - **System Event audit logs** : Identifies automated Google Cloud actions that modify the configuration of resources.
 

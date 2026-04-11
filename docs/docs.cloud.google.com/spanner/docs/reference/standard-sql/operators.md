@@ -2,9 +2,9 @@ GoogleSQL for Spanner supports operators. Operators are represented by special c
 
 Common conventions:
 
-  - Unless otherwise specified, all operators return `  NULL  ` when one of the operands is `  NULL  ` .
+  - Unless otherwise specified, all operators return `NULL` when one of the operands is `NULL` .
   - All operators will throw an error if the computation result overflows.
-  - For all floating point operations, `  +/-inf  ` and `  NaN  ` may only be returned if one of the operands is `  +/-inf  ` or `  NaN  ` . In other cases, an error is returned.
+  - For all floating point operations, `+/-inf` and `NaN` may only be returned if one of the operands is `+/-inf` or `NaN` . In other cases, an error is returned.
 
 When Spanner runs an operator, the operator is treated as a function. Because of this, if an operator produces an error, the error message might use the term *function* when referencing an operator.
 
@@ -26,9 +26,9 @@ Operator Arity
 
 Field access operator
 
-`  STRUCT  `  
-`  PROTO  `  
-`  JSON  `  
+`STRUCT`  
+`PROTO`  
+`JSON`  
 
 Field access operator
 
@@ -36,15 +36,15 @@ Binary
 
 Array subscript operator
 
-`  ARRAY  `
+`ARRAY`
 
-Array position. Must be used with `  OFFSET  ` or `  ORDINAL  ` —see [Array Functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions) .
+Array position. Must be used with `OFFSET` or `ORDINAL` —see [Array Functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions) .
 
 Binary
 
 JSON subscript operator
 
-`  JSON  `
+`JSON`
 
 Field name or array position in JSON.
 
@@ -52,7 +52,7 @@ Binary
 
 2
 
-`  +  `
+`+`
 
 All numeric types
 
@@ -60,7 +60,7 @@ Unary plus
 
 Unary
 
-`  -  `
+`-`
 
 All numeric types
 
@@ -68,9 +68,9 @@ Unary minus
 
 Unary
 
-`  ~  `
+`~`
 
-Integer or `  BYTES  `
+Integer or `BYTES`
 
 Bitwise not
 
@@ -78,7 +78,7 @@ Unary
 
 3
 
-`  *  `
+`*`
 
 All numeric types
 
@@ -86,7 +86,7 @@ Multiplication
 
 Binary
 
-`  /  `
+`/`
 
 All numeric types
 
@@ -94,9 +94,9 @@ Division
 
 Binary
 
-`  ||  `
+`||`
 
-`  STRING  ` , `  BYTES  ` , or `  ARRAY<T>  `
+`STRING` , `BYTES` , or `ARRAY<T>`
 
 Concatenation operator
 
@@ -104,17 +104,17 @@ Binary
 
 4
 
-`  +  `
+`+`
 
-All numeric types , `  INTERVAL  `
+All numeric types , `INTERVAL`
 
 Addition
 
 Binary
 
-`  -  `
+`-`
 
-All numeric types , `  INTERVAL  `
+All numeric types , `INTERVAL`
 
 Subtraction
 
@@ -122,17 +122,17 @@ Binary
 
 5
 
-`  <<  `
+`<<`
 
-Integer or `  BYTES  `
+Integer or `BYTES`
 
 Bitwise left-shift
 
 Binary
 
-`  >>  `
+`>>`
 
-Integer or `  BYTES  `
+Integer or `BYTES`
 
 Bitwise right-shift
 
@@ -140,9 +140,9 @@ Binary
 
 6
 
-`  &  `
+`&`
 
-Integer or `  BYTES  `
+Integer or `BYTES`
 
 Bitwise and
 
@@ -150,9 +150,9 @@ Binary
 
 7
 
-`  ^  `
+`^`
 
-Integer or `  BYTES  `
+Integer or `BYTES`
 
 Bitwise xor
 
@@ -160,9 +160,9 @@ Binary
 
 8
 
-`  |  `
+`|`
 
-Integer or `  BYTES  `
+Integer or `BYTES`
 
 Bitwise or
 
@@ -170,7 +170,7 @@ Binary
 
 9 (Comparison Operators)
 
-`  =  `
+`=`
 
 Any comparable type. See [Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) for a complete list.
 
@@ -178,7 +178,7 @@ Equal
 
 Binary
 
-`  <  `
+`<`
 
 Any comparable type. See [Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) for a complete list.
 
@@ -186,7 +186,7 @@ Less than
 
 Binary
 
-`  >  `
+`>`
 
 Any comparable type. See [Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) for a complete list.
 
@@ -194,7 +194,7 @@ Greater than
 
 Binary
 
-`  <=  `
+`<=`
 
 Any comparable type. See [Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) for a complete list.
 
@@ -202,7 +202,7 @@ Less than or equal to
 
 Binary
 
-`  >=  `
+`>=`
 
 Any comparable type. See [Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) for a complete list.
 
@@ -210,7 +210,7 @@ Greater than or equal to
 
 Binary
 
-`  !=  ` , `  <>  `
+`!=` , `<>`
 
 Any comparable type. See [Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) for a complete list.
 
@@ -218,15 +218,15 @@ Not equal
 
 Binary
 
-`  [NOT] LIKE  `
+`[NOT] LIKE`
 
-`  STRING  ` and `  BYTES  `
+`STRING` and `BYTES`
 
 Value does \[not\] match the pattern specified
 
 Binary
 
-`  [NOT] BETWEEN  `
+`[NOT] BETWEEN`
 
 Any comparable types. See [Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) for a complete list.
 
@@ -236,7 +236,7 @@ Value is \[not\] within the range specified
 
 Binary
 
-`  [NOT] IN  `
+`[NOT] IN`
 
 Any comparable types. See [Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) for a complete list.
 
@@ -244,117 +244,117 @@ Value is \[not\] in the set of values specified
 
 Binary
 
-`  IS [NOT] NULL  `
+`IS [NOT] NULL`
 
 All
 
-Value is \[not\] `  NULL  `
+Value is \[not\] `NULL`
 
 Unary
 
-`  IS [NOT] TRUE  `
+`IS [NOT] TRUE`
 
-`  BOOL  `
+`BOOL`
 
-Value is \[not\] `  TRUE  ` .
+Value is \[not\] `TRUE` .
 
 Unary
 
-`  IS [NOT] FALSE  `
+`IS [NOT] FALSE`
 
-`  BOOL  `
+`BOOL`
 
-Value is \[not\] `  FALSE  ` .
+Value is \[not\] `FALSE` .
 
 Unary
 
 10
 
-`  NOT  `
+`NOT`
 
-`  BOOL  `
+`BOOL`
 
-Logical `  NOT  `
+Logical `NOT`
 
 Unary
 
 11
 
-`  AND  `
+`AND`
 
-`  BOOL  `
+`BOOL`
 
-Logical `  AND  `
+Logical `AND`
 
 Binary
 
 12
 
-`  OR  `
+`OR`
 
-`  BOOL  `
+`BOOL`
 
-Logical `  OR  `
+Logical `OR`
 
 Binary
 
 For example, the logical expression:
 
-`  x OR y AND z  `
+`x OR y AND z`
 
 is interpreted as:
 
-`  ( x OR ( y AND z ) )  `
+`( x OR ( y AND z ) )`
 
 Operators with the same precedence are left associative. This means that those operators are grouped together starting from the left and moving right. For example, the expression:
 
-`  x AND y AND z  `
+`x AND y AND z`
 
 is interpreted as:
 
-`  ( ( x AND y ) AND z )  `
+`( ( x AND y ) AND z )`
 
 The expression:
 
-`  x * y / z  `
+`x * y / z`
 
 is interpreted as:
 
-`  ( ( x * y ) / z )  `
+`( ( x * y ) / z )`
 
 All comparison operators have the same priority, but comparison operators aren't associative. Therefore, parentheses are required to resolve ambiguity. For example:
 
-`  (x < y) IS FALSE  `
+`(x < y) IS FALSE`
 
 ### Operator list
 
-| Name                                                                                                                                                  | Summary                                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Field access operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#field_access_operator)                            | Gets the value of a field.                                                                                                                      |
-| [Array subscript operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#array_subscript_operator)                      | Gets a value from an array at a specific position.                                                                                              |
-| [JSON subscript operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#json_subscript_operator)                        | Gets a value of an array element or field in a JSON expression.                                                                                 |
-| [Arithmetic operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#arithmetic_operators)                              | Performs arithmetic operations.                                                                                                                 |
-| [Datetime subtraction](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#datetime_subtraction)                              | Computes the difference between two datetimes as an interval.                                                                                   |
-| [Interval arithmetic operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#interval_arithmetic_operators)            | Adds an interval to a datetime or subtracts an interval from a datetime.                                                                        |
-| [Bitwise operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#bitwise_operators)                                    | Performs bit manipulation.                                                                                                                      |
-| [Logical operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#logical_operators)                                    | Tests for the truth of some condition and produces `        TRUE       ` , `        FALSE       ` , or `        NULL       ` .                  |
-| [Graph concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#graph_concatenation_operator)              | Combines multiple graph paths into one and preserves the original order of the nodes and edges.                                                 |
-| [Graph logical operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#graph_logical_operators)                        | Tests for the truth of a condition in a graph label and produces either `        TRUE       ` or `        FALSE       ` .                       |
-| [Graph predicates](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#graph_predicates)                                      | Tests for the truth of a condition for a graph element and produces `        TRUE       ` , `        FALSE       ` , or `        NULL       ` . |
-| [`         ALL_DIFFERENT        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#all_different_predicate)     | In a graph, checks to see if the elements in a list are all different.                                                                          |
-| [`         IS DESTINATION        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_destination_predicate)   | In a graph, checks to see if a node is or isn't the destination of an edge.                                                                     |
-| [`         IS LABELED        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_labeled_predicate)           | In a graph, checks to see if a node or edge label satisfies a label expression.                                                                 |
-| [`         IS SOURCE        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_source_predicate)             | In a graph, checks to see if a node is or isn't the source of an edge.                                                                          |
-| [`         PROPERTY_EXISTS        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#property_exists_predicate) | In a graph, checks to see if a property exists for an element.                                                                                  |
-| [`         SAME        ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#same_predicate)                       | In a graph, checks if all graph elements in a list bind to the same node or edge.                                                               |
-| [Comparison operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#comparison_operators)                              | Compares operands and produces the results of the comparison as a `        BOOL       ` value.                                                  |
-| [`         EXISTS        ` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#exists_operator)                     | Checks if a subquery produces one or more rows.                                                                                                 |
-| [`         IN        ` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#in_operators)                            | Checks for an equal value in a set of values.                                                                                                   |
-| [`         IS        ` operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_operators)                           | Checks for the truth of a condition and produces either `        TRUE       ` or `        FALSE       ` .                                       |
-| [`         LIKE        ` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#like_operator)                         | Checks if values are like or not like one another.                                                                                              |
-| [`         NEW        ` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#new_operator)                           | Creates a protocol buffer.                                                                                                                      |
-| [Concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#concatenation_operator)                          | Combines multiple values into one.                                                                                                              |
-| [`         WITH        ` expression](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#with_expression)                     | Creates variables for re-use and produces a result expression.                                                                                  |
+| Name                                                                                                                                       | Summary                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| [Field access operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#field_access_operator)                 | Gets the value of a field.                                                                         |
+| [Array subscript operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#array_subscript_operator)           | Gets a value from an array at a specific position.                                                 |
+| [JSON subscript operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#json_subscript_operator)             | Gets a value of an array element or field in a JSON expression.                                    |
+| [Arithmetic operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#arithmetic_operators)                   | Performs arithmetic operations.                                                                    |
+| [Datetime subtraction](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#datetime_subtraction)                   | Computes the difference between two datetimes as an interval.                                      |
+| [Interval arithmetic operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#interval_arithmetic_operators) | Adds an interval to a datetime or subtracts an interval from a datetime.                           |
+| [Bitwise operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#bitwise_operators)                         | Performs bit manipulation.                                                                         |
+| [Logical operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#logical_operators)                         | Tests for the truth of some condition and produces `TRUE` , `FALSE` , or `NULL` .                  |
+| [Graph concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#graph_concatenation_operator)   | Combines multiple graph paths into one and preserves the original order of the nodes and edges.    |
+| [Graph logical operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#graph_logical_operators)             | Tests for the truth of a condition in a graph label and produces either `TRUE` or `FALSE` .        |
+| [Graph predicates](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#graph_predicates)                           | Tests for the truth of a condition for a graph element and produces `TRUE` , `FALSE` , or `NULL` . |
+| [`ALL_DIFFERENT` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#all_different_predicate)           | In a graph, checks to see if the elements in a list are all different.                             |
+| [`IS DESTINATION` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_destination_predicate)         | In a graph, checks to see if a node is or isn't the destination of an edge.                        |
+| [`IS LABELED` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_labeled_predicate)                 | In a graph, checks to see if a node or edge label satisfies a label expression.                    |
+| [`IS SOURCE` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_source_predicate)                   | In a graph, checks to see if a node is or isn't the source of an edge.                             |
+| [`PROPERTY_EXISTS` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#property_exists_predicate)       | In a graph, checks to see if a property exists for an element.                                     |
+| [`SAME` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#same_predicate)                             | In a graph, checks if all graph elements in a list bind to the same node or edge.                  |
+| [Comparison operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#comparison_operators)                   | Compares operands and produces the results of the comparison as a `BOOL` value.                    |
+| [`EXISTS` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#exists_operator)                           | Checks if a subquery produces one or more rows.                                                    |
+| [`IN` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#in_operators)                                  | Checks for an equal value in a set of values.                                                      |
+| [`IS` operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_operators)                                 | Checks for the truth of a condition and produces either `TRUE` or `FALSE` .                        |
+| [`LIKE` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#like_operator)                               | Checks if values are like or not like one another.                                                 |
+| [`NEW` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#new_operator)                                 | Creates a protocol buffer.                                                                         |
+| [Concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#concatenation_operator)               | Combines multiple values into one.                                                                 |
+| [`WITH` expression](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#with_expression)                           | Creates variables for re-use and produces a result expression.                                     |
 
 ### Field access operator
 
@@ -362,27 +362,27 @@ All comparison operators have the same priority, but comparison operators aren't
 
 **Description**
 
-Gets the value of a field. Alternatively known as the dot operator. Can be used to access nested fields. For example, `  expression.fieldname1.fieldname2  ` .
+Gets the value of a field. Alternatively known as the dot operator. Can be used to access nested fields. For example, `expression.fieldname1.fieldname2` .
 
 Input values:
 
-  - `  STRUCT  `
-  - `  PROTO  `
-  - `  JSON  `
-  - `  GRAPH_ELEMENT  `
+  - `STRUCT`
+  - `PROTO`
+  - `JSON`
+  - `GRAPH_ELEMENT`
 
 **Return type**
 
-  - For `  STRUCT  ` : SQL data type of `  fieldname  ` . If a field isn't found in the struct, an error is thrown.
-  - For `  PROTO  ` : SQL data type of `  fieldname  ` . If a field isn't found in the protocol buffer, an error is thrown.
-  - For `  JSON  ` : `  JSON  ` . If a field isn't found in a JSON value, a SQL `  NULL  ` is returned.
-  - For `  GRAPH_ELEMENT  ` :
-      - Without dynamic properties: SQL data type of `  fieldname  ` . If a field (property) isn't found in the graph element, an error is returned.
-      - With dynamic properties: SQL data type of `  fieldname  ` if the field (property) is defined; `  JSON  ` type if the field (property) is stored as a dynamic property and found in the graph element during query execution; SQL `  NULL  ` is returned if the field (property) is not found in the graph element. See [graph element type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) for more details about graph elements with dynamic properties.
+  - For `STRUCT` : SQL data type of `fieldname` . If a field isn't found in the struct, an error is thrown.
+  - For `PROTO` : SQL data type of `fieldname` . If a field isn't found in the protocol buffer, an error is thrown.
+  - For `JSON` : `JSON` . If a field isn't found in a JSON value, a SQL `NULL` is returned.
+  - For `GRAPH_ELEMENT` :
+      - Without dynamic properties: SQL data type of `fieldname` . If a field (property) isn't found in the graph element, an error is returned.
+      - With dynamic properties: SQL data type of `fieldname` if the field (property) is defined; `JSON` type if the field (property) is stored as a dynamic property and found in the graph element during query execution; SQL `NULL` is returned if the field (property) is not found in the graph element. See [graph element type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) for more details about graph elements with dynamic properties.
 
 **Example**
 
-In the following example, the field access operations are `  .address  ` and `  .country  ` .
+In the following example, the field access operations are `.address` and `.country` .
 
     SELECT
       STRUCT(
@@ -397,7 +397,7 @@ In the following example, the field access operations are `  .address  ` and `  
 
 ### Array subscript operator
 
-**Note:** Syntax characters enclosed in double quotes ( `  ""  ` ) are literal and required.
+**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     array_expression "[" array_subscript_specifier "]"
     
@@ -413,20 +413,20 @@ Gets a value from an array at a specific position.
 
 Input values:
 
-  - `  array_expression  ` : The input array.
-  - `  position_keyword(index)  ` : Determines where the index for the array should start and how out-of-range indexes are handled. The index is an integer that represents a specific position in the array.
-      - `  OFFSET(index)  ` : The index starts at zero. Produces an error if the index is out of range. To produce `  NULL  ` instead of an error, use `  SAFE_OFFSET(index)  ` .
-      - `  SAFE_OFFSET(index)  ` : The index starts at zero. Returns `  NULL  ` if the index is out of range.
-      - `  ORDINAL(index)  ` : The index starts at one. Produces an error if the index is out of range. To produce `  NULL  ` instead of an error, use `  SAFE_ORDINAL(index)  ` .
-      - `  SAFE_ORDINAL(index)  ` : The index starts at one. Returns `  NULL  ` if the index is out of range.
+  - `array_expression` : The input array.
+  - `position_keyword(index)` : Determines where the index for the array should start and how out-of-range indexes are handled. The index is an integer that represents a specific position in the array.
+      - `OFFSET(index)` : The index starts at zero. Produces an error if the index is out of range. To produce `NULL` instead of an error, use `SAFE_OFFSET(index)` .
+      - `SAFE_OFFSET(index)` : The index starts at zero. Returns `NULL` if the index is out of range.
+      - `ORDINAL(index)` : The index starts at one. Produces an error if the index is out of range. To produce `NULL` instead of an error, use `SAFE_ORDINAL(index)` .
+      - `SAFE_ORDINAL(index)` : The index starts at one. Returns `NULL` if the index is out of range.
 
 **Return type**
 
-`  T  ` where `  array_expression  ` is `  ARRAY<T>  ` .
+`T` where `array_expression` is `ARRAY<T>` .
 
 **Examples**
 
-In following query, the array subscript operator is used to return values at specific position in `  item_array  ` . This query also shows what happens when you reference an index ( `  6  ` ) in an array that's out of range. If the `  SAFE  ` prefix is included, `  NULL  ` is returned, otherwise an error is produced.
+In following query, the array subscript operator is used to return values at specific position in `item_array` . This query also shows what happens when you reference an index ( `6` ) in an array that's out of range. If the `SAFE` prefix is included, `NULL` is returned, otherwise an error is produced.
 
     SELECT
       ["coffee", "tea", "milk"] AS item_array,
@@ -440,14 +440,14 @@ In following query, the array subscript operator is used to return values at spe
      | [coffee, tea, milk] | coffee      | coffee       | NULL             |
      +---------------------+-------------+--------------+------------------*/
 
-When you reference an index that's out of range in an array, and a positional keyword that begins with `  SAFE  ` isn't included, an error is produced. For example:
+When you reference an index that's out of range in an array, and a positional keyword that begins with `SAFE` isn't included, an error is produced. For example:
 
     -- Error. Array index 6 is out of bounds.
     SELECT ["coffee", "tea", "milk"][OFFSET(6)] AS item_offset
 
 ### JSON subscript operator
 
-**Note:** Syntax characters enclosed in double quotes ( `  ""  ` ) are literal and required.
+**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     json_expression "[" array_element_id "]"
 
@@ -459,23 +459,23 @@ Gets a value of an array element or field in a JSON expression. Can be used to a
 
 Input values:
 
-  - `  JSON expression  ` : The `  JSON  ` expression that contains an array element or field to return.
-  - `  [array_element_id]  ` : An `  INT64  ` expression that represents a zero-based index in the array. If a negative value is entered, or the value is greater than or equal to the size of the array, or the JSON expression doesn't represent a JSON array, a SQL `  NULL  ` is returned.
-  - `  [field_name]  ` : A `  STRING  ` expression that represents the name of a field in JSON. If the field name isn't found, or the JSON expression isn't a JSON object, a SQL `  NULL  ` is returned.
+  - `JSON expression` : The `JSON` expression that contains an array element or field to return.
+  - `[array_element_id]` : An `INT64` expression that represents a zero-based index in the array. If a negative value is entered, or the value is greater than or equal to the size of the array, or the JSON expression doesn't represent a JSON array, a SQL `NULL` is returned.
+  - `[field_name]` : A `STRING` expression that represents the name of a field in JSON. If the field name isn't found, or the JSON expression isn't a JSON object, a SQL `NULL` is returned.
 
 **Return type**
 
-`  JSON  `
+`JSON`
 
 **Example**
 
 In the following example:
 
-  - `  json_value  ` is a JSON expression.
-  - `  .class  ` is a JSON field access.
-  - `  .students  ` is a JSON field access.
-  - `  [0]  ` is a JSON subscript expression with an element offset that accesses the zeroth element of an array in the JSON value.
-  - `  ['name']  ` is a JSON subscript expression with a field name that accesses a field.
+  - `json_value` is a JSON expression.
+  - `.class` is a JSON field access.
+  - `.students` is a JSON field access.
+  - `[0]` is a JSON subscript expression with an element offset that accesses the zeroth element of an array in the JSON value.
+  - `['name']` is a JSON subscript expression with a field name that accesses a field.
 
 <!-- end list -->
 
@@ -498,48 +498,48 @@ In the following example:
 
 ### Arithmetic operators
 
-All arithmetic operators accept input of numeric type `  T  ` , and the result type has type `  T  ` unless otherwise indicated in the description below:
+All arithmetic operators accept input of numeric type `T` , and the result type has type `T` unless otherwise indicated in the description below:
 
-| Name           | Syntax                 |
-| -------------- | ---------------------- |
-| Addition       | `        X + Y       ` |
-| Subtraction    | `        X - Y       ` |
-| Multiplication | `        X * Y       ` |
-| Division       | `        X / Y       ` |
-| Unary Plus     | `        + X       `   |
-| Unary Minus    | `        - X       `   |
+| Name           | Syntax  |
+| -------------- | ------- |
+| Addition       | `X + Y` |
+| Subtraction    | `X - Y` |
+| Multiplication | `X * Y` |
+| Division       | `X / Y` |
+| Unary Plus     | `+ X`   |
+| Unary Minus    | `- X`   |
 
-NOTE: Divide by zero operations return an error. To return a different result, consider the `  IEEE_DIVIDE  ` or `  SAFE_DIVIDE  ` functions.
+NOTE: Divide by zero operations return an error. To return a different result, consider the `IEEE_DIVIDE` or `SAFE_DIVIDE` functions.
 
 Result types for Addition, Subtraction and Multiplication:
 
-| INPUT                    | `        INT64       `   | `        NUMERIC       ` | `        FLOAT32       ` | `        FLOAT64       ` |
-| ------------------------ | ------------------------ | ------------------------ | ------------------------ | ------------------------ |
-| `        INT64       `   | `        INT64       `   | `        NUMERIC       ` | `        FLOAT64       ` | `        FLOAT64       ` |
-| `        NUMERIC       ` | `        NUMERIC       ` | `        NUMERIC       ` | `        FLOAT64       ` | `        FLOAT64       ` |
-| `        FLOAT32       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` |
-| `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` |
+| INPUT     | `INT64`   | `NUMERIC` | `FLOAT32` | `FLOAT64` |
+| --------- | --------- | --------- | --------- | --------- |
+| `INT64`   | `INT64`   | `NUMERIC` | `FLOAT64` | `FLOAT64` |
+| `NUMERIC` | `NUMERIC` | `NUMERIC` | `FLOAT64` | `FLOAT64` |
+| `FLOAT32` | `FLOAT64` | `FLOAT64` | `FLOAT64` | `FLOAT64` |
+| `FLOAT64` | `FLOAT64` | `FLOAT64` | `FLOAT64` | `FLOAT64` |
 
 Result types for Division:
 
-| INPUT                    | `        INT64       `   | `        NUMERIC       ` | `        FLOAT32       ` | `        FLOAT64       ` |
-| ------------------------ | ------------------------ | ------------------------ | ------------------------ | ------------------------ |
-| `        INT64       `   | `        FLOAT64       ` | `        NUMERIC       ` | `        FLOAT64       ` | `        FLOAT64       ` |
-| `        NUMERIC       ` | `        NUMERIC       ` | `        NUMERIC       ` | `        FLOAT64       ` | `        FLOAT64       ` |
-| `        FLOAT32       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` |
-| `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        FLOAT64       ` |
+| INPUT     | `INT64`   | `NUMERIC` | `FLOAT32` | `FLOAT64` |
+| --------- | --------- | --------- | --------- | --------- |
+| `INT64`   | `FLOAT64` | `NUMERIC` | `FLOAT64` | `FLOAT64` |
+| `NUMERIC` | `NUMERIC` | `NUMERIC` | `FLOAT64` | `FLOAT64` |
+| `FLOAT32` | `FLOAT64` | `FLOAT64` | `FLOAT64` | `FLOAT64` |
+| `FLOAT64` | `FLOAT64` | `FLOAT64` | `FLOAT64` | `FLOAT64` |
 
 Result types for Unary Plus:
 
-| INPUT  | `        INT64       ` | `        NUMERIC       ` | `        FLOAT32       ` | `        FLOAT64       ` |
-| ------ | ---------------------- | ------------------------ | ------------------------ | ------------------------ |
-| OUTPUT | `        INT64       ` | `        NUMERIC       ` | `        FLOAT32       ` | `        FLOAT64       ` |
+| INPUT  | `INT64` | `NUMERIC` | `FLOAT32` | `FLOAT64` |
+| ------ | ------- | --------- | --------- | --------- |
+| OUTPUT | `INT64` | `NUMERIC` | `FLOAT32` | `FLOAT64` |
 
 Result types for Unary Minus:
 
-| INPUT  | `        INT64       ` | `        NUMERIC       ` | `        FLOAT32       ` | `        FLOAT64       ` |
-| ------ | ---------------------- | ------------------------ | ------------------------ | ------------------------ |
-| OUTPUT | `        INT64       ` | `        NUMERIC       ` | `        FLOAT32       ` | `        FLOAT64       ` |
+| INPUT  | `INT64` | `NUMERIC` | `FLOAT32` | `FLOAT64` |
+| ------ | ------- | --------- | --------- | --------- |
+| OUTPUT | `INT64` | `NUMERIC` | `FLOAT32` | `FLOAT64` |
 
 ### Datetime subtraction
 
@@ -552,7 +552,7 @@ Computes the difference between two datetime values as an interval.
 
 **Return Data Type**
 
-`  INTERVAL  `
+`INTERVAL`
 
 **Example**
 
@@ -634,75 +634,75 @@ All bitwise operators return the same type and the same length as the first oper
 <tbody>
 <tr class="odd">
 <td>Bitwise not</td>
-<td><code dir="ltr" translate="no">       ~ X      </code></td>
-<td>Integer or <code dir="ltr" translate="no">       BYTES      </code></td>
+<td><code dir="ltr" translate="no">~ X</code></td>
+<td>Integer or <code dir="ltr" translate="no">BYTES</code></td>
 <td>Performs logical negation on each bit, forming the ones' complement of the given binary value.</td>
 </tr>
 <tr class="even">
 <td>Bitwise or</td>
-<td><code dir="ltr" translate="no">       X | Y      </code></td>
-<td><code dir="ltr" translate="no">       X      </code> : Integer or <code dir="ltr" translate="no">       BYTES      </code><br />
-<code dir="ltr" translate="no">       Y      </code> : Same type as <code dir="ltr" translate="no">       X      </code></td>
-<td>Takes two bit patterns of equal length and performs the logical inclusive <code dir="ltr" translate="no">       OR      </code> operation on each pair of the corresponding bits. This operator throws an error if <code dir="ltr" translate="no">       X      </code> and <code dir="ltr" translate="no">       Y      </code> are bytes of different lengths.</td>
+<td><code dir="ltr" translate="no">X | Y</code></td>
+<td><code dir="ltr" translate="no">X</code> : Integer or <code dir="ltr" translate="no">BYTES</code><br />
+<code dir="ltr" translate="no">Y</code> : Same type as <code dir="ltr" translate="no">X</code></td>
+<td>Takes two bit patterns of equal length and performs the logical inclusive <code dir="ltr" translate="no">OR</code> operation on each pair of the corresponding bits. This operator throws an error if <code dir="ltr" translate="no">X</code> and <code dir="ltr" translate="no">Y</code> are bytes of different lengths.</td>
 </tr>
 <tr class="odd">
 <td>Bitwise xor</td>
-<td><code dir="ltr" translate="no">       X ^ Y      </code></td>
-<td><code dir="ltr" translate="no">       X      </code> : Integer or <code dir="ltr" translate="no">       BYTES      </code><br />
-<code dir="ltr" translate="no">       Y      </code> : Same type as <code dir="ltr" translate="no">       X      </code></td>
-<td>Takes two bit patterns of equal length and performs the logical exclusive <code dir="ltr" translate="no">       OR      </code> operation on each pair of the corresponding bits. This operator throws an error if <code dir="ltr" translate="no">       X      </code> and <code dir="ltr" translate="no">       Y      </code> are bytes of different lengths.</td>
+<td><code dir="ltr" translate="no">X ^ Y</code></td>
+<td><code dir="ltr" translate="no">X</code> : Integer or <code dir="ltr" translate="no">BYTES</code><br />
+<code dir="ltr" translate="no">Y</code> : Same type as <code dir="ltr" translate="no">X</code></td>
+<td>Takes two bit patterns of equal length and performs the logical exclusive <code dir="ltr" translate="no">OR</code> operation on each pair of the corresponding bits. This operator throws an error if <code dir="ltr" translate="no">X</code> and <code dir="ltr" translate="no">Y</code> are bytes of different lengths.</td>
 </tr>
 <tr class="even">
 <td>Bitwise and</td>
-<td><code dir="ltr" translate="no">       X &amp; Y      </code></td>
-<td><code dir="ltr" translate="no">       X      </code> : Integer or <code dir="ltr" translate="no">       BYTES      </code><br />
-<code dir="ltr" translate="no">       Y      </code> : Same type as <code dir="ltr" translate="no">       X      </code></td>
-<td>Takes two bit patterns of equal length and performs the logical <code dir="ltr" translate="no">       AND      </code> operation on each pair of the corresponding bits. This operator throws an error if <code dir="ltr" translate="no">       X      </code> and <code dir="ltr" translate="no">       Y      </code> are bytes of different lengths.</td>
+<td><code dir="ltr" translate="no">X &amp; Y</code></td>
+<td><code dir="ltr" translate="no">X</code> : Integer or <code dir="ltr" translate="no">BYTES</code><br />
+<code dir="ltr" translate="no">Y</code> : Same type as <code dir="ltr" translate="no">X</code></td>
+<td>Takes two bit patterns of equal length and performs the logical <code dir="ltr" translate="no">AND</code> operation on each pair of the corresponding bits. This operator throws an error if <code dir="ltr" translate="no">X</code> and <code dir="ltr" translate="no">Y</code> are bytes of different lengths.</td>
 </tr>
 <tr class="odd">
 <td>Left shift</td>
-<td><code dir="ltr" translate="no">       X &lt;&lt; Y      </code></td>
-<td><code dir="ltr" translate="no">       X      </code> : Integer or <code dir="ltr" translate="no">       BYTES      </code><br />
-<code dir="ltr" translate="no">       Y      </code> : <code dir="ltr" translate="no">       INT64      </code></td>
-<td>Shifts the first operand <code dir="ltr" translate="no">       X      </code> to the left. This operator returns <code dir="ltr" translate="no">       0      </code> or a byte sequence of <code dir="ltr" translate="no">       b'\x00'      </code> if the second operand <code dir="ltr" translate="no">       Y      </code> is greater than or equal to the bit length of the first operand <code dir="ltr" translate="no">       X      </code> (for example, <code dir="ltr" translate="no">       64      </code> if <code dir="ltr" translate="no">       X      </code> has the type <code dir="ltr" translate="no">       INT64      </code> ). This operator throws an error if <code dir="ltr" translate="no">       Y      </code> is negative.</td>
+<td><code dir="ltr" translate="no">X &lt;&lt; Y</code></td>
+<td><code dir="ltr" translate="no">X</code> : Integer or <code dir="ltr" translate="no">BYTES</code><br />
+<code dir="ltr" translate="no">Y</code> : <code dir="ltr" translate="no">INT64</code></td>
+<td>Shifts the first operand <code dir="ltr" translate="no">X</code> to the left. This operator returns <code dir="ltr" translate="no">0</code> or a byte sequence of <code dir="ltr" translate="no">b'\x00'</code> if the second operand <code dir="ltr" translate="no">Y</code> is greater than or equal to the bit length of the first operand <code dir="ltr" translate="no">X</code> (for example, <code dir="ltr" translate="no">64</code> if <code dir="ltr" translate="no">X</code> has the type <code dir="ltr" translate="no">INT64</code> ). This operator throws an error if <code dir="ltr" translate="no">Y</code> is negative.</td>
 </tr>
 <tr class="even">
 <td>Right shift</td>
-<td><code dir="ltr" translate="no">       X &gt;&gt; Y      </code></td>
-<td><code dir="ltr" translate="no">       X      </code> : Integer or <code dir="ltr" translate="no">       BYTES      </code><br />
-<code dir="ltr" translate="no">       Y      </code> : <code dir="ltr" translate="no">       INT64      </code></td>
-<td>Shifts the first operand <code dir="ltr" translate="no">       X      </code> to the right. This operator doesn't perform sign bit extension with a signed type (i.e., it fills vacant bits on the left with <code dir="ltr" translate="no">       0      </code> ). This operator returns <code dir="ltr" translate="no">       0      </code> or a byte sequence of <code dir="ltr" translate="no">       b'\x00'      </code> if the second operand <code dir="ltr" translate="no">       Y      </code> is greater than or equal to the bit length of the first operand <code dir="ltr" translate="no">       X      </code> (for example, <code dir="ltr" translate="no">       64      </code> if <code dir="ltr" translate="no">       X      </code> has the type <code dir="ltr" translate="no">       INT64      </code> ). This operator throws an error if <code dir="ltr" translate="no">       Y      </code> is negative.</td>
+<td><code dir="ltr" translate="no">X &gt;&gt; Y</code></td>
+<td><code dir="ltr" translate="no">X</code> : Integer or <code dir="ltr" translate="no">BYTES</code><br />
+<code dir="ltr" translate="no">Y</code> : <code dir="ltr" translate="no">INT64</code></td>
+<td>Shifts the first operand <code dir="ltr" translate="no">X</code> to the right. This operator doesn't perform sign bit extension with a signed type (i.e., it fills vacant bits on the left with <code dir="ltr" translate="no">0</code> ). This operator returns <code dir="ltr" translate="no">0</code> or a byte sequence of <code dir="ltr" translate="no">b'\x00'</code> if the second operand <code dir="ltr" translate="no">Y</code> is greater than or equal to the bit length of the first operand <code dir="ltr" translate="no">X</code> (for example, <code dir="ltr" translate="no">64</code> if <code dir="ltr" translate="no">X</code> has the type <code dir="ltr" translate="no">INT64</code> ). This operator throws an error if <code dir="ltr" translate="no">Y</code> is negative.</td>
 </tr>
 </tbody>
 </table>
 
 ### Logical operators
 
-GoogleSQL supports the `  AND  ` , `  OR  ` , and `  NOT  ` logical operators. Logical operators allow only `  BOOL  ` or `  NULL  ` input and use [three-valued logic](https://en.wikipedia.org/wiki/Three-valued_logic) to produce a result. The result can be `  TRUE  ` , `  FALSE  ` , or `  NULL  ` :
+GoogleSQL supports the `AND` , `OR` , and `NOT` logical operators. Logical operators allow only `BOOL` or `NULL` input and use [three-valued logic](https://en.wikipedia.org/wiki/Three-valued_logic) to produce a result. The result can be `TRUE` , `FALSE` , or `NULL` :
 
-| `        x       `     | `        y       `     | `        x AND y       ` | `        x OR y       ` |
-| ---------------------- | ---------------------- | ------------------------ | ----------------------- |
-| `        TRUE       `  | `        TRUE       `  | `        TRUE       `    | `        TRUE       `   |
-| `        TRUE       `  | `        FALSE       ` | `        FALSE       `   | `        TRUE       `   |
-| `        TRUE       `  | `        NULL       `  | `        NULL       `    | `        TRUE       `   |
-| `        FALSE       ` | `        TRUE       `  | `        FALSE       `   | `        TRUE       `   |
-| `        FALSE       ` | `        FALSE       ` | `        FALSE       `   | `        FALSE       `  |
-| `        FALSE       ` | `        NULL       `  | `        FALSE       `   | `        NULL       `   |
-| `        NULL       `  | `        TRUE       `  | `        NULL       `    | `        TRUE       `   |
-| `        NULL       `  | `        FALSE       ` | `        FALSE       `   | `        NULL       `   |
-| `        NULL       `  | `        NULL       `  | `        NULL       `    | `        NULL       `   |
+| `x`     | `y`     | `x AND y` | `x OR y` |
+| ------- | ------- | --------- | -------- |
+| `TRUE`  | `TRUE`  | `TRUE`    | `TRUE`   |
+| `TRUE`  | `FALSE` | `FALSE`   | `TRUE`   |
+| `TRUE`  | `NULL`  | `NULL`    | `TRUE`   |
+| `FALSE` | `TRUE`  | `FALSE`   | `TRUE`   |
+| `FALSE` | `FALSE` | `FALSE`   | `FALSE`  |
+| `FALSE` | `NULL`  | `FALSE`   | `NULL`   |
+| `NULL`  | `TRUE`  | `NULL`    | `TRUE`   |
+| `NULL`  | `FALSE` | `FALSE`   | `NULL`   |
+| `NULL`  | `NULL`  | `NULL`    | `NULL`   |
 
-| `        x       `     | `        NOT x       ` |
-| ---------------------- | ---------------------- |
-| `        TRUE       `  | `        FALSE       ` |
-| `        FALSE       ` | `        TRUE       `  |
-| `        NULL       `  | `        NULL       `  |
+| `x`     | `NOT x` |
+| ------- | ------- |
+| `TRUE`  | `FALSE` |
+| `FALSE` | `TRUE`  |
+| `NULL`  | `NULL`  |
 
-The order of evaluation of operands to `  AND  ` and `  OR  ` can vary, and evaluation can be skipped if unnecessary.
+The order of evaluation of operands to `AND` and `OR` can vary, and evaluation can be skipped if unnecessary.
 
 **Examples**
 
-The examples in this section reference a table called `  entry_table  ` :
+The examples in this section reference a table called `entry_table` :
 
     /*-------+
      | entry |
@@ -760,7 +760,7 @@ Combines multiple graph paths into one and preserves the original order of the n
 
 Arguments:
 
-  - `  graph_path  ` : A `  GRAPH_PATH  ` value that represents a graph path to concatenate.
+  - `graph_path` : A `GRAPH_PATH` value that represents a graph path to concatenate.
 
 **Details**
 
@@ -788,11 +788,11 @@ The first node in each subsequent path is removed from the concatenated path.
       q=(mid)-[t2:Transfers]->(dst:Account)
     LET full_path = p || q
 
-If any `  graph_path  ` is `  NULL  ` , produces `  NULL  ` .
+If any `graph_path` is `NULL` , produces `NULL` .
 
 **Example**
 
-In the following query, a path called `  p  ` and `  q  ` are concatenated. Notice that `  mid  ` is used at the end of the first path and at the beginning of the second path. Also notice that the duplicate `  mid  ` is removed from the concatenated path called `  full_path  ` :
+In the following query, a path called `p` and `q` are concatenated. Notice that `mid` is used at the end of the first path and at the beginning of the second path. Also notice that the duplicate `mid` is removed from the concatenated path called `full_path` :
 
     GRAPH FinGraph
     MATCH
@@ -814,7 +814,7 @@ In the following query, a path called `  p  ` and `  q  ` are concatenated. Noti
      | ...         | ...           | ...         | ...           | ...         | ...       |
      +-------------------------------------------------------------------------------------/*
 
-The following query produces an error because the last node for `  p  ` must be the first node for `  q  ` :
+The following query produces an error because the last node for `p` must be the first node for `q` :
 
     -- Error: `mid1` and `mid2` aren't equal.
     GRAPH FinGraph
@@ -824,7 +824,7 @@ The following query produces an error because the last node for `  p  ` must be 
     LET full_path = p || q
     RETURN TO_JSON(full_path) AS results
 
-The following query produces an error because the path called `  p  ` is `  NULL  ` :
+The following query produces an error because the path called `p` is `NULL` :
 
     -- Error: a graph path is NULL.
     GRAPH FinGraph
@@ -838,42 +838,42 @@ The following query produces an error because the path called `  p  ` is `  NULL
 
 GoogleSQL supports the following logical operators in [element pattern label expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#element_pattern_definition) :
 
-| Name                 | Syntax                  | Description                                                                                                                               |
-| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `        NOT       ` | `        !X       `     | Returns `        TRUE       ` if `        X       ` isn't included, otherwise, returns `        FALSE       ` .                           |
-| `        OR       `  | `        X \| Y       ` | Returns `        TRUE       ` if either `        X       ` or `        Y       ` is included, otherwise, returns `        FALSE       ` . |
-| `        AND       ` | `        X & Y       `  | Returns `        TRUE       ` if both `        X       ` and `        Y       ` are included, otherwise, returns `        FALSE       ` . |
+| Name  | Syntax   | Description                                                                   |
+| ----- | -------- | ----------------------------------------------------------------------------- |
+| `NOT` | `!X`     | Returns `TRUE` if `X` isn't included, otherwise, returns `FALSE` .            |
+| `OR`  | `X \| Y` | Returns `TRUE` if either `X` or `Y` is included, otherwise, returns `FALSE` . |
+| `AND` | `X & Y`  | Returns `TRUE` if both `X` and `Y` are included, otherwise, returns `FALSE` . |
 
 ### Graph predicates
 
-GoogleSQL supports the following graph-specific predicates in graph expressions. A predicate can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` .
+GoogleSQL supports the following graph-specific predicates in graph expressions. A predicate can produce `TRUE` , `FALSE` , or `NULL` .
 
-  - [`  ALL_DIFFERENT  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#all_different_predicate)
-  - [`  PROPERTY_EXISTS  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#property_exists_predicate)
-  - [`  IS SOURCE  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_source_predicate)
-  - [`  IS DESTINATION  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_destination_predicate)
-  - [`  IS LABELED  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_labeled_predicate)
-  - [`  SAME  ` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#same_predicate)
+  - [`ALL_DIFFERENT` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#all_different_predicate)
+  - [`PROPERTY_EXISTS` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#property_exists_predicate)
+  - [`IS SOURCE` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_source_predicate)
+  - [`IS DESTINATION` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_destination_predicate)
+  - [`IS LABELED` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#is_labeled_predicate)
+  - [`SAME` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#same_predicate)
 
-### `     ALL_DIFFERENT    ` predicate
+### `ALL_DIFFERENT` predicate
 
     ALL_DIFFERENT(element, element[, ...])
 
 **Description**
 
-In a graph, checks to see if the elements in a list are all different. Returns `  TRUE  ` if none of the elements in the list equal one another, otherwise `  FALSE  ` .
+In a graph, checks to see if the elements in a list are all different. Returns `TRUE` if none of the elements in the list equal one another, otherwise `FALSE` .
 
 **Definitions**
 
-  - `  element  ` : The graph pattern variable for a node or edge element.
+  - `element` : The graph pattern variable for a node or edge element.
 
 **Details**
 
-Produces an error if `  element  ` is `  NULL  ` .
+Produces an error if `element` is `NULL` .
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -893,18 +893,18 @@ Produces an error if `  element  ` is `  NULL  ` .
      | TRUE    |
      +---------*/
 
-### `     IS DESTINATION    ` predicate
+### `IS DESTINATION` predicate
 
     node IS [ NOT ] DESTINATION [ OF ] edge
 
 **Description**
 
-In a graph, checks to see if a node is or isn't the destination of an edge. Can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` .
+In a graph, checks to see if a node is or isn't the destination of an edge. Can produce `TRUE` , `FALSE` , or `NULL` .
 
 Arguments:
 
-  - `  node  ` : The graph pattern variable for the node element.
-  - `  edge  ` : The graph pattern variable for the edge element.
+  - `node` : The graph pattern variable for the node element.
+  - `edge` : The graph pattern variable for the edge element.
 
 **Examples**
 
@@ -938,18 +938,18 @@ Arguments:
      | 20   | 16   |
      +-------------*/
 
-### `     IS LABELED    ` predicate
+### `IS LABELED` predicate
 
     element IS [ NOT ] LABELED label_expression
 
 **Description**
 
-In a graph, checks to see if a node or edge label satisfies a label expression. Can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` if `  element  ` is `  NULL  ` .
+In a graph, checks to see if a node or edge label satisfies a label expression. Can produce `TRUE` , `FALSE` , or `NULL` if `element` is `NULL` .
 
 Arguments:
 
-  - `  element  ` : The graph pattern variable for a graph node or edge element.
-  - `  label_expression  ` : The label expression to verify. For more information, see [Label expression definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#label_expression_definition) .
+  - `element` : The graph pattern variable for a graph node or edge element.
+  - `label_expression` : The label expression to verify. For more information, see [Label expression definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#label_expression_definition) .
 
 **Examples**
 
@@ -1004,18 +1004,18 @@ Arguments:
      | 7    | NULL   | NULL         |
      +------+-----------------------+*/
 
-### `     IS SOURCE    ` predicate
+### `IS SOURCE` predicate
 
     node IS [ NOT ] SOURCE [ OF ] edge
 
 **Description**
 
-In a graph, checks to see if a node is or isn't the source of an edge. Can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` .
+In a graph, checks to see if a node is or isn't the source of an edge. Can produce `TRUE` , `FALSE` , or `NULL` .
 
 Arguments:
 
-  - `  node  ` : The graph pattern variable for the node element.
-  - `  edge  ` : The graph pattern variable for the edge element.
+  - `node` : The graph pattern variable for the node element.
+  - `edge` : The graph pattern variable for the edge element.
 
 **Examples**
 
@@ -1049,18 +1049,18 @@ Arguments:
      | 20   | 16   |
      +-------------*/
 
-### `     PROPERTY_EXISTS    ` predicate
+### `PROPERTY_EXISTS` predicate
 
     PROPERTY_EXISTS(element, element_property)
 
 **Description**
 
-In a graph, checks to see if a property exists for an element. Can produce `  TRUE  ` , `  FALSE  ` , or `  NULL  ` .
+In a graph, checks to see if a property exists for an element. Can produce `TRUE` , `FALSE` , or `NULL` .
 
 Arguments:
 
-  - `  element  ` : The graph pattern variable for a node or edge element.
-  - `  element_property  ` : The name of the property to look for in `  element  ` . The property name must refer to a property in the graph. If the property doesn't exist in the graph, an error is produced. The property name is resolved in a case-insensitive manner.
+  - `element` : The graph pattern variable for a node or edge element.
+  - `element_property` : The name of the property to look for in `element` . The property name must refer to a property in the graph. If the property doesn't exist in the graph, an error is produced. The property name is resolved in a case-insensitive manner.
 
 **Example**
 
@@ -1076,21 +1076,21 @@ Arguments:
      | Lee  |
      +------*/
 
-### `     SAME    ` predicate
+### `SAME` predicate
 
     SAME (element, element[, ...])
 
 **Description**
 
-In a graph, checks if all graph elements in a list bind to the same node or edge. Returns `  TRUE  ` if the elements bind to the same node or edge, otherwise `  FALSE  ` .
+In a graph, checks if all graph elements in a list bind to the same node or edge. Returns `TRUE` if the elements bind to the same node or edge, otherwise `FALSE` .
 
 Arguments:
 
-  - `  element  ` : The graph pattern variable for a node or edge element.
+  - `element` : The graph pattern variable for a node or edge element.
 
 **Details**
 
-Produces an error if `  element  ` is `  NULL  ` .
+Produces an error if `element` is `NULL` .
 
 **Example**
 
@@ -1113,7 +1113,7 @@ The following query returns the source and destination IDs for transfers between
 
 ### Comparison operators
 
-Compares operands and produces the results of the comparison as a `  BOOL  ` value. These comparison operators are available:
+Compares operands and produces the results of the comparison as a `BOOL` value. These comparison operators are available:
 
 <table>
 <colgroup>
@@ -1131,49 +1131,49 @@ Compares operands and produces the results of the comparison as a `  BOOL  ` val
 <tbody>
 <tr class="odd">
 <td>Less Than</td>
-<td><code dir="ltr" translate="no">       X &lt; Y      </code></td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if <code dir="ltr" translate="no">       X      </code> is less than <code dir="ltr" translate="no">       Y      </code> .</td>
+<td><code dir="ltr" translate="no">X &lt; Y</code></td>
+<td>Returns <code dir="ltr" translate="no">TRUE</code> if <code dir="ltr" translate="no">X</code> is less than <code dir="ltr" translate="no">Y</code> .</td>
 </tr>
 <tr class="even">
 <td>Less Than or Equal To</td>
-<td><code dir="ltr" translate="no">       X &lt;= Y      </code></td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if <code dir="ltr" translate="no">       X      </code> is less than or equal to <code dir="ltr" translate="no">       Y      </code> .</td>
+<td><code dir="ltr" translate="no">X &lt;= Y</code></td>
+<td>Returns <code dir="ltr" translate="no">TRUE</code> if <code dir="ltr" translate="no">X</code> is less than or equal to <code dir="ltr" translate="no">Y</code> .</td>
 </tr>
 <tr class="odd">
 <td>Greater Than</td>
-<td><code dir="ltr" translate="no">       X &gt; Y      </code></td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if <code dir="ltr" translate="no">       X      </code> is greater than <code dir="ltr" translate="no">       Y      </code> .</td>
+<td><code dir="ltr" translate="no">X &gt; Y</code></td>
+<td>Returns <code dir="ltr" translate="no">TRUE</code> if <code dir="ltr" translate="no">X</code> is greater than <code dir="ltr" translate="no">Y</code> .</td>
 </tr>
 <tr class="even">
 <td>Greater Than or Equal To</td>
-<td><code dir="ltr" translate="no">       X &gt;= Y      </code></td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if <code dir="ltr" translate="no">       X      </code> is greater than or equal to <code dir="ltr" translate="no">       Y      </code> .</td>
+<td><code dir="ltr" translate="no">X &gt;= Y</code></td>
+<td>Returns <code dir="ltr" translate="no">TRUE</code> if <code dir="ltr" translate="no">X</code> is greater than or equal to <code dir="ltr" translate="no">Y</code> .</td>
 </tr>
 <tr class="odd">
 <td>Equal</td>
-<td><code dir="ltr" translate="no">       X = Y      </code></td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if <code dir="ltr" translate="no">       X      </code> is equal to <code dir="ltr" translate="no">       Y      </code> .</td>
+<td><code dir="ltr" translate="no">X = Y</code></td>
+<td>Returns <code dir="ltr" translate="no">TRUE</code> if <code dir="ltr" translate="no">X</code> is equal to <code dir="ltr" translate="no">Y</code> .</td>
 </tr>
 <tr class="even">
 <td>Not Equal</td>
-<td><code dir="ltr" translate="no">       X != Y      </code><br />
-<code dir="ltr" translate="no">       X &lt;&gt; Y      </code></td>
-<td>Returns <code dir="ltr" translate="no">       TRUE      </code> if <code dir="ltr" translate="no">       X      </code> isn't equal to <code dir="ltr" translate="no">       Y      </code> .</td>
+<td><code dir="ltr" translate="no">X != Y</code><br />
+<code dir="ltr" translate="no">X &lt;&gt; Y</code></td>
+<td>Returns <code dir="ltr" translate="no">TRUE</code> if <code dir="ltr" translate="no">X</code> isn't equal to <code dir="ltr" translate="no">Y</code> .</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       BETWEEN      </code></td>
-<td><code dir="ltr" translate="no">       X [NOT] BETWEEN Y AND Z      </code></td>
-<td><p>Returns <code dir="ltr" translate="no">        TRUE       </code> if <code dir="ltr" translate="no">        X       </code> is [not] within the range specified. The result of <code dir="ltr" translate="no">        X BETWEEN Y AND Z       </code> is equivalent to <code dir="ltr" translate="no">        Y &lt;= X AND X &lt;= Z       </code> but <code dir="ltr" translate="no">        X       </code> is evaluated only once in the former.</p></td>
+<td><code dir="ltr" translate="no">BETWEEN</code></td>
+<td><code dir="ltr" translate="no">X [NOT] BETWEEN Y AND Z</code></td>
+<td><p>Returns <code dir="ltr" translate="no">TRUE</code> if <code dir="ltr" translate="no">X</code> is [not] within the range specified. The result of <code dir="ltr" translate="no">X BETWEEN Y AND Z</code> is equivalent to <code dir="ltr" translate="no">Y &lt;= X AND X &lt;= Z</code> but <code dir="ltr" translate="no">X</code> is evaluated only once in the former.</p></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       LIKE      </code></td>
-<td><code dir="ltr" translate="no">       X [NOT] LIKE Y      </code></td>
-<td>See the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#like_operator"><code dir="ltr" translate="no">        LIKE       </code> operator</a> for details.</td>
+<td><code dir="ltr" translate="no">LIKE</code></td>
+<td><code dir="ltr" translate="no">X [NOT] LIKE Y</code></td>
+<td>See the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#like_operator"><code dir="ltr" translate="no">LIKE</code> operator</a> for details.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       IN      </code></td>
+<td><code dir="ltr" translate="no">IN</code></td>
 <td>Multiple</td>
-<td>See the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#in_operator"><code dir="ltr" translate="no">        IN       </code> operator</a> for details.</td>
+<td>See the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#in_operator"><code dir="ltr" translate="no">IN</code> operator</a> for details.</td>
 </tr>
 </tbody>
 </table>
@@ -1184,45 +1184,45 @@ The following rules apply to operands in a comparison operator:
   - A comparison operator generally requires both operands to be of the same type.
   - If the operands are of different types, and the values of those types can be converted to a common type without loss of precision, they are generally coerced to that common type for the comparison.
   - A literal operand is generally coerced to the same data type of a non-literal operand that's part of the comparison.
-  - Struct operands support only these comparison operators: equal ( `  =  ` ), not equal ( `  !=  ` and `  <>  ` ), and `  IN  ` .
+  - Struct operands support only these comparison operators: equal ( `=` ), not equal ( `!=` and `<>` ), and `IN` .
 
 The following rules apply when comparing these data types:
 
-  - Floating point: All comparisons with `  NaN  ` return `  FALSE  ` , except for `  !=  ` and `  <>  ` , which return `  TRUE  ` .
+  - Floating point: All comparisons with `NaN` return `FALSE` , except for `!=` and `<>` , which return `TRUE` .
 
-  - `  BOOL  ` : `  FALSE  ` is less than `  TRUE  ` .
+  - `BOOL` : `FALSE` is less than `TRUE` .
 
-  - `  STRING  ` : Strings are compared codepoint-by-codepoint, which means that canonically equivalent strings are only guaranteed to compare as equal if they have been normalized first.
+  - `STRING` : Strings are compared codepoint-by-codepoint, which means that canonically equivalent strings are only guaranteed to compare as equal if they have been normalized first.
 
-  - `  JSON  ` : You can't compare JSON, but you can compare the values inside of JSON if you convert the values to SQL values first. For more information, see [`  JSON  ` functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions) .
+  - `JSON` : You can't compare JSON, but you can compare the values inside of JSON if you convert the values to SQL values first. For more information, see [`JSON` functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions) .
 
-  - `  NULL  ` : Any operation with a `  NULL  ` input returns `  NULL  ` .
+  - `NULL` : Any operation with a `NULL` input returns `NULL` .
 
-  - `  STRUCT  ` : When testing a struct for equality, it's possible that one or more fields are `  NULL  ` . In such cases:
+  - `STRUCT` : When testing a struct for equality, it's possible that one or more fields are `NULL` . In such cases:
     
-      - If all non- `  NULL  ` field values are equal, the comparison returns `  NULL  ` .
-      - If any non- `  NULL  ` field values aren't equal, the comparison returns `  FALSE  ` .
+      - If all non- `NULL` field values are equal, the comparison returns `NULL` .
+      - If any non- `NULL` field values aren't equal, the comparison returns `FALSE` .
     
-    The following table demonstrates how `  STRUCT  ` data types are compared when they have fields that are `  NULL  ` valued.
+    The following table demonstrates how `STRUCT` data types are compared when they have fields that are `NULL` valued.
     
-    | Struct1                              | Struct2                              | Struct1 = Struct2          |
-    | ------------------------------------ | ------------------------------------ | -------------------------- |
-    | `          STRUCT(1, NULL)         ` | `          STRUCT(1, NULL)         ` | `          NULL         `  |
-    | `          STRUCT(1, NULL)         ` | `          STRUCT(2, NULL)         ` | `          FALSE         ` |
-    | `          STRUCT(1,2)         `     | `          STRUCT(1, NULL)         ` | `          NULL         `  |
+    | Struct1           | Struct2           | Struct1 = Struct2 |
+    | ----------------- | ----------------- | ----------------- |
+    | `STRUCT(1, NULL)` | `STRUCT(1, NULL)` | `NULL`            |
+    | `STRUCT(1, NULL)` | `STRUCT(2, NULL)` | `FALSE`           |
+    | `STRUCT(1,2)`     | `STRUCT(1, NULL)` | `NULL`            |
     
 
-### `     EXISTS    ` operator
+### `EXISTS` operator
 
     EXISTS( subquery )
 
 **Description**
 
-Returns `  TRUE  ` if the subquery produces one or more rows. Returns `  FALSE  ` if the subquery produces zero rows. Never returns `  NULL  ` . To learn more about how you can use a subquery with `  EXISTS  ` , see [`  EXISTS  ` subqueries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#exists_subquery_concepts) .
+Returns `TRUE` if the subquery produces one or more rows. Returns `FALSE` if the subquery produces zero rows. Never returns `NULL` . To learn more about how you can use a subquery with `EXISTS` , see [`EXISTS` subqueries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#exists_subquery_concepts) .
 
 **Examples**
 
-In this example, the `  EXISTS  ` operator returns `  FALSE  ` because there are no rows in `  Words  ` where the direction is `  south  ` :
+In this example, the `EXISTS` operator returns `FALSE` because there are no rows in `Words` where the direction is `south` :
 
     WITH Words AS (
       SELECT 'Intend' as value, 'east' as direction UNION ALL
@@ -1237,9 +1237,9 @@ In this example, the `  EXISTS  ` operator returns `  FALSE  ` because there are
      | FALSE  |
      +--------*/
 
-### `     IN    ` operator
+### `IN` operator
 
-The `  IN  ` operator supports the following syntax:
+The `IN` operator supports the following syntax:
 
     search_value [NOT] IN value_set
     
@@ -1252,41 +1252,41 @@ The `  IN  ` operator supports the following syntax:
 
 **Description**
 
-Checks for an equal value in a set of values. [Semantic rules](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#semantic_rules_in) apply, but in general, `  IN  ` returns `  TRUE  ` if an equal value is found, `  FALSE  ` if an equal value is excluded, otherwise `  NULL  ` . `  NOT IN  ` returns `  FALSE  ` if an equal value is found, `  TRUE  ` if an equal value is excluded, otherwise `  NULL  ` .
+Checks for an equal value in a set of values. [Semantic rules](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#semantic_rules_in) apply, but in general, `IN` returns `TRUE` if an equal value is found, `FALSE` if an equal value is excluded, otherwise `NULL` . `NOT IN` returns `FALSE` if an equal value is found, `TRUE` if an equal value is excluded, otherwise `NULL` .
 
-  - `  search_value  ` : The expression that's compared to a set of values.
+  - `search_value` : The expression that's compared to a set of values.
 
-  - `  value_set  ` : One or more values to compare to a search value.
+  - `value_set` : One or more values to compare to a search value.
     
-      - `  (expression[, ...])  ` : A list of expressions.
+      - `(expression[, ...])` : A list of expressions.
     
-      - `  (subquery)  ` : A [subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#about_subqueries) that returns a single column. The values in that column are the set of values. If no rows are produced, the set of values is empty.
+      - `(subquery)` : A [subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#about_subqueries) that returns a single column. The values in that column are the set of values. If no rows are produced, the set of values is empty.
     
-      - `  UNNEST(array_expression)  ` : An [UNNEST operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) that returns a column of values from an array expression. This is equivalent to:
+      - `UNNEST(array_expression)` : An [UNNEST operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) that returns a column of values from an array expression. This is equivalent to:
         
             IN (SELECT element FROM UNNEST(array_expression) AS element)
 
-This operator generally supports [collation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#collate_funcs) , however, `  [NOT] IN UNNEST  ` doesn't support collation.
+This operator generally supports [collation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#collate_funcs) , however, `[NOT] IN UNNEST` doesn't support collation.
 
 <span id="semantic_rules_in"></span>
 
 **Semantic rules**
 
-When using the `  IN  ` operator, the following semantics apply in this order:
+When using the `IN` operator, the following semantics apply in this order:
 
-  - Returns `  FALSE  ` if `  value_set  ` is empty.
-  - Returns `  NULL  ` if `  search_value  ` is `  NULL  ` .
-  - Returns `  TRUE  ` if `  value_set  ` contains a value equal to `  search_value  ` .
-  - Returns `  NULL  ` if `  value_set  ` contains a `  NULL  ` .
-  - Returns `  FALSE  ` .
+  - Returns `FALSE` if `value_set` is empty.
+  - Returns `NULL` if `search_value` is `NULL` .
+  - Returns `TRUE` if `value_set` contains a value equal to `search_value` .
+  - Returns `NULL` if `value_set` contains a `NULL` .
+  - Returns `FALSE` .
 
-When using the `  NOT IN  ` operator, the following semantics apply in this order:
+When using the `NOT IN` operator, the following semantics apply in this order:
 
-  - Returns `  TRUE  ` if `  value_set  ` is empty.
-  - Returns `  NULL  ` if `  search_value  ` is `  NULL  ` .
-  - Returns `  FALSE  ` if `  value_set  ` contains a value equal to `  search_value  ` .
-  - Returns `  NULL  ` if `  value_set  ` contains a `  NULL  ` .
-  - Returns `  TRUE  ` .
+  - Returns `TRUE` if `value_set` is empty.
+  - Returns `NULL` if `search_value` is `NULL` .
+  - Returns `FALSE` if `value_set` contains a value equal to `search_value` .
+  - Returns `NULL` if `value_set` contains a `NULL` .
+  - Returns `TRUE` .
 
 The semantics of:
 
@@ -1304,7 +1304,7 @@ is equivalent to:
 
     NOT(x IN ...)
 
-The `  UNNEST  ` form treats an array scan like `  UNNEST  ` in the [`  FROM  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#from_clause) clause:
+The `UNNEST` form treats an array scan like `UNNEST` in the [`FROM`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#from_clause) clause:
 
     x [NOT] IN UNNEST(<array expression>)
 
@@ -1314,7 +1314,7 @@ This form is often used with array parameters. For example:
 
 See the [Arrays](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays#filtering_arrays) topic for more information on how to use this syntax.
 
-`  IN  ` can be used with multi-part keys by using the struct constructor syntax. For example:
+`IN` can be used with multi-part keys by using the struct constructor syntax. For example:
 
     (Key1, Key2) IN ( (12,34), (56,78) )
     (Key1, Key2) IN ( SELECT (table.a, table.b) FROM table )
@@ -1323,11 +1323,11 @@ See the [Struct Type](https://docs.cloud.google.com/spanner/docs/reference/stand
 
 **Return Data Type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
-You can use these `  WITH  ` clauses to emulate temporary tables for `  Words  ` and `  Items  ` in the following examples:
+You can use these `WITH` clauses to emulate temporary tables for `Words` and `Items` in the following examples:
 
     WITH Words AS (
       SELECT 'Intend' as value UNION ALL
@@ -1364,7 +1364,7 @@ You can use these `  WITH  ` clauses to emulate temporary tables for `  Words  `
      | {red color, round shape}   |
      +----------------------------*/
 
-Example with `  IN  ` and an expression:
+Example with `IN` and an expression:
 
     SELECT * FROM Words WHERE value IN ('Intend', 'Secure');
     
@@ -1376,7 +1376,7 @@ Example with `  IN  ` and an expression:
      | Intend   |
      +----------*/
 
-Example with `  NOT IN  ` and an expression:
+Example with `NOT IN` and an expression:
 
     SELECT * FROM Words WHERE value NOT IN ('Intend');
     
@@ -1388,7 +1388,7 @@ Example with `  NOT IN  ` and an expression:
      | Peace    |
      +----------*/
 
-Example with `  IN  ` , a scalar subquery, and an expression:
+Example with `IN` , a scalar subquery, and an expression:
 
     SELECT * FROM Words WHERE value IN ((SELECT 'Intend'), 'Clarity');
     
@@ -1400,7 +1400,7 @@ Example with `  IN  ` , a scalar subquery, and an expression:
      | Intend   |
      +----------*/
 
-Example with `  IN  ` and an `  UNNEST  ` operation:
+Example with `IN` and an `UNNEST` operation:
 
     SELECT * FROM Words WHERE value IN UNNEST(['Secure', 'Clarity']);
     
@@ -1411,7 +1411,7 @@ Example with `  IN  ` and an `  UNNEST  ` operation:
      | Clarity  |
      +----------*/
 
-Example with `  IN  ` and a struct:
+Example with `IN` and a struct:
 
     SELECT
       (SELECT AS STRUCT Items.info) as item
@@ -1425,40 +1425,40 @@ Example with `  IN  ` and a struct:
      | { {blue color, round shape} info } |
      +------------------------------------*/
 
-### `     IS    ` operators
+### `IS` operators
 
-IS operators return TRUE or FALSE for the condition they are testing. They never return `  NULL  ` , even for `  NULL  ` inputs, unlike the `  IS_INF  ` and `  IS_NAN  ` functions defined in [Mathematical Functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) . If `  NOT  ` is present, the output `  BOOL  ` value is inverted.
+IS operators return TRUE or FALSE for the condition they are testing. They never return `NULL` , even for `NULL` inputs, unlike the `IS_INF` and `IS_NAN` functions defined in [Mathematical Functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) . If `NOT` is present, the output `BOOL` value is inverted.
 
-| Function Syntax                   | Input Data Type       | Result Data Type      | Description                                                                                                                                     |
-| --------------------------------- | --------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `        X IS TRUE       `        | `        BOOL       ` | `        BOOL       ` | Evaluates to `        TRUE       ` if `        X       ` evaluates to `        TRUE       ` . Otherwise, evaluates to `        FALSE       ` .  |
-| `        X IS NOT TRUE       `    | `        BOOL       ` | `        BOOL       ` | Evaluates to `        FALSE       ` if `        X       ` evaluates to `        TRUE       ` . Otherwise, evaluates to `        TRUE       ` .  |
-| `        X IS FALSE       `       | `        BOOL       ` | `        BOOL       ` | Evaluates to `        TRUE       ` if `        X       ` evaluates to `        FALSE       ` . Otherwise, evaluates to `        FALSE       ` . |
-| `        X IS NOT FALSE       `   | `        BOOL       ` | `        BOOL       ` | Evaluates to `        FALSE       ` if `        X       ` evaluates to `        FALSE       ` . Otherwise, evaluates to `        TRUE       ` . |
-| `        X IS NULL       `        | Any value type        | `        BOOL       ` | Evaluates to `        TRUE       ` if `        X       ` evaluates to `        NULL       ` . Otherwise evaluates to `        FALSE       ` .   |
-| `        X IS NOT NULL       `    | Any value type        | `        BOOL       ` | Evaluates to `        FALSE       ` if `        X       ` evaluates to `        NULL       ` . Otherwise evaluates to `        TRUE       ` .   |
-| `        X IS UNKNOWN       `     | `        BOOL       ` | `        BOOL       ` | Evaluates to `        TRUE       ` if `        X       ` evaluates to `        NULL       ` . Otherwise evaluates to `        FALSE       ` .   |
-| `        X IS NOT UNKNOWN       ` | `        BOOL       ` | `        BOOL       ` | Evaluates to `        FALSE       ` if `        X       ` evaluates to `        NULL       ` . Otherwise, evaluates to `        TRUE       ` .  |
+| Function Syntax    | Input Data Type | Result Data Type | Description                                                                         |
+| ------------------ | --------------- | ---------------- | ----------------------------------------------------------------------------------- |
+| `X IS TRUE`        | `BOOL`          | `BOOL`           | Evaluates to `TRUE` if `X` evaluates to `TRUE` . Otherwise, evaluates to `FALSE` .  |
+| `X IS NOT TRUE`    | `BOOL`          | `BOOL`           | Evaluates to `FALSE` if `X` evaluates to `TRUE` . Otherwise, evaluates to `TRUE` .  |
+| `X IS FALSE`       | `BOOL`          | `BOOL`           | Evaluates to `TRUE` if `X` evaluates to `FALSE` . Otherwise, evaluates to `FALSE` . |
+| `X IS NOT FALSE`   | `BOOL`          | `BOOL`           | Evaluates to `FALSE` if `X` evaluates to `FALSE` . Otherwise, evaluates to `TRUE` . |
+| `X IS NULL`        | Any value type  | `BOOL`           | Evaluates to `TRUE` if `X` evaluates to `NULL` . Otherwise evaluates to `FALSE` .   |
+| `X IS NOT NULL`    | Any value type  | `BOOL`           | Evaluates to `FALSE` if `X` evaluates to `NULL` . Otherwise evaluates to `TRUE` .   |
+| `X IS UNKNOWN`     | `BOOL`          | `BOOL`           | Evaluates to `TRUE` if `X` evaluates to `NULL` . Otherwise evaluates to `FALSE` .   |
+| `X IS NOT UNKNOWN` | `BOOL`          | `BOOL`           | Evaluates to `FALSE` if `X` evaluates to `NULL` . Otherwise, evaluates to `TRUE` .  |
 
-### `     LIKE    ` operator
+### `LIKE` operator
 
     expression [NOT] LIKE pattern
 
 **Description**
 
-`  LIKE  ` returns `  TRUE  ` if the string in the first operand `  expression  ` matches a pattern specified by the second operand `  pattern  ` , otherwise returns `  FALSE  ` .
+`LIKE` returns `TRUE` if the string in the first operand `expression` matches a pattern specified by the second operand `pattern` , otherwise returns `FALSE` .
 
-`  NOT LIKE  ` returns `  TRUE  ` if the string in the first operand `  expression  ` doesn't match a pattern specified by the second operand `  pattern  ` , otherwise returns `  FALSE  ` .
+`NOT LIKE` returns `TRUE` if the string in the first operand `expression` doesn't match a pattern specified by the second operand `pattern` , otherwise returns `FALSE` .
 
 Expressions can contain these characters:
 
-  - A percent sign ( `  %  ` ) matches any number of characters or bytes.
-  - An underscore ( `  _  ` ) matches a single character or byte.
-  - You can escape `  \  ` , `  _  ` , or `  %  ` using two backslashes. For example, `  \\%  ` . If you are using raw strings, only a single backslash is required. For example, `  r'\%'  ` .
+  - A percent sign ( `%` ) matches any number of characters or bytes.
+  - An underscore ( `_` ) matches a single character or byte.
+  - You can escape `\` , `_` , or `%` using two backslashes. For example, `\\%` . If you are using raw strings, only a single backslash is required. For example, `r'\%'` .
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -1482,7 +1482,7 @@ The following examples illustrate how you can check to see if the string in the 
     -- Produces an error
     SELECT 'apple' LIKE NULL;
 
-The following example illustrates how to search multiple patterns in an array to find a match with the `  LIKE  ` operator:
+The following example illustrates how to search multiple patterns in an array to find a match with the `LIKE` operator:
 
     WITH Words AS
      (SELECT 'Intend with clarity.' as value UNION ALL
@@ -1499,11 +1499,11 @@ The following example illustrates how to search multiple patterns in an array to
      | Clarity and security.  |
      +------------------------*/
 
-### `     NEW    ` operator
+### `NEW` operator
 
-The `  NEW  ` operator only supports protocol buffers and uses the following syntax:
+The `NEW` operator only supports protocol buffers and uses the following syntax:
 
-  - `  NEW protocol_buffer {...}  ` : Creates a protocol buffer using a map constructor.
+  - `NEW protocol_buffer {...}` : Creates a protocol buffer using a map constructor.
     
         NEW protocol_buffer {
           field_name: literal_or_expression
@@ -1511,13 +1511,13 @@ The `  NEW  ` operator only supports protocol buffers and uses the following syn
           repeated_field_name: [literal_or_expression, ... ]
         }
 
-  - `  NEW protocol_buffer (...)  ` : Creates a protocol buffer using a parenthesized list of arguments.
+  - `NEW protocol_buffer (...)` : Creates a protocol buffer using a parenthesized list of arguments.
     
         NEW protocol_buffer(field [AS alias], ...field [AS alias])
 
 **Examples**
 
-The following example uses the `  NEW  ` operator with a map constructor:
+The following example uses the `NEW` operator with a map constructor:
 
     NEW Universe {
       name: "Sol"
@@ -1536,7 +1536,7 @@ The following example uses the `  NEW  ` operator with a map constructor:
       all_planets: (SELECT planets FROM SolTable)
     }
 
-The following example uses the `  NEW  ` operator with a parenthesized list of arguments:
+The following example uses the `NEW` operator with a parenthesized list of arguments:
 
     SELECT
       key,
@@ -1551,15 +1551,15 @@ To learn more about protocol buffers in GoogleSQL, see [Work with protocol buffe
 
 The concatenation operator combines multiple values into one.
 
-| Function Syntax                                      | Input Data Type           | Result Data Type          |
-| ---------------------------------------------------- | ------------------------- | ------------------------- |
-| `        STRING \|\| STRING [ \|\| ... ]       `     | `        STRING       `   | `        STRING       `   |
-| `        BYTES \|\| BYTES [ \|\| ... ]       `       | `        BYTES       `    | `        BYTES       `    |
-| `        ARRAY<T> \|\| ARRAY<T> [ \|\| ... ]       ` | `        ARRAY<T>       ` | `        ARRAY<T>       ` |
+| Function Syntax                       | Input Data Type | Result Data Type |
+| ------------------------------------- | --------------- | ---------------- |
+| `STRING \|\| STRING [ \|\| ... ]`     | `STRING`        | `STRING`         |
+| `BYTES \|\| BYTES [ \|\| ... ]`       | `BYTES`         | `BYTES`          |
+| `ARRAY<T> \|\| ARRAY<T> [ \|\| ... ]` | `ARRAY<T>`      | `ARRAY<T>`       |
 
-**Note:** The concatenation operator is translated into a nested [`  CONCAT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#concat) function call. For example, `  'A' || 'B' || 'C'  ` becomes `  CONCAT('A', CONCAT('B', 'C'))  ` .
+**Note:** The concatenation operator is translated into a nested [`CONCAT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#concat) function call. For example, `'A' || 'B' || 'C'` becomes `CONCAT('A', CONCAT('B', 'C'))` .
 
-### `     WITH    ` expression
+### `WITH` expression
 
     WITH(variable_assignment[, ...], result_expression)
     
@@ -1568,29 +1568,29 @@ The concatenation operator combines multiple values into one.
 
 **Description**
 
-Creates one or more variables. Each variable can be used in subsequent expressions within the `  WITH  ` expression. Returns the value of `  result_expression  ` .
+Creates one or more variables. Each variable can be used in subsequent expressions within the `WITH` expression. Returns the value of `result_expression` .
 
-  - `  variable_assignment  ` : Introduces a variable. The variable name must be unique within a given `  WITH  ` expression. Each expression can reference the variables that come before it. For example, if you create variable `  a  ` , then follow it with variable `  b  ` , then you can reference `  a  ` inside of the expression for `  b  ` .
+  - `variable_assignment` : Introduces a variable. The variable name must be unique within a given `WITH` expression. Each expression can reference the variables that come before it. For example, if you create variable `a` , then follow it with variable `b` , then you can reference `a` inside of the expression for `b` .
     
-      - `  variable_name  ` : The name of the variable.
+      - `variable_name` : The name of the variable.
     
-      - `  expression  ` : The value to assign to the variable.
+      - `expression` : The value to assign to the variable.
 
-  - `  result_expression  ` : An expression that can use all of the variables defined before it. The value of `  result_expression  ` is returned by the `  WITH  ` expression.
+  - `result_expression` : An expression that can use all of the variables defined before it. The value of `result_expression` is returned by the `WITH` expression.
 
 **Return Type**
 
-  - The type of the `  result_expression  ` .
+  - The type of the `result_expression` .
 
 **Requirements and Caveats**
 
-  - A variable can only be assigned once within a `  WITH  ` expression.
-  - Variables created during `  WITH  ` may not be used in aggregate function arguments. For example, `  WITH(a AS ..., SUM(a))  ` produces an error.
+  - A variable can only be assigned once within a `WITH` expression.
+  - Variables created during `WITH` may not be used in aggregate function arguments. For example, `WITH(a AS ..., SUM(a))` produces an error.
   - Each variable's expression is evaluated only once.
 
 **Examples**
 
-The following example first concatenates variable `  a  ` with `  b  ` , then variable `  b  ` with `  c  ` :
+The following example first concatenates variable `a` with `b` , then variable `b` with `c` :
 
     SELECT WITH(a AS '123',               -- a is '123'
                 b AS CONCAT(a, '456'),    -- b is '123456'
@@ -1626,7 +1626,7 @@ Variables can't be used in aggregate function call arguments.
     -- ERROR: WITH variables like 'diff' can't be used in aggregate or analytic
     -- function arguments.
 
-A `  WITH  ` expression is different from a `  WITH  ` clause. The following example shows a query that uses both:
+A `WITH` expression is different from a `WITH` clause. The following example shows a query that uses both:
 
     WITH my_table AS (
       SELECT 1 AS x, 2 AS y

@@ -4,15 +4,14 @@ gcloud beta spanner samples workload - generate gRPC traffic for a given sample 
 
 SYNOPSIS
 
-`  gcloud beta spanner samples workload  ` `  APPNAME  ` \[ `  --duration  ` = `  DURATION  ` ; default="1h"\] \[ `  --port  ` = `  PORT  ` \] \[ `  --target-qps  ` = `  TARGET_QPS  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner samples workload` `  APPNAME  ` \[ `  --duration  ` = `  DURATION  ` ; default="1h"\] \[ `  --port  ` = `  PORT  ` \] \[ `  --target-qps  ` = `  TARGET_QPS  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Before sending traffic to the backend service, create the database and start the service with:
+`(BETA)` Before sending traffic to the backend service, create the database and start the service with:
 
 ``` wrap-code
-gcloud beta spanner samples init APPNAME --instance-id=INSTANCE_ID
-gcloud beta spanner samples backend APPNAME --instance-id=INSTANCE_ID
+gcloud beta spanner samples init APPNAME --instance-id=INSTANCE_IDgcloud beta spanner samples backend APPNAME --instance-id=INSTANCE_ID
 ```
 
 To run all three steps together, use:
@@ -36,18 +35,18 @@ POSITIONAL ARGUMENTS
 
 FLAGS
 
-  - `  --duration  ` = `  DURATION  ` ; default="1h"  
+  - `--duration` = `  DURATION  ` ; default="1h"  
     Duration of time allowed to run before stopping the workload.
-  - `  --port  ` = `  PORT  `  
+  - `--port` = `  PORT  `  
     Port of the running backend service.
-  - `  --target-qps  ` = `  TARGET_QPS  `  
+  - `--target-qps` = `  TARGET_QPS  `  
     Target requests per second.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

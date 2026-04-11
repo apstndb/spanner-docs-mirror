@@ -6,30 +6,30 @@ This page describes how to perform a vector similarity search in Spanner by usin
 
   - [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance) : measures the shortest distance between two vectors.
   - [Cosine distance](https://en.wikipedia.org/wiki/Cosine_similarity#Cosine_distance) : measures the cosine of the angle between two vectors.
-  - [Dot product](https://mathworld.wolfram.com/DotProduct.html) : calculates the cosine of the angle multiplied by the product of corresponding vector magnitudes. If you know that all the vector embeddings in your dataset are normalized, then you can use `  DOT_PRODUCT()  ` as a distance function.
+  - [Dot product](https://mathworld.wolfram.com/DotProduct.html) : calculates the cosine of the angle multiplied by the product of corresponding vector magnitudes. If you know that all the vector embeddings in your dataset are normalized, then you can use `DOT_PRODUCT()` as a distance function.
   - [K-nearest neighbors (KNN)](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) : a supervised machine learning algorithm used to solve classification or regression problems.
 
-You can use vector distance functions to perform K-nearest neighbors (KNN) vector search for use cases like similarity search or retrieval-augmented generation. Spanner supports the `  COSINE_DISTANCE()  ` , `  EUCLIDEAN_DISTANCE()  ` , and `  DOT_PRODUCT()  ` functions, which operate on vector embeddings, allowing you to find the KNN of the input embedding.
+You can use vector distance functions to perform K-nearest neighbors (KNN) vector search for use cases like similarity search or retrieval-augmented generation. Spanner supports the `COSINE_DISTANCE()` , `EUCLIDEAN_DISTANCE()` , and `DOT_PRODUCT()` functions, which operate on vector embeddings, allowing you to find the KNN of the input embedding.
 
 For example, after you [generate and save your operational Spanner data as vector embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) , you can then provide these vector embeddings as an input parameter in your query to find the nearest vectors in N-dimensional space to search for semantically similar or related items.
 
-All three distance functions take the arguments `  vector1  ` and `  vector2  ` , which are of the type `  array<>  ` , and must consist of the same dimensions and have the same length. For more details about these functions, see:
+All three distance functions take the arguments `vector1` and `vector2` , which are of the type `array<>` , and must consist of the same dimensions and have the same length. For more details about these functions, see:
 
-  - [`  COSINE_DISTANCE()  ` in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#cosine_distance)
-  - [`  EUCLIDEAN_DISTANCE()  ` in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#euclidean_distance)
-  - [`  DOT_PRODUCT()  ` in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#dot_product)
-  - [Mathematical functions in PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) ( `  spanner.cosine_distance()  ` , `  spanner.euclidean_distance()  ` , and `  spanner.dot_product()  ` )
+  - [`COSINE_DISTANCE()` in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#cosine_distance)
+  - [`EUCLIDEAN_DISTANCE()` in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#euclidean_distance)
+  - [`DOT_PRODUCT()` in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#dot_product)
+  - [Mathematical functions in PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) ( `spanner.cosine_distance()` , `spanner.euclidean_distance()` , and `spanner.dot_product()` )
   - [Choose among vector distance functions to measure vector embeddings similarity](https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function) .
 
 ## Examples
 
 The following examples show KNN search, KNN search over partitioned data, and using a secondary index with KNN.
 
-The examples all use `  EUCLIDEAN_DISTANCE()  ` . You can also use `  COSINE_DISTANCE()  ` . In addition, if all the vector embeddings in your dataset are normalized, you can use `  DOT_PRODUCT()  ` as a distance function.
+The examples all use `EUCLIDEAN_DISTANCE()` . You can also use `COSINE_DISTANCE()` . In addition, if all the vector embeddings in your dataset are normalized, you can use `DOT_PRODUCT()` as a distance function.
 
 ### Example 1: KNN search
 
-Consider a `  Documents  ` table that has a column ( `  DocEmbedding  ` ) of precomputed text embeddings from the `  DocContents  ` bytes column.
+Consider a `Documents` table that has a column ( `DocEmbedding` ) of precomputed text embeddings from the `DocContents` bytes column.
 
 ### GoogleSQL
 
@@ -52,7 +52,7 @@ Consider a `  Documents  ` table that has a column ( `  DocEmbedding  ` ) of pre
     PRIMARY KEY  (UserId, DocId)
     );
 
-Assuming that an input embedding for "baseball, but not professional baseball" is the array `  [0.3, 0.3, 0.7, 0.7]  ` , you can find the top five nearest documents that match, with the following query:
+Assuming that an input embedding for "baseball, but not professional baseball" is the array `[0.3, 0.3, 0.7, 0.7]` , you can find the top five nearest documents that match, with the following query:
 
 ### GoogleSQL
 
@@ -87,7 +87,7 @@ The expected results of this example:
 
 ### Example 2: KNN search over partitioned data
 
-The query in the previous example can be modified by adding conditions to the `  WHERE  ` clause to limit the vector search to a subset of your data. One common application of this is to search over partitioned data, such as rows that belong to a specific `  UserId  ` .
+The query in the previous example can be modified by adding conditions to the `WHERE` clause to limit the vector search to a subset of your data. One common application of this is to search over partitioned data, such as rows that belong to a specific `UserId` .
 
 ### GoogleSQL
 
@@ -122,7 +122,7 @@ The expected results of this example:
 
 ### Example 3: KNN search over secondary index ranges
 
-If the `  WHERE  ` clause filter you're using isn't part of the table's primary key, then you can create a secondary index to accelerate the operation with an [index-only scan](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) .
+If the `WHERE` clause filter you're using isn't part of the table's primary key, then you can create a secondary index to accelerate the operation with an [index-only scan](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) .
 
 ### GoogleSQL
 
@@ -167,8 +167,8 @@ The expected results of this example:
 
 ## What's next
 
-  - Learn more about the [GoogleSQL `  COSINE_DISTANCE()  ` , `  EUCLIDEAN_DISTANCE()  ` , `  DOT_PRODUCT()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
+  - Learn more about the [GoogleSQL `COSINE_DISTANCE()` , `EUCLIDEAN_DISTANCE()` , `DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
 
-  - Learn more about the [PostgreSQL `  spanner.cosine_distance()  ` , `  spanner.euclidean_distance()  ` , `  spanner.dot_product()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) functions.
+  - Learn more about the [PostgreSQL `spanner.cosine_distance()` , `spanner.euclidean_distance()` , `spanner.dot_product()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) functions.
 
   - Learn more about how to [Choose among vector distance functions to measure vector embeddings similarity](https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function) .

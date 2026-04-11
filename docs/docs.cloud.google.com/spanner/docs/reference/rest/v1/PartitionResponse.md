@@ -15,31 +15,22 @@ The response for `  sessions.partitionQuery  ` or `  sessions.partitionRead  `
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;partitions&quot;: [
-    {
-      object (Partition)
-    }
-  ],
-  &quot;transaction&quot;: {
-    object (Transaction)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;partitions&quot;: [{object (Partition)}],&quot;transaction&quot;: {object (Transaction)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  partitions[]  `
+`partitions[]`
 
-`  object ( Partition  ` )
+` object ( Partition  ` )
 
 Partitions created by this request.
 
-`  transaction  `
+`transaction`
 
-`  object ( Transaction  ` )
+` object ( Transaction  ` )
 
 Transaction created by this request.
 
@@ -67,10 +58,10 @@ Information returned for each partition returned in a PartitionResponse.
 
 Fields
 
-`  partitionToken  `
+`partitionToken`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
-This token can be passed to `  sessions.read  ` , `  sessions.streamingRead  ` , `  ExecuteSql  ` , or `  sessions.executeStreamingSql  ` requests to restrict the results to those identified by this partition token.
+This token can be passed to `sessions.read` , `sessions.streamingRead` , `ExecuteSql` , or `sessions.executeStreamingSql` requests to restrict the results to those identified by this partition token.
 
 A base64-encoded string.

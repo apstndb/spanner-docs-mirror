@@ -1,6 +1,6 @@
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/WaitOperationRequest#SCHEMA_REPRESENTATION)
 
-The request message for `  Operations.WaitOperation  ` .
+The request message for `Operations.WaitOperation` .
 
 <table>
 <colgroup>
@@ -23,16 +23,16 @@ The request message for `  Operations.WaitOperation  ` .
 
 Fields
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
 The name of the operation resource to wait on.
 
-`  timeout  `
+`timeout`
 
-`  string ( Duration  ` format)
+` string ( Duration  ` format)
 
 The maximum duration to wait before timing out. If left blank, the wait will be at most the time permitted by the underlying HTTP/RPC protocol. If RPC context deadline is also specified, the shorter one will be used.
 
-A duration in seconds with up to nine fractional digits, ending with ' `  s  ` '. Example: `  "3.5s"  ` .
+A duration in seconds with up to nine fractional digits, ending with ' `s` '. Example: `"3.5s"` .

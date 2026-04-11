@@ -58,7 +58,7 @@ Consider using read-write transactions in repeatable read isolation in the follo
   - The application is experiencing performance bottlenecks due to delays from lock-contention and transaction aborts caused by older, higher-priority transactions wounding newer, lower-priority transactions to prevent potential deadlocks (wound-wait).
   - The application doesn't require the stricter guarantees provided by the serializable isolation level.
 
-When performing a write operation that depends on one or more read operations, write skew is possible under repeatable read isolation. Write skew arise from a particular kind of concurrent update, where each update is independently accepted, but their combined effect violates application data integrity. Therefore, make sure you perform reads that are part of a transaction's critical section with either a `  FOR UPDATE  ` clause or a `  lock_scanned_ranges=exclusive  ` hint to avoid write skew. For more information, see [Read-write conflicts and correctness](https://docs.cloud.google.com/spanner/docs/isolation-levels#read-write-conflicts-correctness) , and the example discussed in [Read-write semantics](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_semantics) .
+When performing a write operation that depends on one or more read operations, write skew is possible under repeatable read isolation. Write skew arise from a particular kind of concurrent update, where each update is independently accepted, but their combined effect violates application data integrity. Therefore, make sure you perform reads that are part of a transaction's critical section with either a `FOR UPDATE` clause or a `lock_scanned_ranges=exclusive` hint to avoid write skew. For more information, see [Read-write conflicts and correctness](https://docs.cloud.google.com/spanner/docs/isolation-levels#read-write-conflicts-correctness) , and the example discussed in [Read-write semantics](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_semantics) .
 
 ### Interface
 
@@ -66,13 +66,13 @@ The [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/refere
 
 Several situations can cause transaction aborts. For example, if two transactions attempt to modify data concurrently, a deadlock might occur. In such cases, Spanner aborts one transaction to let the other proceed. Less frequently, transient events within Spanner can also cause transaction aborts.
 
-All read-write transactions provide the ACID properties of relational databases. Because transactions are atomic, an aborted transaction doesn't affect the database. Spanner client libraries retry such transactions automatically, but if you don't use the client libraries, retry the transaction within the same session to improve success rates. Each retry that results in an `  ABORTED  ` error increases the transaction's lock priority. In addition, Spanner client drivers include an internal transaction retry logic that masks transient errors by rerunning the transaction.
+All read-write transactions provide the ACID properties of relational databases. Because transactions are atomic, an aborted transaction doesn't affect the database. Spanner client libraries retry such transactions automatically, but if you don't use the client libraries, retry the transaction within the same session to improve success rates. Each retry that results in an `ABORTED` error increases the transaction's lock priority. In addition, Spanner client drivers include an internal transaction retry logic that masks transient errors by rerunning the transaction.
 
 When using a transaction in a Spanner client library, you define the transaction's body as a function object. This function encapsulates the reads and writes performed on one or more database tables. The Spanner client library executes this function repeatedly until the transaction either commits successfully or encounters an error that can't be retried.
 
 ### Example
 
-Assume you have a `  MarketingBudget  ` column in the [`  Albums  ` table](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating_multiple_tables) :
+Assume you have a `MarketingBudget` column in the [`Albums` table](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating_multiple_tables) :
 
     CREATE TABLE Albums (
       SingerId        INT64 NOT NULL,
@@ -81,7 +81,7 @@ Assume you have a `  MarketingBudget  ` column in the [`  Albums  ` table](https
       MarketingBudget INT64
     ) PRIMARY KEY (SingerId, AlbumId);
 
-Your marketing department asks you to move $200,000 from the budget of `  Albums (2, 2)  ` to `  Albums (1, 1)  ` , but only if the money is available in that album's budget. You should use a locking read-write transaction for this operation, because the transaction might perform writes depending on the result of a read.
+Your marketing department asks you to move $200,000 from the budget of `Albums (2, 2)` to `Albums (1, 1)` , but only if the money is available in that album's budget. You should use a locking read-write transaction for this operation, because the transaction might perform writes depending on the result of a read.
 
 The following client library examples show how to execute a read-write transaction using the default serializable isolation level:
 
@@ -658,36 +658,36 @@ Serializability ensures that all transactions appear to execute one after anothe
 
 Spanner provides an even stronger guarantee known as [external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) . This means that not only do transactions commit in an order reflected by their commit timestamps, but these timestamps also align with real-world time. This lets you compare commit timestamps to real time, providing a consistent and globally ordered view of your data.
 
-In essence, if a transaction `  Txn1  ` commits before another transaction `  Txn2  ` in real time, then `  Txn1  ` 's commit timestamp is earlier than `  Txn2  ` 's commit timestamp.
+In essence, if a transaction `Txn1` commits before another transaction `Txn2` in real time, then `Txn1` 's commit timestamp is earlier than `Txn2` 's commit timestamp.
 
 Consider the following example:
 
 ![Timeline that shows the execution of two transactions that read the same data](https://docs.cloud.google.com/static/spanner/docs/images/serializability_example.svg)
 
-In this scenario, during the timeline `  t  ` :
+In this scenario, during the timeline `t` :
 
-  - Transaction `  Txn1  ` reads data `  A  ` , stages a write to `  A  ` , and then successfully commits.
-  - Transaction `  Txn2  ` begins after `  Txn1  ` starts. It reads data `  B  ` and then reads data `  A  ` .
+  - Transaction `Txn1` reads data `A` , stages a write to `A` , and then successfully commits.
+  - Transaction `Txn2` begins after `Txn1` starts. It reads data `B` and then reads data `A` .
 
-Even though `  Txn2  ` started before Txn1 completed, `  Txn2  ` observes the changes made by `  Txn1  ` to `  A  ` . This is because `  Txn2  ` reads `  A  ` after `  Txn1  ` commits its write to `  A  ` .
+Even though `Txn2` started before Txn1 completed, `Txn2` observes the changes made by `Txn1` to `A` . This is because `Txn2` reads `A` after `Txn1` commits its write to `A` .
 
-While `  Txn1  ` and `  Txn2  ` might overlap in their execution time, their commit timestamps, `  c1  ` and `  c2  ` respectively, enforce a linear transaction order. This means:
+While `Txn1` and `Txn2` might overlap in their execution time, their commit timestamps, `c1` and `c2` respectively, enforce a linear transaction order. This means:
 
-  - All reads and writes within `  Txn1  ` appear to have occurred at a single point in time, `  c1  ` .
-  - All reads and writes within `  Txn2  ` appear to have occurred at a single point in time, `  c2  ` .
-  - Crucially, `  c1  ` is earlier than `  c2  ` for committed writes, even if the writes occurred on different machines. If `  Txn2  ` performs only reads, `  c1  ` is earlier or at the same time as `  c2  ` .
+  - All reads and writes within `Txn1` appear to have occurred at a single point in time, `c1` .
+  - All reads and writes within `Txn2` appear to have occurred at a single point in time, `c2` .
+  - Crucially, `c1` is earlier than `c2` for committed writes, even if the writes occurred on different machines. If `Txn2` performs only reads, `c1` is earlier or at the same time as `c2` .
 
-This strong ordering means that if a subsequent read operation observes the effects of `  Txn2  ` , it also observes the effects of `  Txn1  ` . This property holds true for all successfully committed transactions.
+This strong ordering means that if a subsequent read operation observes the effects of `Txn2` , it also observes the effects of `Txn1` . This property holds true for all successfully committed transactions.
 
 On the other hand, if you use repeatable read isolation, the following scenario occurs for the same transactions:
 
-  - `  Txn1  ` starts by reading data `  A  ` , creating its own snapshot of the database at that moment.
-  - `  Txn2  ` then begins, reading data `  B  ` , and establishes its own snapshot.
-  - Next, `  Txn1  ` modifies data `  A  ` , and successfully commits its changes.
-  - `  Txn2  ` attempts to read data `  A  ` . Crucially, because it's operating at an earlier snapshot, `  Txn2  ` doesn't see the update `  Txn1  ` just made to `  A  ` . `  Txn2  ` reads the older value.
-  - `  Txn2  ` modifies data `  B  ` and commits.
+  - `Txn1` starts by reading data `A` , creating its own snapshot of the database at that moment.
+  - `Txn2` then begins, reading data `B` , and establishes its own snapshot.
+  - Next, `Txn1` modifies data `A` , and successfully commits its changes.
+  - `Txn2` attempts to read data `A` . Crucially, because it's operating at an earlier snapshot, `Txn2` doesn't see the update `Txn1` just made to `A` . `Txn2` reads the older value.
+  - `Txn2` modifies data `B` and commits.
 
-In this scenario, each transaction operates on its own consistent snapshot of the database, taken from the moment the transaction starts. This sequence can lead to a write skew anomaly if the write to `  B  ` by `  Txn2  ` was logically dependent on the value it read from `  A  ` . In essence, `  Txn2  ` made its updates based on outdated information, and its subsequent write might violate an application-level invariant. To prevent this scenario from arising, consider either [using `  SELECT...FOR UPDATE  ` for repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) , or [creating check constraints in your schema](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
+In this scenario, each transaction operates on its own consistent snapshot of the database, taken from the moment the transaction starts. This sequence can lead to a write skew anomaly if the write to `B` by `Txn2` was logically dependent on the value it read from `A` . In essence, `Txn2` made its updates based on outdated information, and its subsequent write might violate an application-level invariant. To prevent this scenario from arising, consider either [using `SELECT...FOR UPDATE` for repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) , or [creating check constraints in your schema](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
 
 **Note:** Regardless of isolation level, when using [DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks#using-dml) , changes are immediately visible to subsequent read statements within the same transaction. However, if you use [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) , changes are buffered locally and are only visible after the transaction commits.
 
@@ -743,7 +743,7 @@ When committing a transaction in repeatable read isolation, the transaction acqu
 
 Notes about locks:
 
-  - **Granularity:** Spanner applies locks at the row-and-column granularity. This means that if transaction `  T1  ` holds a lock on column `  A  ` of row `  albumid  ` , transaction `  T2  ` can still concurrently write to column `  B  ` of the same row `  albumid  ` without conflict.
+  - **Granularity:** Spanner applies locks at the row-and-column granularity. This means that if transaction `T1` holds a lock on column `A` of row `albumid` , transaction `T2` can still concurrently write to column `B` of the same row `albumid` without conflict.
 
   - **Writes without reads:**
     
@@ -758,7 +758,7 @@ Notes about locks:
 
 #### Deadlock detection
 
-Spanner detects when multiple transactions might be deadlocked and forces all but one of the transactions to abort. Consider this scenario: `  Txn1  ` holds a lock on record `  A  ` and is waiting for a lock on record `  B  ` , while `  Txn2  ` holds a lock on record `  B  ` and is waiting for a lock on record `  A  ` . To resolve this, one of the transactions must abort, releasing its lock and allowing the other to proceed.
+Spanner detects when multiple transactions might be deadlocked and forces all but one of the transactions to abort. Consider this scenario: `Txn1` holds a lock on record `A` and is waiting for a lock on record `B` , while `Txn2` holds a lock on record `B` and is waiting for a lock on record `A` . To resolve this, one of the transactions must abort, releasing its lock and allowing the other to proceed.
 
 Spanner uses the standard wound-wait algorithm for deadlock detection. Under the hood, Spanner tracks the age of each transaction requesting conflicting locks. It lets older transactions abort younger ones. An older transaction is one whose earliest read, query, or commit occurred sooner.
 
@@ -1157,7 +1157,7 @@ These snapshot read-only transactions offer a simpler approach for consistent re
 
   - **No locks:** read-only transactions don't acquire locks. Instead, they operate by selecting a Spanner timestamp and executing all reads against that historical version of the data. Because they don't use locks, they won't block concurrent read-write transactions.
   - **No aborts:** these transactions never abort. While they might fail if their chosen read timestamp is garbage collected, Spanner's default garbage collection policy is typically generous enough that most applications won't encounter this issue.
-  - **No commits or rollbacks:** read-only transactions don't require calls to `  sessions.commit  ` or `  sessions.rollback  ` and are actually prevented from doing so.
+  - **No commits or rollbacks:** read-only transactions don't require calls to `sessions.commit` or `sessions.rollback` and are actually prevented from doing so.
 
 To execute a snapshot transaction, the client defines a timestamp bound, which instructs Spanner how to select a read timestamp. The types of timestamp bounds include the following:
 
@@ -1167,7 +1167,7 @@ To execute a snapshot transaction, the client defines a timestamp bound, which i
 
 ## Partitioned DML transactions
 
-You can use [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) to execute large-scale `  UPDATE  ` and `  DELETE  ` statements without encountering transaction limits or locking an entire table. Spanner achieves this by partitioning the key space and executing the DML statements on each partition within a separate read-write transaction.
+You can use [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) to execute large-scale `UPDATE` and `DELETE` statements without encountering transaction limits or locking an entire table. Spanner achieves this by partitioning the key space and executing the DML statements on each partition within a separate read-write transaction.
 
 To use non-partitioned DML, you execute statements within read-write transactions that you explicitly create in your code. For more details, see [Using DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#using-dml) .
 
@@ -1177,11 +1177,11 @@ Spanner provides the [TransactionOptions.partitionedDml](https://docs.cloud.goog
 
 ### Examples
 
-The following code example updates the `  MarketingBudget  ` column of the `  Albums  ` table.
+The following code example updates the `MarketingBudget` column of the `Albums` table.
 
 ### C++
 
-You use the `  ExecutePartitionedDml()  ` function to execute a partitioned DML statement.
+You use the `ExecutePartitionedDml()` function to execute a partitioned DML statement.
 
     void DmlPartitionedUpdate(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -1195,7 +1195,7 @@ You use the `  ExecutePartitionedDml()  ` function to execute a partitioned DML 
 
 ### C\#
 
-You use the `  ExecutePartitionedUpdateAsync()  ` method to execute a partitioned DML statement.
+You use the `ExecutePartitionedUpdateAsync()` method to execute a partitioned DML statement.
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -1220,7 +1220,7 @@ You use the `  ExecutePartitionedUpdateAsync()  ` method to execute a partitione
 
 ### Go
 
-You use the `  PartitionedUpdate()  ` method to execute a partitioned DML statement.
+You use the `PartitionedUpdate()` method to execute a partitioned DML statement.
 
     import (
      "context"
@@ -1249,7 +1249,7 @@ You use the `  PartitionedUpdate()  ` method to execute a partitioned DML statem
 
 ### Java
 
-You use the `  executePartitionedUpdate()  ` method to execute a partitioned DML statement.
+You use the `executePartitionedUpdate()` method to execute a partitioned DML statement.
 
     static void updateUsingPartitionedDml(DatabaseClient dbClient) {
       String sql = "UPDATE Albums SET MarketingBudget = 100000 WHERE SingerId > 1";
@@ -1259,7 +1259,7 @@ You use the `  executePartitionedUpdate()  ` method to execute a partitioned DML
 
 ### Node.js
 
-You use the `  runPartitionedUpdate()  ` method to execute a partitioned DML statement.
+You use the `runPartitionedUpdate()` method to execute a partitioned DML statement.
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -1294,7 +1294,7 @@ You use the `  runPartitionedUpdate()  ` method to execute a partitioned DML sta
 
 ### PHP
 
-You use the `  executePartitionedUpdate()  ` method to execute a partitioned DML statement.
+You use the `executePartitionedUpdate()` method to execute a partitioned DML statement.
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -1330,7 +1330,7 @@ You use the `  executePartitionedUpdate()  ` method to execute a partitioned DML
 
 ### Python
 
-You use the `  execute_partitioned_dml()  ` method to execute a partitioned DML statement.
+You use the `execute_partitioned_dml()` method to execute a partitioned DML statement.
 
     # instance_id = "your-spanner-instance"
     # database_id = "your-spanner-db-id"
@@ -1347,7 +1347,7 @@ You use the `  execute_partitioned_dml()  ` method to execute a partitioned DML 
 
 ### Ruby
 
-You use the `  execute_partitioned_update()  ` method to execute a partitioned DML statement.
+You use the `execute_partitioned_update()` method to execute a partitioned DML statement.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -1364,7 +1364,7 @@ You use the `  execute_partitioned_update()  ` method to execute a partitioned D
     
     puts "#{row_count} records updated."
 
-The following code example deletes rows from the `  Singers  ` table, based on the `  SingerId  ` column.
+The following code example deletes rows from the `Singers` table, based on the `SingerId` column.
 
 ### C++
 
@@ -1544,27 +1544,27 @@ Partitioned transactions don't support commits or rollbacks. Spanner executes an
 
 #### Partitioned DML lock acquisition strategy
 
-To reduce lock contention, partitioned DML acquires read locks only on rows that match the `  WHERE  ` clause. Smaller, independent transactions used for each partition also hold locks for less time.
+To reduce lock contention, partitioned DML acquires read locks only on rows that match the `WHERE` clause. Smaller, independent transactions used for each partition also hold locks for less time.
 
 ## Old read timestamps and version garbage collection
 
-Spanner performs version garbage collection to collect deleted or overwritten data and reclaim storage. By default, data older than one hour is reclaimed. Spanner can't perform reads at timestamps older than the configured `  VERSION_RETENTION_PERIOD  ` , which defaults to one hour but can be configured to up to one week. When reads become too old during execution, they fail and return the `  FAILED_PRECONDITION  ` error.
+Spanner performs version garbage collection to collect deleted or overwritten data and reclaim storage. By default, data older than one hour is reclaimed. Spanner can't perform reads at timestamps older than the configured `VERSION_RETENTION_PERIOD` , which defaults to one hour but can be configured to up to one week. When reads become too old during execution, they fail and return the `FAILED_PRECONDITION` error.
 
 ## Queries on change streams
 
 A *change stream* is a schema object you can configure to monitor data modifications across an entire database, specific tables, or a defined set of columns within a database.
 
-When you create a change stream, Spanner defines a corresponding SQL table-valued function (TVF). You can use this TVF to query the change records in the associated change stream with the [`  sessions.executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method. The TVF's name is generated from the change stream's name and always starts with `  READ_  ` .
+When you create a change stream, Spanner defines a corresponding SQL table-valued function (TVF). You can use this TVF to query the change records in the associated change stream with the [`sessions.executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method. The TVF's name is generated from the change stream's name and always starts with `READ_` .
 
-All queries on change stream TVFs must be executed using the `  sessions.executeStreamingSql  ` API within a single-use read-only transaction with a strong read-only `  timestamp_bound  ` . The change stream TVF lets you specify `  start_timestamp  ` and `  end_timestamp  ` for the time range. All change records within the retention period are accessible using this strong read-only `  timestamp_bound  ` . All other [`  TransactionOptions  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions) are invalid for change stream queries.
+All queries on change stream TVFs must be executed using the `sessions.executeStreamingSql` API within a single-use read-only transaction with a strong read-only `timestamp_bound` . The change stream TVF lets you specify `start_timestamp` and `end_timestamp` for the time range. All change records within the retention period are accessible using this strong read-only `timestamp_bound` . All other [`TransactionOptions`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions) are invalid for change stream queries.
 
-Additionally, if [`  TransactionOptions.read_only.return_read_timestamp  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#ReadOnly.FIELDS.return_read_timestamp) is set to `  true  ` , the [`  Transaction  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Transaction) message describing the transaction returns a special value of `  2^63 - 2  ` instead of a valid read timestamp. You should discard this special value and not use it for any subsequent queries.
+Additionally, if [`TransactionOptions.read_only.return_read_timestamp`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#ReadOnly.FIELDS.return_read_timestamp) is set to `true` , the [`Transaction`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Transaction) message describing the transaction returns a special value of `2^63 - 2` instead of a valid read timestamp. You should discard this special value and not use it for any subsequent queries.
 
 For more information, see [Change streams query workflow](https://docs.cloud.google.com/spanner/docs/change-streams/details#query) .
 
 ## Idle Transactions
 
-A transaction is considered idle if it has no outstanding reads or SQL queries and hasn't started one in the last 10 seconds. Spanner can abort idle transactions to prevent them from holding locks indefinitely. If an idle transaction is aborted, the commit fails and returns an `  ABORTED  ` error. Periodically executing a small query, such as `  SELECT 1  ` , within the transaction can prevent it from becoming idle.
+A transaction is considered idle if it has no outstanding reads or SQL queries and hasn't started one in the last 10 seconds. Spanner can abort idle transactions to prevent them from holding locks indefinitely. If an idle transaction is aborted, the commit fails and returns an `ABORTED` error. Periodically executing a small query, such as `SELECT 1` , within the transaction can prevent it from becoming idle.
 
 ## What's next
 

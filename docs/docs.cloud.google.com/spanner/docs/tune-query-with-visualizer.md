@@ -64,7 +64,7 @@ The Spanner Studio page provides query tabs that let you type or paste SQL query
 
 4.  The *bottom pane* of a query tab provides the following subtabs:
     
-      - The **Results** subtab shows the results when you run the statements in the editor. For queries it shows a results table, and for DML statements like `  INSERT  ` and `  UPDATE  ` it shows a message about how many rows were affected.
+      - The **Results** subtab shows the results when you run the statements in the editor. For queries it shows a results table, and for DML statements like `INSERT` and `UPDATE` it shows a message about how many rows were affected.
         
         Optionally, click **Export** to export your query results. It provides the following options:
         
@@ -288,7 +288,7 @@ In this scenario, we ran a slow query and looked at its visual plan to look for 
 
 ![**Figure 6.** Compact view of the visual plan after improvements.](https://docs.cloud.google.com/static/spanner/docs/images/console/plan-visual-compact-after.png)
 
-An indicator that something could be improved in this scenario was that a large proportion of the rows from the table **title** qualified the filter `  LIKE '% the %'  ` . Seeking into another table with so many rows is likely to be expensive. Changing our join implementation to a hash join improved performance significantly.
+An indicator that something could be improved in this scenario was that a large proportion of the rows from the table **title** qualified the filter `LIKE '% the %'` . Seeking into another table with so many rows is likely to be expensive. Changing our join implementation to a hash join improved performance significantly.
 
 ## What's next
 

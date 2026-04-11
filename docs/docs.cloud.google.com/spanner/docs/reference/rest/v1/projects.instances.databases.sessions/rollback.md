@@ -8,7 +8,7 @@
 
 Rolls back a transaction, releasing any locks it holds. It's a good idea to call this for any transaction that includes one or more `  sessions.read  ` or `  sessions.executeSql  ` requests and ultimately decides not to commit.
 
-`  sessions.rollback  ` returns `  OK  ` if it successfully aborts the transaction, the transaction was already aborted, or the transaction isn't found. `  sessions.rollback  ` never returns `  ABORTED  ` .
+`sessions.rollback` returns `OK` if it successfully aborts the transaction, the transaction was already aborted, or the transaction isn't found. `sessions.rollback` never returns `ABORTED` .
 
 ### HTTP request
 
@@ -45,7 +45,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:rollback  `
+`POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:rollback`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -53,15 +53,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  session  `
+`session`
 
-`  string  `
+`string`
 
 Required. The session in which the transaction to roll back is running.
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  session  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `session` :
 
-  - `  spanner.databases.beginOrRollbackReadWriteTransaction  `
+  - `spanner.databases.beginOrRollbackReadWriteTransaction`
 
 ### Request body
 
@@ -87,9 +87,9 @@ The request body contains data with the following structure:
 
 Fields
 
-`  transactionId  `
+`transactionId`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
 Required. The transaction to roll back.
 
@@ -103,7 +103,7 @@ If successful, the response body is an empty JSON object.
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.data  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.data`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

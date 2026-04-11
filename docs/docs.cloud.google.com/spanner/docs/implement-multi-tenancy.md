@@ -233,7 +233,7 @@ The database data management pattern is best suited for the following scenarios:
 
 ### Table
 
-In the table data management pattern, a single database, which implements a single schema, is used for multiple tenants and a separate set of tables is used for each tenant's data. These tables can be differentiated by including the `  tenant ID  ` in the table names as either a prefix, a suffix, or as [named schemas](https://docs.cloud.google.com/spanner/docs/named-schemas) .
+In the table data management pattern, a single database, which implements a single schema, is used for multiple tenants and a separate set of tables is used for each tenant's data. These tables can be differentiated by including the `tenant ID` in the table names as either a prefix, a suffix, or as [named schemas](https://docs.cloud.google.com/spanner/docs/named-schemas) .
 
 This data management pattern of using a separate set of tables for each tenant provides a much lower level of isolation compared to the preceding options (the instance and database management patterns). Onboarding involves creating new tables and associated referential integrity and indexes.
 
@@ -241,7 +241,7 @@ There's a limit of 5,000 tables per database. For some customers, that limit mig
 
 Furthermore, using separate tables for each customer can result in a large backlog of schema update operations. Such a backlog takes [a long time to resolve](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
-For the HR application, the SaaS provider can create a set of tables for each customer with `  tenant ID  ` as the prefix in the table names. For example, `  customer1_employee  ` , `  customer1_payroll  ` , and `  customer1_department  ` . Alternatively, they can use tenant ID as a named schema and name their table as `  customer1.employee  ` , `  customer1.payroll  ` , and `  customer1.department  ` .
+For the HR application, the SaaS provider can create a set of tables for each customer with `tenant ID` as the prefix in the table names. For example, `customer1_employee` , `customer1_payroll` , and `customer1_department` . Alternatively, they can use tenant ID as a named schema and name their table as `customer1.employee` , `customer1.payroll` , and `customer1.department` .
 
 As seen in the following diagram, the table data management pattern has one set of tables for each tenant.
 
@@ -331,9 +331,9 @@ The table data management pattern is best suited for the following scenarios:
 
 ### Row
 
-The final data management pattern serves multiple tenants with a common set of tables, with each row belonging to a specific tenant. This data management pattern represents an extreme level of multi-tenancy where everything—from infrastructure to schema to data model—is shared among multiple tenants. Within a table, rows are partitioned based on primary keys, with `  tenant ID  ` as the first element of the key. From a scaling perspective, Spanner supports this pattern best because it can scale tables without limitation.
+The final data management pattern serves multiple tenants with a common set of tables, with each row belonging to a specific tenant. This data management pattern represents an extreme level of multi-tenancy where everything—from infrastructure to schema to data model—is shared among multiple tenants. Within a table, rows are partitioned based on primary keys, with `tenant ID` as the first element of the key. From a scaling perspective, Spanner supports this pattern best because it can scale tables without limitation.
 
-For the HR application, the payroll table's primary key can be a combination of `  customerID  ` and `  payrollID  ` .
+For the HR application, the payroll table's primary key can be a combination of `customerID` and `payrollID` .
 
 As seen in the following diagram, the row data management pattern has one table for several tenants.
 
@@ -514,7 +514,7 @@ A tenant can reside in any of the four data management patterns. The following m
 
 If a tenant executes business logic (for example, an employee logging in with their tenant ID) then the application logic must determine the tenant's data management pattern, the location of the data for a given tenant ID, and, optionally, the table-naming convention (for the table pattern).
 
-This application logic requires tenant-to-data-management pattern mapping. In the following code sample, the `  connection string  ` refers to the database where the tenant data resides. The sample identifies the Spanner instance and the database. For the data management pattern instance and database, the following code is sufficient for the application to connect and execute queries:
+This application logic requires tenant-to-data-management pattern mapping. In the following code sample, the `connection string` refers to the database where the tenant data resides. The sample identifies the Spanner instance and the database. For the data management pattern instance and database, the following code is sufficient for the application to connect and execute queries:
 
     tenant id -> (data management pattern,
                   database connection string)
@@ -525,9 +525,9 @@ Additional design is required for the table and row data management patterns.
 
 For the table data management pattern, there are several tenants within the same database. Each tenant has its own set of tables. The tables are distinguished by their name. Which table belongs to which tenant is deterministic.
 
-One approach is to place each tenant's table in a namespace named after the tenant, and fully qualify your table name with `  namespace.name  ` . For example, you put an `  EMPLOYEE  ` table inside the namespace `  T356  ` for the tenant with the ID `  356  ` , and your application can use `  T356.EMPLOYEE  ` to address the requests to the table.
+One approach is to place each tenant's table in a namespace named after the tenant, and fully qualify your table name with `  namespace.name  ` . For example, you put an `EMPLOYEE` table inside the namespace `T356` for the tenant with the ID `356` , and your application can use `T356.EMPLOYEE` to address the requests to the table.
 
-Another approach is to prepend the table names with the tenant ID. For example, the `  EMPLOYEE  ` table is called `  T356_EMPLOYEE  ` for the tenant with the ID `  356  ` . The application has to prepend each table with the prefix `  tenant ID  ` before sending the query to the database that the mapping returned.
+Another approach is to prepend the table names with the tenant ID. For example, the `EMPLOYEE` table is called `T356_EMPLOYEE` for the tenant with the ID `356` . The application has to prepend each table with the prefix `  tenant ID  ` before sending the query to the database that the mapping returned.
 
 If you want to use some other text instead of the tenant ID, you can maintain a mapping from the tenant ID to the named schema namespace or to the table prefix.
 
@@ -537,7 +537,7 @@ To simplify the application logic, you might introduce one level of indirection.
 
 A similar design is required for the row data management pattern. In this pattern, there's a single schema. Tenant data are stored as rows. To properly access the data, append a predicate to each query to select the appropriate tenant.
 
-One approach to find the appropriate tenant is to have a column called `  TENANT  ` in each table. For better data isolation, this column value should be part of the primary key. The column value is `  tenant ID  ` . Each query must append a predicate `  AND TENANT = tenant ID  ` to an existing `  WHERE  ` clause or add a `  WHERE  ` clause with the predicate `  AND TENANT = tenant ID  ` .
+One approach to find the appropriate tenant is to have a column called `TENANT` in each table. For better data isolation, this column value should be part of the primary key. The column value is `tenant ID` . Each query must append a predicate ` AND TENANT = tenant ID  ` to an existing `WHERE` clause or add a `WHERE` clause with the predicate ` AND TENANT = tenant ID  ` .
 
 To connect to the database and to create the proper queries, the tenant identifier must be available in the application logic. It can be passed in as parameter or stored as thread context.
 
@@ -553,9 +553,9 @@ If a query is logged, then the query text has to be examined to determine which 
 
 In the database data management pattern or the instance data management pattern, the query text doesn't have any tenant information. To get tenant information for these patterns, you must query the tenant-to-data-management-pattern mapping table.
 
-It would be easier to analyze logs and queries by determining the tenant for a given query without parsing the query text. One way to uniformly identify a tenant for a query across all data management patterns is to add a comment to the query text that has the `  tenant ID  ` , and (optionally) a `  label  ` .
+It would be easier to analyze logs and queries by determining the tenant for a given query without parsing the query text. One way to uniformly identify a tenant for a query across all data management patterns is to add a comment to the query text that has the `tenant ID` , and (optionally) a `label` .
 
-The following query selects all employee data for the tenant identified by `  TENANT 356  ` . To avoid parsing the SQL syntax and extracting the tenant ID from the predicate, the tenant ID is added as a comment. A comment can be extracted without having to parse the SQL syntax.
+The following query selects all employee data for the tenant identified by `TENANT 356` . To avoid parsing the SQL syntax and extracting the tenant ID from the predicate, the tenant ID is added as a comment. A comment can be extracted without having to parse the SQL syntax.
 
     SELECT * FROM EMPLOYEE
       -- TENANT 356
@@ -573,7 +573,7 @@ The preceding code sample is only one method. Another method is to insert a [JSO
     SELECT * FROM T356_EMPLOYEE;
       -- {"TENANT": 356}
 
-You can also use [tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to attribute queries to tenants, and view the statistics in the built-in `  spanner_sys  ` tables.
+You can also use [tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to attribute queries to tenants, and view the statistics in the built-in `spanner_sys` tables.
 
 ### Tenant access lifecycle operations
 

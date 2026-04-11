@@ -4,7 +4,7 @@ This page describes how to use the Query insights dashboard to detect and analyz
 
 [Video](https://www.youtube.com/watch?v=viOJRB9YdFw)
 
-Query insights helps you detect and diagnose query and [DML ( `  INSERT  ` , `  UPDATE  ` , and `  DELETE  ` ) statement](https://docs.cloud.google.com/spanner/docs/dml-tasks) performance problems for a Spanner database. It supports intuitive monitoring and provides diagnostic information that helps you go beyond detection to identify the root cause of performance problems.
+Query insights helps you detect and diagnose query and [DML ( `INSERT` , `UPDATE` , and `DELETE` ) statement](https://docs.cloud.google.com/spanner/docs/dml-tasks) performance problems for a Spanner database. It supports intuitive monitoring and provides diagnostic information that helps you go beyond detection to identify the root cause of performance problems.
 
 Query insights helps you improve Spanner query performance by guiding you through the following steps:
 
@@ -20,7 +20,7 @@ There is no additional cost for Query insights.
 
 ## Data retention
 
-Query insights retains data for a maximum of 30 days. For the **Total CPU Utilization (per Query or Request tag)** graph, Spanner retrieves data from the `  SPANNER_SYS.QUERY_STATS_TOP_*  ` tables. These tableshave a maximum retention of 30 days. See [Data retention](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#data_retention) to learn more.
+Query insights retains data for a maximum of 30 days. For the **Total CPU Utilization (per Query or Request tag)** graph, Spanner retrieves data from the `SPANNER_SYS.QUERY_STATS_TOP_*` tables. These tableshave a maximum retention of 30 days. See [Data retention](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#data_retention) to learn more.
 
 ## Required roles
 
@@ -30,24 +30,24 @@ You need different IAM roles and permissions depending on whether you are an IAM
 
 To get the permissions that you need to view Query insights page, ask your administrator to grant you the following IAM roles on the instance:
 
-  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-  - [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
+  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+  - [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
 
-The following permissions in the [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` ) role are required to view the Query insights page:
+The following permissions in the [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` ) role are required to view the Query insights page:
 
-  - `  spanner.databases.beginReadOnlyTransaction  `
-  - `  spanner.databases.select  `
-  - `  spanner.sessions.create  `
+  - `spanner.databases.beginReadOnlyTransaction`
+  - `spanner.databases.select`
+  - `spanner.sessions.create`
 
 ### Fine-grained access control user
 
 If you are a fine-grained access control user, verify that you:
 
-  - Have the [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-  - Have fine-grained access control privileges and are granted the `  spanner_sys_reader  ` system role or one of its member roles.
-  - Select the `  spanner_sys_reader  ` or a member role as your current system role on the database overview page.
+  - Have the [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+  - Have fine-grained access control privileges and are granted the `spanner_sys_reader` system role or one of its member roles.
+  - Select the `spanner_sys_reader` or a member role as your current system role on the database overview page.
 
-**Note:** If you already have an IAM database-level permission such as `  spanner.databases.select  ` , the Google Cloud console assumes you are an IAM user. You cannot select the `  spanner_sys_reader  ` or a member role on the database overview page as an IAM user.
+**Note:** If you already have an IAM database-level permission such as `spanner.databases.select` , the Google Cloud console assumes you are an IAM user. You cannot select the `spanner_sys_reader` or a member role on the database overview page as an IAM user.
 
 For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) and [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
 
@@ -100,7 +100,7 @@ To identify a potentially problematic query or request tag, observe the TopN que
 
 ![](https://docs.cloud.google.com/static/spanner/docs/images/topn-queries-2.png)
 
-Here we see that the query with the fingerprint `  3216067328234137024  ` has a high CPU utilization and can be problematic.
+Here we see that the query with the fingerprint `3216067328234137024` has a high CPU utilization and can be problematic.
 
 The **TopN queries** table provides an overview of the queries that use the most CPU during the chosen time window, sorted from highest to lowest. The number of TopN queries are limited to 100.
 
@@ -114,11 +114,11 @@ The table shows the following properties:
 
   - **Fingerprint** : Hash of the request tag, or if the tag isn't present, a hash of the query text.
 
-  - **Query or Request tag** : If the query has a tag associated along with it, the Request tag is shown. Statistics for multiple queries that have the same tag string are grouped in a single row with the `  REQUEST_TAG  ` value matching the tag string. To learn more about using request tags, see [Troubleshooting with request tags and transaction tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) .
+  - **Query or Request tag** : If the query has a tag associated along with it, the Request tag is shown. Statistics for multiple queries that have the same tag string are grouped in a single row with the `REQUEST_TAG` value matching the tag string. To learn more about using request tags, see [Troubleshooting with request tags and transaction tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) .
     
     If the query does not have an associated tag, the SQL query, truncated to approximately 64KB, is shown. For batch DML, the SQL statements are flattened into a single row and concatenated, using a semicolon delimiter. Consecutive identical SQL texts are deduplicated before truncating.
 
-  - **Query type** : Indicates if a query is a `  PARTITIONED_QUERY  ` or `  QUERY  ` . A `  PARTITIONED_QUERY  ` is a query with a `  partitionToken  ` obtained from the [PartitionQuery API](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) . All the other queries and DML statements are denoted by the `  QUERY  ` query type.
+  - **Query type** : Indicates if a query is a `PARTITIONED_QUERY` or `QUERY` . A `PARTITIONED_QUERY` is a query with a `partitionToken` obtained from the [PartitionQuery API](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) . All the other queries and DML statements are denoted by the `QUERY` query type.
 
   - **CPU Utilization** : CPU resource consumption by a query, as a percentage of the total CPU resources used by all the queries running on the databases in that time interval, shown on a horizontal bar having a range of 0 to 100.
 
@@ -142,7 +142,7 @@ You might notice some variance between the **Total CPU Utilization (all queries)
 
   - **Different sources of data** : The Cloud Monitoring data, which feeds the Total CPU Utilization (all queries) graph, is usually more accurate because it's pushed every minute and has a retention period of 45 days. On the other hand, the system table data, which feeds the Total CPU Utilization (per Query or Request tag) graph might be averaged over 10 mins (or 1 hour) in which case we might lose high granularity data we see in the Total CPU Utilization (all queries) graph.
 
-  - **Different aggregation windows** : Both graphs have different aggregation windows. For example, when inspecting an event older than 6 hours, we would query the `  SPANNER_SYS.QUERY_STATS_TOTAL_10MINUTE  ` table. In this case, an event that occurs at 10:01 would get aggregated over 10 minutes and would be present in the system table corresponding to the 10:10 timestamp.
+  - **Different aggregation windows** : Both graphs have different aggregation windows. For example, when inspecting an event older than 6 hours, we would query the `SPANNER_SYS.QUERY_STATS_TOTAL_10MINUTE` table. In this case, an event that occurs at 10:01 would get aggregated over 10 minutes and would be present in the system table corresponding to the 10:10 timestamp.
 
 The following screenshot shows an example of such variance.
 
@@ -216,7 +216,7 @@ For the graphs, we fetch the data from the TopN query statistics table, which ha
 
 ### Search for all executions of a query in the audit log
 
-To search for all executions of a particular query fingerprint in [Cloud Audit Logs](https://docs.cloud.google.com/spanner/docs/audit-logging) , query the audit log and search for any `  query_fingerprint  ` matching the `  Fingerprint  ` field in the TopN query statistics table. For more information, see the [Query and view logs overview](https://docs.cloud.google.com/logging/docs/log-analytics) . Use this method to identify the user who initiated the query.
+To search for all executions of a particular query fingerprint in [Cloud Audit Logs](https://docs.cloud.google.com/spanner/docs/audit-logging) , query the audit log and search for any `query_fingerprint` matching the `Fingerprint` field in the TopN query statistics table. For more information, see the [Query and view logs overview](https://docs.cloud.google.com/logging/docs/log-analytics) . Use this method to identify the user who initiated the query.
 
 ## What's next
 

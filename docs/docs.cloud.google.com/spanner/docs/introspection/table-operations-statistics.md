@@ -8,21 +8,21 @@ Spanner provides built-in tables that records the read (or query), write, and de
 
 When you query or write to a table, the corresponding operation count for the table increments by 1, regardless of the number of rows accessed.
 
-Overall operations-per-second metrics of a database can be monitored with `  Operations per second  ` , `  Operations per second by API method  ` , and other related metrics in your [System Insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) charts.
+Overall operations-per-second metrics of a database can be monitored with `Operations per second` , `Operations per second by API method` , and other related metrics in your [System Insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) charts.
 
-**Note:** The sum of the operation counts on all tables and indexes might not be equal to the total operations on a database. For example, one write to a table increments the `  write_count  ` on the table and on all indexes on the table. However, the write only counts as one operation on the database. The operation counts don't depend on the number of rows read or written to. They track the number of operations only. When the PartitionRead or PartitionQuery API returns multiple partition tokens, each Read or ExecuteSql call with a different token counts as a separate table operation.
+**Note:** The sum of the operation counts on all tables and indexes might not be equal to the total operations on a database. For example, one write to a table increments the `write_count` on the table and on all indexes on the table. However, the write only counts as one operation on the database. The operation counts don't depend on the number of rows read or written to. They track the number of operations only. When the PartitionRead or PartitionQuery API returns multiple partition tokens, each Read or ExecuteSql call with a different token counts as a separate table operation.
 
 ## Access table operations statistics
 
-Spanner provides the table operations statistics in the `  SPANNER_SYS  ` schema.You can use the following ways to access `  SPANNER_SYS  ` data:
+Spanner provides the table operations statistics in the `SPANNER_SYS` schema.You can use the following ways to access `SPANNER_SYS` data:
 
   - A database's Spanner Studio page in the Google Cloud console.
 
-  - The `  gcloud spanner databases execute-sql  ` command.
+  - The `gcloud spanner databases execute-sql` command.
 
-  - The [`  executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
+  - The [`executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
 
-The following single read methods that Spanner provides don't support `  SPANNER_SYS  ` :
+The following single read methods that Spanner provides don't support `SPANNER_SYS` :
 
   - Performing a strong read from a single row or multiple rows in a table.
   - Performing a stale read from a single row or multiple rows in a table.
@@ -32,9 +32,9 @@ The following single read methods that Spanner provides don't support `  SPANNER
 
 The following tables track the read (or query), write, and delete statistics on your tables and indexes during a specific time period:
 
-  - `  SPANNER_SYS.TABLE_OPERATIONS_STATS_MINUTE  ` : Operations during 1 minute intervals
-  - `  SPANNER_SYS.TABLE_OPERATIONS_STATS_10MINUTE  ` : Operations during 10 minute intervals
-  - `  SPANNER_SYS.TABLE_OPERATIONS_STATS_HOUR  ` : Operations during 1 hour intervals
+  - `SPANNER_SYS.TABLE_OPERATIONS_STATS_MINUTE` : Operations during 1 minute intervals
+  - `SPANNER_SYS.TABLE_OPERATIONS_STATS_10MINUTE` : Operations during 10 minute intervals
+  - `SPANNER_SYS.TABLE_OPERATIONS_STATS_HOUR` : Operations during 1 hour intervals
 
 These tables have the following properties:
 
@@ -50,25 +50,25 @@ These tables have the following properties:
 
 ### Schema for all table operations statistics tables
 
-| Column name                       | Type                       | Description                                                   |
-| --------------------------------- | -------------------------- | ------------------------------------------------------------- |
-| `        INTERVAL_END       `     | `        TIMESTAMP       ` | End of time interval in which the table sizes were collected. |
-| `        TABLE_NAME       `       | `        STRING       `    | Name of the table or the index.                               |
-| `        READ_QUERY_COUNT       ` | `        INT64       `     | Number of queries or reads reading from the table.            |
-| `        WRITE_COUNT       `      | `        INT64       `     | Number of queries writing to the table.                       |
-| `        DELETE_COUNT       `     | `        INT64       `     | Number of queries performing deletes on the table.            |
+| Column name        | Type        | Description                                                   |
+| ------------------ | ----------- | ------------------------------------------------------------- |
+| `INTERVAL_END`     | `TIMESTAMP` | End of time interval in which the table sizes were collected. |
+| `TABLE_NAME`       | `STRING`    | Name of the table or the index.                               |
+| `READ_QUERY_COUNT` | `INT64`     | Number of queries or reads reading from the table.            |
+| `WRITE_COUNT`      | `INT64`     | Number of queries writing to the table.                       |
+| `DELETE_COUNT`     | `INT64`     | Number of queries performing deletes on the table.            |
 
-If you insert data into your database using mutations, the `  write_count  ` increments by 1 for each table accessed by the insert statement. In addition, a query that accesses an index, without scanning the underlying table, only increments the `  read_query_count  ` on the index.
+If you insert data into your database using mutations, the `write_count` increments by 1 for each table accessed by the insert statement. In addition, a query that accesses an index, without scanning the underlying table, only increments the `read_query_count` on the index.
 
 ## Data retention
 
 At a minimum, Spanner keeps data for each table for the following time periods:
 
-  - `  SPANNER_SYS.TABLE_OPERATIONS_STATS_MINUTE  ` : Intervals covering the previous 6 hours.
+  - `SPANNER_SYS.TABLE_OPERATIONS_STATS_MINUTE` : Intervals covering the previous 6 hours.
 
-  - `  SPANNER_SYS.TABLE_OPERATIONS_STATS_10MINUTE  ` : Intervals covering the previous 4 days.
+  - `SPANNER_SYS.TABLE_OPERATIONS_STATS_10MINUTE` : Intervals covering the previous 4 days.
 
-  - `  SPANNER_SYS.TABLE_OPERATIONS_STATS_HOUR  ` : Intervals covering the previous 30 days.
+  - `SPANNER_SYS.TABLE_OPERATIONS_STATS_HOUR` : Intervals covering the previous 30 days.
 
 **Note:** You cannot prevent Spanner from collecting table operations statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically.
 
@@ -135,7 +135,7 @@ This section includes several example SQL statements that retrieve aggregate tab
 
 Where:
 
-  - `  table_name  ` must be an existing table or index in the database.
+  - `table_name` must be an existing table or index in the database.
 
 ### PostgreSQL
 
@@ -152,7 +152,7 @@ Where:
 
 Where:
 
-  - `  table_name  ` must be an existing table or index in the database.
+  - `table_name` must be an existing table or index in the database.
 
 #### Query the usage of a table over the last 14 days
 
@@ -169,7 +169,7 @@ Where:
 
 Where:
 
-  - `  table_name  ` must be an existing table or index in the database.
+  - `table_name` must be an existing table or index in the database.
 
 ### PostgreSQL
 
@@ -184,7 +184,7 @@ Where:
 
 Where:
 
-  - `  table_name  ` must be an existing table or index in the database.
+  - `table_name` must be an existing table or index in the database.
 
 #### Query the tables and indexes with no usage in the last 24 hours
 

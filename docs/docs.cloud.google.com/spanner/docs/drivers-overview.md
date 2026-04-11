@@ -27,7 +27,7 @@ You can also use the Spanner client libraries to access the Spanner API. For mor
 | Limitations                                                                                                        |                                                                                    | [View](https://github.com/googleapis/go-gorm-spanner/blob/main/docs/limitations.md) |                                                                         | [View](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate#cloud-spanner-hibernate-orm-limitations) |                                                                         |                                                                      |                                                                   | [View](https://github.com/googleapis/dotnet-spanner-entity-framework#limitations)   | [View](https://github.com/googleapis/ruby-spanner-activerecord#limitations)   | [View](https://github.com/googleapis/python-spanner-sqlalchemy#features-and-limitations) | [View](https://github.com/googleapis/python-spanner-django/blob/main/docs/limitations.rst)                                       |
 
 \* This column describes R2DBC when used specifically with Spring Data.  
-† Available only when sending literal SQL queries, by using the Spring Data `  @Query  ` annotation.
+† Available only when sending literal SQL queries, by using the Spring Data `@Query` annotation.
 
 ### PostgreSQL drivers and ORMs
 

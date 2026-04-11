@@ -6,19 +6,19 @@ You can restore the backups when operator or application errors cause logical da
 
 Backups are highly available, encrypted, and can be retained for up to a year from the time they are created. When you create a backup, the backup resides in the same instance, region, and project as its source database. If you need to restore the backup in a different region or project for compliance or business continuity reasons, you can copy the backup to an instance in a separate region or project.
 
-Each backup has an associated `  createTime  ` and `  versionTime  ` . The `  createTime  ` is the timestamp when Spanner starts creating the backup. The `  versionTime  ` is the timestamp when the database contents are captured in the backup. The backup contains a consistent view of the database at the `  versionTime  ` .
+Each backup has an associated `createTime` and `versionTime` . The `createTime` is the timestamp when Spanner starts creating the backup. The `versionTime` is the timestamp when the database contents are captured in the backup. The backup contains a consistent view of the database at the `versionTime` .
 
-For on-demand backups, the `  createTime  ` and `  versionTime  ` are the same by default. If needed, you can specify an older `  versionTime  ` when creating an on-demand backup if it's within the [version retention period](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) of the database.
+For on-demand backups, the `createTime` and `versionTime` are the same by default. If needed, you can specify an older `versionTime` when creating an on-demand backup if it's within the [version retention period](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) of the database.
 
-For scheduled backups, the `  versionTime  ` is the time you choose when you create the backup schedule. Spanner starts creating the backup within four hours of the `  versionTime  ` , so the `  createTime  ` falls within this four-hour window. This is unlike on-demand backups, where Spanner starts creating the backup when it receives the request.
+For scheduled backups, the `versionTime` is the time you choose when you create the backup schedule. Spanner starts creating the backup within four hours of the `versionTime` , so the `createTime` falls within this four-hour window. This is unlike on-demand backups, where Spanner starts creating the backup when it receives the request.
 
-For example, suppose you create a backup schedule with a frequency of `  0 7 * * * UTC  ` or every day at 7:00 AM UTC. This means that for each backup, the `  versionTime  ` is set to 7:00 AM UTC and the `  createTime  ` is a timestamp within the four-hour window between 7:00 AM UTC and 11:00 AM UTC.
+For example, suppose you create a backup schedule with a frequency of `0 7 * * * UTC` or every day at 7:00 AM UTC. This means that for each backup, the `versionTime` is set to 7:00 AM UTC and the `createTime` is a timestamp within the four-hour window between 7:00 AM UTC and 11:00 AM UTC.
 
-For more information about using `  createTime  ` and `  versionTime  ` using the API, see [Backup API reference](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) .
+For more information about using `createTime` and `versionTime` using the API, see [Backup API reference](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) .
 
 ## Key features
 
-  - **Data consistency** : Backups of a Spanner database are transactionally and [externally consistent](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) at the `  versionTime  ` of the backup.
+  - **Data consistency** : Backups of a Spanner database are transactionally and [externally consistent](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) at the `versionTime` of the backup.
 
   - **Replication** : Backups reside in the same instance as their source database and are replicated in the same geographic locations. For [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional-configurations) , the backup is stored in each of the three read-write zones. For [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) and [multi-regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) , the backup is stored in all zones that contain either a read-write or read-only replica. If you need to store the backup of your database in a different region or project, you can copy the completed backup from the source instance to a destination instance located in a different region or project. For more information, see [copy a backup](https://docs.cloud.google.com/spanner/docs/backup/copy-backup) .
 
@@ -28,19 +28,19 @@ For more information about using `  createTime  ` and `  versionTime  ` using th
 
 When you create a backup, the backup resides in the same instance, region, and project as its source database.
 
-A backup contains the following information from the database at the `  versionTime  ` of the backup:
+A backup contains the following information from the database at the `versionTime` of the backup:
 
   - A full backup contains all of the data. An incremental backup contains only the data that has changed since a previous backup.
   - Schema information, including table names, fields, data types, secondary indexes, change streams, and the relationships between these entities.
-  - All database options that are set with the [`  ALTER DATABASE SET OPTIONS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) command.
+  - All database options that are set with the [`ALTER DATABASE SET OPTIONS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) command.
 
 A Spanner backup does not include the following information:
 
-  - Any modifications to the data or schema after the [`  versionTime  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) .
+  - Any modifications to the data or schema after the [`versionTime`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) .
   - [Identity and Access Management (IAM)](https://docs.cloud.google.com/spanner/docs/iam) policies.
   - Change stream data records. Although the change streams schema is stored, the change stream data is meant to be streamed out and consumed near-simultaneously with the changes it describes.
 
-To help ensure external consistency of the backup, Spanner pins the contents of the database at [`  versionTime  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) . This prevents the garbage collection system from removing the relevant data values for the duration of the backup operation. Then, every read-write and read-only zone in the instance begins copying the data in parallel. If any zone is temporarily unavailable, the backup is not complete until the zone comes back online. Backups are restorable as soon as the operation is complete. For multi-region instances, all read-write and read-only zones in all regions must complete their backup replicas before the backup is marked as restorable.
+To help ensure external consistency of the backup, Spanner pins the contents of the database at [`versionTime`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) . This prevents the garbage collection system from removing the relevant data values for the duration of the backup operation. Then, every read-write and read-only zone in the instance begins copying the data in parallel. If any zone is temporarily unavailable, the backup is not complete until the zone comes back online. Backups are restorable as soon as the operation is complete. For multi-region instances, all read-write and read-only zones in all regions must complete their backup replicas before the backup is marked as restorable.
 
 ### Backup schedules
 
@@ -60,7 +60,7 @@ The backup creation begins within a four-hour window of the scheduled time. You 
 
 Incremental backups form *chains* between full backups. The first backup created by an incremental backup schedule is a full backup. The consecutive backups created in the chain are incremental backups, each containing only the data that has changed since the previous backup in the chain.
 
-Spanner permits up to 13 incremental backups per chain, in addition to the initial full backup. A chain is identified by the corresponding `  incrementalBackupChainId  ` value. When a chain reaches its maximum length, Spanner creates a new chain, beginning with the initial full backup.
+Spanner permits up to 13 incremental backups per chain, in addition to the initial full backup. A chain is identified by the corresponding `incrementalBackupChainId` value. When a chain reaches its maximum length, Spanner creates a new chain, beginning with the initial full backup.
 
 In some scenarios, Spanner might create a new chain before the maximum chain length occurs. The following are a few of the scenarios:
 
@@ -76,10 +76,10 @@ Here are some factors that can help you make a decision about using incremental 
 
   - **Retention** : Each backup schedule has the following terms that offer information about the schedule:
     
-      - `  creation_interval  ` : represents the specified schedule frequency for the backup schedule.
-      - `  retention_duration  ` : represents how long the backups created by the schedule are retained. For a given chain, the oldest full backup is retained past its original expiration date if it is needed to support newer backups in the chain. The total retention duration for the full backup is at most the lower of the following values:
-          - `  retention_duration  ` + 28 days
-          - `  retention_duration  ` + ( `  creation_interval  ` \*14)
+      - `creation_interval` : represents the specified schedule frequency for the backup schedule.
+      - `retention_duration` : represents how long the backups created by the schedule are retained. For a given chain, the oldest full backup is retained past its original expiration date if it is needed to support newer backups in the chain. The total retention duration for the full backup is at most the lower of the following values:
+          - `retention_duration` + 28 days
+          - `retention_duration` + ( `creation_interval` \*14)
 
   - **Backup copy** : When you copy an incremental backup, Spanner also copies all the older backups in the chain required to restore the copied backup. If the destination instance already contains a backup chain ending with an older backup that was copied from the same source chain, Spanner avoids creating redundant copies of existing backups. Instead, Spanner copies only the incremental backup and any older backups not present in the destination chain, and appends these backups to the existing chain. Spanner charges you based on the total storage used.
     
@@ -107,13 +107,13 @@ For instructions on enabling or disabling default backup schedules, see [Edit th
 
 Each Spanner backup has the following fields that offer information about storage consumption:
 
-  - `  exclusiveSizeBytes  ` : shows the number of bytes required by the backup. This size represents the billable size of the backup.
-  - `  freeableSizeBytes  ` : shows the number of bytes that are released if you delete the backup.
-  - `  oldestVersionTime  ` : shows the `  versionTime  ` of the oldest full backup in the chain, even if that backup has expired. You can use this field to understand which data is being stored.
+  - `exclusiveSizeBytes` : shows the number of bytes required by the backup. This size represents the billable size of the backup.
+  - `freeableSizeBytes` : shows the number of bytes that are released if you delete the backup.
+  - `oldestVersionTime` : shows the `versionTime` of the oldest full backup in the chain, even if that backup has expired. You can use this field to understand which data is being stored.
 
-Incremental backups can save you storage costs. An incremental backup might have a significantly smaller `  exclusiveSizeBytes  ` field than a full backup as the incremental backup only needs to store the changes since the previous backup in the chain. Adding this field value for each backup in the chain reflects the total number of bytes used by the backups in the chain.
+Incremental backups can save you storage costs. An incremental backup might have a significantly smaller `exclusiveSizeBytes` field than a full backup as the incremental backup only needs to store the changes since the previous backup in the chain. Adding this field value for each backup in the chain reflects the total number of bytes used by the backups in the chain.
 
-An incremental backup is dependent on all older backups in the same chain for restoration. This means that if a newer incremental backup exists, the data of all older backups in the chain cannot be deleted from the system and the `  freeableSizeBytes  ` field for all older backups in the same chain is zero.
+An incremental backup is dependent on all older backups in the same chain for restoration. This means that if a newer incremental backup exists, the data of all older backups in the chain cannot be deleted from the system and the `freeableSizeBytes` field for all older backups in the same chain is zero.
 
 Consider that you created a full backup schedule and an incremental backup schedule for a database that has a size of 100 GB and increases by 10 GB every day. The following table shows possible storage costs for these backup schedules:
 
@@ -125,7 +125,7 @@ Consider that you created a full backup schedule and an incremental backup sched
 | 4   | 130 GB                    | 10 GB                            |
 | 5   | 140 GB                    | 10 GB                            |
 
-Over 5 days, the full backup schedule uses 600 GB of storage, while the incremental backup schedule uses about 140 GB of storage. For an incremental backup schedule, the full backup size is the sum of the sizes of all backups in the chain, up to that backup and is reflected in the `  sizeBytes  ` field.
+Over 5 days, the full backup schedule uses 600 GB of storage, while the incremental backup schedule uses about 140 GB of storage. For an incremental backup schedule, the full backup size is the sum of the sizes of all backups in the chain, up to that backup and is reflected in the `sizeBytes` field.
 
 ### Comparing backup storage to database storage
 
@@ -187,7 +187,7 @@ When you copy an incremental backup, Spanner also copies all of the older backup
 
 ## Delete a backup
 
-When you delete a backup in an incremental backup chain, you can't recover storage if there are newer backups present in the chain. The newer backups depend on the data present in the deleted backup and the older backups in the chain. Spanner retains the data and only releases the storage when all the newer incremental backups expire. The `  freeableSizeBytes  ` field shows how much storage space you can regain if you delete the backup.
+When you delete a backup in an incremental backup chain, you can't recover storage if there are newer backups present in the chain. The newer backups depend on the data present in the deleted backup and the older backups in the chain. Spanner retains the data and only releases the storage when all the newer incremental backups expire. The `freeableSizeBytes` field shows how much storage space you can regain if you delete the backup.
 
 ## Pricing
 
@@ -195,12 +195,12 @@ You are billed based on the amount of storage used by your backups per unit time
 
 A copy of a backup is subject to the [same storage costs](https://cloud.google.com/spanner/pricing#backup-storage) as an original backup. If you create a copy between two instances that occupy different regions, then [outbound data transfer costs](https://cloud.google.com/spanner/pricing#network) apply.
 
-For example, if you copy your database from the source multi-region instance configuration `  nam7  ` to the destination multi-region instance configuration `  nam-eur-asia3  ` , the following charges apply:
+For example, if you copy your database from the source multi-region instance configuration `nam7` to the destination multi-region instance configuration `nam-eur-asia3` , the following charges apply:
 
-  - No charge for overlapping `  us-central1  ` region
-  - No charge for witness `  us-central2  ` region
+  - No charge for overlapping `us-central1` region
+  - No charge for witness `us-central2` region
   - *Inter-continental data transfer* charge apply twice: once for each new continent (Europe and Asia)
-  - *Data transfer between regions within the same continent* charge apply once for `  us-east1  `
+  - *Data transfer between regions within the same continent* charge apply once for `us-east1`
   - *Data transfer between regions within the same continent* charge apply once in Europe
 
 Spanner optimizes the copying process to minimize the number of cross-region transfers. This helps to minimize the data transfer costs while providing a fast copy backup experience.

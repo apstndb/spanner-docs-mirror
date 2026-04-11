@@ -17,7 +17,7 @@ Directed reads offer the following benefits:
 | [Strong read](https://docs.cloud.google.com/spanner/docs/reads#perform-strong-read)                       | Yes                           |
 | [Read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) | No                            |
 
-Directed reads are not supported for [read-write transactions](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) and [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) types of bulk updates. This is because read-write transactions must be processed in the leader region. If directed reads are used in a read-write transaction, the transaction fails with a `  BAD_REQUEST  ` error.
+Directed reads are not supported for [read-write transactions](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) and [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) types of bulk updates. This is because read-write transactions must be processed in the leader region. If directed reads are used in a read-write transaction, the transaction fails with a `BAD_REQUEST` error.
 
 ## Limitations
 
@@ -34,31 +34,31 @@ Consider the following before you use directed reads:
 
   - The application might incur additional latency if you are routing reads to a replica or region other than the one closest to the application.
   - You can route traffic based on:
-      - Region name (For example: `  us-central1  ` ).
-      - Replica type (Possible values: `  READ_ONLY  ` and `  READ_WRITE  ` ).
-  - The auto failover option in directed reads is enabled by default. When auto failover option is enabled and all of the specified replicas are unavailable or unhealthy, Spanner routes requests to a replica outside the `  includeReplicas  ` list. If you disable the auto failover option and all of the specified replicas are unavailable or unhealthy, the directed reads request fails.
+      - Region name (For example: `us-central1` ).
+      - Replica type (Possible values: `READ_ONLY` and `READ_WRITE` ).
+  - The auto failover option in directed reads is enabled by default. When auto failover option is enabled and all of the specified replicas are unavailable or unhealthy, Spanner routes requests to a replica outside the `includeReplicas` list. If you disable the auto failover option and all of the specified replicas are unavailable or unhealthy, the directed reads request fails.
 
 ### Directed reads parameters
 
-If you're using the REST or RPC API to perform directed reads, you must define these fields in the `  directedReadOptions  ` parameter. You can only include one of `  includeReplicas  ` or `  excludeReplicas  ` , not both.
+If you're using the REST or RPC API to perform directed reads, you must define these fields in the `directedReadOptions` parameter. You can only include one of `includeReplicas` or `excludeReplicas` , not both.
 
-  - `  includeReplicas  ` : Contains a repeated set of `  replicaSelections  ` . This list indicates the order in which directed reads to specific regions or replica types should be considered. You can specify a maximum of 10 `  includeReplicas  ` .
+  - `includeReplicas` : Contains a repeated set of `replicaSelections` . This list indicates the order in which directed reads to specific regions or replica types should be considered. You can specify a maximum of 10 `includeReplicas` .
     
-      - `  replicaSelections  ` : Consists of the `  location  ` or replica `  type  ` serving the directed reads request. If you use `  includeReplicas  ` , you must provide at least one of the following fields:
+      - `replicaSelections` : Consists of the `location` or replica `type` serving the directed reads request. If you use `includeReplicas` , you must provide at least one of the following fields:
         
-          - `  location  ` : The location serving the directed reads request. The location must be one of the regions within the dual-region or multi-region configuration of your database. If the location is not one of the regions within the dual-region or multi-region configuration of your database, requests won't be routed as expected. Instead, they are served by the nearest region. For example, you can direct reads to the location `  us-central1  ` on a database in the multi-region instance configuration `  nam6  ` .
+          - `location` : The location serving the directed reads request. The location must be one of the regions within the dual-region or multi-region configuration of your database. If the location is not one of the regions within the dual-region or multi-region configuration of your database, requests won't be routed as expected. Instead, they are served by the nearest region. For example, you can direct reads to the location `us-central1` on a database in the multi-region instance configuration `nam6` .
             
-            You can also specify the `  location  ` parameter with a `  leader  ` or `  non-leader  ` string literal. If you input the `  leader  ` value, Spanner directs your requests to the database's [leader replica](https://docs.cloud.google.com/spanner/docs/region-types#read-write) . Conversely, if you input the `  non-leader  ` value, Spanner fulfills the request in the nearest non-leader replica.
+            You can also specify the `location` parameter with a `leader` or `non-leader` string literal. If you input the `leader` value, Spanner directs your requests to the database's [leader replica](https://docs.cloud.google.com/spanner/docs/region-types#read-write) . Conversely, if you input the `non-leader` value, Spanner fulfills the request in the nearest non-leader replica.
         
-          - `  type  ` : The replica type serving the directed reads request. Possible types include `  READ_WRITE  ` and `  READ_ONLY  ` .
+          - `type` : The replica type serving the directed reads request. Possible types include `READ_WRITE` and `READ_ONLY` .
     
-      - `  autoFailoverDisabled  ` : By default, this is set to `  False  ` , which means auto failover is enabled. When auto failover option is enabled, and all of the specified replicas are unavailable or unhealthy, Spanner routes requests to a replica outside the `  includeReplicas  ` list. If you disable the auto failover option and all of the specified replicas are unavailable or unhealthy, the directed reads request fails. Possible values include `  TRUE  ` for disabled and `  FALSE  ` for enabled.
+      - `autoFailoverDisabled` : By default, this is set to `False` , which means auto failover is enabled. When auto failover option is enabled, and all of the specified replicas are unavailable or unhealthy, Spanner routes requests to a replica outside the `includeReplicas` list. If you disable the auto failover option and all of the specified replicas are unavailable or unhealthy, the directed reads request fails. Possible values include `TRUE` for disabled and `FALSE` for enabled.
 
-  - `  excludeReplicas  ` : Contains a repeated set of `  replicaSelections  ` that is excluded from serving requests. Spanner doesn't route requests to replicas in this list.
+  - `excludeReplicas` : Contains a repeated set of `replicaSelections` that is excluded from serving requests. Spanner doesn't route requests to replicas in this list.
     
-      - `  replicaSelections  ` : The location or replica type that is excluded from serving the directed reads request. If you use `  excludeReplicas  ` , you must provide at least one of the following fields:
-          - `  location  ` : The location that is excluded from serving the directed reads request.
-          - `  type  ` : The replica type that is excluded from serving the directed reads request. Possible types include `  READ_WRITE  ` and `  READ_ONLY  ` .
+      - `replicaSelections` : The location or replica type that is excluded from serving the directed reads request. If you use `excludeReplicas` , you must provide at least one of the following fields:
+          - `location` : The location that is excluded from serving the directed reads request.
+          - `type` : The replica type that is excluded from serving the directed reads request. Possible types include `READ_WRITE` and `READ_ONLY` .
 
 To see an example of what a REST request body looks like, click the REST tab in the [Use directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads#use-directed-reads) section.
 
@@ -592,14 +592,14 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
 
 You can use the following REST APIs to perform directed reads:
 
-  - [`  executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql)
-  - [`  executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql)
-  - [`  read  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read)
-  - [`  streamingRead  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/streamingRead)
+  - [`executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql)
+  - [`executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql)
+  - [`read`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read)
+  - [`streamingRead`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/streamingRead)
 
-For example, to perform directed reads in `  us-central1  ` using `  executeSQL  ` :
+For example, to perform directed reads in `us-central1` using `executeSQL` :
 
-1.  Click [`  projects.instances.databases.sessions.executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#try-it) .
+1.  Click [`projects.instances.databases.sessions.executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#try-it) .
 
 2.  For **session** , enter:
     
@@ -610,7 +610,7 @@ For example, to perform directed reads in `  us-central1  ` using `  executeSQL 
       - PROJECT-ID : the project ID.
       - INSTANCE-ID : the instance ID.
       - DATABASE-ID : the database ID.
-      - SESSION-ID : the session ID. You receive the `  SESSION-ID  ` value when you [create a session](https://docs.cloud.google.com/spanner/docs/getting-started/rest#create_a_session) .
+      - SESSION-ID : the session ID. You receive the `SESSION-ID` value when you [create a session](https://docs.cloud.google.com/spanner/docs/getting-started/rest#create_a_session) .
 
 3.  For **Request body** , use the following:
     
@@ -633,18 +633,18 @@ For example, to perform directed reads in `  us-central1  ` using `  executeSQL 
 
 You can use the following RPC APIs to perform directed reads:
 
-  - [`  ExecuteSql  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteSql)
-  - [`  ExecuteStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql)
-  - [`  Read  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Read)
-  - [`  StreamingRead  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.StreamingRead)
+  - [`ExecuteSql`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteSql)
+  - [`ExecuteStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql)
+  - [`Read`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Read)
+  - [`StreamingRead`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.StreamingRead)
 
 ## Monitoring
 
 Spanner provides a latency metric to help you monitor directed reads activities in your instances. The metric is available in [Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
-  - `  spanner.googleapis.com/api/read_request_latencies_by_serving_location  `
+  - `spanner.googleapis.com/api/read_request_latencies_by_serving_location`
 
-You can filter this metric using the `  /serving_location  ` or `  /is_directed_read  ` fields. The `  /serving location  ` field indicates the location of the Spanner server where the request is served from. The `  /is_directed_read  ` field indicates whether the directed reads option is enabled.
+You can filter this metric using the `/serving_location` or `/is_directed_read` fields. The `/serving location` field indicates the location of the Spanner server where the request is served from. The `/is_directed_read` field indicates whether the directed reads option is enabled.
 
 For a full list of available metrics, see [metrics list for Spanner](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
 

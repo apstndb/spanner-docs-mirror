@@ -18,7 +18,7 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
@@ -38,7 +38,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -48,7 +48,7 @@ See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manag
 
 The samples repository contains a sample that shows how to use Spanner with database/sql.
 
-Take a look through the `  getting_started_guide.go  ` file, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
+Take a look through the `getting_started_guide.go` file, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
 
 ## Create a database
 
@@ -201,7 +201,7 @@ The next step is to write data to your database.
 
 ## Create a connection
 
-Before you can do reads or writes, you must create a [`  sql.DB  `](https://pkg.go.dev/database/sql#DB) . `  sql.DB  ` contains a connection pool that can be used to interact with Spanner. The database name and other connection properties are specified in the database/sql data source name.
+Before you can do reads or writes, you must create a [`sql.DB`](https://pkg.go.dev/database/sql#DB) . `sql.DB` contains a connection pool that can be used to interact with Spanner. The database name and other connection properties are specified in the database/sql data source name.
 
 ### GoogleSQL
 
@@ -277,7 +277,7 @@ Before you can do reads or writes, you must create a [`  sql.DB  `](https://pkg.
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
-You use the `  ExecContext  ` function to execute a DML statement.
+You use the `ExecContext` function to execute a DML statement.
 
 ### GoogleSQL
 
@@ -381,11 +381,11 @@ The result shows:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-A [`  Mutation  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Mutation) is a container for mutation operations. A `  Mutation  ` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
+A [`Mutation`](https://pkg.go.dev/cloud.google.com/go/spanner/#Mutation) is a container for mutation operations. A `Mutation` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
 
-Use [`  Mutation.InsertOrUpdate()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#InsertOrUpdate) to construct an `  INSERT_OR_UPDATE  ` mutation, which adds a new row or updates column values if the row already exists. Alternatively, use the [`  Mutation.Insert()  `](https://pkg.go.dev/cloud.google.com/go/spanner/#Insert) method to construct an `  INSERT  ` mutation, which adds a new row.
+Use [`Mutation.InsertOrUpdate()`](https://pkg.go.dev/cloud.google.com/go/spanner/#InsertOrUpdate) to construct an `INSERT_OR_UPDATE` mutation, which adds a new row or updates column values if the row already exists. Alternatively, use the [`Mutation.Insert()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Insert) method to construct an `INSERT` mutation, which adds a new row.
 
-Use the `  conn.Raw  ` function to get a reference to the underlying Spanner connection. The `  SpannerConn.Apply  ` function applies mutations atomically to the database.
+Use the `conn.Raw` function to get a reference to the underlying Spanner connection. The `SpannerConn.Apply` function applies mutations atomically to the database.
 
 The following code shows how to write the data using mutations:
 
@@ -503,7 +503,7 @@ The following code shows how to write the data using mutations:
         return nil
     }
 
-Run the following example using the `  write  ` argument:
+Run the following example using the `write` argument:
 
 ### GoogleSQL
 
@@ -521,7 +521,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
 ### GoogleSQL
 
@@ -550,10 +550,10 @@ In addition to executing a SQL statement on the command line, you can issue the 
 
 The following functions and structs are used to execute a SQL query:
 
-  - The [`  QueryContext  `](https://pkg.go.dev/database/sql#DB.QueryContext) function in the `  DB  ` struct: use this to execute a SQL statement that returns rows, such as a query or a DML statement with a `  THEN RETURN  ` clause.
-  - The [`  Rows  `](https://pkg.go.dev/database/sql#Rows) struct: use this to access the data returned by a SQL statement.
+  - The [`QueryContext`](https://pkg.go.dev/database/sql#DB.QueryContext) function in the `DB` struct: use this to execute a SQL statement that returns rows, such as a query or a DML statement with a `THEN RETURN` clause.
+  - The [`Rows`](https://pkg.go.dev/database/sql#Rows) struct: use this to access the data returned by a SQL statement.
 
-The following example uses the `  QueryContext  ` function:
+The following example uses the `QueryContext` function:
 
 ### GoogleSQL
 
@@ -659,9 +659,9 @@ The result shows:
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
-The Spanner database/sql driver supports both positional and named query parameters. A `  ?  ` in a SQL statement indicates a positional query parameter. Pass the query parameter values as additional arguments to the `  QueryContext  ` function. For example:
+The Spanner database/sql driver supports both positional and named query parameters. A `?` in a SQL statement indicates a positional query parameter. Pass the query parameter values as additional arguments to the `QueryContext` function. For example:
 
 ### GoogleSQL
 
@@ -761,7 +761,7 @@ The result shows:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -769,7 +769,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
 ### GoogleSQL
 
@@ -787,7 +787,7 @@ You should see:
 
 #### Use the Spanner database/sql driver
 
-Use the [`  ExecContext  `](https://pkg.go.dev/database/sql#DB.ExecContext) function to modify the schema:
+Use the [`ExecContext`](https://pkg.go.dev/database/sql#DB.ExecContext) function to modify the schema:
 
 ### GoogleSQL
 
@@ -863,7 +863,7 @@ The result shows:
 
 ### Execute a DDL batch
 
-We recommend that you execute multiple schema modifications in one batch. Use the `  START BATCH DDL  ` and `  RUN BATCH  ` commands to execute a DDL batch. The following example creates two tables in one batch:
+We recommend that you execute multiple schema modifications in one batch. Use the `START BATCH DDL` and `RUN BATCH` commands to execute a DDL batch. The following example creates two tables in one batch:
 
 ### GoogleSQL
 
@@ -999,7 +999,7 @@ The result shows:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
 ### GoogleSQL
 
@@ -1113,7 +1113,7 @@ The result shows:
 
 You can also execute a SQL query to fetch the values that you just wrote.
 
-The following example uses the `  QueryContext  ` function to execute a query:
+The following example uses the `QueryContext` function to execute a query:
 
 ### GoogleSQL
 
@@ -1227,7 +1227,7 @@ You should see:
 
 You can update data using DML in a read-write transaction.
 
-Call [`  DB.BeginTx  `](https://pkg.go.dev/database/sql#DB.BeginTx) to execute read-write transactions in database/sql.
+Call [`DB.BeginTx`](https://pkg.go.dev/database/sql#DB.BeginTx) to execute read-write transactions in database/sql.
 
 ### GoogleSQL
 
@@ -1435,9 +1435,9 @@ Run the example with the following command:
 
 ### Transaction tags and request tags
 
-Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to troubleshoot transactions and queries in Spanner. You can pass additional transaction options to the `  spannerdriver.BeginReadWriteTransaction  ` function.
+Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to troubleshoot transactions and queries in Spanner. You can pass additional transaction options to the `spannerdriver.BeginReadWriteTransaction` function.
 
-Use `  spannerdriver.ExecOptions  ` to pass additional query options for a SQL statement. For example:
+Use `spannerdriver.ExecOptions` to pass additional query options for a SQL statement. For example:
 
 ### GoogleSQL
 
@@ -1588,7 +1588,7 @@ Run the example with the following command:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Set the [`  TxOptions.ReadOnly  `](https://pkg.go.dev/database/sql#TxOptions) field to `  true  ` to execute a read-only transaction.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Set the [`TxOptions.ReadOnly`](https://pkg.go.dev/database/sql#TxOptions) field to `true` to execute a read-only transaction.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
@@ -1744,7 +1744,7 @@ The result shows:
 
 ### Partitioned queries and Data Boost
 
-The [`  partitionQuery  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.PartitionQuery) API divides a query into smaller pieces, or partitions, and uses multiple machines to fetch the partitions in parallel. Each partition is identified by a partition token. The partitionQuery API has higher latency than the standard [query API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql) , because it's only intended for bulk operations such as exporting or scanning the whole database.
+The [`partitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.PartitionQuery) API divides a query into smaller pieces, or partitions, and uses multiple machines to fetch the partitions in parallel. Each partition is identified by a partition token. The partitionQuery API has higher latency than the standard [query API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql) , because it's only intended for bulk operations such as exporting or scanning the whole database.
 
 [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) lets you execute analytics queries and data exports with near-zero impact to existing workloads on the provisioned Spanner instance. Data Boost only supports [partitioned queries](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) .
 

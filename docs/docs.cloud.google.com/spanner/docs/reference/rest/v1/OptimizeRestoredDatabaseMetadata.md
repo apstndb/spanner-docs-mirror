@@ -13,26 +13,21 @@ Metadata type for the long-running operation used to track the progress of optim
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;name&quot;: string,
-  &quot;progress&quot;: {
-    object (OperationProgress)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;name&quot;: string,&quot;progress&quot;: {object (OperationProgress)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
 Name of the restored database being optimized.
 
-`  progress  `
+`progress`
 
-`  object ( OperationProgress  ` )
+` object ( OperationProgress  ` )
 
 The progress of the post-restore optimizations.

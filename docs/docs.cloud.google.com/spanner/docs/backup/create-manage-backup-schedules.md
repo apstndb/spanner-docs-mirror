@@ -4,8 +4,8 @@ This page describes Spanner backup schedule operations and explains how to set u
 
   - To get the permissions that you need to create and manage backup schedules, ask your administrator to grant you the following IAM roles on the instance:
     
-      - Create, view, update, and delete backup schedules: [Cloud Spanner Backup Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupAdmin) ( `  roles/spanner.backupAdmin  ` )
-      - Create and view backup schedules: [Cloud Spanner Backup Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupWriter) ( `  roles/spanner.backupWriter  ` )
+      - Create, view, update, and delete backup schedules: [Cloud Spanner Backup Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupAdmin) ( `roles/spanner.backupAdmin` )
+      - Create and view backup schedules: [Cloud Spanner Backup Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupWriter) ( `roles/spanner.backupWriter` )
     
     **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to create and manage backup schedules. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
 
@@ -35,10 +35,10 @@ Before using any of the command data below, make the following replacements:
   - PROJECT\_ID : the project ID.
   - INSTANCE\_ID : the ID of the instance where you want to create the backup schedule.
   - DATABASE\_ID : the ID of the database where you want to create the backup schedule.
-  - RETENTION\_DURATION : the retention duration of the backups created by the schedule. For example, if you want the retention duration to be one day, you can use `  86400s  ` .
-  - CRONTAB\_EXPRESSION : the crontab expression for the backup schedule frequency. For example, if you want the backup schedule frequency to be every 12 hours, you can use `  0 12 * * *  ` .
-  - BACKUP\_TYPE : whether it's a full backup schedule or an incremental backup schedule. Possible values are `  full-backup  ` or `  incremental-backup  ` .
-  - ENCRYPTION\_TYPE : the encryption type of backups created by the backup schedule. Valid values are `  USE_DATABASE_ENCRYPTION  ` , `  GOOGLE_DEFAULT_ENCRYPTION  ` , or `  CUSTOMER_MANAGED_ENCRYPTION  ` . If you use `  CUSTOMER_MANAGED_ENCRYPTION  ` , you must specify a `  kmsKeyName  ` or `  kmsKeyNames  ` .
+  - RETENTION\_DURATION : the retention duration of the backups created by the schedule. For example, if you want the retention duration to be one day, you can use `86400s` .
+  - CRONTAB\_EXPRESSION : the crontab expression for the backup schedule frequency. For example, if you want the backup schedule frequency to be every 12 hours, you can use `0 12 * * *` .
+  - BACKUP\_TYPE : whether it's a full backup schedule or an incremental backup schedule. Possible values are `full-backup` or `incremental-backup` .
+  - ENCRYPTION\_TYPE : the encryption type of backups created by the backup schedule. Valid values are `USE_DATABASE_ENCRYPTION` , `GOOGLE_DEFAULT_ENCRYPTION` , or `CUSTOMER_MANAGED_ENCRYPTION` . If you use `CUSTOMER_MANAGED_ENCRYPTION` , you must specify a `kmsKeyName` or `kmsKeyNames` .
 
 Execute the following command:
 
@@ -89,8 +89,8 @@ Before using any of the request data, make the following replacements:
   - INSTANCE\_ID : the ID of the instance where you want to create the backup schedule.
   - DATABASE\_ID : the ID of the database where you want to create the backup schedule.
   - SCHEDULE\_ID : the backup schedule ID.
-  - BACKUP\_TYPE : whether it's a full backup schedule or an incremental backup schedule. Possible values are `  fullBackupSpec  ` or `  incrementalBackupSpec  ` .
-  - ENCRYPTION\_TYPE : the encryption type of backups created by the backup schedule. Possible values are `  USE_DATABASE_ENCRYPTION  ` , `  GOOGLE_DEFAULT_ENCRYPTION  ` , or `  CUSTOMER_MANAGED_ENCRYPTION  ` . If you use `  CUSTOMER_MANAGED_ENCRYPTION  ` , you must specify a `  kmsKeyName  ` or `  kmsKeyNames  ` .
+  - BACKUP\_TYPE : whether it's a full backup schedule or an incremental backup schedule. Possible values are `fullBackupSpec` or `incrementalBackupSpec` .
+  - ENCRYPTION\_TYPE : the encryption type of backups created by the backup schedule. Possible values are `USE_DATABASE_ENCRYPTION` , `GOOGLE_DEFAULT_ENCRYPTION` , or `CUSTOMER_MANAGED_ENCRYPTION` . If you use `CUSTOMER_MANAGED_ENCRYPTION` , you must specify a `kmsKeyName` or `kmsKeyNames` .
   - RETENTION\_DURATION : the retention duration of the backups created by the schedule.
 
 HTTP method and URL:
@@ -116,9 +116,9 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     curl -X POST \
          -H "Authorization: Bearer $(gcloud auth print-access-token)" \
@@ -128,9 +128,9 @@ Save the request body in a file named `  request.json  ` , and execute the follo
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     $cred = gcloud auth print-access-token
     $headers = @{ "Authorization" = "Bearer $cred" }
@@ -876,7 +876,7 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -886,7 +886,7 @@ Execute the following command:
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -1206,7 +1206,7 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -1216,7 +1216,7 @@ Execute the following command:
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -1512,8 +1512,8 @@ Before using any of the command data below, make the following replacements:
   - INSTANCE\_ID : the ID of the instance where you want to modify the backup schedule.
   - DATABASE\_ID : the ID of the database where you want to modify the backup schedule.
   - RETENTION\_DURATION : the retention duration of the backups created by the schedule.
-  - CRONTAB\_EXPRESSION : the crontab expression for the backup schedule frequency. For example, if you want the backup schedule frequency to be every 12 hours, you can use `  0 12 * * *  ` .
-  - ENCRYPTION\_TYPE : the encryption type of backups created by the backup schedule. Valid values are `  USE_DATABASE_ENCRYPTION  ` , `  GOOGLE_DEFAULT_ENCRYPTION  ` , or `  CUSTOMER_MANAGED_ENCRYPTION  ` . If you use `  CUSTOMER_MANAGED_ENCRYPTION  ` , you must specify a `  kmsKeyName  ` or `  kmsKeyNames  ` .
+  - CRONTAB\_EXPRESSION : the crontab expression for the backup schedule frequency. For example, if you want the backup schedule frequency to be every 12 hours, you can use `0 12 * * *` .
+  - ENCRYPTION\_TYPE : the encryption type of backups created by the backup schedule. Valid values are `USE_DATABASE_ENCRYPTION` , `GOOGLE_DEFAULT_ENCRYPTION` , or `CUSTOMER_MANAGED_ENCRYPTION` . If you use `CUSTOMER_MANAGED_ENCRYPTION` , you must specify a `kmsKeyName` or `kmsKeyNames` .
 
 Execute the following command:
 
@@ -1561,8 +1561,8 @@ Before using any of the request data, make the following replacements:
   - INSTANCE\_ID : the ID of the instance where you want to modify the backup schedule.
   - DATABASE\_ID : the ID of the database where you want to modify the backup schedule.
   - SCHEDULE\_ID : the backup schedule ID.
-  - RETENTION\_DURATION : the retention duration of the backups created by the schedule. For example, if you want the retention duration to be one day, specify `  86400s  ` .
-  - ENCRYPTION\_TYPE : the encryption type of backups created by the backup schedule. Possible values are `  USE_DATABASE_ENCRYPTION  ` , `  GOOGLE_DEFAULT_ENCRYPTION  ` , or `  CUSTOMER_MANAGED_ENCRYPTION  ` . If you use `  CUSTOMER_MANAGED_ENCRYPTION  ` , you must specify a `  kmsKeyName  ` or `  kmsKeyNames  ` .
+  - RETENTION\_DURATION : the retention duration of the backups created by the schedule. For example, if you want the retention duration to be one day, specify `86400s` .
+  - ENCRYPTION\_TYPE : the encryption type of backups created by the backup schedule. Possible values are `USE_DATABASE_ENCRYPTION` , `GOOGLE_DEFAULT_ENCRYPTION` , or `CUSTOMER_MANAGED_ENCRYPTION` . If you use `CUSTOMER_MANAGED_ENCRYPTION` , you must specify a `kmsKeyName` or `kmsKeyNames` .
 
 HTTP method and URL:
 
@@ -1586,9 +1586,9 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     curl -X PATCH \
          -H "Authorization: Bearer $(gcloud auth print-access-token)" \
@@ -1598,9 +1598,9 @@ Save the request body in a file named `  request.json  ` , and execute the follo
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     $cred = gcloud auth print-access-token
     $headers = @{ "Authorization" = "Bearer $cred" }
@@ -2095,7 +2095,7 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -2105,7 +2105,7 @@ Execute the following command:
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -2378,7 +2378,7 @@ etag: BwYi82k-fho=
 version: 1
 ```
 
-The following is an example `  policy.json  ` file that you can use along with this Google Cloud CLI command:
+The following is an example `policy.json` file that you can use along with this Google Cloud CLI command:
 
     {
     "version": 1,
@@ -2427,9 +2427,9 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     curl -X POST \
          -H "Authorization: Bearer $(gcloud auth print-access-token)" \
@@ -2439,9 +2439,9 @@ Save the request body in a file named `  request.json  ` , and execute the follo
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     $cred = gcloud auth print-access-token
     $headers = @{ "Authorization" = "Bearer $cred" }
@@ -2540,7 +2540,7 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -2552,7 +2552,7 @@ Execute the following command:
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 

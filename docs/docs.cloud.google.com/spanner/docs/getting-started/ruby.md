@@ -18,7 +18,7 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
@@ -51,7 +51,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -61,7 +61,7 @@ See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manag
 
 The samples repository contains a sample that shows how to use Spanner with Ruby.
 
-Take a look through the `  spanner_samples.rb  ` file, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
+Take a look through the `spanner_samples.rb` file, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
 
 ## Create a database
 
@@ -147,7 +147,7 @@ The next step is to write data to your database.
 
 ## Create a database client
 
-Before you can do reads or writes, you must create a [`  Client  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) . You can think of a `  Client  ` as a database connection: all of your interactions with Spanner must go through a `  Client  ` . Typically you create a `  Client  ` when your application starts up, then you re-use that `  Client  ` to read, write, and execute transactions. The following code shows how to create a client.
+Before you can do reads or writes, you must create a [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) . You can think of a `Client` as a database connection: all of your interactions with Spanner must go through a `Client` . Typically you create a `Client` when your application starts up, then you re-use that `Client` to read, write, and execute transactions. The following code shows how to create a client.
 
     # Imports the Google Cloud client library
     require "google/cloud/spanner"
@@ -173,7 +173,7 @@ Before you can do reads or writes, you must create a [`  Client  `](https://docs
       puts row
     end
 
-Read more in the [`  Client  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) reference.
+Read more in the [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) reference.
 
 <span id="write_data"></span>
 
@@ -181,7 +181,7 @@ Read more in the [`  Client  `](https://docs.cloud.google.com/ruby/docs/referenc
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
-You use the `  execute_update()  ` method to execute a DML statement.
+You use the `execute_update()` method to execute a DML statement.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -215,7 +215,7 @@ You use the `  execute_update()  ` method to execute a DML statement.
     
     puts "#{row_count} records inserted."
 
-Run the sample using the `  write_using_dml  ` argument.
+Run the sample using the `write_using_dml` argument.
 
     bundle exec ruby spanner_samples.rb write_using_dml test-instance example-db
 
@@ -233,7 +233,7 @@ You should see:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-You write data using a [`  Client  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) object. The [`  Client#commit  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#commit-instance_method) method creates and commits a transaction for writes that execute atomically at a single logical point in time across columns, rows, and tables in a database.
+You write data using a [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) object. The [`Client#commit`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#commit-instance_method) method creates and commits a transaction for writes that execute atomically at a single logical point in time across columns, rows, and tables in a database.
 
 This code shows how to write the data using mutations:
 
@@ -265,7 +265,7 @@ This code shows how to write the data using mutations:
     
     puts "Inserted data"
 
-Run the sample using the `  insert_data  ` argument.
+Run the sample using the `insert_data` argument.
 
     bundle exec ruby spanner_samples.rb insert_data test-instance example-db
 
@@ -281,7 +281,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
@@ -301,7 +301,7 @@ The result shows:
 
 In addition to executing a SQL statement on the command line, you can issue the same SQL statement programmatically using the Spanner client library for Ruby.
 
-Use the [`  Client#execute  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#execute-instance_method) method to run the SQL query. Use a Ruby symbol `  :ColumnName  ` to access data for a specific column from a row.
+Use the [`Client#execute`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#execute-instance_method) method to run the SQL query. Use a Ruby symbol `:ColumnName` to access data for a specific column from a row.
 
 Here's how to issue the query and access the data:
 
@@ -318,7 +318,7 @@ Here's how to issue the query and access the data:
       puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:AlbumTitle]}"
     end
 
-Run the sample using the `  query_data  ` argument.
+Run the sample using the `query_data` argument.
 
     bundle exec ruby spanner_samples.rb query_data test-instance example-db
 
@@ -334,7 +334,7 @@ You should see the following result:
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
 ### GoogleSQL
 
@@ -394,7 +394,7 @@ You should see the following result:
 
 In addition to Spanner's SQL interface, Spanner also supports a read interface.
 
-Use the [`  Client#read  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#read-instance_method) method of the [`  Client  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class to read rows from the database.
+Use the [`Client#read`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#read-instance_method) method of the [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class to read rows from the database.
 
 Here's how to read the data:
 
@@ -411,7 +411,7 @@ Here's how to read the data:
       puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:AlbumTitle]}"
     end
 
-Run the sample using the `  read_data  ` argument.
+Run the sample using the `read_data` argument.
 
     bundle exec ruby spanner_samples.rb read_data test-instance example-db
 
@@ -425,7 +425,7 @@ You should see output similar to:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -433,7 +433,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
 ### GoogleSQL
 
@@ -451,7 +451,7 @@ You should see:
 
 #### Use the Spanner client library for Ruby
 
-Use the [`  Database#update  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database#update-instance_method) method of the [`  Database  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database) class to modify the schema:
+Use the [`Database#update`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database#update-instance_method) method of the [`Database`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database) class to modify the schema:
 
 ### GoogleSQL
 
@@ -510,7 +510,7 @@ Use the [`  Database#update  `](https://docs.cloud.google.com/ruby/docs/referenc
       puts "Added Age column to Singers table in datbase #{database_id}"
     end
 
-Run the sample using the `  add_column  ` argument.
+Run the sample using the `add_column` argument.
 
     bundle exec ruby spanner_samples.rb add_column test-instance example-db
 
@@ -520,7 +520,7 @@ You should see:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -540,7 +540,7 @@ The following code writes data to the new column. It sets `  MarketingBudget  ` 
     
     puts "Updated data"
 
-Run the sample using the `  update_data  ` argument.
+Run the sample using the `update_data` argument.
 
     bundle exec ruby spanner_samples.rb update_data test-instance example-db
 
@@ -565,7 +565,7 @@ Here's the code to execute the query:
       puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:MarketingBudget]}"
     end
 
-To execute this query, run the sample using the `  query_data_with_new_column  ` argument.
+To execute this query, run the sample using the `query_data_with_new_column` argument.
 
     bundle exec ruby spanner_samples.rb query_data_with_new_column test-instance example-db
 
@@ -581,7 +581,7 @@ You should see:
 
 You can update data using DML in a read-write transaction.
 
-You use the `  execute_update()  ` method to execute a DML statement.
+You use the `execute_update()` method to execute a DML statement.
 
 ### GoogleSQL
 
@@ -644,7 +644,7 @@ You use the `  execute_update()  ` method to execute a DML statement.
       puts "Transaction complete"
     end
 
-Run the sample using the `  write_with_transaction_using_dml  ` argument.
+Run the sample using the `write_with_transaction_using_dml` argument.
 
     bundle exec ruby spanner_samples.rb write_with_transaction_using_dml test-instance example-db
 
@@ -656,7 +656,7 @@ You should see:
 
 ## Use a secondary index
 
-Suppose you wanted to fetch all rows of `  Albums  ` that have `  AlbumTitle  ` values in a certain range. You could read all values from the `  AlbumTitle  ` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
+Suppose you wanted to fetch all rows of `Albums` that have `AlbumTitle` values in a certain range. You could read all values from the `AlbumTitle` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
 
 Adding a secondary index to an existing table requires a schema update. Like other schema updates, Spanner supports adding an index while the database continues to serve traffic. Spanner automatically backfills the index with your existing data. Backfills might take a few minutes to complete, but you don't need to take the database offline or avoid writing to the indexed table during this process. For more details, see [Add a secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#adding_an_index) .
 
@@ -668,7 +668,7 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 #### On the command line
 
-Use the following [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
+Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
     gcloud spanner databases ddl update example-db --instance=test-instance \
         --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
@@ -679,7 +679,7 @@ You should see:
 
 #### Using the Spanner client library for Ruby
 
-Use the [`  Database#update  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database#update-instance_method) method of the [`  Database  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database) class to add an index:
+Use the [`Database#update`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database#update-instance_method) method of the [`Database`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database) class to add an index:
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -705,7 +705,7 @@ Use the [`  Database#update  `](https://docs.cloud.google.com/ruby/docs/referenc
     
     puts "Added the AlbumsByAlbumTitle index"
 
-Run the sample using the `  create_index  ` argument.
+Run the sample using the `create_index` argument.
 
     bundle exec ruby spanner_samples.rb create_index test-instance example-db
 
@@ -717,7 +717,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 For SQL queries, Spanner automatically uses an appropriate index. In the read interface, you must specify the index in your request.
 
-To use the index in the read interface, provide an `  index  ` parameter to the [`  read  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#read-instance_method) method of the [`  Client  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class.
+To use the index in the read interface, provide an `index` parameter to the [`read`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#read-instance_method) method of the [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -735,7 +735,7 @@ To use the index in the read interface, provide an `  index  ` parameter to the 
       puts "#{row[:AlbumId]} #{row[:AlbumTitle]}"
     end
 
-Run the sample using the `  read_data_with_index  ` argument.
+Run the sample using the `read_data_with_index` argument.
 
     bundle exec ruby spanner_samples.rb read_data_with_index test-instance example-db
 
@@ -749,9 +749,9 @@ You should see:
 
 ### Add an index for index-only reads
 
-You might have noticed that the previous read example doesn't include reading the `  MarketingBudget  ` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
+You might have noticed that the previous read example doesn't include reading the `MarketingBudget` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
 
-Create an alternate definition of `  AlbumsByAlbumTitle  ` that stores a copy of `  MarketingBudget  ` in the index.
+Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `MarketingBudget` in the index.
 
 #### On the command line
 
@@ -771,7 +771,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 #### Using the Spanner client library for Ruby
 
-Use the [`  Database#update  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database#update-instance_method) method of the [`  Database  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database) class to add an index with a `  STORING  ` clause:
+Use the [`Database#update`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database#update-instance_method) method of the [`Database`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database) class to add an index with a `STORING` clause:
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -798,7 +798,7 @@ Use the [`  Database#update  `](https://docs.cloud.google.com/ruby/docs/referenc
     
     puts "Added the AlbumsByAlbumTitle2 storing index"
 
-Run the sample using the `  create_storing_index  ` argument.
+Run the sample using the `create_storing_index` argument.
 
     bundle exec ruby spanner_samples.rb create_storing_index test-instance example-db
 
@@ -806,7 +806,7 @@ You should see:
 
     Added the AlbumsByAlbumTitle2 index
 
-Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , and `  MarketingBudget  ` columns from the `  AlbumsByAlbumTitle2  ` index:
+Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -824,7 +824,7 @@ Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , a
       puts "#{row[:AlbumId]} #{row[:AlbumTitle]} #{row[:MarketingBudget]}"
     end
 
-Run the sample using the `  read_data_with_storing_index  ` argument.
+Run the sample using the `read_data_with_storing_index` argument.
 
     bundle exec ruby spanner_samples.rb read_data_with_storing_index test-instance example-db
 
@@ -838,7 +838,7 @@ You should see output similar to:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use a [`  Snapshot  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Snapshot) object for executing read-only transactions. Use the [`  snapshot  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#snapshot-instance_method) method of the [`  Client  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class to get a `  Snapshot  ` object.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use a [`Snapshot`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Snapshot) object for executing read-only transactions. Use the [`snapshot`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#snapshot-instance_method) method of the [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class to get a `Snapshot` object.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
@@ -863,7 +863,7 @@ The following shows how to run a query and perform a read in the same read-only 
       end
     end
 
-Run the sample using the `  read_only_transaction  ` argument.
+Run the sample using the `read_only_transaction` argument.
 
     bundle exec ruby spanner_samples.rb read_only_transaction test-instance example-db
 

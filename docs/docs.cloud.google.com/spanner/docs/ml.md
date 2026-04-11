@@ -38,17 +38,17 @@ A model in Spanner Vertex AI integration can be used to generate predictions or 
 
 You can use the following ML predict function for GoogleSQL:
 
-[`  ML.PREDICT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict)
+[`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict)
 
-You need to register your model using the [`  CREATE MODEL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) DDL statement before using it with the `  ML.PREDICT  ` function.
+You need to register your model using the [`CREATE MODEL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) DDL statement before using it with the `ML.PREDICT` function.
 
-You can also use `  SAFE.ML.PREDICT  ` to return `  null  ` instead of an error in your predictions. This is helpful in cases when running large queries where some failed predictions are tolerable.
+You can also use `SAFE.ML.PREDICT` to return `null` instead of an error in your predictions. This is helpful in cases when running large queries where some failed predictions are tolerable.
 
 ### PostgreSQL
 
 You can use the following ML predict function for PostgreSQL:
 
-[`  spanner.ML_PREDICT_ROW  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#ml)
+[`spanner.ML_PREDICT_ROW`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#ml)
 
 To use the functions, you can select a model from the [Vertex AI Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or use a model that you've deployed to Vertex AI.
 

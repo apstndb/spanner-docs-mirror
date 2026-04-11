@@ -24,7 +24,7 @@ Spanner batch write has the following limitations:
 
 ## How to use batch write
 
-To use batch write, you must have the `  spanner.databases.write  ` permission on the database that you want to modify. You can batch write mutations non-atomically in a single call using a [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite) or [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.BatchWrite) request call.
+To use batch write, you must have the `spanner.databases.write` permission on the database that you want to modify. You can batch write mutations non-atomically in a single call using a [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/batchWrite) or [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.BatchWrite) request call.
 
 You should group the following mutation types together when using batch write:
 
@@ -32,7 +32,7 @@ You should group the following mutation types together when using batch write:
   - Inserting rows into tables with a foreign key relationship between the tables.
   - Other types of related mutations depending on your database schema and application logic.
 
-You can also batch write using the Spanner client libraries. The following code example updates the `  Singers  ` table with new rows.
+You can also batch write using the Spanner client libraries. The following code example updates the `Singers` table with new rows.
 
 ### Client libraries
 

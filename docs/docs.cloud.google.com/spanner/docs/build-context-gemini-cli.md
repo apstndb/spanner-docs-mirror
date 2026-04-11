@@ -6,7 +6,7 @@ This feature is subject to the "Pre-GA Offerings Terms" in the General Service T
 
 This document describes how to use the Gemini CLI and the MCP toolbox to build agent context files. These files contain templates, facets, and value searches that provide context for generating SQL queries from natural language. You will also use the DB Context Enrichment extension.
 
-To learn about context sets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
+To learn about context sets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview) .
 
 To build an agent context file, perform the following high-level steps:
 
@@ -39,12 +39,12 @@ This tutorial requires you to have a database in your Spanner instance. For more
 ### Required roles and permissions
 
   - Add an IAM user or service account to the cluster. For more information, see [Apply IAM roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
-  - Grant the `  spanner.databaseReader  ` and `  geminidataanalytics.queryDataUser  ` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](https://docs.cloud.google.com/sdk/gcloud/reference/projects/add-iam-policy-binding) .
+  - Grant the `spanner.databaseReader` and `geminidataanalytics.queryDataUser` roles to the IAM user at the project level. For more information, see [Add IAM policy binding for a project](https://docs.cloud.google.com/sdk/gcloud/reference/projects/add-iam-policy-binding) .
   - [Grant roles and permissions](https://docs.cloud.google.com/spanner/docs/grant-permissions#project-level_permissions) to the IAM user at the project-level for the required databases.
 
 ## Prepare your environment
 
-You can build agent context files from any local development environment or IDE. To prepare the environment, perform the following steps:
+You can build context set files from any local development environment or IDE. To prepare the environment, perform the following steps:
 
   - Install Gemini CLI
   - Install the DB Context Enrichment extension
@@ -74,13 +74,13 @@ To install the DB Context Enrichment extension, follow these steps:
     
         gemini extensions list
     
-    Make sure that the version is `  0.4.2  ` or higher. To update the DB Context Enrichment extension, run the following command:
+    Make sure that the version is `0.4.2` or higher. To update the DB Context Enrichment extension, run the following command:
     
     ``` 
       gemini extensions update mcp-db-context-enrichment
     ```
     
-    To update the DB Context Enrichment extension or to replace the `  GEMINI_API_KEY  ` , run the following command:
+    To update the DB Context Enrichment extension or to replace the `GEMINI_API_KEY` , run the following command:
     
         gemini extensions config mcp-db-context-enrichment GEMINI_API_KEY
     
@@ -101,11 +101,11 @@ Run the following commands in your terminal to authenticate:
 
     gcloud auth application-default login
 
-#### Configure the `     tools.yaml    ` file
+#### Configure the `tools.yaml` file
 
 The extension requires a database connection for context generation, which is supported by the [MCP Toolbox](https://mcp-toolbox.dev/documentation/introduction/) and defined within the tools.yaml configuration file.
 
-The `  tools.yaml  ` file specifies your database source and tools required to either fetch schemas or execute SQL. The extension comes with pre-installed Agent Skills to help you generate the configuration.
+The `tools.yaml` file specifies your database source and tools required to either fetch schemas or execute SQL. The extension comes with pre-installed Agent Skills to help you generate the configuration.
 
 **Note:** If this connection is not established, the extension will return error messages, such as "Error Discovering tools from mcp\_toolbox" and context generation won't work.
 
@@ -117,23 +117,23 @@ The `  tools.yaml  ` file specifies your database source and tools required to e
     
         /skills
 
-3.  Type a prompt such as `  help me setup the database connection  ` . The skill guides you through creating the `  tools.yaml  ` file in your current working directory.
+3.  Type a prompt such as `help me setup the database connection` . The skill guides you through creating the `tools.yaml` file in your current working directory.
 
-4.  Run the following command in Gemini CLI to apply the `  tools.yaml  ` configuration to the Toolbox MCP server.
+4.  Run the following command in Gemini CLI to apply the `tools.yaml` configuration to the Toolbox MCP server.
     
         /mcp reload
 
-For more information about manually configuring the `  tools.yaml  ` file, see [MCP Toolbox Configuration](https://mcp-toolbox.dev/documentation/configuration/) .
+For more information about manually configuring the `tools.yaml` file, see [MCP Toolbox Configuration](https://mcp-toolbox.dev/documentation/configuration/) .
 
 ## Generate Context
 
 The extensions installed earlier empower Gemini CLI to help you author context in the form of a JSON file.
 
-**Note:** Gemini CLI can access your local files to reduce overheads such as specifying exact locations of files in your local directories. For example, if a step in the Gemini CLI workflow asks you for information that you can find in your `  tools.yaml  ` file, you can ask Gemini CLI to `  use tools.yaml  ` or respond with a prompt such as `  look it up  ` .
+**Note:** Gemini CLI can access your local files to reduce overheads such as specifying exact locations of files in your local directories. For example, if a step in the Gemini CLI workflow asks you for information that you can find in your `tools.yaml` file, you can ask Gemini CLI to `use tools.yaml` or respond with a prompt such as `look it up` .
 
 ### Generate targeted templates
 
-If you want to add a specific query pair as a query template to the context set, then you can use the `  /generate_targeted_templates  ` command. For more information about templates, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview)
+If you want to add a specific query pair as a query template to the context set, then you can use the `/generate_targeted_templates` command. For more information about templates, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview)
 
 To add a query template to the context set, perform the following steps:
 
@@ -147,7 +147,7 @@ To add a query template to the context set, perform the following steps:
     
         /mcp reload
 
-4.  Run the `  /generate_targeted_templates  ` command:
+4.  Run the `/generate_targeted_templates` command:
     
         /generate_targeted_templates
 
@@ -157,17 +157,17 @@ To add a query template to the context set, perform the following steps:
 
 7.  Review the generated query template. You can either save the query template as a context set file or append it to an existing context set file.
 
-The context set file similar to `  my-cluster-psc-primary_postgres_templates_20251104111122.json  ` is saved in the directory where you ran the commands.
+The context set file similar to `my-cluster-psc-primary_postgres_templates_20251104111122.json` is saved in the directory where you ran the commands.
 
-For more information about the context set file and the query template, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview#context-sets) .
+For more information about the context set file and the query template, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-sets) .
 
 ### Generate targeted facets
 
-If you want to add a specific query pair as a facet to the context set file, then you can use the `  /generate_targeted_facets  ` command.
+If you want to add a specific query pair as a facet to the context set file, then you can use the `/generate_targeted_facets` command.
 
 To add a facet to the context set file, perform the following steps:
 
-1.  Run the `  /generate_targeted_facets  ` command:
+1.  Run the `/generate_targeted_facets` command:
     
         /generate_targeted_facets
 
@@ -177,23 +177,23 @@ To add a facet to the context set file, perform the following steps:
 
 4.  Review the generated facet. You can either save the facet to a context set file or append it to an existing context set file.
 
-The context set file similar to `  my-cluster-psc-primary_postgres_templates_20251104111122.json  ` is saved in the directory where you ran the commands.
+The context set file similar to `my-cluster-psc-primary_postgres_templates_20251104111122.json` is saved in the directory where you ran the commands.
 
-For more information about the context set file and facets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview#context-sets)
+For more information about the context set file and facets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-sets)
 
 ### Generate value search queries
 
-If you want to generate value searches that specify how the system should search for and match specific values within a concept type, then you can use the `  /generate_targeted_value_searches  ` command.
+If you want to generate value searches that specify how the system should search for and match specific values within a concept type, then you can use the `/generate_targeted_value_searches` command.
 
 To generate a value index, perform the following steps:
 
-1.  Run the `  /generate_targeted_value_searches  ` command:
+1.  Run the `/generate_targeted_value_searches` command:
     
         /generate_targeted_value_searches
 
 <!-- end list -->
 
-1.  Enter `  spanner  ` to select Spanner as the database engine.
+1.  Enter `spanner` to select Spanner as the database engine.
 
 <!-- end list -->
 
@@ -211,12 +211,12 @@ To generate a value index, perform the following steps:
     
       - `  COLUMN_NAME  ` : The column name associated with the concept type.
     
-      - `  CONCEPT_TYPE  ` : The concept type that you want to define—for example, `  City name  ` .
+      - `  CONCEPT_TYPE  ` : The concept type that you want to define—for example, `City name` .
     
       - `  MATCH_FUNCTION  ` : The match function to use for value search. You can use one of the following functions:
         
-          - `  EXACT_STRING_MATCH  ` : For exact match of two string values. Best for unique IDs, codes, and primary keys.
-          - `  TRIGRAM_STRING_MATCH  ` : For fuzzy-matching that calculates normalized trigram distance. Best for user searches and name correction.
+          - `EXACT_STRING_MATCH` : For exact match of two string values. Best for unique IDs, codes, and primary keys.
+          - `TRIGRAM_STRING_MATCH` : For fuzzy-matching that calculates normalized trigram distance. Best for user searches and name correction.
     
       - `  DESCRIPTION  ` : (Optional) The description of the value search query.
 
@@ -224,17 +224,17 @@ To generate a value index, perform the following steps:
 
 3.  Review the generated value searches. You can either save the context set as a context set file or append it to an existing context set file.
 
-The context set file similar to `  my-cluster-psc-primary_postgres_templates_20251104111122.json  ` is saved in the directory where you ran the commands.
+The context set file similar to `my-cluster-psc-primary_postgres_templates_20251104111122.json` is saved in the directory where you ran the commands.
 
-For more information about the value index, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview#context-sets)
+For more information about the value index, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-sets)
 
 ### Optional: Generate bulk templates
 
-If you want to auto-generate the context set file based on your database schema and data, then you can use the `  /generate_bulk_templates  ` command.
+If you want to auto-generate the context set file based on your database schema and data, then you can use the `/generate_bulk_templates` command.
 
 To auto-generate bulk templates, perform the following steps:
 
-1.  Run the `  /generate_bulk_templates  ` command:
+1.  Run the `/generate_bulk_templates` command:
     
         /generate_bulk_templates
 
@@ -250,12 +250,12 @@ To auto-generate bulk templates, perform the following steps:
 
 7.  After you approve the query template, you can either create a new template file or append the query pairs to an existing template file. The query template is saved as a JSON file in your local directory.
 
-The context set file similar to `  my-cluster-psc-primary_postgres_templates_20251104111122.json  ` is saved in the directory where you ran the commands.
+The context set file similar to `my-cluster-psc-primary_postgres_templates_20251104111122.json` is saved in the directory where you ran the commands.
 
-For more information about the context set file, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview#context-sets) .
+For more information about the context set file, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-sets) .
 
 ## What's next
 
-  - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
+  - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/context-sets-overview) .
   - Learn how to [create or delete a context set in Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents)
   - Learn how to [test a context set](https://docs.cloud.google.com/spanner/docs/inspect-data-agent)

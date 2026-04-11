@@ -2,7 +2,7 @@ Data Manipulation Language (DML) and Mutations are two APIs in Spanner that you 
 
 ## What is Data Manipulation Language (DML)?
 
-The Data Manipulation Language (DML) in Spanner lets you manipulate data in your database tables using `  INSERT  ` , `  UPDATE  ` , and `  DELETE  ` statements. You can run DML statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console#run_a_query) , and [gcloud spanner](https://docs.cloud.google.com/sdk/gcloud/reference/spanner#execute_sql_statements) .
+The Data Manipulation Language (DML) in Spanner lets you manipulate data in your database tables using `INSERT` , `UPDATE` , and `DELETE` statements. You can run DML statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console#run_a_query) , and [gcloud spanner](https://docs.cloud.google.com/sdk/gcloud/reference/spanner#execute_sql_statements) .
 
 Spanner offers the following two implementations of DML execution, each with different properties.
 
@@ -53,7 +53,7 @@ DML and mutations diverge in their support for the following features:
 
 If a transaction contains both DML statements and mutations in the commit request, Spanner executes the DML statements before the mutations. To avoid having to account for the order of execution in your client library code, you should use either DML statements or the mutations in a single transaction, but not both.
 
-The following Java example illustrates potentially surprising behavior. The code inserts two rows into Albums using the Mutation API. The snippet, then calls `  executeUpdate()  ` to update the newly inserted rows and calls `  executeQuery()  ` to read updated albums.
+The following Java example illustrates potentially surprising behavior. The code inserts two rows into Albums using the Mutation API. The snippet, then calls `executeUpdate()` to update the newly inserted rows and calls `executeQuery()` to read updated albums.
 
     static void updateMarketingBudget(DatabaseClient dbClient) {
       dbClient

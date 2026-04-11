@@ -71,17 +71,17 @@ Use the Dataplex Universal Catalog search page in the Google Cloud console to se
     
       - Use the faceted search on the **Search** page. Select checkboxes under **Data types** , **Projects** , and **Tags** .
     
-      - In the search field, append a search parameter after `  system=cloud_spanner  ` . Separate parameters with spaces.
+      - In the search field, append a search parameter after `system=cloud_spanner` . Separate parameters with spaces.
     
-    For example, to view only databases, enter the following text in the search field, and then press `  Enter  ` .
+    For example, to view only databases, enter the following text in the search field, and then press `Enter` .
     
     ``` 
      system=cloud_spanner type=database
     ```
     
-    **Note:** To search for Spanner instances, use `  type=service  ` . To search for an instance configuration, use `  instance_config=configuration-name  ` .
+    **Note:** To search for Spanner instances, use `type=service` . To search for an instance configuration, use `instance_config=configuration-name` .
     
-    You can also use parentheses and the logical operators `  and  ` and `  or  ` for complex expressions. To learn more about the expressions that you can use in the search field, see [Data Catalog search syntax](https://docs.cloud.google.com/data-catalog/docs/how-to/search-reference) .
+    You can also use parentheses and the logical operators `and` and `or` for complex expressions. To learn more about the expressions that you can use in the search field, see [Data Catalog search syntax](https://docs.cloud.google.com/data-catalog/docs/how-to/search-reference) .
 
 4.  In the results table, click the name of an asset to view the metadata for that asset.
 
@@ -102,7 +102,7 @@ In this example workflow, you start by searching for a Spanner instance, then vi
 
 2.  In the **Filters panel** , under **Systems** , select **Spanner** .
 
-3.  To view all Spanner instances in Data Catalog, either select the **Service** checkbox under **Data types** , or enter the following text in the search field and press `  Enter  ` .
+3.  To view all Spanner instances in Data Catalog, either select the **Service** checkbox under **Data types** , or enter the following text in the search field and press `Enter` .
     
         system=cloud_spanner type=service
 
@@ -122,7 +122,7 @@ In this example workflow, you start by searching for a Spanner instance, then vi
 
 8.  Optional: To add a tag to a column, click the plus sign under **Column tags** .
 
-**Note:** This workflow demonstrates drilling down from an instance to a table. You can go directly to a list of tables by using the **Filters** panel or by entering `  system=cloud_spanner,type=table  ` in the search field.
+**Note:** This workflow demonstrates drilling down from an instance to a table. You can go directly to a list of tables by using the **Filters** panel or by entering `system=cloud_spanner,type=table` in the search field.
 
 ## Export and import tags
 
@@ -136,7 +136,7 @@ Spanner sync data every 6 hours. Any metadata changes made on Spanner assets lik
 
 ### Export tags from the source instance configuration
 
-To list the tags for an instance (entry or entry group), use the Google Cloud CLI [`  gcloud data-catalog tags list  `](https://docs.cloud.google.com/sdk/gcloud/reference/data-catalog/tags/list) command as follows:
+To list the tags for an instance (entry or entry group), use the Google Cloud CLI [`gcloud data-catalog tags list`](https://docs.cloud.google.com/sdk/gcloud/reference/data-catalog/tags/list) command as follows:
 
     curl \
     'https://datacatalog.googleapis.com/v1/projects/PROJECT/locations/LOCATION/entryGroups/ENTRY_GROUP/tags?key=API_KEY' \
@@ -158,7 +158,7 @@ Before you complete this procedure, do the following:
   - [Move the instance](https://docs.cloud.google.com/spanner/docs/move-instance) .
   - [Update Data Catalog with metadata](https://docs.cloud.google.com/sdk/gcloud/reference/data-catalog/entries/update) .
 
-To copy over a tag, create the tags on the moved instance using the [`  gcloud data-catalog tags create  `](https://docs.cloud.google.com/sdk/gcloud/reference/data-catalog/tags/create) command as follows:
+To copy over a tag, create the tags on the moved instance using the [`gcloud data-catalog tags create`](https://docs.cloud.google.com/sdk/gcloud/reference/data-catalog/tags/create) command as follows:
 
     curl --request POST \
     'https://datacatalog.googleapis.com/v1/entries:lookup?fullyQualifiedName=FQN&location=LOCATION&project=PROJECT&key=API_KEY' \
@@ -278,11 +278,11 @@ Views
 
 datacatalog.tagTemplates.use + spanner.databases.updateTag
 
-The `  spanner.instances.UpdateTag  ` permission is included in the following role:
+The `spanner.instances.UpdateTag` permission is included in the following role:
 
   - roles/spanner.admin
 
-The `  spanner.databases.UpdateTag  ` permission is included in the following roles:
+The `spanner.databases.UpdateTag` permission is included in the following roles:
 
   - roles/spanner.admin
   - roles/spanner.databaseAdmin

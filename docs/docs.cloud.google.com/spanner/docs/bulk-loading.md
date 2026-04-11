@@ -76,15 +76,15 @@ If your database has [secondary indexes](https://docs.cloud.google.com/spanner/d
 
 We recommend adding indexes that are critical to your business application before you load the data. For all non-critical indexes, add them after the data is migrated.
 
-## Use `     INTERLEAVE IN    ` during bulk load
+## Use `INTERLEAVE IN` during bulk load
 
-For schemas with many parent child references across tables, you must always load the parent before the children to ensure referential integrity. This orchestration can be tricky, especially with multiple levels of hierarchy. This complexity also makes batching and parallelizing much more difficult and can greatly impact the overall bulk load time. In Spanner, these relationships are enforced using `  INTERLEAVE IN PARENT  ` , or foreign keys. See the [`  CREATE TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) documentation for more details.
+For schemas with many parent child references across tables, you must always load the parent before the children to ensure referential integrity. This orchestration can be tricky, especially with multiple levels of hierarchy. This complexity also makes batching and parallelizing much more difficult and can greatly impact the overall bulk load time. In Spanner, these relationships are enforced using `INTERLEAVE IN PARENT` , or foreign keys. See the [`CREATE TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) documentation for more details.
 
 Adding a foreign key after bulk load creates an index under the covers, so follow the guidelines in [secondary-indexes](https://docs.cloud.google.com/spanner/docs/bulk-loading#secondary-indexes) .
 
-However, for `  INTERLEAVE IN PARENT  ` tables it is recommended that you create all tables using `  INTERLEAVE IN  ` semantics during bulk load, which physically interleaves rows, but does not enforce referential integrity. This gives you the performance benefits of locality, but does not require the up-front ordering. Now that child rows can be inserted before the corresponding parent, this lets Spanner write to all tables in parallel.
+However, for `INTERLEAVE IN PARENT` tables it is recommended that you create all tables using `INTERLEAVE IN` semantics during bulk load, which physically interleaves rows, but does not enforce referential integrity. This gives you the performance benefits of locality, but does not require the up-front ordering. Now that child rows can be inserted before the corresponding parent, this lets Spanner write to all tables in parallel.
 
-Once all tables are loaded, you can then migrate the interleaved tables to start enforcing the parent-child relationship using the `  ALTER TABLE t1 SET INTERLEAVE IN PARENT t2  ` statement. This validates referential integrity, failing if there are any orphaned child rows. If validation fails, identify missing parent rows using the following query.
+Once all tables are loaded, you can then migrate the interleaved tables to start enforcing the parent-child relationship using the `ALTER TABLE t1 SET INTERLEAVE IN PARENT t2` statement. This validates referential integrity, failing if there are any orphaned child rows. If validation fails, identify missing parent rows using the following query.
 
 ``` 
       SELECT pk1, pk2 FROM child

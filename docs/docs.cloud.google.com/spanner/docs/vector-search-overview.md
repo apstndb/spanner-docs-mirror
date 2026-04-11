@@ -26,7 +26,7 @@ Spanner supports two methods for finding similar vectors:
 
   - **Scalability** : Supports billions of vectors for unpartitioned ANN search, or trillions of vectors for partitioned KNN workloads.
 
-  - **Unified AI database and engine** : Use the [GoogleSQL `  ML.PREDICT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) or [PostgreSQL `  spanner.ML_PREDICT_ROW  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#ml) function to generate embeddings from Vertex AI models directly within your query flow.
+  - **Unified AI database and engine** : Use the [GoogleSQL `ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) or [PostgreSQL `spanner.ML_PREDICT_ROW`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#ml) function to generate embeddings from Vertex AI models directly within your query flow.
 
   - **Inline filtering** : Efficiently combine vector search with structured metadata filters (for example, "Find similar images where category = 'shoes' and price \< 100") without losing performance.
 

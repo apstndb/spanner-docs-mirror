@@ -6,7 +6,7 @@ The commit timestamp, based on [TrueTime](https://docs.cloud.google.com/spanner/
 
 To insert commit timestamps in your database, complete the following steps:
 
-1.  Create a column of type `  SPANNER.COMMIT_TIMESTAMP  ` . For example:
+1.  Create a column of type `SPANNER.COMMIT_TIMESTAMP` . For example:
     
         CREATE TABLE Performances (
             ...
@@ -15,22 +15,22 @@ To insert commit timestamps in your database, complete the following steps:
             PRIMARY KEY (...)
         ) ;
 
-2.  If you are performing inserts or updates with DML, use the `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` function to write the commit timestamp.
+2.  If you are performing inserts or updates with DML, use the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function to write the commit timestamp.
     
-    If you are performing inserts or updates with prepared statements or mutations, use the placeholder string `  SPANNER.COMMIT_TIMESTAMP()  ` for your commit timestamp column. You can also use the commit timestamp constant provided by the client library. For example, this constant in the Java client is `  Value.COMMIT_TIMESTAMP  ` .
+    If you are performing inserts or updates with prepared statements or mutations, use the placeholder string `SPANNER.COMMIT_TIMESTAMP()` for your commit timestamp column. You can also use the commit timestamp constant provided by the client library. For example, this constant in the Java client is `Value.COMMIT_TIMESTAMP` .
 
 When Spanner commits the transaction by using these placeholders as column values, the actual commit timestamp is written to the specified column. You can then use this column value to create a history of updates to the table.
 
 Commit timestamp values are not guaranteed to be unique. Transactions that write to non-overlapping sets of fields might have the same timestamp. Transactions that write to overlapping sets of fields have unique timestamps.
 
-Spanner commit timestamps have microsecond granularity, and they are converted to nanoseconds when stored in `  SPANNER.COMMIT_TIMESTAMP  ` columns.
+Spanner commit timestamps have microsecond granularity, and they are converted to nanoseconds when stored in `SPANNER.COMMIT_TIMESTAMP` columns.
 
 ### Keys and indexes
 
-You can use a commit timestamp column as a primary key column or as a non-key column. Primary keys can be defined as `  ASC  ` or `  DESC  ` .
+You can use a commit timestamp column as a primary key column or as a non-key column. Primary keys can be defined as `ASC` or `DESC` .
 
-  - `  ASC  ` (default) - Ascending keys are ideal for answering queries from a specific time forward.
-  - `  DESC  ` - Descending keys keep the latest rows at the top of the table. They provide quick access to the latest records.
+  - `ASC` (default) - Ascending keys are ideal for answering queries from a specific time forward.
+  - `DESC` - Descending keys keep the latest rows at the top of the table. They provide quick access to the latest records.
 
 ### Avoid hotspots
 
@@ -57,24 +57,24 @@ Hotspots reduce data performance, even with low write rates. There is no perform
 
 ### Add a commit timestamp column to an existing table
 
-To add a commit timestamp column to an existing table, use the `  ALTER TABLE  ` statement. For example to add a `  LastUpdateTime  ` column to the `  Performances  ` table, use the following statement:
+To add a commit timestamp column to an existing table, use the `ALTER TABLE` statement. For example to add a `LastUpdateTime` column to the `Performances` table, use the following statement:
 
     ALTER TABLE Performances ADD COLUMN LastUpdateTime SPANNER.COMMIT_TIMESTAMP;
 
 ## Write a commit timestamp using a DML statement
 
-You use the `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
+You use the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
 
-**Note:** After you call the `  SPANNER.PENDING_COMMIT_TIMESTAMP()  ` function, the table and any derived index is unreadable to any subsequent SQL statements in the transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner returns an error.
+**Note:** After you call the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function, the table and any derived index is unreadable to any subsequent SQL statements in the transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner returns an error.
 
-The following DML statement updates the `  LastUpdateTime  ` column in the `  Performances  ` table with the commit timestamp:
+The following DML statement updates the `LastUpdateTime` column in the `Performances` table with the commit timestamp:
 
     UPDATE Performances SET LastUpdateTime = SPANNER.PENDING_COMMIT_TIMESTAMP()
        WHERE SingerId=1 AND VenueId=2 AND EventDate="2015-10-21"
 
 ## Insert a row using a mutation
 
-When inserting a row, Spanner writes the commit timestamp value only if you include the column in the column list and pass the `  spanner.commit_timestamp()  ` placeholder string (or client library constant) as its value. For example:
+When inserting a row, Spanner writes the commit timestamp value only if you include the column in the column list and pass the `spanner.commit_timestamp()` placeholder string (or client library constant) as its value. For example:
 
 ### C++
 
@@ -341,15 +341,15 @@ When inserting a row, Spanner writes the commit timestamp value only if you incl
     
     puts "Inserted data"
 
-If you have mutations on rows in multiple tables, you must specify `  spanner.commit_timestamp()  ` (or client library constant) for the commit timestamp column in each table.
+If you have mutations on rows in multiple tables, you must specify `spanner.commit_timestamp()` (or client library constant) for the commit timestamp column in each table.
 
 <span id="updating_a_row"></span>
 
 ## Update a row using a mutation
 
-When updating a row, Spanner writes the commit timestamp value only if you include the column in the column list and pass the `  spanner.commit_timestamp()  ` placeholder string (or client library constant) as its value. You cannot update the primary key of a row. To update the primary key, delete the existing row and create a new row.
+When updating a row, Spanner writes the commit timestamp value only if you include the column in the column list and pass the `spanner.commit_timestamp()` placeholder string (or client library constant) as its value. You cannot update the primary key of a row. To update the primary key, delete the existing row and create a new row.
 
-For example, to update a commit timestamp column named `  LastUpdateTime  ` :
+For example, to update a commit timestamp column named `LastUpdateTime` :
 
 ### C++
 
@@ -607,7 +607,7 @@ For example, to update a commit timestamp column named `  LastUpdateTime  ` :
     
     puts "Updated data"
 
-If you have mutations on rows in multiple tables, you must specify `  spanner.commit_timestamp()  ` (or the client library constant) for the commit timestamp column in each table.
+If you have mutations on rows in multiple tables, you must specify `spanner.commit_timestamp()` (or the client library constant) for the commit timestamp column in each table.
 
 ## Query a commit timestamp column
 
@@ -918,7 +918,7 @@ The following example queries the commit timestamp column of the table.
 
 ## Provide your own value for the commit timestamp column
 
-In your code, you can provide your own value for the commit timestamp column instead of passing `  spanner.commit_timestamp()  ` (or the available client library constant) as the column value. The value must be a timestamp in the past. This restriction ensures that writing timestamps is an inexpensive and fast operation. One way to confirm that a value is in the past is to compare it to the value returned by the `  CURRENT_TIMESTAMP  ` SQL function. The server returns a `  FailedPrecondition  ` error if a future timestamp is specified.
+In your code, you can provide your own value for the commit timestamp column instead of passing `spanner.commit_timestamp()` (or the available client library constant) as the column value. The value must be a timestamp in the past. This restriction ensures that writing timestamps is an inexpensive and fast operation. One way to confirm that a value is in the past is to compare it to the value returned by the `CURRENT_TIMESTAMP` SQL function. The server returns a `FailedPrecondition` error if a future timestamp is specified.
 
 ## Create a changelog
 
@@ -939,21 +939,21 @@ Suppose that you want to create a changelog of every mutation that happens to a 
       PRIMARY KEY (UserId, DocumentId, Ts)
     ) INTERLEAVE IN PARENT Documents;
 
-To create a changelog, insert a new row in `  DocumentHistory  ` in the same transaction in which you insert or update a row in `  Document  ` . In the insertion of the new row in `  DocumentHistory  ` , use the placeholder `  spanner.commit_timestamp()  ` (or client library constant) to tell Spanner to write the commit timestamp into column `  Ts  ` . Interleaving the `  DocumentsHistory  ` table with the `  Documents  ` table permits data locality and more efficient inserts and updates. However, it also adds the constraint that the parent and child rows must be deleted together. To keep the rows in `  DocumentHistory  ` after rows in `  Documents  ` are deleted, don't interleave the tables.
+To create a changelog, insert a new row in `DocumentHistory` in the same transaction in which you insert or update a row in `Document` . In the insertion of the new row in `DocumentHistory` , use the placeholder `spanner.commit_timestamp()` (or client library constant) to tell Spanner to write the commit timestamp into column `Ts` . Interleaving the `DocumentsHistory` table with the `Documents` table permits data locality and more efficient inserts and updates. However, it also adds the constraint that the parent and child rows must be deleted together. To keep the rows in `DocumentHistory` after rows in `Documents` are deleted, don't interleave the tables.
 
 ## Optimize recent-data queries with commit timestamps
 
 Commit timestamps optimize your Spanner database and can reduce query I/O when retrieving data written after a particular time.
 
-To activate this optimization, a query's `  WHERE  ` clause must include a comparison between a table's commit timestamp column and a specific time that you provide, with the following attributes:
+To activate this optimization, a query's `WHERE` clause must include a comparison between a table's commit timestamp column and a specific time that you provide, with the following attributes:
 
   - Provide the specific time as a *constant expression* : a literal, a parameter, or a function whose own arguments evaluate to constants.
 
-  - Compare whether the commit timestamp is more recent than the given time, through either the `  >  ` or `  >=  ` operators.
+  - Compare whether the commit timestamp is more recent than the given time, through either the `>` or `>=` operators.
 
-  - Optionally, add further restrictions to the `  WHERE  ` clause with `  AND  ` . Extending the clause with `  OR  ` disqualifies the query from this optimization.
+  - Optionally, add further restrictions to the `WHERE` clause with `AND` . Extending the clause with `OR` disqualifies the query from this optimization.
 
-For example, consider the following `  Performances  ` table, which includes a commit timestamp column:
+For example, consider the following `Performances` table, which includes a commit timestamp column:
 
     CREATE TABLE Performances (
       SingerId bigint NOT NULL,

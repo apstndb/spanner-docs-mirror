@@ -35,11 +35,11 @@ You must create a Google Cloud project that is connected to a billing account.
 
 <!-- end list -->
 
-4.  To get the permissions that you need to create instances and databases, ask your administrator to grant you the [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `  roles/spanner.admin  ` ) IAM role on your project.
+4.  To get the permissions that you need to create instances and databases, ask your administrator to grant you the [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `roles/spanner.admin` ) IAM role on your project.
 
 <!-- end list -->
 
-5.  To get the permissions that you need to query Spanner graphs if you're not granted the Cloud Spanner Admin role, ask your administrator to grant you the [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` ) IAM role on your project.
+5.  To get the permissions that you need to query Spanner graphs if you're not granted the Cloud Spanner Admin role, ask your administrator to grant you the [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` ) IAM role on your project.
 
 ## Create an instance
 
@@ -62,7 +62,7 @@ When you first use Spanner, you must create an [instance](https://docs.cloud.goo
 
 5.  Click **Continue** .
 
-6.  In **Instance name** , enter an instance name, for example, `  test-instance  ` .
+6.  In **Instance name** , enter an instance name, for example, `test-instance` .
 
 7.  In **Instance ID** keep or change the instance ID. Your instance ID defaults to your instance name, but you can change it. Your instance name and instance ID can be the same or they can be different.
 
@@ -89,17 +89,17 @@ After your instance starts running, you can create your database. You define you
     
     [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
-2.  Click the instance you created, for example, `  test-instance  ` .
+2.  Click the instance you created, for example, `test-instance` .
 
 3.  In **Overview** , under the name of your instance, click **Create database** .
 
-4.  In **Database name** , enter a database name. For example, `  example-db  ` .
+4.  In **Database name** , enter a database name. For example, `example-db` .
 
 5.  In **Select database dialect** , choose Google Standard SQL.
     
     Spanner vector search isn't available in the PostgreSQL dialect.
 
-6.  Copy and paste the following schema into the **DDL Templates** editor tab. The schema defines a `  Products  ` table.
+6.  Copy and paste the following schema into the **DDL Templates** editor tab. The schema defines a `Products` table.
     
     ``` 
       CREATE TABLE products (
@@ -121,11 +121,11 @@ After your instance starts running, you can create your database. You define you
 
 ## Create an embedding model
 
-When you use the [`  CREATE MODEL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) DDL statement in Spanner, you are registering a reference to the Vertex AI model's endpoint from your database. After you register the model, you can use the [`  ML.PREDICT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function to access the model in your queries.
+When you use the [`CREATE MODEL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) DDL statement in Spanner, you are registering a reference to the Vertex AI model's endpoint from your database. After you register the model, you can use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function to access the model in your queries.
 
 The following example demonstrates how to register a Vertex AI [text embedding model](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings) , which is then used to perform similarity search to find similar products in a database.
 
-**Note:** The following schema uses the `  us-central1  ` Vertex AI endpoint. Change this in the `  EmbeddingsModel  ` definition if you chose a different Spanner region when creating the instance.
+**Note:** The following schema uses the `us-central1` Vertex AI endpoint. Change this in the `EmbeddingsModel` definition if you chose a different Spanner region when creating the instance.
 
 1.  In the database **Overview** page, click **Spanner Studio** .
 
@@ -152,7 +152,7 @@ The following example demonstrates how to register a Vertex AI [text embedding m
 
 ## Load data
 
-To load the Cymbal sample data into the `  products  ` table, do the following:
+To load the Cymbal sample data into the `products` table, do the following:
 
 1.  In a new tab in **Spanner Studio** , copy and paste the following insert statement:
     
@@ -174,7 +174,7 @@ To load the Cymbal sample data into the `  products  ` table, do the following:
 
 After you register a model and load data into Spanner, you can generate vector embeddings with the product descriptions from your data. Vector embeddings transform text data into a numerical value that captures the meaning and context of words. This transformation is crucial for performing a semantic search.
 
-In this step, you'll populate the `  productDescriptionEmbedding  ` column by generating embeddings from the `  productDescription  ` column using `  ML.PREDICT  ` . This lets you perform a vector similarity search in the next step.
+In this step, you'll populate the `productDescriptionEmbedding` column by generating embeddings from the `productDescription` column using `ML.PREDICT` . This lets you perform a vector similarity search in the next step.
 
 1.  In a new tab in **Spanner Studio** , copy and paste the following update statement:
     
@@ -193,10 +193,10 @@ In this step, you'll populate the `  productDescriptionEmbedding  ` column by ge
 
 In the following example, you provide a natural language search request using a SQL query. The SQL query performs a vector similarity search using the vector embeddings you generated previously. The query performs the search by doing the following:
 
-  - Uses `  ML.PREDICT  ` to generate an embedding for the given search query ("I'd like to buy a starter bike for my 3 year old child").
-  - Calculates the [`  COSINE_DISTANCE  `](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) between this query embedding and the `  productDescriptionEmbedding  ` of each product in the products table to find similar results in your Cymbal store.
-  - Filters the results to only include products with an `  inventoryCount  ` greater than 0.
-  - Orders the results by the calculated distance and returns the top five closest matches, along with the `  productName  ` , `  productDescription  ` , and `  inventoryCount  ` .
+  - Uses `ML.PREDICT` to generate an embedding for the given search query ("I'd like to buy a starter bike for my 3 year old child").
+  - Calculates the [`COSINE_DISTANCE`](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) between this query embedding and the `productDescriptionEmbedding` of each product in the products table to find similar results in your Cymbal store.
+  - Filters the results to only include products with an `inventoryCount` greater than 0.
+  - Orders the results by the calculated distance and returns the top five closest matches, along with the `productName` , `productDescription` , and `inventoryCount` .
 
 <!-- end list -->
 
@@ -267,9 +267,9 @@ To scale and use ANN vector search in Spanner, do the following:
 
 Spanner accelerates ANN vector searches by using a specialized vector index that leverages Google Research's [Scalable Nearest Neighbor (ScaNN)](https://github.com/google-research/google-research/tree/master/scann) .
 
-To create a vector index in your dataset, you need to modify the `  productDescriptionEmbeddings  ` column to define a `  vector_length  ` annotation. The `  vector_length  ` annotation indicates the dimension of each vector. The following DDL statements drops the `  productDescriptionEmbedding  ` column, and re-creates it with the `  vector_length  ` . The maximum length (dimension) of the vector varies depending on the [embedding model](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) you've chosen.
+To create a vector index in your dataset, you need to modify the `productDescriptionEmbeddings` column to define a `vector_length` annotation. The `vector_length` annotation indicates the dimension of each vector. The following DDL statements drops the `productDescriptionEmbedding` column, and re-creates it with the `vector_length` . The maximum length (dimension) of the vector varies depending on the [embedding model](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) you've chosen.
 
-1.  In a new tab in **Spanner Studio** , copy and paste the following DDL statement to re-create the `  productDescriptionEmbedding  ` column:
+1.  In a new tab in **Spanner Studio** , copy and paste the following DDL statement to re-create the `productDescriptionEmbedding` column:
     
         ALTER TABLE products DROP COLUMN productDescriptionEmbedding;
         ALTER TABLE products
@@ -300,7 +300,7 @@ To create a vector index in your dataset, you need to modify the `  productDescr
 
 6.  Click **Run** .
 
-**Note:** In a production environment, instead of dropping the original embedding column first, we recommend that you add a new column with the new `  vector_length  ` definition. Then, re-generate the embeddings in the new column. Finally, modify your applications to use the new column before dropping the original column.
+**Note:** In a production environment, instead of dropping the original embedding column first, we recommend that you add a new column with the new `vector_length` definition. Then, re-generate the embeddings in the new column. Finally, modify your applications to use the new column before dropping the original column.
 
 ### Use ANN vector distance function
 
@@ -308,8 +308,8 @@ To use ANN vector search in Spanner, modify the following in your SQL query:
 
   - Generate the prompt embedding separately, instead of within the SQL query.
   - Copy the results of the embeddings into the query.
-  - Use the `  FORCE_INDEX  ` hint to reference the new vector index: `  @{force_index=ProductDescriptionEmbeddingIndex}  `
-  - Use the `  APPROX_COSINE_DISTANCE  ` vector distance function instead of `  COSINE_DISTANCE  ` . The `  JSON '{"num_leaves_to_search": num_leaves }'  ` option is required.
+  - Use the `FORCE_INDEX` hint to reference the new vector index: `@{force_index=ProductDescriptionEmbeddingIndex}`
+  - Use the `APPROX_COSINE_DISTANCE` vector distance function instead of `COSINE_DISTANCE` . The `JSON '{"num_leaves_to_search": num_leaves }'` option is required.
 
 <!-- end list -->
 
@@ -368,7 +368,7 @@ To use ANN vector search in Spanner, modify the following in your SQL query:
         |                  | bike lights...     |                |                    |
         *------------------+--------------------+----------------+--------------------*/
     
-    The Cymbal Sprout, with its `  APPROX_COSINE_DISTANCE  ` of 0.30935457151661594, has the highest degree of similarity to the original query.
+    The Cymbal Sprout, with its `APPROX_COSINE_DISTANCE` of 0.30935457151661594, has the highest degree of similarity to the original query.
     
     For more information about interpreting the relationship between vector functions and similarity, see [Choose among vector distance functions to measure vector embeddings similarity](https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function) .
 

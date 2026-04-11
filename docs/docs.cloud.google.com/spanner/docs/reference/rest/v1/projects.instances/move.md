@@ -12,7 +12,7 @@
 
 Moves an instance to the target instance configuration. You can use the returned long-running operation to track the progress of moving the instance.
 
-`  instances.move  ` returns `  FAILED_PRECONDITION  ` if the instance meets any of the following criteria:
+`instances.move` returns `FAILED_PRECONDITION` if the instance meets any of the following criteria:
 
   - Is undergoing a move to a different instance configuration
   - Has backups
@@ -37,14 +37,14 @@ While the operation is pending:
   - Both the source and target instance configurations are subject to hourly compute and storage charges.
   - The instance might experience higher read-write latencies and a higher transaction abort rate. However, moving an instance doesn't cause any downtime.
 
-The returned long-running operation has a name of the format `  <instance_name>/operations/<operationId>  ` and can be used to track the move instance operation. The metadata field type is `  MoveInstanceMetadata  ` . The response field type is `  Instance  ` , if successful. Cancelling the operation sets its metadata's `  cancelTime  ` . Cancellation is not immediate because it involves moving any data previously moved to the target instance configuration back to the original instance configuration. You can use this operation to track the progress of the cancellation. Upon successful completion of the cancellation, the operation terminates with `  CANCELLED  ` status.
+The returned long-running operation has a name of the format `<instance_name>/operations/<operationId>` and can be used to track the move instance operation. The metadata field type is `  MoveInstanceMetadata  ` . The response field type is `  Instance  ` , if successful. Cancelling the operation sets its metadata's `  cancelTime  ` . Cancellation is not immediate because it involves moving any data previously moved to the target instance configuration back to the original instance configuration. You can use this operation to track the progress of the cancellation. Upon successful completion of the cancellation, the operation terminates with `CANCELLED` status.
 
 If not cancelled, upon completion of the returned operation:
 
   - The instance successfully moves to the target instance configuration.
   - You are billed for compute and storage in target instance configuration.
 
-Authorization requires the `  spanner.instances.update  ` permission on the resource `  instance  ` .
+Authorization requires the `spanner.instances.update` permission on the resource `  instance  ` .
 
 For more details, see [Move an instance](https://cloud.google.com/spanner/docs/move-instance) .
 
@@ -83,7 +83,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{name=projects/*/instances/*}:move  `
+`POST https://spanner.googleapis.com/v1/{name=projects/*/instances/*}:move`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -91,15 +91,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
-Required. The instance to move. Values are of the form `  projects/<project>/instances/<instance>  ` .
+Required. The instance to move. Values are of the form `projects/<project>/instances/<instance>` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  name  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `name` :
 
-  - `  spanner.instances.update  `
+  - `spanner.instances.update`
 
 ### Request body
 
@@ -116,29 +116,22 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;targetConfig&quot;: string,
-  &quot;targetDatabaseMoveConfigs&quot;: [
-    {
-      object (DatabaseMoveConfig)
-    }
-  ]
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;targetConfig&quot;: string,&quot;targetDatabaseMoveConfigs&quot;: [{object (DatabaseMoveConfig)}]}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  targetConfig  `
+`targetConfig`
 
-`  string  `
+`string`
 
-Required. The target instance configuration where to move the instance. Values are of the form `  projects/<project>/instanceConfigs/<config>  ` .
+Required. The target instance configuration where to move the instance. Values are of the form `projects/<project>/instanceConfigs/<config>` .
 
-`  targetDatabaseMoveConfigs[]  `
+`targetDatabaseMoveConfigs[]`
 
-`  object ( DatabaseMoveConfig  ` )
+` object ( DatabaseMoveConfig  ` )
 
 Optional. The configuration for each database in the target instance configuration.
 
@@ -150,8 +143,8 @@ If successful, the response body contains an instance of `  Operation  ` .
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
@@ -170,27 +163,22 @@ The configuration for each database in the target instance configuration.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;databaseId&quot;: string,
-  &quot;encryptionConfig&quot;: {
-    object (EncryptionConfig)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;databaseId&quot;: string,&quot;encryptionConfig&quot;: {object (EncryptionConfig)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  databaseId  `
+`databaseId`
 
-`  string  `
+`string`
 
-Required. The unique identifier of the database resource in the Instance. For example, if the database uri is `  projects/foo/instances/bar/databases/baz  ` , then the id to supply here is baz.
+Required. The unique identifier of the database resource in the Instance. For example, if the database uri is `projects/foo/instances/bar/databases/baz` , then the id to supply here is baz.
 
-`  encryptionConfig  `
+`encryptionConfig`
 
-`  object ( EncryptionConfig  ` )
+` object ( EncryptionConfig  ` )
 
 Optional. Encryption configuration to be used for the database in the target configuration. The encryption configuration must be specified for every database which currently uses CMEK encryption. If a database currently uses Google-managed encryption and a target encryption configuration is not specified, then the database defaults to Google-managed encryption.
 
@@ -225,22 +213,22 @@ Encryption configuration for a Cloud Spanner database.
 
 Fields
 
-`  kmsKeyName  `
+`kmsKeyName`
 
-`  string  `
+`string`
 
-Optional. This field is maintained for backwards compatibility. For new callers, we recommend using `  kmsKeyNames  ` to specify the KMS key. Only use `  kmsKeyName  ` if the location of the KMS key matches the database instance's configuration (location) exactly. For example, if the KMS location is in `  us-central1  ` or `  nam3  ` , then the database instance must also be in `  us-central1  ` or `  nam3  ` .
+Optional. This field is maintained for backwards compatibility. For new callers, we recommend using `kmsKeyNames` to specify the KMS key. Only use `kmsKeyName` if the location of the KMS key matches the database instance's configuration (location) exactly. For example, if the KMS location is in `us-central1` or `nam3` , then the database instance must also be in `us-central1` or `nam3` .
 
-The Cloud KMS key that is used to encrypt and decrypt the restored database. Values are of the form `  projects/<project>/locations/<location>/keyRings/<key_ring>/cryptoKeys/<kmsKeyName>  ` .
+The Cloud KMS key that is used to encrypt and decrypt the restored database. Values are of the form `projects/<project>/locations/<location>/keyRings/<key_ring>/cryptoKeys/<kmsKeyName>` .
 
-`  kmsKeyNames[]  `
+`kmsKeyNames[]`
 
-`  string  `
+`string`
 
-Optional. Specifies the KMS configuration for one or more keys used to encrypt the database. Values are of the form `  projects/<project>/locations/<location>/keyRings/<key_ring>/cryptoKeys/<kmsKeyName>  ` .
+Optional. Specifies the KMS configuration for one or more keys used to encrypt the database. Values are of the form `projects/<project>/locations/<location>/keyRings/<key_ring>/cryptoKeys/<kmsKeyName>` .
 
-The keys referenced by `  kmsKeyNames  ` must fully cover all regions of the database's instance configuration. Some examples:
+The keys referenced by `kmsKeyNames` must fully cover all regions of the database's instance configuration. Some examples:
 
   - For regional (single-region) instance configurations, specify a regional location KMS key.
-  - For multi-region instance configurations of type `  GOOGLE_MANAGED  ` , either specify a multi-region location KMS key or multiple regional location KMS keys that cover all regions in the instance configuration.
-  - For an instance configuration of type `  USER_MANAGED  ` , specify only regional location KMS keys to cover each region in the instance configuration. Multi-region location KMS keys aren't supported for `  USER_MANAGED  ` type instance configurations.
+  - For multi-region instance configurations of type `GOOGLE_MANAGED` , either specify a multi-region location KMS key or multiple regional location KMS keys that cover all regions in the instance configuration.
+  - For an instance configuration of type `USER_MANAGED` , specify only regional location KMS keys to cover each region in the instance configuration. Multi-region location KMS keys aren't supported for `USER_MANAGED` type instance configurations.

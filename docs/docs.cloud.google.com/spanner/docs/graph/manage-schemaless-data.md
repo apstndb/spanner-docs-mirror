@@ -14,11 +14,11 @@ For more information about when to use schemaless data management, see [Consider
 
 ## Model schemaless data
 
-Spanner Graph lets you create a graph from tables that maps rows to [nodes and edges](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#mapping-row-input-table-node-graph) . Instead of using separate tables for each element type, schemaless data modeling typically employs a single node table and a single edge table with a `  STRING  ` column for the label and a `  JSON  ` column for properties.
+Spanner Graph lets you create a graph from tables that maps rows to [nodes and edges](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#mapping-row-input-table-node-graph) . Instead of using separate tables for each element type, schemaless data modeling typically employs a single node table and a single edge table with a `STRING` column for the label and a `JSON` column for properties.
 
 ### Create input tables
 
-You can create a single `  GraphNode  ` table and a single `  GraphEdge  ` table to store schemaless data, as shown in the following example. Table names are for illustrative purposes—you can choose your own.
+You can create a single `GraphNode` table and a single `GraphEdge` table to store schemaless data, as shown in the following example. Table names are for illustrative purposes—you can choose your own.
 
     CREATE TABLE GraphNode (
       id INT64 NOT NULL,
@@ -37,11 +37,11 @@ You can create a single `  GraphNode  ` table and a single `  GraphEdge  ` table
 
 This example performs the following actions:
 
-  - Stores all nodes in a single table, `  GraphNode  ` , identified by a unique `  id  ` .
+  - Stores all nodes in a single table, `GraphNode` , identified by a unique `id` .
 
-  - Stores all edges in a single table, `  GraphEdge  ` , identified by a unique combination of source ( `  id  ` ), destination ( `  dest_id  ` ), and its own identifier ( `  edge_id  ` ). An `  edge_id  ` is included as part of the primary key to permit more than one edge from an `  id  ` to a `  dest_id  ` pair.
+  - Stores all edges in a single table, `GraphEdge` , identified by a unique combination of source ( `id` ), destination ( `dest_id` ), and its own identifier ( `edge_id` ). An `edge_id` is included as part of the primary key to permit more than one edge from an `id` to a `dest_id` pair.
 
-Both the node and edge tables have their own `  label  ` and `  properties  ` columns. These columns are of type `  STRING  ` and `  JSON  ` , respectively.
+Both the node and edge tables have their own `label` and `properties` columns. These columns are of type `STRING` and `JSON` , respectively.
 
 For more information about key choices for schemaless data management, see [Primary key definitions for nodes and edges](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#primary-key-definition-nodes-edges) .
 
@@ -49,8 +49,8 @@ For more information about key choices for schemaless data management, see [Prim
 
 The [CREATE PROPERTY GRAPH](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#gql_create_graph) statement maps the input tables in the previous section as nodes and edges. Use the following clauses to define labels and properties for schemaless data:
 
-  - `  DYNAMIC LABEL  ` : creates the label of a node or an edge from a `  STRING  ` column that's from the input table.
-  - `  DYNAMIC PROPERTIES  ` : creates properties of a node or an edge from a `  JSON  ` column that's from the input table.
+  - `DYNAMIC LABEL` : creates the label of a node or an edge from a `STRING` column that's from the input table.
+  - `DYNAMIC PROPERTIES` : creates properties of a node or an edge from a `JSON` column that's from the input table.
 
 The following example shows how to create a graph using these clauses:
 
@@ -70,9 +70,9 @@ The following example shows how to create a graph using these clauses:
 
 #### Define dynamic labels
 
-The `  DYNAMIC LABEL  ` clause designates a `  STRING  ` data type column to store the label values.
+The `DYNAMIC LABEL` clause designates a `STRING` data type column to store the label values.
 
-For example, in a `  GraphNode  ` row, if the `  label  ` column has a `  person  ` value, it maps to a `  Person  ` node within the graph. Likewise, in a `  GraphEdge  ` row, if the label column has a value of `  owns  ` , it maps to an `  Owns  ` edge within the graph.
+For example, in a `GraphNode` row, if the `label` column has a `person` value, it maps to a `Person` node within the graph. Likewise, in a `GraphEdge` row, if the label column has a value of `owns` , it maps to an `Owns` edge within the graph.
 
 ![Mapping a GraphNode label to a GraphEdge label](https://docs.cloud.google.com/static/spanner/docs/images/schemaless-data.svg)
 
@@ -80,9 +80,9 @@ For more information about limitations when using dynamic labels, see [Limitatio
 
 #### Define dynamic properties
 
-The `  DYNAMIC PROPERTIES  ` clause designates a `  JSON  ` data type column to store properties. JSON keys represent property names, and JSON values represent property values.
+The `DYNAMIC PROPERTIES` clause designates a `JSON` data type column to store properties. JSON keys represent property names, and JSON values represent property values.
 
-For example, when a `  GraphNode  ` row's `  properties  ` column has the JSON value `  '{"name": "David", "age": 43}'  ` , Spanner maps it to a node that has `  age  ` and `  name  ` properties with `  43  ` and `  "David"  ` as their respective values.
+For example, when a `GraphNode` row's `properties` column has the JSON value `'{"name": "David", "age": 43}'` , Spanner maps it to a node that has `age` and `name` properties with `43` and `"David"` as their respective values.
 
 **Note:** For more information about limitations when using dynamic properties, see [Limitations](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#limitations) .
 
@@ -94,7 +94,7 @@ You might not want to use schemaless data management in the following scenarios:
   - Your data is already stored in Spanner, and you prefer to build graphs from existing tables instead of introducing new, dedicated node and edge tables.
   - The [limitations](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#limitations) of schemaless data prevent adoption.
 
-In addition, if your workload is highly sensitive to write performance, especially when properties are frequently updated, using [schema defined properties](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#default-label-properties) with primitive data types such as `  STRING  ` or `  INT64  ` is more effective than using dynamic properties with the `  JSON  ` type.
+In addition, if your workload is highly sensitive to write performance, especially when properties are frequently updated, using [schema defined properties](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#default-label-properties) with primitive data types such as `STRING` or `INT64` is more effective than using dynamic properties with the `JSON` type.
 
 For more information about how to define the graph schema without using dynamic data labels and properties, see the [Spanner Graph schema overview](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) .
 
@@ -108,7 +108,7 @@ You can query schemaless graph data using [Graph Query Language (GQL)](https://d
 
 You can match nodes and edges by using the label expression in GQL.
 
-The following query matches connected nodes and edges that have the values `  account  ` and `  transfers  ` in their label column.
+The following query matches connected nodes and edges that have the values `account` and `transfers` in their label column.
 
     GRAPH FinGraph
     MATCH (a:Account {id: 1})-[t:Transfers]->(d:Account)
@@ -116,11 +116,11 @@ The following query matches connected nodes and edges that have the values `  ac
 
 ### Access properties
 
-Spanner models top-level keys and values of the `  JSON  ` data type as properties, such as `  age  ` and `  name  ` in the following example.
+Spanner models top-level keys and values of the `JSON` data type as properties, such as `age` and `name` in the following example.
 
-`  JSON document  `
+`JSON document`
 
-`  Properties  `
+`Properties`
 
 ``` 
    {
@@ -133,7 +133,7 @@ Spanner models top-level keys and values of the `  JSON  ` data type as properti
 
     "age": 43
 
-The following example shows how to access the property `  name  ` from the `  Person  ` node.
+The following example shows how to access the property `name` from the `Person` node.
 
     GRAPH FinGraph
     MATCH (person:Person {id: 1})
@@ -149,9 +149,9 @@ Spanner treats properties as values of the JSON data type. In some cases, such a
 
 In the following example, the query performs the following data type conversions:
 
-  - Converts the `  is_blocked  ` property to a boolean type to evaluate the expression.
-  - Converts the `  order_number_str  ` property to a string type and compares it with the literal value `  "302290001255747"  ` .
-  - Uses [LAX\_INT64](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) function to safely convert `  order_number_str  ` to an integer as the return type.
+  - Converts the `is_blocked` property to a boolean type to evaluate the expression.
+  - Converts the `order_number_str` property to a string type and compares it with the literal value `"302290001255747"` .
+  - Uses [LAX\_INT64](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) function to safely convert `order_number_str` to an integer as the return type.
 
 <!-- end list -->
 
@@ -168,7 +168,7 @@ This returns results similar to the following:
     | 302290001255747       |
     +-----------------------+
 
-In clauses such as `  GROUP BY  ` and `  ORDER BY  ` , you must also convert the JSON data type. The following example converts the `  city  ` property to a string type, which allows you to use it for grouping.
+In clauses such as `GROUP BY` and `ORDER BY` , you must also convert the JSON data type. The following example converts the `city` property to a string type, which allows you to use it for grouping.
 
     GRAPH FinGraph
     MATCH (person:Person {country: "South Korea"})
@@ -177,14 +177,14 @@ In clauses such as `  GROUP BY  ` and `  ORDER BY  ` , you must also convert the
 
 Tips for converting JSON data types to SQL data types:
 
-  - Strict converters, such as [`  INT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json) , perform rigorous type and value checks. Use strict converters when the JSON data type is known and enforced, for example, by using schema constraints to [enforce the property data type](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#enforce-property-data-type) .
-  - Flexible converters, such as [`  LAX_INT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) , convert the value safely when possible, and return `  NULL  ` when conversion isn't feasible. Use flexible converters when a rigorous check isn't required or types are difficult to enforce.
+  - Strict converters, such as [`INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json) , perform rigorous type and value checks. Use strict converters when the JSON data type is known and enforced, for example, by using schema constraints to [enforce the property data type](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#enforce-property-data-type) .
+  - Flexible converters, such as [`LAX_INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) , convert the value safely when possible, and return `NULL` when conversion isn't feasible. Use flexible converters when a rigorous check isn't required or types are difficult to enforce.
 
 For more information about data conversion, see [troubleshooting tips](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#common-issues) .
 
 #### Filter by property values
 
-In [property filters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#property_filters) , Spanner treats the filter parameters as values of `  JSON  ` data type. For example, in the following query, Spanner treats `  is_blocked  ` as a JSON `  boolean  ` and `  order_number_str  ` as a JSON `  string  ` .
+In [property filters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#property_filters) , Spanner treats the filter parameters as values of `JSON` data type. For example, in the following query, Spanner treats `is_blocked` as a JSON `boolean` and `order_number_str` as a JSON `string` .
 
     GRAPH FinGraph
     MATCH (a:Account {is_blocked: false})-[t:Transfers {order_number_str:"302290001255747"}]->()
@@ -198,7 +198,7 @@ This returns results similar to the following:
     | 7                     |
     +-----------------------+
 
-The filter parameter must match the property type and value. For example, when the `  order_number_str  ` filter parameter is an integer, Spanner finds no match because the property is a JSON `  string  ` .
+The filter parameter must match the property type and value. For example, when the `order_number_str` filter parameter is an integer, Spanner finds no match because the property is a JSON `string` .
 
     GRAPH FinGraph
     MATCH (a:Account {is_blocked: false})-[t:Transfers {order_number_str: 302290001255747}]->()
@@ -206,11 +206,11 @@ The filter parameter must match the property type and value. For example, when t
 
 #### Access nested JSON properties
 
-Spanner doesn't model nested JSON keys and values as properties. In the following example, Spanner doesn't model the JSON keys `  city  ` , `  state  ` , and `  country  ` as properties because they are nested under `  location  ` . However, you can access them with a JSON [field access operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#field_access_operator) or a JSON [subscript operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#json_subscript_operator) .
+Spanner doesn't model nested JSON keys and values as properties. In the following example, Spanner doesn't model the JSON keys `city` , `state` , and `country` as properties because they are nested under `location` . However, you can access them with a JSON [field access operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#field_access_operator) or a JSON [subscript operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#json_subscript_operator) .
 
-`  JSON document  `
+`JSON document`
 
-`  Properties  `
+`Properties`
 
 ``` 
    {
@@ -254,14 +254,14 @@ This section provides examples that show how to create, update, and delete graph
 
 #### Insert graph data
 
-The following example inserts a `  person  ` node. Label and property names must [use lowercase](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#labels-must-be-lowercase) .
+The following example inserts a `person` node. Label and property names must [use lowercase](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#labels-must-be-lowercase) .
 
     INSERT INTO GraphNode (id, label, properties)
     VALUES (4, "person", JSON'{"name": "David", "age": 43}');
 
 #### Update graph data
 
-The following example updates an `  Account  ` node and uses the [`  JSON_SET  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_set) function to set its `  is_blocked  ` property.
+The following example updates an `Account` node and uses the [`JSON_SET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_set) function to set its `is_blocked` property.
 
     UPDATE GraphNode
     SET properties = JSON_SET(
@@ -270,13 +270,13 @@ The following example updates an `  Account  ` node and uses the [`  JSON_SET  `
     )
     WHERE label = "account" AND id = 16;
 
-The following example updates a `  person  ` node with a new set of properties.
+The following example updates a `person` node with a new set of properties.
 
     UPDATE GraphNode
     SET properties = JSON'{"name": "David", "age": 43}'
     WHERE label = "person" AND id = 4;
 
-The following example uses the [`  JSON_REMOVE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_remove) function to remove the `  is_blocked  ` property from an `  Account  ` node. After execution, all other existing properties remain unchanged.
+The following example uses the [`JSON_REMOVE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_remove) function to remove the `is_blocked` property from an `Account` node. After execution, all other existing properties remain unchanged.
 
     UPDATE GraphNode
     SET properties = JSON_REMOVE(
@@ -287,7 +287,7 @@ The following example uses the [`  JSON_REMOVE  `](https://docs.cloud.google.com
 
 #### Delete graph data
 
-The following example deletes the `  Transfers  ` edge on `  Account  ` nodes that transferred to blocked accounts.
+The following example deletes the `Transfers` edge on `Account` nodes that transferred to blocked accounts.
 
     DELETE FROM GraphEdge
     WHERE label = "transfers" AND id IN {
@@ -336,7 +336,7 @@ The following example shows how to insert labels in lowercase values:
     INSERT INTO GraphNode (id, label) VALUES (1, "account");
     INSERT INTO GraphNode (id, label) VALUES (2, "account");
 
-You can use case-insensitive labels to match the `  GraphNode  ` or `  GraphEdge  ` .
+You can use case-insensitive labels to match the `GraphNode` or `GraphEdge` .
 
     GRAPH FinGraph
     MATCH (accnt:Account {id: 1})-[:Transfers]->(dest_accnt:Account)
@@ -348,12 +348,12 @@ You must store property names in lowercase. We recommend that you enforce this r
 
 While property names must be stored as lowercase, they aren't case sensitive when you reference them in your query.
 
-The following example inserts the `  name  ` and `  age  ` properties using lowercase.
+The following example inserts the `name` and `age` properties using lowercase.
 
     INSERT INTO GraphNode (id, label, properties)
     VALUES (25, "person", JSON '{"name": "Kim", "age": 27}');
 
-In query text, property names are case insensitive. For example, you can use either `  Age  ` or `  age  ` to access the property.
+In query text, property names are case insensitive. For example, you can use either `Age` or `age` to access the property.
 
     GRAPH FinGraph
     MATCH (n:Person {Age: 27})
@@ -361,7 +361,7 @@ In query text, property names are case insensitive. For example, you can use eit
 
 ### Additional limitations
 
-  - Spanner models only [top-level keys](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#access-properties) of the `  JSON  ` data type as properties.
+  - Spanner models only [top-level keys](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#access-properties) of the `JSON` data type as properties.
   - Property data types must conform to the Spanner JSON type [specifications](https://docs.cloud.google.com/spanner/docs/working-with-json#specs) .
 
 ## Best practices for schemaless data
@@ -370,13 +370,13 @@ This section describes best practices that help you model schemaless data.
 
 ### Define primary keys for nodes and edges
 
-A node's key should be unique across all graph nodes. For example, as an `  INT64  ` or string [`  UUID  `](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#universally_unique_identifier_uuid) column.
+A node's key should be unique across all graph nodes. For example, as an `INT64` or string [`UUID`](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#universally_unique_identifier_uuid) column.
 
-If multiple edges exist between two nodes, introduce a unique identifier for the edge. The [schema example](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#schema-example) uses an application logic `  INT64  ` `  edge_id  ` column.
+If multiple edges exist between two nodes, introduce a unique identifier for the edge. The [schema example](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#schema-example) uses an application logic `INT64` `edge_id` column.
 
 **Tip:** If you migrate data from a graph that uses both system-defined and user-defined IDs, use the user-defined ID in the primary key. This accelerates queries by those ID values.
 
-When you create the schema for node and edge tables, optionally include the `  label  ` column as a [primary key column](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#choose_a_primary_key) if the value is immutable. If you do this, the composite key formed by all key columns should be unique across all nodes or edges. This technique improves performance for queries that are only filtered by label.
+When you create the schema for node and edge tables, optionally include the `label` column as a [primary key column](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#choose_a_primary_key) if the value is immutable. If you do this, the composite key formed by all key columns should be unique across all nodes or edges. This technique improves performance for queries that are only filtered by label.
 
 For more information about primary key choice, see [Choose a primary key](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#choose_a_primary_key) .
 
@@ -384,22 +384,22 @@ For more information about primary key choice, see [Choose a primary key](https:
 
 To boost query performance for a property frequently used in filters, create a secondary index against a generated property column. Then, use it in a graph schema and queries.
 
-The following example shows how to add a generated `  age  ` column to the `  GraphNode  ` table for a `  person  ` node. The value is `  NULL  ` for nodes without the `  person  ` label.
+The following example shows how to add a generated `age` column to the `GraphNode` table for a `person` node. The value is `NULL` for nodes without the `person` label.
 
     ALTER TABLE GraphNode
     ADD COLUMN person_age INT64 AS
     (IF (label = "person", LAX_INT64(properties.age), NULL));
 
-The following DDL statement then creates a `  NULL FILTERED INDEX  ` for `  person_age  ` and interleaves it into the `  GraphNode  ` table for local access.
+The following DDL statement then creates a `NULL FILTERED INDEX` for `person_age` and interleaves it into the `GraphNode` table for local access.
 
     CREATE NULL_FILTERED INDEX IdxPersonAge
     ON GraphNode(id, label, person_age), INTERLEAVE IN GraphNode;
 
-The `  GraphNode  ` table includes new columns that are available as graph node properties. To reflect this in the property graph definition, use the `  CREATE OR REPLACE PROPERTY GRAPH  ` statement. This recompiles the definition and includes the new `  person_age  ` column as a property.
+The `GraphNode` table includes new columns that are available as graph node properties. To reflect this in the property graph definition, use the `CREATE OR REPLACE PROPERTY GRAPH` statement. This recompiles the definition and includes the new `person_age` column as a property.
 
 For more information, see [updating existing node or edge definitions](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-property-graph-schema) .
 
-The following statement recompiles the definition and includes the new `  person_age  ` column as a property.
+The following statement recompiles the definition and includes the new `person_age` column as a property.
 
     CREATE OR REPLACE PROPERTY GRAPH FinGraph
       NODE TABLES (
@@ -421,7 +421,7 @@ The following example runs a query with the indexed property.
     MATCH (person:Person {person_age: 43})
     RETURN person.id, person.name;
 
-Optionally, run the [`  ANALYZE  ` command](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) after index creation so that the query optimizer is updated with the latest database statistics.
+Optionally, run the [`ANALYZE` command](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) after index creation so that the query optimizer is updated with the latest database statistics.
 
 ### Use check constraints for data integrity
 
@@ -429,7 +429,7 @@ Spanner supports schema objects such as [check constraints](https://docs.cloud.g
 
 #### Enforce label values
 
-We recommend that you use `  NOT NULL  ` in the label column definition to avoid undefined label values.
+We recommend that you use `NOT NULL` in the label column definition to avoid undefined label values.
 
     CREATE TABLE GraphNode (
       id INT64 NOT NULL,
@@ -448,12 +448,12 @@ At query time, the label and property name are case insensitive.
 
 **Note:** Check constraints might impact write performance. If a constraint isn't met by a mutation, the mutation fails.
 
-The following example shows how to add a node label constraint to the `  GraphNode  ` table to ensure the label is in lowercase.
+The following example shows how to add a node label constraint to the `GraphNode` table to ensure the label is in lowercase.
 
     ALTER TABLE GraphNode ADD CONSTRAINT NodeLabelLowerCaseCheck
     CHECK(LOWER(label) = label);
 
-The following example shows how to add a check constraint to the edge property name. The check uses [`  JSON_KEYS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys) to access the top-level keys. [`  COALESCE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#coalesce) converts the output to an empty array if `  JSON_KEYS  ` returns `  NULL  ` and then checks that each key is lowercase.
+The following example shows how to add a check constraint to the edge property name. The check uses [`JSON_KEYS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys) to access the top-level keys. [`COALESCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#coalesce) converts the output to an empty array if `JSON_KEYS` returns `NULL` and then checks that each key is lowercase.
 
     ALTER TABLE GraphEdge ADD CONSTRAINT EdgePropertiesLowerCaseCheck
     CHECK(NOT array_includes(COALESCE(JSON_KEYS(properties, 1), []), key->key<>LOWER(key)));
@@ -462,7 +462,7 @@ The following example shows how to add a check constraint to the edge property n
 
 Create a [constraint](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) that checks if a property exists for a label.
 
-In the following example, the constraint checks if a `  person  ` node has a `  name  ` property.
+In the following example, the constraint checks if a `person` node has a `name` property.
 
     ALTER TABLE GraphNode
     ADD CONSTRAINT NameMustExistForPersonConstraint
@@ -472,40 +472,40 @@ In the following example, the constraint checks if a `  person  ` node has a `  
 
 Create property-based constraints that check if the property of a node or edge is unique across nodes or edges with the same label. To do this, use a [UNIQUE INDEX](https://docs.cloud.google.com/spanner/docs/secondary-indexes#unique-indexes) against the [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) of properties.
 
-In the following example, the unique index checks that the `  name  ` and `  country  ` properties combined are unique for any `  person  ` node.
+In the following example, the unique index checks that the `name` and `country` properties combined are unique for any `person` node.
 
-1.  Add a generated column for `  PersonName  ` .
+1.  Add a generated column for `PersonName` .
     
         ALTER TABLE GraphNode
         ADD COLUMN person_name STRING(MAX)
         AS (IF(label = 'person', STRING(properties.name), NULL)) Hidden;
 
-2.  Add a generated column for `  PersonCountry  ` .
+2.  Add a generated column for `PersonCountry` .
     
         ALTER TABLE GraphNode
         ADD COLUMN person_country STRING(MAX)
         AS (IF(label = 'person', STRING(properties.country), NULL)) Hidden;
 
-3.  Create a `  NULL_FILTERED  ` unique index against the `  PersonName  ` and `  PersonCountry  ` properties.
+3.  Create a `NULL_FILTERED` unique index against the `PersonName` and `PersonCountry` properties.
     
         CREATE UNIQUE NULL_FILTERED INDEX NameAndCountryMustBeUniqueForPerson
         ON GraphNode (person_name, person_country);
 
 #### Enforce property data type
 
-Enforce a property data type using a data type constraint on a property value for a label, as shown in the following example. This example uses the [`  JSON_TYPE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_type) function to check that the `  name  ` property of the `  person  ` label uses the `  STRING  ` type.
+Enforce a property data type using a data type constraint on a property value for a label, as shown in the following example. This example uses the [`JSON_TYPE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_type) function to check that the `name` property of the `person` label uses the `STRING` type.
 
     ALTER TABLE GraphNode
     ADD CONSTRAINT PersonNameMustBeStringTypeConstraint
     CHECK (IF(label = 'person', JSON_TYPE(properties.name) = 'string', TRUE));
 
-**Note:** The `  JSON_TYPE  ` function returns results in lowercase, such as `  string  ` and `  number  ` .
+**Note:** The `JSON_TYPE` function returns results in lowercase, such as `string` and `number` .
 
 ### Combine defined and dynamic labels
 
 Spanner allows nodes in the property graph to have both defined labels (defined in the schema) and dynamic labels (derived from data). Customize labels to use this flexibility.
 
-Consider the following schema that shows the creation of the `  GraphNode  ` table:
+Consider the following schema that shows the creation of the `GraphNode` table:
 
     CREATE OR REPLACE PROPERTY GRAPH FinGraph
       NODE TABLES (
@@ -515,15 +515,15 @@ Consider the following schema that shows the creation of the `  GraphNode  ` tab
           DYNAMIC PROPERTIES (properties)
       );
 
-Here, every node created from `  GraphNode  ` has the *defined* label `  Entity  ` . In addition, each node has a *dynamic* label determined by the value in its label column.
+Here, every node created from `GraphNode` has the *defined* label `Entity` . In addition, each node has a *dynamic* label determined by the value in its label column.
 
-Then, write queries that match nodes based on either label type. For example, the following query finds nodes using the defined `  Entity  ` label:
+Then, write queries that match nodes based on either label type. For example, the following query finds nodes using the defined `Entity` label:
 
     GRAPH FinGraph
     MATCH (node:Entity {id: 1}) -- Querying by the defined label
     RETURN node.name;
 
-Even though this query uses the defined label `  Entity  ` , remember that the matched node also carries a dynamic label based on its data.
+Even though this query uses the defined label `Entity` , remember that the matched node also carries a dynamic label based on its data.
 
 ### Schema examples
 
@@ -566,7 +566,7 @@ The following example shows how to create input tables and a property graph:
           DYNAMIC PROPERTIES (properties)
       );
 
-The following example uses an index to improve reverse edge traversal. The `  STORING (properties)  ` clause includes a copy of edge properties, which speeds up queries that filter on these properties. You can omit the `  STORING (properties)  ` clause if your queries don't benefit from it.
+The following example uses an index to improve reverse edge traversal. The `STORING (properties)` clause includes a copy of edge properties, which speeds up queries that filter on these properties. You can omit the `STORING (properties)` clause if your queries don't benefit from it.
 
     CREATE INDEX R_EDGE ON GraphEdge (dest_id, id, edge_id) STORING (properties),
     INTERLEAVE IN GraphNode;
@@ -575,7 +575,7 @@ The following example uses a label index to speed up matching nodes by labels.
 
     CREATE INDEX IDX_NODE_LABEL ON GraphNode (label);
 
-The following example adds constraints that enforce lowercase labels and properties. The last two examples use the [`  JSON_KEYS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys) function. Optionally, you can enforce the lowercase check in application logic.
+The following example adds constraints that enforce lowercase labels and properties. The last two examples use the [`JSON_KEYS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys) function. Optionally, you can enforce the lowercase check in application logic.
 
     ALTER TABLE GraphNode ADD CONSTRAINT node_label_lower_case
     CHECK(LOWER(label) = label);
@@ -593,7 +593,7 @@ The following example adds constraints that enforce lowercase labels and propert
 
 ### Optimize batch updates of dynamic properties with DML
 
-Modifying dynamic properties using functions like [`  JSON_SET  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_set) and [`  JSON_REMOVE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_remove) involves read-modify-write operations. This can lead to higher cost compared to updating properties of `  STRING  ` or `  INT64  ` type.
+Modifying dynamic properties using functions like [`JSON_SET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_set) and [`JSON_REMOVE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_remove) involves read-modify-write operations. This can lead to higher cost compared to updating properties of `STRING` or `INT64` type.
 
 If workloads involve batch updates to dynamic properties using DML, use the following recommendations to achieve better performance:
 
@@ -605,11 +605,11 @@ If workloads involve batch updates to dynamic properties using DML, use the foll
 
 **Tip:** When cyclic write traffic such as periodic batch updates occurs, use [autoscaling](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) to manage compute capacity effectively.
 
-Based on these suggestions, the following example shows how to update the `  is_blocked  ` property for 100 nodes in a single DML statement. The query parameters include the following:
+Based on these suggestions, the following example shows how to update the `is_blocked` property for 100 nodes in a single DML statement. The query parameters include the following:
 
-1.  `  @node_ids  ` : Keys of `  GraphNode  ` rows, stored in an `  ARRAY  ` parameter. If applicable, grouping and sorting them across DMLs achieves better performance.
+1.  `@node_ids` : Keys of `GraphNode` rows, stored in an `ARRAY` parameter. If applicable, grouping and sorting them across DMLs achieves better performance.
 
-2.  `  @is_blocked_values  ` : The corresponding values to be updated, stored in an `  ARRAY  ` parameter.
+2.  `@is_blocked_values` : The corresponding values to be updated, stored in an `ARRAY` parameter.
 
 <!-- end list -->
 
@@ -630,11 +630,11 @@ Based on these suggestions, the following example shows how to update the `  is_
 
 This section describes how to troubleshoot issues with schemaless data.
 
-### Property appears multiple times in the `     TO_JSON    ` result
+### Property appears multiple times in the `TO_JSON` result
 
 **Issue**
 
-The following node models the `  birthday  ` and `  name  ` properties as dynamic properties in its `  JSON  ` column. Duplicate `  birthday  ` and `  name  ` properties appear in the graph element JSON result.
+The following node models the `birthday` and `name` properties as dynamic properties in its `JSON` column. Duplicate `birthday` and `name` properties appear in the graph element JSON result.
 
     GRAPH FinGraph
     MATCH (n: Person {id: 14})
@@ -659,11 +659,11 @@ This returns results similar to the following:
 
 **Possible cause**
 
-By default, all columns of the base table are defined as properties. Using [`  TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) or [`  SAFE_TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) to return graph elements results in duplicate properties. This occurs because the `  JSON  ` column ( `  properties  ` ) is a schema-defined property, while the first-level keys of the `  JSON  ` are modeled as dynamic properties.
+By default, all columns of the base table are defined as properties. Using [`TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) or [`SAFE_TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) to return graph elements results in duplicate properties. This occurs because the `JSON` column ( `properties` ) is a schema-defined property, while the first-level keys of the `JSON` are modeled as dynamic properties.
 
 **Recommended solution**
 
-To avoid this behavior, use the [`  PROPERTIES ALL COLUMNS EXCEPT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#label_property_definition) clause to exclude the `  properties  ` column when you define properties in the schema, as shown in the following example:
+To avoid this behavior, use the [`PROPERTIES ALL COLUMNS EXCEPT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#label_property_definition) clause to exclude the `properties` column when you define properties in the schema, as shown in the following example:
 
     CREATE OR REPLACE PROPERTY GRAPH FinGraph
       NODE TABLES (
@@ -673,7 +673,7 @@ To avoid this behavior, use the [`  PROPERTIES ALL COLUMNS EXCEPT  `](https://do
           DYNAMIC PROPERTIES (properties)
       );
 
-After the schema change, the returned graph elements of the `  JSON  ` data type don't have duplicates.
+After the schema change, the returned graph elements of the `JSON` data type don't have duplicates.
 
     GRAPH FinGraph
     MATCH (n: Person {id: 1})
@@ -703,7 +703,7 @@ To fix the following issues, always use property value conversions when using a 
 
 **Possible cause**
 
-The query doesn't properly convert property values. For example, the `  name  ` property is not converted to `  STRING  ` type in comparison:
+The query doesn't properly convert property values. For example, the `name` property is not converted to `STRING` type in comparison:
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -727,7 +727,7 @@ This returns results similar to the following:
     | 1    |
     +------+
 
-Alternatively, use a [property filter](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#filter-property-values) to simplify equality comparisons where value conversion occurs automatically. Notice that the value's type ("Alex") must exactly match the property's `  STRING  ` type in `  JSON  ` .
+Alternatively, use a [property filter](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#filter-property-values) to simplify equality comparisons where value conversion occurs automatically. Notice that the value's type ("Alex") must exactly match the property's `STRING` type in `JSON` .
 
     GRAPH FinGraph
     MATCH (p:Person {name: 'Alex'})
@@ -741,7 +741,7 @@ This returns results similar to the following:
     | 1    |
     +------+
 
-#### `     RETURN DISTINCT    ` property value use without conversion
+#### `RETURN DISTINCT` property value use without conversion
 
 **Issue**
 
@@ -749,7 +749,7 @@ This returns results similar to the following:
 
 **Possible cause**
 
-In the following example, `  order_number_str  ` hasn't been converted before it's used in the `  RETURN DISTINCT  ` statement:
+In the following example, `order_number_str` hasn't been converted before it's used in the `RETURN DISTINCT` statement:
 
     GRAPH FinGraph
     MATCH -[t:Transfers]->
@@ -757,7 +757,7 @@ In the following example, `  order_number_str  ` hasn't been converted before it
 
 **Recommended solution**
 
-To fix this issue, use a value conversion before `  RETURN DISTINCT  ` .
+To fix this issue, use a value conversion before `RETURN DISTINCT` .
 
     GRAPH FinGraph
     MATCH -[t:Transfers]->
@@ -782,7 +782,7 @@ This returns results similar to the following:
 
 **Possible cause**
 
-In the following example, `  t.order_number_str  ` isn't converted before it's used to group JSON objects:
+In the following example, `t.order_number_str` isn't converted before it's used to group JSON objects:
 
     GRAPH FinGraph
     MATCH (a:Account)-[t:Transfers]->(b:Account)
@@ -815,7 +815,7 @@ This returns results similar to the following:
 
 **Possible cause**
 
-In the following example, `  t.amount  ` isn't converted before it's used for ordering results:
+In the following example, `t.amount` isn't converted before it's used for ordering results:
 
     GRAPH FinGraph
     MATCH (a:Account)-[t:Transfers]->(b:Account)
@@ -825,7 +825,7 @@ In the following example, `  t.amount  ` isn't converted before it's used for or
 
 **Recommended solution**
 
-To fix this issue, do a conversion on `  t.amount  ` in the `  ORDER BY  ` clause.
+To fix this issue, do a conversion on `t.amount` in the `ORDER BY` clause.
 
     GRAPH FinGraph
     MATCH (a:Account)-[t:Transfers]->(b:Account)
@@ -849,7 +849,7 @@ This returns results similar to the following:
 
 **Possible cause**
 
-In the following example, the `  order_number_str  ` property is stored as a JSON `  STRING  ` data type. If you try to perform a conversion to `  INT64  ` , it returns an error.
+In the following example, the `order_number_str` property is stored as a JSON `STRING` data type. If you try to perform a conversion to `INT64` , it returns an error.
 
     GRAPH FinGraph
     MATCH -[e:Transfers]->

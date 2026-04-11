@@ -1,6 +1,6 @@
-GoogleSQL for Spanner supports collation. Collation defines rules to sort and compare strings in an [`  ORDER BY  ` operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
+GoogleSQL for Spanner supports collation. Collation defines rules to sort and compare strings in an [`ORDER BY` operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
 
-By default, GoogleSQL sorts strings case-sensitively. This means that `  a  ` and `  A  ` are treated as different letters, and `  Z  ` would come before `  a  ` .
+By default, GoogleSQL sorts strings case-sensitively. This means that `a` and `A` are treated as different letters, and `Z` would come before `a` .
 
 **Example default sorting:** Apple, Zebra, apple
 
@@ -8,13 +8,13 @@ By contrast, collation lets you sort and compare strings case-insensitively or a
 
 **Example case-insensitive collation:** Apple, apple, Zebra
 
-To customize collation in the operation, include the [`  COLLATE  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#collate_clause) with a [collation specification](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#collate_spec_details) .
+To customize collation in the operation, include the [`COLLATE` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#collate_clause) with a [collation specification](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#collate_spec_details) .
 
 Collation is useful when you need fine-tuned control over how values are sorted, joined, or grouped in tables.
 
 ## Where you can assign a collation specification
 
-In the `  ORDER BY  ` clause, you can specify a collation specification for a collation-supported column. This overrides any collation specifications set previously.
+In the `ORDER BY` clause, you can specify a collation specification for a collation-supported column. This overrides any collation specifications set previously.
 
 For example:
 
@@ -26,9 +26,9 @@ For example:
 
 You can assign a collation specification to the following query statements.
 
-| Type    | Support                                                                                                                              |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Sorting | [`         ORDER BY        ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) |
+| Type    | Support                                                                                                             |
+| ------- | ------------------------------------------------------------------------------------------------------------------- |
+| Sorting | [`ORDER BY` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) |
 
 ## Collation specification details
 
@@ -40,38 +40,38 @@ If a collation specification isn't defined, the default collation specification 
 
 ### Default collation specification
 
-When a collation specification isn't assigned or is empty, the ordering behavior is identical to `  'unicode'  ` collation, which you can learn about in the [Unicode collation specification](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#unicode_collation) .
+When a collation specification isn't assigned or is empty, the ordering behavior is identical to `'unicode'` collation, which you can learn about in the [Unicode collation specification](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts#unicode_collation) .
 
 ### Unicode collation specification
 
     collation_specification:
       'language_tag[:collation_attribute]'
 
-A unicode collation specification indicates that the operation should use the [Unicode Collation Algorithm](http://www.unicode.org/reports/tr10/) to sort and compare strings. The collation specification can be a `  STRING  ` literal or a query parameter.
+A unicode collation specification indicates that the operation should use the [Unicode Collation Algorithm](http://www.unicode.org/reports/tr10/) to sort and compare strings. The collation specification can be a `STRING` literal or a query parameter.
 
 #### The language tag
 
-The language tag determines how strings are generally sorted and compared. Allowed values for `  language_tag  ` are:
+The language tag determines how strings are generally sorted and compared. Allowed values for `language_tag` are:
 
-  - A standard locale string: This name is usually two or three letters that represent the language, optionally followed by an underscore or dash and two letters that represent the region — for example, `  en_US  ` . These names are defined by the [Common Locale Data Repository (CLDR)](https://www.unicode.org/reports/tr35/#Unicode_locale_identifier) .
-  - `  und  ` : A locale string representing the *undetermined* locale. `  und  ` is a special language tag defined in the [IANA language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry) and used to indicate an undetermined locale. This is also known as the *root* locale and can be considered the *default* Unicode collation. It defines a reasonable, locale agnostic collation. It differs significantly from `  unicode  ` .
-  - `  unicode  ` : Returns data in Unicode code point order, which is identical to the ordering behavior when `  COLLATE  ` isn't used. The sort order will look largely arbitrary to human users.
+  - A standard locale string: This name is usually two or three letters that represent the language, optionally followed by an underscore or dash and two letters that represent the region — for example, `en_US` . These names are defined by the [Common Locale Data Repository (CLDR)](https://www.unicode.org/reports/tr35/#Unicode_locale_identifier) .
+  - `und` : A locale string representing the *undetermined* locale. `und` is a special language tag defined in the [IANA language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry) and used to indicate an undetermined locale. This is also known as the *root* locale and can be considered the *default* Unicode collation. It defines a reasonable, locale agnostic collation. It differs significantly from `unicode` .
+  - `unicode` : Returns data in Unicode code point order, which is identical to the ordering behavior when `COLLATE` isn't used. The sort order will look largely arbitrary to human users.
 
 #### The collation attribute
 
-In addition to the language tag, the unicode collation specification can have an optional `  collation_attribute  ` , which enables additional rules for sorting and comparing strings. Allowed values are:
+In addition to the language tag, the unicode collation specification can have an optional `collation_attribute` , which enables additional rules for sorting and comparing strings. Allowed values are:
 
-  - `  ci  ` : Collation is case-insensitive.
-  - `  cs  ` : Collation is case-sensitive. By default, `  collation_attribute  ` is implicitly `  cs  ` .
+  - `ci` : Collation is case-insensitive.
+  - `cs` : Collation is case-sensitive. By default, `collation_attribute` is implicitly `cs` .
 
-If you're using the `  unicode  ` language tag with a collation attribute, these caveats apply:
+If you're using the `unicode` language tag with a collation attribute, these caveats apply:
 
-  - `  unicode:cs  ` is identical to `  unicode  ` .
-  - `  unicode:ci  ` is identical to `  und:ci  ` . It's recommended to migrate `  unicode:ci  ` to `  binary  ` .
+  - `unicode:cs` is identical to `unicode` .
+  - `unicode:ci` is identical to `und:ci` . It's recommended to migrate `unicode:ci` to `binary` .
 
 #### Collation specification example
 
-This is what the `  ci  ` collation attribute looks like when used with the `  und  ` language tag in the `  ORDER BY  ` clause:
+This is what the `ci` collation attribute looks like when used with the `und` language tag in the `ORDER BY` clause:
 
     SELECT Place
     FROM Locations
@@ -79,16 +79,16 @@ This is what the `  ci  ` collation attribute looks like when used with the `  u
 
 #### Caveats
 
-  - Differing strings can be considered equal. For instance, `  ẞ  ` (LATIN CAPITAL LETTER SHARP S) is considered equal to `  'SS'  ` in some contexts. The following expressions both evaluate to `  TRUE  ` :
+  - Differing strings can be considered equal. For instance, `ẞ` (LATIN CAPITAL LETTER SHARP S) is considered equal to `'SS'` in some contexts. The following expressions both evaluate to `TRUE` :
     
-      - `  COLLATE('ẞ', 'und:ci') > COLLATE('SS', 'und:ci')  `
-      - `  COLLATE('ẞ1', 'und:ci') < COLLATE('SS2', 'und:ci')  `
+      - `COLLATE('ẞ', 'und:ci') > COLLATE('SS', 'und:ci')`
+      - `COLLATE('ẞ1', 'und:ci') < COLLATE('SS2', 'und:ci')`
     
     This is similar to how case insensitivity works.
 
   - In search operations, strings with different lengths could be considered equal. To ensure consistency, collation should be used without search tailoring.
 
-  - There are a wide range of unicode code points (punctuation, symbols, etc), that are treated as if they aren't there. So strings with and without them are sorted identically. For example, the format control code point `  U+2060  ` is ignored when the following strings are sorted:
+  - There are a wide range of unicode code points (punctuation, symbols, etc), that are treated as if they aren't there. So strings with and without them are sorted identically. For example, the format control code point `U+2060` is ignored when the following strings are sorted:
     
         SELECT *
         FROM UNNEST([
@@ -106,4 +106,4 @@ This is what the `  ci  ` collation attribute looks like when used with the `  u
         | orange3 |
         +---------*/
 
-  - Ordering *may* change. The Unicode specification of the `  und  ` collation can change occasionally, which can affect sorting order. If you need a stable sort order that's guaranteed to never change, use `  unicode  ` collation.
+  - Ordering *may* change. The Unicode specification of the `und` collation can change occasionally, which can affect sorting order. If you need a stable sort order that's guaranteed to never change, use `unicode` collation.

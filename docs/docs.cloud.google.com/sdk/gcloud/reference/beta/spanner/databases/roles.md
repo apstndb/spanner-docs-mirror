@@ -4,24 +4,24 @@ gcloud beta spanner databases roles - manage Cloud Spanner database roles
 
 SYNOPSIS
 
-`  gcloud beta spanner databases roles  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner databases roles` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage Cloud Spanner database roles.
+`(BETA)` Manage Cloud Spanner database roles.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  list  `  
-    `  (BETA)  ` List the Cloud Spanner database roles defined in the given database.
+    `(BETA)` List the Cloud Spanner database roles defined in the given database.
 
 NOTES
 

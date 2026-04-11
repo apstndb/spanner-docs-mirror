@@ -43,7 +43,7 @@ After you create your database, you can safeguard databases that are important t
 
 ### gcloud
 
-Use the `  gcloud spanner databases create  ` command.
+Use the `gcloud spanner databases create` command.
 
     ```sh
     gcloud spanner databases create DATABASE \
@@ -59,35 +59,35 @@ Use the `  gcloud spanner databases create  ` command.
 The following options are required:
 
   - `  DATABASE  `  
-    ID of the database or fully qualified identifier for the database. If specifying the fully qualified identifier, the `  --instance  ` flag can be omitted.
-  - `  --instance= INSTANCE  `  
+    ID of the database or fully qualified identifier for the database. If specifying the fully qualified identifier, the `--instance` flag can be omitted.
+  - ` --instance= INSTANCE  `  
     The Spanner instance for the database.
 
 The following options are optional:
 
-  - `  --async  `  
+  - `--async`  
     Return immediately, without waiting for the operation in progress to complete.
-  - `  --database-dialect= DATABASE_DIALECT  `  
-    The SQL dialect of the Spanner Database. Must be one of: `  POSTGRESQL  ` , `  GOOGLE_STANDARD_SQL  ` .
-  - `  --ddl= DDL  `  
-    Semi-colon separated DDL (data definition language) statements to run inside the newly created database. If there is an error in any statement, the database is not created. This flag is ignored if `  --ddl_file  ` is set. Not supported by PostgreSQL-dialect databases.
-  - `  --ddl-file= DDL_FILE  `  
-    Path of a file that contains semicolon separated DDL (data definition language) statements to run inside the newly created database. If there is an error in any statement, the database is not created. If `  --ddl_file  ` is set, `  --ddl  ` is ignored. Not supported by PostgreSQL-dialect databases.
+  - ` --database-dialect= DATABASE_DIALECT  `  
+    The SQL dialect of the Spanner Database. Must be one of: `POSTGRESQL` , `GOOGLE_STANDARD_SQL` .
+  - ` --ddl= DDL  `  
+    Semi-colon separated DDL (data definition language) statements to run inside the newly created database. If there is an error in any statement, the database is not created. This flag is ignored if `--ddl_file` is set. Not supported by PostgreSQL-dialect databases.
+  - ` --ddl-file= DDL_FILE  `  
+    Path of a file that contains semicolon separated DDL (data definition language) statements to run inside the newly created database. If there is an error in any statement, the database is not created. If `--ddl_file` is set, `--ddl` is ignored. Not supported by PostgreSQL-dialect databases.
 
 If you're specifying a [Cloud Key Management Service](https://cloud.google.com/security/products/security-key-management) key to use when creating the database, include the following options:
 
-  - `  --kms-key= KMS_KEY  `  
+  - ` --kms-key= KMS_KEY  `  
     ID of the key or fully qualified identifier for the key.
     
     This flag must be specified if any of the other arguments in this group are specified. The other arguments could be omitted if the fully qualified identifier is provided.
 
-  - `  --kms-keyring= KMS_KEYRING  `  
+  - ` --kms-keyring= KMS_KEYRING  `  
     Cloud KMS key ring ID of the key.
 
-  - `  --kms-location= KMS_LOCATION  `  
+  - ` --kms-location= KMS_LOCATION  `  
     Google Cloud location for the key.
 
-  - `  --kms-project= KMS_PROJECT  `  
+  - ` --kms-project= KMS_PROJECT  `  
     Google Cloud project ID for the key.
 
 ### Client (GoogleSQL)
@@ -897,17 +897,17 @@ If you choose to use a CSV file, you also need to upload a separate JSON file th
         
           - TYPE : the data type of the column.
         
-          - (Optional) NOT\_NULL\_VALUE : whether the column can store null values or not. Valid inputs are `  true  ` or `  false  ` . Defaults to `  false  ` .
+          - (Optional) NOT\_NULL\_VALUE : whether the column can store null values or not. Valid inputs are `true` or `false` . Defaults to `false` .
         
-          - (Optional): PRIMARY\_KEY\_ORDER : determines the primary key order. Set the value is set to `  0  ` for a non-primary key column. Set the value to an integer, for example, `  1  ` for a primary key column. Lower numbered columns appear earlier in a compound primary key.
+          - (Optional): PRIMARY\_KEY\_ORDER : determines the primary key order. Set the value is set to `0` for a non-primary key column. Set the value to an integer, for example, `1` for a primary key column. Lower numbered columns appear earlier in a compound primary key.
         
-        The CSV file expects a comma for the field delimiter and a new line for the line delimiter by default. For more information on using custom delimiters, see the [`  gcloud alpha spanner databases import  `](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/import) reference.
+        The CSV file expects a comma for the field delimiter and a new line for the line delimiter by default. For more information on using custom delimiters, see the [`gcloud alpha spanner databases import`](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/import) reference.
     
       - Select a new or existing database as the destination.
 
 5.  Click **Import** .
 
-6.  Spanner opens the Cloud Shell and populates a command that installs the [Spanner migration tool](https://googlecloudplatform.github.io/spanner-migration-tool/) and runs the [`  gcloud alpha spanner databases import  `](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/import) command. Press the `  ENTER  ` key to import data into your database.x
+6.  Spanner opens the Cloud Shell and populates a command that installs the [Spanner migration tool](https://googlecloudplatform.github.io/spanner-migration-tool/) and runs the [`gcloud alpha spanner databases import`](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/import) command. Press the `ENTER` key to import data into your database.x
 
 ## Use a sample dataset
 
@@ -956,7 +956,7 @@ To update the query optimizer version, use the following DDL statement:
 
     ALTER DATABASE DB-NAME SET spanner.optimizer_version TO DEFAULT;
 
-For more information about supported options, refer to the `  ALTER DATABASE  ` DDL reference for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
+For more information about supported options, refer to the `ALTER DATABASE` DDL reference for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
 
 For information about schema updates, see [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
@@ -978,7 +978,7 @@ For information about schema updates, see [Make schema updates](https://docs.clo
 
 ### gcloud
 
-To alter a database with the `  gcloud  ` command-line tool, use `  gcloud spanner databases ddl update  ` .
+To alter a database with the `gcloud` command-line tool, use `gcloud spanner databases ddl update` .
 
     gcloud spanner databases ddl update \
     (DATABASE : --instance=INSTANCE) \
@@ -986,15 +986,15 @@ To alter a database with the `  gcloud  ` command-line tool, use `  gcloud spann
     [--ddl=DDL] \
     [--ddl-file=DDL_FILE] \
 
-Refer to the [`  gcloud  ` reference](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) for details about the available options.
+Refer to the [`gcloud` reference](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) for details about the available options.
 
-Pass the database updates to the command with either the `  --ddl  ` flag, or the `  --ddl-file  ` flag. If a DDL file is specified, the `  --ddl  ` flag is ignored.
+Pass the database updates to the command with either the `--ddl` flag, or the `--ddl-file` flag. If a DDL file is specified, the `--ddl` flag is ignored.
 
-Refer to the `  ALTER DATABASE  ` DDL reference for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) for the DDL statements to include.
+Refer to the `ALTER DATABASE` DDL reference for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) for the DDL statements to include.
 
 ### DDL
 
-Refer to the `  ALTER DATABASE  ` DDL reference for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) for details.
+Refer to the `ALTER DATABASE` DDL reference for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) for details.
 
 ## Check the progress of schema update operations
 
@@ -1010,7 +1010,7 @@ To check the progress of your schema update operations, select one of the follow
 
 ### gcloud
 
-Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) to check the progress of an operation.
+Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) to check the progress of an operation.
 
 1.  Get the operation ID:
     
@@ -1022,7 +1022,7 @@ Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk
       - INSTANCE-NAME with the Spanner instance name.
       - DATABASE-NAME with the name of the database.
 
-2.  Run `  gcloud spanner operations describe  ` :
+2.  Run `gcloud spanner operations describe` :
     
         gcloud spanner operations describe OPERATION_ID\
         --instance=INSTANCE-NAME \
@@ -1034,7 +1034,7 @@ Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk
       - INSTANCE-NAME : The Spanner instance name.
       - DATABASE-NAME : The Spanner database name.
     
-    The `  progress  ` section in the output shows the percentage of the operation that's complete. The output looks similar to the following:
+    The `progress` section in the output shows the percentage of the operation that's complete. The output looks similar to the following:
     
         done: true
         metadata:
@@ -1077,7 +1077,7 @@ Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk
     
     #### curl (Linux, macOS, or Cloud Shell)
     
-    **Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+    **Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
     
     Execute the following command:
     
@@ -1087,7 +1087,7 @@ Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk
     
     #### PowerShell (Windows)
     
-    **Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+    **Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
     
     Execute the following command:
     
@@ -1150,7 +1150,7 @@ Existing backups are **not** deleted when a database is deleted. For more inform
 
 ### gcloud
 
-To delete a database with the `  gcloud  ` command-line tool, use `  gcloud spanner databases delete  ` .
+To delete a database with the `gcloud` command-line tool, use `gcloud spanner databases delete` .
 
     gcloud spanner databases delete \
       (DATABASE : --instance=INSTANCE)
@@ -1158,11 +1158,11 @@ To delete a database with the `  gcloud  ` command-line tool, use `  gcloud span
 The following options are required:
 
   - `  DATABASE  `  
-    ID of the database or fully qualified identifier for the database. If the fully qualified identifier is provided, the `  --instance  ` flag should be omitted.
-  - `  --instance= INSTANCE  `  
+    ID of the database or fully qualified identifier for the database. If the fully qualified identifier is provided, the `--instance` flag should be omitted.
+  - ` --instance= INSTANCE  `  
     The Spanner instance for the database.
 
-For more details refer to the [`  gcloud  ` reference](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/delete) .
+For more details refer to the [`gcloud` reference](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/delete) .
 
 ### DDL
 

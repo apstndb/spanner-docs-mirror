@@ -11,8 +11,8 @@ The emulator is also available as an open source project in [GitHub](https://git
 The emulator doesn't support the following:
 
   - TLS/HTTPS, authentication, Identity and Access Management, permissions, or roles.
-  - In the `  PLAN  ` or `  PROFILE  ` [query modes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode) , the query plan that is returned is empty.
-  - The [`  ANALYZE  ` statement](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#construct-statistics-package) . The emulator accepts but ignores it.
+  - In the `PLAN` or `PROFILE` [query modes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode) , the query plan that is returned is empty.
+  - The [`ANALYZE` statement](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#construct-statistics-package) . The emulator accepts but ignores it.
   - Any of the [audit logging](https://docs.cloud.google.com/spanner/docs/audit-logging) and monitoring tools.
 
 The emulator also differs from the Spanner production service in the following ways:
@@ -20,7 +20,7 @@ The emulator also differs from the Spanner production service in the following w
   - Error messages might not be consistent between the emulator and the production service.
   - Performance and scalability for the emulator is not comparable to the production service.
   - Read-write transactions and schema changes lock the entire database for exclusive access until they are completed.
-  - [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) and [`  partitionQuery  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) are supported, but the emulator doesn't check to ensure that statements are [partitionable](https://docs.cloud.google.com/spanner/docs/dml-partitioned#partitionable-idempotent) . This means that a partitioned DML or `  partitionQuery  ` statement might run in the emulator, but it might fail in the production service with the non-partitionable statement error.
+  - [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) and [`partitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) are supported, but the emulator doesn't check to ensure that statements are [partitionable](https://docs.cloud.google.com/spanner/docs/dml-partitioned#partitionable-idempotent) . This means that a partitioned DML or `partitionQuery` statement might run in the emulator, but it might fail in the production service with the non-partitionable statement error.
 
 For a complete list of APIs and features that are supported, unsupported, and partially supported, see the [README](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/blob/master/README.md) file in GitHub.
 
@@ -83,7 +83,7 @@ To use the emulator with gcloud CLI, you must disable authentication and overrid
     
         docker run -p 9010:9010 -p 9020:9020 gcr.io/cloud-spanner-emulator/emulator
     
-    This command runs the emulator and maps the ports in the container to the same ports on your local host. The emulator uses two local endpoints: `  localhost:9010  ` for gRPC requests and `  localhost:9020  ` for REST requests.
+    This command runs the emulator and maps the ports in the container to the same ports on your local host. The emulator uses two local endpoints: `localhost:9010` for gRPC requests and `localhost:9020` for REST requests.
 
 4.  Start the emulator using [gcloud CLI](https://docs.cloud.google.com/spanner/docs/emulator#start-emulator-gcloud) .
 
@@ -95,12 +95,12 @@ Start the emulator using the [gcloud emulators spanner](https://docs.cloud.googl
 
 The emulator uses two local endpoints:
 
-  - `  localhost:9010  ` for gRPC requests
-  - `  localhost:9020  ` for REST requests
+  - `localhost:9010` for gRPC requests
+  - `localhost:9020` for REST requests
 
 ## Use the client libraries with the emulator
 
-You can use [supported versions](https://docs.cloud.google.com/spanner/docs/emulator#supported-versions) of the client libraries with the emulator by setting the `  SPANNER_EMULATOR_HOST  ` environment variable. There are many ways to do this. For example:
+You can use [supported versions](https://docs.cloud.google.com/spanner/docs/emulator#supported-versions) of the client libraries with the emulator by setting the `SPANNER_EMULATOR_HOST` environment variable. There are many ways to do this. For example:
 
 **Important:** If you are using C\#, see the [additional instructions for C\#](https://docs.cloud.google.com/spanner/docs/emulator#cs) .
 
@@ -122,9 +122,9 @@ Or with [gcloud env-init](https://docs.cloud.google.com/sdk/gcloud/reference/emu
 
     gcloud emulators spanner env-init > set_vars.cmd && set_vars.cmd
 
-When your application starts, the client library automatically checks for `  SPANNER_EMULATOR_HOST  ` and connects to the emulator if it's running.
+When your application starts, the client library automatically checks for `SPANNER_EMULATOR_HOST` and connects to the emulator if it's running.
 
-Once `  SPANNER_EMULATOR_HOST  ` is set, you can test the emulator by following the Getting Started guides. Ignore the instructions related to project creation, authentication, and credentials since these aren't needed to use the emulator.
+Once `SPANNER_EMULATOR_HOST` is set, you can test the emulator by following the Getting Started guides. Ignore the instructions related to project creation, authentication, and credentials since these aren't needed to use the emulator.
 
   - [Getting Started in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
 
@@ -159,7 +159,7 @@ The following table lists the versions of the [client libraries](https://docs.cl
 
 ### Additional instructions for C\#
 
-For the C\# client library, you must also specify the [`  emulatordetection  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Api.Gax/latest/Google.Api.Gax.EmulatorDetection) option in the [connection string](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/connection_string) . Unlike the other client libraries, C\# ignores the `  SPANNER_EMULATOR_HOST  ` environment variable by default. The following is an example for the connection string:
+For the C\# client library, you must also specify the [`emulatordetection`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Api.Gax/latest/Google.Api.Gax.EmulatorDetection) option in the [connection string](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/connection_string) . Unlike the other client libraries, C\# ignores the `SPANNER_EMULATOR_HOST` environment variable by default. The following is an example for the connection string:
 
     var builder = new SpannerConnectionStringBuilder
     {

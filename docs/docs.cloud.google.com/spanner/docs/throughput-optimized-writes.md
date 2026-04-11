@@ -28,7 +28,7 @@ You can set a commit delay time between 0 and 500 ms. Setting commit delays high
 
 ## Set max commit delay on commit requests
 
-The max commit delay parameter is part of the `  CommitRequest  ` method. You can access this method with the [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#commitrequest) , [REST API](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit) , or using the Cloud Spanner client library.
+The max commit delay parameter is part of the `CommitRequest` method. You can access this method with the [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#commitrequest) , [REST API](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit) , or using the Cloud Spanner client library.
 
 ### C\#
 

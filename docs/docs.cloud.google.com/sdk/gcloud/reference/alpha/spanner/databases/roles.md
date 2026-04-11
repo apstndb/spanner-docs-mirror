@@ -4,24 +4,24 @@ gcloud alpha spanner databases roles - manage Cloud Spanner database roles
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases roles  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases roles` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage Cloud Spanner database roles.
+`(ALPHA)` Manage Cloud Spanner database roles.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  list  `  
-    `  (ALPHA)  ` List the Cloud Spanner database roles defined in the given database.
+    `(ALPHA)` List the Cloud Spanner database roles defined in the given database.
 
 NOTES
 

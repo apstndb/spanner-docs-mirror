@@ -64,7 +64,7 @@ You can set up cutover and fallback for MySQL using reverse replication. Cutover
 
 Reverse replication is useful when you encounter unforeseen issues with Spanner and need to fall back to the original MySQL database with minimum disruption to the service. Reverse replication enables fall back by replicating data written on Spanner back on your source MySQL database.
 
-The reverse replication flow involves the following steps, performed by the [`  Spanner to SourceDB  ` Dataflow template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/spanner-to-sourcedb) :
+The reverse replication flow involves the following steps, performed by the [`Spanner to SourceDB` Dataflow template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/spanner-to-sourcedb) :
 
 1.  Read changes from Spanner using [Spanner change streams](https://docs.cloud.google.com/spanner/docs/change-streams) .
 

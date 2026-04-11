@@ -16,7 +16,7 @@ You can either [install the emulator locally](https://docs.cloud.google.com/span
 
 ### Select a model
 
-When you use the `  ML.PREDICT  ` (for GoogleSQL) or the `  ML_PREDICT_ROW  ` (for PostgreSQL) function, you must specify the location of the ML model. You can use any trained model. If you select a model that is running in the [Vertex AI Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or a model that is [deployed to your Vertex AI endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) , you must provide the `  input  ` and `  output  ` values for these models.
+When you use the `ML.PREDICT` (for GoogleSQL) or the `ML_PREDICT_ROW` (for PostgreSQL) function, you must specify the location of the ML model. You can use any trained model. If you select a model that is running in the [Vertex AI Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or a model that is [deployed to your Vertex AI endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) , you must provide the `input` and `output` values for these models.
 
 To learn more about Spanner Vertex AI integration, see [How does Spanner Vertex AI integration work?](https://docs.cloud.google.com/spanner/docs/ml#how-does-it-work) .
 
@@ -26,15 +26,15 @@ You can use the emulator to generate predictions using the [Spanner ML predict f
 
 ### Default behavior
 
-You can use any model deployed to an endpoint with the Spanner emulator to generate predictions. The following example uses a model called `  FraudDetection  ` to generate a result.
+You can use any model deployed to an endpoint with the Spanner emulator to generate predictions. The following example uses a model called `FraudDetection` to generate a result.
 
 ### GoogleSQL
 
-To learn more about how to use the `  ML.PREDICT  ` function to generate predictions, see [Generate ML predictions using SQL](https://docs.cloud.google.com/spanner/docs/ml-tutorial#googlesql) .
+To learn more about how to use the `ML.PREDICT` function to generate predictions, see [Generate ML predictions using SQL](https://docs.cloud.google.com/spanner/docs/ml-tutorial#googlesql) .
 
 **Register the model**
 
-Before you can use a model with the [ML.PREDICT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function, you must register the model using the [CREATE MODEL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) statement and provide the `  input  ` and `  output  ` values:
+Before you can use a model with the [ML.PREDICT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function, you must register the model using the [CREATE MODEL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) statement and provide the `input` and `output` values:
 
     CREATE MODEL FraudDetection
     INPUT (Amount INT64, Name STRING(MAX))
@@ -47,28 +47,28 @@ Replace the following:
 
   - `  PROJECT_ID  ` : the ID of the Google Cloud project that the model is located in
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `  us-central1  `
+  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
 
   - `  ENDPOINT_ID  ` : the ID of the model endpoint
 
 **Run the prediction**
 
-Use the [`  ML.PREDICT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function to generate your prediction.
+Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function to generate your prediction.
 
     SELECT Outcome
     FROM ML.PREDICT(
         MODEL FraudDetection,
         (SELECT 1000 AS Amount, "John Smith" AS Name))
 
-The expected output of this query is `  TRUE  ` .
+The expected output of this query is `TRUE` .
 
 ### PostgreSQL
 
-To learn more about how to use the `  spanner.ML_PREDICT_ROW  ` function to generate predictions, see [Generate ML predictions using SQL](https://docs.cloud.google.com/spanner/docs/ml-tutorial#postgresql) .
+To learn more about how to use the `spanner.ML_PREDICT_ROW` function to generate predictions, see [Generate ML predictions using SQL](https://docs.cloud.google.com/spanner/docs/ml-tutorial#postgresql) .
 
 **Run the prediction**
 
-Use the `  spanner.ML_PREDICT_ROW  ` PostgreSQL function to generate your prediction.
+Use the `spanner.ML_PREDICT_ROW` PostgreSQL function to generate your prediction.
 
     SELECT (spanner.ml_predict_row(
     'projects/`MODEL_ID`/locations/`REGION_ID`/endpoints/`ENDPOINT_ID`',
@@ -79,15 +79,15 @@ Replace the following:
 
   - `  PROJECT_ID  ` : the ID of the Google Cloud project that the model is located in
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `  us-central1  `
+  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
 
   - `  ENDPOINT_ID  ` : the ID of the model endpoint
 
-The expected output of this query is `  TRUE  ` .
+The expected output of this query is `TRUE` .
 
 ### Custom Callback
 
-You can use a custom callback function to implement selected model behaviors, and to transform specific model inputs to outputs. The following example uses the `  gemini-pro  ` model from the Vertex AI Model Garden and the Spanner emulator to generate predictions using a custom callback.
+You can use a custom callback function to implement selected model behaviors, and to transform specific model inputs to outputs. The following example uses the `gemini-pro` model from the Vertex AI Model Garden and the Spanner emulator to generate predictions using a custom callback.
 
 When using a custom callback for a model, you must [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the [Spanner emulator repository](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator) , then build and deploy it. For more information on how to build and deploy the Spanner emulator, see the [Spanner emulator quickstart](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator?tab=readme-ov-file#quickstart) .
 
@@ -105,17 +105,17 @@ Before you can use a model with the [ML.PREDICT](https://docs.cloud.google.com/s
     default_batch_size = 1
     );
 
-Since the emulator doesn't connect to the Vertex AI, you must provide the `  input  ` and `  output  ` values.
+Since the emulator doesn't connect to the Vertex AI, you must provide the `input` and `output` values.
 
 Replace the following:
 
   - `  PROJECT_ID  ` : the ID of the Google Cloud project that the model is located in
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `  us-central1  `
+  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
 
 **Callback**
 
-Use a callback to add custom logic to the `  GeminiPro  ` model.
+Use a callback to add custom logic to the `GeminiPro` model.
 
     absl::Status ModelEvaluator::Predict(
         const googlesql::Model* model,
@@ -148,20 +148,20 @@ Use a callback to add custom logic to the `  GeminiPro  ` model.
 
 **Run the prediction**
 
-Use the [`  ML.PREDICT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function to generate your prediction.
+Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function to generate your prediction.
 
     SELECT content
         FROM ML.PREDICT(MODEL GeminiPro, (SELECT "Is 7 a prime number?" AS prompt))
 
-The expected output of this query is `  "YES"  ` .
+The expected output of this query is `"YES"` .
 
 ### PostgreSQL
 
-Use the `  spanner.ML_PREDICT_ROW  ` PostgreSQL function to generate your prediction.
+Use the `spanner.ML_PREDICT_ROW` PostgreSQL function to generate your prediction.
 
 **Callback**
 
-Use a callback to add custom logic to the `  GeminiPro  ` model.
+Use a callback to add custom logic to the `GeminiPro` model.
 
     absl::Status ModelEvaluator::PgPredict(
         absl::string_view endpoint, const googlesql::JSONValueConstRef& instance,
@@ -202,9 +202,9 @@ Replace the following:
 
   - `  PROJECT_ID  ` : the ID of the Google Cloud project that the model is located in
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `  us-central1  `
+  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
 
-The expected output of this query is `  "YES"  ` .
+The expected output of this query is `"YES"` .
 
 ## What's next?
 

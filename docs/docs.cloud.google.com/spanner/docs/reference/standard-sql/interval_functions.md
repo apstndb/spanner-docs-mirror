@@ -2,25 +2,25 @@ GoogleSQL for Spanner supports the following interval functions.
 
 ## Function list
 
-| Name                                                                                                                                         | Summary                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| [`         EXTRACT        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#extract)                   | Extracts part of an `        INTERVAL       ` value.                     |
-| [`         JUSTIFY_DAYS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#justify_days)         | Normalizes the day part of an `        INTERVAL       ` value.           |
-| [`         JUSTIFY_HOURS        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#justify_hours)       | Normalizes the time part of an `        INTERVAL       ` value.          |
-| [`         JUSTIFY_INTERVAL        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#justify_interval) | Normalizes the day and time parts of an `        INTERVAL       ` value. |
-| [`         MAKE_INTERVAL        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#make_interval)       | Constructs an `        INTERVAL       ` value.                           |
+| Name                                                                                                                        | Summary                                                   |
+| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| [`EXTRACT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#extract)                   | Extracts part of an `INTERVAL` value.                     |
+| [`JUSTIFY_DAYS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#justify_days)         | Normalizes the day part of an `INTERVAL` value.           |
+| [`JUSTIFY_HOURS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#justify_hours)       | Normalizes the time part of an `INTERVAL` value.          |
+| [`JUSTIFY_INTERVAL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#justify_interval) | Normalizes the day and time parts of an `INTERVAL` value. |
+| [`MAKE_INTERVAL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#make_interval)       | Constructs an `INTERVAL` value.                           |
 
-## `     EXTRACT    `
+## `EXTRACT`
 
     EXTRACT(part FROM interval_expression)
 
 **Description**
 
-Returns the value corresponding to the specified date part. The `  part  ` must be one of `  YEAR  ` , `  MONTH  ` , `  DAY  ` , `  HOUR  ` , `  MINUTE  ` , `  SECOND  ` , `  MILLISECOND  ` or `  MICROSECOND  ` .
+Returns the value corresponding to the specified date part. The `part` must be one of `YEAR` , `MONTH` , `DAY` , `HOUR` , `MINUTE` , `SECOND` , `MILLISECOND` or `MICROSECOND` .
 
 **Return Data Type**
 
-`  INTERVAL  `
+`INTERVAL`
 
 **Examples**
 
@@ -74,7 +74,7 @@ When a negative sign precedes the year and month part in an interval, the negati
      | -22  | -6     |
      *------+--------*/
 
-## `     JUSTIFY_DAYS    `
+## `JUSTIFY_DAYS`
 
     JUSTIFY_DAYS(interval_expression)
 
@@ -84,7 +84,7 @@ Normalizes the day part of the interval to the range from -29 to 29 by increment
 
 **Return Data Type**
 
-`  INTERVAL  `
+`INTERVAL`
 
 **Example**
 
@@ -101,7 +101,7 @@ Normalizes the day part of the interval to the range from -29 to 29 by increment
      | 0-0 29 0:0:0 | -0-1 0 0:0:0 | 0-1 1 0:0:0 | -0-2 -5 0:0:0 | 1-0 10 0:0:0 |
      *--------------+--------------+-------------+---------------+--------------*/
 
-## `     JUSTIFY_HOURS    `
+## `JUSTIFY_HOURS`
 
     JUSTIFY_HOURS(interval_expression)
 
@@ -111,7 +111,7 @@ Normalizes the time part of the interval to the range from -23:59:59.999999 to 2
 
 **Return Data Type**
 
-`  INTERVAL  `
+`INTERVAL`
 
 **Example**
 
@@ -127,7 +127,7 @@ Normalizes the time part of the interval to the range from -23:59:59.999999 to 2
      | 0-0 0 23:0:0 | 0-0 -1 0:0:0 | 0-0 1 23:0:0 | 0-0 -8 -13:45:0 |
      *--------------+--------------+--------------+-----------------*/
 
-## `     JUSTIFY_INTERVAL    `
+## `JUSTIFY_INTERVAL`
 
     JUSTIFY_INTERVAL(interval_expression)
 
@@ -137,7 +137,7 @@ Normalizes the days and time parts of the interval.
 
 **Return Data Type**
 
-`  INTERVAL  `
+`INTERVAL`
 
 **Example**
 
@@ -149,7 +149,7 @@ Normalizes the days and time parts of the interval.
      | 0-1 1 1:0:0 |
      *-------------*/
 
-## `     MAKE_INTERVAL    `
+## `MAKE_INTERVAL`
 
     MAKE_INTERVAL(
       [ [ year => ] value ]
@@ -162,11 +162,11 @@ Normalizes the days and time parts of the interval.
 
 **Description**
 
-Constructs an [`  INTERVAL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_type) object using `  INT64  ` values representing the year, month, day, hour, minute, and second. All arguments are optional, `  0  ` by default, and can be [named arguments](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference#named_arguments) .
+Constructs an [`INTERVAL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_type) object using `INT64` values representing the year, month, day, hour, minute, and second. All arguments are optional, `0` by default, and can be [named arguments](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference#named_arguments) .
 
 **Return Data Type**
 
-`  INTERVAL  `
+`INTERVAL`
 
 **Example**
 

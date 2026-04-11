@@ -28,7 +28,7 @@ You can restore a Spanner database by using the following:
 
   - To get the permissions that you need to restore a database from a backup, ask your administrator to grant you the following IAM roles on the instance:
     
-      - All: [Cloud Spanner Restore Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.restoreAdmin) ( `  roles/spanner.restoreAdmin  ` )
+      - All: [Cloud Spanner Restore Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.restoreAdmin) ( `roles/spanner.restoreAdmin` )
     
     **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to restore a database from a backup. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
 
@@ -62,7 +62,7 @@ If the operation takes too long, you can cancel it. For more information, see [C
 
 ### gcloud
 
-To restore a database, use [`  gcloud spanner databases restore  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/restore) :
+To restore a database, use [`gcloud spanner databases restore`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/restore) :
 
     gcloud spanner databases restore --async \
       --destination-instance=test-instance --destination-database=example-db-restored \
@@ -71,14 +71,14 @@ To restore a database, use [`  gcloud spanner databases restore  `](https://docs
 
 Usage notes:
 
-  - The command returns immediately because of the `  --async  ` flag. Without the flag, the command will wait for the restore operation to complete.
+  - The command returns immediately because of the `--async` flag. Without the flag, the command will wait for the restore operation to complete.
   - If the source and destination instances are different, they must have the same [instance configuration](https://docs.cloud.google.com/spanner/docs/instances#configuration) .
   - If the destination database already exists, the operation will fail.
-  - The possible values for `  encryption_type  ` are `  USE_DATABASE_ENCRYPTION  ` , `  GOOGLE_DEFAULT_ENCRYPTION  ` , or `  CUSTOMER_MANAGED_ENCRYPTION  ` . If you use `  CUSTOMER_MANAGED_ENCRYPTION  ` , you must specify a `  kmsKeyName  ` .
+  - The possible values for `encryption_type` are `USE_DATABASE_ENCRYPTION` , `GOOGLE_DEFAULT_ENCRYPTION` , or `CUSTOMER_MANAGED_ENCRYPTION` . If you use `CUSTOMER_MANAGED_ENCRYPTION` , you must specify a `kmsKeyName` .
 
 ### Client libraries
 
-The following code sample restores a database from a given backup and waits for the restore operation (an operation with [`  RestoreDatabaseMetadata  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata) ) to complete. The restored database is created in the same instance as the backup. Once complete, the sample retrieves and prints some restore information from the database.
+The following code sample restores a database from a given backup and waits for the restore operation (an operation with [`RestoreDatabaseMetadata`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata) ) to complete. The restored database is created in the same instance as the backup. Once complete, the sample retrieves and prints some restore information from the database.
 
 ### C++
 

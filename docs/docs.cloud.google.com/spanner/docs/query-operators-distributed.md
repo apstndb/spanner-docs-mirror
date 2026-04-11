@@ -125,7 +125,7 @@ The execution plan appears as follows:
 
 ![Distributed union operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/distributed_union_operator.png)
 
-The distributed union operator sends subplans to remote servers, which perform a table [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) across splits that satisfy the query's predicate `  WHERE s.SingerId = 2 AND s.SongGenre = 'ROCK'  ` . A [serialize result](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result) operator computes the `  SongName  ` and `  SongGenre  ` values from the rows returned by the table scans. The distributed union operator then returns the combined results from the remote servers as the SQL query results.
+The distributed union operator sends subplans to remote servers, which perform a table [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) across splits that satisfy the query's predicate `WHERE s.SingerId = 2 AND s.SongGenre = 'ROCK'` . A [serialize result](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result) operator computes the `SongName` and `SongGenre` values from the rows returned by the table scans. The distributed union operator then returns the combined results from the remote servers as the SQL query results.
 
 #### Properties and execution statistics
 
@@ -209,9 +209,9 @@ The execution plan appears as follows:
 
 ![Distributed cross apply operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/distributed_cross_apply_operator.png)
 
-The DCA input contains an index [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) on the `  SongsBySingerAlbumSongNameDesc  ` index that batches rows of `  AlbumId  ` . The map side for the DCA is a standard cross apply, where the input is a batch of rows, and the map side is an index scan on the index `  AlbumsByAlbumTitle  ` , subject to the predicate of `  AlbumId  ` in the input row matching the `  AlbumId  ` key in the `  AlbumsByAlbumTitle  ` index. The mapping returns the `  SongName  ` for the `  SingerId  ` values in the batched input rows.
+The DCA input contains an index [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) on the `SongsBySingerAlbumSongNameDesc` index that batches rows of `AlbumId` . The map side for the DCA is a standard cross apply, where the input is a batch of rows, and the map side is an index scan on the index `AlbumsByAlbumTitle` , subject to the predicate of `AlbumId` in the input row matching the `AlbumId` key in the `AlbumsByAlbumTitle` index. The mapping returns the `SongName` for the `SingerId` values in the batched input rows.
 
-To summarize the DCA process for this example, the DCA's input is the batched rows from the `  Albums  ` table, and the DCA's output is the application of these rows to the map of the index scan.
+To summarize the DCA process for this example, the DCA's input is the batched rows from the `Albums` table, and the DCA's output is the application of these rows to the map of the index scan.
 
 ### Distributed outer apply
 
@@ -297,7 +297,7 @@ A *push broadcast hash join* operator is a distributed hash-join-based implement
   - If the build table is small, it can be sent to all map side splits.
   - The map side table can be scanned, with or without residual filters. This occurs when the join keys are not the same as the map table's primary keys.
 
-*Push broadcast hash join* isn't selected automatically by the optimizer. To use this operator, set the join method to [`  PUSH_BROADCAST_HASH_JOIN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join-methods) on the query hint, as shown in the following example:
+*Push broadcast hash join* isn't selected automatically by the optimizer. To use this operator, set the join method to [`PUSH_BROADCAST_HASH_JOIN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join-methods) on the query hint, as shown in the following example:
 
     SELECT a.albumtitle,
            s.songname
@@ -323,7 +323,7 @@ The execution plan appears as follows:
 
 ![Push broadcast hash join operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/push_broadcast_hash_join.png)
 
-The input to the Push broadcast hash join is the `  AlbumsByAlbumTitle  ` index. The operator serializes that input into a batch of data. The operator sends that batch to all the local splits of the index `  SongsBySingerAlbumSongNameDesc  ` , where the operator deserializes the batch and builds it into a hash table. The hash table then uses the local index data as a probe returning resulting matches.
+The input to the Push broadcast hash join is the `AlbumsByAlbumTitle` index. The operator serializes that input into a batch of data. The operator sends that batch to all the local splits of the index `SongsBySingerAlbumSongNameDesc` , where the operator deserializes the batch and builds it into a hash table. The hash table then uses the local index data as a probe returning resulting matches.
 
 Resulting matches might also be filtered by a residual condition before they're returned. (An example of where residual conditions appear is in non-equality joins).
 

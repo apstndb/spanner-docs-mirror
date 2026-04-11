@@ -6,7 +6,7 @@ Spanner supports SQL queries and transactions with the ability to scale out hori
 
 ## Table layout
 
-Rows in a Spanner table are organized lexicographically by `  PRIMARY KEY  ` . Conceptually, keys are ordered by the concatenation of the columns in the order that they are declared in the `  PRIMARY KEY  ` clause. This exhibits all the standard properties of locality:
+Rows in a Spanner table are organized lexicographically by `PRIMARY KEY` . Conceptually, keys are ordered by the concatenation of the columns in the order that they are declared in the `PRIMARY KEY` clause. This exhibits all the standard properties of locality:
 
   - Scanning the table in lexicographic order is efficient.
   - Sufficiently close rows will be stored in the same disk blocks, and will be read and cached together.
@@ -62,14 +62,14 @@ Interleaved indexes, by contrast, store data in interleaved tables. They are sui
 
 Secondary indexes allow you to find rows by attributes other than the primary key. If all the data requested is in the index itself, it can be consulted on its own without reading the primary record. This can save significant resources as no join is required.
 
-Unfortunately, index keys are limited to 16 in number and 8 KiB in aggregate size, restricting what can be put in them. To compensate for these limitations, Spanner has the ability to store extra data in any index, using the `  STORING  ` clause. `  STORING  ` a column in an index results in its values being duplicated, with a copy stored in the index. You can think of an index with `  STORING  ` as a simple single table materialized view (views are not natively supported in Spanner at this time).
+Unfortunately, index keys are limited to 16 in number and 8 KiB in aggregate size, restricting what can be put in them. To compensate for these limitations, Spanner has the ability to store extra data in any index, using the `STORING` clause. `STORING` a column in an index results in its values being duplicated, with a copy stored in the index. You can think of an index with `STORING` as a simple single table materialized view (views are not natively supported in Spanner at this time).
 
-Another useful application of `  STORING  ` is as part of a `  NULL_FILTERED  ` index. This lets you define what is effectively a materialized view of a sparse subset of a table that you can scan efficiently. For example, you might create such an index on the `  is_unread  ` column of a mailbox to be able to serve the unread messages view in a single table scan, but without paying for a complete copy of every mailbox.
+Another useful application of `STORING` is as part of a `NULL_FILTERED` index. This lets you define what is effectively a materialized view of a sparse subset of a table that you can scan efficiently. For example, you might create such an index on the `is_unread` column of a mailbox to be able to serve the unread messages view in a single table scan, but without paying for a complete copy of every mailbox.
 
 ### Recommendations:
 
-  - Make prudent use of `  STORING  ` to tradeoff read time performance against storage size and write time performance.
-  - Use `  NULL_FILTERED  ` to control storage costs of sparse indexes.
+  - Make prudent use of `STORING` to tradeoff read time performance against storage size and write time performance.
+  - Use `NULL_FILTERED` to control storage costs of sparse indexes.
 
 ## Anti-patterns
 
@@ -79,7 +79,7 @@ Many schema designers are inclined to define a root table that is timestamp orde
 
 If your application absolutely must include a log that is timestamp ordered, consider if you can make the log local by interleaving it in one of your other root tables. This has the benefit of distributing the hot spot over many roots. But you still need to be careful that each distinct root has sufficiently low write rate.
 
-If you need a global (cross root) timestamp ordered table, and you need to support higher write rates to that table than a single node is capable of, use application-level *sharding* . Sharding a table means partitioning it into some number N of roughly equal divisions called shards. This is typically done by prefixing the original primary key with an additional `  ShardId  ` column holding integer values between `  [0, N)  ` . The `  ShardId  ` for a given write is typically selected either at random, or by hashing a part of the base key. Hashing is often preferred because it can be used to ensure all records of a given type go into the same shard, improving performance of retrieval. Either way, the goal is to ensure that, over time, writes are distributed across all shards equally. This approach sometimes means that reads need to scan all shards to reconstruct the original total ordering of writes.
+If you need a global (cross root) timestamp ordered table, and you need to support higher write rates to that table than a single node is capable of, use application-level *sharding* . Sharding a table means partitioning it into some number N of roughly equal divisions called shards. This is typically done by prefixing the original primary key with an additional `ShardId` column holding integer values between `[0, N)` . The `ShardId` for a given write is typically selected either at random, or by hashing a part of the base key. Hashing is often preferred because it can be used to ensure all records of a given type go into the same shard, improving performance of retrieval. Either way, the goal is to ensure that, over time, writes are distributed across all shards equally. This approach sometimes means that reads need to scan all shards to reconstruct the original total ordering of writes.
 
 <https://docs.cloud.google.com/spanner/docs/images/shards_for_parallelism.png>
 

@@ -4,9 +4,9 @@ The quota and limit values are subject to change.
 
 ## Permissions to check and edit quotas
 
-To view your quotas, you must have the [`  serviceusage.quotas.get  `](https://docs.cloud.google.com/iam/docs/roles-permissions/serviceusage#serviceusage.quotas.get) Identity and Access Management (IAM) permission.
+To view your quotas, you must have the [`serviceusage.quotas.get`](https://docs.cloud.google.com/iam/docs/roles-permissions/serviceusage#serviceusage.quotas.get) Identity and Access Management (IAM) permission.
 
-To change your quotas, you must have the [`  serviceusage.quotas.update  `](https://docs.cloud.google.com/iam/docs/roles-permissions/serviceusage#serviceusage.quotas.update) IAM permission. This permission is included by default for the following [predefined roles](https://docs.cloud.google.com/iam/docs/understanding-roles) : Owner, Editor, and Quota Administrator.
+To change your quotas, you must have the [`serviceusage.quotas.update`](https://docs.cloud.google.com/iam/docs/roles-permissions/serviceusage#serviceusage.quotas.update) IAM permission. This permission is included by default for the following [predefined roles](https://docs.cloud.google.com/iam/docs/understanding-roles) : Owner, Editor, and Quota Administrator.
 
 These permissions are included by default in the [basic IAM roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) Owner and Editor, and in the predefined [Quota Administrator role](https://docs.cloud.google.com/iam/docs/roles-permissions/servicemanagement) .
 
@@ -126,7 +126,7 @@ This feature is subject to the "Pre-GA Offerings Terms" in the General Service T
 <tr class="even">
 <td>Custom instance configuration ID length</td>
 <td><p>8 to 64 characters</p>
-<p>A custom instance configuration ID must start with <code dir="ltr" translate="no">        custom-       </code></p></td>
+<p>A custom instance configuration ID must start with <code dir="ltr" translate="no">custom-</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -194,10 +194,10 @@ This feature is subject to the "Pre-GA Offerings Terms" in the General Service T
 
 ### DDL statements
 
-| Value                                                                                                                                                                                                                                                          | Limit  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| [DDL](https://docs.cloud.google.com/spanner/docs/data-definition-language) statement size for a single schema change                                                                                                                                           | 10 MiB |
-| DDL statement size for a database's entire schema, as returned by [`         GetDatabaseDdl        `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl) | 10 MiB |
+| Value                                                                                                                                                                                                                                         | Limit  |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| [DDL](https://docs.cloud.google.com/spanner/docs/data-definition-language) statement size for a single schema change                                                                                                                          | 10 MiB |
+| DDL statement size for a database's entire schema, as returned by [`GetDatabaseDdl`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl) | 10 MiB |
 
 ### Graphs
 
@@ -241,7 +241,7 @@ This feature is subject to the "Pre-GA Offerings Terms" in the General Service T
 <td>10 MiB</td>
 </tr>
 <tr class="even">
-<td>Size of a <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#string_type"><code dir="ltr" translate="no">        STRING       </code></a> cell</td>
+<td>Size of a <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#string_type"><code dir="ltr" translate="no">STRING</code></a> cell</td>
 <td>2,621,440 Unicode characters</td>
 </tr>
 <tr class="odd">
@@ -337,25 +337,25 @@ This feature is subject to the "Pre-GA Offerings Terms" in the General Service T
 | Value                                                                                                                      | Limit                                                                    |
 | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | Maximum number of [locality groups](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups) per database | 16 (1 default locality group and 15 optional additional locality groups) |
-| Minimum amount of time required in the `        ssd_to_hdd_spill_timespan       ` option                                   | 1 hour                                                                   |
-| Maximum amount of time allowed in the `        ssd_to_hdd_spill_timespan       ` option                                    | 365 days                                                                 |
+| Minimum amount of time required in the `ssd_to_hdd_spill_timespan` option                                                  | 1 hour                                                                   |
+| Maximum amount of time allowed in the `ssd_to_hdd_spill_timespan` option                                                   | 365 days                                                                 |
 
 ## Query limits
 
 | Value                                                                                                                                  | Limit                |
 | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| Columns in a `        GROUP BY       ` clause                                                                                          | 1,000                |
-| Values in an `        IN       ` operator                                                                                              | 10,000               |
+| Columns in a `GROUP BY` clause                                                                                                         | 1,000                |
+| Values in an `IN` operator                                                                                                             | 10,000               |
 | Function calls                                                                                                                         | 1,000                |
 | Joins                                                                                                                                  | 20                   |
 | Nested function calls                                                                                                                  | 75                   |
-| Nested `        GROUP BY       ` clauses                                                                                               | 35                   |
+| Nested `GROUP BY` clauses                                                                                                              | 35                   |
 | Nested subquery expressions                                                                                                            | 25                   |
 | Nested subselect statements                                                                                                            | 60                   |
 | Joins produced by a graph query                                                                                                        | 100                  |
 | Parameters                                                                                                                             | 950                  |
 | Query statement length                                                                                                                 | 1 million characters |
-| `        STRUCT       ` fields                                                                                                         | 1,000                |
+| `STRUCT` fields                                                                                                                        | 1,000                |
 | Subquery expression children                                                                                                           | 50                   |
 | Unions in a query                                                                                                                      | 200                  |
 | Depth of graph [quantified path](https://docs.cloud.google.com/spanner/docs/graph/queries-overview#quantified-path-patterns) traversal | 100                  |
@@ -444,7 +444,7 @@ For a smooth growth experience, add compute capacity before the limit is reached
   - For instances of one node or larger, the default limit is one million objects.
   - For instances smaller than one node (1000 processing units), the limit decreases proportionally to the size of the instance. For example, the limit is 100,000 schema objects for instances with 100 processing units.
 
-To check the schema object count for your databases and the object limit for your instance, look for metrics `  spanner.googleapis.com/instance/schema_objects  ` and `  spanner.googleapis.com/instance/schema_object_count_limit  ` in **Metrics Explorer** . For more information about monitoring, see [Monitor instances with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
+To check the schema object count for your databases and the object limit for your instance, look for metrics `spanner.googleapis.com/instance/schema_objects` and `spanner.googleapis.com/instance/schema_object_count_limit` in **Metrics Explorer** . For more information about monitoring, see [Monitor instances with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
 If you reach the limit, Spanner prevents you from performing operations that put you over the limit, such as:
 
@@ -452,7 +452,7 @@ If you reach the limit, Spanner prevents you from performing operations that put
   - Creating a new database in the instance.
   - Restoring a database from a backup into the same instance. In this case, you can [restore the backup](https://docs.cloud.google.com/spanner/docs/backup/restore-backups) in a different instance in the same configuration or [create a new instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances) with the same configuration and restore the backup in the new instance.
 
-3\. Insert and update operations count with the multiplicity of the number of columns they affect, and primary key columns are always affected. For example, inserting a new record may count as five mutations, if values are inserted into five columns. Updating three columns in a record may also count as five mutations if the record has two primary key columns. Delete and delete range operations count as one mutation regardless of the number of columns affected. Deleting a row from a parent table that has the [`  ON DELETE CASCADE  `](https://docs.cloud.google.com/spanner/docs/data-definition-language#create_table) annotation is also counted as one mutation regardless of the number of interleaved child rows present. The exception to this is if there are secondary indexes defined on rows being deleted, then the changes to the secondary indexes will be counted individually. For example, if a table has 2 secondary indexes, deleting a range of rows in the table will count as 1 mutation for the table, plus 2 mutations for each row that is deleted because the rows in the secondary index might be scattered over the key-space, making it impossible for Spanner to call a single delete range operation on the secondary indexes. Secondary indexes include the [foreign keys backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes) .
+3\. Insert and update operations count with the multiplicity of the number of columns they affect, and primary key columns are always affected. For example, inserting a new record may count as five mutations, if values are inserted into five columns. Updating three columns in a record may also count as five mutations if the record has two primary key columns. Delete and delete range operations count as one mutation regardless of the number of columns affected. Deleting a row from a parent table that has the [`ON DELETE CASCADE`](https://docs.cloud.google.com/spanner/docs/data-definition-language#create_table) annotation is also counted as one mutation regardless of the number of interleaved child rows present. The exception to this is if there are secondary indexes defined on rows being deleted, then the changes to the secondary indexes will be counted individually. For example, if a table has 2 secondary indexes, deleting a range of rows in the table will count as 1 mutation for the table, plus 2 mutations for each row that is deleted because the rows in the secondary index might be scattered over the key-space, making it impossible for Spanner to call a single delete range operation on the secondary indexes. Secondary indexes include the [foreign keys backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes) .
 
 To find the mutation count for a transaction, see [Retrieving commit statistics for a transaction](https://docs.cloud.google.com/spanner/docs/commit-statistics) .
 

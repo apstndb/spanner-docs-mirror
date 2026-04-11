@@ -1,6 +1,6 @@
 Hibernate is an object-relational mapping tool for the Java programming language. It provides a framework for mapping an object-oriented domain model to a relational database.
 
-You can integrate GoogleSQL-dialect databases with Hibernate using the open source [Spanner Dialect](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) ( `  SpannerDialect  ` ). Spanner is compatible with [Hibernate ORM 6.x](https://hibernate.org/orm/) . Spanner Dialect produces SQL, DML, and DDL statements for most common entity types and relationships using standard Hibernate and Java Persistence annotations.
+You can integrate GoogleSQL-dialect databases with Hibernate using the open source [Spanner Dialect](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) ( `SpannerDialect` ). Spanner is compatible with [Hibernate ORM 6.x](https://hibernate.org/orm/) . Spanner Dialect produces SQL, DML, and DDL statements for most common entity types and relationships using standard Hibernate and Java Persistence annotations.
 
 ## Set up Hibernate
 
@@ -21,14 +21,14 @@ In your project, add Apache Maven dependencies for Hibernate ORM core, [Spanner 
       </dependency>
     </dependencies>
 
-Configure `  hibernate.cfg.xml  ` to use Spanner Dialect and Spanner JDBC Driver.
+Configure `hibernate.cfg.xml` to use Spanner Dialect and Spanner JDBC Driver.
 
     <!-- Connection settings -->
     <property name="hibernate.dialect">org.hibernate.dialect.SpannerDialect</property>
     <property name="hibernate.connection.driver_class">com.google.cloud.spanner.jdbc.JdbcDriver</property>
     <property name="hibernate.connection.url">jdbc:cloudspanner:/projects/{YOUR_PROJECT_ID}/instances/{YOUR_INSTANCE_ID}/databases/{YOUR_DATABASE_ID}</property>
 
-The [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location should be in the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable. The driver will use default credentials set in the Google Cloud CLI `  gcloud  ` application otherwise.
+The [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location should be in the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. The driver will use default credentials set in the Google Cloud CLI `gcloud` application otherwise.
 
 ## Use Hibernate with Spanner GoogleSQL
 

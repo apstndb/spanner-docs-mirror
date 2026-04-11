@@ -1,6 +1,6 @@
-GoogleSQL for Spanner supports string functions. These string functions work on two different values: `  STRING  ` and `  BYTES  ` data types. `  STRING  ` values must be well-formed UTF-8.
+GoogleSQL for Spanner supports string functions. These string functions work on two different values: `STRING` and `BYTES` data types. `STRING` values must be well-formed UTF-8.
 
-Functions that return position values, such as [STRPOS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#strpos) , encode those positions as `  INT64  ` . The value `  1  ` refers to the first character (or byte), `  2  ` refers to the second, and so on. The value `  0  ` indicates an invalid position. When working on `  STRING  ` types, the returned positions refer to character positions.
+Functions that return position values, such as [STRPOS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#strpos) , encode those positions as `INT64` . The value `1` refers to the first character (or byte), `2` refers to the second, and so on. The value `0` indicates an invalid position. When working on `STRING` types, the returned positions refer to character positions.
 
 All string comparisons are done byte-by-byte, without regard to Unicode canonical equivalence.
 
@@ -19,225 +19,225 @@ All string comparisons are done byte-by-byte, without regard to Unicode canonica
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_to_string"><code dir="ltr" translate="no">        ARRAY_TO_STRING       </code></a></td>
-<td>Produces a concatenation of the elements in an array as a <code dir="ltr" translate="no">       STRING      </code> value.<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_to_string"><code dir="ltr" translate="no">ARRAY_TO_STRING</code></a></td>
+<td>Produces a concatenation of the elements in an array as a <code dir="ltr" translate="no">STRING</code> value.<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions">Array functions</a> .</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#byte_length"><code dir="ltr" translate="no">        BYTE_LENGTH       </code></a></td>
-<td>Gets the number of <code dir="ltr" translate="no">       BYTES      </code> in a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#byte_length"><code dir="ltr" translate="no">BYTE_LENGTH</code></a></td>
+<td>Gets the number of <code dir="ltr" translate="no">BYTES</code> in a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#char_length"><code dir="ltr" translate="no">        CHAR_LENGTH       </code></a></td>
-<td>Gets the number of characters in a <code dir="ltr" translate="no">       STRING      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#char_length"><code dir="ltr" translate="no">CHAR_LENGTH</code></a></td>
+<td>Gets the number of characters in a <code dir="ltr" translate="no">STRING</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#character_length"><code dir="ltr" translate="no">        CHARACTER_LENGTH       </code></a></td>
-<td>Synonym for <code dir="ltr" translate="no">       CHAR_LENGTH      </code> .</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#character_length"><code dir="ltr" translate="no">CHARACTER_LENGTH</code></a></td>
+<td>Synonym for <code dir="ltr" translate="no">CHAR_LENGTH</code> .</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#code_points_to_bytes"><code dir="ltr" translate="no">        CODE_POINTS_TO_BYTES       </code></a></td>
-<td>Converts an array of extended ASCII code points to a <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#code_points_to_bytes"><code dir="ltr" translate="no">CODE_POINTS_TO_BYTES</code></a></td>
+<td>Converts an array of extended ASCII code points to a <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#code_points_to_string"><code dir="ltr" translate="no">        CODE_POINTS_TO_STRING       </code></a></td>
-<td>Converts an array of extended ASCII code points to a <code dir="ltr" translate="no">       STRING      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#code_points_to_string"><code dir="ltr" translate="no">CODE_POINTS_TO_STRING</code></a></td>
+<td>Converts an array of extended ASCII code points to a <code dir="ltr" translate="no">STRING</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#concat"><code dir="ltr" translate="no">        CONCAT       </code></a></td>
-<td>Concatenates one or more <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> values into a single result.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#concat"><code dir="ltr" translate="no">CONCAT</code></a></td>
+<td>Concatenates one or more <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> values into a single result.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ends_with"><code dir="ltr" translate="no">        ENDS_WITH       </code></a></td>
-<td>Checks if a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value is the suffix of another value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ends_with"><code dir="ltr" translate="no">ENDS_WITH</code></a></td>
+<td>Checks if a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value is the suffix of another value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#format_string"><code dir="ltr" translate="no">        FORMAT       </code></a></td>
-<td>Formats data and produces the results as a <code dir="ltr" translate="no">       STRING      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#format_string"><code dir="ltr" translate="no">FORMAT</code></a></td>
+<td>Formats data and produces the results as a <code dir="ltr" translate="no">STRING</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_base32"><code dir="ltr" translate="no">        FROM_BASE32       </code></a></td>
-<td>Converts a base32-encoded <code dir="ltr" translate="no">       STRING      </code> value into a <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_base32"><code dir="ltr" translate="no">FROM_BASE32</code></a></td>
+<td>Converts a base32-encoded <code dir="ltr" translate="no">STRING</code> value into a <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_base64"><code dir="ltr" translate="no">        FROM_BASE64       </code></a></td>
-<td>Converts a base64-encoded <code dir="ltr" translate="no">       STRING      </code> value into a <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_base64"><code dir="ltr" translate="no">FROM_BASE64</code></a></td>
+<td>Converts a base64-encoded <code dir="ltr" translate="no">STRING</code> value into a <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_hex"><code dir="ltr" translate="no">        FROM_HEX       </code></a></td>
-<td>Converts a hexadecimal-encoded <code dir="ltr" translate="no">       STRING      </code> value into a <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_hex"><code dir="ltr" translate="no">FROM_HEX</code></a></td>
+<td>Converts a hexadecimal-encoded <code dir="ltr" translate="no">STRING</code> value into a <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_string"><code dir="ltr" translate="no">        LAX_STRING       </code></a></td>
-<td>Attempts to convert a JSON value to a SQL <code dir="ltr" translate="no">       STRING      </code> value.<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_string"><code dir="ltr" translate="no">LAX_STRING</code></a></td>
+<td>Attempts to convert a JSON value to a SQL <code dir="ltr" translate="no">STRING</code> value.<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions">JSON functions</a> .</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lcase"><code dir="ltr" translate="no">        LCASE       </code></a></td>
-<td>Alias for <code dir="ltr" translate="no">       LOWER      </code> .</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lcase"><code dir="ltr" translate="no">LCASE</code></a></td>
+<td>Alias for <code dir="ltr" translate="no">LOWER</code> .</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#length"><code dir="ltr" translate="no">        LENGTH       </code></a></td>
-<td>Gets the length of a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#length"><code dir="ltr" translate="no">LENGTH</code></a></td>
+<td>Gets the length of a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lower"><code dir="ltr" translate="no">        LOWER       </code></a></td>
-<td>Formats alphabetic characters in a <code dir="ltr" translate="no">       STRING      </code> value as lowercase.<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lower"><code dir="ltr" translate="no">LOWER</code></a></td>
+<td>Formats alphabetic characters in a <code dir="ltr" translate="no">STRING</code> value as lowercase.<br />
 <br />
-Formats ASCII characters in a <code dir="ltr" translate="no">       BYTES      </code> value as lowercase.</td>
+Formats ASCII characters in a <code dir="ltr" translate="no">BYTES</code> value as lowercase.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lpad"><code dir="ltr" translate="no">        LPAD       </code></a></td>
-<td>Prepends a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value with a pattern.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lpad"><code dir="ltr" translate="no">LPAD</code></a></td>
+<td>Prepends a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value with a pattern.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ltrim"><code dir="ltr" translate="no">        LTRIM       </code></a></td>
-<td>Identical to the <code dir="ltr" translate="no">       TRIM      </code> function, but only removes leading characters.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ltrim"><code dir="ltr" translate="no">LTRIM</code></a></td>
+<td>Identical to the <code dir="ltr" translate="no">TRIM</code> function, but only removes leading characters.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#normalize"><code dir="ltr" translate="no">        NORMALIZE       </code></a></td>
-<td>Case-sensitively normalizes the characters in a <code dir="ltr" translate="no">       STRING      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#normalize"><code dir="ltr" translate="no">NORMALIZE</code></a></td>
+<td>Case-sensitively normalizes the characters in a <code dir="ltr" translate="no">STRING</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#normalize_and_casefold"><code dir="ltr" translate="no">        NORMALIZE_AND_CASEFOLD       </code></a></td>
-<td>Case-insensitively normalizes the characters in a <code dir="ltr" translate="no">       STRING      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#normalize_and_casefold"><code dir="ltr" translate="no">NORMALIZE_AND_CASEFOLD</code></a></td>
+<td>Case-insensitively normalizes the characters in a <code dir="ltr" translate="no">STRING</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#octet_length"><code dir="ltr" translate="no">        OCTET_LENGTH       </code></a></td>
-<td>Alias for <code dir="ltr" translate="no">       BYTE_LENGTH      </code> .</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#octet_length"><code dir="ltr" translate="no">OCTET_LENGTH</code></a></td>
+<td>Alias for <code dir="ltr" translate="no">BYTE_LENGTH</code> .</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#regexp_contains"><code dir="ltr" translate="no">        REGEXP_CONTAINS       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#regexp_contains"><code dir="ltr" translate="no">REGEXP_CONTAINS</code></a></td>
 <td>Checks if a value is a partial match for a regular expression.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#regexp_extract"><code dir="ltr" translate="no">        REGEXP_EXTRACT       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#regexp_extract"><code dir="ltr" translate="no">REGEXP_EXTRACT</code></a></td>
 <td>Produces a substring that matches a regular expression.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#regexp_extract_all"><code dir="ltr" translate="no">        REGEXP_EXTRACT_ALL       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#regexp_extract_all"><code dir="ltr" translate="no">REGEXP_EXTRACT_ALL</code></a></td>
 <td>Produces an array of all substrings that match a regular expression.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#regexp_replace"><code dir="ltr" translate="no">        REGEXP_REPLACE       </code></a></td>
-<td>Produces a <code dir="ltr" translate="no">       STRING      </code> value where all substrings that match a regular expression are replaced with a specified value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#regexp_replace"><code dir="ltr" translate="no">REGEXP_REPLACE</code></a></td>
+<td>Produces a <code dir="ltr" translate="no">STRING</code> value where all substrings that match a regular expression are replaced with a specified value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#repeat"><code dir="ltr" translate="no">        REPEAT       </code></a></td>
-<td>Produces a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value that consists of an original value, repeated.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#repeat"><code dir="ltr" translate="no">REPEAT</code></a></td>
+<td>Produces a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value that consists of an original value, repeated.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#replace"><code dir="ltr" translate="no">        REPLACE       </code></a></td>
-<td>Replaces all occurrences of a pattern with another pattern in a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#replace"><code dir="ltr" translate="no">REPLACE</code></a></td>
+<td>Replaces all occurrences of a pattern with another pattern in a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#reverse"><code dir="ltr" translate="no">        REVERSE       </code></a></td>
-<td>Reverses a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#reverse"><code dir="ltr" translate="no">REVERSE</code></a></td>
+<td>Reverses a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#rpad"><code dir="ltr" translate="no">        RPAD       </code></a></td>
-<td>Appends a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value with a pattern.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#rpad"><code dir="ltr" translate="no">RPAD</code></a></td>
+<td>Appends a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value with a pattern.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#rtrim"><code dir="ltr" translate="no">        RTRIM       </code></a></td>
-<td>Identical to the <code dir="ltr" translate="no">       TRIM      </code> function, but only removes trailing characters.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#rtrim"><code dir="ltr" translate="no">RTRIM</code></a></td>
+<td>Identical to the <code dir="ltr" translate="no">TRIM</code> function, but only removes trailing characters.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#safe_convert_bytes_to_string"><code dir="ltr" translate="no">        SAFE_CONVERT_BYTES_TO_STRING       </code></a></td>
-<td>Converts a <code dir="ltr" translate="no">       BYTES      </code> value to a <code dir="ltr" translate="no">       STRING      </code> value and replace any invalid UTF-8 characters with the Unicode replacement character, <code dir="ltr" translate="no">       U+FFFD      </code> .</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#safe_convert_bytes_to_string"><code dir="ltr" translate="no">SAFE_CONVERT_BYTES_TO_STRING</code></a></td>
+<td>Converts a <code dir="ltr" translate="no">BYTES</code> value to a <code dir="ltr" translate="no">STRING</code> value and replace any invalid UTF-8 characters with the Unicode replacement character, <code dir="ltr" translate="no">U+FFFD</code> .</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#soundex"><code dir="ltr" translate="no">        SOUNDEX       </code></a></td>
-<td>Gets the Soundex codes for words in a <code dir="ltr" translate="no">       STRING      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#soundex"><code dir="ltr" translate="no">SOUNDEX</code></a></td>
+<td>Gets the Soundex codes for words in a <code dir="ltr" translate="no">STRING</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#split"><code dir="ltr" translate="no">        SPLIT       </code></a></td>
-<td>Splits a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value, using a delimiter.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#split"><code dir="ltr" translate="no">SPLIT</code></a></td>
+<td>Splits a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value, using a delimiter.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#split_substr"><code dir="ltr" translate="no">        SPLIT_SUBSTR       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#split_substr"><code dir="ltr" translate="no">SPLIT_SUBSTR</code></a></td>
 <td>Returns the substring from an input string that's determined by a delimiter, a location that indicates the first split of the substring to return, and the number of splits to include.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#starts_with"><code dir="ltr" translate="no">        STARTS_WITH       </code></a></td>
-<td>Checks if a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value is a prefix of another value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#starts_with"><code dir="ltr" translate="no">STARTS_WITH</code></a></td>
+<td>Checks if a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value is a prefix of another value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_for_json"><code dir="ltr" translate="no">        STRING       </code> (JSON)</a></td>
-<td>Converts a JSON string to a SQL <code dir="ltr" translate="no">       STRING      </code> value.<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_for_json"><code dir="ltr" translate="no">STRING</code> (JSON)</a></td>
+<td>Converts a JSON string to a SQL <code dir="ltr" translate="no">STRING</code> value.<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions">JSON functions</a> .</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_array_for_json"><code dir="ltr" translate="no">        STRING_ARRAY       </code></a></td>
-<td>Converts a JSON array of strings to a SQL <code dir="ltr" translate="no">       ARRAY&lt;STRING&gt;      </code> value.<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_array_for_json"><code dir="ltr" translate="no">STRING_ARRAY</code></a></td>
+<td>Converts a JSON array of strings to a SQL <code dir="ltr" translate="no">ARRAY&lt;STRING&gt;</code> value.<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions">JSON functions</a> .</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#string"><code dir="ltr" translate="no">        STRING       </code> (Timestamp)</a></td>
-<td>Converts a <code dir="ltr" translate="no">       TIMESTAMP      </code> value to a <code dir="ltr" translate="no">       STRING      </code> value.<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#string"><code dir="ltr" translate="no">STRING</code> (Timestamp)</a></td>
+<td>Converts a <code dir="ltr" translate="no">TIMESTAMP</code> value to a <code dir="ltr" translate="no">STRING</code> value.<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions">Timestamp functions</a> .</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#string_agg"><code dir="ltr" translate="no">        STRING_AGG       </code></a></td>
-<td>Concatenates non- <code dir="ltr" translate="no">       NULL      </code> <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> values.<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#string_agg"><code dir="ltr" translate="no">STRING_AGG</code></a></td>
+<td>Concatenates non- <code dir="ltr" translate="no">NULL</code> <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> values.<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions">Aggregate functions</a> .</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#strpos"><code dir="ltr" translate="no">        STRPOS       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#strpos"><code dir="ltr" translate="no">STRPOS</code></a></td>
 <td>Finds the position of the first occurrence of a subvalue inside another value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#substr"><code dir="ltr" translate="no">        SUBSTR       </code></a></td>
-<td>Gets a portion of a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#substr"><code dir="ltr" translate="no">SUBSTR</code></a></td>
+<td>Gets a portion of a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#substring"><code dir="ltr" translate="no">        SUBSTRING       </code></a></td>
-<td>Alias for <code dir="ltr" translate="no">       SUBSTR      </code></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#substring"><code dir="ltr" translate="no">SUBSTRING</code></a></td>
+<td>Alias for <code dir="ltr" translate="no">SUBSTR</code></td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_base32"><code dir="ltr" translate="no">        TO_BASE32       </code></a></td>
-<td>Converts a <code dir="ltr" translate="no">       BYTES      </code> value to a base32-encoded <code dir="ltr" translate="no">       STRING      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_base32"><code dir="ltr" translate="no">TO_BASE32</code></a></td>
+<td>Converts a <code dir="ltr" translate="no">BYTES</code> value to a base32-encoded <code dir="ltr" translate="no">STRING</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_base64"><code dir="ltr" translate="no">        TO_BASE64       </code></a></td>
-<td>Converts a <code dir="ltr" translate="no">       BYTES      </code> value to a base64-encoded <code dir="ltr" translate="no">       STRING      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_base64"><code dir="ltr" translate="no">TO_BASE64</code></a></td>
+<td>Converts a <code dir="ltr" translate="no">BYTES</code> value to a base64-encoded <code dir="ltr" translate="no">STRING</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_code_points"><code dir="ltr" translate="no">        TO_CODE_POINTS       </code></a></td>
-<td>Converts a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value into an array of extended ASCII code points.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_code_points"><code dir="ltr" translate="no">TO_CODE_POINTS</code></a></td>
+<td>Converts a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value into an array of extended ASCII code points.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_hex"><code dir="ltr" translate="no">        TO_HEX       </code></a></td>
-<td>Converts a <code dir="ltr" translate="no">       BYTES      </code> value to a hexadecimal <code dir="ltr" translate="no">       STRING      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_hex"><code dir="ltr" translate="no">TO_HEX</code></a></td>
+<td>Converts a <code dir="ltr" translate="no">BYTES</code> value to a hexadecimal <code dir="ltr" translate="no">STRING</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#trim"><code dir="ltr" translate="no">        TRIM       </code></a></td>
-<td>Removes the specified leading and trailing Unicode code points or bytes from a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#trim"><code dir="ltr" translate="no">TRIM</code></a></td>
+<td>Removes the specified leading and trailing Unicode code points or bytes from a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ucase"><code dir="ltr" translate="no">        UCASE       </code></a></td>
-<td>Alias for <code dir="ltr" translate="no">       UPPER      </code> .</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ucase"><code dir="ltr" translate="no">UCASE</code></a></td>
+<td>Alias for <code dir="ltr" translate="no">UPPER</code> .</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#upper"><code dir="ltr" translate="no">        UPPER       </code></a></td>
-<td>Formats alphabetic characters in a <code dir="ltr" translate="no">       STRING      </code> value as uppercase.<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#upper"><code dir="ltr" translate="no">UPPER</code></a></td>
+<td>Formats alphabetic characters in a <code dir="ltr" translate="no">STRING</code> value as uppercase.<br />
 <br />
-Formats ASCII characters in a <code dir="ltr" translate="no">       BYTES      </code> value as uppercase.</td>
+Formats ASCII characters in a <code dir="ltr" translate="no">BYTES</code> value as uppercase.</td>
 </tr>
 </tbody>
 </table>
 
-## `     BYTE_LENGTH    `
+## `BYTE_LENGTH`
 
     BYTE_LENGTH(value)
 
 **Description**
 
-Gets the number of `  BYTES  ` in a `  STRING  ` or `  BYTES  ` value, regardless of whether the value is a `  STRING  ` or `  BYTES  ` type.
+Gets the number of `BYTES` in a `STRING` or `BYTES` value, regardless of whether the value is a `STRING` or `BYTES` type.
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
@@ -257,17 +257,17 @@ Gets the number of `  BYTES  ` in a `  STRING  ` or `  BYTES  ` value, regardles
      | 10             |
      +----------------*/
 
-## `     CHAR_LENGTH    `
+## `CHAR_LENGTH`
 
     CHAR_LENGTH(value)
 
 **Description**
 
-Gets the number of characters in a `  STRING  ` value.
+Gets the number of characters in a `STRING` value.
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
@@ -279,7 +279,7 @@ Gets the number of characters in a `  STRING  ` value.
      | 5           |
      +------------ */
 
-## `     CHARACTER_LENGTH    `
+## `CHARACTER_LENGTH`
 
     CHARACTER_LENGTH(value)
 
@@ -289,7 +289,7 @@ Synonym for [CHAR\_LENGTH](https://docs.cloud.google.com/spanner/docs/reference/
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
@@ -303,23 +303,23 @@ Synonym for [CHAR\_LENGTH](https://docs.cloud.google.com/spanner/docs/reference/
      | абвгд      |                   5 |
      +------------+---------------------*/
 
-## `     CODE_POINTS_TO_BYTES    `
+## `CODE_POINTS_TO_BYTES`
 
     CODE_POINTS_TO_BYTES(ascii_code_points)
 
 **Description**
 
-Takes an array of extended ASCII [code points](https://en.wikipedia.org/wiki/Code_point) as `  ARRAY<INT64>  ` and returns `  BYTES  ` .
+Takes an array of extended ASCII [code points](https://en.wikipedia.org/wiki/Code_point) as `ARRAY<INT64>` and returns `BYTES` .
 
-To convert from `  BYTES  ` to an array of code points, see [TO\_CODE\_POINTS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_code_points) .
+To convert from `BYTES` to an array of code points, see [TO\_CODE\_POINTS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_code_points) .
 
 **Return type**
 
-`  BYTES  `
+`BYTES`
 
 **Examples**
 
-The following is a basic example using `  CODE_POINTS_TO_BYTES  ` .
+The following is a basic example using `CODE_POINTS_TO_BYTES` .
 
     SELECT CODE_POINTS_TO_BYTES([65, 98, 67, 100]) AS bytes;
     
@@ -357,23 +357,23 @@ The following example uses a rotate-by-13 places (ROT13) algorithm to encode a s
      | R3JmZyBGZ2V2YXQh |
      +------------------*/
 
-## `     CODE_POINTS_TO_STRING    `
+## `CODE_POINTS_TO_STRING`
 
     CODE_POINTS_TO_STRING(unicode_code_points)
 
 **Description**
 
-Takes an array of Unicode [code points](https://en.wikipedia.org/wiki/Code_point) as `  ARRAY<INT64>  ` and returns a `  STRING  ` .
+Takes an array of Unicode [code points](https://en.wikipedia.org/wiki/Code_point) as `ARRAY<INT64>` and returns a `STRING` .
 
 To convert from a string to an array of code points, see [TO\_CODE\_POINTS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_code_points) .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
-The following are basic examples using `  CODE_POINTS_TO_STRING  ` .
+The following are basic examples using `CODE_POINTS_TO_STRING` .
 
     SELECT CODE_POINTS_TO_STRING([65, 255, 513, 1024]) AS string;
     
@@ -429,21 +429,21 @@ The following example computes the frequency of letters in a set of words.
      | i      | 1            |
      +--------+--------------*/
 
-## `     CONCAT    `
+## `CONCAT`
 
     CONCAT(value1[, ...])
 
 **Description**
 
-Concatenates one or more `  STRING  ` or `  BYTE  ` values into a single result.
+Concatenates one or more `STRING` or `BYTE` values into a single result.
 
-The function returns `  NULL  ` if any input argument is `  NULL  ` .
+The function returns `NULL` if any input argument is `NULL` .
 
 **Note:** You can also use the [|| concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) to concatenate values into a string.
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -481,17 +481,17 @@ The function returns `  NULL  ` if any input argument is `  NULL  ` .
      | Joe Jackson         |
      +---------------------*/
 
-## `     ENDS_WITH    `
+## `ENDS_WITH`
 
     ENDS_WITH(value, suffix)
 
 **Description**
 
-Takes two `  STRING  ` or `  BYTES  ` values. Returns `  TRUE  ` if `  suffix  ` is a suffix of `  value  ` .
+Takes two `STRING` or `BYTES` values. Returns `TRUE` if `suffix` is a suffix of `value` .
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -503,20 +503,20 @@ Takes two `  STRING  ` or `  BYTES  ` values. Returns `  TRUE  ` if `  suffix  `
      |    True |
      +---------*/
 
-## `     FORMAT    `
+## `FORMAT`
 
     FORMAT(format_string_expression, data_type_expression[, ...])
 
 **Description**
 
-`  FORMAT  ` formats a data type expression as a string.
+`FORMAT` formats a data type expression as a string.
 
-  - `  format_string_expression  ` : Can contain zero or more [format specifiers](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#format_specifiers) . Each format specifier is introduced by the `  %  ` symbol, and must map to one or more of the remaining arguments. In general, this is a one-to-one mapping, except when the `  *  ` specifier is present. For example, `  %.*i  ` maps to two arguments—a length argument and a signed integer argument. If the number of arguments related to the format specifiers isn't the same as the number of arguments, an error occurs.
-  - `  data_type_expression  ` : The value to format as a string. This can be any GoogleSQL data type.
+  - `format_string_expression` : Can contain zero or more [format specifiers](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#format_specifiers) . Each format specifier is introduced by the `%` symbol, and must map to one or more of the remaining arguments. In general, this is a one-to-one mapping, except when the `*` specifier is present. For example, `%.*i` maps to two arguments—a length argument and a signed integer argument. If the number of arguments related to the format specifiers isn't the same as the number of arguments, an error occurs.
+  - `data_type_expression` : The value to format as a string. This can be any GoogleSQL data type.
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -531,9 +531,9 @@ Takes two `  STRING  ` or `  BYTES  ` values. Returns `  TRUE  ` if `  suffix  `
 | DATE                            | FORMAT('%t', date '2015-09-01')                                    | 2015-09-01             |
 | TIMESTAMP                       | FORMAT('%t', timestamp '2015-09-01 12:34:56 America/Los\_Angeles') | 2015‑09‑01 19:34:56+00 |
 
-The `  FORMAT()  ` function doesn't provide fully customizable formatting for all types and values, nor formatting that's sensitive to locale.
+The `FORMAT()` function doesn't provide fully customizable formatting for all types and values, nor formatting that's sensitive to locale.
 
-If custom formatting is necessary for a type, you must first format it using type-specific format functions, such as `  FORMAT_DATE()  ` or `  FORMAT_TIMESTAMP()  ` . For example:
+If custom formatting is necessary for a type, you must first format it using type-specific format functions, such as `FORMAT_DATE()` or `FORMAT_TIMESTAMP()` . For example:
 
     SELECT FORMAT('date: %s!', FORMAT_DATE('%B %d, %Y', date '2015-01-02'));
 
@@ -577,118 +577,118 @@ Additional information about format specifiers:
 <td>Types</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       d      </code> or <code dir="ltr" translate="no">       i      </code></td>
+<td><code dir="ltr" translate="no">d</code> or <code dir="ltr" translate="no">i</code></td>
 <td>Decimal integer</td>
 <td>392</td>
-<td><code dir="ltr" translate="no">        INT64       </code><br />
+<td><code dir="ltr" translate="no">INT64</code><br />
 </td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       o      </code></td>
+<td><code dir="ltr" translate="no">o</code></td>
 <td>Octal<br />
 <br />
-Note: If an <code dir="ltr" translate="no">       INT64      </code> value is negative, an error is produced.</td>
+Note: If an <code dir="ltr" translate="no">INT64</code> value is negative, an error is produced.</td>
 <td>610</td>
-<td><code dir="ltr" translate="no">        INT64       </code><br />
+<td><code dir="ltr" translate="no">INT64</code><br />
 </td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       x      </code></td>
+<td><code dir="ltr" translate="no">x</code></td>
 <td>Hexadecimal integer<br />
 <br />
-Note: If an <code dir="ltr" translate="no">       INT64      </code> value is negative, an error is produced.</td>
+Note: If an <code dir="ltr" translate="no">INT64</code> value is negative, an error is produced.</td>
 <td>7fa</td>
-<td><code dir="ltr" translate="no">        INT64       </code><br />
+<td><code dir="ltr" translate="no">INT64</code><br />
 </td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       X      </code></td>
+<td><code dir="ltr" translate="no">X</code></td>
 <td>Hexadecimal integer (uppercase)<br />
 <br />
-Note: If an <code dir="ltr" translate="no">       INT64      </code> value is negative, an error is produced.</td>
+Note: If an <code dir="ltr" translate="no">INT64</code> value is negative, an error is produced.</td>
 <td>7FA</td>
-<td><code dir="ltr" translate="no">        INT64       </code><br />
+<td><code dir="ltr" translate="no">INT64</code><br />
 </td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       f      </code></td>
+<td><code dir="ltr" translate="no">f</code></td>
 <td>Decimal notation, in [-](integer part).(fractional part) for finite values, and in lowercase for non-finite values</td>
 <td>392.650000<br />
 inf<br />
 nan</td>
-<td><code dir="ltr" translate="no">        NUMERIC       </code><br />
-<code dir="ltr" translate="no">        FLOAT32       </code><br />
-<code dir="ltr" translate="no">        FLOAT64       </code><br />
+<td><code dir="ltr" translate="no">NUMERIC</code><br />
+<code dir="ltr" translate="no">FLOAT32</code><br />
+<code dir="ltr" translate="no">FLOAT64</code><br />
 </td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       F      </code></td>
+<td><code dir="ltr" translate="no">F</code></td>
 <td>Decimal notation, in [-](integer part).(fractional part) for finite values, and in uppercase for non-finite values</td>
 <td>392.650000<br />
 INF<br />
 NAN</td>
-<td><code dir="ltr" translate="no">        NUMERIC       </code><br />
-<code dir="ltr" translate="no">        FLOAT32       </code><br />
-<code dir="ltr" translate="no">        FLOAT64       </code><br />
+<td><code dir="ltr" translate="no">NUMERIC</code><br />
+<code dir="ltr" translate="no">FLOAT32</code><br />
+<code dir="ltr" translate="no">FLOAT64</code><br />
 </td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       e      </code></td>
+<td><code dir="ltr" translate="no">e</code></td>
 <td>Scientific notation (mantissa/exponent), lowercase</td>
 <td>3.926500e+02<br />
 inf<br />
 nan</td>
-<td><code dir="ltr" translate="no">        NUMERIC       </code><br />
-<code dir="ltr" translate="no">        FLOAT32       </code><br />
-<code dir="ltr" translate="no">        FLOAT64       </code><br />
+<td><code dir="ltr" translate="no">NUMERIC</code><br />
+<code dir="ltr" translate="no">FLOAT32</code><br />
+<code dir="ltr" translate="no">FLOAT64</code><br />
 </td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       E      </code></td>
+<td><code dir="ltr" translate="no">E</code></td>
 <td>Scientific notation (mantissa/exponent), uppercase</td>
 <td>3.926500E+02<br />
 INF<br />
 NAN</td>
-<td><code dir="ltr" translate="no">        NUMERIC       </code><br />
-<code dir="ltr" translate="no">        FLOAT32       </code><br />
-<code dir="ltr" translate="no">        FLOAT64       </code><br />
+<td><code dir="ltr" translate="no">NUMERIC</code><br />
+<code dir="ltr" translate="no">FLOAT32</code><br />
+<code dir="ltr" translate="no">FLOAT64</code><br />
 </td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       g      </code></td>
+<td><code dir="ltr" translate="no">g</code></td>
 <td>Either decimal notation or scientific notation, depending on the input value's exponent and the specified precision. Lowercase. See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#g_and_g_behavior">%g and %G behavior</a> for details.</td>
 <td>392.65<br />
 3.9265e+07<br />
 inf<br />
 nan</td>
-<td><code dir="ltr" translate="no">        NUMERIC       </code><br />
-<code dir="ltr" translate="no">        FLOAT32       </code><br />
-<code dir="ltr" translate="no">        FLOAT64       </code><br />
+<td><code dir="ltr" translate="no">NUMERIC</code><br />
+<code dir="ltr" translate="no">FLOAT32</code><br />
+<code dir="ltr" translate="no">FLOAT64</code><br />
 </td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       G      </code></td>
+<td><code dir="ltr" translate="no">G</code></td>
 <td>Either decimal notation or scientific notation, depending on the input value's exponent and the specified precision. Uppercase. See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#g_and_g_behavior">%g and %G behavior</a> for details.</td>
 <td>392.65<br />
 3.9265E+07<br />
 INF<br />
 NAN</td>
-<td><code dir="ltr" translate="no">        NUMERIC       </code><br />
-<code dir="ltr" translate="no">        FLOAT32       </code><br />
-<code dir="ltr" translate="no">        FLOAT64       </code><br />
+<td><code dir="ltr" translate="no">NUMERIC</code><br />
+<code dir="ltr" translate="no">FLOAT32</code><br />
+<code dir="ltr" translate="no">FLOAT64</code><br />
 </td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       p      </code></td>
+<td><code dir="ltr" translate="no">p</code></td>
 <td>Produces a one-line printable string representing a protocol buffer or JSON. See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#p_and_p_behavior">%p and %P behavior</a> .</td>
 <td><pre dir="ltr" data-is-upgraded="" translate="no"><code>year: 2019 month: 10</code></pre>
 <pre dir="ltr" data-is-upgraded="" translate="no"><code>{&quot;month&quot;:10,&quot;year&quot;:2019}</code></pre></td>
-<td><code dir="ltr" translate="no">        JSON       </code><br />
-<code dir="ltr" translate="no">        PROTO       </code><br />
+<td><code dir="ltr" translate="no">JSON</code><br />
+<code dir="ltr" translate="no">PROTO</code><br />
 </td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       P      </code></td>
+<td><code dir="ltr" translate="no">P</code></td>
 <td>Produces a multi-line printable string representing a protocol buffer or JSON. See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#p_and_p_behavior">%p and %P behavior</a> .</td>
 <td><pre dir="ltr" data-is-upgraded="" translate="no"><code>year: 2019
 month: 10</code></pre>
@@ -696,26 +696,26 @@ month: 10</code></pre>
   &quot;month&quot;: 10,
   &quot;year&quot;: 2019
 }</code></pre></td>
-<td><code dir="ltr" translate="no">        JSON       </code><br />
-<code dir="ltr" translate="no">        PROTO       </code><br />
+<td><code dir="ltr" translate="no">JSON</code><br />
+<code dir="ltr" translate="no">PROTO</code><br />
 </td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       s      </code></td>
+<td><code dir="ltr" translate="no">s</code></td>
 <td>String of characters</td>
 <td>sample</td>
-<td><code dir="ltr" translate="no">        STRING       </code><br />
+<td><code dir="ltr" translate="no">STRING</code><br />
 </td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       t      </code></td>
-<td>Returns a printable string representing the value. Often looks similar to casting the argument to <code dir="ltr" translate="no">       STRING      </code> . See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#t_and_t_behavior">%t and %T behavior</a> .</td>
+<td><code dir="ltr" translate="no">t</code></td>
+<td>Returns a printable string representing the value. Often looks similar to casting the argument to <code dir="ltr" translate="no">STRING</code> . See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#t_and_t_behavior">%t and %T behavior</a> .</td>
 <td>sample<br />
 2014‑01‑01</td>
 <td>Any type</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       T      </code></td>
+<td><code dir="ltr" translate="no">T</code></td>
 <td>Produces a string that's a valid GoogleSQL constant with a similar type to the value's type (maybe wider, or maybe string). See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#t_and_t_behavior">%t and %T behavior</a> .</td>
 <td>'sample'<br />
 b'bytes sample'<br />
@@ -725,7 +725,7 @@ date '2014‑01‑01'</td>
 <td>Any type</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       %      </code></td>
+<td><code dir="ltr" translate="no">%</code></td>
 <td>'%%' produces a single '%'</td>
 <td>%</td>
 <td>n/a</td>
@@ -750,19 +750,19 @@ These sub-specifiers must comply with the following specifications.
 <td>Description</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       -      </code></td>
+<td><code dir="ltr" translate="no">-</code></td>
 <td>Left-justify within the given field width; Right justification is the default (see width sub-specifier)</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       +      </code></td>
-<td>Forces to precede the result with a plus or minus sign ( <code dir="ltr" translate="no">       +      </code> or <code dir="ltr" translate="no">       -      </code> ) even for positive numbers. By default, only negative numbers are preceded with a <code dir="ltr" translate="no">       -      </code> sign</td>
+<td><code dir="ltr" translate="no">+</code></td>
+<td>Forces to precede the result with a plus or minus sign ( <code dir="ltr" translate="no">+</code> or <code dir="ltr" translate="no">-</code> ) even for positive numbers. By default, only negative numbers are preceded with a <code dir="ltr" translate="no">-</code> sign</td>
 </tr>
 <tr class="even">
 <td>&lt;space&gt;</td>
 <td>If no sign is going to be written, a blank space is inserted before the value</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       #      </code></td>
+<td><code dir="ltr" translate="no">#</code></td>
 <td><ul>
 <li>For `%o`, `%x`, and `%X`, this flag means to precede the value with 0, 0x or 0X respectively for values different than zero.</li>
 <li>For `%f`, `%F`, `%e`, and `%E`, this flag means to add the decimal point even when there is no fractional part, unless the value is non-finite.</li>
@@ -770,16 +770,16 @@ These sub-specifiers must comply with the following specifications.
 </ul></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       0      </code></td>
+<td><code dir="ltr" translate="no">0</code></td>
 <td>Left-pads the number with zeroes (0) instead of spaces when padding is specified (see width sub-specifier)</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       '      </code></td>
+<td><code dir="ltr" translate="no">'</code></td>
 <td><p>Formats integers using the appropriating grouping character. For example:</p>
 <ul>
-<li><code dir="ltr" translate="no">         FORMAT("%'d", 12345678)        </code> returns <code dir="ltr" translate="no">         12,345,678        </code></li>
-<li><code dir="ltr" translate="no">         FORMAT("%'x", 12345678)        </code> returns <code dir="ltr" translate="no">         bc:614e        </code></li>
-<li><code dir="ltr" translate="no">         FORMAT("%'o", 55555)        </code> returns <code dir="ltr" translate="no">         15,4403        </code></li>
+<li><code dir="ltr" translate="no">FORMAT("%'d", 12345678)</code> returns <code dir="ltr" translate="no">12,345,678</code></li>
+<li><code dir="ltr" translate="no">FORMAT("%'x", 12345678)</code> returns <code dir="ltr" translate="no">bc:614e</code></li>
+<li><code dir="ltr" translate="no">FORMAT("%'o", 55555)</code> returns <code dir="ltr" translate="no">15,4403</code></li>
 </ul></td>
 </tr>
 </tbody>
@@ -789,11 +789,11 @@ Flags may be specified in any order. Duplicate flags aren't an error. When flags
 
 ##### Width
 
-|                    |                                                                                                                                                                                                    |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Width              | Description                                                                                                                                                                                        |
-| \<number\>         | Minimum number of characters to be printed. If the value to be printed is shorter than this number, the result is padded with blank spaces. The value isn't truncated even if the result is larger |
-| `        *       ` | The width isn't specified in the format string, but as an additional integer value argument preceding the argument that has to be formatted                                                        |
+|            |                                                                                                                                                                                                    |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Width      | Description                                                                                                                                                                                        |
+| \<number\> | Minimum number of characters to be printed. If the value to be printed is shorter than this number, the result is padded with blank spaces. The value isn't truncated even if the result is larger |
+| `*`        | The width isn't specified in the format string, but as an additional integer value argument preceding the argument that has to be formatted                                                        |
 
 ##### Precision
 
@@ -808,7 +808,7 @@ Flags may be specified in any order. Duplicate flags aren't an error. When flags
 <td>Description</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       .      </code> &lt;number&gt;</td>
+<td><code dir="ltr" translate="no">.</code> &lt;number&gt;</td>
 <td><ul>
 <li>For integer specifiers `%d`, `%i`, `%o`, `%u`, `%x`, and `%X`: precision specifies the minimum number of digits to be written. If the value to be written is shorter than this number, the result is padded with trailing zeros. The value isn't truncated even if the result is longer. A precision of 0 means that no character is written for the value 0.</li>
 <li>For specifiers `%a`, `%A`, `%e`, `%E`, `%f`, and `%F`: this is the number of digits to be printed after the decimal point. The default value is 6.</li>
@@ -816,7 +816,7 @@ Flags may be specified in any order. Duplicate flags aren't an error. When flags
 </ul></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       .*      </code></td>
+<td><code dir="ltr" translate="no">.*</code></td>
 <td>The precision isn't specified in the format string, but as an additional integer value argument preceding the argument that has to be formatted</td>
 </tr>
 </tbody>
@@ -824,15 +824,15 @@ Flags may be specified in any order. Duplicate flags aren't an error. When flags
 
 ##### %g and %G behavior
 
-The `  %g  ` and `  %G  ` format specifiers choose either the decimal notation (like the `  %f  ` and `  %F  ` specifiers) or the scientific notation (like the `  %e  ` and `  %E  ` specifiers), depending on the input value's exponent and the specified [precision](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#precision) .
+The `%g` and `%G` format specifiers choose either the decimal notation (like the `%f` and `%F` specifiers) or the scientific notation (like the `%e` and `%E` specifiers), depending on the input value's exponent and the specified [precision](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#precision) .
 
 Let p stand for the specified [precision](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#precision) (defaults to 6; 1 if the specified precision is less than 1). The input value is first converted to scientific notation with precision = (p - 1). If the resulting exponent part x is less than -4 or no less than p, the scientific notation with precision = (p - 1) is used; otherwise the decimal notation with precision = (p - 1 - x) is used.
 
-Unless [`  #  ` flag](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#flags) is present, the trailing zeros after the decimal point are removed, and the decimal point is also removed if there is no digit after it.
+Unless [`#` flag](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#flags) is present, the trailing zeros after the decimal point are removed, and the decimal point is also removed if there is no digit after it.
 
 ##### %p and %P behavior
 
-The `  %p  ` format specifier produces a one-line printable string. The `  %P  ` format specifier produces a multi-line printable string. You can use these format specifiers with the following data types:
+The `%p` format specifier produces a one-line printable string. The `%P` format specifier produces a multi-line printable string. You can use these format specifiers with the following data types:
 
 <table>
 <colgroup>
@@ -893,13 +893,13 @@ month: 10</code></pre></td>
 
 ##### %t and %T behavior
 
-The `  %t  ` and `  %T  ` format specifiers are defined for all types. The [width](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#width) , [precision](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#precision) , and [flags](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#flags) act as they do for `  %s  ` : the [width](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#width) is the minimum width and the `  STRING  ` will be padded to that size, and [precision](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#precision) is the maximum width of content to show and the `  STRING  ` will be truncated to that size, prior to padding to width.
+The `%t` and `%T` format specifiers are defined for all types. The [width](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#width) , [precision](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#precision) , and [flags](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#flags) act as they do for `%s` : the [width](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#width) is the minimum width and the `STRING` will be padded to that size, and [precision](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#precision) is the maximum width of content to show and the `STRING` will be truncated to that size, prior to padding to width.
 
-The `  %t  ` specifier is always meant to be a readable form of the value.
+The `%t` specifier is always meant to be a readable form of the value.
 
-The `  %T  ` specifier is always a valid SQL literal of a similar type, such as a wider numeric type. The literal will not include casts or a type name, except for the special case of non-finite floating point values.
+The `%T` specifier is always a valid SQL literal of a similar type, such as a wider numeric type. The literal will not include casts or a type name, except for the special case of non-finite floating point values.
 
-The `  STRING  ` is formatted as follows:
+The `STRING` is formatted as follows:
 
 <table>
 <colgroup>
@@ -914,12 +914,12 @@ The `  STRING  ` is formatted as follows:
 <td><strong>%T</strong></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       NULL      </code> of any type</td>
+<td><code dir="ltr" translate="no">NULL</code> of any type</td>
 <td>NULL</td>
 <td>NULL</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">        INT64       </code><br />
+<td><code dir="ltr" translate="no">INT64</code><br />
 </td>
 <td>123</td>
 <td>123</td>
@@ -933,9 +933,9 @@ The `  STRING  ` is formatted as follows:
 <td>FLOAT32, FLOAT64</td>
 <td>123.0 <em>(always with .0)</em><br />
 123e+10<br />
-<code dir="ltr" translate="no">       inf      </code><br />
-<code dir="ltr" translate="no">       -inf      </code><br />
-<code dir="ltr" translate="no">       NaN      </code></td>
+<code dir="ltr" translate="no">inf</code><br />
+<code dir="ltr" translate="no">-inf</code><br />
+<code dir="ltr" translate="no">NaN</code></td>
 <td>123.0 <em>(always with .0)</em><br />
 123e+10<br />
 CAST("inf" AS &lt;type&gt;)<br />
@@ -1005,7 +1005,7 @@ where values are formatted with %T</td>
 
 ##### Error conditions
 
-If a format specifier is invalid, or isn't compatible with the related argument type, or the wrong number or arguments are provided, then an error is produced. For example, the following `  <format_string>  ` expressions are invalid:
+If a format specifier is invalid, or isn't compatible with the related argument type, or the wrong number or arguments are provided, then an error is produced. For example, the following `<format_string>` expressions are invalid:
 
     FORMAT('%s', 1)
 
@@ -1013,11 +1013,11 @@ If a format specifier is invalid, or isn't compatible with the related argument 
 
 ##### NULL argument handling
 
-A `  NULL  ` format string results in a `  NULL  ` output `  STRING  ` . Any other arguments are ignored in this case.
+A `NULL` format string results in a `NULL` output `STRING` . Any other arguments are ignored in this case.
 
-The function generally produces a `  NULL  ` value if a `  NULL  ` argument is present. For example, `  FORMAT('%i', NULL_expression)  ` produces a `  NULL STRING  ` as output.
+The function generally produces a `NULL` value if a `NULL` argument is present. For example, `FORMAT('%i', NULL_expression)` produces a `NULL STRING` as output.
 
-However, there are some exceptions: if the format specifier is %t or %T (both of which produce `  STRING  ` s that effectively match CAST and literal value semantics), a `  NULL  ` value produces 'NULL' (without the quotes) in the result `  STRING  ` . For example, the function:
+However, there are some exceptions: if the format specifier is %t or %T (both of which produce `STRING` s that effectively match CAST and literal value semantics), a `NULL` value produces 'NULL' (without the quotes) in the result `STRING` . For example, the function:
 
     FORMAT('00-%t-00', NULL_expression);
 
@@ -1027,19 +1027,19 @@ Returns
 
 ##### Additional semantic rules
 
-`  FLOAT64  ` and `  FLOAT32  ` values can be `  +/-inf  ` or `  NaN  ` . When an argument has one of those values, the result of the format specifiers `  %f  ` , `  %F  ` , `  %e  ` , `  %E  ` , `  %g  ` , `  %G  ` , and `  %t  ` are `  inf  ` , `  -inf  ` , or `  nan  ` (or the same in uppercase) as appropriate. This is consistent with how GoogleSQL casts these values to `  STRING  ` . For `  %T  ` , GoogleSQL returns quoted strings for `  FLOAT64  ` values that don't have non-string literal representations.
+`FLOAT64` and `FLOAT32` values can be `+/-inf` or `NaN` . When an argument has one of those values, the result of the format specifiers `%f` , `%F` , `%e` , `%E` , `%g` , `%G` , and `%t` are `inf` , `-inf` , or `nan` (or the same in uppercase) as appropriate. This is consistent with how GoogleSQL casts these values to `STRING` . For `%T` , GoogleSQL returns quoted strings for `FLOAT64` values that don't have non-string literal representations.
 
-## `     FROM_BASE32    `
+## `FROM_BASE32`
 
     FROM_BASE32(string_expr)
 
 **Description**
 
-Converts the base32-encoded input `  string_expr  ` into `  BYTES  ` format. To convert `  BYTES  ` to a base32-encoded `  STRING  ` , use [TO\_BASE32](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_base32) .
+Converts the base32-encoded input `string_expr` into `BYTES` format. To convert `BYTES` to a base32-encoded `STRING` , use [TO\_BASE32](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_base32) .
 
 **Return type**
 
-`  BYTES  `
+`BYTES`
 
 **Example**
 
@@ -1052,19 +1052,19 @@ Converts the base32-encoded input `  string_expr  ` into `  BYTES  ` format. To 
      | YWJjZGX/  |
      +-----------*/
 
-## `     FROM_BASE64    `
+## `FROM_BASE64`
 
     FROM_BASE64(string_expr)
 
 **Description**
 
-Converts the base64-encoded input `  string_expr  ` into `  BYTES  ` format. To convert `  BYTES  ` to a base64-encoded `  STRING  ` , use [TO\_BASE64](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_base64) .
+Converts the base64-encoded input `string_expr` into `BYTES` format. To convert `BYTES` to a base64-encoded `STRING` , use [TO\_BASE64](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_base64) .
 
-There are several base64 encodings in common use that vary in exactly which alphabet of 65 ASCII characters are used to encode the 64 digits and padding. See [RFC 4648](https://tools.ietf.org/html/rfc4648#section-4) for details. This function expects the alphabet `  [A-Za-z0-9+/=]  ` .
+There are several base64 encodings in common use that vary in exactly which alphabet of 65 ASCII characters are used to encode the 64 digits and padding. See [RFC 4648](https://tools.ietf.org/html/rfc4648#section-4) for details. This function expects the alphabet `[A-Za-z0-9+/=]` .
 
 **Return type**
 
-`  BYTES  `
+`BYTES`
 
 **Example**
 
@@ -1077,7 +1077,7 @@ There are several base64 encodings in common use that vary in exactly which alph
      | /+A=      |
      +-----------*/
 
-To work with an encoding using a different base64 alphabet, you might need to compose `  FROM_BASE64  ` with the `  REPLACE  ` function. For instance, the `  base64url  ` url-safe and filename-safe encoding commonly used in web programming uses `  -_=  ` as the last characters rather than `  +/=  ` . To decode a `  base64url  ` -encoded string, replace `  -  ` and `  _  ` with `  +  ` and `  /  ` respectively.
+To work with an encoding using a different base64 alphabet, you might need to compose `FROM_BASE64` with the `REPLACE` function. For instance, the `base64url` url-safe and filename-safe encoding commonly used in web programming uses `-_=` as the last characters rather than `+/=` . To decode a `base64url` -encoded string, replace `-` and `_` with `+` and `/` respectively.
 
     SELECT FROM_BASE64(REPLACE(REPLACE('_-A=', '-', '+'), '_', '/')) AS binary;
     
@@ -1088,17 +1088,17 @@ To work with an encoding using a different base64 alphabet, you might need to co
      | /+A=   |
      +--------*/
 
-## `     FROM_HEX    `
+## `FROM_HEX`
 
     FROM_HEX(string)
 
 **Description**
 
-Converts a hexadecimal-encoded `  STRING  ` into `  BYTES  ` format. Returns an error if the input `  STRING  ` contains characters outside the range `  (0..9, A..F, a..f)  ` . The lettercase of the characters doesn't matter. If the input `  STRING  ` has an odd number of characters, the function acts as if the input has an additional leading `  0  ` . To convert `  BYTES  ` to a hexadecimal-encoded `  STRING  ` , use [TO\_HEX](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_hex) .
+Converts a hexadecimal-encoded `STRING` into `BYTES` format. Returns an error if the input `STRING` contains characters outside the range `(0..9, A..F, a..f)` . The lettercase of the characters doesn't matter. If the input `STRING` has an odd number of characters, the function acts as if the input has an additional leading `0` . To convert `BYTES` to a hexadecimal-encoded `STRING` , use [TO\_HEX](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#to_hex) .
 
 **Return type**
 
-`  BYTES  `
+`BYTES`
 
 **Example**
 
@@ -1119,23 +1119,23 @@ Converts a hexadecimal-encoded `  STRING  ` into `  BYTES  ` format. Returns an 
      | 666f6f626172     | Zm9vYmFy     |
      +------------------+--------------*/
 
-## `     LCASE    `
+## `LCASE`
 
     LCASE(val)
 
-Alias for [`  LOWER  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lower) .
+Alias for [`LOWER`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lower) .
 
-## `     LENGTH    `
+## `LENGTH`
 
     LENGTH(value)
 
 **Description**
 
-Returns the length of the `  STRING  ` or `  BYTES  ` value. The returned value is in characters for `  STRING  ` arguments and in bytes for the `  BYTES  ` argument.
+Returns the length of the `STRING` or `BYTES` value. The returned value is in characters for `STRING` arguments and in bytes for the `BYTES` argument.
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
@@ -1149,19 +1149,19 @@ Returns the length of the `  STRING  ` or `  BYTES  ` value. The returned value 
      | 5              | 10            |
      +----------------+---------------*/
 
-## `     LOWER    `
+## `LOWER`
 
     LOWER(value)
 
 **Description**
 
-For `  STRING  ` arguments, returns the original string with all alphabetic characters in lowercase. Mapping between lowercase and uppercase is done according to the [Unicode Character Database](http://unicode.org/ucd/) without taking into account language-specific mappings.
+For `STRING` arguments, returns the original string with all alphabetic characters in lowercase. Mapping between lowercase and uppercase is done according to the [Unicode Character Database](http://unicode.org/ucd/) without taking into account language-specific mappings.
 
-For `  BYTES  ` arguments, the argument is treated as ASCII text, with all bytes greater than 127 left intact.
+For `BYTES` arguments, the argument is treated as ASCII text, with all bytes greater than 127 left intact.
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1175,30 +1175,30 @@ For `  BYTES  ` arguments, the argument is treated as ASCII text, with all bytes
      | foo bar baz |
      +-------------*/
 
-## `     LPAD    `
+## `LPAD`
 
     LPAD(original_value, return_length[, pattern])
 
 **Description**
 
-Returns a `  STRING  ` or `  BYTES  ` value that consists of `  original_value  ` prepended with `  pattern  ` . The `  return_length  ` is an `  INT64  ` that specifies the length of the returned value. If `  original_value  ` is of type `  BYTES  ` , `  return_length  ` is the number of bytes. If `  original_value  ` is of type `  STRING  ` , `  return_length  ` is the number of characters.
+Returns a `STRING` or `BYTES` value that consists of `original_value` prepended with `pattern` . The `return_length` is an `INT64` that specifies the length of the returned value. If `original_value` is of type `BYTES` , `return_length` is the number of bytes. If `original_value` is of type `STRING` , `return_length` is the number of characters.
 
-The default value of `  pattern  ` is a blank space.
+The default value of `pattern` is a blank space.
 
-Both `  original_value  ` and `  pattern  ` must be the same data type.
+Both `original_value` and `pattern` must be the same data type.
 
-If `  return_length  ` is less than or equal to the `  original_value  ` length, this function returns the `  original_value  ` value, truncated to the value of `  return_length  ` . For example, `  LPAD('hello world', 7);  ` returns `  'hello w'  ` .
+If `return_length` is less than or equal to the `original_value` length, this function returns the `original_value` value, truncated to the value of `return_length` . For example, `LPAD('hello world', 7);` returns `'hello w'` .
 
-If `  original_value  ` , `  return_length  ` , or `  pattern  ` is `  NULL  ` , this function returns `  NULL  ` .
+If `original_value` , `return_length` , or `pattern` is `NULL` , this function returns `NULL` .
 
 This function returns an error if:
 
-  - `  return_length  ` is negative
-  - `  pattern  ` is empty
+  - `return_length` is negative
+  - `pattern` is empty
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1242,7 +1242,7 @@ This function returns an error if:
      | b"ghdghdgabc" |
      +---------------*/
 
-## `     LTRIM    `
+## `LTRIM`
 
     LTRIM(value1[, value2])
 
@@ -1252,7 +1252,7 @@ Identical to [TRIM](https://docs.cloud.google.com/spanner/docs/reference/standar
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1280,28 +1280,28 @@ Identical to [TRIM](https://docs.cloud.google.com/spanner/docs/reference/standar
      | applexxx  |
      +-----------*/
 
-## `     NORMALIZE    `
+## `NORMALIZE`
 
     NORMALIZE(value[, normalization_mode])
 
 **Description**
 
-Takes a string value and returns it as a normalized string. If you don't provide a normalization mode, `  NFC  ` is used.
+Takes a string value and returns it as a normalized string. If you don't provide a normalization mode, `NFC` is used.
 
 [Normalization](https://en.wikipedia.org/wiki/Unicode_equivalence#Normalization) is used to ensure that two strings are equivalent. Normalization is often used in situations in which two strings render the same on the screen but have different Unicode code points.
 
-`  NORMALIZE  ` supports four optional normalization modes:
+`NORMALIZE` supports four optional normalization modes:
 
-| Value                 | Name                                           | Description                                                                                                         |
-| --------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `        NFC       `  | Normalization Form Canonical Composition       | Decomposes and recomposes characters by canonical equivalence.                                                      |
-| `        NFKC       ` | Normalization Form Compatibility Composition   | Decomposes characters by compatibility, then recomposes them by canonical equivalence.                              |
-| `        NFD       `  | Normalization Form Canonical Decomposition     | Decomposes characters by canonical equivalence, and multiple combining characters are arranged in a specific order. |
-| `        NFKD       ` | Normalization Form Compatibility Decomposition | Decomposes characters by compatibility, and multiple combining characters are arranged in a specific order.         |
+| Value  | Name                                           | Description                                                                                                         |
+| ------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `NFC`  | Normalization Form Canonical Composition       | Decomposes and recomposes characters by canonical equivalence.                                                      |
+| `NFKC` | Normalization Form Compatibility Composition   | Decomposes characters by compatibility, then recomposes them by canonical equivalence.                              |
+| `NFD`  | Normalization Form Canonical Decomposition     | Decomposes characters by canonical equivalence, and multiple combining characters are arranged in a specific order. |
+| `NFKD` | Normalization Form Compatibility Decomposition | Decomposes characters by compatibility, and multiple combining characters are arranged in a specific order.         |
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -1352,30 +1352,30 @@ The following examples normalize different space characters:
      | Raha Mahan      |
      +-----------------*/
 
-## `     NORMALIZE_AND_CASEFOLD    `
+## `NORMALIZE_AND_CASEFOLD`
 
     NORMALIZE_AND_CASEFOLD(value[, normalization_mode])
 
 **Description**
 
-Takes a string value and returns it as a normalized string. If you don't provide a normalization mode, `  NFC  ` is used.
+Takes a string value and returns it as a normalized string. If you don't provide a normalization mode, `NFC` is used.
 
 [Normalization](https://en.wikipedia.org/wiki/Unicode_equivalence#Normalization) is used to ensure that two strings are equivalent. Normalization is often used in situations in which two strings render the same on the screen but have different Unicode code points.
 
-[Case folding](https://en.wikipedia.org/wiki/Letter_case#Case_folding) is used for the caseless comparison of strings. If you need to compare strings and case shouldn't be considered, use `  NORMALIZE_AND_CASEFOLD  ` , otherwise use [`  NORMALIZE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#normalize) .
+[Case folding](https://en.wikipedia.org/wiki/Letter_case#Case_folding) is used for the caseless comparison of strings. If you need to compare strings and case shouldn't be considered, use `NORMALIZE_AND_CASEFOLD` , otherwise use [`NORMALIZE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#normalize) .
 
-`  NORMALIZE_AND_CASEFOLD  ` supports four optional normalization modes:
+`NORMALIZE_AND_CASEFOLD` supports four optional normalization modes:
 
-| Value                 | Name                                           | Description                                                                                                         |
-| --------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `        NFC       `  | Normalization Form Canonical Composition       | Decomposes and recomposes characters by canonical equivalence.                                                      |
-| `        NFKC       ` | Normalization Form Compatibility Composition   | Decomposes characters by compatibility, then recomposes them by canonical equivalence.                              |
-| `        NFD       `  | Normalization Form Canonical Decomposition     | Decomposes characters by canonical equivalence, and multiple combining characters are arranged in a specific order. |
-| `        NFKD       ` | Normalization Form Compatibility Decomposition | Decomposes characters by compatibility, and multiple combining characters are arranged in a specific order.         |
+| Value  | Name                                           | Description                                                                                                         |
+| ------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `NFC`  | Normalization Form Canonical Composition       | Decomposes and recomposes characters by canonical equivalence.                                                      |
+| `NFKC` | Normalization Form Compatibility Composition   | Decomposes characters by compatibility, then recomposes them by canonical equivalence.                              |
+| `NFD`  | Normalization Form Canonical Decomposition     | Decomposes characters by canonical equivalence, and multiple combining characters are arranged in a specific order. |
+| `NFKD` | Normalization Form Compatibility Decomposition | Decomposes characters by compatibility, and multiple combining characters are arranged in a specific order.         |
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -1418,29 +1418,29 @@ Takes a string value and returns it as a normalized string. If you don't provide
      | Å | Å  | true  | true  | true | true |
      +---+----+-------+-------+------+------*/
 
-## `     OCTET_LENGTH    `
+## `OCTET_LENGTH`
 
     OCTET_LENGTH(value)
 
-Alias for [`  BYTE_LENGTH  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#byte_length) .
+Alias for [`BYTE_LENGTH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#byte_length) .
 
-## `     REGEXP_CONTAINS    `
+## `REGEXP_CONTAINS`
 
     REGEXP_CONTAINS(value, regexp)
 
 **Description**
 
-Returns `  TRUE  ` if `  value  ` is a partial match for the regular expression, `  regexp  ` .
+Returns `TRUE` if `value` is a partial match for the regular expression, `regexp` .
 
-If the `  regexp  ` argument is invalid, the function returns an error.
+If the `regexp` argument is invalid, the function returns an error.
 
-You can search for a full match by using `  ^  ` (beginning of text) and `  $  ` (end of text). Due to regular expression operator precedence, it's good practice to use parentheses around everything between `  ^  ` and `  $  ` .
+You can search for a full match by using `^` (beginning of text) and `$` (end of text). Due to regular expression operator precedence, it's good practice to use parentheses around everything between `^` and `$` .
 
 **Note:** GoogleSQL provides regular expression support using the [re2](https://github.com/google/re2/wiki/Syntax) library; see that documentation for its regular expression syntax.
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -1530,15 +1530,15 @@ The following queries check to see if an email is valid:
      | c@buz.net      | false               | false               |
      +----------------+---------------------+---------------------*/
 
-## `     REGEXP_EXTRACT    `
+## `REGEXP_EXTRACT`
 
     REGEXP_EXTRACT(value, regexp)
 
 **Description**
 
-Returns the first substring in `  value  ` that matches the [re2 regular expression](https://github.com/google/re2/wiki/Syntax) , `  regexp  ` . Returns `  NULL  ` if there is no match.
+Returns the first substring in `value` that matches the [re2 regular expression](https://github.com/google/re2/wiki/Syntax) , `regexp` . Returns `NULL` if there is no match.
 
-If the regular expression contains a capturing group ( `  (...)  ` ), and there is a match for that capturing group, that match is returned. If there are multiple matches for a capturing group, the first match is returned.
+If the regular expression contains a capturing group ( `(...)` ), and there is a match for that capturing group, that match is returned. If there are multiple matches for a capturing group, the first match is returned.
 
 Returns an error if:
 
@@ -1547,7 +1547,7 @@ Returns an error if:
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1579,19 +1579,19 @@ Returns an error if:
      | ab       | a        | t        | NULL     |
      +-------------------------------------------*/
 
-## `     REGEXP_EXTRACT_ALL    `
+## `REGEXP_EXTRACT_ALL`
 
     REGEXP_EXTRACT_ALL(value, regexp)
 
 **Description**
 
-Returns an array of all substrings of `  value  ` that match the [re2 regular expression](https://github.com/google/re2/wiki/Syntax) , `  regexp  ` . Returns an empty array if there is no match.
+Returns an array of all substrings of `value` that match the [re2 regular expression](https://github.com/google/re2/wiki/Syntax) , `regexp` . Returns an empty array if there is no match.
 
-If the regular expression contains a capturing group ( `  (...)  ` ), the function returns an array of substrings that are matched by the capturing group.
+If the regular expression contains a capturing group ( `(...)` ), the function returns an array of substrings that are matched by the capturing group.
 
-The `  REGEXP_EXTRACT_ALL  ` function only returns non-overlapping matches. For example, using this function to extract `  ana  ` from `  banana  ` returns only one substring, not two.
+The `REGEXP_EXTRACT_ALL` function only returns non-overlapping matches. For example, using this function to extract `ana` from `banana` returns only one substring, not two.
 
-When a capturing group is present, this non-overlapping rule applies to the *entire substring* matched by the whole regular expression, not just the part within the capturing group. The search for any subsequent match begins *after* the end of the entire substring that satisfied the previous match. In the examples that follow, the second example illustrates this behavior with the pattern `  r'\d(\d)\d'  ` .
+When a capturing group is present, this non-overlapping rule applies to the *entire substring* matched by the whole regular expression, not just the part within the capturing group. The search for any subsequent match begins *after* the end of the entire substring that satisfied the previous match. In the examples that follow, the second example illustrates this behavior with the pattern `r'\d(\d)\d'` .
 
 Returns an error if:
 
@@ -1600,7 +1600,7 @@ Returns an error if:
 
 **Return type**
 
-`  ARRAY<STRING>  ` or `  ARRAY<BYTES>  `
+`ARRAY<STRING>` or `ARRAY<BYTES>`
 
 **Examples**
 
@@ -1622,29 +1622,29 @@ The following example demonstrates non-overlapping matches with a capturing grou
      | ['2', '5'] |
      +-----------*/
 
-The pattern `  r'\d(\d)\d'  ` matches `  '123'  ` and captures `  '2'  ` . The next search starts after `  '3'  ` , and then it matches `  '456'  ` and captures `  '5'  ` .
+The pattern `r'\d(\d)\d'` matches `'123'` and captures `'2'` . The next search starts after `'3'` , and then it matches `'456'` and captures `'5'` .
 
-## `     REGEXP_REPLACE    `
+## `REGEXP_REPLACE`
 
     REGEXP_REPLACE(value, regexp, replacement)
 
 **Description**
 
-Returns a `  STRING  ` where all substrings of `  value  ` that match regular expression `  regexp  ` are replaced with `  replacement  ` .
+Returns a `STRING` where all substrings of `value` that match regular expression `regexp` are replaced with `replacement` .
 
-You can use backslashed-escaped digits (\\1 to \\9) within the `  replacement  ` argument to insert text matching the corresponding parenthesized group in the `  regexp  ` pattern. Use \\0 to refer to the entire matching text.
+You can use backslashed-escaped digits (\\1 to \\9) within the `replacement` argument to insert text matching the corresponding parenthesized group in the `regexp` pattern. Use \\0 to refer to the entire matching text.
 
-To add a backslash in your regular expression, you must first escape it. For example, `  SELECT REGEXP_REPLACE('abc', 'b(.)', 'X\\1');  ` returns `  aXc  ` . You can also use [raw strings](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#string_and_bytes_literals) to remove one layer of escaping, for example `  SELECT REGEXP_REPLACE('abc', 'b(.)', r'X\1');  ` .
+To add a backslash in your regular expression, you must first escape it. For example, `SELECT REGEXP_REPLACE('abc', 'b(.)', 'X\\1');` returns `aXc` . You can also use [raw strings](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#string_and_bytes_literals) to remove one layer of escaping, for example `SELECT REGEXP_REPLACE('abc', 'b(.)', r'X\1');` .
 
-The `  REGEXP_REPLACE  ` function only replaces non-overlapping matches. For example, replacing `  ana  ` within `  banana  ` results in only one replacement, not two.
+The `REGEXP_REPLACE` function only replaces non-overlapping matches. For example, replacing `ana` within `banana` results in only one replacement, not two.
 
-If the `  regexp  ` argument isn't a valid regular expression, this function returns an error.
+If the `regexp` argument isn't a valid regular expression, this function returns an error.
 
 **Note:** GoogleSQL provides regular expression support using the [re2](https://github.com/google/re2/wiki/Syntax) library; see that documentation for its regular expression syntax.
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1656,19 +1656,19 @@ If the `  regexp  ` argument isn't a valid regular expression, this function ret
      | <h1>Heading</h1>         |
      +--------------------------*/
 
-## `     REPEAT    `
+## `REPEAT`
 
     REPEAT(original_value, repetitions)
 
 **Description**
 
-Returns a `  STRING  ` or `  BYTES  ` value that consists of `  original_value  ` , repeated. The `  repetitions  ` parameter specifies the number of times to repeat `  original_value  ` . Returns `  NULL  ` if either `  original_value  ` or `  repetitions  ` are `  NULL  ` .
+Returns a `STRING` or `BYTES` value that consists of `original_value` , repeated. The `repetitions` parameter specifies the number of times to repeat `original_value` . Returns `NULL` if either `original_value` or `repetitions` are `NULL` .
 
-This function returns an error if the `  repetitions  ` value is negative.
+This function returns an error if the `repetitions` value is negative.
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1696,17 +1696,17 @@ This function returns an error if the `  repetitions  ` value is negative.
      | NULL    |
      +---------*/
 
-## `     REPLACE    `
+## `REPLACE`
 
     REPLACE(original_value, from_pattern, to_pattern)
 
 **Description**
 
-Replaces all occurrences of `  from_pattern  ` with `  to_pattern  ` in `  original_value  ` . If `  from_pattern  ` is empty, no replacement is made.
+Replaces all occurrences of `from_pattern` with `to_pattern` in `original_value` . If `from_pattern` is empty, no replacement is made.
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1729,17 +1729,17 @@ Replaces all occurrences of `  from_pattern  ` with `  to_pattern  ` in `  origi
      | cherry cobbler     |
      +--------------------*/
 
-## `     REVERSE    `
+## `REVERSE`
 
     REVERSE(value)
 
 **Description**
 
-Returns the reverse of the input `  STRING  ` or `  BYTES  ` .
+Returns the reverse of the input `STRING` or `BYTES` .
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1759,30 +1759,30 @@ Returns the reverse of the input `  STRING  ` or `  BYTES  ` .
      | b"3a1"  |
      +---------*/
 
-## `     RPAD    `
+## `RPAD`
 
     RPAD(original_value, return_length[, pattern])
 
 **Description**
 
-Returns a `  STRING  ` or `  BYTES  ` value that consists of `  original_value  ` appended with `  pattern  ` . The `  return_length  ` parameter is an `  INT64  ` that specifies the length of the returned value. If `  original_value  ` is `  BYTES  ` , `  return_length  ` is the number of bytes. If `  original_value  ` is `  STRING  ` , `  return_length  ` is the number of characters.
+Returns a `STRING` or `BYTES` value that consists of `original_value` appended with `pattern` . The `return_length` parameter is an `INT64` that specifies the length of the returned value. If `original_value` is `BYTES` , `return_length` is the number of bytes. If `original_value` is `STRING` , `return_length` is the number of characters.
 
-The default value of `  pattern  ` is a blank space.
+The default value of `pattern` is a blank space.
 
-Both `  original_value  ` and `  pattern  ` must be the same data type.
+Both `original_value` and `pattern` must be the same data type.
 
-If `  return_length  ` is less than or equal to the `  original_value  ` length, this function returns the `  original_value  ` value, truncated to the value of `  return_length  ` . For example, `  RPAD('hello world', 7);  ` returns `  'hello w'  ` .
+If `return_length` is less than or equal to the `original_value` length, this function returns the `original_value` value, truncated to the value of `return_length` . For example, `RPAD('hello world', 7);` returns `'hello w'` .
 
-If `  original_value  ` , `  return_length  ` , or `  pattern  ` is `  NULL  ` , this function returns `  NULL  ` .
+If `original_value` , `return_length` , or `pattern` is `NULL` , this function returns `NULL` .
 
 This function returns an error if:
 
-  - `  return_length  ` is negative
-  - `  pattern  ` is empty
+  - `return_length` is negative
+  - `pattern` is empty
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1826,7 +1826,7 @@ This function returns an error if:
      | b"abcghdghdg" |
      +---------------*/
 
-## `     RTRIM    `
+## `RTRIM`
 
     RTRIM(value1[, value2])
 
@@ -1836,7 +1836,7 @@ Identical to [TRIM](https://docs.cloud.google.com/spanner/docs/reference/standar
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -1856,17 +1856,17 @@ Identical to [TRIM](https://docs.cloud.google.com/spanner/docs/reference/standar
      | apple   |
      +---------*/
 
-## `     SAFE_CONVERT_BYTES_TO_STRING    `
+## `SAFE_CONVERT_BYTES_TO_STRING`
 
     SAFE_CONVERT_BYTES_TO_STRING(value)
 
 **Description**
 
-Converts a sequence of `  BYTES  ` to a `  STRING  ` . Any invalid UTF-8 characters are replaced with the Unicode replacement character, `  U+FFFD  ` .
+Converts a sequence of `BYTES` to a `STRING` . Any invalid UTF-8 characters are replaced with the Unicode replacement character, `U+FFFD` .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -1874,21 +1874,21 @@ The following statement returns the Unicode replacement character, �.
 
     SELECT SAFE_CONVERT_BYTES_TO_STRING(b'\xc2') as safe_convert;
 
-## `     SOUNDEX    `
+## `SOUNDEX`
 
     SOUNDEX(value)
 
 **Description**
 
-Returns a `  STRING  ` that represents the [Soundex](https://en.wikipedia.org/wiki/Soundex) code for `  value  ` .
+Returns a `STRING` that represents the [Soundex](https://en.wikipedia.org/wiki/Soundex) code for `value` .
 
 SOUNDEX produces a phonetic representation of a string. It indexes words by sound, as pronounced in English. It's typically used to help determine whether two strings, such as the family names *Levine* and *Lavine* , or the words *to* and *too* , have similar English-language pronunciation.
 
-The result of the SOUNDEX consists of a letter followed by 3 digits. Non-latin characters are ignored. If the remaining string is empty after removing non-Latin characters, an empty `  STRING  ` is returned.
+The result of the SOUNDEX consists of a letter followed by 3 digits. Non-latin characters are ignored. If the remaining string is empty after removing non-Latin characters, an empty `STRING` is returned.
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
@@ -1900,25 +1900,25 @@ The result of the SOUNDEX consists of a letter followed by 3 digits. Non-latin c
      | Ashcraft             | A261    |
      +----------------------+---------*/
 
-## `     SPLIT    `
+## `SPLIT`
 
     SPLIT(value[, delimiter])
 
 **Description**
 
-Splits a `  STRING  ` or `  BYTES  ` value, using a delimiter. The `  delimiter  ` argument must be a literal character or sequence of characters. You can't split with a regular expression.
+Splits a `STRING` or `BYTES` value, using a delimiter. The `delimiter` argument must be a literal character or sequence of characters. You can't split with a regular expression.
 
-For `  STRING  ` , the default delimiter is the comma `  ,  ` .
+For `STRING` , the default delimiter is the comma `,` .
 
-For `  BYTES  ` , you must specify a delimiter.
+For `BYTES` , you must specify a delimiter.
 
-Splitting on an empty delimiter produces an array of UTF-8 characters for `  STRING  ` values, and an array of `  BYTES  ` for `  BYTES  ` values.
+Splitting on an empty delimiter produces an array of UTF-8 characters for `STRING` values, and an array of `BYTES` for `BYTES` values.
 
-Splitting an empty `  STRING  ` returns an `  ARRAY  ` with a single empty `  STRING  ` .
+Splitting an empty `STRING` returns an `ARRAY` with a single empty `STRING` .
 
 **Return type**
 
-`  ARRAY<STRING>  ` or `  ARRAY<BYTES>  `
+`ARRAY<STRING>` or `ARRAY<BYTES>`
 
 **Examples**
 
@@ -1940,45 +1940,45 @@ Splitting an empty `  STRING  ` returns an `  ARRAY  ` with a single empty `  ST
      | [b, c, d]            |
      +----------------------*/
 
-## `     SPLIT_SUBSTR    `
+## `SPLIT_SUBSTR`
 
     SPLIT_SUBSTR(value, delimiter, start_split[, count])
 
 **Description**
 
-Returns a substring from an input `  STRING  ` that's determined by a delimiter, a location that indicates the first split of the substring to return, and the number of splits to include in the returned substring.
+Returns a substring from an input `STRING` that's determined by a delimiter, a location that indicates the first split of the substring to return, and the number of splits to include in the returned substring.
 
-The `  value  ` argument is the supplied `  STRING  ` value from which a substring is returned.
+The `value` argument is the supplied `STRING` value from which a substring is returned.
 
-The `  delimiter  ` argument is the delimiter used to split the input `  STRING  ` . It must be a literal character or sequence of characters.
+The `delimiter` argument is the delimiter used to split the input `STRING` . It must be a literal character or sequence of characters.
 
-  - The `  delimiter  ` argument can't be a regular expression.
+  - The `delimiter` argument can't be a regular expression.
   - Delimiter matching is from left to right.
-  - If the delimiter is a sequence of characters, then two instances of the delimiter in the input string can't overlap. For example, if the delimiter is `  **  ` , then the delimiters in the string `  aa***bb***cc  ` are:
-      - The first two asterisks after `  aa  ` .
-      - The first two asterisks after `  bb  ` .
+  - If the delimiter is a sequence of characters, then two instances of the delimiter in the input string can't overlap. For example, if the delimiter is `**` , then the delimiters in the string `aa***bb***cc` are:
+      - The first two asterisks after `aa` .
+      - The first two asterisks after `bb` .
 
-The `  start_split  ` argument is an integer that specifies the first split of the substring to return.
+The `start_split` argument is an integer that specifies the first split of the substring to return.
 
-  - If `  start_split  ` is `  1  ` , then the returned substring starts from the first split.
-  - If `  start_split  ` is `  0  ` or less than the negative of the number of splits, then `  start_split  ` is treated as if it's `  1  ` and returns a substring that starts with the first split.
-  - If `  start_split  ` is greater than the number of splits, then an empty string is returned.
-  - If `  start_split  ` is negative, then the splits are counted from the end of the input string. If `  start_split  ` is `  -1  ` , then the last split in the input string is returned.
+  - If `start_split` is `1` , then the returned substring starts from the first split.
+  - If `start_split` is `0` or less than the negative of the number of splits, then `start_split` is treated as if it's `1` and returns a substring that starts with the first split.
+  - If `start_split` is greater than the number of splits, then an empty string is returned.
+  - If `start_split` is negative, then the splits are counted from the end of the input string. If `start_split` is `-1` , then the last split in the input string is returned.
 
-The optional `  count  ` argument is an integer that specifies the maximum number of splits to include in the returned substring.
+The optional `count` argument is an integer that specifies the maximum number of splits to include in the returned substring.
 
-  - If `  count  ` isn't specified, then the substring from the `  start_split  ` position to the end of the input string is returned.
-  - If `  count  ` is `  0  ` , an empty string is returned.
-  - If `  count  ` is negative, an error is returned.
-  - If the sum of `  count  ` plus `  start_split  ` is greater than the number of splits, then a substring from `  start_split  ` to the end of the input string is returned.
+  - If `count` isn't specified, then the substring from the `start_split` position to the end of the input string is returned.
+  - If `count` is `0` , an empty string is returned.
+  - If `count` is negative, an error is returned.
+  - If the sum of `count` plus `start_split` is greater than the number of splits, then a substring from `start_split` to the end of the input string is returned.
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Examples**
 
-The following example returns an empty string because `  count  ` is `  0  ` :
+The following example returns an empty string because `count` is `0` :
 
     SELECT SPLIT_SUBSTR("www.abc.xyz.com", ".", 1, 0) AS example
     
@@ -2008,7 +2008,7 @@ The following example returns one split starting with the first split:
      | www     |
      +---------*/
 
-The following example returns splits from the right because `  start_split  ` is a negative value:
+The following example returns splits from the right because `start_split` is a negative value:
 
     SELECT SPLIT_SUBSTR("www.abc.xyz.com", ".", -1, 1) AS example
     
@@ -2028,7 +2028,7 @@ The following example returns a substring with three splits, starting with the f
      | www.abc.xyz |
      +------------*/
 
-If `  start_split  ` is zero, then it's treated as if it's `  1  ` . The following example returns three substrings starting with the first split:
+If `start_split` is zero, then it's treated as if it's `1` . The following example returns three substrings starting with the first split:
 
     SELECT SPLIT_SUBSTR("www.abc.xyz.com", ".", 0, 3) AS example
     
@@ -2038,7 +2038,7 @@ If `  start_split  ` is zero, then it's treated as if it's `  1  ` . The followi
      | www.abc.xyz |
      +------------*/
 
-If `  start_split  ` is greater than the number of splits, then an empty string is returned:
+If `start_split` is greater than the number of splits, then an empty string is returned:
 
     SELECT SPLIT_SUBSTR("www.abc.xyz.com", ".", 5, 3) AS example
     
@@ -2048,7 +2048,7 @@ If `  start_split  ` is greater than the number of splits, then an empty string 
      |         |
      +--------*/
 
-In the following example, the `  start_split  ` value ( `  -5  ` ) is less than the negative of the number of splits ( `  -4  ` ), so `  start_split  ` is treated as `  1  ` :
+In the following example, the `start_split` value ( `-5` ) is less than the negative of the number of splits ( `-4` ), so `start_split` is treated as `1` :
 
     SELECT SPLIT_SUBSTR("www.abc.xyz.com", ".", -5, 3) AS example
     
@@ -2058,7 +2058,7 @@ In the following example, the `  start_split  ` value ( `  -5  ` ) is less than 
      | www.abc.xyz |
      +------------*/
 
-In the following example, the substring from `  start_split  ` to the end of the string is returned because `  count  ` isn't specified:
+In the following example, the substring from `start_split` to the end of the string is returned because `count` isn't specified:
 
     SELECT SPLIT_SUBSTR("www.abc.xyz.com", ".", 3) AS example
     
@@ -2068,7 +2068,7 @@ In the following example, the substring from `  start_split  ` to the end of the
      | xyz.com |
      +--------*/
 
-The following two examples demonstrate how `  SPLIT_SUBSTR  ` works with a multi-character delimiter that has overlapping matches in the input string. In each example, the input string contains instances of three asterisks in a row ( `  ***  ` ) and the delimiter is two asterisks ( `  **  ` ).
+The following two examples demonstrate how `SPLIT_SUBSTR` works with a multi-character delimiter that has overlapping matches in the input string. In each example, the input string contains instances of three asterisks in a row ( `***` ) and the delimiter is two asterisks ( `**` ).
 
     SELECT SPLIT_SUBSTR('aaa***bbb***ccc', '**', 1, 2) AS example
     
@@ -2086,17 +2086,17 @@ The following two examples demonstrate how `  SPLIT_SUBSTR  ` works with a multi
      | *bbb***ccc |
      +-----------*/
 
-## `     STARTS_WITH    `
+## `STARTS_WITH`
 
     STARTS_WITH(value, prefix)
 
 **Description**
 
-Takes two `  STRING  ` or `  BYTES  ` values. Returns `  TRUE  ` if `  prefix  ` is a prefix of `  value  ` .
+Takes two `STRING` or `BYTES` values. Returns `TRUE` if `prefix` is a prefix of `value` .
 
 **Return type**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
@@ -2108,17 +2108,17 @@ Takes two `  STRING  ` or `  BYTES  ` values. Returns `  TRUE  ` if `  prefix  `
      |    True |
      +---------*/
 
-## `     STRPOS    `
+## `STRPOS`
 
     STRPOS(value, subvalue)
 
 **Description**
 
-Takes two `  STRING  ` or `  BYTES  ` values. Returns the 1-based position of the first occurrence of `  subvalue  ` inside `  value  ` . Returns `  0  ` if `  subvalue  ` isn't found.
+Takes two `STRING` or `BYTES` values. Returns the 1-based position of the first occurrence of `subvalue` inside `value` . Returns `0` if `subvalue` isn't found.
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
@@ -2130,31 +2130,31 @@ Takes two `  STRING  ` or `  BYTES  ` values. Returns the 1-based position of th
      |       4 |
      +---------*/
 
-## `     SUBSTR    `
+## `SUBSTR`
 
     SUBSTR(value, position[, length])
 
 **Description**
 
-Gets a portion (substring) of the supplied `  STRING  ` or `  BYTES  ` value.
+Gets a portion (substring) of the supplied `STRING` or `BYTES` value.
 
-The `  position  ` argument is an integer specifying the starting position of the substring.
+The `position` argument is an integer specifying the starting position of the substring.
 
-  - If `  position  ` is `  1  ` , the substring starts from the first character or byte.
-  - If `  position  ` is `  0  ` or less than `  -LENGTH(value)  ` , `  position  ` is set to `  1  ` , and the substring starts from the first character or byte.
-  - If `  position  ` is greater than the length of `  value  ` , the function produces an empty substring.
-  - If `  position  ` is negative, the function counts from the end of `  value  ` , with `  -1  ` indicating the last character or byte.
+  - If `position` is `1` , the substring starts from the first character or byte.
+  - If `position` is `0` or less than `-LENGTH(value)` , `position` is set to `1` , and the substring starts from the first character or byte.
+  - If `position` is greater than the length of `value` , the function produces an empty substring.
+  - If `position` is negative, the function counts from the end of `value` , with `-1` indicating the last character or byte.
 
-The `  length  ` argument specifies the maximum number of characters or bytes to return.
+The `length` argument specifies the maximum number of characters or bytes to return.
 
-  - If `  length  ` isn't specified, the function produces a substring that starts at the specified position and ends at the last character or byte of `  value  ` .
-  - If `  length  ` is `  0  ` , the function produces an empty substring.
-  - If `  length  ` is negative, the function produces an error.
-  - The returned substring may be shorter than `  length  ` , for example, when `  length  ` exceeds the length of `  value  ` , or when the starting position of the substring plus `  length  ` is greater than the length of `  value  ` .
+  - If `length` isn't specified, the function produces a substring that starts at the specified position and ends at the last character or byte of `value` .
+  - If `length` is `0` , the function produces an empty substring.
+  - If `length` is negative, the function produces an error.
+  - The returned substring may be shorter than `length` , for example, when `length` exceeds the length of `value` , or when the starting position of the substring plus `length` is greater than the length of `value` .
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 
@@ -2206,23 +2206,23 @@ The `  length  ` argument specifies the maximum number of characters or bytes to
      |         |
      +---------*/
 
-## `     SUBSTRING    `
+## `SUBSTRING`
 
     SUBSTRING(value, position[, length])
 
-Alias for [`  SUBSTR  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#substr) .
+Alias for [`SUBSTR`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#substr) .
 
-## `     TO_BASE32    `
+## `TO_BASE32`
 
     TO_BASE32(bytes_expr)
 
 **Description**
 
-Converts a sequence of `  BYTES  ` into a base32-encoded `  STRING  ` . To convert a base32-encoded `  STRING  ` into `  BYTES  ` , use [FROM\_BASE32](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_base32) .
+Converts a sequence of `BYTES` into a base32-encoded `STRING` . To convert a base32-encoded `STRING` into `BYTES` , use [FROM\_BASE32](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_base32) .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Example**
 
@@ -2234,19 +2234,19 @@ Converts a sequence of `  BYTES  ` into a base32-encoded `  STRING  ` . To conve
      | MFRGGZDF74====== |
      +------------------*/
 
-## `     TO_BASE64    `
+## `TO_BASE64`
 
     TO_BASE64(bytes_expr)
 
 **Description**
 
-Converts a sequence of `  BYTES  ` into a base64-encoded `  STRING  ` . To convert a base64-encoded `  STRING  ` into `  BYTES  ` , use [FROM\_BASE64](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_base64) .
+Converts a sequence of `BYTES` into a base64-encoded `STRING` . To convert a base64-encoded `STRING` into `BYTES` , use [FROM\_BASE64](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_base64) .
 
-There are several base64 encodings in common use that vary in exactly which alphabet of 65 ASCII characters are used to encode the 64 digits and padding. See [RFC 4648](https://tools.ietf.org/html/rfc4648#section-4) for details. This function adds padding and uses the alphabet `  [A-Za-z0-9+/=]  ` .
+There are several base64 encodings in common use that vary in exactly which alphabet of 65 ASCII characters are used to encode the 64 digits and padding. See [RFC 4648](https://tools.ietf.org/html/rfc4648#section-4) for details. This function adds padding and uses the alphabet `[A-Za-z0-9+/=]` .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Example**
 
@@ -2258,7 +2258,7 @@ There are several base64 encodings in common use that vary in exactly which alph
      | /+A=          |
      +---------------*/
 
-To work with an encoding using a different base64 alphabet, you might need to compose `  TO_BASE64  ` with the `  REPLACE  ` function. For instance, the `  base64url  ` url-safe and filename-safe encoding commonly used in web programming uses `  -_=  ` as the last characters rather than `  +/=  ` . To encode a `  base64url  ` -encoded string, replace `  +  ` and `  /  ` with `  -  ` and `  _  ` respectively.
+To work with an encoding using a different base64 alphabet, you might need to compose `TO_BASE64` with the `REPLACE` function. For instance, the `base64url` url-safe and filename-safe encoding commonly used in web programming uses `-_=` as the last characters rather than `+/=` . To encode a `base64url` -encoded string, replace `+` and `/` with `-` and `_` respectively.
 
     SELECT REPLACE(REPLACE(TO_BASE64(b'\377\340'), '+', '-'), '/', '_') as websafe_base64;
     
@@ -2268,22 +2268,22 @@ To work with an encoding using a different base64 alphabet, you might need to co
      | _-A=           |
      +----------------*/
 
-## `     TO_CODE_POINTS    `
+## `TO_CODE_POINTS`
 
     TO_CODE_POINTS(value)
 
 **Description**
 
-Takes a `  STRING  ` or `  BYTES  ` value and returns an array of `  INT64  ` values that represent code points or extended ASCII character values.
+Takes a `STRING` or `BYTES` value and returns an array of `INT64` values that represent code points or extended ASCII character values.
 
-  - If `  value  ` is a `  STRING  ` , each element in the returned array represents a [code point](https://en.wikipedia.org/wiki/Code_point) . Each code point falls within the range of \[0, 0xD7FF\] and \[0xE000, 0x10FFFF\].
-  - If `  value  ` is `  BYTES  ` , each element in the array is an extended ASCII character value in the range of \[0, 255\].
+  - If `value` is a `STRING` , each element in the returned array represents a [code point](https://en.wikipedia.org/wiki/Code_point) . Each code point falls within the range of \[0, 0xD7FF\] and \[0xE000, 0x10FFFF\].
+  - If `value` is `BYTES` , each element in the array is an extended ASCII character value in the range of \[0, 255\].
 
-To convert from an array of code points to a `  STRING  ` or `  BYTES  ` , see [CODE\_POINTS\_TO\_STRING](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#code_points_to_string) or [CODE\_POINTS\_TO\_BYTES](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#code_points_to_bytes) .
+To convert from an array of code points to a `STRING` or `BYTES` , see [CODE\_POINTS\_TO\_STRING](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#code_points_to_string) or [CODE\_POINTS\_TO\_BYTES](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#code_points_to_bytes) .
 
 **Return type**
 
-`  ARRAY<INT64>  `
+`ARRAY<INT64>`
 
 **Examples**
 
@@ -2339,7 +2339,7 @@ The following examples get the code points for each element in an array of words
      | llama   | [108, 108, 97, 109, 97]            |
      +---------+------------------------------------*/
 
-The following examples convert integer representations of `  BYTES  ` to their corresponding ASCII character values.
+The following examples convert integer representations of `BYTES` to their corresponding ASCII character values.
 
     SELECT
       b'\x66\x6f\x6f' AS bytes_value,
@@ -2361,7 +2361,7 @@ The following examples convert integer representations of `  BYTES  ` to their c
      | \x00\x01\x10\xff | [0, 1, 16, 255]        |
      +------------------+------------------------*/
 
-The following example demonstrates the difference between a `  BYTES  ` result and a `  STRING  ` result. Notice that the character `  Ā  ` is represented as a two-byte Unicode sequence. As a result, the `  BYTES  ` version of `  TO_CODE_POINTS  ` returns an array with two elements, while the `  STRING  ` version returns an array with a single element.
+The following example demonstrates the difference between a `BYTES` result and a `STRING` result. Notice that the character `Ā` is represented as a two-byte Unicode sequence. As a result, the `BYTES` version of `TO_CODE_POINTS` returns an array with two elements, while the `STRING` version returns an array with a single element.
 
     SELECT TO_CODE_POINTS(b'Ā') AS b_result, TO_CODE_POINTS('Ā') AS s_result;
     
@@ -2371,17 +2371,17 @@ The following example demonstrates the difference between a `  BYTES  ` result a
      | [196, 128] | [256]    |
      +------------+----------*/
 
-## `     TO_HEX    `
+## `TO_HEX`
 
     TO_HEX(bytes)
 
 **Description**
 
-Converts a sequence of `  BYTES  ` into a hexadecimal `  STRING  ` . Converts each byte in the `  STRING  ` as two hexadecimal characters in the range `  (0..9, a..f)  ` . To convert a hexadecimal-encoded `  STRING  ` to `  BYTES  ` , use [FROM\_HEX](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_hex) .
+Converts a sequence of `BYTES` into a hexadecimal `STRING` . Converts each byte in the `STRING` as two hexadecimal characters in the range `(0..9, a..f)` . To convert a hexadecimal-encoded `STRING` to `BYTES` , use [FROM\_HEX](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#from_hex) .
 
 **Return type**
 
-`  STRING  `
+`STRING`
 
 **Example**
 
@@ -2395,26 +2395,26 @@ Converts a sequence of `  BYTES  ` into a hexadecimal `  STRING  ` . Converts ea
      | \x00\x01\x02\x03\xaa\xee\xef\xff | 00010203aaeeefff |
      +----------------------------------+------------------*/
 
-## `     TRIM    `
+## `TRIM`
 
     TRIM(value_to_trim[, set_of_characters_to_remove])
 
 **Description**
 
-Takes a `  STRING  ` or `  BYTES  ` value to trim.
+Takes a `STRING` or `BYTES` value to trim.
 
-If the value to trim is a `  STRING  ` , removes from this value all leading and trailing Unicode code points in `  set_of_characters_to_remove  ` . The set of code points is optional. If it isn't specified, all whitespace characters are removed from the beginning and end of the value to trim.
+If the value to trim is a `STRING` , removes from this value all leading and trailing Unicode code points in `set_of_characters_to_remove` . The set of code points is optional. If it isn't specified, all whitespace characters are removed from the beginning and end of the value to trim.
 
-If the value to trim is `  BYTES  ` , removes from this value all leading and trailing bytes in `  set_of_characters_to_remove  ` . The set of bytes is required.
+If the value to trim is `BYTES` , removes from this value all leading and trailing bytes in `set_of_characters_to_remove` . The set of bytes is required.
 
 **Return type**
 
-  - `  STRING  ` if `  value_to_trim  ` is a `  STRING  ` value.
-  - `  BYTES  ` if `  value_to_trim  ` is a `  BYTES  ` value.
+  - `STRING` if `value_to_trim` is a `STRING` value.
+  - `BYTES` if `value_to_trim` is a `BYTES` value.
 
 **Examples**
 
-In the following example, all leading and trailing whitespace characters are removed from `  item  ` because `  set_of_characters_to_remove  ` isn't specified.
+In the following example, all leading and trailing whitespace characters are removed from `item` because `set_of_characters_to_remove` isn't specified.
 
     SELECT CONCAT('#', TRIM( '   apple   '), '#') AS example
     
@@ -2424,7 +2424,7 @@ In the following example, all leading and trailing whitespace characters are rem
      | #apple#  |
      +----------*/
 
-In the following example, all leading and trailing `  *  ` characters are removed from ' ***apple*** '.
+In the following example, all leading and trailing `*` characters are removed from ' ***apple*** '.
 
     SELECT TRIM('***apple***', '*') AS example
     
@@ -2434,7 +2434,7 @@ In the following example, all leading and trailing `  *  ` characters are remove
      | apple   |
      +---------*/
 
-In the following example, all leading and trailing `  x  ` , `  y  ` , and `  z  ` characters are removed from 'xzxapplexxy'.
+In the following example, all leading and trailing `x` , `y` , and `z` characters are removed from 'xzxapplexxy'.
 
     SELECT TRIM('xzxapplexxy', 'xyz') as example
     
@@ -2444,7 +2444,7 @@ In the following example, all leading and trailing `  x  ` , `  y  ` , and `  z 
      | apple   |
      +---------*/
 
-In the following example, examine how `  TRIM  ` interprets characters as Unicode code-points. If your trailing character set contains a combining diacritic mark over a particular letter, `  TRIM  ` might strip the same diacritic mark from a different letter.
+In the following example, examine how `TRIM` interprets characters as Unicode code-points. If your trailing character set contains a combining diacritic mark over a particular letter, `TRIM` might strip the same diacritic mark from a different letter.
 
     SELECT
       TRIM('abaW̊', 'Y̊') AS a,
@@ -2458,7 +2458,7 @@ In the following example, examine how `  TRIM  ` interprets characters as Unicod
      | abaW | W̊aba | abaŪ | Ūaba |
      +------+------+------+------*/
 
-In the following example, all leading and trailing `  b'n'  ` , `  b'a'  ` , `  b'\xab'  ` bytes are removed from `  item  ` .
+In the following example, all leading and trailing `b'n'` , `b'a'` , `b'\xab'` bytes are removed from `item` .
 
     SELECT b'apple', TRIM(b'apple', b'na\xab') AS example
     
@@ -2469,25 +2469,25 @@ In the following example, all leading and trailing `  b'n'  ` , `  b'a'  ` , `  
      | YXBwbGU=             | cHBsZQ==         |
      +----------------------+------------------*/
 
-## `     UCASE    `
+## `UCASE`
 
     UCASE(val)
 
-Alias for [`  UPPER  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#upper) .
+Alias for [`UPPER`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#upper) .
 
-## `     UPPER    `
+## `UPPER`
 
     UPPER(value)
 
 **Description**
 
-For `  STRING  ` arguments, returns the original string with all alphabetic characters in uppercase. Mapping between uppercase and lowercase is done according to the [Unicode Character Database](http://unicode.org/ucd/) without taking into account language-specific mappings.
+For `STRING` arguments, returns the original string with all alphabetic characters in uppercase. Mapping between uppercase and lowercase is done according to the [Unicode Character Database](http://unicode.org/ucd/) without taking into account language-specific mappings.
 
-For `  BYTES  ` arguments, the argument is treated as ASCII text, with all bytes greater than 127 left intact.
+For `BYTES` arguments, the argument is treated as ASCII text, with all bytes greater than 127 left intact.
 
 **Return type**
 
-`  STRING  ` or `  BYTES  `
+`STRING` or `BYTES`
 
 **Examples**
 

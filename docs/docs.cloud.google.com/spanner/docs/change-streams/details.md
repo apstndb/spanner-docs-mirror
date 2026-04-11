@@ -31,9 +31,9 @@ Due to the parent-child partition lineage, in order to process changes for a par
 
 ### GoogleSQL
 
-To query change streams, use the [`  ExecuteStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql) API. Spanner automatically creates a special read function along with the change stream. The read function provides access to the change stream's records. The read function naming convention is `  READ_ change_stream_name  ` .
+To query change streams, use the [`ExecuteStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql) API. Spanner automatically creates a special read function along with the change stream. The read function provides access to the change stream's records. The read function naming convention is ` READ_ change_stream_name  ` .
 
-Assuming a change stream `  SingersNameStream  ` exists in the database, the query syntax for GoogleSQL is the following:
+Assuming a change stream `SingersNameStream` exists in the database, the query syntax for GoogleSQL is the following:
 
     SELECT ChangeRecord
     FROM READ_SingersNameStream (
@@ -63,36 +63,36 @@ The read function accepts the following arguments:
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         start_timestamp        </code></td>
-<td><code dir="ltr" translate="no">         TIMESTAMP        </code></td>
+<td><code dir="ltr" translate="no">start_timestamp</code></td>
+<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
 <td>Required</td>
-<td>Specifies that records with <code dir="ltr" translate="no">         commit_timestamp        </code> greater than or equal to <code dir="ltr" translate="no">         start_timestamp        </code> should be returned. The value must be within the change stream retention period, and should be less than or equal to the current time, and greater than or equal to the timestamp of the change stream's creation.</td>
+<td>Specifies that records with <code dir="ltr" translate="no">commit_timestamp</code> greater than or equal to <code dir="ltr" translate="no">start_timestamp</code> should be returned. The value must be within the change stream retention period, and should be less than or equal to the current time, and greater than or equal to the timestamp of the change stream's creation.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         end_timestamp        </code></td>
-<td><code dir="ltr" translate="no">         TIMESTAMP        </code></td>
-<td>Optional (Default: <code dir="ltr" translate="no">         NULL        </code> )</td>
-<td>Specifies that records with a <code dir="ltr" translate="no">         commit_timestamp        </code> less than or equal to <code dir="ltr" translate="no">         end_timestamp        </code> should be returned. The value must be within the change stream retention period and greater or equal than the <code dir="ltr" translate="no">         start_timestamp        </code> . The query finishes either after returning all <code dir="ltr" translate="no">         ChangeRecords        </code> up to the <code dir="ltr" translate="no">         end_timestamp        </code> or when you terminate the connection. If <code dir="ltr" translate="no">         end_timestamp        </code> is set to <code dir="ltr" translate="no">         NULL        </code> or isn't specified, the query continues execution until all <code dir="ltr" translate="no">         ChangeRecords        </code> are returned or until you terminate the connection.</td>
+<td><code dir="ltr" translate="no">end_timestamp</code></td>
+<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
+<td>Optional (Default: <code dir="ltr" translate="no">NULL</code> )</td>
+<td>Specifies that records with a <code dir="ltr" translate="no">commit_timestamp</code> less than or equal to <code dir="ltr" translate="no">end_timestamp</code> should be returned. The value must be within the change stream retention period and greater or equal than the <code dir="ltr" translate="no">start_timestamp</code> . The query finishes either after returning all <code dir="ltr" translate="no">ChangeRecords</code> up to the <code dir="ltr" translate="no">end_timestamp</code> or when you terminate the connection. If <code dir="ltr" translate="no">end_timestamp</code> is set to <code dir="ltr" translate="no">NULL</code> or isn't specified, the query continues execution until all <code dir="ltr" translate="no">ChangeRecords</code> are returned or until you terminate the connection.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         partition_token        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td>Optional (Default: <code dir="ltr" translate="no">         NULL        </code> )</td>
-<td>Specifies which change stream partition to query, based on the content of <a href="https://docs.cloud.google.com/spanner/docs/change-streams/details#child-partitions-records">child partitions records</a> . If <code dir="ltr" translate="no">         NULL        </code> or not specified, this means the reader is querying the change stream for the first time, and has not obtained any specific partition tokens to query from.</td>
+<td><code dir="ltr" translate="no">partition_token</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td>Optional (Default: <code dir="ltr" translate="no">NULL</code> )</td>
+<td>Specifies which change stream partition to query, based on the content of <a href="https://docs.cloud.google.com/spanner/docs/change-streams/details#child-partitions-records">child partitions records</a> . If <code dir="ltr" translate="no">NULL</code> or not specified, this means the reader is querying the change stream for the first time, and has not obtained any specific partition tokens to query from.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         heartbeat_milliseconds        </code></td>
-<td><code dir="ltr" translate="no">         INT64        </code></td>
+<td><code dir="ltr" translate="no">heartbeat_milliseconds</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 <td>Required</td>
-<td>Determines how frequently a heartbeat <code dir="ltr" translate="no">         ChangeRecord        </code> is returned in case there are no transactions committed in this partition.<br />
+<td>Determines how frequently a heartbeat <code dir="ltr" translate="no">ChangeRecord</code> is returned in case there are no transactions committed in this partition.<br />
 <br />
-The value must be between <code dir="ltr" translate="no">         1,000        </code> (one second) and <code dir="ltr" translate="no">         300,000        </code> (five minutes).</td>
+The value must be between <code dir="ltr" translate="no">1,000</code> (one second) and <code dir="ltr" translate="no">300,000</code> (five minutes).</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         read_options        </code></td>
-<td><code dir="ltr" translate="no">         ARRAY        </code></td>
-<td>Optional (Default: <code dir="ltr" translate="no">         NULL        </code> )</td>
-<td>Adds read options reserved for future use. The only permitted value is <code dir="ltr" translate="no">         NULL        </code> .</td>
+<td><code dir="ltr" translate="no">read_options</code></td>
+<td><code dir="ltr" translate="no">ARRAY</code></td>
+<td>Optional (Default: <code dir="ltr" translate="no">NULL</code> )</td>
+<td>Adds read options reserved for future use. The only permitted value is <code dir="ltr" translate="no">NULL</code> .</td>
 </tr>
 </tbody>
 </table>
@@ -134,9 +134,9 @@ We recommend making a helper method for building the text of the read function q
 
 ### PostgreSQL
 
-To query change streams, use the [`  ExecuteStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql) API. Spanner automatically creates a special read function along with the change stream. The read function provides access to the change stream's records. The read function naming convention is `  spanner.read_json_ change_stream_name  ` .
+To query change streams, use the [`ExecuteStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql) API. Spanner automatically creates a special read function along with the change stream. The read function provides access to the change stream's records. The read function naming convention is ` spanner.read_json_ change_stream_name  ` .
 
-Assuming a change stream `  SingersNameStream  ` exists in the database, the query syntax for PostgreSQL is the following:
+Assuming a change stream `SingersNameStream` exists in the database, the query syntax for PostgreSQL is the following:
 
     SELECT *
     FROM "spanner"."read_json_SingersNameStream" (
@@ -149,13 +149,13 @@ Assuming a change stream `  SingersNameStream  ` exists in the database, the que
 
 The read function accepts the following arguments:
 
-| Argument name                               | Type                                          | Required?                                      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------- | --------------------------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `          start_timestamp         `        | `          timestamp with time zone         ` | Required                                       | Specifies that change records with `          commit_timestamp         ` greater than or equal to `          start_timestamp         ` should be returned. The value must be within the change stream retention period, and should be less than or equal to the current time, and greater than or equal to the timestamp of the change stream's creation.                                                                                                                                                                                                                         |
-| `          end_timestamp         `          | `          timestamp with timezone         `  | Optional (Default: `          NULL         ` ) | Specifies that change records with `          commit_timestamp         ` less than or equal to `          end_timestamp         ` should be returned. The value must be within the change stream retention period and greater or equal than the `          start_timestamp         ` . The query finishes either after returning all change records up to the `          end_timestamp         ` or until you terminate the connection. If `          NULL         ` , the query continues execution until all change records are returned or until you terminate the connection. |
-| `          partition_token         `        | `          text         `                     | Optional (Default: `          NULL         ` ) | Specifies which change stream partition to query, based on the content of [child partitions records](https://docs.cloud.google.com/spanner/docs/change-streams/details#child-partitions-records) . If `          NULL         ` or not specified, this means the reader is querying the change stream for the first time, and has not obtained any specific partition tokens to query from.                                                                                                                                                                                       |
-| `          heartbeat_milliseconds         ` | `          bigint         `                   | Required                                       | Determines how frequently a heartbeat `          ChangeRecord         ` is returned when there are no transactions committed in this partition. The value must be between `          1,000         ` (one second) and `          300,000         ` (five minutes).                                                                                                                                                                                                                                                                                                                |
-| `          null         `                   | `          null         `                     | Required                                       | Reserved for future use                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Argument name            | Type                       | Required?                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------ | -------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `start_timestamp`        | `timestamp with time zone` | Required                    | Specifies that change records with `commit_timestamp` greater than or equal to `start_timestamp` should be returned. The value must be within the change stream retention period, and should be less than or equal to the current time, and greater than or equal to the timestamp of the change stream's creation.                                                                                                                                                                |
+| `end_timestamp`          | `timestamp with timezone`  | Optional (Default: `NULL` ) | Specifies that change records with `commit_timestamp` less than or equal to `end_timestamp` should be returned. The value must be within the change stream retention period and greater or equal than the `start_timestamp` . The query finishes either after returning all change records up to the `end_timestamp` or until you terminate the connection. If `NULL` , the query continues execution until all change records are returned or until you terminate the connection. |
+| `partition_token`        | `text`                     | Optional (Default: `NULL` ) | Specifies which change stream partition to query, based on the content of [child partitions records](https://docs.cloud.google.com/spanner/docs/change-streams/details#child-partitions-records) . If `NULL` or not specified, this means the reader is querying the change stream for the first time, and has not obtained any specific partition tokens to query from.                                                                                                           |
+| `heartbeat_milliseconds` | `bigint`                   | Required                    | Determines how frequently a heartbeat `ChangeRecord` is returned when there are no transactions committed in this partition. The value must be between `1,000` (one second) and `300,000` (five minutes).                                                                                                                                                                                                                                                                          |
+| `null`                   | `null`                     | Required                    | Reserved for future use                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 We recommend making a helper method for building the text of the read function and binding parameters to it, as shown in the following example.
 
@@ -189,7 +189,7 @@ We recommend making a helper method for building the text of the read function a
 
 ### GoogleSQL
 
-The change streams read function returns a single `  ChangeRecord  ` column of type `  ARRAY<STRUCT<...>>  ` . In each row, this array always contains a single element.
+The change streams read function returns a single `ChangeRecord` column of type `ARRAY<STRUCT<...>>` . In each row, this array always contains a single element.
 
 The array elements have the following type:
 
@@ -201,13 +201,13 @@ STRUCT <
 >
 ```
 
-There are three fields in this `  STRUCT  ` : `  data_change_record  ` , `  heartbeat_record  ` and `  child_partitions_record  ` , each of type `  ARRAY<STRUCT<...>>  ` . In any row that the change stream read function returns, only one of these three fields contains a value; the others two are empty or `  NULL  ` . These array fields contain, at most, one element.
+There are three fields in this `STRUCT` : `data_change_record` , `heartbeat_record` and `child_partitions_record` , each of type `ARRAY<STRUCT<...>>` . In any row that the change stream read function returns, only one of these three fields contains a value; the others two are empty or `NULL` . These array fields contain, at most, one element.
 
 The following sections examine each of these three record types.
 
 ### PostgreSQL
 
-The change streams read function returns a single `  ChangeRecord  ` column of type `  JSON  ` with the following structure:
+The change streams read function returns a single `ChangeRecord` column of type `JSON` with the following structure:
 
     {
       "data_change_record" : {},
@@ -215,7 +215,7 @@ The change streams read function returns a single `  ChangeRecord  ` column of t
       "child_partitions_record" : {}
     }
 
-There are three possible keys in this object: `  data_change_record  ` , `  heartbeat_record  ` and `  child_partitions_record  ` , the corresponding value type is `  JSON  ` . In any row that the change stream read function returns, only one of these three keys exists.
+There are three possible keys in this object: `data_change_record` , `heartbeat_record` and `child_partitions_record` , the corresponding value type is `JSON` . In any row that the change stream read function returns, only one of these three keys exists.
 
 The following sections examine each of these three record types.
 
@@ -223,9 +223,9 @@ The following sections examine each of these three record types.
 
 A data change record contains a set of changes to a table with the same modification type (insert, update, or delete) committed at the same commit timestamp in one change stream partition for the same transaction. Multiple data change records can be returned for the same transaction across multiple change stream partitions.
 
-All data change records have `  commit_timestamp  ` , `  server_transaction_id  ` , and `  record_sequence  ` fields, which together determine the order in the change stream for a stream record. These three fields are sufficient to derive the ordering of changes and provide external consistency.
+All data change records have `commit_timestamp` , `server_transaction_id` , and `record_sequence` fields, which together determine the order in the change stream for a stream record. These three fields are sufficient to derive the ordering of changes and provide external consistency.
 
-Note that multiple transactions can have the same commit timestamp if they touch non-overlapping data. The `  server_transaction_id  ` field offers the ability to distinguish which set of changes (potentially across change stream partitions) were issued within the same transaction. Pairing it with the `  record_sequence  ` and `  number_of_records_in_transaction  ` fields lets you buffer and order all the records from a particular transaction, as well.
+Note that multiple transactions can have the same commit timestamp if they touch non-overlapping data. The `server_transaction_id` field offers the ability to distinguish which set of changes (potentially across change stream partitions) were issued within the same transaction. Pairing it with the `record_sequence` and `number_of_records_in_transaction` fields lets you buffer and order all the records from a particular transaction, as well.
 
 The fields of a data change record include the following:
 
@@ -246,45 +246,45 @@ The fields of a data change record include the following:
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         commit_timestamp        </code></td>
-<td><code dir="ltr" translate="no">         TIMESTAMP        </code></td>
+<td><code dir="ltr" translate="no">commit_timestamp</code></td>
+<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
 <td>Indicates the timestamp in which the change was committed.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         record_sequence        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td>Indicates the sequence number for the record within the transaction. Sequence numbers are unique and monotonically increasing (but not necessarily contiguous) within a transaction. Sort the records for the same <code dir="ltr" translate="no">         server_transaction_id        </code> by <code dir="ltr" translate="no">         record_sequence        </code> to reconstruct the ordering of the changes within the transaction. Spanner might optimize this ordering for better performances and it might not always match the original ordering that you provide.</td>
+<td><code dir="ltr" translate="no">record_sequence</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td>Indicates the sequence number for the record within the transaction. Sequence numbers are unique and monotonically increasing (but not necessarily contiguous) within a transaction. Sort the records for the same <code dir="ltr" translate="no">server_transaction_id</code> by <code dir="ltr" translate="no">record_sequence</code> to reconstruct the ordering of the changes within the transaction. Spanner might optimize this ordering for better performances and it might not always match the original ordering that you provide.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         server_transaction_id        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
+<td><code dir="ltr" translate="no">server_transaction_id</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td>Provides a globally unique string that represents the transaction in which the change was committed. The value should only be used in the context of processing change stream records and is not correlated with the transaction id in Spanner's API.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         is_last_record_in_transaction_in_partition        </code></td>
-<td><code dir="ltr" translate="no">         BOOL        </code></td>
+<td><code dir="ltr" translate="no">is_last_record_in_transaction_in_partition</code></td>
+<td><code dir="ltr" translate="no">BOOL</code></td>
 <td>Indicates whether this is the last record for a transaction in the current partition.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         table_name        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
+<td><code dir="ltr" translate="no">table_name</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td>Name of the table affected by the change.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         value_capture_type        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
+<td><code dir="ltr" translate="no">value_capture_type</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td><p>Describes the value capture type that was specified in the change stream configuration when this change was captured.</p>
 <p>The value capture type can be one of the following:</p>
 <ul>
-<li><code dir="ltr" translate="no">           OLD_AND_NEW_VALUES          </code></li>
-<li><code dir="ltr" translate="no">           NEW_ROW          </code></li>
-<li><code dir="ltr" translate="no">           NEW_VALUES          </code></li>
-<li><code dir="ltr" translate="no">           NEW_ROW_AND_OLD_VALUES          </code></li>
+<li><code dir="ltr" translate="no">OLD_AND_NEW_VALUES</code></li>
+<li><code dir="ltr" translate="no">NEW_ROW</code></li>
+<li><code dir="ltr" translate="no">NEW_VALUES</code></li>
+<li><code dir="ltr" translate="no">NEW_ROW_AND_OLD_VALUES</code></li>
 </ul>
-<p>By default, it is <code dir="ltr" translate="no">          OLD_AND_NEW_VALUES         </code> . For more information, see <a href="https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type">value capture types</a> .</p></td>
+<p>By default, it is <code dir="ltr" translate="no">OLD_AND_NEW_VALUES</code> . For more information, see <a href="https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type">value capture types</a> .</p></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         column_types        </code></td>
+<td><code dir="ltr" translate="no">column_types</code></td>
 <td><pre class="lang-json" dir="ltr" data-is-upgraded="" translate="no"><code>[
   {
       &quot;name&quot;: &quot;STRING&quot;,
@@ -296,10 +296,10 @@ The fields of a data change record include the following:
     },
     ...
 ]</code></pre></td>
-<td>Indicates the name of the column, the column type, whether it is a primary key, and the position of the column as defined in the schema ( <code dir="ltr" translate="no">         ordinal_position        </code> ). The first column of a table in the schema would have an ordinal position of <code dir="ltr" translate="no">         1        </code> . The column type may be nested for array columns. The format matches the type structure described in the <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type">Spanner API reference</a> .</td>
+<td>Indicates the name of the column, the column type, whether it is a primary key, and the position of the column as defined in the schema ( <code dir="ltr" translate="no">ordinal_position</code> ). The first column of a table in the schema would have an ordinal position of <code dir="ltr" translate="no">1</code> . The column type may be nested for array columns. The format matches the type structure described in the <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type">Spanner API reference</a> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         mods        </code></td>
+<td><code dir="ltr" translate="no">mods</code></td>
 <td><pre class="lang-json" dir="ltr" data-is-upgraded="" translate="no"><code>[
   {
     &quot;keys&quot;: {&quot;STRING&quot; : &quot;STRING&quot;},
@@ -314,31 +314,31 @@ The fields of a data change record include the following:
   },
   [...]
 ]</code></pre></td>
-<td>Describes the changes that were made, including the primary key values, the old values, and the new values of the changed or tracked columns. The availability and content of the old and new values depends on the configured <code dir="ltr" translate="no">         value_capture_type        </code> . The <code dir="ltr" translate="no">         new_values        </code> and <code dir="ltr" translate="no">         old_values        </code> fields only contain the non-key columns.</td>
+<td>Describes the changes that were made, including the primary key values, the old values, and the new values of the changed or tracked columns. The availability and content of the old and new values depends on the configured <code dir="ltr" translate="no">value_capture_type</code> . The <code dir="ltr" translate="no">new_values</code> and <code dir="ltr" translate="no">old_values</code> fields only contain the non-key columns.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         mod_type        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td>Describes the type of change. One of <code dir="ltr" translate="no">         INSERT        </code> , <code dir="ltr" translate="no">         UPDATE        </code> , or <code dir="ltr" translate="no">         DELETE        </code> .</td>
+<td><code dir="ltr" translate="no">mod_type</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td>Describes the type of change. One of <code dir="ltr" translate="no">INSERT</code> , <code dir="ltr" translate="no">UPDATE</code> , or <code dir="ltr" translate="no">DELETE</code> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         number_of_records_in_transaction        </code></td>
-<td><code dir="ltr" translate="no">         INT64        </code></td>
+<td><code dir="ltr" translate="no">number_of_records_in_transaction</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 <td>Indicates the number of data change records that are part of this transaction across all change stream partitions.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         number_of_partitions_in_transaction        </code></td>
-<td><code dir="ltr" translate="no">         INT64        </code></td>
+<td><code dir="ltr" translate="no">number_of_partitions_in_transaction</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 <td>Indicates the number of partitions that return data change records for this transaction.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         transaction_tag        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
+<td><code dir="ltr" translate="no">transaction_tag</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td>Indicates the <a href="https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#transaction_tags">Transaction tag</a> associated with this transaction.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         is_system_transaction        </code></td>
-<td><code dir="ltr" translate="no">         BOOL        </code></td>
+<td><code dir="ltr" translate="no">is_system_transaction</code></td>
+<td><code dir="ltr" translate="no">BOOL</code></td>
 <td>Indicates whether the transaction is a system transaction.</td>
 </tr>
 </tbody>
@@ -361,45 +361,45 @@ The fields of a data change record include the following:
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         commit_timestamp        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
+<td><code dir="ltr" translate="no">commit_timestamp</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td>Indicates the timestamp at which the change was committed.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         record_sequence        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td>Indicates the sequence number for the record within the transaction. Sequence numbers are unique and monotonically increasing (but not necessarily contiguous) within a transaction. Sort the records for the same <code dir="ltr" translate="no">         server_transaction_id        </code> by <code dir="ltr" translate="no">         record_sequence        </code> to reconstruct the ordering of the changes within the transaction.</td>
+<td><code dir="ltr" translate="no">record_sequence</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td>Indicates the sequence number for the record within the transaction. Sequence numbers are unique and monotonically increasing (but not necessarily contiguous) within a transaction. Sort the records for the same <code dir="ltr" translate="no">server_transaction_id</code> by <code dir="ltr" translate="no">record_sequence</code> to reconstruct the ordering of the changes within the transaction.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         server_transaction_id        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
+<td><code dir="ltr" translate="no">server_transaction_id</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td>Provides a globally unique string that represents the transaction in which the change was committed. The value should only be used in the context of processing change stream records and is not correlated with the transaction id in Spanner's API</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         is_last_record_in_transaction_in_partition        </code></td>
-<td><code dir="ltr" translate="no">         BOOLEAN        </code></td>
+<td><code dir="ltr" translate="no">is_last_record_in_transaction_in_partition</code></td>
+<td><code dir="ltr" translate="no">BOOLEAN</code></td>
 <td>Indicates whether this is the last record for a transaction in the current partition.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         table_name        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
+<td><code dir="ltr" translate="no">table_name</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td>Indicates the name of the table affected by the change.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         value_capture_type        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
+<td><code dir="ltr" translate="no">value_capture_type</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td><p>Describes the value capture type that was specified in the change stream configuration when this change was captured.</p>
 <p>The value capture type can be one of the following:</p>
 <ul>
-<li><code dir="ltr" translate="no">           OLD_AND_NEW_VALUES          </code></li>
-<li><code dir="ltr" translate="no">           NEW_ROW          </code></li>
-<li><code dir="ltr" translate="no">           NEW_VALUES          </code></li>
-<li><code dir="ltr" translate="no">           NEW_ROW_AND_OLD_VALUES          </code></li>
+<li><code dir="ltr" translate="no">OLD_AND_NEW_VALUES</code></li>
+<li><code dir="ltr" translate="no">NEW_ROW</code></li>
+<li><code dir="ltr" translate="no">NEW_VALUES</code></li>
+<li><code dir="ltr" translate="no">NEW_ROW_AND_OLD_VALUES</code></li>
 </ul>
-<p>By default, it is <code dir="ltr" translate="no">          OLD_AND_NEW_VALUES         </code> . For more information, see <a href="https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type">value capture types</a> .</p></td>
+<p>By default, it is <code dir="ltr" translate="no">OLD_AND_NEW_VALUES</code> . For more information, see <a href="https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type">value capture types</a> .</p></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         column_types        </code></td>
+<td><code dir="ltr" translate="no">column_types</code></td>
 <td><pre class="lang-json" dir="ltr" data-is-upgraded="" translate="no"><code>[
   {
       &quot;name&quot;: &quot;STRING&quot;,
@@ -411,10 +411,10 @@ The fields of a data change record include the following:
     },
     ...
 ]</code></pre></td>
-<td>Indicates the name of the column, the column type, whether it's a primary key, and the position of the column as defined in the schema ( <code dir="ltr" translate="no">         ordinal_position        </code> ). The first column of a table in the schema would have an ordinal position of <code dir="ltr" translate="no">         1        </code> . The column type may be nested for array columns. The format matches the type structure described in the <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type">Spanner API reference</a> .</td>
+<td>Indicates the name of the column, the column type, whether it's a primary key, and the position of the column as defined in the schema ( <code dir="ltr" translate="no">ordinal_position</code> ). The first column of a table in the schema would have an ordinal position of <code dir="ltr" translate="no">1</code> . The column type may be nested for array columns. The format matches the type structure described in the <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type">Spanner API reference</a> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         mods        </code></td>
+<td><code dir="ltr" translate="no">mods</code></td>
 <td><pre class="lang-json" dir="ltr" data-is-upgraded="" translate="no"><code>[
   {
     &quot;keys&quot;: {&quot;STRING&quot; : &quot;STRING&quot;},
@@ -429,31 +429,31 @@ The fields of a data change record include the following:
   },
   [...]
 ]</code></pre></td>
-<td>Describes the changes that were made, including the primary key values, the old values, and the new values of the changed or tracked columns. The availability and content of the old and new values depends on the configured <code dir="ltr" translate="no">         value_capture_type        </code> . The <code dir="ltr" translate="no">         new_values        </code> and <code dir="ltr" translate="no">         old_values        </code> fields only contain the non-key columns.</td>
+<td>Describes the changes that were made, including the primary key values, the old values, and the new values of the changed or tracked columns. The availability and content of the old and new values depends on the configured <code dir="ltr" translate="no">value_capture_type</code> . The <code dir="ltr" translate="no">new_values</code> and <code dir="ltr" translate="no">old_values</code> fields only contain the non-key columns.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         mod_type        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td>Describes the type of change. One of <code dir="ltr" translate="no">         INSERT        </code> , <code dir="ltr" translate="no">         UPDATE        </code> , or <code dir="ltr" translate="no">         DELETE        </code> .</td>
+<td><code dir="ltr" translate="no">mod_type</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td>Describes the type of change. One of <code dir="ltr" translate="no">INSERT</code> , <code dir="ltr" translate="no">UPDATE</code> , or <code dir="ltr" translate="no">DELETE</code> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         number_of_records_in_transaction        </code></td>
-<td><code dir="ltr" translate="no">         INT64        </code></td>
+<td><code dir="ltr" translate="no">number_of_records_in_transaction</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 <td>Indicates the number of data change records that are part of this transaction across all change stream partitions.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         number_of_partitions_in_transaction        </code></td>
-<td><code dir="ltr" translate="no">         NUMBER        </code></td>
+<td><code dir="ltr" translate="no">number_of_partitions_in_transaction</code></td>
+<td><code dir="ltr" translate="no">NUMBER</code></td>
 <td>Indicates the number of partitions that return data change records for this transaction.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         transaction_tag        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
+<td><code dir="ltr" translate="no">transaction_tag</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 <td>Indicates the <a href="https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#transaction_tags">Transaction tag</a> associated with this transaction.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         is_system_transaction        </code></td>
-<td><code dir="ltr" translate="no">         BOOLEAN        </code></td>
+<td><code dir="ltr" translate="no">is_system_transaction</code></td>
+<td><code dir="ltr" translate="no">BOOLEAN</code></td>
 <td>Indicates whether the transaction is a system transaction.</td>
 </tr>
 </tbody>
@@ -562,7 +562,7 @@ A pair of example data change records follow. They describe a single transaction
       "is_system_transaction": false,
     }
 
-The following data change record is an example of a record with the value capture type `  NEW_VALUES  ` . Note that only new values are populated. Only the `  LastUpdate  ` column was modified, so only that column was returned.
+The following data change record is an example of a record with the value capture type `NEW_VALUES` . Note that only new values are populated. Only the `LastUpdate` column was modified, so only that column was returned.
 
     "data_change_record": {
       "commit_timestamp": "2022-09-27T12:30:00.123456Z",
@@ -603,7 +603,7 @@ The following data change record is an example of a record with the value captur
       "is_system_transaction": false
     }
 
-The following data change record is an example of a record with the value capture type `  NEW_ROW  ` . Only the `  LastUpdate  ` column was modified, but all tracked columns are returned.
+The following data change record is an example of a record with the value capture type `NEW_ROW` . Only the `LastUpdate` column was modified, but all tracked columns are returned.
 
     "data_change_record": {
       "commit_timestamp": "2022-09-27T12:30:00.123456Z",
@@ -652,7 +652,7 @@ The following data change record is an example of a record with the value captur
       "is_system_transaction": false
     }
 
-The following data change record is an example of a record with the value capture type `  NEW_ROW_AND_OLD_VALUES  ` . Only the `  LastUpdate  ` column was modified, but all tracked columns are returned. This value capture type captures the new value and old value of `  LastUpdate  ` .
+The following data change record is an example of a record with the value capture type `NEW_ROW_AND_OLD_VALUES` . Only the `LastUpdate` column was modified, but all tracked columns are returned. This value capture type captures the new value and old value of `LastUpdate` .
 
     "data_change_record": {
       "commit_timestamp": "2022-09-27T12:30:00.123456Z",
@@ -705,23 +705,23 @@ The following data change record is an example of a record with the value captur
 
 ### Heartbeat records
 
-When a heartbeat record is returned, it indicates that all changes with `  commit_timestamp  ` less than or equal to the heartbeat record's `  timestamp  ` have been returned, and future data records in this partition must have higher commit timestamps than that returned by the heartbeat record. Heartbeat records are returned when there are no data changes written to a partition. When there are data changes written to the partition, `  data_change_record.commit_timestamp  ` can be used instead of `  heartbeat_record.timestamp  ` to tell that the reader is making forward progress in reading the partition.
+When a heartbeat record is returned, it indicates that all changes with `commit_timestamp` less than or equal to the heartbeat record's `timestamp` have been returned, and future data records in this partition must have higher commit timestamps than that returned by the heartbeat record. Heartbeat records are returned when there are no data changes written to a partition. When there are data changes written to the partition, `data_change_record.commit_timestamp` can be used instead of `heartbeat_record.timestamp` to tell that the reader is making forward progress in reading the partition.
 
-You can use heartbeat records returned on partitions to synchronize readers across all partitions. Once all readers have received either a heartbeat greater than or equal to some timestamp `  A  ` or have received data or child partition records greater than or equal to timestamp `  A  ` , the readers know they have received all records committed at or before that timestamp `  A  ` and can start processing the buffered records—for example, sorting the cross-partition records by timestamp and grouping them by `  server_transaction_id  ` .
+You can use heartbeat records returned on partitions to synchronize readers across all partitions. Once all readers have received either a heartbeat greater than or equal to some timestamp `A` or have received data or child partition records greater than or equal to timestamp `A` , the readers know they have received all records committed at or before that timestamp `A` and can start processing the buffered records—for example, sorting the cross-partition records by timestamp and grouping them by `server_transaction_id` .
 
 A heartbeat record contains only one field:
 
 ### GoogleSQL
 
-| Field                          | Type                           | Description                                 |
-| ------------------------------ | ------------------------------ | ------------------------------------------- |
-| `          timestamp         ` | `          TIMESTAMP         ` | Indicates the heartbeat record's timestamp. |
+| Field       | Type        | Description                                 |
+| ----------- | ----------- | ------------------------------------------- |
+| `timestamp` | `TIMESTAMP` | Indicates the heartbeat record's timestamp. |
 
 ### PostgreSQL
 
-| Field                          | Type                        | Description                                 |
-| ------------------------------ | --------------------------- | ------------------------------------------- |
-| `          timestamp         ` | `          STRING         ` | Indicates the heartbeat record's timestamp. |
+| Field       | Type     | Description                                 |
+| ----------- | -------- | ------------------------------------------- |
+| `timestamp` | `STRING` | Indicates the heartbeat record's timestamp. |
 
 #### Example heartbeat record
 
@@ -733,7 +733,7 @@ An example heartbeat record, communicating that all records with timestamps less
 
 ### Child partition records
 
-Child partition records returns information about child partitions: their partition tokens, the tokens of their parent partitions, and the `  start_timestamp  ` that represents the earliest timestamp that the child partitions contain change records for. Records whose commit timestamps are immediately prior to the `  child_partitions_record.start_timestamp  ` are returned in the current partition. After returning all the child partition records for this partition, this query returns with a success status, indicating all records have been returned for this partition.
+Child partition records returns information about child partitions: their partition tokens, the tokens of their parent partitions, and the `start_timestamp` that represents the earliest timestamp that the child partitions contain change records for. Records whose commit timestamps are immediately prior to the `child_partitions_record.start_timestamp` are returned in the current partition. After returning all the child partition records for this partition, this query returns with a success status, indicating all records have been returned for this partition.
 
 The fields of a child partition record includes the following:
 
@@ -754,17 +754,17 @@ The fields of a child partition record includes the following:
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         start_timestamp        </code></td>
-<td><code dir="ltr" translate="no">         TIMESTAMP        </code></td>
-<td>Indicates that the data change records returned from child partitions in this child partition record have a commit timestamp greater than or equal to <code dir="ltr" translate="no">         start_timestamp        </code> . When querying a child partition, the query should specify the child partition token and a <code dir="ltr" translate="no">         start_timestamp        </code> greater than or equal to <code dir="ltr" translate="no">         child_partitions_token.start_timestamp        </code> . All child partitions records returned by a partition have the same <code dir="ltr" translate="no">         start_timestamp        </code> and the timestamp always falls between the query's specified <code dir="ltr" translate="no">         start_timestamp        </code> and <code dir="ltr" translate="no">         end_timestamp        </code> .</td>
+<td><code dir="ltr" translate="no">start_timestamp</code></td>
+<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
+<td>Indicates that the data change records returned from child partitions in this child partition record have a commit timestamp greater than or equal to <code dir="ltr" translate="no">start_timestamp</code> . When querying a child partition, the query should specify the child partition token and a <code dir="ltr" translate="no">start_timestamp</code> greater than or equal to <code dir="ltr" translate="no">child_partitions_token.start_timestamp</code> . All child partitions records returned by a partition have the same <code dir="ltr" translate="no">start_timestamp</code> and the timestamp always falls between the query's specified <code dir="ltr" translate="no">start_timestamp</code> and <code dir="ltr" translate="no">end_timestamp</code> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         record_sequence        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td>Indicates a monotonically increasing sequence number that can be used to define the ordering of the child partition records when there are multiple child partition records returned with the same <code dir="ltr" translate="no">         start_timestamp        </code> in a particular partition. The partition token, <code dir="ltr" translate="no">         start_timestamp        </code> and <code dir="ltr" translate="no">         record_sequence        </code> uniquely identify a child partition record.</td>
+<td><code dir="ltr" translate="no">record_sequence</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td>Indicates a monotonically increasing sequence number that can be used to define the ordering of the child partition records when there are multiple child partition records returned with the same <code dir="ltr" translate="no">start_timestamp</code> in a particular partition. The partition token, <code dir="ltr" translate="no">start_timestamp</code> and <code dir="ltr" translate="no">record_sequence</code> uniquely identify a child partition record.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         child_partitions        </code></td>
+<td><code dir="ltr" translate="no">child_partitions</code></td>
 <td><pre class="lang=json" dir="ltr" data-is-upgraded="" translate="no"><code>[
   {
     &quot;token&quot; : &quot;STRING&quot;,
@@ -793,17 +793,17 @@ The fields of a child partition record includes the following:
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         start_timestamp        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td>Indicates that the data change records returned from child partitions in this child partition record have a commit timestamp greater than or equal to <code dir="ltr" translate="no">         start_timestamp        </code> . When querying a child partition, the query should specify the child partition token and a <code dir="ltr" translate="no">         start_timestamp        </code> greater than or equal to <code dir="ltr" translate="no">         child_partitions_token.start_timestamp        </code> . All child partitions records returned by a partition have the same <code dir="ltr" translate="no">         start_timestamp        </code> and the timestamp always falls between the query's specified <code dir="ltr" translate="no">         start_timestamp        </code> and <code dir="ltr" translate="no">         end_timestamp        </code> .</td>
+<td><code dir="ltr" translate="no">start_timestamp</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td>Indicates that the data change records returned from child partitions in this child partition record have a commit timestamp greater than or equal to <code dir="ltr" translate="no">start_timestamp</code> . When querying a child partition, the query should specify the child partition token and a <code dir="ltr" translate="no">start_timestamp</code> greater than or equal to <code dir="ltr" translate="no">child_partitions_token.start_timestamp</code> . All child partitions records returned by a partition have the same <code dir="ltr" translate="no">start_timestamp</code> and the timestamp always falls between the query's specified <code dir="ltr" translate="no">start_timestamp</code> and <code dir="ltr" translate="no">end_timestamp</code> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         record_sequence        </code></td>
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td>Indicates a monotonically increasing sequence number that can be used to define the ordering of the child partition records when there are multiple child partition records returned with the same <code dir="ltr" translate="no">         start_timestamp        </code> in a particular partition. The partition token, <code dir="ltr" translate="no">         start_timestamp        </code> and <code dir="ltr" translate="no">         record_sequence        </code> uniquely identify a child partition record.</td>
+<td><code dir="ltr" translate="no">record_sequence</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td>Indicates a monotonically increasing sequence number that can be used to define the ordering of the child partition records when there are multiple child partition records returned with the same <code dir="ltr" translate="no">start_timestamp</code> in a particular partition. The partition token, <code dir="ltr" translate="no">start_timestamp</code> and <code dir="ltr" translate="no">record_sequence</code> uniquely identify a child partition record.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         child_partitions        </code></td>
+<td><code dir="ltr" translate="no">child_partitions</code></td>
 <td><pre class="lang=json" dir="ltr" data-is-upgraded="" translate="no"><code>[
   {
     &quot;token&quot;: &quot;STRING&quot;,
@@ -835,15 +835,15 @@ The following is an example of a child partition record:
 
 ## Change streams query workflow
 
-Run change stream queries using the [`  ExecuteStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#%0Agoogle.spanner.v1.Spanner.ExecuteStreamingSql) API, with a single-use [read-only transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) and a strong [timestamp bound](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) . The change stream read function lets you specify the `  start_timestamp  ` and `  end_timestamp  ` for the time range of interest. All change records within the retention period are accessible using the strong read-only timestamp bound.
+Run change stream queries using the [`ExecuteStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#%0Agoogle.spanner.v1.Spanner.ExecuteStreamingSql) API, with a single-use [read-only transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) and a strong [timestamp bound](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) . The change stream read function lets you specify the `start_timestamp` and `end_timestamp` for the time range of interest. All change records within the retention period are accessible using the strong read-only timestamp bound.
 
-All other [`  TransactionOptions  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions) are invalid for change stream queries. In addition, if `  TransactionOptions.read_only.return_read_timestamp  ` is set to `  true  ` , a special value of `  kint64max - 1  ` is returned in the `  Transaction  ` message that describes the transaction, instead of a valid read timestamp. This special value should be discarded and not used for any subsequent queries.
+All other [`TransactionOptions`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions) are invalid for change stream queries. In addition, if `TransactionOptions.read_only.return_read_timestamp` is set to `true` , a special value of `kint64max - 1` is returned in the `Transaction` message that describes the transaction, instead of a valid read timestamp. This special value should be discarded and not used for any subsequent queries.
 
 Each change stream query can return any number of rows, each containing either a data change record, heartbeat record, or child partitions record. There is no need to set a deadline for the request.
 
 ### Example change stream query workflow
 
-The streaming query workflow begins with issuing the very first change stream query by specifying the `  partition_token  ` to `  NULL  ` . The query needs to specify the read function for the change stream, start and end timestamp of interest, and the heartbeat interval. When the `  end_timestamp  ` is `  NULL  ` , the query keeps returning data changes until the partition ends.
+The streaming query workflow begins with issuing the very first change stream query by specifying the `partition_token` to `NULL` . The query needs to specify the read function for the change stream, start and end timestamp of interest, and the heartbeat interval. When the `end_timestamp` is `NULL` , the query keeps returning data changes until the partition ends.
 
 ### GoogleSQL
 
@@ -865,7 +865,7 @@ The streaming query workflow begins with issuing the very first change stream qu
       NULL
     ) ;
 
-Process data records from this query until all child partition records are returned. In the following example, two child partition records and three partition tokens are returned, then the query terminates. Child partition records from a specific query always shares the same `  start_timestamp  ` .
+Process data records from this query until all child partition records are returned. In the following example, two child partition records and three partition tokens are returned, then the query terminates. Child partition records from a specific query always shares the same `start_timestamp` .
 
     child_partitions_record: {
       "record_type": "child_partitions",
@@ -897,7 +897,7 @@ Process data records from this query until all child partition records are retur
       ],
     }
 
-To process changes after `  2022-05-01T09:00:01Z  ` , create three new queries and run them in parallel. Used together, the three queries return data changes for the same key range their parent covers. Always set the `  start_timestamp  ` to the `  start_timestamp  ` in the same child partition record and use the same `  end_timestamp  ` and heartbeat interval to process the records consistently across all queries.
+To process changes after `2022-05-01T09:00:01Z` , create three new queries and run them in parallel. Used together, the three queries return data changes for the same key range their parent covers. Always set the `start_timestamp` to the `start_timestamp` in the same child partition record and use the same `end_timestamp` and heartbeat interval to process the records consistently across all queries.
 
 ### GoogleSQL
 
@@ -951,7 +951,7 @@ To process changes after `  2022-05-01T09:00:01Z  ` , create three new queries a
       NULL
     );
 
-The query on `  child_token_2  ` finishes after returning another child partition record. This record indicates that a new partition is covering changes for both `  child_token_2  ` and `  child_token_3  ` starting at `  2022-05-01T09:30:15Z  ` . The exact same record is returned by the query on `  child_token_3  ` , because both are the parent partitions of the new `  child_token_4  ` . To ensure a strict ordered processing of data records for a particular key, the query on `  child_token_4  ` must start after all the parents have finished. In this case, the parents are `  child_token_2  ` and `  child_token_3  ` . Only create one query for each child partition token. The query workflow design should appoint one parent to wait and schedule the query on `  child_token_4  ` .
+The query on `child_token_2` finishes after returning another child partition record. This record indicates that a new partition is covering changes for both `child_token_2` and `child_token_3` starting at `2022-05-01T09:30:15Z` . The exact same record is returned by the query on `child_token_3` , because both are the parent partitions of the new `child_token_4` . To ensure a strict ordered processing of data records for a particular key, the query on `child_token_4` must start after all the parents have finished. In this case, the parents are `child_token_2` and `child_token_3` . Only create one query for each child partition token. The query workflow design should appoint one parent to wait and schedule the query on `child_token_4` .
 
     child_partitions_record: {
       "record_type": "child_partitions",

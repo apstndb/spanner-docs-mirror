@@ -18,7 +18,7 @@ You can change the leader region of a database. To monitor the progress of this 
 
 4.  Click the pencil icon next to **Leader Region** .
 
-5.  Modify the DDL statement with your selected leader region as `  default_leader  ` .
+5.  Modify the DDL statement with your selected leader region as `default_leader` .
 
 ### gcloud
 
@@ -362,7 +362,7 @@ You can change the leader region of a database. To monitor the progress of this 
 
 4.  Click the pencil icon next to **Leader Region** .
 
-5.  Modify the DDL statement with your selected leader region and set `  default_leader  ` to `  NULL  ` .
+5.  Modify the DDL statement with your selected leader region and set `default_leader` to `NULL` .
 
 ### gcloud
 
@@ -860,9 +860,9 @@ Replace the following:
   - `  DATABASE_NAME  ` : the name of your database.
   - `  INSTANCE_ID  ` : the identifier of your database instance.
 
-If a default leader region has been set, it is listed under `  defaultLeader  ` .
+If a default leader region has been set, it is listed under `defaultLeader` .
 
-If a default leader has not been set, `  defaultLeader  ` is not listed. In this case Spanner uses the Google-defined, default leader region for your [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) configuration as shown in respective available configurations.
+If a default leader has not been set, `defaultLeader` is not listed. In this case Spanner uses the Google-defined, default leader region for your [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) configuration as shown in respective available configurations.
 
 #### View the leader region in the DDL
 
@@ -1672,9 +1672,9 @@ To view the regions which you can set to be the default leader region, use the f
 
 Replace the following:
 
-  - `  INSTANCE_CONFIG  ` : a permanent identifier of your instance configuration, which defines the geographic location of the instance and affects how data is replicated. For custom instance configurations, it starts with `  custom-  ` . For more information, see [instance configurations](https://docs.cloud.google.com/spanner/docs/instances) .
+  - `  INSTANCE_CONFIG  ` : a permanent identifier of your instance configuration, which defines the geographic location of the instance and affects how data is replicated. For custom instance configurations, it starts with `custom-` . For more information, see [instance configurations](https://docs.cloud.google.com/spanner/docs/instances) .
 
-The regions that you can choose are listed under `  leaderOptions  ` .
+The regions that you can choose are listed under `leaderOptions` .
 
 ### Client libraries
 

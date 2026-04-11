@@ -30,7 +30,7 @@ For most use cases, we recommend the unified deployment model.
 
 ### Configuration
 
-The Autoscaler tool manages Spanner instances through the configuration defined in a [Kubernetes `  ConfigMap  `](https://kubernetes.io/docs/concepts/configuration/configmap) . If multiple Spanner instances need to be polled with the same interval, we recommend that you configure them in the same `  ConfigMap  ` . The following is an example of a configuration where two Spanner instances are managed with one configuration:
+The Autoscaler tool manages Spanner instances through the configuration defined in a [Kubernetes `ConfigMap`](https://kubernetes.io/docs/concepts/configuration/configmap) . If multiple Spanner instances need to be polled with the same interval, we recommend that you configure them in the same `ConfigMap` . The following is an example of a configuration where two Spanner instances are managed with one configuration:
 
     apiVersion: v1
     kind: ConfigMap
@@ -56,7 +56,7 @@ The Autoscaler tool manages Spanner instances through the configuration defined 
             regional_threshold: 40
             regional_margin: 3
 
-An instance can have one Autoscaler configuration with the linear method for normal operations, and also have another Autoscaler configuration with the direct method for planned batch workloads. See the complete list of configuration options in the [Poller `  README  ` file](https://github.com/cloudspannerecosystem/autoscaler/blob/main/src/poller/README.md#configuration-parameters) .
+An instance can have one Autoscaler configuration with the linear method for normal operations, and also have another Autoscaler configuration with the direct method for planned batch workloads. See the complete list of configuration options in the [Poller `README` file](https://github.com/cloudspannerecosystem/autoscaler/blob/main/src/poller/README.md#configuration-parameters) .
 
 ## Deploy to GKE
 

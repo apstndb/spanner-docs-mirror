@@ -2,7 +2,7 @@ Spring Data JPA, part of the larger Spring Data family, makes it easier to imple
 
 ## Set up Spring Data JPA for Spanner GoogleSQL-dialect databases
 
-You can integrate Spanner GoogleSQL-dialect databases with Spring Data JPA using the open source [Spanner Hibernate Dialect](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) ( `  SpannerDialect  ` ).
+You can integrate Spanner GoogleSQL-dialect databases with Spring Data JPA using the open source [Spanner Hibernate Dialect](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) ( `SpannerDialect` ).
 
 To see an example, refer to the full [working sample application](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/blob/-/google-cloud-spanner-hibernate-samples/spring-data-jpa-full-sample) on GitHub.
 
@@ -31,7 +31,7 @@ In your project, add Apache Maven dependencies for [Spring Data JPA](https://spr
 
 ### Configuration
 
-Configure `  application.properties  ` to use the Spanner Hibernate Dialect and the Spanner JDBC Driver.
+Configure `application.properties` to use the Spanner Hibernate Dialect and the Spanner JDBC Driver.
 
     # Spanner connection URL.
     # - ${PROJECT_ID} Replace with your Google Cloud project ID

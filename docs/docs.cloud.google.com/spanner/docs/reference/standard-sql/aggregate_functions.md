@@ -15,89 +15,89 @@ GoogleSQL for Spanner supports the following general aggregate functions. To lea
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#any_value"><code dir="ltr" translate="no">        ANY_VALUE       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#any_value"><code dir="ltr" translate="no">ANY_VALUE</code></a></td>
 <td>Gets an expression for some row.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#array_agg"><code dir="ltr" translate="no">        ARRAY_AGG       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#array_agg"><code dir="ltr" translate="no">ARRAY_AGG</code></a></td>
 <td>Gets an array of values.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#array_concat_agg"><code dir="ltr" translate="no">        ARRAY_CONCAT_AGG       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#array_concat_agg"><code dir="ltr" translate="no">ARRAY_CONCAT_AGG</code></a></td>
 <td>Concatenates arrays and returns a single array as a result.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#avg"><code dir="ltr" translate="no">        AVG       </code></a></td>
-<td>Gets the average of non- <code dir="ltr" translate="no">       NULL      </code> values.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#avg"><code dir="ltr" translate="no">AVG</code></a></td>
+<td>Gets the average of non- <code dir="ltr" translate="no">NULL</code> values.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#bit_and"><code dir="ltr" translate="no">        BIT_AND       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#bit_and"><code dir="ltr" translate="no">BIT_AND</code></a></td>
 <td>Performs a bitwise AND operation on an expression.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#bit_or"><code dir="ltr" translate="no">        BIT_OR       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#bit_or"><code dir="ltr" translate="no">BIT_OR</code></a></td>
 <td>Performs a bitwise OR operation on an expression.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#bit_xor"><code dir="ltr" translate="no">        BIT_XOR       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#bit_xor"><code dir="ltr" translate="no">BIT_XOR</code></a></td>
 <td>Performs a bitwise XOR operation on an expression.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#count"><code dir="ltr" translate="no">        COUNT       </code></a></td>
-<td>Gets the number of rows in the input, or the number of rows with an expression evaluated to any value other than <code dir="ltr" translate="no">       NULL      </code> .</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#count"><code dir="ltr" translate="no">COUNT</code></a></td>
+<td>Gets the number of rows in the input, or the number of rows with an expression evaluated to any value other than <code dir="ltr" translate="no">NULL</code> .</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#countif"><code dir="ltr" translate="no">        COUNTIF       </code></a></td>
-<td>Gets the number of <code dir="ltr" translate="no">       TRUE      </code> values for an expression.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#countif"><code dir="ltr" translate="no">COUNTIF</code></a></td>
+<td>Gets the number of <code dir="ltr" translate="no">TRUE</code> values for an expression.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#logical_and"><code dir="ltr" translate="no">        LOGICAL_AND       </code></a></td>
-<td>Gets the logical AND of all non- <code dir="ltr" translate="no">       NULL      </code> expressions.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#logical_and"><code dir="ltr" translate="no">LOGICAL_AND</code></a></td>
+<td>Gets the logical AND of all non- <code dir="ltr" translate="no">NULL</code> expressions.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#logical_or"><code dir="ltr" translate="no">        LOGICAL_OR       </code></a></td>
-<td>Gets the logical OR of all non- <code dir="ltr" translate="no">       NULL      </code> expressions.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#logical_or"><code dir="ltr" translate="no">LOGICAL_OR</code></a></td>
+<td>Gets the logical OR of all non- <code dir="ltr" translate="no">NULL</code> expressions.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#max"><code dir="ltr" translate="no">        MAX       </code></a></td>
-<td>Gets the maximum non- <code dir="ltr" translate="no">       NULL      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#max"><code dir="ltr" translate="no">MAX</code></a></td>
+<td>Gets the maximum non- <code dir="ltr" translate="no">NULL</code> value.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#min"><code dir="ltr" translate="no">        MIN       </code></a></td>
-<td>Gets the minimum non- <code dir="ltr" translate="no">       NULL      </code> value.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#min"><code dir="ltr" translate="no">MIN</code></a></td>
+<td>Gets the minimum non- <code dir="ltr" translate="no">NULL</code> value.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#stddev"><code dir="ltr" translate="no">        STDDEV       </code></a></td>
-<td>An alias of the <code dir="ltr" translate="no">       STDDEV_SAMP      </code> function.<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#stddev"><code dir="ltr" translate="no">STDDEV</code></a></td>
+<td>An alias of the <code dir="ltr" translate="no">STDDEV_SAMP</code> function.<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions">Statistical aggregate functions</a> .</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#stddev_samp"><code dir="ltr" translate="no">        STDDEV_SAMP       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#stddev_samp"><code dir="ltr" translate="no">STDDEV_SAMP</code></a></td>
 <td>Computes the sample (unbiased) standard deviation of the values.<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions">Statistical aggregate functions</a> .</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#string_agg"><code dir="ltr" translate="no">        STRING_AGG       </code></a></td>
-<td>Concatenates non- <code dir="ltr" translate="no">       NULL      </code> <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code> values.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#string_agg"><code dir="ltr" translate="no">STRING_AGG</code></a></td>
+<td>Concatenates non- <code dir="ltr" translate="no">NULL</code> <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code> values.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#sum"><code dir="ltr" translate="no">        SUM       </code></a></td>
-<td>Gets the sum of non- <code dir="ltr" translate="no">       NULL      </code> values.</td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#sum"><code dir="ltr" translate="no">SUM</code></a></td>
+<td>Gets the sum of non- <code dir="ltr" translate="no">NULL</code> values.</td>
 </tr>
 <tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#var_samp"><code dir="ltr" translate="no">        VAR_SAMP       </code></a></td>
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#var_samp"><code dir="ltr" translate="no">VAR_SAMP</code></a></td>
 <td>Computes the sample (unbiased) variance of the values.<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions">Statistical aggregate functions</a> .</td>
 </tr>
 <tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#variance"><code dir="ltr" translate="no">        VARIANCE       </code></a></td>
-<td>An alias of <code dir="ltr" translate="no">       VAR_SAMP      </code> .<br />
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions#variance"><code dir="ltr" translate="no">VARIANCE</code></a></td>
+<td>An alias of <code dir="ltr" translate="no">VAR_SAMP</code> .<br />
 For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions">Statistical aggregate functions</a> .</td>
 </tr>
 </tbody>
 </table>
 
-## `     ANY_VALUE    `
+## `ANY_VALUE`
 
     ANY_VALUE(
       expression
@@ -106,9 +106,9 @@ For more information, see <a href="https://docs.cloud.google.com/spanner/docs/re
 
 **Description**
 
-Returns `  expression  ` for some row chosen from the group. Which row is chosen is nondeterministic, not random. Returns `  NULL  ` when the input produces no rows. Returns `  NULL  ` when `  expression  ` or `  having_expression  ` is `  NULL  ` for all rows in the group.
+Returns `expression` for some row chosen from the group. Which row is chosen is nondeterministic, not random. Returns `NULL` when the input produces no rows. Returns `NULL` when `expression` or `having_expression` is `NULL` for all rows in the group.
 
-If `  expression  ` contains any non-NULL values, then `  ANY_VALUE  ` behaves as if `  IGNORE NULLS  ` is specified; rows for which `  expression  ` is `  NULL  ` aren't considered and won't be selected.
+If `expression` contains any non-NULL values, then `ANY_VALUE` behaves as if `IGNORE NULLS` is specified; rows for which `expression` is `NULL` aren't considered and won't be selected.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
@@ -167,7 +167,7 @@ Matches the input data type.
      | oranges                 |
      +-------------------------*/
 
-## `     ARRAY_AGG    `
+## `ARRAY_AGG`
 
     ARRAY_AGG(
       [ DISTINCT ]
@@ -180,7 +180,7 @@ Matches the input data type.
 
 **Description**
 
-Returns an ARRAY of `  expression  ` values.
+Returns an ARRAY of `expression` values.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
@@ -192,7 +192,7 @@ All data types except ARRAY.
 
 ARRAY
 
-If there are zero input rows, this function returns `  NULL  ` .
+If there are zero input rows, this function returns `NULL` .
 
 **Examples**
 
@@ -275,7 +275,7 @@ If there are zero input rows, this function returns `  NULL  ` .
      | 2 | [a, c]    |
      +---------------*/
 
-## `     ARRAY_CONCAT_AGG    `
+## `ARRAY_CONCAT_AGG`
 
     ARRAY_CONCAT_AGG(
       expression
@@ -286,19 +286,19 @@ If there are zero input rows, this function returns `  NULL  ` .
 
 **Description**
 
-Concatenates elements from `  expression  ` of type `  ARRAY  ` , returning a single array as a result.
+Concatenates elements from `expression` of type `ARRAY` , returning a single array as a result.
 
-This function ignores `  NULL  ` input arrays, but respects the `  NULL  ` elements in non- `  NULL  ` input arrays. Returns `  NULL  ` if there are zero input rows or `  expression  ` evaluates to `  NULL  ` for all rows.
+This function ignores `NULL` input arrays, but respects the `NULL` elements in non- `NULL` input arrays. Returns `NULL` if there are zero input rows or `expression` evaluates to `NULL` for all rows.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Supported Argument Types**
 
-`  ARRAY  `
+`ARRAY`
 
 **Returned Data Types**
 
-`  ARRAY  `
+`ARRAY`
 
 **Examples**
 
@@ -351,7 +351,7 @@ To learn more about the optional aggregate clauses that you can pass into this f
      | [5, 6, 7, 8, 9]  |
      +------------------*/
 
-## `     AVG    `
+## `AVG`
 
     AVG(
       [ DISTINCT ]
@@ -361,28 +361,28 @@ To learn more about the optional aggregate clauses that you can pass into this f
 
 **Description**
 
-Returns the average of non- `  NULL  ` values in an aggregated group.
+Returns the average of non- `NULL` values in an aggregated group.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 Caveats:
 
-  - If the aggregated group is empty or the argument is `  NULL  ` for all rows in the group, returns `  NULL  ` .
-  - If the argument is `  NaN  ` for any row in the group, returns `  NaN  ` .
-  - If the argument is `  [+|-]Infinity  ` for any row in the group, returns either `  [+|-]Infinity  ` or `  NaN  ` .
+  - If the aggregated group is empty or the argument is `NULL` for all rows in the group, returns `NULL` .
+  - If the argument is `NaN` for any row in the group, returns `NaN` .
+  - If the argument is `[+|-]Infinity` for any row in the group, returns either `[+|-]Infinity` or `NaN` .
   - If there is numeric overflow, produces an error.
   - If a [floating-point type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) is returned, the result is [non-deterministic](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_semantics) , which means you might receive a different result each time you use this function.
 
 **Supported Argument Types**
 
   - Any numeric input type
-  - `  INTERVAL  `
+  - `INTERVAL`
 
 **Returned Data Types**
 
-| INPUT  | `        INT64       `   | `        NUMERIC       ` | `        FLOAT32       ` | `        FLOAT64       ` | `        INTERVAL       ` |
-| ------ | ------------------------ | ------------------------ | ------------------------ | ------------------------ | ------------------------- |
-| OUTPUT | `        FLOAT64       ` | `        NUMERIC       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        INTERVAL       ` |
+| INPUT  | `INT64`   | `NUMERIC` | `FLOAT32` | `FLOAT64` | `INTERVAL` |
+| ------ | --------- | --------- | --------- | --------- | ---------- |
+| OUTPUT | `FLOAT64` | `NUMERIC` | `FLOAT64` | `FLOAT64` | `INTERVAL` |
 
 **Examples**
 
@@ -404,7 +404,7 @@ Caveats:
      | 2.75 |
      +------*/
 
-## `     BIT_AND    `
+## `BIT_AND`
 
     BIT_AND(
       [ DISTINCT ]
@@ -414,7 +414,7 @@ Caveats:
 
 **Description**
 
-Performs a bitwise AND operation on `  expression  ` and returns the result.
+Performs a bitwise AND operation on `expression` and returns the result.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
@@ -436,7 +436,7 @@ INT64
      | 1       |
      +---------*/
 
-## `     BIT_OR    `
+## `BIT_OR`
 
     BIT_OR(
       [ DISTINCT ]
@@ -446,7 +446,7 @@ INT64
 
 **Description**
 
-Performs a bitwise OR operation on `  expression  ` and returns the result.
+Performs a bitwise OR operation on `expression` and returns the result.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
@@ -468,7 +468,7 @@ INT64
      | 61601  |
      +--------*/
 
-## `     BIT_XOR    `
+## `BIT_XOR`
 
     BIT_XOR(
       [ DISTINCT ]
@@ -478,7 +478,7 @@ INT64
 
 **Description**
 
-Performs a bitwise XOR operation on `  expression  ` and returns the result.
+Performs a bitwise XOR operation on `expression` and returns the result.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
@@ -516,7 +516,7 @@ INT64
      | 4860    |
      +---------*/
 
-## `     COUNT    `
+## `COUNT`
 
     COUNT(*)
 
@@ -528,14 +528,14 @@ INT64
 
 **Description**
 
-Gets the number of rows in the input or the number of rows with an expression evaluated to any value other than `  NULL  ` .
+Gets the number of rows in the input or the number of rows with an expression evaluated to any value other than `NULL` .
 
 **Definitions**
 
-  - `  *  ` : Use this value to get the number of all rows in the input.
-  - `  expression  ` : A value of any data type that represents the expression to evaluate. If `  DISTINCT  ` is present, `  expression  ` can only be a data type that is [groupable](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#groupable_data_types) .
-  - `  DISTINCT  ` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
-  - `  HAVING { MAX | MIN }  ` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
+  - `*` : Use this value to get the number of all rows in the input.
+  - `expression` : A value of any data type that represents the expression to evaluate. If `DISTINCT` is present, `expression` can only be a data type that is [groupable](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#groupable_data_types) .
+  - `DISTINCT` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
+  - `HAVING { MAX | MIN }` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Details**
 
@@ -543,17 +543,17 @@ To count the number of distinct values of an expression for which a certain cond
 
     COUNT(DISTINCT IF(condition, expression, NULL))
 
-`  IF  ` returns the value of `  expression  ` if `  condition  ` is `  TRUE  ` , or `  NULL  ` otherwise. The surrounding `  COUNT(DISTINCT ...)  ` ignores the `  NULL  ` values, so it counts only the distinct values of `  expression  ` for which `  condition  ` is `  TRUE  ` .
+`IF` returns the value of `expression` if `condition` is `TRUE` , or `NULL` otherwise. The surrounding `COUNT(DISTINCT ...)` ignores the `NULL` values, so it counts only the distinct values of `expression` for which `condition` is `TRUE` .
 
-To count the number of non-distinct values of an expression for which a certain condition is satisfied, consider using the [`  COUNTIF  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#countif) function.
+To count the number of non-distinct values of an expression for which a certain condition is satisfied, consider using the [`COUNTIF`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#countif) function.
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
-You can use the `  COUNT  ` function to return the number of rows in a table or the number of distinct values of an expression. For example:
+You can use the `COUNT` function to return the number of rows in a table or the number of distinct values of an expression. For example:
 
     SELECT
       COUNT(*) AS count_star,
@@ -575,7 +575,7 @@ You can use the `  COUNT  ` function to return the number of rows in a table or 
      | 5          | 4       |
      +------------+---------*/
 
-The following query counts the number of distinct positive values of `  x  ` :
+The following query counts the number of distinct positive values of `x` :
 
     SELECT COUNT(DISTINCT IF(x > 0, x, NULL)) AS distinct_positive
     FROM UNNEST([1, -2, 4, 1, -5, 4, 1, 3, -6, 1]) AS x;
@@ -612,7 +612,7 @@ The following query counts the number of distinct dates on which a certain kind 
      | 2                            |
      +------------------------------*/
 
-The following query counts the number of distinct `  id  ` s that exist in both the `  customers  ` and `  vendor  ` tables:
+The following query counts the number of distinct `id` s that exist in both the `customers` and `vendor` tables:
 
     WITH
       customers AS (
@@ -633,7 +633,7 @@ The following query counts the number of distinct `  id  ` s that exist in both 
      | 2      |
      +--------*/
 
-## `     COUNTIF    `
+## `COUNTIF`
 
     COUNTIF(
       [ DISTINCT ]
@@ -643,21 +643,21 @@ The following query counts the number of distinct `  id  ` s that exist in both 
 
 **Description**
 
-Gets the number of `  TRUE  ` values for an expression.
+Gets the number of `TRUE` values for an expression.
 
 **Definitions**
 
-  - `  expression  ` : A `  BOOL  ` value that represents the expression to evaluate.
-  - `  DISTINCT  ` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
-  - `  HAVING { MAX | MIN }  ` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
+  - `expression` : A `BOOL` value that represents the expression to evaluate.
+  - `DISTINCT` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
+  - `HAVING { MAX | MIN }` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Details**
 
-The function signature `  COUNTIF(DISTINCT ...)  ` is generally not useful. If you would like to use `  DISTINCT  ` , use `  COUNT  ` with `  DISTINCT IF  ` . For more information, see the [`  COUNT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#count) function.
+The function signature `COUNTIF(DISTINCT ...)` is generally not useful. If you would like to use `DISTINCT` , use `COUNT` with `DISTINCT IF` . For more information, see the [`COUNT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#count) function.
 
 **Return type**
 
-`  INT64  `
+`INT64`
 
 **Examples**
 
@@ -670,7 +670,7 @@ The function signature `  COUNTIF(DISTINCT ...)  ` is generally not useful. If y
      | 3            | 4            |
      +--------------+--------------*/
 
-## `     LOGICAL_AND    `
+## `LOGICAL_AND`
 
     LOGICAL_AND(
       expression
@@ -679,21 +679,21 @@ The function signature `  COUNTIF(DISTINCT ...)  ` is generally not useful. If y
 
 **Description**
 
-Returns the logical AND of all non- `  NULL  ` expressions. Returns `  NULL  ` if there are zero input rows or `  expression  ` evaluates to `  NULL  ` for all rows.
+Returns the logical AND of all non- `NULL` expressions. Returns `NULL` if there are zero input rows or `expression` evaluates to `NULL` for all rows.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Supported Argument Types**
 
-`  BOOL  `
+`BOOL`
 
 **Return Data Types**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
-`  LOGICAL_AND  ` returns `  FALSE  ` because not all of the values in the array are less than 3.
+`LOGICAL_AND` returns `FALSE` because not all of the values in the array are less than 3.
 
     SELECT LOGICAL_AND(x < 3) AS logical_and FROM UNNEST([1, 2, 4]) AS x;
     
@@ -703,7 +703,7 @@ To learn more about the optional aggregate clauses that you can pass into this f
      | FALSE       |
      +-------------*/
 
-## `     LOGICAL_OR    `
+## `LOGICAL_OR`
 
     LOGICAL_OR(
       expression
@@ -712,21 +712,21 @@ To learn more about the optional aggregate clauses that you can pass into this f
 
 **Description**
 
-Returns the logical OR of all non- `  NULL  ` expressions. Returns `  NULL  ` if there are zero input rows or `  expression  ` evaluates to `  NULL  ` for all rows.
+Returns the logical OR of all non- `NULL` expressions. Returns `NULL` if there are zero input rows or `expression` evaluates to `NULL` for all rows.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Supported Argument Types**
 
-`  BOOL  `
+`BOOL`
 
 **Return Data Types**
 
-`  BOOL  `
+`BOOL`
 
 **Examples**
 
-`  LOGICAL_OR  ` returns `  TRUE  ` because at least one of the values in the array is less than 3.
+`LOGICAL_OR` returns `TRUE` because at least one of the values in the array is less than 3.
 
     SELECT LOGICAL_OR(x < 3) AS logical_or FROM UNNEST([1, 2, 4]) AS x;
     
@@ -736,7 +736,7 @@ To learn more about the optional aggregate clauses that you can pass into this f
      | TRUE       |
      +------------*/
 
-## `     MAX    `
+## `MAX`
 
     MAX(
       expression
@@ -745,18 +745,18 @@ To learn more about the optional aggregate clauses that you can pass into this f
 
 **Description**
 
-Returns the maximum non- `  NULL  ` value in an aggregated group.
+Returns the maximum non- `NULL` value in an aggregated group.
 
 Caveats:
 
-  - If the aggregated group is empty or the argument is `  NULL  ` for all rows in the group, returns `  NULL  ` .
-  - If the argument is `  NaN  ` for any row in the group, returns `  NaN  ` .
+  - If the aggregated group is empty or the argument is `NULL` for all rows in the group, returns `NULL` .
+  - If the argument is `NaN` for any row in the group, returns `NaN` .
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Supported Argument Types**
 
-Any [orderable data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#data_type_properties) except for `  ARRAY  ` .
+Any [orderable data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#data_type_properties) except for `ARRAY` .
 
 **Return Data Types**
 
@@ -773,7 +773,7 @@ The data type of the input values.
      | 55  |
      +-----*/
 
-## `     MIN    `
+## `MIN`
 
     MIN(
       expression
@@ -782,18 +782,18 @@ The data type of the input values.
 
 **Description**
 
-Returns the minimum non- `  NULL  ` value in an aggregated group.
+Returns the minimum non- `NULL` value in an aggregated group.
 
 Caveats:
 
-  - If the aggregated group is empty or the argument is `  NULL  ` for all rows in the group, returns `  NULL  ` .
-  - If the argument is `  NaN  ` for any row in the group, returns `  NaN  ` .
+  - If the aggregated group is empty or the argument is `NULL` for all rows in the group, returns `NULL` .
+  - If the argument is `NaN` for any row in the group, returns `NaN` .
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Supported Argument Types**
 
-Any [orderable data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#data_type_properties) except for `  ARRAY  ` .
+Any [orderable data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#data_type_properties) except for `ARRAY` .
 
 **Return Data Types**
 
@@ -810,7 +810,7 @@ The data type of the input values.
      | 4   |
      +-----*/
 
-## `     STRING_AGG    `
+## `STRING_AGG`
 
     STRING_AGG(
       [ DISTINCT ]
@@ -822,19 +822,19 @@ The data type of the input values.
 
 **Description**
 
-Returns a value (either `  STRING  ` or `  BYTES  ` ) obtained by concatenating non- `  NULL  ` values. Returns `  NULL  ` if there are zero input rows or `  expression  ` evaluates to `  NULL  ` for all rows.
+Returns a value (either `STRING` or `BYTES` ) obtained by concatenating non- `NULL` values. Returns `NULL` if there are zero input rows or `expression` evaluates to `NULL` for all rows.
 
-If a `  delimiter  ` is specified, concatenated values are separated by that delimiter; otherwise, a comma is used as a delimiter.
+If a `delimiter` is specified, concatenated values are separated by that delimiter; otherwise, a comma is used as a delimiter.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Supported Argument Types**
 
-Either `  STRING  ` or `  BYTES  ` .
+Either `STRING` or `BYTES` .
 
 **Return Data Types**
 
-Either `  STRING  ` or `  BYTES  ` .
+Either `STRING` or `BYTES` .
 
 **Examples**
 
@@ -892,7 +892,7 @@ Either `  STRING  ` or `  BYTES  ` .
      | pear & banana |
      +---------------*/
 
-## `     SUM    `
+## `SUM`
 
     SUM(
       [ DISTINCT ]
@@ -902,28 +902,28 @@ Either `  STRING  ` or `  BYTES  ` .
 
 **Description**
 
-Returns the sum of non- `  NULL  ` values in an aggregated group.
+Returns the sum of non- `NULL` values in an aggregated group.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 Caveats:
 
-  - If the aggregated group is empty or the argument is `  NULL  ` for all rows in the group, returns `  NULL  ` .
-  - If the argument is `  NaN  ` for any row in the group, returns `  NaN  ` .
-  - If the argument is `  [+|-]Infinity  ` for any row in the group, returns either `  [+|-]Infinity  ` or `  NaN  ` .
+  - If the aggregated group is empty or the argument is `NULL` for all rows in the group, returns `NULL` .
+  - If the argument is `NaN` for any row in the group, returns `NaN` .
+  - If the argument is `[+|-]Infinity` for any row in the group, returns either `[+|-]Infinity` or `NaN` .
   - If there is numeric overflow, produces an error.
   - If a [floating-point type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) is returned, the result is [non-deterministic](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_semantics) , which means you might receive a different result each time you use this function.
 
 **Supported Argument Types**
 
   - Any supported numeric data type
-  - `  INTERVAL  `
+  - `INTERVAL`
 
 **Return Data Types**
 
-| INPUT  | `        INT64       ` | `        NUMERIC       ` | `        FLOAT32       ` | `        FLOAT64       ` | `        INTERVAL       ` |
-| ------ | ---------------------- | ------------------------ | ------------------------ | ------------------------ | ------------------------- |
-| OUTPUT | `        INT64       ` | `        NUMERIC       ` | `        FLOAT64       ` | `        FLOAT64       ` | `        INTERVAL       ` |
+| INPUT  | `INT64` | `NUMERIC` | `FLOAT32` | `FLOAT64` | `INTERVAL` |
+| ------ | ------- | --------- | --------- | --------- | ---------- |
+| OUTPUT | `INT64` | `NUMERIC` | `FLOAT64` | `FLOAT64` | `INTERVAL` |
 
 **Examples**
 

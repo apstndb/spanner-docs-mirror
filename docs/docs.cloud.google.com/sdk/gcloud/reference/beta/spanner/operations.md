@@ -4,28 +4,28 @@ gcloud beta spanner operations - manage Cloud Spanner operations
 
 SYNOPSIS
 
-`  gcloud beta spanner operations  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner operations` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage Cloud Spanner operations.
+`(BETA)` Manage Cloud Spanner operations.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  cancel  `  
-    `  (BETA)  ` Cancel a Cloud Spanner operation.
+    `(BETA)` Cancel a Cloud Spanner operation.
   - `  describe  `  
-    `  (BETA)  ` Describe a Cloud Spanner operation.
+    `(BETA)` Describe a Cloud Spanner operation.
   - `  list  `  
-    `  (BETA)  ` List the Cloud Spanner operations.
+    `(BETA)` List the Cloud Spanner operations.
 
 NOTES
 

@@ -2,26 +2,26 @@ GoogleSQL for Spanner supports the following sequence functions.
 
 ## Function list
 
-| Name                                                                                                                                                               | Summary                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| [`         GET_INTERNAL_SEQUENCE_STATE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_internal_sequence_state) | Gets the current sequence internal counter before bit reversal.                                                      |
-| [`         GET_NEXT_SEQUENCE_VALUE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_next_sequence_value)         | Takes in a sequence identifier and returns the next value. This function is only allowed in read-write transactions. |
+| Name                                                                                                                                              | Summary                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| [`GET_INTERNAL_SEQUENCE_STATE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_internal_sequence_state) | Gets the current sequence internal counter before bit reversal.                                                      |
+| [`GET_NEXT_SEQUENCE_VALUE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_next_sequence_value)         | Takes in a sequence identifier and returns the next value. This function is only allowed in read-write transactions. |
 
-## `     GET_INTERNAL_SEQUENCE_STATE    `
+## `GET_INTERNAL_SEQUENCE_STATE`
 
     GET_INTERNAL_SEQUENCE_STATE(SEQUENCE sequence_identifier)
 
 **Description**
 
-Gets the current sequence internal counter before bit reversal. This function is useful for import or export, and migrations. If `  GET_NEXT_SEQUENCE_VALUE  ` is never called on the sequence, then this function returns `  NULL  ` .
+Gets the current sequence internal counter before bit reversal. This function is useful for import or export, and migrations. If `GET_NEXT_SEQUENCE_VALUE` is never called on the sequence, then this function returns `NULL` .
 
 **Arguments**
 
-  - `  sequence_identifier  ` : The ID for the sequence.
+  - `sequence_identifier` : The ID for the sequence.
 
 **Return Data Type**
 
-`  INT64  `
+`INT64`
 
 **Example**
 
@@ -41,7 +41,7 @@ Gets the current sequence internal counter before bit reversal. This function is
      | 399            |
      +----------------*/
 
-## `     GET_NEXT_SEQUENCE_VALUE    `
+## `GET_NEXT_SEQUENCE_VALUE`
 
     GET_NEXT_SEQUENCE_VALUE(SEQUENCE sequence_identifier)
 
@@ -51,11 +51,11 @@ Gets the next integer in a sequence.
 
 **Arguments**
 
-  - `  sequence_identifier  ` : The ID for the sequence.
+  - `sequence_identifier` : The ID for the sequence.
 
 **Return Data Type**
 
-`  INT64  `
+`INT64`
 
 **Example**
 

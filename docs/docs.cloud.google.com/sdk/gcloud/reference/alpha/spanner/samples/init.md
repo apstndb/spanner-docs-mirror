@@ -4,11 +4,11 @@ gcloud alpha spanner samples init - initialize a Cloud Spanner sample app
 
 SYNOPSIS
 
-`  gcloud alpha spanner samples init  ` `  APPNAME  ` `  --instance-id  ` = `  INSTANCE_ID  ` \[ `  --database-id  ` = `  DATABASE_ID  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner samples init` `  APPNAME  ` `  --instance-id  ` = `  INSTANCE_ID  ` \[ `  --database-id  ` = `  DATABASE_ID  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` This command creates a Cloud Spanner database in the given instance for the sample app and loads any initial data required by the application.
+`(ALPHA)` This command creates a Cloud Spanner database in the given instance for the sample app and loads any initial data required by the application.
 
 EXAMPLES
 
@@ -31,19 +31,19 @@ POSITIONAL ARGUMENTS
 
 REQUIRED FLAGS
 
-  - `  --instance-id  ` = `  INSTANCE_ID  `  
+  - `--instance-id` = `  INSTANCE_ID  `  
     The Cloud Spanner instance ID for the sample app.
 
 OPTIONAL FLAGS
 
-  - `  --database-id  ` = `  DATABASE_ID  `  
+  - `--database-id` = `  DATABASE_ID  `  
     ID of the new Cloud Spanner database to create for the sample app.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

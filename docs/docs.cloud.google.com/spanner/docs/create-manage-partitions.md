@@ -51,7 +51,7 @@ This page describes how to create and manage Spanner [instance partitions](https
 
 ### gcloud
 
-To create an instance partition, use [`  gcloud spanner instance-partitions create  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/create) .
+To create an instance partition, use [`gcloud spanner instance-partitions create`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/create) .
 
     gcloud spanner instance-partitions create INSTANCE_PARTITION_ID \
       --config=INSTANCE_PARTITION_CONFIG \
@@ -68,7 +68,7 @@ Replace the following:
   - NODE\_COUNT : the compute capacity of the instance partition, expressed as a number of nodes. One node equals 1000 processing units.
   - PROCESSING\_UNIT\_COUNT : the compute capacity of the instance, expressed as a number of processing units. Your instance partition must have at least 1000 processing units. Enter quantities in multiples of 1000 (1000, 2000, 3000 and so on).
 
-For example, to create an instance partition `  europe-partition  ` in `  eur3  ` with 5 nodes, run the following:
+For example, to create an instance partition `europe-partition` in `eur3` with 5 nodes, run the following:
 
 ``` 
   gcloud spanner instance-partitions create europe-partition --config=eur3 \
@@ -77,7 +77,7 @@ For example, to create an instance partition `  europe-partition  ` in `  eur3  
 
 ### Use managed autoscaling
 
-You can use managed autoscaling with the [`  gcloud spanner instance-partitions create  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/create) command. For more information, see [Managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) .
+You can use managed autoscaling with the [`gcloud spanner instance-partitions create`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/create) command. For more information, see [Managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) .
 
 Use the following command to create an instance partition with managed autoscaler:
 
@@ -438,7 +438,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 ### gcloud
 
-To describe an instance partition, use [`  gcloud spanner instance-partitions describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/describe) .
+To describe an instance partition, use [`gcloud spanner instance-partitions describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/describe) .
 
     gcloud spanner instance-partitions describe PARTITION_ID \
       --instance=INSTANCE_ID
@@ -448,7 +448,7 @@ Replace the following:
   - INSTANCE\_PARTITION\_ID : the permanent identifier for the instance partition.
   - INSTANCE\_ID : the permanent identifier for the instance.
 
-For example, to describe the instance partition `  europe-partition  ` , run the following:
+For example, to describe the instance partition `europe-partition` , run the following:
 
 ``` 
   gcloud spanner instance-partitions describe europe-partition
@@ -471,7 +471,7 @@ For example, to describe the instance partition `  europe-partition  ` , run the
 
 ### gcloud
 
-To list your instance partitions, use [`  gcloud spanner instance-partitions list  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/list) .
+To list your instance partitions, use [`gcloud spanner instance-partitions list`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/list) .
 
     gcloud spanner instance-partitions list --instance=INSTANCE_ID
 
@@ -509,7 +509,7 @@ If you want to increase the compute capacity of an instance partition, your Goog
 
 ### gcloud
 
-To change the compute capacity of your instance partition, use [`  gcloud spanner instance-partitions update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/update) . When using this command, specify the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) as a number of nodes or processing units.
+To change the compute capacity of your instance partition, use [`gcloud spanner instance-partitions update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/update) . When using this command, specify the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) as a number of nodes or processing units.
 
     gcloud spanner instance-partitions update INSTANCE_PARTITION_ID \
       --instance=INSTANCE_ID \
@@ -525,9 +525,9 @@ Replace the following:
 
 Optional flags:
 
-  - `  --async  ` : Use this flag if you want your request to return immediately, without waiting for the operation in progress to complete.
+  - `--async` : Use this flag if you want your request to return immediately, without waiting for the operation in progress to complete.
 
-You can check the status of your request by running [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) .
+You can check the status of your request by running [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) .
 
 ### Enable or modify the managed autoscaler on an instance partition
 
@@ -563,7 +563,7 @@ The following limitations apply when you enable or change the managed autoscalin
 
 ### gcloud
 
-Use the [`  gcloud spanner instance-partitions update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/update) command to enable the managed autoscaler on an instance partition. For more information and limitations, see [`  Google Cloud CLI  ` flags and limitations](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#flags_and_limitations) .
+Use the [`gcloud spanner instance-partitions update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/update) command to enable the managed autoscaler on an instance partition. For more information and limitations, see [`Google Cloud CLI` flags and limitations](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#flags_and_limitations) .
 
 You can add the managed autoscaler with the following command:
 
@@ -625,7 +625,7 @@ After you enable the managed autoscaler on an instance partition, you can also m
 
 ### gcloud
 
-Use the [`  gcloud spanner instance-partitions update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/update) command to update the instance partition.
+Use the [`gcloud spanner instance-partitions update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-partitions/update) command to update the instance partition.
 
 Use the following command to change an instance partition from using the managed autoscaler to manual scaling:
 
@@ -672,7 +672,7 @@ You can't delete an instance partition while it's associated with any placements
 
 ### gcloud
 
-Use the [`  gcloud spanner instance-partitions delete  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/delete) command.
+Use the [`gcloud spanner instance-partitions delete`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/delete) command.
 
     gcloud spanner instance-partitions delete INSTANCE_PARTITION_ID
       --instance=INSTANCE_ID

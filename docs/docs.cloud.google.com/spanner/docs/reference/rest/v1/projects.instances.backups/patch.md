@@ -44,7 +44,7 @@ us-west8
 us-east7
 
   
-`  PATCH https://spanner.googleapis.com/v1/{backup.name=projects/*/instances/*/backups/*}  `
+`PATCH https://spanner.googleapis.com/v1/{backup.name=projects/*/instances/*/backups/*}`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -52,27 +52,27 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  backup.name  `
+`backup.name`
 
-`  string  `
+`string`
 
 Output only for the `  backups.create  ` operation. Required for the `  backups.patch  ` operation.
 
-A globally unique identifier for the backup which cannot be changed. Values are of the form `  projects/<project>/instances/<instance>/backups/[a-z][a-z0-9_\-]*[a-z0-9]  ` The final segment of the name must be between 2 and 60 characters in length.
+A globally unique identifier for the backup which cannot be changed. Values are of the form `projects/<project>/instances/<instance>/backups/[a-z][a-z0-9_\-]*[a-z0-9]` The final segment of the name must be between 2 and 60 characters in length.
 
-The backup is stored in the location(s) specified in the instance configuration of the instance containing the backup, identified by the prefix of the backup name of the form `  projects/<project>/instances/<instance>  ` .
+The backup is stored in the location(s) specified in the instance configuration of the instance containing the backup, identified by the prefix of the backup name of the form `projects/<project>/instances/<instance>` .
 
 ### Query parameters
 
 Parameters
 
-`  updateMask  `
+`updateMask`
 
-`  string ( FieldMask  ` format)
+` string ( FieldMask  ` format)
 
-Required. A mask specifying which fields (for example, `  expireTime  ` ) in the backup resource should be updated. This mask is relative to the backup resource, not to the request message. The field mask must always be specified; this prevents any future fields from being erased accidentally by clients that do not know about them.
+Required. A mask specifying which fields (for example, `expireTime` ) in the backup resource should be updated. This mask is relative to the backup resource, not to the request message. The field mask must always be specified; this prevents any future fields from being erased accidentally by clients that do not know about them.
 
-This is a comma-separated list of fully qualified names of fields. Example: `  "user.displayName,photo"  ` .
+This is a comma-separated list of fully qualified names of fields. Example: `"user.displayName,photo"` .
 
 ### Request body
 
@@ -86,15 +86,15 @@ If successful, the response body contains an instance of `  Backup  ` .
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
 ### IAM Permissions
 
-Requires the following [IAM](https://cloud.google.com/iam/docs) permission on the `  name  ` resource:
+Requires the following [IAM](https://cloud.google.com/iam/docs) permission on the `name` resource:
 
-  - `  spanner.backups.update  `
+  - `spanner.backups.update`
 
 For more information, see the [IAM documentation](https://cloud.google.com/iam/docs) .

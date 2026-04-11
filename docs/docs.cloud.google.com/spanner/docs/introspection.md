@@ -12,13 +12,13 @@ Built-in statistics tables for Spanner help you investigate issues in your datab
   - [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection#transaction-statistics)
   - [Vector index statistics](https://docs.cloud.google.com/spanner/docs/introspection#vector-index-statistics)
 
-These tables access `  SPANNER_SYS  ` data, which is available only through the following Spanner SQL interfaces:
+These tables access `SPANNER_SYS` data, which is available only through the following Spanner SQL interfaces:
 
   - A database's Spanner Studio page in the Google Cloud console.
-  - The [`  gcloud spanner databases execute-sql  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command.
-  - The [`  executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
+  - The [`gcloud spanner databases execute-sql`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command.
+  - The [`executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
 
-You can't use other single read methods to query the `  SPANNER_SYS  ` tables.
+You can't use other single read methods to query the `SPANNER_SYS` tables.
 
 ## API methods included for each tool
 

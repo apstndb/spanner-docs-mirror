@@ -4,8 +4,8 @@ This page offers information about Spanner backup operations. For more informati
 
   - To get the permissions that you need to manage backups, ask your administrator to grant you the following IAM roles on the instance:
     
-      - Create, view, update, and delete backups: [Cloud Spanner Backup Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupAdmin) ( `  roles/spanner.backupAdmin  ` )
-      - Create and view backups: [Cloud Spanner Backup Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupWriter) ( `  roles/spanner.backupWriter  ` )
+      - Create, view, update, and delete backups: [Cloud Spanner Backup Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupAdmin) ( `roles/spanner.backupAdmin` )
+      - Create and view backups: [Cloud Spanner Backup Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupWriter) ( `roles/spanner.backupWriter` )
     
     **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to manage backups. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
 
@@ -49,7 +49,7 @@ You can copy a backup to a different instance in the same project, or to a diffe
 
 ### Copy a backup in the same project
 
-If you choose to copy the backup to a different instance in the same project, you must create a new instance (or have one ready) for the copied backup. You can't create a new instance as part of the backup copy operation. Also, the expiration time of the backup must be at least six hours from the time the current copy request is processed and at most 366 days after the `  create_time  ` of the source backup.
+If you choose to copy the backup to a different instance in the same project, you must create a new instance (or have one ready) for the copied backup. You can't create a new instance as part of the backup copy operation. Also, the expiration time of the backup must be at least six hours from the time the current copy request is processed and at most 366 days after the `create_time` of the source backup.
 
 Before using any of the command data below, make the following replacements:
 
@@ -60,7 +60,7 @@ Before using any of the command data below, make the following replacements:
   - DESTINATION\_INSTANCE\_ID : the target Spanner instance ID.
   - DESTINATION\_BACKUP\_NAME : the destination Spanner backup name.
   - EXPIRATION\_DATE : the expiration date time stamp.
-  - ENCRYPTION\_TYPE : the encryption type of backup created. Valid values are `  USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION  ` , `  GOOGLE_DEFAULT_ENCRYPTION  ` , or `  CUSTOMER_MANAGED_ENCRYPTION  ` . If you use `  CUSTOMER_MANAGED_ENCRYPTION  ` , you must specify a `  kmsKeyName  ` .
+  - ENCRYPTION\_TYPE : the encryption type of backup created. Valid values are `USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION` , `GOOGLE_DEFAULT_ENCRYPTION` , or `CUSTOMER_MANAGED_ENCRYPTION` . If you use `CUSTOMER_MANAGED_ENCRYPTION` , you must specify a `kmsKeyName` .
 
 Execute the following command:
 
@@ -118,7 +118,7 @@ versionTime: '2022-03-16T20:46:33.479336Z'
 
 ### Copy a backup in a different project
 
-If you choose to copy the backup to a different project, you must have another project with its own instance ready for the copied backup. You can't create a new project as part of the backup copy operation. Also, the expiration time of the backup must be at least six hours from the time the current copy request is processed and at most 366 days after the source backup `  create_time  ` .
+If you choose to copy the backup to a different project, you must have another project with its own instance ready for the copied backup. You can't create a new project as part of the backup copy operation. Also, the expiration time of the backup must be at least six hours from the time the current copy request is processed and at most 366 days after the source backup `create_time` .
 
 Before using any of the command data below, make the following replacements:
 
@@ -130,7 +130,7 @@ Before using any of the command data below, make the following replacements:
   - DESTINATION\_INSTANCE\_ID : the target Spanner instance ID.
   - DESTINATION\_BACKUP\_NAME : the destination Spanner backup name.
   - EXPIRATION\_DATE : the expiration date time stamp.
-  - ENCRYPTION\_TYPE : the encryption type of backup created. Valid values are `  USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION  ` , `  GOOGLE_DEFAULT_ENCRYPTION  ` , or `  CUSTOMER_MANAGED_ENCRYPTION  ` . If you use `  CUSTOMER_MANAGED_ENCRYPTION  ` , you must specify a `  kmsKeyName  ` .
+  - ENCRYPTION\_TYPE : the encryption type of backup created. Valid values are `USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION` , `GOOGLE_DEFAULT_ENCRYPTION` , or `CUSTOMER_MANAGED_ENCRYPTION` . If you use `CUSTOMER_MANAGED_ENCRYPTION` , you must specify a `kmsKeyName` .
 
 Execute the following command:
 
@@ -184,7 +184,7 @@ To check the progress of a copy operation, see [Check the operation progress](ht
 
 ### Client libraries
 
-The following code sample copies an existing backup. You can copy the backup into an instance in a different region or project. Once complete, the sample retrieves and prints some information about the newly created copied backup, such as its name, size, backup state, and [`  version_time  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup.FIELDS.version_time) .
+The following code sample copies an existing backup. You can copy the backup into an instance in a different region or project. Once complete, the sample retrieves and prints some information about the newly created copied backup, such as its name, size, backup state, and [`version_time`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup.FIELDS.version_time) .
 
 ### C++
 
@@ -634,7 +634,7 @@ The following code sample copies an existing backup. You can copy the backup int
 
 ### gcloud
 
-Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) to check the progress of an operation.
+Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) to check the progress of an operation.
 
 1.  Get the operation ID:
     
@@ -676,16 +676,16 @@ Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk
     
     Usage notes:
     
-      - To limit the list, specify the `  --filter  ` flag. For example:
+      - To limit the list, specify the `--filter` flag. For example:
         
-          - `  --filter="metadata.name:example-db"  ` only lists the operations on a specific database.
-          - `  --filter="error:*"  ` only lists the backup operations that failed.
+          - `--filter="metadata.name:example-db"` only lists the operations on a specific database.
+          - `--filter="error:*"` only lists the backup operations that failed.
         
-        For information on filter syntax, see [`  gcloud topic filters  `](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . For information on filtering backup operations, see the `  filter  ` field in [`  ListBackupOperationsRequest  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#listbackupoperationsrequest) .
+        For information on filter syntax, see [`gcloud topic filters`](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . For information on filtering backup operations, see the `filter` field in [`ListBackupOperationsRequest`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#listbackupoperationsrequest) .
     
-      - The `  --type  ` flag isn't case sensitive.
+      - The `--type` flag isn't case sensitive.
 
-2.  Run `  gcloud spanner operations describe  ` :
+2.  Run `gcloud spanner operations describe` :
     
     Before using any of the command data below, make the following replacements:
     
@@ -735,15 +735,15 @@ Use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk
     ...
     ```
     
-    The `  progress  ` section in the output shows the percentage of the operation that's complete.
+    The `progress` section in the output shows the percentage of the operation that's complete.
     
     If the operation takes too long, you can cancel it. For more information, see [Cancel a long-running backup operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#cancel_a_long-running_backup_operation) .
 
 ### Client libraries
 
-The following code sample lists all of the ongoing operations for creating backups (operations with [`  CreateBackupMetadata  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CreateBackupMetadata) ) and copying backups (operations with [`  CopyBackupMetadata  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CopyBackupMetadata) ) filtered by a given database.
+The following code sample lists all of the ongoing operations for creating backups (operations with [`CreateBackupMetadata`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CreateBackupMetadata) ) and copying backups (operations with [`CopyBackupMetadata`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CopyBackupMetadata) ) filtered by a given database.
 
-For information on filtering syntax, see the `  filter  ` parameter in [`  backupOperations.list  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backupOperations/list#query-parameters) .
+For information on filtering syntax, see the `filter` parameter in [`backupOperations.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backupOperations/list#query-parameters) .
 
 ### C++
 
@@ -1296,16 +1296,16 @@ The Google Cloud console doesn't support canceling a backup operation. However, 
     
     Usage notes:
     
-      - To limit the list, specify the `  --filter  ` flag. For example:
+      - To limit the list, specify the `--filter` flag. For example:
         
-          - `  --filter="metadata.name:example-db"  ` only lists the operations on a specific database.
-          - `  --filter="error:*"  ` only lists the backup operations that failed.
+          - `--filter="metadata.name:example-db"` only lists the operations on a specific database.
+          - `--filter="error:*"` only lists the backup operations that failed.
         
-        For information on filter syntax, see [`  gcloud topic filters  `](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . For information on filtering backup operations, see the `  filter  ` field in [`  ListBackupOperationsRequest  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#listbackupoperationsrequest) .
+        For information on filter syntax, see [`gcloud topic filters`](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . For information on filtering backup operations, see the `filter` field in [`ListBackupOperationsRequest`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#listbackupoperationsrequest) .
     
-      - The `  --type  ` flag isn't case sensitive.
+      - The `--type` flag isn't case sensitive.
 
-2.  Use [`  gcloud spanner operations cancel  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/cancel) to cancel a backup operation.
+2.  Use [`gcloud spanner operations cancel`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/cancel) to cancel a backup operation.
     
     Before using any of the command data below, make the following replacements:
     
@@ -1339,7 +1339,7 @@ The Google Cloud console doesn't support canceling a backup operation. However, 
 
 ### Client libraries
 
-The following code sample creates a backup, cancels the backup operation, and then waits until the backup operation is `  done  ` . If the operation was successfully cancelled, it returns the `  cancelTime  ` and an error message. If the backup operation was completed before it was cancelled, the backup exists, and you can delete it.
+The following code sample creates a backup, cancels the backup operation, and then waits until the backup operation is `done` . If the operation was successfully cancelled, it returns the `cancelTime` and an error message. If the backup operation was completed before it was cancelled, the backup exists, and you can delete it.
 
 ### C++
 
@@ -1779,7 +1779,7 @@ The following code sample creates a backup, cancels the backup operation, and th
 
 ### gcloud
 
-To get information about a backup, use [`  gcloud spanner backups describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/describe) .
+To get information about a backup, use [`gcloud spanner backups describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/describe) .
 
 Before using any of the command data below, make the following replacements:
 
@@ -1837,7 +1837,7 @@ Client libraries don't support getting backup information for a single backup. H
 
 ### gcloud
 
-To list all the backups in an instance, use [`  gcloud spanner backups list  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/list) .
+To list all the backups in an instance, use [`gcloud spanner backups list`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/list) .
 
 Before using any of the command data below, make the following replacements:
 
@@ -1875,13 +1875,13 @@ You should receive a response similar to the following:
   example-db-backup-1  example-db       2020-01-30T19:47:09.492551Z  2021-01-30T19:47:09.097804Z  READY  32
 ```
 
-To limit the list, specify the `  --filter  ` flag. For example, to filter the list to only include the backups that are still being created, add `  --filter="state:creating"  ` . For information about filter syntax, see [`  gcloud topic filters  `](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . For information on filtering backups, see the `  filter  ` field in [`  ListBackupsRequest  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.ListBackupsRequest) .
+To limit the list, specify the `--filter` flag. For example, to filter the list to only include the backups that are still being created, add `--filter="state:creating"` . For information about filter syntax, see [`gcloud topic filters`](https://docs.cloud.google.com/sdk/gcloud/reference/topic/filters) . For information on filtering backups, see the `filter` field in [`ListBackupsRequest`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.ListBackupsRequest) .
 
 ### Client libraries
 
 The following code sample lists the backups in a given instance.
 
-You can filter the list of returned backups (for example, filtering by name, version time, or backup expiration time) by providing a filter expression. For information on filtering syntax, see the `  filter  ` parameter in [List Backups](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/list#query-parameters) .
+You can filter the list of returned backups (for example, filtering by name, version time, or backup expiration time) by providing a filter expression. For information on filtering syntax, see the `filter` parameter in [List Backups](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/list#query-parameters) .
 
 ### C++
 
@@ -2624,7 +2624,7 @@ You can filter the list of returned backups (for example, filtering by name, ver
 
 ### gcloud
 
-To update a backup's expiration period date, use [`  gcloud spanner backups update-metadata  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/update-metadata) :
+To update a backup's expiration period date, use [`gcloud spanner backups update-metadata`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/update-metadata) :
 
 Before using any of the command data below, make the following replacements:
 
@@ -3041,7 +3041,7 @@ Deleting an incremental backup might not free up storage if a younger incrementa
 
 ### gcloud
 
-To delete a backup, use [`  gcloud spanner backups delete  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/delete) .
+To delete a backup, use [`gcloud spanner backups delete`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/delete) .
 
 Before using any of the command data below, make the following replacements:
 

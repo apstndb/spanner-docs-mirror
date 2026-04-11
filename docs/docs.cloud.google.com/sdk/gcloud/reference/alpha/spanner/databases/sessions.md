@@ -4,26 +4,26 @@ gcloud alpha spanner databases sessions - manage the sessions for Cloud Spanner 
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases sessions  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases sessions` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage the sessions for Cloud Spanner databases.
+`(ALPHA)` Manage the sessions for Cloud Spanner databases.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  delete  `  
-    `  (ALPHA)  ` Delete a Cloud Spanner session.
+    `(ALPHA)` Delete a Cloud Spanner session.
   - `  list  `  
-    `  (ALPHA)  ` List the Cloud Spanner sessions contained within the given database.
+    `(ALPHA)` List the Cloud Spanner sessions contained within the given database.
 
 NOTES
 

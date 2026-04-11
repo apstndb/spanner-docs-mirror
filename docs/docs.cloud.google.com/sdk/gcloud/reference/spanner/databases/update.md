@@ -4,7 +4,7 @@ gcloud spanner databases update - update a Cloud Spanner database
 
 SYNOPSIS
 
-`  gcloud spanner databases update  ` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  --async  ` \] \[ `  --[no-]enable-drop-protection  ` | `  --kms-keys  ` = `  KMS_KEY  ` , \[ `  KMS_KEY  ` , …\]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner databases update` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  --async  ` \] \[ `  --[no-]enable-drop-protection  ` | `  --kms-keys  ` = `  KMS_KEY  ` , \[ `  KMS_KEY  ` , …\]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -34,50 +34,50 @@ POSITIONAL ARGUMENTS
 
 Database resource - The Cloud Spanner database to update. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  database  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `database` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 This must be specified.
 
   - `  DATABASE  `  
     ID of the database or fully qualified identifier for the database.
     
-    To set the `  database  ` attribute:
+    To set the `database` attribute:
     
-      - provide the argument `  database  ` on the command line.
+      - provide the argument `database` on the command line.
     
     This positional argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     The Cloud Spanner instance for the database.
     
-    To set the `  instance  ` attribute:
+    To set the `instance` attribute:
     
-      - provide the argument `  database  ` on the command line with a fully specified name;
-      - provide the argument `  --instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `database` on the command line with a fully specified name;
+      - provide the argument `--instance` on the command line;
+      - set the property `spanner/instance` .
 
 FLAGS
 
-`  --async  `
+`--async`
 
 Return immediately, without waiting for the operation in progress to complete.
 
 At most one of these can be specified:
 
-  - `  --[no-]enable-drop-protection  `  
-    Enable database deletion protection on this database. Use `  --enable-drop-protection  ` to enable and `  --no-enable-drop-protection  ` to disable.
-  - `  --kms-keys  ` = `  KMS_KEY  ` ,\[ `  KMS_KEY  ` ,…\]  
+  - `--[no-]enable-drop-protection`  
+    Enable database deletion protection on this database. Use `--enable-drop-protection` to enable and `--no-enable-drop-protection` to disable.
+  - `--kms-keys` = `  KMS_KEY  ` ,\[ `  KMS_KEY  ` ,…\]  
     Update KMS key references for this database. Users should always provide the full set of required KMS key references.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

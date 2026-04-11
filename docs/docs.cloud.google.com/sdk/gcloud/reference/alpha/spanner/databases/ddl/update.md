@@ -4,11 +4,11 @@ gcloud alpha spanner databases ddl update - update the DDL for a Cloud Spanner d
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases ddl update  ` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  --async  ` \] \[ `  --ddl  ` = `  DDL  ` \] \[ `  --ddl-file  ` = `  DDL_FILE  ` \] \[ `  --proto-descriptors-file  ` = `  PROTO_DESCRIPTORS_FILE  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases ddl update` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  --async  ` \] \[ `  --ddl  ` = `  DDL  ` \] \[ `  --ddl-file  ` = `  DDL_FILE  ` \] \[ `  --proto-descriptors-file  ` = `  PROTO_DESCRIPTORS_FILE  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Update the DDL for a Cloud Spanner database.
+`(ALPHA)` Update the DDL for a Cloud Spanner database.
 
 EXAMPLES
 
@@ -22,48 +22,48 @@ POSITIONAL ARGUMENTS
 
 Database resource - The Cloud Spanner database of which the ddl to update. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  database  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `database` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 This must be specified.
 
   - `  DATABASE  `  
     ID of the database or fully qualified identifier for the database.
     
-    To set the `  database  ` attribute:
+    To set the `database` attribute:
     
-      - provide the argument `  database  ` on the command line.
+      - provide the argument `database` on the command line.
     
     This positional argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     The Cloud Spanner instance for the database.
     
-    To set the `  instance  ` attribute:
+    To set the `instance` attribute:
     
-      - provide the argument `  database  ` on the command line with a fully specified name;
-      - provide the argument `  --instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `database` on the command line with a fully specified name;
+      - provide the argument `--instance` on the command line;
+      - set the property `spanner/instance` .
 
 FLAGS
 
-  - `  --async  `  
+  - `--async`  
     Return immediately, without waiting for the operation in progress to complete.
-  - `  --ddl  ` = `  DDL  `  
+  - `--ddl` = `  DDL  `  
     Semi-colon separated DDL (data definition language) statements to run inside the database. If a statement fails, all subsequent statements in the batch are automatically cancelled.
-  - `  --ddl-file  ` = `  DDL_FILE  `  
+  - `--ddl-file` = `  DDL_FILE  `  
     Path of a file containing semi-colon separated DDL (data definition language) statements to run inside the database. If a statement fails, all subsequent statements in the batch are automatically cancelled. If --ddl\_file is set, --ddl is ignored. One line comments starting with -- are ignored.
-  - `  --proto-descriptors-file  ` = `  PROTO_DESCRIPTORS_FILE  `  
-    Path of a file that contains a protobuf-serialized google.protobuf.FileDescriptorSet message. To generate it, install and run `  protoc  ` with --include\_imports and --descriptor\_set\_out.
+  - `--proto-descriptors-file` = `  PROTO_DESCRIPTORS_FILE  `  
+    Path of a file that contains a protobuf-serialized google.protobuf.FileDescriptorSet message. To generate it, install and run `protoc` with --include\_imports and --descriptor\_set\_out.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

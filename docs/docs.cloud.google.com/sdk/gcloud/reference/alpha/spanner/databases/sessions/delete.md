@@ -4,11 +4,11 @@ gcloud alpha spanner databases sessions delete - delete a Cloud Spanner session
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases sessions delete  ` ( `  SESSION  ` : `  --database  ` = `  DATABASE  ` `  --instance  ` = `  INSTANCE  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases sessions delete` ( `  SESSION  ` : `  --database  ` = `  DATABASE  ` `  --instance  ` = `  INSTANCE  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Delete a Cloud Spanner session.
+`(ALPHA)` Delete a Cloud Spanner session.
 
 EXAMPLES
 
@@ -22,45 +22,45 @@ POSITIONAL ARGUMENTS
 
 Session resource - The Cloud Spanner session to delete. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  session  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `session` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 This must be specified.
 
   - `  SESSION  `  
     ID of the session or fully qualified identifier for the session.
     
-    To set the `  session  ` attribute:
+    To set the `session` attribute:
     
-      - provide the argument `  session  ` on the command line.
+      - provide the argument `session` on the command line.
     
     This positional argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --database  ` = `  DATABASE  `  
+  - `--database` = `  DATABASE  `  
     The Cloud Spanner database for the session.
     
-    To set the `  database  ` attribute:
+    To set the `database` attribute:
     
-      - provide the argument `  session  ` on the command line with a fully specified name;
-      - provide the argument `  --database  ` on the command line.
+      - provide the argument `session` on the command line with a fully specified name;
+      - provide the argument `--database` on the command line.
 
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     The Cloud Spanner instance for the session.
     
-    To set the `  instance  ` attribute:
+    To set the `instance` attribute:
     
-      - provide the argument `  session  ` on the command line with a fully specified name;
-      - provide the argument `  --instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `session` on the command line with a fully specified name;
+      - provide the argument `--instance` on the command line;
+      - set the property `spanner/instance` .
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

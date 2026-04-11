@@ -12,9 +12,9 @@ A property graph lets you model connected data. It represents information as a n
 
 Both nodes and edges can include the following information:
 
-  - **Labels** : Classify nodes and edge types. If you don't explicitly define a label for a node or an edge, Spanner Graph uses the input table name as the default label. For example, `  Account  ` could be a label.
+  - **Labels** : Classify nodes and edge types. If you don't explicitly define a label for a node or an edge, Spanner Graph uses the input table name as the default label. For example, `Account` could be a label.
 
-  - **Properties** : Used to describe nodes and edges. For example, a `  Person  ` node might have a `  name  ` property with the value `  Alex  ` and an `  id  ` property with the value `  1  ` .
+  - **Properties** : Used to describe nodes and edges. For example, a `Person` node might have a `name` property with the value `Alex` and an `id` property with the value `1` .
 
 The example in Figure 1 shows how you might design a graph to model financial activities. This graph includes the following types of entities modeled as nodes:
 
@@ -26,7 +26,7 @@ These entities are connected by different types of relationships, which are repr
   - **Owns:** A person owns one or more accounts.
   - **Transfers:** Money moves from one account to another.
 
-Each directed edge indicates a one-way relationship that flows from a source node to a destination node. For example, a `  Transfers  ` edge connects a source `  Account  ` to a destination `  Account  ` , indicating the flow of money.
+Each directed edge indicates a one-way relationship that flows from a source node to a destination node. For example, a `Transfers` edge connects a source `Account` to a destination `Account` , indicating the flow of money.
 
 ![Spanner Graph schema overview diagram.](https://docs.cloud.google.com/static/spanner/docs/images/spanner-graph-example-graph.png)
 
@@ -35,10 +35,10 @@ Each directed edge indicates a one-way relationship that flows from a source nod
 Nodes and edges include additional information in properties.
 
   - **Person** nodes include these properties:
-      - `  name  ` ( `  STRING  ` )
-      - `  id  ` ( `  INT64  ` )
+      - `name` ( `STRING` )
+      - `id` ( `INT64` )
   - **Transfers** edges include this property:
-      - `  amount  ` ( `  FLOAT64  ` )
+      - `amount` ( `FLOAT64` )
 
 ### Directed and undirected edges
 
@@ -54,7 +54,7 @@ In Spanner Graph you use the [CREATE PROPERTY GRAPH](https://docs.cloud.google.c
 
 To define a node, add a node definition in the [NODE TABLES](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#property_graph_definition) clause. The simplest form of a node definition contains the name of an input table that has defined source and destination node references. Spanner Graph maps rows from the input table to graph nodes.
 
-In the following example, you use the [NODE TABLES](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#property_graph_definition) clause to define the `  Account  ` node in the `  FinGraph  ` property graph. The node definition contains the input table `  Account  ` .
+In the following example, you use the [NODE TABLES](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#property_graph_definition) clause to define the `Account` node in the `FinGraph` property graph. The node definition contains the input table `Account` .
 
     -- First, create an Account table.
     CREATE TABLE Account (
@@ -74,21 +74,21 @@ In addition to using the input table name as the default label, Spanner Graph ex
 
 In the previous example,
 
-  - Each account node uses the `  Account  ` label.
-  - Each account node includes `  [id, create_time]  ` properties from the `  Account  ` table columns.
+  - Each account node uses the `Account` label.
+  - Each account node includes `[id, create_time]` properties from the `Account` table columns.
 
 #### Element key
 
 A node definition also defines the element key that uniquely identifies a graph node.
 
   - By default, the element key is the primary key of the input table.
-  - You can use the `  KEY  ` clause to explicitly define element keys.
+  - You can use the `KEY` clause to explicitly define element keys.
   - You can use columns with a [unique index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#unique-indexes) constraint as element keys.
 
-The following example defines `  Account  ` node and `  Person  ` node.
+The following example defines `Account` node and `Person` node.
 
-  - The `  Account  ` node uses the `  Account  ` table's primary key as its element key by default.
-  - The `  Person  ` node, on the other hand, explicitly specifies the `  id  ` as the element key with the `  KEY  ` clause.
+  - The `Account` node uses the `Account` table's primary key as its element key by default.
+  - The `Person` node, on the other hand, explicitly specifies the `id` as the element key with the `KEY` clause.
 
 <!-- end list -->
 
@@ -125,10 +125,10 @@ To define an edge, add an edge definition into the [EDGE TABLES](https://docs.cl
 
 #### Source and destination node references
 
-In the following example, you create a property graph `  FinGraph  ` with the following:
+In the following example, you create a property graph `FinGraph` with the following:
 
-  - `  Person  ` and `  Account  ` nodes
-  - `  PersonOwnAccount  ` edge
+  - `Person` and `Account` nodes
+  - `PersonOwnAccount` edge
 
 <!-- end list -->
 
@@ -161,7 +161,7 @@ In the following example, you create a property graph `  FinGraph  ` with the fo
           DESTINATION KEY (account_id) REFERENCES Account (id)
       );
 
-An edge definition defines the source and destination node reference by using the `  SOURCE KEY  ` , `  DESTINATION KEY  ` , and `  REFERENCES  ` clauses. The following example uses the edge definition of `  PersonOwnAccount  ` to illustrate this concept:
+An edge definition defines the source and destination node reference by using the `SOURCE KEY` , `DESTINATION KEY` , and `REFERENCES` clauses. The following example uses the edge definition of `PersonOwnAccount` to illustrate this concept:
 
     EDGE TABLES (
       PersonOwnAccount
@@ -169,18 +169,18 @@ An edge definition defines the source and destination node reference by using th
         DESTINATION KEY (account_id) REFERENCES Account (id)
     )
 
-Each `  PersonOwnAccount  ` edge connects a `  Person  ` (source) to an `  Account  ` (destination) node.
+Each `PersonOwnAccount` edge connects a `Person` (source) to an `Account` (destination) node.
 
-  - The source node of an edge is a `  Person  ` node where the `  id  ` is the same as the edge `  id  ` .
-  - The destination node of an edge is an `  Account  ` node where the `  id  ` is the same as the edge `  account_id  ` .
+  - The source node of an edge is a `Person` node where the `id` is the same as the edge `id` .
+  - The destination node of an edge is an `Account` node where the `id` is the same as the edge `account_id` .
 
 **Note:** You must define the source and destination nodes before using them in the edge definition.
 
-Additionally, the following is true for the `  PersonOwnAccount  ` edge:
+Additionally, the following is true for the `PersonOwnAccount` edge:
 
-  - The element key is the primary key of the `  PersonOwnAccount  ` table, namely `  (id, account_id)  ` .
-  - Each edge has the same set of properties as the columns from the `  PersonOwnAccount  ` table.
-  - Each edge has the default `  PersonOwnAccount  ` label.
+  - The element key is the primary key of the `PersonOwnAccount` table, namely `(id, account_id)` .
+  - Each edge has the same set of properties as the columns from the `PersonOwnAccount` table.
+  - Each edge has the default `PersonOwnAccount` label.
 
 #### Map a row in an edge input table to edges in the graph
 
@@ -191,7 +191,7 @@ Additionally, the following is true for the `  PersonOwnAccount  ` edge:
 
 You can define a node and its incoming or outgoing edges in a single table if your table's columns define a relationship to another table. This approach reduces the number of tables, simplifies data management, and can improve query performance by eliminating the need for a join to a separate edge table.
 
-For example, if the following `  Account  ` table has a composite primary key `  (owner_id, account_id)  ` , the `  owner_id  ` part can be a foreign key that references a `  Person  ` table. This structure allows the `  Account  ` table to represent both the `  Account  ` node and the incoming edge from the `  Person  ` node.
+For example, if the following `Account` table has a composite primary key `(owner_id, account_id)` , the `owner_id` part can be a foreign key that references a `Person` table. This structure allows the `Account` table to represent both the `Account` node and the incoming edge from the `Person` node.
 
 ``` 
   CREATE TABLE Person (
@@ -206,7 +206,7 @@ For example, if the following `  Account  ` table has a composite primary key ` 
   ) PRIMARY KEY (owner_id, account_id);
 ```
 
-You can use the `  Account  ` table to define both the `  Account  ` node and its incoming `  Owns  ` edge. This is shown in the following `  CREATE PROPERTY GRAPH  ` statement. In the `  EDGE TABLES  ` clause, you give the `  Account  ` table the alias `  Owns  ` . This is because each element in the graph schema must have a unique name.
+You can use the `Account` table to define both the `Account` node and its incoming `Owns` edge. This is shown in the following `CREATE PROPERTY GRAPH` statement. In the `EDGE TABLES` clause, you give the `Account` table the alias `Owns` . This is because each element in the graph schema must have a unique name.
 
 ``` 
   CREATE PROPERTY GRAPH FinGraph
@@ -225,13 +225,13 @@ You can use the `  Account  ` table to define both the `  Account  ` node and it
 
 You can use the [LABEL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#label_property_definition) and [PROPERTIES](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#element_table_property_definition) clauses to customize labels and properties.
 
-The following example defines two nodes: `  Person  ` and `  Account  ` .
+The following example defines two nodes: `Person` and `Account` .
 
-  - The `  Person  ` nodes use the `  Customer  ` label to expose the `  address  ` property. The `  address  ` property is defined by the expression `  CONCAT(city, ", ", country),  ` that refers to the `  city  ` and `  country  ` column from the input table `  Person  ` .
-  - For `  Account  ` , the `  Account  ` node uses the `  Account  ` label to expose the `  id  ` and `  create_time  ` properties.
-  - `  Person  ` and `  Account  ` have the `  Entity  ` label with properties \[ `  id, name  ` \].
-      - For `  Person  ` , the `  id  ` and `  name  ` properties come from the input table columns.
-      - For `  Account  ` , the `  name  ` property refers to the `  nick_name  ` column of the input table.
+  - The `Person` nodes use the `Customer` label to expose the `address` property. The `address` property is defined by the expression `CONCAT(city, ", ", country),` that refers to the `city` and `country` column from the input table `Person` .
+  - For `Account` , the `Account` node uses the `Account` label to expose the `id` and `create_time` properties.
+  - `Person` and `Account` have the `Entity` label with properties \[ `id, name` \].
+      - For `Person` , the `id` and `name` properties come from the input table columns.
+      - For `Account` , the `name` property refers to the `nick_name` column of the input table.
 
 <!-- end list -->
 
@@ -268,13 +268,13 @@ In a graph, labels and properties are uniquely identified by their names. You ca
   - Properties with the same name use the same value type.
   - Labels with the same name expose the same list of properties.
 
-In the previous example, the `  Entity  ` label is defined in both `  Person  ` and `  Account  ` nodes. Both definitions include the same set of property names \[ `  id  ` , `  name  ` \] with identical value types.
+In the previous example, the `Entity` label is defined in both `Person` and `Account` nodes. Both definitions include the same set of property names \[ `id` , `name` \] with identical value types.
 
 ### Dependencies between graphs and other schema objects
 
-The graph created by `  CREATE PROPERTY GRAPH  ` depends on other schema objects, such as the input tables of the node and edge definitions, and the table columns referenced by the properties. Spanner Graph doesn't permit a schema change that breaks one of these dependencies.
+The graph created by `CREATE PROPERTY GRAPH` depends on other schema objects, such as the input tables of the node and edge definitions, and the table columns referenced by the properties. Spanner Graph doesn't permit a schema change that breaks one of these dependencies.
 
-The following statement makes `  FinGraph  ` dependent on the `  Account  ` table and the `  id  ` and `  create_time  ` columns.
+The following statement makes `FinGraph` dependent on the `Account` table and the `id` and `create_time` columns.
 
     CREATE OR REPLACE PROPERTY GRAPH FinGraph
       NODE TABLES (
@@ -283,12 +283,12 @@ The following statement makes `  FinGraph  ` dependent on the `  Account  ` tabl
 
 In this example, Spanner Graph doesn't permit the following schema changes:
 
-  - You can't drop the `  Account  ` table. To do this, you need to remove the `  Account  ` node definition. For more information, see [Remove existing nodes or edge definitions](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#remove-existing-node-or-edge) .
-  - You can't drop `  create_time  ` columns from the `  Account  ` table. To do this, you need to remove the `  create_time  ` property from the `  Account  ` node definition. For more information, see [Update existing nodes or edges definitions](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-existing-node-or-edge) .
+  - You can't drop the `Account` table. To do this, you need to remove the `Account` node definition. For more information, see [Remove existing nodes or edge definitions](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#remove-existing-node-or-edge) .
+  - You can't drop `create_time` columns from the `Account` table. To do this, you need to remove the `create_time` property from the `Account` node definition. For more information, see [Update existing nodes or edges definitions](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-existing-node-or-edge) .
 
 However, you can make the following schema changes:
 
-  - Modify the `  Account  ` table and `  id  ` and `  create_time  ` columns schema if other schema requirements permit it. For more information, see [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+  - Modify the `Account` table and `id` and `create_time` columns schema if other schema requirements permit it. For more information, see [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ## View a schema visualization
 

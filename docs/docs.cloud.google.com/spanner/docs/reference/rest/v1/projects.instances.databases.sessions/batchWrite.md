@@ -11,7 +11,7 @@
 
 Batches the supplied mutation groups in a collection of efficient transactions. All mutations in a group are committed atomically. However, mutations across groups can be committed non-atomically in an unspecified order and thus, they must be independent of each other. Partial failure is possible, that is, some groups might have been committed successfully, while some might have failed. The results of individual batches are streamed into the response as the batches are applied.
 
-`  sessions.batchWrite  ` requests are not replay protected, meaning that each mutation group can be applied more than once. Replays of non-idempotent mutations can have undesirable effects. For example, replays of an insert mutation can produce an already exists error or if you use generated or commit timestamp-based keys, it can result in additional rows being added to the mutation's table. We recommend structuring your mutation groups to be idempotent to avoid this issue.
+`sessions.batchWrite` requests are not replay protected, meaning that each mutation group can be applied more than once. Replays of non-idempotent mutations can have undesirable effects. For example, replays of an insert mutation can produce an already exists error or if you use generated or commit timestamp-based keys, it can result in additional rows being added to the mutation's table. We recommend structuring your mutation groups to be idempotent to avoid this issue.
 
 ### HTTP request
 
@@ -48,7 +48,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:batchWrite  `
+`POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:batchWrite`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -56,15 +56,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  session  `
+`session`
 
-`  string  `
+`string`
 
 Required. The session in which the batch request is to be run.
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  session  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `session` :
 
-  - `  spanner.databases.write  `
+  - `spanner.databases.write`
 
 ### Request body
 
@@ -81,40 +81,30 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;requestOptions&quot;: {
-    object (RequestOptions)
-  },
-  &quot;mutationGroups&quot;: [
-    {
-      object (MutationGroup)
-    }
-  ],
-  &quot;excludeTxnFromChangeStreams&quot;: boolean
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;requestOptions&quot;: {object (RequestOptions)},&quot;mutationGroups&quot;: [{object (MutationGroup)}],&quot;excludeTxnFromChangeStreams&quot;: boolean}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  requestOptions  `
+`requestOptions`
 
-`  object ( RequestOptions  ` )
+` object ( RequestOptions  ` )
 
 Common options for this request.
 
-`  mutationGroups[]  `
+`mutationGroups[]`
 
-`  object ( MutationGroup  ` )
+` object ( MutationGroup  ` )
 
 Required. The groups of mutations to be applied.
 
-`  excludeTxnFromChangeStreams  `
+`excludeTxnFromChangeStreams`
 
-`  boolean  `
+`boolean`
 
-Optional. If you don't set the `  excludeTxnFromChangeStreams  ` option or if it's set to `  false  ` , then any change streams monitoring columns modified by transactions will capture the updates made within that transaction.
+Optional. If you don't set the `excludeTxnFromChangeStreams` option or if it's set to `false` , then any change streams monitoring columns modified by transactions will capture the updates made within that transaction.
 
 ### Response body
 
@@ -133,49 +123,41 @@ If successful, the response body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;indexes&quot;: [
-    integer
-  ],
-  &quot;status&quot;: {
-    object (Status)
-  },
-  &quot;commitTimestamp&quot;: string
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;indexes&quot;: [integer],&quot;status&quot;: {object (Status)},&quot;commitTimestamp&quot;: string}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  indexes[]  `
+`indexes[]`
 
-`  integer  `
+`integer`
 
-The mutation groups applied in this batch. The values index into the `  mutationGroups  ` field in the corresponding `  BatchWriteRequest  ` .
+The mutation groups applied in this batch. The values index into the `mutationGroups` field in the corresponding `BatchWriteRequest` .
 
-`  status  `
+`status`
 
-`  object ( Status  ` )
+` object ( Status  ` )
 
-An `  OK  ` status indicates success. Any other status indicates a failure.
+An `OK` status indicates success. Any other status indicates a failure.
 
-`  commitTimestamp  `
+`commitTimestamp`
 
-`  string ( Timestamp  ` format)
+` string ( Timestamp  ` format)
 
 The commit timestamp of the transaction that applied this batch. Present if status is OK and the mutation groups were applied, absent otherwise.
 
 For mutation groups with conditions, a status=OK and missing commitTimestamp means that the mutation groups were not applied due to the condition not being satisfied after evaluation.
 
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
 
 ### Authorization scopes
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.data  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.data`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
@@ -194,21 +176,15 @@ A group of mutations to be committed together. Related mutations should be place
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;mutations&quot;: [
-    {
-      object (Mutation)
-    }
-  ]
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;mutations&quot;: [{object (Mutation)}]}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  mutations[]  `
+`mutations[]`
 
-`  object ( Mutation  ` )
+` object ( Mutation  ` )
 
 Required. The mutations in this group.

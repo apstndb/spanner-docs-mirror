@@ -10,7 +10,7 @@ The following statements make changes to or display properties of the current co
 
 #### READONLY
 
-A boolean indicating whether or not the connection is in read-only mode. The default is `  false  ` .
+A boolean indicating whether or not the connection is in read-only mode. The default is `false` .
 
     SHOW VARIABLE READONLY
     SET READONLY = { true | false }
@@ -43,14 +43,14 @@ The following example shows how to use this property to execute read-only transa
 
 #### AUTOCOMMIT
 
-A boolean indicating whether or not the connection is in autocommit mode. The default is `  true  ` .
+A boolean indicating whether or not the connection is in autocommit mode. The default is `true` .
 
     SHOW VARIABLE AUTOCOMMIT
     SET AUTOCOMMIT = { true | false }
 
 You can change the value of this property only when there is no active transaction.
 
-When `  AUTOCOMMIT  ` is set to false, a new transaction is initiated automatically after you execute `  COMMIT  ` or `  ROLLBACK  ` . The first statement that you execute starts the transaction.
+When `AUTOCOMMIT` is set to false, a new transaction is initiated automatically after you execute `COMMIT` or `ROLLBACK` . The first statement that you execute starts the transaction.
 
 ##### Example: Autocommit (Click to expand)
 
@@ -87,30 +87,30 @@ The following example shows how to use the \`autocommit\` property.
 
 #### RETRY\_ABORTS\_INTERNALLY
 
-A boolean indicating whether the connection automatically retries aborted transactions. The default is `  true  ` .
+A boolean indicating whether the connection automatically retries aborted transactions. The default is `true` .
 
     SHOW VARIABLE RETRY_ABORTS_INTERNALLY
     SET RETRY_ABORTS_INTERNALLY = { true | false }
 
-You can change the value of this property only after a transaction has started (see [`  BEGIN TRANSACTION  `](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_a_transaction) ) and before any statements are executed within the transaction.
+You can change the value of this property only after a transaction has started (see [`BEGIN TRANSACTION`](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_a_transaction) ) and before any statements are executed within the transaction.
 
-When you set `  RETRY_ABORTS_INTERNALLY  ` to true, the connection keeps a checksum of all data that the connection returns to the client application. This is used to retry the transaction if it is aborted by Spanner.
+When you set `RETRY_ABORTS_INTERNALLY` to true, the connection keeps a checksum of all data that the connection returns to the client application. This is used to retry the transaction if it is aborted by Spanner.
 
-The default value is `  true  ` . We recommend setting this value to `  false  ` if your application already retries aborted transactions.
+The default value is `true` . We recommend setting this value to `false` if your application already retries aborted transactions.
 
 #### AUTOCOMMIT\_DML\_MODE
 
-A `  STRING  ` property indicating the autocommit mode for [Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax) statements.
+A `STRING` property indicating the autocommit mode for [Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax) statements.
 
     SHOW VARIABLE AUTOCOMMIT_DML_MODE
     SET AUTOCOMMIT_DML_MODE = { 'TRANSACTIONAL' | 'PARTITIONED_NON_ATOMIC' }
 
 The possible values are:
 
-  - In `  TRANSACTIONAL  ` mode, the driver executes DML statements as separate atomic transactions. The driver creates a new transaction, executes the DML statement, and either commits the transaction upon successful execution or rolls back the transaction in the case of an error.
-  - In `  PARTITIONED_NON_ATOMIC  ` mode, the driver executes DML statements as [partitioned update statements](https://docs.cloud.google.com/spanner/docs/dml-partitioned) . A partitioned update statement can run as a series of many transactions, each covering a subset of the rows impacted. The partitioned statement provides weakened semantics in exchange for better scalability and performance.
+  - In `TRANSACTIONAL` mode, the driver executes DML statements as separate atomic transactions. The driver creates a new transaction, executes the DML statement, and either commits the transaction upon successful execution or rolls back the transaction in the case of an error.
+  - In `PARTITIONED_NON_ATOMIC` mode, the driver executes DML statements as [partitioned update statements](https://docs.cloud.google.com/spanner/docs/dml-partitioned) . A partitioned update statement can run as a series of many transactions, each covering a subset of the rows impacted. The partitioned statement provides weakened semantics in exchange for better scalability and performance.
 
-The default is `  TRANSACTIONAL  ` .
+The default is `TRANSACTIONAL` .
 
 ##### Example: Partitioned DML (Click to expand)
 
@@ -130,27 +130,27 @@ The following example shows how to execute \[Partitioned DML\](/spanner/docs/dml
 
 #### STATEMENT\_TIMEOUT
 
-A property of type `  STRING  ` indicating the current timeout value for statements.
+A property of type `STRING` indicating the current timeout value for statements.
 
     SHOW VARIABLE STATEMENT_TIMEOUT
     SET STATEMENT_TIMEOUT = { '<INT64>{ s | ms | us | ns }' | NULL }
 
-The `  INT64  ` value is a whole number followed by a suffix indicating the time unit. A value of `  NULL  ` indicates that there is no timeout value set. If a statement timeout value has been set, statements that take longer than the specified timeout value will cause a `  java.sql.SQLTimeoutException  ` error and invalidate the transaction.
+The `INT64` value is a whole number followed by a suffix indicating the time unit. A value of `NULL` indicates that there is no timeout value set. If a statement timeout value has been set, statements that take longer than the specified timeout value will cause a `java.sql.SQLTimeoutException` error and invalidate the transaction.
 
 The supported time units are:
 
-  - `  s  ` : seconds
-  - `  ms  ` : milliseconds
-  - `  us  ` : microseconds
-  - `  ns  ` : nanoseconds
+  - `s` : seconds
+  - `ms` : milliseconds
+  - `us` : microseconds
+  - `ns` : nanoseconds
 
-The default is `  NULL  ` , which means no timeout value is set.
+The default is `NULL` , which means no timeout value is set.
 
-A statement timeout during a transaction invalidates the transaction, all subsequent statements in the invalidated transaction (except `  ROLLBACK  ` ) fail, and the Spanner JDBC driver throws a `  java.sql.SQLTimeoutException  ` .
+A statement timeout during a transaction invalidates the transaction, all subsequent statements in the invalidated transaction (except `ROLLBACK` ) fail, and the Spanner JDBC driver throws a `java.sql.SQLTimeoutException` .
 
 #### READ\_ONLY\_STALENESS
 
-A property of type `  STRING  ` indicating the current [read-only staleness setting](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) that Spanner uses for read-only transactions and queries in `  AUTOCOMMIT  ` mode.
+A property of type `STRING` indicating the current [read-only staleness setting](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) that Spanner uses for read-only transactions and queries in `AUTOCOMMIT` mode.
 
 ``` prettyprint,lang-sql
 SHOW VARIABLE READ_ONLY_STALENESS
@@ -165,32 +165,32 @@ staleness_type:
   | 'EXACT_STALENESS <INT64>{ s | ms | us | ns }' }
 ```
 
-The [read-only staleness](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) value applies to all subsequent read-only transactions and for all queries in `  AUTOCOMMIT  ` mode.
+The [read-only staleness](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) value applies to all subsequent read-only transactions and for all queries in `AUTOCOMMIT` mode.
 
-The default is `  STRONG  ` .
+The default is `STRONG` .
 
 The timestamp bound options are as follows:
 
-  - `  STRONG  ` tells Spanner to perform a [strong read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#strong) .
-  - `  MAX_STALENESS  ` defines the time interval Spanner uses to perform a [bounded staleness read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness) , relative to `  now()  ` .
-  - `  MIN_READ_TIMESTAMP  ` defines an absolute time Spanner uses to perform a [bounded staleness read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness) .
-  - `  EXACT_STALENESS  ` defines the time interval Spanner uses to perform an [exact staleness read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness) , relative to `  now()  ` .
-  - `  READ_TIMESTAMP  ` defines an absolute time Spanner uses to perform an exact staleness read.
+  - `STRONG` tells Spanner to perform a [strong read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#strong) .
+  - `MAX_STALENESS` defines the time interval Spanner uses to perform a [bounded staleness read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness) , relative to `now()` .
+  - `MIN_READ_TIMESTAMP` defines an absolute time Spanner uses to perform a [bounded staleness read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness) .
+  - `EXACT_STALENESS` defines the time interval Spanner uses to perform an [exact staleness read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness) , relative to `now()` .
+  - `READ_TIMESTAMP` defines an absolute time Spanner uses to perform an exact staleness read.
 
 Timestamps must use the following format:
 
     YYYY-[M]M-[D]DT[[H]H:[M]M:[S]S[.DDDDDD]][timezone]
 
-The supported time units for setting `  MAX_STALENESS  ` and `  EXACT_STALENESS  ` values are:
+The supported time units for setting `MAX_STALENESS` and `EXACT_STALENESS` values are:
 
-  - `  s  ` : seconds
-  - `  ms  ` : milliseconds
-  - `  us  ` : microseconds
-  - `  ns  ` : nanoseconds
+  - `s` : seconds
+  - `ms` : milliseconds
+  - `us` : microseconds
+  - `ns` : nanoseconds
 
 You can modify the value of this property only while there is no active transaction.
 
-**Note:** You can use the values `  MIN_READ_TIMESTAMP  ` and `  MAX_STALENESS  ` only for queries in `  AUTOCOMMIT  ` mode.
+**Note:** You can use the values `MIN_READ_TIMESTAMP` and `MAX_STALENESS` only for queries in `AUTOCOMMIT` mode.
 
 ##### Example: Read-only staleness (Click to expand)
 
@@ -231,14 +231,14 @@ The following example shows how to execute queries using a custom staleness valu
 
 #### OPTIMIZER\_VERSION
 
-A property of type `  STRING  ` indicating the [optimizer version](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) . The version is either an integer or ' `  LATEST  ` '.
+A property of type `STRING` indicating the [optimizer version](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) . The version is either an integer or ' `LATEST` '.
 
     SHOW VARIABLE OPTIMIZER_VERSION
     SET OPTIMIZER_VERSION = { 'version'|'LATEST'|'' }
 
-Sets the version of the optimizer to be used for all the following statements on the connection. If the optimizer version is set to `  ''  ` (the empty string), then Spanner uses the latest version. If no optimizer version is set, Spanner uses the optimizer version that is set at the database level.
+Sets the version of the optimizer to be used for all the following statements on the connection. If the optimizer version is set to `''` (the empty string), then Spanner uses the latest version. If no optimizer version is set, Spanner uses the optimizer version that is set at the database level.
 
-The default is `  ''  ` .
+The default is `''` .
 
 ##### Example: Optimizer version (Click to expand)
 
@@ -268,14 +268,14 @@ The following example shows how to execute queries using a specific \[optimizer 
 
 #### OPTIMIZER\_STATISTICS\_PACKAGE
 
-A property of type `  STRING  ` indicating the current [optimizer statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer) that is used by this connection.
+A property of type `STRING` indicating the current [optimizer statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer) that is used by this connection.
 
     SHOW VARIABLE OPTIMIZER_STATISTICS_PACKAGE
     SET OPTIMIZER_STATISTICS_PACKAGE = { 'package'|'' }
 
-Sets the optimizer statistics package to use for all following statements on the connection. `  <package>  ` must be a valid package name. If no optimizer statistics package is set, Spanner uses the optimizer statistics package that is set at the database level.
+Sets the optimizer statistics package to use for all following statements on the connection. `<package>` must be a valid package name. If no optimizer statistics package is set, Spanner uses the optimizer statistics package that is set at the database level.
 
-The default is `  ''  ` .
+The default is `''` .
 
 ##### Example: Optimizer statistics package (Click to expand)
 
@@ -300,12 +300,12 @@ The following example shows how to execute queries using a specific \[optimizer 
 
 #### RETURN\_COMMIT\_STATS
 
-A property of type `  BOOL  ` indicating whether statistics should be returned for transactions on this connection. You can see returned statistics by executing the `  SHOW VARIABLE COMMIT_RESPONSE  ` command.
+A property of type `BOOL` indicating whether statistics should be returned for transactions on this connection. You can see returned statistics by executing the `SHOW VARIABLE COMMIT_RESPONSE` command.
 
     SHOW VARIABLE RETURN_COMMIT_STATS
     SET RETURN_COMMIT_STATS = { true | false }
 
-The default is `  false  ` .
+The default is `false` .
 
 ##### Example: Commit statistics (Click to expand)
 
@@ -326,20 +326,20 @@ The following example shows how to view commit statistics for a transaction with
 
 #### RPC\_PRIORITY
 
-A property of type `  STRING  ` indicating the relative priority for Spanner requests. The priority acts as a hint to the Spanner scheduler and doesn't guarantee order of execution.
+A property of type `STRING` indicating the relative priority for Spanner requests. The priority acts as a hint to the Spanner scheduler and doesn't guarantee order of execution.
 
     SHOW VARIABLE RPC_PRIORITY
     SET RPC_PRIORITY = {'HIGH'|'MEDIUM'|'LOW'|'NULL'}
 
-`  'NULL'  ` means that no hint should be included in the request.
+`'NULL'` means that no hint should be included in the request.
 
-The default is `  'NULL'  ` .
+The default is `'NULL'` .
 
 You can also use a statement hint to specify the RPC priority:
 
     @{RPC_PRIORITY=PRIORITY_LOW} SELECT * FROM Albums
 
-For more information, see [`  Priority  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.RequestOptions.Priority) .
+For more information, see [`Priority`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.RequestOptions.Priority) .
 
 ### Tags
 
@@ -347,14 +347,14 @@ The following statements manage [request and transaction tags](https://docs.clou
 
 #### STATEMENT\_TAG
 
-A property of type `  STRING  ` that contains the request tag for the next statement.
+A property of type `STRING` that contains the request tag for the next statement.
 
     SHOW VARIABLE STATEMENT_TAG
     SET STATEMENT_TAG = 'tag-name'
 
-Sets the request tag for the next statement to be executed. Only one tag can be set per statement. The tag doesn't span multiple statements; it must be set on a per statement basis. A request tag can be removed by setting it to the empty string ( `  ''  ` ).
+Sets the request tag for the next statement to be executed. Only one tag can be set per statement. The tag doesn't span multiple statements; it must be set on a per statement basis. A request tag can be removed by setting it to the empty string ( `''` ).
 
-The default is `  ''  ` .
+The default is `''` .
 
 You can set both transaction tags and statement tags for the same statement.
 
@@ -391,14 +391,14 @@ The following example shows how to set statement tags with the Spanner JDBC driv
 
 #### TRANSACTION\_TAG
 
-A property of type `  STRING  ` that contains the transaction tag for the next transaction.
+A property of type `STRING` that contains the transaction tag for the next transaction.
 
     SHOW VARIABLE TRANSACTION_TAG
     SET TRANSACTION_TAG = 'tag-name'
 
-Sets the transaction tag for the current transaction to be executed. Only one tag can be set per transaction. The tag doesn't span multiple transactions; it must be set on a per transaction basis. A transaction tag can be removed by setting it to the empty string ( `  ''  ` ). The transaction tag must be set before any statements have been executed in the transaction.
+Sets the transaction tag for the current transaction to be executed. Only one tag can be set per transaction. The tag doesn't span multiple transactions; it must be set on a per transaction basis. A transaction tag can be removed by setting it to the empty string ( `''` ). The transaction tag must be set before any statements have been executed in the transaction.
 
-The default is `  ''  ` .
+The default is `''` .
 
 You can set both transaction tags and statement tags for the same statement.
 
@@ -440,7 +440,7 @@ The following statements manage and commit Spanner transactions.
 
     SHOW VARIABLE READ_TIMESTAMP
 
-Returns a result set with one row and one column of type `  TIMESTAMP  ` containing the read timestamp of the most recent read-only transaction. This statement returns a timestamp only when either a read-only transaction is still active and has executed at least one query, or immediately after a read-only transaction is committed and before a new transaction starts. Otherwise, the result is `  NULL  ` .
+Returns a result set with one row and one column of type `TIMESTAMP` containing the read timestamp of the most recent read-only transaction. This statement returns a timestamp only when either a read-only transaction is still active and has executed at least one query, or immediately after a read-only transaction is committed and before a new transaction starts. Otherwise, the result is `NULL` .
 
 ##### Example: Read timestamp (Click to expand)
 
@@ -494,7 +494,7 @@ The following example shows how to view the last read timestamp for a read-only 
 
     SHOW VARIABLE COMMIT_TIMESTAMP
 
-Returns a result set with one row and one column of type `  TIMESTAMP  ` containing the commit timestamp of the last read-write transaction that Spanner committed. This statement returns a timestamp only when you execute it after you commit a read-write transaction and before you execute any subsequent `  SELECT  ` , `  DML  ` , or schema change statements. Otherwise, the result is `  NULL  ` .
+Returns a result set with one row and one column of type `TIMESTAMP` containing the commit timestamp of the last read-write transaction that Spanner committed. This statement returns a timestamp only when you execute it after you commit a read-write transaction and before you execute any subsequent `SELECT` , `DML` , or schema change statements. Otherwise, the result is `NULL` .
 
 ##### Example: Commit timestamp (Click to expand)
 
@@ -513,10 +513,10 @@ The following example shows how to view the last commit timestamp for a write op
 
 Returns a result set with one row and two columns:
 
-  - `  COMMIT_TIMESTAMP  ` (type= `  TIMESTAMP  ` ) indicates when the most recent transaction was committed.
-  - `  MUTATION_COUNT  ` (type= `  INT64  ` ) indicates how many mutations were applied in the committed transaction. This value is always empty when executed on the emulator.
+  - `COMMIT_TIMESTAMP` (type= `TIMESTAMP` ) indicates when the most recent transaction was committed.
+  - `MUTATION_COUNT` (type= `INT64` ) indicates how many mutations were applied in the committed transaction. This value is always empty when executed on the emulator.
 
-The mutation count is available only if `  SET RETURN_COMMIT_STATS  ` was set to `  true  ` prior to the transaction commit.
+The mutation count is available only if `SET RETURN_COMMIT_STATS` was set to `true` prior to the transaction commit.
 
 ##### Example: Commit response (Click to expand)
 
@@ -536,12 +536,12 @@ The following example shows how to view the last commit response for a write ope
 
     BEGIN [TRANSACTION]
 
-Starts a new transaction. The keyword `  TRANSACTION  ` is optional.
+Starts a new transaction. The keyword `TRANSACTION` is optional.
 
-  - Use `  COMMIT  ` or `  ROLLBACK  ` to terminate a transaction.
-  - If you have enabled [`  AUTOCOMMIT  ` mode](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#autocommit) , this statement temporarily takes the connection out of `  AUTOCOMMIT  ` mode. The connection returns to `  AUTOCOMMIT  ` mode when the transaction ends.
-  - The transaction mode is determined by the current `  READONLY  ` setting for this connection. This value is set by using the `  SET READONLY = {TRUE | FALSE}  ` command.
-  - The transaction mode can be changed by executing `  SET TRANSACTION READ ONLY  ` or `  SET TRANSACTION READ WRITE  ` directly after executing `  BEGIN [TRANSACTION]  ` .
+  - Use `COMMIT` or `ROLLBACK` to terminate a transaction.
+  - If you have enabled [`AUTOCOMMIT` mode](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#autocommit) , this statement temporarily takes the connection out of `AUTOCOMMIT` mode. The connection returns to `AUTOCOMMIT` mode when the transaction ends.
+  - The transaction mode is determined by the current `READONLY` setting for this connection. This value is set by using the `SET READONLY = {TRUE | FALSE}` command.
+  - The transaction mode can be changed by executing `SET TRANSACTION READ ONLY` or `SET TRANSACTION READ WRITE` directly after executing `BEGIN [TRANSACTION]` .
 
 You can execute this statement only while there is no active transaction.
 
@@ -582,10 +582,10 @@ The following example shows how to start different types of transactions with th
 
     COMMIT [TRANSACTION]
 
-Commits the current transaction. The keyword `  TRANSACTION  ` is optional.
+Commits the current transaction. The keyword `TRANSACTION` is optional.
 
   - Committing a read-write transaction makes all updates of this transaction visible to other transactions and releases all of the transaction's locks on Spanner.
-  - Committing a read-only transaction ends the current read-only transaction. Any subsequent statement starts a new transaction. There is no semantic difference between `  COMMIT  ` and `  ROLLBACK  ` for a read-only transaction.
+  - Committing a read-only transaction ends the current read-only transaction. Any subsequent statement starts a new transaction. There is no semantic difference between `COMMIT` and `ROLLBACK` for a read-only transaction.
 
 You can execute this statement only while there is an active transaction.
 
@@ -613,10 +613,10 @@ The following example shows how to commit a transaction with the Spanner JDBC dr
 
     ROLLBACK [TRANSACTION]
 
-Performs a `  ROLLBACK  ` of the current transaction. The keywords `  TRANSACTION  ` is optional.
+Performs a `ROLLBACK` of the current transaction. The keywords `TRANSACTION` is optional.
 
-  - Performing a `  ROLLBACK  ` of a read-write transaction clears any buffered mutations, rolls back the transaction on Spanner, and releases any locks the transaction held.
-  - Performing a `  ROLLBACK  ` of a read-only transaction ends the current read-only transaction. Any subsequent statements start a new transaction. There is no semantic difference between `  COMMIT  ` and `  ROLLBACK  ` for a read-only transaction on a connection.
+  - Performing a `ROLLBACK` of a read-write transaction clears any buffered mutations, rolls back the transaction on Spanner, and releases any locks the transaction held.
+  - Performing a `ROLLBACK` of a read-only transaction ends the current read-only transaction. Any subsequent statements start a new transaction. There is no semantic difference between `COMMIT` and `ROLLBACK` for a read-only transaction on a connection.
 
 You can execute this statement only while there is an active transaction.
 
@@ -648,11 +648,11 @@ The following example shows how to rollback a transaction with the Spanner JDBC 
 
 Sets the transaction mode for the current transaction.
 
-You can execute this statement only when `  AUTOCOMMIT  ` is `  false  ` , or if you have started a transaction by executing `  BEGIN [TRANSACTION]  ` and have not yet executed any statements in the transaction.
+You can execute this statement only when `AUTOCOMMIT` is `false` , or if you have started a transaction by executing `BEGIN [TRANSACTION]` and have not yet executed any statements in the transaction.
 
-This statement sets the transaction mode for the current transaction only. When the transaction commits or rolls back, the next transaction uses the default mode for the connection (see [`  SET READONLY  `](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#readonly) ).
+This statement sets the transaction mode for the current transaction only. When the transaction commits or rolls back, the next transaction uses the default mode for the connection (see [`SET READONLY`](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#readonly) ).
 
-**Note:** You can't set the transaction mode to `  READ WRITE  ` if the connection is in `  READ ONLY  ` mode.
+**Note:** You can't set the transaction mode to `READ WRITE` if the connection is in `READ ONLY` mode.
 
 ##### Example: SET TRANSACTION (Click to expand)
 
@@ -686,7 +686,7 @@ The following statements manage batches of DDL statements and send those batches
 
     START BATCH DDL
 
-Starts a batch of DDL statements on the connection. All subsequent statements during the batch must be DDL statements. The DDL statements are buffered locally and sent to Spanner as one batch when you execute `  RUN BATCH  ` . Executing multiple DDL statements as one batch is typically faster than running the statements separately.
+Starts a batch of DDL statements on the connection. All subsequent statements during the batch must be DDL statements. The DDL statements are buffered locally and sent to Spanner as one batch when you execute `RUN BATCH` . Executing multiple DDL statements as one batch is typically faster than running the statements separately.
 
 You can execute this statement only while there is no active transaction.
 
@@ -721,7 +721,7 @@ The following example shows how to execute a DDL batch with the Spanner JDBC dri
 
 Sends all buffered DDL statements in the current DDL batch to the database, waits for Spanner to execute these statements, and ends the current DDL batch.
 
-If Spanner cannot execute at least one DDL statement, `  RUN BATCH  ` returns an error for the first DDL statement that Spanner cannot execute. Otherwise, `  RUN BATCH  ` returns successfully.
+If Spanner cannot execute at least one DDL statement, `RUN BATCH` returns an error for the first DDL statement that Spanner cannot execute. Otherwise, `RUN BATCH` returns successfully.
 
 **Note:** If a DDL statement in the batch returns an error, Spanner might still have applied the preceding DDL statements in the same batch to the database.
 
@@ -729,7 +729,7 @@ If Spanner cannot execute at least one DDL statement, `  RUN BATCH  ` returns an
 
 Clears all buffered DDL statements in the current DDL batch and ends the batch.
 
-You can execute this statement only when a DDL batch is active. You can use `  ABORT BATCH  ` regardless of whether or not the batch has buffered DDL statements. All preceding DDL statements in the batch will be aborted.
+You can execute this statement only when a DDL batch is active. You can use `ABORT BATCH` regardless of whether or not the batch has buffered DDL statements. All preceding DDL statements in the batch will be aborted.
 
 ##### Example: Abort DDL batch (Click to expand)
 
@@ -795,23 +795,23 @@ The following example shows how to execute a DML batch with the Spanner JDBC dri
 
 ## Data Boost and partitioned query statements
 
-The [`  partitionQuery  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) API divides a query into smaller pieces, or partitions, and uses multiple machines to fetch the partitions in parallel. Each partition is identified by a partition token. The PartitionQuery API has higher latency than the standard query API, because it is only intended for bulk operations such as exporting or scanning the whole database.
+The [`partitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) API divides a query into smaller pieces, or partitions, and uses multiple machines to fetch the partitions in parallel. Each partition is identified by a partition token. The PartitionQuery API has higher latency than the standard query API, because it is only intended for bulk operations such as exporting or scanning the whole database.
 
 [Data Boost for Spanner](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) lets you execute analytics queries and data exports with near-zero impact to existing workloads on the provisioned Spanner instance. Data Boost only supports [partitioned queries](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) .
 
-You can enable Data Boost with the `  SET DATA_BOOST_ENABLED  ` statement.
+You can enable Data Boost with the `SET DATA_BOOST_ENABLED` statement.
 
 The Spanner JDBC driver supports three alternatives for executing partitioned queries:
 
-  - `  SET AUTO_PARTITION_MODE = true  `
-  - `  RUN PARTITIONED QUERY sql  `
-  - `  PARTITION sql  ` followed by multiple `  RUN PARTITION 'partition-token'  `
+  - `SET AUTO_PARTITION_MODE = true`
+  - `RUN PARTITIONED QUERY sql`
+  - `PARTITION sql` followed by multiple `RUN PARTITION 'partition-token'`
 
 Each of these methods are described in the following sections.
 
 #### DATA\_BOOST\_ENABLED
 
-A property of type `  BOOL  ` indicating whether this connection should use [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) for partitioned queries. The default is `  false  ` .
+A property of type `BOOL` indicating whether this connection should use [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) for partitioned queries. The default is `false` .
 
     SHOW VARIABLE DATA_BOOST_ENABLED
     SET DATA_BOOST_ENABLED = { true | false }
@@ -830,15 +830,15 @@ For a full example, see [DataBoostExample.](https://github.com/GoogleCloudPlatfo
 
 #### AUTO\_PARTITION\_MODE
 
-A property of type `  BOOL  ` indicating whether the connection automatically uses partitioned queries for all queries that are executed.
+A property of type `BOOL` indicating whether the connection automatically uses partitioned queries for all queries that are executed.
 
     SHOW VARIABLE AUTO_PARTITION_MODE
     SET AUTO_PARTITION_MODE = { true | false}
 
-  - Set this variable to `  true  ` if you want the connection to use partitioned query for all queries that are executed.
-  - Also set `  DATA_BOOST_ENABLED  ` to `  true  ` if you want the connection to use [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) for all queries.
+  - Set this variable to `true` if you want the connection to use partitioned query for all queries that are executed.
+  - Also set `DATA_BOOST_ENABLED` to `true` if you want the connection to use [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) for all queries.
 
-The default is `  false  ` .
+The default is `false` .
 
 ##### Example: Execute (Click to expand)
 
@@ -855,12 +855,12 @@ For a full example, see [AutoPartitionModeExample.](https://github.com/GoogleClo
 
     RUN PARTITIONED QUERY <sql>
 
-Executes a query as a partitioned query on Spanner. Ensure that `  DATA_BOOST_ENABLED  ` is set to `  true  ` to execute the query with [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) :
+Executes a query as a partitioned query on Spanner. Ensure that `DATA_BOOST_ENABLED` is set to `true` to execute the query with [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) :
 
     SET DATA_BOOST_ENABLED = true
     RUN PARTITIONED QUERY SELECT FirstName, LastName FROM Singers
 
-The Spanner JDBC driver internally partitions the query and executes partitions in parallel. The results are merged into one result set and returned to the application. The number of worker threads executing partitions can be set with the variable `  MAX_PARTITIONED_PARALLELISM  ` .
+The Spanner JDBC driver internally partitions the query and executes partitions in parallel. The results are merged into one result set and returned to the application. The number of worker threads executing partitions can be set with the variable `MAX_PARTITIONED_PARALLELISM` .
 
 For a full example, see [RunPartitionedQueryExample.](https://github.com/GoogleCloudPlatform/java-docs-samples/blob/-/spanner/jdbc/src/main/java/com/example/spanner/jdbc/RunPartitionedQueryExample.java)
 
@@ -868,7 +868,7 @@ For a full example, see [RunPartitionedQueryExample.](https://github.com/GoogleC
 
     PARTITION <sql>
 
-Creates a list of partitions to execute a query against Spanner and returns these a list of partition tokens. Each partition token can be executed on a separate connection on the same or another client using the `  RUN PARTITION 'partition-token'  ` command.
+Creates a list of partitions to execute a query against Spanner and returns these a list of partition tokens. Each partition token can be executed on a separate connection on the same or another client using the `RUN PARTITION 'partition-token'` command.
 
 ##### Example: Partition query (Click to expand)
 
@@ -889,27 +889,27 @@ For a full example, see [PartitionQueryExample.](https://github.com/GoogleCloudP
 
     RUN PARTITION 'partition-token'
 
-Executes a query partition that has previously been returned by the `  PARTITION  ` command. The command can be executed on any connection that is connected to the same database as the database that created the partition tokens.
+Executes a query partition that has previously been returned by the `PARTITION` command. The command can be executed on any connection that is connected to the same database as the database that created the partition tokens.
 
 #### MAX\_PARTITIONED\_PARALLELISM
 
-A property of type `  INT64  ` indicating the number of worker threads the Spanner JDBC driver uses to execute partitions. This value is used for:
+A property of type `INT64` indicating the number of worker threads the Spanner JDBC driver uses to execute partitions. This value is used for:
 
-  - `  AUTO_PARTITION_MODE = true  `
-  - `  RUN PARTITIONED QUERY sql  `
+  - `AUTO_PARTITION_MODE = true`
+  - `RUN PARTITIONED QUERY sql`
 
 <!-- end list -->
 
     SHOW VARIABLE MAX_PARTITIONED_PARALLELISM
     SET MAX_PARTITIONED_PARALLELISM = <INT64>
 
-Sets the maximum number of worker threads that the Spanner JDBC driver can use to execute partitions. Setting this value to `  0  ` instructs the Spanner JDBC driver to use the number of CPU cores on the client machine as the maximum.
+Sets the maximum number of worker threads that the Spanner JDBC driver can use to execute partitions. Setting this value to `0` instructs the Spanner JDBC driver to use the number of CPU cores on the client machine as the maximum.
 
-The default is `  0  ` .
+The default is `0` .
 
 ## Directed read statements
 
-A property of type `  STRING  ` that sets the directed read option for the following statements.
+A property of type `STRING` that sets the directed read option for the following statements.
 
     SHOW VARIABLE DIRECTED_READ
     SET DIRECTED_READ='{"includeReplicas":{"replicaSelections":[{"location":"<location-name>"}]}}'
@@ -918,7 +918,7 @@ For more information, see [Directed reads](https://docs.cloud.google.com/spanner
 
 ## Savepoint commands
 
-The following statements enable and disable emulated [savepoints](https://docs.oracle.com/javase/8/docs/api/java/sql/Savepoint.html) in transactions. You can create a savepoint by calling the [`  java.sql.Connection#setSavepoint()  `](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html#setSavepoint--) method.
+The following statements enable and disable emulated [savepoints](https://docs.oracle.com/javase/8/docs/api/java/sql/Savepoint.html) in transactions. You can create a savepoint by calling the [`java.sql.Connection#setSavepoint()`](https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html#setSavepoint--) method.
 
 The Spanner JDBC driver emulates savepoints to support frameworks that rely on these for nested transactions. Savepoints are emulated by keeping track of a running checksum for the results that have been returned by statements in the transaction. When rolling back to a savepoint, the Spanner JDBC driver rolls back the transaction, and then retries the transaction up to the point where the savepoint was set. The checksum of the retry is compared to the checksum of the initial transaction to verify that the same results were returned.
 
@@ -927,13 +927,13 @@ The Spanner JDBC driver emulates savepoints to support frameworks that rely on t
     SHOW VARIABLE SAVEPOINT_SUPPORT
     SET SAVEPOINT_SUPPORT = { 'DISABLED' | 'FAIL_AFTER_ROLLBACK' | 'ENABLED' }
 
-A property of type `  STRING  ` indicating the current `  SAVEPOINT_SUPPORT  ` configuration. Possible values are:
+A property of type `STRING` indicating the current `SAVEPOINT_SUPPORT` configuration. Possible values are:
 
-  - `  DISABLED  ` : All savepoint commands are disabled and will fail.
-  - `  FAIL_AFTER_ROLLBACK  ` : Savepoint commands are enabled. Rolling back to a savepoint rolls back the entire transaction. The transaction fails if you try to use the transaction after rolling back to a savepoint.
-  - `  ENABLED  ` : All savepoint commands are enabled. Rolling back to a savepoint will rollback the transaction and retry is performed to the savepoint. This operation fails with an `  AbortedDueToConcurrentModificationException  ` error if the underlying data that has been used by the transaction up to the savepoint has changed.
+  - `DISABLED` : All savepoint commands are disabled and will fail.
+  - `FAIL_AFTER_ROLLBACK` : Savepoint commands are enabled. Rolling back to a savepoint rolls back the entire transaction. The transaction fails if you try to use the transaction after rolling back to a savepoint.
+  - `ENABLED` : All savepoint commands are enabled. Rolling back to a savepoint will rollback the transaction and retry is performed to the savepoint. This operation fails with an `AbortedDueToConcurrentModificationException` error if the underlying data that has been used by the transaction up to the savepoint has changed.
 
-The default value is `  FAIL_AFTER_ROLLBACK  ` .
+The default value is `FAIL_AFTER_ROLLBACK` .
 
 You can change the value of this variable only while there is no active transaction.
 

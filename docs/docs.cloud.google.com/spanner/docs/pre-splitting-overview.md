@@ -48,35 +48,35 @@ Assume your database has the table structures defined by the following DDL:
     
     CREATE INDEX UsersByLocation ON UserLocationInfo(LocationId);
 
-`  UserId  ` is a randomly generated hash in the `  INT64  ` space, and you need to add a 100 split points to evenly distribute the anticipated increase in traffic on the `  UserInfo  ` table and its interleaved tables. Because the split points are evenly distributed, you need to find the number of rows, or `  offset  ` between each split point:
+`UserId` is a randomly generated hash in the `INT64` space, and you need to add a 100 split points to evenly distribute the anticipated increase in traffic on the `UserInfo` table and its interleaved tables. Because the split points are evenly distributed, you need to find the number of rows, or `offset` between each split point:
 
-`  offset  ` = the maximum value of the `  UserId  ` range / 99
+`offset` = the maximum value of the `UserId` range / 99
 
-Then, the split points for the table `  UserInfo  ` are determined from the first row of `  UserId  ` , or `  UserId_first  ` . To determine the Nth split point, use the following calculation:
+Then, the split points for the table `UserInfo` are determined from the first row of `UserId` , or `UserId_first` . To determine the Nth split point, use the following calculation:
 
-Split point N: `  UserId_first  ` + ( `  offset  ` \* (N-1))
+Split point N: `UserId_first` + ( `offset` \* (N-1))
 
-For example, the first split point is `  UserId_first  ` + ( `  offset  ` \* 0) and the third split point is `  UserId_first  ` + ( `  offset  ` \* 2).
+For example, the first split point is `UserId_first` + ( `offset` \* 0) and the third split point is `UserId_first` + ( `offset` \* 2).
 
-Because the `  UserLocationInfo  ` table is an interleaved table of the `  UserInfo  ` table, it's also split at the `  UserId  ` boundaries. You might also want to create split points in the `  UserLocationInfo  ` table on the `  LocationId  ` column.
+Because the `UserLocationInfo` table is an interleaved table of the `UserInfo` table, it's also split at the `UserId` boundaries. You might also want to create split points in the `UserLocationInfo` table on the `LocationId` column.
 
-Consider that the `  LocationId  ` follows the `  $COUNTRY_$STATE_$CITY_$BLOCK_$NUMBER  ` format, for example, `  US_CA_SVL_MTL_1100_7  ` .
+Consider that the `LocationId` follows the `$COUNTRY_$STATE_$CITY_$BLOCK_$NUMBER` format, for example, `US_CA_SVL_MTL_1100_7` .
 
-For a `  UserId  ` , based on the prefix of the `  LocationId  ` string you can determine splits to put the `  UserLocationInfo  ` table for the `  UserId  ` at 3 different countries in 3 different splits:
+For a `UserId` , based on the prefix of the `LocationId` string you can determine splits to put the `UserLocationInfo` table for the `UserId` at 3 different countries in 3 different splits:
 
   - Split point 1: (1000, "CN")
   - Split point 2: (1000, "FR")
   - Split point 3: (1000, "US")
 
-You can add new split points using just a prefix and don't need to match the specified format for a column or index. In this example, the split points don't match the specified format for `  LocationId  ` , and only use the `  $COUNTRY  ` as the prefix.
+You can add new split points using just a prefix and don't need to match the specified format for a column or index. In this example, the split points don't match the specified format for `LocationId` , and only use the `$COUNTRY` as the prefix.
 
-If you want to split the `  UsersByLocation  ` index, you can evenly spread the split points on the `  LocationId  ` column, or isolate a few `  LocationId  ` column values that are expected to receive increased traffic:
+If you want to split the `UsersByLocation` index, you can evenly spread the split points on the `LocationId` column, or isolate a few `LocationId` column values that are expected to receive increased traffic:
 
   - Split point 1: "CN"
   - Split point 2: "US"
   - Split point 3: "US\_NYC"
 
-You can further split the index by using the indexed table key parts for locations that receive even more increased traffic. For example, if you're expecting the `  CN  ` location to receive increased traffic, you could introduce the following split points:
+You can further split the index by using the indexed table key parts for locations that receive even more increased traffic. For example, if you're expecting the `CN` location to receive increased traffic, you could introduce the following split points:
 
   - Split point 1: "CN" and TableKey: (1000, "CN")
   - Split point 2: "CN" and TableKey: (2000, "CN")

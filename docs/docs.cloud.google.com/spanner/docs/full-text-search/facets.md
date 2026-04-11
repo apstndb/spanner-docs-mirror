@@ -32,7 +32,7 @@ The following example creates a table for albums and tokenizes the title for eac
       title_tokens spanner.TOKENLIST GENERATED ALWAYS AS (spanner.TOKENIZE_FULLTEXT(Title)) VIRTUAL HIDDEN,
     PRIMARY KEY(albumid));
 
-Create a search index on `  Title_Tokens  ` . Optionally, you can store `  Title  ` , `  Genres  ` and `  Rating  ` in the search index to avoid a backjoin to the base table while computing facets.
+Create a search index on `Title_Tokens` . Optionally, you can store `Title` , `Genres` and `Rating` in the search index to avoid a backjoin to the base table while computing facets.
 
 ### GoogleSQL
 
@@ -98,8 +98,8 @@ This example shows how to perform a facet count on a Rating facet. It performs a
 
 This example shows the steps for performing facet counting on multiple facets. It performs the following:
 
-1.  Retrieve the initial search results: it performs a text search for "foo" within the `  Title_Tokens  ` column of the `  Albums  ` table.
-2.  Calculate facet counts: it then computes counts for the `  Rating  ` and `  Genres  ` facets.
+1.  Retrieve the initial search results: it performs a text search for "foo" within the `Title_Tokens` column of the `Albums` table.
+2.  Calculate facet counts: it then computes counts for the `Rating` and `Genres` facets.
 
 ### GoogleSQL
 
@@ -188,12 +188,12 @@ This example shows the steps for performing facet counting on multiple facets. I
 
 Specifically, this example does the following:
 
-  - `  WITH search_results AS (...)  ` gathers a large set of initial search results to use for the first page of results and facet calculations.
-  - `  SEARCH(Title_Tokens, "foo")  ` is the primary search query.
-  - `  LIMIT 10000  ` limits the cost of the search by reducing the result set to 10,000. For very broad searches that might return millions of results, calculating exact facet counts on the entire dataset can be expensive. By limiting search results, the query can quickly provide approximate (lower bound) facet counts. This means the counts reflect at least that many results, but there might be more matching results beyond the 10,000 limit.
-  - The `  result_page  ` subquery produces the first page of search results displayed to the user. It selects only the top 50 records from `  search_results  ` , ordered by `  Likes  ` and `  AlbumId  ` . This is what the user initially sees.
-  - the `  rating_counts  ` subquery calculates the facet counts for `  Rating  ` . It groups all the records in `  search_results  ` by their `  Rating  ` and counts how many results fall into each rating category.
-  - The `  genres_counts  ` subquery calculates the facet counts for `  Genres  ` . As it's an array, join with `  UNNEST(Genres)  ` to treat each genre within the array as a separate row for counting.
+  - `WITH search_results AS (...)` gathers a large set of initial search results to use for the first page of results and facet calculations.
+  - `SEARCH(Title_Tokens, "foo")` is the primary search query.
+  - `LIMIT 10000` limits the cost of the search by reducing the result set to 10,000. For very broad searches that might return millions of results, calculating exact facet counts on the entire dataset can be expensive. By limiting search results, the query can quickly provide approximate (lower bound) facet counts. This means the counts reflect at least that many results, but there might be more matching results beyond the 10,000 limit.
+  - The `result_page` subquery produces the first page of search results displayed to the user. It selects only the top 50 records from `search_results` , ordered by `Likes` and `AlbumId` . This is what the user initially sees.
+  - the `rating_counts` subquery calculates the facet counts for `Rating` . It groups all the records in `search_results` by their `Rating` and counts how many results fall into each rating category.
+  - The `genres_counts` subquery calculates the facet counts for `Genres` . As it's an array, join with `UNNEST(Genres)` to treat each genre within the array as a separate row for counting.
 
 ## Retrieve subsequent pages
 

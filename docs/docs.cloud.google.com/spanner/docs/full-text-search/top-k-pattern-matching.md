@@ -4,7 +4,7 @@ Many applications query a database to populate a single page in their applicatio
 
 ## Create search indexes for top-k matches
 
-To configure a search index for top-k matching, use `  ORDER BY  ` to order the search index by a specific column. Queries need to have an `  ORDER BY  ` clause that exactly matches the search index sort order (including ascending versus descending direction) and a `  LIMIT  ` clause that requests the query to stop after finding k-matching rows.
+To configure a search index for top-k matching, use `ORDER BY` to order the search index by a specific column. Queries need to have an `ORDER BY` clause that exactly matches the search index sort order (including ascending versus descending direction) and a `LIMIT` clause that requests the query to stop after finding k-matching rows.
 
 You can also implement pagination using these clauses. For more information, see [Paginate search queries](https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results) .
 
@@ -57,11 +57,11 @@ For example, consider a table that uses the following schema:
 
 ## Query search indexes for top-k matches
 
-As stated previously, queries need to have an `  ORDER BY  ` clause that exactly matches the search index sort order (including ascending versus descending direction) and a `  LIMIT  ` clause that requests the query to stop after finding k-matching rows.
+As stated previously, queries need to have an `ORDER BY` clause that exactly matches the search index sort order (including ascending versus descending direction) and a `LIMIT` clause that requests the query to stop after finding k-matching rows.
 
 The following list analyzes the efficiency of some common queries.
 
-  - This query is very efficient. It selects the `  AlbumsRecordTimestampIndex  ` index. Even if there are many albums with the word "happy", the query only scans a small number of rows:
+  - This query is very efficient. It selects the `AlbumsRecordTimestampIndex` index. Even if there are many albums with the word "happy", the query only scans a small number of rows:
     
     ### GoogleSQL
     
@@ -79,7 +79,7 @@ The following list analyzes the efficiency of some common queries.
         ORDER BY recordtimestamp DESC
         LIMIT 10
 
-  - The same query, requesting sort order by `  ReleaseTimestamp  ` in descending order, uses the `  AlbumsReleaseTimestampIndex  ` index and is equally efficient:
+  - The same query, requesting sort order by `ReleaseTimestamp` in descending order, uses the `AlbumsReleaseTimestampIndex` index and is equally efficient:
     
     ### GoogleSQL
     
@@ -97,7 +97,7 @@ The following list analyzes the efficiency of some common queries.
         ORDER BY releasetimestamp DESC
         LIMIT 10
 
-  - A query that requests sort order by `  ListenTimestamp  ` doesn't execute a top-k query efficiently. It has to fetch all matching albums, sort them by `  ListenTimestamp,  ` and return the top 10. Such a query uses more resources if there's a large number of documents that contain the term "happy".
+  - A query that requests sort order by `ListenTimestamp` doesn't execute a top-k query efficiently. It has to fetch all matching albums, sort them by `ListenTimestamp,` and return the top 10. Such a query uses more resources if there's a large number of documents that contain the term "happy".
     
     ### GoogleSQL
     
@@ -115,7 +115,7 @@ The following list analyzes the efficiency of some common queries.
         ORDER BY listentimestamp DESC
         LIMIT 10
 
-  - Similarly, a query doesn't run efficiently if it requests that results are ordered using the `  RecordTimestamp  ` column in ascending order. It scans all rows with the word "happy", despite having a `  LIMIT  ` .
+  - Similarly, a query doesn't run efficiently if it requests that results are ordered using the `RecordTimestamp` column in ascending order. It scans all rows with the word "happy", despite having a `LIMIT` .
     
     ### GoogleSQL
     

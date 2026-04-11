@@ -6,7 +6,7 @@
   - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/adapter#body.aspect)
   - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/adapter#try-it)
 
-Creates a new session to be used for requests made by the adapter. A session identifies a specific incarnation of a database resource and is meant to be reused across many `  sessions.adaptMessage  ` calls.
+Creates a new session to be used for requests made by the adapter. A session identifies a specific incarnation of a database resource and is meant to be reused across many `sessions.adaptMessage` calls.
 
 ### HTTP request
 
@@ -43,7 +43,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{parent=projects/*/instances/*/databases/*}/sessions:adapter  `
+`POST https://spanner.googleapis.com/v1/{parent=projects/*/instances/*/databases/*}/sessions:adapter`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -51,15 +51,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  parent  `
+`parent`
 
-`  string  `
+`string`
 
 Required. The database in which the new session is created.
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  parent  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `parent` :
 
-  - `  spanner.sessions.create  `
+  - `spanner.sessions.create`
 
 ### Request body
 
@@ -91,9 +91,9 @@ If successful, the response body contains data with the following structure:
 
 Fields
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
 Identifier. The name of the session. This is always system-assigned.
 
@@ -101,7 +101,7 @@ Identifier. The name of the session. This is always system-assigned.
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.data  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.data`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

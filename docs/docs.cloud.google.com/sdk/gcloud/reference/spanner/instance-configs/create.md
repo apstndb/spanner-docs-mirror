@@ -4,7 +4,7 @@ gcloud spanner instance-configs create - create a Cloud Spanner instance configu
 
 SYNOPSIS
 
-`  gcloud spanner instance-configs create  ` `  INSTANCE_CONFIG  ` ( `  --base-config  ` = `  BASE_CONFIG  ` `  --replicas  ` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\] | \[ `  --clone-config  ` = `  INSTANCE_CONFIG  ` : `  --add-replicas  ` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\] `  --skip-replicas  ` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\]\]) \[ `  --async  ` \] \[ `  --display-name  ` = `  DISPLAY_NAME  ` \] \[ `  --etag  ` = `  ETAG  ` \] \[ `  --labels  ` =\[ `  KEY  ` = `  VALUE  ` , …\]\] \[ `  --validate-only  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instance-configs create` `  INSTANCE_CONFIG  ` ( `  --base-config  ` = `  BASE_CONFIG  ` `  --replicas  ` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\] | \[ `  --clone-config  ` = `  INSTANCE_CONFIG  ` : `  --add-replicas  ` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\] `  --skip-replicas  ` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\]\]) \[ `  --async  ` \] \[ `  --display-name  ` = `  DISPLAY_NAME  ` \] \[ `  --etag  ` = `  ETAG  ` \] \[ `  --labels  ` =\[ `  KEY  ` = `  VALUE  ` , …\]\] \[ `  --validate-only  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -12,13 +12,13 @@ Create a Cloud Spanner instance configuration.
 
 EXAMPLES
 
-To create a custom Cloud Spanner instance configuration based on an existing Google-managed configuration ( `  nam3  ` ) by adding a `  READ_ONLY  ` type replica in location `  us-east4  ` , run:
+To create a custom Cloud Spanner instance configuration based on an existing Google-managed configuration ( `nam3` ) by adding a `READ_ONLY` type replica in location `us-east4` , run:
 
 ``` wrap-code
 gcloud spanner instance-configs create custom-instance-config --clone-config=nam3 --add-replicas=location=us-east4,type=READ_ONLY
 ```
 
-To create a custom Cloud Spanner instance configuration based on another custom configuration ( `  custom-instance-config  ` ) by adding a `  READ_ONLY  ` type replica in location `  us-east1  ` and removing a `  READ_ONLY  ` type replica in location `  us-east4  ` , run:
+To create a custom Cloud Spanner instance configuration based on another custom configuration ( `custom-instance-config` ) by adding a `READ_ONLY` type replica in location `us-east1` and removing a `READ_ONLY` type replica in location `us-east4` , run:
 
 ``` wrap-code
 gcloud spanner instance-configs create custom-instance-config1 --clone-config=custom-instance-config --add-replicas=location=us-east1,type=READ_ONLY --skip-replicas=location=us-east4,type=READ_ONLY
@@ -34,23 +34,23 @@ REQUIRED FLAGS
 Exactly one of these must be specified:
 
   - Command-line flags to setup a custom instance configuration replicas:  
-    `  --base-config  ` = `  BASE_CONFIG  `  
+    `--base-config` = `  BASE_CONFIG  `  
     The name of the Google-managed instance configuration, based on which your custom configuration is created.
     
     This flag argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --replicas  ` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\]  
+  - `--replicas` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\]  
     The geographic placement of nodes in this instance configuration and their replication types.
     
-      - `  location  `  
+      - `location`  
         The location of the serving resources, e.g. "us-central1".
     
-      - `  type  `  
+      - `type`  
         The type of replica.
         
         Items in the list are separated by ":". The allowed values and formats are as follows.
     
-      - `  READ_ONLY  `  
+      - `READ_ONLY`  
         Read-only replicas only support reads (not writes). Read-only replicas:
         
           - Maintain a full copy of your data.
@@ -67,7 +67,7 @@ Exactly one of these must be specified:
         
           - Are not eligible to become a leader.
     
-      - `  READ_WRITE  `  
+      - `READ_WRITE`  
         Read-write replicas support both reads and writes. These replicas:
         
           - Maintain a full copy of your data.
@@ -88,7 +88,7 @@ Exactly one of these must be specified:
         
           - Are eligible to become a leader.
     
-      - `  WITNESS  `  
+      - `WITNESS`  
         Witness replicas don't support reads but do participate in voting to commit writes. Witness replicas:
         
           - Do not maintain a full copy of data.
@@ -108,41 +108,41 @@ Exactly one of these must be specified:
         This flag argument must be specified if any of the other arguments in this group are specified.
 
   - Command-line flags to setup a custom instance configuration using clone options:  
-    `  --clone-config  ` = `  INSTANCE_CONFIG  `  
+    `--clone-config` = `  INSTANCE_CONFIG  `  
     The ID of the instance config, based on which this configuration is created. The clone is an independent copy of this config. Available configurations can be found by running "gcloud spanner instance-configs list"
     
     This flag argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --add-replicas  ` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\]  
+  - `--add-replicas` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\]  
     Add new replicas while cloning from the source config.
 
-  - `  --skip-replicas  ` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\]  
+  - `--skip-replicas` = `  location  ` = `  LOCATION  ` , `  type  ` = `  TYPE  ` :\[…\]  
     Skip replicas from the source config while cloning. Each replica in the list must exist in the source config replicas list.
 
 OPTIONAL FLAGS
 
-  - `  --async  `  
+  - `--async`  
     Return immediately, without waiting for the operation in progress to complete.
 
-  - `  --display-name  ` = `  DISPLAY_NAME  `  
+  - `--display-name` = `  DISPLAY_NAME  `  
     The name of this instance configuration as it appears in UIs. Must specify this option if creating an instance-config with --replicas.
 
-  - `  --etag  ` = `  ETAG  `  
+  - `--etag` = `  ETAG  `  
     Used for optimistic concurrency control.
 
-  - `  --labels  ` =\[ `  KEY  ` = `  VALUE  ` ,…\]  
+  - `--labels` =\[ `  KEY  ` = `  VALUE  ` ,…\]  
     List of label KEY=VALUE pairs to add.
     
-    Keys must start with a lowercase character and contain only hyphens ( `  -  ` ), underscores ( `  _  ` ), lowercase characters, and numbers. Values must contain only hyphens ( `  -  ` ), underscores ( `  _  ` ), lowercase characters, and numbers.
+    Keys must start with a lowercase character and contain only hyphens ( `-` ), underscores ( `_` ), lowercase characters, and numbers. Values must contain only hyphens ( `-` ), underscores ( `_` ), lowercase characters, and numbers.
 
-  - `  --validate-only  `  
+  - `--validate-only`  
     If specified, validate that the creation will succeed without creating the instance configuration.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

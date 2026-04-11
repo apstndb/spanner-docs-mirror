@@ -1,10 +1,10 @@
 This section describes stored system procedures for Spanner.
 
-A stored system procedure contains SQL code that you can reuse. Spanner provides stored system procedures for you to use. You can't create your own stored procedure in Spanner. You can only execute one stored procedure at a time in a `  CALL  ` statement.
+A stored system procedure contains SQL code that you can reuse. Spanner provides stored system procedures for you to use. You can't create your own stored procedure in Spanner. You can only execute one stored procedure at a time in a `CALL` statement.
 
 ## Stored system procedures
 
-To execute a stored system procedure, you use the [`  CALL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language#call) statement:
+To execute a stored system procedure, you use the [`CALL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language#call) statement:
 
     CALL procedure_name(parameters);
 
@@ -28,9 +28,9 @@ Cancels a query with the specified ***query\_id*** .
 
 This stored system procedure has the following parameters:
 
-| Parameter                 | Type                    | Description                                             |
-| ------------------------- | ----------------------- | ------------------------------------------------------- |
-| `        query_id       ` | `        STRING       ` | Specifies the ID for the query that you want to cancel. |
+| Parameter  | Type     | Description                                             |
+| ---------- | -------- | ------------------------------------------------------- |
+| `query_id` | `STRING` | Specifies the ID for the query that you want to cancel. |
 
 Query cancellations might fail in the following circumstances:
 

@@ -11,9 +11,9 @@ When you submit a query, DML, or row operation, Spanner checks authorization by 
 
 <!-- end list -->
 
-  - If you have only fine-grained access control privileges and no IAM database-level permissions, you must have been granted access to the `  spanner_sys_reader  ` system role or one of its member roles. Select a role on the database **Overview** page so that your Google Cloud console session proceeds with the required privileges.
+  - If you have only fine-grained access control privileges and no IAM database-level permissions, you must have been granted access to the `spanner_sys_reader` system role or one of its member roles. Select a role on the database **Overview** page so that your Google Cloud console session proceeds with the required privileges.
     
-    **Note:** To interact with Spanner resources in the Google Cloud console, you must have the `  roles/spanner.viewer  ` IAM role.
+    **Note:** To interact with Spanner resources in the Google Cloud console, you must have the `roles/spanner.viewer` IAM role.
 
 <!-- end list -->
 
@@ -28,7 +28,7 @@ Use these methods to specify a database role when accessing a Spanner database:
 
 1.  Select a database, and then on the database **Overview** page, click the **Change database role** (pencil) icon adjacent to the **Current role** field.
     
-    By default, when a fine-grained access control user logs in, this field has the value `  public  ` . For information about the `  public  ` system role, see [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
+    By default, when a fine-grained access control user logs in, this field has the value `public` . For information about the `public` system role, see [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
     
     **Note:** As stated earlier, if a fine-grained access control user has [database-level IAM permissions](https://docs.cloud.google.com/spanner/docs/iam#databases) , the **Current role** field isn't shown.
 
@@ -40,7 +40,7 @@ Use these methods to specify a database role when accessing a Spanner database:
 
 ### gcloud
 
-  - Add the `  --database-role  ` option to the [`  gcloud spanner databases execute-sql  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command, as follows:
+  - Add the `--database-role` option to the [`gcloud spanner databases execute-sql`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command, as follows:
     
         gcloud spanner databases execute-sql DATABASE_NAME \
         --instance=INSTANCE_NAME \

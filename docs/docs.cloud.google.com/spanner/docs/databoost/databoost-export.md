@@ -6,7 +6,7 @@ You can export data by using the **Export data** page in the Spanner console, or
 
 ## Before you begin
 
-Ensure that you have the `  spanner.databases.useDataBoost  ` Identity and Access Management (IAM) permission. For more information, see [Access control with IAM](https://docs.cloud.google.com/spanner/docs/iam#databases) .
+Ensure that you have the `spanner.databases.useDataBoost` Identity and Access Management (IAM) permission. For more information, see [Access control with IAM](https://docs.cloud.google.com/spanner/docs/iam#databases) .
 
 ## Export data by using the Spanner console
 
@@ -33,7 +33,7 @@ To run Dataflow exports with Data Boost, select one of the following options:
 
 2.  Follow the **Console** instructions under **Run the template** .
 
-3.  On the **Create job from template** page, under **Optional parameters** , enter `  true  ` in the **Use Spanner Data Boost** field.
+3.  On the **Create job from template** page, under **Optional parameters** , enter `true` in the **Use Spanner Data Boost** field.
 
 ### gcloud CLI
 

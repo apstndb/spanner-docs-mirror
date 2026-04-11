@@ -44,7 +44,7 @@ us-west8
 us-east7
 
   
-`  GET https://spanner.googleapis.com/v1/{parent=projects/*/instances/*}/instancePartitions  `
+`GET https://spanner.googleapis.com/v1/{parent=projects/*/instances/*}/instancePartitions`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -52,39 +52,39 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  parent  `
+`parent`
 
-`  string  `
+`string`
 
-Required. The instance whose instance partitions should be listed. Values are of the form `  projects/<project>/instances/<instance>  ` . Use `  {instance} = '-'  ` to list instance partitions for all Instances in a project, e.g., `  projects/myproject/instances/-  ` .
+Required. The instance whose instance partitions should be listed. Values are of the form `projects/<project>/instances/<instance>` . Use `{instance} = '-'` to list instance partitions for all Instances in a project, e.g., `projects/myproject/instances/-` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  parent  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `parent` :
 
-  - `  spanner.instancePartitions.list  `
+  - `spanner.instancePartitions.list`
 
 ### Query parameters
 
 Parameters
 
-`  pageSize  `
+`pageSize`
 
-`  integer  `
+`integer`
 
 Number of instance partitions to be returned in the response. If 0 or less, defaults to the server's maximum allowed page size.
 
-`  pageToken  `
+`pageToken`
 
-`  string  `
+`string`
 
-If non-empty, `  pageToken  ` should contain a `  nextPageToken  ` from a previous `  ListInstancePartitionsResponse  ` .
+If non-empty, `pageToken` should contain a `  nextPageToken  ` from a previous `  ListInstancePartitionsResponse  ` .
 
-`  instancePartitionDeadline  `
+`instancePartitionDeadline`
 
-`  string ( Timestamp  ` format)
+` string ( Timestamp  ` format)
 
 Optional. Deadline used while retrieving metadata for instance partitions. Instance partitions whose metadata cannot be retrieved within this deadline will be added to `  unreachable  ` in `  ListInstancePartitionsResponse  ` .
 
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
 
 ### Request body
 
@@ -107,38 +107,28 @@ If successful, the response body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;instancePartitions&quot;: [
-    {
-      object (InstancePartition)
-    }
-  ],
-  &quot;nextPageToken&quot;: string,
-  &quot;unreachable&quot;: [
-    string
-  ]
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;instancePartitions&quot;: [{object (InstancePartition)}],&quot;nextPageToken&quot;: string,&quot;unreachable&quot;: [string]}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  instancePartitions[]  `
+`instancePartitions[]`
 
-`  object ( InstancePartition  ` )
+` object ( InstancePartition  ` )
 
 The list of requested instancePartitions.
 
-`  nextPageToken  `
+`nextPageToken`
 
-`  string  `
+`string`
 
-`  nextPageToken  ` can be sent in a subsequent `  instancePartitions.list  ` call to fetch more of the matching instance partitions.
+`nextPageToken` can be sent in a subsequent `  instancePartitions.list  ` call to fetch more of the matching instance partitions.
 
-`  unreachable[]  `
+`unreachable[]`
 
-`  string  `
+`string`
 
 The list of unreachable instances or instance partitions. It includes the names of instances or instance partitions whose metadata could not be retrieved within `  instancePartitionDeadline  ` .
 
@@ -146,7 +136,7 @@ The list of unreachable instances or instance partitions. It includes the names 
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

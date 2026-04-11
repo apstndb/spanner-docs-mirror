@@ -16,9 +16,9 @@ If you haven't done so already, enable Workload Identity Federation for GKE for 
 
 Configure your applications to authenticate to Google Cloud by using Workload Identity Federation for GKE.
 
-1.  Ensure that your GKE Pod uses a Kubernetes `  ServiceAccount  ` object, as described in [Configure authorization and principals](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#configure-authz-principals) .
+1.  Ensure that your GKE Pod uses a Kubernetes `ServiceAccount` object, as described in [Configure authorization and principals](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#configure-authz-principals) .
 
-2.  Create an IAM allow policy that grants the necessary Spanner IAM roles to the Kubernetes `  ServiceAccount  ` object. The following example grants the Spanner Database User ( `  roles/spanner.databaseUser  ` ) role:
+2.  Create an IAM allow policy that grants the necessary Spanner IAM roles to the Kubernetes `ServiceAccount` object. The following example grants the Spanner Database User ( `roles/spanner.databaseUser` ) role:
     
     ``` 
       gcloud projects add-iam-policy-binding PROJECT_ID \

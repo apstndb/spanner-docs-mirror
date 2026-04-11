@@ -18,13 +18,13 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
 ## Prepare your local PHP environment
 
-1.  Follow the steps in [Service accounts](https://docs.cloud.google.com/docs/authentication#service_accounts) to set up a service account as your Application Default Credentials. Following those steps, you should obtain both a service account key file (in JSON) and a `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable that lets you authenticate to the Spanner API.
+1.  Follow the steps in [Service accounts](https://docs.cloud.google.com/docs/authentication#service_accounts) to set up a service account as your Application Default Credentials. Following those steps, you should obtain both a service account key file (in JSON) and a `GOOGLE_APPLICATION_CREDENTIALS` environment variable that lets you authenticate to the Spanner API.
 
 2.  Install the following on your development machine if they are not already installed:
     
@@ -46,13 +46,13 @@ In particular, make sure that you run [`  gcloud auth application-default login 
     
         composer install
     
-    This installs the Spanner client library for PHP, which you can add to any project by running `  composer require google/cloud-spanner  ` .
+    This installs the Spanner client library for PHP, which you can add to any project by running `composer require google/cloud-spanner` .
 
 ## Create an instance
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -62,7 +62,7 @@ See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manag
 
 The samples repository contains a sample that shows how to use Spanner with PHP.
 
-Take a look at the functions in `  src/create_database.php  ` and `  src/add_column.php  ` , which show how to create a database and modify a database schema. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
+Take a look at the functions in `src/create_database.php` and `src/add_column.php` , which show how to create a database and modify a database schema. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
 
 ## Create a database
 
@@ -206,7 +206,7 @@ The next step is to write data to your database.
 
 ## Create a database client
 
-To do reads and writes, you need to obtain an instance of [`  Google\Cloud\Spanner\Database  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database) .
+To do reads and writes, you need to obtain an instance of [`Google\Cloud\Spanner\Database`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database) .
 
     # Includes the autoloader for libraries installed with composer
     require __DIR__ . '/vendor/autoload.php';
@@ -241,11 +241,11 @@ To do reads and writes, you need to obtain an instance of [`  Google\Cloud\Spann
         print($row['test'] . PHP_EOL);
     }
 
-You can think of a `  Database  ` as a database connection: all of your interactions with Spanner must go through a `  Database  ` . Typically you create a `  Database  ` when your application starts up, then you re-use that `  Database  ` to read, write, and execute transactions. Each client uses resources in Spanner.
+You can think of a `Database` as a database connection: all of your interactions with Spanner must go through a `Database` . Typically you create a `Database` when your application starts up, then you re-use that `Database` to read, write, and execute transactions. Each client uses resources in Spanner.
 
-If you create multiple clients in the same app, you should call [`  Database::close  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=close) to clean up the client's resources, including network connections, as soon as it is no longer needed.
+If you create multiple clients in the same app, you should call [`Database::close`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=close) to clean up the client's resources, including network connections, as soon as it is no longer needed.
 
-Read more in the [`  Database  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database) reference.
+Read more in the [`Database`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database) reference.
 
 <span id="write_data"></span>
 
@@ -253,7 +253,7 @@ Read more in the [`  Database  `](https://docs.cloud.google.com/php/docs/referen
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
-You use the `  executeUpdate()  ` method to execute a DML statement.
+You use the `executeUpdate()` method to execute a DML statement.
 
     use Google\Cloud\Spanner\SpannerClient;
     use Google\Cloud\Spanner\Transaction;
@@ -289,7 +289,7 @@ You use the `  executeUpdate()  ` method to execute a DML statement.
         });
     }
 
-Run the sample file `  src/write_data_with_dml.php  ` .
+Run the sample file `src/write_data_with_dml.php` .
 
     php src/write_data_with_dml.php test-instance example-db
 
@@ -305,7 +305,7 @@ You should see:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-You write data using the [`  Database::insertBatch  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=insertBatch) method. `  insertBatch  ` adds new rows to a table. All inserts in a single batch are applied atomically.
+You write data using the [`Database::insertBatch`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=insertBatch) method. `insertBatch` adds new rows to a table. All inserts in a single batch are applied atomically.
 
 This code shows how to write the data using mutations:
 
@@ -350,7 +350,7 @@ This code shows how to write the data using mutations:
         print('Inserted data.' . PHP_EOL);
     }
 
-Run the sample file `  src/insert_data.php  ` .
+Run the sample file `src/insert_data.php` .
 
     php src/insert_data.php test-instance example-db
 
@@ -366,7 +366,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
@@ -386,7 +386,7 @@ The result shows:
 
 In addition to executing a SQL statement on the command line, you can issue the same SQL statement programmatically using the Spanner client library for PHP.
 
-Use [`  Database::execute()  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=execute) to run the SQL query.
+Use [`Database::execute()`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=execute) to run the SQL query.
 
 Here's how to issue the query and access the data:
 
@@ -418,7 +418,7 @@ Here's how to issue the query and access the data:
         }
     }
 
-Run the sample file `  src/query_data.php  ` .
+Run the sample file `src/query_data.php` .
 
     php src/query_data.php test-instance example-db
 
@@ -430,13 +430,13 @@ You should see the following result:
     SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
     SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
 
-Your results won't necessarily be in this order. If you need to ensure the ordering of the result, use an `  ORDER BY  ` clause, as documented in [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices#use_order_by_to_ensure_the_ordering_of_your_sql_results) .
+Your results won't necessarily be in this order. If you need to ensure the ordering of the result, use an `ORDER BY` clause, as documented in [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices#use_order_by_to_ensure_the_ordering_of_your_sql_results) .
 
 ### Query using a SQL parameter
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
 ### GoogleSQL
 
@@ -506,7 +506,7 @@ Here is an example of using a parameter in the `  WHERE  ` clause to query recor
         }
     }
 
-Run the sample file `  src/query_data_with_parameter.php  ` .
+Run the sample file `src/query_data_with_parameter.php` .
 
     php src/query_data_with_parameter.php test-instance example-db
 
@@ -518,7 +518,7 @@ You should see the following result:
 
 In addition to Spanner's SQL interface, Spanner also supports a read interface.
 
-Use [`  Database::read()  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=read) to read rows from the database. Use a `  KeySet  ` object to define a collection of keys and key ranges to read.
+Use [`Database::read()`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=read) to read rows from the database. Use a `KeySet` object to define a collection of keys and key ranges to read.
 
 Here's how to read the data:
 
@@ -553,7 +553,7 @@ Here's how to read the data:
         }
     }
 
-Run the sample in `  read_data.php  ` file.
+Run the sample in `read_data.php` file.
 
     php read_data.php test-instance example-db
 
@@ -567,7 +567,7 @@ You should see output similar to:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -575,7 +575,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
 ### GoogleSQL
 
@@ -593,7 +593,7 @@ You should see:
 
 #### Use the Spanner client library for PHP
 
-Use [`  Database::updateDdl  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=updateDdl) to modify the schema:
+Use [`Database::updateDdl`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=updateDdl) to modify the schema:
 
 ### GoogleSQL
 
@@ -659,7 +659,7 @@ Use [`  Database::updateDdl  `](https://docs.cloud.google.com/php/docs/reference
         print('Added column MarketingBudget on table Albums' . PHP_EOL);
     }
 
-Run the sample file `  src/add_column.php  ` .
+Run the sample file `src/add_column.php` .
 
     php src/add_column.php test-instance example-db
 
@@ -669,7 +669,7 @@ You should see:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -706,7 +706,7 @@ The following code writes data to the new column. It sets `  MarketingBudget  ` 
         print('Updated data.' . PHP_EOL);
     }
 
-Run the sample file `  src/update_data.php  ` .
+Run the sample file `src/update_data.php` .
 
     php src/update_data.php test-instance example-db
 
@@ -752,7 +752,7 @@ Here's the code to execute the query:
         }
     }
 
-To execute this query, run the sample file `  src/query-data-with-new-column.php  ` .
+To execute this query, run the sample file `src/query-data-with-new-column.php` .
 
     php src/query_data_with_new_column.php test-instance example-db
 
@@ -768,7 +768,7 @@ You should see:
 
 You can update data using DML in a read-write transaction.
 
-You use the `  executeUpdate()  ` method to execute a DML statement.
+You use the `executeUpdate()` method to execute a DML statement.
 
 ### GoogleSQL
 
@@ -923,7 +923,7 @@ You use the `  executeUpdate()  ` method to execute a DML statement.
         });
     }
 
-Run the sample file `  src/write_data_with_dml_transaction.php  ` .
+Run the sample file `src/write_data_with_dml_transaction.php` .
 
     php src/write_data_with_dml_transaction.php test-instance example-db
 
@@ -935,7 +935,7 @@ You should see:
 
 ## Use a secondary index
 
-Suppose you wanted to fetch all rows of `  Albums  ` that have `  AlbumTitle  ` values in a certain range. You could read all values from the `  AlbumTitle  ` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
+Suppose you wanted to fetch all rows of `Albums` that have `AlbumTitle` values in a certain range. You could read all values from the `AlbumTitle` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
 
 Adding a secondary index to an existing table requires a schema update. Like other schema updates, Spanner supports adding an index while the database continues to serve traffic. Spanner automatically backfills the index with your existing data. Backfills might take a few minutes to complete, but you don't need to take the database offline or avoid writing to the indexed table during this process. For more details, see [Add a secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#adding_an_index) .
 
@@ -947,7 +947,7 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 #### On the command line
 
-Use the following [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
+Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
     gcloud spanner databases ddl update example-db --instance=test-instance \
         --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
@@ -958,7 +958,7 @@ You should see:
 
 #### Using the Spanner client library for PHP
 
-Use [`  Database::updateDdl  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=updateDdl) to add an index:
+Use [`Database::updateDdl`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=updateDdl) to add an index:
 
     use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
     use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
@@ -992,7 +992,7 @@ Use [`  Database::updateDdl  `](https://docs.cloud.google.com/php/docs/reference
         printf('Added the AlbumsByAlbumTitle index.' . PHP_EOL);
     }
 
-Run the sample file `  src/create_index.php  ` .
+Run the sample file `src/create_index.php` .
 
     php src/create_index.php test-instance example-db
 
@@ -1004,7 +1004,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 For SQL queries, Spanner automatically uses an appropriate index. In the read interface, you must specify the index in your request.
 
-To use the index in the read interface, use the [`  Database::read  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=read) method.
+To use the index in the read interface, use the [`Database::read`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=read) method.
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -1045,7 +1045,7 @@ To use the index in the read interface, use the [`  Database::read  `](https://d
         }
     }
 
-Run the sample file `  src/read_data_with_index.php  ` .
+Run the sample file `src/read_data_with_index.php` .
 
     php src/read_data_with_index.php test-instance example-db
 
@@ -1059,9 +1059,9 @@ You should see:
 
 ### Add an index for index-only reads
 
-You might have noticed that the previous read example doesn't include reading the `  MarketingBudget  ` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
+You might have noticed that the previous read example doesn't include reading the `MarketingBudget` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
 
-Create an alternate definition of `  AlbumsByAlbumTitle  ` that stores a copy of `  MarketingBudget  ` in the index.
+Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `MarketingBudget` in the index.
 
 #### On the command line
 
@@ -1081,7 +1081,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 #### Using the Spanner client library for PHP
 
-Use [`  Database::updateDdl  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=updateDdl) to add an index with a `  STORING  ` clause:
+Use [`Database::updateDdl`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=updateDdl) to add an index with a `STORING` clause:
 
     use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
     use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
@@ -1123,7 +1123,7 @@ Use [`  Database::updateDdl  `](https://docs.cloud.google.com/php/docs/reference
         printf('Added the AlbumsByAlbumTitle2 index.' . PHP_EOL);
     }
 
-Run the sample file `  src/create_storing_index.php  ` .
+Run the sample file `src/create_storing_index.php` .
 
     php src/create_storing_index.php test-instance example-db
 
@@ -1131,7 +1131,7 @@ You should see:
 
     Added the AlbumsByAlbumTitle2 index.
 
-Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , and `  MarketingBudget  ` columns from the `  AlbumsByAlbumTitle2  ` index:
+Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -1174,7 +1174,7 @@ Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , a
         }
     }
 
-Run the sample file `  src/read_data_with_storing_index.php  ` .
+Run the sample file `src/read_data_with_storing_index.php` .
 
     php src/read_data_with_storing_index.php test-instance example-db
 
@@ -1188,7 +1188,7 @@ You should see output similar to:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use a [`  Snapshot  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/snapshot) object for executing read-only transactions. Use the [`  Database::snapshot  `](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=snapshot) method to get a `  Snapshot  ` object.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use a [`Snapshot`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/snapshot) object for executing read-only transactions. Use the [`Database::snapshot`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=snapshot) method to get a `Snapshot` object.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
@@ -1240,7 +1240,7 @@ The following shows how to run a query and perform a read in the same read-only 
         }
     }
 
-Run the sample file `  src/read_only_transaction.php  ` .
+Run the sample file `src/read_only_transaction.php` .
 
     php src/read_only_transaction.php test-instance example-db
 

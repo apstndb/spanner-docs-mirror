@@ -1,6 +1,6 @@
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/MultiplexedSessionPrecommitToken#SCHEMA_REPRESENTATION)
 
-When a read-write transaction is executed on a multiplexed session, this precommit token is sent back to the client as a part of the `  Transaction  ` message in the `  sessions.beginTransaction  ` response and also as a part of the `  ResultSet  ` and `  PartialResultSet  ` responses.
+When a read-write transaction is executed on a multiplexed session, this precommit token is sent back to the client as a part of the `  Transaction  ` message in the `sessions.beginTransaction` response and also as a part of the `  ResultSet  ` and `  PartialResultSet  ` responses.
 
 <table>
 <colgroup>
@@ -23,16 +23,16 @@ When a read-write transaction is executed on a multiplexed session, this precomm
 
 Fields
 
-`  precommitToken  `
+`precommitToken`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
 Opaque precommit token.
 
 A base64-encoded string.
 
-`  seqNum  `
+`seqNum`
 
-`  integer  `
+`integer`
 
 An incrementing seq number is generated on every precommit token that is returned. Clients should remember the precommit token with the highest sequence number from the current transaction attempt.

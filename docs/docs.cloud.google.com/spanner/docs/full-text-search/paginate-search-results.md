@@ -15,15 +15,15 @@ Spanner generally recommends using key-based pagination. While offset-based pagi
 
 Key-based pagination, on the other hand, uses a unique identifier (key) from the last result of a page to fetch the next set of results. This ensures both efficient retrieval and consistent results, even if the underlying data changes.
 
-To provide stability in page results, the application could issue all queries for different pages at the same timestamp. This, however, might fail if the query exceeds the [version retention period](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) (the default is 1 hour). For example, this failure happens if `  version_gc  ` is one hour, and the end user fetched the first results at 1 PM and clicked *Next* at 3 PM.
+To provide stability in page results, the application could issue all queries for different pages at the same timestamp. This, however, might fail if the query exceeds the [version retention period](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) (the default is 1 hour). For example, this failure happens if `version_gc` is one hour, and the end user fetched the first results at 1 PM and clicked *Next* at 3 PM.
 
 ## Use key-based pagination
 
-Key-based pagination remembers the last item of the previous page and uses it as a starting point for the next page query. To achieve this, the query must return the columns specified in the `  ORDER BY  ` clause and limit the number of rows using `  LIMIT  ` .
+Key-based pagination remembers the last item of the previous page and uses it as a starting point for the next page query. To achieve this, the query must return the columns specified in the `ORDER BY` clause and limit the number of rows using `LIMIT` .
 
 For key-based pagination to work, the query must order results by some strict total order. The easiest way to get one is to choose any [total order](https://en.wikipedia.org/wiki/Total_order) and then add tie-breaker columns, if needed. In most cases, the total order is the search index sort order and the unique combination of columns is the base table primary key.
 
-Using our `  Albums  ` sample schema, for the first page, the query looks like the following:
+Using our `Albums` sample schema, for the first page, the query looks like the following:
 
 ### GoogleSQL
 
@@ -41,11 +41,11 @@ Using our `  Albums  ` sample schema, for the first page, the query looks like t
     ORDER BY releasetimestamp DESC, albumid
     LIMIT 10;
 
-The `  AlbumId  ` is the tie breaker since `  ReleaseTimestamp  ` isn't a key. There might be two different albums with the same value for `  ReleaseTimestamp  ` .
+The `AlbumId` is the tie breaker since `ReleaseTimestamp` isn't a key. There might be two different albums with the same value for `ReleaseTimestamp` .
 
-To resume, the application runs the same query again, but with a `  WHERE  ` clause that restricts the results from the previous page. The additional condition needs to account for key direction (ascending versus descending), tie breakers, and the order of NULL values for nullable columns.
+To resume, the application runs the same query again, but with a `WHERE` clause that restricts the results from the previous page. The additional condition needs to account for key direction (ascending versus descending), tie breakers, and the order of NULL values for nullable columns.
 
-In our example, `  AlbumId  ` is the only key column (in ascending order) and it can't be NULL, so the condition is the following:
+In our example, `AlbumId` is the only key column (in ascending order) and it can't be NULL, so the condition is the following:
 
 ### GoogleSQL
 
@@ -60,7 +60,7 @@ In our example, `  AlbumId  ` is the only key column (in ascending order) and it
 
 ### PostgreSQL
 
-This example uses query parameters `  $1  ` , `  $2  ` , `  $3  ` and `  $4  ` which are bound to values specified for `  last_page_release_timestamp  ` , `  last_page_album_id  ` , `  query  ` , and `  page_size  ` , respectively.
+This example uses query parameters `$1` , `$2` , `$3` and `$4` which are bound to values specified for `last_page_release_timestamp` , `last_page_album_id` , `query` , and `page_size` , respectively.
 
     SELECT albumid, releasetimestamp
     FROM albums
@@ -75,7 +75,7 @@ Spanner interprets this kind of condition as [seekable](https://docs.cloud.googl
 
 ## Use offset-based pagination
 
-Offset-based pagination leverages the `  LIMIT  ` and `  OFFSET  ` clauses of SQL query to simulate pages. The `  LIMIT  ` value indicates the number of results per page. The `  OFFSET  ` value is set to zero for the first page, page size for the second page, and double the page size for the third page.
+Offset-based pagination leverages the `LIMIT` and `OFFSET` clauses of SQL query to simulate pages. The `LIMIT` value indicates the number of results per page. The `OFFSET` value is set to zero for the first page, page size for the second page, and double the page size for the third page.
 
 For example, the following query fetches the third page, with a page size of 50:
 
@@ -97,8 +97,8 @@ For example, the following query fetches the third page, with a page size of 50:
 
 Usage Notes:
 
-  - The `  ORDER BY  ` clause is highly recommended to ensure consistent ordering between pages.
-  - In production queries, use query parameters rather than constants to specify `  LIMIT  ` and `  OFFSET  ` to make query caching more efficient. For more information, see [Query parameters](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#query_parameters) .
+  - The `ORDER BY` clause is highly recommended to ensure consistent ordering between pages.
+  - In production queries, use query parameters rather than constants to specify `LIMIT` and `OFFSET` to make query caching more efficient. For more information, see [Query parameters](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#query_parameters) .
 
 ## What's next
 

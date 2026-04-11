@@ -34,7 +34,7 @@ For example, consider the following schema:
     
     CREATE SEARCH INDEX albumsindex ON albums(title_tokens, studio_tokens);
 
-A query can now search two fields: `  Title_Tokens  ` and `  Studio_Tokens  ` .
+A query can now search two fields: `Title_Tokens` and `Studio_Tokens` .
 
 ### GoogleSQL
 
@@ -50,9 +50,9 @@ A query can now search two fields: `  Title_Tokens  ` and `  Studio_Tokens  ` .
     WHERE spanner.search(title_tokens, 'fifth symphony')
       AND spanner.search(studio_tokens, 'Blue Note Studio')
 
-Spanner supports multi-column search queries in conjunction, disjunction, and negation operators in the `  WHERE  ` clause. You can use all of the following types of queries with a search index:
+Spanner supports multi-column search queries in conjunction, disjunction, and negation operators in the `WHERE` clause. You can use all of the following types of queries with a search index:
 
-  - **Conjunction** : Find documents where `  Title  ` has the term "car" and `  Studio  ` has the term "sun".
+  - **Conjunction** : Find documents where `Title` has the term "car" and `Studio` has the term "sun".
     
     ### GoogleSQL
     
@@ -66,7 +66,7 @@ Spanner supports multi-column search queries in conjunction, disjunction, and ne
         FROM albums
         WHERE spanner.search(title_tokens, 'car') AND spanner.search(studio_tokens, 'sun')
 
-  - **Disjunction** : Find documents where either `  Title  ` has the term "car" or `  Studio  ` has the term "sun"
+  - **Disjunction** : Find documents where either `Title` has the term "car" or `Studio` has the term "sun"
     
     ### GoogleSQL
     
@@ -80,7 +80,7 @@ Spanner supports multi-column search queries in conjunction, disjunction, and ne
         FROM albums
         WHERE spanner.search(title_tokens, 'car') OR spanner.search(studio_tokens, 'sun')
 
-  - **Negation** : Find all documents where `  Title  ` doesn't contain the term "car".
+  - **Negation** : Find all documents where `Title` doesn't contain the term "car".
     
     ### GoogleSQL
     
@@ -108,9 +108,9 @@ Spanner supports multi-column search queries in conjunction, disjunction, and ne
         FROM albums
         WHERE spanner.search(title_tokens, '-car')
     
-    Both forms filter documents where `  Title  ` is NULL. Tokenization and search functions are defined to return NULL on NULL input. SQL defines NOT NULL as NULL.
+    Both forms filter documents where `Title` is NULL. Tokenization and search functions are defined to return NULL on NULL input. SQL defines NOT NULL as NULL.
 
-Additionally, you can reference the same `  TOKENLIST  ` column multiple times.
+Additionally, you can reference the same `TOKENLIST` column multiple times.
 
 ### GoogleSQL
 

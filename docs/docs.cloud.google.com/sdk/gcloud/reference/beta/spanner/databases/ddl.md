@@ -4,26 +4,26 @@ gcloud beta spanner databases ddl - manage the DDL for Cloud Spanner databases
 
 SYNOPSIS
 
-`  gcloud beta spanner databases ddl  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner databases ddl` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage the DDL for Cloud Spanner databases.
+`(BETA)` Manage the DDL for Cloud Spanner databases.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  describe  `  
-    `  (BETA)  ` Describe the DDL for a Cloud Spanner database.
+    `(BETA)` Describe the DDL for a Cloud Spanner database.
   - `  update  `  
-    `  (BETA)  ` Update the DDL for a Cloud Spanner database.
+    `(BETA)` Update the DDL for a Cloud Spanner database.
 
 NOTES
 

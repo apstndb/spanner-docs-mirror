@@ -18,7 +18,7 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
@@ -45,7 +45,7 @@ In particular, make sure that you run [`  gcloud auth application-default login 
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -172,7 +172,7 @@ The next step is to write data to your database.
 
 ## Create a database client
 
-Before you can do reads or writes, you must create a [`  DatabaseClient  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient) . You can think of a `  DatabaseClient  ` as a database connection: all of your interactions with Spanner must go through a `  DatabaseClient  ` . Typically you create a `  DatabaseClient  ` when your application starts up, then you re-use that `  DatabaseClient  ` to read, write, and execute transactions.
+Before you can do reads or writes, you must create a [`DatabaseClient`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient) . You can think of a `DatabaseClient` as a database connection: all of your interactions with Spanner must go through a `DatabaseClient` . Typically you create a `DatabaseClient` when your application starts up, then you re-use that `DatabaseClient` to read, write, and execute transactions.
 
     SpannerOptions options = SpannerOptions.newBuilder().build();
     Spanner spanner = options.getService();
@@ -189,9 +189,9 @@ Before you can do reads or writes, you must create a [`  DatabaseClient  `](http
       spanner.close();
     }
 
-Each client uses resources in Spanner, so it is good practice to close unneeded clients by calling [`  close()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Spanner#com_google_cloud_spanner_Spanner_close__) .
+Each client uses resources in Spanner, so it is good practice to close unneeded clients by calling [`close()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Spanner#com_google_cloud_spanner_Spanner_close__) .
 
-Read more in the [`  DatabaseClient  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient) Javadoc reference.
+Read more in the [`DatabaseClient`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient) Javadoc reference.
 
 <span id="write_data"></span>
 
@@ -199,7 +199,7 @@ Read more in the [`  DatabaseClient  `](https://docs.cloud.google.com/java/docs/
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
-You use the `  executeUpdate()  ` method to execute a DML statement.
+You use the `executeUpdate()` method to execute a DML statement.
 
     static void writeUsingDml(DatabaseClient dbClient) {
       // Insert 4 singer records
@@ -218,7 +218,7 @@ You use the `  executeUpdate()  ` method to execute a DML statement.
           });
     }
 
-Run the sample using the `  writeusingdml  ` argument.
+Run the sample using the `writeusingdml` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         writeusingdml test-instance example-db
@@ -235,11 +235,11 @@ You should see:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-You can write data using a [`  Mutation  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation) object. A `  Mutation  ` object is a container for mutation operations. A `  Mutation  ` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
+You can write data using a [`Mutation`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation) object. A `Mutation` object is a container for mutation operations. A `Mutation` represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a Spanner database.
 
-The [`  newInsertBuilder()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertBuilder_java_lang_String_) method in the `  Mutation  ` class constructs an `  INSERT  ` mutation, which inserts a new row in a table. If the row already exists, the write fails. Alternatively, you can use the [`  newInsertOrUpdateBuilder  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertOrUpdateBuilder_java_lang_String_) method to construct an `  INSERT_OR_UPDATE  ` mutation, which updates column values if the row already exists.
+The [`newInsertBuilder()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertBuilder_java_lang_String_) method in the `Mutation` class constructs an `INSERT` mutation, which inserts a new row in a table. If the row already exists, the write fails. Alternatively, you can use the [`newInsertOrUpdateBuilder`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Mutation#com_google_cloud_spanner_Mutation_newInsertOrUpdateBuilder_java_lang_String_) method to construct an `INSERT_OR_UPDATE` mutation, which updates column values if the row already exists.
 
-The [`  write()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_write_java_lang_Iterable_com_google_cloud_spanner_Mutation__) method in the `  DatabaseClient  ` class writes the mutations. All mutations in a single batch are applied atomically.
+The [`write()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_write_java_lang_Iterable_com_google_cloud_spanner_Mutation__) method in the `DatabaseClient` class writes the mutations. All mutations in a single batch are applied atomically.
 
 This code shows how to write the data using mutations:
 
@@ -285,7 +285,7 @@ This code shows how to write the data using mutations:
       dbClient.write(mutations);
     }
 
-Run the sample using the `  write  ` argument.
+Run the sample using the `write` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         write test-instance example-db
@@ -300,7 +300,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
@@ -322,10 +322,10 @@ In addition to executing a SQL statement on the command line, you can issue the 
 
 The following methods and classes are used to run the SQL query:
 
-  - The [`  singleUse()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_singleUse__) method in the `  DatabaseClient  ` class: use this to read the value of one or more columns from one or more rows in a Spanner table. `  singleUse()  ` returns a `  ReadContext  ` object, which is used for running a read or SQL statement.
-  - The [`  executeQuery()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ReadContext#com_google_cloud_spanner_ReadContext_executeQuery_com_google_cloud_spanner_Statement_com_google_cloud_spanner_Options_QueryOption____) method of the `  ReadContext  ` class: use this method to execute a query against a database.
-  - The [`  Statement  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Statement) class: use this to construct a SQL string.
-  - The [`  ResultSet  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ResultSet) class: use this to access the data returned by a SQL statement or read call.
+  - The [`singleUse()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_singleUse__) method in the `DatabaseClient` class: use this to read the value of one or more columns from one or more rows in a Spanner table. `singleUse()` returns a `ReadContext` object, which is used for running a read or SQL statement.
+  - The [`executeQuery()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ReadContext#com_google_cloud_spanner_ReadContext_executeQuery_com_google_cloud_spanner_Statement_com_google_cloud_spanner_Options_QueryOption____) method of the `ReadContext` class: use this method to execute a query against a database.
+  - The [`Statement`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.Statement) class: use this to construct a SQL string.
+  - The [`ResultSet`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ResultSet) class: use this to access the data returned by a SQL statement or read call.
 
 Here's how to issue the query and access the data:
 
@@ -341,7 +341,7 @@ Here's how to issue the query and access the data:
       }
     }
 
-Run the sample using the `  query  ` argument.
+Run the sample using the `query` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         query test-instance example-db
@@ -358,7 +358,7 @@ You should see the following result:
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
 ### GoogleSQL
 
@@ -418,7 +418,7 @@ You should see the following result:
 
 In addition to Spanner's SQL interface, Spanner also supports a read interface.
 
-Use the [`  read()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ReadContext#com_google_cloud_spanner_ReadContext_read_java_lang_String_com_google_cloud_spanner_KeySet_java_lang_Iterable_java_lang_String__com_google_cloud_spanner_Options_ReadOption____) method of the `  ReadContext  ` class to read rows from the database. Use a [`  KeySet  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.KeySet) object to define a collection of keys and key ranges to read.
+Use the [`read()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ReadContext#com_google_cloud_spanner_ReadContext_read_java_lang_String_com_google_cloud_spanner_KeySet_java_lang_Iterable_java_lang_String__com_google_cloud_spanner_Options_ReadOption____) method of the `ReadContext` class to read rows from the database. Use a [`KeySet`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.KeySet) object to define a collection of keys and key ranges to read.
 
 Here's how to read the data:
 
@@ -437,7 +437,7 @@ Here's how to read the data:
       }
     }
 
-Run the sample using the `  read  ` argument.
+Run the sample using the `read` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         read test-instance example-db
@@ -452,7 +452,7 @@ You should see output similar to:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -460,7 +460,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
 ### GoogleSQL
 
@@ -478,7 +478,7 @@ You should see:
 
 #### Use the Spanner client library for Java
 
-Use the [`  updateDatabaseDdl()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseAdminClient#com_google_cloud_spanner_DatabaseAdminClient_updateDatabaseDdl_java_lang_String_java_lang_String_java_lang_Iterable_java_lang_String__java_lang_String_) method of the `  DatabaseAdminClient  ` class to modify the schema:
+Use the [`updateDatabaseDdl()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseAdminClient#com_google_cloud_spanner_DatabaseAdminClient_updateDatabaseDdl_java_lang_String_java_lang_String_java_lang_Iterable_java_lang_String__java_lang_String_) method of the `DatabaseAdminClient` class to modify the schema:
 
 ### GoogleSQL
 
@@ -518,7 +518,7 @@ Use the [`  updateDatabaseDdl()  `](https://docs.cloud.google.com/java/docs/refe
       }
     }
 
-Run the sample using the `  addmarketingbudget  ` argument.
+Run the sample using the `addmarketingbudget` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         addmarketingbudget test-instance example-db
@@ -529,7 +529,7 @@ You should see:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
     static void update(DatabaseClient dbClient) {
       // Mutation can be used to update/insert/delete a single row in a table. Here we use
@@ -556,7 +556,7 @@ The following code writes data to the new column. It sets `  MarketingBudget  ` 
       dbClient.write(mutations);
     }
 
-Run the sample using the `  update  ` argument.
+Run the sample using the `update` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         update test-instance example-db
@@ -612,7 +612,7 @@ Here's the code to execute the query:
       }
     }
 
-To execute this query, run the sample using the `  querymarketingbudget  ` argument.
+To execute this query, run the sample using the `querymarketingbudget` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         querymarketingbudget test-instance example-db
@@ -629,7 +629,7 @@ You should see:
 
 You can update data using DML in a read-write transaction.
 
-You use the [`  executeUpdate()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionContext#com_google_cloud_spanner_TransactionContext_executeUpdate_com_google_cloud_spanner_Statement_com_google_cloud_spanner_Options_UpdateOption____) method to execute a DML statement.
+You use the [`executeUpdate()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.TransactionContext#com_google_cloud_spanner_TransactionContext_executeUpdate_com_google_cloud_spanner_Statement_com_google_cloud_spanner_Options_UpdateOption____) method to execute a DML statement.
 
 ### GoogleSQL
 
@@ -737,7 +737,7 @@ You use the [`  executeUpdate()  `](https://docs.cloud.google.com/java/docs/refe
           });
     }
 
-Run the sample using the `  writewithtransactionusingdml  ` argument.
+Run the sample using the `writewithtransactionusingdml` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         writewithtransactionusingdml test-instance example-db
@@ -746,7 +746,7 @@ Run the sample using the `  writewithtransactionusingdml  ` argument.
 
 ## Use a secondary index
 
-Suppose you wanted to fetch all rows of `  Albums  ` that have `  AlbumTitle  ` values in a certain range. You could read all values from the `  AlbumTitle  ` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
+Suppose you wanted to fetch all rows of `Albums` that have `AlbumTitle` values in a certain range. You could read all values from the `AlbumTitle` column using a SQL statement or a read call, and then discard the rows that don't meet the criteria, but doing this full table scan is expensive, especially for tables with a lot of rows. Instead you can speed up the retrieval of rows when searching by non-primary key columns by creating a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) on the table.
 
 Adding a secondary index to an existing table requires a schema update. Like other schema updates, Spanner supports adding an index while the database continues to serve traffic. Spanner automatically backfills the index with your existing data. Backfills might take a few minutes to complete, but you don't need to take the database offline or avoid writing to the indexed table during this process. For more details, see [Add a secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#adding_an_index) .
 
@@ -758,7 +758,7 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 #### On the command line
 
-Use the following [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
+Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
     gcloud spanner databases ddl update example-db --instance=test-instance \
         --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
@@ -769,7 +769,7 @@ You should see:
 
 #### Using the Spanner client library for Java
 
-Use the [`  updateDatabaseDdl()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseAdminClient#com_google_cloud_spanner_DatabaseAdminClient_updateDatabaseDdl_java_lang_String_java_lang_String_java_lang_Iterable_java_lang_String__java_lang_String_) method of the `  DatabaseAdminClient  ` class to add an index:
+Use the [`updateDatabaseDdl()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseAdminClient#com_google_cloud_spanner_DatabaseAdminClient_updateDatabaseDdl_java_lang_String_java_lang_String_java_lang_Iterable_java_lang_String__java_lang_String_) method of the `DatabaseAdminClient` class to add an index:
 
     static void addIndex(DatabaseAdminClient adminClient, DatabaseName databaseName) {
       try {
@@ -788,7 +788,7 @@ Use the [`  updateDatabaseDdl()  `](https://docs.cloud.google.com/java/docs/refe
       }
     }
 
-Run the sample using the `  addindex  ` argument.
+Run the sample using the `addindex` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         addindex test-instance example-db
@@ -801,9 +801,9 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 For SQL queries, Spanner automatically uses an appropriate index. In the read interface, you must specify the index in your request.
 
-To use the index in the read interface, use the [`  readUsingIndex()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ReadContext#com_google_cloud_spanner_ReadContext_readUsingIndex_java_lang_String_java_lang_String_com_google_cloud_spanner_KeySet_java_lang_Iterable_java_lang_String__com_google_cloud_spanner_Options_ReadOption____) method of the `  ReadContext  ` class.
+To use the index in the read interface, use the [`readUsingIndex()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ReadContext#com_google_cloud_spanner_ReadContext_readUsingIndex_java_lang_String_java_lang_String_com_google_cloud_spanner_KeySet_java_lang_Iterable_java_lang_String__com_google_cloud_spanner_Options_ReadOption____) method of the `ReadContext` class.
 
-The following code fetches all `  AlbumId  ` , and `  AlbumTitle  ` columns from the `  AlbumsByAlbumTitle  ` index.
+The following code fetches all `AlbumId` , and `AlbumTitle` columns from the `AlbumsByAlbumTitle` index.
 
     static void readUsingIndex(DatabaseClient dbClient) {
       try (ResultSet resultSet =
@@ -820,7 +820,7 @@ The following code fetches all `  AlbumId  ` , and `  AlbumTitle  ` columns from
       }
     }
 
-Run the sample using the `  readindex  ` argument.
+Run the sample using the `readindex` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         readindex test-instance example-db
@@ -835,9 +835,9 @@ You should see:
 
 ### Add an index for index-only reads
 
-You might have noticed that the previous read example doesn't include reading the `  MarketingBudget  ` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
+You might have noticed that the previous read example doesn't include reading the `MarketingBudget` column. This is because Spanner's read interface doesn't support the ability to join an index with a data table to look up values that are not stored in the index.
 
-Create an alternate definition of `  AlbumsByAlbumTitle  ` that stores a copy of `  MarketingBudget  ` in the index.
+Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `MarketingBudget` in the index.
 
 #### On the command line
 
@@ -857,7 +857,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
 #### Using the Spanner client library for Java
 
-Use the [`  updateDatabaseDdl()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseAdminClient#com_google_cloud_spanner_DatabaseAdminClient_updateDatabaseDdl_java_lang_String_java_lang_String_java_lang_Iterable_java_lang_String__java_lang_String_) method of the `  DatabaseAdminClient  ` class to add an index with a `  STORING  ` clause for GoogleSQL and `  INCLUDE  ` clause for PostgreSQL:
+Use the [`updateDatabaseDdl()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseAdminClient#com_google_cloud_spanner_DatabaseAdminClient_updateDatabaseDdl_java_lang_String_java_lang_String_java_lang_Iterable_java_lang_String__java_lang_String_) method of the `DatabaseAdminClient` class to add an index with a `STORING` clause for GoogleSQL and `INCLUDE` clause for PostgreSQL:
 
 ### GoogleSQL
 
@@ -901,7 +901,7 @@ Use the [`  updateDatabaseDdl()  `](https://docs.cloud.google.com/java/docs/refe
       }
     }
 
-Run the sample using the `  addstoringindex  ` argument.
+Run the sample using the `addstoringindex` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         addstoringindex test-instance example-db
@@ -910,7 +910,7 @@ Adding an index can take a few minutes. After the index is added, you should see
 
     Added AlbumsByAlbumTitle2 index
 
-Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , and `  MarketingBudget  ` columns from the `  AlbumsByAlbumTitle2  ` index:
+Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
     static void readStoringIndex(DatabaseClient dbClient) {
       // We can read MarketingBudget also from the index since it stores a copy of MarketingBudget.
@@ -932,7 +932,7 @@ Now you can execute a read that fetches all `  AlbumId  ` , `  AlbumTitle  ` , a
       }
     }
 
-Run the sample using the `  readstoringindex  ` argument.
+Run the sample using the `readstoringindex` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         readstoringindex test-instance example-db
@@ -947,7 +947,7 @@ You should see output similar to:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use a [`  ReadOnlyTransaction  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ReadOnlyTransaction) object for executing read-only transactions. Use the [`  readOnlyTransaction()  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_readOnlyTransaction__) method of the `  DatabaseClient  ` class to get a `  ReadOnlyTransaction  ` object.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Use a [`ReadOnlyTransaction`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.ReadOnlyTransaction) object for executing read-only transactions. Use the [`readOnlyTransaction()`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.DatabaseClient#com_google_cloud_spanner_DatabaseClient_readOnlyTransaction__) method of the `DatabaseClient` class to get a `ReadOnlyTransaction` object.
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
@@ -976,7 +976,7 @@ The following shows how to run a query and perform a read in the same read-only 
       } // transaction.close() is automatically called here
     }
 
-Run the sample using the `  readonlytransaction  ` argument.
+Run the sample using the `readonlytransaction` argument.
 
     java -jar target/spanner-snippets/spanner-google-cloud-samples.jar \
         readonlytransaction test-instance example-db

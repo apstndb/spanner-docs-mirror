@@ -4,24 +4,24 @@ GQL supports the following building blocks, which can be composed into a GQL que
 
 ## Language list
 
-| Name                                                                                                                                           | Summary                                                                                          |
-| ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| [GQL syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax)                              | Creates a graph query with the GQL syntax.                                                       |
-| [`         GRAPH        ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_query)        | Specifies a property graph to query.                                                             |
-| [`         CALL        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_call)         | Executes an inline subquery over the working table.                                              |
-| [`         FILTER        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_filter)     | Filters out rows in the query results that don't satisfy a specified condition.                  |
-| [`         FOR        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_for)           | Unnests an `        ARRAY       ` -typed expression.                                             |
-| [`         LET        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_let)           | Defines variables and assigns values for later use in the current linear query statement.        |
-| [`         LIMIT        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_limit)       | Limits the number of query results.                                                              |
-| [`         MATCH        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match)       | Matches data described by a graph pattern.                                                       |
-| [`         NEXT        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_next)         | Chains multiple linear query statements together.                                                |
-| [`         OFFSET        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_offset)     | Skips a specified number of rows in the query results.                                           |
-| [`         ORDER BY        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_order_by) | Orders the query results.                                                                        |
-| [`         RETURN        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return)     | Marks the end of a linear query statement and returns the results.                               |
-| [`         SKIP        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_skip)         | Synonym for the `        OFFSET       ` statement.                                               |
-| [`         WITH        ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_with)         | Passes on the specified columns, optionally filtering, renaming, and transforming those results. |
-| [Set operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_set)                              | Combines a sequence of linear query statements with a set operation.                             |
-| [Graph hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_hints)                            | Query hints, which make the query optimizer use a specific operator in the execution plan.       |
+| Name                                                                                                                          | Summary                                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| [GQL syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax)             | Creates a graph query with the GQL syntax.                                                       |
+| [`GRAPH` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_query)        | Specifies a property graph to query.                                                             |
+| [`CALL` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_call)         | Executes an inline subquery over the working table.                                              |
+| [`FILTER` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_filter)     | Filters out rows in the query results that don't satisfy a specified condition.                  |
+| [`FOR` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_for)           | Unnests an `ARRAY` -typed expression.                                                            |
+| [`LET` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_let)           | Defines variables and assigns values for later use in the current linear query statement.        |
+| [`LIMIT` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_limit)       | Limits the number of query results.                                                              |
+| [`MATCH` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match)       | Matches data described by a graph pattern.                                                       |
+| [`NEXT` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_next)         | Chains multiple linear query statements together.                                                |
+| [`OFFSET` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_offset)     | Skips a specified number of rows in the query results.                                           |
+| [`ORDER BY` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_order_by) | Orders the query results.                                                                        |
+| [`RETURN` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return)     | Marks the end of a linear query statement and returns the results.                               |
+| [`SKIP` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_skip)         | Synonym for the `OFFSET` statement.                                                              |
+| [`WITH` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_with)         | Passes on the specified columns, optionally filtering, renaming, and transforming those results. |
+| [Set operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_set)             | Combines a sequence of linear query statements with a set operation.                             |
+| [Graph hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_hints)           | Query hints, which make the query optimizer use a specific operator in the execution plan.       |
 
 ## GQL syntax
 
@@ -58,14 +58,14 @@ Creates a graph query with the GQL syntax. The syntax rules define how to compos
 
 #### Definitions
 
-  - `  primitive_query_statement  ` : A statement in [Query statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#language-list) except for the `  NEXT  ` statement.
-  - `  simple_linear_query_statement  ` : A list of `  primitive_query_statement  ` s that ends with a [`  RETURN  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) .
-  - `  composite_linear_query_statement  ` : A list of `  simple_linear_query_statement  ` s composited with the [set operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#set_operators) .
-  - `  linear_query_statement  ` : A statement that's either a `  simple_linear_query_statement  ` or a `  composite_linear_query_statement  ` .
-  - `  multi_linear_query_statement  ` : A list of `  linear_query_statement  ` s chained together with the [`  NEXT  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_next) .
-  - `  graph_query  ` : A GQL query that starts with a [`  GRAPH  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_query) , then follows with a `  multi_linear_query_statement  ` .
+  - `primitive_query_statement` : A statement in [Query statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#language-list) except for the `NEXT` statement.
+  - `simple_linear_query_statement` : A list of `primitive_query_statement` s that ends with a [`RETURN` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) .
+  - `composite_linear_query_statement` : A list of `simple_linear_query_statement` s composited with the [set operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#set_operators) .
+  - `linear_query_statement` : A statement that's either a `simple_linear_query_statement` or a `composite_linear_query_statement` .
+  - `multi_linear_query_statement` : A list of `linear_query_statement` s chained together with the [`NEXT` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_next) .
+  - `graph_query` : A GQL query that starts with a [`GRAPH` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_query) , then follows with a `multi_linear_query_statement` .
 
-## `     GRAPH    ` clause
+## `GRAPH` clause
 
     GRAPH property_graph_name
     multi_linear_query_statement
@@ -76,12 +76,12 @@ Specifies a property graph to query. This clause must be added before the first 
 
 #### Definitions
 
-  - `  property_graph_name  ` : The name of the property graph to query.
-  - `  multi_linear_query_statement  ` : A multi linear query statement. For more information, see `  multi_linear_query_statement  ` in [GQL syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax) .
+  - `property_graph_name` : The name of the property graph to query.
+  - `multi_linear_query_statement` : A multi linear query statement. For more information, see `multi_linear_query_statement` in [GQL syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax) .
 
 #### Examples
 
-The following example queries the [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) property graph to find accounts with incoming transfers and looks up their owners:
+The following example queries the [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) property graph to find accounts with incoming transfers and looks up their owners:
 
     GRAPH FinGraph
     MATCH (:Account)-[:Transfers]->(account:Account)
@@ -103,9 +103,9 @@ The following example queries the [`  FinGraph  `](https://docs.cloud.google.com
      | 6          | Lee        | 3                      |
      +--------------------------------------------------*/
 
-## `     CALL    ` statement
+## `CALL` statement
 
-**Note:** Syntax characters enclosed in double quotes ( `  ""  ` ) are literal and required.
+**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     [ OPTIONAL ] CALL ( [ variable_name [ , ... ] ] ) "{" subquery "}"
 
@@ -115,32 +115,32 @@ Executes an inline subquery over the working table.
 
 #### Definitions
 
-  - `  OPTIONAL  ` : A clause that retains all rows, including rows for which the TVF or subquery produces no output. Rows with no output return `  NULL  ` values.
-  - `  variable_name  ` : A required, parenthesized list of variables from the outer scope that are available to the subquery. You can also use an empty variable list ( `  ()  ` ) for subqueries that don't reference any variables from the outer scope. You can redeclare or *multiply-declare* only node or edge variables from the outer scope to an inner scope path pattern of the subquery. With multiply-declared node or edge variables, both the outer and inner scope instances of the variable are equal. You can't multiply-declare other types of variables. For a demonstration of variable usage in subqueries, see the [inline subquery example](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#call_example_subquery) .
-  - `  subquery  ` : A graph query enclosed in curly braces ( `  {}  ` ) to execute. The subquery can reference only variables from the outer scope that the variable scope list includes. The subquery's `  RETURN  ` statement defines the subquery output.
+  - `OPTIONAL` : A clause that retains all rows, including rows for which the TVF or subquery produces no output. Rows with no output return `NULL` values.
+  - `variable_name` : A required, parenthesized list of variables from the outer scope that are available to the subquery. You can also use an empty variable list ( `()` ) for subqueries that don't reference any variables from the outer scope. You can redeclare or *multiply-declare* only node or edge variables from the outer scope to an inner scope path pattern of the subquery. With multiply-declared node or edge variables, both the outer and inner scope instances of the variable are equal. You can't multiply-declare other types of variables. For a demonstration of variable usage in subqueries, see the [inline subquery example](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#call_example_subquery) .
+  - `subquery` : A graph query enclosed in curly braces ( `{}` ) to execute. The subquery can reference only variables from the outer scope that the variable scope list includes. The subquery's `RETURN` statement defines the subquery output.
 
 #### Details
 
-The `  CALL  ` statement supports modular query design and the invocation of complex logic in a graph query.
+The `CALL` statement supports modular query design and the invocation of complex logic in a graph query.
 
-When you use an inline subquery, you must use a variable scope list in parentheses `  ()  ` before the opening curly brace `  {  ` of the subquery. The variable scope list specifies which variables from the outer query scope the subquery can access. An empty variable scope list `  ()  ` indicates that the subquery is self-contained and can't reference any variables from the outer scope.
+When you use an inline subquery, you must use a variable scope list in parentheses `()` before the opening curly brace `{` of the subquery. The variable scope list specifies which variables from the outer query scope the subquery can access. An empty variable scope list `()` indicates that the subquery is self-contained and can't reference any variables from the outer scope.
 
-The `  OPTIONAL CALL  ` clause ensures that the input row still appears even if the `  CALL  ` statement produces no results for a given input row. In such cases, the `  CALL  ` statement adds `  NULL  ` values to the columns where it produced no output.
+The `OPTIONAL CALL` clause ensures that the input row still appears even if the `CALL` statement produces no results for a given input row. In such cases, the `CALL` statement adds `NULL` values to the columns where it produced no output.
 
 **Column-naming rules**
 
-Queries that use the `  CALL  ` statement must maintain the following column-naming rules for uniqueness:
+Queries that use the `CALL` statement must maintain the following column-naming rules for uniqueness:
 
-  - **Within the subquery output:** The columns returned by the inline subquery itself must have unique names. For a subquery, the `  RETURN  ` statement enforces name uniqueness.
-  - **Combined output:** The final set of columns generated by the query includes columns from the input table and columns added by the `  CALL  ` statement. All final columns must have unique names. For subqueries, ensure that the column names in the `  RETURN  ` statement don't conflict with existing columns in the outer scope.
+  - **Within the subquery output:** The columns returned by the inline subquery itself must have unique names. For a subquery, the `RETURN` statement enforces name uniqueness.
+  - **Combined output:** The final set of columns generated by the query includes columns from the input table and columns added by the `CALL` statement. All final columns must have unique names. For subqueries, ensure that the column names in the `RETURN` statement don't conflict with existing columns in the outer scope.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 **Example: Call an inline subquery**
 
-The following example calls an inline subquery to find accounts owned by each matched person `  p  ` . Multiple accounts for the same person are ordered by account ID.
+The following example calls an inline subquery to find accounts owned by each matched person `p` . Multiple accounts for the same person are ordered by account ID.
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -162,7 +162,7 @@ The following example calls an inline subquery to find accounts owned by each ma
      | Lee         | 7          |
      +--------------------------*/
 
-Notice that the example declares the outer-scoped node variable `  p  ` ( `  CALL (p)  ` ) from the `  MATCH (p:Person)  ` clause. This declaration enables the node variable to be redeclared or *multiply-declared* in a path pattern of the subquery. If the `  CALL  ` statement doesn't declare the node variable `  p  ` , then the redeclared variable `  p  ` in the subquery is treated as a new variable, independent of the outer-scoped variable (not multiply-declared), and returns different results.
+Notice that the example declares the outer-scoped node variable `p` ( `CALL (p)` ) from the `MATCH (p:Person)` clause. This declaration enables the node variable to be redeclared or *multiply-declared* in a path pattern of the subquery. If the `CALL` statement doesn't declare the node variable `p` , then the redeclared variable `p` in the subquery is treated as a new variable, independent of the outer-scoped variable (not multiply-declared), and returns different results.
 
     GRAPH FinGraph
     MATCH (p:Person)  -- Outer-scoped variable `p`
@@ -187,7 +187,7 @@ Notice that the example declares the outer-scoped node variable `  p  ` ( `  CAL
      | Lee         |         16 |
      +--------------------------*/
 
-Additionally, the following version of the query fails because the declared variable `  Id  ` isn't a node or an edge variable. You can redeclare only node or edge variables in subqueries.
+Additionally, the following version of the query fails because the declared variable `Id` isn't a node or an edge variable. You can redeclare only node or edge variables in subqueries.
 
     GRAPH FinGraph
     MATCH (p:Person {Id:2})
@@ -207,7 +207,7 @@ Additionally, the following version of the query fails because the declared vari
 
 **Example: Call an inline subquery with aggregation**
 
-The following query calls an inline subquery that aggregates the number of accounts `  a  ` for each matched person `  p  ` :
+The following query calls an inline subquery that aggregates the number of accounts `a` for each matched person `p` :
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -226,9 +226,9 @@ The following query calls an inline subquery that aggregates the number of accou
      | Lee    | 1            |
      +-----------------------*/
 
-**Example: Use `  OPTIONAL  ` to include `  NULL  ` row values**
+**Example: Use `OPTIONAL` to include `NULL` row values**
 
-The following query finds the two most recent account transfers `  t  ` for each person `  p  ` . The `  OPTIONAL  ` clause includes rows for which the TVF or subquery produces no output. Rows with no output return `  NULL  ` values. Without the `  OPTIONAL  ` clause, rows with no output are excluded from the results.
+The following query finds the two most recent account transfers `t` for each person `p` . The `OPTIONAL` clause includes rows for which the TVF or subquery produces no output. Rows with no output return `NULL` values. Without the `OPTIONAL` clause, rows with no output are excluded from the results.
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -251,9 +251,9 @@ The following query finds the two most recent account transfers `  t  ` for each
      | Lee    | 16         | 300             | 2020-09-25    |
      +-------------------------------------------------------*/
 
-**Example: Use `  RETURN  ` to rename conflicting subquery column names**
+**Example: Use `RETURN` to rename conflicting subquery column names**
 
-The following query uses the `  RETURN  ` alias in the subquery to avoid conflicting with the `  p.Id  ` column.
+The following query uses the `RETURN` alias in the subquery to avoid conflicting with the `p.Id` column.
 
     GRAPH FinGraph
     MATCH (p:Person {Id: 1})
@@ -298,7 +298,7 @@ The following query finds the top three largest transfers over 50 dollar amounts
 
 **Example: Use an empty scope list in a subquery**
 
-The following subquery counts all `  Person  ` nodes. The `  total_persons  ` value is the same for all output rows because the subquery in the `  CALL ()  ` statement is empty and doesn't depend on any variables from the outer scope.
+The following subquery counts all `Person` nodes. The `total_persons` value is the same for all output rows because the subquery in the `CALL ()` statement is empty and doesn't depend on any variables from the outer scope.
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -319,7 +319,7 @@ The following subquery counts all `  Person  ` nodes. The `  total_persons  ` va
 
 **Example: Call nested subqueries with variable scoping**
 
-The following query uses nested subqueries with scoped variables. The query finds the number of transfers for each account, but only for transfers to accounts owned by the original person `  p  ` .
+The following query uses nested subqueries with scoped variables. The query finds the number of transfers for each account, but only for transfers to accounts owned by the original person `p` .
 
     GRAPH FinGraph
     MATCH (p:Person {Id:2})
@@ -340,7 +340,7 @@ The following query uses nested subqueries with scoped variables. The query find
      | Dana   | 20         | 0                  |
      +------------------------------------------*/
 
-## `     FILTER    ` statement
+## `FILTER` statement
 
     FILTER [ WHERE ] bool_expression
 
@@ -350,19 +350,19 @@ Filters out rows in the query results that don't satisfy a specified condition.
 
 #### Definitions
 
-  - `  bool_expression  ` : A boolean expression. Only rows whose `  bool_expression  ` evaluates to `  TRUE  ` are included. Rows whose `  bool_expression  ` evaluates to `  NULL  ` or `  FALSE  ` are discarded.
+  - `bool_expression` : A boolean expression. Only rows whose `bool_expression` evaluates to `TRUE` are included. Rows whose `bool_expression` evaluates to `NULL` or `FALSE` are discarded.
 
 #### Details
 
-The `  FILTER  ` statement can reference columns in the working table.
+The `FILTER` statement can reference columns in the working table.
 
-The syntax for the `  FILTER  ` statement is similar to the syntax for the [graph pattern `  WHERE  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) , but they are evaluated differently. The `  FILTER  ` statement is evaluated after the previous statement. The `  WHERE  ` clause is evaluated as part of the containing statement.
+The syntax for the `FILTER` statement is similar to the syntax for the [graph pattern `WHERE` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) , but they are evaluated differently. The `FILTER` statement is evaluated after the previous statement. The `WHERE` clause is evaluated as part of the containing statement.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-In the following query, people with `  Id = 1  ` are excluded from the results table:
+In the following query, people with `Id = 1` are excluded from the results table:
 
     GRAPH FinGraph
     MATCH (p:Person)-[o:Owns]->(a:Account)
@@ -376,7 +376,7 @@ In the following query, people with `  Id = 1  ` are excluded from the results t
      | "Lee"  | 16         |
      +--------+------------*/
 
-`  WHERE  ` is an optional keyword that you can include in a `  FILTER  ` statement. The following query is semantically identical to the previous query:
+`WHERE` is an optional keyword that you can include in a `FILTER` statement. The following query is semantically identical to the previous query:
 
     GRAPH FinGraph
     MATCH (p:Person)-[o:Owns]->(a:Account)
@@ -390,7 +390,7 @@ In the following query, people with `  Id = 1  ` are excluded from the results t
      | "Lee"  |         16 |
      +--------+------------*/
 
-In the following example, `  FILTER  ` follows an aggregation step with grouping. Semantically, it's similar to the `  HAVING  ` clause in SQL:
+In the following example, `FILTER` follows an aggregation step with grouping. Semantically, it's similar to the `HAVING` clause in SQL:
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(dest:Account)
@@ -409,7 +409,7 @@ In the following example, `  FILTER  ` follows an aggregation step with grouping
      | 20        | 2             |
      +---------------------------*/
 
-In the following example, an error is produced because `  FILTER  ` references `  m  ` , which isn't in the working table:
+In the following example, an error is produced because `FILTER` references `m` , which isn't in the working table:
 
     -- Error: m doesn't exist
     GRAPH FinGraph
@@ -417,7 +417,7 @@ In the following example, an error is produced because `  FILTER  ` references `
     FILTER WHERE m.Id <> 1
     RETURN p.name
 
-In the following example, an error is produced because even though `  p  ` is in the working table, `  p  ` doesn't have a property called `  date_of_birth  ` :
+In the following example, an error is produced because even though `p` is in the working table, `p` doesn't have a property called `date_of_birth` :
 
     -- ERROR: date_of_birth isn't a property of p
     GRAPH FinGraph
@@ -425,7 +425,7 @@ In the following example, an error is produced because even though `  p  ` is in
     FILTER WHERE p.date_of_birth < '1990-01-10'
     RETURN p.name
 
-## `     FOR    ` statement
+## `FOR` statement
 
     FOR element_name IN array_expression
       [ with_offset_clause ]
@@ -435,30 +435,30 @@ In the following example, an error is produced because even though `  p  ` is in
 
 #### Description
 
-Unnests an `  ARRAY  ` -typed expression and joins the result with the current working table.
+Unnests an `ARRAY` -typed expression and joins the result with the current working table.
 
 #### Definitions
 
-  - `  array_expression  ` : An `  ARRAY  ` -typed expression.
-  - `  element_name  ` : The name of the element column. The name can't be the name of a column that already exists in the current linear query statement.
-  - `  offset_name  ` : The name of the offset column. The name can't be the name of a column that already exists in the current linear query statement. If not specified, the default is `  offset  ` .
+  - `array_expression` : An `ARRAY` -typed expression.
+  - `element_name` : The name of the element column. The name can't be the name of a column that already exists in the current linear query statement.
+  - `offset_name` : The name of the offset column. The name can't be the name of a column that already exists in the current linear query statement. If not specified, the default is `offset` .
 
 #### Details
 
-The `  FOR  ` statement expands the working table by defining a new column for the elements of `  array_expression  ` , with an optional offset column. The cardinality of the working table might change as a result.
+The `FOR` statement expands the working table by defining a new column for the elements of `array_expression` , with an optional offset column. The cardinality of the working table might change as a result.
 
-  - The `  FOR  ` statement can reference columns in the working table.
-  - The `  FOR  ` statement evaluation is similar to the [`  UNNEST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) operator.
-  - The `  FOR  ` statement doesn't preserve order.
-  - An empty or `  NULL  ` `  array_expression  ` produces zero rows.
+  - The `FOR` statement can reference columns in the working table.
+  - The `FOR` statement evaluation is similar to the [`UNNEST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_operator) operator.
+  - The `FOR` statement doesn't preserve order.
+  - An empty or `NULL` `array_expression` produces zero rows.
 
-The keyword `  WITH  ` following the `  FOR  ` statement is always interpreted as the beginning of `  with_offset_clause  ` . If you want to use the `  WITH  ` statement following the `  FOR  ` statement, you should fully qualify the `  FOR  ` statement with `  with_offset_clause  ` , or use the `  RETURN  ` statement instead of the `  WITH  ` statement.
+The keyword `WITH` following the `FOR` statement is always interpreted as the beginning of `with_offset_clause` . If you want to use the `WITH` statement following the `FOR` statement, you should fully qualify the `FOR` statement with `with_offset_clause` , or use the `RETURN` statement instead of the `WITH` statement.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-In the following query, there are three rows in the working table prior to the `  FOR  ` statement. After the `  FOR  ` statement, each row is expanded into two rows, one per `  element  ` value from the array.
+In the following query, there are three rows in the working table prior to the `FOR` statement. After the `FOR` statement, each row is expanded into two rows, one per `element` value from the array.
 
     GRAPH FinGraph
     MATCH (p:Person)-[o:Owns]->(a:Account)
@@ -477,7 +477,7 @@ In the following query, there are three rows in the working table prior to the `
      | 3    | some       | 1      |
      +----------------------------*/
 
-In the following query, there are two rows in the working table prior to the `  FOR  ` statement. After the `  FOR  ` statement, each row is expanded into a different number of rows, based on the value of `  array_expression  ` for that row.
+In the following query, there are two rows in the working table prior to the `FOR` statement. After the `FOR` statement, each row is expanded into a different number of rows, based on the value of `array_expression` for that row.
 
     GRAPH FinGraph
     MATCH (p:Person)-[o:Owns]->(a:Account)
@@ -496,7 +496,7 @@ In the following query, there are two rows in the working table prior to the `  
      | 3    | 3       |
      +----------------*/
 
-In the following query, there are three rows in the working table prior to the `  FOR  ` statement. After the `  FOR  ` statement, no row is produced because `  array_expression  ` is an empty array.
+In the following query, there are three rows in the working table prior to the `FOR` statement. After the `FOR` statement, no row is produced because `array_expression` is an empty array.
 
     -- No rows produced
     GRAPH FinGraph
@@ -504,7 +504,7 @@ In the following query, there are three rows in the working table prior to the `
     FOR element in [] WITH OFFSET AS off
     RETURN p.name, element, off
 
-In the following query, there are three rows in the working table prior to the `  FOR  ` statement. After the `  FOR  ` statement, no row is produced because `  array_expression  ` is a `  NULL  ` array.
+In the following query, there are three rows in the working table prior to the `FOR` statement. After the `FOR` statement, no row is produced because `array_expression` is a `NULL` array.
 
     -- No rows produced
     GRAPH FinGraph
@@ -512,7 +512,7 @@ In the following query, there are three rows in the working table prior to the `
     FOR element in CAST(NULL AS ARRAY<STRING>) WITH OFFSET
     RETURN p.name, element, offset
 
-In the following example, an error is produced because `  WITH  ` is used directly After the `  FOR  ` statement. The query can be fixed by adding `  WITH OFFSET  ` after the `  FOR  ` statement, or by using `  RETURN  ` directly instead of `  WITH  ` .
+In the following example, an error is produced because `WITH` is used directly After the `FOR` statement. The query can be fixed by adding `WITH OFFSET` after the `FOR` statement, or by using `RETURN` directly instead of `WITH` .
 
     -- Error: Expected keyword OFFSET but got identifier "element"
     GRAPH FinGraph
@@ -535,7 +535,7 @@ In the following example, an error is produced because `  WITH  ` is used direct
      | 3   |
      +-----*/
 
-## `     LET    ` statement
+## `LET` statement
 
     LET linear_graph_variable[, ...]
     
@@ -548,24 +548,24 @@ Defines variables and assigns values to them for later use in the current linear
 
 #### Definitions
 
-  - `  linear_graph_variable  ` : The variable to define.
-  - `  variable_name  ` : The name of the variable.
-  - `  value  ` : A scalar expression that represents the value of the variable. The names referenced by this expression must be in the incoming working table.
+  - `linear_graph_variable` : The variable to define.
+  - `variable_name` : The name of the variable.
+  - `value` : A scalar expression that represents the value of the variable. The names referenced by this expression must be in the incoming working table.
 
 #### Details
 
-`  LET  ` doesn't change the cardinality of the working table nor modify its existing columns.
+`LET` doesn't change the cardinality of the working table nor modify its existing columns.
 
-  - The variable can only be used in the current linear query statement. To use it in a following linear query statement, you must include it in the `  RETURN  ` statement as a column.
-  - You can't define and reference a variable within the same `  LET  ` statement.
+  - The variable can only be used in the current linear query statement. To use it in a following linear query statement, you must include it in the `RETURN` statement as a column.
+  - You can't define and reference a variable within the same `LET` statement.
   - You can't redefine a variable with the same name.
   - You can use horizontal aggregate functions in this statement. To learn more, see [Horizontal aggregate function calls in GQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#gql-horiz-agg-func-calls) .
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-In the following graph query, the variable `  a  ` is defined and then referenced later:
+In the following graph query, the variable `a` is defined and then referenced later:
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(destination:Account)
@@ -582,7 +582,7 @@ In the following graph query, the variable `  a  ` is defined and then reference
      | 16   |
      +------*/
 
-The following `  LET  ` statement in the second linear query statement is valid because `  a  ` is defined and returned from the first linear query statement:
+The following `LET` statement in the second linear query statement is valid because `a` is defined and returned from the first linear query statement:
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(destination:Account)
@@ -604,7 +604,7 @@ The following `  LET  ` statement in the second linear query statement is valid 
      | 16   |
      +------*/
 
-The following `  LET  ` statement in the second linear query statement is invalid because `  a  ` isn't returned from the first linear query statement.
+The following `LET` statement in the second linear query statement is invalid because `a` isn't returned from the first linear query statement.
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(destination:Account)
@@ -616,14 +616,14 @@ The following `  LET  ` statement in the second linear query statement is invali
     LET b = a  -- ERROR: 'a' doesn't exist.
     RETURN b.id AS b_id
 
-The following `  LET  ` statement is invalid because `  a  ` is defined and then referenced in the same `  LET  ` statement:
+The following `LET` statement is invalid because `a` is defined and then referenced in the same `LET` statement:
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(destination:Account)
     LET a = source, b = a -- ERROR: Can't define and reference 'a' in the same operation.
     RETURN a
 
-The following `  LET  ` statement is valid because `  a  ` is defined first and then referenced afterwards:
+The following `LET` statement is valid because `a` is defined first and then referenced afterwards:
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(destination:Account)
@@ -641,7 +641,7 @@ The following `  LET  ` statement is valid because `  a  ` is defined first and 
      | 16   |
      +------*/
 
-In the following examples, the `  LET  ` statements are invalid because `  a  ` is redefined:
+In the following examples, the `LET` statements are invalid because `a` is redefined:
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(destination:Account)
@@ -654,7 +654,7 @@ In the following examples, the `  LET  ` statements are invalid because `  a  ` 
     LET a = destination -- ERROR: 'a' has already been defined.
     RETURN a.id AS a_id
 
-In the following examples, the `  LET  ` statements are invalid because `  b  ` is redefined:
+In the following examples, the `LET` statements are invalid because `b` is redefined:
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(destination:Account)
@@ -668,7 +668,7 @@ In the following examples, the `  LET  ` statements are invalid because `  b  ` 
     LET b = a -- ERROR: 'b' has already been defined.
     RETURN b.id
 
-The following `  LET  ` statement is valid because although `  b  ` is defined in the first linear query statement, it's not passed to the second linear query statement:
+The following `LET` statement is valid because although `b` is defined in the first linear query statement, it's not passed to the second linear query statement:
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(destination:Account)
@@ -692,7 +692,7 @@ The following `  LET  ` statement is valid because although `  b  ` is defined i
      | 16   |
      +------*/
 
-## `     LIMIT    ` statement
+## `LIMIT` statement
 
     LIMIT count
 
@@ -702,17 +702,17 @@ Limits the number of query results.
 
 #### Definitions
 
-  - `  count  ` : A non-negative `  INT64  ` value that represents the number of results to produce. For more information, see the [`  LIMIT  ` and `  OFFSET  ` clauses](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
+  - `count` : A non-negative `INT64` value that represents the number of results to produce. For more information, see the [`LIMIT` and `OFFSET` clauses](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
 
 #### Details
 
-The `  LIMIT  ` statement can appear before the `  RETURN  ` statement. You can also use it as a qualifying clause in the [`  RETURN  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) .
+The `LIMIT` statement can appear before the `RETURN` statement. You can also use it as a qualifying clause in the [`RETURN` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) .
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-The following example uses the `  LIMIT  ` statement to limit the query results to three rows:
+The following example uses the `LIMIT` statement to limit the query results to three rows:
 
     GRAPH FinGraph
     MATCH (source:Account)-[e:Transfers]->(destination:Account)
@@ -745,39 +745,39 @@ The following query finds the account and its owner with the most outgoing trans
      | 20         | Dana       |
      +-------------------------*/
 
-## `     MATCH    ` statement
+## `MATCH` statement
 
     [ OPTIONAL ] MATCH [ match_hint ] graph_pattern
 
 #### Description
 
-Matches data described by a graph pattern. You can have zero or more `  MATCH  ` statements in a linear query statement.
+Matches data described by a graph pattern. You can have zero or more `MATCH` statements in a linear query statement.
 
 #### Definitions
 
-  - `  MATCH graph_pattern  ` : The graph pattern to match. For more information, see [`  MATCH  ` graph pattern definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
-  - `  OPTIONAL MATCH graph_pattern  ` : The graph pattern to optionally match. If there are missing parts in the pattern, the missing parts are represented by `  NULL  ` values. For more information, see [`  OPTIONAL MATCH  ` graph pattern definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
-  - `  match_hint  ` : A hint that makes the query optimizer use a specific statement in the execution plan. This statement supports graph hints. For more information, see [Graph hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_hints) .
+  - `MATCH graph_pattern` : The graph pattern to match. For more information, see [`MATCH` graph pattern definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
+  - `OPTIONAL MATCH graph_pattern` : The graph pattern to optionally match. If there are missing parts in the pattern, the missing parts are represented by `NULL` values. For more information, see [`OPTIONAL MATCH` graph pattern definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
+  - `match_hint` : A hint that makes the query optimizer use a specific statement in the execution plan. This statement supports graph hints. For more information, see [Graph hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_hints) .
 
 #### Details
 
-The `  MATCH  ` statement joins the incoming working table with the matched result with either `  INNER JOIN  ` or `  CROSS JOIN  ` semantics.
+The `MATCH` statement joins the incoming working table with the matched result with either `INNER JOIN` or `CROSS JOIN` semantics.
 
-The `  INNER JOIN  ` semantics is used when the working table and matched result have variables in common. In the following example, the `  INNER JOIN  ` semantics is used because `  account  ` is produced by both `  MATCH  ` statements:
+The `INNER JOIN` semantics is used when the working table and matched result have variables in common. In the following example, the `INNER JOIN` semantics is used because `account` is produced by both `MATCH` statements:
 
     MATCH (person:Person)-[:Owns]->(account:Account)
     MATCH (account)-[:Transfers]->(otherAcct:Account)
 
-The `  CROSS JOIN  ` semantics is used when the incoming working table and matched result have no variables in common. In the following example, the `  CROSS JOIN  ` semantics is used because `  person1  ` and `  account  ` exist in the result of the first `  MATCH  ` statement, but not the second one:
+The `CROSS JOIN` semantics is used when the incoming working table and matched result have no variables in common. In the following example, the `CROSS JOIN` semantics is used because `person1` and `account` exist in the result of the first `MATCH` statement, but not the second one:
 
     MATCH (person1:Person)-[:Owns]->(account:Account)
     MATCH (person2:Person)-[:Owns]->(otherAcct:Account)
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-The following query matches all `  Person  ` nodes and returns the name and ID of each person:
+The following query matches all `Person` nodes and returns the name and ID of each person:
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -791,7 +791,7 @@ The following query matches all `  Person  ` nodes and returns the name and ID o
      | Lee  | 3  |
      +-----------*/
 
-The following query matches all `  Person  ` and `  Account  ` nodes and returns their labels and ID:
+The following query matches all `Person` and `Account` nodes and returns their labels and ID:
 
     GRAPH FinGraph
     MATCH (n:Person|Account)
@@ -808,7 +808,7 @@ The following query matches all `  Person  ` and `  Account  ` nodes and returns
      | [Person]  | 3  |
      +----------------*/
 
-The following query matches all `  Account  ` nodes that aren't blocked:
+The following query matches all `Account` nodes that aren't blocked:
 
     GRAPH FinGraph
     MATCH (a:Account {is_blocked: false})
@@ -821,7 +821,7 @@ The following query matches all `  Account  ` nodes that aren't blocked:
      | 20 |
      +----*/
 
-The following query matches all `  Person  ` nodes that have a `  birthday  ` less than `  1990-01-10  ` :
+The following query matches all `Person` nodes that have a `birthday` less than `1990-01-10` :
 
     GRAPH FinGraph
     MATCH (p:Person WHERE p.birthday < '1990-01-10')
@@ -834,7 +834,7 @@ The following query matches all `  Person  ` nodes that have a `  birthday  ` le
      | Lee  |
      +------*/
 
-The following query matches all `  Owns  ` edges:
+The following query matches all `Owns` edges:
 
     GRAPH FinGraph
     MATCH -[e:Owns]->
@@ -848,7 +848,7 @@ The following query matches all `  Owns  ` edges:
      | 2  |
      +----*/
 
-The following query matches all `  Owns  ` edges created within a specific period of time:
+The following query matches all `Owns` edges created within a specific period of time:
 
     GRAPH FinGraph
     MATCH -[e:Owns WHERE e.create_time > '2020-01-14' AND e.create_time < '2020-05-14']->
@@ -861,7 +861,7 @@ The following query matches all `  Owns  ` edges created within a specific perio
      | 3  |
      +----*/
 
-The following query matches all `  Transfers  ` edges where a blocked account is involved in any direction:
+The following query matches all `Transfers` edges where a blocked account is involved in any direction:
 
     GRAPH FinGraph
     MATCH (account:Account)-[transfer:Transfers]-(:Account {is_blocked:true})
@@ -876,7 +876,7 @@ The following query matches all `  Transfers  ` edges where a blocked account is
      | 302290001255747 | 200    |
      +--------------------------*/
 
-The following query matches all `  Transfers  ` initiated from an `  Account  ` owned by `  Person  ` with `  id  ` equal to `  2  ` :
+The following query matches all `Transfers` initiated from an `Account` owned by `Person` with `id` equal to `2` :
 
     GRAPH FinGraph
     MATCH
@@ -891,7 +891,7 @@ The following query matches all `  Transfers  ` initiated from an `  Account  ` 
      | 2         | 16    |
      +-------------------*/
 
-The following query matches all the destination `  Accounts  ` one to three transfers away from a source `  Account  ` with `  id  ` equal to `  7  ` , other than the source itself:
+The following query matches all the destination `Accounts` one to three transfers away from a source `Account` with `id` equal to `7` , other than the source itself:
 
     GRAPH FinGraph
     MATCH (src:Account {id: 7})-[e:Transfers]->{1, 3}(dst:Account)
@@ -909,7 +909,7 @@ The following query matches all the destination `  Accounts  ` one to three tran
      | 2    | 20                     |
      +-------------------------------*/
 
-The following query matches paths between `  Account  ` nodes with one to two `  Transfers  ` edges through intermediate accounts that are blocked:
+The following query matches paths between `Account` nodes with one to two `Transfers` edges through intermediate accounts that are blocked:
 
     GRAPH FinGraph
     MATCH
@@ -926,7 +926,7 @@ The following query matches paths between `  Account  ` nodes with one to two ` 
      | 20                | 20                     |
      +--------------------------------------------*/
 
-The following query finds unique reachable accounts which are one or two transfers away from a given `  Account  ` node:
+The following query finds unique reachable accounts which are one or two transfers away from a given `Account` node:
 
     GRAPH FinGraph
     MATCH ANY (src:Account {id: 7})-[e:Transfers]->{1,2}(dst:Account)
@@ -940,7 +940,7 @@ The following query finds unique reachable accounts which are one or two transfe
      | 7                 | 20                     | [7, 16, 20] |
      +----------------------------------------------------------*/
 
-The following query matches all `  Person  ` nodes and optionally matches the blocked `  Account  ` owned by the `  Person  ` . The missing blocked `  Account  ` is represented as `  NULL  ` :
+The following query matches all `Person` nodes and optionally matches the blocked `Account` owned by the `Person` . The missing blocked `Account` is represented as `NULL` :
 
     GRAPH FinGraph
     MATCH (n:Person)
@@ -955,7 +955,7 @@ The following query matches all `  Person  ` nodes and optionally matches the bl
      | Dana  | NULL |
      +--------------*/
 
-## `     NEXT    ` statement
+## `NEXT` statement
 
     NEXT
 
@@ -965,9 +965,9 @@ Chains multiple linear query statements together.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-The following linear query statements are chained by the `  NEXT  ` statement:
+The following linear query statements are chained by the `NEXT` statement:
 
     GRAPH FinGraph
     MATCH (:Account)-[:Transfers]->(account:Account)
@@ -993,7 +993,7 @@ The following linear query statements are chained by the `  NEXT  ` statement:
      | 20         | Dana       |
      +-------------------------*/
 
-## `     OFFSET    ` statement
+## `OFFSET` statement
 
     OFFSET count
 
@@ -1003,15 +1003,15 @@ Skips a specified number of rows in the query results.
 
 #### Definitions
 
-  - `  count  ` : A non-negative `  INT64  ` value that represents the number of rows to skip. For more information, see the [`  LIMIT  ` and `  OFFSET  ` clauses](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
+  - `count` : A non-negative `INT64` value that represents the number of rows to skip. For more information, see the [`LIMIT` and `OFFSET` clauses](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
 
 #### Details
 
-The `  OFFSET  ` statement can appear anywhere in a linear query statement before the `  RETURN  ` statement.
+The `OFFSET` statement can appear anywhere in a linear query statement before the `RETURN` statement.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 In the following example, the first two rows aren't included in the results:
 
@@ -1026,7 +1026,7 @@ In the following example, the first two rows aren't included in the results:
      | Lee  | 3  |
      +-----------*/
 
-## `     ORDER BY    ` statement
+## `ORDER BY` statement
 
     ORDER BY order_by_specification[, ...]
     
@@ -1041,31 +1041,31 @@ Orders the query results.
 
 #### Definitions
 
-  - `  expression  ` : The sort criterion for the result set. For more information, see the [`  ORDER BY  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
+  - `expression` : The sort criterion for the result set. For more information, see the [`ORDER BY` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
 
-  - `  COLLATE collation_specification  ` : The collation specification for `  expression  ` . For more information, see the [`  ORDER BY  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
+  - `COLLATE collation_specification` : The collation specification for `expression` . For more information, see the [`ORDER BY` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
 
-  - `  ASC | ASCENDING | DESC | DESCENDING  ` : The sort order, which can be either ascending or descending. The following options are synonymous:
+  - `ASC | ASCENDING | DESC | DESCENDING` : The sort order, which can be either ascending or descending. The following options are synonymous:
     
-      - `  ASC  ` and `  ASCENDING  `
+      - `ASC` and `ASCENDING`
     
-      - `  DESC  ` and `  DESCENDING  `
+      - `DESC` and `DESCENDING`
     
-    For more information about sort order, see the [`  ORDER BY  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
+    For more information about sort order, see the [`ORDER BY` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
 
 #### Details
 
-Ordinals aren't supported in the `  ORDER BY  ` statement.
+Ordinals aren't supported in the `ORDER BY` statement.
 
-The `  ORDER BY  ` statement is ignored unless it's immediately followed by the `  LIMIT  ` or `  OFFSET  ` statement.
+The `ORDER BY` statement is ignored unless it's immediately followed by the `LIMIT` or `OFFSET` statement.
 
-If you would like to apply `  ORDER BY  ` to what is in `  RETURN  ` statement, use the `  ORDER BY  ` clause in `  RETURN  ` statement. For more information, see [`  RETURN  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) .
+If you would like to apply `ORDER BY` to what is in `RETURN` statement, use the `ORDER BY` clause in `RETURN` statement. For more information, see [`RETURN` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) .
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-The following query sorts the results by the `  transfer.amount  ` values in descending order:
+The following query sorts the results by the `transfer.amount` values in descending order:
 
     GRAPH FinGraph
     MATCH (src_account:Account)-[transfer:Transfers]->(dst_account:Account)
@@ -1096,7 +1096,7 @@ The following query sorts the results by the `  transfer.amount  ` values in des
      | 7          | 100             |
      +------------------------------*/
 
-If you don't include the `  LIMIT  ` or `  OFFSET  ` statement right after the `  ORDER BY  ` statement, the effect of `  ORDER BY  ` is discarded and the result is unordered.
+If you don't include the `LIMIT` or `OFFSET` statement right after the `ORDER BY` statement, the effect of `ORDER BY` is discarded and the result is unordered.
 
     -- Warning: The transfer.amount values aren't sorted because the
     -- LIMIT statement is missing.
@@ -1134,7 +1134,7 @@ If you don't include the `  LIMIT  ` or `  OFFSET  ` statement right after the `
      | 20         | 200             |
      +------------------------------*/
 
-## `     RETURN    ` statement
+## `RETURN` statement
 
     RETURN *
 
@@ -1157,34 +1157,34 @@ If you don't include the `  LIMIT  ` or `  OFFSET  ` statement right after the `
 
 #### Description
 
-Marks the end of a linear query statement and returns the results. Only one `  RETURN  ` statement is allowed in a linear query statement.
+Marks the end of a linear query statement and returns the results. Only one `RETURN` statement is allowed in a linear query statement.
 
 #### Definitions
 
-  - `  *  ` : Returns all columns in the current working table.
-  - `  return_item  ` : A column to include in the results.
-  - `  ALL  ` : Returns all rows. This is equivalent to not using any prefix.
-  - `  DISTINCT  ` : Duplicate rows are discarded and only the remaining distinct rows are returned. This deduplication takes place after any aggregation is performed.
-  - `  expression  ` : An expression that represents a column to produce. Aggregation is supported.
-  - `  alias  ` : An alias for `  expression  ` .
-  - `  group_by_clause  ` : Groups the current rows of the working table, using the [`  GROUP BY  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#group_by_clause) .
-  - `  order_by_clause  ` : Orders the current rows in a linear query statement, using the [`  ORDER BY  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
-  - `  limit_clause  ` : Limits the number of current rows in a linear query statement, using the [`  LIMIT  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
-  - `  offset_clause  ` : Skips a specified number of rows in a linear query statement, using the [`  OFFSET  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
+  - `*` : Returns all columns in the current working table.
+  - `return_item` : A column to include in the results.
+  - `ALL` : Returns all rows. This is equivalent to not using any prefix.
+  - `DISTINCT` : Duplicate rows are discarded and only the remaining distinct rows are returned. This deduplication takes place after any aggregation is performed.
+  - `expression` : An expression that represents a column to produce. Aggregation is supported.
+  - `alias` : An alias for `expression` .
+  - `group_by_clause` : Groups the current rows of the working table, using the [`GROUP BY` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#group_by_clause) .
+  - `order_by_clause` : Orders the current rows in a linear query statement, using the [`ORDER BY` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .
+  - `limit_clause` : Limits the number of current rows in a linear query statement, using the [`LIMIT` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
+  - `offset_clause` : Skips a specified number of rows in a linear query statement, using the [`OFFSET` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
 
 #### Details
 
-You can return graph elements to make them visible from one linear query statement to the next, but the final `  RETURN  ` statement in a graph query can't contain a graph element on its own. Instead, you can return a property of a graph element.
+You can return graph elements to make them visible from one linear query statement to the next, but the final `RETURN` statement in a graph query can't contain a graph element on its own. Instead, you can return a property of a graph element.
 
-If any expression performs aggregation, and no `  GROUP BY  ` clause is specified, all groupable items from the return list are used implicitly as grouping keys.
+If any expression performs aggregation, and no `GROUP BY` clause is specified, all groupable items from the return list are used implicitly as grouping keys.
 
-Ordinals aren't supported in the `  ORDER BY  ` and `  GROUP BY  ` clauses.
+Ordinals aren't supported in the `ORDER BY` and `GROUP BY` clauses.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-The following query returns `  p.name  ` and `  p.id  ` :
+The following query returns `p.name` and `p.id` :
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -1205,7 +1205,7 @@ The following query fails because you can't return a graph element from a query:
     MATCH (p:Person)
     RETURN p
 
-In the following example, the first linear query statement returns all columns including `  p  ` , `  a  ` , `  b  ` , and `  c  ` . The second linear query statement returns the specified `  p.name  ` and `  d  ` columns:
+In the following example, the first linear query statement returns all columns including `p` , `a` , `b` , and `c` . The second linear query statement returns the specified `p.name` and `d` columns:
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -1239,7 +1239,7 @@ The following query returns distinct rows:
      | 2    | 20                     |
      +-------------------------------*/
 
-In the following example, the first linear query statement returns `  account  ` and aggregated `  num_incoming_transfers  ` per account. The second statement returns sorted result.
+In the following example, the first linear query statement returns `account` and aggregated `num_incoming_transfers` per account. The second statement returns sorted result.
 
     GRAPH FinGraph
     MATCH (:Account)-[:Transfers]->(account:Account)
@@ -1260,7 +1260,7 @@ In the following example, the first linear query statement returns `  account  `
      | Dana       | 1                      |
      +-------------------------------------*/
 
-In the following example, the `  LIMIT  ` clause in the `  RETURN  ` statement reduces the results to one row:
+In the following example, the `LIMIT` clause in the `RETURN` statement reduces the results to one row:
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -1273,7 +1273,7 @@ In the following example, the `  LIMIT  ` clause in the `  RETURN  ` statement r
      | Alex | 1  |
      +-----------*/
 
-In the following example, the `  OFFSET  ` clause in the `  RETURN  ` statement skips the first row:
+In the following example, the `OFFSET` clause in the `RETURN` statement skips the first row:
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -1287,7 +1287,7 @@ In the following example, the `  OFFSET  ` clause in the `  RETURN  ` statement 
      | Lee  | 3  |
      +-----------*/
 
-In the following example, the `  OFFSET  ` clause in the `  RETURN  ` statement skips the first row, then the `  LIMIT  ` clause reduces the results to one row:
+In the following example, the `OFFSET` clause in the `RETURN` statement skips the first row, then the `LIMIT` clause reduces the results to one row:
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -1301,7 +1301,7 @@ In the following example, the `  OFFSET  ` clause in the `  RETURN  ` statement 
      | Dana | 2  |
      +-----------*/
 
-In the following example, an error is produced because the `  OFFSET  ` clause must come before the `  LIMIT  ` clause when they are both used in the `  RETURN  ` statement:
+In the following example, an error is produced because the `OFFSET` clause must come before the `LIMIT` clause when they are both used in the `RETURN` statement:
 
     -- Error: The LIMIT clause must come after the OFFSET clause in a
     -- RETURN operation.
@@ -1311,7 +1311,7 @@ In the following example, an error is produced because the `  OFFSET  ` clause m
     LIMIT 1
     OFFSET 1
 
-In the following example, the `  ORDER BY  ` clause in the `  RETURN  ` statement sorts the results by `  hops  ` and then `  destination_account_id  ` :
+In the following example, the `ORDER BY` clause in the `RETURN` statement sorts the results by `hops` and then `destination_account_id` :
 
     GRAPH FinGraph
     MATCH (src:Account {id: 7})-[e:Transfers]->{1, 3}(dst:Account)
@@ -1327,19 +1327,19 @@ In the following example, the `  ORDER BY  ` clause in the `  RETURN  ` statemen
      | 3    | 16                     |
      +-------------------------------*/
 
-## `     SKIP    ` statement
+## `SKIP` statement
 
     SKIP count
 
 #### Description
 
-Synonym for the [`  OFFSET  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_offset) .
+Synonym for the [`OFFSET` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_offset) .
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-`  SKIP  ` is a synonym for `  OFFSET  ` . Therefore, these queries are equivalent:
+`SKIP` is a synonym for `OFFSET` . Therefore, these queries are equivalent:
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -1363,7 +1363,7 @@ Synonym for the [`  OFFSET  ` statement](https://docs.cloud.google.com/spanner/d
      | Lee  | 3  |
      +-----------*/
 
-## `     WITH    ` statement
+## `WITH` statement
 
     WITH
       [ { ALL | DISTINCT } ]
@@ -1379,25 +1379,25 @@ Passes on the specified columns, optionally filtering, renaming, and transformin
 
 #### Definitions
 
-  - `  *  ` : Returns all columns in the current working table.
-  - `  ALL  ` : Returns all rows. This is equivalent to not using any prefix.
-  - `  DISTINCT  ` : Returns distinct rows. Deduplication takes place after aggregations are performed.
-  - `  return_item  ` : A column to include in the results.
-  - `  expression  ` : An expression that represents a column to produce. Aggregation is supported.
-  - `  alias  ` : An alias for `  expression  ` .
-  - `  group_by_clause  ` : Groups the current rows of the working table, using the [`  GROUP BY  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#group_by_clause) .
+  - `*` : Returns all columns in the current working table.
+  - `ALL` : Returns all rows. This is equivalent to not using any prefix.
+  - `DISTINCT` : Returns distinct rows. Deduplication takes place after aggregations are performed.
+  - `return_item` : A column to include in the results.
+  - `expression` : An expression that represents a column to produce. Aggregation is supported.
+  - `alias` : An alias for `expression` .
+  - `group_by_clause` : Groups the current rows of the working table, using the [`GROUP BY` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#group_by_clause) .
 
 #### Details
 
-If any expression performs aggregation, and no `  GROUP BY  ` clause is specified, all groupable items from the return list are implicitly used as grouping keys.
+If any expression performs aggregation, and no `GROUP BY` clause is specified, all groupable items from the return list are implicitly used as grouping keys.
 
-Window functions aren't supported in `  expression  ` .
+Window functions aren't supported in `expression` .
 
-Ordinals aren't supported in the `  GROUP BY  ` clause.
+Ordinals aren't supported in the `GROUP BY` clause.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query returns all distinct destination account IDs:
 
@@ -1414,7 +1414,7 @@ The following query returns all distinct destination account IDs:
      | 20             |
      +----------------*/
 
-The following query uses `  *  ` to carry over the existing columns of the working table in addition to defining a new one for the destination account id.
+The following query uses `*` to carry over the existing columns of the working table in addition to defining a new one for the destination account id.
 
     GRAPH FinGraph
     MATCH (src:Account)-[transfer:Transfers]->(dst:Account)
@@ -1431,7 +1431,7 @@ The following query uses `  *  ` to carry over the existing columns of the worki
      | 20             |
      +----------------*/
 
-In the following example, aggregation is performed implicitly because the `  WITH  ` statement has an aggregate expression but doesn't specify a `  GROUP BY  ` clause. All groupable items from the return item list are used as grouping keys . In this case, the grouping keys inferred are `  src.id  ` and `  dst.id  ` . Therefore, this query returns the number of transfers for each distinct combination of `  src.id  ` and `  dst.id  ` .
+In the following example, aggregation is performed implicitly because the `WITH` statement has an aggregate expression but doesn't specify a `GROUP BY` clause. All groupable items from the return item list are used as grouping keys . In this case, the grouping keys inferred are `src.id` and `dst.id` . Therefore, this query returns the number of transfers for each distinct combination of `src.id` and `dst.id` .
 
     GRAPH FinGraph
     MATCH (src:Account)-[transfer:Transfers]->(dst:Account)
@@ -1447,7 +1447,7 @@ In the following example, aggregation is performed implicitly because the `  WIT
      | 1              | 16             | 20        |
      +---------------------------------------------*/
 
-In the following example, an error is produced because the `  WITH  ` statement only contains `  dst  ` . `  src  ` isn't visible after the `  WITH  ` statement in the `  RETURN  ` statement.
+In the following example, an error is produced because the `WITH` statement only contains `dst` . `src` isn't visible after the `WITH` statement in the `RETURN` statement.
 
     -- Error: src doesn't exist
     GRAPH FinGraph
@@ -1481,7 +1481,7 @@ Combines a sequence of linear query statements with a set operation. Only one ty
 
 #### Definitions
 
-  - `  linear_query_statement  ` : A [linear query statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax) to include in the set operation.
+  - `linear_query_statement` : A [linear query statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax) to include in the set operation.
 
 #### Details
 
@@ -1489,7 +1489,7 @@ Each linear query statement in the same set operation shares the same working ta
 
 Most of the rules for GQL set operators are the same as those for SQL [set operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#set_operators) , but there are some differences:
 
-  - A GQL set operator doesn't support hints, or the `  CORRESPONDING  ` keyword. Since each set operation input (a linear query statement) only produces columns with names, the default behavior of GQL set operations requires all inputs to have the same set of column names and all paired columns to share the same [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
+  - A GQL set operator doesn't support hints, or the `CORRESPONDING` keyword. Since each set operation input (a linear query statement) only produces columns with names, the default behavior of GQL set operations requires all inputs to have the same set of column names and all paired columns to share the same [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
   - GQL doesn't allow chaining different kinds of set operations in the same set operation.
   - GQL doesn't allow using parentheses to separate different set operations.
   - The results produced by the linear query statements are combined in a left associative order.
@@ -1555,7 +1555,7 @@ In a set operation, chaining the same kind of set operation is supported, but ch
 
 ## Graph hints
 
-**Note:** Syntax characters enclosed in double quotes ( `  ""  ` ) are literal and required.
+**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     @"{" hint_key=hint_value "}"
 
@@ -1579,7 +1579,7 @@ You can add the following types of hints to a GQL query:
 <tbody>
 <tr class="odd">
 <td>Group</td>
-<td><p>A <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#group_hints">group hint</a> that applies to the <code dir="ltr" translate="no">        GROUP BY       </code> clause in the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return"><code dir="ltr" translate="no">         RETURN        </code></a> statement.</p></td>
+<td><p>A <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#group_hints">group hint</a> that applies to the <code dir="ltr" translate="no">GROUP BY</code> clause in the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return"><code dir="ltr" translate="no">RETURN</code></a> statement.</p></td>
 </tr>
 <tr class="even">
 <td>Join (graph traversal)</td>
@@ -1595,7 +1595,7 @@ You can add the following types of hints to a GQL query:
 </tr>
 <tr class="odd">
 <td>Join (match statement)</td>
-<td><p>A <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join_hints">join hint</a> that applies to a <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match"><code dir="ltr" translate="no">         MATCH        </code></a> statement.</p></td>
+<td><p>A <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join_hints">join hint</a> that applies to a <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match"><code dir="ltr" translate="no">MATCH</code></a> statement.</p></td>
 </tr>
 <tr class="even">
 <td>Table (graph element)</td>
@@ -1606,9 +1606,9 @@ You can add the following types of hints to a GQL query:
 
 **Examples**
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-Example of a traversal hint from one [`  MATCH  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match) statement to the next `  MATCH  ` statement:
+Example of a traversal hint from one [`MATCH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match) statement to the next `MATCH` statement:
 
     GRAPH FinGraph
     MATCH (p:Person {id: 1})-[:Owns]->(a:Account)
@@ -1651,7 +1651,7 @@ Example of an element hint at the beginning of a [pattern filler](https://docs.c
     MATCH (a:Account {id:7})-[@{INDEX_STRATEGY=FORCE_INDEX_UNION} :Transfers]-(oa:Account)
     RETURN oa.id
 
-Example of a group hint in the GQL `  GROUP BY  ` clause:
+Example of a group hint in the GQL `GROUP BY` clause:
 
     GRAPH FinGraph
     MATCH (p:Person)-[:Owns]->(:Account)

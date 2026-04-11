@@ -4,28 +4,28 @@ gcloud alpha spanner rows - manage the rows in Cloud Spanner databases
 
 SYNOPSIS
 
-`  gcloud alpha spanner rows  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner rows` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage the rows in Cloud Spanner databases.
+`(ALPHA)` Manage the rows in Cloud Spanner databases.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  delete  `  
-    `  (ALPHA)  ` Delete a row in a Cloud Spanner database.
+    `(ALPHA)` Delete a row in a Cloud Spanner database.
   - `  insert  `  
-    `  (ALPHA)  ` Insert a row in a Cloud Spanner database.
+    `(ALPHA)` Insert a row in a Cloud Spanner database.
   - `  update  `  
-    `  (ALPHA)  ` Update a row in a Cloud Spanner database.
+    `(ALPHA)` Update a row in a Cloud Spanner database.
 
 NOTES
 

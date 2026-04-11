@@ -1,14 +1,14 @@
-**PostgreSQL interface note:** The `  STRUCT  ` data type is not supported in the [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) .
+**PostgreSQL interface note:** The `STRUCT` data type is not supported in the [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) .
 
-Spanner allows you to create `  STRUCT  ` objects from data, as well as to use `  STRUCT  ` objects as bound parameters when running a SQL query with one of the Spanner client libraries.
+Spanner allows you to create `STRUCT` objects from data, as well as to use `STRUCT` objects as bound parameters when running a SQL query with one of the Spanner client libraries.
 
-For more information about the `  STRUCT  ` type in Spanner, see [Data types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#struct_type) .
+For more information about the `STRUCT` type in Spanner, see [Data types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#struct_type) .
 
 ## Declaring a user-defined type of STRUCT object
 
-You can declare a `  STRUCT  ` object in queries using the syntax described in [Declaring a `  STRUCT  ` type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#constructing_a_struct) .
+You can declare a `STRUCT` object in queries using the syntax described in [Declaring a `STRUCT` type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#constructing_a_struct) .
 
-You can define a type of `  STRUCT  ` object as a sequence of field names and their data types. You can then supply this type along with queries containing `  STRUCT  ` -typed parameter bindings and Spanner will use it to check that the `  STRUCT  ` parameter values in your query are valid.
+You can define a type of `STRUCT` object as a sequence of field names and their data types. You can then supply this type along with queries containing `STRUCT` -typed parameter bindings and Spanner will use it to check that the `STRUCT` parameter values in your query are valid.
 
 ### C++
 
@@ -78,7 +78,7 @@ You can define a type of `  STRUCT  ` object as a sequence of field names and th
 
 ## Creating STRUCT objects
 
-The following sample shows how to create `  STRUCT  ` objects using the Spanner client libraries.
+The following sample shows how to create `STRUCT` objects using the Spanner client libraries.
 
 ### C++
 
@@ -141,7 +141,7 @@ The following sample shows how to create `  STRUCT  ` objects using the Spanner 
 
     name_struct = { FirstName: "Elena", LastName: "Campbell" }
 
-You can also use the client libraries to create an array of `  STRUCT  ` objects, as seen in the following sample:
+You can also use the client libraries to create an array of `STRUCT` objects, as seen in the following sample:
 
 ### C++
 
@@ -239,15 +239,15 @@ You can also use the client libraries to create an array of `  STRUCT  ` objects
 
 ## Returning STRUCT objects in SQL query results
 
-A Spanner SQL query can return an array of `  STRUCT  ` objects as a column for certain queries. For more information, see [Using STRUCTS with SELECT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#using_structs_with_select) .
+A Spanner SQL query can return an array of `STRUCT` objects as a column for certain queries. For more information, see [Using STRUCTS with SELECT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#using_structs_with_select) .
 
 ## Using STRUCT objects as bound parameters in SQL queries
 
-You can use `  STRUCT  ` objects as bound parameters in a SQL query. For more information about parameters, see [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#query_parameters) .
+You can use `STRUCT` objects as bound parameters in a SQL query. For more information about parameters, see [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#query_parameters) .
 
 ### Querying data with a STRUCT object
 
-The following sample shows how to bind values in a `  STRUCT  ` object to parameters in a SQL query statement, execute the query, and output the results.
+The following sample shows how to bind values in a `STRUCT` object to parameters in a SQL query statement, execute the query, and output the results.
 
 ### C++
 
@@ -442,7 +442,7 @@ The following sample shows how to bind values in a `  STRUCT  ` object to parame
 
 ### Querying data with an array of STRUCT objects
 
-The following sample shows how to execute a query that uses an array of `  STRUCT  ` objects. Use the [UNNEST](https://docs.cloud.google.com/spanner/docs/query-execution-operators#array-unnest) operator to flatten an array of `  STRUCT  ` objects into rows:
+The following sample shows how to execute a query that uses an array of `STRUCT` objects. Use the [UNNEST](https://docs.cloud.google.com/spanner/docs/query-execution-operators#array-unnest) operator to flatten an array of `STRUCT` objects into rows:
 
 ### C++
 
@@ -639,7 +639,7 @@ The following sample shows how to execute a query that uses an array of `  STRUC
 
 ### Modifying data with DML
 
-The following code example uses a `  STRUCT  ` with bound parameters and Data Manipulation Language (DML) to update a single value in rows that match the WHERE clause condition. For rows where the `  FirstName  ` is `  Timothy  ` and the `  LastName  ` is `  Campbell  ` , the `  LastName  ` is updated to `  Grant  ` .
+The following code example uses a `STRUCT` with bound parameters and Data Manipulation Language (DML) to update a single value in rows that match the WHERE clause condition. For rows where the `FirstName` is `Timothy` and the `LastName` is `Campbell` , the `LastName` is updated to `Grant` .
 
 ### C++
 
@@ -912,7 +912,7 @@ The following code example uses a `  STRUCT  ` with bound parameters and Data Ma
 
 ## Accessing STRUCT field values
 
-You can access fields inside a `  STRUCT  ` object by name.
+You can access fields inside a `STRUCT` object by name.
 
 ### C++
 
@@ -1174,7 +1174,7 @@ You can access fields inside a `  STRUCT  ` object by name.
       puts row[:SingerId]
     end
 
-You can even have fields of `  STRUCT  ` or `  ARRAY<STRUCT>  ` type inside `  STRUCT  ` values and access them similarly:
+You can even have fields of `STRUCT` or `ARRAY<STRUCT>` type inside `STRUCT` values and access them similarly:
 
 ### C++
 

@@ -8,7 +8,7 @@ To import a Spanner database, first you need to enable the Spanner, Cloud Storag
 
 **Roles required to enable APIs**
 
-To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 [Enable the APIs](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com,storage_component,compute,dataflow)
 
@@ -36,11 +36,11 @@ The quota requirements for import jobs are as follows:
 
 To get the permissions that you need to export a database, ask your administrator to grant you the following IAM roles on your Dataflow worker service account:
 
-  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `  roles/dataflow.worker  ` )
-  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `  roles/storage.admin  ` )
-  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
-  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` )
+  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `roles/dataflow.worker` )
+  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `roles/storage.admin` )
+  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
+  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
 
 **Note:** The Spanner Database Admin role is only required for import jobs.
 
@@ -56,18 +56,18 @@ Keep the following things in mind when exporting your data:
 
   - Each column in your Avro files must use one of the following column types:
     
-      - `  ARRAY  `
-      - `  BOOL  `
-      - `  BYTES  ` <sup>\*</sup>
-      - `  DOUBLE  `
-      - `  FLOAT  `
-      - `  INT  `
-      - `  LONG  ` <sup>†</sup>
-      - `  STRING  ` <sup>‡</sup>
+      - `ARRAY`
+      - `BOOL`
+      - `BYTES` <sup>\*</sup>
+      - `DOUBLE`
+      - `FLOAT`
+      - `INT`
+      - `LONG` <sup>†</sup>
+      - `STRING` <sup>‡</sup>
     
-    <sup>\*</sup> A column of type `  BYTES  ` is used to import a Spanner `  NUMERIC  ` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
+    <sup>\*</sup> A column of type `BYTES` is used to import a Spanner `NUMERIC` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
     
-    <sup>†,‡</sup> You can import a `  LONG  ` storing a timestamp or a `  STRING  ` storing a timestamp as a Spanner `  TIMESTAMP  ` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
+    <sup>†,‡</sup> You can import a `LONG` storing a timestamp or a `STRING` storing a timestamp as a Spanner `TIMESTAMP` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
 
   - You don't have to include or generate any metadata when you export the Avro files.
 
@@ -80,7 +80,7 @@ If you don't export your files directly to Cloud Storage, you must upload the Av
 To import Avro files from a non-Spanner database to Spanner, follow these steps:
 
 1.  Create target tables and define the schema for your Spanner database.
-2.  Create a `  spanner-export.json  ` file in your Cloud Storage bucket.
+2.  Create a `spanner-export.json` file in your Cloud Storage bucket.
 3.  Run a Dataflow import job using gcloud CLI.
 
 ### Step 1: Create the schema for your Spanner database
@@ -106,39 +106,39 @@ You must create a schema that uses the appropriate column type for each column i
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         ARRAY        </code></td>
-<td><code dir="ltr" translate="no">         ARRAY        </code></td>
+<td><code dir="ltr" translate="no">ARRAY</code></td>
+<td><code dir="ltr" translate="no">ARRAY</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         BOOL        </code></td>
-<td><code dir="ltr" translate="no">         BOOL        </code></td>
+<td><code dir="ltr" translate="no">BOOL</code></td>
+<td><code dir="ltr" translate="no">BOOL</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         BYTES        </code></td>
-<td><p><code dir="ltr" translate="no">          BYTES         </code></p>
-<p><code dir="ltr" translate="no">          NUMERIC         </code> (when the column type is <code dir="ltr" translate="no">          BYTES         </code> and <code dir="ltr" translate="no">          logicalType=decimal         </code> , <code dir="ltr" translate="no">          precision=38         </code> , and <code dir="ltr" translate="no">          scale=9         </code> . If these exact specifications are omitted, the field is treated as a Spanner <code dir="ltr" translate="no">          BYTES         </code> value. For more information, see the <a href="https://avro.apache.org/docs/current/spec.html#Decimal">Avro decimal logical type</a> documentation.)</p></td>
+<td><code dir="ltr" translate="no">BYTES</code></td>
+<td><p><code dir="ltr" translate="no">BYTES</code></p>
+<p><code dir="ltr" translate="no">NUMERIC</code> (when the column type is <code dir="ltr" translate="no">BYTES</code> and <code dir="ltr" translate="no">logicalType=decimal</code> , <code dir="ltr" translate="no">precision=38</code> , and <code dir="ltr" translate="no">scale=9</code> . If these exact specifications are omitted, the field is treated as a Spanner <code dir="ltr" translate="no">BYTES</code> value. For more information, see the <a href="https://avro.apache.org/docs/current/spec.html#Decimal">Avro decimal logical type</a> documentation.)</p></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         DOUBLE        </code></td>
-<td><code dir="ltr" translate="no">         FLOAT64        </code></td>
+<td><code dir="ltr" translate="no">DOUBLE</code></td>
+<td><code dir="ltr" translate="no">FLOAT64</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         FLOAT        </code></td>
-<td><code dir="ltr" translate="no">         FLOAT64        </code></td>
+<td><code dir="ltr" translate="no">FLOAT</code></td>
+<td><code dir="ltr" translate="no">FLOAT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         INT        </code></td>
-<td><code dir="ltr" translate="no">         INT64        </code></td>
+<td><code dir="ltr" translate="no">INT</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         LONG        </code></td>
-<td><p><code dir="ltr" translate="no">          INT64         </code></p>
-<p><code dir="ltr" translate="no">          TIMESTAMP         </code> when <code dir="ltr" translate="no">          LONG         </code> represents a timestamp of the number of microseconds since 1970-01-01 00:00:00 UTC</p></td>
+<td><code dir="ltr" translate="no">LONG</code></td>
+<td><p><code dir="ltr" translate="no">INT64</code></p>
+<p><code dir="ltr" translate="no">TIMESTAMP</code> when <code dir="ltr" translate="no">LONG</code> represents a timestamp of the number of microseconds since 1970-01-01 00:00:00 UTC</p></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td><p><code dir="ltr" translate="no">          STRING         </code></p>
-<p><code dir="ltr" translate="no">          TIMESTAMP         </code> when <code dir="ltr" translate="no">          STRING         </code> represents a timestamp in the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical-format_1">canonical format for SQL queries</a></p></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td><p><code dir="ltr" translate="no">STRING</code></p>
+<p><code dir="ltr" translate="no">TIMESTAMP</code> when <code dir="ltr" translate="no">STRING</code> represents a timestamp in the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical-format_1">canonical format for SQL queries</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -158,48 +158,48 @@ You must create a schema that uses the appropriate column type for each column i
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         ARRAY        </code></td>
-<td><code dir="ltr" translate="no">         ARRAY        </code></td>
+<td><code dir="ltr" translate="no">ARRAY</code></td>
+<td><code dir="ltr" translate="no">ARRAY</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         BOOL        </code></td>
-<td><code dir="ltr" translate="no">         BOOLEAN        </code></td>
+<td><code dir="ltr" translate="no">BOOL</code></td>
+<td><code dir="ltr" translate="no">BOOLEAN</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         BYTES        </code></td>
-<td><p><code dir="ltr" translate="no">          BYTEA         </code></p>
-<p><code dir="ltr" translate="no">          NUMERIC         </code> (when the column type is <code dir="ltr" translate="no">          BYTEA         </code> and <code dir="ltr" translate="no">          logicalType=decimal         </code> , <code dir="ltr" translate="no">          precision=147455         </code> , and <code dir="ltr" translate="no">          scale=16383         </code> . If these exact specifications are omitted, the field is treated as a <code dir="ltr" translate="no">          BYTEA         </code> value. For more information, see the <a href="https://avro.apache.org/docs/current/spec.html#Decimal">Avro decimal logical type</a> documentation.)</p></td>
+<td><code dir="ltr" translate="no">BYTES</code></td>
+<td><p><code dir="ltr" translate="no">BYTEA</code></p>
+<p><code dir="ltr" translate="no">NUMERIC</code> (when the column type is <code dir="ltr" translate="no">BYTEA</code> and <code dir="ltr" translate="no">logicalType=decimal</code> , <code dir="ltr" translate="no">precision=147455</code> , and <code dir="ltr" translate="no">scale=16383</code> . If these exact specifications are omitted, the field is treated as a <code dir="ltr" translate="no">BYTEA</code> value. For more information, see the <a href="https://avro.apache.org/docs/current/spec.html#Decimal">Avro decimal logical type</a> documentation.)</p></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         DOUBLE        </code></td>
-<td><code dir="ltr" translate="no">         DOUBLE PRECISION        </code></td>
+<td><code dir="ltr" translate="no">DOUBLE</code></td>
+<td><code dir="ltr" translate="no">DOUBLE PRECISION</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         FLOAT        </code></td>
-<td><code dir="ltr" translate="no">         DOUBLE PRECISION        </code></td>
+<td><code dir="ltr" translate="no">FLOAT</code></td>
+<td><code dir="ltr" translate="no">DOUBLE PRECISION</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         INT        </code></td>
-<td><code dir="ltr" translate="no">         BIGINT        </code></td>
+<td><code dir="ltr" translate="no">INT</code></td>
+<td><code dir="ltr" translate="no">BIGINT</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         LONG        </code></td>
-<td><p><code dir="ltr" translate="no">          BIGINT         </code></p>
-<p><code dir="ltr" translate="no">          TIMESTAMP         </code> when <code dir="ltr" translate="no">          LONG         </code> represents a timestamp of the number of microseconds since 1970-01-01 00:00:00 UTC</p></td>
+<td><code dir="ltr" translate="no">LONG</code></td>
+<td><p><code dir="ltr" translate="no">BIGINT</code></p>
+<p><code dir="ltr" translate="no">TIMESTAMP</code> when <code dir="ltr" translate="no">LONG</code> represents a timestamp of the number of microseconds since 1970-01-01 00:00:00 UTC</p></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         STRING        </code></td>
-<td><p><code dir="ltr" translate="no">          CHARACTER VARYING         </code></p>
-<p><code dir="ltr" translate="no">          TIMESTAMP         </code> when <code dir="ltr" translate="no">          STRING         </code> represents a timestamp in the canonical format for SQL queries, for example '2022-05-28T07:08:21.123456789Z' or '2021-12-19T16:39:57-08:00'.</p></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td><p><code dir="ltr" translate="no">CHARACTER VARYING</code></p>
+<p><code dir="ltr" translate="no">TIMESTAMP</code> when <code dir="ltr" translate="no">STRING</code> represents a timestamp in the canonical format for SQL queries, for example '2022-05-28T07:08:21.123456789Z' or '2021-12-19T16:39:57-08:00'.</p></td>
 </tr>
 </tbody>
 </table>
 
-**Note:** If a column in your Avro data contains `  NULL  ` values, you must ensure that you make the corresponding column in your Spanner table nullable.
+**Note:** If a column in your Avro data contains `NULL` values, you must ensure that you make the corresponding column in your Spanner table nullable.
 
 ### Step 2: Create a spanner-export.json file
 
-You must also create a file named `  spanner-export.json  ` in your Cloud Storage bucket. This file specifies the database dialect and contains a `  tables  ` array that lists the name and data file locations for each table.
+You must also create a file named `spanner-export.json` in your Cloud Storage bucket. This file specifies the database dialect and contains a `tables` array that lists the name and data file locations for each table.
 
 The contents of the file have the following format:
 
@@ -220,9 +220,9 @@ The contents of the file have the following format:
       "dialect":"DATABASE_DIALECT"
     }
 
-Where DATABASE\_DIALECT = { `  GOOGLE_STANDARD_SQL  ` | `  POSTGRESQL  ` }
+Where DATABASE\_DIALECT = { `GOOGLE_STANDARD_SQL` | `POSTGRESQL` }
 
-If the dialect element is omitted, the dialect defaults to `  GOOGLE_STANDARD_SQL  ` .
+If the dialect element is omitted, the dialect defaults to `GOOGLE_STANDARD_SQL` .
 
 **Note:** Wildcards aren't supported; you must write out all filenames in full.
 
@@ -324,7 +324,7 @@ If you are using the Dataflow console, the **Max workers** parameter is located 
 
 ### gcloud
 
-Run the [`  gcloud dataflow jobs run  `](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `  max-workers  ` argument. For example:
+Run the [`gcloud dataflow jobs run`](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `max-workers` argument. For example:
 
 ``` 
   gcloud dataflow jobs run my-import-job \
@@ -344,7 +344,7 @@ The following error might occur when you export your Spanner databases:
     must specify a subnet if the network resource is in custom subnet mode.
     HTTP Code: 400
 
-This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `  default  ` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks) .
+This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `default` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks) .
 
 ## Optimize slow running import jobs
 

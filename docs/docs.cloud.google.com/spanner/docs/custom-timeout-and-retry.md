@@ -6,7 +6,7 @@ The client libraries use default timeout and retry policy settings which are def
   - [spanner\_admin\_instance\_grpc\_service\_config.json](https://github.com/googleapis/googleapis/blob/master/google/spanner/admin/instance/v1/spanner_admin_instance_grpc_service_config.json)
   - [spanner\_admin\_database\_grpc\_service\_config.json](https://github.com/googleapis/googleapis/blob/master/google/spanner/admin/database/v1/spanner_admin_database_grpc_service_config.json)
 
-In the configuration files, the default timeout for operations that take a short amount of time, such as `  CreateSession  ` , is 30 seconds. Longer operations, such as queries or reads, have a default timeout of 3600 seconds. We recommend using these defaults. However, you can set a custom timeout or retry policy in your application if necessary.
+In the configuration files, the default timeout for operations that take a short amount of time, such as `CreateSession` , is 30 seconds. Longer operations, such as queries or reads, have a default timeout of 3600 seconds. We recommend using these defaults. However, you can set a custom timeout or retry policy in your application if necessary.
 
 If you decide to change the timeout, set it to the actual amount of time that the application is configured to wait for the result.
 
@@ -21,9 +21,9 @@ A retry policy is defined in each snippet, with the following characteristics:
   - A multiplier to use with the previous wait time to calculate the next wait time, until the max is reached.
   - A set of error codes for retry operations.
 
-In the following sample, a timeout of 60 seconds is set for the given operation. If the operation takes longer than this timeout, the operation fails with a `  DEADLINE_EXCEEDED  ` error.
+In the following sample, a timeout of 60 seconds is set for the given operation. If the operation takes longer than this timeout, the operation fails with a `DEADLINE_EXCEEDED` error.
 
-If the operation fails with an `  UNAVAILABLE  ` error code, for example, if there is a transient network problem, the operation is retried. The client waits for 500 ms before starting the first retry attempt. If the first retry fails, the client waits for 1.5 \* 500 ms = 750 ms before starting the second retry. This retry delay continues to increase until the operation either succeeds or reaches the maximum retry delay of 16 seconds. The operation fails with a `  DEADLINE_EXCEEDED  ` error if the total time that is spent on trying the operation exceeds the total timeout value of 60 seconds.
+If the operation fails with an `UNAVAILABLE` error code, for example, if there is a transient network problem, the operation is retried. The client waits for 500 ms before starting the first retry attempt. If the first retry fails, the client waits for 1.5 \* 500 ms = 750 ms before starting the second retry. This retry delay continues to increase until the operation either succeeds or reaches the maximum retry delay of 16 seconds. The operation fails with a `DEADLINE_EXCEEDED` error if the total time that is spent on trying the operation exceeds the total timeout value of 60 seconds.
 
 ### C++
 

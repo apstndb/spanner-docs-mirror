@@ -4,11 +4,11 @@ gcloud beta spanner databases create - create a Cloud Spanner database
 
 SYNOPSIS
 
-`  gcloud beta spanner databases create  ` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  --async  ` \] \[ `  --database-dialect  ` = `  DATABASE_DIALECT  ` \] \[ `  --ddl  ` = `  DDL  ` \] \[ `  --ddl-file  ` = `  DDL_FILE  ` \] \[ `  --proto-descriptors-file  ` = `  PROTO_DESCRIPTORS_FILE  ` \] \[ `  --kms-keys  ` =\[ `  KMS_KEYS  ` , …\] | \[ `  --kms-key  ` = `  KMS_KEY  ` : `  --kms-keyring  ` = `  KMS_KEYRING  ` `  --kms-location  ` = `  KMS_LOCATION  ` `  --kms-project  ` = `  KMS_PROJECT  ` \]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner databases create` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  --async  ` \] \[ `  --database-dialect  ` = `  DATABASE_DIALECT  ` \] \[ `  --ddl  ` = `  DDL  ` \] \[ `  --ddl-file  ` = `  DDL_FILE  ` \] \[ `  --proto-descriptors-file  ` = `  PROTO_DESCRIPTORS_FILE  ` \] \[ `  --kms-keys  ` =\[ `  KMS_KEYS  ` , …\] | \[ `  --kms-key  ` = `  KMS_KEY  ` : `  --kms-keyring  ` = `  KMS_KEYRING  ` `  --kms-location  ` = `  KMS_LOCATION  ` `  --kms-project  ` = `  KMS_PROJECT  ` \]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Create a Cloud Spanner database.
+`(BETA)` Create a Cloud Spanner database.
 
 EXAMPLES
 
@@ -34,53 +34,53 @@ POSITIONAL ARGUMENTS
 
 Database resource - The Cloud Spanner database to create. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  database  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `database` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 This must be specified.
 
   - `  DATABASE  `  
     ID of the database or fully qualified identifier for the database.
     
-    To set the `  database  ` attribute:
+    To set the `database` attribute:
     
-      - provide the argument `  database  ` on the command line.
+      - provide the argument `database` on the command line.
     
     This positional argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     The Cloud Spanner instance for the database.
     
-    To set the `  instance  ` attribute:
+    To set the `instance` attribute:
     
-      - provide the argument `  database  ` on the command line with a fully specified name;
-      - provide the argument `  --instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `database` on the command line with a fully specified name;
+      - provide the argument `--instance` on the command line;
+      - set the property `spanner/instance` .
 
 FLAGS
 
-`  --async  `
+`--async`
 
 Return immediately, without waiting for the operation in progress to complete.
 
-`  --database-dialect  ` = `  DATABASE_DIALECT  `
+`--database-dialect` = `  DATABASE_DIALECT  `
 
-The SQL dialect of the Cloud Spanner Database. GOOGLE\_STANDARD\_SQL is the default. `  DATABASE_DIALECT  ` must be one of: `  POSTGRESQL  ` , `  GOOGLE_STANDARD_SQL  ` .
+The SQL dialect of the Cloud Spanner Database. GOOGLE\_STANDARD\_SQL is the default. `  DATABASE_DIALECT  ` must be one of: `POSTGRESQL` , `GOOGLE_STANDARD_SQL` .
 
-`  --ddl  ` = `  DDL  `
+`--ddl` = `  DDL  `
 
 Semi-colon separated DDL (data definition language) statements to run inside the newly created database. If there is an error in any statement, the database is not created. This option is not supported for the PostgreSQL dialect. Full DDL specification is at <https://cloud.google.com/spanner/docs/data-definition-language>
 
-`  --ddl-file  ` = `  DDL_FILE  `
+`--ddl-file` = `  DDL_FILE  `
 
 Path of a file that contains semi-colon separated DDL (data definition language) statements to run inside the newly created database. If there is an error in any statement, the database is not created. This option is not supported for the PostgreSQL dialect. Full DDL specification is at <https://cloud.google.com/spanner/docs/data-definition-language> . If --ddl\_file is set, --ddl is ignored. One line comments starting with -- are ignored.
 
-`  --proto-descriptors-file  ` = `  PROTO_DESCRIPTORS_FILE  `
+`--proto-descriptors-file` = `  PROTO_DESCRIPTORS_FILE  `
 
-Path of a file that contains a protobuf-serialized google.protobuf.FileDescriptorSet message. To generate it, install and run `  protoc  ` with --include\_imports and --descriptor\_set\_out.
+Path of a file that contains a protobuf-serialized google.protobuf.FileDescriptorSet message. To generate it, install and run `protoc` with --include\_imports and --descriptor\_set\_out.
 
 KMS key name group
 
@@ -88,70 +88,70 @@ At most one of these can be specified:
 
 Key resource - Cloud KMS key(s) to be used to create the Cloud Spanner database. This represents a Cloud resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  kms-project  ` attribute:
+To set the `kms-project` attribute:
 
-  - provide the argument `  --kms-keys  ` on the command line with a fully specified name.
+  - provide the argument `--kms-keys` on the command line with a fully specified name.
 
-To set the `  kms-location  ` attribute:
+To set the `kms-location` attribute:
 
-  - provide the argument `  --kms-keys  ` on the command line with a fully specified name.
+  - provide the argument `--kms-keys` on the command line with a fully specified name.
 
-To set the `  kms-keyring  ` attribute:
+To set the `kms-keyring` attribute:
 
-  - provide the argument `  --kms-keys  ` on the command line with a fully specified name.
+  - provide the argument `--kms-keys` on the command line with a fully specified name.
 
-`  --kms-keys  ` =\[ `  KMS_KEYS  ` ,…\]
+`--kms-keys` =\[ `  KMS_KEYS  ` ,…\]
 
 IDs of the keys or fully qualified identifiers for the keys.
 
-To set the `  kms-key  ` attribute:
+To set the `kms-key` attribute:
 
-  - provide the argument `  --kms-keys  ` on the command line.
+  - provide the argument `--kms-keys` on the command line.
 
 Key resource - Cloud KMS key to be used to create the Cloud Spanner database. The arguments in this group can be used to specify the attributes of this resource.
 
-`  --kms-key  ` = `  KMS_KEY  `
+`--kms-key` = `  KMS_KEY  `
 
 ID of the key or fully qualified identifier for the key.
 
-To set the `  kms-key  ` attribute:
+To set the `kms-key` attribute:
 
-  - provide the argument `  --kms-key  ` on the command line.
+  - provide the argument `--kms-key` on the command line.
 
 This flag argument must be specified if any of the other arguments in this group are specified.
 
-`  --kms-keyring  ` = `  KMS_KEYRING  `
+`--kms-keyring` = `  KMS_KEYRING  `
 
 KMS keyring id of the key.
 
-To set the `  kms-keyring  ` attribute:
+To set the `kms-keyring` attribute:
 
-  - provide the argument `  --kms-key  ` on the command line with a fully specified name;
-  - provide the argument `  --kms-keyring  ` on the command line.
+  - provide the argument `--kms-key` on the command line with a fully specified name;
+  - provide the argument `--kms-keyring` on the command line.
 
-`  --kms-location  ` = `  KMS_LOCATION  `
+`--kms-location` = `  KMS_LOCATION  `
 
 Cloud location for the key.
 
-To set the `  kms-location  ` attribute:
+To set the `kms-location` attribute:
 
-  - provide the argument `  --kms-key  ` on the command line with a fully specified name;
-  - provide the argument `  --kms-location  ` on the command line.
+  - provide the argument `--kms-key` on the command line with a fully specified name;
+  - provide the argument `--kms-location` on the command line.
 
-`  --kms-project  ` = `  KMS_PROJECT  `
+`--kms-project` = `  KMS_PROJECT  `
 
 Cloud project id for the key.
 
-To set the `  kms-project  ` attribute:
+To set the `kms-project` attribute:
 
-  - provide the argument `  --kms-key  ` on the command line with a fully specified name;
-  - provide the argument `  --kms-project  ` on the command line.
+  - provide the argument `--kms-key` on the command line with a fully specified name;
+  - provide the argument `--kms-project` on the command line.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

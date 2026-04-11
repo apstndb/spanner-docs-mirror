@@ -36,7 +36,7 @@ To find the default version, execute the following SQL statement:
 
     SELECT * FROM SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS;
 
-The query returns a list of all supported optimizer versions. The `  IS_DEFAULT  ` column specifies which version is the current default.
+The query returns a list of all supported optimizer versions. The `IS_DEFAULT` column specifies which version is the current default.
 
 For details about each version, see [Query optimizer version history](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) .
 
@@ -44,7 +44,7 @@ For details about each version, see [Query optimizer version history](https://do
 
 Each new optimizer statistics package that Spanner creates is assigned a package name that's guaranteed to be unique within the given database.
 
-The format of the package name is `  auto_{PACKAGE_TIMESTAMP}UTC  ` . In GoogleSQL, the [`  ANALYZE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) statement triggers the creation of the statistics package name. In PostgreSQL, the [`  ANALYZE  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#analyze-statistics) statement performs this task. The format of the statistics package name is `  analyze_ {PACKAGE_TIMESTAMP} UTC  ` , where `  {PACKAGE_TIMESTAMP}  ` is the timestamp, in UTC timezone, of when the statistics construction started. Execute the following SQL statement to return a list of all available optimizer statistics packages.
+The format of the package name is `auto_{PACKAGE_TIMESTAMP}UTC` . In GoogleSQL, the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) statement triggers the creation of the statistics package name. In PostgreSQL, the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#analyze-statistics) statement performs this task. The format of the statistics package name is `  analyze_ {PACKAGE_TIMESTAMP} UTC  ` , where `{PACKAGE_TIMESTAMP}` is the timestamp, in UTC timezone, of when the statistics construction started. Execute the following SQL statement to return a list of all available optimizer statistics packages.
 
     SELECT * FROM INFORMATION_SCHEMA.SPANNER_STATISTICS;
 
@@ -78,7 +78,7 @@ In some cases, Spanner might use an older query optimizer version for a specific
 
 ### Set optimizer options at the database level
 
-To set the default optimizer version on a database, use the following [`  ALTER DATABASE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) DDL command. Setting this option doesn't require all queries to run that version. Instead, it sets an upper bound on the QO version used for queries. Its intended use is to mitigate regressions that occur after a new version of the optimizer is released.
+To set the default optimizer version on a database, use the following [`ALTER DATABASE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) DDL command. Setting this option doesn't require all queries to run that version. Instead, it sets an upper bound on the QO version used for queries. Its intended use is to mitigate regressions that occur after a new version of the optimizer is released.
 
 ### GoogleSQL
 
@@ -109,7 +109,7 @@ You can also set more than one option at the same time, as shown in the followin
     SET OPTIONS (optimizer_version = 8,
                 optimizer_statistics_package = "auto_20191128_14_47_22UTC");
 
-You can run `  ALTER DATABASE  ` in gcloud CLI with the [`  gcloud CLI databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command as follows.
+You can run `ALTER DATABASE` in gcloud CLI with the [`gcloud CLI databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command as follows.
 
 ### GoogleSQL
 
@@ -121,9 +121,9 @@ You can run `  ALTER DATABASE  ` in gcloud CLI with the [`  gcloud CLI databases
     gcloud spanner databases ddl update MyDatabase --instance=test-instance \
       --ddl='ALTER DATABASE MyDatabase SET spanner.optimizer_version = 8'
 
-Setting a database option to `  NULL  ` (in GoogleSQL) or `  DEFAULT  ` (in PostgreSQL) clears it so that the default value is used.
+Setting a database option to `NULL` (in GoogleSQL) or `DEFAULT` (in PostgreSQL) clears it so that the default value is used.
 
-To see the current value of these options for a database, query the [`  INFORMATION_SCHEMA.DATABASE_OPTIONS  `](https://docs.cloud.google.com/spanner/docs/information-schema#database-option-optimizer) view for GoogleSQL, or the [`  information_schema database_options  `](https://docs.cloud.google.com/spanner/docs/information-schema-pg#database-option-optimizer) table for PostgreSQL, as follows.
+To see the current value of these options for a database, query the [`INFORMATION_SCHEMA.DATABASE_OPTIONS`](https://docs.cloud.google.com/spanner/docs/information-schema#database-option-optimizer) view for GoogleSQL, or the [`information_schema database_options`](https://docs.cloud.google.com/spanner/docs/information-schema-pg#database-option-optimizer) table for PostgreSQL, as follows.
 
 ### GoogleSQL
 
@@ -152,9 +152,9 @@ To see the current value of these options for a database, query the [`  INFORMAT
 
 ### Set optimizer options for a query using a statement hint
 
-A [statement hint](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement-hints) is a hint on a query statement that changes the execution of the query from the default behavior. Setting the `  OPTIMIZER_VERSION  ` hint on a statement forces that query to run using the specified query optimizer version.
+A [statement hint](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement-hints) is a hint on a query statement that changes the execution of the query from the default behavior. Setting the `OPTIMIZER_VERSION` hint on a statement forces that query to run using the specified query optimizer version.
 
-The `  OPTIMIZER_VERSION  ` hint has the highest optimizer version precedence. If the statement hint is specified, it's used regardless of all other optimizer version settings.
+The `OPTIMIZER_VERSION` hint has the highest optimizer version precedence. If the statement hint is specified, it's used regardless of all other optimizer version settings.
 
 ### GoogleSQL
 
@@ -174,7 +174,7 @@ You can also use the **latest\_version** literal to set the optimizer version fo
 
     /*@OPTIMIZER_VERSION=latest_version*/ SELECT * FROM MyTable;
 
-Setting the `  OPTIMIZER_STATISTICS_PACKAGE  ` hint on a statement forces that query to run using the specified query optimizer statistics package version. The specified package [must have garbage collection disabled](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#handle-invalid-setting) :
+Setting the `OPTIMIZER_STATISTICS_PACKAGE` hint on a statement forces that query to run using the specified query optimizer statistics package version. The specified package [must have garbage collection disabled](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#handle-invalid-setting) :
 
 ### GoogleSQL
 
@@ -184,7 +184,7 @@ Setting the `  OPTIMIZER_STATISTICS_PACKAGE  ` hint on a statement forces that q
 
     ALTER STATISTICS spanner."<package_name>" SET OPTIONS (allow_gc=false)
 
-The `  OPTIMIZER_STATISTICS_PACKAGE  ` hint has the highest optimizer package setting precedence. If the statement hint is specified, it's used regardless of all other optimizer package version settings.
+The `OPTIMIZER_STATISTICS_PACKAGE` hint has the highest optimizer package setting precedence. If the statement hint is specified, it's used regardless of all other optimizer package version settings.
 
     @{OPTIMIZER_STATISTICS_PACKAGE=auto_20191128_14_47_22UTC} SELECT * FROM MyTable;
 
@@ -493,7 +493,7 @@ An application can set optimizer options globally on the client library by confi
 
 #### With environment variables
 
-To make it easier to try different optimizer settings without having to recompile your app, you can set the `  SPANNER_OPTIMIZER_VERSION  ` and `  SPANNER_OPTIMIZER_STATISTICS_PACKAGE  ` environment variables and run your app, as shown in the following snippet.
+To make it easier to try different optimizer settings without having to recompile your app, you can set the `SPANNER_OPTIMIZER_VERSION` and `SPANNER_OPTIMIZER_STATISTICS_PACKAGE` environment variables and run your app, as shown in the following snippet.
 
 ### Linux / macOS
 
@@ -831,7 +831,7 @@ These options are only supported in the latest versions of the [Spanner JDBC dri
       }
     }
 
-You can also set the query optimizer version using the `  SET OPTIMIZER_VERSION  ` statement as shown in the following example.
+You can also set the query optimizer version using the `SET OPTIMIZER_VERSION` statement as shown in the following example.
 
     import java.sql.Connection;
     import java.sql.DriverManager;
@@ -882,16 +882,16 @@ For more details on using the open source driver, see [Using the open source JDB
 
 ## How invalid optimizer versions are handled
 
-Spanner supports a [range](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-optimizer-versions) of optimizer versions. This range changes over time when the query optimizer is updated. If the version you specify is out of range, the query fails. For example, if you attempt to run a query with the statement hint `  @{OPTIMIZER_VERSION=9}  ` , but the most recent optimizer version number is only `  8  ` , Spanner responds with this error message:
+Spanner supports a [range](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-optimizer-versions) of optimizer versions. This range changes over time when the query optimizer is updated. If the version you specify is out of range, the query fails. For example, if you attempt to run a query with the statement hint `@{OPTIMIZER_VERSION=9}` , but the most recent optimizer version number is only `8` , Spanner responds with this error message:
 
-`  Query optimizer version: 9 is not supported  `
+`Query optimizer version: 9 is not supported`
 
 ### Handle an invalid optimizer statistics package setting
 
 You can pin your database or query to any [available statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) using one of the methods described earlier on this page. A query fails if an invalid statistics package name is provided. A statistics package specified by a query needs to be either:
 
   - [set at the database level](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#db-option) ; or
-  - [marked as `  ALLOW_GC=false  `](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint)
+  - [marked as `ALLOW_GC=false`](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint)
 
 ## Determine the query optimizer version used to run a query
 
@@ -905,7 +905,7 @@ Query optimizer version: 8
 
 ### gcloud CLI
 
-To see the version used when running a query in gcloud CLI, set the `  --query-mode  ` flag to `  PROFILE  ` as shown in the following snippet.
+To see the version used when running a query in gcloud CLI, set the `--query-mode` flag to `PROFILE` as shown in the following snippet.
 
     gcloud spanner databases execute-sql MyDatabase --instance=test-instance \
         --query-mode=PROFILE --sql='SELECT * FROM MyTable'
@@ -916,7 +916,7 @@ Cloud Monitoring collects measurements to help you understand how your applicati
 
 You can use [Metrics Explorer](https://docs.cloud.google.com/monitoring/charts/metrics-explorer) in Google Cloud console to visualize **Count of queries** for your database instance. Figure 1 shows the count of queries for three databases. You can see which optimizer version is being used in each database.
 
-The table below the chart in this figure shows that `  my-db-1  ` attempted to run a query with an invalid optimizer version, returning the status **Bad usage** and resulting in a query count of 0. The other databases ran queries using versions 1 and 2 of the optimizer respectively.
+The table below the chart in this figure shows that `my-db-1` attempted to run a query with an invalid optimizer version, returning the status **Bad usage** and resulting in a query count of 0. The other databases ran queries using versions 1 and 2 of the optimizer respectively.
 
 ![Queries count in Metrics Explorer grouped by query optimizer version](https://docs.cloud.google.com/static/spanner/docs/images/qov-in-metrics-explorer.png)
 
@@ -925,9 +925,9 @@ The table below the chart in this figure shows that `  my-db-1  ` attempted to r
 To set up a similar chart for your instance:
 
 1.  Navigate to the [Metrics Explorer](https://docs.cloud.google.com/monitoring/charts/metrics-explorer#find-me) in the Google Cloud console.
-2.  In the **Resource type** field, select `  Cloud Spanner Instance  ` .
-3.  In the **Metric** field, select `  Count of queries  ` .
-4.  In the **Group By** field, select `  database  ` , `  optimizer_version  ` , and `  status  ` .
+2.  In the **Resource type** field, select `Cloud Spanner Instance` .
+3.  In the **Metric** field, select `Count of queries` .
+4.  In the **Group By** field, select `database` , `optimizer_version` , and `status` .
 
 Not shown in this example is the case where a different optimizer version is being used for different queries in the same database. In that case, the chart would display a bar segment for each combination of database and optimizer version.
 

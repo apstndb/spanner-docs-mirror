@@ -14,34 +14,28 @@ Encryption information for a Cloud Spanner database or backup.
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;encryptionType&quot;: enum (Type),
-  &quot;encryptionStatus&quot;: {
-    object (Status)
-  },
-  &quot;kmsKeyVersion&quot;: string
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;encryptionType&quot;: enum (Type),&quot;encryptionStatus&quot;: {object (Status)},&quot;kmsKeyVersion&quot;: string}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  encryptionType  `
+`encryptionType`
 
-`  enum ( Type  ` )
+` enum ( Type  ` )
 
 Output only. The type of encryption.
 
-`  encryptionStatus  `
+`encryptionStatus`
 
-`  object ( Status  ` )
+` object ( Status  ` )
 
 Output only. If present, the status of a recent encrypt/decrypt call on underlying data for this database or backup. Regardless of status, data is always encrypted at rest.
 
-`  kmsKeyVersion  `
+`kmsKeyVersion`
 
-`  string  `
+`string`
 
 Output only. A Cloud KMS key version that is being used to protect the database or backup.
 
@@ -51,14 +45,14 @@ Possible encryption types.
 
 Enums
 
-`  TYPE_UNSPECIFIED  `
+`TYPE_UNSPECIFIED`
 
 Encryption type was not specified, though data at rest remains encrypted.
 
-`  GOOGLE_DEFAULT_ENCRYPTION  `
+`GOOGLE_DEFAULT_ENCRYPTION`
 
 The data is encrypted at rest with a key that is fully managed by Google. No key version or status will be populated. This is the default state.
 
-`  CUSTOMER_MANAGED_ENCRYPTION  `
+`CUSTOMER_MANAGED_ENCRYPTION`
 
-The data is encrypted at rest with a key that is managed by the customer. The active version of the key. `  kmsKeyVersion  ` will be populated, and `  encryptionStatus  ` may be populated.
+The data is encrypted at rest with a key that is managed by the customer. The active version of the key. `kmsKeyVersion` will be populated, and `encryptionStatus` may be populated.

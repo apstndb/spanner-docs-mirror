@@ -12,7 +12,7 @@ Views provide several advantages as an abstraction layer between tables and a gr
 
   - [**Row-level access control**](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#fine-grained-graph-access) . Apply [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) at the row-level to graph data using the security privileges of [definer's rights views](https://docs.cloud.google.com/spanner/docs/views#definer) . This ensures users can query only nodes and edges they are permitted to see.
 
-  - **[Flexible data modeling](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#model-derived-graph)** . Use a view with a query to shape and transform relational data before creating a graph element. The view's query lets you filter rows, combine columns, or unnest repeated fields such as in an `  ARRAY  ` .
+  - **[Flexible data modeling](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#model-derived-graph)** . Use a view with a query to shape and transform relational data before creating a graph element. The view's query lets you filter rows, combine columns, or unnest repeated fields such as in an `ARRAY` .
 
   - **[Transition from schemaless data to formalized data](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#schemaless-transition)** . Create views from [schemaless data](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data) to define node and edge types explicitly. This helps formalize the relationships in the data.
 
@@ -20,13 +20,13 @@ Views provide several advantages as an abstraction layer between tables and a gr
 
 You must follow these requirements when you use views to create graph elements:
 
-  - [Use the `  KEY  ` clause when you specify a graph element](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#use-key-clause) .
+  - [Use the `KEY` clause when you specify a graph element](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#use-key-clause) .
 
   - [Use views that ensure nodes and edges are unique](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#graph-view-requirements) .
 
-### Use the `     KEY    ` clause when you specify a graph element
+### Use the `KEY` clause when you specify a graph element
 
-You must explicitly define the columns that uniquely identify the graph element when you use views to create a node or an edge element. To do this, use the `  KEY  ` clause in the node or edge element definition. To learn how to use the `  KEY  ` clause when creating a graph element, see the code examples in this document and in [Create a Spanner Graph from a SQL view](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to) .
+You must explicitly define the columns that uniquely identify the graph element when you use views to create a node or an edge element. To do this, use the `KEY` clause in the node or edge element definition. To learn how to use the `KEY` clause when creating a graph element, see the code examples in this document and in [Create a Spanner Graph from a SQL view](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to) .
 
 ### Use views that ensure nodes and edges are unique
 
@@ -34,15 +34,15 @@ Views that define node or edge tables must follow one of the following patterns 
 
   - [Pattern 1](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#pattern-1-view-pk) : The view uses a single table's primary key.
 
-  - [Pattern 2](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#pattern-2-group-by-distinct) : The view uses a `  GROUP BY  ` or a `  SELECT DISTINCT  ` clause.
+  - [Pattern 2](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#pattern-2-group-by-distinct) : The view uses a `GROUP BY` or a `SELECT DISTINCT` clause.
 
-You can use other SQL operators such as `  WHERE  ` , `  HAVING  ` , `  ORDER BY  ` , `  LIMIT  ` , and `  TABLESAMPLE  ` in combination with these patterns. These operators filter or order the results, but they don't change the underlying uniqueness guarantee that the patterns provide.
+You can use other SQL operators such as `WHERE` , `HAVING` , `ORDER BY` , `LIMIT` , and `TABLESAMPLE` in combination with these patterns. These operators filter or order the results, but they don't change the underlying uniqueness guarantee that the patterns provide.
 
 #### Pattern 1: Use a single table's primary key
 
-In this pattern, the view selects from a single table, and the `  KEY  ` clause in the graph definition matches the base table's primary key columns. Because of this, each node or edge row produced by the view is unique.
+In this pattern, the view selects from a single table, and the `KEY` clause in the graph definition matches the base table's primary key columns. Because of this, each node or edge row produced by the view is unique.
 
-For example, the following selects a subset of rows from the `  Account  ` table. The graph `  KEY(account_id)  ` matches the `  Account  ` table's primary key, which ensures that each row produced by the view is unique.
+For example, the following selects a subset of rows from the `Account` table. The graph `KEY(account_id)` matches the `Account` table's primary key, which ensures that each row produced by the view is unique.
 
     -- Table has PRIMARY KEY(account_id).
     CREATE TABLE Account (
@@ -65,15 +65,15 @@ For example, the following selects a subset of rows from the `  Account  ` table
         SavingAccount KEY(account_id)
       );
 
-#### Pattern 2: Use `     GROUP BY    ` or `     SELECT DISTINCT    ` clause
+#### Pattern 2: Use `GROUP BY` or `SELECT DISTINCT` clause
 
-In this pattern, the view's query uses a `  GROUP BY  ` or a `  SELECT DISTINCT  ` clause. The columns in the `  KEY  ` clause must match the columns that these clauses use to define uniqueness:
+In this pattern, the view's query uses a `GROUP BY` or a `SELECT DISTINCT` clause. The columns in the `KEY` clause must match the columns that these clauses use to define uniqueness:
 
-  - For `  GROUP BY  ` : The `  KEY  ` clause columns must match all columns in the `  GROUP BY  ` clause.
+  - For `GROUP BY` : The `KEY` clause columns must match all columns in the `GROUP BY` clause.
 
-  - For `  SELECT DISTINCT  ` : The `  KEY  ` clause columns must match the columns in the `  SELECT DISTINCT  ` list.
+  - For `SELECT DISTINCT` : The `KEY` clause columns must match the columns in the `SELECT DISTINCT` list.
 
-Example with `  GROUP BY  ` :
+Example with `GROUP BY` :
 
     CREATE TABLE Customer (
       customer_id INT64,
@@ -101,7 +101,7 @@ Example with `  GROUP BY  ` :
         CustomerOrder KEY(order_id)
       );
 
-Example with `  SELECT DISTINCT  ` :
+Example with `SELECT DISTINCT` :
 
     CREATE TABLE SaleOrder (
       order_id INT64,
@@ -132,7 +132,7 @@ When you use views to define graph elements, the following can help you design a
 
 ### Property graph query performance
 
-When you define graph elements on views that perform data transformations (for example, `  GROUP BY  ` , `  UNNEST  ` , or `  JOIN  ` operations), carefully evaluate query performance for your use case. Remember that Spanner executes a view's query definition every time a query performs [element pattern matching](https://docs.cloud.google.com/spanner/docs/graph/queries-overview#graph-pattern-matching) .
+When you define graph elements on views that perform data transformations (for example, `GROUP BY` , `UNNEST` , or `JOIN` operations), carefully evaluate query performance for your use case. Remember that Spanner executes a view's query definition every time a query performs [element pattern matching](https://docs.cloud.google.com/spanner/docs/graph/queries-overview#graph-pattern-matching) .
 
 ### Graph schema optimization
 
@@ -148,9 +148,9 @@ If a view is a projection from a single base table, any optimizations on that un
 
   - [Use secondary indexes to filter properties](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#use-secondary-indexes) .
 
-#### Views defined with `     GROUP BY    ` or `     DISTINCT    ` clause
+#### Views defined with `GROUP BY` or `DISTINCT` clause
 
-Views that perform aggregations, such as `  GROUP BY  ` , `  SELECT DISTINCT  ` , or other complex transformations, lose the direct relationship to the underlying table structure. Because of this, schema optimizations on the base tables might not provide the same performance benefits for graph queries that operate on the views. Carefully evaluate query performance for your use case when your views perform complex aggregations.
+Views that perform aggregations, such as `GROUP BY` , `SELECT DISTINCT` , or other complex transformations, lose the direct relationship to the underlying table structure. Because of this, schema optimizations on the base tables might not provide the same performance benefits for graph queries that operate on the views. Carefully evaluate query performance for your use case when your views perform complex aggregations.
 
 ### Data modification with view-based graphs
 
@@ -160,7 +160,7 @@ Views are not materialized, which means they don't store the results of the quer
 
 When you use views to define graph elements, enforce data integrity (for example, enforce data types) on the underlying base tables. Otherwise, the data in the base tables might be invalid and cause queries on your view-based graph to fail at runtime.
 
-For example, when you [transition from schemaless to a formalized graph](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#schemaless-transition) , use `  CHECK  ` constraints to validate data in your base tables ( `  GraphNode  ` and `  GraphEdge  ` ). The following code applies these constraints within the JSON properties to ensure data integrity at the source and prevent runtime query errors.
+For example, when you [transition from schemaless to a formalized graph](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#schemaless-transition) , use `CHECK` constraints to validate data in your base tables ( `GraphNode` and `GraphEdge` ). The following code applies these constraints within the JSON properties to ensure data integrity at the source and prevent runtime query errors.
 
     -- Enforce that the 'name' property exists for nodes with the 'person' label.
     ALTER TABLE GraphNode

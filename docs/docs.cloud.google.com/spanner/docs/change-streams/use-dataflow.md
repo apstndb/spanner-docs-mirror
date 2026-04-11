@@ -29,7 +29,7 @@ For details on how to create a change stream, see [Create a change stream](https
 
 #### Apache Beam SpannerIO connector
 
-This is the SpannerIO connector [described in the earlier Dataflow section](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#dataflow) . It is a source I/O connector that emits a `  PCollection  ` of data change records to later stages of the pipeline. The [event time](https://beam.apache.org/documentation/programming-guide/#element-timestamps) for each emitted data change record will be the commit timestamp. Note that the records emitted are **unordered** , and that the SpannerIO connector guarantees there will be no [late records](https://beam.apache.org/documentation/programming-guide/#watermarks-and-late-data) .
+This is the SpannerIO connector [described in the earlier Dataflow section](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#dataflow) . It is a source I/O connector that emits a `PCollection` of data change records to later stages of the pipeline. The [event time](https://beam.apache.org/documentation/programming-guide/#element-timestamps) for each emitted data change record will be the commit timestamp. Note that the records emitted are **unordered** , and that the SpannerIO connector guarantees there will be no [late records](https://beam.apache.org/documentation/programming-guide/#watermarks-and-late-data) .
 
 When working with change streams, Dataflow uses checkpointing. As a result, each worker might wait for up to the configured checkpoint interval for buffering changes before sending the changes for further processing.
 
@@ -82,7 +82,7 @@ For details about how to create a change stream, see [Create a change stream](ht
 
 ### Grant fine-grained access control privileges
 
-If you expect any fine-grained access control users to run the Dataflow job, ensure that the users are granted access to a database role that has the `  SELECT  ` privilege on the change stream and the `  EXECUTE  ` privilege on the change stream's table-valued function. Also ensure that the principal specifies the database role in the SpannerIO configuration or in the Dataflow flex template.
+If you expect any fine-grained access control users to run the Dataflow job, ensure that the users are granted access to a database role that has the `SELECT` privilege on the change stream and the `EXECUTE` privilege on the change stream's table-valued function. Also ensure that the principal specifies the database role in the SpannerIO configuration or in the Dataflow flex template.
 
 For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
 
@@ -90,7 +90,7 @@ For more information, see [About fine-grained access control](https://docs.cloud
 
 The Apache Beam SpannerIO connector encapsulates the complexity of consuming the change streams directly using the Cloud Spanner API, emitting a PCollection of change stream data records to later stages of the pipeline.
 
-These objects can be consumed in other stages of the user's Dataflow pipeline. The change stream integration is part of the SpannerIO connector. To be able to use the SpannerIO connector, the dependency needs to be added to your `  pom.xml  ` file:
+These objects can be consumed in other stages of the user's Dataflow pipeline. The change stream integration is part of the SpannerIO connector. To be able to use the SpannerIO connector, the dependency needs to be added to your `pom.xml` file:
 
     <dependency>
       <groupId>org.apache.beam</groupId>
@@ -108,14 +108,14 @@ As described in [Change streams best practices](https://docs.cloud.google.com/sp
 
 The owner of a Dataflow job that uses the SpannerIO connector needs to have the following [IAM permissions](https://docs.cloud.google.com/spanner/docs/iam) set with this metadata database:
 
-  - `  spanner.databases.updateDdl  `
-  - `  spanner.databases.beginReadOnlyTransaction  `
-  - `  spanner.databases.beginOrRollbackReadWriteTransaction  `
-  - `  spanner.databases.read  `
-  - `  spanner.databases.select  `
-  - `  spanner.databases.write  `
-  - `  spanner.sessions.create  `
-  - `  spanner.sessions.get  `
+  - `spanner.databases.updateDdl`
+  - `spanner.databases.beginReadOnlyTransaction`
+  - `spanner.databases.beginOrRollbackReadWriteTransaction`
+  - `spanner.databases.read`
+  - `spanner.databases.select`
+  - `spanner.databases.write`
+  - `spanner.sessions.create`
+  - `spanner.sessions.get`
 
 ### Configure the connector
 
@@ -145,7 +145,7 @@ The Spanner change streams connector can be configured as follows:
       .withInclusiveStartAt(startTime)
       .withInclusiveEndAt(endTime);
 
-The following are descriptions of the `  readChangeStream()  ` options:
+The following are descriptions of the `readChangeStream()` options:
 
 #### Spanner Config (Required)
 
@@ -171,7 +171,7 @@ This is the pre-existing metadata table name to be used by the connector. This i
 
 #### RPC priority (Optional)
 
-The [request priority](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority) to be used for the change stream queries. If this parameter is omitted, `  high priority  ` will be used.
+The [request priority](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority) to be used for the change stream queries. If this parameter is omitted, `high priority` will be used.
 
 #### InclusiveStartAt (Required)
 
@@ -183,7 +183,7 @@ Changes up to the given timestamp are returned to the caller. If this parameter 
 
 ### Add transforms and sinks to process change data
 
-With the previous steps complete, the configured SpannerIO connector is ready to emit a PCollection of [`  DataChangeRecord  `](https://github.com/apache/beam/blob/master/sdks/java/io/google-cloud-platform/src/main/java/org/apache/beam/sdk/io/gcp/spanner/changestreams/model/DataChangeRecord.java) objects. See [Example transforms and sinks](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#examples) for several sample pipeline configurations that process this streamed data in various ways.
+With the previous steps complete, the configured SpannerIO connector is ready to emit a PCollection of [`DataChangeRecord`](https://github.com/apache/beam/blob/master/sdks/java/io/google-cloud-platform/src/main/java/org/apache/beam/sdk/io/gcp/spanner/changestreams/model/DataChangeRecord.java) objects. See [Example transforms and sinks](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#examples) for several sample pipeline configurations that process this streamed data in various ways.
 
 Note that change stream records emitted by the SpannerIO connector are unordered. This is because PCollections don't provide any ordering guarantees. If you need an ordered stream, you must group and sort the records as transforms in your pipelines: see [Sample: Order by key](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#order-by-key) . You can extend this sample to sort the records based on any fields of the records, such as by transaction IDs.
 
@@ -213,7 +213,7 @@ This code sample emits data change records ordered by commit timestamp and group
       .apply(ParDo.of(new BufferKeyUntilOutputTimestamp()))
       // Subsequent processing goes here
 
-This code sample uses states and timers to buffer records for each key, and sets the expiration time of the timer to some user-configured time `  T  ` in the future (defined in the [BufferKeyUntilOutputTimestamp](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#bufferkeyuntiloutputtimestamp) function). When the Dataflow watermark passes time `  T  ` , this code flushes all records in the buffer with timestamp less than `  T  ` , orders these records by commit timestamp, and outputs a key-value pair where:
+This code sample uses states and timers to buffer records for each key, and sets the expiration time of the timer to some user-configured time `T` in the future (defined in the [BufferKeyUntilOutputTimestamp](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#bufferkeyuntiloutputtimestamp) function). When the Dataflow watermark passes time `T` , this code flushes all records in the buffer with timestamp less than `T` , orders these records by commit timestamp, and outputs a key-value pair where:
 
   - The key is the input key, that is the primary key hashed to a bucket array of size 1000.
   - The value is the ordered data change records that were buffered for the key.
@@ -223,7 +223,7 @@ For each key, we have the following guarantees:
   - Timers are guaranteed to fire in order of expiration timestamp.
   - Downstream stages are guaranteed to receive the elements in the same order that they were produced.
 
-For example, with a key of the value 100, the timer fires at `  T1  ` and `  T10  ` respectively, producing a bundle of data change records at each timestamp. Because the data change records outputted at `  T1  ` were produced before the data change records outputted at `  T10  ` , the data change records outputted at `  T1  ` are also guaranteed to be received by the next stage before the data change records outputted at `  T10  ` . This mechanism helps us guarantee strict commit timestamp ordering per primary key for downstream processing.
+For example, with a key of the value 100, the timer fires at `T1` and `T10` respectively, producing a bundle of data change records at each timestamp. Because the data change records outputted at `T1` were produced before the data change records outputted at `T10` , the data change records outputted at `T1` are also guaranteed to be received by the next stage before the data change records outputted at `T10` . This mechanism helps us guarantee strict commit timestamp ordering per primary key for downstream processing.
 
 This process will repeat until the pipeline ends and all data change records have been processed (or it will repeat indefinitely if no end time is specified).
 
@@ -264,7 +264,7 @@ Each data change record may contain several mods. Each mod represents an insert,
 
 #### KeyByIdFn
 
-This function takes in a `  DataChangeRecord  ` and outputs a `  DataChangeRecord  ` keyed by the Spanner primary key hashed to an integer value.
+This function takes in a `DataChangeRecord` and outputs a `DataChangeRecord` keyed by the Spanner primary key hashed to an integer value.
 
     private static class KeyByIdFn extends DoFn<DataChangeRecord, KV<String, DataChangeRecord>>  {
       // NUMBER_OF_BUCKETS should be configured by the user to match their key cardinality
@@ -293,9 +293,9 @@ Timers and buffers are per-key. This function buffers each data change record un
 
 This code utilizes a looping timer to determine when to flush the buffer:
 
-1.  When it sees a data change record for a key for the first time, it sets the timer to fire at the data change record's commit timestamp + `  incrementIntervalSeconds  ` (a user-configurable option).
-2.  When the timer fires, it adds all data change records in the buffer with timestamp less than the timer's expiration time to `  recordsToOutput  ` . If the buffer has data change records whose timestamp is greater than or equal to the timer's expiration time, it adds those data change records back into the buffer instead of outputting them. It then sets the next timer to the current timer's expiration time plus `  incrementIntervalInSeconds  ` .
-3.  If `  recordsToOutput  ` is not empty, the function orders the data change records in `  recordsToOutput  ` by commit timestamp and transaction ID and then outputs them.
+1.  When it sees a data change record for a key for the first time, it sets the timer to fire at the data change record's commit timestamp + `incrementIntervalSeconds` (a user-configurable option).
+2.  When the timer fires, it adds all data change records in the buffer with timestamp less than the timer's expiration time to `recordsToOutput` . If the buffer has data change records whose timestamp is greater than or equal to the timer's expiration time, it adds those data change records back into the buffer instead of outputting them. It then sets the next timer to the current timer's expiration time plus `incrementIntervalInSeconds` .
+3.  If `recordsToOutput` is not empty, the function orders the data change records in `recordsToOutput` by commit timestamp and transaction ID and then outputs them.
 
 <!-- end list -->
 
@@ -425,7 +425,7 @@ This pipeline can be changed to order by transaction ID and commit timestamp. To
 
 This code sample reads data change records, assembles all data change records belonging to the same transaction into a single element, and outputs that element. Note that the transactions outputted by this sample code are not ordered by commit timestamp.
 
-This code sample uses buffers to assemble transactions from data change records. Upon receiving a data change record belonging to a transaction for the first time, it reads the `  numberOfRecordsInTransaction  ` field in the data change record, which describes the expected number of data change records belonging to that transaction. It buffers the data change records belonging to that transaction until the number of buffered records matches `  numberOfRecordsInTransaction  ` , upon which it outputs the bundled data change records.
+This code sample uses buffers to assemble transactions from data change records. Upon receiving a data change record belonging to a transaction for the first time, it reads the `numberOfRecordsInTransaction` field in the data change record, which describes the expected number of data change records belonging to that transaction. It buffers the data change records belonging to that transaction until the number of buffered records matches `numberOfRecordsInTransaction` , upon which it outputs the bundled data change records.
 
     pipeline
       .apply(SpannerIO
@@ -446,7 +446,7 @@ This code sample uses buffers to assemble transactions from data change records.
 
 #### KeyByTransactionIdFn
 
-This function takes in a `  DataChangeRecord  ` and outputs a `  DataChangeRecord  ` keyed by the transaction ID.
+This function takes in a `DataChangeRecord` and outputs a `DataChangeRecord` keyed by the transaction ID.
 
     private static class KeyByTransactionIdFn extends DoFn<DataChangeRecord, KV<String, DataChangeRecord>>  {
       @ProcessElement
@@ -459,9 +459,9 @@ This function takes in a `  DataChangeRecord  ` and outputs a `  DataChangeRecor
 
 #### TransactionBoundaryFn
 
-`  TransactionBoundaryFn  ` buffers received key-value pairs of `  {TransactionId, DataChangeRecord}  ` from `  KeyByTransactionIdFn  ` and buffers them in groups based on `  TransactionId  ` . When the number of records buffered is equal to the number of records contained in the entire transaction, this function sorts the `  DataChangeRecord  ` objects in the group by record sequence and outputs a key-value pair of `  {CommitTimestamp, TransactionId}  ` , `  Iterable<DataChangeRecord>  ` .
+`TransactionBoundaryFn` buffers received key-value pairs of `{TransactionId, DataChangeRecord}` from `KeyByTransactionIdFn` and buffers them in groups based on `TransactionId` . When the number of records buffered is equal to the number of records contained in the entire transaction, this function sorts the `DataChangeRecord` objects in the group by record sequence and outputs a key-value pair of `{CommitTimestamp, TransactionId}` , `Iterable<DataChangeRecord>` .
 
-Here, we are assuming that `  SortKey  ` is a user-defined class that represents a `  {CommitTimestamp, TransactionId}  ` pair. For more information about the `  SortKey  ` , see the [sample implementation](https://github.com/apache/beam/blob/master/sdks/java/io/google-cloud-platform/src/test/java/org/apache/beam/sdk/io/gcp/spanner/changestreams/it/SpannerChangeStreamTransactionBoundariesIT.java#L251) .
+Here, we are assuming that `SortKey` is a user-defined class that represents a `{CommitTimestamp, TransactionId}` pair. For more information about the `SortKey` , see the [sample implementation](https://github.com/apache/beam/blob/master/sdks/java/io/google-cloud-platform/src/test/java/org/apache/beam/sdk/io/gcp/spanner/changestreams/it/SpannerChangeStreamTransactionBoundariesIT.java#L251) .
 
     private static class TransactionBoundaryFn extends DoFn<KV<String, DataChangeRecord>, KV<SortKey, Iterable<DataChangeRecord>>>  {
       @StateId("buffer")
@@ -506,9 +506,9 @@ Here, we are assuming that `  SortKey  ` is a user-defined class that represents
 
 ### Sample: Filter by transaction tag
 
-When a transaction modifying user data is tagged, the corresponding tag and its type get stored as part of `  DataChangeRecord  ` . These examples demonstrate how to filter change stream records based on user-defined transaction tags as well as system tags:
+When a transaction modifying user data is tagged, the corresponding tag and its type get stored as part of `DataChangeRecord` . These examples demonstrate how to filter change stream records based on user-defined transaction tags as well as system tags:
 
-User-defined tag filtering for `  my-tx-tag  ` :
+User-defined tag filtering for `my-tx-tag` :
 
     pipeline
       .apply(SpannerIO
@@ -550,7 +550,7 @@ System tag filtering/ [TTL](https://docs.cloud.google.com/spanner/docs/ttl) audi
 
 ### Sample: Fetch full row
 
-This example works with a Spanner table named `  Singer  ` that has the following definition:
+This example works with a Spanner table named `Singer` that has the following definition:
 
     CREATE TABLE Singers (
       SingerId INT64 NOT NULL,
@@ -558,11 +558,11 @@ This example works with a Spanner table named `  Singer  ` that has the followin
       LastName STRING(1024)
     ) PRIMARY KEY (SingerId);
 
-Under the default `  OLD_AND_NEW_VALUES  ` value capture mode of change streams, when there is an update to a Spanner row, the data change record received will contain only the columns that were changed. Tracked but unchanged columns will not be included in the record. The primary key of the mod can be used to do a Spanner snapshot read at the commit timestamp of the data change record to fetch the unchanged columns or even retrieve the full row.
+Under the default `OLD_AND_NEW_VALUES` value capture mode of change streams, when there is an update to a Spanner row, the data change record received will contain only the columns that were changed. Tracked but unchanged columns will not be included in the record. The primary key of the mod can be used to do a Spanner snapshot read at the commit timestamp of the data change record to fetch the unchanged columns or even retrieve the full row.
 
 Note that the database retention policy might need to be changed to a value greater or equal to the change stream retention policy in order for the snapshot read to succeed.
 
-Also note that using the `  NEW_ROW  ` value capture type is the recommended and more efficient way to do this, since it returns all tracked columns of the row by default and does not require an extra snapshot read into Spanner.
+Also note that using the `NEW_ROW` value capture type is the recommended and more efficient way to do this, since it returns all tracked columns of the row by default and does not require an extra snapshot read into Spanner.
 
     SpannerConfig spannerConfig = SpannerConfig
        .create()
@@ -668,7 +668,7 @@ This transformation will perform a stale read at the commit timestamp of each re
      }
     }
 
-This code creates a Spanner database client to perform the full row fetch, and configures the session pool to have just a few sessions, performing reads in one instance of the `  ToFullReowJsonFn  ` sequentially. Dataflow makes sure to spawn many instances of this function, each with its own client pool.
+This code creates a Spanner database client to perform the full row fetch, and configures the session pool to have just a few sessions, performing reads in one instance of the `ToFullReowJsonFn` sequentially. Dataflow makes sure to spawn many instances of this function, each with its own client pool.
 
 **Note:** We recommended adding a re-shuffle stage after a stage which reads the change stream. This re-distributes data into multiple worker threads, and increases parallelism.
 
@@ -797,7 +797,7 @@ For change streams pipelines, there are two main metrics that should be taken in
 
 The system latency will tell you the current maximum duration of time (in seconds) for which an item of data is processed or awaiting processing.
 
-The data freshness will show you the amount of time between now (real time) and the output watermark. The output watermark of time `  T  ` indicates that all elements with an event time (strictly) before `  T  ` have been processed for computation. In other words, the data freshness measures how up to date the pipeline is, in regards to processing the events it has received.
+The data freshness will show you the amount of time between now (real time) and the output watermark. The output watermark of time `T` indicates that all elements with an event time (strictly) before `T` have been processed for computation. In other words, the data freshness measures how up to date the pipeline is, in regards to processing the events it has received.
 
 If the pipeline is under-resourced, you can see that effect in these two metrics. The system latency will increase, because items need to wait for longer before they are processed. The data freshness will also increase, because the pipeline won't be able to keep up with the amount of data received.
 
@@ -812,9 +812,9 @@ These metrics are exposed in Cloud Monitoring and include:
 
 ## Update an existing pipeline
 
-It is possible to update a running pipeline that uses the SpannerIO connector to process change streams if the [job compatibility checks](https://docs.cloud.google.com/dataflow/docs/guides/updating-a-pipeline#CCheck) pass. To do this, you have to explicitly set the metadata table name parameter of the new job when updating it. Use the value of the `  metadataTable  ` pipeline option from the job you are updating.
+It is possible to update a running pipeline that uses the SpannerIO connector to process change streams if the [job compatibility checks](https://docs.cloud.google.com/dataflow/docs/guides/updating-a-pipeline#CCheck) pass. To do this, you have to explicitly set the metadata table name parameter of the new job when updating it. Use the value of the `metadataTable` pipeline option from the job you are updating.
 
-If you are using a Google-provided Dataflow template, set the table name using the parameter `  spannerMetadataTableName  ` . You can also modify your existing job to explicitly use the metadata table with the method `  withMetadataTable( your-metadata-table-name )  ` in the connector configuration. After that is done, you can follow the instructions in [Launching your replacement job](https://docs.cloud.google.com/dataflow/docs/guides/updating-a-pipeline#Launching) from the Dataflow documentation to update a running job.
+If you are using a Google-provided Dataflow template, set the table name using the parameter `spannerMetadataTableName` . You can also modify your existing job to explicitly use the metadata table with the method `withMetadataTable( your-metadata-table-name )` in the connector configuration. After that is done, you can follow the instructions in [Launching your replacement job](https://docs.cloud.google.com/dataflow/docs/guides/updating-a-pipeline#Launching) from the Dataflow documentation to update a running job.
 
 ## Best practices for change streams and Dataflow
 
@@ -838,15 +838,15 @@ There are a few known limitations when using Spanner change streams with Dataflo
 
 ### Autoscaling
 
-Autoscaling support for any pipelines that include `  SpannerIO.readChangeStream  ` requires Apache Beam `  2.39.0  ` or higher.
+Autoscaling support for any pipelines that include `SpannerIO.readChangeStream` requires Apache Beam `2.39.0` or higher.
 
-If you use an Apache Beam version prior to `  2.39.0  ` , pipelines that include `  SpannerIO.readChangeStream  ` need to explicitly specify the autoscaling algorithm as `  NONE  ` , as described in [Horizontal autoscaling](https://docs.cloud.google.com/dataflow/docs/horizontal-autoscaling) .
+If you use an Apache Beam version prior to `2.39.0` , pipelines that include `SpannerIO.readChangeStream` need to explicitly specify the autoscaling algorithm as `NONE` , as described in [Horizontal autoscaling](https://docs.cloud.google.com/dataflow/docs/horizontal-autoscaling) .
 
 To manually scale a Dataflow pipeline instead of using autoscaling, see [Manually scaling a streaming pipeline](https://docs.cloud.google.com/dataflow/docs/horizontal-autoscaling#manually_scaling_a_streaming_pipeline) .
 
 ### Runner V2
 
-The Spanner change streams connector requires [Dataflow Runner V2](https://docs.cloud.google.com/dataflow/docs/runner-v2) . This has to be manually specified during the execution or an error will be thrown. You are able to specify `  Runner V2  ` by configuring your job with `  --experiments=use_unified_worker,use_runner_v2  ` .
+The Spanner change streams connector requires [Dataflow Runner V2](https://docs.cloud.google.com/dataflow/docs/runner-v2) . This has to be manually specified during the execution or an error will be thrown. You are able to specify `Runner V2` by configuring your job with `--experiments=use_unified_worker,use_runner_v2` .
 
 ### Snapshot
 
@@ -862,13 +862,13 @@ You can also [update an existing pipeline](https://docs.cloud.google.com/spanner
 
 To use [OpenCensus](https://opencensus.io/) to monitor your pipeline, specify version [0.28.3](https://github.com/census-instrumentation/opencensus-java/releases/tag/v0.28.3) or later.
 
-### `     NullPointerException    ` on pipeline start
+### `NullPointerException` on pipeline start
 
-[A bug](https://issues.apache.org/jira/browse/BEAM-14405) in Apache Beam version `  2.38.0  ` can cause a `  NullPointerException  ` when starting the pipeline under certain conditions. This would prevent your job from starting, and display this error message instead:
+[A bug](https://issues.apache.org/jira/browse/BEAM-14405) in Apache Beam version `2.38.0` can cause a `NullPointerException` when starting the pipeline under certain conditions. This would prevent your job from starting, and display this error message instead:
 
     java.lang.NullPointerException: null value in entry: Cloud Storage_PROJECT_ID=null
 
-To address this issue, either use Apache Beam version `  2.39.0  ` or later, or manually specify the version of `  beam-sdks-java-core  ` as `  2.37.0  ` :
+To address this issue, either use Apache Beam version `2.39.0` or later, or manually specify the version of `beam-sdks-java-core` as `2.37.0` :
 
     <dependency>
       <groupId>org.apache.beam</groupId>

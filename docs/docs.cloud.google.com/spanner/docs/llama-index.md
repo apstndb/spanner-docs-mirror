@@ -26,15 +26,15 @@ A property graph store can be used in an application to do the following:
 
   - Query a graph using the Graph Query Language (GQL) to provide specific context to an LLM.
 
-To work with a property graph store in Spanner Graph, use the `  SpannerPropertyGraphStore  ` class.
+To work with a property graph store in Spanner Graph, use the `SpannerPropertyGraphStore` class.
 
 ### Property graph store tutorial
 
 To learn how to use the property graph store with Spanner, see the [property graph store tutorial for Spanner](https://github.com/googleapis/llama-index-spanner-python/blob/main/docs/property_graph_store.ipynb) . This tutorial helps you learn how to do the following:
 
-  - Install the `  llama-index-spanner  ` package and LlamaIndex
+  - Install the `llama-index-spanner` package and LlamaIndex
 
-  - Initialize the `  SpannerPropertyGraphStore  ` class and use it to connect to your Spanner database.
+  - Initialize the `SpannerPropertyGraphStore` class and use it to connect to your Spanner database.
 
   - Add nodes and edges to your Spanner Graph that contain data extracted from documents using a LlamaIndex knowledge graph extractor.
 
@@ -48,7 +48,7 @@ Graph retrievers in LlamaIndex are components that use an LLM to translate a use
 
 1.  Prompt an LLM to translate the natural language question into a GQL query.
 
-2.  Run the GQL query against the graph store using Spanner Graph and the `  SpannerPropertyGraphStore  ` class.
+2.  Run the GQL query against the graph store using Spanner Graph and the `SpannerPropertyGraphStore` class.
 
 3.  Send the structured data that's returned by the query to the LLM using Spanner Graph.
 
@@ -58,13 +58,13 @@ Graph retrievers in LlamaIndex are components that use an LLM to translate a use
 
 The following LlamaIndex graph retriever classes can be used with Spanner Graph to generate human-readable answers to LLM prompts:
 
-#### `     SpannerGraphTextToGQLRetriever    ` class
+#### `SpannerGraphTextToGQLRetriever` class
 
-The `  SpannerGraphTextToGQLRetriever  ` class translates natural language into GQL queries for data extraction from the graph.
+The `SpannerGraphTextToGQLRetriever` class translates natural language into GQL queries for data extraction from the graph.
 
-#### `     SpannerGraphCustomRetriever    ` class
+#### `SpannerGraphCustomRetriever` class
 
-The `  SpannerGraphCustomRetriever  ` class implements a hybrid retrieval approach. `  SpannerGraphCustomRetriever  ` handles specific and conceptual questions using the following steps:
+The `SpannerGraphCustomRetriever` class implements a hybrid retrieval approach. `SpannerGraphCustomRetriever` handles specific and conceptual questions using the following steps:
 
 1.  Perform the following searches simultaneously:
     
@@ -82,9 +82,9 @@ To learn how to use graph retrievers with Spanner to answer questions, see the [
 
   - Create a graph from unstructured text blobs.
 
-  - Store the graph in Spanner using the `  SpannerPropertyGraphStore  ` class
+  - Store the graph in Spanner using the `SpannerPropertyGraphStore` class
 
-  - Initialize a `  SpannerGraphTextToGQLRetriever  ` class and a `  SpannerGraphCustomRetriever  ` instance using your graph store and an LLM.
+  - Initialize a `SpannerGraphTextToGQLRetriever` class and a `SpannerGraphCustomRetriever` instance using your graph store and an LLM.
 
   - Generate an answer to a natural language question using the graph data that's stored in Spanner.
 

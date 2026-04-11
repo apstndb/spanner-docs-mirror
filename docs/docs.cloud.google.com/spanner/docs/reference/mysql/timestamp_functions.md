@@ -2,33 +2,33 @@ Spanner supports the following MySQL timestamp functions. You need to implement 
 
 ## Function list
 
-| Name                                                                                                                                     | Summary                                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| [`         mysql.DATEDIFF        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#datediff)             | Subtracts two dates, returns the number of days between them.                                                                  |
-| [`         mysql.LOCALTIME        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#localtime)           | Alias for [`         mysql.NOW        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#now) . |
-| [`         mysql.LOCALTIMESTAMP        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#localtimestamp) | Alias for [`         mysql.NOW        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#now) . |
-| [`         mysql.NOW        `](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#now)                       | Returns the TIMESTAMP at which the query statement that contains this function started to run.                                 |
+| Name                                                                                                                    | Summary                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| [`mysql.DATEDIFF`](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#datediff)             | Subtracts two dates, returns the number of days between them.                                                 |
+| [`mysql.LOCALTIME`](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#localtime)           | Alias for [`mysql.NOW`](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#now) . |
+| [`mysql.LOCALTIMESTAMP`](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#localtimestamp) | Alias for [`mysql.NOW`](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#now) . |
+| [`mysql.NOW`](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#now)                       | Returns the TIMESTAMP at which the query statement that contains this function started to run.                |
 
-## `     mysql.DATEDIFF    `
+## `mysql.DATEDIFF`
 
     mysql.DATEDIFF(timestamp_expression1, timestamp_expression2)
 
 **Description**
 
-Calculates the number of days between two `  TIMESTAMP  ` values ( `  timestamp_expression1  ` - `  timestamp_expression2  ` ).
+Calculates the number of days between two `TIMESTAMP` values ( `timestamp_expression1` - `timestamp_expression2` ).
 
 This function supports the following arguments:
 
-  - `  timestamp_expression1  ` : The first `  TIMESTAMP  ` value (minuend).
-  - `  timestamp_expression2  ` : The second `  TIMESTAMP  ` value (subtrahend).
+  - `timestamp_expression1` : The first `TIMESTAMP` value (minuend).
+  - `timestamp_expression2` : The second `TIMESTAMP` value (subtrahend).
 
 **Return data type**
 
-`  INT64  `
+`INT64`
 
 **Differences from MySQL**
 
-This function only accepts `  TIMESTAMP  ` values. The MySQL version also accepts `  DATE  ` or `  DATETIME  ` values.
+This function only accepts `TIMESTAMP` values. The MySQL version also accepts `DATE` or `DATETIME` values.
 
 **Example**
 
@@ -45,19 +45,19 @@ The following example calculates the difference in days between two timestamps:
     +-----------------+
     */
 
-## `     mysql.LOCALTIME    `
+## `mysql.LOCALTIME`
 
     mysql.LOCALTIME()
 
 **Description**
 
-Returns the `  TIMESTAMP  ` when the current query statement started to run. This function is an alias for `  mysql.NOW()  ` and `  mysql.LOCALTIMESTAMP()  ` .
+Returns the `TIMESTAMP` when the current query statement started to run. This function is an alias for `mysql.NOW()` and `mysql.LOCALTIMESTAMP()` .
 
 This function doesn't support any arguments.
 
 **Return data type**
 
-`  TIMESTAMP  `
+`TIMESTAMP`
 
 **Example**
 
@@ -73,27 +73,27 @@ The following example returns the start time of the current query:
     +-------------------------------+
     */
 
-## `     mysql.LOCALTIMESTAMP    `
+## `mysql.LOCALTIMESTAMP`
 
     mysql.LOCALTIMESTAMP()
 
 **Description**
 
-Alias for [`  NOW  `](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#now) .
+Alias for [`NOW`](https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions#now) .
 
-## `     mysql.NOW    `
+## `mysql.NOW`
 
     mysql.NOW()
 
 **Description**
 
-Returns the `  TIMESTAMP  ` at which the current query statement started to run. This function is an alias for `  mysql.LOCALTIME()  ` and `  mysql.LOCALTIMESTAMP()  ` .
+Returns the `TIMESTAMP` at which the current query statement started to run. This function is an alias for `mysql.LOCALTIME()` and `mysql.LOCALTIMESTAMP()` .
 
 This function doesn't support any arguments.
 
 **Return data type**
 
-`  TIMESTAMP  `
+`TIMESTAMP`
 
 **Example**
 
@@ -109,23 +109,23 @@ The following example returns the start time of the current query:
     +-------------------------------+
     */
 
-## `     mysql.UTC_TIMESTAMP    `
+## `mysql.UTC_TIMESTAMP`
 
     mysql.UTC_TIMESTAMP()
 
 **Description**
 
-Returns the current Coordinated Universal Time (UTC) `  TIMESTAMP  ` at which the query statement started to run. In this implementation, it behaves like `  mysql.NOW()  ` .
+Returns the current Coordinated Universal Time (UTC) `TIMESTAMP` at which the query statement started to run. In this implementation, it behaves like `mysql.NOW()` .
 
 This function doesn't support any arguments.
 
 **Return data type**
 
-`  TIMESTAMP  `
+`TIMESTAMP`
 
 **Differences from MySQL**
 
-While MySQL's `  UTC_TIMESTAMP()  ` always returns a UTC timestamp regardless of the session timezone, this function, as implemented, returns the query start time, which is inherently UTC in GoogleSQL.
+While MySQL's `UTC_TIMESTAMP()` always returns a UTC timestamp regardless of the session timezone, this function, as implemented, returns the query start time, which is inherently UTC in GoogleSQL.
 
 **Example**
 

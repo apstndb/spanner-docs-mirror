@@ -8,7 +8,7 @@ The general workflow is as follows:
 
 1.  **Generate and store vector embeddings.**
     
-    You can generate vector embeddings of your data, then store and manage them in Spanner with your operational data. You can generate embeddings with Spanner's `  ML.PREDICT  ` SQL function to [access the Vertex AI text embedding model](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings#generate-store-embeddings) or [use other embedding models deployed to Vertex AI](https://docs.cloud.google.com/spanner/docs/ml-tutorial) .
+    You can generate vector embeddings of your data, then store and manage them in Spanner with your operational data. You can generate embeddings with Spanner's `ML.PREDICT` SQL function to [access the Vertex AI text embedding model](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings#generate-store-embeddings) or [use other embedding models deployed to Vertex AI](https://docs.cloud.google.com/spanner/docs/ml-tutorial) .
 
 2.  **Sync embeddings to Vector Search.**
     
@@ -24,7 +24,7 @@ An illustrative use case for Vector Search is an online retailer who has an inve
 
 Follow step 1 and step 2 presented in the general workflow to generate vector embeddings for your product catalog, and sync these embeddings to Vector Search.
 
-Now imagine a customer browsing your application performs a search such as "best, quick-drying sports shorts that I can wear in the water". When your application receives this query, you need to generate a request embedding for this search request using the Spanner [`  ML.PREDICT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) SQL function. Make sure to use the same embedding model used to generate the embeddings for your product catalog.
+Now imagine a customer browsing your application performs a search such as "best, quick-drying sports shorts that I can wear in the water". When your application receives this query, you need to generate a request embedding for this search request using the Spanner [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) SQL function. Make sure to use the same embedding model used to generate the embeddings for your product catalog.
 
 Next, query the Vector Search index for product IDs whose corresponding embeddings are similar to the request embedding generated from your customer's search request. The search index might recommend product IDs for semantically similar items such as wakeboarding shorts, surfing apparel, and swimming trunks.
 

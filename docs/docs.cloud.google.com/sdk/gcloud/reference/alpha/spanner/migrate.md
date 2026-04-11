@@ -4,32 +4,32 @@ gcloud alpha spanner migrate - migrate external databases to Cloud Spanner
 
 SYNOPSIS
 
-`  gcloud alpha spanner migrate  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner migrate` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Migrate external databases to Cloud Spanner.
+`(ALPHA)` Migrate external databases to Cloud Spanner.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  cleanup  `  
-    `  (ALPHA)  ` Cleanup migration resources given a data migration job id.
+    `(ALPHA)` Cleanup migration resources given a data migration job id.
   - `  data  `  
-    `  (ALPHA)  ` Migrate data from a source database to Cloud Spanner given a schema.
+    `(ALPHA)` Migrate data from a source database to Cloud Spanner given a schema.
   - `  schema  `  
-    `  (ALPHA)  ` Migrate schema from a source database to Cloud Spanner.
+    `(ALPHA)` Migrate schema from a source database to Cloud Spanner.
   - `  schema-and-data  `  
-    `  (ALPHA)  ` Migrate data from a source database to Cloud Spanner given a schema.
+    `(ALPHA)` Migrate data from a source database to Cloud Spanner given a schema.
   - `  web  `  
-    `  (ALPHA)  ` Run the web UI assistant for schema migrations.
+    `(ALPHA)` Run the web UI assistant for schema migrations.
 
 NOTES
 

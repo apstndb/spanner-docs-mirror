@@ -4,11 +4,11 @@ gcloud beta spanner instance-partitions describe - describe a Spanner instance p
 
 SYNOPSIS
 
-`  gcloud beta spanner instance-partitions describe  ` ( `  INSTANCE_PARTITION  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner instance-partitions describe` ( `  INSTANCE_PARTITION  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Describe a Spanner instance partition.
+`(BETA)` Describe a Spanner instance partition.
 
 EXAMPLES
 
@@ -22,37 +22,37 @@ POSITIONAL ARGUMENTS
 
 Instance partition resource - The Spanner instance partition to describe. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  instance_partition  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `instance_partition` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 This must be specified.
 
   - `  INSTANCE_PARTITION  `  
     ID of the instance partition or fully qualified identifier for the instance partition.
     
-    To set the `  instance partition  ` attribute:
+    To set the `instance partition` attribute:
     
-      - provide the argument `  instance_partition  ` on the command line.
+      - provide the argument `instance_partition` on the command line.
     
     This positional argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     The Cloud Spanner instance for the instance partition.
     
-    To set the `  instance  ` attribute:
+    To set the `instance` attribute:
     
-      - provide the argument `  instance_partition  ` on the command line with a fully specified name;
-      - provide the argument `  --instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `instance_partition` on the command line with a fully specified name;
+      - provide the argument `--instance` on the command line;
+      - set the property `spanner/instance` .
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

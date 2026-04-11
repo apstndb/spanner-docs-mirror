@@ -4,26 +4,26 @@ gcloud beta spanner databases sessions - manage the sessions for Cloud Spanner d
 
 SYNOPSIS
 
-`  gcloud beta spanner databases sessions  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner databases sessions` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage the sessions for Cloud Spanner databases.
+`(BETA)` Manage the sessions for Cloud Spanner databases.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  delete  `  
-    `  (BETA)  ` Delete a Cloud Spanner session.
+    `(BETA)` Delete a Cloud Spanner session.
   - `  list  `  
-    `  (BETA)  ` List the Cloud Spanner sessions contained within the given database.
+    `(BETA)` List the Cloud Spanner sessions contained within the given database.
 
 NOTES
 

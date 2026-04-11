@@ -11,7 +11,7 @@ You can start the Cassandra Adapter in the following ways:
 
 ## Before you begin
 
-Before starting the Cassandra Adapter, ensure that you have authenticated with either a user account or service account on the machine where Cassandra Adapter will be running. If you are using a service account, you must know the location of the JSON key file (the credentials file). You set the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable to specify the credentials path. Before starting the Cassandra Adapter, ensure that you have authenticated with either a user account or service account on the machine where Cassandra Adapter will be running. If you are using a service account, you must know the location of the JSON key file (the credentials file). You set the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable to specify the credentials path.
+Before starting the Cassandra Adapter, ensure that you have authenticated with either a user account or service account on the machine where Cassandra Adapter will be running. If you are using a service account, you must know the location of the JSON key file (the credentials file). You set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to specify the credentials path. Before starting the Cassandra Adapter, ensure that you have authenticated with either a user account or service account on the machine where Cassandra Adapter will be running. If you are using a service account, you must know the location of the JSON key file (the credentials file). You set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to specify the credentials path.
 
 For more information, see:
 
@@ -30,11 +30,11 @@ If you use Docker, you need the path for a JSON-formatted credentials file (key 
 
 ### Java in-process
 
-1.  If you are using a service account for authentication, ensure that the `  GOOGLE_APPLICATION_CREDENTIALS  ` environment variable is set to the path of the credentials file.
+1.  If you are using a service account for authentication, ensure that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable is set to the path of the credentials file.
 
-2.  For Java applications, you can link the Cassandra Adapter to the application directly by adding `  google-cloud-spanner-cassandra  ` as a dependency to your project.
+2.  For Java applications, you can link the Cassandra Adapter to the application directly by adding `google-cloud-spanner-cassandra` as a dependency to your project.
 
-For Maven, add the following new dependency under the `  <dependencies>  ` section:
+For Maven, add the following new dependency under the `<dependencies>` section:
 
     <dependency>
         <groupId>com.google.cloud</groupId>
@@ -48,7 +48,7 @@ For Gradle, add the following:
         implementation 'com.google.cloud:google-cloud-spanner-cassandra:1.1.0'
     }
 
-1.  Modify your `  CqlSession  ` creation code. Instead of using `  CqlSessionBuilder  ` , use `  SpannerCqlSessionBuilder  ` and provide the Spanner database URI:
+1.  Modify your `CqlSession` creation code. Instead of using `CqlSessionBuilder` , use `SpannerCqlSessionBuilder` and provide the Spanner database URI:
     
         import com.datastax.oss.driver.api.core.CqlSession;
         import com.datastax.oss.driver.api.core.config.DefaultDriverOption;
@@ -129,13 +129,13 @@ For Gradle, add the following:
 
 For Go applications, you need to make a one-line change to the cluster initialization file to integrate the Spanner Cassandra Go client. You can then link the Cassandra Adapter to the application directly.
 
-1.  Import the adapter's `  spanner  ` package from the Spanner Cassandra Go client in your Go application.
+1.  Import the adapter's `spanner` package from the Spanner Cassandra Go client in your Go application.
 
 <!-- end list -->
 
     import spanner "github.com/googleapis/go-spanner-cassandra/cassandra/gocql"
 
-1.  Modify your cluster creation code to use `  spanner.NewCluster  ` instead of `  gocql.NewCluster  ` , and provide the Spanner database URI:
+1.  Modify your cluster creation code to use `spanner.NewCluster` instead of `gocql.NewCluster` , and provide the Spanner database URI:
     
         import (
          "fmt"
@@ -207,14 +207,14 @@ You can configure your cluster as usual after connecting to your Spanner databas
     git clone https://github.com/googleapis/go-spanner-cassandra.git
     cd go-spanner-cassandra
 
-1.  Run the `  cassandra_launcher.go  ` with the required `  -db  ` flag:
+1.  Run the `cassandra_launcher.go` with the required `-db` flag:
 
 <!-- end list -->
 
     go run cassandra_launcher.go \
     -db "projects/my_project/instances/my_instance/databases/my_database"
 
-1.  Replace `  -db  ` with your Spanner database URI.
+1.  Replace `-db` with your Spanner database URI.
 
 ### Docker
 
@@ -229,19 +229,19 @@ Start the Cassandra Adapter with the following command.
 
 The following list contains the most frequently used startup options for the Spanner Cassandra Adapter:
 
-  - `  -db <DatabaseUri>  `
+  - `-db <DatabaseUri>`
 
-The Spanner database URI (required). This specifies the Spanner database that the client connects to. For example, `  projects/YOUR_PROJECT/instances/YOUR_INSTANCE/databases/YOUR_DATABASE  ` .
+The Spanner database URI (required). This specifies the Spanner database that the client connects to. For example, `projects/YOUR_PROJECT/instances/YOUR_INSTANCE/databases/YOUR_DATABASE` .
 
-  - `  -tcp <TCPEndpoint>  `
+  - `-tcp <TCPEndpoint>`
 
-The client proxy listener address. This defines the TCP endpoint where the client listens for incoming Cassandra client connections. Default: `  localhost:9042  `
+The client proxy listener address. This defines the TCP endpoint where the client listens for incoming Cassandra client connections. Default: `localhost:9042`
 
-  - `  -grpc-channels <NumGrpcChannels>  `
+  - `-grpc-channels <NumGrpcChannels>`
 
 The number of gRPC channels to use when connecting to Spanner. Default: 4
 
-For example, the following command starts the Cassandra Adapter on port `  9042  ` using the application credentials, and connects the adapter to the `  projects/my_project/instances/my_instance/databases/my_database  ` database:
+For example, the following command starts the Cassandra Adapter on port `9042` using the application credentials, and connects the adapter to the `projects/my_project/instances/my_instance/databases/my_database` database:
 
     export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
     docker run -d -p 9042:9042 \
@@ -299,7 +299,7 @@ Drivers that use token-aware load balancing might print a warning or might not w
 
 ### Pin protocol version to V4
 
-The Cassandra Adapter is compatible with any [CQL Binary v4 wire protocol](https://github.com/apache/cassandra/blob/trunk/doc/native_protocol_v4.spec) compliant, open-source Apache Cassandra client driver. Make sure to pin `  PROTOCOL_VERSION  ` to `  V4  ` , otherwise you might see connection errors.
+The Cassandra Adapter is compatible with any [CQL Binary v4 wire protocol](https://github.com/apache/cassandra/blob/trunk/doc/native_protocol_v4.spec) compliant, open-source Apache Cassandra client driver. Make sure to pin `PROTOCOL_VERSION` to `V4` , otherwise you might see connection errors.
 
     # Sample application.conf: overrides protocol version to V4
     datastax-java-driver {

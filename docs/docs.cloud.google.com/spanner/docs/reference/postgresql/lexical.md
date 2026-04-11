@@ -40,11 +40,11 @@ These are invalid identifiers:
     _dataField!
     GROUP
 
-`  5Customers  ` begins with a number, not a letter or underscore. `  _dataField!  ` contains the special character "\!" which is not a letter, number, or underscore. `  GROUP  ` is a keyword, and therefore cannot be used as an identifier without being enclosed by double quote characters.
+`5Customers` begins with a number, not a letter or underscore. `_dataField!` contains the special character "\!" which is not a letter, number, or underscore. `GROUP` is a keyword, and therefore cannot be used as an identifier without being enclosed by double quote characters.
 
 ### Fully qualified names
 
-Fully qualified names (FQNs) combine the schema name and the object name to identify a database object, for example, `  sales.customers  ` . When you add an FQN in DDL, it requires quotes around each part of the name:
+Fully qualified names (FQNs) combine the schema name and the object name to identify a database object, for example, `sales.customers` . When you add an FQN in DDL, it requires quotes around each part of the name:
 
     "foo"."Group"
 
@@ -61,7 +61,7 @@ PostgreSQL is case sensitive. Quoted identifiers are case preserving. Unquoted i
 
 ## Keywords
 
-In the following example, the tokens `  SELECT  ` , `  UPDATE  ` , and `  VALUES  ` are examples of keywords, that is, words that have a fixed meaning in the SQL language.
+In the following example, the tokens `SELECT` , `UPDATE` , and `VALUES` are examples of keywords, that is, words that have a fixed meaning in the SQL language.
 
     SELECT * FROM MY_TABLE;
     UPDATE MY_TABLE SET A = 5;
@@ -75,7 +75,7 @@ There are three kinds of *implicitly-typed constants* in PostgreSQL: strings, bi
 
 ### String constants
 
-A string constant in SQL is an arbitrary sequence of characters bounded by single quotes ('), for example `  'This is a string'  ` . To include a single-quote character within a string constant, write two adjacent single quotes, for example `  'Dianne''s horse'  ` . Note that this is *not* the same as a double-quote character (").
+A string constant in SQL is an arbitrary sequence of characters bounded by single quotes ('), for example `'This is a string'` . To include a single-quote character within a string constant, write two adjacent single quotes, for example `'Dianne''s horse'` . Note that this is *not* the same as a double-quote character (").
 
 Two string constants that are only separated by whitespace with at least one newline are concatenated and effectively treated as if the string had been written as one constant. For example:
 
@@ -84,30 +84,30 @@ Two string constants that are only separated by whitespace with at least one new
 
 is equivalent to:
 
-`  SELECT 'foobar';  `
+`SELECT 'foobar';`
 
 but:
 
-`  SELECT 'foo' 'bar';  `
+`SELECT 'foo' 'bar';`
 
 is not valid syntax.
 
 ### String constants with C-style escapes
 
-PostgreSQL also accepts *escape string constants* , which are an extension to the SQL standard. An escape string constant is specified by writing the letter E (upper or lower case) just before the opening single quote, for example `  E'foo'  ` . (When continuing an escape string constant across lines, write E only before the first opening quote.) Within an escape string, a backslash character (\\) begins a C-like *backslash escape* sequence, in which the combination of backslash and following character(s) represent a special byte value, as shown in the following table.
+PostgreSQL also accepts *escape string constants* , which are an extension to the SQL standard. An escape string constant is specified by writing the letter E (upper or lower case) just before the opening single quote, for example `E'foo'` . (When continuing an escape string constant across lines, write E only before the first opening quote.) Within an escape string, a backslash character (\\) begins a C-like *backslash escape* sequence, in which the combination of backslash and following character(s) represent a special byte value, as shown in the following table.
 
-| Backslash Escape Sequence                                                                                                                                                               | Interpretation                                   |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `          \b         `                                                                                                                                                                 | backspace                                        |
-| `          \f         `                                                                                                                                                                 | form feed                                        |
-| `          \n         `                                                                                                                                                                 | newline                                          |
-| `          \r         `                                                                                                                                                                 | carriage return                                  |
-| `          \t         `                                                                                                                                                                 | tab                                              |
-| `          \                     o           ` , `          \                     oo           ` , `          \                     ooo           ` ( *`           o          `* = 0–7) | octal byte value                                 |
-| `          \x                     h           ` , `          \x                     hh           ` ( *`           h          `* = 0–9, A–F)                                             | hexadecimal byte value                           |
-| `          \u                     xxxx           ` , `          \U                     xxxxxxxx           ` ( *`           x          `* = 0–9, A–F)                                    | 16 or 32-bit hexadecimal Unicode character value |
+| Backslash Escape Sequence                       | Interpretation                                   |
+| ----------------------------------------------- | ------------------------------------------------ |
+| `\b`                                            | backspace                                        |
+| `\f`                                            | form feed                                        |
+| `\n`                                            | newline                                          |
+| `\r`                                            | carriage return                                  |
+| `\t`                                            | tab                                              |
+| `\  o` , `\  oo` , `\  ooo` ( *`o`* = 0–7)      | octal byte value                                 |
+| `\x  h` , `\x  hh` ( *`h`* = 0–9, A–F)          | hexadecimal byte value                           |
+| `\u  xxxx` , `\U  xxxxxxxx` ( *`x`* = 0–9, A–F) | 16 or 32-bit hexadecimal Unicode character value |
 
-Any other character following a backslash is taken literally. Thus, to include a backslash character, write two backslashes ( `  \\  ` ). Also, a single quote can be included in an escape string by writing `  \'  ` , in addition to the normal way of writing `  ''  ` .
+Any other character following a backslash is taken literally. Thus, to include a backslash character, write two backslashes ( `\\` ). Also, a single quote can be included in an escape string by writing `\'` , in addition to the normal way of writing `''` .
 
 **Note:** Backslash escapes are recognized only in escape string constants, not in regular string constants.
 
@@ -121,15 +121,15 @@ The character with the code zero cannot be in a string constant.
 
 PostgreSQL also supports another type of escape syntax for strings that allows specifying arbitrary Unicode characters by code point. A Unicode escape string constant starts with U& (upper or lower case letter U followed by ampersand) immediately before the opening quote, without any spaces in between, for example U&'foo'. (Note that this creates an ambiguity with the operator &. Use spaces around the operator to avoid this problem.) Inside the quotes, Unicode characters can be specified in escaped form by writing a backslash followed by the four-digit hexadecimal code point number or alternatively a backslash followed by a plus sign followed by a six-digit hexadecimal code point number. For example, the string 'data' could be written as the following:
 
-`  U&'d\0061t\+000061'  `
+`U&'d\0061t\+000061'`
 
 The following less trivial example writes the Russian word "slon" (elephant) in Cyrillic letters:
 
-`  U&'\0441\043B\043E\043D'  `
+`U&'\0441\043B\043E\043D'`
 
-If you want to use an escape character other than backslash, you can specify it using the `  UESCAPE  ` clause after the string, for example:
+If you want to use an escape character other than backslash, you can specify it using the `UESCAPE` clause after the string, for example:
 
-`  U&'d!0061t!+000061' UESCAPE '!'  `
+`U&'d!0061t!+000061' UESCAPE '!'`
 
 The escape character can be any single character other than a hexadecimal digit, the plus sign, a single quote, a double quote, or a whitespace character.
 
@@ -146,7 +146,7 @@ Notice that inside the dollar-quoted string, single quotes can be used without n
 
 It's possible to nest dollar-quoted string constants by choosing different tags at each nesting level.
 
-The tag, if any, of a dollar-quoted string follows the same rules as an unquoted identifier, except that it cannot contain a dollar sign. Tags are case sensitive, so `  $tag$String content$tag$  ` is correct, but `  $TAG$String content$tag$  ` is not.
+The tag, if any, of a dollar-quoted string follows the same rules as an unquoted identifier, except that it cannot contain a dollar sign. Tags are case sensitive, so `$tag$String content$tag$` is correct, but `$TAG$String content$tag$` is not.
 
 A dollar-quoted string that follows a keyword or identifier must be separated from it by whitespace; otherwise the dollar quoting delimiter would be taken as part of the preceding identifier.
 
@@ -189,15 +189,15 @@ A constant of an arbitrary type can be entered using any one of the following no
     'string'::type
     CAST ( 'string' AS type )
 
-The string constant's text is passed to the input conversion routine for the type called `  type  ` . The result is a constant of the indicated type. The explicit type cast can be omitted if there is no ambiguity as to the type the constant must be (for example, when it is assigned directly to a table column), in which case it is automatically coerced.
+The string constant's text is passed to the input conversion routine for the type called `type` . The result is a constant of the indicated type. The explicit type cast can be omitted if there is no ambiguity as to the type the constant must be (for example, when it is assigned directly to a table column), in which case it is automatically coerced.
 
 The string constant can be written using either regular SQL notation or dollar-quoting.
 
-The `  ::  ` and `  CAST()  ` syntaxes can also be used to specify run-time type conversions of arbitrary expressions. To avoid syntactic ambiguity, the `  type 'string'  ` syntax can only be used to specify the type of a literal constant.
+The `::` and `CAST()` syntaxes can also be used to specify run-time type conversions of arbitrary expressions. To avoid syntactic ambiguity, the `type 'string'` syntax can only be used to specify the type of a literal constant.
 
-Another restriction on the `  type 'string'  ` syntax is that it does not work for array types; use `  ::  ` or `  CAST()  ` to specify the type of an array constant.
+Another restriction on the `type 'string'` syntax is that it does not work for array types; use `::` or `CAST()` to specify the type of an array constant.
 
-The `  CAST()  ` syntax conforms to SQL. The `  type 'string'  ` syntax is a generalization of the standard: SQL specifies this syntax only for a few data types, but PostgreSQL allows it for all types. The syntax with `  ::  ` is historical PostgreSQL usage.
+The `CAST()` syntax conforms to SQL. The `type 'string'` syntax is a generalization of the standard: SQL specifies this syntax only for a few data types, but PostgreSQL allows it for all types. The syntax with `::` is historical PostgreSQL usage.
 
 ## Special characters
 
@@ -221,7 +221,7 @@ Some characters that are not alphanumeric have a special meaning that is differe
 
 A comment is a sequence of characters beginning with double dashes and extending to the end of the line. For example:
 
-`  -- This is a standard SQL comment  `
+`-- This is a standard SQL comment`
 
 Alternatively, C-style block comments can be used:
 

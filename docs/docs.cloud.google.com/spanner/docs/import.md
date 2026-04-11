@@ -2,7 +2,7 @@ This page describes how to import Spanner databases into Spanner using the Googl
 
 The process uses [Dataflow](https://docs.cloud.google.com/dataflow) ; it imports data from a [Cloud Storage](https://docs.cloud.google.com/storage) bucket folder that contains a set of [Avro files](https://en.wikipedia.org/wiki/Apache_Avro) and JSON manifest files. The import process supports only Avro files exported from Spanner.
 
-To import a Spanner database using the REST API or the `  gcloud CLI  ` , complete the steps in the [Before you begin](https://docs.cloud.google.com/spanner/docs/import#before-you-begin) section on this page, then see the detailed instructions in [Cloud Storage Avro to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) .
+To import a Spanner database using the REST API or the `gcloud CLI` , complete the steps in the [Before you begin](https://docs.cloud.google.com/spanner/docs/import#before-you-begin) section on this page, then see the detailed instructions in [Cloud Storage Avro to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) .
 
 ## Before you begin
 
@@ -10,7 +10,7 @@ To import a Spanner database, first you need to enable the Spanner, Cloud Storag
 
 **Roles required to enable APIs**
 
-To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 [Enable the APIs](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com,storage_component,compute,dataflow)
 
@@ -38,11 +38,11 @@ The quota requirements for import jobs are as follows:
 
 To get the permissions that you need to export a database, ask your administrator to grant you the following IAM roles on your Dataflow worker service account:
 
-  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `  roles/dataflow.worker  ` )
-  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `  roles/storage.admin  ` )
-  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
-  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` )
+  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `roles/dataflow.worker` )
+  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `roles/storage.admin` )
+  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
+  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
 
 **Note:** The Spanner Database Admin role is only required for import jobs.
 
@@ -54,17 +54,17 @@ To find the folder that contains your exported database in the Google Cloud cons
 
 The name of the folder that contains your exported data begins with your instance's ID, database name, and the timestamp of your export job. The folder contains:
 
-  - A `  spanner-export.json  ` file.
+  - A `spanner-export.json` file.
 
-  - A `  TableName -manifest.json  ` file for each table in the database you exported.
+  - A `  TableName -manifest.json ` file for each table in the database you exported.
 
-  - One or more `  TableName .avro- ##### -of- #####  ` files. The first number in the extension `  .avro- ##### -of- #####  ` represents the index of the Avro file, starting at zero, and the second represents the number of Avro files generated for each table.
+  - One or more `  TableName .avro- ##### -of- #####  ` files. The first number in the extension ` .avro- ##### -of- #####  ` represents the index of the Avro file, starting at zero, and the second represents the number of Avro files generated for each table.
     
-    For example, `  Songs.avro-00001-of-00002  ` is the second of two files that contain the data for the `  Songs  ` table.
+    For example, `Songs.avro-00001-of-00002` is the second of two files that contain the data for the `Songs` table.
 
-  - A `  ChangeStreamName -manifest.json  ` file for each [change stream](https://docs.cloud.google.com/spanner/docs/change-streams) in the database you exported.
+  - A `  ChangeStreamName -manifest.json ` file for each [change stream](https://docs.cloud.google.com/spanner/docs/change-streams) in the database you exported.
 
-  - A `  ChangeStreamName .avro-00000-of-00001  ` file for each change stream. This file contains empty data with only the Avro schema of the change stream.
+  - A `  ChangeStreamName .avro-00000-of-00001 ` file for each change stream. This file contains empty data with only the Avro schema of the change stream.
 
 ## Import a database
 
@@ -112,7 +112,7 @@ When the job finishes or terminates, the Google Cloud console displays a message
 
 ![Import job success message](https://docs.cloud.google.com/static/spanner/docs/images/import_success_msg.png)
 
-**Note:** After the Dataflow import job successfully finishes, Spanner creates indexes and foreign keys for your imported database. While index creation is in progress, the Google Cloud console shows an in- progress icon to indicate that a long-running operation is occurring. The icon is next to the index's name, in the database hierarchy to the left of the **Database details** page. When the in-progress icon changes to the index icon ![Index icon](https://docs.cloud.google.com/static/spanner/docs/images/index_icon.png) , creation of that index is complete. You can query `  SPANNER_STATE  ` on the [INFORMATION\_SCHEMA.REFERENTIAL\_CONSTRAINTS](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemareferential_constraints) view to see the creation progress of foreign keys.
+**Note:** After the Dataflow import job successfully finishes, Spanner creates indexes and foreign keys for your imported database. While index creation is in progress, the Google Cloud console shows an in- progress icon to indicate that a long-running operation is occurring. The icon is next to the index's name, in the database hierarchy to the left of the **Database details** page. When the in-progress icon changes to the index icon ![Index icon](https://docs.cloud.google.com/static/spanner/docs/images/index_icon.png) , creation of that index is complete. You can query `SPANNER_STATE` on the [INFORMATION\_SCHEMA.REFERENTIAL\_CONSTRAINTS](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemareferential_constraints) view to see the creation progress of foreign keys.
 
 If the job does not succeed, a failure message appears:
 
@@ -128,7 +128,7 @@ Similarly, Spanner uses the definition of each [change stream](https://docs.clou
 
 ### A note on importing sequences
 
-Each sequence ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ) that Spanner exports uses the `  GET_INTERNAL_SEQUENCE_STATE()  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_internal_sequence_state) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence) ) function to capture its current state. Spanner adds a buffer of 1000 to the counter, and writes the new counter value to the properties of the record field. Note that this is only a best effort approach to avoid duplicate value errors that might happen after import. Adjust the actual sequence counter if there are more writes to the source database during data export.
+Each sequence ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_sequence) ) that Spanner exports uses the `GET_INTERNAL_SEQUENCE_STATE()` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions#get_internal_sequence_state) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence) ) function to capture its current state. Spanner adds a buffer of 1000 to the counter, and writes the new counter value to the properties of the record field. Note that this is only a best effort approach to avoid duplicate value errors that might happen after import. Adjust the actual sequence counter if there are more writes to the source database during data export.
 
 At import, the sequence starts from this new counter instead of the counter found in the schema. If you need to, you can use the ALTER SEQUENCE ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-sequence) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_sequence) ) statement to update to a new counter.
 
@@ -224,7 +224,7 @@ If you are using the Dataflow console, the **Max workers** parameter is located 
 
 ### gcloud
 
-Run the [`  gcloud dataflow jobs run  `](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `  max-workers  ` argument. For example:
+Run the [`gcloud dataflow jobs run`](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `max-workers` argument. For example:
 
 ``` 
   gcloud dataflow jobs run my-import-job \
@@ -244,7 +244,7 @@ The following error might occur when you export your Spanner databases:
     must specify a subnet if the network resource is in custom subnet mode.
     HTTP Code: 400
 
-This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `  default  ` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks) .
+This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `default` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks) .
 
 ## Optimize slow running import jobs
 

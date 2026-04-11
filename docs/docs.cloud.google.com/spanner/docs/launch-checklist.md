@@ -98,7 +98,7 @@ Effective logging and monitoring are critical for maintaining visibility into da
 <tbody>
 <tr class="odd">
 <td>❑</td>
-<td><strong>Enable audit logging to capture detailed information about database activities.</strong> Configure audit log levels appropriately based on compliance and operational requirements to monitor access patterns and detect anomalies effectively. Be aware that audit logs might grow large especially for <code dir="ltr" translate="no">        DATA_READ       </code> and <code dir="ltr" translate="no">        DATA_WRITE       </code> requests since all SQL and DML statements are logged for these respective requests. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/audit-logging">Spanner audit logging</a> .<br />
+<td><strong>Enable audit logging to capture detailed information about database activities.</strong> Configure audit log levels appropriately based on compliance and operational requirements to monitor access patterns and detect anomalies effectively. Be aware that audit logs might grow large especially for <code dir="ltr" translate="no">DATA_READ</code> and <code dir="ltr" translate="no">DATA_WRITE</code> requests since all SQL and DML statements are logged for these respective requests. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/audit-logging">Spanner audit logging</a> .<br />
 <br />
 <a href="https://docs.cloud.google.com/logging/docs/routing/overview">Routing these logs</a> to a user-defined log bucket lets you optimize your log retention costs (the first 30 days aren't charged) and to granularly control log access using <a href="https://docs.cloud.google.com/logging/docs/logs-views">log views</a> .</td>
 </tr>

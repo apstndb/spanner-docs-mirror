@@ -1,8 +1,8 @@
-## Tool: `       drop_database      `
+## Tool: `drop_database`
 
 Drops a Spanner database.
 
-The following sample demonstrate how to use `  curl  ` to invoke the `  drop_database  ` MCP tool.
+The following sample demonstrate how to use `curl` to invoke the `drop_database` MCP tool.
 
 <table>
 <colgroup>
@@ -37,7 +37,7 @@ curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
 
 ## Input Schema
 
-The request for `  DropDatabase  ` .
+The request for `DropDatabase` .
 
 ### DropDatabaseRequest
 
@@ -61,9 +61,9 @@ The request for `  DropDatabase  ` .
 
 Fields
 
-`  database  `
+`database`
 
-`  string  `
+`string`
 
 Required. The database to be dropped.
 

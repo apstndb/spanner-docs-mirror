@@ -98,7 +98,7 @@ The subquery is:
     FROM   concerts
     WHERE  concerts.singerid = a.singerid;
 
-Spanner converts the results of the subquery for each `  AlbumId  ` into an array of `  ConcertDate  ` rows against that `  AlbumId  ` . The execution plan displays an array subquery, labeled **Array Subquery** , above a distributed union operator:
+Spanner converts the results of the subquery for each `AlbumId` into an array of `ConcertDate` rows against that `AlbumId` . The execution plan displays an array subquery, labeled **Array Subquery** , above a distributed union operator:
 
 ![Array subquery operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/array_subquery_operator.png)
 

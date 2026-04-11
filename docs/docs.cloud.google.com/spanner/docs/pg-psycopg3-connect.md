@@ -1,4 +1,4 @@
-This page explains how to connect the [PostgreSQL psycopg3 driver](https://www.psycopg.org/psycopg3/) to a PostgreSQL-dialect database in Spanner. `  psycopg3  ` is a Python driver for PostgreSQL.
+This page explains how to connect the [PostgreSQL psycopg3 driver](https://www.psycopg.org/psycopg3/) to a PostgreSQL-dialect database in Spanner. `psycopg3` is a Python driver for PostgreSQL.
 
 1.  Verify that PGAdapter is running on the same machine as the application that is connecting using the PostgreSQL psycopg3 driver.
     
@@ -26,8 +26,8 @@ This page explains how to connect the [PostgreSQL psycopg3 driver](https://www.p
     
     Replace the following:
     
-      - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `  localhost  ` .
-      - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `  5432  ` .
+      - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `localhost` .
+      - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `5432` .
 
 ### Unix domain sockets
 
@@ -49,8 +49,8 @@ Verify the PostgreSQL JDBC driver is loaded.
 
 Replace the following:
 
-  - /tmp : the default domain socket directory for PGAdapter. This can be changed using the `  -dir  ` command-line argument.
-  - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `  5432  ` .
+  - /tmp : the default domain socket directory for PGAdapter. This can be changed using the `-dir` command-line argument.
+  - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `5432` .
 
 ## What's next
 

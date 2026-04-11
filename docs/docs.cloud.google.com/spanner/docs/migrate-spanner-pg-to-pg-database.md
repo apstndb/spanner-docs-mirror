@@ -21,7 +21,7 @@ In addition to broad PostgreSQL compatibility, the PostgreSQL interface offers a
 
 ### Query syntax extensions
 
-Spanner's PostgreSQL interface provides a number of Spanner-specific extensions. Most use the prefix `  spanner.  ` for identification. In the following table, we list these extensions and the actions that you might need to take before the same application can run on a PostgreSQL database.
+Spanner's PostgreSQL interface provides a number of Spanner-specific extensions. Most use the prefix `spanner.` for identification. In the following table, we list these extensions and the actions that you might need to take before the same application can run on a PostgreSQL database.
 
 <table>
 <colgroup>
@@ -38,23 +38,23 @@ Spanner's PostgreSQL interface provides a number of Spanner-specific extensions.
 <tr class="even">
 <td>Spanner-specific functions</td>
 <td><ul>
-<li>Vector functions listed in the <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical">Mathematical functions list</a> with the <code dir="ltr" translate="no">         spanner.        </code> prefix</li>
+<li>Vector functions listed in the <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical">Mathematical functions list</a> with the <code dir="ltr" translate="no">spanner.</code> prefix</li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#ml">Machine learning functions</a></li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#hash-functions">Hash functions</a></li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions">Date and time functions</a></li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/commit-timestamp-postgresql">Commit timestamp functions</a> .</li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-jsonb-functions">JSONB functions</a></li>
-<li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence">Sequence functions</a> with the <code dir="ltr" translate="no">         spanner.        </code> prefix</li>
+<li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence">Sequence functions</a> with the <code dir="ltr" translate="no">spanner.</code> prefix</li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility">Utility functions</a></li>
 </ul></td>
-<td>Find functions prefixed with <code dir="ltr" translate="no">       spanner.      </code> and remove these calls.</td>
+<td>Find functions prefixed with <code dir="ltr" translate="no">spanner.</code> and remove these calls.</td>
 </tr>
 <tr class="odd">
 <td>Type extensions</td>
 <td><ul>
-<li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array-extensions">Array data type</a> with the <code dir="ltr" translate="no">         VECTOR LENGTH        </code> parameter</li>
+<li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array-extensions">Array data type</a> with the <code dir="ltr" translate="no">VECTOR LENGTH</code> parameter</li>
 </ul></td>
-<td>Remove the <code dir="ltr" translate="no">       VECTOR LENGTH      </code> syntax or consider using <a href="https://github.com/pgvector/pgvector">pgvector</a> .</td>
+<td>Remove the <code dir="ltr" translate="no">VECTOR LENGTH</code> syntax or consider using <a href="https://github.com/pgvector/pgvector">pgvector</a> .</td>
 </tr>
 <tr class="even">
 <td>Query syntax</td>
@@ -69,13 +69,13 @@ For details on performance considerations, see <a href="https://docs.cloud.googl
 <td><ul>
 <li><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg#query-cancellation">Query cancellation</a></li>
 </ul></td>
-<td>Remove calls to <code dir="ltr" translate="no">       spanner.cancel_query()      </code> .<br />
+<td>Remove calls to <code dir="ltr" translate="no">spanner.cancel_query()</code> .<br />
 Optionally, you can replace the calls with a <a href="https://www.postgresql.org/docs/current/libpq-cancel.html">PostgreSQL equivalent</a> .</td>
 </tr>
 <tr class="even">
 <td>SET/SHOW operations</td>
 <td></td>
-<td>Can be ignored as PostgreSQL doesn't have any built-in parameters that begin with <code dir="ltr" translate="no">       spanner.      </code> , so setting any variables with that prefix doesn't have any impact on expected behavior.</td>
+<td>Can be ignored as PostgreSQL doesn't have any built-in parameters that begin with <code dir="ltr" translate="no">spanner.</code> , so setting any variables with that prefix doesn't have any impact on expected behavior.</td>
 </tr>
 </tbody>
 </table>
@@ -97,22 +97,22 @@ Spanner offers a range of extensions related to data management, as described in
 <tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables">Interleaved tables</a><br />
 Co-locates many-to-one related data in physical storage, making joins across them significantly more efficient.</td>
-<td>Remove the <code dir="ltr" translate="no">       INTERLEAVE IN      </code> clause.</td>
+<td>Remove the <code dir="ltr" translate="no">INTERLEAVE IN</code> clause.</td>
 </tr>
 <tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/commit-timestamp-postgresql">Commit timestamps</a><br />
 Enables atomically storing the commit timestamp of a transaction into a column.</td>
-<td>Either replace <code dir="ltr" translate="no">       SPANNER.COMMIT_TIMESTAMP      </code> with a PostgreSQL timestamp type and manage setting the timestamp in your application or remove that column.</td>
+<td>Either replace <code dir="ltr" translate="no">SPANNER.COMMIT_TIMESTAMP</code> with a PostgreSQL timestamp type and manage setting the timestamp in your application or remove that column.</td>
 </tr>
 <tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database">Point-in-time recovery</a><br />
 Provides protection against accidental deletion or writes.</td>
-<td>Remove any DDL statements that set <code dir="ltr" translate="no">       spanner.version_retention_period      </code> .</td>
+<td>Remove any DDL statements that set <code dir="ltr" translate="no">spanner.version_retention_period</code> .</td>
 </tr>
 <tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/ttl">Time to live</a> (TTL)<br />
 Prompts the automatic deletion of records based on age.</td>
-<td>Remove the <code dir="ltr" translate="no">       TTL INTERVAL      </code> clause. Consider leveraging a <code dir="ltr" translate="no">       cron      </code> or scheduled task to periodically delete outdated. rows.</td>
+<td>Remove the <code dir="ltr" translate="no">TTL INTERVAL</code> clause. Consider leveraging a <code dir="ltr" translate="no">cron</code> or scheduled task to periodically delete outdated. rows.</td>
 </tr>
 <tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer">Optimizer options</a><br />
@@ -127,7 +127,7 @@ Watches and streams out a Spanner database's data changes—inserts, updates, an
 <tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database">Default leader</a><br />
 Lets you specify the leader for your database in dual- and multi-region configurations.</td>
-<td>Remove any DDL statements that set <code dir="ltr" translate="no">       spanner.default_leader      </code> .</td>
+<td>Remove any DDL statements that set <code dir="ltr" translate="no">spanner.default_leader</code> .</td>
 </tr>
 <tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/create-manage-data-placements">Geo-partitioning</a><br />
@@ -136,8 +136,8 @@ Lets you further segment and store rows in your database table across different 
 </tr>
 <tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements">Sequences</a><br />
-Spanner only supports the <code dir="ltr" translate="no">       bit_reversed_positive      </code> sequence.</td>
-<td>Replace <code dir="ltr" translate="no">       bit_reversed_positive      </code> with a sequence available in PostgreSQL. Remove any DDL statements that set <code dir="ltr" translate="no">       spanner.default_sequence_kind      </code> .</td>
+Spanner only supports the <code dir="ltr" translate="no">bit_reversed_positive</code> sequence.</td>
+<td>Replace <code dir="ltr" translate="no">bit_reversed_positive</code> with a sequence available in PostgreSQL. Remove any DDL statements that set <code dir="ltr" translate="no">spanner.default_sequence_kind</code> .</td>
 </tr>
 <tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#locality-group-statements">Locality groups</a><br />
@@ -154,7 +154,7 @@ Lets you define indexes to perform <a href="https://docs.cloud.google.com/spanne
 
 ## Schema migration
 
-You can export a PostgreSQL-dialect database schema in PostgreSQL syntax. For databases configured to use the PostgreSQL interface, you can achieve this with `  psql  ` using [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) , the sidecar proxy that lets you use standard PostgreSQL drivers or client libraries to connect to Spanner:
+You can export a PostgreSQL-dialect database schema in PostgreSQL syntax. For databases configured to use the PostgreSQL interface, you can achieve this with `psql` using [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) , the sidecar proxy that lets you use standard PostgreSQL drivers or client libraries to connect to Spanner:
 
     psql -v ON_ERROR_STOP=1 \
       --host "$PGADAPTER_HOST" \
@@ -163,7 +163,7 @@ You can export a PostgreSQL-dialect database schema in PostgreSQL syntax. For da
       -qAtX \
       -c "show database ddl"
 
-You can also use the following `  gcloud  ` command to output the schema as a PostgreSQL-compatible SQL script:
+You can also use the following `gcloud` command to output the schema as a PostgreSQL-compatible SQL script:
 
     gcloud spanner databases ddl describe databasename
 
@@ -171,7 +171,7 @@ If the database uses Spanner-specific schema extensions, like those discussed in
 
 ## Data migration
 
-Spanner's PostgreSQL interface supports PostgreSQL's `  COPY TO STDIN  ` and `  STDOUT  ` extensions using [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) . This is one way to load data into and out of Spanner. Read more about the `  COPY  ` command in the [psql command-line tool for Spanner documentation](https://docs.cloud.google.com/spanner/docs/psql-commands#copy-command) .
+Spanner's PostgreSQL interface supports PostgreSQL's `COPY TO STDIN` and `STDOUT` extensions using [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) . This is one way to load data into and out of Spanner. Read more about the `COPY` command in the [psql command-line tool for Spanner documentation](https://docs.cloud.google.com/spanner/docs/psql-commands#copy-command) .
 
 This script exports smaller quantities of data (recommended for less than 100GB of data) from Spanner's PostgreSQL interface into the new PostgreSQL database:
 

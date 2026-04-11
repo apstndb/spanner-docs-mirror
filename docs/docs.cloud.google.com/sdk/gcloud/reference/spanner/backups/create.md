@@ -4,7 +4,7 @@ gcloud spanner backups create - creates a backup of a Cloud Spanner database
 
 SYNOPSIS
 
-`  gcloud spanner backups create  ` ( `  BACKUP  ` : `  --instance  ` = `  INSTANCE  ` ) `  --database  ` = `  DATABASE  ` ( `  --expiration-date  ` = `  EXPIRATION_DATE  ` | `  --retention-period  ` = `  RETENTION_PERIOD  ` ) \[ `  --async  ` \] \[ `  --version-time  ` = `  TIMESTAMP  ` \] \[ `  --encryption-type  ` = `  ENCRYPTION_TYPE  ` `  --kms-keys  ` =\[ `  KMS_KEYS  ` , …\] | \[ `  --kms-key  ` = `  KMS_KEY  ` : `  --kms-keyring  ` = `  KMS_KEYRING  ` `  --kms-location  ` = `  KMS_LOCATION  ` `  --kms-project  ` = `  KMS_PROJECT  ` \]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner backups create` ( `  BACKUP  ` : `  --instance  ` = `  INSTANCE  ` ) `  --database  ` = `  DATABASE  ` ( `  --expiration-date  ` = `  EXPIRATION_DATE  ` | `  --retention-period  ` = `  RETENTION_PERIOD  ` ) \[ `  --async  ` \] \[ `  --version-time  ` = `  TIMESTAMP  ` \] \[ `  --encryption-type  ` = `  ENCRYPTION_TYPE  ` `  --kms-keys  ` =\[ `  KMS_KEYS  ` , …\] | \[ `  --kms-key  ` = `  KMS_KEY  ` : `  --kms-keyring  ` = `  KMS_KEYRING  ` `  --kms-location  ` = `  KMS_LOCATION  ` `  --kms-project  ` = `  KMS_PROJECT  ` \]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -28,64 +28,64 @@ POSITIONAL ARGUMENTS
 
 Backup resource - The Cloud Spanner backup to create. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  backup  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `backup` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 This must be specified.
 
   - `  BACKUP  `  
     ID of the backup or fully qualified identifier for the backup.
     
-    To set the `  backup  ` attribute:
+    To set the `backup` attribute:
     
-      - provide the argument `  backup  ` on the command line.
+      - provide the argument `backup` on the command line.
     
     This positional argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     The Cloud Spanner instance for the backup.
     
-    To set the `  instance  ` attribute:
+    To set the `instance` attribute:
     
-      - provide the argument `  backup  ` on the command line with a fully specified name;
-      - provide the argument `  --instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `backup` on the command line with a fully specified name;
+      - provide the argument `--instance` on the command line;
+      - set the property `spanner/instance` .
 
 REQUIRED FLAGS
 
-`  --database  ` = `  DATABASE  `
+`--database` = `  DATABASE  `
 
 ID of the database from which the backup will be created.
 
 Exactly one of these must be specified:
 
-  - `  --expiration-date  ` = `  EXPIRATION_DATE  `  
-    Expiration time of the backup, must be at least 6 hours and at most 30 days from the time the request is received. See `  $ gcloud topic datetimes  ` for information on date/time formats.
-  - `  --retention-period  ` = `  RETENTION_PERIOD  `  
-    Retention period of the backup relative from now, must be at least 6 hours and at most 30 days. See `  $ gcloud topic datetimes  ` for information on duration formats.
+  - `--expiration-date` = `  EXPIRATION_DATE  `  
+    Expiration time of the backup, must be at least 6 hours and at most 30 days from the time the request is received. See ` $ gcloud topic datetimes  ` for information on date/time formats.
+  - `--retention-period` = `  RETENTION_PERIOD  `  
+    Retention period of the backup relative from now, must be at least 6 hours and at most 30 days. See ` $ gcloud topic datetimes  ` for information on duration formats.
 
 OPTIONAL FLAGS
 
-`  --async  `
+`--async`
 
 Return immediately, without waiting for the operation in progress to complete.
 
-`  --version-time  ` = `  TIMESTAMP  `
+`--version-time` = `  TIMESTAMP  `
 
-The backup will contain an externally consistent copy of the database at the timestamp specified by `  --version-time  ` . If `  --version-time  ` is not specified, the system will use the creation time of the backup.
+The backup will contain an externally consistent copy of the database at the timestamp specified by `--version-time` . If `--version-time` is not specified, the system will use the creation time of the backup.
 
-`  --encryption-type  ` = `  ENCRYPTION_TYPE  `
+`--encryption-type` = `  ENCRYPTION_TYPE  `
 
 The encryption type of the backup. `  ENCRYPTION_TYPE  ` must be one of:
 
-  - `  customer-managed-encryption  `  
+  - `customer-managed-encryption`  
     Use the provided Cloud KMS key for encryption.If this option is selected, kms-key must be set.
-  - `  google-default-encryption  `  
+  - `google-default-encryption`  
     Use Google default encryption.
-  - `  use-database-encryption  `  
+  - `use-database-encryption`  
     Use the same encryption configuration as the database.
 
 KMS key name group
@@ -94,70 +94,70 @@ At most one of these can be specified:
 
 Key resource - Cloud KMS key(s) to be used to create the Cloud Spanner backup. This represents a Cloud resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  kms-project  ` attribute:
+To set the `kms-project` attribute:
 
-  - provide the argument `  --kms-keys  ` on the command line with a fully specified name.
+  - provide the argument `--kms-keys` on the command line with a fully specified name.
 
-To set the `  kms-location  ` attribute:
+To set the `kms-location` attribute:
 
-  - provide the argument `  --kms-keys  ` on the command line with a fully specified name.
+  - provide the argument `--kms-keys` on the command line with a fully specified name.
 
-To set the `  kms-keyring  ` attribute:
+To set the `kms-keyring` attribute:
 
-  - provide the argument `  --kms-keys  ` on the command line with a fully specified name.
+  - provide the argument `--kms-keys` on the command line with a fully specified name.
 
-`  --kms-keys  ` =\[ `  KMS_KEYS  ` ,…\]
+`--kms-keys` =\[ `  KMS_KEYS  ` ,…\]
 
 IDs of the keys or fully qualified identifiers for the keys.
 
-To set the `  kms-key  ` attribute:
+To set the `kms-key` attribute:
 
-  - provide the argument `  --kms-keys  ` on the command line.
+  - provide the argument `--kms-keys` on the command line.
 
 Key resource - Cloud KMS key to be used to create the Cloud Spanner backup. The arguments in this group can be used to specify the attributes of this resource.
 
-`  --kms-key  ` = `  KMS_KEY  `
+`--kms-key` = `  KMS_KEY  `
 
 ID of the key or fully qualified identifier for the key.
 
-To set the `  kms-key  ` attribute:
+To set the `kms-key` attribute:
 
-  - provide the argument `  --kms-key  ` on the command line.
+  - provide the argument `--kms-key` on the command line.
 
 This flag argument must be specified if any of the other arguments in this group are specified.
 
-`  --kms-keyring  ` = `  KMS_KEYRING  `
+`--kms-keyring` = `  KMS_KEYRING  `
 
 KMS keyring id of the key.
 
-To set the `  kms-keyring  ` attribute:
+To set the `kms-keyring` attribute:
 
-  - provide the argument `  --kms-key  ` on the command line with a fully specified name;
-  - provide the argument `  --kms-keyring  ` on the command line.
+  - provide the argument `--kms-key` on the command line with a fully specified name;
+  - provide the argument `--kms-keyring` on the command line.
 
-`  --kms-location  ` = `  KMS_LOCATION  `
+`--kms-location` = `  KMS_LOCATION  `
 
 Cloud location for the key.
 
-To set the `  kms-location  ` attribute:
+To set the `kms-location` attribute:
 
-  - provide the argument `  --kms-key  ` on the command line with a fully specified name;
-  - provide the argument `  --kms-location  ` on the command line.
+  - provide the argument `--kms-key` on the command line with a fully specified name;
+  - provide the argument `--kms-location` on the command line.
 
-`  --kms-project  ` = `  KMS_PROJECT  `
+`--kms-project` = `  KMS_PROJECT  `
 
 Cloud project id for the key.
 
-To set the `  kms-project  ` attribute:
+To set the `kms-project` attribute:
 
-  - provide the argument `  --kms-key  ` on the command line with a fully specified name;
-  - provide the argument `  --kms-project  ` on the command line.
+  - provide the argument `--kms-key` on the command line with a fully specified name;
+  - provide the argument `--kms-project` on the command line.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

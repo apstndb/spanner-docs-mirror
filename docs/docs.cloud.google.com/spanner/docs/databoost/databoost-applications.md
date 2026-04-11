@@ -2,18 +2,18 @@ This page lists the Spanner APIs that support Spanner Data Boost and explains ho
 
 ## Before you begin
 
-Ensure that the principal (for example, the service account) that runs the application has the `  spanner.databases.useDataBoost  ` Identity and Access Management (IAM) permission. For more information, see [Access control with IAM](https://docs.cloud.google.com/spanner/docs/iam) .
+Ensure that the principal (for example, the service account) that runs the application has the `spanner.databases.useDataBoost` Identity and Access Management (IAM) permission. For more information, see [Access control with IAM](https://docs.cloud.google.com/spanner/docs/iam) .
 
 ## APIs
 
 For partitioned reads with Data Boost, the following Spanner APIs have an option to enable Data Boost:
 
-  - `  ExecuteSql  ` [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteSql) | [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql)
-  - `  ExecuteStreamingSql  ` [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql) | [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql)
-  - `  read  ` [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Read) | [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read)
-  - `  streamingRead  ` [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.StreamingRead) | [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/streamingRead)
+  - `ExecuteSql` [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteSql) | [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql)
+  - `ExecuteStreamingSql` [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql) | [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql)
+  - `read` [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Read) | [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read)
+  - `streamingRead` [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.StreamingRead) | [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/streamingRead)
 
-We recommend that you use `  ExecuteStreamingSql  ` and `  streamingRead  ` in your applications, because `  ExecuteSql  ` and `  read  ` are limited to 10 MB of data in their responses.
+We recommend that you use `ExecuteStreamingSql` and `streamingRead` in your applications, because `ExecuteSql` and `read` are limited to 10 MB of data in their responses.
 
 ## Sample code
 

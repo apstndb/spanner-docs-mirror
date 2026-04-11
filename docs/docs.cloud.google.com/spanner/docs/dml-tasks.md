@@ -1,4 +1,4 @@
-This page describes how to insert, update, and delete Spanner data using Data Manipulation Language (DML) statements. You can run DML statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/dml-tasks#client-library-dml) , the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/modify-data) , and the [`  gcloud  `](https://docs.cloud.google.com/spanner/docs/modify-gcloud) command-line tool. You can run [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statements using the client libraries and the [`  gcloud  `](https://docs.cloud.google.com/spanner/docs/modify-gcloud) command-line tool.
+This page describes how to insert, update, and delete Spanner data using Data Manipulation Language (DML) statements. You can run DML statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/dml-tasks#client-library-dml) , the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/modify-data) , and the [`gcloud`](https://docs.cloud.google.com/spanner/docs/modify-gcloud) command-line tool. You can run [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statements using the client libraries and the [`gcloud`](https://docs.cloud.google.com/spanner/docs/modify-gcloud) command-line tool.
 
 For the complete DML syntax reference, see [Data Manipulation Language syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax) for GoogleSQL-dialect databases or [PostgreSQL data manipulation language](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax) for PostgreSQL-dialect databases
 
@@ -6,17 +6,17 @@ For the complete DML syntax reference, see [Data Manipulation Language syntax](h
 
 ## Use DML
 
-DML supports `  INSERT  ` , `  UPDATE  ` , and `  DELETE  ` statements in the Google Cloud console, Google Cloud CLI, and client libraries.
+DML supports `INSERT` , `UPDATE` , and `DELETE` statements in the Google Cloud console, Google Cloud CLI, and client libraries.
 
 ### Locking
 
-You execute DML statements inside read-write transactions. When Spanner reads data, it acquires shared read locks on limited portions of the row ranges that you read. Specifically, it acquires these locks only on the columns you access. The locks can include data that does not satisfy the filter condition of the `  WHERE  ` clause.
+You execute DML statements inside read-write transactions. When Spanner reads data, it acquires shared read locks on limited portions of the row ranges that you read. Specifically, it acquires these locks only on the columns you access. The locks can include data that does not satisfy the filter condition of the `WHERE` clause.
 
 When Spanner modifies data using DML statements, it acquires exclusive locks on the specific data that you are modifying. In addition, it acquires shared locks in the same way as when you read data. If your request includes large row ranges, or an entire table, the shared locks might prevent other transactions from making progress in parallel.
 
-To modify data as efficiently as possible, use a `  WHERE  ` clause that enables Spanner to read only the necessary rows. You can achieve this goal with a filter on the primary key, or on the key of a secondary index. The `  WHERE  ` clause limits the scope of the shared locks and enables Spanner to process the update more efficiently.
+To modify data as efficiently as possible, use a `WHERE` clause that enables Spanner to read only the necessary rows. You can achieve this goal with a filter on the primary key, or on the key of a secondary index. The `WHERE` clause limits the scope of the shared locks and enables Spanner to process the update more efficiently.
 
-For example, suppose that one of the musicians in the `  Singers  ` table changes their first name, and you need to update the name in your database. You could execute the following DML statement, but it forces Spanner to scan the entire table and acquires shared locks that cover the entire table. As a result, Spanner must read more data than necessary, and concurrent transactions cannot modify the data in parallel:
+For example, suppose that one of the musicians in the `Singers` table changes their first name, and you need to update the name in your database. You could execute the following DML statement, but it forces Spanner to scan the entire table and acquires shared locks that cover the entire table. As a result, Spanner must read more data than necessary, and concurrent transactions cannot modify the data in parallel:
 
     -- ANTI-PATTERN: SENDING AN UPDATE WITHOUT THE PRIMARY KEY COLUMN
     -- IN THE WHERE CLAUSE
@@ -24,16 +24,16 @@ For example, suppose that one of the musicians in the `  Singers  ` table change
     UPDATE Singers SET FirstName = "Marcel"
     WHERE FirstName = "Marc" AND LastName = "Richards";
 
-To make the update more efficient, include the `  SingerId  ` column in the `  WHERE  ` clause. The `  SingerId  ` column is the only primary key column for the `  Singers  ` table:
+To make the update more efficient, include the `SingerId` column in the `WHERE` clause. The `SingerId` column is the only primary key column for the `Singers` table:
 
     -- ANTI-PATTERN: SENDING AN UPDATE THAT MUST SCAN THE ENTIRE TABLE
     
     UPDATE Singers SET FirstName = "Marcel"
     WHERE FirstName = "Marc" AND LastName = "Richards"
 
-If there is no index on `  FirstName  ` or `  LastName  ` , you need to scan the entire table to find the target singers. If you don't want to add a secondary index to make the update more efficient, then include the `  SingerId  ` column in the `  WHERE  ` clause.
+If there is no index on `FirstName` or `LastName` , you need to scan the entire table to find the target singers. If you don't want to add a secondary index to make the update more efficient, then include the `SingerId` column in the `WHERE` clause.
 
-The `  SingerId  ` column is the only primary key column for the `  Singers  ` table. To find it, run `  SELECT  ` in a separate, read-only transaction prior to the update transaction:
+The `SingerId` column is the only primary key column for the `Singers` table. To find it, run `SELECT` in a separate, read-only transaction prior to the update transaction:
 
 ``` 
   SELECT SingerId
@@ -48,15 +48,15 @@ The `  SingerId  ` column is the only primary key column for the `  Singers  ` t
 
 ### Concurrency
 
-Spanner sequentially executes all the SQL statements ( `  SELECT  ` , `  INSERT  ` , `  UPDATE  ` , and `  DELETE  ` ) within a transaction. They are not executed concurrently. The only exception is that Spanner might execute multiple `  SELECT  ` statements concurrently, because they are read-only operations.
+Spanner sequentially executes all the SQL statements ( `SELECT` , `INSERT` , `UPDATE` , and `DELETE` ) within a transaction. They are not executed concurrently. The only exception is that Spanner might execute multiple `SELECT` statements concurrently, because they are read-only operations.
 
 ### Transaction limits
 
 A transaction that includes DML statements has the [same limits](https://docs.cloud.google.com/spanner/quotas#limits_for_creating_reading_updating_and_deleting_data) as any other transaction. If you have large-scale changes, consider using [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
 
-  - If the DML statements in a transaction result in more than 80,000 mutations, the DML statement that pushes the transaction over the limit returns a `  BadUsage  ` error with a message about too many mutations.
+  - If the DML statements in a transaction result in more than 80,000 mutations, the DML statement that pushes the transaction over the limit returns a `BadUsage` error with a message about too many mutations.
 
-  - If the DML statements in a transaction result in a transaction that is larger than 100 MiB, the DML statement that pushes the transaction over the limit returns a `  BadUsage  ` error with a message about the transaction exceeding the size limit.
+  - If the DML statements in a transaction result in a transaction that is larger than 100 MiB, the DML statement that pushes the transaction over the limit returns a `BadUsage` error with a message about the transaction exceeding the size limit.
 
 Mutations performed using DML are not returned to the client. They are merged into the commit request when it is committed, and they count towards the maximum size limits. Even if the size of the commit request that you send is small, the transaction might still exceed the allowed size limit.
 
@@ -78,7 +78,7 @@ Use the following steps to execute a DML statement in the Google Cloud console.
 
 5.  Click **Spanner Studio** .
 
-6.  Enter a DML statement. For example, the following statement adds a new row to the `  Singers  ` table.
+6.  Enter a DML statement. For example, the following statement adds a new row to the `Singers` table.
     
         INSERT Singers (SingerId, FirstName, LastName)
         VALUES (1, 'Marc', 'Richards')
@@ -89,7 +89,7 @@ Use the following steps to execute a DML statement in the Google Cloud console.
 
 ### Execute statements with the Google Cloud CLI
 
-To execute DML statements, use the `  gcloud spanner databases execute-sql  ` command. The following example adds a new row to the `  Singers  ` table.
+To execute DML statements, use the `gcloud spanner databases execute-sql` command. The following example adds a new row to the `Singers` table.
 
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql="INSERT Singers (SingerId, FirstName, LastName) VALUES (1, 'Marc', 'Richards')"
@@ -102,11 +102,11 @@ To execute DML statements using the client library:
   - Call the client library method for DML execution and pass in the DML statement.
   - Use the return value of the DML execution method to get the number of rows inserted, updated, or deleted.
 
-The following code example inserts a new row into the `  Singers  ` table.
+The following code example inserts a new row into the `Singers` table.
 
 ### C++
 
-You use the `  ExecuteDml()  ` function to execute a DML statement.
+You use the `ExecuteDml()` function to execute a DML statement.
 
     void DmlStandardInsert(google::cloud::spanner::Client client) {
       using ::google::cloud::StatusOr;
@@ -131,7 +131,7 @@ You use the `  ExecuteDml()  ` function to execute a DML statement.
 
 ### C\#
 
-You use the `  ExecuteNonQueryAsync()  ` method to execute a DML statement.
+You use the `ExecuteNonQueryAsync()` method to execute a DML statement.
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -156,7 +156,7 @@ You use the `  ExecuteNonQueryAsync()  ` method to execute a DML statement.
 
 ### Go
 
-You use the `  Update()  ` method to execute a DML statement.
+You use the `Update()` method to execute a DML statement.
 
     import (
      "context"
@@ -191,7 +191,7 @@ You use the `  Update()  ` method to execute a DML statement.
 
 ### Java
 
-You use the `  executeUpdate()  ` method to execute a DML statement.
+You use the `executeUpdate()` method to execute a DML statement.
 
     static void insertUsingDml(DatabaseClient dbClient) {
       dbClient
@@ -208,7 +208,7 @@ You use the `  executeUpdate()  ` method to execute a DML statement.
 
 ### Node.js
 
-You use the `  runUpdate()  ` method to execute a DML statement.
+You use the `runUpdate()` method to execute a DML statement.
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -258,7 +258,7 @@ You use the `  runUpdate()  ` method to execute a DML statement.
 
 ### PHP
 
-You use the `  executeUpdate()  ` method to execute a DML statement.
+You use the `executeUpdate()` method to execute a DML statement.
 
     use Google\Cloud\Spanner\SpannerClient;
     use Google\Cloud\Spanner\Transaction;
@@ -293,7 +293,7 @@ You use the `  executeUpdate()  ` method to execute a DML statement.
 
 ### Python
 
-You use the `  execute_update()  ` method to execute a DML statement.
+You use the `execute_update()` method to execute a DML statement.
 
     # instance_id = "your-spanner-instance"
     # database_id = "your-spanner-db-id"
@@ -314,7 +314,7 @@ You use the `  execute_update()  ` method to execute a DML statement.
 
 ### Ruby
 
-You use the `  execute_update()  ` method to execute a DML statement.
+You use the `execute_update()` method to execute a DML statement.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -334,7 +334,7 @@ You use the `  execute_update()  ` method to execute a DML statement.
     
     puts "#{row_count} record inserted."
 
-The following code example updates the `  MarketingBudget  ` column of the `  Albums  ` table based on a `  WHERE  ` clause.
+The following code example updates the `MarketingBudget` column of the `Albums` table based on a `WHERE` clause.
 
 ### C++
 
@@ -550,7 +550,7 @@ The following code example updates the `  MarketingBudget  ` column of the `  Al
     
     puts "#{row_count} record updated."
 
-The following code example deletes all the rows in the `  Singers  ` table where the `  FirstName  ` column is `  Alice  ` .
+The following code example deletes all the rows in the `Singers` table where the `FirstName` column is `Alice` .
 
 ### C++
 
@@ -739,7 +739,7 @@ The following code example deletes all the rows in the `  Singers  ` table where
     
     puts "#{row_count} record deleted."
 
-The following example, for GoogleSQL-dialect databases only, uses a [`  STRUCT  ` with bound parameters](https://docs.cloud.google.com/spanner/docs/structs#using_struct_objects_as_bound_parameters_in_sql_queries) to update the `  LastName  ` in rows filtered by `  FirstName  ` and `  LastName  ` .
+The following example, for GoogleSQL-dialect databases only, uses a [`STRUCT` with bound parameters](https://docs.cloud.google.com/spanner/docs/structs#using_struct_objects_as_bound_parameters_in_sql_queries) to update the `LastName` in rows filtered by `FirstName` and `LastName` .
 
 ### GoogleSQL
 
@@ -1014,14 +1014,14 @@ The following example, for GoogleSQL-dialect databases only, uses a [`  STRUCT  
 
 ### Modify data with the returning DML statements
 
-The [`  THEN RETURN  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) (GoogleSQL-dialect databases) or [`  RETURNING  ` clause](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) (PostgreSQL-dialect databases) is intended for scenarios where you want to fetch data from modified rows. This is especially useful when you want to view unspecified values in the DML statements, default values, or generated columns.
+The [`THEN RETURN` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) (GoogleSQL-dialect databases) or [`RETURNING` clause](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) (PostgreSQL-dialect databases) is intended for scenarios where you want to fetch data from modified rows. This is especially useful when you want to view unspecified values in the DML statements, default values, or generated columns.
 
 To execute returning DML statements using the client library:
 
   - Create a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) .
   - Call the client library method for query execution and pass in the returning DML statement to obtain results.
 
-The following code example inserts a new row into the `  Singers  ` table, and it returns the generated column FullName of the inserted records.
+The following code example inserts a new row into the `Singers` table, and it returns the generated column FullName of the inserted records.
 
 ### GoogleSQL
 
@@ -1710,7 +1710,7 @@ The following code example inserts a new row into the `  Singers  ` table, and i
       end
     end
 
-The following code example updates the `  MarketingBudget  ` column of the `  Albums  ` table based on a `  WHERE  ` clause, and it returns the modified `  MarketingBudget  ` column of the updated records.
+The following code example updates the `MarketingBudget` column of the `Albums` table based on a `WHERE` clause, and it returns the modified `MarketingBudget` column of the updated records.
 
 ### GoogleSQL
 
@@ -2384,7 +2384,7 @@ The following code example updates the `  MarketingBudget  ` column of the `  Al
       end
     end
 
-The following code example deletes all the rows in the `  Singers  ` table where the `  FirstName  ` column is `  Alice  ` , and it returns the `  SingerId  ` and `  FullName  ` column of the deleted records.
+The following code example deletes all the rows in the `Singers` table where the `FirstName` column is `Alice` , and it returns the `SingerId` and `FullName` column of the deleted records.
 
 ### GoogleSQL
 
@@ -3042,7 +3042,7 @@ Changes you make using DML statements are visible to subsequent statements in th
 
 Spanner checks the constraints after every DML statement. This is different from using mutations, where Spanner buffers mutations in the client until commit and checks constraints at commit time. Evaluating the constraints after each statement allows Spanner to guarantee that the data that a DML statement returns is consistent with the schema.
 
-The following example updates a row in the `  Singers  ` table, then executes a `  SELECT  ` statement to print the new values.
+The following example updates a row in the `Singers` table, then executes a `SELECT` statement to print the new values.
 
 ### C++
 
@@ -3328,7 +3328,7 @@ The following example updates a row in the `  Singers  ` table, then executes a 
 
 ### Get the query plan
 
-You can [retrieve a query plan](https://docs.cloud.google.com/spanner/docs/sql-best-practices#how-execute-queries) using the Google Cloud console, the client libraries, and the `  gcloud  ` command-line tool.
+You can [retrieve a query plan](https://docs.cloud.google.com/spanner/docs/sql-best-practices#how-execute-queries) using the Google Cloud console, the client libraries, and the `gcloud` command-line tool.
 
 ## Use Partitioned DML
 
@@ -3336,21 +3336,21 @@ You can [retrieve a query plan](https://docs.cloud.google.com/spanner/docs/sql-b
 
 ### Execute statements with the Google Cloud CLI
 
-To execute a Partitioned DML statement, use the `  gcloud spanner databases execute-sql  ` command with the `  --enable-partitioned-dml  ` option. The following example updates rows in the `  Albums  ` table.
+To execute a Partitioned DML statement, use the `gcloud spanner databases execute-sql` command with the `--enable-partitioned-dml` option. The following example updates rows in the `Albums` table.
 
     gcloud spanner databases execute-sql example-db \
         --instance=test-instance --enable-partitioned-dml \
         --sql='UPDATE Albums SET MarketingBudget = 0 WHERE MarketingBudget IS NULL'
 
-**Note:** Spanner does not support `  --query-mode=PLAN  ` and `  --query-mode=PROFILE  ` for Partitioned DML.
+**Note:** Spanner does not support `--query-mode=PLAN` and `--query-mode=PROFILE` for Partitioned DML.
 
 ### Modify data using the client library
 
-The following code example updates the `  MarketingBudget  ` column of the `  Albums  ` table.
+The following code example updates the `MarketingBudget` column of the `Albums` table.
 
 ### C++
 
-You use the `  ExecutePartitionedDml()  ` function to execute a Partitioned DML statement.
+You use the `ExecutePartitionedDml()` function to execute a Partitioned DML statement.
 
     void DmlPartitionedUpdate(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -3364,7 +3364,7 @@ You use the `  ExecutePartitionedDml()  ` function to execute a Partitioned DML 
 
 ### C\#
 
-You use the `  ExecutePartitionedUpdateAsync()  ` method to execute a Partitioned DML statement.
+You use the `ExecutePartitionedUpdateAsync()` method to execute a Partitioned DML statement.
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -3389,7 +3389,7 @@ You use the `  ExecutePartitionedUpdateAsync()  ` method to execute a Partitione
 
 ### Go
 
-You use the `  PartitionedUpdate()  ` method to execute a Partitioned DML statement.
+You use the `PartitionedUpdate()` method to execute a Partitioned DML statement.
 
     import (
      "context"
@@ -3418,7 +3418,7 @@ You use the `  PartitionedUpdate()  ` method to execute a Partitioned DML statem
 
 ### Java
 
-You use the `  executePartitionedUpdate()  ` method to execute a Partitioned DML statement.
+You use the `executePartitionedUpdate()` method to execute a Partitioned DML statement.
 
     static void updateUsingPartitionedDml(DatabaseClient dbClient) {
       String sql = "UPDATE Albums SET MarketingBudget = 100000 WHERE SingerId > 1";
@@ -3428,7 +3428,7 @@ You use the `  executePartitionedUpdate()  ` method to execute a Partitioned DML
 
 ### Node.js
 
-You use the `  runPartitionedUpdate()  ` method to execute a Partitioned DML statement.
+You use the `runPartitionedUpdate()` method to execute a Partitioned DML statement.
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -3463,7 +3463,7 @@ You use the `  runPartitionedUpdate()  ` method to execute a Partitioned DML sta
 
 ### PHP
 
-You use the `  executePartitionedUpdate()  ` method to execute a Partitioned DML statement.
+You use the `executePartitionedUpdate()` method to execute a Partitioned DML statement.
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -3499,7 +3499,7 @@ You use the `  executePartitionedUpdate()  ` method to execute a Partitioned DML
 
 ### Python
 
-You use the `  execute_partitioned_dml()  ` method to execute a Partitioned DML statement.
+You use the `execute_partitioned_dml()` method to execute a Partitioned DML statement.
 
     # instance_id = "your-spanner-instance"
     # database_id = "your-spanner-db-id"
@@ -3516,7 +3516,7 @@ You use the `  execute_partitioned_dml()  ` method to execute a Partitioned DML 
 
 ### Ruby
 
-You use the `  execute_partitioned_update()  ` method to execute a Partitioned DML statement.
+You use the `execute_partitioned_update()` method to execute a Partitioned DML statement.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -3533,7 +3533,7 @@ You use the `  execute_partitioned_update()  ` method to execute a Partitioned D
     
     puts "#{row_count} records updated."
 
-The following code example deletes rows from the `  Singers  ` table, based on the `  SingerId  ` column.
+The following code example deletes rows from the `Singers` table, based on the `SingerId` column.
 
 ### C++
 
@@ -3703,11 +3703,11 @@ The following code example deletes rows from the `  Singers  ` table, based on t
 
 ## Use batch DML
 
-If you need to avoid the extra latency incurred from multiple serial requests, use batch DML to send multiple `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` statements in a single transaction:
+If you need to avoid the extra latency incurred from multiple serial requests, use batch DML to send multiple `INSERT` , `UPDATE` , or `DELETE` statements in a single transaction:
 
 ### C++
 
-Use the `  ExecuteBatchDml()  ` function to execute a list of DML statements.
+Use the `ExecuteBatchDml()` function to execute a list of DML statements.
 
     void DmlBatchUpdate(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -3744,7 +3744,7 @@ Use the `  ExecuteBatchDml()  ` function to execute a list of DML statements.
 
 ### C\#
 
-Use the `  connection.CreateBatchDmlCommand()  ` method to create your batch command, use the `  Add  ` method to add DML statements, and execute the statements with the `  ExecuteNonQueryAsync()  ` method.
+Use the `connection.CreateBatchDmlCommand()` method to create your batch command, use the `Add` method to add DML statements, and execute the statements with the `ExecuteNonQueryAsync()` method.
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -3776,7 +3776,7 @@ Use the `  connection.CreateBatchDmlCommand()  ` method to create your batch com
 
 ### Go
 
-Use the `  BatchUpdate()  ` method to execute an array of DML `  Statement  ` objects.
+Use the `BatchUpdate()` method to execute an array of DML `Statement` objects.
 
     import (
      "context"
@@ -3815,7 +3815,7 @@ Use the `  BatchUpdate()  ` method to execute an array of DML `  Statement  ` ob
 
 ### Java
 
-Use the `  transaction.batchUpdate()  ` method to execute an `  ArrayList  ` of multiple DML `  Statement  ` objects.
+Use the `transaction.batchUpdate()` method to execute an `ArrayList` of multiple DML `Statement` objects.
 
     static void updateUsingBatchDml(DatabaseClient dbClient) {
       dbClient
@@ -3847,7 +3847,7 @@ Use the `  transaction.batchUpdate()  ` method to execute an `  ArrayList  ` of 
 
 ### Node.js
 
-Use `  transaction.batchUpdate()  ` to execute a list of DML statements.
+Use `transaction.batchUpdate()` to execute a list of DML statements.
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -3898,7 +3898,7 @@ Use `  transaction.batchUpdate()  ` to execute a list of DML statements.
 
 ### PHP
 
-Use `  executeUpdateBatch()  ` to create a list of DML statements, then use `  commit()  ` to execute the statements.
+Use `executeUpdateBatch()` to create a list of DML statements, then use `commit()` to execute the statements.
 
     use Google\Cloud\Spanner\SpannerClient;
     use Google\Cloud\Spanner\Transaction;
@@ -3948,7 +3948,7 @@ Use `  executeUpdateBatch()  ` to create a list of DML statements, then use `  c
 
 ### Python
 
-Use `  transaction.batch_update()  ` to execute multiple DML statement strings.
+Use `transaction.batch_update()` to execute multiple DML statement strings.
 
     from google.rpc.code_pb2 import OK
     
@@ -3986,7 +3986,7 @@ Use `  transaction.batch_update()  ` to execute multiple DML statement strings.
 
 ### Ruby
 
-Use `  transaction.batch_update  ` to execute multiple DML statement strings.
+Use `transaction.batch_update` to execute multiple DML statement strings.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"

@@ -14,7 +14,7 @@ This page also provides some example schemas using tables from the [MusicBrainz]
 
 ## Map your PostgreSQL schema to Spanner
 
-Your first step in moving a database from PostgreSQL to Spanner is to determine what schema changes you must make. Use [`  pg_dump  `](https://www.postgresql.org/docs/current/static/app-pgdump.html) to create Data Definition Language (DDL) statements that define the objects in your PostgreSQL database, and then modify the statements as described in the following sections. After you update the DDL statements, use them to create your database in a Spanner instance.
+Your first step in moving a database from PostgreSQL to Spanner is to determine what schema changes you must make. Use [`pg_dump`](https://www.postgresql.org/docs/current/static/app-pgdump.html) to create Data Definition Language (DDL) statements that define the objects in your PostgreSQL database, and then modify the statements as described in the following sections. After you update the DDL statements, use them to create your database in a Spanner instance.
 
 ### Data types
 
@@ -33,196 +33,196 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       Bigint      </code>
-<code dir="ltr" translate="no">       int8      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
+<td><code dir="ltr" translate="no">Bigint</code>
+<code dir="ltr" translate="no">int8</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       Bigserial      </code>
-<code dir="ltr" translate="no">       serial8      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code>
+<td><code dir="ltr" translate="no">Bigserial</code>
+<code dir="ltr" translate="no">serial8</code></td>
+<td><code dir="ltr" translate="no">INT64</code>
 <strong>Note:</strong> There is no auto-increment capability in Spanner.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       bit [ (n) ]      </code></td>
-<td><code dir="ltr" translate="no">       ARRAY&lt;BOOL&gt;      </code></td>
+<td><code dir="ltr" translate="no">bit [ (n) ]</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;BOOL&gt;</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       bit varying [ (n) ]      </code>
-<code dir="ltr" translate="no">       varbit [ (n) ]      </code></td>
-<td><code dir="ltr" translate="no">       ARRAY&lt;BOOL&gt;      </code></td>
+<td><code dir="ltr" translate="no">bit varying [ (n) ]</code>
+<code dir="ltr" translate="no">varbit [ (n) ]</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;BOOL&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       Boolean      </code>
-<code dir="ltr" translate="no">       bool      </code></td>
-<td><code dir="ltr" translate="no">       BOOL      </code></td>
+<td><code dir="ltr" translate="no">Boolean</code>
+<code dir="ltr" translate="no">bool</code></td>
+<td><code dir="ltr" translate="no">BOOL</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       box      </code></td>
-<td><code dir="ltr" translate="no">       ARRAY&lt;FLOAT64&gt;      </code></td>
+<td><code dir="ltr" translate="no">box</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       bytea      </code></td>
-<td><code dir="ltr" translate="no">       BYTES      </code></td>
+<td><code dir="ltr" translate="no">bytea</code></td>
+<td><code dir="ltr" translate="no">BYTES</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       character [ (n) ]      </code>
-<code dir="ltr" translate="no">       char [ (n) ]      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><code dir="ltr" translate="no">character [ (n) ]</code>
+<code dir="ltr" translate="no">char [ (n) ]</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       character varying [ (n) ]      </code>
-<code dir="ltr" translate="no">       varchar [ (n) ]      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><code dir="ltr" translate="no">character varying [ (n) ]</code>
+<code dir="ltr" translate="no">varchar [ (n) ]</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       cidr      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> , using standard <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">CIDR</a> notation.</td>
+<td><code dir="ltr" translate="no">cidr</code></td>
+<td><code dir="ltr" translate="no">STRING</code> , using standard <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">CIDR</a> notation.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       circle      </code></td>
-<td><code dir="ltr" translate="no">       ARRAY&lt;FLOAT64&gt;      </code></td>
+<td><code dir="ltr" translate="no">circle</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       date      </code></td>
-<td><code dir="ltr" translate="no">       DATE      </code></td>
+<td><code dir="ltr" translate="no">date</code></td>
+<td><code dir="ltr" translate="no">DATE</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       double precision      </code>
-<code dir="ltr" translate="no">       float8      </code></td>
-<td><code dir="ltr" translate="no">       FLOAT64      </code></td>
+<td><code dir="ltr" translate="no">double precision</code>
+<code dir="ltr" translate="no">float8</code></td>
+<td><code dir="ltr" translate="no">FLOAT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       inet      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><code dir="ltr" translate="no">inet</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       Integer      </code>
-<code dir="ltr" translate="no">       int      </code>
-<code dir="ltr" translate="no">       int4      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
+<td><code dir="ltr" translate="no">Integer</code>
+<code dir="ltr" translate="no">int</code>
+<code dir="ltr" translate="no">int4</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       interval[ fields ] [ (p) ]      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code> if storing the value in milliseconds, or <code dir="ltr" translate="no">       STRING      </code> if storing the value in an application-defined interval format.</td>
+<td><code dir="ltr" translate="no">interval[ fields ] [ (p) ]</code></td>
+<td><code dir="ltr" translate="no">INT64</code> if storing the value in milliseconds, or <code dir="ltr" translate="no">STRING</code> if storing the value in an application-defined interval format.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       json      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><code dir="ltr" translate="no">json</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       jsonb      </code></td>
-<td><code dir="ltr" translate="no">       JSON      </code></td>
+<td><code dir="ltr" translate="no">jsonb</code></td>
+<td><code dir="ltr" translate="no">JSON</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       line      </code></td>
-<td><code dir="ltr" translate="no">       ARRAY&lt;FLOAT64&gt;      </code></td>
+<td><code dir="ltr" translate="no">line</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       lseg      </code></td>
-<td><code dir="ltr" translate="no">       ARRAY&lt;FLOAT64&gt;      </code></td>
+<td><code dir="ltr" translate="no">lseg</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       macaddr      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> , using standard <a href="https://en.wikipedia.org/wiki/MAC_address">MAC address</a> notation.</td>
+<td><code dir="ltr" translate="no">macaddr</code></td>
+<td><code dir="ltr" translate="no">STRING</code> , using standard <a href="https://en.wikipedia.org/wiki/MAC_address">MAC address</a> notation.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       money      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code> , or <code dir="ltr" translate="no">       STRING      </code> for <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">arbitrary precision numbers</a> .</td>
+<td><code dir="ltr" translate="no">money</code></td>
+<td><code dir="ltr" translate="no">INT64</code> , or <code dir="ltr" translate="no">STRING</code> for <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">arbitrary precision numbers</a> .</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       numeric [ (p, s) ]      </code>
-<code dir="ltr" translate="no">       decimal [ (p, s) ]      </code></td>
-<td>In PostgreSQL, the <code dir="ltr" translate="no">       NUMERIC      </code> and <code dir="ltr" translate="no">       DECIMAL      </code> data types support up to 2 <sup>17</sup> digits of precision and 2 <sup>14</sup> -1 of scale, as defined in the column declaration.<br />
+<td><code dir="ltr" translate="no">numeric [ (p, s) ]</code>
+<code dir="ltr" translate="no">decimal [ (p, s) ]</code></td>
+<td>In PostgreSQL, the <code dir="ltr" translate="no">NUMERIC</code> and <code dir="ltr" translate="no">DECIMAL</code> data types support up to 2 <sup>17</sup> digits of precision and 2 <sup>14</sup> -1 of scale, as defined in the column declaration.<br />
 <br />
-The Spanner <code dir="ltr" translate="no">       NUMERIC      </code> data type supports up to 38 digits of precision and 9 decimal digits of scale.<br />
+The Spanner <code dir="ltr" translate="no">NUMERIC</code> data type supports up to 38 digits of precision and 9 decimal digits of scale.<br />
 <br />
 If you require greater precision, see <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">Storing arbitrary precision numeric data</a> for alternative mechanisms.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       path      </code></td>
-<td><code dir="ltr" translate="no">       ARRAY&lt;FLOAT64&gt;      </code></td>
+<td><code dir="ltr" translate="no">path</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       pg_lsn      </code></td>
+<td><code dir="ltr" translate="no">pg_lsn</code></td>
 <td>This data type is PostgreSQL-specific, so there isn't a Spanner equivalent.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       point      </code></td>
-<td><code dir="ltr" translate="no">       ARRAY&lt;FLOAT64&gt;      </code></td>
+<td><code dir="ltr" translate="no">point</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       polygon      </code></td>
-<td><code dir="ltr" translate="no">       ARRAY&lt;FLOAT64&gt;      </code></td>
+<td><code dir="ltr" translate="no">polygon</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       Real      </code>
-<code dir="ltr" translate="no">       float4      </code></td>
-<td><code dir="ltr" translate="no">       FLOAT64      </code></td>
+<td><code dir="ltr" translate="no">Real</code>
+<code dir="ltr" translate="no">float4</code></td>
+<td><code dir="ltr" translate="no">FLOAT64</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       Smallint      </code>
-<code dir="ltr" translate="no">       int2      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
+<td><code dir="ltr" translate="no">Smallint</code>
+<code dir="ltr" translate="no">int2</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       Smallserial      </code>
-<code dir="ltr" translate="no">       serial2      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
+<td><code dir="ltr" translate="no">Smallserial</code>
+<code dir="ltr" translate="no">serial2</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       Serial      </code>
-<code dir="ltr" translate="no">       serial4      </code></td>
-<td><code dir="ltr" translate="no">       INT64      </code></td>
+<td><code dir="ltr" translate="no">Serial</code>
+<code dir="ltr" translate="no">serial4</code></td>
+<td><code dir="ltr" translate="no">INT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       text      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><code dir="ltr" translate="no">text</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       time [ (p) ] [ without time zone ]      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> , using <code dir="ltr" translate="no">       HH:MM:SS.sss      </code> notation.</td>
+<td><code dir="ltr" translate="no">time [ (p) ] [ without time zone ]</code></td>
+<td><code dir="ltr" translate="no">STRING</code> , using <code dir="ltr" translate="no">HH:MM:SS.sss</code> notation.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       time [ (p) ] with time zone      </code>
-<code dir="ltr" translate="no">       timetz      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> , using <code dir="ltr" translate="no">       HH:MM:SS.sss+ZZZZ      </code> notation. Alternately, this can be broken up into two columns, one of type <code dir="ltr" translate="no">       TIMESTAMP      </code> and another one holding the timezone.</td>
+<td><code dir="ltr" translate="no">time [ (p) ] with time zone</code>
+<code dir="ltr" translate="no">timetz</code></td>
+<td><code dir="ltr" translate="no">STRING</code> , using <code dir="ltr" translate="no">HH:MM:SS.sss+ZZZZ</code> notation. Alternately, this can be broken up into two columns, one of type <code dir="ltr" translate="no">TIMESTAMP</code> and another one holding the timezone.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       timestamp [ (p) ] [ without time zone ]      </code></td>
-<td>No equivalent. You may store as a <code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       TIMESTAMP      </code> at your discretion.</td>
+<td><code dir="ltr" translate="no">timestamp [ (p) ] [ without time zone ]</code></td>
+<td>No equivalent. You may store as a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">TIMESTAMP</code> at your discretion.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       timestamp [ (p) ] with time zone      </code>
-<code dir="ltr" translate="no">       timestamptz      </code></td>
-<td><code dir="ltr" translate="no">       TIMESTAMP      </code></td>
+<td><code dir="ltr" translate="no">timestamp [ (p) ] with time zone</code>
+<code dir="ltr" translate="no">timestamptz</code></td>
+<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       tsquery      </code></td>
+<td><code dir="ltr" translate="no">tsquery</code></td>
 <td>No equivalent. Define a storage mechanism in your application instead.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       tsvector      </code></td>
+<td><code dir="ltr" translate="no">tsvector</code></td>
 <td>No equivalent. Define a storage mechanism in your application instead.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       txid_snapshot      </code></td>
+<td><code dir="ltr" translate="no">txid_snapshot</code></td>
 <td>No equivalent. Define a storage mechanism in your application instead.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       uuid      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code> or <code dir="ltr" translate="no">       BYTES      </code></td>
+<td><code dir="ltr" translate="no">uuid</code></td>
+<td><code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       xml      </code></td>
-<td><code dir="ltr" translate="no">       STRING      </code></td>
+<td><code dir="ltr" translate="no">xml</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
 </tr>
 </tbody>
 </table>
 
 ### Primary keys
 
-For tables in your Spanner database that you frequently append to, avoid using primary keys that monotonically increase or decrease, as this approach causes hotspots during writes. Instead, modify the DDL `  CREATE TABLE  ` statements so that they use [supported primary key strategies](https://docs.cloud.google.com/spanner/docs/schema-design#choosing_a_primary_key_to_prevent_hotspots) . If you are using a PostgreSQL feature such as a `  UUID  ` data type or function, `  SERIAL  ` data types, `  IDENTITY  ` column, or sequence, you can use the [auto-generated key migration strategies](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys#migrating-auto-generated-keys) that we recommend.
+For tables in your Spanner database that you frequently append to, avoid using primary keys that monotonically increase or decrease, as this approach causes hotspots during writes. Instead, modify the DDL `CREATE TABLE` statements so that they use [supported primary key strategies](https://docs.cloud.google.com/spanner/docs/schema-design#choosing_a_primary_key_to_prevent_hotspots) . If you are using a PostgreSQL feature such as a `UUID` data type or function, `SERIAL` data types, `IDENTITY` column, or sequence, you can use the [auto-generated key migration strategies](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys#migrating-auto-generated-keys) that we recommend.
 
 Note that after you designate your primary key, you can't add or remove a primary key column, or change a primary key value later without deleting and recreating the table. For more information on how to designate your primary key, see [Schema and data model - primary keys](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#primary_keys) .
 
@@ -234,7 +234,7 @@ Learn about [foreign keys support in Spanner](https://docs.cloud.google.com/span
 
 ### Indexes
 
-PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-types.html) are similar to [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) in Spanner. In a Spanner database you use secondary indexes to index commonly searched columns for better performance, and to replace any `  UNIQUE  ` constraints specified in your tables. For example, if your PostgreSQL DDL has this statement:
+PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-types.html) are similar to [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) in Spanner. In a Spanner database you use secondary indexes to index commonly searched columns for better performance, and to replace any `UNIQUE` constraints specified in your tables. For example, if your PostgreSQL DDL has this statement:
 
 ``` 
    CREATE TABLE customer (
@@ -258,15 +258,15 @@ You would use this statement in your Spanner DDL:
     CREATE UNIQUE INDEX customer_emails ON customer(email);
 ```
 
-You can find the indexes for any of your PostgreSQL tables by running the [`  \di  `](https://www.postgresql.org/docs/10/static/app-psql.html) meta-command in `  psql  ` .
+You can find the indexes for any of your PostgreSQL tables by running the [`\di`](https://www.postgresql.org/docs/10/static/app-psql.html) meta-command in `psql` .
 
-After you determine the indexes that you need, add [`  CREATE INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) statements to create them. Follow the guidance at [Creating indexes](https://docs.cloud.google.com/spanner/docs/schema-design#creating-indexes) .
+After you determine the indexes that you need, add [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) statements to create them. Follow the guidance at [Creating indexes](https://docs.cloud.google.com/spanner/docs/schema-design#creating-indexes) .
 
-Spanner implements indexes as tables, so indexing monotonically increasing columns (like those containing `  TIMESTAMP  ` data) can cause a hotspot. See [What DBAs need to know about Spanner, part 1: Keys and indexes](https://cloudplatform.googleblog.com/2018/06/What-DBAs-need-to-know-about-Cloud-Spanner-part-1-Keys-and-indexes.html) for more information on methods to avoid hotspots.
+Spanner implements indexes as tables, so indexing monotonically increasing columns (like those containing `TIMESTAMP` data) can cause a hotspot. See [What DBAs need to know about Spanner, part 1: Keys and indexes](https://cloudplatform.googleblog.com/2018/06/What-DBAs-need-to-know-about-Cloud-Spanner-part-1-Keys-and-indexes.html) for more information on methods to avoid hotspots.
 
 ### Check constraints
 
-Learn about [`  CHECK  ` constraint support in Spanner](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
+Learn about [`CHECK` constraint support in Spanner](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
 
 ### Other database objects
 
@@ -276,7 +276,7 @@ You must create the functionality of the following objects in your application l
   - Triggers
   - Stored procedures
   - User-defined functions (UDFs)
-  - Columns that use `  serial  ` data types as sequence generators
+  - Columns that use `serial` data types as sequence generators
 
 Keep the following tips in mind when migrating this functionality into application logic:
 
@@ -289,7 +289,7 @@ After you update your DDL statements to conform to Spanner schema requirements, 
 
 1.  [Create a Spanner instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#creating_an_instance) . Follow the guidance in [Instances](https://docs.cloud.google.com/spanner/docs/instances) to determine the correct regional configuration and compute capacity to support your performance goals.
 
-2.  Create the database by using either the Google Cloud console or the [`  gcloud  `](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) command-line tool:
+2.  Create the database by using either the Google Cloud console or the [`gcloud`](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) command-line tool:
 
 ### Console
 
@@ -305,7 +305,7 @@ After you update your DDL statements to conform to Spanner schema requirements, 
 
 1.  Install the [gcloud CLI](https://docs.cloud.google.com/sdk/downloads) .
 
-2.  Use the `  gcloud spanner databases create  ` command to [create the database](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#create_databases) :
+2.  Use the `gcloud spanner databases create` command to [create the database](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#create_databases) :
     
         gcloud spanner databases create DATABASE_NAME --instance=INSTANCE_NAME
         --ddl='DDL1' --ddl='DDL2'
@@ -323,7 +323,7 @@ After you create the database, follow the instructions in [Apply IAM roles](http
 In addition to the code needed to replace the [preceding database objects](https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner#other-database-objects) , you must add application logic to handle the following functionality:
 
   - Hashing primary keys for writes, for tables that have high write rates to sequential keys.
-  - Validating data, not already covered by `  CHECK  ` constraints.
+  - Validating data, not already covered by `CHECK` constraints.
   - Referential integrity checks not already covered by foreign keys, table interleaving or application logic, including functionality handled by triggers in the PostgreSQL schema.
 
 We recommend using the following process when refactoring:
@@ -336,7 +336,7 @@ We recommend using the following process when refactoring:
 
 After you create your Spanner database and refactor your application code, you can migrate your data to Spanner.
 
-1.  Use the PostgreSQL [`  COPY  `](https://www.postgresql.org/docs/10/static/sql-copy.html) command to dump data to .csv files.
+1.  Use the PostgreSQL [`COPY`](https://www.postgresql.org/docs/10/static/sql-copy.html) command to dump data to .csv files.
 
 2.  Upload the .csv files to Cloud Storage.
     
@@ -370,7 +370,7 @@ Live migration is possible and requires extensive changes to your application to
 
 ## Schema migration examples
 
-These examples show the `  CREATE TABLE  ` statements for several tables in the [MusicBrainz](https://musicbrainz.org/) PostgreSQL database [schema](https://musicbrainz.org/doc/MusicBrainz_Database/Schema) . Each example includes both the PostgreSQL schema and the Spanner schema.
+These examples show the `CREATE TABLE` statements for several tables in the [MusicBrainz](https://musicbrainz.org/) PostgreSQL database [schema](https://musicbrainz.org/doc/MusicBrainz_Database/Schema) . Each example includes both the PostgreSQL schema and the Spanner schema.
 
 ### artist\_credit table
 

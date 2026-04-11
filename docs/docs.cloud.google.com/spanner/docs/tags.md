@@ -10,13 +10,13 @@ Some common use cases for tags include:
 
   - **IAM tags:** IAM roles based on whether an instance has a specific tag. The presence or absence of a tag value is the condition for that IAM policy and helps control access to your Spanner instance.
 
-  - **State tags:** Indicate and manage the state of an instance by creating tags. For example, `  state:active  ` , `  state:todelete  ` , and `  state:archive  ` .
+  - **State tags:** Indicate and manage the state of an instance by creating tags. For example, `state:active` , `state:todelete` , and `state:archive` .
 
-  - **Environment tags:** Specify production, test, and development environments for instances by creating key-value pairs such as `  env:prod  ` , `  env:dev  ` , and `  env:test  ` .
+  - **Environment tags:** Specify production, test, and development environments for instances by creating key-value pairs such as `env:prod` , `env:dev` , and `env:test` .
 
 ## How to create and manage Spanner instance tags
 
-Tags are structured as key-value pairs. You create a tag key under your organization resource, and then attach tag values to the tag key (for example, a tag key `  environment  ` with values `  prod  ` and `  dev  ` ). You can then create a tag binding that links the tag value to a Google Cloud resource, such as a project or Spanner instance. Note that you cannot assign a tag to a database.
+Tags are structured as key-value pairs. You create a tag key under your organization resource, and then attach tag values to the tag key (for example, a tag key `environment` with values `prod` and `dev` ). You can then create a tag binding that links the tag value to a Google Cloud resource, such as a project or Spanner instance. Note that you cannot assign a tag to a database.
 
 ### Required permissions
 
@@ -67,16 +67,16 @@ To create a tag binding and attach it to your instance, run the following comman
 
   - `  PROJECT_ID  ` : The ID of the project.
   - `  INSTANCE_ID  ` : The ID of the instance.
-  - `  TAG_VALUE_NAME  ` : `  TAG_VALUE_NAME  ` is the permanent ID or namespace ID of the tag value to be attached. For example: `  tagValues/4567890123  ` (permanent ID) or `  12345678/env/prod  ` (namespace ID). The namespace ID consists of the following:
+  - `  TAG_VALUE_NAME  ` : `TAG_VALUE_NAME` is the permanent ID or namespace ID of the tag value to be attached. For example: `tagValues/4567890123` (permanent ID) or `12345678/env/prod` (namespace ID). The namespace ID consists of the following:
       - `  ORG_ID  ` : The ID of the organization.
-      - `  KEY_NAME  ` : The display (short) name of your tag key. For example, `  env  ` .
-      - `  VALUE_NAME  ` : The display (short) name of your tag value. For example, `  prod  ` .
+      - `  KEY_NAME  ` : The display (short) name of your tag key. For example, `env` .
+      - `  VALUE_NAME  ` : The display (short) name of your tag value. For example, `prod` .
   - `  LOCATION  ` : The location of an instance varies depending on its configuration:
-      - For a regional instance, the location of its configuration. For example, `  us-east1  ` .
-      - For a dual-region instance, the 2-letter resource location. For example, `  de  ` for `  dual-region-germany1  ` .
-      - For a multi-region instance, the name of its configuration. For example, `  eur3  ` or `  nam-eur-asia1  ` .
+      - For a regional instance, the location of its configuration. For example, `us-east1` .
+      - For a dual-region instance, the 2-letter resource location. For example, `de` for `dual-region-germany1` .
+      - For a multi-region instance, the name of its configuration. For example, `eur3` or `nam-eur-asia1` .
 
-For example, to create a tag binding on your Spanner instance `  my-instance  ` with the tag key-value pair `  env:prod  ` , run the following command:
+For example, to create a tag binding on your Spanner instance `my-instance` with the tag key-value pair `env:prod` , run the following command:
 
     gcloud resource-manager tags bindings create
     --parent=//spanner.googleapis.com/projects/my-project/instances/my-instance
@@ -91,7 +91,7 @@ To create a tag binding and attach it to your Spanner instance using REST or RPC
 
 You can use tags and IAM conditions to conditionally grant role bindings to users. If an IAM policy with conditional role bindings is applied, changing or deleting the tag attached to a resource might remove user access to that resource.
 
-**Note:** When managing access for users in [external identity providers](https://docs.cloud.google.com/iam/docs/workforce-identity-federation) , replace instances of Google Account principal identifiers—like `  user:kiran@example.com  ` , `  group:support@example.com  ` , and `  domain:example.com  ` —with appropriate [Workforce Identity Federation principal identifiers](https://docs.cloud.google.com/iam/docs/principal-identifiers) .
+**Note:** When managing access for users in [external identity providers](https://docs.cloud.google.com/iam/docs/workforce-identity-federation) , replace instances of Google Account principal identifiers—like `user:kiran@example.com` , `group:support@example.com` , and `domain:example.com` —with appropriate [Workforce Identity Federation principal identifiers](https://docs.cloud.google.com/iam/docs/principal-identifiers) .
 
 For more information, see [Overview of IAM Conditions](https://docs.cloud.google.com/iam/docs/conditions-overview) .
 
@@ -108,15 +108,15 @@ To apply a tag-based condition to an IAM policy, make sure you have the required
     --condition=resource.matchTag('PROJECT_ID/KEY_NAME', 'VALUE_NAME')
 
   - `  ORG_ID  ` : The ID of the organization.
-  - `  ROLE  ` : The role name to assign to the principal. The role name is the complete path of a predefined role, such as `  roles/logging.viewer  ` , or the role ID for a custom role, such as `  organizations/{ORG_ID}/roles/logging.viewer  ` .
-  - `  PRINCIPAL  ` : The principal on which you want to add the role binding. This should be in the form `  user|group|serviceAccount:email  ` or `  domain:domain  ` . For example, `  user:test-user@gmail.com  ` , `  group:admins@example.com  ` , `  serviceAccount:test123@example.domain.com  ` , or `  domain:example.domain.com  ` .
+  - `  ROLE  ` : The role name to assign to the principal. The role name is the complete path of a predefined role, such as `roles/logging.viewer` , or the role ID for a custom role, such as `organizations/{ORG_ID}/roles/logging.viewer` .
+  - `  PRINCIPAL  ` : The principal on which you want to add the role binding. This should be in the form `user|group|serviceAccount:email` or `domain:domain` . For example, `user:test-user@gmail.com` , `group:admins@example.com` , `serviceAccount:test123@example.domain.com` , or `domain:example.domain.com` .
   - `  PROJECT_ID  ` : The ID of the project.
-  - `  KEY_NAME  ` : The display (short) name of your tag key. For example, `  env  ` .
-  - `  VALUE_NAME  ` : The display (short) name of your tag value. For example, `  prod  ` .
+  - `  KEY_NAME  ` : The display (short) name of your tag key. For example, `env` .
+  - `  VALUE_NAME  ` : The display (short) name of your tag value. For example, `prod` .
 
 This command adds an IAM policy binding to the IAM policy of an organization. A policy binding consists of a member, a role, and an optional condition.
 
-For example, to conditionally grant `  user1@example.com  ` the `  spanner.backupAdmin  ` role in all `  123456789012  ` project resources with the tag `  env:prod  ` , run the command:
+For example, to conditionally grant `user1@example.com` the `spanner.backupAdmin` role in all `123456789012` project resources with the tag `env:prod` , run the command:
 
     gcloud organizations add-iam-policy-binding my-organization
     --member=user1@example.com --role=roles/spanner.backupAdmin
@@ -132,11 +132,11 @@ You can view a list of tag bindings directly attached to or inherited by the ins
     
     [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
-2.  Under the list of instances, look for the **Tags** column. Tags are shown in the `  key:value  ` format.
+2.  Under the list of instances, look for the **Tags** column. Tags are shown in the `key:value` format.
 
 ### gcloud
 
-To get a list of tag bindings directly attached to a resource, use the `  gcloud resource-manager tags bindings list  ` command. If you add the `  --effective  ` flag, you also get all the tag bindings inherited by this resource.
+To get a list of tag bindings directly attached to a resource, use the `gcloud resource-manager tags bindings list` command. If you add the `--effective` flag, you also get all the tag bindings inherited by this resource.
 
 To list all tag bindings attached to an instance, run the following command:
 
@@ -148,9 +148,9 @@ To list all tag bindings attached to an instance, run the following command:
   - `  PROJECT_ID  ` : The ID of the project.
   - `  INSTANCE_ID  ` : The ID of the instance.
   - `  LOCATION  ` : The location of an instance varies depending on its configuration:
-      - For a regional instance, the location of its configuration. For example, `  us-east1  ` .
-      - For a dual-region instance, the 2-letter resource location. For example, `  de  ` for `  dual-region-germany1  ` .
-      - For a multi-region instance, the name of its configuration. For example, `  eur3  ` or `  nam-eur-asia1  ` .
+      - For a regional instance, the location of its configuration. For example, `us-east1` .
+      - For a dual-region instance, the 2-letter resource location. For example, `de` for `dual-region-germany1` .
+      - For a multi-region instance, the name of its configuration. For example, `eur3` or `nam-eur-asia1` .
 
 ### API
 
@@ -189,14 +189,14 @@ To delete a tag binding, run the following command:
 
   - `  PROJECT_ID  ` : The ID of the project.
   - `  INSTANCE_ID  ` : The ID of the instance.
-  - `  TAG_VALUE_NAME  ` : `  TAG_VALUE_NAME  ` is the permanent ID or namespace ID of the tag value to be attached. For example: `  tagValues/4567890123  ` (permanent ID) or `  12345678/env/prod  ` (namespace ID). The namespace ID consists of the following:
+  - `  TAG_VALUE_NAME  ` : `TAG_VALUE_NAME` is the permanent ID or namespace ID of the tag value to be attached. For example: `tagValues/4567890123` (permanent ID) or `12345678/env/prod` (namespace ID). The namespace ID consists of the following:
       - `  ORG_ID  ` : The ID of the organization.
-      - `  KEY_NAME  ` : The display (short) name of your tag key. For example, `  env  ` .
-      - `  VALUE_NAME  ` : The display (short) name of your tag value. For example, `  prod  ` .
+      - `  KEY_NAME  ` : The display (short) name of your tag key. For example, `env` .
+      - `  VALUE_NAME  ` : The display (short) name of your tag value. For example, `prod` .
   - `  LOCATION  ` : The location of an instance varies depending on its configuration:
-      - For a regional instance, the location of its configuration. For example, `  us-east1  ` .
-      - For a dual-region instance, the 2-letter resource location. For example, `  de  ` for `  dual-region-germany1  ` .
-      - For a multi-region instance, the name of its configuration. For example, `  eur3  ` or `  nam-eur-asia1  ` .
+      - For a regional instance, the location of its configuration. For example, `us-east1` .
+      - For a dual-region instance, the 2-letter resource location. For example, `de` for `dual-region-germany1` .
+      - For a multi-region instance, the name of its configuration. For example, `eur3` or `nam-eur-asia1` .
 
 ### API
 

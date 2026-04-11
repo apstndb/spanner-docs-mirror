@@ -6,8 +6,8 @@ Using the Google Cloud console, you can view active queries on the Spanner **Que
 
 To get the permissions that you need to view active queries, ask your administrator to grant you the following IAM roles on the instance:
 
-  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-  - [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
+  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+  - [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
@@ -50,10 +50,10 @@ You can use the **Column display options** button to select any of the following
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Client IP address | The IP address of the client that requested the query. Sometimes, the client IP address might be redacted. The IP address shown here is consistent with audit logs and follows the same redaction guidelines. For more information, see [IP address of the caller in audit logs](https://docs.cloud.google.com/logging/docs/audit#caller-ip) . Spanner recommends requesting the client IP address only when the client IP is required, as requests for client IP addresses might incur additional latency. |
 | Server region     | The region where the Spanner root server processes the query. For more information, see [Life of a query](https://docs.cloud.google.com/spanner/docs/query-execution-plans#life-of-query) .                                                                                                                                                                                                                                                                                                                 |
-| Transaction type  | The query's transaction type. Possible values are `        READ_ONLY       ` , `        READ_WRITE       ` , and `        NONE       ` .                                                                                                                                                                                                                                                                                                                                                                    |
-| API client header | The `        api_client       ` header from the client.                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Transaction type  | The query's transaction type. Possible values are `READ_ONLY` , `READ_WRITE` , and `NONE` .                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| API client header | The `api_client` header from the client.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | Priority          | The priority of the query. To view available priorities, see [RequestOptions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#priority) .                                                                                                                                                                                                                                                                                                                                       |
-| User agent header | The `        user_agent       ` header that Spanner receives from the client.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| User agent header | The `user_agent` header that Spanner receives from the client.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ## Terminate a query
 
@@ -63,9 +63,9 @@ The Google Cloud console page refreshes after you initiate the termination. If t
 
 Spanner might not cancel a query when servers are busy. You can try to terminate a query again to cancel it.
 
-To get the permission that you need to terminate a query, ask your administrator to grant you the Cloud Spanner Database Reader ( `  spanner.databaseReader  ` ) IAM role on the instance.
+To get the permission that you need to terminate a query, ask your administrator to grant you the Cloud Spanner Database Reader ( `spanner.databaseReader` ) IAM role on the instance.
 
-This predefined role contains the `  spanner.sessions.delete  ` permission, which is required to terminate a query.
+This predefined role contains the `spanner.sessions.delete` permission, which is required to terminate a query.
 
 To terminate a query, do the following:
 

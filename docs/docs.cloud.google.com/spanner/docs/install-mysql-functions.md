@@ -6,7 +6,7 @@ For more information about the MySQL functions that Spanner supports, see [MySQL
 
 ## Required roles
 
-To get the permissions that you need to install the MySQL functions, ask your administrator to grant you the [Cloud Spanner Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` ) IAM role on your project. For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+To get the permissions that you need to install the MySQL functions, ask your administrator to grant you the [Cloud Spanner Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` ) IAM role on your project. For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 You might also be able to get the required permissions through [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
@@ -26,7 +26,7 @@ You can install the MySQL user-defined functions in a Spanner database in the fo
 
 4.  Click the **Write DDL** button to open Spanner Studio.
 
-5.  Copy the entire content of the DDL file in the [`  mysql_udfs.sql  `](https://github.com/googleapis/spanner-sql-udf/blob/main/mysql/mysql_udfs.sql) file.
+5.  Copy the entire content of the DDL file in the [`mysql_udfs.sql`](https://github.com/googleapis/spanner-sql-udf/blob/main/mysql/mysql_udfs.sql) file.
 
 6.  In a SQL editor tab, paste the copied content from the DDL file,
 
@@ -34,13 +34,13 @@ You can install the MySQL user-defined functions in a Spanner database in the fo
 
 ### gcloud
 
-You can use the [`  gcloud spanner database ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command to install the MySQL UDFs.
+You can use the [`gcloud spanner database ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command to install the MySQL UDFs.
 
 Before using any of the command data below, make the following replacements:
 
   - DATABASE\_ID : the ID of the database to add the MySQL UDFs.
   - INSTANCE\_ID : the ID of the instance where the database is located.
-  - DDL\_FILE\_PATH : path to a file containing all the `  CREATE OR REPLACE FUNCTION  ` statements in the [mysql\_udfs.sql](https://github.com/googleapis/spanner-sql-udf/blob/main/mysql/mysql_udfs.sql) file.
+  - DDL\_FILE\_PATH : path to a file containing all the `CREATE OR REPLACE FUNCTION` statements in the [mysql\_udfs.sql](https://github.com/googleapis/spanner-sql-udf/blob/main/mysql/mysql_udfs.sql) file.
 
 Execute the following command:
 

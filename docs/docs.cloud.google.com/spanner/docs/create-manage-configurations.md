@@ -6,7 +6,7 @@ You can list all the available Spanner instance configurations with the [gcloud 
 
 ### gcloud
 
-Run the `  gcloud spanner instance-configs list  ` command:
+Run the `gcloud spanner instance-configs list` command:
 
     gcloud spanner instance-configs list
 
@@ -277,26 +277,26 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 ### Show instance configuration details
 
-You can show the details of any instance configuration with the [gcloud CLI](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) and client libraries. When you create a new [custom instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configuration) , you can add any location listed under `  optionalReplicas  ` as an optional replica. If you don't see your desired read-only replica location, you can [request a new optional read-only replica region](https://docs.google.com/forms/d/e/1FAIpQLSfw9Rj4p4KA8oLu7MhIpSyPRd-4qxqazwsFZIY-_tkNrpWFcw/viewform) .
+You can show the details of any instance configuration with the [gcloud CLI](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) and client libraries. When you create a new [custom instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configuration) , you can add any location listed under `optionalReplicas` as an optional replica. If you don't see your desired read-only replica location, you can [request a new optional read-only replica region](https://docs.google.com/forms/d/e/1FAIpQLSfw9Rj4p4KA8oLu7MhIpSyPRd-4qxqazwsFZIY-_tkNrpWFcw/viewform) .
 
 For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
 
 ### gcloud
 
-Run the `  gcloud spanner instance-configs describe  ` command:
+Run the `gcloud spanner instance-configs describe` command:
 
     gcloud spanner instance-configs describe INSTANCE-CONFIG
 
 Provide the following value:
 
   - `  INSTANCE-CONFIG  `  
-    The instance configuration, which defines the geographic location of the instance and affects how data is replicated. For example, `  eur6  ` or `  regional-us-central1  ` .
+    The instance configuration, which defines the geographic location of the instance and affects how data is replicated. For example, `eur6` or `regional-us-central1` .
 
-To show the details of the `  eur6  ` base configuration, run:
+To show the details of the `eur6` base configuration, run:
 
     gcloud spanner instance-configs describe eur6
 
-Here's an example output for the `  eur6  ` base configuration:
+Here's an example output for the `eur6` base configuration:
 
 ``` 
   configType: GOOGLE_MANAGED
@@ -337,9 +337,9 @@ Here's an example output for the `  eur6  ` base configuration:
 
 Additional usage notes:
 
-  - `  baseConfig  ` (for custom configurations only) points to the base instance configuration. Refer to [available regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) and [available multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) for lists of base instance configurations that can be used to create a custom instance configuration.
-  - `  configType  ` indicates whether this instance configuration is a base instance configuration or a custom instance configuration.
-  - `  etag  ` (for custom configurations only) is a base64-encoded string representation of the configuration. It is used for optimistic concurrency control.
+  - `baseConfig` (for custom configurations only) points to the base instance configuration. Refer to [available regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) and [available multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) for lists of base instance configurations that can be used to create a custom instance configuration.
+  - `configType` indicates whether this instance configuration is a base instance configuration or a custom instance configuration.
+  - `etag` (for custom configurations only) is a base64-encoded string representation of the configuration. It is used for optimistic concurrency control.
 
 ### C++
 
@@ -573,7 +573,7 @@ You can create a *custom instance configuration* , which lets you add additional
 
 You can't create a custom [dual-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) . For more information about Spanner replication and replica types, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
 
-To create a custom instance configuration, you must have the `  spanner.instanceConfigs.create  ` permission. By default, roles that have the `  spanner.instances.create  ` permission will also have the `  spanner.instanceConfigs.create  ` permission.
+To create a custom instance configuration, you must have the `spanner.instanceConfigs.create` permission. By default, roles that have the `spanner.instances.create` permission will also have the `spanner.instanceConfigs.create` permission.
 
 ### Console
 
@@ -581,7 +581,7 @@ You can't create a custom instance configuration using the Google Cloud console.
 
 ### gcloud
 
-Use the `  gcloud spanner instance-configs create  ` command:
+Use the `gcloud spanner instance-configs create` command:
 
     gcloud spanner instance-configs create CUSTOM-INSTANCE-CONFIG-ID  \
      --display-name=DISPLAY-NAME \
@@ -589,7 +589,7 @@ Use the `  gcloud spanner instance-configs create  ` command:
      --labels=KEY=VALUE,[...] \
      --replicas=location=LOCATION,type=TYPE[:...]
 
-You can use the `  --clone-config  ` flag as a convenient way to clone another base or custom instance configuration while also declaring the location and type of a specific custom replica.
+You can use the `--clone-config` flag as a convenient way to clone another base or custom instance configuration while also declaring the location and type of a specific custom replica.
 
 ``` 
   gcloud spanner instance-configs create CUSTOM-INSTANCE-CONFIG-ID  \
@@ -603,37 +603,37 @@ You can use the `  --clone-config  ` flag as a convenient way to clone another b
 Provide the following values:
 
   - `  CUSTOM-INSTANCE-CONFIG-ID  `  
-    A permanent identifier that is unique within your Google Cloud project. You can't change the instance configuration ID later. The `  custom-  ` prefix is required to avoid name conflicts with base instance configurations.
+    A permanent identifier that is unique within your Google Cloud project. You can't change the instance configuration ID later. The `custom-` prefix is required to avoid name conflicts with base instance configurations.
   - `  DISPLAY-NAME  `  
     The name to display for the custom instance configuration in the Google Cloud console.
   - `  BASE-CONFIG  `  
-    The region name of the base instance configuration on which your custom instance configuration is based. For example, `  eur6  ` or `  regional-us-central1  ` .
+    The region name of the base instance configuration on which your custom instance configuration is based. For example, `eur6` or `regional-us-central1` .
   - `  LOCATION  `  
-    The region name of the serving resources (replicas), for example, `  us-east1  ` . To find out what location names are accepted, run `  gcloud spanner instance-configs describe INSTANCE-CONFIG  ` and refer to the `  replicas  ` and `  optionalReplicas  ` lists.
+    The region name of the serving resources (replicas), for example, `us-east1` . To find out what location names are accepted, run ` gcloud spanner instance-configs describe INSTANCE-CONFIG  ` and refer to the `replicas` and `optionalReplicas` lists.
   - `  TYPE  `  
-    The type of replica. To find out what corresponding locations and replica types are accepted, run `  gcloud spanner instance-configs describe INSTANCE-CONFIG  ` and refer to the `  replicas  ` and `  optionalReplicas  ` lists. The types are one of the following:
+    The type of replica. To find out what corresponding locations and replica types are accepted, run ` gcloud spanner instance-configs describe INSTANCE-CONFIG  ` and refer to the `replicas` and `optionalReplicas` lists. The types are one of the following:
       - READ\_ONLY
       - READ\_WRITE
       - WITNESS
     Items in the list are separated by ":".
-    Unless the `  --[clone-config]  ` flag is used, all replica `  LOCATION  ` and `  TYPE  ` must be specified when creating a custom instance configuration, including the ones predefined in the base configuration. For more information, see the [gcloud instance-configs describe help-text](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs/create) .
+    Unless the `--[clone-config]` flag is used, all replica `  LOCATION  ` and `  TYPE  ` must be specified when creating a custom instance configuration, including the ones predefined in the base configuration. For more information, see the [gcloud instance-configs describe help-text](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs/create) .
 
-If you choose to use the flags `  --clone-config  ` and `  --add-replicas  ` (only use `  --skip-replicas  ` if there are replicas you want to skip from being cloned), provide the following values:
+If you choose to use the flags `--clone-config` and `--add-replicas` (only use `--skip-replicas` if there are replicas you want to skip from being cloned), provide the following values:
 
-  - `  --clone-config= INSTANCE-CONFIG  `
+  - ` --clone-config= INSTANCE-CONFIG  `
     
-    Use this flag as a convenient way to clone another base or custom instance configuration while also declaring the location and type of a specific custom replica. Then use `  --add-replicas=location= LOCATION ,type= TYPE  ` to specify where you want to add your optional replica.
+    Use this flag as a convenient way to clone another base or custom instance configuration while also declaring the location and type of a specific custom replica. Then use ` --add-replicas=location= LOCATION ,type= TYPE  ` to specify where you want to add your optional replica.
     
-    For example, to create a custom instance configuration with two read-only replicas in `  us-east1  ` while copying all the other replica locations from the `  eur6  ` base instance configuration, run:
+    For example, to create a custom instance configuration with two read-only replicas in `us-east1` while copying all the other replica locations from the `eur6` base instance configuration, run:
     
         gcloud spanner instance-configs create custom-eur6 --clone-config=eur6 \
         --add-replicas=location=us-east1,type=READ_ONLY:location=us-east1,type=READ_ONLY
 
-  - `  --skip-replicas=location= LOCATION ,type= TYPE  `
+  - ` --skip-replicas=location= LOCATION ,type= TYPE  `
     
     Use this flag to skip any replica from being cloned.
     
-    For example, to create a custom instance configuration with one read-only replica in `  us-east4  ` while copying all the other replica locations from the `  nam3  ` base instance configuration except the read-only replica in `  us-central1  ` , run:
+    For example, to create a custom instance configuration with one read-only replica in `us-east4` while copying all the other replica locations from the `nam3` base instance configuration except the read-only replica in `us-central1` , run:
     
         gcloud spanner instance-configs create custom-nam3 --clone-config=nam3 \
           --add-replicas=location=us-east4,type=READ_ONLY \
@@ -641,23 +641,23 @@ If you choose to use the flags `  --clone-config  ` and `  --add-replicas  ` (on
 
 The following flags and values are optional:
 
-  - `  --labels= KEY=VALUE,[...]  `
+  - ` --labels= KEY=VALUE,[...]  `
     
     `  KEY  ` and `  VALUE  ` : A list of key and value pairs to add to your custom instance configuration.
     
     Keys must start with a lowercase character and contain only hyphens (-), underscores (\_), lowercase characters, and numbers. Values must contain only hyphens (-), underscores (\_), lowercase characters, and numbers.
 
-  - `  --validate-only  `
+  - `--validate-only`
     
     Use this flag to validate that the request will succeed before executing it.
 
-For example, to create a custom instance configuration with the `  eur6  ` base configuration with one additional read-only replica in `  us-east1  ` , run:
+For example, to create a custom instance configuration with the `eur6` base configuration with one additional read-only replica in `us-east1` , run:
 
     gcloud spanner instance-configs create custom-eur6 \
       --display-name="Custom eur6" --clone-config=eur6 \
       --add-replicas=location=us-east1,type=READ_ONLY \
 
-You can also create a custom instance configuration without the `  --clone-config  ` flag:
+You can also create a custom instance configuration without the `--clone-config` flag:
 
     gcloud spanner instance-configs create custom-eur6 \
       --display-name="Custom eur6" --base-config=eur6 \
@@ -1199,11 +1199,11 @@ After you [create the custom instance configuration](https://docs.cloud.google.c
 
 You can change the display name and labels of a custom instance configuration.
 
-You cannot change or update the replicas of your custom instance configuration. However, you can create a new custom instance configuration with additional replicas, then move your instance to the new custom instance configuration with your chosen additional replicas. For example, if your instance is in `  regional-us-central1  ` and you want to add a read-only replica `  us-west1  ` , then you need to create a new custom instance configuration with `  regional-us-central1  ` as the base configuration and add `  us-west1  ` as a read-only replica. Then [move your instance](https://docs.cloud.google.com/spanner/docs/move-instance) to this new custom instance configuration.
+You cannot change or update the replicas of your custom instance configuration. However, you can create a new custom instance configuration with additional replicas, then move your instance to the new custom instance configuration with your chosen additional replicas. For example, if your instance is in `regional-us-central1` and you want to add a read-only replica `us-west1` , then you need to create a new custom instance configuration with `regional-us-central1` as the base configuration and add `us-west1` as a read-only replica. Then [move your instance](https://docs.cloud.google.com/spanner/docs/move-instance) to this new custom instance configuration.
 
 ### gcloud
 
-Use the `  gcloud spanner instance-configs update  ` command:
+Use the `gcloud spanner instance-configs update` command:
 
     gcloud spanner instance-configs update CUSTOM-INSTANCE-CONFIG-ID \
       --display-name=NEW-DISPLAY-NAME \
@@ -1213,7 +1213,7 @@ Use the `  gcloud spanner instance-configs update  ` command:
 Provide the following values:
 
   - `  CUSTOM-INSTANCE-CONFIG-ID  `  
-    A permanent identifier of your custom instance configuration. It will start with `  custom-  ` .
+    A permanent identifier of your custom instance configuration. It will start with `custom-` .
   - `  NEW-DISPLAY-NAME  `  
     The new name to display for the instance configuration in the Google Cloud console.
   - `  KEY  ` and `  VALUE  `  
@@ -1222,8 +1222,8 @@ Provide the following values:
 
 The following flags and values are optional:
 
-  - `  --etag= ETAG  ` : The `  ETAG  ` argument can be used to select and skip simultaneous updates in a read-modify-write scenario.
-  - `  --validate-only  ` : Use this flag to validate that the request will succeed before executing it.
+  - ` --etag= ETAG  ` : The `  ETAG  ` argument can be used to select and skip simultaneous updates in a read-modify-write scenario.
+  - `--validate-only` : Use this flag to validate that the request will succeed before executing it.
 
 For example:
 
@@ -1615,7 +1615,7 @@ To delete a custom instance configuration, first delete any instance in the inst
 
 ### gcloud
 
-Use the `  gcloud spanner instance-configs delete  ` command, replacing `  CUSTOM-INSTANCE-CONFIG-ID  ` with the custom instance configuration ID:
+Use the `gcloud spanner instance-configs delete` command, replacing `  CUSTOM-INSTANCE-CONFIG-ID  ` with the custom instance configuration ID:
 
     gcloud spanner instance-configs delete CUSTOM-INSTANCE-CONFIG-ID
 

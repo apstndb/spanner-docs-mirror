@@ -67,14 +67,14 @@ In this tutorial, we use the Vertex AI [text-bison](https://docs.cloud.google.co
 
 Replace the following:
 
-  - `  PROJECT  ` : the project ID
-  - `  LOCATION  ` : the region where you are using Vertex AI
+  - `PROJECT` : the project ID
+  - `LOCATION` : the region where you are using Vertex AI
 
-Schema discovery and validation isn't available for Generative AI models. Therefore, you must provide `  INPUT  ` and `  OUTPUT  ` clauses that match the model's schema. You can find the full schema of the `  text-bison  ` model on the Vertex AI [Model API reference](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) page.
+Schema discovery and validation isn't available for Generative AI models. Therefore, you must provide `INPUT` and `OUTPUT` clauses that match the model's schema. You can find the full schema of the `text-bison` model on the Vertex AI [Model API reference](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) page.
 
-As long as both the database and endpoints are in the same project, Spanner should grant appropriate permissions automatically. Otherwise, review the [model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#model_endpoint_access_control) section of the `  CREATE MODEL  ` reference page.
+As long as both the database and endpoints are in the same project, Spanner should grant appropriate permissions automatically. Otherwise, review the [model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#model_endpoint_access_control) section of the `CREATE MODEL` reference page.
 
-To verify the model was registered correctly, query it with the [ML.PREDICT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function. The model expects a single `  STRING  ` column named `  prompt  ` . You can use a [Spanner subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) to generate the `  prompt  ` column. The `  TextBison  ` model requires you to specify a `  maxOutputTokens  ` model parameter. Other parameters are optional. The Vertex AI `  text-bison  ` model doesn't support batching, so you must use the `  @{remote_udf_max_rows_per_rpc=1}  ` parameter to set the batch size to 1.
+To verify the model was registered correctly, query it with the [ML.PREDICT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function. The model expects a single `STRING` column named `prompt` . You can use a [Spanner subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) to generate the `prompt` column. The `TextBison` model requires you to specify a `maxOutputTokens` model parameter. Other parameters are optional. The Vertex AI `text-bison` model doesn't support batching, so you must use the `@{remote_udf_max_rows_per_rpc=1}` parameter to set the batch size to 1.
 
     SELECT content
     FROM ML.PREDICT(
@@ -89,9 +89,9 @@ To verify the model was registered correctly, query it with the [ML.PREDICT](htt
     | "Yes, 13 is prime" |
     +--------------------+
 
-## Use the `     TextBison    ` Model to answer customer questions
+## Use the `TextBison` Model to answer customer questions
 
-Generative AI text models can solve a wide array of problems. For example, a user on an ecommerce website might be browsing for products that are safe for infants. With a single query, we can pass their question to the `  TextBison  ` model. All we need to do is provide relevant context for the question by fetching product details from the database.
+Generative AI text models can solve a wide array of problems. For example, a user on an ecommerce website might be browsing for products that are safe for infants. With a single query, we can pass their question to the `TextBison` model. All we need to do is provide relevant context for the question by fetching product details from the database.
 
 NOTE: Some model answers were edited for brevity.
 
@@ -126,11 +126,11 @@ NOTE: Some model answers were edited for brevity.
     |            |                 | " If an infant were to grab the drill, they could pull it on themselves and cause injury. [...]" |
     +------------+-----------------+--------------------------------------------------------------------------------------------------+
 
-You can replace the question literal with a query parameter, such as `  @UserQuestion  ` , if you want to directly populate the parameter with a customer question. This gives the customer an AI-powered online shopping experience.
+You can replace the question literal with a query parameter, such as `@UserQuestion` , if you want to directly populate the parameter with a customer question. This gives the customer an AI-powered online shopping experience.
 
 ## Provide personalized product recommendations to customers
 
-In addition to product details, we can also add information about the customer to the `  prompt  ` . This lets the model take user preferences into consideration so that it can provide fully personalized product recommendations.
+In addition to product details, we can also add information about the customer to the `prompt` . This lets the model take user preferences into consideration so that it can provide fully personalized product recommendations.
 
     SELECT product_id, product_name, content
     FROM ML.PREDICT(

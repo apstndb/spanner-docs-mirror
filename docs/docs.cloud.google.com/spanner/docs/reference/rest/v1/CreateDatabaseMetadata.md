@@ -22,8 +22,8 @@ Metadata type for the operation returned by `  databases.create  ` .
 
 Fields
 
-`  database  `
+`database`
 
-`  string  `
+`string`
 
 The database being created.

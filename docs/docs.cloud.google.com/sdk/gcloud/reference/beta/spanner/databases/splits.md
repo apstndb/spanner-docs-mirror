@@ -4,26 +4,26 @@ gcloud beta spanner databases splits - manage the split points for Spanner datab
 
 SYNOPSIS
 
-`  gcloud beta spanner databases splits  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner databases splits` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage the split points for Spanner databases.
+`(BETA)` Manage the split points for Spanner databases.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  add  `  
-    `  (BETA)  ` Add split points to a Spanner database.
+    `(BETA)` Add split points to a Spanner database.
   - `  list  `  
-    `  (BETA)  ` List split points that are added by a user to a Spanner database.
+    `(BETA)` List split points that are added by a user to a Spanner database.
 
 NOTES
 

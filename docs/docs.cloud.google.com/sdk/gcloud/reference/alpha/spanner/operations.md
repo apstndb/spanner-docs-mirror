@@ -4,28 +4,28 @@ gcloud alpha spanner operations - manage Cloud Spanner operations
 
 SYNOPSIS
 
-`  gcloud alpha spanner operations  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner operations` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage Cloud Spanner operations.
+`(ALPHA)` Manage Cloud Spanner operations.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  cancel  `  
-    `  (ALPHA)  ` Cancel a Cloud Spanner operation.
+    `(ALPHA)` Cancel a Cloud Spanner operation.
   - `  describe  `  
-    `  (ALPHA)  ` Describe a Cloud Spanner operation.
+    `(ALPHA)` Describe a Cloud Spanner operation.
   - `  list  `  
-    `  (ALPHA)  ` List the Cloud Spanner operations.
+    `(ALPHA)` List the Cloud Spanner operations.
 
 NOTES
 

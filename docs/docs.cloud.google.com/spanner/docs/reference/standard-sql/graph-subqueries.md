@@ -2,34 +2,34 @@ The following subqueries are supported in GQL query statements:
 
 ## Subquery list
 
-| Name                                                                                                                                     | Summary                                           |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| [`         ARRAY        ` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#array_subquery)   | Subquery expression that produces an array.       |
-| [`         EXISTS        ` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#exists_subquery) | Checks if a subquery produces at least one row.   |
-| [`         IN        ` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#in_subquery)         | Checks if a subquery produces a specified value.  |
-| [`         VALUE        ` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#array_subquery)   | Subquery expression that produces a scalar value. |
+| Name                                                                                                                    | Summary                                           |
+| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| [`ARRAY` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#array_subquery)   | Subquery expression that produces an array.       |
+| [`EXISTS` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#exists_subquery) | Checks if a subquery produces at least one row.   |
+| [`IN` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#in_subquery)         | Checks if a subquery produces a specified value.  |
+| [`VALUE` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#array_subquery)   | Subquery expression that produces a scalar value. |
 
-## `     ARRAY    ` subquery
+## `ARRAY` subquery
 
     ARRAY { gql_query_expr }
 
 #### Description
 
-Subquery expression that produces an array. If the subquery produces zero rows, an empty array is produced. Never produces a `  NULL  ` array. This can be used wherever a query expression is supported in a GQL query statement.
+Subquery expression that produces an array. If the subquery produces zero rows, an empty array is produced. Never produces a `NULL` array. This can be used wherever a query expression is supported in a GQL query statement.
 
 #### Definitions
 
-  - `  gql_query_expr  ` : A GQL query expression.
+  - `gql_query_expr` : A GQL query expression.
 
 #### Return type
 
-`  ARRAY<T>  `
+`ARRAY<T>`
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-In the following query, an array of transfer amounts is produced for each `  Account  ` owned by each `  Person  ` node:
+In the following query, an array of transfer amounts is produced for each `Account` owned by each `Person` node:
 
     GRAPH FinGraph
     MATCH (p:Person)-[:Owns]->(account:Account)
@@ -49,7 +49,7 @@ In the following query, an array of transfer amounts is produced for each `  Acc
      | Lee  | 16         | [300]     |
      +-------------------------------*/
 
-## `     EXISTS    ` subquery
+## `EXISTS` subquery
 
     EXISTS { gql_query_expr }
 
@@ -59,23 +59,23 @@ In the following query, an array of transfer amounts is produced for each `  Acc
 
 #### Description
 
-Checks if the subquery produces at least one row. Returns `  TRUE  ` if at least one row is produced, otherwise returns `  FALSE  ` . Never produces `  NULL  ` .
+Checks if the subquery produces at least one row. Returns `TRUE` if at least one row is produced, otherwise returns `FALSE` . Never produces `NULL` .
 
 #### Definitions
 
-  - `  gql_query_expr  ` : A GQL query expression.
-  - `  match_statement  ` : A pattern matching operation to perform on a graph. For more information, see [`  MATCH  ` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match) .
-  - `  graph_pattern  ` : A pattern to match in a graph. For more information, see [graph pattern definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
+  - `gql_query_expr` : A GQL query expression.
+  - `match_statement` : A pattern matching operation to perform on a graph. For more information, see [`MATCH` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match) .
+  - `graph_pattern` : A pattern to match in a graph. For more information, see [graph pattern definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
 
 #### Return type
 
-`  BOOL  `
+`BOOL`
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-The following query checks whether any person named `  "Lee"  ` owns an account. The subquery contains a graph query expression.
+The following query checks whether any person named `"Lee"` owns an account. The subquery contains a graph query expression.
 
     GRAPH FinGraph
     RETURN EXISTS {
@@ -90,7 +90,7 @@ The following query checks whether any person named `  "Lee"  ` owns an account.
      | true    |
      +---------*/
 
-You can include a `  MATCH  ` statement or a graph pattern in an `  EXISTS  ` subquery. The following examples include two ways to construct the subquery and produce similar results:
+You can include a `MATCH` statement or a graph pattern in an `EXISTS` subquery. The following examples include two ways to construct the subquery and produce similar results:
 
     GRAPH FinGraph
     RETURN EXISTS {
@@ -114,34 +114,34 @@ You can include a `  MATCH  ` statement or a graph pattern in an `  EXISTS  ` su
      | true    |
      +---------*/
 
-## `     IN    ` subquery
+## `IN` subquery
 
     value [ NOT ] IN { gql_query_expr }
 
 #### Description
 
-Checks if `  value  ` is present in the subquery result. Returns `  TRUE  ` if the result contains the `  value  ` , otherwise returns `  FALSE  ` .
+Checks if `value` is present in the subquery result. Returns `TRUE` if the result contains the `value` , otherwise returns `FALSE` .
 
 #### Definitions
 
-  - `  value  ` : The value look for in the subquery result.
-  - `  IN  ` : `  TRUE  ` if the value is in the subquery result, otherwise `  FALSE  ` .
-  - `  NOT IN  ` : `  FALSE  ` if the value is in the subquery result, otherwise `  TRUE  ` .
-  - `  gql_query_expr  ` : A GQL query expression.
+  - `value` : The value look for in the subquery result.
+  - `IN` : `TRUE` if the value is in the subquery result, otherwise `FALSE` .
+  - `NOT IN` : `FALSE` if the value is in the subquery result, otherwise `TRUE` .
+  - `gql_query_expr` : A GQL query expression.
 
 #### Details
 
-The subquery result must have a single column and that column type must be comparable to the `  value  ` type. If not, an error is returned.
+The subquery result must have a single column and that column type must be comparable to the `value` type. If not, an error is returned.
 
 #### Return type
 
-`  BOOL  `
+`BOOL`
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-The following query checks if `  'Dana'  ` is a name of a person who owns an account.
+The following query checks if `'Dana'` is a name of a person who owns an account.
 
     GRAPH FinGraph
     RETURN 'Dana' IN {
@@ -155,7 +155,7 @@ The following query checks if `  'Dana'  ` is a name of a person who owns an acc
      | true    |
      +---------*/
 
-## `     VALUE    ` subquery
+## `VALUE` subquery
 
     VALUE { gql_query_expr }
 
@@ -165,11 +165,11 @@ A subquery expression that produces a scalar value.
 
 #### Definitions
 
-  - `  gql_query_expr  ` : A GQL query expression.
+  - `gql_query_expr` : A GQL query expression.
 
 #### Details
 
-The result of the subquery must have a single column. If the subquery returns more than one column, the query fails with an analysis error. The result type of the subquery expression is the produced column type. If the subquery produces exactly one row, that single value is the subquery expression result. If the subquery returns zero rows, the subquery expression result is `  NULL  ` . If the subquery returns more than one row, the query fails with a runtime error.
+The result of the subquery must have a single column. If the subquery returns more than one column, the query fails with an analysis error. The result type of the subquery expression is the produced column type. If the subquery produces exactly one row, that single value is the subquery expression result. If the subquery returns zero rows, the subquery expression result is `NULL` . If the subquery returns more than one row, the query fails with a runtime error.
 
 #### Return type
 
@@ -177,9 +177,9 @@ The same as the column type in the subquery result.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`  FinGraph  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
-The following query returns the name of any person whose `  country  ` property is `  "Australia"  ` :
+The following query returns the name of any person whose `country` property is `"Australia"` :
 
     GRAPH FinGraph
     RETURN VALUE {

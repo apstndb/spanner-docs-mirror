@@ -46,7 +46,7 @@ us-west8
 us-east7
 
   
-`  GET https://spanner.googleapis.com/v1/{parent=projects/*}/instanceConfigs  `
+`GET https://spanner.googleapis.com/v1/{parent=projects/*}/instanceConfigs`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -54,31 +54,31 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  parent  `
+`parent`
 
-`  string  `
+`string`
 
-Required. The name of the project for which a list of supported instance configurations is requested. Values are of the form `  projects/<project>  ` .
+Required. The name of the project for which a list of supported instance configurations is requested. Values are of the form `projects/<project>` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  parent  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `parent` :
 
-  - `  spanner.instanceConfigs.list  `
+  - `spanner.instanceConfigs.list`
 
 ### Query parameters
 
 Parameters
 
-`  pageSize  `
+`pageSize`
 
-`  integer  `
+`integer`
 
 Number of instance configurations to be returned in the response. If 0 or less, defaults to the server's maximum allowed page size.
 
-`  pageToken  `
+`pageToken`
 
-`  string  `
+`string`
 
-If non-empty, `  pageToken  ` should contain a `  nextPageToken  ` from a previous `  ListInstanceConfigsResponse  ` .
+If non-empty, `pageToken` should contain a `  nextPageToken  ` from a previous `  ListInstanceConfigsResponse  ` .
 
 ### Request body
 
@@ -101,37 +101,30 @@ If successful, the response body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;instanceConfigs&quot;: [
-    {
-      object (InstanceConfig)
-    }
-  ],
-  &quot;nextPageToken&quot;: string
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;instanceConfigs&quot;: [{object (InstanceConfig)}],&quot;nextPageToken&quot;: string}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  instanceConfigs[]  `
+`instanceConfigs[]`
 
-`  object ( InstanceConfig  ` )
+` object ( InstanceConfig  ` )
 
 The list of requested instance configurations.
 
-`  nextPageToken  `
+`nextPageToken`
 
-`  string  `
+`string`
 
-`  nextPageToken  ` can be sent in a subsequent `  instanceConfigs.list  ` call to fetch more of the matching instance configurations.
+`nextPageToken` can be sent in a subsequent `  instanceConfigs.list  ` call to fetch more of the matching instance configurations.
 
 ### Authorization scopes
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

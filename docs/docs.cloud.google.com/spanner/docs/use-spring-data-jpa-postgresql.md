@@ -32,7 +32,7 @@ In your project, add Apache Maven dependencies for [Spring Data JPA](https://spr
 
 ### Start PGAdapter in-process
 
-Add the following method to your application to start PGAdapter directly from your Java application. PGAdapter runs in the same JVM as your application, and the application connects to PGAdapter on `  localhost:port  ` .
+Add the following method to your application to start PGAdapter directly from your Java application. PGAdapter runs in the same JVM as your application, and the application connects to PGAdapter on `localhost:port` .
 
 ``` 
   /** Starts PGAdapter in-process and returns a reference to the server. */
@@ -49,7 +49,7 @@ Add the following method to your application to start PGAdapter directly from yo
 
 ### Configuration
 
-Configure `  application.properties  ` to use the PostgreSQL Hibernate Dialect and the PostgreSQL JDBC Driver. Configure the PostgreSQL JDBC Driver to connect to a PostgreSQL-dialect database through PGAdapter.
+Configure `application.properties` to use the PostgreSQL Hibernate Dialect and the PostgreSQL JDBC Driver. Configure the PostgreSQL JDBC Driver to connect to a PostgreSQL-dialect database through PGAdapter.
 
     # The example uses the standard PostgreSQL Hibernate dialect.
     spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect

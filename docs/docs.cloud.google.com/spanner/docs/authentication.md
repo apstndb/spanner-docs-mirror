@@ -64,7 +64,7 @@ Set up [Application Default Credentials (ADC)](https://docs.cloud.google.com/doc
     
     You don't need to do this if you're using Cloud Shell.
     
-    **Note:** If the gcloud CLI prints a warning that your account doesn't have the `  serviceusage.services.use  ` permission, then some gcloud CLI commands and client libraries might not work. Ask an administrator to grant you the Service Usage Consumer IAM role ( `  roles/serviceusage.serviceUsageConsumer  ` ), then run the following command:
+    **Note:** If the gcloud CLI prints a warning that your account doesn't have the `serviceusage.services.use` permission, then some gcloud CLI commands and client libraries might not work. Ask an administrator to grant you the Service Usage Consumer IAM role ( `roles/serviceusage.serviceUsageConsumer` ), then run the following command:
     
         gcloud auth application-default set-quota-project PROJECT_ID
     
@@ -76,7 +76,7 @@ For more information about working with ADC in a local environment, see [Set up 
 
 #### REST requests from the command line
 
-When you make a REST request from the command line, you can use your gcloud CLI credentials by including [`  gcloud auth print-access-token  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/print-access-token) as part of the command that sends the request.
+When you make a REST request from the command line, you can use your gcloud CLI credentials by including [`gcloud auth print-access-token`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/print-access-token) as part of the command that sends the request.
 
 The following example lists service accounts for the specified project. You can use the same pattern for any REST request.
 
@@ -111,13 +111,13 @@ For more information about authenticating using REST and gRPC, see [Authenticate
 
 #### Service account impersonation
 
-In most cases, you can use your user credentials to authenticate from a local development environment. If that is not feasible, or if you need to test the permissions assigned to a service account, you can use service account impersonation. You must have the `  iam.serviceAccounts.getAccessToken  ` permission, which is included in the [Service Account Token Creator](https://docs.cloud.google.com/iam/docs/roles-permissions/iam#iam.serviceAccountTokenCreator) ( `  roles/iam.serviceAccountTokenCreator  ` ) IAM role.
+In most cases, you can use your user credentials to authenticate from a local development environment. If that is not feasible, or if you need to test the permissions assigned to a service account, you can use service account impersonation. You must have the `iam.serviceAccounts.getAccessToken` permission, which is included in the [Service Account Token Creator](https://docs.cloud.google.com/iam/docs/roles-permissions/iam#iam.serviceAccountTokenCreator) ( `roles/iam.serviceAccountTokenCreator` ) IAM role.
 
-You can set up the gcloud CLI to use service account impersonation by using the [`  gcloud config set  ` command](https://docs.cloud.google.com/sdk/gcloud/reference/config) :
+You can set up the gcloud CLI to use service account impersonation by using the [`gcloud config set` command](https://docs.cloud.google.com/sdk/gcloud/reference/config) :
 
     gcloud config set auth/impersonate_service_account SERVICE_ACCT_EMAIL
 
-For select languages, you can use service account impersonation to create a local ADC file for use by client libraries. This approach is supported only for the Go, Java, Node.js, and Python client libraries—it is not supported for the other languages. To set up a local ADC file with service account impersonation, use the [`  --impersonate-service-account  ` flag](https://docs.cloud.google.com/sdk/gcloud/reference#--impersonate-service-account) with the [`  gcloud auth application-default login  ` command](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) :
+For select languages, you can use service account impersonation to create a local ADC file for use by client libraries. This approach is supported only for the Go, Java, Node.js, and Python client libraries—it is not supported for the other languages. To set up a local ADC file with service account impersonation, use the [`--impersonate-service-account` flag](https://docs.cloud.google.com/sdk/gcloud/reference#--impersonate-service-account) with the [`gcloud auth application-default login` command](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) :
 
     gcloud auth application-default login --impersonate-service-account=SERVICE_ACCT_EMAIL
 
@@ -139,7 +139,7 @@ Use the gcloud CLI to create a service account and attach it to your resource:
 
 2.  Set up authentication:
     
-    1.  Ensure that you have the Create Service Accounts IAM role ( `  roles/iam.serviceAccountCreator  ` ) and the Project IAM Admin role ( `  roles/resourcemanager.projectIamAdmin  ` ). [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+    1.  Ensure that you have the Create Service Accounts IAM role ( `roles/iam.serviceAccountCreator` ) and the Project IAM Admin role ( `roles/resourcemanager.projectIamAdmin` ). [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
     
     2.  Create the service account:
         
@@ -157,7 +157,7 @@ Use the gcloud CLI to create a service account and attach it to your resource:
           - `  PROJECT_ID  ` : the project ID where you created the service account
           - `  ROLE  ` : the role to grant
         
-        **Note** : The `  --role  ` flag affects which resources the service account can access in your project. You can revoke these roles or grant additional roles later. In production environments, do not grant the Owner, Editor, or Viewer roles. Instead, grant a [predefined role](https://docs.cloud.google.com/iam/docs/understanding-roles#predefined_roles) or [custom role](https://docs.cloud.google.com/iam/docs/understanding-custom-roles) that meets your needs.
+        **Note** : The `--role` flag affects which resources the service account can access in your project. You can revoke these roles or grant additional roles later. In production environments, do not grant the Owner, Editor, or Viewer roles. Instead, grant a [predefined role](https://docs.cloud.google.com/iam/docs/understanding-roles#predefined_roles) or [custom role](https://docs.cloud.google.com/iam/docs/understanding-custom-roles) that meets your needs.
     
     4.  To grant another role to the service account, run the command as you did in the previous step.
     
@@ -176,8 +176,8 @@ Use the gcloud CLI to create a service account and attach it to your resource:
     Create a Compute Engine instance. Configure the instance as follows:
     
       - Replace `  INSTANCE_NAME  ` with your preferred instance name.
-      - Set the `  --zone  ` flag to the [zone](https://docs.cloud.google.com/compute/docs/zones#available) in which you want to create your instance.
-      - Set the `  --service-account  ` flag to the email address for the service account that you created.
+      - Set the `--zone` flag to the [zone](https://docs.cloud.google.com/compute/docs/zones#available) in which you want to create your instance.
+      - Set the `--service-account` flag to the email address for the service account that you created.
     
     <!-- end list -->
     

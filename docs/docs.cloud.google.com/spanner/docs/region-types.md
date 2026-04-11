@@ -12,7 +12,7 @@ Each [multi-region configuration](https://docs.cloud.google.com/spanner/docs/ins
 
 One of these read-write regions is designated the default *leader region* . A leader is selected from the replicas in the default leader region for each split. In the event of a leader replica failure, the other replica in the default leader region automatically assumes leadership. In fact, leaders run health checks on themselves and can preemptively give up leadership if they detect they are unhealthy. In most cases, when the default leader region returns to a healthy state, it automatically re-assumes the leadership.
 
-Writes are first processed in the default leader region. You can monitor the percentage of replicas within a given region by using the `  instance/leader_percentage_by_region  ` monitoring metric. For more information, see [Spanner metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
+Writes are first processed in the default leader region. You can monitor the percentage of replicas within a given region by using the `instance/leader_percentage_by_region` monitoring metric. For more information, see [Spanner metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
 
 The second read-write region contains additional replicas that serve reads and participate in voting to commit writes. These additional replicas in the second read-write region are eligible to be leaders. In the unlikely event of the loss of all replicas in the default leader region, new leader replicas are chosen from the second read-write region.
 

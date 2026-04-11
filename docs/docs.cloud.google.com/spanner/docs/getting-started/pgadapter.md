@@ -18,7 +18,7 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_a_project) , which cover creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, make sure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
@@ -82,7 +82,7 @@ PGAdapter requires either Java or Docker to run.
 
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases. When you create an instance, you choose an *instance configuration* , which determines where your data is stored, and also the number of nodes to use, which determines the amount of serving and storage resources in your instance.
 
-See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `  test-instance  ` to use it with other topics in this document that reference an instance named `  test-instance  ` .
+See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
   - The Google Cloud CLI
   - The Google Cloud console
@@ -92,13 +92,13 @@ See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manag
 
 The samples repository contains a sample that shows how to use Spanner with PGAdapter.
 
-Take a look through the `  samples/snippets  ` folder, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
+Take a look through the `samples/snippets` folder, which shows how to use Spanner. The code shows how to create and use a new database. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
 
 ## Start PGAdapter
 
 Start PGAdapter on your local development machine and point it to the instance that you created.
 
-The following commands assume that you have executed `  gcloud auth application-default login  ` .
+The following commands assume that you have executed `gcloud auth application-default login` .
 
 ### Java Application
 
@@ -117,7 +117,7 @@ The following commands assume that you have executed `  gcloud auth application-
         gcr.io/cloud-spanner-pg-adapter/pgadapter \
         -i test-instance -x
 
-**Note:** Replace `  $HOME/.config/gcloud/  ` with `  %APPDATA%\gcloud  ` if you are on Windows, or run `  gcloud info --format='value(config.paths.global_config_dir)'  ` to find your current `  gcloud  ` configuration folder.
+**Note:** Replace `$HOME/.config/gcloud/` with `%APPDATA%\gcloud` if you are on Windows, or run `gcloud info --format='value(config.paths.global_config_dir)'` to find your current `gcloud` configuration folder.
 
 ### Emulator
 
@@ -455,7 +455,7 @@ The next step is to write data to your database.
 
 ## Create a connection
 
-Before you can do reads or writes, you must create a connection to PGAdapter. All of your interactions with Spanner must go through a `  Connection  ` . The database name is specified in the connection string.
+Before you can do reads or writes, you must create a connection to PGAdapter. All of your interactions with Spanner must go through a `Connection` . The database name is specified in the connection string.
 
 ### psql
 
@@ -921,7 +921,7 @@ You should see the following response:
 
 PGAdapter supports executing DML batches. Sending multiple DML statements in one batch reduces the number of round-trips to Spanner and improves the performance of your application.
 
-**Tip:** You can also execute DML batches with the [`  START BATCH DML  ` command](https://docs.cloud.google.com/spanner/docs/pgadapter-session-mgmt-commands#start_batch_dml) .
+**Tip:** You can also execute DML batches with the [`START BATCH DML` command](https://docs.cloud.google.com/spanner/docs/pgadapter-session-mgmt-commands#start_batch_dml) .
 
 ### psql
 
@@ -1213,13 +1213,13 @@ You should see:
 
 You can also insert data using [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-PGAdapter translates the PostgreSQL `  COPY  ` command to mutations. Using `  COPY  ` is the most efficient way to quickly insert data in your Spanner database.
+PGAdapter translates the PostgreSQL `COPY` command to mutations. Using `COPY` is the most efficient way to quickly insert data in your Spanner database.
 
-`  COPY  ` operations are by default atomic. Atomic operations on Spanner are bound by the commit size limit. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
+`COPY` operations are by default atomic. Atomic operations on Spanner are bound by the commit size limit. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
-These examples show how to execute a non-atomic `  COPY  ` operation. This lets the `  COPY  ` operation exceed the commit size limit.
+These examples show how to execute a non-atomic `COPY` operation. This lets the `COPY` operation exceed the commit size limit.
 
-**Tip:** See [COPY support](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/copy.md) for more information on how to copy data directly from PostgreSQL to Spanner. You can also [import data directly from MySQL](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/import-mysql-data.md) using the `  COPY  ` command.
+**Tip:** See [COPY support](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/copy.md) for more information on how to copy data directly from PostgreSQL to Spanner. You can also [import data directly from MySQL](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/import-mysql-data.md) using the `COPY` command.
 
 ### psql
 
@@ -1514,7 +1514,7 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 ### On the command line
 
-Execute the following SQL statement to read the values of all columns from the `  Albums  ` table:
+Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT singer_id, album_id, album_title FROM albums'
@@ -1739,7 +1739,7 @@ You should see the following result:
 
 If your application has a frequently executed query, you can improve its performance by parameterizing it. The resulting parametric query can be cached and reused, which reduces compilation costs. For more information, see [Use query parameters to speed up frequently executed queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
 
-Here is an example of using a parameter in the `  WHERE  ` clause to query records containing a specific value for `  LastName  ` .
+Here is an example of using a parameter in the `WHERE` clause to query records containing a specific value for `LastName` .
 
 ### psql
 
@@ -1960,7 +1960,7 @@ You should see the following result:
 
 ## Update the database schema
 
-Assume you need to add a new column called `  MarketingBudget  ` to the `  Albums  ` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+Assume you need to add a new column called `MarketingBudget` to the `Albums` table. Adding a new column to an existing table requires an update to your database schema. Spanner supports schema updates to a database while the database continues to serve traffic. Schema updates don't require taking the database offline and they don't lock entire tables or columns; you can continue writing data to the database during the schema update. Read more about supported schema updates and schema change performance in [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
 
 ### Add a column
 
@@ -1968,7 +1968,7 @@ You can add a column on the command line using the Google Cloud CLI or programma
 
 #### On the command line
 
-Use the following [`  ALTER TABLE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
+Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) command to add the new column to the table:
 
     gcloud spanner databases ddl update example-db --instance=test-instance \
         --ddl='ALTER TABLE albums ADD COLUMN marketing_budget BIGINT'
@@ -2148,7 +2148,7 @@ You should see:
 
 ### Execute a DDL batch
 
-It is recommended to execute multiple schema modifications in one batch. You can execute multiple DDL statements in one batch by using the built-in batching feature of your PostgreSQL driver, by submitting all the DDL statements as one SQL string separated by semicolons, or by using the `  START BATCH DDL  ` and `  RUN BATCH  ` statements.
+It is recommended to execute multiple schema modifications in one batch. You can execute multiple DDL statements in one batch by using the built-in batching feature of your PostgreSQL driver, by submitting all the DDL statements as one SQL string separated by semicolons, or by using the `START BATCH DDL` and `RUN BATCH` statements.
 
 ### psql
 
@@ -2461,9 +2461,9 @@ You should see:
 
 ### Write data to the new column
 
-The following code writes data to the new column. It sets `  MarketingBudget  ` to `  100000  ` for the row keyed by `  Albums(1, 1)  ` and to `  500000  ` for the row keyed by `  Albums(2, 2)  ` .
+The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
-PGAdapter translates the PostgreSQL `  COPY  ` command to mutations. `  COPY  ` commands are by default translated to `  Insert  ` mutations. Execute `  set spanner.copy_upsert=true  ` to translate `  COPY  ` commands to `  InsertOrUpdate  ` mutations. This can be used to update existing data in Spanner.
+PGAdapter translates the PostgreSQL `COPY` command to mutations. `COPY` commands are by default translated to `Insert` mutations. Execute `set spanner.copy_upsert=true` to translate `COPY` commands to `InsertOrUpdate` mutations. This can be used to update existing data in Spanner.
 
 **Tip:** For a full list of commands that can be used to access Spanner features with PGAdapter, see [PGAdapter session management commands](https://docs.cloud.google.com/spanner/docs/pgadapter-session-mgmt-commands) .
 
@@ -3434,7 +3434,7 @@ You should see:
 
 ### Transaction tags and request tags
 
-Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to troubleshoot transactions and queries in Spanner. You can set transaction tags and request tags with the `  SPANNER.TRANSACTION_TAG  ` and `  SPANNER.STATEMENT_TAG  ` session variables.
+Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to troubleshoot transactions and queries in Spanner. You can set transaction tags and request tags with the `SPANNER.TRANSACTION_TAG` and `SPANNER.STATEMENT_TAG` session variables.
 
 ### psql
 
@@ -3839,7 +3839,7 @@ Run the sample with the following command:
 
 ## Retrieve data using read-only transactions
 
-Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Set the connection to read-only or use the `  SET TRANSACTION READ ONLY  ` SQL statement to execute a read-only transaction.
+Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Set the connection to read-only or use the `SET TRANSACTION READ ONLY` SQL statement to execute a read-only transaction.
 
 **Tip:** PGAdapter supports multiple additional SQL statements for executing specific types of transactions and batches, and for accessing specific Spanner features. For a full list of supported statements, see [PGAdapter session management commands](https://docs.cloud.google.com/spanner/docs/pgadapter-session-mgmt-commands)
 
@@ -4204,7 +4204,7 @@ You should see output similar to:
 
 ### Partitioned queries and Data Boost
 
-The [`  partitionQuery  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) API divides a query into smaller pieces, or partitions, and uses multiple machines to fetch the partitions in parallel. Each partition is identified by a partition token. The PartitionQuery API has higher latency than the standard query API, because it is only intended for bulk operations such as exporting or scanning the whole database.
+The [`partitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) API divides a query into smaller pieces, or partitions, and uses multiple machines to fetch the partitions in parallel. Each partition is identified by a partition token. The PartitionQuery API has higher latency than the standard query API, because it is only intended for bulk operations such as exporting or scanning the whole database.
 
 [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) lets you execute analytics queries and data exports with near-zero impact to existing workloads on the provisioned Spanner instance. Data Boost only supports [partitioned queries](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) .
 

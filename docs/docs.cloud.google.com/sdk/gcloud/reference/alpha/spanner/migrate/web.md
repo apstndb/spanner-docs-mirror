@@ -4,11 +4,11 @@ gcloud alpha spanner migrate web - run the web UI assistant for schema migration
 
 SYNOPSIS
 
-`  gcloud alpha spanner migrate web  ` \[ `  --dataflow-template  ` = `  DATAFLOW_TEMPLATE  ` \] \[ `  --log-level  ` = `  LOG_LEVEL  ` \] \[ `  --open  ` \] \[ `  --port  ` = `  PORT  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner migrate web` \[ `  --dataflow-template  ` = `  DATAFLOW_TEMPLATE  ` \] \[ `  --log-level  ` = `  LOG_LEVEL  ` \] \[ `  --open  ` \] \[ `  --port  ` = `  PORT  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Run the web UI assistant for schema migrations.
+`(ALPHA)` Run the web UI assistant for schema migrations.
 
 EXAMPLES
 
@@ -20,20 +20,20 @@ gcloud alpha spanner migrate web
 
 FLAGS
 
-  - `  --dataflow-template  ` = `  DATAFLOW_TEMPLATE  `  
+  - `--dataflow-template` = `  DATAFLOW_TEMPLATE  `  
     The google cloud storage path of the minimal downtime migration template to use to run the migration job.
-  - `  --log-level  ` = `  LOG_LEVEL  `  
+  - `--log-level` = `  LOG_LEVEL  `  
     To configure the log level for the execution (INFO, VERBOSE).
-  - `  --open  `  
+  - `--open`  
     Open the Spanner migration tool web interface in the default browser.
-  - `  --port  ` = `  PORT  `  
+  - `--port` = `  PORT  `  
     The port in which Spanner migration tool will run, defaults to 8080
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

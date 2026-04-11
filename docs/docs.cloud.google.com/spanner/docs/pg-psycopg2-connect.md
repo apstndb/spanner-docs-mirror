@@ -1,4 +1,4 @@
-This page explains how to connect the PostgreSQL psycopg2 driver to a PostgreSQL-dialect database in Spanner. `  psycopg2  ` is a Python driver for PostgreSQL.
+This page explains how to connect the PostgreSQL psycopg2 driver to a PostgreSQL-dialect database in Spanner. `psycopg2` is a Python driver for PostgreSQL.
 
 Verify that PGAdapter is running on the same machine as the application that is connecting using the PostgreSQL psycopg2 driver.
 
@@ -18,8 +18,8 @@ For more information, see [Start PGAdapter](https://docs.cloud.google.com/spanne
 
 Replace the following:
 
-  - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, you can use `  localhost  ` .
-  - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `  5432  ` .
+  - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, you can use `localhost` .
+  - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `5432` .
 
 ### Unix domain sockets
 
@@ -41,8 +41,8 @@ To use Unix domain sockets, PGAdapter must be running on the same host as the cl
 
 Replace the following:
 
-  - /tmp : the default domain socket directory for PGAdapter. This can be changed using the `  -dir  ` command line argument.
-  - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `  5432  ` .
+  - /tmp : the default domain socket directory for PGAdapter. This can be changed using the `-dir` command line argument.
+  - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `5432` .
 
 ## What's next
 

@@ -26,7 +26,7 @@ Spring Data JDBC selects the database dialect it uses based on the JDBC driver t
       }
     }
 
-This dialect provider must be added to the `  spring.factories  ` file in your application:
+This dialect provider must be added to the `spring.factories` file in your application:
 
     org.springframework.data.jdbc.repository.config.DialectResolver$JdbcDialectProvider=org.springframework.data.jdbc.repository.config.DialectResolver.DefaultDialectProvider,com.google.cloud.spanner.sample.SpannerDialectProvider
 
@@ -52,7 +52,7 @@ In your project, add Apache Maven dependencies for [Spring Data JDBC](https://sp
 
 ### Data source configuration
 
-Configure `  application.properties  ` to use the Spanner JDBC driver and connect to a Spanner GoogleSQL-dialect database.
+Configure `application.properties` to use the Spanner JDBC driver and connect to a Spanner GoogleSQL-dialect database.
 
     spanner.project=my-project
     spanner.instance=my-instance

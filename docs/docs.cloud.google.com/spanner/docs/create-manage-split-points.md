@@ -2,9 +2,9 @@ This page describes how you can create and manage split points in your database.
 
 ## Before you begin
 
-  - To get the permission that you need to create and manage split points, ask your administrator to grant you the [Cloud Spanner Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` ) IAM role on your instance. For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+  - To get the permission that you need to create and manage split points, ask your administrator to grant you the [Cloud Spanner Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` ) IAM role on your instance. For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
     
-    This predefined role contains the `  spanner.databases.addSplitPoints  ` permission, which is required to create and manage split points.
+    This predefined role contains the `spanner.databases.addSplitPoints` permission, which is required to create and manage split points.
     
     You might also be able to get this permission with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
@@ -36,17 +36,17 @@ The file must use the following format to specify the split points:
 
 Replace the following variables when creating the file:
 
-  - ObjectType : the object type you want to add splits in. Valid values are `  TABLE  ` and `  INDEX  ` .
+  - ObjectType : the object type you want to add splits in. Valid values are `TABLE` and `INDEX` .
   - ObjectName : the name of the database table or index.
   - SplitValue1..N : the split point values where you want to introduce the splits.
 
 Use the following rules when creating the split point values in the file:
 
-  - String values need to be in single quotes. For example, `  'splitKeyPart'  `
-  - Boolean values need to be either `  true  ` or `  false  ` .
-  - `  INT64  ` and `  NUMERIC  ` Spanner data type values need to be in single quotes. For example, `  '123'  ` or `  '99.99'  ` .
-  - All other number values need to be written without single quotes. For example, `  1.287  ` .
-  - Timestamp values should be provided in the `  '2020-06-18T17:24:53Z'  ` format in single quotes.
+  - String values need to be in single quotes. For example, `'splitKeyPart'`
+  - Boolean values need to be either `true` or `false` .
+  - `INT64` and `NUMERIC` Spanner data type values need to be in single quotes. For example, `'123'` or `'99.99'` .
+  - All other number values need to be written without single quotes. For example, `1.287` .
+  - Timestamp values should be provided in the `'2020-06-18T17:24:53Z'` format in single quotes.
   - Split values need to be surrounded by parentheses.
   - The split keys value order must be the same as the primary key order.
   - If the split value needs to have a comma, you must escape the comma using a \`\\\` character.
@@ -72,7 +72,7 @@ Before using any of the command data below, make the following replacements:
   - SPLITS\_FILE : the path to the splits file.
   - INSTANCE\_ID : the instance ID.
   - DATABASE\_ID : the database ID.
-  - EXPIRATION\_DATE : (optional) the expiration date of the split points. Accepts a timestamp in the `  '2020-06-18T17:24:53Z'  ` format.
+  - EXPIRATION\_DATE : (optional) the expiration date of the split points. Accepts a timestamp in the `'2020-06-18T17:24:53Z'` format.
   - INITIATOR : (optional) the initiator of the split points.
 
 Execute the following command:
@@ -109,7 +109,7 @@ Execute the following command:
 
 ### REST v1
 
-You can use the [`  projects.instances.databases.addSplitPoints  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/addSplitPoints) method to create split points.
+You can use the [`projects.instances.databases.addSplitPoints`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/addSplitPoints) method to create split points.
 
 Before using any of the request data, make the following replacements:
 
@@ -166,9 +166,9 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     curl -X POST \
          -H "Authorization: Bearer $(gcloud auth print-access-token)" \
@@ -178,9 +178,9 @@ Save the request body in a file named `  request.json  ` , and execute the follo
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     $cred = gcloud auth print-access-token
     $headers = @{ "Authorization" = "Bearer $cred" }
@@ -616,7 +616,7 @@ You can view all the created split points on your database using the Google Clou
 
 ### Console
 
-To get the split point count by querying the `  SPANNER_SYS.USER_SPLIT_POINTS  ` view in the Google Cloud console, do the following:
+To get the split point count by querying the `SPANNER_SYS.USER_SPLIT_POINTS` view in the Google Cloud console, do the following:
 
 1.  Open the Spanner instances page.
     
@@ -684,7 +684,7 @@ You can set an expiration time for each split point you create. For more informa
 
 ### gcloud
 
-If you want to expire split points the Google Cloud CLI, you need to create a file that contains all the splits you want to expire and supply its path using the `  splits-file  ` parameter in the gcloud CLI command. The file must not exceed the API limit of 100 points per API request. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#split-point-limits) .
+If you want to expire split points the Google Cloud CLI, you need to create a file that contains all the splits you want to expire and supply its path using the `splits-file` parameter in the gcloud CLI command. The file must not exceed the API limit of 100 points per API request. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#split-point-limits) .
 
 The file must use the following format to specify the split points:
 
@@ -696,17 +696,17 @@ The file must use the following format to specify the split points:
 
 Replace the following variables when creating the file:
 
-  - ObjectType : the object type of the split you want to expire. Valid values are `  TABLE  ` and `  INDEX  ` .
+  - ObjectType : the object type of the split you want to expire. Valid values are `TABLE` and `INDEX` .
   - ObjectName : the name of the database table or index.
   - SplitValue : the split point value you want to expire.
 
 Use the following rules when creating the split point values in the file:
 
-  - String values need to be in single quotes. For example, `  'splitKeyPart'  `
-  - Boolean values can be either `  true  ` or `  false  ` .
-  - `  INT64  ` and `  NUMERIC  ` Spanner data type values need to be in single quotes. For example, `  '123'  ` or `  '99.99'  ` .
-  - All other number values need to be written without single quotes. For example, `  1.287  ` .
-  - Timestamp values should be provided in the `  '2020-06-18T17:24:53Z'  ` format in single quotes.
+  - String values need to be in single quotes. For example, `'splitKeyPart'`
+  - Boolean values can be either `true` or `false` .
+  - `INT64` and `NUMERIC` Spanner data type values need to be in single quotes. For example, `'123'` or `'99.99'` .
+  - All other number values need to be written without single quotes. For example, `1.287` .
+  - Timestamp values should be provided in the `'2020-06-18T17:24:53Z'` format in single quotes.
   - Split values need to be surrounded by parentheses.
   - The split keys value order must be the same as the primary key order.
   - If the split value needs to have a comma, you must escape the comma using a \`\\\` character.
@@ -732,7 +732,7 @@ Before using any of the command data below, make the following replacements:
   - SPLITS\_FILE : the path to the splits file.
   - INSTANCE\_ID : the instance ID.
   - DATABASE\_ID : the database ID.
-  - EXPIRATION\_DATE : (optional) the expiration date of the split points. Accepts a timestamp in the `  '2020-06-18T17:24:53Z'  ` format.
+  - EXPIRATION\_DATE : (optional) the expiration date of the split points. Accepts a timestamp in the `'2020-06-18T17:24:53Z'` format.
   - INITIATOR : (optional) the initiator of the split points.
 
 Execute the following command:
@@ -824,9 +824,9 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `  gcloud  ` CLI . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     curl -X POST \
          -H "Authorization: Bearer $(gcloud auth print-access-token)" \
@@ -836,9 +836,9 @@ Save the request body in a file named `  request.json  ` , and execute the follo
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `  gcloud  ` CLI with your user account by running [`  gcloud init  `](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`  gcloud auth login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`  gcloud auth list  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
-Save the request body in a file named `  request.json  ` , and execute the following command:
+Save the request body in a file named `request.json` , and execute the following command:
 
     $cred = gcloud auth print-access-token
     $headers = @{ "Authorization" = "Bearer $cred" }

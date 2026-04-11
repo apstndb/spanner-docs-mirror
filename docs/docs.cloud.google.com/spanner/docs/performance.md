@@ -131,28 +131,28 @@ Each 1,000 processing units (1 node) of compute capacity can provide the followi
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       dual-region-australia1      </code></td>
+<td><code dir="ltr" translate="no">dual-region-australia1</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       dual-region-germany1      </code></td>
+<td><code dir="ltr" translate="no">dual-region-germany1</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       dual-region-india1      </code></td>
+<td><code dir="ltr" translate="no">dual-region-india1</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       dual-region-japan1      </code></td>
+<td><code dir="ltr" translate="no">dual-region-japan1</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
@@ -184,143 +184,143 @@ Each 1,000 processing units (1 node) of compute capacity can provide the followi
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       asia1      </code></td>
+<td><code dir="ltr" translate="no">asia1</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       asia2      </code></td>
-<td>SSD: 15,000<br />
-HDD: 1,000</td>
-<td>SSD: 2,700<br />
-HDD: 2,700</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">       eur3      </code></td>
-<td>SSD: 15,000<br />
-HDD: 1,000</td>
-<td>SSD: 2,700<br />
-HDD: 2,700</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">       eur5      </code></td>
+<td><code dir="ltr" translate="no">asia2</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       eur6      </code></td>
+<td><code dir="ltr" translate="no">eur3</code></td>
+<td>SSD: 15,000<br />
+HDD: 1,000</td>
+<td>SSD: 2,700<br />
+HDD: 2,700</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">eur5</code></td>
+<td>SSD: 15,000<br />
+HDD: 1,000</td>
+<td>SSD: 2,700<br />
+HDD: 2,700</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">eur6</code></td>
 <td>SSD: 15,000, 7,500 for each optional read-only replica<br />
 HDD: 1,000, 500 for each optional read-only replica</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       eur7      </code></td>
+<td><code dir="ltr" translate="no">eur7</code></td>
 <td>SSD: 15,000, 7,500 for each optional read-only replica<br />
 HDD: 1,000, 500 for each optional read-only replica</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       nam3      </code></td>
+<td><code dir="ltr" translate="no">nam3</code></td>
 <td>SSD: 15,000, 7,500 for each optional read-only replica<br />
 HDD: 1,000, 500 for each optional read-only replica</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       nam6      </code></td>
-<td>SSD: 15,000 in <code dir="ltr" translate="no">       us-central1      </code> and <code dir="ltr" translate="no">       us-east1      </code><br />
-7,500 in <code dir="ltr" translate="no">       us-west1      </code> and <code dir="ltr" translate="no">       us-west2      </code><br />
-HDD: 1,000 in <code dir="ltr" translate="no">       us-central1      </code> and <code dir="ltr" translate="no">       us-east1      </code><br />
-500 in <code dir="ltr" translate="no">       us-west1      </code> and <code dir="ltr" translate="no">       us-west2      </code> <a href="https://docs.cloud.google.com/spanner/docs/performance#QPS"><em>[1]</em></a></td>
+<td><code dir="ltr" translate="no">nam6</code></td>
+<td>SSD: 15,000 in <code dir="ltr" translate="no">us-central1</code> and <code dir="ltr" translate="no">us-east1</code><br />
+7,500 in <code dir="ltr" translate="no">us-west1</code> and <code dir="ltr" translate="no">us-west2</code><br />
+HDD: 1,000 in <code dir="ltr" translate="no">us-central1</code> and <code dir="ltr" translate="no">us-east1</code><br />
+500 in <code dir="ltr" translate="no">us-west1</code> and <code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/performance#QPS"><em>[1]</em></a></td>
 <td>SSD: 2,700<br />
 <br />
 HDD: 2,700</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       nam7      </code></td>
+<td><code dir="ltr" translate="no">nam7</code></td>
 <td>SSD: 15,000, 7,500 for each optional read-only replica<br />
 HDD: 1,000, 500 for each optional read-only replica</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       nam8      </code></td>
+<td><code dir="ltr" translate="no">nam8</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       nam9      </code></td>
+<td><code dir="ltr" translate="no">nam9</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       nam10      </code></td>
+<td><code dir="ltr" translate="no">nam10</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       nam11      </code></td>
+<td><code dir="ltr" translate="no">nam11</code></td>
 <td>SSD: 15,000, 7,500 for each optional read-only replica<br />
 HDD: 1,000, 500 for each optional read-only replica</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       nam12      </code></td>
+<td><code dir="ltr" translate="no">nam12</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       nam13      </code></td>
+<td><code dir="ltr" translate="no">nam13</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       nam14      </code></td>
+<td><code dir="ltr" translate="no">nam14</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       nam15      </code></td>
+<td><code dir="ltr" translate="no">nam15</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       nam16      </code></td>
+<td><code dir="ltr" translate="no">nam16</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">       nam-eur-asia1      </code></td>
+<td><code dir="ltr" translate="no">nam-eur-asia1</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
 HDD: 2,700</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">       nam-eur-asia3      </code></td>
+<td><code dir="ltr" translate="no">nam-eur-asia3</code></td>
 <td>SSD: 15,000<br />
 HDD: 1,000</td>
 <td>SSD: 2,700<br />
@@ -329,13 +329,13 @@ HDD: 2,700</td>
 </tbody>
 </table>
 
-  - *\[1\]* : `  us-west1  ` and `  us-west2  ` provide only half of the QPS performance because they contain one replica per region instead of two.
+  - *\[1\]* : `us-west1` and `us-west2` provide only half of the QPS performance because they contain one replica per region instead of two.
 
 Read guidance is given per region (because reads can be served from anywhere), while write guidance is for the entire configuration. Read and write guidance assume that you're reading and writing single rows at 1 KB of data per row.
 
 ## Run your typical workloads against Spanner
 
-Always run your own typical workloads against a Spanner instance when doing capacity planning, so you can figure out the best resource allocation for your applications. Google's PerfKit Benchmarker uses [YCSB](https://ycsb.site/) to benchmark cloud services. You can follow the [PerfKitBenchmarker tutorial for Spanner](https://github.com/cloudspannerecosystem/spanner-benchmarks-tutorial) to create tests for your own workloads. When doing so, you should tune the parameters in the benchmarking configuration `  yaml  ` files to make sure that the generated benchmark reflects the following characteristics in your production environment:
+Always run your own typical workloads against a Spanner instance when doing capacity planning, so you can figure out the best resource allocation for your applications. Google's PerfKit Benchmarker uses [YCSB](https://ycsb.site/) to benchmark cloud services. You can follow the [PerfKitBenchmarker tutorial for Spanner](https://github.com/cloudspannerecosystem/spanner-benchmarks-tutorial) to create tests for your own workloads. When doing so, you should tune the parameters in the benchmarking configuration `yaml` files to make sure that the generated benchmark reflects the following characteristics in your production environment:
 
   - Total size of your database
   - Schema (For example: [row key size, number of columns, row data sizes](https://docs.cloud.google.com/spanner/docs/schema-design) )
@@ -345,7 +345,7 @@ Always run your own typical workloads against a Spanner instance when doing capa
 
 ### Reproduce benchmark numbers
 
-To reproduce the benchmark numbers, follow the [Benchmarking Spanner with PerfKit Benchmarker tutorial](https://github.com/cloudspannerecosystem/spanner-benchmarks-tutorial) using the corresponding `  yaml  ` files in the [`  throughput_benchmark  `](https://github.com/cloudspannerecosystem/spanner-benchmarks-tutorial/tree/main/data/throughput_benchmarks) folder.
+To reproduce the benchmark numbers, follow the [Benchmarking Spanner with PerfKit Benchmarker tutorial](https://github.com/cloudspannerecosystem/spanner-benchmarks-tutorial) using the corresponding `yaml` files in the [`throughput_benchmark`](https://github.com/cloudspannerecosystem/spanner-benchmarks-tutorial/tree/main/data/throughput_benchmarks) folder.
 
 To benchmark instances in an instance configuration that has undergone [performance improvements](https://docs.cloud.google.com/spanner/docs/performance#improved-performance) , ensure that your tests are running in one of these improved instance configurations.
 

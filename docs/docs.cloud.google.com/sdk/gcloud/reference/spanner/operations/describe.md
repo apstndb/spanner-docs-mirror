@@ -4,7 +4,7 @@ gcloud spanner operations describe - describe a Cloud Spanner operation
 
 SYNOPSIS
 
-`  gcloud spanner operations describe  ` `  OPERATION-ID  ` ( `  --instance  ` = `  INSTANCE  ` | `  --instance-config  ` = `  INSTANCE_CONFIG  ` ) \[ `  --backup  ` = `  BACKUP  ` \] \[ `  --database  ` = `  DATABASE  ` \] \[ `  --instance-partition  ` = `  INSTANCE_PARTITION  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner operations describe` `  OPERATION-ID  ` ( `  --instance  ` = `  INSTANCE  ` | `  --instance-config  ` = `  INSTANCE_CONFIG  ` ) \[ `  --backup  ` = `  BACKUP  ` \] \[ `  --database  ` = `  DATABASE  ` \] \[ `  --instance-partition  ` = `  INSTANCE_PARTITION  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -45,25 +45,25 @@ REQUIRED FLAGS
 
 Exactly one of these must be specified:
 
-  - `  --instance  ` = `  INSTANCE  `  
+  - `--instance` = `  INSTANCE  `  
     The ID of the instance the operation is executing on.
-  - `  --instance-config  ` = `  INSTANCE_CONFIG  `  
+  - `--instance-config` = `  INSTANCE_CONFIG  `  
     The ID of the instance configuration the operation is executing on.
 
 OPTIONAL FLAGS
 
-  - `  --backup  ` = `  BACKUP  `  
+  - `--backup` = `  BACKUP  `  
     For a backup operation, the name of the backup the operation is executing on.
-  - `  --database  ` = `  DATABASE  `  
+  - `--database` = `  DATABASE  `  
     For a database operation, the name of the database the operation is executing on.
-  - `  --instance-partition  ` = `  INSTANCE_PARTITION  `  
+  - `--instance-partition` = `  INSTANCE_PARTITION  `  
     For an instance partition operation, the name of the instance partition the operation is executing on.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

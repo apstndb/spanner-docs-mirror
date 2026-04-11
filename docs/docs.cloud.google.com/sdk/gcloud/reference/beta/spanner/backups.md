@@ -4,42 +4,42 @@ gcloud beta spanner backups - manage Cloud Spanner backups
 
 SYNOPSIS
 
-`  gcloud beta spanner backups  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner backups` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage Cloud Spanner backups.
+`(BETA)` Manage Cloud Spanner backups.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  add-iam-policy-binding  `  
-    `  (BETA)  ` Add IAM policy binding to a Cloud Spanner backup.
+    `(BETA)` Add IAM policy binding to a Cloud Spanner backup.
   - `  copy  `  
-    `  (BETA)  ` Copies a backup of a Cloud Spanner database.
+    `(BETA)` Copies a backup of a Cloud Spanner database.
   - `  create  `  
-    `  (BETA)  ` Creates a backup of a Cloud Spanner database.
+    `(BETA)` Creates a backup of a Cloud Spanner database.
   - `  delete  `  
-    `  (BETA)  ` Delete an existing backup.
+    `(BETA)` Delete an existing backup.
   - `  describe  `  
-    `  (BETA)  ` Retrieves information about a backup.
+    `(BETA)` Retrieves information about a backup.
   - `  get-iam-policy  `  
-    `  (BETA)  ` Get the IAM policy for a Cloud Spanner backup.
+    `(BETA)` Get the IAM policy for a Cloud Spanner backup.
   - `  list  `  
-    `  (BETA)  ` List existing Cloud Spanner Cloud Spanner backups.
+    `(BETA)` List existing Cloud Spanner Cloud Spanner backups.
   - `  remove-iam-policy-binding  `  
-    `  (BETA)  ` Remove IAM policy binding of a Cloud Spanner backup.
+    `(BETA)` Remove IAM policy binding of a Cloud Spanner backup.
   - `  set-iam-policy  `  
-    `  (BETA)  ` Set the IAM policy for a Cloud Spanner backup.
+    `(BETA)` Set the IAM policy for a Cloud Spanner backup.
   - `  update-metadata  `  
-    `  (BETA)  ` Updates the metadata of a Cloud Spanner a backup.
+    `(BETA)` Updates the metadata of a Cloud Spanner a backup.
 
 NOTES
 

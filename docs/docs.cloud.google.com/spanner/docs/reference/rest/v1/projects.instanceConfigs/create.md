@@ -6,11 +6,11 @@
   - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs/create#body.aspect)
   - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs/create#try-it)
 
-Creates an instance configuration and begins preparing it to be used. The returned long-running operation can be used to track the progress of preparing the new instance configuration. The instance configuration name is assigned by the caller. If the named instance configuration already exists, `  instanceConfigs.create  ` returns `  ALREADY_EXISTS  ` .
+Creates an instance configuration and begins preparing it to be used. The returned long-running operation can be used to track the progress of preparing the new instance configuration. The instance configuration name is assigned by the caller. If the named instance configuration already exists, `instanceConfigs.create` returns `ALREADY_EXISTS` .
 
 Immediately after the request returns:
 
-  - The instance configuration is readable via the API, with all requested attributes. The instance configuration's `  reconciling  ` field is set to true. Its state is `  CREATING  ` .
+  - The instance configuration is readable via the API, with all requested attributes. The instance configuration's `  reconciling  ` field is set to true. Its state is `CREATING` .
 
 While the operation is pending:
 
@@ -20,11 +20,11 @@ While the operation is pending:
 Upon completion of the returned operation:
 
   - Instances can be created using the instance configuration.
-  - The instance configuration's `  reconciling  ` field becomes false. Its state becomes `  READY  ` .
+  - The instance configuration's `  reconciling  ` field becomes false. Its state becomes `READY` .
 
-The returned long-running operation will have a name of the format `  <instance_config_name>/operations/<operationId>  ` and can be used to track creation of the instance configuration. The metadata field type is `  CreateInstanceConfigMetadata  ` . The response field type is `  InstanceConfig  ` , if successful.
+The returned long-running operation will have a name of the format `<instance_config_name>/operations/<operationId>` and can be used to track creation of the instance configuration. The metadata field type is `  CreateInstanceConfigMetadata  ` . The response field type is `  InstanceConfig  ` , if successful.
 
-Authorization requires `  spanner.instanceConfigs.create  ` permission on the resource `  parent  ` .
+Authorization requires `spanner.instanceConfigs.create` permission on the resource `  parent  ` .
 
 ### HTTP request
 
@@ -61,7 +61,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{parent=projects/*}/instanceConfigs  `
+`POST https://spanner.googleapis.com/v1/{parent=projects/*}/instanceConfigs`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -69,15 +69,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  parent  `
+`parent`
 
-`  string  `
+`string`
 
-Required. The name of the project in which to create the instance configuration. Values are of the form `  projects/<project>  ` .
+Required. The name of the project in which to create the instance configuration. Values are of the form `projects/<project>` .
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  parent  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `parent` :
 
-  - `  spanner.instanceConfigs.create  `
+  - `spanner.instanceConfigs.create`
 
 ### Request body
 
@@ -94,34 +94,28 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;instanceConfigId&quot;: string,
-  &quot;instanceConfig&quot;: {
-    object (InstanceConfig)
-  },
-  &quot;validateOnly&quot;: boolean
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;instanceConfigId&quot;: string,&quot;instanceConfig&quot;: {object (InstanceConfig)},&quot;validateOnly&quot;: boolean}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  instanceConfigId  `
+`instanceConfigId`
 
-`  string  `
+`string`
 
-Required. The ID of the instance configuration to create. Valid identifiers are of the form `  custom-[-a-z0-9]*[a-z0-9]  ` and must be between 2 and 64 characters in length. The `  custom-  ` prefix is required to avoid name conflicts with Google-managed configurations.
+Required. The ID of the instance configuration to create. Valid identifiers are of the form `custom-[-a-z0-9]*[a-z0-9]` and must be between 2 and 64 characters in length. The `custom-` prefix is required to avoid name conflicts with Google-managed configurations.
 
-`  instanceConfig  `
+`instanceConfig`
 
-`  object ( InstanceConfig  ` )
+` object ( InstanceConfig  ` )
 
-Required. The `  InstanceConfig  ` proto of the configuration to create. `  instanceConfig.name  ` must be `  <parent>/instanceConfigs/<instanceConfigId>  ` . `  instanceConfig.base_config  ` must be a Google-managed configuration name, e.g. /instanceConfigs/us-east1, /instanceConfigs/nam3.
+Required. The `InstanceConfig` proto of the configuration to create. `instanceConfig.name` must be `<parent>/instanceConfigs/<instanceConfigId>` . `instanceConfig.base_config` must be a Google-managed configuration name, e.g. /instanceConfigs/us-east1, /instanceConfigs/nam3.
 
-`  validateOnly  `
+`validateOnly`
 
-`  boolean  `
+`boolean`
 
 An option to validate, but not actually execute, a request, and provide the same response.
 
@@ -133,7 +127,7 @@ If successful, the response body contains a newly created instance of `  Operati
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

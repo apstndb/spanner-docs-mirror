@@ -16,6 +16,6 @@ MODEL DDL statements and ML functions in Spanner invoke Vertex AI endpoints and 
 | \-                   | Vertex AI endpoint {ENDPOINT} is unavailable.                                                                       | Too many requests to Vertex AI.                                        | Deploy more nodes.                                                                                                                       |
 | \-                   | \-                                                                                                                  | Vertex AI has a regional issue                                         | [Use failover endpoints](https://docs.cloud.google.com/spanner/docs/ml-tutorial#failover_models)                                         |
 
-**Note:** Errors returned by Spanner include the original Vertex AI errors as `  google.rpc.Status  ` [details message](https://docs.cloud.google.com/apis/design/errors#error_details) . You can see [Vertex AI toubleshooting page](https://docs.cloud.google.com/vertex-ai/docs/general/troubleshooting) for more information.
+**Note:** Errors returned by Spanner include the original Vertex AI errors as `google.rpc.Status` [details message](https://docs.cloud.google.com/apis/design/errors#error_details) . You can see [Vertex AI toubleshooting page](https://docs.cloud.google.com/vertex-ai/docs/general/troubleshooting) for more information.
 
 **Note:** Both Spanner and Vertex AI provide monitoring dashboards and write logs to Cloud Logging, which can contain additional details.

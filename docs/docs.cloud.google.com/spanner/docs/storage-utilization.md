@@ -21,7 +21,7 @@ If you use the previous storage metrics to check the size of your data frequentl
 
 These effects stem from Spanner's support for *multi-version storage* . Multi-version storage keeps all deleted or overwritten data in-storage and available for a limited time to enable features that let you read previous data values, such as [stale reads](https://docs.cloud.google.com/spanner/docs/reads#read_types) and [point-in-time recovery](https://docs.cloud.google.com/spanner/docs/pitr) . Performing a large data deletion doesn't immediately get reflected in your database's storage metrics. Similarly, an apparently unprompted drop in a database's total size likely means that Spanner's regular data-compaction process recently cleaned up a large set of data that was deleted or overwritten as far back as several days ago.
 
-Spanner guarantees the continued availability of deleted or overwritten data for the interval defined by the [`  version_retention_period  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) option (one hour, by default). It automatically runs a background process every several days that permanently removes all obsolete data older than this version-retention interval.
+Spanner guarantees the continued availability of deleted or overwritten data for the interval defined by the [`version_retention_period`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) option (one hour, by default). It automatically runs a background process every several days that permanently removes all obsolete data older than this version-retention interval.
 
 ### Effects of splitting
 
@@ -63,7 +63,7 @@ To reduce an instance's database storage utilization, you can:
 
 In general, we recommend that you add [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to your instance as a starting point. After you add compute capacity, you can investigate and address the root causes of high storage utilization.
 
-If you want to automate this process, you can create an application that monitors database storage utilization, then adds and removes compute capacity as needed, using the [`  UpdateInstance  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance) method.
+If you want to automate this process, you can create an application that monitors database storage utilization, then adds and removes compute capacity as needed, using the [`UpdateInstance`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance) method.
 
 ## What's next
 

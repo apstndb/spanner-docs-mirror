@@ -17,7 +17,7 @@ When deciding between search indexes and secondary indexes, keep in mind that se
 Besides semantics, the syntax of the DDL statement to create a search index is different from the DDL syntax to create a secondary index:
 
   - Indexed columns are defined separately from the sort order in the search index.
-  - The order of `  TOKENLIST  ` columns in the `  ON  ` clause of the `  CREATE SEARCH INDEX  ` statement is immaterial.
+  - The order of `TOKENLIST` columns in the `ON` clause of the `CREATE SEARCH INDEX` statement is immaterial.
 
 ## What's next
 

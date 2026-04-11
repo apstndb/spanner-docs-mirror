@@ -44,7 +44,7 @@ us-west8
 us-east7
 
   
-`  GET https://spanner.googleapis.com/v1/{parent=projects/*/instances/*/databases/*}/backupSchedules  `
+`GET https://spanner.googleapis.com/v1/{parent=projects/*/instances/*/databases/*}/backupSchedules`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -52,31 +52,31 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  parent  `
+`parent`
 
-`  string  `
+`string`
 
 Required. Database is the parent resource whose backup schedules should be listed. Values are of the form projects/ /instances/ /databases/
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  parent  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `parent` :
 
-  - `  spanner.backupSchedules.list  `
+  - `spanner.backupSchedules.list`
 
 ### Query parameters
 
 Parameters
 
-`  pageSize  `
+`pageSize`
 
-`  integer  `
+`integer`
 
 Optional. Number of backup schedules to be returned in the response. If 0 or less, defaults to the server's maximum allowed page size.
 
-`  pageToken  `
+`pageToken`
 
-`  string  `
+`string`
 
-Optional. If non-empty, `  pageToken  ` should contain a `  nextPageToken  ` from a previous `  ListBackupSchedulesResponse  ` to the same `  parent  ` .
+Optional. If non-empty, `pageToken` should contain a `  nextPageToken  ` from a previous `  ListBackupSchedulesResponse  ` to the same `parent` .
 
 ### Request body
 
@@ -99,37 +99,30 @@ If successful, the response body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;backupSchedules&quot;: [
-    {
-      object (BackupSchedule)
-    }
-  ],
-  &quot;nextPageToken&quot;: string
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;backupSchedules&quot;: [{object (BackupSchedule)}],&quot;nextPageToken&quot;: string}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  backupSchedules[]  `
+`backupSchedules[]`
 
-`  object ( BackupSchedule  ` )
+` object ( BackupSchedule  ` )
 
 The list of backup schedules for a database.
 
-`  nextPageToken  `
+`nextPageToken`
 
-`  string  `
+`string`
 
-`  nextPageToken  ` can be sent in a subsequent `  backupSchedules.list  ` call to fetch more of the schedules.
+`nextPageToken` can be sent in a subsequent `  backupSchedules.list  ` call to fetch more of the schedules.
 
 ### Authorization scopes
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

@@ -18,7 +18,7 @@ As application usage increases, it's possible that the number of mutations in yo
 
 ## How to access commit statistics
 
-Commit statistics are not returned by default. Instead, you need to set the `  return_commit_stats  ` flag to true on each [CommitRequest](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#commitrequest) . If your commit attempt exceeds the maximum allowable number of mutations for a transaction, the commit fails and an [INVALID\_ARGUMENT](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Code#ENUM_VALUES.INVALID_ARGUMENT) error is returned.
+Commit statistics are not returned by default. Instead, you need to set the `return_commit_stats` flag to true on each [CommitRequest](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#commitrequest) . If your commit attempt exceeds the maximum allowable number of mutations for a transaction, the commit fails and an [INVALID\_ARGUMENT](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Code#ENUM_VALUES.INVALID_ARGUMENT) error is returned.
 
 Here's an example of how to return commit statistics using the Spanner client libraries.
 
@@ -28,7 +28,7 @@ The following sample shows how to get commit statistics using the Spanner client
 
 ### C++
 
-The following code calls `  set_return_stats()  ` on `  CommitOptions  ` and returns a mutation count of 6, because we are inserting or updating 2 rows and 3 columns in each row.
+The following code calls `set_return_stats()` on `CommitOptions` and returns a mutation count of 6, because we are inserting or updating 2 rows and 3 columns in each row.
 
     void GetCommitStatistics(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -54,7 +54,7 @@ The following code calls `  set_return_stats()  ` on `  CommitOptions  ` and ret
 
 In C\#, commit statistics are not returned directly through the API. Instead, they are logged at the **Information** log level by the default logger.
 
-The following code enables commit statistics logging for all transactions by setting the `  LogCommitStats  ` property on `  SpannerConnectionStringBuilder  ` to true. The code also implements a sample logger that keeps a reference to the last seen commit response. The `  MutationCount  ` is then retrieved from this response and displayed.
+The following code enables commit statistics logging for all transactions by setting the `LogCommitStats` property on `SpannerConnectionStringBuilder` to true. The code also implements a sample logger that keeps a reference to the last seen commit response. The `MutationCount` is then retrieved from this response and displayed.
 
     using Google.Cloud.Spanner.Data;
     using Google.Cloud.Spanner.V1;
@@ -129,7 +129,7 @@ The following code enables commit statistics logging for all transactions by set
 
 ### Go
 
-The following code sets the `  ReturnCommitStats  ` flag and prints out the mutation count when the transaction is successfully committed.
+The following code sets the `ReturnCommitStats` flag and prints out the mutation count when the transaction is successfully committed.
 
     import (
      "context"
@@ -220,7 +220,7 @@ The following code sets the `  ReturnCommitStats  ` flag and prints out the muta
 
 ### Node.js
 
-The following code sets the `  returnCommitStats  ` flag and returns a mutation count of 6, because we are inserting or updating 2 rows and 3 columns in each row.
+The following code sets the `returnCommitStats` flag and returns a mutation count of 6, because we are inserting or updating 2 rows and 3 columns in each row.
 
     // Imports the Google Cloud client library.
     const {Spanner} = require('@google-cloud/spanner');
@@ -306,9 +306,9 @@ The following code sets the `  returnCommitStats  ` flag and returns a mutation 
 
 ### Python
 
-Instead of returning commit statistics directly through the API, the Python client library logs them using `  stdout  ` at level `  Info  ` .
+Instead of returning commit statistics directly through the API, the Python client library logs them using `stdout` at level `Info` .
 
-The following code enables commit statistics logging for all transactions by setting `  database.log_commit_stats = True  ` . The code also implements a sample logger that keeps a reference to the last seen commit response. The `  mutation_count  ` is then retrieved from this response and displayed.
+The following code enables commit statistics logging for all transactions by setting `database.log_commit_stats = True` . The code also implements a sample logger that keeps a reference to the last seen commit response. The `mutation_count` is then retrieved from this response and displayed.
 
     def log_commit_stats(instance_id, database_id):
         """Inserts sample data using DML and displays the commit statistics."""
@@ -348,7 +348,7 @@ The following code enables commit statistics logging for all transactions by set
 
 ### Ruby
 
-The following code sets the `  return_commit_stats  ` flag and returns a mutation count of 6, because we are inserting or updating 2 rows and 3 columns in each row.
+The following code sets the `return_commit_stats` flag and returns a mutation count of 6, because we are inserting or updating 2 rows and 3 columns in each row.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"

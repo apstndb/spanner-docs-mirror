@@ -6,7 +6,7 @@ See the complete sequence DDL syntax reference for ( [GoogleSQL-dialect database
 
 ## Create a sequence
 
-The following code example creates a sequence `  Seq  ` , uses it in the primary key default value of the table `  Customers  ` , and inserts three new rows into the `  Customers  ` table.
+The following code example creates a sequence `Seq` , uses it in the primary key default value of the table `Customers` , and inserts three new rows into the `Customers` table.
 
 ### GoogleSQL
 
@@ -1025,7 +1025,7 @@ The following code example creates a sequence `  Seq  ` , uses it in the primary
 
 ## Alter a sequence
 
-The following code example alters the sequence `  Seq  ` to skip a value range from 1,000 to 5 million. It then inserts three new rows into the `  Customers  ` table.
+The following code example alters the sequence `Seq` to skip a value range from 1,000 to 5 million. It then inserts three new rows into the `Customers` table.
 
 ### GoogleSQL
 
@@ -1991,7 +1991,7 @@ The following code example alters the sequence `  Seq  ` to skip a value range f
 
 ## Drop a sequence
 
-The following code example alters the table `  Customers  ` to remove the sequence `  Seq  ` from the primary key default value, and then drops the sequence `  Seq  ` .
+The following code example alters the table `Customers` to remove the sequence `Seq` from the primary key default value, and then drops the sequence `Seq` .
 
 ### GoogleSQL
 

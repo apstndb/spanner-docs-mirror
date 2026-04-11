@@ -36,7 +36,7 @@ For more information, see the [Spanner Spring Data R2DBC GitHub repository](http
 
 Regardless of which R2DBC dependency you use, if your application is based on Spring Boot, the framework will attempt to automatically configure and provide a connection factory for you.
 
-Provide a `  spring.r2dbc.url  ` property to let autoconfiguration take care of R2DBC connection factory configuration. The format is shown in the following sample `  application.properties  ` entry:
+Provide a `spring.r2dbc.url` property to let autoconfiguration take care of R2DBC connection factory configuration. The format is shown in the following sample `application.properties` entry:
 
     spring.r2dbc.url=\
     r2dbc:cloudspanner://spanner.googleapis.com:443/projects/${project}/instances/${instance}/databases/${database}

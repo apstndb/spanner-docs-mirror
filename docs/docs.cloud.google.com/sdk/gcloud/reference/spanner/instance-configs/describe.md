@@ -4,7 +4,7 @@ gcloud spanner instance-configs describe - describe a Cloud Spanner instance con
 
 SYNOPSIS
 
-`  gcloud spanner instance-configs describe  ` `  INSTANCE_CONFIG  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instance-configs describe` `  INSTANCE_CONFIG  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -33,7 +33,7 @@ GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

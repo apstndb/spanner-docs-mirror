@@ -6,17 +6,17 @@ For information about access to this release, see the [access request page](http
 
 **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
-This document describes how to test a context set and update the context set file. You can test a context set's ability to generate SQL queries from natural language questions. If a generated query is not accurate, you can update the context set file.
+This document describes how to test QueryData and update the context set file. You can test QueryData's ability to generate SQL queries from natural language questions. If a generated query is not accurate, you can update the context set file.
 
-To learn about context sets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
+To learn about context sets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview) .
 
 ## Before you begin
 
 Make sure that a context set is already created and the context set file is uploaded to the QueryData agent. For more information, see [Manage context sets in Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents)
 
-## Test a context set
+## Test QueryData
 
-To test a context set, perform the following steps:
+To test a QueryData, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
     
@@ -50,7 +50,7 @@ To download and update a context set, perform the following steps:
 6.  Click **Browse** in the **Upload context set file** section, and select the updated context set file.
 7.  Click **Save** to update the context set.
 
-After you are satisfied with the accuracy of your responses, you can use the `  QueryData  ` endpoint to connect your application to the context set.
+After you are satisfied with the accuracy of your responses, you can use the `QueryData` endpoint to connect your application to the context set.
 
 **Note:** After you upload the updated context set file, it overwrites the existing context set.
 
@@ -70,17 +70,17 @@ To connect a data application to the QueryData agent, you need the context set's
 
 5.  Click **Edit context set** .
 
-6.  Note the context ID in **Context set ID** . The context set ID format is similar to `  projects/data-agents-project/locations/us-east1/contextSets/bdf_pg_all_templates  ` .
+6.  Note the context ID in **Context set ID** . The context set ID format is similar to `projects/data-agents-project/locations/us-east1/contextSets/bdf_pg_all_templates` .
 
-## Connect the context set to application
+## Connect QueryData to application
 
-Set the context set ID in the `  QueryData  ` method call to provide authored context for database data sources such as AlloyDB, Spanner, Cloud SQL, and Cloud SQL for PostgreSQL. For more information, see [Define data agent context for database data sources](https://docs.cloud.google.com/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases)
+Set the context set ID in the `QueryData` method call to provide authored context for database data sources such as AlloyDB, Spanner, Cloud SQL, and Cloud SQL for PostgreSQL. For more information, see [Define data agent context for database data sources](https://docs.cloud.google.com/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases)
 
-After testing the context set, you can reference the database data source in your `  QueryData  ` call.
+After testing the context set, you can reference the database data source in your `QueryData` call.
 
-### Example `     QueryData    ` request with authored context
+### Example `QueryData` request with authored context
 
-The following example shows a `  QueryData  ` request using `  spanner_reference  ` database data source. The `  agent_context_reference.context_set_id  ` field is used to link to pre-authored context stored in the database.
+The following example shows a `QueryData` request using `spanner_reference` database data source. The `agent_context_reference.context_set_id` field is used to link to pre-authored context stored in the database.
 
     {
       "parent": "projects/context-set-project/locations/us-central1",
@@ -113,27 +113,27 @@ The following example shows a `  QueryData  ` request using `  spanner_reference
 
 The request body contains the following fields:
 
-  - `  prompt  ` : The natural language question from the end user.
-  - `  context  ` : Contains information about the data sources.
-      - `  datasource_references  ` : Specifies the data source type.
-          - `  spanner_reference  ` : Required when querying the database. This field changes based on the database you are querying.
-              - `  database_reference  ` : Specifies information related to your database instance.
-                  - `  engine  ` : The SQL dialect of the database. Set to `  GOOGLE_SQL  ` for Spanner databases.
-                  - `  project_id  ` : The project ID of the database instance.
-                  - `  region  ` : The region of the Spanner instance.
-                  - `  instance_id  ` : The instance ID of the Spanner instance.
-                  - `  database_id  ` : The ID of the database.
-              - `  agent_context_reference  ` : Links to authored context in the database.
-                  - `  context_set_id  ` : The complete context set ID of the context stored in the database. For example, `  projects/context-set-project/locations/us-east1/contextSets/bdf_gsql_gemini_all_templates  ` .
-  - `  generationOptions  ` : Configures the type of output to generate.
-      - `  generate_query_result  ` : Set to true to generate and return the query results.
-      - `  generate_natural_language_answer  ` : Optional. If set to true, generates a natural language answer.
-      - `  generate_explanation  ` : Optional. If set to true, generates an explanation of the SQL query.
-      - `  generate_disambiguation_question  ` : Optional. If set to true, generates disambiguation questions if the query is ambiguous.
+  - `prompt` : The natural language question from the end user.
+  - `context` : Contains information about the data sources.
+      - `datasource_references` : Specifies the data source type.
+          - `spanner_reference` : Required when querying the database. This field changes based on the database you are querying.
+              - `database_reference` : Specifies information related to your database instance.
+                  - `engine` : The SQL dialect of the database. Set to `GOOGLE_SQL` for Spanner databases.
+                  - `project_id` : The project ID of the database instance.
+                  - `region` : The region of the Spanner instance.
+                  - `instance_id` : The instance ID of the Spanner instance.
+                  - `database_id` : The ID of the database.
+              - `agent_context_reference` : Links to authored context in the database.
+                  - `context_set_id` : The complete context set ID of the context stored in the database. For example, `projects/context-set-project/locations/us-east1/contextSets/bdf_gsql_gemini_all_templates` .
+  - `generationOptions` : Configures the type of output to generate.
+      - `generate_query_result` : Set to true to generate and return the query results.
+      - `generate_natural_language_answer` : Optional. If set to true, generates a natural language answer.
+      - `generate_explanation` : Optional. If set to true, generates an explanation of the SQL query.
+      - `generate_disambiguation_question` : Optional. If set to true, generates disambiguation questions if the query is ambiguous.
 
-### Example `     QueryData    ` response
+### Example `QueryData` response
 
-Here is an example of a successful response from a `  QueryData  ` call:
+Here is an example of a successful response from a `QueryData` call:
 
     {
       "generated_query": "-- Count the number of accounts in Prague that are eligible for loans\nSELECT\n  COUNT(DISTINCT \"loans\".\"account_id\")\nFROM \"loans\"\nJOIN \"district\" -- Join based on district ID\n  ON \"loans\".\"district_id\" = \"district\".\"district_id\"\nWHERE\n  \"district\".\"A3\" = 'Prague'; -- Filter for the Prague region",
@@ -160,6 +160,6 @@ Here is an example of a successful response from a `  QueryData  ` call:
 
 ## What's next
 
-  - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
+  - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/context-sets-overview) .
   - Learn how to [build contexts using Gemini CLI](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli)
   - Learn how to [Manage context sets in Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents)

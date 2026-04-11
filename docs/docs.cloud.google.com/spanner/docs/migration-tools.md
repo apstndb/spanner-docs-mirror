@@ -39,12 +39,12 @@ The following table recommends migration tools based on the migration stage and 
 <tbody>
 <tr class="odd">
 <td>Assessment</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code dir="ltr" translate="no">       mysqldump      </code> .</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code dir="ltr" translate="no">       mysqldump      </code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code dir="ltr" translate="no">mysqldump</code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code dir="ltr" translate="no">mysqldump</code> .</td>
 </tr>
 <tr class="even">
 <td>Schema conversion</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code dir="ltr" translate="no">       mysqldump      </code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code dir="ltr" translate="no">mysqldump</code> .</td>
 <td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/ui/schema-conv">SMT</a> to configure and convert schema.</td>
 </tr>
 <tr class="odd">
@@ -96,12 +96,12 @@ The following table recommends migration tools based on the migration stage and 
 <tbody>
 <tr class="odd">
 <td>Assessment</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/postgres.html#using-spanner-migration-tool-with-pg_dump">SMT</a> with <code dir="ltr" translate="no">       pg_dump      </code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/postgres.html#using-spanner-migration-tool-with-pg_dump">SMT</a> with <code dir="ltr" translate="no">pg_dump</code> .</td>
 <td>Use <a href="https://googlecloudplatform.github.io/database-assessment/">DMA</a> .</td>
 </tr>
 <tr class="even">
 <td>Schema conversion</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/postgres.html#using-spanner-migration-tool-with-pg_dump">SMT</a> with <code dir="ltr" translate="no">       pg_dump      </code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/postgres.html#using-spanner-migration-tool-with-pg_dump">SMT</a> with <code dir="ltr" translate="no">pg_dump</code> .</td>
 <td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/ui/schema-conv">SMT</a> to configure and convert schema.</td>
 </tr>
 <tr class="odd">

@@ -8,7 +8,7 @@ This tutorial walks you through the following steps using the [gcloud CLI](https
 
 The procedures on this page apply to both GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
-For the complete Spanner `  gcloud  ` reference, see [gcloud](https://docs.cloud.google.com/sdk/gcloud/reference/spanner) .
+For the complete Spanner `gcloud` reference, see [gcloud](https://docs.cloud.google.com/sdk/gcloud/reference/spanner) .
 
 **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
@@ -20,7 +20,7 @@ This tutorial uses Spanner, which is a billable component of Google Cloud. For i
 
 Complete the steps described in [Install the gcloud CLI and set up the Cloud Spanner API](https://docs.cloud.google.com/spanner/docs/getting-started/set-up) , which covers creating and setting a default Google Cloud project, enabling billing, enabling the Cloud Spanner API, and setting up OAuth 2.0 to get authentication credentials to use the Cloud Spanner API.
 
-In particular, ensure that you run [`  gcloud auth application-default login  `](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
+In particular, ensure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
 ## Set a default project
 
@@ -28,7 +28,7 @@ If you haven't already done so, set the ID of a Google Cloud project as the defa
 
     gcloud config set project PROJECT_ID
 
-If you don't set the default project, you must pass `  --project PROJECT_ID  ` to each of the commands below as the first argument to `  gcloud  ` . For example:
+If you don't set the default project, you must pass `--project PROJECT_ID` to each of the commands below as the first argument to `gcloud` . For example:
 
     gcloud --project=PROJECT_ID spanner instance-configs list
 
@@ -52,14 +52,14 @@ You should see a list of regional, dual-region, and multi-region configurations.
 
 ### Create an instance
 
-To create an instance named `  test-instance  ` with the display name `  My Instance  ` using the regional instance configuration `  regional-us-central1  ` with 1 nodes:
+To create an instance named `test-instance` with the display name `My Instance` using the regional instance configuration `regional-us-central1` with 1 nodes:
 
     gcloud spanner instances create test-instance --config=regional-us-central1 \
         --description="My Instance" --nodes=1
 
-In the command above, the instance name is set to `  test-instance  ` and `  --description  ` sets the display name of the instance. Both of these values must be unique within a Google Cloud Platform project.
+In the command above, the instance name is set to `test-instance` and `--description` sets the display name of the instance. Both of these values must be unique within a Google Cloud Platform project.
 
-**Note:** Use the instance ID, not the display name, when referring to an instance in `  gcloud  ` commands.
+**Note:** Use the instance ID, not the display name, when referring to an instance in `gcloud` commands.
 
 ### Set the default instance
 
@@ -69,7 +69,7 @@ You can set the default instance that Spanner uses when you have not specified a
 
 ## Create a database
 
-Create a database named `  example-db  ` . The database dialect defaults to GoogleSQL.
+Create a database named `example-db` . The database dialect defaults to GoogleSQL.
 
 ### GoogleSQL
 
@@ -101,7 +101,7 @@ Let's create two tables:
     gcloud spanner databases ddl update example-db \
     --ddl='CREATE TABLE Albums ( SingerId bigint NOT NULL, AlbumId bigint NOT NULL, AlbumTitle varchar, PRIMARY KEY (SingerId, AlbumId) ) INTERLEAVE IN PARENT Singers ON DELETE CASCADE'
 
-To check the progress of the operation, use [`  gcloud spanner operations describe  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) . This command requires the operation ID.
+To check the progress of the operation, use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) . This command requires the operation ID.
 
 Get the operation ID:
 
@@ -110,7 +110,7 @@ Get the operation ID:
 
 Replace DATABASE-NAME with the name of the database.
 
-Run `  gcloud spanner operations describe  ` :
+Run `gcloud spanner operations describe` :
 
     gcloud spanner operations describe \
       --instance="test-instance" \
@@ -166,7 +166,7 @@ Let's add some sample data to our database
       --table=Albums \
       --data=^:^SingerId=2:AlbumId=2:AlbumTitle="Go, Go, Go"
 
-By default, a comma is used to delimit items in lists. In the last insert command, we specified a colon ( `  ^:^  ` ) as the delimiter so that we could use a comma in the album title.
+By default, a comma is used to delimit items in lists. In the last insert command, we specified a colon ( `^:^` ) as the delimiter so that we could use a comma in the album title.
 
 ### PostgreSQL
 
@@ -199,7 +199,7 @@ Execute a query on the command line:
 
 For the Spanner SQL reference, see [Query syntax for GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Query syntax for PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax) .
 
-To see a list of flags you can use with the `  execute-sql  ` command, see [gcloud spanner databases execute-sql](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) .
+To see a list of flags you can use with the `execute-sql` command, see [gcloud spanner databases execute-sql](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) .
 
 ## Cleanup
 

@@ -2,32 +2,32 @@ GoogleSQL for Spanner supports the following Net functions.
 
 ## Function list
 
-| Name                                                                                                                                                 | Summary                                                                                                                                       |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`         NET.HOST        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#nethost)                               | Gets the hostname from a URL.                                                                                                                 |
-| [`         NET.IP_FROM_STRING        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_from_string)           | Converts an IPv4 or IPv6 address from a `        STRING       ` value to a `        BYTES       ` value in network byte order.                |
-| [`         NET.IP_NET_MASK        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_net_mask)                 | Gets a network mask.                                                                                                                          |
-| [`         NET.IP_TO_STRING        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_to_string)               | Converts an IPv4 or IPv6 address from a `        BYTES       ` value in network byte order to a `        STRING       ` value.                |
-| [`         NET.IP_TRUNC        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_trunc)                       | Converts a `        BYTES       ` IPv4 or IPv6 address in network byte order to a `        BYTES       ` subnet address.                      |
-| [`         NET.IPV4_FROM_INT64        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netipv4_from_int64)         | Converts an IPv4 address from an `        INT64       ` value to a `        BYTES       ` value in network byte order.                        |
-| [`         NET.IPV4_TO_INT64        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netipv4_to_int64)             | Converts an IPv4 address from a `        BYTES       ` value in network byte order to an `        INT64       ` value.                        |
-| [`         NET.PUBLIC_SUFFIX        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netpublic_suffix)             | Gets the public suffix from a URL.                                                                                                            |
-| [`         NET.REG_DOMAIN        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netreg_domain)                   | Gets the registered or registrable domain from a URL.                                                                                         |
-| [`         NET.SAFE_IP_FROM_STRING        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netsafe_ip_from_string) | Similar to the `        NET.IP_FROM_STRING       ` , but returns `        NULL       ` instead of producing an error if the input is invalid. |
+| Name                                                                                                                                | Summary                                                                                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| [`NET.HOST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#nethost)                               | Gets the hostname from a URL.                                                                                   |
+| [`NET.IP_FROM_STRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_from_string)           | Converts an IPv4 or IPv6 address from a `STRING` value to a `BYTES` value in network byte order.                |
+| [`NET.IP_NET_MASK`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_net_mask)                 | Gets a network mask.                                                                                            |
+| [`NET.IP_TO_STRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_to_string)               | Converts an IPv4 or IPv6 address from a `BYTES` value in network byte order to a `STRING` value.                |
+| [`NET.IP_TRUNC`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_trunc)                       | Converts a `BYTES` IPv4 or IPv6 address in network byte order to a `BYTES` subnet address.                      |
+| [`NET.IPV4_FROM_INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netipv4_from_int64)         | Converts an IPv4 address from an `INT64` value to a `BYTES` value in network byte order.                        |
+| [`NET.IPV4_TO_INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netipv4_to_int64)             | Converts an IPv4 address from a `BYTES` value in network byte order to an `INT64` value.                        |
+| [`NET.PUBLIC_SUFFIX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netpublic_suffix)             | Gets the public suffix from a URL.                                                                              |
+| [`NET.REG_DOMAIN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netreg_domain)                   | Gets the registered or registrable domain from a URL.                                                           |
+| [`NET.SAFE_IP_FROM_STRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netsafe_ip_from_string) | Similar to the `NET.IP_FROM_STRING` , but returns `NULL` instead of producing an error if the input is invalid. |
 
-## `     NET.HOST    `
+## `NET.HOST`
 
     NET.HOST(url)
 
 **Description**
 
-Takes a URL as a `  STRING  ` value and returns the host. For best results, URL values should comply with the format as defined by [RFC 3986](https://tools.ietf.org/html/rfc3986#appendix-A) . If the URL value doesn't comply with RFC 3986 formatting, this function makes a best effort to parse the input and return a relevant result. If the function can't parse the input, it returns `  NULL  ` .
+Takes a URL as a `STRING` value and returns the host. For best results, URL values should comply with the format as defined by [RFC 3986](https://tools.ietf.org/html/rfc3986#appendix-A) . If the URL value doesn't comply with RFC 3986 formatting, this function makes a best effort to parse the input and return a relevant result. If the function can't parse the input, it returns `NULL` .
 
 **Note:** The function doesn't perform any normalization.
 
 **Return Data Type**
 
-`  STRING  `
+`STRING`
 
 **Example**
 
@@ -59,7 +59,7 @@ Takes a URL as a `  STRING  ` value and returns the host. For best results, URL 
 | " www.Example.Co.UK "               | non-standard URL with spaces, upper case letters, and without scheme          | "www.Example.Co.UK" | "Co.UK" | "Example.Co.UK" |
 | "mailto:?to=\&subject=\&body="      | URI rather than URL--unsupported                                              | "mailto"            | NULL    | NULL            |
 
-## `     NET.IP_FROM_STRING    `
+## `NET.IP_FROM_STRING`
 
     NET.IP_FROM_STRING(addr_str)
 
@@ -67,14 +67,14 @@ Takes a URL as a `  STRING  ` value and returns the host. For best results, URL 
 
 Converts an IPv4 or IPv6 address from text (STRING) format to binary (BYTES) format in network byte order.
 
-This function supports the following formats for `  addr_str  ` :
+This function supports the following formats for `addr_str` :
 
-  - IPv4: Dotted-quad format. For example, `  10.1.2.3  ` .
-  - IPv6: Colon-separated format. For example, `  1234:5678:90ab:cdef:1234:5678:90ab:cdef  ` . For more examples, see the [IP Version 6 Addressing Architecture](http://www.ietf.org/rfc/rfc2373.txt) .
+  - IPv4: Dotted-quad format. For example, `10.1.2.3` .
+  - IPv6: Colon-separated format. For example, `1234:5678:90ab:cdef:1234:5678:90ab:cdef` . For more examples, see the [IP Version 6 Addressing Architecture](http://www.ietf.org/rfc/rfc2373.txt) .
 
-This function doesn't support [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) , such as `  10.1.2.3/32  ` .
+This function doesn't support [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) , such as `10.1.2.3/32` .
 
-If this function receives a `  NULL  ` input, it returns `  NULL  ` . If the input is considered invalid, an `  OUT_OF_RANGE  ` error occurs.
+If this function receives a `NULL` input, it returns `NULL` . If the input is considered invalid, an `OUT_OF_RANGE` error occurs.
 
 **Return Data Type**
 
@@ -100,13 +100,13 @@ BYTES
      | ::ffff:192.0.2.128                      | b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xc0\x00\x02\x80" |
      +---------------------------------------------------------------------------------------------------------------*/
 
-## `     NET.IP_NET_MASK    `
+## `NET.IP_NET_MASK`
 
     NET.IP_NET_MASK(num_output_bytes, prefix_length)
 
 **Description**
 
-Returns a network mask: a byte sequence with length equal to `  num_output_bytes  ` , where the first `  prefix_length  ` bits are set to 1 and the other bits are set to 0. `  num_output_bytes  ` and `  prefix_length  ` are INT64. This function throws an error if `  num_output_bytes  ` isn't 4 (for IPv4) or 16 (for IPv6). It also throws an error if `  prefix_length  ` is negative or greater than `  8 * num_output_bytes  ` .
+Returns a network mask: a byte sequence with length equal to `num_output_bytes` , where the first `prefix_length` bits are set to 1 and the other bits are set to 0. `num_output_bytes` and `prefix_length` are INT64. This function throws an error if `num_output_bytes` isn't 4 (for IPv4) or 16 (for IPv6). It also throws an error if `prefix_length` is negative or greater than `8 * num_output_bytes` .
 
 **Return Data Type**
 
@@ -135,7 +135,7 @@ BYTES
      | 16 | 128 | b"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff" |
      +--------------------------------------------------------------------------------*/
 
-## `     NET.IP_TO_STRING    `
+## `NET.IP_TO_STRING`
 
     NET.IP_TO_STRING(addr_bin)
 
@@ -143,7 +143,7 @@ BYTES
 
 If the input is 4 bytes, this function returns an IPv4 address as a STRING. If the input is 16 bytes, it returns an IPv6 address as a STRING.
 
-If this function receives a `  NULL  ` input, it returns `  NULL  ` . If the input has a length different from 4 or 16, an `  OUT_OF_RANGE  ` error occurs.
+If this function receives a `NULL` input, it returns `NULL` . If the input has a length different from 4 or 16, an `OUT_OF_RANGE` error occurs.
 
 **Return Data Type**
 
@@ -168,13 +168,13 @@ STRING
      | b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xc0\x00\x02\x80" | ::ffff:192.0.2.128                      |
      +---------------------------------------------------------------------------------------------------------------*/
 
-## `     NET.IP_TRUNC    `
+## `NET.IP_TRUNC`
 
     NET.IP_TRUNC(addr_bin, prefix_length)
 
-**Description** Takes `  addr_bin  ` , an IPv4 or IPv6 address in binary (BYTES) format in network byte order, and returns a subnet address in the same format. The result has the same length as `  addr_bin  ` , where the first `  prefix_length  ` bits are equal to those in `  addr_bin  ` and the remaining bits are 0.
+**Description** Takes `addr_bin` , an IPv4 or IPv6 address in binary (BYTES) format in network byte order, and returns a subnet address in the same format. The result has the same length as `addr_bin` , where the first `prefix_length` bits are equal to those in `addr_bin` and the remaining bits are 0.
 
-This function throws an error if `  LENGTH(addr_bin)  ` isn't 4 or 16, or if `  prefix_len  ` is negative or greater than `  LENGTH(addr_bin) * 8  ` .
+This function throws an error if `LENGTH(addr_bin)` isn't 4 or 16, or if `prefix_len` is negative or greater than `LENGTH(addr_bin) * 8` .
 
 **Return Data Type**
 
@@ -203,15 +203,15 @@ BYTES
      | b"0123456789@ABCDE" | 80            | b"0123456789\x00\x00\x00\x00\x00\x00" |
      +-----------------------------------------------------------------------------*/
 
-## `     NET.IPV4_FROM_INT64    `
+## `NET.IPV4_FROM_INT64`
 
     NET.IPV4_FROM_INT64(integer_value)
 
 **Description**
 
-Converts an IPv4 address from integer format to binary (BYTES) format in network byte order. In the integer input, the least significant bit of the IP address is stored in the least significant bit of the integer, regardless of host or client architecture. For example, `  1  ` means `  0.0.0.1  ` , and `  0x1FF  ` means `  0.0.1.255  ` .
+Converts an IPv4 address from integer format to binary (BYTES) format in network byte order. In the integer input, the least significant bit of the IP address is stored in the least significant bit of the integer, regardless of host or client architecture. For example, `1` means `0.0.0.1` , and `0x1FF` means `0.0.1.255` .
 
-This function checks that either all the most significant 32 bits are 0, or all the most significant 33 bits are 1 (sign-extended from a 32-bit integer). In other words, the input should be in the range `  [-0x80000000, 0xFFFFFFFF]  ` ; otherwise, this function throws an error.
+This function checks that either all the most significant 32 bits are 0, or all the most significant 33 bits are 1 (sign-extended from a 32-bit integer). In other words, the input should be in the range `[-0x80000000, 0xFFFFFFFF]` ; otherwise, this function throws an error.
 
 This function doesn't support IPv6.
 
@@ -237,13 +237,13 @@ BYTES
      | -2         | -0x2       | b"\xff\xff\xff\xfe" |
      +-----------------------------------------------*/
 
-## `     NET.IPV4_TO_INT64    `
+## `NET.IPV4_TO_INT64`
 
     NET.IPV4_TO_INT64(addr_bin)
 
 **Description**
 
-Converts an IPv4 address from binary (BYTES) format in network byte order to integer format. In the integer output, the least significant bit of the IP address is stored in the least significant bit of the integer, regardless of host or client architecture. For example, `  1  ` means `  0.0.0.1  ` , and `  0x1FF  ` means `  0.0.1.255  ` . The output is in the range `  [0, 0xFFFFFFFF]  ` .
+Converts an IPv4 address from binary (BYTES) format in network byte order to integer format. In the integer output, the least significant bit of the IP address is stored in the least significant bit of the integer, regardless of host or client architecture. For example, `1` means `0.0.0.1` , and `0x1FF` means `0.0.1.255` . The output is in the range `[0, 0xFFFFFFFF]` .
 
 If the input length isn't 4, this function throws an error.
 
@@ -269,15 +269,15 @@ INT64
      | b"\xff\xff\xff\xff" | 0xFFFFFFFF    |
      +-------------------------------------*/
 
-## `     NET.PUBLIC_SUFFIX    `
+## `NET.PUBLIC_SUFFIX`
 
     NET.PUBLIC_SUFFIX(url)
 
 **Description**
 
-Takes a URL as a `  STRING  ` value and returns the public suffix (such as `  com  ` , `  org  ` , or `  net  ` ). A public suffix is an ICANN domain registered at [publicsuffix.org](https://publicsuffix.org/list/) . For best results, URL values should comply with the format as defined by [RFC 3986](https://tools.ietf.org/html/rfc3986#appendix-A) . If the URL value doesn't comply with RFC 3986 formatting, this function makes a best effort to parse the input and return a relevant result.
+Takes a URL as a `STRING` value and returns the public suffix (such as `com` , `org` , or `net` ). A public suffix is an ICANN domain registered at [publicsuffix.org](https://publicsuffix.org/list/) . For best results, URL values should comply with the format as defined by [RFC 3986](https://tools.ietf.org/html/rfc3986#appendix-A) . If the URL value doesn't comply with RFC 3986 formatting, this function makes a best effort to parse the input and return a relevant result.
 
-This function returns `  NULL  ` if any of the following is true:
+This function returns `NULL` if any of the following is true:
 
   - It can't parse the host from the input;
   - The parsed host contains adjacent dots in the middle (not leading or trailing);
@@ -289,11 +289,11 @@ Before looking up the public suffix, this function temporarily normalizes the ho
 
 **Note:** The public suffix data at [publicsuffix.org](https://publicsuffix.org/list/) also contains private domains. This function ignores the private domains.
 
-**Note:** The public suffix data may change over time. Consequently, input that produces a `  NULL  ` result now may produce a non- `  NULL  ` value in the future.
+**Note:** The public suffix data may change over time. Consequently, input that produces a `NULL` result now may produce a non- `NULL` value in the future.
 
 **Return Data Type**
 
-`  STRING  `
+`STRING`
 
 **Example**
 
@@ -325,7 +325,7 @@ Before looking up the public suffix, this function temporarily normalizes the ho
 | " www.Example.Co.UK "               | non-standard URL with spaces, upper case letters, and without scheme          | "www.Example.Co.UK" | "Co.UK" | "Example.Co.UK |
 | "mailto:?to=\&subject=\&body="      | URI rather than URL--unsupported                                              | "mailto"            | NULL    | NULL           |
 
-## `     NET.REG_DOMAIN    `
+## `NET.REG_DOMAIN`
 
     NET.REG_DOMAIN(url)
 
@@ -333,7 +333,7 @@ Before looking up the public suffix, this function temporarily normalizes the ho
 
 Takes a URL as a string and returns the registered or registrable domain (the [public suffix](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netpublic_suffix) plus one preceding label), as a string. For best results, URL values should comply with the format as defined by [RFC 3986](https://tools.ietf.org/html/rfc3986#appendix-A) . If the URL value doesn't comply with RFC 3986 formatting, this function makes a best effort to parse the input and return a relevant result.
 
-This function returns `  NULL  ` if any of the following is true:
+This function returns `NULL` if any of the following is true:
 
   - It can't parse the host from the input;
   - The parsed host contains adjacent dots in the middle (not leading or trailing);
@@ -344,13 +344,13 @@ Before looking up the public suffix, this function temporarily normalizes the ho
 
 **Note:** The function doesn't perform [Unicode normalization](https://en.wikipedia.org/wiki/Unicode_equivalence) .
 
-**Note:** The public suffix data at [publicsuffix.org](https://publicsuffix.org/list/) also contains private domains. This function doesn't treat a private domain as a public suffix. For example, if `  us.com  ` is a private domain in the public suffix data, `  NET.REG_DOMAIN("foo.us.com")  ` returns `  us.com  ` (the public suffix `  com  ` plus the preceding label `  us  ` ) rather than `  foo.us.com  ` (the private domain `  us.com  ` plus the preceding label `  foo  ` ).
+**Note:** The public suffix data at [publicsuffix.org](https://publicsuffix.org/list/) also contains private domains. This function doesn't treat a private domain as a public suffix. For example, if `us.com` is a private domain in the public suffix data, `NET.REG_DOMAIN("foo.us.com")` returns `us.com` (the public suffix `com` plus the preceding label `us` ) rather than `foo.us.com` (the private domain `us.com` plus the preceding label `foo` ).
 
-**Note:** The public suffix data may change over time. Consequently, input that produces a `  NULL  ` result now may produce a non- `  NULL  ` value in the future.
+**Note:** The public suffix data may change over time. Consequently, input that produces a `NULL` result now may produce a non- `NULL` value in the future.
 
 **Return Data Type**
 
-`  STRING  `
+`STRING`
 
 **Example**
 
@@ -382,13 +382,13 @@ Before looking up the public suffix, this function temporarily normalizes the ho
 | " www.Example.Co.UK "               | non-standard URL with spaces, upper case letters, and without scheme          | "www.Example.Co.UK" | "Co.UK" | "Example.Co.UK" |
 | "mailto:?to=\&subject=\&body="      | URI rather than URL--unsupported                                              | "mailto"            | NULL    | NULL            |
 
-## `     NET.SAFE_IP_FROM_STRING    `
+## `NET.SAFE_IP_FROM_STRING`
 
     NET.SAFE_IP_FROM_STRING(addr_str)
 
 **Description**
 
-Similar to [`  NET.IP_FROM_STRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_from_string) , but returns `  NULL  ` instead of throwing an error if the input is invalid.
+Similar to [`NET.IP_FROM_STRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions#netip_from_string) , but returns `NULL` instead of throwing an error if the input is invalid.
 
 **Return Data Type**
 

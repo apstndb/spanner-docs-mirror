@@ -4,59 +4,59 @@ gcloud beta spanner databases - manage Cloud Spanner databases
 
 SYNOPSIS
 
-`  gcloud beta spanner databases  ` `  GROUP  ` | `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner databases` `  GROUP  ` | `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage Cloud Spanner databases.
+`(BETA)` Manage Cloud Spanner databases.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 GROUPS
 
 `  GROUP  ` is one of the following:
 
   - `  ddl  `  
-    `  (BETA)  ` Manage the DDL for Cloud Spanner databases.
+    `(BETA)` Manage the DDL for Cloud Spanner databases.
   - `  roles  `  
-    `  (BETA)  ` Manage Cloud Spanner database roles.
+    `(BETA)` Manage Cloud Spanner database roles.
   - `  sessions  `  
-    `  (BETA)  ` Manage the sessions for Cloud Spanner databases.
+    `(BETA)` Manage the sessions for Cloud Spanner databases.
   - `  splits  `  
-    `  (BETA)  ` Manage the split points for Spanner databases.
+    `(BETA)` Manage the split points for Spanner databases.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  add-iam-policy-binding  `  
-    `  (BETA)  ` Add IAM policy binding to a Cloud Spanner database.
+    `(BETA)` Add IAM policy binding to a Cloud Spanner database.
   - `  change-quorum  `  
-    `  (BETA)  ` Change quorum of a Cloud Spanner database.
+    `(BETA)` Change quorum of a Cloud Spanner database.
   - `  create  `  
-    `  (BETA)  ` Create a Cloud Spanner database.
+    `(BETA)` Create a Cloud Spanner database.
   - `  delete  `  
-    `  (BETA)  ` Delete a Cloud Spanner database.
+    `(BETA)` Delete a Cloud Spanner database.
   - `  describe  `  
-    `  (BETA)  ` Describe a Cloud Spanner database.
+    `(BETA)` Describe a Cloud Spanner database.
   - `  execute-sql  `  
-    `  (BETA)  ` Executes a SQL query against a Cloud Spanner database.
+    `(BETA)` Executes a SQL query against a Cloud Spanner database.
   - `  get-iam-policy  `  
-    `  (BETA)  ` Get the IAM policy for a Cloud Spanner database.
+    `(BETA)` Get the IAM policy for a Cloud Spanner database.
   - `  list  `  
-    `  (BETA)  ` List the Cloud Spanner databases contained within the given instance.
+    `(BETA)` List the Cloud Spanner databases contained within the given instance.
   - `  remove-iam-policy-binding  `  
-    `  (BETA)  ` Remove IAM policy binding of a Cloud Spanner database.
+    `(BETA)` Remove IAM policy binding of a Cloud Spanner database.
   - `  restore  `  
-    `  (BETA)  ` Restore a Cloud Spanner database.
+    `(BETA)` Restore a Cloud Spanner database.
   - `  set-iam-policy  `  
-    `  (BETA)  ` Set the IAM policy for a Cloud Spanner database.
+    `(BETA)` Set the IAM policy for a Cloud Spanner database.
   - `  update  `  
-    `  (BETA)  ` Update a Cloud Spanner database.
+    `(BETA)` Update a Cloud Spanner database.
 
 NOTES
 

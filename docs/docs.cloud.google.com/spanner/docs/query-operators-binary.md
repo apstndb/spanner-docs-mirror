@@ -150,7 +150,7 @@ FROM   singers AS si;
  +-----------+--------------------------*/
 ```
 
-The query populates the first column from the `  Singers  ` table, and the second column from the `  Songs  ` table. In cases where a `  SingerId  ` existed in the `  Singers  ` table but there was no matching `  SingerId  ` in the `  Songs  ` table, the second column contains `  NULL  ` .
+The query populates the first column from the `Singers` table, and the second column from the `Songs` table. In cases where a `SingerId` existed in the `Singers` table but there was no matching `SingerId` in the `Songs` table, the second column contains `NULL` .
 
 The execution plan begins as follows:
 
@@ -158,7 +158,7 @@ The execution plan begins as follows:
 
 The top-level node is a [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) operator. The distributed union operator distributes sub plans to remote servers. The subplan contains a [serialize result](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result) operator that computes the singer's first name and the name of one of the singer's songs and serializes each row of the output.
 
-The serialize result operator receives its input from a cross apply operator. The input side for the cross apply operator is a table [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) on the `  Singers  ` table.
+The serialize result operator receives its input from a cross apply operator. The input side for the cross apply operator is a table [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) on the `Singers` table.
 
 The execution plan continues as follows:
 
@@ -166,11 +166,11 @@ The execution plan continues as follows:
 
 The map side for the cross apply operation contains the following (from top to bottom):
 
-  - An [aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate) operator that returns `  Songs.SongName  ` .
+  - An [aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate) operator that returns `Songs.SongName` .
   - A [limit](https://docs.cloud.google.com/spanner/docs/query-operators-unary#limit) operator that limits the number of songs returned to one per singer.
-  - An index [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) on the `  SongsBySingerAlbumSongNameDesc  ` index.
+  - An index [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) on the `SongsBySingerAlbumSongNameDesc` index.
 
-The cross apply operator maps each row from the input side to a row in the map side that has the same `  SingerId  ` . The cross apply operator output is the `  FirstName  ` value from the input row, and the `  SongName  ` value from the map row. (The `  SongName  ` value is `  NULL  ` if there is no map row that matches on `  SingerId  ` .) The distributed union operator at the top of the execution plan then combines all of the output rows from the remote servers and returns them as the query results.
+The cross apply operator maps each row from the input side to a row in the map side that has the same `SingerId` . The cross apply operator output is the `FirstName` value from the input row, and the `SongName` value from the map row. (The `SongName` value is `NULL` if there is no map row that matches on `SingerId` .) The distributed union operator at the top of the execution plan then combines all of the output rows from the remote servers and returns them as the query results.
 
 ### Outer apply
 
@@ -270,7 +270,7 @@ The execution plan segment appears as follows:
 
 ![Hash join operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/hash_join_operator.png)
 
-In the execution plan, *build* is a [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) that distributes [scans](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) on the table `  Albums  ` . *Probe* is a distributed union operator that distributes scans on the index `  SongsBySingerAlbumSongNameDesc  ` . The hash join operator reads all rows from the build side. Each build row is placed in a hash table based on the columns in the condition `  a.SingerId = s.SingerId AND a.AlbumId = s.AlbumId  ` . Next, the hash join operator reads all rows from the probe side. For each probe row, the hash join operator looks for matches in the hash table. The resulting matches are returned by the hash join operator.
+In the execution plan, *build* is a [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) that distributes [scans](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) on the table `Albums` . *Probe* is a distributed union operator that distributes scans on the index `SongsBySingerAlbumSongNameDesc` . The hash join operator reads all rows from the build side. Each build row is placed in a hash table based on the columns in the condition `a.SingerId = s.SingerId AND a.AlbumId = s.AlbumId` . Next, the hash join operator reads all rows from the probe side. For each probe row, the hash join operator looks for matches in the hash table. The resulting matches are returned by the hash join operator.
 
 Resulting matches in the hash table might also be filtered by a residual condition before they're returned. (An example of where residual conditions appear is in non-equality joins). Hash join execution plans can be complex due to memory management and join variants. The main hash join algorithm is adapted to handle inner, semi, anti, and outer join variants.
 
@@ -300,14 +300,14 @@ Execution statistics
 
 ## Merge join
 
-A *merge join* operator is a merge-based implementation of SQL join. Both sides of the join produce rows ordered by the columns used in the join condition. The merge join consumes both input streams concurrently and outputs rows when the join condition is satisfied. If inputs are not sorted, the optimizer adds explicit `  Sort  ` operators to the plan.
+A *merge join* operator is a merge-based implementation of SQL join. Both sides of the join produce rows ordered by the columns used in the join condition. The merge join consumes both input streams concurrently and outputs rows when the join condition is satisfied. If inputs are not sorted, the optimizer adds explicit `Sort` operators to the plan.
 
 *Merge join* has the following advantages:
 
   - If the data is already sorted, it doesn't need any memory.
   - Even if the data is not sorted, for a distributed join, it can perform the sort on each individual split, rather than creating a large hash table on the root.
 
-*Merge join* isn't selected automatically by the optimizer. To use this operator, set the join method to [`  MERGE_JOIN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join-methods) on the query hint, as shown in the following example:
+*Merge join* isn't selected automatically by the optimizer. To use this operator, set the join method to [`MERGE_JOIN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join-methods) on the query hint, as shown in the following example:
 
     SELECT a.albumtitle,
            s.songname
@@ -333,7 +333,7 @@ The execution plan appears as follows:
 
 ![Merge join operator 1 execution plan](https://docs.cloud.google.com/static/spanner/docs/images/merge_join_1.png)
 
-In this execution plan, the merge join is distributed so that the join executes where the data resides. This also lets the merge join in this example operate without additional sort operators, because both table scans are already sorted by `  SingerId  ` , `  AlbumId  ` , which is the join condition. In this plan, the left scan of the `  Albums  ` table advances whenever its `  SingerId  ` , `  AlbumId  ` is less than the right scan's `  SingerId_1  ` , `  AlbumId_1  ` values. Similarly, the right scan advances whenever its values are less than the left scan's values. This merge advance continues searching for equivalences to return matching rows.
+In this execution plan, the merge join is distributed so that the join executes where the data resides. This also lets the merge join in this example operate without additional sort operators, because both table scans are already sorted by `SingerId` , `AlbumId` , which is the join condition. In this plan, the left scan of the `Albums` table advances whenever its `SingerId` , `AlbumId` is less than the right scan's `SingerId_1` , `AlbumId_1` values. Similarly, the right scan advances whenever its values are less than the left scan's values. This merge advance continues searching for equivalences to return matching rows.
 
 Consider another *merge join* example using the following query:
 
@@ -384,7 +384,7 @@ The execution plan appears as follows:
 
 ![Merge join operator 2 execution plan](https://docs.cloud.google.com/static/spanner/docs/images/merge_join_2.png)
 
-In the preceding execution plan, the query optimizer introduced additional sort operators to execute the merge join. The `  JOIN  ` condition in this example query is only on `  AlbumId  ` , which isn't how the data is stored, so a sort must be added. The query engine supports a Distributed Merge algorithm, which lets the sort occur locally instead of globally, distributing and parallelizing the CPU cost.
+In the preceding execution plan, the query optimizer introduced additional sort operators to execute the merge join. The `JOIN` condition in this example query is only on `AlbumId` , which isn't how the data is stored, so a sort must be added. The query engine supports a Distributed Merge algorithm, which lets the sort occur locally instead of globally, distributing and parallelizing the CPU cost.
 
 The resulting matches might also be filtered by a residual condition. For example, residual conditions appear in non-equality joins. Merge join execution plans can be complex due to additional sort requirements. The main merge join algorithm handles inner, semi, anti, and outer join variants.
 
@@ -412,7 +412,7 @@ Execution statistics
 
 ## Recursive union
 
-A *recursive union* operator performs a union of two inputs, one that represents a `  base  ` case, and the other that represents a `  recursive  ` case. It's used in graph queries with quantified path traversals. The base input is processed first and exactly once. The recursive input is processed until the recursion terminates. The recursion terminates when the upper bound, if specified, is reached, or when the recursion doesn't produce any new results. In the following example, the `  Collaborations  ` table is added to the schema, and a property graph called `  MusicGraph  ` is created.
+A *recursive union* operator performs a union of two inputs, one that represents a `base` case, and the other that represents a `recursive` case. It's used in graph queries with quantified path traversals. The base input is processed first and exactly once. The recursive input is processed until the recursion terminates. The recursion terminates when the upper bound, if specified, is reached, or when the recursion doesn't produce any new results. In the following example, the `Collaborations` table is added to the schema, and a property graph called `MusicGraph` is created.
 
     CREATE TABLE Collaborations (
         SingerId INT64 NOT NULL,
@@ -450,7 +450,7 @@ The following graph query finds singers who have collaborated with a given singe
 
 ![Recursive union operator execution plan](https://docs.cloud.google.com/static/spanner/docs/images/recursiveunion.png)
 
-The *recursive union* operator filters the `  Singers  ` table to find the singer with the given `  SingerId  ` . This is the base input to the *recursive union* . The recursive input to the *recursive union* comprises a [*distributed cross apply*](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-cross-apply) or other join operator for other queries that repeatedly joins the `  Collaborations  ` table with the results of the previous iteration of the join. The rows from the base input form the zeroth iteration. At each iteration, the output of the iteration is stored by the *recursive spool scan* . Rows from the *recursive spool scan* are joined with the `  Collaborations  ` table on `  spoolscan.featuredSingerId = Collaborations.SingerId  ` . Recursion terminates when two iterations are complete, since that's the specified upper bound in the query.
+The *recursive union* operator filters the `Singers` table to find the singer with the given `SingerId` . This is the base input to the *recursive union* . The recursive input to the *recursive union* comprises a [*distributed cross apply*](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-cross-apply) or other join operator for other queries that repeatedly joins the `Collaborations` table with the results of the previous iteration of the join. The rows from the base input form the zeroth iteration. At each iteration, the output of the iteration is stored by the *recursive spool scan* . Rows from the *recursive spool scan* are joined with the `Collaborations` table on `spoolscan.featuredSingerId = Collaborations.SingerId` . Recursion terminates when two iterations are complete, since that's the specified upper bound in the query.
 
 #### Properties and execution statistics
 

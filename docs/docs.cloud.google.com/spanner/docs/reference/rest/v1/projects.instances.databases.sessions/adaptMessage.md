@@ -44,7 +44,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{name=projects/*/instances/*/databases/*/sessions/*}:adaptMessage  `
+`POST https://spanner.googleapis.com/v1/{name=projects/*/instances/*/databases/*/sessions/*}:adaptMessage`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -52,15 +52,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
 Required. The database session in which the adapter request is processed.
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  name  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `name` :
 
-  - `  spanner.databases.adapt  `
+  - `spanner.databases.adapt`
 
 ### Request body
 
@@ -91,23 +91,23 @@ The request body contains data with the following structure:
 
 Fields
 
-`  protocol  `
+`protocol`
 
-`  string  `
+`string`
 
 Required. Identifier for the underlying wire protocol.
 
-`  payload  `
+`payload`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
 Optional. Uninterpreted bytes from the underlying wire protocol.
 
 A base64-encoded string.
 
-`  attachments  `
+`attachments`
 
-`  map (key: string, value: string)  `
+`map (key: string, value: string)`
 
 Optional. Opaque request state passed by the client to the server.
 
@@ -142,23 +142,23 @@ If successful, the response body contains data with the following structure:
 
 Fields
 
-`  payload  `
+`payload`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
 Optional. Uninterpreted bytes from the underlying wire protocol.
 
 A base64-encoded string.
 
-`  stateUpdates  `
+`stateUpdates`
 
-`  map (key: string, value: string)  `
+`map (key: string, value: string)`
 
 Optional. Opaque state updates to be applied by the client.
 
-`  last  `
+`last`
 
-`  boolean  `
+`boolean`
 
 Optional. Indicates whether this is the last `  AdaptMessageResponse  ` in the stream. This field may be optionally set by the server. Clients should not rely on this field being set in all cases.
 
@@ -166,7 +166,7 @@ Optional. Indicates whether this is the last `  AdaptMessageResponse  ` in the s
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.data  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.data`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

@@ -19,13 +19,13 @@ Start the Docker container with the following command.
       -p 9020:9020 \
       gcr.io/cloud-spanner-pg-adapter/pgadapter-emulator
 
-You don't need to specify a project, instance, or database name when starting the container. It will by default use the project name `  emulator-project  ` and instance name `  test-instance  ` . Any database that you connect to is automatically created by PGAdapter.
+You don't need to specify a project, instance, or database name when starting the container. It will by default use the project name `emulator-project` and instance name `test-instance` . Any database that you connect to is automatically created by PGAdapter.
 
-You can connect to PGAdapter and execute statements with `  psql  ` with the following command.
+You can connect to PGAdapter and execute statements with `psql` with the following command.
 
     psql -h localhost -p 5432 -d test-database
 
-The database `  test-database  ` is automatically created. Execute these statements to verify that you are connected to a PostgreSQL-dialect database database:
+The database `test-database` is automatically created. Execute these statements to verify that you are connected to a PostgreSQL-dialect database database:
 
     create table my_table (
       id bigint not null primary key,
@@ -63,14 +63,14 @@ Then start PGAdapter and connect it to the emulator. Note that you must start PG
 
 The additional command-line arguments for PGAdapter that are used to connect to the emulator are:
 
-  - `  -c ""  ` : This instructs PGAdapter to not use any credentials.
-  - `  -r autoConfigEmulator=true  ` : This instructs PGAdapter to connect to `  localhost:9010  ` , which is the default emulator host and port. It also instructs PGAdapter to automatically create any database that a user connects to. This means that you don't need to create a database before connecting to it.
+  - `-c ""` : This instructs PGAdapter to not use any credentials.
+  - `-r autoConfigEmulator=true` : This instructs PGAdapter to connect to `localhost:9010` , which is the default emulator host and port. It also instructs PGAdapter to automatically create any database that a user connects to. This means that you don't need to create a database before connecting to it.
 
-You can connect to PGAdapter and execute statements with `  psql  ` with the following command.
+You can connect to PGAdapter and execute statements with `psql` with the following command.
 
     psql -h localhost -p 5432 -d test-database
 
-The database `  test-database  ` is automatically created. Execute these statements to verify that you are connected to a PostgreSQL-dialect database database:
+The database `test-database` is automatically created. Execute these statements to verify that you are connected to a PostgreSQL-dialect database database:
 
     create table my_table (
       id bigint not null primary key,
@@ -114,16 +114,16 @@ You can run both the emulator and PGAdapter in a Docker network and connect PGAd
 
 Both PGAdapter and the emulator are started in the same Docker network, and PGAdapter is configured to connect to the emulator. The additional command-line arguments for PGAdapter that are used to connect to the emulator are:
 
-  - `  -c ""  ` : This instructs PGAdapter to not use any credentials.
-  - `  -r autoConfigEmulator=true  ` : This instructs PGAdapter to automatically create any database that a user connects to. This means that you don't need to create a database before connecting to it.
-  - `  -e emulator:9010  ` : `  -e  ` specifies the endpoint that PGAdapter should connect to. `  emulator:9010  ` is the name and port number of the emulator in the same Docker network.
-  - `  -x  ` : This allows connections to PGAdapter from your local machine.
+  - `-c ""` : This instructs PGAdapter to not use any credentials.
+  - `-r autoConfigEmulator=true` : This instructs PGAdapter to automatically create any database that a user connects to. This means that you don't need to create a database before connecting to it.
+  - `-e emulator:9010` : `-e` specifies the endpoint that PGAdapter should connect to. `emulator:9010` is the name and port number of the emulator in the same Docker network.
+  - `-x` : This allows connections to PGAdapter from your local machine.
 
-You can connect to PGAdapter and execute statements with `  psql  ` with the following command.
+You can connect to PGAdapter and execute statements with `psql` with the following command.
 
     psql -h localhost -p 5432 -d test-database
 
-The database `  test-database  ` is automatically created. Execute these statements to verify that you are connected to a PostgreSQL-dialect database database:
+The database `test-database` is automatically created. Execute these statements to verify that you are connected to a PostgreSQL-dialect database database:
 
     create table my_table (
       id bigint not null primary key,

@@ -4,40 +4,40 @@ gcloud alpha spanner backup-schedules - manage Cloud Spanner backup schedules
 
 SYNOPSIS
 
-`  gcloud alpha spanner backup-schedules  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner backup-schedules` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage Cloud Spanner backup schedules.
+`(ALPHA)` Manage Cloud Spanner backup schedules.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  add-iam-policy-binding  `  
-    `  (ALPHA)  ` Add IAM policy binding to a Cloud Spanner backup schedule.
+    `(ALPHA)` Add IAM policy binding to a Cloud Spanner backup schedule.
   - `  create  `  
-    `  (ALPHA)  ` Create a Cloud Spanner backup schedule.
+    `(ALPHA)` Create a Cloud Spanner backup schedule.
   - `  delete  `  
-    `  (ALPHA)  ` Delete a Cloud Spanner backup schedule.
+    `(ALPHA)` Delete a Cloud Spanner backup schedule.
   - `  describe  `  
-    `  (ALPHA)  ` Describe a Cloud Spanner backup schedule.
+    `(ALPHA)` Describe a Cloud Spanner backup schedule.
   - `  get-iam-policy  `  
-    `  (ALPHA)  ` Get the IAM policy for a Cloud Spanner backup schedule.
+    `(ALPHA)` Get the IAM policy for a Cloud Spanner backup schedule.
   - `  list  `  
-    `  (ALPHA)  ` List Cloud Spanner backup schedules.
+    `(ALPHA)` List Cloud Spanner backup schedules.
   - `  remove-iam-policy-binding  `  
-    `  (ALPHA)  ` Remove IAM policy binding of a Cloud Spanner backup schedule.
+    `(ALPHA)` Remove IAM policy binding of a Cloud Spanner backup schedule.
   - `  set-iam-policy  `  
-    `  (ALPHA)  ` Set the IAM policy for a Cloud Spanner backup schedule.
+    `(ALPHA)` Set the IAM policy for a Cloud Spanner backup schedule.
   - `  update  `  
-    `  (ALPHA)  ` Update a Cloud Spanner backup schedule.
+    `(ALPHA)` Update a Cloud Spanner backup schedule.
 
 NOTES
 

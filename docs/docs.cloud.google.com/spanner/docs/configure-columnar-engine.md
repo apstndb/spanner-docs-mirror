@@ -10,22 +10,22 @@ This page describes how to enable Spanner columnar engine on a database, table, 
 
 ## Enable Spanner columnar engine
 
-Spanner columnar engine is enabled using a `  SET OPTIONS  ` clause with the `  columnar_policy  ` option. You can apply this option when you create or alter `  DATABASE  ` , `  TABLE  ` , or `  INDEX  ` schema objects. `  SEARCH INDEX  ` and `  VECTOR INDEX  ` schema objects are never in columnar format.
+Spanner columnar engine is enabled using a `SET OPTIONS` clause with the `columnar_policy` option. You can apply this option when you create or alter `DATABASE` , `TABLE` , or `INDEX` schema objects. `SEARCH INDEX` and `VECTOR INDEX` schema objects are never in columnar format.
 
-Lower levels in a database and table hierarchy inherit the `  columnar_policy  ` from its parent. You can change this setting at lower levels.
+Lower levels in a database and table hierarchy inherit the `columnar_policy` from its parent. You can change this setting at lower levels.
 
-The `  columnar_policy  ` option has the following flags:
+The `columnar_policy` option has the following flags:
 
-  - `  'enabled'  ` or `  'disabled'  ` turns the columnar engine on or off for the specific schema object.
-  - `  NULL  ` (default) uses the columnar engine policy from the parent object, if one exists. `  NULL  ` clears previous settings on a table object.
+  - `'enabled'` or `'disabled'` turns the columnar engine on or off for the specific schema object.
+  - `NULL` (default) uses the columnar engine policy from the parent object, if one exists. `NULL` clears previous settings on a table object.
 
-You can also omit `  OPTIONS  ` to inherit the `  columnar_policy  ` from the parent object.
+You can also omit `OPTIONS` to inherit the `columnar_policy` from the parent object.
 
 The following example shows how to:
 
   - Create a database with the columnar policy enabled.
-  - Define a `  Singers  ` table that inherits the columnar policy from the database (omit the `  columnar_policy = NULL  ` for the table option).
-  - Define a `  Concerts  ` table with the columnar policy explicitly disabled.
+  - Define a `Singers` table that inherits the columnar policy from the database (omit the `columnar_policy = NULL` for the table option).
+  - Define a `Concerts` table with the columnar policy explicitly disabled.
 
 <!-- end list -->
 
@@ -51,7 +51,7 @@ The following example shows how to:
       PRIMARY KEY(VenueId, SingerId, ConcertDate),
       OPTIONS (columnar_policy = 'disabled');
 
-You can also use `  ALTER TABLE  ` with the `  SET OPTIONS  ` clause to enable or disable the `  columnar_policy  ` on a table. The following example shows how to disable the policy in the `  Singers  ` table:
+You can also use `ALTER TABLE` with the `SET OPTIONS` clause to enable or disable the `columnar_policy` on a table. The following example shows how to disable the policy in the `Singers` table:
 
     ALTER TABLE Singers SET OPTIONS (columnar_policy = 'disabled');
 

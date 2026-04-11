@@ -7,13 +7,13 @@ Tokenization is the process of transforming values into tokens. The method you u
 Spanner provides *tokenizers* for natural language text, substrings, verbatim text, numbers, and booleans. The database schema uses the tokenizer that matches the type of search needed for the column. Tokenizers have the following characteristics:
 
   - Each tokenizer is a SQL function that gets an input, such as a string or a number, and named arguments for additional options.
-  - The tokenizer outputs a `  TOKENLIST  ` .
+  - The tokenizer outputs a `TOKENLIST` .
 
-For example, a text string `  The quick brown fox jumps over the lazy dog  ` is tokenized into `  [the,quick,brown,fox,jumps,over,the,lazy,dog]  ` . An HTML string `  The <b>apple</b> is <i>red</i>  ` is tokenized into `  [the,apple,is,red]  ` .
+For example, a text string `The quick brown fox jumps over the lazy dog` is tokenized into `[the,quick,brown,fox,jumps,over,the,lazy,dog]` . An HTML string `The <b>apple</b> is <i>red</i>` is tokenized into `[the,apple,is,red]` .
 
 Tokens have the following characteristics:
 
-  - Tokens are stored in columns that use the `  TOKENLIST  ` data type.
+  - Tokens are stored in columns that use the `TOKENLIST` data type.
   - Each token is stored as a sequence of bytes, with an optional set of associated attributes. For example, in full-text applications, a token is typically a single word from a textual document.
   - When tokenizing HTML values, Spanner generates attributes that indicate the prominence of a token within the document. Spanner uses these attributes for scoring to boost more prominent terms (such as a heading).
 
@@ -21,7 +21,7 @@ Tokens have the following characteristics:
 
 Spanner supports the following tokenizer functions:
 
-  - **Full-text tokenizer** ( [`  TOKENIZE_FULLTEXT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext) ) produces whole-word tokens for natural language queries.
+  - **Full-text tokenizer** ( [`TOKENIZE_FULLTEXT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext) ) produces whole-word tokens for natural language queries.
     
     **Example**
     
@@ -34,14 +34,14 @@ Spanner supports the following tokenizer functions:
     
     ### PostgreSQL
     
-    This example uses [`  spanner.tokenize_fulltext  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
+    This example uses [`spanner.tokenize_fulltext`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
     
         spanner.tokenize_fulltext("Yellow apple")
         spanner.tokenize_fulltext('Yellow <b>apple</b>', context_type=>'text/html')
     
-    produce the same tokens: `  [yellow,apple]  ` .
+    produce the same tokens: `[yellow,apple]` .
 
-  - **Substring tokenizer** ( [`  TOKENIZE_SUBSTRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_substring) ) generates tokens for each n-gram of each word. It's used to find substrings of words in a text.
+  - **Substring tokenizer** ( [`TOKENIZE_SUBSTRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_substring) ) generates tokens for each n-gram of each word. It's used to find substrings of words in a text.
     
     **Example**
     
@@ -51,13 +51,13 @@ Spanner supports the following tokenizer functions:
     
     ### PostgreSQL
     
-    This example uses [`  spanner.tokenize_substring  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
+    This example uses [`spanner.tokenize_substring`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
     
         spanner.tokenize_substring('hello world', ngram_size_min=>4, ngram_size_max=>6)
     
-    Produces the following tokens: `  [ello,hell,hello,orld,worl,world]  ` .
+    Produces the following tokens: `[ello,hell,hello,orld,worl,world]` .
 
-  - **N-gram tokenizer** ( [`  TOKENIZE_NGRAMS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_ngrams) ) generates n-grams from an input (without splitting it into separate words). It is used to accelerate regular expression predicates.
+  - **N-gram tokenizer** ( [`TOKENIZE_NGRAMS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_ngrams) ) generates n-grams from an input (without splitting it into separate words). It is used to accelerate regular expression predicates.
     
     **Example**
     
@@ -69,13 +69,13 @@ Spanner supports the following tokenizer functions:
     
     ### PostgreSQL
     
-    This example uses [`  spanner.tokenize_ngrams  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
+    This example uses [`spanner.tokenize_ngrams`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
     
         spanner.tokenize_ngrams('big time', ngram_size_min=>4, ngram_size_max=>4)
     
-    Produces the following tokens: `  ["Big ","ig T","g Ti"," Tim", "Time"]  ` .
+    Produces the following tokens: `["Big ","ig T","g Ti"," Tim", "Time"]` .
 
-  - **Exact match tokenizers** ( [`  TOKEN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#token) and [`  TOKENIZE_BOOL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_bool) ) are used to look up rows containing a certain value in one of their columns. For example, an application that indexes a products catalog might want to search products of a particular brand and color.
+  - **Exact match tokenizers** ( [`TOKEN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#token) and [`TOKENIZE_BOOL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_bool) ) are used to look up rows containing a certain value in one of their columns. For example, an application that indexes a products catalog might want to search products of a particular brand and color.
     
     **Examples**
     
@@ -88,11 +88,11 @@ Spanner supports the following tokenizer functions:
     
     ### PostgreSQL
     
-    This example uses [`  spanner.token  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
+    This example uses [`spanner.token`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
     
         spanner.token('hello')
     
-    Produces the following tokens: `  [hello]  ` .
+    Produces the following tokens: `[hello]` .
     
     The following function:
     
@@ -102,13 +102,13 @@ Spanner supports the following tokenizer functions:
     
     ### PostgreSQL
     
-    This example uses [`  spanner.tokenize_bool  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
+    This example uses [`spanner.tokenize_bool`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
     
         spanner.tokenize_bool(true)
     
-    Produces the following token: `  [y]  ` .
+    Produces the following token: `[y]` .
 
-  - **Number tokenizers** ( [`  TOKENIZE_NUMBER  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_number) ) are used to generate a set of tokens that accelerate numeric comparison searches. For equality conditions, the token is the number itself. For range conditions (like `  rating >= 3.5  ` ) the set of tokens are more elaborate.
+  - **Number tokenizers** ( [`TOKENIZE_NUMBER`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_number) ) are used to generate a set of tokens that accelerate numeric comparison searches. For equality conditions, the token is the number itself. For range conditions (like `rating >= 3.5` ) the set of tokens are more elaborate.
     
     **Examples**
     
@@ -121,22 +121,22 @@ Spanner supports the following tokenizer functions:
     
     ### PostgreSQL
     
-    This example uses [`  spanner.tokenize_number  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
+    This example uses [`spanner.tokenize_number`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
     
         spanner.tokenize_number(42, comparison_type=>'equality')
         spanner.tokenize_number(42, comparison_type=>'all', granularity=>10, min=>1, max=>100)
     
-    Produce the following tokens, respectively: `  "==42"  ` and `  "==42"  ` , `  "[1,75]"  ` , `  "[36, 45]"  ` , `  "[36,55]"  ` , `  "[36, 75]"  ` .
+    Produce the following tokens, respectively: `"==42"` and `"==42"` , `"[1,75]"` , `"[36, 45]"` , `"[36,55]"` , `"[36, 75]"` .
 
-  - **JSON and JSONB tokenizers** ( [`  TOKENIZE_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_json) and [`  TOKENIZE_JSONB  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#indexing) are used to generate a set of tokens that accelerate JSON containment and key existence predicates, such as `  doc[@key] IS NOT NULL  ` (GoogleSQL) or `  doc ? 'key'  ` (PostgreSQL).
+  - **JSON and JSONB tokenizers** ( [`TOKENIZE_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_json) and [`TOKENIZE_JSONB`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#indexing) are used to generate a set of tokens that accelerate JSON containment and key existence predicates, such as `doc[@key] IS NOT NULL` (GoogleSQL) or `doc ? 'key'` (PostgreSQL).
 
-Tokenization functions are usually used in a [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) expression. These columns are defined as `  HIDDEN  ` so that they aren't included in `  SELECT *  ` query results.
+Tokenization functions are usually used in a [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) expression. These columns are defined as `HIDDEN` so that they aren't included in `SELECT *` query results.
 
 The following example uses a full-text tokenizer and a numeric tokenizer to create a database that stores music album names and ratings. The DDL statement does two things:
 
-1.  Defines the data columns `  AlbumTitle  ` and `  Rating  ` .
+1.  Defines the data columns `AlbumTitle` and `Rating` .
 
-2.  Defines `  AlbumTitle_Tokens  ` and `  AlbumRating_Tokens  ` . These `  TOKENLIST  ` columns tokenize the values in the data columns so that Spanner can index them.
+2.  Defines `AlbumTitle_Tokens` and `AlbumRating_Tokens` . These `TOKENLIST` columns tokenize the values in the data columns so that Spanner can index them.
     
     ### GoogleSQL
     
@@ -156,13 +156,13 @@ The following example uses a full-text tokenizer and a numeric tokenizer to crea
           albumtitle_Tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumtitle)) VIRTUAL HIDDEN,
         PRIMARY KEY(albumid));
 
-Whenever the base values are modified, `  AlbumTitle_Tokens  ` and `  Rating_Tokens  ` are automatically updated.
+Whenever the base values are modified, `AlbumTitle_Tokens` and `Rating_Tokens` are automatically updated.
 
 ## Tokenize plain text or HTML content
 
-Text tokenization supports plain text and HTML content types. Use the Spanner [`  TOKENIZE_FULLTEXT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext) function to create tokens. Then use the [`  CREATE SEARCH INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-search-index) DDL statement to generate the search index.
+Text tokenization supports plain text and HTML content types. Use the Spanner [`TOKENIZE_FULLTEXT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext) function to create tokens. Then use the [`CREATE SEARCH INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-search-index) DDL statement to generate the search index.
 
-For example, the following `  CREATE TABLE  ` DDL statement uses the `  TOKENIZE_FULLTEXT  ` function to create tokens from `  AlbumTitles  ` in the `  Albums  ` table. The [`  CREATE SEARCH INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-search-index) DDL statement creates a search index with the new `  AlbumTitles_Tokens  ` .
+For example, the following `CREATE TABLE` DDL statement uses the `TOKENIZE_FULLTEXT` function to create tokens from `AlbumTitles` in the `Albums` table. The [`CREATE SEARCH INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-search-index) DDL statement creates a search index with the new `AlbumTitles_Tokens` .
 
 ### GoogleSQL
 
@@ -195,12 +195,12 @@ The tokenization process tracks the positions for each token in the original tex
 
 Google continues to improve tokenization algorithms. In some cases, this might lead to a string getting tokenized differently in the future from the way it is tokenized now. We expect such cases to be extremely rare. An example of this is if there's an improvement in the Chinese, Japanese, and Korean (CJK) language segmentation.
 
-The `  content_type  ` argument specifies whether the content format uses plain text or HTML. Use the following settings to set the `  content_type  ` :
+The `content_type` argument specifies whether the content format uses plain text or HTML. Use the following settings to set the `content_type` :
 
-  - For text tokenization, set the `  content_type  ` argument to " `  text/plain  ` ". This is the default setting.
-  - For HTML tokenization, set the `  content_type  ` argument to `  "text/html  ` ". Without this argument, HTML tags are treated as punctuation. In HTML mode, Spanner uses heuristics to infer how prominent the text is on the page. For example, whether the text is in a heading or its font size. The supported attributes for HTML include `  small  ` , `  medium  ` , `  large  ` , `  title  ` , and \`link'. Like position, the attribute is stored alongside the token in the search index. Tokenization doesn't create tokens for any HTML tags.
+  - For text tokenization, set the `content_type` argument to " `text/plain` ". This is the default setting.
+  - For HTML tokenization, set the `content_type` argument to `"text/html` ". Without this argument, HTML tags are treated as punctuation. In HTML mode, Spanner uses heuristics to infer how prominent the text is on the page. For example, whether the text is in a heading or its font size. The supported attributes for HTML include `small` , `medium` , `large` , `title` , and \`link'. Like position, the attribute is stored alongside the token in the search index. Tokenization doesn't create tokens for any HTML tags.
 
-Token attributes don't impact matching or the results of the `  SEARCH  ` or `  SEARCH_SUBSTRING  ` function. They're only used for [ranking](https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search) .
+Token attributes don't impact matching or the results of the `SEARCH` or `SEARCH_SUBSTRING` function. They're only used for [ranking](https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search) .
 
 The following example shows how to tokenize text:
 
@@ -228,9 +228,9 @@ The following example shows how to tokenize text:
           GENERATED ALWAYS AS (spanner.tokenize_fulltext(html, content_type=>'type/html')) VIRTUAL HIDDEN,
     PRIMARY KEY(...));
 
-## Language detection refinement with the `     language_tag    ` argument
+## Language detection refinement with the `language_tag` argument
 
-Tokenization detects the input language automatically, by default. When the input language is known, a `  language_tag  ` argument can be used to refine this behavior:
+Tokenization detects the input language automatically, by default. When the input language is known, a `language_tag` argument can be used to refine this behavior:
 
 ### GoogleSQL
 
@@ -242,16 +242,16 @@ Tokenization detects the input language automatically, by default. When the inpu
     albumtitle_tokens spanner.tokenlist
           GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumtitle, language_tag=>'en-us')) VIRTUAL HIDDEN
 
-Most applications leave the `  language_tag  ` argument unspecified and instead rely on automatic language detection. Segmentation for Asian languages like Chinese, Korean, and Japanese doesn't require setting the tokenization language.
+Most applications leave the `language_tag` argument unspecified and instead rely on automatic language detection. Segmentation for Asian languages like Chinese, Korean, and Japanese doesn't require setting the tokenization language.
 
-The following examples show cases where the `  language_tag  ` affects tokenization:
+The following examples show cases where the `language_tag` affects tokenization:
 
-| Tokenization function                                                                            | Produced tokens                                 |
-| ------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
-| `        TOKENIZE_FULLTEXT("A tout pourquoi il y a un parce que")       `                        | \[a, tout, pourquoi, il, ya, un, parce, que\]   |
-| `        TOKENIZE_FULLTEXT("A tout pourquoi il y a un parce que", \ language_tag=>"fr"       ` ) | \[a, tout, pourquoi, il, y, a, un, parce, que\] |
-| `        TOKENIZE_FULLTEXT("旅 行")       `                                                        | Two tokens: \[旅, 行\]                            |
-| `        TOKENIZE_FULLTEXT("旅 行", language_tag=>"zh")       `                                    | One token: \[旅行\]                               |
+| Tokenization function                                                             | Produced tokens                                 |
+| --------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `TOKENIZE_FULLTEXT("A tout pourquoi il y a un parce que")`                        | \[a, tout, pourquoi, il, ya, un, parce, que\]   |
+| `TOKENIZE_FULLTEXT("A tout pourquoi il y a un parce que", \ language_tag=>"fr"` ) | \[a, tout, pourquoi, il, y, a, un, parce, que\] |
+| `TOKENIZE_FULLTEXT("旅 行")`                                                        | Two tokens: \[旅, 行\]                            |
+| `TOKENIZE_FULLTEXT("旅 行", language_tag=>"zh")`                                    | One token: \[旅行\]                               |
 
 ## What's next
 

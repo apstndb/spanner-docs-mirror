@@ -2,16 +2,16 @@ GoogleSQL for Spanner supports conditional expressions. Conditional expressions 
 
 ### Expression list
 
-| Name                                                                                                                                | Summary                                                                                                                                                        |
-| ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`         CASE expr        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#case_expr) | Compares the given expression to each successive `        WHEN       ` clause and produces the first result where the values are equal.                        |
-| [`         CASE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#case)           | Evaluates the condition of each successive `        WHEN       ` clause and produces the first result where the condition evaluates to `        TRUE       ` . |
-| [`         COALESCE        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#coalesce)   | Produces the value of the first non- `        NULL       ` expression, if any, otherwise `        NULL       ` .                                               |
-| [`         IF        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#if)               | If an expression evaluates to `        TRUE       ` , produces a specified result, otherwise produces the evaluation for an *else result* .                    |
-| [`         IFNULL        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#ifnull)       | If an expression evaluates to `        NULL       ` , produces a specified result, otherwise produces the expression.                                          |
-| [`         NULLIF        `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#nullif)       | Produces `        NULL       ` if the first expression that matches another evaluates to `        TRUE       ` , otherwise returns the first expression.       |
+| Name                                                                                                               | Summary                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| [`CASE expr`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#case_expr) | Compares the given expression to each successive `WHEN` clause and produces the first result where the values are equal.         |
+| [`CASE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#case)           | Evaluates the condition of each successive `WHEN` clause and produces the first result where the condition evaluates to `TRUE` . |
+| [`COALESCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#coalesce)   | Produces the value of the first non- `NULL` expression, if any, otherwise `NULL` .                                               |
+| [`IF`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#if)               | If an expression evaluates to `TRUE` , produces a specified result, otherwise produces the evaluation for an *else result* .     |
+| [`IFNULL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#ifnull)       | If an expression evaluates to `NULL` , produces a specified result, otherwise produces the expression.                           |
+| [`NULLIF`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#nullif)       | Produces `NULL` if the first expression that matches another evaluates to `TRUE` , otherwise returns the first expression.       |
 
-### `     CASE expr    `
+### `CASE expr`
 
     CASE expr
       WHEN expr_to_match THEN result
@@ -21,17 +21,17 @@ GoogleSQL for Spanner supports conditional expressions. Conditional expressions 
 
 **Description**
 
-Compares `  expr  ` to `  expr_to_match  ` of each successive `  WHEN  ` clause and returns the first result where this comparison evaluates to `  TRUE  ` . The remaining `  WHEN  ` clauses and `  else_result  ` aren't evaluated.
+Compares `expr` to `expr_to_match` of each successive `WHEN` clause and returns the first result where this comparison evaluates to `TRUE` . The remaining `WHEN` clauses and `else_result` aren't evaluated.
 
-If the `  expr = expr_to_match  ` comparison evaluates to `  FALSE  ` or `  NULL  ` for all `  WHEN  ` clauses, returns the evaluation of `  else_result  ` if present; if `  else_result  ` isn't present, then returns `  NULL  ` .
+If the `expr = expr_to_match` comparison evaluates to `FALSE` or `NULL` for all `WHEN` clauses, returns the evaluation of `else_result` if present; if `else_result` isn't present, then returns `NULL` .
 
-Consistent with [equality comparisons](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#logical_operators) elsewhere, if both `  expr  ` and `  expr_to_match  ` are `  NULL  ` , then `  expr = expr_to_match  ` evaluates to `  NULL  ` , which returns `  else_result  ` . If a CASE statement needs to distinguish a `  NULL  ` value, then the alternate [CASE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#case) syntax should be used.
+Consistent with [equality comparisons](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#logical_operators) elsewhere, if both `expr` and `expr_to_match` are `NULL` , then `expr = expr_to_match` evaluates to `NULL` , which returns `else_result` . If a CASE statement needs to distinguish a `NULL` value, then the alternate [CASE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#case) syntax should be used.
 
-`  expr  ` and `  expr_to_match  ` can be any type. They must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) ; equality comparisons are done on coerced values. There may be multiple `  result  ` types. `  result  ` and `  else_result  ` expressions must be coercible to a common supertype.
+`expr` and `expr_to_match` can be any type. They must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) ; equality comparisons are done on coerced values. There may be multiple `result` types. `result` and `else_result` expressions must be coercible to a common supertype.
 
 **Return Data Type**
 
-[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `  result  ` \[, ...\] and `  else_result  ` .
+[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `result` \[, ...\] and `else_result` .
 
 **Example**
 
@@ -61,7 +61,7 @@ Consistent with [equality comparisons](https://docs.cloud.google.com/spanner/doc
      | 50 | 10 | blue   |
      +------------------*/
 
-### `     CASE    `
+### `CASE`
 
     CASE
       WHEN condition THEN result
@@ -71,17 +71,17 @@ Consistent with [equality comparisons](https://docs.cloud.google.com/spanner/doc
 
 **Description**
 
-Evaluates the condition of each successive `  WHEN  ` clause and returns the first result where the condition evaluates to `  TRUE  ` ; any remaining `  WHEN  ` clauses and `  else_result  ` aren't evaluated.
+Evaluates the condition of each successive `WHEN` clause and returns the first result where the condition evaluates to `TRUE` ; any remaining `WHEN` clauses and `else_result` aren't evaluated.
 
-If all conditions evaluate to `  FALSE  ` or `  NULL  ` , returns evaluation of `  else_result  ` if present; if `  else_result  ` isn't present, then returns `  NULL  ` .
+If all conditions evaluate to `FALSE` or `NULL` , returns evaluation of `else_result` if present; if `else_result` isn't present, then returns `NULL` .
 
 For additional rules on how values are evaluated, see the three-valued logic table in [Logical operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#logical_operators) .
 
-`  condition  ` must be a boolean expression. There may be multiple `  result  ` types. `  result  ` and `  else_result  ` expressions must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
+`condition` must be a boolean expression. There may be multiple `result` types. `result` and `else_result` expressions must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
 
 **Return Data Type**
 
-[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `  result  ` \[, ...\] and `  else_result  ` .
+[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `result` \[, ...\] and `else_result` .
 
 **Example**
 
@@ -109,17 +109,17 @@ For additional rules on how values are evaluated, see the three-valued logic tab
      | 20 | 10 | green  |
      +------------------*/
 
-### `     COALESCE    `
+### `COALESCE`
 
     COALESCE(expr[, ...])
 
 **Description**
 
-Returns the value of the first non- `  NULL  ` expression, if any, otherwise `  NULL  ` . The remaining expressions aren't evaluated. An input expression can be any type. There may be multiple input expression types. All input expressions must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
+Returns the value of the first non- `NULL` expression, if any, otherwise `NULL` . The remaining expressions aren't evaluated. An input expression can be any type. There may be multiple input expression types. All input expressions must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
 
 **Return Data Type**
 
-[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `  expr  ` \[, ...\].
+[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `expr` \[, ...\].
 
 **Examples**
 
@@ -139,19 +139,19 @@ Returns the value of the first non- `  NULL  ` expression, if any, otherwise `  
      | B      |
      +--------*/
 
-### `     IF    `
+### `IF`
 
     IF(expr, true_result, else_result)
 
 **Description**
 
-If `  expr  ` evaluates to `  TRUE  ` , returns `  true_result  ` , else returns the evaluation for `  else_result  ` . `  else_result  ` isn't evaluated if `  expr  ` evaluates to `  TRUE  ` . `  true_result  ` isn't evaluated if `  expr  ` evaluates to `  FALSE  ` or `  NULL  ` .
+If `expr` evaluates to `TRUE` , returns `true_result` , else returns the evaluation for `else_result` . `else_result` isn't evaluated if `expr` evaluates to `TRUE` . `true_result` isn't evaluated if `expr` evaluates to `FALSE` or `NULL` .
 
-`  expr  ` must be a boolean expression. `  true_result  ` and `  else_result  ` must be coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
+`expr` must be a boolean expression. `true_result` and `else_result` must be coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
 
 **Return Data Type**
 
-[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `  true_result  ` and `  else_result  ` .
+[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `true_result` and `else_result` .
 
 **Examples**
 
@@ -177,19 +177,19 @@ If `  expr  ` evaluates to `  TRUE  ` , returns `  true_result  ` , else returns
      | 30 | 20 | false  |
      +------------------*/
 
-### `     IFNULL    `
+### `IFNULL`
 
     IFNULL(expr, null_result)
 
 **Description**
 
-If `  expr  ` evaluates to `  NULL  ` , returns `  null_result  ` . Otherwise, returns `  expr  ` . If `  expr  ` doesn't evaluate to `  NULL  ` , `  null_result  ` isn't evaluated.
+If `expr` evaluates to `NULL` , returns `null_result` . Otherwise, returns `expr` . If `expr` doesn't evaluate to `NULL` , `null_result` isn't evaluated.
 
-`  expr  ` and `  null_result  ` can be any type and must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) . Synonym for `  COALESCE(expr, null_result)  ` .
+`expr` and `null_result` can be any type and must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) . Synonym for `COALESCE(expr, null_result)` .
 
 **Return Data Type**
 
-[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `  expr  ` or `  null_result  ` .
+[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `expr` or `null_result` .
 
 **Examples**
 
@@ -209,21 +209,21 @@ If `  expr  ` evaluates to `  NULL  ` , returns `  null_result  ` . Otherwise, r
      | 10     |
      +--------*/
 
-### `     NULLIF    `
+### `NULLIF`
 
     NULLIF(expr, expr_to_match)
 
 **Description**
 
-Returns `  NULL  ` if `  expr = expr_to_match  ` evaluates to `  TRUE  ` , otherwise returns `  expr  ` .
+Returns `NULL` if `expr = expr_to_match` evaluates to `TRUE` , otherwise returns `expr` .
 
-`  expr  ` and `  expr_to_match  ` must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) , and must be comparable.
+`expr` and `expr_to_match` must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) , and must be comparable.
 
-**Note:** `  NULLIF  ` doesn't support `  STRUCT  ` types.
+**Note:** `NULLIF` doesn't support `STRUCT` types.
 
 **Return Data Type**
 
-[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `  expr  ` and `  expr_to_match  ` .
+[Supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) of `expr` and `expr_to_match` .
 
 **Example**
 

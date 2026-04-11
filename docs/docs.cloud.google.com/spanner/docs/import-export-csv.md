@@ -13,7 +13,7 @@ To import or export a Spanner database, first you need to enable the Spanner, Cl
 
 **Roles required to enable APIs**
 
-To enable APIs, you need the Service Usage Admin IAM role ( `  roles/serviceusage.serviceUsageAdmin  ` ), which contains the `  serviceusage.services.enable  ` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 [Enable the APIs](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com,storage_component,compute,dataflow)
 
@@ -41,11 +41,11 @@ The quota requirements for import or export jobs are as follows:
 
 To get the permissions that you need to export a database, ask your administrator to grant you the following IAM roles on your Dataflow worker service account:
 
-  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `  roles/spanner.viewer  ` )
-  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `  roles/dataflow.worker  ` )
-  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `  roles/storage.admin  ` )
-  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `  roles/spanner.databaseReader  ` )
-  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `  roles/spanner.databaseAdmin  ` )
+  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `roles/dataflow.worker` )
+  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `roles/storage.admin` )
+  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
+  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
 
 **Note:** The Spanner Database Admin role is only required for import jobs.
 
@@ -113,7 +113,7 @@ If you don't export your files directly to Cloud Storage, you must [upload the C
 
 ### Step 2: Create a JSON manifest file
 
-You must also create a manifest file with a JSON description of files to import and place it in the same Cloud Storage bucket where you stored your CSV files. This manifest file contains a `  tables  ` array that lists the name and data file locations for each table. The file also specifies the receiving database dialect. If the dialect is omitted, it defaults to GoogleSQL.
+You must also create a manifest file with a JSON description of files to import and place it in the same Cloud Storage bucket where you stored your CSV files. This manifest file contains a `tables` array that lists the name and data file locations for each table. The file also specifies the receiving database dialect. If the dialect is omitted, it defaults to GoogleSQL.
 
 **Note:** If a table has [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) , the manifest must include an explicit list of the non-generated columns to import for that table. Spanner uses this list to map CSV columns to the correct table columns. Generated column values automatically computed during import.
 
@@ -148,7 +148,7 @@ The format of the manifest file corresponds to the following message type, shown
       ProtoDialect dialect = 2;
     }
 
-The following example shows a manifest file for importing tables called `  Albums  ` and `  Singers  ` into a GoogleSQL-dialect database. The `  Albums  ` table uses the column schema that the job retrieves from the database, and the `  Singers  ` table uses the schema that the manifest file specifies:
+The following example shows a manifest file for importing tables called `Albums` and `Singers` into a GoogleSQL-dialect database. The `Albums` table uses the column schema that the job retrieves from the database, and the `Singers` table uses the schema that the manifest file specifies:
 
     {
       "tables": [
@@ -275,7 +275,7 @@ If you are using the Dataflow console, the **Max workers** parameter is located 
 
 ### gcloud
 
-Run the [`  gcloud dataflow jobs run  `](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `  max-workers  ` argument. For example:
+Run the [`gcloud dataflow jobs run`](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `max-workers` argument. For example:
 
 ``` 
   gcloud dataflow jobs run my-import-job \
@@ -295,7 +295,7 @@ The following error might occur when you export your Spanner databases:
     must specify a subnet if the network resource is in custom subnet mode.
     HTTP Code: 400
 
-This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `  default  ` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks) .
+This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `default` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks) .
 
 ## Optimize slow running import or export jobs
 

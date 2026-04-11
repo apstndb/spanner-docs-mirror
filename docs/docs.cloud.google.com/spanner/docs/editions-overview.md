@@ -130,7 +130,7 @@ If you are a Spanner customer under Google Cloud commitments with discounts on l
 
 ## Monitor edition feature usage
 
-You can monitor the usage of Enterprise edition and Enterprise Plus edition edition features in your instance. To do so, use the [Feature usage](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `  instance/edition/feature_usage  ` ) monitoring metric. The following features are shown in this metric when you use them in your instance.
+You can monitor the usage of Enterprise edition and Enterprise Plus edition edition features in your instance. To do so, use the [Feature usage](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `instance/edition/feature_usage` ) monitoring metric. The following features are shown in this metric when you use them in your instance.
 
   - Asymmetric autoscaling
   - Columnar engine
@@ -164,7 +164,7 @@ To view the edition feature usage metric in the Google Cloud console, follow the
     
     The table lists each higher-tier edition feature that is being used by your instance and database.
     
-    Optionally, you can click view\_column **Column display options** to display or hide columns to display in the table. The `  name  ` column should generally be ignored in favor of `  instance_id  ` , `  instance_config  ` , `  database  ` and `  feature  ` .
+    Optionally, you can click view\_column **Column display options** to display or hide columns to display in the table. The `name` column should generally be ignored in favor of `instance_id` , `instance_config` , `database` and `feature` .
 
 To see a full list of Google Cloud metrics, see [Google Cloud metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp) .
 

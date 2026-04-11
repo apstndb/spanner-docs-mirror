@@ -24,7 +24,7 @@ You can create BigQuery [non-incremental materialized views over Spanner data](h
 
 Feature
 
-You can use [Cloud resource connections with `  EXPORT DATA  ` statements](https://docs.cloud.google.com/bigquery/docs/export-to-spanner#export_using_a_cloud_resource_connection) to reverse ETL (extract, transform, load) BigQuery data to Spanner. This feature is [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) .
+You can use [Cloud resource connections with `EXPORT DATA` statements](https://docs.cloud.google.com/bigquery/docs/export-to-spanner#export_using_a_cloud_resource_connection) to reverse ETL (extract, transform, load) BigQuery data to Spanner. This feature is [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) .
 
 ## March 25, 2026
 
@@ -38,9 +38,9 @@ Feature
 
 Spanner now offers [AI functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions) , as a part of machine learning functions, that help you perform semantic operations using Large Language Models (LLMs) in SQL to classify, evaluate, and rank your data:
 
-  - [`  AI.CLASSIFY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiclassify) : Classify a natural language input into user-defined categories.
-  - [`  AI.IF  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiif) : Evaluate a condition described in natural language.
-  - [`  AI.SCORE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiscore) : Rate natural language input and assign it a score.
+  - [`AI.CLASSIFY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiclassify) : Classify a natural language input into user-defined categories.
+  - [`AI.IF`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiif) : Evaluate a condition described in natural language.
+  - [`AI.SCORE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#aiscore) : Rate natural language input and assign it a score.
 
 ## March 10, 2026
 
@@ -58,13 +58,13 @@ You can use [continuous queries to stream BigQuery data to Spanner in real time]
 
 Feature
 
-Spanner supports the `  ON CONFLICT  ` clause for GoogleSQL `  INSERT  ` statements to handle unique constraint violations. For more information, see [`  ON CONFLICT DO NOTHING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-nothing) and [`  ON CONFLICT DO UPDATE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-update) .
+Spanner supports the `ON CONFLICT` clause for GoogleSQL `INSERT` statements to handle unique constraint violations. For more information, see [`ON CONFLICT DO NOTHING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-nothing) and [`ON CONFLICT DO UPDATE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-update) .
 
 ## February 27, 2026
 
 Feature
 
-Spanner supports using the pending commit timestamp function as a default value and an `  ON UPDATE  ` expression for column definitions. For more information, see the GoogleSQL [`  ON UPDATE  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#spanner-on-update) and the PostgreSQL [`  ON UPDATE  ` clause](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#postgresql-on-update) .
+Spanner supports using the pending commit timestamp function as a default value and an `ON UPDATE` expression for column definitions. For more information, see the GoogleSQL [`ON UPDATE` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#spanner-on-update) and the PostgreSQL [`ON UPDATE` clause](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#postgresql-on-update) .
 
 ## February 26, 2026
 
@@ -72,12 +72,12 @@ Feature
 
 Spanner provides JSON string versions of the following statistics columns for PostgreSQL-dialect databases:
 
-  - `  TOTAL_LATENCY_DISTRIBUTION_JSON_STRING  ` in [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics)
-  - `  OPERATIONS_BY_TABLE_JSON_STRING  ` in [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics)
-  - `  LATENCY_DISTRIBUTION_JSON_STRING  ` in [Query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics)
-  - `  SAMPLE_LOCK_REQUESTS_JSON_STRING  ` in [Lock statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics)
+  - `TOTAL_LATENCY_DISTRIBUTION_JSON_STRING` in [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics)
+  - `OPERATIONS_BY_TABLE_JSON_STRING` in [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics)
+  - `LATENCY_DISTRIBUTION_JSON_STRING` in [Query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics)
+  - `SAMPLE_LOCK_REQUESTS_JSON_STRING` in [Lock statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics)
 
-You can use these columns to retrieve statistics in JSON format from the `  SPANNER_SYS  ` tables.
+You can use these columns to retrieve statistics in JSON format from the `SPANNER_SYS` tables.
 
 ## February 25, 2026
 
@@ -103,7 +103,7 @@ For more information, see [Managed autoscaler](https://docs.cloud.google.com/spa
 
 Feature
 
-Spanner provides `  UNSPLITTABLE_REASONS  ` in hotspot insights and split statistics views to detect when splits can't be split further. Unsplittable reasons can help you identify schema anti-patterns that require intervention. For more information, see [Find hotspots in your database](https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database) and [Split statistics](https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics) .
+Spanner provides `UNSPLITTABLE_REASONS` in hotspot insights and split statistics views to detect when splits can't be split further. Unsplittable reasons can help you identify schema anti-patterns that require intervention. For more information, see [Find hotspots in your database](https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database) and [Split statistics](https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics) .
 
 This feature is [generally available (GA)](https://docs.cloud.google.com/products#product-launch-stages) .
 
@@ -111,7 +111,7 @@ This feature is [generally available (GA)](https://docs.cloud.google.com/product
 
 Deprecated
 
-Control of MCP use with organization policies is deprecated. After March 17, 2026, organization policies that use the `  gcp.managed.allowedMCPServices  ` constraint won't work, and you can control MCP use with IAM deny policies.
+Control of MCP use with organization policies is deprecated. After March 17, 2026, organization policies that use the `gcp.managed.allowedMCPServices` constraint won't work, and you can control MCP use with IAM deny policies.
 
 For more information about controlling MCP use, see [Control MCP use with IAM](https://docs.cloud.google.com/mcp/control-mcp-use-iam) .
 
@@ -151,9 +151,9 @@ You can create and host [remote functions](https://docs.cloud.google.com/spanner
 
 Feature
 
-Spanner supports the `  UUID  ` data type for both GoogleSQL and PostgreSQL-dialect databases. This data type stores universally unique identifiers (UUIDs) as 128-bit values.
+Spanner supports the `UUID` data type for both GoogleSQL and PostgreSQL-dialect databases. This data type stores universally unique identifiers (UUIDs) as 128-bit values.
 
-You can use the GoogleSQL [`  NEW_UUID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) function or the PostgreSQL [`  gen_random_uuid()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) to function to create UUID values.
+You can use the GoogleSQL [`NEW_UUID()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) function or the PostgreSQL [`gen_random_uuid()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) to function to create UUID values.
 
 For more information, see [Use a universally unique identifier (UUID)](https://docs.cloud.google.com/spanner/docs/schema-design#uuid_primary_key) .
 
@@ -163,11 +163,11 @@ Feature
 
 Spanner supports the following compression functions:
 
-  - [`  ZSTD_COMPRESS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions#zstd_compress)
-  - [`  ZSTD_DECOMPRESS_TO_BYTES  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions#zstd_decompress_to_bytes)
-  - [`  ZSTD_DECOMPRESS_TO_STRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions#zstd_decompress_to_string)
+  - [`ZSTD_COMPRESS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions#zstd_compress)
+  - [`ZSTD_DECOMPRESS_TO_BYTES`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions#zstd_decompress_to_bytes)
+  - [`ZSTD_DECOMPRESS_TO_STRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions#zstd_decompress_to_string)
 
-These functions use the Zstandard (Zstd) lossless data compression algorithm to compress and decompress `  STRING  ` or `  BYTES  ` values. For more information, see [Compression functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions) .
+These functions use the Zstandard (Zstd) lossless data compression algorithm to compress and decompress `STRING` or `BYTES` values. For more information, see [Compression functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions) .
 
 ## January 26, 2026
 
@@ -184,7 +184,7 @@ For more information, see the [Columnar engine for Spanner overview](https://doc
 
 Feature
 
-You can create Spanner [regional instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Bangkok, Thailand ( `  asia-southeast3  ` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://cloud.google.com/spanner/pricing) .
+You can create Spanner [regional instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Bangkok, Thailand ( `asia-southeast3` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://cloud.google.com/spanner/pricing) .
 
 ## January 13, 2026
 
@@ -193,9 +193,9 @@ Feature
 Several updates have been made to [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) :
 
   - [Named schemas](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#create_and_query_a_search_index_for_a_named_schema) support full-text search.
-  - Spanner search indexes can [accelerate pattern matching expressions](https://docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration) such as `  LIKE  ` , `  STARTS_WITH  ` , and `  ENDS_WITH  ` for pattern matching, and `  REGEXP_CONTAINS  ` for regular expression matching.
-  - [`  TOKENIZE_FULLTEXT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext) has an argument for removing diacritics. `  SEARCH  ` and `  SCORE  ` use this if the data was tokenized with this option.
-  - [`  TOKENIZE_SUBSTRING  `](https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search) supports emojis.
+  - Spanner search indexes can [accelerate pattern matching expressions](https://docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration) such as `LIKE` , `STARTS_WITH` , and `ENDS_WITH` for pattern matching, and `REGEXP_CONTAINS` for regular expression matching.
+  - [`TOKENIZE_FULLTEXT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_fulltext) has an argument for removing diacritics. `SEARCH` and `SCORE` use this if the data was tokenized with this option.
+  - [`TOKENIZE_SUBSTRING`](https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search) supports emojis.
 
 ## January 05, 2026
 
@@ -207,7 +207,7 @@ You can use [SQL views](https://docs.cloud.google.com/spanner/docs/views) to cre
 
 Feature
 
-The GoogleSQL function [`  ELEMENT_DEFINITION_NAME  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#element_definition_name) is available. `  ELEMENT_DEFINITION_NAME  ` returns the name of the graph element table underlying a graph element.
+The GoogleSQL function [`ELEMENT_DEFINITION_NAME`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#element_definition_name) is available. `ELEMENT_DEFINITION_NAME` returns the name of the graph element table underlying a graph element.
 
 ## December 17, 2025
 
@@ -219,7 +219,7 @@ You can build data agents that interact with the data in your database using con
 
 Feature
 
-Spanner supports the PostgreSQL `  generate_series()  ` function. You can use this function to create a sequence of numbers. For more information, see [Set returning functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#set-returning-functions) .
+Spanner supports the PostgreSQL `generate_series()` function. You can use this function to create a sequence of numbers. For more information, see [Set returning functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#set-returning-functions) .
 
 ## December 11, 2025
 
@@ -229,20 +229,20 @@ Spanner [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databo
 
 Feature
 
-Spanner Graph supports using the [`  ANY CHEAPEST  `](https://docs.cloud.google.com/spanner/docs/graph/work-with-paths#any-cheapest) path search prefix in a query to return the path with the lowest total compute cost. For more information, see [Path search prefix](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#search_prefix) in the [Spanner Graph Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro) reference.
+Spanner Graph supports using the [`ANY CHEAPEST`](https://docs.cloud.google.com/spanner/docs/graph/work-with-paths#any-cheapest) path search prefix in a query to return the path with the lowest total compute cost. For more information, see [Path search prefix](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#search_prefix) in the [Spanner Graph Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro) reference.
 
 ## December 10, 2025
 
 Feature
 
-Spanner supports the following new columns in the `  SPANNER_SYS  ` [oldest active queries](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries) table:
+Spanner supports the following new columns in the `SPANNER_SYS` [oldest active queries](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries) table:
 
-  - `  CLIENT_IP_ADDRESS  `
-  - `  API_CLIENT_HEADER  `
-  - `  USER_AGENT_HEADER  `
-  - `  SERVER_REGION  `
-  - `  PRIORITY  `
-  - `  TRANSACTION_TYPE  `
+  - `CLIENT_IP_ADDRESS`
+  - `API_CLIENT_HEADER`
+  - `USER_AGENT_HEADER`
+  - `SERVER_REGION`
+  - `PRIORITY`
+  - `TRANSACTION_TYPE`
 
 You can also view these columns in the Spanner **query insights** page on the Google Cloud console. For more information, see [Monitor active queries](https://docs.cloud.google.com/spanner/docs/monitor-active-queries#view-longest-running-queries) .
 
@@ -262,7 +262,7 @@ Query optimizer version 8 is the [default version](https://docs.cloud.google.com
 
 Feature
 
-The GoogleSQL function [`  IS_FIRST  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_first) is available for graph queries. `  IS_FIRST  ` returns `  true  ` if a row is in the first `  k  ` rows (1-based) within a window. You can use `  IS_FIRST  ` in graph queries to [limit traversed edges to improve query performance](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries#limit-traversed-edges) . You can also use `  IS_FIRST  ` to [sample intermediate nodes to optimize multi-hop queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries#use-is-first) .
+The GoogleSQL function [`IS_FIRST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions#is_first) is available for graph queries. `IS_FIRST` returns `true` if a row is in the first `k` rows (1-based) within a window. You can use `IS_FIRST` in graph queries to [limit traversed edges to improve query performance](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries#limit-traversed-edges) . You can also use `IS_FIRST` to [sample intermediate nodes to optimize multi-hop queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries#use-is-first) .
 
 ## November 11, 2025
 
@@ -381,7 +381,7 @@ Feature
 
 Feature
 
-You can use the GoogleSQL [`  ML.PREDICT  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) to convert your natural language query text into an embedding and perform approximate nearest neighbors (ANN) vector search.
+You can use the GoogleSQL [`ML.PREDICT` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) to convert your natural language query text into an embedding and perform approximate nearest neighbors (ANN) vector search.
 
 ## October 02, 2025
 
@@ -551,7 +551,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Documentation
 
-  - A comment for field `  ranges  ` in message `  .google.spanner.v1.KeySet  ` is changed ( [e9773a7](https://github.com/googleapis/java-spanner/commit/e9773a7aa27a414d56093b4e09e0f197a07b5980) )
+  - A comment for field `ranges` in message `.google.spanner.v1.KeySet` is changed ( [e9773a7](https://github.com/googleapis/java-spanner/commit/e9773a7aa27a414d56093b4e09e0f197a07b5980) )
 
 #### [6.101.1](https://github.com/googleapis/java-spanner/compare/v6.101.0...v6.101.1) (2025-09-26)
 
@@ -676,7 +676,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
   - **spanner/adapter:** Add last field in AdaptMessageResponse for internal optimization usage ( [c574e28](https://github.com/googleapis/google-cloud-go/commit/c574e287f49cc1c3b069b35d95b98da2bc9b948f) )
   - **spanner/admin/database:** Proto changes for an internal api ( [eeb4b1f](https://github.com/googleapis/google-cloud-go/commit/eeb4b1fe8eb83b73ec31b0bd46e3704bdc0212c3) )
-  - **spanner:** A new field `  snapshot_timestamp  ` is added to message `  .google.spanner.v1.CommitResponse  ` ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A new field `snapshot_timestamp` is added to message `.google.spanner.v1.CommitResponse` ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
   - **spanner:** Add Google Cloud standard otel attributes ( [\#11652](https://github.com/googleapis/google-cloud-go/issues/11652) ) ( [f59fcff](https://github.com/googleapis/google-cloud-go/commit/f59fcfffdfcd01ef5b436b76fa83351e2b695920) )
 
 ##### Bug Fixes
@@ -688,15 +688,15 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Documentation
 
-  - **spanner:** A comment for enum value `  OPTIMISTIC  ` in enum `  ReadLockMode  ` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
-  - **spanner:** A comment for enum value `  PESSIMISTIC  ` in enum `  ReadLockMode  ` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
-  - **spanner:** A comment for enum value `  READ_LOCK_MODE_UNSPECIFIED  ` in enum `  ReadLockMode  ` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
-  - **spanner:** A comment for field `  commit_stats  ` in message `  .google.spanner.v1.CommitResponse  ` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
-  - **spanner:** A comment for field `  exclude_txn_from_change_streams  ` in message `  .google.spanner.v1.TransactionOptions  ` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
-  - **spanner:** A comment for field `  multiplexed_session_previous_transaction_id  ` in message `  .google.spanner.v1.TransactionOptions  ` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
-  - **spanner:** A comment for field `  precommit_token  ` in message `  .google.spanner.v1.CommitResponse  ` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
-  - **spanner:** A comment for message `  .google.spanner.v1.MultiplexedSessionPrecommitToken  ` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
-  - **spanner:** A comment for message `  .google.spanner.v1.TransactionOptions  ` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A comment for enum value `OPTIMISTIC` in enum `ReadLockMode` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A comment for enum value `PESSIMISTIC` in enum `ReadLockMode` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A comment for enum value `READ_LOCK_MODE_UNSPECIFIED` in enum `ReadLockMode` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A comment for field `commit_stats` in message `.google.spanner.v1.CommitResponse` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A comment for field `exclude_txn_from_change_streams` in message `.google.spanner.v1.TransactionOptions` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A comment for field `multiplexed_session_previous_transaction_id` in message `.google.spanner.v1.TransactionOptions` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A comment for field `precommit_token` in message `.google.spanner.v1.CommitResponse` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A comment for message `.google.spanner.v1.MultiplexedSessionPrecommitToken` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
+  - **spanner:** A comment for message `.google.spanner.v1.TransactionOptions` is changed ( [ac4970b](https://github.com/googleapis/google-cloud-go/commit/ac4970b5a6318dbfcdca7da5ee256852ca49ea23) )
 
 #### [1.84.1](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.84.0...spanner/v1.84.1) (2025-08-06)
 
@@ -719,7 +719,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 ##### Features
 
   - Proto changes for an internal api ( [675e90b](https://github.com/googleapis/java-spanner/commit/675e90b4582b4fc968118121e6c23ec98ee178e9) )
-  - **spanner:** A new field `  snapshot_timestamp  ` is added to message `  .google.spanner.v1.CommitResponse  ` ( [675e90b](https://github.com/googleapis/java-spanner/commit/675e90b4582b4fc968118121e6c23ec98ee178e9) )
+  - **spanner:** A new field `snapshot_timestamp` is added to message `.google.spanner.v1.CommitResponse` ( [675e90b](https://github.com/googleapis/java-spanner/commit/675e90b4582b4fc968118121e6c23ec98ee178e9) )
   - Support Exemplar ( [\#3997](https://github.com/googleapis/java-spanner/issues/3997) ) ( [fcf0a01](https://github.com/googleapis/java-spanner/commit/fcf0a0182a33f229e865e4593635efaed34d6dac) )
   - Use multiplex sessions for RW and Partition Ops ( [\#3996](https://github.com/googleapis/java-spanner/issues/3996) ) ( [a882204](https://github.com/googleapis/java-spanner/commit/a882204e07a2084b228c14fb37ac53e4e33d0f59) )
 
@@ -757,7 +757,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
   - Add throughput\_mode to UpdateDatabaseDdlRequest to be used by Spanner Migration Tool. See https://github.com/GoogleCloudPlatform/spanner-migration-tool ( [\#2304](https://github.com/googleapis/nodejs-spanner/issues/2304) ) ( [a29af56](https://github.com/googleapis/nodejs-spanner/commit/a29af56ae3c31f07115cb938bcf3f0f77241b725) )
   - Operation, Attempt, and GFE metrics ( [\#2328](https://github.com/googleapis/nodejs-spanner/issues/2328) ) ( [646e6ea](https://github.com/googleapis/nodejs-spanner/commit/646e6ea6f1dc5fa1937e512ae9e81ae4d2637ed0) )
   - Proto changes for an internal api ( [\#2356](https://github.com/googleapis/nodejs-spanner/issues/2356) ) ( [380e770](https://github.com/googleapis/nodejs-spanner/commit/380e7705a23a692168db386ba5426c91bf1587b6) )
-  - **spanner:** A new field `  snapshot_timestamp  ` is added to message `  .google.spanner.v1.CommitResponse  ` ( [\#2350](https://github.com/googleapis/nodejs-spanner/issues/2350) ) ( [0875cd8](https://github.com/googleapis/nodejs-spanner/commit/0875cd82e99fa6c95ab38807e09c5921303775f8) )
+  - **spanner:** A new field `snapshot_timestamp` is added to message `.google.spanner.v1.CommitResponse` ( [\#2350](https://github.com/googleapis/nodejs-spanner/issues/2350) ) ( [0875cd8](https://github.com/googleapis/nodejs-spanner/commit/0875cd82e99fa6c95ab38807e09c5921303775f8) )
   - **spanner:** Add new change\_stream.proto ( [\#2315](https://github.com/googleapis/nodejs-spanner/issues/2315) ) ( [57d67be](https://github.com/googleapis/nodejs-spanner/commit/57d67be2e3b6d6ac2a8a903acf8613b27a049c3b) )
   - **spanner:** Add tpc support ( [\#2333](https://github.com/googleapis/nodejs-spanner/issues/2333) ) ( [a381cab](https://github.com/googleapis/nodejs-spanner/commit/a381cab92c31373a6a10edca0f8a8bdfc4415e4b) )
   - Track precommit token in r/w apis(multiplexed session) ( [\#2312](https://github.com/googleapis/nodejs-spanner/issues/2312) ) ( [3676bfa](https://github.com/googleapis/nodejs-spanner/commit/3676bfa60725c43f85a04ead87943be92e4a99f0) )
@@ -889,7 +889,7 @@ Feature
 
 Change
 
-The performance of the `  ANY  ` and the [`  ANY SHORTEST  `](https://docs.cloud.google.com/spanner/docs/graph/work-with-paths#any-shortest) algorithms have been improved. These algorithms are used to find Spanner Graph paths. For more information, see [`  ANY  ` and `  ANY SHORTEST  ` paths](https://docs.cloud.google.com/spanner/docs/graph/queries-overview#any-and-any-shortest-paths) .
+The performance of the `ANY` and the [`ANY SHORTEST`](https://docs.cloud.google.com/spanner/docs/graph/work-with-paths#any-shortest) algorithms have been improved. These algorithms are used to find Spanner Graph paths. For more information, see [`ANY` and `ANY SHORTEST` paths](https://docs.cloud.google.com/spanner/docs/graph/queries-overview#any-and-any-shortest-paths) .
 
 ## June 30, 2025
 
@@ -1122,7 +1122,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Features
 
-  - Add a `  last  ` field in the `  PartialResultSet  ` ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - Add a `last` field in the `PartialResultSet` ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
   - Add support for multiplexed sessions ( [\#1381](https://github.com/googleapis/python-spanner/issues/1381) ) ( [97d7268](https://github.com/googleapis/python-spanner/commit/97d7268ac12a57d9d116ee3d9475580e1e7e07ae) )
   - Add throughput\_mode to UpdateDatabaseDdlRequest to be used by Spanner Migration Tool. See https://github.com/GoogleCloudPlatform/spanner-migration-tool ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
   - Support fine-grained permissions database roles in connect ( [\#1338](https://github.com/googleapis/python-spanner/issues/1338) ) ( [064d9dc](https://github.com/googleapis/python-spanner/commit/064d9dc3441a617cbc80af6e16493bc42c89b3c9) )
@@ -1135,18 +1135,18 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Documentation
 
-  - A comment for field `  chunked_value  ` in message `  .google.spanner.v1.PartialResultSet  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for field `  precommit_token  ` in message `  .google.spanner.v1.PartialResultSet  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for field `  precommit_token  ` in message `  .google.spanner.v1.ResultSet  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for field `  query_plan  ` in message `  .google.spanner.v1.ResultSetStats  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for field `  row_count_lower_bound  ` in message `  .google.spanner.v1.ResultSetStats  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for field `  row_type  ` in message `  .google.spanner.v1.ResultSetMetadata  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for field `  rows  ` in message `  .google.spanner.v1.ResultSet  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for field `  stats  ` in message `  .google.spanner.v1.PartialResultSet  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for field `  stats  ` in message `  .google.spanner.v1.ResultSet  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for field `  values  ` in message `  .google.spanner.v1.PartialResultSet  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for message `  ResultSetMetadata  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
-  - A comment for message `  ResultSetStats  ` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `chunked_value` in message `.google.spanner.v1.PartialResultSet` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `precommit_token` in message `.google.spanner.v1.PartialResultSet` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `precommit_token` in message `.google.spanner.v1.ResultSet` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `query_plan` in message `.google.spanner.v1.ResultSetStats` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `row_count_lower_bound` in message `.google.spanner.v1.ResultSetStats` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `row_type` in message `.google.spanner.v1.ResultSetMetadata` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `rows` in message `.google.spanner.v1.ResultSet` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `stats` in message `.google.spanner.v1.PartialResultSet` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `stats` in message `.google.spanner.v1.ResultSet` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for field `values` in message `.google.spanner.v1.PartialResultSet` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for message `ResultSetMetadata` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
+  - A comment for message `ResultSetStats` is changed ( [d532d57](https://github.com/googleapis/python-spanner/commit/d532d57fd5908ecd7bc9dfff73695715cc4b1ebe) )
   - Fix markdown formatting in transactions page ( [\#1377](https://github.com/googleapis/python-spanner/issues/1377) ) ( [de322f8](https://github.com/googleapis/python-spanner/commit/de322f89642a3c13b6b1d4b9b1a2cdf4c8f550fb) )
 
 ## May 27, 2025
@@ -1175,20 +1175,20 @@ You can create a pre-filtered vector index that indexes only rows in your databa
 
 Feature
 
-Spanner supports the `  INTERVAL  ` data type in GoogleSQL and PostgreSQL, which represents a duration or an amount of time.
+Spanner supports the `INTERVAL` data type in GoogleSQL and PostgreSQL, which represents a duration or an amount of time.
 
 For more information, see [Interval functions in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions) and [PostgreSQL data types](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#interval-type) .
 
 Feature
 
-Spanner supports the [`  SPLIT_SUBSTR()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#split_substr) GoogleSQL function, which splits an input string using a delimiter and returns a substring composed of a specific number of segments, starting from a given segment index.
+Spanner supports the [`SPLIT_SUBSTR()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#split_substr) GoogleSQL function, which splits an input string using a delimiter and returns a substring composed of a specific number of segments, starting from a given segment index.
 
 Spanner also supports the following GoogleSQL aliases:
 
-  - [`  ADDDATE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#adddate) : Alias for [`  DATE_ADD()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#date_add)
-  - [`  SUBDATE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#subdate) : Alias for [`  DATE_SUB()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#date_sub)
-  - [`  LCASE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lcase) : Alias for [`  LOWER()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lower)
-  - [`  UCASE()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ucase) : Alias for [`  UPPER()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#upper)
+  - [`ADDDATE()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#adddate) : Alias for [`DATE_ADD()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#date_add)
+  - [`SUBDATE()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#subdate) : Alias for [`DATE_SUB()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#date_sub)
+  - [`LCASE()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lcase) : Alias for [`LOWER()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#lower)
+  - [`UCASE()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ucase) : Alias for [`UPPER()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#upper)
 
 ## May 01, 2025
 
@@ -1200,7 +1200,7 @@ Spanner Graph lets you model schemaless data with a dynamic label and properties
 
 Feature
 
-The `  enhance_query  ` option on the [`  SEARCH  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) , [`  SCORE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score) , and [`  SNIPPET  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#snippet) functions provides automatic synonym matching and spell correction of single words, by default. Previously, if you provided a single word as the search string it likely didn't return any matches and required a phrase with context to perform the enhanced search.
+The `enhance_query` option on the [`SEARCH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) , [`SCORE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score) , and [`SNIPPET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#snippet) functions provides automatic synonym matching and spell correction of single words, by default. Previously, if you provided a single word as the search string it likely didn't return any matches and required a phrase with context to perform the enhanced search.
 
 Libraries
 
@@ -1317,7 +1317,7 @@ For more information about configuring split points for your database, see [Pre-
 
 Feature
 
-Spanner lets you use the [`  INTERLEAVE IN  ` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) to colocate child rows with parent rows without enforcing the parent-child relationship. When you use `  INTERLEAVE IN  ` (without the `  PARENT  ` option), you can insert child rows before inserting the parent row. You can also delete the parent row without affecting the child rows. For more information, see [Create interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) and [Indexes and interleaving](https://docs.cloud.google.com/spanner/docs/secondary-indexes#indexes_and_interleaving) .
+Spanner lets you use the [`INTERLEAVE IN` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) to colocate child rows with parent rows without enforcing the parent-child relationship. When you use `INTERLEAVE IN` (without the `PARENT` option), you can insert child rows before inserting the parent row. You can also delete the parent row without affecting the child rows. For more information, see [Create interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) and [Indexes and interleaving](https://docs.cloud.google.com/spanner/docs/secondary-indexes#indexes_and_interleaving) .
 
 ## April 14, 2025
 
@@ -1339,7 +1339,7 @@ Spanner offers Cassandra compatibility with API support and migration tools allo
 
 Feature
 
-Spanner includes the [`  PARAMETER_DEFAULT  ` column](https://docs.cloud.google.com/spanner/docs/information-schema#parameters) in the `  INFORMATION_SCHEMA.PARAMETERS  ` table. This column returns the default value of change stream read functions parameters.
+Spanner includes the [`PARAMETER_DEFAULT` column](https://docs.cloud.google.com/spanner/docs/information-schema#parameters) in the `INFORMATION_SCHEMA.PARAMETERS` table. This column returns the default value of change stream read functions parameters.
 
 ## April 03, 2025
 
@@ -1353,33 +1353,33 @@ Feature
 
 Spanner supports the following GoogleSQL JSON mutator functions:
 
-  - `  JSON_ARRAY_APPEND()  `
-  - `  JSON_ARRAY_INSERT()  `
-  - `  JSON_REMOVE()  `
-  - `  JSON_SET()  `
-  - `  JSON_STRIP_NULLS()  `
+  - `JSON_ARRAY_APPEND()`
+  - `JSON_ARRAY_INSERT()`
+  - `JSON_REMOVE()`
+  - `JSON_SET()`
+  - `JSON_STRIP_NULLS()`
 
-Spanner supports the following PostgreSQL `  JSONB  ` mutator functions:
+Spanner supports the following PostgreSQL `JSONB` mutator functions:
 
-  - `  jsonb_insert()  `
-  - `  jsonb_set()  `
-  - `  jsonb_set_lax()  `
-  - `  jsonb_strip_nulls()  `
+  - `jsonb_insert()`
+  - `jsonb_set()`
+  - `jsonb_set_lax()`
+  - `jsonb_strip_nulls()`
 
-Spanner also supports the following PostgreSQL `  JSONB  ` operators:
+Spanner also supports the following PostgreSQL `JSONB` operators:
 
-  - concat: `  jsonb || jsonb -> jsonb  `
-  - delete: `  jsonb - text -> jsonb  `
+  - concat: `jsonb || jsonb -> jsonb`
+  - delete: `jsonb - text -> jsonb`
 
 For more information, see [JSON functions in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-all) and [Supported PostgreSQL functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators) .
 
 Feature
 
-The GoogleSQL [`  JSON_KEYS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys) and PostgreSQL [`  json_object_keys  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_functions) functions, which extract unique JSON keys from a JSON expression, are generally available.
+The GoogleSQL [`JSON_KEYS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_keys) and PostgreSQL [`json_object_keys`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_functions) functions, which extract unique JSON keys from a JSON expression, are generally available.
 
 Feature
 
-JSON search indexes are generally available in Spanner. This extension of Spanner's full-text index capabilities accelerates many JSON document queries, even without prior knowledge of the documents' structure. You can create search indexes over any JSON document stored in a `  JSON  ` column. The [`  JSON_CONTAINS  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains) function in GoogleSQL and the [`  @>  ` and `  <@  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) operators in PostgreSQL can use search indexes to determine if one document structure is contained in another. Search indexing supports `  JSON  ` types in GoogleSQL-dialect databases and `  JSONB  ` in PostgreSQL-dialect databases. For more information, see [JSON search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/json-indexes) .
+JSON search indexes are generally available in Spanner. This extension of Spanner's full-text index capabilities accelerates many JSON document queries, even without prior knowledge of the documents' structure. You can create search indexes over any JSON document stored in a `JSON` column. The [`JSON_CONTAINS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains) function in GoogleSQL and the [`@>` and `<@`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) operators in PostgreSQL can use search indexes to determine if one document structure is contained in another. Search indexing supports `JSON` types in GoogleSQL-dialect databases and `JSONB` in PostgreSQL-dialect databases. For more information, see [JSON search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/json-indexes) .
 
 Libraries
 
@@ -1393,8 +1393,8 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Features
 
-  - **spanner:** A new enum `  IsolationLevel  ` is added ( [\#11624](https://github.com/googleapis/google-cloud-go/issues/11624) ) ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
-  - **spanner:** A new field `  isolation_level  ` is added to message `  .google.spanner.v1.TransactionOptions  ` ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
+  - **spanner:** A new enum `IsolationLevel` is added ( [\#11624](https://github.com/googleapis/google-cloud-go/issues/11624) ) ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
+  - **spanner:** A new field `isolation_level` is added to message `.google.spanner.v1.TransactionOptions` ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
   - **spanner:** Add a last field in the PartialResultSet ( [\#11645](https://github.com/googleapis/google-cloud-go/issues/11645) ) ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
   - **spanner:** Add option for LastStatement in transaction ( [\#11638](https://github.com/googleapis/google-cloud-go/issues/11638) ) ( [d662a45](https://github.com/googleapis/google-cloud-go/commit/d662a4537c3883d13a612e335477ca875b5cf479) )
 
@@ -1404,21 +1404,21 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Documentation
 
-  - **spanner:** A comment for enum value `  OPTIMISTIC  ` in enum `  ReadLockMode  ` is changed ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
-  - **spanner:** A comment for enum value `  PESSIMISTIC  ` in enum `  ReadLockMode  ` is changed ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
-  - **spanner:** A comment for enum value `  READ_LOCK_MODE_UNSPECIFIED  ` in enum `  ReadLockMode  ` is changed ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
-  - **spanner:** A comment for field `  chunked_value  ` in message `  .google.spanner.v1.PartialResultSet  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for field `  precommit_token  ` in message `  .google.spanner.v1.PartialResultSet  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for field `  precommit_token  ` in message `  .google.spanner.v1.ResultSet  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for field `  query_plan  ` in message `  .google.spanner.v1.ResultSetStats  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for field `  row_count_lower_bound  ` in message `  .google.spanner.v1.ResultSetStats  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for field `  row_type  ` in message `  .google.spanner.v1.ResultSetMetadata  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for field `  rows  ` in message `  .google.spanner.v1.ResultSet  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for field `  stats  ` in message `  .google.spanner.v1.PartialResultSet  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for field `  stats  ` in message `  .google.spanner.v1.ResultSet  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for field `  values  ` in message `  .google.spanner.v1.PartialResultSet  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for message `  ResultSetMetadata  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
-  - **spanner:** A comment for message `  ResultSetStats  ` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for enum value `OPTIMISTIC` in enum `ReadLockMode` is changed ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
+  - **spanner:** A comment for enum value `PESSIMISTIC` in enum `ReadLockMode` is changed ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
+  - **spanner:** A comment for enum value `READ_LOCK_MODE_UNSPECIFIED` in enum `ReadLockMode` is changed ( [2c4fb44](https://github.com/googleapis/google-cloud-go/commit/2c4fb448a2207a6d9988ec3a7646ea6cbb6f65f9) )
+  - **spanner:** A comment for field `chunked_value` in message `.google.spanner.v1.PartialResultSet` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for field `precommit_token` in message `.google.spanner.v1.PartialResultSet` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for field `precommit_token` in message `.google.spanner.v1.ResultSet` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for field `query_plan` in message `.google.spanner.v1.ResultSetStats` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for field `row_count_lower_bound` in message `.google.spanner.v1.ResultSetStats` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for field `row_type` in message `.google.spanner.v1.ResultSetMetadata` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for field `rows` in message `.google.spanner.v1.ResultSet` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for field `stats` in message `.google.spanner.v1.PartialResultSet` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for field `stats` in message `.google.spanner.v1.ResultSet` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for field `values` in message `.google.spanner.v1.PartialResultSet` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for message `ResultSetMetadata` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
+  - **spanner:** A comment for message `ResultSetStats` is changed ( [794ecf7](https://github.com/googleapis/google-cloud-go/commit/794ecf77993a83fcad01912fb066366ba16adc11) )
 
 #### [1.78.0](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.77.0...spanner/v1.78.0) (2025-03-24)
 
@@ -1444,7 +1444,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
   - Add a last field in the PartialResultSet ( [7c714be](https://github.com/googleapis/java-spanner/commit/7c714be10eb345f2d8f566d752f6de615061c4da) )
   - Automatically set default sequence kind in JDBC and PGAdapter ( [\#3658](https://github.com/googleapis/java-spanner/issues/3658) ) ( [e8abf33](https://github.com/googleapis/java-spanner/commit/e8abf338b85e95f185ab2875a804134523f84de3) )
   - Default authentication support for external hosts ( [\#3656](https://github.com/googleapis/java-spanner/issues/3656) ) ( [ace11d5](https://github.com/googleapis/java-spanner/commit/ace11d5d928fb567b16560263ae95aa9cd916e22) )
-  - **spanner:** A new enum `  IsolationLevel  ` is added ( [3fd33ba](https://github.com/googleapis/java-spanner/commit/3fd33ba9c5fab43ed475ed3cff9d60c008843981) )
+  - **spanner:** A new enum `IsolationLevel` is added ( [3fd33ba](https://github.com/googleapis/java-spanner/commit/3fd33ba9c5fab43ed475ed3cff9d60c008843981) )
   - **spanner:** Add instance partitions field in backup proto ( [3fd33ba](https://github.com/googleapis/java-spanner/commit/3fd33ba9c5fab43ed475ed3cff9d60c008843981) )
 
 ##### Bug Fixes
@@ -1487,8 +1487,8 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
   - Add AddSplitPoints API ( [e4d389a](https://github.com/googleapis/nodejs-spanner/commit/e4d389a23ff4b73b2d0774ad31a84c9a6c19e306) )
   - Paging changes for bigquery ( [e4d389a](https://github.com/googleapis/nodejs-spanner/commit/e4d389a23ff4b73b2d0774ad31a84c9a6c19e306) )
-  - **spanner:** A new enum `  IsolationLevel  ` is added ( [\#2225](https://github.com/googleapis/nodejs-spanner/issues/2225) ) ( [e4d389a](https://github.com/googleapis/nodejs-spanner/commit/e4d389a23ff4b73b2d0774ad31a84c9a6c19e306) )
-  - **spanner:** A new field `  isolation_level  ` is added to message `  .google.spanner.v1.TransactionOptions  ` ( [e4d389a](https://github.com/googleapis/nodejs-spanner/commit/e4d389a23ff4b73b2d0774ad31a84c9a6c19e306) )
+  - **spanner:** A new enum `IsolationLevel` is added ( [\#2225](https://github.com/googleapis/nodejs-spanner/issues/2225) ) ( [e4d389a](https://github.com/googleapis/nodejs-spanner/commit/e4d389a23ff4b73b2d0774ad31a84c9a6c19e306) )
+  - **spanner:** A new field `isolation_level` is added to message `.google.spanner.v1.TransactionOptions` ( [e4d389a](https://github.com/googleapis/nodejs-spanner/commit/e4d389a23ff4b73b2d0774ad31a84c9a6c19e306) )
   - **spanner:** Add instance partitions field in backup proto ( [e4d389a](https://github.com/googleapis/nodejs-spanner/commit/e4d389a23ff4b73b2d0774ad31a84c9a6c19e306) )
   - **spanner:** Add support for Multiplexed Session for Read Only Tran… ( [\#2214](https://github.com/googleapis/nodejs-spanner/issues/2214) ) ( [3a7a51b](https://github.com/googleapis/nodejs-spanner/commit/3a7a51bee00730c2daf1b9791b45f75531c14a2c) )
   - **x-goog-spanner-request-id:** Add bases ( [\#2211](https://github.com/googleapis/nodejs-spanner/issues/2211) ) ( [0008038](https://github.com/googleapis/nodejs-spanner/commit/000803812e670ce0f4bac4a6460351f2b08ec660) )
@@ -1530,7 +1530,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
   - Exposing QuorumType in InstanceConfig ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
   - Exposing storage\_limit\_per\_processing\_unit in InstanceConfig ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
   - Snapshot isolation ( [\#1318](https://github.com/googleapis/python-spanner/issues/1318) ) ( [992fcae](https://github.com/googleapis/python-spanner/commit/992fcae2d4fd2b47380d159a3416b8d6d6e1c937) )
-  - **spanner:** A new enum `  IsolationLevel  ` is added ( [\#1224](https://github.com/googleapis/python-spanner/issues/1224) ) ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - **spanner:** A new enum `IsolationLevel` is added ( [\#1224](https://github.com/googleapis/python-spanner/issues/1224) ) ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
 
 ##### Bug Fixes
 
@@ -1545,43 +1545,43 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Documentation
 
-  - A comment for enum `  DefaultBackupScheduleType  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for enum value `  AUTOMATIC  ` in enum `  DefaultBackupScheduleType  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for enum value `  GOOGLE_MANAGED  ` in enum `  Type  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for enum value `  NONE  ` in enum `  DefaultBackupScheduleType  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for enum value `  USER_MANAGED  ` in enum `  Type  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  base_config  ` in message `  .google.spanner.admin.instance.v1.InstanceConfig  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  default_backup_schedule_type  ` in message `  .google.spanner.admin.instance.v1.Instance  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  filter  ` in message `  .google.spanner.admin.instance.v1.ListInstanceConfigOperationsRequest  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  filter  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  instance_config  ` in message `  .google.spanner.admin.instance.v1.CreateInstanceConfigRequest  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  instance_partition_deadline  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  location  ` in message `  .google.spanner.admin.instance.v1.ReplicaInfo  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  node_count  ` in message `  .google.spanner.admin.instance.v1.Instance  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  node_count  ` in message `  .google.spanner.admin.instance.v1.InstancePartition  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  operations  ` in message `  .google.spanner.admin.instance.v1.ListInstanceConfigOperationsResponse  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  operations  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionOperationsResponse  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  optional_replicas  ` in message `  .google.spanner.admin.instance.v1.InstanceConfig  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  parent  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionsRequest  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  processing_units  ` in message `  .google.spanner.admin.instance.v1.Instance  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  processing_units  ` in message `  .google.spanner.admin.instance.v1.InstancePartition  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  referencing_backups  ` in message `  .google.spanner.admin.instance.v1.InstancePartition  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  replicas  ` in message `  .google.spanner.admin.instance.v1.InstanceConfig  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  storage_utilization_percent  ` in message `  .google.spanner.admin.instance.v1.AutoscalingConfig  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for field `  unreachable  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionsResponse  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for message `  CreateInstanceConfigRequest  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for message `  DeleteInstanceConfigRequest  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for message `  UpdateInstanceConfigRequest  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  CreateInstance  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  CreateInstanceConfig  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  CreateInstancePartition  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  ListInstanceConfigOperations  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  ListInstanceConfigs  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  ListInstancePartitionOperations  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  MoveInstance  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  UpdateInstance  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  UpdateInstanceConfig  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
-  - A comment for method `  UpdateInstancePartition  ` in service `  InstanceAdmin  ` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for enum `DefaultBackupScheduleType` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for enum value `AUTOMATIC` in enum `DefaultBackupScheduleType` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for enum value `GOOGLE_MANAGED` in enum `Type` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for enum value `NONE` in enum `DefaultBackupScheduleType` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for enum value `USER_MANAGED` in enum `Type` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `base_config` in message `.google.spanner.admin.instance.v1.InstanceConfig` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `default_backup_schedule_type` in message `.google.spanner.admin.instance.v1.Instance` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `filter` in message `.google.spanner.admin.instance.v1.ListInstanceConfigOperationsRequest` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `filter` in message `.google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `instance_config` in message `.google.spanner.admin.instance.v1.CreateInstanceConfigRequest` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `instance_partition_deadline` in message `.google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `location` in message `.google.spanner.admin.instance.v1.ReplicaInfo` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `node_count` in message `.google.spanner.admin.instance.v1.Instance` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `node_count` in message `.google.spanner.admin.instance.v1.InstancePartition` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `operations` in message `.google.spanner.admin.instance.v1.ListInstanceConfigOperationsResponse` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `operations` in message `.google.spanner.admin.instance.v1.ListInstancePartitionOperationsResponse` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `optional_replicas` in message `.google.spanner.admin.instance.v1.InstanceConfig` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `parent` in message `.google.spanner.admin.instance.v1.ListInstancePartitionsRequest` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `processing_units` in message `.google.spanner.admin.instance.v1.Instance` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `processing_units` in message `.google.spanner.admin.instance.v1.InstancePartition` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `referencing_backups` in message `.google.spanner.admin.instance.v1.InstancePartition` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `replicas` in message `.google.spanner.admin.instance.v1.InstanceConfig` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `storage_utilization_percent` in message `.google.spanner.admin.instance.v1.AutoscalingConfig` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for field `unreachable` in message `.google.spanner.admin.instance.v1.ListInstancePartitionsResponse` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for message `CreateInstanceConfigRequest` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for message `DeleteInstanceConfigRequest` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for message `UpdateInstanceConfigRequest` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `CreateInstance` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `CreateInstanceConfig` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `CreateInstancePartition` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `ListInstanceConfigOperations` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `ListInstanceConfigs` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `ListInstancePartitionOperations` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `MoveInstance` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `UpdateInstance` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `UpdateInstanceConfig` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
+  - A comment for method `UpdateInstancePartition` in service `InstanceAdmin` is changed ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
   - Fix typo timzeone -\> timezone ( [7a5afba](https://github.com/googleapis/python-spanner/commit/7a5afba28b20ac94f3eec799f4b572c95af60b94) )
 
 ## March 28, 2025
@@ -1590,9 +1590,9 @@ Feature
 
 Spanner vector index and approximate nearest neighbor (ANN) distance functions in the GoogleSQL-dialect are Generally Available. If you have a table with a large amount of vector data, you can use a vector index to accelerate similarity searches and nearest neighbor queries. Spanner also supports the following:
 
-  - [`  ALTER VECTOR INDEX  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-vector-index) DDL syntax
+  - [`ALTER VECTOR INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-vector-index) DDL syntax
   - [Import and export](https://docs.cloud.google.com/spanner/docs/import-export-overview) databases that use ANN
-  - Use the [`  STORING  ` clause](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing_clause) to store a copy of a column in the vector index to accelerate queries that filter by those columns
+  - Use the [`STORING` clause](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing_clause) to store a copy of a column in the vector index to accelerate queries that filter by those columns
   - Use ANN in instances smaller than one node or 1000 processing units
 
 For more information, see [Find approximate nearest neighbors, create vector indexes, and query vector embeddings](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
@@ -1621,7 +1621,7 @@ You can create an [external dataset](https://docs.cloud.google.com/bigquery/docs
 
 Feature
 
-You can use [`  EXPORT DATA  ` statements](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/other-statements) to [reverse ETL BigQuery data to Spanner](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
+You can use [`EXPORT DATA` statements](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/other-statements) to [reverse ETL BigQuery data to Spanner](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) . This feature is [generally available](https://cloud.google.com/products#product-launch-stages) (GA).
 
 ## March 10, 2025
 
@@ -1640,11 +1640,11 @@ The following LangChain solutions can be used with Spanner Graph:
 
 Feature
 
-You can create Spanner [regional instance configurations](https://cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Stockholm, Sweden ( `  europe-north2  ` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://docs.cloud.google.com/spanner/pricing) .
+You can create Spanner [regional instance configurations](https://cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Stockholm, Sweden ( `europe-north2` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://docs.cloud.google.com/spanner/pricing) .
 
 Feature
 
-The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) is available in Europe - `  eur7  ` (Milan/Frankfurt/Turin).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) is available in Europe - `eur7` (Milan/Frankfurt/Turin).
 
 ## February 28, 2025
 
@@ -1684,43 +1684,43 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 ##### Documentation
 
   - **spanner/admin/database:** Fix typo timzeone -\> timezone ( [a694e11](https://github.com/googleapis/google-cloud-go/commit/a694e1152fc75307da6ca8dcfff26cae9189f29c) )
-  - **spanner/admin/instance:** A comment for enum `  DefaultBackupScheduleType  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for enum value `  AUTOMATIC  ` in enum `  DefaultBackupScheduleType  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for enum value `  GOOGLE_MANAGED  ` in enum `  Type  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for enum value `  NONE  ` in enum `  DefaultBackupScheduleType  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for enum value `  USER_MANAGED  ` in enum `  Type  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  base_config  ` in message `  .google.spanner.admin.instance.v1.InstanceConfig  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  default_backup_schedule_type  ` in message `  .google.spanner.admin.instance.v1.Instance  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  filter  ` in message `  .google.spanner.admin.instance.v1.ListInstanceConfigOperationsRequest  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  filter  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  instance_config  ` in message `  .google.spanner.admin.instance.v1.CreateInstanceConfigRequest  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  instance_partition_deadline  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  location  ` in message `  .google.spanner.admin.instance.v1.ReplicaInfo  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  node_count  ` in message `  .google.spanner.admin.instance.v1.Instance  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  node_count  ` in message `  .google.spanner.admin.instance.v1.InstancePartition  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  operations  ` in message `  .google.spanner.admin.instance.v1.ListInstanceConfigOperationsResponse  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  operations  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionOperationsResponse  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  optional_replicas  ` in message `  .google.spanner.admin.instance.v1.InstanceConfig  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  parent  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionsRequest  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  processing_units  ` in message `  .google.spanner.admin.instance.v1.Instance  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  processing_units  ` in message `  .google.spanner.admin.instance.v1.InstancePartition  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  referencing_backups  ` in message `  .google.spanner.admin.instance.v1.InstancePartition  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  replicas  ` in message `  .google.spanner.admin.instance.v1.InstanceConfig  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  storage_utilization_percent  ` in message `  .google.spanner.admin.instance.v1.AutoscalingConfig  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for field `  unreachable  ` in message `  .google.spanner.admin.instance.v1.ListInstancePartitionsResponse  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for message `  CreateInstanceConfigRequest  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for message `  DeleteInstanceConfigRequest  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for message `  UpdateInstanceConfigRequest  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  CreateInstance  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  CreateInstanceConfig  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  CreateInstancePartition  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  ListInstanceConfigOperations  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  ListInstanceConfigs  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  ListInstancePartitionOperations  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  MoveInstance  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  UpdateInstance  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  UpdateInstanceConfig  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
-  - **spanner/admin/instance:** A comment for method `  UpdateInstancePartition  ` in service `  InstanceAdmin  ` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for enum `DefaultBackupScheduleType` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for enum value `AUTOMATIC` in enum `DefaultBackupScheduleType` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for enum value `GOOGLE_MANAGED` in enum `Type` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for enum value `NONE` in enum `DefaultBackupScheduleType` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for enum value `USER_MANAGED` in enum `Type` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `base_config` in message `.google.spanner.admin.instance.v1.InstanceConfig` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `default_backup_schedule_type` in message `.google.spanner.admin.instance.v1.Instance` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `filter` in message `.google.spanner.admin.instance.v1.ListInstanceConfigOperationsRequest` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `filter` in message `.google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `instance_config` in message `.google.spanner.admin.instance.v1.CreateInstanceConfigRequest` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `instance_partition_deadline` in message `.google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `location` in message `.google.spanner.admin.instance.v1.ReplicaInfo` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `node_count` in message `.google.spanner.admin.instance.v1.Instance` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `node_count` in message `.google.spanner.admin.instance.v1.InstancePartition` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `operations` in message `.google.spanner.admin.instance.v1.ListInstanceConfigOperationsResponse` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `operations` in message `.google.spanner.admin.instance.v1.ListInstancePartitionOperationsResponse` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `optional_replicas` in message `.google.spanner.admin.instance.v1.InstanceConfig` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `parent` in message `.google.spanner.admin.instance.v1.ListInstancePartitionsRequest` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `processing_units` in message `.google.spanner.admin.instance.v1.Instance` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `processing_units` in message `.google.spanner.admin.instance.v1.InstancePartition` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `referencing_backups` in message `.google.spanner.admin.instance.v1.InstancePartition` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `replicas` in message `.google.spanner.admin.instance.v1.InstanceConfig` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `storage_utilization_percent` in message `.google.spanner.admin.instance.v1.AutoscalingConfig` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for field `unreachable` in message `.google.spanner.admin.instance.v1.ListInstancePartitionsResponse` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for message `CreateInstanceConfigRequest` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for message `DeleteInstanceConfigRequest` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for message `UpdateInstanceConfigRequest` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `CreateInstance` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `CreateInstanceConfig` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `CreateInstancePartition` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `ListInstanceConfigOperations` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `ListInstanceConfigs` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `ListInstancePartitionOperations` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `MoveInstance` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `UpdateInstance` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `UpdateInstanceConfig` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
+  - **spanner/admin/instance:** A comment for method `UpdateInstancePartition` in service `InstanceAdmin` is changed ( [4254053](https://github.com/googleapis/google-cloud-go/commit/42540530e44e5f331e66e0777c4aabf449f5fd90) )
 
 #### [1.75.0](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.74.0...spanner/v1.75.0) (2025-02-02)
 
@@ -1844,7 +1844,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 Feature
 
-The Java and Go clients for Spanner implement multiplexed sessions. This allows all requests to be concurrently sent over a single session, thus eliminating the requirement that you define the minimum and maximum session count. Instead, you can use any number of requests to the configured gRPC channels. This approach eliminates the possibility of session leaks and reduces the occurrences of `  Transaction outcome unknown  ` errors. You must set an environment variable in your client to opt in to this feature. For more information, see [Multiplexed sessions](https://docs.cloud.google.com/spanner/docs/sessions#multiplexed_sessions) .
+The Java and Go clients for Spanner implement multiplexed sessions. This allows all requests to be concurrently sent over a single session, thus eliminating the requirement that you define the minimum and maximum session count. Instead, you can use any number of requests to the configured gRPC channels. This approach eliminates the possibility of session leaks and reduces the occurrences of `Transaction outcome unknown` errors. You must set an environment variable in your client to opt in to this feature. For more information, see [Multiplexed sessions](https://docs.cloud.google.com/spanner/docs/sessions#multiplexed_sessions) .
 
 ## February 11, 2025
 
@@ -1937,7 +1937,7 @@ The Spanner index advisor is Generally Available in GoogleSQL and PostgreSQL-dia
 
 Feature
 
-Spanner supports [`  SERIAL  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#serial-types) and [`  AUTO_INCREMENT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#table_statements) DDL syntax. `  SERIAL  ` is available in PostgreSQL-dialect databases and `  AUTO_INCREMENT  ` is available in GoogleSQL. They streamline the ability to generate `  IDENTITY  ` columns as primary keys. For more information, see [`  SERIAL  ` and `  AUTO_INCREMENT  `](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#serial-auto-increment) .
+Spanner supports [`SERIAL`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#serial-types) and [`AUTO_INCREMENT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#table_statements) DDL syntax. `SERIAL` is available in PostgreSQL-dialect databases and `AUTO_INCREMENT` is available in GoogleSQL. They streamline the ability to generate `IDENTITY` columns as primary keys. For more information, see [`SERIAL` and `AUTO_INCREMENT`](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#serial-auto-increment) .
 
 ## January 28, 2025
 
@@ -1949,7 +1949,7 @@ You can downgrade your Spanner instance to a lower-tier [edition](https://docs.c
 
 Feature
 
-Spanner supports the `  SELECT…FOR UPDATE  ` query syntax in GoogleSQL and PostgreSQL-dialect databases. When you use the `  SELECT  ` query to scan a table, add a `  FOR UPDATE  ` clause to enable exclusive locks on the scanned data in order to reduce aborts for workloads that operate on the same data concurrently. This is similar to the `  LOCK_SCANNED_RANGES  ` hint ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#statement-hints) ). For more information, see [Use `  SELECT…FOR UPDATE  `](https://docs.cloud.google.com/spanner/docs/use-select-for-update) .
+Spanner supports the `SELECT…FOR UPDATE` query syntax in GoogleSQL and PostgreSQL-dialect databases. When you use the `SELECT` query to scan a table, add a `FOR UPDATE` clause to enable exclusive locks on the scanned data in order to reduce aborts for workloads that operate on the same data concurrently. This is similar to the `LOCK_SCANNED_RANGES` hint ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#statement-hints) ). For more information, see [Use `SELECT…FOR UPDATE`](https://docs.cloud.google.com/spanner/docs/use-select-for-update) .
 
 ## January 15, 2025
 
@@ -2044,7 +2044,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 Feature
 
-Spanner supports `  IDENTITY  ` columns. `  IDENTITY  ` columns lets you generate unique integer values for key and non-key columns, and aligns with the ANSI standard. For more information, see [`  IDENTITY  ` columns](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#identity-columns) .
+Spanner supports `IDENTITY` columns. `IDENTITY` columns lets you generate unique integer values for key and non-key columns, and aligns with the ANSI standard. For more information, see [`IDENTITY` columns](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#identity-columns) .
 
 ## December 02, 2024
 
@@ -2217,7 +2217,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
   - Add PROTO in streaming chunks ( [\#1213](https://github.com/googleapis/python-spanner/issues/1213) ) ( [43c190b](https://github.com/googleapis/python-spanner/commit/43c190bc694d56e0c57d96dbaa7fc48117f3c971) )
   - Pass through route-to-leader option in dbapi ( [\#1223](https://github.com/googleapis/python-spanner/issues/1223) ) ( [ec6c204](https://github.com/googleapis/python-spanner/commit/ec6c204f66e5c8419ea25c4b77f18a38a57acf81) )
-  - Pin `  nox  ` version in `  requirements.in  ` for devcontainer. ( [\#1215](https://github.com/googleapis/python-spanner/issues/1215) ) ( [41604fe](https://github.com/googleapis/python-spanner/commit/41604fe297d02f5cc2e5516ba24e0fdcceda8e26) )
+  - Pin `nox` version in `requirements.in` for devcontainer. ( [\#1215](https://github.com/googleapis/python-spanner/issues/1215) ) ( [41604fe](https://github.com/googleapis/python-spanner/commit/41604fe297d02f5cc2e5516ba24e0fdcceda8e26) )
 
 ##### Documentation
 
@@ -2244,13 +2244,13 @@ For more information, see [Default backup schedules](https://docs.cloud.google.c
 
 Feature
 
-Spanner supports the [`  ALL_DIFFERENT  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#all_different_predicate) graph predicate in GoogleSQL-dialect databases. You can use this predicate to see if the graph elements in a list are mutually distinct.
+Spanner supports the [`ALL_DIFFERENT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators#all_different_predicate) graph predicate in GoogleSQL-dialect databases. You can use this predicate to see if the graph elements in a list are mutually distinct.
 
 ## November 18, 2024
 
 Feature
 
-You can create Spanner [regional instance configurations](https://cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Querétaro, Mexico ( `  northamerica-south1  ` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://docs.cloud.google.com/spanner/pricing) .
+You can create Spanner [regional instance configurations](https://cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Querétaro, Mexico ( `northamerica-south1` ). For more information, see [Google Cloud locations](https://cloud.google.com/about/locations) and [Spanner pricing](https://docs.cloud.google.com/spanner/pricing) .
 
 ## November 05, 2024
 
@@ -2299,8 +2299,8 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Documentation
 
-  - **spanner/admin/instance:** A comment for field `  node_count  ` in message `  spanner.admin.instance.v1.Instance  ` is changed ( [78d8513](https://github.com/googleapis/google-cloud-go/commit/78d8513f7e31c6ef118bdfc784049b8c7f1e3249) )
-  - **spanner/admin/instance:** A comment for field `  processing_units  ` in message `  spanner.admin.instance.v1.Instance  ` is changed ( [78d8513](https://github.com/googleapis/google-cloud-go/commit/78d8513f7e31c6ef118bdfc784049b8c7f1e3249) )
+  - **spanner/admin/instance:** A comment for field `node_count` in message `spanner.admin.instance.v1.Instance` is changed ( [78d8513](https://github.com/googleapis/google-cloud-go/commit/78d8513f7e31c6ef118bdfc784049b8c7f1e3249) )
+  - **spanner/admin/instance:** A comment for field `processing_units` in message `spanner.admin.instance.v1.Instance` is changed ( [78d8513](https://github.com/googleapis/google-cloud-go/commit/78d8513f7e31c6ef118bdfc784049b8c7f1e3249) )
   - **spanner:** Update comment for PROFILE QueryMode ( [78d8513](https://github.com/googleapis/google-cloud-go/commit/78d8513f7e31c6ef118bdfc784049b8c7f1e3249) )
 
 ### Java
@@ -2392,9 +2392,9 @@ Feature
 
 Spanner Graph supports the following functions:
 
-  - [`  DESTINATION_NODE_ID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#destination_node_id) : gets a unique identifier for a graph edge's destination node.
-  - [`  ELEMENT_ID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#element_id) : gets a unique identifier for a graph element.
-  - [`  SOURCE_NODE_ID()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#source_node_id) : gets a unique identifier for a graph edge's source node.
+  - [`DESTINATION_NODE_ID()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#destination_node_id) : gets a unique identifier for a graph edge's destination node.
+  - [`ELEMENT_ID()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#element_id) : gets a unique identifier for a graph element.
+  - [`SOURCE_NODE_ID()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#source_node_id) : gets a unique identifier for a graph edge's source node.
 
 Feature
 
@@ -2446,7 +2446,7 @@ An open source Cassandra to Spanner proxy adapter is available. You can use it t
 
 Feature
 
-Spanner supports a subset of `  pg_system_catalog  ` tables and views. For more information, see [pg\_system\_catalog tables](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables) and [pg\_system\_catalog views](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views) .
+Spanner supports a subset of `pg_system_catalog` tables and views. For more information, see [pg\_system\_catalog tables](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables) and [pg\_system\_catalog views](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views) .
 
 ## October 07, 2024
 
@@ -2468,7 +2468,7 @@ For more information about backup schedules, see [Backups overview](https://docs
 
 Feature
 
-Spanner supports the [`  SAFE_TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) function in GoogleSQL-dialect databases. You can use this function to convert SQL objects to JSON objects. Unlike [`  TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) , this function converts invalid JSON types to JSON null values, rather than errors.
+Spanner supports the [`SAFE_TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) function in GoogleSQL-dialect databases. You can use this function to convert SQL objects to JSON objects. Unlike [`TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) , this function converts invalid JSON types to JSON null values, rather than errors.
 
 ## October 03, 2024
 
@@ -2482,15 +2482,15 @@ Feature
 
 You can perform vector similarity search using the Generally Available K-nearest neighbors (KNN) vector distance functions:
 
-  - `  COSINE_DISTANCE()  `
-  - `  EUCLIDEAN_DISTANCE()  `
-  - `  DOT_PRODUCT()  `
+  - `COSINE_DISTANCE()`
+  - `EUCLIDEAN_DISTANCE()`
+  - `DOT_PRODUCT()`
 
 For more information, see [Perform vector similarity search in Spanner by finding the K-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
 
 Feature
 
-The `  FLOAT32  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#supported) ) data types are Generally Available.
+The `FLOAT32` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `float4/real` ( [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#supported) ) data types are Generally Available.
 
 ## October 01, 2024
 
@@ -2602,7 +2602,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 Feature
 
-Spanner supports the [`  spanner.farm_fingerprint()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#hash-functions) hash function in PostgreSQL-dialect databases.
+Spanner supports the [`spanner.farm_fingerprint()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#hash-functions) hash function in PostgreSQL-dialect databases.
 
 ## September 24, 2024
 
@@ -2677,14 +2677,14 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Features
 
-  - Add `  RESOURCE_EXHAUSTED  ` to the list of retryable error codes ( [e859b29](https://github.com/googleapis/java-spanner/commit/e859b29ccf4e68b1ab62cffdd4cf197011ba9878) )
+  - Add `RESOURCE_EXHAUSTED` to the list of retryable error codes ( [e859b29](https://github.com/googleapis/java-spanner/commit/e859b29ccf4e68b1ab62cffdd4cf197011ba9878) )
   - Add field order\_by in spanner.proto ( [e859b29](https://github.com/googleapis/java-spanner/commit/e859b29ccf4e68b1ab62cffdd4cf197011ba9878) )
   - Add QueryCancellationAction message in executor protos ( [e859b29](https://github.com/googleapis/java-spanner/commit/e859b29ccf4e68b1ab62cffdd4cf197011ba9878) )
   - Add SessionPoolOptions, SpannerOptions protos in executor protos ( [e859b29](https://github.com/googleapis/java-spanner/commit/e859b29ccf4e68b1ab62cffdd4cf197011ba9878) )
   - Add support for multi region encryption config ( [e859b29](https://github.com/googleapis/java-spanner/commit/e859b29ccf4e68b1ab62cffdd4cf197011ba9878) )
   - Enable hermetic library generation ( [\#3129](https://github.com/googleapis/java-spanner/issues/3129) ) ( [94b2a86](https://github.com/googleapis/java-spanner/commit/94b2a8610ac02d2b4212c421f03b4e9561ec9949) )
   - **spanner:** Add samples for instance partitions ( [\#3221](https://github.com/googleapis/java-spanner/issues/3221) ) ( [bc48bf2](https://github.com/googleapis/java-spanner/commit/bc48bf212e37441221b3b6c8742b07ff601f6c41) )
-  - **spanner:** Adding `  EXPECTED_FULFILLMENT_PERIOD  ` to the indicate instance creation times (with `  FULFILLMENT_PERIOD_NORMAL  ` or `  FULFILLMENT_PERIOD_EXTENDED  ` ENUM) with the extended instance creation time triggered by On-Demand Capacity Feature ( [e859b29](https://github.com/googleapis/java-spanner/commit/e859b29ccf4e68b1ab62cffdd4cf197011ba9878) )
+  - **spanner:** Adding `EXPECTED_FULFILLMENT_PERIOD` to the indicate instance creation times (with `FULFILLMENT_PERIOD_NORMAL` or `FULFILLMENT_PERIOD_EXTENDED` ENUM) with the extended instance creation time triggered by On-Demand Capacity Feature ( [e859b29](https://github.com/googleapis/java-spanner/commit/e859b29ccf4e68b1ab62cffdd4cf197011ba9878) )
   - **spanner:** Set manual affinity incase of gRPC-GCP extenstion ( [\#3215](https://github.com/googleapis/java-spanner/issues/3215) ) ( [86b306a](https://github.com/googleapis/java-spanner/commit/86b306a4189483a5fd2746052bed817443630567) )
   - Support Read RPC OrderBy ( [\#3180](https://github.com/googleapis/java-spanner/issues/3180) ) ( [735bca5](https://github.com/googleapis/java-spanner/commit/735bca523e4ea53a24929fb2c27d282c41350e91) )
 
@@ -2779,7 +2779,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 Feature
 
-The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) is available in North America - `  nam16  ` (Iowa/Northern Virginia/Columbus).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) is available in North America - `nam16` (Iowa/Northern Virginia/Columbus).
 
 ## August 01, 2024
 
@@ -2891,7 +2891,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 Feature
 
-Spanner includes the `  JSON_ARRAY()  ` and `  JSON_OBJECT()  ` functions for building JSON types in GoogleSQL. For more information, see [JSON functions in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions) .
+Spanner includes the `JSON_ARRAY()` and `JSON_OBJECT()` functions for building JSON types in GoogleSQL. For more information, see [JSON functions in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions) .
 
 ## July 16, 2024
 
@@ -2899,37 +2899,37 @@ Feature
 
 Spanner supports the following GoogleSQL JSON functions:
 
-  - [`  BOOL_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json) : Converts a JSON array of booleans to a SQL `  ARRAY<BOOL>  ` value.
-  - [`  FLOAT32  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_for_json) : Converts a JSON number to a SQL `  FLOAT32  ` value.
-  - [`  FLOAT32_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT32>  ` value.
-  - [`  FLOAT64_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_array_for_json) : Converts a JSON array of numbers to a SQL `  ARRAY<FLOAT64>  ` value.
-  - [`  INT64_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json) : Converts a JSON array of numbers to a SQL `  INT64_ARRAY  ` value.
-  - [`  STRING_ARRAY  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_array_for_json) : Converts a JSON array of strings to a SQL `  ARRAY<STRING>  ` value.
+  - [`BOOL_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_array_for_json) : Converts a JSON array of booleans to a SQL `ARRAY<BOOL>` value.
+  - [`FLOAT32`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_for_json) : Converts a JSON number to a SQL `FLOAT32` value.
+  - [`FLOAT32_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#float_array_for_json) : Converts a JSON array of numbers to a SQL `ARRAY<FLOAT32>` value.
+  - [`FLOAT64_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_array_for_json) : Converts a JSON array of numbers to a SQL `ARRAY<FLOAT64>` value.
+  - [`INT64_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_array_for_json) : Converts a JSON array of numbers to a SQL `INT64_ARRAY` value.
+  - [`STRING_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_array_for_json) : Converts a JSON array of strings to a SQL `ARRAY<STRING>` value.
 
 Feature
 
 Spanner supports the following PostgreSQL JSONB functions:
 
-  - `  jsonb_array_elements()  `
-  - `  spanner.bool_array()  `
-  - `  spanner.float32_array()  `
-  - `  spanner.float64_array()  `
-  - `  spanner.int64_array()  `
-  - `  spanner.string_array()  `
+  - `jsonb_array_elements()`
+  - `spanner.bool_array()`
+  - `spanner.float32_array()`
+  - `spanner.float64_array()`
+  - `spanner.int64_array()`
+  - `spanner.string_array()`
 
 For more information, see [JSONB functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_functions) and [Spanner specific JSONB functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-jsonb-functions) .
 
 Feature
 
-Spanner supports the GoogleSQL `  PDML_MAX_PARALLELISM  ` statement-level hint. For more information, see [Statement hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#statement_hints) .
+Spanner supports the GoogleSQL `PDML_MAX_PARALLELISM` statement-level hint. For more information, see [Statement hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#statement_hints) .
 
 Feature
 
-The following are supported for the `  INSERT  ` statement:
+The following are supported for the `INSERT` statement:
 
-  - [`  INSERT OR UPDATE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) and [`  INSERT OR IGNORE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-ignore) DML statements support the [`  THEN RETURN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) clause in GoogleSQL.
-  - [`  INSERT…ON CONFLICT  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) DML statement supports the [`  RETURNING  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) clause in PostgreSQL.
-  - [`  THEN RETURN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) supports the `  WITH ACTION  ` clause in GoogleSQL.
+  - [`INSERT OR UPDATE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) and [`INSERT OR IGNORE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-ignore) DML statements support the [`THEN RETURN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) clause in GoogleSQL.
+  - [`INSERT…ON CONFLICT`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) DML statement supports the [`RETURNING`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) clause in PostgreSQL.
+  - [`THEN RETURN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) supports the `WITH ACTION` clause in GoogleSQL.
 
 Feature
 
@@ -2943,13 +2943,13 @@ Spanner supports dual-region instance configurations in Australia, Germany, Indi
 
 Feature
 
-Spanner supports the approximate nearest neighbor (ANN) distance functions ( `  APPROX_COSINE_DISTANCE()  ` , `  APPROX_EUCLIDEAN_DISTANCE()  ` , and `  APPROX_DOT_PRODUCT()  ` ) in the GoogleSQL dialect (in Preview). For tables with a lot of vector data, you can create a vector index using DDL statements. This accelerates similarity searches and nearest neighbor queries using these functions in standard SQL, without copying the data to a separate system. For more information, see [Find approximate nearest neighbors to index and query vector embeddings in Spanner](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
+Spanner supports the approximate nearest neighbor (ANN) distance functions ( `APPROX_COSINE_DISTANCE()` , `APPROX_EUCLIDEAN_DISTANCE()` , and `APPROX_DOT_PRODUCT()` ) in the GoogleSQL dialect (in Preview). For tables with a lot of vector data, you can create a vector index using DDL statements. This accelerates similarity searches and nearest neighbor queries using these functions in standard SQL, without copying the data to a separate system. For more information, see [Find approximate nearest neighbors to index and query vector embeddings in Spanner](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
 
 ## July 11, 2024
 
 Feature
 
-You can use [`  EXPORT DATA  `](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/other-statements) statements to [reverse ETL BigQuery data to Spanner](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) . This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
+You can use [`EXPORT DATA`](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/other-statements) statements to [reverse ETL BigQuery data to Spanner](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) . This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
 
 ## July 03, 2024
 
@@ -3017,7 +3017,7 @@ Named schemas is generally available. With named schemas, you can group database
 
 Feature
 
-Generated columns don't require the `  STORED  ` attribute. Without this attribute, the generated column is evaluated at query or index time and doesn't require additional storage or write overhead. For more information, see [Create and manage generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) .
+Generated columns don't require the `STORED` attribute. Without this attribute, the generated column is evaluated at query or index time and doesn't require additional storage or write overhead. For more information, see [Create and manage generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) .
 
 ## June 03, 2024
 
@@ -3043,7 +3043,7 @@ A monthly digest of client library updates from across the [Cloud SDK](https://d
 
 ##### Features
 
-  - **spanner/admin/instance:** Adding `  EXPECTED_FULFILLMENT_PERIOD  ` to the indicate instance creation times (with `  FULFILLMENT_PERIOD_NORMAL  ` or `  FULFILLMENT_PERIOD_EXTENDED  ` ENUM) with the extended instance creation time triggered by On-Demand Capacity... ( [\#9693](https://github.com/googleapis/google-cloud-go/issues/9693) ) ( [aa93790](https://github.com/googleapis/google-cloud-go/commit/aa93790132ba830b4c97d217ef02764e2fb1b8ea) )
+  - **spanner/admin/instance:** Adding `EXPECTED_FULFILLMENT_PERIOD` to the indicate instance creation times (with `FULFILLMENT_PERIOD_NORMAL` or `FULFILLMENT_PERIOD_EXTENDED` ENUM) with the extended instance creation time triggered by On-Demand Capacity... ( [\#9693](https://github.com/googleapis/google-cloud-go/issues/9693) ) ( [aa93790](https://github.com/googleapis/google-cloud-go/commit/aa93790132ba830b4c97d217ef02764e2fb1b8ea) )
   - **spanner/executor:** Add SessionPoolOptions, SpannerOptions protos in executor protos ( [2cdc40a](https://github.com/googleapis/google-cloud-go/commit/2cdc40a0b4288f5ab5f2b2b8f5c1d6453a9c81ec) )
   - **spanner:** Add support for change streams transaction exclusion option ( [\#9779](https://github.com/googleapis/google-cloud-go/issues/9779) ) ( [979ce94](https://github.com/googleapis/google-cloud-go/commit/979ce94758442b1224a78a4f3b1f5d592ab51660) )
   - **spanner:** Support MultiEndpoint ( [\#9565](https://github.com/googleapis/google-cloud-go/issues/9565) ) ( [0ac0d26](https://github.com/googleapis/google-cloud-go/commit/0ac0d265abedf946b05294ef874a892b2c5d6067) )
@@ -3060,7 +3060,7 @@ A monthly digest of client library updates from across the [Cloud SDK](https://d
 
   - **spanner/admin/database:** Add support for multi region encryption config ( [3e25053](https://github.com/googleapis/google-cloud-go/commit/3e250530567ee81ed4f51a3856c5940dbec35289) )
   - **spanner/executor:** Add QueryCancellationAction message in executor protos ( [292e812](https://github.com/googleapis/google-cloud-go/commit/292e81231b957ae7ac243b47b8926564cee35920) )
-  - **spanner:** Add `  RESOURCE_EXHAUSTED  ` to the list of retryable error codes ( [1d757c6](https://github.com/googleapis/google-cloud-go/commit/1d757c66478963d6cbbef13fee939632c742759c) )
+  - **spanner:** Add `RESOURCE_EXHAUSTED` to the list of retryable error codes ( [1d757c6](https://github.com/googleapis/google-cloud-go/commit/1d757c66478963d6cbbef13fee939632c742759c) )
   - **spanner:** Add support for Proto Columns ( [\#9315](https://github.com/googleapis/google-cloud-go/issues/9315) ) ( [3ffbbbe](https://github.com/googleapis/google-cloud-go/commit/3ffbbbe50225684f4211c6dbe3ca25acb3d02b8e) )
 
 ##### Bug Fixes
@@ -3129,7 +3129,7 @@ A monthly digest of client library updates from across the [Cloud SDK](https://d
 
 ##### Features
 
-  - Add `  RESOURCE_EXHAUSTED  ` to the list of retryable error codes ( [\#2032](https://github.com/googleapis/nodejs-spanner/issues/2032) ) ( [a4623c5](https://github.com/googleapis/nodejs-spanner/commit/a4623c560c16fa1f37a06cb57a5e47a1d6759d27) )
+  - Add `RESOURCE_EXHAUSTED` to the list of retryable error codes ( [\#2032](https://github.com/googleapis/nodejs-spanner/issues/2032) ) ( [a4623c5](https://github.com/googleapis/nodejs-spanner/commit/a4623c560c16fa1f37a06cb57a5e47a1d6759d27) )
   - Add support for multi region encryption config ( [81fa610](https://github.com/googleapis/nodejs-spanner/commit/81fa610895fe709cbb7429896493a67407a6343c) )
   - Add support for Proto columns ( [\#1991](https://github.com/googleapis/nodejs-spanner/issues/1991) ) ( [ae59c7f](https://github.com/googleapis/nodejs-spanner/commit/ae59c7f957660e08cd5965b5e67694fa1ccc0057) )
   - **spanner:** Add support for change streams transaction exclusion option ( [\#2049](https://github.com/googleapis/nodejs-spanner/issues/2049) ) ( [d95cab5](https://github.com/googleapis/nodejs-spanner/commit/d95cab5abe50cdb56cbc1d6d935aee29526e1096) )
@@ -3157,24 +3157,24 @@ A monthly digest of client library updates from across the [Cloud SDK](https://d
 
 Feature
 
-Spanner supports the following columns in the `  SPANNER_SYS  ` [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) table:
+Spanner supports the following columns in the `SPANNER_SYS` [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) table:
 
-  - `  AVG_MEMORY_PEAK_USAGE_BYTES  `
-  - `  AVG_MEMORY_USAGE_PERCENTAGE  `
-  - `  AVG_QUERY_PLAN_CREATION_TIME_SECS  `
-  - `  AVG_FILESYSTEM_DELAY_SECS  `
-  - `  AVG_REMOTE_SERVER_CALLS  `
-  - `  AVG_ROWS_SPOOLED  `
+  - `AVG_MEMORY_PEAK_USAGE_BYTES`
+  - `AVG_MEMORY_USAGE_PERCENTAGE`
+  - `AVG_QUERY_PLAN_CREATION_TIME_SECS`
+  - `AVG_FILESYSTEM_DELAY_SECS`
+  - `AVG_REMOTE_SERVER_CALLS`
+  - `AVG_ROWS_SPOOLED`
 
 ## May 13, 2024
 
 Feature
 
-Vector length annotation is generally available. For more information, see the [PostgreSQL vector length parameter](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array-extensions) or the [GoogleSQL `  vector_length  ` parameter](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
+Vector length annotation is generally available. For more information, see the [PostgreSQL vector length parameter](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array-extensions) or the [GoogleSQL `vector_length` parameter](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
 
 Feature
 
-Spanner supports the `  read_request_latencies_by_change_stream  ` metric in Cloud Monitoring. Use this metric to view all read latencies and filter latencies by change stream or non-change stream reads. For more information, see [Available charts and metrics](https://docs.cloud.google.com/spanner/docs/monitoring-console#charts-metrics) .
+Spanner supports the `read_request_latencies_by_change_stream` metric in Cloud Monitoring. Use this metric to view all read latencies and filter latencies by change stream or non-change stream reads. For more information, see [Available charts and metrics](https://docs.cloud.google.com/spanner/docs/monitoring-console#charts-metrics) .
 
 ## April 30, 2024
 
@@ -3182,10 +3182,10 @@ Feature
 
 Spanner supports the following for PostgreSQL arrays:
 
-  - [`  UNNEST  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#unnest_operator)
+  - [`UNNEST` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#unnest_operator)
   - [Array slices](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array_slices)
-  - [`  ANY  ` , `  SOME  ` , and `  ALL  ` array comparison operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array_comparisons)
-  - [`  arrayoverlap  ` , `  arraycontains  ` , and `  arraycontained  ` functions and their operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array_operators)
+  - [`ANY` , `SOME` , and `ALL` array comparison operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array_comparisons)
+  - [`arrayoverlap` , `arraycontains` , and `arraycontained` functions and their operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array_operators)
 
 Feature
 
@@ -3277,7 +3277,7 @@ A monthly digest of client library updates from across the [Cloud SDK](https://d
 ##### Features
 
   - OptimisticLock option for getTransaction method ( [\#2028](https://github.com/googleapis/nodejs-spanner/issues/2028) ) ( [dacf869](https://github.com/googleapis/nodejs-spanner/commit/dacf8697b20752041684710982035b4c97837d28) )
-  - **spanner:** Adding `  EXPECTED_FULFILLMENT_PERIOD  ` to the indicate instance creation times (with `  FULFILLMENT_PERIOD_NORMAL  ` or `  FULFILLMENT_PERIOD_EXTENDED  ` ENUM) with the extended instance creation time triggered by On-Demand Capacity Feature ( [\#2024](https://github.com/googleapis/nodejs-spanner/issues/2024) ) ( [5292e03](https://github.com/googleapis/nodejs-spanner/commit/5292e035c5278ba6806f9e1eb84809ed893b1e37) )
+  - **spanner:** Adding `EXPECTED_FULFILLMENT_PERIOD` to the indicate instance creation times (with `FULFILLMENT_PERIOD_NORMAL` or `FULFILLMENT_PERIOD_EXTENDED` ENUM) with the extended instance creation time triggered by On-Demand Capacity Feature ( [\#2024](https://github.com/googleapis/nodejs-spanner/issues/2024) ) ( [5292e03](https://github.com/googleapis/nodejs-spanner/commit/5292e035c5278ba6806f9e1eb84809ed893b1e37) )
 
 ##### Bug Fixes
 
@@ -3314,11 +3314,11 @@ Spanner supports using LangChain with the vector store, document loader, and cha
 
 Feature
 
-Spanner supports the `  dot_product()  ` function (in [Preview](https://cloud.google.com/products#product-launch-stages) ). For more information, see [Choose among vector distance functions to measure vector embeddings similarity](https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function) .
+Spanner supports the `dot_product()` function (in [Preview](https://cloud.google.com/products#product-launch-stages) ). For more information, see [Choose among vector distance functions to measure vector embeddings similarity](https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function) .
 
 Feature
 
-Spanner GoogleSQL supports [`  SAFE.ML.PREDICT()  `](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) , which lets you to return a `  null  ` instead of an error in your predictions.
+Spanner GoogleSQL supports [`SAFE.ML.PREDICT()`](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) , which lets you to return a `null` instead of an error in your predictions.
 
 Feature
 
@@ -3326,11 +3326,11 @@ Spanner supports the use of [Gemini](https://docs.cloud.google.com/gemini/docs/d
 
 Feature
 
-Spanner supports the `  float32  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `  float4/real  ` ( [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#supported) ) data type (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
+Spanner supports the `float32` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#floating_point_types) ) and `float4/real` ( [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#supported) ) data type (in [Preview](https://cloud.google.com/products#product-launch-stages) ).
 
 Feature
 
-Spanner has extended the array data type with the `  VECTOR LENGTH  ` parameter (in [Preview](https://cloud.google.com/products#product-launch-stages) ). This optional parameter sets an array to a fixed size for use in a vector search. For more information, see the [PostgreSQL `  array  ` data type](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array) or the [GoogleSQL `  array  ` data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
+Spanner has extended the array data type with the `VECTOR LENGTH` parameter (in [Preview](https://cloud.google.com/products#product-launch-stages) ). This optional parameter sets an array to a fixed size for use in a vector search. For more information, see the [PostgreSQL `array` data type](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array) or the [GoogleSQL `array` data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#arrays) .
 
 Feature
 
@@ -3338,21 +3338,21 @@ You can [generate ML predictions using the Spanner emulator](https://docs.cloud.
 
 Feature
 
-Spanner supports the `  ML_PREDICT_ROW()  ` function for PostgreSQL. You can use this function to generate predictions using SQL. To learn more about this function and how to use it, see [Using Spanner Vertex AI integration functions](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) .
+Spanner supports the `ML_PREDICT_ROW()` function for PostgreSQL. You can use this function to generate predictions using SQL. To learn more about this function and how to use it, see [Using Spanner Vertex AI integration functions](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) .
 
 Feature
 
-You can generate and backfill vector embeddings for textual data ( `  STRING  ` or `  JSON  ` ) stored in Spanner using GoogleSQL partitioned DML and the Vertex AI `  textembedding-gecko  ` model. For more information, see [Generate vector embeddings for textual data in bulk using partitioned DML](https://docs.cloud.google.com/spanner/docs/backfill-embeddings) .
+You can generate and backfill vector embeddings for textual data ( `STRING` or `JSON` ) stored in Spanner using GoogleSQL partitioned DML and the Vertex AI `textembedding-gecko` model. For more information, see [Generate vector embeddings for textual data in bulk using partitioned DML](https://docs.cloud.google.com/spanner/docs/backfill-embeddings) .
 
 Feature
 
-Spanner supports the following PostgreSQL `  JSONB  ` functions:
+Spanner supports the following PostgreSQL `JSONB` functions:
 
-  - `  spanner.jsonb_query_array()  `
-  - `  jsonb_build_array()  `
-  - `  jsonb_build_object()  `
+  - `spanner.jsonb_query_array()`
+  - `jsonb_build_array()`
+  - `jsonb_build_object()`
 
-The PostgreSQL `  CONCAT()  ` function also supports more than 4 arguments.
+The PostgreSQL `CONCAT()` function also supports more than 4 arguments.
 
 For more information, see [Supported PostgreSQL functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb) .
 
@@ -3360,15 +3360,15 @@ For more information, see [Supported PostgreSQL functions](https://docs.cloud.go
 
 Feature
 
-You can add a [time to live (TTL)-based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) to your Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) using the `  exclude_ttl_deletes  ` option.
+You can add a [time to live (TTL)-based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) to your Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) using the `exclude_ttl_deletes` option.
 
 Feature
 
-Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) support a [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) called `  NEW_ROW_AND_OLD_VALUES  ` . This type captures all new values for both modified and unmodified columns, and old values for modified columns.
+Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) support a [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) called `NEW_ROW_AND_OLD_VALUES` . This type captures all new values for both modified and unmodified columns, and old values for modified columns.
 
 Feature
 
-You can add a [table modification type filter](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) to your Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) to exclude `  INSERT  ` , `  UPDATE  ` , or `  DELETE  ` table modifications.
+You can add a [table modification type filter](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) to your Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) to exclude `INSERT` , `UPDATE` , or `DELETE` table modifications.
 
 ## March 29, 2024
 
@@ -3501,7 +3501,7 @@ A monthly digest of client library updates from across the [Cloud SDK](https://d
 
 ##### Bug Fixes
 
-  - Correcting name of variable from `  table_schema  ` to `  schema_name  ` ( [\#1114](https://github.com/googleapis/python-spanner/issues/1114) ) ( [a92c6d3](https://github.com/googleapis/python-spanner/commit/a92c6d347f2ae84779ec8662280ea894d558a887) )
+  - Correcting name of variable from `table_schema` to `schema_name` ( [\#1114](https://github.com/googleapis/python-spanner/issues/1114) ) ( [a92c6d3](https://github.com/googleapis/python-spanner/commit/a92c6d347f2ae84779ec8662280ea894d558a887) )
 
 ##### Documentation
 
@@ -3545,7 +3545,7 @@ Spanner supports a client library interface. The interface leverages auto-genera
 
 Feature
 
-Spanner regional endpoint is available in `  me-central2  ` . You can use regional endpoints if your data location must be restricted and controlled to comply with regulatory requirements. For more information, see [Global and regional service endpoints](https://docs.cloud.google.com/spanner/docs/endpoints) .
+Spanner regional endpoint is available in `me-central2` . You can use regional endpoints if your data location must be restricted and controlled to comply with regulatory requirements. For more information, see [Global and regional service endpoints](https://docs.cloud.google.com/spanner/docs/endpoints) .
 
 Libraries
 
@@ -3737,15 +3737,15 @@ Feature
 
 The following GoogleSQL JSON functions are [generally available](https://cloud.google.com/products#product-launch-stages) (GA):
 
-  - [`  LAX_BOOL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_bool) : Attempts to convert a JSON value to a SQL `  BOOL  ` value.
-  - [`  LAX_FLOAT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_double) : Attempts to convert a JSON value to a SQL `  FLOAT64  ` value.
-  - [`  LAX_INT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) : Attempts to convert a JSON value to a SQL `  INT64  ` value.
-  - [`  LAX_STRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_string) : Attempts to convert a JSON value to a SQL `  STRING  ` value.
-  - [`  BOOL  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_for_json) : Converts a JSON boolean to a SQL `  BOOL  ` value.
-  - [`  FLOAT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_for_json) : Converts a JSON number to a SQL `  FLOAT64  ` value.
-  - [`  INT64  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json) : Converts a JSON number to a SQL `  INT64  ` value.
-  - [`  STRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_for_json) : Converts a JSON string to a SQL `  STRING  ` value.
-  - [`  JSON_TYPE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_type) : Gets the JSON type of the outermost JSON value and converts the name of this type to a SQL `  STRING  ` value.
+  - [`LAX_BOOL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_bool) : Attempts to convert a JSON value to a SQL `BOOL` value.
+  - [`LAX_FLOAT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_double) : Attempts to convert a JSON value to a SQL `FLOAT64` value.
+  - [`LAX_INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) : Attempts to convert a JSON value to a SQL `INT64` value.
+  - [`LAX_STRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_string) : Attempts to convert a JSON value to a SQL `STRING` value.
+  - [`BOOL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#bool_for_json) : Converts a JSON boolean to a SQL `BOOL` value.
+  - [`FLOAT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#double_for_json) : Converts a JSON number to a SQL `FLOAT64` value.
+  - [`INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json) : Converts a JSON number to a SQL `INT64` value.
+  - [`STRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#string_for_json) : Converts a JSON string to a SQL `STRING` value.
+  - [`JSON_TYPE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_type) : Gets the JSON type of the outermost JSON value and converts the name of this type to a SQL `STRING` value.
 
 ## February 21, 2024
 
@@ -3759,7 +3759,7 @@ Fixed
 
 Made changes to the information schema to improve the accuracy of data type reporting.
 
-The `  information_schema.columns.spanner_type  ` and `  information_schema.index_columns.spanner_type  ` columns include a limit value for the `  character varying(limit_value)  ` and `  character varying(limit_value)[]  ` types.
+The `information_schema.columns.spanner_type` and `information_schema.index_columns.spanner_type` columns include a limit value for the `character varying(limit_value)` and `character varying(limit_value)[]` types.
 
 ## January 31, 2024
 
@@ -3842,7 +3842,7 @@ A monthly digest of client library updates from across the [Cloud SDK](https://d
   - Fix for flaky test\_read\_timestamp\_client\_side\_autocommit test ( [\#1071](https://github.com/googleapis/python-spanner/issues/1071) ) ( [0406ded](https://github.com/googleapis/python-spanner/commit/0406ded8b0abcdc93a7a2422247a14260f5c620c) )
   - Require google-cloud-core \>= 1.4.4 ( [\#1015](https://github.com/googleapis/python-spanner/issues/1015) ) ( [a2f87b9](https://github.com/googleapis/python-spanner/commit/a2f87b9d9591562877696526634f0c7c4dd822dd) )
   - Require proto-plus 1.22.2 for python 3.11 ( [\#880](https://github.com/googleapis/python-spanner/issues/880) ) ( [7debe71](https://github.com/googleapis/python-spanner/commit/7debe7194b9f56b14daeebb99f48787174a9471b) )
-  - Use `  retry_async  ` instead of `  retry  ` in async client ( [\#1044](https://github.com/googleapis/python-spanner/issues/1044) ) ( [1253ae4](https://github.com/googleapis/python-spanner/commit/1253ae46011daa3a0b939e22e957dd3ab5179210) )
+  - Use `retry_async` instead of `retry` in async client ( [\#1044](https://github.com/googleapis/python-spanner/issues/1044) ) ( [1253ae4](https://github.com/googleapis/python-spanner/commit/1253ae46011daa3a0b939e22e957dd3ab5179210) )
 
 ##### Documentation
 
@@ -3850,7 +3850,7 @@ A monthly digest of client library updates from across the [Cloud SDK](https://d
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Johannesburg, South Africa ( `  africa-south1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Johannesburg, South Africa ( `africa-south1` ).
 
 ## January 30, 2024
 
@@ -3862,15 +3862,15 @@ Spanner directed reads is available in Preview. Directed reads provides the flex
 
 Feature
 
-Spanner supports the GoogleSQL [`  INSERT OR IGNORE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-ignore) and [`  INSERT OR UPDATE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) clauses.
+Spanner supports the GoogleSQL [`INSERT OR IGNORE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-ignore) and [`INSERT OR UPDATE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) clauses.
 
-Spanner supports the PostgreSQL [`  ON CONFLICT DO NOTHING  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) and [`  ON CONFLICT DO UPDATE SET  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) clauses.
+Spanner supports the PostgreSQL [`ON CONFLICT DO NOTHING`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) and [`ON CONFLICT DO UPDATE SET`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) clauses.
 
 ## January 22, 2024
 
 Feature
 
-Spanner supports `  COSINE_DISTANCE()  ` and `  EUCLIDEAN_DISTANCE()  ` functions (in Preview). You can use these vector distance functions to perform similarity vector search. For more information, see [Perform similarity vector search in Spanner by finding the K-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
+Spanner supports `COSINE_DISTANCE()` and `EUCLIDEAN_DISTANCE()` functions (in Preview). You can use these vector distance functions to perform similarity vector search. For more information, see [Perform similarity vector search in Spanner by finding the K-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
 
 ## December 27, 2023
 
@@ -3943,14 +3943,14 @@ Feature
 
 Spanner supports the following PostgreSQL functions:
 
-  - [`  unnest  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays)
-  - [`  array_length  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
-  - [`  array(subquery)  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
-  - [`  date_trunc  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-functions)
-  - [`  extract  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-functions)
-  - [`  spanner.date_bin  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
-  - [`  spanner.timestamptz_add  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
-  - [`  spanner.timestamptz_subtract  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
+  - [`unnest`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays)
+  - [`array_length`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
+  - [`array(subquery)`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
+  - [`date_trunc`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-functions)
+  - [`extract`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-functions)
+  - [`spanner.date_bin`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
+  - [`spanner.timestamptz_add`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
+  - [`spanner.timestamptz_subtract`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spanner-date-time-functions)
 
 For more information, see [working with arrays in PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays) .
 
@@ -4108,7 +4108,7 @@ Table and index operations statistics are generally available. This feature help
 
 Feature
 
-The Spanner `  ExecuteBatchDml  ` API applies optimizations to groups of statements within a batch to enable faster and more efficient data updates. For more information, see [Improve latency with batch DML](https://docs.cloud.google.com/spanner/docs/dml-best-practices#batch-dml) .
+The Spanner `ExecuteBatchDml` API applies optimizations to groups of statements within a batch to enable faster and more efficient data updates. For more information, see [Improve latency with batch DML](https://docs.cloud.google.com/spanner/docs/dml-best-practices#batch-dml) .
 
 ## October 30, 2023
 
@@ -4125,9 +4125,9 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 ##### Features
 
   - **spanner/spansql:** Add support for aggregate functions ( [\#8498](https://github.com/googleapis/google-cloud-go/issues/8498) ) ( [d440d75](https://github.com/googleapis/google-cloud-go/commit/d440d75f19286653afe4bc81a5f2efcfc4fa152c) )
-  - **spanner/spansql:** Add support for bit functions, sequence functions and `  GENERATE_UUID  ` ( [\#8482](https://github.com/googleapis/google-cloud-go/issues/8482) ) ( [3789882](https://github.com/googleapis/google-cloud-go/commit/3789882c8b30a6d3100a56c1dcc8844952605637) )
+  - **spanner/spansql:** Add support for bit functions, sequence functions and `GENERATE_UUID` ( [\#8482](https://github.com/googleapis/google-cloud-go/issues/8482) ) ( [3789882](https://github.com/googleapis/google-cloud-go/commit/3789882c8b30a6d3100a56c1dcc8844952605637) )
   - **spanner/spansql:** Add support for SEQUENCE statements ( [\#8481](https://github.com/googleapis/google-cloud-go/issues/8481) ) ( [ccd0205](https://github.com/googleapis/google-cloud-go/commit/ccd020598921f1b5550587c95b4ceddf580705bb) )
-  - **spanner:** Add `  BatchWrite  ` API ( [02a899c](https://github.com/googleapis/google-cloud-go/commit/02a899c95eb9660128506cf94525c5a75bedb308) )
+  - **spanner:** Add `BatchWrite` API ( [02a899c](https://github.com/googleapis/google-cloud-go/commit/02a899c95eb9660128506cf94525c5a75bedb308) )
   - **spanner:** Allow non-default service accounts ( [\#8488](https://github.com/googleapis/google-cloud-go/issues/8488) ) ( [c90dd00](https://github.com/googleapis/google-cloud-go/commit/c90dd00350fa018dbc5f0af5aabce80e80be0b90) )
 
 #### [1.51.0](https://github.com/googleapis/google-cloud-go/compare/spanner/v1.50.0...spanner/v1.51.0) (2023-10-17)
@@ -4148,11 +4148,11 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Features
 
-  - Add support for `  BatchWriteAtLeastOnce  ` ( [\#2520](https://github.com/googleapis/java-spanner/issues/2520) ) ( [8ea7bd1](https://github.com/googleapis/java-spanner/commit/8ea7bd18e92a7c5547d8a33bf46c1e322326447b) )
+  - Add support for `BatchWriteAtLeastOnce` ( [\#2520](https://github.com/googleapis/java-spanner/issues/2520) ) ( [8ea7bd1](https://github.com/googleapis/java-spanner/commit/8ea7bd18e92a7c5547d8a33bf46c1e322326447b) )
 
 ##### Bug Fixes
 
-  - Retry aborted errors for `  writeAtLeastOnce  ` ( [\#2627](https://github.com/googleapis/java-spanner/issues/2627) ) ( [2addb19](https://github.com/googleapis/java-spanner/commit/2addb1930a7b9ada4a4304a44a36d8ff1397cf9e) )
+  - Retry aborted errors for `writeAtLeastOnce` ( [\#2627](https://github.com/googleapis/java-spanner/issues/2627) ) ( [2addb19](https://github.com/googleapis/java-spanner/commit/2addb1930a7b9ada4a4304a44a36d8ff1397cf9e) )
 
 ##### Dependencies
 
@@ -4189,7 +4189,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 ##### Bug Fixes
 
-  - Noop in case there is no change in `  autocommit  ` value for `  setAutocommit()  ` method ( [\#2662](https://github.com/googleapis/java-spanner/issues/2662) ) ( [9f51b64](https://github.com/googleapis/java-spanner/commit/9f51b6445f064439379af752372a3490a2fd5087) )
+  - Noop in case there is no change in `autocommit` value for `setAutocommit()` method ( [\#2662](https://github.com/googleapis/java-spanner/issues/2662) ) ( [9f51b64](https://github.com/googleapis/java-spanner/commit/9f51b6445f064439379af752372a3490a2fd5087) )
 
 ##### Dependencies
 
@@ -4222,13 +4222,13 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 Feature
 
-Spanner supports `  FULL JOIN  ` with `  USING  ` in PostgreSQL-dialect databases. For information about PostgreSQL queries in Spanner, see [PostgreSQL queries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax) .
+Spanner supports `FULL JOIN` with `USING` in PostgreSQL-dialect databases. For information about PostgreSQL queries in Spanner, see [PostgreSQL queries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax) .
 
 ## October 23, 2023
 
 Feature
 
-Spanner PostgreSQL supports the `  SELECT DISTINCT  ` statement. For more information, see [`  SELECT  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#select) .
+Spanner PostgreSQL supports the `SELECT DISTINCT` statement. For more information, see [`SELECT`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#select) .
 
 ## October 17, 2023
 
@@ -4250,7 +4250,7 @@ Spanner batch write is available in Preview. You can use Spanner batch write to 
 
 Feature
 
-Spanner Vertex AI integration supports Vertex AI Generative AI text embeddings and the [`  text-bison  `](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) model. For more information, see [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
+Spanner Vertex AI integration supports Vertex AI Generative AI text embeddings and the [`text-bison`](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) model. For more information, see [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
 
 ## October 05, 2023
 
@@ -4321,7 +4321,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Dammam, Saudi Arabia ( `  me-central2  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Dammam, Saudi Arabia ( `me-central2` ).
 
 ## September 13, 2023
 
@@ -4339,7 +4339,7 @@ Feature
 
 Feature
 
-A Spanner [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) is available in Asia - `  asia2  ` (Mumbai/Delhi/Singapore).
+A Spanner [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) is available in Asia - `asia2` (Mumbai/Delhi/Singapore).
 
 ## August 31, 2023
 
@@ -4474,19 +4474,19 @@ Feature
 
 Spanner has added 13 PostgreSQL functions and operators:
 
-  - [`  ARRAY_UPPER(anyarray, dimension)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
-  - [`  QUOTE_IDENT(string)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#string_functions)
-  - [`  SUBSTRING(string, pattern)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#string_functions)
-  - [`  DATE - DATE  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
-  - [`  DATE - INTEGER  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
-  - [`  DATE + INTEGER  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
-  - [`  REGEXP_MATCH(string, pattern [, flags])  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching)
-  - [`  REGEXP_SPLIT_TO_ARRAY(string, pattern [, flags])  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching)
-  - [`  STRING !~ PATTERN  ` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching-operators)
-  - [`  TO_CHAR(timestamptz, format)  ` , `  TO_CHAR(double, format)  ` , `  TO_CHAR(bigint, format)  ` , `  TO_CHAR(numeric, format)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
-  - [`  TO_NUMBER(string, format)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
-  - [`  TO_DATE(string, format)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
-  - [`  TO_TIMESTAMP(string, format)  ` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
+  - [`ARRAY_UPPER(anyarray, dimension)` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#array-functions)
+  - [`QUOTE_IDENT(string)` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#string_functions)
+  - [`SUBSTRING(string, pattern)` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#string_functions)
+  - [`DATE - DATE` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
+  - [`DATE - INTEGER` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
+  - [`DATE + INTEGER` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#date-time-operators)
+  - [`REGEXP_MATCH(string, pattern [, flags])` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching)
+  - [`REGEXP_SPLIT_TO_ARRAY(string, pattern [, flags])` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching)
+  - [`STRING !~ PATTERN` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#pattern-matching-operators)
+  - [`TO_CHAR(timestamptz, format)` , `TO_CHAR(double, format)` , `TO_CHAR(bigint, format)` , `TO_CHAR(numeric, format)` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
+  - [`TO_NUMBER(string, format)` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
+  - [`TO_DATE(string, format)` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
+  - [`TO_TIMESTAMP(string, format)` function](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#formatting-functions)
 
 For more information, see [Supported PostgreSQL functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators) .
 
@@ -4496,15 +4496,15 @@ Feature
 
 Spanner supports integer sequences and bit reversal.
 
-  - The `  SEQUENCE  ` DDL statement generates unique, uniformly distributed integers as part of a primary key `  DEFAULT  ` expression. For more information, see `  SEQUENCE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ).
+  - The `SEQUENCE` DDL statement generates unique, uniformly distributed integers as part of a primary key `DEFAULT` expression. For more information, see `SEQUENCE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ).
 
-  - The bit reverse function lets you map existing integer keys using the same logic as a bit-reversed sequence to avoid hotspotting. For more information, see `  BIT_REVERSE  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions#bit_reverse) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) ).
+  - The bit reverse function lets you map existing integer keys using the same logic as a bit-reversed sequence to avoid hotspotting. For more information, see `BIT_REVERSE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions#bit_reverse) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) ).
 
 For overview information and scenarios for when to use these features, see [Primary key default values management](https://docs.cloud.google.com/spanner/docs/primary-key-default-value) .
 
 Feature
 
-Spanner supports generating a UUID (v4) as part of a table's primary key `  DEFAULT  ` expression using the [`  GENERATE_UUID  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-and-operators#generate_uuid) function in GoogleSQL or [`  generate_uuid()  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) in PostgreSQL-dialect databases.
+Spanner supports generating a UUID (v4) as part of a table's primary key `DEFAULT` expression using the [`GENERATE_UUID`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-and-operators#generate_uuid) function in GoogleSQL or [`generate_uuid()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#utility) in PostgreSQL-dialect databases.
 
 For overview information and scenarios for when to use this feature, see [Primary key default values management](https://docs.cloud.google.com/spanner/docs/primary-key-default-value) .
 
@@ -4512,7 +4512,7 @@ For overview information and scenarios for when to use this feature, see [Primar
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Berlin, Germany ( `  europe-west10  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Berlin, Germany ( `europe-west10` ).
 
 ## August 21, 2023
 
@@ -4745,7 +4745,7 @@ Spanner Vertex AI integration is generally available. You can use Vertex AI with
 
 Feature
 
-In both the GoogleSQL and PostgreSQL dialects, adds support for the `  IF NOT EXISTS  ` clause in `  CREATE TABLE  ` , `  CREATE INDEX  ` , and `  ALTER TABLE ADD COLUMN  ` , along with `  IF EXISTS  ` for `  DROP TABLE  ` and `  DROP INDEX  ` .
+In both the GoogleSQL and PostgreSQL dialects, adds support for the `IF NOT EXISTS` clause in `CREATE TABLE` , `CREATE INDEX` , and `ALTER TABLE ADD COLUMN` , along with `IF EXISTS` for `DROP TABLE` and `DROP INDEX` .
 
 ## June 07, 2023
 
@@ -4928,9 +4928,9 @@ Feature
 
 Spanner supports query capabilities for PostgreSQL dialect databases:
 
-  - Set operations (such as `  UNION  ` and `  INTERSECT  ` ) with [`  ORDER BY  ` , `  LIMIT  ` , or `  OFFSET  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#select) , or in [subqueries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries)
-  - Parameterized `  LIMIT  ` and `  OFFSET  ` operations
-  - [Statement hints](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint) for configuring the query optimizer (such as `  optimizer_version  ` and `  optimizer_statistics_package  ` )
+  - Set operations (such as `UNION` and `INTERSECT` ) with [`ORDER BY` , `LIMIT` , or `OFFSET`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#select) , or in [subqueries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries)
+  - Parameterized `LIMIT` and `OFFSET` operations
+  - [Statement hints](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint) for configuring the query optimizer (such as `optimizer_version` and `optimizer_statistics_package` )
 
 Feature
 
@@ -4944,7 +4944,7 @@ The number of indexes per table that Spanner supports increased from 32 to 128. 
 
 Feature
 
-The following [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) are available in North America: `  nam14  ` (Northern Virginia/Montréal/South Carolina) and `  nam15  ` (Dallas/Northern Virginia/Iowa).
+The following [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) are available in North America: `nam14` (Northern Virginia/Montréal/South Carolina) and `nam15` (Dallas/Northern Virginia/Iowa).
 
 ## April 24, 2023
 
@@ -5066,7 +5066,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 Feature
 
-Spanner integration with Data Catalog is available in Preview in the `  europe-central2  ` region.
+Spanner integration with Data Catalog is available in Preview in the `europe-central2` region.
 
 For more information, see [Manage resources using Data Catalog](https://docs.cloud.google.com/spanner/docs/dc-integration) .
 
@@ -5074,7 +5074,7 @@ For more information, see [Manage resources using Data Catalog](https://docs.clo
 
 Feature
 
-Spanner integration with Data Catalog is available in Preview. Data Catalog is a fully managed, scalable metadata management service within Dataplex Universal Catalog. It catalogs metadata about Spanner instances, databases, tables, columns, and views. For Preview, integration with Data Catalog isn't available in the `  europe-central2  ` region.
+Spanner integration with Data Catalog is available in Preview. Data Catalog is a fully managed, scalable metadata management service within Dataplex Universal Catalog. It catalogs metadata about Spanner instances, databases, tables, columns, and views. For Preview, integration with Data Catalog isn't available in the `europe-central2` region.
 
 For more information, see [Manage resources using Data Catalog](https://docs.cloud.google.com/spanner/docs/dc-integration) .
 
@@ -5082,7 +5082,7 @@ For more information, see [Manage resources using Data Catalog](https://docs.clo
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Doha, Qatar ( `  me-central1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Doha, Qatar ( `me-central1` ).
 
 ## March 27, 2023
 
@@ -5158,7 +5158,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Turin, Italy ( `  europe-west12  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Turin, Italy ( `europe-west12` ).
 
 ## March 21, 2023
 
@@ -5166,8 +5166,8 @@ Feature
 
 The following functions and expressions have been added to the GoogleSQL dialect:
 
-  - [`  ARRAY_FILTER  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_filter)
-  - [`  ARRAY_TRANSFORM  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_transform)
+  - [`ARRAY_FILTER` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_filter)
+  - [`ARRAY_TRANSFORM` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_transform)
   - [Lambda expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference#lambdas)
 
 ## March 20, 2023
@@ -5182,14 +5182,14 @@ Feature
 
 The following functions have been added to the GoogleSQL dialect:
 
-  - [`  ARRAY_INCLUDES_ALL  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes_all)
-  - [`  ARRAY_INCLUDES_ANY  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes_any)
-  - [`  ARRAY_MIN  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_min)
-  - [`  ARRAY_MAX  ` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_max)
+  - [`ARRAY_INCLUDES_ALL` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes_all)
+  - [`ARRAY_INCLUDES_ANY` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes_any)
+  - [`ARRAY_MIN` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_min)
+  - [`ARRAY_MAX` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_max)
 
 Feature
 
-Support for the GoogleSQL-dialect `  THEN RETURN  ` clause and the PostgreSQL-dialect `  RETURNING  ` clause is generally available. For more information, see [`  THEN RETURN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) and [`  RETURNING  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) .
+Support for the GoogleSQL-dialect `THEN RETURN` clause and the PostgreSQL-dialect `RETURNING` clause is generally available. For more information, see [`THEN RETURN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) and [`RETURNING`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) .
 
 ## March 09, 2023
 
@@ -5201,7 +5201,7 @@ Spanner fine-grained access control is generally available. Fine-grained access 
 
 Feature
 
-Added support for the `  JSONB  ` array data type in the PostgreSQL dialect. For more information, see [Work with JSONB data](https://docs.cloud.google.com/spanner/docs/working-with-jsonb) .
+Added support for the `JSONB` array data type in the PostgreSQL dialect. For more information, see [Work with JSONB data](https://docs.cloud.google.com/spanner/docs/working-with-jsonb) .
 
 ## March 01, 2023
 
@@ -5309,7 +5309,7 @@ The Spanner regional endpoints feature has been moved to a future release. It is
 
 Announcement
 
-As of today, the list compute price for the following 9-replica Spanner multi-region configurations has been reduced: `  nam-eur-asia1  ` and `  nam-eur-asia3  ` . For more details, see [Spanner pricing](https://cloud.google.com/spanner/pricing) .
+As of today, the list compute price for the following 9-replica Spanner multi-region configurations has been reduced: `nam-eur-asia1` and `nam-eur-asia3` . For more details, see [Spanner pricing](https://cloud.google.com/spanner/pricing) .
 
 ## February 09, 2023
 
@@ -5360,7 +5360,7 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 ##### Features
 
   - **spanner/spansql:** Add support for change stream value\_capture\_type option ( [\#7201](https://github.com/googleapis/google-cloud-go/issues/7201) ) ( [27b3398](https://github.com/googleapis/google-cloud-go/commit/27b33988f078779c2d641f776a11b2095a5ccc51) )
-  - **spanner/spansql:** Support `  default_leader  ` database option ( [\#7187](https://github.com/googleapis/google-cloud-go/issues/7187) ) ( [88adaa2](https://github.com/googleapis/google-cloud-go/commit/88adaa216832467560c19e61528b5ce5f1e5ff76) )
+  - **spanner/spansql:** Support `default_leader` database option ( [\#7187](https://github.com/googleapis/google-cloud-go/issues/7187) ) ( [88adaa2](https://github.com/googleapis/google-cloud-go/commit/88adaa216832467560c19e61528b5ce5f1e5ff76) )
   - **spanner:** Add REST client ( [06a54a1](https://github.com/googleapis/google-cloud-go/commit/06a54a16a5866cce966547c51e203b9e09a25bc0) )
   - **spanner:** Inline begin transaction for ReadWriteTransactions ( [\#7149](https://github.com/googleapis/google-cloud-go/issues/7149) ) ( [2ce3606](https://github.com/googleapis/google-cloud-go/commit/2ce360644439a386aeaad7df5f47541667bd621b) )
 
@@ -5442,7 +5442,7 @@ The Spanner Kafka connector publishes change streams records to Kafka for applic
 
 Feature
 
-You can use the `  ALTER INDEX  ` statement to add columns into an index or drop non-key columns. For more information, see [Alter an index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#alter_index) .
+You can use the `ALTER INDEX` statement to add columns into an index or drop non-key columns. For more information, see [Alter an index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#alter_index) .
 
 ## December 14, 2022
 
@@ -5464,10 +5464,10 @@ Feature
 
 An update to Spanner change streams provides two new data capture types for change records:
 
-  - `  NEW_VALUES  ` mode captures only new values in non-key columns, and no old values. Keys are always captured.
-  - `  NEW_ROW  ` mode captures the full new row, including columns that aren't included in updates. No old values are captured.
+  - `NEW_VALUES` mode captures only new values in non-key columns, and no old values. Keys are always captured.
+  - `NEW_ROW` mode captures the full new row, including columns that aren't included in updates. No old values are captured.
 
-Note that existing change streams remain set to `  OLD_AND_NEW_VALUES  ` .
+Note that existing change streams remain set to `OLD_AND_NEW_VALUES` .
 
 ## December 06, 2022
 
@@ -5487,7 +5487,7 @@ For more information, see [Database storage prices](https://cloud.google.com/spa
 
 Feature
 
-New SQL syntax, [`  RETURNING  `](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) in the PostgreSQL dialect and [`  THEN RETURN  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) in Google Standard SQL, selects and returns data from rows that were just updated as part of a `  DML  ` statement. This is especially useful for getting values from default or generated columns and can reduce latency over equivalent multi-statement transactions. The preview supports the Java, JDBC, Python, and Go Spanner clients as well as PostgreSQL drivers that connect through [PGAdapter](https://github.com/GoogleCloudPlatform/pgadapter#google-cloud-spanner-pgadapter) .
+New SQL syntax, [`RETURNING`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) in the PostgreSQL dialect and [`THEN RETURN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-and-then-return) in Google Standard SQL, selects and returns data from rows that were just updated as part of a `DML` statement. This is especially useful for getting values from default or generated columns and can reduce latency over equivalent multi-statement transactions. The preview supports the Java, JDBC, Python, and Go Spanner clients as well as PostgreSQL drivers that connect through [PGAdapter](https://github.com/GoogleCloudPlatform/pgadapter#google-cloud-spanner-pgadapter) .
 
 ## December 02, 2022
 
@@ -5499,7 +5499,7 @@ The number of concurrent database restore operations per instance that Spanner s
 
 Feature
 
-Added support for the `  JSONB  ` data type in the Spanner PostgreSQL dialect. For more information, see [Work with JSONB data](https://docs.cloud.google.com/spanner/docs/working-with-jsonb) .
+Added support for the `JSONB` data type in the Spanner PostgreSQL dialect. For more information, see [Work with JSONB data](https://docs.cloud.google.com/spanner/docs/working-with-jsonb) .
 
 Feature
 
@@ -5526,8 +5526,8 @@ A weekly digest of client library updates from across the [Google Cloud SDK](htt
 ##### Features
 
   - Expose logger in ClientConfig ( [\#6958](https://github.com/googleapis/google-cloud-go/issues/6958) ) ( [bd85442](https://github.com/googleapis/google-cloud-go/commit/bd85442bc6fb8c18d1a7c6d73850d220c3973c46) ), refs [\#6957](https://github.com/googleapis/google-cloud-go/issues/6957)
-  - Update `  result_set.proto  ` to return undeclared parameters in ExecuteSql API ( [de4e16a](https://github.com/googleapis/google-cloud-go/commit/de4e16a498354ea7271f5b396f7cb2bb430052aa) )
-  - Update `  transaction.proto  ` to include different lock modes ( [caf4afa](https://github.com/googleapis/google-cloud-go/commit/caf4afa139ad7b38b6df3e3b17b8357c81e1fd6c) )
+  - Update `result_set.proto` to return undeclared parameters in ExecuteSql API ( [de4e16a](https://github.com/googleapis/google-cloud-go/commit/de4e16a498354ea7271f5b396f7cb2bb430052aa) )
+  - Update `transaction.proto` to include different lock modes ( [caf4afa](https://github.com/googleapis/google-cloud-go/commit/caf4afa139ad7b38b6df3e3b17b8357c81e1fd6c) )
 
 ### Java
 
@@ -5561,7 +5561,7 @@ A weekly digest of client library updates from across the [Google Cloud SDK](htt
 
   - Enable client to server compression ( [\#2117](https://github.com/googleapis/java-spanner/issues/2117) ) ( [50f8425](https://github.com/googleapis/java-spanner/commit/50f8425fe9e1db16ed060337d26feccc9a9813e2) )
   - Increase default number of channels when gRPC channel pool is enabled ( [\#1997](https://github.com/googleapis/java-spanner/issues/1997) ) ( [44f27fc](https://github.com/googleapis/java-spanner/commit/44f27fc90fa3f9f4914574fb0476e971da4c02ff) )
-  - Update `  result_set.proto  ` to return undeclared parameters in ExecuteSql API ( [\#2101](https://github.com/googleapis/java-spanner/issues/2101) ) ( [826eb93](https://github.com/googleapis/java-spanner/commit/826eb9305095db064f52a15dc502bc0e0df9a984) )
+  - Update `result_set.proto` to return undeclared parameters in ExecuteSql API ( [\#2101](https://github.com/googleapis/java-spanner/issues/2101) ) ( [826eb93](https://github.com/googleapis/java-spanner/commit/826eb9305095db064f52a15dc502bc0e0df9a984) )
 
 ##### Dependencies
 
@@ -5580,8 +5580,8 @@ A weekly digest of client library updates from across the [Google Cloud SDK](htt
 
 ##### Features
 
-  - Update `  result_set.proto  ` to return undeclared parameters in ExecuteSql API ( [eaa445e](https://github.com/googleapis/nodejs-spanner/commit/eaa445ed314190abefc17e3672bb5e200142618b) )
-  - Update `  transaction.proto  ` to include different lock modes ( [\#1723](https://github.com/googleapis/nodejs-spanner/issues/1723) ) ( [eaa445e](https://github.com/googleapis/nodejs-spanner/commit/eaa445ed314190abefc17e3672bb5e200142618b) )
+  - Update `result_set.proto` to return undeclared parameters in ExecuteSql API ( [eaa445e](https://github.com/googleapis/nodejs-spanner/commit/eaa445ed314190abefc17e3672bb5e200142618b) )
+  - Update `transaction.proto` to include different lock modes ( [\#1723](https://github.com/googleapis/nodejs-spanner/issues/1723) ) ( [eaa445e](https://github.com/googleapis/nodejs-spanner/commit/eaa445ed314190abefc17e3672bb5e200142618b) )
 
 ## October 24, 2022
 
@@ -5719,11 +5719,11 @@ A weekly digest of client library updates from across the [Google Cloud SDK](htt
 
 Feature
 
-The following `  SPANNER_SYS  ` statistical tables have been enhanced with new columns:
+The following `SPANNER_SYS` statistical tables have been enhanced with new columns:
 
-  - [Transaction statistics](https://cloud.google.com/spanner/docs/introspection/transaction-statistics) : `  TOTAL_LATENCY_DISTRIBUTION  ` , `  OPERATIONS_BY_TABLE  ` , and `  ATTEMPT_COUNT  ` .
-  - [Query statistics](https://cloud.google.com/spanner/docs/introspection/query-statistics) : `  LATENCY_DISTRIBUTION  ` and `  RUN_IN_RW_TRANSACTION_EXECUTION_COUNT  ` .
-  - [Read statistics](https://cloud.google.com/spanner/docs/introspection/read-statistics) : `  RUN_IN_RW_TRANSACTION_EXECUTION_COUNT  ` .
+  - [Transaction statistics](https://cloud.google.com/spanner/docs/introspection/transaction-statistics) : `TOTAL_LATENCY_DISTRIBUTION` , `OPERATIONS_BY_TABLE` , and `ATTEMPT_COUNT` .
+  - [Query statistics](https://cloud.google.com/spanner/docs/introspection/query-statistics) : `LATENCY_DISTRIBUTION` and `RUN_IN_RW_TRANSACTION_EXECUTION_COUNT` .
+  - [Read statistics](https://cloud.google.com/spanner/docs/introspection/read-statistics) : `RUN_IN_RW_TRANSACTION_EXECUTION_COUNT` .
 
 ## September 27, 2022
 
@@ -5733,7 +5733,7 @@ The number of mutations per commit that Spanner supports has increased from 20,0
 
 Feature
 
-The [`  ARRAY_SLICE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_slice) function is available to use in Google Standard SQL. This function returns an `  ARRAY  ` containing zero or more consecutive elements from an input array.
+The [`ARRAY_SLICE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_slice) function is available to use in Google Standard SQL. This function returns an `ARRAY` containing zero or more consecutive elements from an input array.
 
 ## September 26, 2022
 
@@ -5793,7 +5793,7 @@ A weekly digest of client library updates from across the [Google Cloud SDK](htt
 
 Feature
 
-Fine-grained access control for Spanner is available in public preview. fine-grained access control control lets you secure your Spanner databases at the table and column level by using new RDBMS-style roles and `  GRANT  ` / `  REVOKE  ` SQL statements. With fine-grained access control, you can protect your transactional data and ensure that the right controls are in place when granting access to data. For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
+Fine-grained access control for Spanner is available in public preview. fine-grained access control control lets you secure your Spanner databases at the table and column level by using new RDBMS-style roles and `GRANT` / `REVOKE` SQL statements. With fine-grained access control, you can protect your transactional data and ensure that the right controls are in place when granting access to data. For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
 
 Feature
 
@@ -5803,7 +5803,7 @@ The Spanner Golang database/sql driver is generally available. Add the driver to
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Tel Aviv, Israel ( `  me-west1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Tel Aviv, Israel ( `me-west1` ).
 
 ## September 09, 2022
 
@@ -5821,7 +5821,7 @@ Spanner free trial instances are generally available. With a free trial instance
 
 Feature
 
-The [`  DISABLE_INLINE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference#function_hints) hint is available to use in a Google Standard SQL function call. This allows a function to be computed once instead of each time another part of a query references it.
+The [`DISABLE_INLINE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference#function_hints) hint is available to use in a Google Standard SQL function call. This allows a function to be computed once instead of each time another part of a query references it.
 
 ## July 25, 2022
 
@@ -5839,7 +5839,7 @@ You can view aggregated Spanner statistics related to [transactions](https://doc
 
 Feature
 
-The [`  ANALYZE  ` DDL command](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) lets administrators to manually update the [query statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#statistics-packages) that the optimizer uses to build query execution plans. This complements the existing automatic updates to provide faster feedback cycles when data, queries, or indexes change frequently.
+The [`ANALYZE` DDL command](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) lets administrators to manually update the [query statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#statistics-packages) that the optimizer uses to build query execution plans. This complements the existing automatic updates to provide faster feedback cycles when data, queries, or indexes change frequently.
 
 ## June 29, 2022
 
@@ -5853,7 +5853,7 @@ To learn more, see [Detect query performance issues with Query insights](https:/
 
 Feature
 
-The PostgreSQL interface is generally available, making the capabilities of Spanner accessible from the PostgreSQL ecosystem. It includes a core subset of the PostgreSQL SQL dialect, support for the `  psql  ` command-line tool, native language clients, and integration into existing Google tools. For more information, see [PostgreSQL interface](https://docs.cloud.google.com/spanner/docs/postgresql-interface) .
+The PostgreSQL interface is generally available, making the capabilities of Spanner accessible from the PostgreSQL ecosystem. It includes a core subset of the PostgreSQL SQL dialect, support for the `psql` command-line tool, native language clients, and integration into existing Google tools. For more information, see [PostgreSQL interface](https://docs.cloud.google.com/spanner/docs/postgresql-interface) .
 
 ## June 10, 2022
 
@@ -5865,7 +5865,7 @@ Commit timestamps let [a Spanner optimization that can reduce query I/O](https:/
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Dallas ( `  us-south1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Dallas ( `us-south1` ).
 
 ## May 31, 2022
 
@@ -5883,19 +5883,19 @@ Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-strea
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) in Columbus ( `  us-east5  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) in Columbus ( `us-east5` ).
 
 ## May 10, 2022
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) in Madrid ( `  europe-southwest1  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) in Madrid ( `europe-southwest1` ).
 
 ## May 03, 2022
 
 Feature
 
-You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Paris ( `  europe-west9  ` ).
+You can create Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) in Paris ( `europe-west9` ).
 
 Feature
 
@@ -5905,17 +5905,17 @@ Feature
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional_configurations) can be created in Milan ( `  europe-west8  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional_configurations) can be created in Milan ( `europe-west8` ).
 
 ## April 14, 2022
 
 Feature
 
-You can define a default value for a non-key table column when creating or altering a table. Using the `  DEFAULT  ` keyword, a schema author can provide a fallback for a column when an insert statement or mutation doesn't explicitly specify a value.
+You can define a default value for a non-key table column when creating or altering a table. Using the `DEFAULT` keyword, a schema author can provide a fallback for a column when an insert statement or mutation doesn't explicitly specify a value.
 
 Feature
 
-A new three-continent, nine-replica [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configs-multi-region) is available for Spanner: `  nam-eur-asia3  ` (Iowa/South Carolina/Belgium/Netherlands/Taiwan/Oklahoma).
+A new three-continent, nine-replica [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configs-multi-region) is available for Spanner: `nam-eur-asia3` (Iowa/South Carolina/Belgium/Netherlands/Taiwan/Oklahoma).
 
 ## April 05, 2022
 
@@ -5933,7 +5933,7 @@ All instances with a compute capacity of at least one node (1,000 processing uni
 
 Breaking
 
-The data type of the `  COLUMN_DEFAULT  ` column in [the information schema `  COLUMNS  ` table](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemacolumns) has changed from `  BYTES  ` to `  STRING  ` . This aligns better with industry standards and lets you make future improvements to Spanner.
+The data type of the `COLUMN_DEFAULT` column in [the information schema `COLUMNS` table](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemacolumns) has changed from `BYTES` to `STRING` . This aligns better with industry standards and lets you make future improvements to Spanner.
 
 ## March 10, 2022
 
@@ -5961,7 +5961,7 @@ Released [Query Optimizer version 4](https://docs.cloud.google.com/spanner/docs/
 
 Feature
 
-The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configs-multi-region) is available in North America - `  nam13  ` (Iowa/Oklahoma/Salt Lake City).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configs-multi-region) is available in North America - `nam13` (Iowa/Oklahoma/Salt Lake City).
 
 ## February 11, 2022
 
@@ -5987,13 +5987,13 @@ Also, the monitoring console in Spanner lets you [view the CPU utilization of yo
 
 Breaking
 
-Starting no sooner than February 23, 2022, the data type of the `  COLUMN_DEFAULT  ` column in [the information schema's `  COLUMNS  ` table](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemacolumns) will change from `  BYTES  ` to `  STRING  ` . This aligns better with industry standards, and lets you make future improvements to Spanner.
+Starting no sooner than February 23, 2022, the data type of the `COLUMN_DEFAULT` column in [the information schema's `COLUMNS` table](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemacolumns) will change from `BYTES` to `STRING` . This aligns better with industry standards, and lets you make future improvements to Spanner.
 
 ## November 16, 2021
 
 Announcement
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional_configurations) can be created in Santiago ( `  southamerica-west1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional_configurations) can be created in Santiago ( `southamerica-west1` ).
 
 ## November 04, 2021
 
@@ -6005,25 +6005,25 @@ Feature
 
 Feature
 
-The [`  django-spanner  ` plugin](https://github.com/googleapis/python-spanner-django) is available, letting you use Spanner as a backend database for the Django Web framework. For more information, see [Django ORM with Spanner](https://docs.cloud.google.com/spanner/docs/django-orm) .
+The [`django-spanner` plugin](https://github.com/googleapis/python-spanner-django) is available, letting you use Spanner as a backend database for the Django Web framework. For more information, see [Django ORM with Spanner](https://docs.cloud.google.com/spanner/docs/django-orm) .
 
 ## October 27, 2021
 
 Feature
 
-When performing a CSV export, you can use [the `  spannerSnapshotTime  ` option](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#cloud-spanner-to-cloud-storage-text) to export a specific past version of your data.
+When performing a CSV export, you can use [the `spannerSnapshotTime` option](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#cloud-spanner-to-cloud-storage-text) to export a specific past version of your data.
 
 ## October 13, 2021
 
 Feature
 
-You can assign [`  request tags  ` and `  transaction tags  `](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) in your application code to easily troubleshoot query performance, transaction latency, and lock contentions by correlating introspection statistics to application code.
+You can assign [`request tags` and `transaction tags`](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) in your application code to easily troubleshoot query performance, transaction latency, and lock contentions by correlating introspection statistics to application code.
 
 ## October 12, 2021
 
 Feature
 
-The [PostgreSQL interface](https://docs.cloud.google.com/spanner/docs/postgresql-interface) is available in [Preview](https://cloud.google.com/products#preview) , making the capabilities of Spanner accessible from the PostgreSQL ecosystem. The release supports a subset of the PostgreSQL SQL dialect, including core data types, functions, and operators. Applications can connect using updated Spanner drivers for JDBC, Java, Go, and Python. Starting initially with `  psql  ` , community tools can connect using `  PGAdapter  ` , a sidecar proxy that implements the PostgreSQL wire protocol. [Sign up](https://goo.gle/PostgreSQL-interface) for the preview today.
+The [PostgreSQL interface](https://docs.cloud.google.com/spanner/docs/postgresql-interface) is available in [Preview](https://cloud.google.com/products#preview) , making the capabilities of Spanner accessible from the PostgreSQL ecosystem. The release supports a subset of the PostgreSQL SQL dialect, including core data types, functions, and operators. Applications can connect using updated Spanner drivers for JDBC, Java, Go, and Python. Starting initially with `psql` , community tools can connect using `PGAdapter` , a sidecar proxy that implements the PostgreSQL wire protocol. [Sign up](https://goo.gle/PostgreSQL-interface) for the preview today.
 
 ## October 06, 2021
 
@@ -6087,7 +6087,7 @@ Added support for [changing instance configuration](https://docs.cloud.google.co
 
 Announcement
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional_configurations) can be created in Toronto ( `  northamerica-northeast2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional_configurations) can be created in Toronto ( `northamerica-northeast2` ).
 
 ## July 21, 2021
 
@@ -6111,7 +6111,7 @@ Feature
 
 Feature
 
-The `  NUMERIC  ` data type is [supported as a valid key column type](https://docs.cloud.google.com/spanner/docs/data-types) , so you can use `  NUMERIC  ` type columns when specifying primary keys, foreign keys, and secondary indexes.
+The `NUMERIC` data type is [supported as a valid key column type](https://docs.cloud.google.com/spanner/docs/data-types) , so you can use `NUMERIC` type columns when specifying primary keys, foreign keys, and secondary indexes.
 
 ## June 30, 2021
 
@@ -6123,19 +6123,19 @@ Spanner supports Cloud External Key Manager (Cloud EKM) when using [customer-man
 
 Announcement
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Delhi ( `  asia-south2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Delhi ( `asia-south2` ).
 
 ## June 21, 2021
 
 Announcement
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Melbourne ( `  australia-southeast2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Melbourne ( `australia-southeast2` ).
 
 ## June 15, 2021
 
 Feature
 
-The SQL mathematical functions [`  EXP  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#exp) , [`  LN  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#ln) , [`  LOG  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#log) , [`  LOG10  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#log10) and [`  SQRT  `](https://docs.cloud.google.com/spanner/docs/mathematical_functions#sqrt) support `  NUMERIC  ` data as input. You no longer need to cast `  NUMERIC  ` data to `  FLOAT64  ` data before passing it as input to these functions.
+The SQL mathematical functions [`EXP`](https://docs.cloud.google.com/spanner/docs/mathematical_functions#exp) , [`LN`](https://docs.cloud.google.com/spanner/docs/mathematical_functions#ln) , [`LOG`](https://docs.cloud.google.com/spanner/docs/mathematical_functions#log) , [`LOG10`](https://docs.cloud.google.com/spanner/docs/mathematical_functions#log10) and [`SQRT`](https://docs.cloud.google.com/spanner/docs/mathematical_functions#sqrt) support `NUMERIC` data as input. You no longer need to cast `NUMERIC` data to `FLOAT64` data before passing it as input to these functions.
 
 ## June 11, 2021
 
@@ -6185,7 +6185,7 @@ You can optionally specify the priority of data requests. For more information, 
 
 Announcement
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Warsaw ( `  europe-central2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Warsaw ( `europe-central2` ).
 
 ## March 17, 2021
 
@@ -6233,11 +6233,11 @@ Feature
 
 Feature
 
-A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam12  ` (Iowa/Northern Virginia/Oregon/Oklahoma).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `nam12` (Iowa/Northern Virginia/Oregon/Oklahoma).
 
 Feature
 
-A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur6  ` (Netherlands/Frankfurt/Zurich).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `eur6` (Netherlands/Frankfurt/Zurich).
 
 ## December 07, 2020
 
@@ -6249,7 +6249,7 @@ Spanner supports the [LOCK\_SCANNED\_RANGES](https://docs.cloud.google.com/spann
 
 Feature
 
-A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam8  ` (Los Angeles/Oregon/Salt Lake City).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `nam8` (Los Angeles/Oregon/Salt Lake City).
 
 ## October 29, 2020
 
@@ -6257,7 +6257,7 @@ Feature
 
 The following updates for Spanner SQL are available:
 
-  - Ability to convert between `  BYTES  ` and base32-encoded strings using [FROM\_BASE32](https://docs.cloud.google.com/spanner/docs/functions-and-operators#from_base32) and [TO\_BASE32](https://docs.cloud.google.com/spanner/docs/functions-and-operators#to_base32) functions.
+  - Ability to convert between `BYTES` and base32-encoded strings using [FROM\_BASE32](https://docs.cloud.google.com/spanner/docs/functions-and-operators#from_base32) and [TO\_BASE32](https://docs.cloud.google.com/spanner/docs/functions-and-operators#to_base32) functions.
 
   - Support for [ARRAY\_IS\_DISTINCT](https://docs.cloud.google.com/spanner/docs/array_functions#array_is_distinct) .
 
@@ -6265,13 +6265,13 @@ The following updates for Spanner SQL are available:
 
 Feature
 
-The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam7  ` (Iowa/North Virginia/Oklahoma).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `nam7` (Iowa/North Virginia/Oklahoma).
 
 ## October 15, 2020
 
 Feature
 
-A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam9  ` (North Virginia/Iowa/South Carolina/Oregon).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `nam9` (North Virginia/Iowa/South Carolina/Oregon).
 
 ## October 13, 2020
 
@@ -6281,7 +6281,7 @@ Generated columns support is [generally available](https://cloud.google.com/term
 
 Feature
 
-`  CHECK  ` constraints are [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define a boolean expression on the columns of a table and require that all rows in the table satisfy the expression. For more information, see [Creating and managing check constraints](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
+`CHECK` constraints are [generally available](https://cloud.google.com/terms/launch-stages) , allowing you to define a boolean expression on the columns of a table and require that all rows in the table satisfy the expression. For more information, see [Creating and managing check constraints](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
 
 ## October 08, 2020
 
@@ -6296,7 +6296,7 @@ The following updates to Spanner standard SQL are available :
 
 Feature
 
-The [`  NUMERIC  ` data type](https://cloud.google.com/spanner/docs/data-types#numeric_type) is [generally available](https://cloud.google.com/products#product-launch-stages) .
+The [`NUMERIC` data type](https://cloud.google.com/spanner/docs/data-types#numeric_type) is [generally available](https://cloud.google.com/products#product-launch-stages) .
 
 ## September 09, 2020
 
@@ -6308,13 +6308,13 @@ An introspection tool is available in Spanner that provides insights into querie
 
 Feature
 
-The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam11  ` (Iowa/South Carolina).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `nam11` (Iowa/South Carolina).
 
 ## August 06, 2020
 
 Feature
 
-The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `  nam10  ` (Iowa/Salt Lake).
+The following [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in North America - `nam10` (Iowa/Salt Lake).
 
 ## July 30, 2020
 
@@ -6332,11 +6332,11 @@ You can run SQL queries to retrieve [read statistics](https://docs.cloud.google.
 
 Feature
 
-A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in Asia - `  asia1  ` (Tokyo/Osaka).
+A [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in Asia - `asia1` (Tokyo/Osaka).
 
 Feature
 
-A second [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `  eur5  ` (London/Belgium).
+A second [multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) is available in Europe - `eur5` (London/Belgium).
 
 Feature
 
@@ -6404,13 +6404,13 @@ Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instance
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Frankfurt ( `  europe-west3  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Frankfurt ( `europe-west3` ).
 
 ## November 25, 2019
 
 Feature
 
-SQL queries support the [`  WITH  ` clause](https://docs.cloud.google.com/spanner/docs/query-syntax#with-clause) . This clause lets you bind the results of subqueries to temporary tables which makes it easier to structure complex queries and optimize them for a faster execution time.
+SQL queries support the [`WITH` clause](https://docs.cloud.google.com/spanner/docs/query-syntax#with-clause) . This clause lets you bind the results of subqueries to temporary tables which makes it easier to structure complex queries and optimize them for a faster execution time.
 
 ## October 16, 2019
 
@@ -6440,7 +6440,7 @@ An [open-source JDBC driver](https://docs.cloud.google.com/spanner/docs/open-sou
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in São Paulo ( `  southamerica-east1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in São Paulo ( `southamerica-east1` ).
 
 ## June 26, 2019
 
@@ -6450,7 +6450,7 @@ If you write your applications in Java with the [Spring Framework](https://sprin
 
 Feature
 
-You can [import and export Spanner data in CSV format](https://docs.cloud.google.com/spanner/docs/import-export-csv) . You can use this feature to copy CSV data between Spanner and traditional relational database management systems, in combination with tools such as the `  mysqldump  ` tool for MySQL, the `  COPY  ` statement for PostgreSQL, or the `  bcp  ` tool for Microsoft SQL Server.
+You can [import and export Spanner data in CSV format](https://docs.cloud.google.com/spanner/docs/import-export-csv) . You can use this feature to copy CSV data between Spanner and traditional relational database management systems, in combination with tools such as the `mysqldump` tool for MySQL, the `COPY` statement for PostgreSQL, or the `bcp` tool for Microsoft SQL Server.
 
 ## June 21, 2019
 
@@ -6476,7 +6476,7 @@ The Google Cloud console and the Cloud Monitoring console provide [CPU utilizati
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Osaka ( `  asia-northeast2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Osaka ( `asia-northeast2` ).
 
 ## March 14, 2019
 
@@ -6488,7 +6488,7 @@ Spanner lets you to send multiple DML statements in one transaction using [batch
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Zürich ( `  europe-west6  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Zürich ( `europe-west6` ).
 
 ## February 01, 2019
 
@@ -6505,11 +6505,11 @@ Published new documentation for migrating data to Spanner:
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Sydney ( `  australia-southeast1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Sydney ( `australia-southeast1` ).
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in London ( `  europe-west2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in London ( `europe-west2` ).
 
 ## January 11, 2019
 
@@ -6527,7 +6527,7 @@ Announced general availability of the [Java client library](https://docs.cloud.g
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Hong Kong ( `  asia-east2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Hong Kong ( `asia-east2` ).
 
 ## November 13, 2018
 
@@ -6539,7 +6539,7 @@ The Google Cloud console displays [query statistics](https://docs.cloud.google.c
 
 Feature
 
-Spanner [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) can be created in Europe ( `  eur3  ` ).
+Spanner [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) can be created in Europe ( `eur3` ).
 
 ## October 26, 2018
 
@@ -6551,7 +6551,7 @@ The Google Cloud CLI command-line tool includes beta support for [inserting, upd
 
 Feature
 
-Spanner [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) can be created in a second multi-region instance configuration in North America ( `  nam6  ` ).
+Spanner [multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-multi-region) can be created in a second multi-region instance configuration in North America ( `nam6` ).
 
 ## October 10, 2018
 
@@ -6563,7 +6563,7 @@ Spanner supports [Data Manipulation Language (DML)](https://docs.cloud.google.co
 
 Feature
 
-You can use the REST API or the `  gcloud  ` command-line tool to [export](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#cloudspannertogcsavro) and [import](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) Spanner databases.
+You can use the REST API or the `gcloud` command-line tool to [export](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#cloudspannertogcsavro) and [import](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) Spanner databases.
 
 ## July 12, 2018
 
@@ -6575,13 +6575,13 @@ Spanner supports [exporting](https://docs.cloud.google.com/spanner/docs/export) 
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Los Angeles ( `  us-west2  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Los Angeles ( `us-west2` ).
 
 ## June 11, 2018
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Finland ( `  europe-north1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Finland ( `europe-north1` ).
 
 ## June 06, 2018
 
@@ -6597,17 +6597,17 @@ Published new and updated documentation for designing and updating schemas:
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Singapore ( `  asia-southeast1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Singapore ( `asia-southeast1` ).
 
 ## April 26, 2018
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in South Carolina ( `  us-east1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in South Carolina ( `us-east1` ).
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Oregon ( `  us-west1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Oregon ( `us-west1` ).
 
 ## April 24, 2018
 
@@ -6625,7 +6625,7 @@ Spanner supports the [commit timestamp column option](https://docs.cloud.google.
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in the Netherlands ( `  europe-west4  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in the Netherlands ( `europe-west4` ).
 
 ## March 02, 2018
 
@@ -6641,7 +6641,7 @@ Spanner supports [reading and querying data in parallel](https://docs.cloud.goog
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Montréal ( `  northamerica-northeast1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Montréal ( `northamerica-northeast1` ).
 
 ## February 20, 2018
 
@@ -6659,7 +6659,7 @@ Announced general availability of [IAM custom roles](https://docs.cloud.google.c
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Northern Virginia ( `  us-east4  ` ) and Mumbai ( `  asia-south1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Northern Virginia ( `us-east4` ) and Mumbai ( `asia-south1` ).
 
 ## November 14, 2017
 
@@ -6671,7 +6671,7 @@ Spanner [multi-region instance configurations](https://docs.cloud.google.com/spa
 
 Feature
 
-Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Tokyo ( `  asia-northeast1  ` ).
+Spanner [regional instances](https://docs.cloud.google.com/spanner/docs/instances#available-configurations-regional) can be created in Tokyo ( `asia-northeast1` ).
 
 ## May 16, 2017
 

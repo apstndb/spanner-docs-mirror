@@ -4,11 +4,11 @@ gcloud alpha spanner migrate cleanup - cleanup migration resources given a data 
 
 SYNOPSIS
 
-`  gcloud alpha spanner migrate cleanup  ` `  --job-id  ` = `  JOB_ID  ` `  --target-profile  ` = `  TARGET_PROFILE  ` \[ `  --data-shard-ids  ` = `  DATA_SHARD_IDS  ` \] \[ `  --dataflow  ` \] \[ `  --datastream  ` \] \[ `  --log-level  ` = `  LOG_LEVEL  ` \] \[ `  --monitoring  ` \] \[ `  --pub-sub  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner migrate cleanup` `  --job-id  ` = `  JOB_ID  ` `  --target-profile  ` = `  TARGET_PROFILE  ` \[ `  --data-shard-ids  ` = `  DATA_SHARD_IDS  ` \] \[ `  --dataflow  ` \] \[ `  --datastream  ` \] \[ `  --log-level  ` = `  LOG_LEVEL  ` \] \[ `  --monitoring  ` \] \[ `  --pub-sub  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Cleanup migration resources given a data migration job id.
+`(ALPHA)` Cleanup migration resources given a data migration job id.
 
 EXAMPLES
 
@@ -22,31 +22,31 @@ To cleanup resources for a data migration job, specify the jobId and the boolean
 
 REQUIRED FLAGS
 
-  - `  --job-id  ` = `  JOB_ID  `  
+  - `--job-id` = `  JOB_ID  `  
     The job Id of an existing migration job.
-  - `  --target-profile  ` = `  TARGET_PROFILE  `  
+  - `--target-profile` = `  TARGET_PROFILE  `  
     Flag for specifying connection profile for target database (e.g., "dialect=postgresql)".
 
 OPTIONAL FLAGS
 
-  - `  --data-shard-ids  ` = `  DATA_SHARD_IDS  `  
+  - `--data-shard-ids` = `  DATA_SHARD_IDS  `  
     Relevant to sharded migrations. Optional comma separated list of data shard Ids, if nothing is specified, all shards are cleaned up.
-  - `  --dataflow  `  
+  - `--dataflow`  
     Cleanup dataflow resource(s).
-  - `  --datastream  `  
+  - `--datastream`  
     Cleanup datastream resource(s).
-  - `  --log-level  ` = `  LOG_LEVEL  `  
+  - `--log-level` = `  LOG_LEVEL  `  
     To configure the log level for the execution (INFO, VERBOSE).
-  - `  --monitoring  `  
+  - `--monitoring`  
     Cleanup monitoring dashboard(s).
-  - `  --pub-sub  `  
+  - `--pub-sub`  
     Cleanup pubsub resource(s).
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

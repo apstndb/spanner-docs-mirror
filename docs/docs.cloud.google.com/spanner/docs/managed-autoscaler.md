@@ -177,7 +177,7 @@ In many cases you want to set the minimum value to more than one. Choose a highe
 
   - You have an upcoming peak scale event when you expect your traffic to temporarily increase, and you want to make sure you have enough compute capacity.
   - Your application sends spiky traffic. When you add new compute capacity, Spanner automatically rebalances to use the new nodes or processing units. Because this process can take several minutes, you might want to consider taking a conservative approach and choosing a higher minimum. That way, your instance seamlessly accommodate the spikes.
-  - You increase the maximum compute capacity. The minimum must always be ten percent or more of the maximum compute capacity target. For example, if you set the maximum number of nodes to `  30  ` , you must set the minimum number of nodes to at least `  3  ` .
+  - You increase the maximum compute capacity. The minimum must always be ten percent or more of the maximum compute capacity target. For example, if you set the maximum number of nodes to `30` , you must set the minimum number of nodes to at least `3` .
 
 If you increase the value for the minimum compute capacity on an instance, Spanner immediately tries to scale the instance to the new minimum. The [standard constraints](https://docs.cloud.google.com/spanner/quotas#node_limits) apply. When you're out of quota, your request to change the managed autoscaler configuration fails and the configuration isn't updated.
 
@@ -194,26 +194,26 @@ When you use Google Cloud CLI to configure the managed autoscaler, there are som
 
 The following flags are required when enabling the managed autoscaler on your instance:
 
-  - `  autoscaling-high-priority-cpu-percent  `
-  - `  autoscaling-total-cpu-percent  `
-  - `  autoscaling-storage-percent  `
+  - `autoscaling-high-priority-cpu-percent`
+  - `autoscaling-total-cpu-percent`
+  - `autoscaling-storage-percent`
 
 When setting the CPU percent, you can select either one or both options.
 
 If you choose to use nodes, you must also use both of the following flags when you enable the managed autoscaler:
 
-  - `  autoscaling-min-nodes  `
-  - `  autoscaling-max-nodes  `
+  - `autoscaling-min-nodes`
+  - `autoscaling-max-nodes`
 
 If you choose to use processing units, you must also use both of the following flags when you enable the managed autoscaler:
 
-  - `  autoscaling-min-processing-units  `
-  - `  autoscaling-max-processing-units  `
+  - `autoscaling-min-processing-units`
+  - `autoscaling-max-processing-units`
 
 The following limitations apply when adding the managed autoscaler to an existing instance using Google Cloud CLI:
 
-  - You can't use the `  --nodes  ` flag with the `  --autoscaling-min-nodes  ` or `  --autoscaling-max-nodes  ` flags because using `  --nodes  ` sets a specific number of nodes rather than a scaling range. Similarly, you can't use the `  --processing-units  ` flag with the `  autoscaling-min-processing-units  ` or `  autoscaling-max-processing-units  ` flags because using `  --processing-units  ` sets a specific number of processing units rather than a scaling range.
-  - You can't mix the flags for nodes and processing units together. For example, you can't use `  --autoscaling-max-nodes  ` with `  autoscaling-min-processing-units  ` .
+  - You can't use the `--nodes` flag with the `--autoscaling-min-nodes` or `--autoscaling-max-nodes` flags because using `--nodes` sets a specific number of nodes rather than a scaling range. Similarly, you can't use the `--processing-units` flag with the `autoscaling-min-processing-units` or `autoscaling-max-processing-units` flags because using `--processing-units` sets a specific number of processing units rather than a scaling range.
+  - You can't mix the flags for nodes and processing units together. For example, you can't use `--autoscaling-max-nodes` with `autoscaling-min-processing-units` .
 
 ### Fine-tune your settings
 
@@ -239,7 +239,7 @@ For each replica, the following rules apply when you enable asymmetric autoscali
   - If the current compute capacity of the replica is between the autoscaling minimum and maximum that is set for the region, then the compute capacity of the replica doesn't change.
   - If the current compute capacity of the replica is below the autoscaling minimum that is set for the region, then the compute capacity is adjusted to match the autoscaling minimum.
   - If the current compute capacity of the replica is above the autoscaling maximum that is set for the region, then the compute capacity is adjusted to match the autoscaling maximum.
-  - If both CPU targets are set at the base level and you want to disable the CPU target at the replica level, you must explicitly use `  disable_total_cpu_autoscaling  ` or `  disable_high_priority_cpu_autoscaling  ` .
+  - If both CPU targets are set at the base level and you want to disable the CPU target at the replica level, you must explicitly use `disable_total_cpu_autoscaling` or `disable_high_priority_cpu_autoscaling` .
 
 In addition, when using the asymmetric autoscaler, we recommend setting the same set of targets across all replicas to ensure consistent autoscaling behavior during failover events. For more information, see [Failover concerns](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#failover-concerns) .
 
@@ -272,13 +272,13 @@ Spanner provides several metrics to help you understand how well the managed aut
 
 The following metrics are [displayed in graphs](https://docs.cloud.google.com/spanner/docs/monitoring-console) on the **System insights** page in the Google Cloud console. You can also view these metrics using [Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
-  - `  spanner.googleapis.com/instance/autoscaling/min_node_count  `
-  - `  spanner.googleapis.com/instance/autoscaling/max_node_count  `
-  - `  spanner.googleapis.com/instance/autoscaling/min_processing_units  `
-  - `  spanner.googleapis.com/instance/autoscaling/max_processing_units  `
-  - `  spanner.googleapis.com/instance/autoscaling/high_priority_cpu_target_utilization  `
-  - `  spanner.googleapis.com/instance/autoscaling/total_cpu_target_utilization  `
-  - `  spanner.googleapis.com/instance/autoscaling/storage_target_utilization  `
+  - `spanner.googleapis.com/instance/autoscaling/min_node_count`
+  - `spanner.googleapis.com/instance/autoscaling/max_node_count`
+  - `spanner.googleapis.com/instance/autoscaling/min_processing_units`
+  - `spanner.googleapis.com/instance/autoscaling/max_processing_units`
+  - `spanner.googleapis.com/instance/autoscaling/high_priority_cpu_target_utilization`
+  - `spanner.googleapis.com/instance/autoscaling/total_cpu_target_utilization`
+  - `spanner.googleapis.com/instance/autoscaling/storage_target_utilization`
 
 ## Logging
 
@@ -302,7 +302,7 @@ You can view the managed autoscaler system event logs in the Google Cloud consol
     
     The **Compute capacity logs** pane displays the logs for the last hour.
     
-    If asymmetric read-only autoscaling is enabled for your instance, then the log summary provides a description and location of every replica's compute capacity changes. For example, `  Increased from 1 to 2 nodes in us-central1 to maintain high priority CPU utilization at 80%  ` . If you're not using asymmetric autoscaling, location information isn't provided in the log summary. For example, `  Increased from 9 to 10 nodes to maintain high priority CPU utilization at 65%  ` . You can also see when nodes are increased to maintain the total CPU utilization target.
+    If asymmetric read-only autoscaling is enabled for your instance, then the log summary provides a description and location of every replica's compute capacity changes. For example, `Increased from 1 to 2 nodes in us-central1 to maintain high priority CPU utilization at 80%` . If you're not using asymmetric autoscaling, location information isn't provided in the log summary. For example, `Increased from 9 to 10 nodes to maintain high priority CPU utilization at 65%` . You can also see when nodes are increased to maintain the total CPU utilization target.
 
 ### View logs using Logs Explorer
 

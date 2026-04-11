@@ -21,13 +21,13 @@ The following summarizes the primary differences between schema and schemaless d
 | Storing graph definition   | Graph definition is stored in the Spanner Graph schema.                                                                                                       | Graph definition is evident from the data. However, Spanner Graph doesn't inspect the data to infer the definition.                                                                         |
 | Updating graph definition  | Requires a Spanner Graph schema change. Suitable when the definition is well-defined and changes infrequently.                                                | No Spanner Graph schema change needed.                                                                                                                                                      |
 | Enforcing graph definition | A property graph schema enforces the allowed node types for an edge. It also enforces the allowed properties and property types of a graph node or edge type. | Not enforced by default. You can use [check constraints](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#constraints) to enforce label and property data integrity. |
-| Property data types        | Support any Spanner data type, for example, `        timestamp       ` .                                                                                      | [Dynamic properties](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#create-a-property-graph) must be a valid JSON value.                                           |
+| Property data types        | Support any Spanner data type, for example, `timestamp` .                                                                                                     | [Dynamic properties](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#create-a-property-graph) must be a valid JSON value.                                           |
 
 ### Choose a schema design based on graph queries
 
 Schematized and schemaless designs often offer comparable performance. However, when queries use [quantified path patterns](https://docs.cloud.google.com/spanner/docs/graph/queries-overview#quantified-path-patterns) that span multiple node or edge types, a schemaless design offers better performance.
 
-The underlying data model is a key reason for this. A schemaless design stores all data in single node and edge tables, which `  DYNAMIC LABEL  ` [enforces](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#single-table-dynamic-label) . Queries that traverse multiple types execute with minimal table scans.
+The underlying data model is a key reason for this. A schemaless design stores all data in single node and edge tables, which `DYNAMIC LABEL` [enforces](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#single-table-dynamic-label) . Queries that traverse multiple types execute with minimal table scans.
 
 In contrast, schematized designs commonly use separate tables for each node and edge type, so queries spanning multiple types must scan and combine data from all corresponding tables.
 
@@ -37,25 +37,25 @@ The following are sample queries that work well with schemaless designs, and a s
 
 The following queries perform better with a schemaless design because they use quantified path patterns that can match multiple types of nodes and edges:
 
-  - This query's quantified path pattern uses multiple edge types ( `  Transfer  ` or `  Withdraw  ` ) and doesn't specify intermediate node types for paths longer than one hop.
+  - This query's quantified path pattern uses multiple edge types ( `Transfer` or `Withdraw` ) and doesn't specify intermediate node types for paths longer than one hop.
     
         GRAPH FinGraph
         MATCH p = (:Account {id:1})-[:Transfer|Withdraw]->{1,3}(:Account)
         RETURN TO_JSON(p) AS p;
 
-  - This query's quantified path pattern finds paths of one to three hops between `  Person  ` and `  Account  ` nodes, using multiple edge types ( `  Owns  ` or `  Transfers  ` ), without specifying intermediate node types for longer paths. This allows paths to traverse intermediate nodes of various types. For example, `  (:Person)-[:Owns]->(:Account)-[:Transfers]->(:Account)  ` .
+  - This query's quantified path pattern finds paths of one to three hops between `Person` and `Account` nodes, using multiple edge types ( `Owns` or `Transfers` ), without specifying intermediate node types for longer paths. This allows paths to traverse intermediate nodes of various types. For example, `(:Person)-[:Owns]->(:Account)-[:Transfers]->(:Account)` .
     
         GRAPH FinGraph
         MATCH p = (:Person {id:1})-[:Owns|Transfers]->{1,3}(:Account)
         RETURN TO_JSON(p) AS p;
 
-  - This query's quantified path pattern finds paths of one to three hops between `  Person  ` and `  Account  ` nodes, without specifying any edge labels. Similar to the prior query, it allows paths to traverse intermediate nodes of various types.
+  - This query's quantified path pattern finds paths of one to three hops between `Person` and `Account` nodes, without specifying any edge labels. Similar to the prior query, it allows paths to traverse intermediate nodes of various types.
     
         GRAPH FinGraph
         MATCH p = (:Person {id:1})-[]->{1,3}(:Account)
         RETURN TO_JSON(p) AS p;
 
-  - This query finds paths of one to three hops between `  Account  ` nodes using edges of type `  Owns  ` in any direction ( `  -[:Owns]-  ` ). Because paths can traverse edges in either direction and intermediate nodes aren't specified, a two-hop path might go through nodes of different types. For example, `  (:Account)-[:Owns]-(:Person)-[:Owns]-(:Account)  ` .
+  - This query finds paths of one to three hops between `Account` nodes using edges of type `Owns` in any direction ( `-[:Owns]-` ). Because paths can traverse edges in either direction and intermediate nodes aren't specified, a two-hop path might go through nodes of different types. For example, `(:Account)-[:Owns]-(:Person)-[:Owns]-(:Account)` .
     
         GRAPH FinGraph
         MATCH p = (:Account {id:1})-[:Owns]-{1,3}(:Account)
@@ -63,7 +63,7 @@ The following queries perform better with a schemaless design because they use q
 
 ### Both designs
 
-The following query performs comparably with both schematized and schemaless designs. Its quantified path, `  (:Account)-[:Transfer]->{1,3}(:Account)  ` , involves one node type, `  Account  ` , and one edge type, `  Transfer  ` . Because the path involves only one node type and one edge type, performance is comparable for both designs. Even though intermediate nodes aren't explicitly labeled, the pattern constrains them to be `  Account  ` nodes. The `  Person  ` node appears outside of this quantified path.
+The following query performs comparably with both schematized and schemaless designs. Its quantified path, `(:Account)-[:Transfer]->{1,3}(:Account)` , involves one node type, `Account` , and one edge type, `Transfer` . Because the path involves only one node type and one edge type, performance is comparable for both designs. Even though intermediate nodes aren't explicitly labeled, the pattern constrains them to be `Account` nodes. The `Person` node appears outside of this quantified path.
 
     GRAPH FinGraph
     MATCH p = (:Person {id:1})-[:Owns]->(:Account)-[:Transfer]->{1,3}(:Account)
@@ -87,13 +87,13 @@ You can traverse an edge in two directions:
 
 #### Forward and reverse edge traversal query examples
 
-The following example query performs forward edge traversal of `  Owns  ` edges for a given person:
+The following example query performs forward edge traversal of `Owns` edges for a given person:
 
     GRAPH FinGraph
     MATCH (person:Person {id: 1})-[owns:Owns]->(accnt:Account)
     RETURN accnt.id;
 
-The following example query performs reverse edge traversal of `  Owns  ` edges for a given account:
+The following example query performs reverse edge traversal of `Owns` edges for a given account:
 
     GRAPH FinGraph
     MATCH (accnt:Account {id: 1})<-[owns:Owns]-(person:Person)
@@ -103,7 +103,7 @@ The following example query performs reverse edge traversal of `  Owns  ` edges 
 
 To improve forward edge traversal performance, optimize traversal from source to edge and from edge to destination.
 
-  - To optimize source to edge traversal, interleave the edge input table into the source node input table using the `  INTERLEAVE IN PARENT  ` clause. Interleaving is a storage optimization technique in Spanner that colocates child table rows with their corresponding parent rows in storage. For more information about interleaving, see [Schemas overview](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
+  - To optimize source to edge traversal, interleave the edge input table into the source node input table using the `INTERLEAVE IN PARENT` clause. Interleaving is a storage optimization technique in Spanner that colocates child table rows with their corresponding parent rows in storage. For more information about interleaving, see [Schemas overview](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
 
   - To optimize edge to destination traversal, create a [foreign key constraint](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#use-ref-constraints) between the edge and the destination  
     node. This enforces the edge-to-destination constraint, which can improve performance by eliminating destination table scans. If enforced foreign keys cause write performance bottlenecks (for example, when updating hub nodes), use an [informational foreign key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys) instead.
@@ -112,11 +112,11 @@ The following examples show how to use interleaving with an enforced and an info
 
 ### Enforced foreign key
 
-In this edge table example, `  PersonOwnAccount  ` does the following:
+In this edge table example, `PersonOwnAccount` does the following:
 
-  - Interleaves into the source node table `  Person  ` .
+  - Interleaves into the source node table `Person` .
 
-  - Creates an enforced foreign key to the destination node table `  Account  ` .
+  - Creates an enforced foreign key to the destination node table `Account` .
 
 <!-- end list -->
 
@@ -142,11 +142,11 @@ In this edge table example, `  PersonOwnAccount  ` does the following:
 
 ### Informational foreign key
 
-In this edge table example, `  PersonOwnAccount  ` does the following:
+In this edge table example, `PersonOwnAccount` does the following:
 
-  - Interleaves into the source node table `  Person  ` .
+  - Interleaves into the source node table `Person` .
 
-  - Creates an informational foreign key to the destination node table `  Account  ` .
+  - Creates an informational foreign key to the destination node table `Account` .
 
 <!-- end list -->
 
@@ -182,11 +182,11 @@ To optimize reverse edge traversal, you can do the following:
 
   - Store the edge properties in the index.
 
-This example shows a secondary index to optimize reverse edge traversal for the edge table `  PersonOwnAccount  ` :
+This example shows a secondary index to optimize reverse edge traversal for the edge table `PersonOwnAccount` :
 
-  - The `  INTERLEAVE IN  ` clause colocates the index data with the destination node table `  Account  ` .
+  - The `INTERLEAVE IN` clause colocates the index data with the destination node table `Account` .
 
-  - The `  STORING  ` clause stores edge properties in the index.
+  - The `STORING` clause stores edge properties in the index.
 
 For more information about interleaving indexes, see [Indexes and interleaving](https://docs.cloud.google.com/spanner/docs/secondary-indexes#indexes_and_interleaving) .
 
@@ -208,7 +208,7 @@ A secondary index enables efficient lookup of nodes and edges based on specific 
 
 #### Speed up filtering nodes by property
 
-The following query that finds accounts for a specified nickname. Because it doesn't use a secondary index, all `  Account  ` nodes must be scanned to find the matching results:
+The following query that finds accounts for a specified nickname. Because it doesn't use a secondary index, all `Account` nodes must be scanned to find the matching results:
 
     GRAPH FinGraph
     MATCH (acct:Account)
@@ -227,7 +227,7 @@ Create a secondary index on the filtered property in your schema to speed up the
     CREATE INDEX AccountByNickName
     ON Account (nick_name);
 
-**Tip:** Use NULL-filtered indexes for sparse properties. For more information, see [Disable indexing of `  NULL  ` values](https://docs.cloud.google.com/spanner/docs/secondary-indexes#null-indexing-disable) .
+**Tip:** Use NULL-filtered indexes for sparse properties. For more information, see [Disable indexing of `NULL` values](https://docs.cloud.google.com/spanner/docs/secondary-indexes#null-indexing-disable) .
 
 #### Speed up filtering edges by property
 
@@ -235,7 +235,7 @@ You can use a secondary index to improve the performance of filtering edges base
 
 ### Forward edge traversal
 
-Without a secondary index, this query must scan all of a person's edges to find the edges that match the `  create_time  ` filter:
+Without a secondary index, this query must scan all of a person's edges to find the edges that match the `create_time` filter:
 
     GRAPH FinGraph
     MATCH (person:Person)-[owns:Owns]->(acct:Account)
@@ -243,7 +243,7 @@ Without a secondary index, this query must scan all of a person's edges to find 
       AND owns.create_time >= PARSE_TIMESTAMP("%c", "Thu Dec 25 07:30:00 2008")
     RETURN acct.id;
 
-The following code improves query efficiency by creating a secondary index on the edge source node reference ( `  id  ` ) and the edge property ( `  create_time  ` ). The query also defines the index as an interleaved child of the source node input table, which colocates the index with the source node.
+The following code improves query efficiency by creating a secondary index on the edge source node reference ( `id` ) and the edge property ( `create_time` ). The query also defines the index as an interleaved child of the source node input table, which colocates the index with the source node.
 
     CREATE TABLE PersonOwnAccount (
       id               INT64 NOT NULL,
@@ -258,7 +258,7 @@ The following code improves query efficiency by creating a secondary index on th
 
 ### Reverse edge traversal
 
-Without a secondary index, the following reverse edge traversal query must read all the edges before it can find the person that owns the specified account after the specified `  create_time  ` :
+Without a secondary index, the following reverse edge traversal query must read all the edges before it can find the person that owns the specified account after the specified `create_time` :
 
     GRAPH FinGraph
     MATCH (acct:Account)<-[owns:Owns]-(person:Person)
@@ -266,7 +266,7 @@ Without a secondary index, the following reverse edge traversal query must read 
       AND owns.create_time >= PARSE_TIMESTAMP("%c", "Thu Dec 25 07:30:00 2008")
     RETURN person.id;
 
-The following code improves query efficiency by creating a secondary index on the edge destination node reference ( `  account_id  ` ) and the edge property ( `  create_time  ` ). The query also defines the index as the interleaved child of the destination node table, which colocates the index with the destination node.
+The following code improves query efficiency by creating a secondary index on the edge destination node reference ( `account_id` ) and the edge property ( `create_time` ). The query also defines the index as the interleaved child of the destination node table, which colocates the index with the destination node.
 
     CREATE TABLE PersonOwnAccount (
       id               INT64 NOT NULL,
@@ -284,7 +284,7 @@ The following code improves query efficiency by creating a secondary index on th
 An edge that connects zero or one node, a *dangling edge* , can compromise Spanner Graph query efficiency and graph structure integrity. A dangling edge can occur if you delete a node without deleting its associated edges. A dangling edge can also occur if you create an edge but its source or destination node doesn't exist. To prevent dangling edges, incorporate the following in your Spanner Graph schema:
 
   - [Use referential constraints](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#use-ref-constraints) .
-  - Optional: [Use the `  ON DELETE CASCADE  ` clause](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) when you delete a node with edges that are still attached. If you don't use `  ON DELETE CASCADE  ` , then attempts to delete a node without deleting corresponding edges fails.
+  - Optional: [Use the `ON DELETE CASCADE` clause](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) when you delete a node with edges that are still attached. If you don't use `ON DELETE CASCADE` , then attempts to delete a node without deleting corresponding edges fails.
 
 ### Use referential constraints
 
@@ -296,7 +296,7 @@ You can use interleaving and enforced foreign keys on both endpoints to prevent 
 
 **Note:** You can't prevent a dangling edge with an informational foreign key.
 
-The following example uses an enforced foreign key and interleaves the edge input table into the source node input table using the `  INTERLEAVE IN PARENT  ` clause. Together, using an enforced foreign key and interleaving can also help [optimize forward edge traversal](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#optimize-forward-edge-traversal) .
+The following example uses an enforced foreign key and interleaves the edge input table into the source node input table using the `INTERLEAVE IN PARENT` clause. Together, using an enforced foreign key and interleaving can also help [optimize forward edge traversal](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#optimize-forward-edge-traversal) .
 
 ``` 
   CREATE TABLE PersonOwnAccount (
@@ -308,17 +308,17 @@ The following example uses an enforced foreign key and interleaves the edge inpu
     INTERLEAVE IN PARENT Person ON DELETE CASCADE;
 ```
 
-### Delete edges with `     ON DELETE CASCADE    `
+### Delete edges with `ON DELETE CASCADE`
 
-When you use interleaving or an enforced foreign key to prevent dangling edges, use the `  ON DELETE CASCADE  ` clause in your Spanner Graph schema to delete a node's associated edges in the same transaction that deletes the node. For more information, see [Delete cascading for interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) and [Foreign key actions](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#how-to-define-foreign-key-action) .
+When you use interleaving or an enforced foreign key to prevent dangling edges, use the `ON DELETE CASCADE` clause in your Spanner Graph schema to delete a node's associated edges in the same transaction that deletes the node. For more information, see [Delete cascading for interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) and [Foreign key actions](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#how-to-define-foreign-key-action) .
 
 #### Delete cascade for edges connecting different types of nodes
 
-The following examples show how to use `  ON DELETE CASCADE  ` in your Spanner Graph schema to delete dangling edges when you delete a source or destination node. In both cases, the deleted node's type and the type of the node connected to it by an edge are different.
+The following examples show how to use `ON DELETE CASCADE` in your Spanner Graph schema to delete dangling edges when you delete a source or destination node. In both cases, the deleted node's type and the type of the node connected to it by an edge are different.
 
 ### Source node
 
-Use interleaving to delete dangling edges when the source node is deleted. The following shows how to use interleaving to delete the outgoing edges when the source node ( `  Person  ` ) is deleted. For more information, see [Create interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) .
+Use interleaving to delete dangling edges when the source node is deleted. The following shows how to use interleaving to delete the outgoing edges when the source node ( `Person` ) is deleted. For more information, see [Create interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) .
 
     CREATE TABLE PersonOwnAccount (
       id               INT64 NOT NULL,
@@ -332,18 +332,18 @@ Use interleaving to delete dangling edges when the source node is deleted. The f
 
 ### Destination node
 
-Use a foreign key constraint to delete dangling edges when the destination node is deleted. The following example shows how to use a foreign key with `  ON DELETE CASCADE  ` in an edge table to delete incoming edges when the destination node ( `  Account  ` ) is deleted:
+Use a foreign key constraint to delete dangling edges when the destination node is deleted. The following example shows how to use a foreign key with `ON DELETE CASCADE` in an edge table to delete incoming edges when the destination node ( `Account` ) is deleted:
 
     CONSTRAINT FK_Account FOREIGN KEY(account_id)
       REFERENCES Account(id) ON DELETE CASCADE
 
 #### Delete cascade for edges connecting the same type of nodes
 
-When an edge's source and destination nodes are of the same type and the edge is interleaved into the source node, you can define `  ON DELETE CASCADE  ` for either the source or destination node, but not both.
+When an edge's source and destination nodes are of the same type and the edge is interleaved into the source node, you can define `ON DELETE CASCADE` for either the source or destination node, but not both.
 
 To prevent dangling edges in these scenarios, don't interleave into the source node input table. Instead, create two enforced foreign keys on the source and destination node references.
 
-The following example uses `  AccountTransferAccount  ` as the edge input table. It defines two foreign keys, one on each end node of the transfer edge, both with the `  ON DELETE CASCADE  ` action.
+The following example uses `AccountTransferAccount` as the edge input table. It defines two foreign keys, one on each end node of the transfer edge, both with the `ON DELETE CASCADE` action.
 
     CREATE TABLE AccountTransferAccount (
       id               INT64 NOT NULL,
@@ -372,17 +372,17 @@ The following example uses TTL to delete accounts 90 days after their closure:
 
 When you define a TTL policy on a node table, you must configure how related edges are handled to prevent unintended dangling edges:
 
-  - **For interleaved edge tables:** If an edge table is interleaved in the node table, you can define the interleave relationship with [`  ON DELETE CASCADE  `](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) . This ensures that when TTL deletes a node, its associated interleaved edges are also deleted.
+  - **For interleaved edge tables:** If an edge table is interleaved in the node table, you can define the interleave relationship with [`ON DELETE CASCADE`](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) . This ensures that when TTL deletes a node, its associated interleaved edges are also deleted.
 
   - **For edge tables with foreign keys:** If an edge table references the node table with a foreign key, you have two options:
     
-      - To automatically delete edges when the referenced node is deleted by TTL, use `  ON DELETE CASCADE  ` on the foreign key. This maintains referential integrity.
+      - To automatically delete edges when the referenced node is deleted by TTL, use `ON DELETE CASCADE` on the foreign key. This maintains referential integrity.
       - To allow edges to remain after the referenced node is deleted (creating a dangling edge), define the foreign key as an [informational foreign key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys) .
 
-In the following example, the `  AccountTransferAccount  ` edge table is subject to two data deletion policies:
+In the following example, the `AccountTransferAccount` edge table is subject to two data deletion policies:
 
   - A TTL policy deletes transfer records that are more than ten years old.
-  - The `  ON DELETE CASCADE  ` clause deletes all transfer records associated with a source when that account is deleted.
+  - The `ON DELETE CASCADE` clause deletes all transfer records associated with a source when that account is deleted.
 
 <!-- end list -->
 

@@ -8,12 +8,12 @@ You can use the SQLAlchemy 2 ORM in combination with the standard [PostgreSQL ps
     
     For more information, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
-2.  Add SQLAlchemy 2 and psycopg3 to your `  requirements.txt  ` file.
+2.  Add SQLAlchemy 2 and psycopg3 to your `requirements.txt` file.
     
         psycopg~=3.1.8
         sqlalchemy~=2.0.1
 
-3.  Specify `  postgresql+psycopg  ` , `  localhost  ` and `  5432  ` as the database dialect, driver, server host and port in the SQLAlchemy 2 connection string. psycopg3 requires a username and password in the connection string. PGAdapter ignores these.
+3.  Specify `postgresql+psycopg` , `localhost` and `5432` as the database dialect, driver, server host and port in the SQLAlchemy 2 connection string. psycopg3 requires a username and password in the connection string. PGAdapter ignores these.
     
     Optionally, specify a different port number if PGAdapter is configured to listen on a port other than the default PostgreSQL port (5432).
     

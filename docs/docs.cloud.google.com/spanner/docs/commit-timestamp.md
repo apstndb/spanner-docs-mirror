@@ -1,12 +1,12 @@
-This document describes how to write a commit timestamp for each insert and update operation that you perform with Spanner. To use this feature, set the `  allow_commit_timestamp  ` option on a `  TIMESTAMP  ` column, then write the timestamp as part of each transaction.
+This document describes how to write a commit timestamp for each insert and update operation that you perform with Spanner. To use this feature, set the `allow_commit_timestamp` option on a `TIMESTAMP` column, then write the timestamp as part of each transaction.
 
 ## Overview
 
-The commit timestamp, based on [TrueTime](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) technology, is the time when a transaction is committed in the database. The `  allow_commit_timestamp  ` column option lets you atomically store the commit timestamp into a column. Using the commit timestamps stored in tables, you can determine the exact ordering of mutations and build features like changelogs.
+The commit timestamp, based on [TrueTime](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) technology, is the time when a transaction is committed in the database. The `allow_commit_timestamp` column option lets you atomically store the commit timestamp into a column. Using the commit timestamps stored in tables, you can determine the exact ordering of mutations and build features like changelogs.
 
 To insert commit timestamps in your database, complete the following steps:
 
-1.  [Create a column with type `  TIMESTAMP  `](https://docs.cloud.google.com/spanner/docs/commit-timestamp#create-column) with the column option `  allow_commit_timestamp  ` set to `  true  ` in the schema definition. For example:
+1.  [Create a column with type `TIMESTAMP`](https://docs.cloud.google.com/spanner/docs/commit-timestamp#create-column) with the column option `allow_commit_timestamp` set to `true` in the schema definition. For example:
     
         CREATE TABLE Performances (
             ...
@@ -14,34 +14,34 @@ To insert commit timestamps in your database, complete the following steps:
             ...
         ) PRIMARY KEY (...);
 
-2.  If you are performing inserts or updates with DML, [use the `  PENDING_COMMIT_TIMESTAMP  ` function](https://docs.cloud.google.com/spanner/docs/commit-timestamp#dml) to write the commit timestamp.
+2.  If you are performing inserts or updates with DML, [use the `PENDING_COMMIT_TIMESTAMP` function](https://docs.cloud.google.com/spanner/docs/commit-timestamp#dml) to write the commit timestamp.
     
-    If you are performing inserts or updates with mutations, [use the placeholder string `  spanner.commit_timestamp()  `](https://docs.cloud.google.com/spanner/docs/commit-timestamp#create-column) on insertions or updates to your commit timestamp column. You can also use the commit timestamp constant provided by the client library. For example, this constant in the Java client is `  Value.COMMIT_TIMESTAMP  ` .
+    If you are performing inserts or updates with mutations, [use the placeholder string `spanner.commit_timestamp()`](https://docs.cloud.google.com/spanner/docs/commit-timestamp#create-column) on insertions or updates to your commit timestamp column. You can also use the commit timestamp constant provided by the client library. For example, this constant in the Java client is `Value.COMMIT_TIMESTAMP` .
 
-When Spanner commits the transaction using these placeholders as column values, the actual commit timestamp is written to the specified column (For example: the `  LastUpdateTime  ` column). You could then use this column value to create a history of updates to the table.
+When Spanner commits the transaction using these placeholders as column values, the actual commit timestamp is written to the specified column (For example: the `LastUpdateTime` column). You could then use this column value to create a history of updates to the table.
 
 Commit timestamp values are not guaranteed to be unique. Transactions that write to non-overlapping sets of fields might have the same timestamp. Transactions that write to overlapping sets of fields have unique timestamps.
 
-Spanner commit timestamps have microsecond granularity, and they are converted to nanoseconds when stored in `  TIMESTAMP  ` columns.
+Spanner commit timestamps have microsecond granularity, and they are converted to nanoseconds when stored in `TIMESTAMP` columns.
 
 ## Create and delete a commit timestamp column
 
-Use the `  allow_commit_timestamp  ` column option to add and remove support for commit timestamps:
+Use the `allow_commit_timestamp` column option to add and remove support for commit timestamps:
 
   - When [creating a new table](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#table_statements) to specify that a column supports commit timestamps.
   - When [altering an existing table](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) :
       - to add a new column supporting commit timestamps,
-      - to alter an existing `  TIMESTAMP  ` column to support commit timestamps,
-      - to alter an existing `  TIMESTAMP  ` column to remove commit timestamp support
+      - to alter an existing `TIMESTAMP` column to support commit timestamps,
+      - to alter an existing `TIMESTAMP` column to remove commit timestamp support
 
 ### Keys and indexes
 
-You can use a commit timestamp column as a primary key column or as a non-key column. Primary keys can be defined as `  ASC  ` or `  DESC  ` .
+You can use a commit timestamp column as a primary key column or as a non-key column. Primary keys can be defined as `ASC` or `DESC` .
 
-  - `  ASC  ` (default) - Ascending keys are ideal for answering queries from a specific time forward.
-  - `  DESC  ` - Descending keys keep the latest rows at the top of the table. They provide quick access to the latest records.
+  - `ASC` (default) - Ascending keys are ideal for answering queries from a specific time forward.
+  - `DESC` - Descending keys keep the latest rows at the top of the table. They provide quick access to the latest records.
 
-The `  allow_commit_timestamp  ` option must be consistent across the primary keys of parent and child tables. If the option is not consistent across primary keys, Spanner returns an error. The only time the option can be inconsistent is when you are creating or updating the schema.
+The `allow_commit_timestamp` option must be consistent across the primary keys of parent and child tables. If the option is not consistent across primary keys, Spanner returns an error. The only time the option can be inconsistent is when you are creating or updating the schema.
 
 Using commit timestamps under the following scenarios creates [hotspots](https://docs.cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots) which reduce data performance:
 
@@ -78,14 +78,14 @@ The following DDL creates a table with a column that supports commit timestamps.
 
 Adding the option changes the timestamp column as follows:
 
-  - You can use the `  spanner.commit_timestamp()  ` placeholder string (or a constant provided by the client library) for inserts and updates.
+  - You can use the `spanner.commit_timestamp()` placeholder string (or a constant provided by the client library) for inserts and updates.
   - The column can only contain values in the past. For more information, see [Providing your own value for the timestamp](https://docs.cloud.google.com/spanner/docs/commit-timestamp#provide-timestamp) .
 
-The option `  allow_commit_timestamp  ` is case sensitive.
+The option `allow_commit_timestamp` is case sensitive.
 
 ### Add a commit timestamp column to an existing table
 
-To add a commit timestamp column to an existing table, use the `  ALTER TABLE  ` statement. For example to add a `  LastUpdateTime  ` column to the `  Performances  ` table, use the following statement:
+To add a commit timestamp column to an existing table, use the `ALTER TABLE` statement. For example to add a `LastUpdateTime` column to the `Performances` table, use the following statement:
 
     ALTER TABLE Performances ADD COLUMN LastUpdateTime TIMESTAMP
         NOT NULL OPTIONS (allow_commit_timestamp=true)
@@ -97,11 +97,11 @@ You can convert an existing timestamp column into a commit timestamp column, but
     ALTER TABLE Performances ALTER COLUMN LastUpdateTime
         SET OPTIONS (allow_commit_timestamp=true)
 
-You cannot change the data type or `  NULL  ` annotation of a column in an `  ALTER TABLE  ` statement that includes `  SET OPTIONS  ` . For details, see [Data Definition Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) .
+You cannot change the data type or `NULL` annotation of a column in an `ALTER TABLE` statement that includes `SET OPTIONS` . For details, see [Data Definition Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) .
 
 ### Remove the commit timestamp option
 
-If you want to remove commit timestamp support from a column, use the option `  allow_commit_timestamp=null  ` in an `  ALTER TABLE  ` statement. The commit timestamp behavior is removed, but the column is still a timestamp. Changing the option does not alter any other characteristics of the column, such as type or nullability ( `  NOT NULL  ` ). For example:
+If you want to remove commit timestamp support from a column, use the option `allow_commit_timestamp=null` in an `ALTER TABLE` statement. The commit timestamp behavior is removed, but the column is still a timestamp. Changing the option does not alter any other characteristics of the column, such as type or nullability ( `NOT NULL` ). For example:
 
     ALTER TABLE Performances ALTER COLUMN LastUpdateTime
         SET OPTIONS (allow_commit_timestamp=null)
@@ -110,14 +110,14 @@ If you want to remove commit timestamp support from a column, use the option `  
 
 You use the `  PENDING_COMMIT_TIMESTAMP  ` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
 
-**Note:** After you call the `  PENDING_COMMIT_TIMESTAMP  ` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the coloumn is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner produces an error.
+**Note:** After you call the `PENDING_COMMIT_TIMESTAMP` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the coloumn is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner produces an error.
 
-The following DML statement updates the `  LastUpdateTime  ` column in the `  Performances  ` table with the commit timestamp:
+The following DML statement updates the `LastUpdateTime` column in the `Performances` table with the commit timestamp:
 
     UPDATE Performances SET LastUpdateTime = PENDING_COMMIT_TIMESTAMP()
        WHERE SingerId=1 AND VenueId=2 AND EventDate="2015-10-21"
 
-The following code example uses the [`  PENDING_COMMIT_TIMESTAMP  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions) function to write the commit timestamp in the `  LastUpdateTime  ` column.
+The following code example uses the [`PENDING_COMMIT_TIMESTAMP`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions) function to write the commit timestamp in the `LastUpdateTime` column.
 
 ### C++
 
@@ -349,9 +349,9 @@ The following code example uses the [`  PENDING_COMMIT_TIMESTAMP  `](https://doc
     
     puts "Updated data"
 
-Commit timestamps can only be written to columns annotated with the `  allow_commit_timestamp=true  ` option.
+Commit timestamps can only be written to columns annotated with the `allow_commit_timestamp=true` option.
 
-If you have mutations on rows in multiple tables, you must specify `  spanner.commit_timestamp()  ` (or the client library constant) for the commit timestamp column in each table.
+If you have mutations on rows in multiple tables, you must specify `spanner.commit_timestamp()` (or the client library constant) for the commit timestamp column in each table.
 
 ## Query a commit timestamp column
 
@@ -662,9 +662,9 @@ The following example queries the commit timestamp column of the table.
 
 ## Provide your own value for the commit timestamp column
 
-You can provide your own value for the commit timestamp column, instead of passing `  spanner.commit_timestamp()  ` (or client library constant) as the column value. The value must be a timestamp in the past. This restriction ensures that writing timestamps is an inexpensive and fast operation. The server returns a `  FailedPrecondition  ` error if a future timestamp is specified.
+You can provide your own value for the commit timestamp column, instead of passing `spanner.commit_timestamp()` (or client library constant) as the column value. The value must be a timestamp in the past. This restriction ensures that writing timestamps is an inexpensive and fast operation. The server returns a `FailedPrecondition` error if a future timestamp is specified.
 
-**Note:** The `  CURRENT_TIMESTAMP  ` value is not based on true time. So, the value it returns is not necessarily in the past and cannot be used to compare with a commit timestamp value.
+**Note:** The `CURRENT_TIMESTAMP` value is not based on true time. So, the value it returns is not necessarily in the past and cannot be used to compare with a commit timestamp value.
 
 ## Create a changelog
 
@@ -684,21 +684,21 @@ Suppose that you want to create a changelog of every mutation that happens to a 
     ) PRIMARY KEY (UserId, DocumentId, Ts),
       INTERLEAVE IN PARENT Documents ON DELETE NO ACTION;
 
-To create a changelog, insert a new row in `  DocumentHistory  ` in the same transaction in which you insert or update a row in `  Document  ` . In the insertion of the new row in `  DocumentHistory  ` , use the placeholder `  spanner.commit_timestamp()  ` (or client library constant) to tell Spanner to write the commit timestamp into column `  Ts  ` . Interleaving the `  DocumentsHistory  ` table with the `  Documents  ` table will allow for data locality and more efficient inserts and updates. However, it also adds the constraint that the parent and child rows must be deleted together. To keep the rows in `  DocumentHistory  ` after rows in `  Documents  ` are deleted, do not interleave the tables.
+To create a changelog, insert a new row in `DocumentHistory` in the same transaction in which you insert or update a row in `Document` . In the insertion of the new row in `DocumentHistory` , use the placeholder `spanner.commit_timestamp()` (or client library constant) to tell Spanner to write the commit timestamp into column `Ts` . Interleaving the `DocumentsHistory` table with the `Documents` table will allow for data locality and more efficient inserts and updates. However, it also adds the constraint that the parent and child rows must be deleted together. To keep the rows in `DocumentHistory` after rows in `Documents` are deleted, do not interleave the tables.
 
 ## Optimize recent-data queries with commit timestamps
 
 Commit timestamps enable a Spanner optimization that can reduce query I/O when retrieving data written after a particular time.
 
-To activate this optimization, a query's `  WHERE  ` clause must include a comparison between a table's commit timestamp column and a specific time that you provide, with the following attributes:
+To activate this optimization, a query's `WHERE` clause must include a comparison between a table's commit timestamp column and a specific time that you provide, with the following attributes:
 
   - Provide the specific time as a *constant expression* : a literal, a parameter, or a function whose own arguments evaluate to constants.
 
-  - Compare whether the commit timestamp is more recent than the given time, through either the `  >  ` or `  >=  ` operators.
+  - Compare whether the commit timestamp is more recent than the given time, through either the `>` or `>=` operators.
 
-  - Optionally, add further restrictions to the `  WHERE  ` clause with `  AND  ` . Extending the clause with `  OR  ` disqualifies the query from this optimization.
+  - Optionally, add further restrictions to the `WHERE` clause with `AND` . Extending the clause with `OR` disqualifies the query from this optimization.
 
-For example, consider the following `  Performances  ` table, which includes a commit timestamp column:
+For example, consider the following `Performances` table, which includes a commit timestamp column:
 
     CREATE TABLE Performances (
         SingerId INT64 NOT NULL,

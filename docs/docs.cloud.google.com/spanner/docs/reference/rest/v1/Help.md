@@ -17,22 +17,16 @@ For example, if a quota check failed with an error indicating the calling projec
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;links&quot;: [
-    {
-      object (Link)
-    }
-  ]
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;links&quot;: [{object (Link)}]}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  links[]  `
+`links[]`
 
-`  object ( Link  ` )
+` object ( Link  ` )
 
 URL(s) pointing to additional information on handling the current error.
 
@@ -61,14 +55,14 @@ Describes a URL link.
 
 Fields
 
-`  description  `
+`description`
 
-`  string  `
+`string`
 
 Describes what the link offers.
 
-`  url  `
+`url`
 
-`  string  `
+`string`
 
 The URL of the link.

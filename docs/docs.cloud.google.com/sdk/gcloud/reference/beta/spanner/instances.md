@@ -4,44 +4,44 @@ gcloud beta spanner instances - manage Cloud Spanner instances
 
 SYNOPSIS
 
-`  gcloud beta spanner instances  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud beta spanner instances` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (BETA)  ` Manage Cloud Spanner instances.
+`(BETA)` Manage Cloud Spanner instances.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  add-iam-policy-binding  `  
-    `  (BETA)  ` Add IAM policy binding to a Cloud Spanner instance.
+    `(BETA)` Add IAM policy binding to a Cloud Spanner instance.
   - `  create  `  
-    `  (BETA)  ` Create a Cloud Spanner instance.
+    `(BETA)` Create a Cloud Spanner instance.
   - `  delete  `  
-    `  (BETA)  ` Delete a Cloud Spanner instance.
+    `(BETA)` Delete a Cloud Spanner instance.
   - `  describe  `  
-    `  (BETA)  ` Describe a Cloud Spanner instance.
+    `(BETA)` Describe a Cloud Spanner instance.
   - `  get-iam-policy  `  
-    `  (BETA)  ` Get the IAM policy for a Cloud Spanner instance.
+    `(BETA)` Get the IAM policy for a Cloud Spanner instance.
   - `  get-locations  `  
-    `  (BETA)  ` Get the location of every replica in a Cloud Spanner instance.
+    `(BETA)` Get the location of every replica in a Cloud Spanner instance.
   - `  list  `  
-    `  (BETA)  ` List the Cloud Spanner instances in this project.
+    `(BETA)` List the Cloud Spanner instances in this project.
   - `  move  `  
-    `  (BETA)  ` Move the Cloud Spanner instance to the specified instance configuration.
+    `(BETA)` Move the Cloud Spanner instance to the specified instance configuration.
   - `  remove-iam-policy-binding  `  
-    `  (BETA)  ` Remove IAM policy binding of a Cloud Spanner instance.
+    `(BETA)` Remove IAM policy binding of a Cloud Spanner instance.
   - `  set-iam-policy  `  
-    `  (BETA)  ` Set the IAM policy for a Cloud Spanner instance.
+    `(BETA)` Set the IAM policy for a Cloud Spanner instance.
   - `  update  `  
-    `  (BETA)  ` Update a Cloud Spanner instance.
+    `(BETA)` Update a Cloud Spanner instance.
 
 NOTES
 

@@ -7,6 +7,6 @@ There is no persistent data associated with this resource.
 
 ## Methods
 
-### `             list           `
+### `            list           `
 
 Lists database longrunning-operations.

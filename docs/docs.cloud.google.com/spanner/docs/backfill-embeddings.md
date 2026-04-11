@@ -1,10 +1,10 @@
-This document explains how to generate and backfill vector embeddings in bulk for textual data ( `  STRING  ` or `  JSON  ` ) that is stored in Spanner using SQL and the [Vertex AI text embedding models](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) .
+This document explains how to generate and backfill vector embeddings in bulk for textual data ( `STRING` or `JSON` ) that is stored in Spanner using SQL and the [Vertex AI text embedding models](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) .
 
 **Tip:** We recommend backfilling your embeddings at a time when you're not making a large number of updates to the text data that you're generating embeddings for. This is to minimize lock contention and maintain low latency in your database.
 
 ## Prerequisites
 
-You must have a table in your Spanner database that contains textual data ( `  STRING  ` or `  JSON  ` ). For more information about importing data, see the [Spanner import and export overview](https://docs.cloud.google.com/spanner/docs/import-export-overview#overview) .
+You must have a table in your Spanner database that contains textual data ( `STRING` or `JSON` ). For more information about importing data, see the [Spanner import and export overview](https://docs.cloud.google.com/spanner/docs/import-export-overview#overview) .
 
 ## Example use case
 
@@ -27,7 +27,7 @@ Suppose you have a table in Spanner with the following schema. This table contai
       PRIMARY KEY(product_id)
     );
 
-Your goal is to generate vector embeddings for the `  description  ` column in this table to find similar items to recommend to customers to improve their shopping experience using [vector search](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
+Your goal is to generate vector embeddings for the `description` column in this table to find similar items to recommend to customers to improve their shopping experience using [vector search](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
 
 ## Register an embedding model
 
@@ -55,14 +55,14 @@ Replace the following:
 
 ### PostgreSQL
 
-In the PostgreSQL dialect, there is no need to register the model. You pass the endpoint name directly to the `  spanner.ML_PREDICT_ROW  ` function call.
+In the PostgreSQL dialect, there is no need to register the model. You pass the endpoint name directly to the `spanner.ML_PREDICT_ROW` function call.
 
 For best practices, consider the following:
 
   - To maintain isolation of quotas, use an endpoint in a different project to generate and backfill embeddings than the production endpoint. Reserve the production endpoint to serve production traffic.
-  - Make sure that the model endpoint supports the value of `  default_batch_size  ` . You can override the `  default_batch_size  ` with the query hint `  @{remote_udf_max_rows_per_rpc=NEW_NUMBER}  ` . For information about the `  default_batch_size  ` limit for each region, see [Get text embeddings for a snippet of text](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#get_text_embeddings_for_a_snippet_of_text) .
-  - Define the endpoint with a specific model version (e.g. `  @003  ` ) instead of `  @latest  ` . This is because the embedding vectors generated for the same piece of text might differ depending on the version of the model that you use; which is why you want to avoid using different model versions to generate embeddings in the same dataset. In addition, updating the model version in the model definition statement doesn't update the embeddings that are already generated with this model. One way to manage the model version for embeddings is to create an additional column in the table which stores the model version.
-  - Custom tuned text embedding models aren't supported with the GoogleSQL `  ML.PREDICT  ` and PostgreSQL `  spanner.ML_PREDICT_ROW  ` functions.
+  - Make sure that the model endpoint supports the value of `default_batch_size` . You can override the `default_batch_size` with the query hint `@{remote_udf_max_rows_per_rpc=NEW_NUMBER}` . For information about the `default_batch_size` limit for each region, see [Get text embeddings for a snippet of text](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#get_text_embeddings_for_a_snippet_of_text) .
+  - Define the endpoint with a specific model version (e.g. `@003` ) instead of `@latest` . This is because the embedding vectors generated for the same piece of text might differ depending on the version of the model that you use; which is why you want to avoid using different model versions to generate embeddings in the same dataset. In addition, updating the model version in the model definition statement doesn't update the embeddings that are already generated with this model. One way to manage the model version for embeddings is to create an additional column in the table which stores the model version.
+  - Custom tuned text embedding models aren't supported with the GoogleSQL `ML.PREDICT` and PostgreSQL `spanner.ML_PREDICT_ROW` functions.
 
 ### Test the end-to-end integration of the embeddings model
 
@@ -96,7 +96,7 @@ Replace the following:
 
 ## Update the source table to include additional columns to store the embeddings
 
-Next, update the source table schema to include an additional column of the data type `  ARRAY<FLOAT32>  ` to store the generated embeddings:
+Next, update the source table schema to include an additional column of the data type `ARRAY<FLOAT32>` to store the generated embeddings:
 
 ### GoogleSQL
 
@@ -118,7 +118,7 @@ Replace the following:
   - `  TABLE_NAME  ` : the name of the source table
   - `  EMBEDDING_COLUMN_NAME  ` : the name of the column in which you want to add generated embeddings
 
-For example, using the `  products  ` table example, run:
+For example, using the `products` table example, run:
 
 ### GoogleSQL
 
@@ -150,7 +150,7 @@ For more information, see [Vertex AI quotas and limits](https://docs.cloud.googl
 
 ## Backfill embeddings
 
-Finally, [execute the following `  UPDATE  ` statement using partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#partitioned-dml) to generate embeddings for the textual data column and store the embeddings in your database. You can store the model version along with the embeddings. We recommend that you execute this query during a low-traffic window in your database.
+Finally, [execute the following `UPDATE` statement using partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#partitioned-dml) to generate embeddings for the textual data column and store the embeddings in your database. You can store the model version along with the embeddings. We recommend that you execute this query during a low-traffic window in your database.
 
 ### GoogleSQL
 
@@ -177,7 +177,7 @@ Replace the following:
   - `  MODEL_VERSION  ` : the version of the text embedding model
   - `  FILTER_CONDITION  ` : a [partitionable](https://docs.cloud.google.com/spanner/docs/dml-partitioned#partitionable-idempotent) filter condition that you want to apply
 
-Using `  SAFE.ML.PREDICT  ` returns `  NULL  ` for failed requests. You can also use `  SAFE.ML.PREDICT  ` in combination with a `  WHERE embedding_column IS NULL  ` filter to rerun your query without computing the embeddings for the fields that are already computed.
+Using `SAFE.ML.PREDICT` returns `NULL` for failed requests. You can also use `SAFE.ML.PREDICT` in combination with a `WHERE embedding_column IS NULL` filter to rerun your query without computing the embeddings for the fields that are already computed.
 
 ### PostgreSQL
 
@@ -203,7 +203,7 @@ Replace the following:
   - `  EMBEDDING_VERSION_COLUMN  ` : the column that manages the version of the text embedding model used to backfill your embeddings
   - `  FILTER_CONDITION  ` : a [partitionable](https://docs.cloud.google.com/spanner/docs/dml-partitioned#partitionable-idempotent) filter condition that you want to apply
 
-An example backfill query for the `  products  ` table:
+An example backfill query for the `products` table:
 
 ### GoogleSQL
 
@@ -232,7 +232,7 @@ An example backfill query for the `  products  ` table:
 
 For best practices, consider the following:
 
-  - The default gRPC timeout for the Spanner API is one hour. Depending on the amount of embeddings you are backfilling, you might need to increase this timeout to ensure that the `  UPDATE  ` partitioned DML has sufficient time to complete. For more information, see [Configure custom timeouts and retries](https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry) .
+  - The default gRPC timeout for the Spanner API is one hour. Depending on the amount of embeddings you are backfilling, you might need to increase this timeout to ensure that the `UPDATE` partitioned DML has sufficient time to complete. For more information, see [Configure custom timeouts and retries](https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry) .
 
 ## Performance and other considerations
 
@@ -240,7 +240,7 @@ Consider the following to optimize performance when backfilling embedding data.
 
 ### Number of nodes
 
-Partitioned DML executes the given DML statement on different partitions in parallel. For instances with a high number of nodes, you might observe quota errors during the execution of partitioned DML. If the Vertex AI API requests are throttled due to Vertex AI API quota limits, then Spanner retries these failures under the [partitioned DML transaction mode](https://docs.cloud.google.com/spanner/docs/dml-partitioned#dml-partitioned-dml) for a maximum of 20 times. If you observe a high rate of quota errors in Vertex AI, then [increase the quota for Vertex AI](https://docs.cloud.google.com/spanner/docs/backfill-embeddings#increase-quota) . You can also tune the parallelism using the statement-level hint `  @{pdml_max_parallelism=DESIRED_NUMBER}  ` while using GoogleSQL. The following example sets the parallelism to '5':
+Partitioned DML executes the given DML statement on different partitions in parallel. For instances with a high number of nodes, you might observe quota errors during the execution of partitioned DML. If the Vertex AI API requests are throttled due to Vertex AI API quota limits, then Spanner retries these failures under the [partitioned DML transaction mode](https://docs.cloud.google.com/spanner/docs/dml-partitioned#dml-partitioned-dml) for a maximum of 20 times. If you observe a high rate of quota errors in Vertex AI, then [increase the quota for Vertex AI](https://docs.cloud.google.com/spanner/docs/backfill-embeddings#increase-quota) . You can also tune the parallelism using the statement-level hint `@{pdml_max_parallelism=DESIRED_NUMBER}` while using GoogleSQL. The following example sets the parallelism to '5':
 
 ### GoogleSQL
 
@@ -258,11 +258,11 @@ Partitioned DML executes the given DML statement on different partitions in para
 
 ### Size of text in the data column
 
-The Vertex AI embedding model has limits on the maximum number of tokens for each text input. Different model versions have different token limits. Each Vertex AI request can have multiple input text fields, but there is a limit on the maximum number of tokens which is present in a single request. For GoogleSQL databases, if you encounter an `  INVALID_ARGUMENT  ` error with a "Request is too large" message, try reducing the batch size to avoid the error. To do so, you can configure `  default_batch_size  ` or use the `  @{remote_udf_max_outstanding_rpcs}  ` query hint when registering the model.
+The Vertex AI embedding model has limits on the maximum number of tokens for each text input. Different model versions have different token limits. Each Vertex AI request can have multiple input text fields, but there is a limit on the maximum number of tokens which is present in a single request. For GoogleSQL databases, if you encounter an `INVALID_ARGUMENT` error with a "Request is too large" message, try reducing the batch size to avoid the error. To do so, you can configure `default_batch_size` or use the `@{remote_udf_max_outstanding_rpcs}` query hint when registering the model.
 
 ### Number of API requests sent to Vertex AI
 
-You can use the query hint `  @{remote_udf_max_outstanding_rpcs}  ` to increase or decrease the number of requests sent to Vertex AI from Spanner. Be aware that increasing this limit can increase the CPU and memory usage of the Spanner instance. For GoogleSQL databases, using this query hint overrides the `  default_batch_size  ` configured for your model.
+You can use the query hint `@{remote_udf_max_outstanding_rpcs}` to increase or decrease the number of requests sent to Vertex AI from Spanner. Be aware that increasing this limit can increase the CPU and memory usage of the Spanner instance. For GoogleSQL databases, using this query hint overrides the `default_batch_size` configured for your model.
 
 ### Monitor backfill progress
 

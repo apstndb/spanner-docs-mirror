@@ -6,9 +6,9 @@
   - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read#body.aspect)
   - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read#try-it)
 
-Reads rows from the database using key lookups and scans, as a simple key/value style alternative to `  sessions.executeSql  ` . This method can't be used to return a result set larger than 10 MiB; if the read matches more data than that, the read fails with a `  FAILED_PRECONDITION  ` error.
+Reads rows from the database using key lookups and scans, as a simple key/value style alternative to `  sessions.executeSql  ` . This method can't be used to return a result set larger than 10 MiB; if the read matches more data than that, the read fails with a `FAILED_PRECONDITION` error.
 
-Reads inside read-write transactions might return `  ABORTED  ` . If this occurs, the application should restart the transaction from the beginning. See `  Transaction  ` for more details.
+Reads inside read-write transactions might return `ABORTED` . If this occurs, the application should restart the transaction from the beginning. See `  Transaction  ` for more details.
 
 Larger result sets can be yielded in streaming fashion by calling `  sessions.streamingRead  ` instead.
 
@@ -47,7 +47,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:read  `
+`POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:read`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -55,15 +55,15 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  session  `
+`session`
 
-`  string  `
+`string`
 
 Required. The session in which the read should be performed.
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  session  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `session` :
 
-  - `  spanner.databases.read  `
+  - `spanner.databases.read`
 
 ### Request body
 
@@ -80,110 +80,88 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;transaction&quot;: {
-    object (TransactionSelector)
-  },
-  &quot;table&quot;: string,
-  &quot;index&quot;: string,
-  &quot;columns&quot;: [
-    string
-  ],
-  &quot;keySet&quot;: {
-    object (KeySet)
-  },
-  &quot;limit&quot;: string,
-  &quot;resumeToken&quot;: string,
-  &quot;partitionToken&quot;: string,
-  &quot;requestOptions&quot;: {
-    object (RequestOptions)
-  },
-  &quot;directedReadOptions&quot;: {
-    object (DirectedReadOptions)
-  },
-  &quot;dataBoostEnabled&quot;: boolean
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;transaction&quot;: {object (TransactionSelector)},&quot;table&quot;: string,&quot;index&quot;: string,&quot;columns&quot;: [string],&quot;keySet&quot;: {object (KeySet)},&quot;limit&quot;: string,&quot;resumeToken&quot;: string,&quot;partitionToken&quot;: string,&quot;requestOptions&quot;: {object (RequestOptions)},&quot;directedReadOptions&quot;: {object (DirectedReadOptions)},&quot;dataBoostEnabled&quot;: boolean}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  transaction  `
+`transaction`
 
-`  object ( TransactionSelector  ` )
+` object ( TransactionSelector  ` )
 
 The transaction to use. If none is provided, the default is a temporary read-only transaction with strong concurrency.
 
-`  table  `
+`table`
 
-`  string  `
+`string`
 
 Required. The name of the table in the database to be read.
 
-`  index  `
+`index`
 
-`  string  `
+`string`
 
 If non-empty, the name of an index on `  table  ` . This index is used instead of the table primary key when interpreting `  keySet  ` and sorting result rows. See `  keySet  ` for further information.
 
-`  columns[]  `
+`columns[]`
 
-`  string  `
+`string`
 
 Required. The columns of `  table  ` to be returned for each row matching this request.
 
-`  keySet  `
+`keySet`
 
-`  object ( KeySet  ` )
+` object ( KeySet  ` )
 
-Required. `  keySet  ` identifies the rows to be yielded. `  keySet  ` names the primary keys of the rows in `  table  ` to be yielded, unless `  index  ` is present. If `  index  ` is present, then `  keySet  ` instead names index keys in `  index  ` .
+Required. `keySet` identifies the rows to be yielded. `keySet` names the primary keys of the rows in `  table  ` to be yielded, unless `  index  ` is present. If `  index  ` is present, then `  keySet  ` instead names index keys in `  index  ` .
 
 If the `  partitionToken  ` field is empty, rows are yielded in table primary key order (if `  index  ` is empty) or index key order (if `  index  ` is non-empty). If the `  partitionToken  ` field isn't empty, rows are yielded in an unspecified order.
 
-It isn't an error for the `  keySet  ` to name rows that don't exist in the database. sessions.read yields nothing for nonexistent rows.
+It isn't an error for the `keySet` to name rows that don't exist in the database. sessions.read yields nothing for nonexistent rows.
 
-`  limit  `
+`limit`
 
-`  string ( int64 format)  `
+`string ( int64 format)`
 
-If greater than zero, only the first `  limit  ` rows are yielded. If `  limit  ` is zero, the default is no limit. A limit can't be specified if `  partitionToken  ` is set.
+If greater than zero, only the first `limit` rows are yielded. If `limit` is zero, the default is no limit. A limit can't be specified if `partitionToken` is set.
 
-`  resumeToken  `
+`resumeToken`
 
-`  string ( bytes format)  `
+`string ( bytes format)`
 
-If this request is resuming a previously interrupted read, `  resumeToken  ` should be copied from the last `  PartialResultSet  ` yielded before the interruption. Doing this enables the new read to resume where the last read left off. The rest of the request parameters must exactly match the request that yielded this token.
-
-A base64-encoded string.
-
-`  partitionToken  `
-
-`  string ( bytes format)  `
-
-If present, results are restricted to the specified partition previously created using `  sessions.partitionRead  ` . There must be an exact match for the values of fields common to this message and the PartitionReadRequest message used to create this partitionToken.
+If this request is resuming a previously interrupted read, `resumeToken` should be copied from the last `  PartialResultSet  ` yielded before the interruption. Doing this enables the new read to resume where the last read left off. The rest of the request parameters must exactly match the request that yielded this token.
 
 A base64-encoded string.
 
-`  requestOptions  `
+`partitionToken`
 
-`  object ( RequestOptions  ` )
+`string ( bytes format)`
+
+If present, results are restricted to the specified partition previously created using `sessions.partitionRead` . There must be an exact match for the values of fields common to this message and the PartitionReadRequest message used to create this partitionToken.
+
+A base64-encoded string.
+
+`requestOptions`
+
+` object ( RequestOptions  ` )
 
 Common options for this request.
 
-`  directedReadOptions  `
+`directedReadOptions`
 
-`  object ( DirectedReadOptions  ` )
+` object ( DirectedReadOptions  ` )
 
 Directed read options for this request.
 
-`  dataBoostEnabled  `
+`dataBoostEnabled`
 
-`  boolean  `
+`boolean`
 
-If this is for a partitioned read and this field is set to `  true  ` , the request is executed with Spanner Data Boost independent compute resources.
+If this is for a partitioned read and this field is set to `true` , the request is executed with Spanner Data Boost independent compute resources.
 
-If the field is set to `  true  ` but the request doesn't set `  partitionToken  ` , the API returns an `  INVALID_ARGUMENT  ` error.
+If the field is set to `true` but the request doesn't set `partitionToken` , the API returns an `INVALID_ARGUMENT` error.
 
 ### Response body
 
@@ -193,7 +171,7 @@ If successful, the response body contains an instance of `  ResultSet  ` .
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.data  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.data`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

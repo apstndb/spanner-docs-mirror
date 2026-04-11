@@ -35,7 +35,7 @@ Next, [find the secondary indexes](https://docs.cloud.google.com/spanner/docs/se
 
   - **If there are applicable indexes** , the next step is to [find the index that Spanner used for the query](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions#find-index) .
 
-  - **If there are no applicable indexes** , use the [`  gcloud spanner operations list  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/list) command to check whether you recently dropped an applicable index:
+  - **If there are no applicable indexes** , use the [`gcloud spanner operations list`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/list) command to check whether you recently dropped an applicable index:
     
         gcloud spanner operations list \
             --instance=INSTANCE \
@@ -78,7 +78,7 @@ The [*table scan*](https://docs.cloud.google.com/spanner/docs/query-execution-op
 
 ![A screenshot shows a table scan operator in a query plan.](https://docs.cloud.google.com/static/spanner/docs/images/query-plan-table-scan.png)
 
-For example, suppose that the `  Albums  ` table does not have any secondary indexes, and you run the following query:
+For example, suppose that the `Albums` table does not have any secondary indexes, and you run the following query:
 
     SELECT AlbumTitle FROM Albums WHERE STARTS_WITH(AlbumTitle, "Now");
 
@@ -90,7 +90,7 @@ The [*index scan*](https://docs.cloud.google.com/spanner/docs/query-execution-op
 
 ![A screenshot shows an index scan operator in a query plan.](https://docs.cloud.google.com/static/spanner/docs/images/query-plan-index-scan.png)
 
-For example, suppose you add an index to the `  Albums  ` table:
+For example, suppose you add an index to the `Albums` table:
 
     CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
 
@@ -98,7 +98,7 @@ Then you run the following query:
 
     SELECT AlbumTitle FROM Albums WHERE STARTS_WITH(AlbumTitle, "Now");
 
-The `  AlbumsByAlbumTitle  ` index contains `  AlbumTitle  ` , which is the only column that the query selects. As a result, the query plan includes an index scan operator.
+The `AlbumsByAlbumTitle` index contains `AlbumTitle` , which is the only column that the query selects. As a result, the query plan includes an index scan operator.
 
 ### Cross apply operator
 
@@ -111,7 +111,7 @@ When this type of join occurs, the query plan includes a [*cross apply*](https:/
 
 ![A screenshot shows a distributed cross apply in a query plan, with an index scan and a table scan as inputs.](https://docs.cloud.google.com/static/spanner/docs/images/query-plan-cross-apply.png)
 
-For example, suppose you add an index to the `  Albums  ` table:
+For example, suppose you add an index to the `Albums` table:
 
     CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
 
@@ -119,11 +119,11 @@ Then you run the following query:
 
     SELECT * FROM Albums WHERE STARTS_WITH(AlbumTitle, "Now");
 
-The `  AlbumsByAlbumTitle  ` index contains `  AlbumTitle  ` , but the query selects all of the columns in the table, not just `  AlbumTitle  ` . As a result, the query plan includes a distributed cross apply operator, with an index scan of `  AlbumsByAlbumTitle  ` and a table scan of `  Albums  ` as its inputs.
+The `AlbumsByAlbumTitle` index contains `AlbumTitle` , but the query selects all of the columns in the table, not just `AlbumTitle` . As a result, the query plan includes a distributed cross apply operator, with an index scan of `AlbumsByAlbumTitle` and a table scan of `Albums` as its inputs.
 
 ## Choose a different index
 
-After you find the index that Spanner used for your query, try running your query with a different index, or by scanning the base table instead of using an index. To specify the index, [add a `  FORCE_INDEX  ` directive to the query](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) .
+After you find the index that Spanner used for your query, try running your query with a different index, or by scanning the base table instead of using an index. To specify the index, [add a `FORCE_INDEX` directive to the query](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) .
 
 If you find a faster version of the query, update your application to use the faster version.
 
@@ -133,11 +133,11 @@ Use these guidelines to decide what index to test for the query:
 
   - If your query meets any of these criteria, try using the base table instead of a secondary index:
     
-      - The query checks for equality with a prefix of the base table's [primary key](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#primary_keys) (for example, `  SELECT * FROM Albums WHERE SingerId = 1  ` ).
-      - A large number of rows satisfy the query predicates (for example, `  SELECT * FROM Albums WHERE AlbumTitle != "There Is No Album With This Title"  ` ).
+      - The query checks for equality with a prefix of the base table's [primary key](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#primary_keys) (for example, `SELECT * FROM Albums WHERE SingerId = 1` ).
+      - A large number of rows satisfy the query predicates (for example, `SELECT * FROM Albums WHERE AlbumTitle != "There Is No Album With This Title"` ).
       - The query uses a base table that contains only a few hundred rows.
 
-  - If the query contains a very selective predicate (for example, `  REGEXP_CONTAINS  ` , `  STARTS_WITH  ` , `  <  ` , `  <=  ` , `  >  ` , `  >=  ` , or `  !=  ` ), try using an index that includes the same columns that you use in the predicate.
+  - If the query contains a very selective predicate (for example, `REGEXP_CONTAINS` , `STARTS_WITH` , `<` , `<=` , `>` , `>=` , or `!=` ), try using an index that includes the same columns that you use in the predicate.
 
 **Important:** If the database does not have a secondary index that is relevant to the query, do not create a new secondary index immediately. Adding a secondary index might affect the performance of other queries.
 
@@ -145,7 +145,7 @@ Use these guidelines to decide what index to test for the query:
 
 Use the Google Cloud console to test the updated query and find out how long it takes to process the query.
 
-If your query includes [query parameters](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) , and a query parameter is bound to some values much more often than others, then bind the query parameter with one of those values in your tests. For example, if the query includes a predicate such as `  WHERE country = @countryId  ` , and almost all of your queries bind `  @countryId  ` to the value `  US  ` , then bind `  @countryId  ` to `  US  ` for your performance tests. This approach helps you optimize for the queries you run most frequently.
+If your query includes [query parameters](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) , and a query parameter is bound to some values much more often than others, then bind the query parameter with one of those values in your tests. For example, if the query includes a predicate such as `WHERE country = @countryId` , and almost all of your queries bind `@countryId` to the value `US` , then bind `@countryId` to `US` for your performance tests. This approach helps you optimize for the queries you run most frequently.
 
 To test the updated query in the Google Cloud console, follow these steps:
 
@@ -157,7 +157,7 @@ To test the updated query in the Google Cloud console, follow these steps:
 
 3.  In the left pane, click the database you want to query, then click search **Spanner Studio** .
 
-4.  Enter the query to test, including the `  FORCE_INDEX  ` directive, and click **Run query** .
+4.  Enter the query to test, including the `FORCE_INDEX` directive, and click **Run query** .
     
     The Google Cloud console opens the **Results table** tab, then shows the query results, including how long it took for the Spanner service to process the query.
     
@@ -165,13 +165,13 @@ To test the updated query in the Google Cloud console, follow these steps:
 
 ## Get the detailed profile of a query in JSON format using the REST API
 
-By default, only statement results are returned when you execute a query. This is because [QueryMode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode) is set to `  NORMAL  ` . To include detailed execution statistics with the query results, set QueryMode to `  PROFILE  ` .
+By default, only statement results are returned when you execute a query. This is because [QueryMode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode) is set to `NORMAL` . To include detailed execution statistics with the query results, set QueryMode to `PROFILE` .
 
 ### Create a session
 
 Before you update your query mode, create a [session](https://docs.cloud.google.com/spanner/docs/sessions) , which represents a communication channel with the Spanner database service.
 
-1.  Click [`  projects.instances.databases.sessions.create  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/create) .
+1.  Click [`projects.instances.databases.sessions.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/create) .
 
 2.  Provide the **project** , **instance** , and **database** ID in the following form:
     
@@ -187,9 +187,9 @@ Before you update your query mode, create a [session](https://docs.cloud.google.
 
 ### Profile the query
 
-Enable `  PROFILE  ` mode for the query.
+Enable `PROFILE` mode for the query.
 
-1.  Click [`  projects.instances.databases.sessions.executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) .
+1.  Click [`projects.instances.databases.sessions.executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) .
 
 2.  For **session** , enter the session ID you created in the [previous step](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions#create-session) :
     

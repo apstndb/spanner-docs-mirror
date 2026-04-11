@@ -21,7 +21,7 @@ You can use the **Explorer** to view, search, and interact with your database ob
       - [Edges](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#property-graph-data-model)
   - [Saved queries (in preview)](https://docs.cloud.google.com/spanner/docs/saved-queries)
 
-**Note:** System-level views in the `  INFORMATION_SCHEMA  ` and `  SPANNER_SYS  ` schemas are read-only.
+**Note:** System-level views in the `INFORMATION_SCHEMA` and `SPANNER_SYS` schemas are read-only.
 
 You can use the search field in the **Explorer** pane to search for database objects by name in your projects. The search finds resources that directly match, or contain matches, to your search query. If your search term matches too many resources in a database object level, the result might not show all matches. Narrow your search term, and search again.
 

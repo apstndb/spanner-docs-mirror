@@ -13,53 +13,45 @@ Metadata type for the operation returned by `  instances.patch  ` .
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;instance&quot;: {
-    object (Instance)
-  },
-  &quot;startTime&quot;: string,
-  &quot;cancelTime&quot;: string,
-  &quot;endTime&quot;: string,
-  &quot;expectedFulfillmentPeriod&quot;: enum (FulfillmentPeriod)
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;instance&quot;: {object (Instance)},&quot;startTime&quot;: string,&quot;cancelTime&quot;: string,&quot;endTime&quot;: string,&quot;expectedFulfillmentPeriod&quot;: enum (FulfillmentPeriod)}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  instance  `
+`instance`
 
-`  object ( Instance  ` )
+` object ( Instance  ` )
 
 The desired end state of the update.
 
-`  startTime  `
+`startTime`
 
-`  string ( Timestamp  ` format)
+` string ( Timestamp  ` format)
 
 The time at which `  instances.patch  ` request was received.
 
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
 
-`  cancelTime  `
+`cancelTime`
 
-`  string ( Timestamp  ` format)
+` string ( Timestamp  ` format)
 
 The time at which this operation was cancelled. If set, this operation is in the process of undoing itself (which is guaranteed to succeed) and cannot be cancelled again.
 
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
 
-`  endTime  `
+`endTime`
 
-`  string ( Timestamp  ` format)
+` string ( Timestamp  ` format)
 
 The time at which this operation failed or was completed successfully.
 
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `  "2014-10-02T15:01:23Z"  ` , `  "2014-10-02T15:01:23.045123456Z"  ` or `  "2014-10-02T15:01:23+05:30"  ` .
+Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
 
-`  expectedFulfillmentPeriod  `
+`expectedFulfillmentPeriod`
 
-`  enum ( FulfillmentPeriod  ` )
+` enum ( FulfillmentPeriod  ` )
 
 The expected fulfillment period of this update operation.

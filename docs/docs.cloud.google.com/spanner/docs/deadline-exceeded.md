@@ -1,6 +1,6 @@
 This page provides an overview of Spanner deadline exceeded errors: what they are, why they occur, and how to troubleshoot and resolve them.
 
-When accessing Spanner APIs, requests might fail due to `  DEADLINE_EXCEEDED  ` errors. This error indicates that a response has not been received within the configured timeout period.
+When accessing Spanner APIs, requests might fail due to `DEADLINE_EXCEEDED` errors. This error indicates that a response has not been received within the configured timeout period.
 
 A deadline exceeded error might occur for many different reasons, such as overloaded Spanner instances, unoptimized schemas, or unoptimized queries. This page describes common scenarios in which a deadline exceeded error happens, and provides a guide on how to investigate and resolve these issues.
 
@@ -26,7 +26,7 @@ To learn more about gRPC deadlines, see [gRPC and Deadlines](https://grpc.io/blo
 
 ## How to investigate and resolve common deadline exceeded errors
 
-You might encounter `  DEADLINE_EXCEEDED  ` errors for the following issue types:
+You might encounter `DEADLINE_EXCEEDED` errors for the following issue types:
 
   - [Data access API issues](https://docs.cloud.google.com/spanner/docs/deadline-exceeded#data-access)
   - [Data API issues](https://docs.cloud.google.com/spanner/docs/deadline-exceeded#data-api)
@@ -108,7 +108,7 @@ The default settings for timeouts are suitable for most use cases. Users can ove
 
 ### Admin API issues
 
-Admin API requests are expensive operations when compared to data API requests. Admin requests like `  CreateInstance  ` , `  CreateDatabase  ` or `  CreateBackups  ` can take many seconds before returning a response. Spanner client libraries set 60 minutes long deadlines for both [instance](https://github.com/googleapis/googleapis/blob/master/google/spanner/admin/instance/v1/spanner_admin_instance_grpc_service_config.json) and [database](https://github.com/googleapis/googleapis/blob/master/google/spanner/admin/database/v1/spanner_admin_database_grpc_service_config.json) administrator requests. This is to ensure the server has the opportunity to complete the request before the client retries or fails.
+Admin API requests are expensive operations when compared to data API requests. Admin requests like `CreateInstance` , `CreateDatabase` or `CreateBackups` can take many seconds before returning a response. Spanner client libraries set 60 minutes long deadlines for both [instance](https://github.com/googleapis/googleapis/blob/master/google/spanner/admin/instance/v1/spanner_admin_instance_grpc_service_config.json) and [database](https://github.com/googleapis/googleapis/blob/master/google/spanner/admin/database/v1/spanner_admin_database_grpc_service_config.json) administrator requests. This is to ensure the server has the opportunity to complete the request before the client retries or fails.
 
 ##### Resolution
 
@@ -132,7 +132,7 @@ In Apache Beam, the default timeout configuration is [two hours](https://github.
 
 ##### Resolution
 
-If a deadline exceeded error occurs in the steps `  ReadFromSpanner / Execute query / Read from Spanner / Read from Partitions  ` , check the [query statistics table](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#sql-scan-data) to find out which query scanned a large number of rows. Then, modify such queries to try and reduce the execution time.
+If a deadline exceeded error occurs in the steps `ReadFromSpanner / Execute query / Read from Spanner / Read from Partitions` , check the [query statistics table](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#sql-scan-data) to find out which query scanned a large number of rows. Then, modify such queries to try and reduce the execution time.
 
 Another example of a Dataflow deadline exceeded error is shown in the following exception message:
 
@@ -144,11 +144,11 @@ Another example of a Dataflow deadline exceeded error is shown in the following 
          [remote_addr=batch-spanner.googleapis.com/172.217.5.234:443] at
      org.apache.beam.runners.dataflow.worker.GroupAlsoByWindowsParDoFn$1.output(GroupAlsoByWindowsParDoFn.java:184)
 
-This timeout resulted because the work items are too large. In the previous example, the following two recommendations might help. Firstly, you can try enabling the [shuffle service](https://cloud.google.com/blog/products/gcp/introducing-cloud-dataflow-shuffle-for-up-to-5x-performance-improvement-in-data-analytic-pipelines) if it is not yet enabled. Secondly, you can try tweaking the configurations in your database's read, such as `  maxPartitions  ` and `  partitionSizeBytes  ` . For more information, see [`  PartitionOptions  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionOptions) to try and reduce the work item size. An example of how to do this can be found in this [Dataflow template](https://github.com/GoogleCloudPlatform/DataflowTemplates/blob/main/v1/src/main/java/com/google/cloud/teleport/templates/common/SpannerConverters.java#L207) .
+This timeout resulted because the work items are too large. In the previous example, the following two recommendations might help. Firstly, you can try enabling the [shuffle service](https://cloud.google.com/blog/products/gcp/introducing-cloud-dataflow-shuffle-for-up-to-5x-performance-improvement-in-data-analytic-pipelines) if it is not yet enabled. Secondly, you can try tweaking the configurations in your database's read, such as `maxPartitions` and `partitionSizeBytes` . For more information, see [`PartitionOptions`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionOptions) to try and reduce the work item size. An example of how to do this can be found in this [Dataflow template](https://github.com/GoogleCloudPlatform/DataflowTemplates/blob/main/v1/src/main/java/com/google/cloud/teleport/templates/common/SpannerConverters.java#L207) .
 
 ## Additional deadline exceeded troubleshooting resources
 
-If you're still seeing a `  DEADLINE_EXCEEDED  ` error after you've completed the troubleshooting steps, [open a support case](https://docs.cloud.google.com/spanner/docs/getting-support) if you experience the following scenarios:
+If you're still seeing a `DEADLINE_EXCEEDED` error after you've completed the troubleshooting steps, [open a support case](https://docs.cloud.google.com/spanner/docs/getting-support) if you experience the following scenarios:
 
   - A high Google Front End latency, but low Spanner API request latency
   - A high Spanner API request latency, but a low query latency

@@ -2,11 +2,11 @@ Spanner Graph visualizations show the graph elements returned by a query or the 
 
 ## Visualize Spanner Graph query results
 
-You can use the Google Cloud console to visualize Spanner Graph query results in Spanner Studio. To visualize a query with Spanner Graph, the query must return graph elements in JSON format using the [`  SAFE_TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) or [`  TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) function. We recommend that you return graph paths instead of returning nodes and edges individually. Returning paths offers the following benefits:
+You can use the Google Cloud console to visualize Spanner Graph query results in Spanner Studio. To visualize a query with Spanner Graph, the query must return graph elements in JSON format using the [`SAFE_TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) or [`TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) function. We recommend that you return graph paths instead of returning nodes and edges individually. Returning paths offers the following benefits:
 
   - Paths contain complete data of nodes and edges. Some intermediate nodes and edges in a visualization of a complex query might not be available if you return individual nodes and edges.
 
-  - If you return paths, your `  RETURN  ` statement can be less complex than if you return nodes and edges individually.
+  - If you return paths, your `RETURN` statement can be less complex than if you return nodes and edges individually.
 
 The following sample query returns the paths of account transfers, which you can visualize:
 
@@ -132,7 +132,7 @@ The following can help you troubleshoot and understand Spanner Graph visualizati
 
 **Recommended solution** :
 
-Return graph elements in JSON format using [`  SAFE_TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) or [`  TO_JSON  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) . For more information, see [Visualize Spanner Graph query results](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations#visualization-results) .
+Return graph elements in JSON format using [`SAFE_TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) or [`TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) . For more information, see [Visualize Spanner Graph query results](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations#visualization-results) .
 
 ### Spanner Graph query results are partially visualized
 

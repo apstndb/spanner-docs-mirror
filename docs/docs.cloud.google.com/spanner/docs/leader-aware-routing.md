@@ -22,7 +22,7 @@ As a result of using leader-aware routing, the following use cases benefits from
 
 ## Limitations
 
-If your client application is deployed outside of the leader region and you write values without reading the data ("blind writes"), you might observe latency regression if leader-aware routing is enabled. This is because when leader-aware routing is enabled, there are two inter-region round trips ( `  beginTransaction  ` and the `  commit  ` request) between the client application in the non-leader region and the Spanner API frontend in the leader region. However, with leader-aware routing disabled, writes without reads only require one inter-region round trip for the `  commit  ` request ( `  beginTransaction  ` is processed in the local Spanner API frontend). For example, if you bulk load data into a newly created table, the transactions are unlikely to read data from the table. If you frequently commit write operations without reading it in your application, you might want to consider disabling leader-aware routing. For more information, see [Disable leader-aware routing](https://docs.cloud.google.com/spanner/docs/leader-aware-routing#disable) .
+If your client application is deployed outside of the leader region and you write values without reading the data ("blind writes"), you might observe latency regression if leader-aware routing is enabled. This is because when leader-aware routing is enabled, there are two inter-region round trips ( `beginTransaction` and the `commit` request) between the client application in the non-leader region and the Spanner API frontend in the leader region. However, with leader-aware routing disabled, writes without reads only require one inter-region round trip for the `commit` request ( `beginTransaction` is processed in the local Spanner API frontend). For example, if you bulk load data into a newly created table, the transactions are unlikely to read data from the table. If you frequently commit write operations without reading it in your application, you might want to consider disabling leader-aware routing. For more information, see [Disable leader-aware routing](https://docs.cloud.google.com/spanner/docs/leader-aware-routing#disable) .
 
 ## Use leader-aware routing
 
@@ -36,7 +36,7 @@ You can use the Spanner client libraries to enable leader-aware routing manually
 
 ### C++
 
-Use the [`  RouteToLeaderOption  `](https://docs.cloud.google.com/cpp/docs/reference/spanner/latest/structgoogle_1_1cloud_1_1spanner_1_1RouteToLeaderOption) structure to configure your client application with leader-aware routing enabled:
+Use the [`RouteToLeaderOption`](https://docs.cloud.google.com/cpp/docs/reference/spanner/latest/structgoogle_1_1cloud_1_1spanner_1_1RouteToLeaderOption) structure to configure your client application with leader-aware routing enabled:
 
     void RouteToLeaderOption(std::string const& project_id, std::string const& instance_id,
                   std::string const& database_id) {
@@ -51,7 +51,7 @@ Use the [`  RouteToLeaderOption  `](https://docs.cloud.google.com/cpp/docs/refer
 
 ### C\#
 
-Use [`  EnableLeaderRouting  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnectionStringBuilder#Google_Cloud_Spanner_Data_SpannerConnectionStringBuilder_EnableLeaderRouting) to configure your client application with leader-aware routing enabled:
+Use [`EnableLeaderRouting`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnectionStringBuilder#Google_Cloud_Spanner_Data_SpannerConnectionStringBuilder_EnableLeaderRouting) to configure your client application with leader-aware routing enabled:
 
     // Create a client with leader-aware routing enabled.
     SpannerConnectionStringBuilder builder = new
@@ -60,7 +60,7 @@ Use [`  EnableLeaderRouting  `](https://docs.cloud.google.com/dotnet/docs/refere
 
 ### Go
 
-Use [`  ClientConfig  `](https://docs.cloud.google.com/go/docs/reference/cloud.google.com/go/spanner/latest#cloud_google_com_go_spanner_ClientConfig) to configure your client application with leader-aware routing enabled:
+Use [`ClientConfig`](https://docs.cloud.google.com/go/docs/reference/cloud.google.com/go/spanner/latest#cloud_google_com_go_spanner_ClientConfig) to configure your client application with leader-aware routing enabled:
 
     type ClientConfig struct {
         // DisableRouteToLeader specifies if all the requests of type read-write
@@ -71,7 +71,7 @@ Use [`  ClientConfig  `](https://docs.cloud.google.com/go/docs/reference/cloud.g
 
 ### Java
 
-Use [`  SpannerOptions.Builder  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.SpannerOptions.Builder#com_google_cloud_spanner_SpannerOptions_Builder_enableLeaderAwareRouting__) to configure your client application with leader-aware routing enabled:
+Use [`SpannerOptions.Builder`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.SpannerOptions.Builder#com_google_cloud_spanner_SpannerOptions_Builder_enableLeaderAwareRouting__) to configure your client application with leader-aware routing enabled:
 
     SpannerOptions options = SpannerOptions.newBuilder().enableLeaderAwareRouting.build();
     Spanner spanner = options.getService();
@@ -80,7 +80,7 @@ Use [`  SpannerOptions.Builder  `](https://docs.cloud.google.com/java/docs/refer
 
 ### Node.js
 
-Use [`  SpannerOptions  `](https://docs.cloud.google.com/nodejs/docs/reference/spanner/latest/spanner/spanneroptions#_google_cloud_spanner_SpannerOptions_routeToLeaderEnabled_member) to configure your client application with leader-aware routing enabled:
+Use [`SpannerOptions`](https://docs.cloud.google.com/nodejs/docs/reference/spanner/latest/spanner/spanneroptions#_google_cloud_spanner_SpannerOptions_routeToLeaderEnabled_member) to configure your client application with leader-aware routing enabled:
 
     // Instantiates a client with routeToLeaderEnabled enabled
     const spanner = new Spanner({
@@ -90,7 +90,7 @@ Use [`  SpannerOptions  `](https://docs.cloud.google.com/nodejs/docs/reference/s
 
 ### PHP
 
-Use `  routeToLeader  ` to configure your client application with leader-aware routing enabled:
+Use `routeToLeader` to configure your client application with leader-aware routing enabled:
 
     // Instantiates a client with leader-aware routing enabled
     use Google\Cloud\Spanner\SpannerClient;
@@ -100,7 +100,7 @@ Use `  routeToLeader  ` to configure your client application with leader-aware r
 
 ### Python
 
-Use [`  route_to_leader_enabled  `](https://docs.cloud.google.com/python/docs/reference/spanner/latest/google.cloud.spanner_v1.client.Client#google_cloud_spanner_v1_client_Client_route_to_leader_enabled) to configure your client application with leader-aware routing enabled:
+Use [`route_to_leader_enabled`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/google.cloud.spanner_v1.client.Client#google_cloud_spanner_v1_client_Client_route_to_leader_enabled) to configure your client application with leader-aware routing enabled:
 
     spanner_client = spanner.Client(
     route_to_leader_enabled=true
@@ -110,7 +110,7 @@ Use [`  route_to_leader_enabled  `](https://docs.cloud.google.com/python/docs/re
 
 ### Ruby
 
-Use [`  self.new  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latest/Google-Cloud-Spanner#Google__Cloud__Spanner_new_class_) to configure your client application with leader-aware routing enabled:
+Use [`self.new`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latest/Google-Cloud-Spanner#Google__Cloud__Spanner_new_class_) to configure your client application with leader-aware routing enabled:
 
     def self.new(project_id: nil, credentials: nil, scope: nil, timeout: nil,
          endpoint: nil, project: nil, keyfile: nil, emulator_host: nil,
@@ -123,7 +123,7 @@ You can use the Spanner client libraries to disable leader-aware routing.
 
 ### C++
 
-Use the [`  RouteToLeaderOption  `](https://docs.cloud.google.com/cpp/docs/reference/spanner/latest/structgoogle_1_1cloud_1_1spanner_1_1RouteToLeaderOption) structure to configure your client application with leader-aware routing disabled:
+Use the [`RouteToLeaderOption`](https://docs.cloud.google.com/cpp/docs/reference/spanner/latest/structgoogle_1_1cloud_1_1spanner_1_1RouteToLeaderOption) structure to configure your client application with leader-aware routing disabled:
 
     void RouteToLeaderOption(std::string const& project_id, std::string const& instance_id,
                   std::string const& database_id) {
@@ -138,7 +138,7 @@ Use the [`  RouteToLeaderOption  `](https://docs.cloud.google.com/cpp/docs/refer
 
 ### C\#
 
-Use [`  EnableLeaderRouting  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnectionStringBuilder#Google_Cloud_Spanner_Data_SpannerConnectionStringBuilder_EnableLeaderRouting) to configure your client application with leader-aware routing disabled:
+Use [`EnableLeaderRouting`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnectionStringBuilder#Google_Cloud_Spanner_Data_SpannerConnectionStringBuilder_EnableLeaderRouting) to configure your client application with leader-aware routing disabled:
 
     // Create a client with leader-aware routing disabled.
     SpannerConnectionStringBuilder builder = new
@@ -147,7 +147,7 @@ Use [`  EnableLeaderRouting  `](https://docs.cloud.google.com/dotnet/docs/refere
 
 ### Go
 
-Use [`  ClientConfig  `](https://docs.cloud.google.com/go/docs/reference/cloud.google.com/go/spanner/latest#cloud_google_com_go_spanner_ClientConfig) to configure your client application with leader-aware routing disabled:
+Use [`ClientConfig`](https://docs.cloud.google.com/go/docs/reference/cloud.google.com/go/spanner/latest#cloud_google_com_go_spanner_ClientConfig) to configure your client application with leader-aware routing disabled:
 
     type ClientConfig struct {
         // DisableRouteToLeader specifies if all the requests of type read-write
@@ -158,7 +158,7 @@ Use [`  ClientConfig  `](https://docs.cloud.google.com/go/docs/reference/cloud.g
 
 ### Java
 
-Use [`  SpannerOptions.Builder  `](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.SpannerOptions.Builder#com_google_cloud_spanner_SpannerOptions_Builder_disableLeaderAwareRouting__) to create a connection to a Spanner database with leader aware routing disabled:
+Use [`SpannerOptions.Builder`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.SpannerOptions.Builder#com_google_cloud_spanner_SpannerOptions_Builder_disableLeaderAwareRouting__) to create a connection to a Spanner database with leader aware routing disabled:
 
     SpannerOptions options = SpannerOptions.newBuilder().disableLeaderAwareRouting.build();
     Spanner spanner = options.getService();
@@ -167,7 +167,7 @@ Use [`  SpannerOptions.Builder  `](https://docs.cloud.google.com/java/docs/refer
 
 ### Node.js
 
-Use [`  SpannerOptions  `](https://docs.cloud.google.com/nodejs/docs/reference/spanner/latest/spanner/spanneroptions#_google_cloud_spanner_SpannerOptions_routeToLeaderEnabled_member) to configure your client application with leader-aware routing disabled:
+Use [`SpannerOptions`](https://docs.cloud.google.com/nodejs/docs/reference/spanner/latest/spanner/spanneroptions#_google_cloud_spanner_SpannerOptions_routeToLeaderEnabled_member) to configure your client application with leader-aware routing disabled:
 
     // Instantiates a client with routeToLeaderEnabled disabled
     const spanner = new Spanner({
@@ -177,7 +177,7 @@ Use [`  SpannerOptions  `](https://docs.cloud.google.com/nodejs/docs/reference/s
 
 ### PHP
 
-Use `  routeToLeader  ` to configure your client application with leader-aware routing disabled:
+Use `routeToLeader` to configure your client application with leader-aware routing disabled:
 
     // Instantiates a client with leader-aware routing disabled
     use Google\Cloud\Spanner\SpannerClient;
@@ -187,7 +187,7 @@ Use `  routeToLeader  ` to configure your client application with leader-aware r
 
 ### Python
 
-Use [`  route_to_leader_enabled  `](https://docs.cloud.google.com/python/docs/reference/spanner/latest/google.cloud.spanner_v1.client.Client#google_cloud_spanner_v1_client_Client_route_to_leader_enabled) to configure your client application with leader-aware routing disabled:
+Use [`route_to_leader_enabled`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/google.cloud.spanner_v1.client.Client#google_cloud_spanner_v1_client_Client_route_to_leader_enabled) to configure your client application with leader-aware routing disabled:
 
     spanner_client = spanner.Client(
     route_to_leader_enabled=false
@@ -197,7 +197,7 @@ Use [`  route_to_leader_enabled  `](https://docs.cloud.google.com/python/docs/re
 
 ### Ruby
 
-Use [`  self.new  `](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latest/Google-Cloud-Spanner#Google__Cloud__Spanner_new_class_) to configure your client application with leader-aware routing disabled:
+Use [`self.new`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latest/Google-Cloud-Spanner#Google__Cloud__Spanner_new_class_) to configure your client application with leader-aware routing disabled:
 
     def self.new(project_id: nil, credentials: nil, scope: nil, timeout: nil,
          endpoint: nil, project: nil, keyfile: nil, emulator_host: nil,

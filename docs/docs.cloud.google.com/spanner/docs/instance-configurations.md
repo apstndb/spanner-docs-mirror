@@ -12,7 +12,7 @@ For more information about region-specific considerations, see [Geography and re
 
 The instance configurations with predefined regions and replication topologies are referred to as **base instance configurations** . You can create **custom instance configurations** and add additional optional read-only replicas to a predefined base instance configuration (available in the [Enterprise edition and Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) ). The added read-only replica must be in a region that isn't part of the existing instance configuration. For a list of the optional read-only regions that you can add, see the Optional Region column under [Regional available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) and [Multi-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) . You can't change the replication topology of base instance configurations. For more information, see [Read-only replicas](https://docs.cloud.google.com/spanner/docs/replication#read-only) .
 
-You can [move your instance](https://docs.cloud.google.com/spanner/docs/instance-configurations#move-instance) from any instance configuration to any other regional, dual-region or multi-region instance configuration (for example, from `  regional-us-central1  ` to `  nam3  ` ). You can also [create a new custom instance configuration with additional replicas](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) , then move your instance to the new custom instance configuration. For example, if your instance is in `  regional-us-central1  ` and you want to add a read-only replica `  us-west1  ` , then you need to create a new custom instance configuration with `  regional-us-central1  ` as the base configuration and add `  us-west1  ` as a read-only replica. Then, move your instance to this new custom instance configuration.
+You can [move your instance](https://docs.cloud.google.com/spanner/docs/instance-configurations#move-instance) from any instance configuration to any other regional, dual-region or multi-region instance configuration (for example, from `regional-us-central1` to `nam3` ). You can also [create a new custom instance configuration with additional replicas](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) , then move your instance to the new custom instance configuration. For example, if your instance is in `regional-us-central1` and you want to add a read-only replica `us-west1` , then you need to create a new custom instance configuration with `regional-us-central1` as the base configuration and add `us-west1` as a read-only replica. Then, move your instance to this new custom instance configuration.
 
 ## Regional configurations
 
@@ -32,197 +32,197 @@ Optional Region
 
 **Americas**
 
-`  regional-northamerica-northeast1  `
+`regional-northamerica-northeast1`
 
 Montréal ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-northamerica-northeast2  `
+`regional-northamerica-northeast2`
 
 Toronto ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-northamerica-south1  `
+`regional-northamerica-south1`
 
 Querétaro
 
-`  regional-southamerica-east1  `
+`regional-southamerica-east1`
 
 São Paulo ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-southamerica-west1  `
+`regional-southamerica-west1`
 
 Santiago ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-us-central1  `
+`regional-us-central1`
 
 Iowa ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-Read-only: `  asia-northeast1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`  asia-south1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`  europe-west2  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`  europe-west9  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`  us-west3  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
+Read-only: `asia-northeast1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`asia-south1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`europe-west2` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`europe-west9` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`us-west3` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
 
-`  regional-us-east1  `
+`regional-us-east1`
 
 South Carolina
 
-Read-only: `  us-central1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`  us-west1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`  europe-west1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`  europe-west3  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
+Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`europe-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`europe-west3` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
 
-`  regional-us-east4  `
+`regional-us-east4`
 
 Northern Virginia
 
-`  regional-us-east5  `
+`regional-us-east5`
 
 Columbus
 
-`  regional-us-south1  `
+`regional-us-south1`
 
 Dallas ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-us-west1  `
+`regional-us-west1`
 
 Oregon ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-us-west2  `
+`regional-us-west2`
 
 Los Angeles
 
-`  regional-us-west3  `
+`regional-us-west3`
 
 Salt Lake City
 
-`  regional-us-west4  `
+`regional-us-west4`
 
 Las Vegas
 
 **Europe**
 
-`  regional-europe-central2  `
+`regional-europe-central2`
 
 Warsaw
 
-`  regional-europe-north1  `
+`regional-europe-north1`
 
 Finland ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-europe-north2  `
+`regional-europe-north2`
 
 Stockholm ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-europe-southwest1  `
+`regional-europe-southwest1`
 
 Madrid ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-europe-west1  `
+`regional-europe-west1`
 
 Belgium ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-Read-only: `  us-central1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`  us-west1  ` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
+Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
+`us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
 
-`  regional-europe-west2  `
+`regional-europe-west2`
 
 London ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-europe-west3  `
+`regional-europe-west3`
 
 Frankfurt
 
-`  regional-europe-west4  `
+`regional-europe-west4`
 
 Netherlands ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-europe-west6  `
+`regional-europe-west6`
 
 Zürich ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-europe-west8  `
+`regional-europe-west8`
 
 Milan
 
-`  regional-europe-west9  `
+`regional-europe-west9`
 
 Paris ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
-`  regional-europe-west10  `
+`regional-europe-west10`
 
 Berlin
 
-`  regional-europe-west12  `
+`regional-europe-west12`
 
 Turin
 
 **Asia Pacific**
 
-`  regional-asia-east1  `
+`regional-asia-east1`
 
 Taiwan
 
-`  regional-asia-east2  `
+`regional-asia-east2`
 
 Hong Kong
 
-`  regional-asia-northeast1  `
+`regional-asia-northeast1`
 
 Tokyo
 
-`  regional-asia-northeast2  `
+`regional-asia-northeast2`
 
 Osaka
 
-`  regional-asia-northeast3  `
+`regional-asia-northeast3`
 
 Seoul
 
-`  regional-asia-south1  `
+`regional-asia-south1`
 
 Mumbai
 
-`  regional-asia-south2  `
+`regional-asia-south2`
 
 Delhi
 
-`  regional-asia-southeast1  `
+`regional-asia-southeast1`
 
 Singapore
 
-`  regional-asia-southeast2  `
+`regional-asia-southeast2`
 
 Jakarta
 
-`  regional-asia-southeast3  `
+`regional-asia-southeast3`
 
 Bangkok
 
-`  regional-australia-southeast1  `
+`regional-australia-southeast1`
 
 Sydney
 
-`  regional-australia-southeast2  `
+`regional-australia-southeast2`
 
 Melbourne
 
 **Middle East**
 
-`  regional-me-central1  `
+`regional-me-central1`
 
 Doha
 
-`  regional-me-central2  `
+`regional-me-central2`
 
 Dammam
 
-`  regional-me-west1  `
+`regional-me-west1`
 
 Tel Aviv
 
 **Africa**
 
-`  regional-africa-south1  `
+`regional-africa-south1`
 
 Johannesburg
 
@@ -276,34 +276,34 @@ Spanner offers the following base dual-region instance configurations:
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         dual-region-australia1        </code></td>
+<td><code dir="ltr" translate="no">dual-region-australia1</code></td>
 <td>au (Australia)</td>
-<td>Sydney: <code dir="ltr" translate="no">         australia-southeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Melbourne: <code dir="ltr" translate="no">         australia-southeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
+<td>Sydney: <code dir="ltr" translate="no">australia-southeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Melbourne: <code dir="ltr" translate="no">australia-southeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         dual-region-canada1        </code></td>
+<td><code dir="ltr" translate="no">dual-region-canada1</code></td>
 <td>ca (Canada)</td>
-<td>Toronto: <code dir="ltr" translate="no">         northamerica-northeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Montréal: <code dir="ltr" translate="no">         northamerica-northeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
+<td>Toronto: <code dir="ltr" translate="no">northamerica-northeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Montréal: <code dir="ltr" translate="no">northamerica-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         dual-region-germany1        </code></td>
+<td><code dir="ltr" translate="no">dual-region-germany1</code></td>
 <td>de (Germany)</td>
-<td>Berlin: <code dir="ltr" translate="no">         europe-west10        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
+<td>Berlin: <code dir="ltr" translate="no">europe-west10</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Frankfurt: <code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         dual-region-india1        </code></td>
+<td><code dir="ltr" translate="no">dual-region-india1</code></td>
 <td>in (India)</td>
-<td>Mumbai: <code dir="ltr" translate="no">         asia-south1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Delhi: <code dir="ltr" translate="no">         asia-south2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
+<td>Mumbai: <code dir="ltr" translate="no">asia-south1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Delhi: <code dir="ltr" translate="no">asia-south2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         dual-region-japan1        </code></td>
+<td><code dir="ltr" translate="no">dual-region-japan1</code></td>
 <td>jp (Japan)</td>
-<td>Tokyo: <code dir="ltr" translate="no">         asia-northeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Osaka: <code dir="ltr" translate="no">         asia-northeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
+<td>Tokyo: <code dir="ltr" translate="no">asia-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
+Osaka: <code dir="ltr" translate="no">asia-northeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
 </tr>
 </tbody>
 </table>
@@ -326,8 +326,8 @@ A dual-region contains six replicas, three in each region. One of the regions is
 
 After you create a dual-region configuration, you can view the *Dual-region quorum health timeline* metric on the [System insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) dashboard. This metric is only available for dual-region configurations. It shows the health of three quorums:
 
-  - The dual-region quorum: `  Global  `
-  - The single region quorum in each region (for example, `  Sydney  ` and `  Melbourne  ` )
+  - The dual-region quorum: `Global`
+  - The single region quorum in each region (for example, `Sydney` and `Melbourne` )
 
 It shows an orange bar in the timeline when there is service disruption. You can hover over it to see the start and end times of the disruption.
 
@@ -408,189 +408,189 @@ Spanner offers the following base multi-region instance configurations. To reque
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         asia1        </code></td>
+<td><code dir="ltr" translate="no">asia1</code></td>
 <td>global</td>
-<td>Tokyo: <code dir="ltr" translate="no">         asia-northeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Osaka: <code dir="ltr" translate="no">         asia-northeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Tokyo: <code dir="ltr" translate="no">asia-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Osaka: <code dir="ltr" translate="no">asia-northeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Seoul: <code dir="ltr" translate="no">         asia-northeast3        </code></td>
+<td>Seoul: <code dir="ltr" translate="no">asia-northeast3</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         us-east5        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">us-east5</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         asia2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#A"><em>A</em></a></td>
+<td><code dir="ltr" translate="no">asia2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#A"><em>A</em></a></td>
 <td>global</td>
-<td>Mumbai: <code dir="ltr" translate="no">         asia-south1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Delhi: <code dir="ltr" translate="no">         asia-south2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Singapore: <code dir="ltr" translate="no">         asia-southeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a></td>
+<td>Mumbai: <code dir="ltr" translate="no">asia-south1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Delhi: <code dir="ltr" translate="no">asia-south2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Singapore: <code dir="ltr" translate="no">asia-southeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a></td>
 <td>None</td>
 <td>None</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         eur3        </code></td>
+<td><code dir="ltr" translate="no">eur3</code></td>
 <td>eu (European Union)</td>
-<td>Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Netherlands: <code dir="ltr" translate="no">         europe-west4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Belgium: <code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Netherlands: <code dir="ltr" translate="no">europe-west4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Finland: <code dir="ltr" translate="no">         europe-north1        </code></td>
+<td>Finland: <code dir="ltr" translate="no">europe-north1</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         eur5        </code></td>
+<td><code dir="ltr" translate="no">eur5</code></td>
 <td>global</td>
-<td>London: <code dir="ltr" translate="no">         europe-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>London: <code dir="ltr" translate="no">europe-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Belgium: <code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Netherlands: <code dir="ltr" translate="no">         europe-west4        </code></td>
+<td>Netherlands: <code dir="ltr" translate="no">europe-west4</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         eur6        </code></td>
+<td><code dir="ltr" translate="no">eur6</code></td>
 <td>global</td>
-<td>Netherlands: <code dir="ltr" translate="no">         europe-west4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Netherlands: <code dir="ltr" translate="no">europe-west4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Frankfurt: <code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Zurich: <code dir="ltr" translate="no">         europe-west6        </code></td>
+<td>Zurich: <code dir="ltr" translate="no">europe-west6</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
+<code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         eur7        </code></td>
+<td><code dir="ltr" translate="no">eur7</code></td>
 <td>eu (European Union)</td>
-<td>Milan: <code dir="ltr" translate="no">         europe-west8        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Frankfurt: <code dir="ltr" translate="no">         europe-west3        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Milan: <code dir="ltr" translate="no">europe-west8</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Frankfurt: <code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Turin: <code dir="ltr" translate="no">         europe-west12        </code></td>
+<td>Turin: <code dir="ltr" translate="no">europe-west12</code></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         nam3        </code></td>
+<td><code dir="ltr" translate="no">nam3</code></td>
 <td>us (United States)</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+South Carolina: <code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         asia-southeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         asia-southeast2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         europe-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">asia-southeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">asia-southeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">europe-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         nam6        </code></td>
+<td><code dir="ltr" translate="no">nam6</code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
-Los Angeles: <code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a></td>
-<td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+South Carolina: <code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Oregon: <code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
+Los Angeles: <code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a></td>
+<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         nam7        </code></td>
+<td><code dir="ltr" translate="no">nam7</code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
+<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">         us-south1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
+<code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
+<code dir="ltr" translate="no">us-south1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         nam8        </code></td>
+<td><code dir="ltr" translate="no">nam8</code></td>
 <td>us (United States)</td>
-<td>Los Angeles: <code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Los Angeles: <code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Oregon: <code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Salt Lake City: <code dir="ltr" translate="no">         us-west3        </code></td>
+<td>Salt Lake City: <code dir="ltr" translate="no">us-west3</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         asia-southeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">         europe-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">         us-east5        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">asia-southeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
+<code dir="ltr" translate="no">europe-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
+<code dir="ltr" translate="no">us-east5</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         nam9        </code></td>
+<td><code dir="ltr" translate="no">nam9</code></td>
 <td>us (United States)</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>South Carolina: <code dir="ltr" translate="no">         us-east1        </code></td>
+<td>Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Oregon: <code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>South Carolina: <code dir="ltr" translate="no">us-east1</code></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         nam10        </code></td>
+<td><code dir="ltr" translate="no">nam10</code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Salt Lake City: <code dir="ltr" translate="no">         us-west3        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Salt Lake City: <code dir="ltr" translate="no">us-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
+<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         nam11        </code></td>
+<td><code dir="ltr" translate="no">nam11</code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+South Carolina: <code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
+<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         nam12        </code></td>
+<td><code dir="ltr" translate="no">nam12</code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oregon: <code dir="ltr" translate="no">         us-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Oregon: <code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         nam13        </code></td>
+<td><code dir="ltr" translate="no">nam13</code></td>
 <td>us (United States)</td>
-<td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Salt Lake City: <code dir="ltr" translate="no">         us-west3        </code></td>
+<td>Salt Lake City: <code dir="ltr" translate="no">us-west3</code></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         nam14        </code></td>
+<td><code dir="ltr" translate="no">nam14</code></td>
 <td>global</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Montréal: <code dir="ltr" translate="no">         northamerica-northeast1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Montréal: <code dir="ltr" translate="no">northamerica-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>South Carolina: <code dir="ltr" translate="no">         us-east1        </code></td>
+<td>South Carolina: <code dir="ltr" translate="no">us-east1</code></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         nam15        </code></td>
+<td><code dir="ltr" translate="no">nam15</code></td>
 <td>us (United States)</td>
-<td>Dallas: <code dir="ltr" translate="no">         us-south1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Dallas: <code dir="ltr" translate="no">us-south1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         nam16        </code></td>
+<td><code dir="ltr" translate="no">nam16</code></td>
 <td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">         us-east4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
-<td>Columbus: <code dir="ltr" translate="no">         us-east5        </code></td>
+<td>Columbus: <code dir="ltr" translate="no">us-east5</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
+<code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
 </tr>
 </tbody>
 </table>
@@ -618,25 +618,25 @@ Northern Virginia: <code dir="ltr" translate="no">         us-east4        </cod
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">         nam-eur-asia1        </code></td>
+<td><code dir="ltr" translate="no">nam-eur-asia1</code></td>
 <td>global</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Oklahoma: <code dir="ltr" translate="no">         us-central2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Taiwan: <code dir="ltr" translate="no">         asia-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>South Carolina: <code dir="ltr" translate="no">         us-east1        </code></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Oklahoma: <code dir="ltr" translate="no">us-central2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Belgium: <code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+Taiwan: <code dir="ltr" translate="no">asia-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>South Carolina: <code dir="ltr" translate="no">us-east1</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">         us-west2        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
+<code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">         nam-eur-asia3        </code></td>
+<td><code dir="ltr" translate="no">nam-eur-asia3</code></td>
 <td>global</td>
-<td>Iowa: <code dir="ltr" translate="no">         us-central1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">         us-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Belgium: <code dir="ltr" translate="no">         europe-west1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
-Netherlands: <code dir="ltr" translate="no">         europe-west4        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
-Taiwan: <code dir="ltr" translate="no">         asia-east1        </code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oklahoma: <code dir="ltr" translate="no">         us-central2        </code></td>
+<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
+South Carolina: <code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Belgium: <code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
+Netherlands: <code dir="ltr" translate="no">europe-west4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
+Taiwan: <code dir="ltr" translate="no">asia-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
+<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
 <td></td>
 </tr>
 </tbody>

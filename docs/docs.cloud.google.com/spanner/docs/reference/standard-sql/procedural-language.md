@@ -5,7 +5,7 @@ The GoogleSQL procedural language lets you execute multiple statements in one qu
 
 ## Transactions
 
-### `     BEGIN TRANSACTION    `
+### `BEGIN TRANSACTION`
 
 **Syntax**
 
@@ -15,7 +15,7 @@ The GoogleSQL procedural language lets you execute multiple statements in one qu
 
 Begins a transaction.
 
-The transaction ends when a [`  COMMIT TRANSACTION  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language#commit_transaction) or [`  ROLLBACK TRANSACTION  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language#rollback_transaction) statement is reached. If execution ends before reaching either of these statements, an automatic rollback occurs.
+The transaction ends when a [`COMMIT TRANSACTION`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language#commit_transaction) or [`ROLLBACK TRANSACTION`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language#rollback_transaction) statement is reached. If execution ends before reaching either of these statements, an automatic rollback occurs.
 
 **Example**
 
@@ -44,7 +44,7 @@ The following example performs a transaction that selects rows from an existing 
     
     COMMIT TRANSACTION;
 
-### `     COMMIT TRANSACTION    `
+### `COMMIT TRANSACTION`
 
 **Syntax**
 
@@ -62,7 +62,7 @@ Commits an open transaction. If no open transaction is in progress, then the sta
     
     COMMIT TRANSACTION;
 
-### `     ROLLBACK TRANSACTION    `
+### `ROLLBACK TRANSACTION`
 
 **Syntax**
 
@@ -91,7 +91,7 @@ The following example rolls back a transaction if an error occurs during the tra
       ROLLBACK TRANSACTION;
     END;
 
-## `     CALL    `
+## `CALL`
 
 **Syntax**
 
@@ -99,12 +99,12 @@ The following example rolls back a transaction if an error occurs during the tra
 
 **Description**
 
-Calls a [procedure](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures) with an argument list. `  procedure_argument  ` may be a variable or an expression. Spanner doesn't support stored procedures or server-side scripts. Use `  CALL  ` with only the example procedures listed on this page.
+Calls a [procedure](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures) with an argument list. `procedure_argument` may be a variable or an expression. Spanner doesn't support stored procedures or server-side scripts. Use `CALL` with only the example procedures listed on this page.
 
 The maximum depth of procedure calls is 50 frames.
 
 **Examples**
 
-The following example cancels a query with the query ID `  12345  ` .
+The following example cancels a query with the query ID `12345` .
 
     CALL cancel_query("12345");

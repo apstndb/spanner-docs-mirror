@@ -1,24 +1,24 @@
-Spanner supports a `  NUMERIC  ` data type in both GoogleSQL and PostgreSQL databases.
+Spanner supports a `NUMERIC` data type in both GoogleSQL and PostgreSQL databases.
 
 ## GoogleSQL NUMERIC
 
-The GoogleSQL [`  NUMERIC  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_type) is an exact numeric data type capable of representing an exact numeric value with a precision of 38 and scale of 9. This page provides an overview of how `  NUMERIC  ` is represented in client libraries.
+The GoogleSQL [`NUMERIC`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_type) is an exact numeric data type capable of representing an exact numeric value with a precision of 38 and scale of 9. This page provides an overview of how `NUMERIC` is represented in client libraries.
 
 ## PostgreSQL NUMERIC
 
-The PostgreSQL `  NUMERIC  ` type is an arbitrary decimal precision numeric data type with a maximum precision (total digits) of 147,455 and a maximum scale (digits to the right of the decimal point) of 16,383.
+The PostgreSQL `NUMERIC` type is an arbitrary decimal precision numeric data type with a maximum precision (total digits) of 147,455 and a maximum scale (digits to the right of the decimal point) of 16,383.
 
-Spanner DDL does not support specifying precision and scale for PostgreSQL `  NUMERIC  ` columns. However, numeric values can be cast to fixed precision values in DML statements. For example:
+Spanner DDL does not support specifying precision and scale for PostgreSQL `NUMERIC` columns. However, numeric values can be cast to fixed precision values in DML statements. For example:
 
     update t1 set numeric_column = (numeric_column*0.8)::numeric(5,2);
 
-The type `  DECIMAL  ` is an alias for `  NUMERIC  ` .
+The type `DECIMAL` is an alias for `NUMERIC` .
 
-PostgreSQL `  NUMERIC  ` columns cannot be used when specifying primary keys, foreign keys, or secondary indexes.
+PostgreSQL `NUMERIC` columns cannot be used when specifying primary keys, foreign keys, or secondary indexes.
 
 ## Represent NUMERIC in each client library language
 
-To maintain the fidelity of `  NUMERIC  ` values, each Spanner [client library](https://docs.cloud.google.com/spanner/docs/reference/libraries) stores those values in an appropriate data type in the client library language. The following table lists the data types to which `  NUMERIC  ` is mapped in each supported language.
+To maintain the fidelity of `NUMERIC` values, each Spanner [client library](https://docs.cloud.google.com/spanner/docs/reference/libraries) stores those values in an appropriate data type in the client library language. The following table lists the data types to which `NUMERIC` is mapped in each supported language.
 
 | Language | GoogleSQL                                                                                                                                         | PostgreSQL                                                                                                                         |
 | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -31,13 +31,13 @@ To maintain the fidelity of `  NUMERIC  ` values, each Spanner [client library](
 | Python   | [Decimal](https://docs.python.org/3/library/decimal.html)                                                                                         | [Decimal](https://docs.python.org/3/library/decimal.html) with custom annotation                                                   |
 | Ruby     | [BigDecimal](https://ruby-doc.org/stdlib-2.5.1/libdoc/bigdecimal/rdoc/BigDecimal.html)                                                            |                                                                                                                                    |
 
-Three client libraries, C++, C\# and PHP have each implemented a custom type to represent Spanner SQL's `  NUMERIC  ` type. All other libraries use an existing type.
+Three client libraries, C++, C\# and PHP have each implemented a custom type to represent Spanner SQL's `NUMERIC` type. All other libraries use an existing type.
 
-The C++ client library `  spanner::Numeric  ` object does not support arithmetic operations. Instead, convert the contained number to the C++ object of choice. For example, you can extract the number as a string, which would represent the number at full fidelity and with no data loss. If, however, you know in advance that number fits, for example, within the range of `  std:int64_t  ` or `  double  ` , then you can access the value as that type.
+The C++ client library `spanner::Numeric` object does not support arithmetic operations. Instead, convert the contained number to the C++ object of choice. For example, you can extract the number as a string, which would represent the number at full fidelity and with no data loss. If, however, you know in advance that number fits, for example, within the range of `std:int64_t` or `double` , then you can access the value as that type.
 
 ### PostgreSQL Java library notes
 
-The Spanner Java client library uses a custom `  Value.pgNumeric  ` type to store PostgreSQL NUMERIC values.
+The Spanner Java client library uses a custom `Value.pgNumeric` type to store PostgreSQL NUMERIC values.
 
 #### Write to a NUMERIC column
 
@@ -61,11 +61,11 @@ Multiple types are supported when writing to a NUMERIC column in a PostgreSQL ta
 
 #### Parameterized queries
 
-When using parameterized queries, specify the parameters with `  $<index>  ` , where `  <index>  ` denotes the parameter position. The parameter should then be bound using `  p<index>  ` . For example, `  INSERT INTO MyTable (PgNumericColumn) VALUES ($1)  ` with the parameter being `  p1  ` .
+When using parameterized queries, specify the parameters with `$<index>` , where `<index>` denotes the parameter position. The parameter should then be bound using `p<index>` . For example, `INSERT INTO MyTable (PgNumericColumn) VALUES ($1)` with the parameter being `p1` .
 
 The Java client library supports the following types as parameterized values:
 
-  - Custom `  Value.pgNumeric  `
+  - Custom `Value.pgNumeric`
     
         Statement
           .newBuilder("INSERT INTO MyTable (PgNumericColumn) VALUES ($1), ($2)")
@@ -153,7 +153,7 @@ When using Mutations, the following values are allowed to be written to columns 
 
 #### Retrieve from a NUMERIC column
 
-To obtain values stored in numeric columns of a ResultSet, use `  ResultSet.getString()  ` or `  ResultSet.getValue()  ` .
+To obtain values stored in numeric columns of a ResultSet, use `ResultSet.getString()` or `ResultSet.getValue()` .
 
   - Strings
     
@@ -168,7 +168,7 @@ To obtain values stored in numeric columns of a ResultSet, use `  ResultSet.getS
 
 ## Add a NUMERIC column
 
-The following sample shows how to add a `  NUMERIC  ` column to a table called `  Venues  ` using the Spanner client libraries.
+The following sample shows how to add a `NUMERIC` column to a table called `Venues` using the Spanner client libraries.
 
 ### C++
 
@@ -415,7 +415,7 @@ The following sample shows how to add a `  NUMERIC  ` column to a table called `
 
 ## Update NUMERIC data
 
-The following sample shows how to update `  NUMERIC  ` data using the Spanner client libraries.
+The following sample shows how to update `NUMERIC` data using the Spanner client libraries.
 
 ### C++
 
@@ -706,7 +706,7 @@ The following sample shows how to update `  NUMERIC  ` data using the Spanner cl
 
 ## Query NUMERIC data
 
-The following sample shows how to query `  NUMERIC  ` data using the Spanner client libraries.
+The following sample shows how to query `NUMERIC` data using the Spanner client libraries.
 
 ### C++
 
@@ -997,18 +997,18 @@ The following sample shows how to query `  NUMERIC  ` data using the Spanner cli
       puts "#{row[:VenueId]} #{row[:Revenue]}"
     end
 
-`  NUMERIC  ` is supported in the Spanner JDBC driver using the Java [BigDecimal](https://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html) type. For examples of how `  NUMERIC  ` is used, see the code samples in [Connect JDBC to a GoogleSQL-dialect database](https://docs.cloud.google.com/spanner/docs/use-oss-jdbc) .
+`NUMERIC` is supported in the Spanner JDBC driver using the Java [BigDecimal](https://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html) type. For examples of how `NUMERIC` is used, see the code samples in [Connect JDBC to a GoogleSQL-dialect database](https://docs.cloud.google.com/spanner/docs/use-oss-jdbc) .
 
 ## Handle NUMERIC when creating a client library or driver
 
-The `  NUMERIC  ` type is encoded as a string in decimal or scientific notation within a [google.protobuf.Value](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#value) proto. This proto is wrapped as either a [ResultSet](https://github.com/googleapis/googleapis/blob/master/google/spanner/v1/result_set.proto#L35) , [PartialResultSet](https://github.com/googleapis/googleapis/blob/master/google/spanner/v1/result_set.proto#L61) , or a [Mutation](https://github.com/googleapis/googleapis/blob/master/google/spanner/v1/mutation.proto#L33) depending on whether it is being read or written. ResultSetMetadata will use the [NUMERIC TypeCode](https://github.com/googleapis/googleapis/blob/master/google/spanner/v1/type.proto#L130) to indicate that the corresponding value should be read as a `  NUMERIC  ` .
+The `NUMERIC` type is encoded as a string in decimal or scientific notation within a [google.protobuf.Value](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#value) proto. This proto is wrapped as either a [ResultSet](https://github.com/googleapis/googleapis/blob/master/google/spanner/v1/result_set.proto#L35) , [PartialResultSet](https://github.com/googleapis/googleapis/blob/master/google/spanner/v1/result_set.proto#L61) , or a [Mutation](https://github.com/googleapis/googleapis/blob/master/google/spanner/v1/mutation.proto#L33) depending on whether it is being read or written. ResultSetMetadata will use the [NUMERIC TypeCode](https://github.com/googleapis/googleapis/blob/master/google/spanner/v1/type.proto#L130) to indicate that the corresponding value should be read as a `NUMERIC` .
 
 When working with NUMERIC in a client library or driver you create, observe the following guidance.
 
-  - To read a `  NUMERIC  ` from the ResultSet:
+  - To read a `NUMERIC` from the ResultSet:
     
-    1.  Read the string\_value from the [google.protobuf.Value](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#value) proto when TypeCode is `  NUMERIC  `
+    1.  Read the string\_value from the [google.protobuf.Value](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#value) proto when TypeCode is `NUMERIC`
     
     2.  Convert that string to the relevant type for the given language
 
-  - To write a `  NUMERIC  ` using Mutations, use the string representation as the string\_value in the [google.protobuf.Value](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#value) proto when given the relevant type.
+  - To write a `NUMERIC` using Mutations, use the string representation as the string\_value in the [google.protobuf.Value](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#value) proto when given the relevant type.

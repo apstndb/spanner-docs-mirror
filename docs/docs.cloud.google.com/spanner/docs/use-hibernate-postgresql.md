@@ -28,7 +28,7 @@ In your project, add Apache Maven dependencies for the Hibernate ORM core and Po
 
 ## Set up Hibernate properties
 
-Configure `  hibernate.properties  ` to use the PostgreSQL dialect and PostgreSQL JDBC Driver.
+Configure `hibernate.properties` to use the PostgreSQL dialect and PostgreSQL JDBC Driver.
 
     hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
     hibernate.connection.driver_class=org.postgresql.Driver

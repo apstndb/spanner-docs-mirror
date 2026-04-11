@@ -22,7 +22,7 @@ In the Google Cloud console and in the gcloud CLI, you can use GoogleSQL [Data M
 
 Before you insert an edge, make sure that the source and destination nodes connected by the edge exist. If you insert an edge when the source or destination node connected by the edge doesn't exist, you might get referential integrity violation errors. For more information, see [Missing source node violates INTERLEAVE IN relationship](https://docs.cloud.google.com/spanner/docs/graph/troubleshoot#missing-source-node-violates-foreign-key-constraint) and [Missing destination node violates foreign key constraint](https://docs.cloud.google.com/spanner/docs/graph/troubleshoot#missing-destination-node-violates-foreign-key-constraint) .
 
-The following examples insert `  Account  ` nodes and `  Transfer  ` edges into the database you created in [Set up your Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data#before-you-begin) .
+The following examples insert `Account` nodes and `Transfer` edges into the database you created in [Set up your Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data#before-you-begin) .
 
 ### Console
 
@@ -45,12 +45,9 @@ In the Google Cloud console, run the following DML statement. For more informati
 In the gcloud CLI, run the following commands. For more information, see [Execute statements with the gcloud CLI](https://docs.cloud.google.com/spanner/docs/dml-tasks#gcloud-dml) .
 
     gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="INSERT INTO Account (id, create_time, is_blocked) VALUES (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false)"
-    gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="INSERT INTO Account (id, create_time, is_blocked) VALUES (2, CAST('2000-08-12 07:13:16.463959-03:41'  AS TIMESTAMP), true)"
-    gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) VALUES (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100)"
-    gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+        --sql="INSERT INTO Account (id, create_time, is_blocked) VALUES (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false)"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+        --sql="INSERT INTO Account (id, create_time, is_blocked) VALUES (2, CAST('2000-08-12 07:13:16.463959-03:41'  AS TIMESTAMP), true)"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+        --sql="INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) VALUES (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100)"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
         --sql="INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) VALUES (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200)"
 
 Replace the following:
@@ -242,7 +239,7 @@ You can update existing nodes or edges using a GoogleSQL [Data Manipulation Lang
 
 ### Update nodes or edges with DML
 
-The following examples use DML to update the `  Account  ` node and `  Transfer  ` edge that you added in [Insert nodes or edges](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data#insert-nodes-or-edges) .
+The following examples use DML to update the `Account` node and `Transfer` edge that you added in [Insert nodes or edges](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data#insert-nodes-or-edges) .
 
 ### Console
 
@@ -264,8 +261,7 @@ In the Google Cloud console, run the following DML statement. For more informati
 <!-- end list -->
 
     gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="UPDATE Account SET is_blocked = false WHERE id = 2"
-    gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+        --sql="UPDATE Account SET is_blocked = false WHERE id = 2"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
         --sql="UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2"
 
 Replace the following:
@@ -419,7 +415,7 @@ Replace the following:
 
 ### Update nodes or edges with graph queries and DML
 
-The following examples use Spanner Graph queries with DML to update the `  Account  ` node and `  Transfer  ` edge that you added in [Insert nodes or edges](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data#insert-nodes-or-edges) .
+The following examples use Spanner Graph queries with DML to update the `Account` node and `Transfer` edge that you added in [Insert nodes or edges](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data#insert-nodes-or-edges) .
 
 ### Console
 
@@ -438,8 +434,7 @@ In the Google Cloud console, run the following DML statement. For more informati
 In the gcloud CLI, run the following commands. For more information, see [Execute statements with the gcloud CLI](https://docs.cloud.google.com/spanner/docs/dml-tasks#gcloud-dml) .
 
     gcloud spanner databases execute-sql DATABASE-NAME --instance=INSTANCE_NAME \
-        --sql="UPDATE Account SET is_blocked = false"
-    gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+        --sql="UPDATE Account SET is_blocked = false"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
         --sql="UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2"
         --sql=" WHERE id IN { GRAPH FinGraph MATCH (a:Account WHERE a.id = 1)-[:Transfers]->{1,2}(b:Account) RETURN b.id }"
 
@@ -567,7 +562,7 @@ In the the Google Cloud console and the gcloud CLI, you use GoogleSQL [Data Mani
 
 To prevent referential integrity violation errors, make sure no edges refer to a node when you delete the node. For more information, see [Orphaned outgoing edge violates parent-child relationship](https://docs.cloud.google.com/spanner/docs/graph/troubleshoot#orphaned-outgoing-edge-violates-parent-child-relationship) and [Orphaned incoming edge violates parent-child relationship](https://docs.cloud.google.com/spanner/docs/graph/troubleshoot#orphaned-incoming-edge-violates-parent-child-relationship) .
 
-The following examples delete a `  Transfer  ` edge and an `  Account  ` node from the graph.
+The following examples delete a `Transfer` edge and an `Account` node from the graph.
 
 ### Console
 
@@ -585,8 +580,7 @@ In the Google Cloud console, run the following DML statement. For more informati
 In the gcloud CLI, run the following commands. For more information, see [Execute statements with the gcloud CLI](https://docs.cloud.google.com/spanner/docs/dml-tasks#gcloud-dml) .
 
     gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2"
-    gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+        --sql="DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
         --sql="DELETE FROM Account WHERE id = 2"
 
 Replace the following:

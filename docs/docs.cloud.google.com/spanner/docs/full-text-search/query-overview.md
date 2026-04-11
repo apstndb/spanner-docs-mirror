@@ -1,21 +1,21 @@
 **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-This page describes the `  SEARCH  ` function and the enhanced query mode, which are used to perform [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) queries on Spanner tables.
+This page describes the `SEARCH` function and the enhanced query mode, which are used to perform [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) queries on Spanner tables.
 
 ## Query a search index
 
-Spanner provides the [`  SEARCH  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) function to use for search index queries. An example use case would be an application where users enter text in a search box and the application sends the user input directly into the `  SEARCH  ` function. The `  SEARCH  ` function would then use a search index to find that text.
+Spanner provides the [`SEARCH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) function to use for search index queries. An example use case would be an application where users enter text in a search box and the application sends the user input directly into the `SEARCH` function. The `SEARCH` function would then use a search index to find that text.
 
-The `  SEARCH  ` function requires two arguments:
+The `SEARCH` function requires two arguments:
 
   - A search index name
   - A search query
 
-The `  SEARCH  ` function only works when a search index is defined. The `  SEARCH  ` function can be combined with any arbitrary SQL constructs, such as filters, aggregations, or joins.
+The `SEARCH` function only works when a search index is defined. The `SEARCH` function can be combined with any arbitrary SQL constructs, such as filters, aggregations, or joins.
 
-The `  SEARCH  ` function can't be used with transaction queries.
+The `SEARCH` function can't be used with transaction queries.
 
-The following query uses the `  SEARCH  ` function to return all albums that have either `  friday  ` or `  monday  ` in the title:
+The following query uses the `SEARCH` function to return all albums that have either `friday` or `monday` in the title:
 
 ### GoogleSQL
 
@@ -33,7 +33,7 @@ This example uses [spanner.search](https://docs.cloud.google.com/spanner/docs/re
 
 ### Search query
 
-Search queries use the [raw search query](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#rquery-syntax) syntax by default. Alternative syntaxes can be specified using the `  SEARCH  ` [`  dialect  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) argument.
+Search queries use the [raw search query](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#rquery-syntax) syntax by default. Alternative syntaxes can be specified using the `SEARCH` [`dialect`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) argument.
 
 #### rquery dialect
 
@@ -45,9 +45,9 @@ For information about using rquery, see [rquery syntax](https://docs.cloud.googl
 
 #### words dialect
 
-The words dialect is like rquery, but simpler. It doesn't use any special operators. For example, `  OR  ` is treated as a search term instead of a disjunction operator. The double quotes are handled as punctuations rather than a phrase search and they are ignored.
+The words dialect is like rquery, but simpler. It doesn't use any special operators. For example, `OR` is treated as a search term instead of a disjunction operator. The double quotes are handled as punctuations rather than a phrase search and they are ignored.
 
-With the words dialect, `  AND  ` is implicitly applied to all terms, and is required during matching. It follows the same rules as the plain-text tokenizer when splitting the input search query into terms.
+With the words dialect, `AND` is implicitly applied to all terms, and is required during matching. It follows the same rules as the plain-text tokenizer when splitting the input search query into terms.
 
 For information about using the words dialect, see [words syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#words-syntax) .
 
@@ -61,9 +61,9 @@ For information about using the words\_phrase dialect, see [words phrase syntax]
 
 ## Enhanced query mode
 
-Spanner offers two full-text search modes: a basic token-based search and a more advanced mode called *`  enhance_query  `* . When enabled, `  enhance_query  ` expands the search query to include related terms and synonyms, increasing the likelihood of finding relevant results.
+Spanner offers two full-text search modes: a basic token-based search and a more advanced mode called *`enhance_query`* . When enabled, `enhance_query` expands the search query to include related terms and synonyms, increasing the likelihood of finding relevant results.
 
-To enable this option, set the optional argument `  enhance_query=>true  ` in the `  SEARCH  ` function. For example, the search query `  hotl cal  ` matches the album `  Hotel California  ` .
+To enable this option, set the optional argument `enhance_query=>true` in the `SEARCH` function. For example, the search query `hotl cal` matches the album `Hotel California` .
 
 ### GoogleSQL
 
@@ -77,11 +77,11 @@ To enable this option, set the optional argument `  enhance_query=>true  ` in th
     FROM albums
     WHERE spanner.search(albumtitle_tokens, 'hotl cal', enhance_query=>true)
 
-The `  enhance_query  ` mode is a query-time option. It doesn't affect tokenization. You can use the same search index with or without `  enhance_query  ` .
+The `enhance_query` mode is a query-time option. It doesn't affect tokenization. You can use the same search index with or without `enhance_query` .
 
-Google is continuously improving the query enhancement algorithms. As a result, a query with `  enhance_query == true  ` might yield slightly different results over time.
+Google is continuously improving the query enhancement algorithms. As a result, a query with `enhance_query == true` might yield slightly different results over time.
 
-When the `  enhance_query  ` mode is enabled, it might increase the number of terms that the `  SEARCH  ` function is looking for which could slightly elevate latency.
+When the `enhance_query` mode is enabled, it might increase the number of terms that the `SEARCH` function is looking for which could slightly elevate latency.
 
 ## SQL query requirements
 
@@ -89,13 +89,13 @@ There are several conditions that a SQL query must meet to use a search index. I
 
 Queries must meet the following conditions:
 
-  - [SEARCH function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) and [`  SEARCH_SUBSTRING  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_substring) functions require a search index. Spanner doesn't support these functions in queries against the base table or secondary indexes.
+  - [SEARCH function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) and [`SEARCH_SUBSTRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_substring) functions require a search index. Spanner doesn't support these functions in queries against the base table or secondary indexes.
 
-  - [Partitioned indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index) must have all partition columns bound by an equality condition in the `  WHERE  ` clause of the query.
+  - [Partitioned indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index) must have all partition columns bound by an equality condition in the `WHERE` clause of the query.
     
-    For example, if a search index is defined as `  PARTITION BY x, y  ` , the query must have a conjunct in the `  WHERE  ` clause of `  x = <parameter or constant> AND y = <parameter or constant>  ` . That search index isn't considered by the query optimizer if such a condition is missing.
+    For example, if a search index is defined as `PARTITION BY x, y` , the query must have a conjunct in the `WHERE` clause of `x = <parameter or constant> AND y = <parameter or constant>` . That search index isn't considered by the query optimizer if such a condition is missing.
 
-  - All `  TOKENLIST  ` columns referenced by `  SEARCH  ` and `  SEARCH_SUBSTRING  ` operators must be indexed in the same search index.
+  - All `TOKENLIST` columns referenced by `SEARCH` and `SEARCH_SUBSTRING` operators must be indexed in the same search index.
     
     For example, consider the following table and index definition:
     
@@ -125,7 +125,7 @@ Queries must meet the following conditions:
         CREATE SEARCH INDEX albumstitleindex ON albums(albumtitle_tokens);
         CREATE SEARCH INDEX albumsstudioindex ON albums(albumstudio_tokens);
     
-    The following query fails because there's no single search index that indexes both `  AlbumTitle_Tokens  ` and `  AlbumStudio_Tokens  ` :
+    The following query fails because there's no single search index that indexes both `AlbumTitle_Tokens` and `AlbumStudio_Tokens` :
     
     ### GoogleSQL
     
@@ -136,7 +136,7 @@ Queries must meet the following conditions:
     
     ### PostgreSQL
     
-    This example uses query parameters `  $1  ` and `  $2  ` which are bound to 'fast car' and 'blue note', respectively.
+    This example uses query parameters `$1` and `$2` which are bound to 'fast car' and 'blue note', respectively.
     
         SELECT albumid
         FROM albums
@@ -151,9 +151,9 @@ Queries must meet the following conditions:
 
   - [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) and [search functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions) are typically used in [read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) . If application requirements allow stale results, you might be able to improve latency by running search queries with a staleness duration of 10 seconds or longer. For more information, see [Read stale data](https://docs.cloud.google.com/spanner/docs/samples/spanner-read-stale-data) . This is particularly useful for search queries that fan out to many index splits.
 
-[Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) and [search functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions) are not recommended in [read-write transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) . During execution, search queries lock an entire index partition; as a result, a high rate of search queries in read-write transactions might cause lock conflicts leading to latency spikes. By default, search indexes are not automatically selected in read-write transactions. If a query is forced to use a search index in a read-write transaction it fails by default. It also fails if the query contains any of the search functions. This behavior can be overridden with the GoogleSQL `  @{ALLOW_SEARCH_INDEXES_IN_TRANSACTION=TRUE}  ` statement-level hint (but queries are still prone to lock conflicts).
+[Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) and [search functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions) are not recommended in [read-write transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) . During execution, search queries lock an entire index partition; as a result, a high rate of search queries in read-write transactions might cause lock conflicts leading to latency spikes. By default, search indexes are not automatically selected in read-write transactions. If a query is forced to use a search index in a read-write transaction it fails by default. It also fails if the query contains any of the search functions. This behavior can be overridden with the GoogleSQL `@{ALLOW_SEARCH_INDEXES_IN_TRANSACTION=TRUE}` statement-level hint (but queries are still prone to lock conflicts).
 
-Once index eligibility conditions are met, the query optimizer tries to accelerate non-text query conditions (like `  Rating > 4  ` ). If the search index doesn't include the appropriate `  TOKENLIST  ` column, the condition isn't accelerated and remains a [residual condition](https://docs.cloud.google.com/spanner/docs/query-execution-operators#filter_scan) .
+Once index eligibility conditions are met, the query optimizer tries to accelerate non-text query conditions (like `Rating > 4` ). If the search index doesn't include the appropriate `TOKENLIST` column, the condition isn't accelerated and remains a [residual condition](https://docs.cloud.google.com/spanner/docs/query-execution-operators#filter_scan) .
 
 ## Query parameters
 
@@ -161,7 +161,7 @@ Search query arguments are specified as either a literal or a [query parameter](
 
 ## Index selection
 
-Spanner typically selects the most efficient index for a query using cost-based modeling. However, the `  FORCE_INDEX  ` hint explicitly instructs Spanner to use a specific search index. For example, the following shows how to force Spanner to use the `  AlbumsIndex  ` :
+Spanner typically selects the most efficient index for a query using cost-based modeling. However, the `FORCE_INDEX` hint explicitly instructs Spanner to use a specific search index. For example, the following shows how to force Spanner to use the `AlbumsIndex` :
 
 ### GoogleSQL
 
@@ -190,9 +190,9 @@ Having the database generate a snippet has several benefits:
 1.  **Convenience** : You don't need to implement logic to generate snippets from a search query.
 2.  **Efficiency** : Snippets reduce the output size from the server.
 
-The [`  SNIPPET  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#snippet) function creates the snippet. It returns the relevant portion of the original string value along with positions of characters to highlight. The client can then choose how to display the snippet to the end user (for example, using highlighted or bold text).
+The [`SNIPPET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#snippet) function creates the snippet. It returns the relevant portion of the original string value along with positions of characters to highlight. The client can then choose how to display the snippet to the end user (for example, using highlighted or bold text).
 
-For example, the following uses `  SNIPPET  ` to retrieve text from `  AlbumTitle  ` :
+For example, the following uses `SNIPPET` to retrieve text from `AlbumTitle` :
 
 ### GoogleSQL
 

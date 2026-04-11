@@ -11,7 +11,7 @@ To perform procedures on this page, you need the following:
 
 ## Create a named schema
 
-The `  CREATE SCHEMA  ` command ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_schema) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_schema) ) is used to create a named schema.
+The `CREATE SCHEMA` command ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_schema) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_schema) ) is used to create a named schema.
 
 1.  In the Google Cloud console, open the **Spanner** page.
     
@@ -29,7 +29,7 @@ The `  CREATE SCHEMA  ` command ( [GoogleSQL](https://docs.cloud.google.com/span
     
     ### GoogleSQL
     
-    Run the `  CREATE SCHEMA  ` statement to create the named schema, for example:
+    Run the `CREATE SCHEMA` statement to create the named schema, for example:
     
         CREATE SCHEMA sch1;
     
@@ -99,7 +99,7 @@ The `  CREATE SCHEMA  ` command ( [GoogleSQL](https://docs.cloud.google.com/span
     
     ### PostgreSQL
     
-    Run the `  CREATE SCHEMA  ` statement to create the named schema, for example:
+    Run the `CREATE SCHEMA` statement to create the named schema, for example:
     
         CREATE SCHEMA sch1;
     
@@ -122,14 +122,14 @@ The `  CREATE SCHEMA  ` command ( [GoogleSQL](https://docs.cloud.google.com/span
 
 The following DDL statements add fine-grained access control to a named schema:
 
-  - The `  USAGE  ` privilege grants privileges to the schema object. The `  USAGE  ` privilege is granted, by default, to the default schema. However, you can revoke the `  USAGE  ` privilege for the default schema. Use caution when revoking access because users and roles that are revoked lose all access to objects in the default schema.
-  - The `  ALL  ` statement performs bulk grant privileges on ALL objects of a type in the schema.
-  - The `  DEFAULT  ` keyword refers to the default schema in FGAC DDL statements.
+  - The `USAGE` privilege grants privileges to the schema object. The `USAGE` privilege is granted, by default, to the default schema. However, you can revoke the `USAGE` privilege for the default schema. Use caution when revoking access because users and roles that are revoked lose all access to objects in the default schema.
+  - The `ALL` statement performs bulk grant privileges on ALL objects of a type in the schema.
+  - The `DEFAULT` keyword refers to the default schema in FGAC DDL statements.
 
 To access an object in a named schema, you must have usage permission on the named schema and corresponding permissions on database objects that use that schema. For example, the following statements grant permissions to read from a table:
 
-  - `  GRANT SELECT ON TABLE TABLE_NAME IN SCHEMA SCHEMA_NAME TO ROLE ROLE_NAME  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#grant_statement) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#grant_statement) ) grants the role permission to read from a specific table within a schema. Alternatively, you can grant the role permission to read from all tables within the schema using the `  ALL  ` keyword. For example, `  GRANT SELECT ON ALL TABLES IN SCHEMA SCHEMA_NAME TO ROLE ROLE_NAME  ` . The preceding `  ALL  ` statement applies to only tables present at the time of executing the statement.
-  - `  GRANT USAGE ON SCHEMA SCHEMA_NAME TO ROLE ROLE_NAME  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#grant_statement) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#grant_statement) ) gives the role permission to access objects contained in the schema if the contained object's permissions are also satisfied. For example, for a table in a schema, you would need 'USAGE' on the schema, and 'SELECT' on the table to read from the table.
+  - ` GRANT SELECT ON TABLE TABLE_NAME IN SCHEMA SCHEMA_NAME TO ROLE ROLE_NAME  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#grant_statement) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#grant_statement) ) grants the role permission to read from a specific table within a schema. Alternatively, you can grant the role permission to read from all tables within the schema using the `ALL` keyword. For example, ` GRANT SELECT ON ALL TABLES IN SCHEMA SCHEMA_NAME TO ROLE ROLE_NAME  ` . The preceding `ALL` statement applies to only tables present at the time of executing the statement.
+  - ` GRANT USAGE ON SCHEMA SCHEMA_NAME TO ROLE ROLE_NAME  ` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#grant_statement) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#grant_statement) ) gives the role permission to access objects contained in the schema if the contained object's permissions are also satisfied. For example, for a table in a schema, you would need 'USAGE' on the schema, and 'SELECT' on the table to read from the table.
 
 <!-- end list -->
 
@@ -149,41 +149,41 @@ To access an object in a named schema, you must have usage permission on the nam
     
     ### GoogleSQL
     
-    Create your custom role for the named schema. In the following example, we use `  role1  ` and `  role2  ` .
+    Create your custom role for the named schema. In the following example, we use `role1` and `role2` .
     
         CREATE ROLE role1
         CREATE ROLE role2
     
-    Grant the role to the tables that use the named schema using `  GRANT ALL  ` . In the following example, we use `  sch1  ` for the named schema and `  role1  ` for the role.
+    Grant the role to the tables that use the named schema using `GRANT ALL` . In the following example, we use `sch1` for the named schema and `role1` for the role.
     
         GRANT SELECT ON ALL TABLES IN SCHEMA sch1 TO ROLE role1
     
-    Grant usage on the schema for the roles you created. In the following example, we grant usage on `  sch1  ` to `  role1  ` and `  role2  ` .
+    Grant usage on the schema for the roles you created. In the following example, we grant usage on `sch1` to `role1` and `role2` .
     
         GRANT USAGE ON SCHEMA sch1 TO ROLE role1, role2
     
     ### PostgreSQL
     
-    Create your custom role for the named schema. In the following example, we use `  role1  ` and `  role2  ` .
+    Create your custom role for the named schema. In the following example, we use `role1` and `role2` .
     
         CREATE ROLE role1
         CREATE ROLE role2
     
-    Grant the role to the tables that use the named schema using `  GRANT ALL  ` . In the following example, we use `  sch1  ` for the named schema and `  role1  ` for the role.
+    Grant the role to the tables that use the named schema using `GRANT ALL` . In the following example, we use `sch1` for the named schema and `role1` for the role.
     
         GRANT SELECT ON ALL TABLES IN SCHEMA sch1 TO role1
     
-    Grant usage on the schema for the roles you created. In the following example, we grant usage on `  sch1  ` to `  role1  ` and `  role2  ` .
+    Grant usage on the schema for the roles you created. In the following example, we grant usage on `sch1` to `role1` and `role2` .
     
         GRANT USAGE ON SCHEMA sch1 TO role1, role2
 
 ## Add and revoke fine-grained access control to a default schema
 
-When you have named schemas, the default schema is called `  default  ` . You need to use the `  default  ` schema name when adding or revoking fine-grained access control.
+When you have named schemas, the default schema is called `default` . You need to use the `default` schema name when adding or revoking fine-grained access control.
 
 ### Add fine-grained access control to a default schema
 
-By default, all users and roles have the `  USAGE  ` permission on the default schema.
+By default, all users and roles have the `USAGE` permission on the default schema.
 
 1.  In the Google Cloud console, open the **Spanner** page.
     
@@ -201,19 +201,19 @@ By default, all users and roles have the `  USAGE  ` permission on the default s
     
     ### GoogleSQL
     
-    In the following example, we grant access to all tables to `  role1  ` .
+    In the following example, we grant access to all tables to `role1` .
     
         GRANT SELECT ON ALL TABLES IN SCHEMA default TO ROLE role1
     
     ### PostgreSQL
     
-    In the following example, we grant access to all tables to `  role1  ` .
+    In the following example, we grant access to all tables to `role1` .
     
         GRANT SELECT ON ALL TABLES IN SCHEMA default TO role1
 
 ### Revoke fine-grained access control to a default schema
 
-You can revoke the default fine-grained access control permissions on the default schema using the `  REVOKE USAGE  ` command.
+You can revoke the default fine-grained access control permissions on the default schema using the `REVOKE USAGE` command.
 
 1.  In the Google Cloud console, open the **Spanner** page.
     
@@ -237,17 +237,17 @@ You can revoke the default fine-grained access control permissions on the defaul
     
         REVOKE USAGE ON SCHEMA public FROM public
 
-7.  After the previous command is run, we must explicitly grant permissions to the roles that need to access the default schema. In the following example, we grant permissions to `  role1  ` .
+7.  After the previous command is run, we must explicitly grant permissions to the roles that need to access the default schema. In the following example, we grant permissions to `role1` .
     
     ### GoogleSQL
     
-    In the following example, we grant access to the default schema to `  role1  ` .
+    In the following example, we grant access to the default schema to `role1` .
     
         GRANT USAGE ON SCHEMA default to ROLE role1
     
     ### PostgreSQL
     
-    In the following example, we grant access to the default schema to `  role1  ` .
+    In the following example, we grant access to the default schema to `role1` .
     
         GRANT USAGE ON SCHEMA public To role1
 
@@ -258,7 +258,7 @@ You can revoke the default fine-grained access control permissions on the defaul
 3.  In the navigation menu, click **Spanner Studio** .
 4.  In the **Explorer** pane, click the arrow\_right toggle node to expand the *Schemas* drop-down list.
 
-Alternatively, you can use SQL to view all schemas in the `  information_schema.schemata  ` table.
+Alternatively, you can use SQL to view all schemas in the `information_schema.schemata` table.
 
 The following example shows how view names schemas and their owners:
 
@@ -280,7 +280,7 @@ This statement provides a list of schemas and owners, similar to the following:
 
 **Note:** Spanner doesn't support a cascading drop for named schemas. You must drop database objects that use the named schema before dropping the schema.
 
-The `  DROP SCHEMA  ` command ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop_schema) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop_schema) ) is used to drop a named schema.
+The `DROP SCHEMA` command ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop_schema) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop_schema) ) is used to drop a named schema.
 
 1.  In the Google Cloud console, open the **Spanner** page.
     
@@ -298,13 +298,13 @@ The `  DROP SCHEMA  ` command ( [GoogleSQL](https://docs.cloud.google.com/spanne
     
     ### GoogleSQL
     
-    In the following example, we drop `  sch1  ` .
+    In the following example, we drop `sch1` .
     
         DROP SCHEMA IF EXISTS sch1;
     
     ### PostgreSQL
     
-    In the following example, we drop `  sch1  ` .
+    In the following example, we drop `sch1` .
     
         DROP SCHEMA IF EXISTS sch1;
 

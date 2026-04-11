@@ -14,7 +14,7 @@ Data in Spanner is strongly typed. Data types include scalar and complex types, 
 
 Spanner databases can contain one or more tables. Tables are structured as rows and columns. The table schema defines one or more table columns as the table's *primary key* which uniquely identifies each row. Primary keys are always indexed for quick row lookup. If you want to update or delete existing rows in a table, then the table must have a primary key. A table with no primary key columns can only have one row. Only GoogleSQL-dialect databases can have tables without a primary key.
 
-Often your application already has a field that's a natural fit for use as the primary key. For example, for a `  Customers  ` table, there might be an application-supplied `  CustomerId  ` that serves well as the primary key. In other cases, you might need to generate a primary key when inserting the row. This would typically be a unique integer value with no business significance (a *surrogate primary key* ).
+Often your application already has a field that's a natural fit for use as the primary key. For example, for a `Customers` table, there might be an application-supplied `CustomerId` that serves well as the primary key. In other cases, you might need to generate a primary key when inserting the row. This would typically be a unique integer value with no business significance (a *surrogate primary key* ).
 
 In all cases, you should be careful not to create hotspots with the choice of your primary key. For example, if you insert records with a monotonically increasing integer as the key, you'll always insert at the end of your key space. This is undesirable because Spanner divides data among servers by key ranges, which means your inserts will be directed at a single server, creating a hotspot. There are techniques that can spread the load across multiple servers and avoid hotspots:
 
@@ -27,7 +27,7 @@ In all cases, you should be careful not to create hotspots with the choice of yo
 
 There are two ways to define parent-child relationships in Spanner: *table interleaving* and *foreign keys* .
 
-Spanner's table interleaving is a good choice for many parent-child relationships. With interleaving, Spanner physically colocates child rows with parent rows in storage. Co-location can significantly improve performance. For example, if you have a `  Customers  ` table and an `  Invoices  ` table, and your application frequently fetches all the invoices for a customer, you can define `  Invoices  ` as an interleaved child table of `  Customers  ` . In doing so, you're declaring a data locality relationship between two independent tables. You're telling Spanner to store one or more rows of `  Invoices  ` with one `  Customers  ` row. This parent-child relationship is enforced when interleaved with the `  INTERLEAVE IN PARENT  ` clause. `  INTERLEAVE IN  ` child tables share the same physical row interleaving characteristics, but Spanner doesn't enforce referential integrity between parent and child.
+Spanner's table interleaving is a good choice for many parent-child relationships. With interleaving, Spanner physically colocates child rows with parent rows in storage. Co-location can significantly improve performance. For example, if you have a `Customers` table and an `Invoices` table, and your application frequently fetches all the invoices for a customer, you can define `Invoices` as an interleaved child table of `Customers` . In doing so, you're declaring a data locality relationship between two independent tables. You're telling Spanner to store one or more rows of `Invoices` with one `Customers` row. This parent-child relationship is enforced when interleaved with the `INTERLEAVE IN PARENT` clause. `INTERLEAVE IN` child tables share the same physical row interleaving characteristics, but Spanner doesn't enforce referential integrity between parent and child.
 
 You associate a child table with a parent table by using DDL that declares the child table as interleaved in the parent, and by including the parent table primary key as the first part of the child table composite primary key.
 
@@ -61,22 +61,22 @@ Named schemas help you organize similar data together. This helps you to quickly
 
 Named schemas, like other database objects, are managed using DDL.
 
-Spanner named schemas permit you to use fully qualified names (FQNs) to query for data. FQNs let you combine the schema name and the object name to identify database objects. For example, you could create a schema called `  warehouse  ` for the warehouse business unit. The tables that use this schema could include: `  product  ` , `  order  ` , and `  customer information  ` . Or you could create a schema called `  fulfillment  ` for the fulfillment business unit. This schema could also have tables called `  product  ` , `  order  ` , and `  customer information  ` . In the first example, the FQN is `  warehouse.product  ` and in the second example, the FQN is `  fulfillment.product  ` . This prevents confusion in situations where multiple objects share the same name.
+Spanner named schemas permit you to use fully qualified names (FQNs) to query for data. FQNs let you combine the schema name and the object name to identify database objects. For example, you could create a schema called `warehouse` for the warehouse business unit. The tables that use this schema could include: `product` , `order` , and `customer information` . Or you could create a schema called `fulfillment` for the fulfillment business unit. This schema could also have tables called `product` , `order` , and `customer information` . In the first example, the FQN is `warehouse.product` and in the second example, the FQN is `fulfillment.product` . This prevents confusion in situations where multiple objects share the same name.
 
-In the `  CREATE SCHEMA  ` DDL, table objects are given both an FQN, for example, `  sales.customers  ` , and a short name, for example, `  sales  ` .
+In the `CREATE SCHEMA` DDL, table objects are given both an FQN, for example, `sales.customers` , and a short name, for example, `sales` .
 
 The following database objects support named schemas:
 
-  - `  TABLE  `
-      - `  CREATE  `
-      - `  INTERLEAVE IN [PARENT]  `
-      - `  FOREIGN KEY  `
-      - `  SYNONYM  `
-  - `  VIEW  `
-  - `  INDEX  `
-  - `  SEARCH INDEX  `
-  - `  FOREIGN KEY  `
-  - `  SEQUENCE  `
+  - `TABLE`
+      - `CREATE`
+      - `INTERLEAVE IN [PARENT]`
+      - `FOREIGN KEY`
+      - `SYNONYM`
+  - `VIEW`
+  - `INDEX`
+  - `SEARCH INDEX`
+  - `FOREIGN KEY`
+  - `SEQUENCE`
 
 For more information about using named schemas, see [Manage named schemas](https://docs.cloud.google.com/spanner/docs/named-schemas) .
 
@@ -98,7 +98,7 @@ Suppose you're creating a music application and you need a table that stores row
 
 ![Singers table with five rows and four columns](https://docs.cloud.google.com/static/spanner/docs/images/singers_logical.svg)
 
-Note that the table contains one primary key column, `  SingerId  ` , which appears to the left of the bolded line, and that tables are organized by rows and columns.
+Note that the table contains one primary key column, `SingerId` , which appears to the left of the bolded line, and that tables are organized by rows and columns.
 
 You can define the table with the following DDL:
 
@@ -122,16 +122,16 @@ You can define the table with the following DDL:
 
 Note the following about the example schema:
 
-  - `  Singers  ` is a table at the root of the database hierarchy (because it's not defined as an interleaved child of another table).
-  - For GoogleSQL-dialect databases, primary key columns are usually annotated with `  NOT NULL  ` (though you can omit this annotation if you want to allow `  NULL  ` values in key columns. For more information, see [Key Columns](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#notes_about_key_columns) ).
-  - Columns that are not included in the primary key are called non-key columns, and they can have an optional `  NOT NULL  ` annotation.
-  - Columns that use the `  STRING  ` or `  BYTES  ` type in GoogleSQL must be defined with a length, which represents the maximum number of Unicode characters that can be stored in the field. The length specification is optional for the PostgreSQL `  varchar  ` and `  character varying  ` types. For more information, see [Scalar Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#scalars) for GoogleSQL-dialect databases and [PostgreSQL data types](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) for PostgreSQL-dialect databases.
+  - `Singers` is a table at the root of the database hierarchy (because it's not defined as an interleaved child of another table).
+  - For GoogleSQL-dialect databases, primary key columns are usually annotated with `NOT NULL` (though you can omit this annotation if you want to allow `NULL` values in key columns. For more information, see [Key Columns](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#notes_about_key_columns) ).
+  - Columns that are not included in the primary key are called non-key columns, and they can have an optional `NOT NULL` annotation.
+  - Columns that use the `STRING` or `BYTES` type in GoogleSQL must be defined with a length, which represents the maximum number of Unicode characters that can be stored in the field. The length specification is optional for the PostgreSQL `varchar` and `character varying` types. For more information, see [Scalar Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#scalars) for GoogleSQL-dialect databases and [PostgreSQL data types](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) for PostgreSQL-dialect databases.
 
-What does the physical layout of the rows in the `  Singers  ` table look like? The following diagram shows rows of the `  Singers  ` table stored by primary key ("Singers(1)", and then "Singers(2)", where the number in parentheses is the primary key value.
+What does the physical layout of the rows in the `Singers` table look like? The following diagram shows rows of the `Singers` table stored by primary key ("Singers(1)", and then "Singers(2)", where the number in parentheses is the primary key value.
 
 ![Example rows of a table stored in primary key order](https://docs.cloud.google.com/static/spanner/docs/images/singers_physical.svg)
 
-The preceding diagram illustrates an example split boundary between the rows keyed by `  Singers(3)  ` and `  Singers(4)  ` , with the data from the resulting splits assigned to different servers. As this table grows, it's possible for rows of `  Singers  ` data to be stored in different locations.
+The preceding diagram illustrates an example split boundary between the rows keyed by `Singers(3)` and `Singers(4)` , with the data from the resulting splits assigned to different servers. As this table grows, it's possible for rows of `Singers` data to be stored in different locations.
 
 ### Create parent and child tables
 
@@ -139,7 +139,7 @@ Assume that you now want to add some basic data about each singer's albums to th
 
 ![Albums table with five rows and three columns](https://docs.cloud.google.com/static/spanner/docs/images/albums_logical.svg)
 
-Note that the primary key of `  Albums  ` is composed of two columns: `  SingerId  ` and `  AlbumId  ` , to associate each album with its singer. The following example schema defines both the `  Albums  ` and `  Singers  ` tables at the root of the database hierarchy, which makes them sibling tables.
+Note that the primary key of `Albums` is composed of two columns: `SingerId` and `AlbumId` , to associate each album with its singer. The following example schema defines both the `Albums` and `Singers` tables at the root of the database hierarchy, which makes them sibling tables.
 
     -- Schema hierarchy:
     -- + Singers (sibling table of Albums)
@@ -176,13 +176,13 @@ Note that the primary key of `  Albums  ` is composed of two columns: `  SingerI
     PRIMARY KEY (singer_id, album_id)
     );
 
-The physical layout of the rows of `  Singers  ` and `  Albums  ` looks like the following diagram, with rows of the `  Albums  ` table stored by contiguous primary key, then rows of `  Singers  ` stored by contiguous primary key:
+The physical layout of the rows of `Singers` and `Albums` looks like the following diagram, with rows of the `Albums` table stored by contiguous primary key, then rows of `Singers` stored by contiguous primary key:
 
 ![Physical layout of rows](https://docs.cloud.google.com/static/spanner/docs/images/singers_albums_noninterleaved_physical.svg)
 
-One important note about the schema is that Spanner assumes no data locality relationships between the `  Singers  ` and `  Albums  ` tables, because they are top-level tables. As the database grows, Spanner can add split boundaries between any of the rows. This means the rows of the `  Albums  ` table could end up in a different split from the rows of the `  Singers  ` table, and the two splits could move independently from each other.
+One important note about the schema is that Spanner assumes no data locality relationships between the `Singers` and `Albums` tables, because they are top-level tables. As the database grows, Spanner can add split boundaries between any of the rows. This means the rows of the `Albums` table could end up in a different split from the rows of the `Singers` table, and the two splits could move independently from each other.
 
-Depending on your application's needs, it might be fine to allow `  Albums  ` data to be located on different splits from `  Singers  ` data. However, this might incur a performance penalty due to the need to coordinate reads and updates across distinct resources. If your application frequently needs to retrieve information about all the albums for a particular singer, then you should create `  Albums  ` as an interleaved child table of `  Singers  ` , which colocates rows from the two tables along the primary key dimension. The next example explains this in more detail.
+Depending on your application's needs, it might be fine to allow `Albums` data to be located on different splits from `Singers` data. However, this might incur a performance penalty due to the need to coordinate reads and updates across distinct resources. If your application frequently needs to retrieve information about all the albums for a particular singer, then you should create `Albums` as an interleaved child table of `Singers` , which colocates rows from the two tables along the primary key dimension. The next example explains this in more detail.
 
 ### Create interleaved tables
 
@@ -190,13 +190,13 @@ An *interleaved table* is a table that you declare to be an interleaved child of
 
 After you interleave a table, it's permanent. You can't undo the interleaving. Instead, you need to create the table again and migrate data to it.
 
-As you're designing your music application, suppose you realize that the app needs to frequently access rows from the `  Albums  ` table when it accesses a `  Singers  ` row. For example, when you access the row `  Singers(1)  ` , you also need to access the rows `  Albums(1, 1)  ` and `  Albums(1, 2)  ` . In this case, `  Singers  ` and `  Albums  ` need to have a strong data locality relationship. You can declare this data locality relationship by creating `  Albums  ` as an interleaved child table of `  Singers  ` .
+As you're designing your music application, suppose you realize that the app needs to frequently access rows from the `Albums` table when it accesses a `Singers` row. For example, when you access the row `Singers(1)` , you also need to access the rows `Albums(1, 1)` and `Albums(1, 2)` . In this case, `Singers` and `Albums` need to have a strong data locality relationship. You can declare this data locality relationship by creating `Albums` as an interleaved child table of `Singers` .
 
     -- Schema hierarchy:
     -- + Singers
     --   + Albums (interleaved table, child table of Singers)
 
-The bolded line in the following schema shows how to create `  Albums  ` as an interleaved table of `  Singers  ` .
+The bolded line in the following schema shows how to create `Albums` as an interleaved table of `Singers` .
 
 ### GoogleSQL
 
@@ -233,15 +233,15 @@ The bolded line in the following schema shows how to create `  Albums  ` as an i
 
 Notes about this schema:
 
-  - `  SingerId  ` , which is the first part of the primary key of the child table `  Albums  ` , is also the primary key of its parent table `  Singers  ` .
-  - The [`  ON DELETE CASCADE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) annotation signifies that when a row from the parent table is deleted, its child rows are automatically deleted as well. If a child table doesn't have this annotation, or the annotation is `  ON DELETE NO ACTION  ` , then you must delete the child rows before you can delete the parent row.
+  - `SingerId` , which is the first part of the primary key of the child table `Albums` , is also the primary key of its parent table `Singers` .
+  - The [`ON DELETE CASCADE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) annotation signifies that when a row from the parent table is deleted, its child rows are automatically deleted as well. If a child table doesn't have this annotation, or the annotation is `ON DELETE NO ACTION` , then you must delete the child rows before you can delete the parent row.
   - Interleaved rows are ordered first by rows of the parent table, then by contiguous rows of the child table that share the parent's primary key. For example, "Singers(1)", then "Albums(1, 1)", and then "Albums(1, 2)".
-  - The data locality relationship of each singer and their album data is preserved if this database splits, provided that the size of a `  Singers  ` row and all its `  Albums  ` rows stays below the split size limit and that there is no hotspot in any of these `  Albums  ` rows.
+  - The data locality relationship of each singer and their album data is preserved if this database splits, provided that the size of a `Singers` row and all its `Albums` rows stays below the split size limit and that there is no hotspot in any of these `Albums` rows.
   - The parent row must exist before you can insert child rows. The parent row can either already exist in the database or can be inserted before the insertion of the child rows in the same transaction.
 
 ![Albums rows are interleaved between Singers rows](https://docs.cloud.google.com/static/spanner/docs/images/singers_albums_interleaved_physical.svg)
 
-Suppose you'd like to model `  Projects  ` and their `  Resources  ` as interleaved tables. Certain scenarios could benefit from `  INTERLEAVE IN  ` - the ability to not require the `  Projects  ` row to exist for entities under it to exist (say, a Project has been deleted, but its resources need to be cleaned up before deleting).
+Suppose you'd like to model `Projects` and their `Resources` as interleaved tables. Certain scenarios could benefit from `INTERLEAVE IN` - the ability to not require the `Projects` row to exist for entities under it to exist (say, a Project has been deleted, but its resources need to be cleaned up before deleting).
 
 ### GoogleSQL
 
@@ -271,17 +271,17 @@ Suppose you'd like to model `  Projects  ` and their `  Resources  ` as interlea
       PRIMARY KEY (ProjectId, ResourceId)
     ) INTERLEAVE IN Projects;
 
-Note that in this example we use the `  INTERLEAVE IN Projects  ` clause, rather than `  INTERLEAVE IN PARENT Projects  ` . This indicates we don't enforce the parent-child relationship between Projects and Resources.
+Note that in this example we use the `INTERLEAVE IN Projects` clause, rather than `INTERLEAVE IN PARENT Projects` . This indicates we don't enforce the parent-child relationship between Projects and Resources.
 
-In this example, the `  Resources(1, 10)  ` and `  Resources(1, 20)  ` rows can exist in the database even if the `  Projects(1)  ` row doesn't exist. `  Projects(1)  ` can be deleted even if `  Resources(1, 10)  ` and `  Resources(1, 20)  ` still exist, and the deletion doesn't affect these `  Resources  ` rows.
+In this example, the `Resources(1, 10)` and `Resources(1, 20)` rows can exist in the database even if the `Projects(1)` row doesn't exist. `Projects(1)` can be deleted even if `Resources(1, 10)` and `Resources(1, 20)` still exist, and the deletion doesn't affect these `Resources` rows.
 
 ### Create a hierarchy of interleaved tables
 
-The parent-child relationship between `  Singers  ` and `  Albums  ` can be extended to more descendant tables. For example, you could create an interleaved table called `  Songs  ` as a child of `  Albums  ` to store the track list of each album:
+The parent-child relationship between `Singers` and `Albums` can be extended to more descendant tables. For example, you could create an interleaved table called `Songs` as a child of `Albums` to store the track list of each album:
 
 ![Songs table with six rows and four columns](https://docs.cloud.google.com/static/spanner/docs/images/songs_logical.svg)
 
-`  Songs  ` must have a primary key that includes all the primary keys of the tables that are at a higher level in the hierarchy, that is, `  SingerId  ` and `  AlbumId  ` .
+`Songs` must have a primary key that includes all the primary keys of the tables that are at a higher level in the hierarchy, that is, `SingerId` and `AlbumId` .
 
     -- Schema hierarchy:
     -- + Singers
@@ -348,7 +348,7 @@ In summary, a parent table along with all of its child and descendant tables for
 
 ### Joins with interleaved tables
 
-If possible, join data in interleaved tables by primary key. Because each interleaved row is usually stored physically in the same split as its parent row, Spanner can perform joins by primary key locally, minimizing storage access and network traffic. In the following example, `  Singers  ` and `  Albums  ` are joined on the primary key `  SingerId  ` .
+If possible, join data in interleaved tables by primary key. Because each interleaved row is usually stored physically in the same split as its parent row, Spanner can perform joins by primary key locally, minimizing storage access and network traffic. In the following example, `Singers` and `Albums` are joined on the primary key `SingerId` .
 
 ### GoogleSQL
 
@@ -364,11 +364,11 @@ If possible, join data in interleaved tables by primary key. Because each interl
 
 **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-Spanner uses locality groups to preserve data locality relationships across table columns. If you don't explicitly create any locality groups for your tables, Spanner groups all columns into the `  default  ` locality group and stores the data of all tables on SSD storage. You can use locality groups to do the following:
+Spanner uses locality groups to preserve data locality relationships across table columns. If you don't explicitly create any locality groups for your tables, Spanner groups all columns into the `default` locality group and stores the data of all tables on SSD storage. You can use locality groups to do the following:
 
   - Use [tiered storage](https://docs.cloud.google.com/spanner/docs/tiered-storage) . Tiered storage is a fully-managed storage feature that lets you choose whether to store your data on solid-state drives (SSD) or hard disk drives (HDD). By default, without using tiered storage, Spanner stores all data on SSD storage.
 
-  - Use column-grouping to store specified columns separately from other columns. Because the data for the specified columns are stored separately, reading data from those columns is faster than if all data is grouped together. To use column-grouping, you need to [create a locality group](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#create-locality-group) without specifying any tiered storage options. Spanner uses locality groups to store the specified columns separately. If specified, the columns inherit their tiered storage policy from the table or default locality group. Then, use the `  CREATE TABLE  ` DDL statement to [set a locality group for the specified columns](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#set-locality-group-column) or use the `  ALTER TABLE  ` DDL statement to [alter the locality group used by a table's column](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#alter-column-locality-group) . The DDL statement determines the columns that are stored in the locality group. Finally, you can [read data](https://docs.cloud.google.com/spanner/docs/reads) in these columns more efficiently.
+  - Use column-grouping to store specified columns separately from other columns. Because the data for the specified columns are stored separately, reading data from those columns is faster than if all data is grouped together. To use column-grouping, you need to [create a locality group](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#create-locality-group) without specifying any tiered storage options. Spanner uses locality groups to store the specified columns separately. If specified, the columns inherit their tiered storage policy from the table or default locality group. Then, use the `CREATE TABLE` DDL statement to [set a locality group for the specified columns](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#set-locality-group-column) or use the `ALTER TABLE` DDL statement to [alter the locality group used by a table's column](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#alter-column-locality-group) . The DDL statement determines the columns that are stored in the locality group. Finally, you can [read data](https://docs.cloud.google.com/spanner/docs/reads) in these columns more efficiently.
 
 ## Key columns
 
@@ -380,9 +380,9 @@ The keys of a table can't change; you can't add a key column to an existing tabl
 
 ### Store NULLs in a primary key
 
-In GoogleSQL, if you would like to store NULL in a primary key column, omit the `  NOT NULL  ` clause for that column in the schema. (PostgreSQL-dialect databases don't support NULLs in a primary key column.)
+In GoogleSQL, if you would like to store NULL in a primary key column, omit the `NOT NULL` clause for that column in the schema. (PostgreSQL-dialect databases don't support NULLs in a primary key column.)
 
-Here's an example of omitting the `  NOT NULL  ` clause on the primary key column `  SingerId  ` . Note that because `  SingerId  ` is the primary key, there can be only one row that stores `  NULL  ` in that column.
+Here's an example of omitting the `NOT NULL` clause on the primary key column `SingerId` . Note that because `SingerId` is the primary key, there can be only one row that stores `NULL` in that column.
 
     CREATE TABLE Singers (
       SingerId   INT64 PRIMARY KEY,
@@ -390,7 +390,7 @@ Here's an example of omitting the `  NOT NULL  ` clause on the primary key colum
       LastName   STRING(1024),
     );
 
-The nullable property of the primary key column must match between the parent and the child table declarations. In this example, `  NOT NULL  ` for the column `  Albums.SingerId  ` is not allowed because `  Singers.SingerId  ` omits it.
+The nullable property of the primary key column must match between the parent and the child table declarations. In this example, `NOT NULL` for the column `Albums.SingerId` is not allowed because `Singers.SingerId` omits it.
 
     CREATE TABLE Singers (
       SingerId   INT64 PRIMARY KEY,
@@ -407,7 +407,7 @@ The nullable property of the primary key column must match between the parent an
 
 ### Disallowed types
 
-The following columns cannot be of type `  ARRAY  ` :
+The following columns cannot be of type `ARRAY` :
 
   - A table's key columns.
   - An index's key columns.
@@ -418,7 +418,7 @@ You might want to implement multi-tenancy if you are storing data that belongs t
 
 ### Classic multi-tenancy
 
-The classic way to design for multi-tenancy is to create a separate database for each customer. In this example, each database has its own `  Singers  ` table:
+The classic way to design for multi-tenancy is to create a separate database for each customer. In this example, each database has its own `Singers` table:
 
 | SingerId | FirstName | LastName |
 | -------- | --------- | -------- |
@@ -443,7 +443,7 @@ Database 3: Eagan Records
 
 ### Schema-managed multi-tenancy
 
-Another way to design for multi-tenancy in Spanner is to have all customers in a single table in a single database, and to use a different primary key value for each customer. For example, you could include a `  CustomerId  ` key column in your tables. If you make `  CustomerId  ` the first key column, then the data for each customer has good locality. Spanner can then effectively use [database splits](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) to maximize performance based on data size and load patterns. In the following example, there is a single `  Singers  ` table for all customers:
+Another way to design for multi-tenancy in Spanner is to have all customers in a single table in a single database, and to use a different primary key value for each customer. For example, you could include a `CustomerId` key column in your tables. If you make `CustomerId` the first key column, then the data for each customer has good locality. Spanner can then effectively use [database splits](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) to maximize performance based on data size and load patterns. In the following example, there is a single `Singers` table for all customers:
 
 | CustomerId | SingerId | FirstName | LastName |
 | ---------- | -------- | --------- | -------- |

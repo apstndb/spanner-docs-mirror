@@ -4,49 +4,49 @@ gcloud alpha spanner - command groups for Cloud Spanner
 
 SYNOPSIS
 
-`  gcloud alpha spanner  ` `  GROUP  ` | `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner` `  GROUP  ` | `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Command groups for Cloud Spanner.
+`(ALPHA)` Command groups for Cloud Spanner.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 GROUPS
 
 `  GROUP  ` is one of the following:
 
   - `  backup-schedules  `  
-    `  (ALPHA)  ` Manage Cloud Spanner backup schedules.
+    `(ALPHA)` Manage Cloud Spanner backup schedules.
   - `  backups  `  
-    `  (ALPHA)  ` Manage Cloud Spanner backups.
+    `(ALPHA)` Manage Cloud Spanner backups.
   - `  databases  `  
-    `  (ALPHA)  ` Manage Cloud Spanner databases.
+    `(ALPHA)` Manage Cloud Spanner databases.
   - `  instance-configs  `  
-    `  (ALPHA)  ` Manage Cloud Spanner instance configs.
+    `(ALPHA)` Manage Cloud Spanner instance configs.
   - `  instance-partitions  `  
-    `  (ALPHA)  ` Manage Spanner instance partitions.
+    `(ALPHA)` Manage Spanner instance partitions.
   - `  instances  `  
-    `  (ALPHA)  ` Manage Cloud Spanner instances.
+    `(ALPHA)` Manage Cloud Spanner instances.
   - `  migrate  `  
-    `  (ALPHA)  ` Migrate external databases to Cloud Spanner.
+    `(ALPHA)` Migrate external databases to Cloud Spanner.
   - `  operations  `  
-    `  (ALPHA)  ` Manage Cloud Spanner operations.
+    `(ALPHA)` Manage Cloud Spanner operations.
   - `  rows  `  
-    `  (ALPHA)  ` Manage the rows in Cloud Spanner databases.
+    `(ALPHA)` Manage the rows in Cloud Spanner databases.
   - `  samples  `  
-    `  (ALPHA)  ` Cloud Spanner sample apps.
+    `(ALPHA)` Cloud Spanner sample apps.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  cli  `  
-    `  (ALPHA)  ` An interactive shell for Spanner.
+    `(ALPHA)` An interactive shell for Spanner.
 
 NOTES
 

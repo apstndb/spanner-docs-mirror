@@ -110,7 +110,7 @@ In general, we recommend that you increase the [compute capacity](https://docs.c
 
 ### Increasing compute capacity
 
-If you exceed the recommended maximums for CPU utilization, we strongly recommend increasing the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) of your instance so it can continue to operate effectively. If you want to automate this process, you can create an application that monitors CPU utilization, then increases or decreases compute capacity as needed, using the [`  UpdateInstance  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance) method.
+If you exceed the recommended maximums for CPU utilization, we strongly recommend increasing the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) of your instance so it can continue to operate effectively. If you want to automate this process, you can create an application that monitors CPU utilization, then increases or decreases compute capacity as needed, using the [`UpdateInstance`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance) method.
 
 To determine how much compute capacity you need, consider the peak high-priority CPU utilization as well as the 24-hour smoothed average. Always allocate enough compute capacity to keep the CPU utilization below the recommended maximums. As previously described, you may need to allocate extra compute capacity for performance-sensitive applications (for example, to accommodate workload spikes).
 

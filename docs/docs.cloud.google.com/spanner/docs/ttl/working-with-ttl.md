@@ -34,7 +34,7 @@ To change the database's schema, you must have the **spanner.databases.updateDdl
 
 ### GoogleSQL
 
-To create a row deletion policy using GoogleSQL, you can define a `  ROW DELETION POLICY  ` clause when you create a new table, or add a policy to an existing table. This clause contains an expression of a column and an interval.
+To create a row deletion policy using GoogleSQL, you can define a `ROW DELETION POLICY` clause when you create a new table, or add a policy to an existing table. This clause contains an expression of a column and an interval.
 
 To add a policy at the time of table creation, do the following:
 
@@ -46,18 +46,18 @@ To add a policy at the time of table creation, do the following:
 
 Replace the following:
 
-  - `  timestamp_column  ` must be an existing column with type `  TIMESTAMP  ` . Columns with [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) are valid, as are [generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) . However, you can't specify a generated column that references a commit timestamp column.
+  - `timestamp_column` must be an existing column with type `TIMESTAMP` . Columns with [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) are valid, as are [generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) . However, you can't specify a generated column that references a commit timestamp column.
 
-  - `  num_days  ` is the number of days past the timestamp in the `  timestamp_column  ` in which the row is marked for deletion. The value must be a non-negative integer and `  DAY  ` is the only supported unit.
+  - `num_days` is the number of days past the timestamp in the `timestamp_column` in which the row is marked for deletion. The value must be a non-negative integer and `DAY` is the only supported unit.
 
-To add a policy to an existing table, use the `  ALTER TABLE  ` statement. A table can have at most one row deletion policy. Adding a row deletion policy to a table with an existing policy fails with an error. See [TTL on generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) to specify more sophisticated row deletion logic.
+To add a policy to an existing table, use the `ALTER TABLE` statement. A table can have at most one row deletion policy. Adding a row deletion policy to a table with an existing policy fails with an error. See [TTL on generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) to specify more sophisticated row deletion logic.
 
     ALTER TABLE Albums
     ADD ROW DELETION POLICY (OLDER_THAN(timestamp_column, INTERVAL num_days DAY));
 
 ### PostgreSQL
 
-To create a row deletion policy using PostgreSQL, you can define a `  TTL INTERVAL  ` clause when you create a new table, or add a policy to an existing table.
+To create a row deletion policy using PostgreSQL, you can define a `TTL INTERVAL` clause when you create a new table, or add a policy to an existing table.
 
 To add a policy at the time of table creation, do the following:
 
@@ -69,11 +69,11 @@ To add a policy at the time of table creation, do the following:
 
 Replace the following:
 
-  - `  timestamp_column_name  ` must be a column with data type `  TIMESTAMPTZ  ` . You need to create this column in the `  CREATE TABLE  ` statement. Columns with [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) are valid, as are [generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) . However, you can't specify a generated column that references a commit timestamp column.
+  - `timestamp_column_name` must be a column with data type `TIMESTAMPTZ` . You need to create this column in the `CREATE TABLE` statement. Columns with [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) are valid, as are [generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) . However, you can't specify a generated column that references a commit timestamp column.
 
-  - `  interval_spec  ` is the number of days past the timestamp in the `  timestamp_column_name  ` on which the row is marked for deletion. The value must be a non-negative integer and it must evaluate to a whole number of days. For example, `  '3 days'  ` is allowed, but `  '3 days - 2 minutes'  ` returns an error.
+  - `interval_spec` is the number of days past the timestamp in the `timestamp_column_name` on which the row is marked for deletion. The value must be a non-negative integer and it must evaluate to a whole number of days. For example, `'3 days'` is allowed, but `'3 days - 2 minutes'` returns an error.
 
-To add a policy to an existing table, use the `  ALTER TABLE  ` statement. A table can have at most one TTL policy. Adding a TTL policy to a table with an existing policy fails with an error. See [TTL on generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) to specify more sophisticated TTL logic.
+To add a policy to an existing table, use the `ALTER TABLE` statement. A table can have at most one TTL policy. Adding a TTL policy to a table with an existing policy fails with an error. See [TTL on generated columns](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_on_generated_columns) to specify more sophisticated TTL logic.
 
 To add a policy to an existing table, do the following:
 
@@ -91,10 +91,10 @@ Row deletion policies have the following restrictions.
 
 You can't create a row deletion policy:
 
-  - On a table that's referenced by a [foreign key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) that doesn't include the `  ON DELETE CASCADE  ` constraint.
+  - On a table that's referenced by a [foreign key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) that doesn't include the `ON DELETE CASCADE` constraint.
   - On the parent of a table that's referenced by a foreign key that doesn't include the ON DELETE CASCADE referential action.
 
-In the following example, you can't add a row deletion policy to the `  Customers  ` table, because it's referenced by a foreign key in the `  Orders  ` table, which doesn't have the `  ON DELETE CASCADE  ` constraint. Deleting customers might violate this foreign key constraint. You also can't add a row deletion policy to the `  Districts  ` table. Deleting a row from `  Districts  ` might cause deletes to cascade in the child `  Customers  ` table, which might violate the foreign key constraint on the `  Orders  ` table.
+In the following example, you can't add a row deletion policy to the `Customers` table, because it's referenced by a foreign key in the `Orders` table, which doesn't have the `ON DELETE CASCADE` constraint. Deleting customers might violate this foreign key constraint. You also can't add a row deletion policy to the `Districts` table. Deleting a row from `Districts` might cause deletes to cascade in the child `Customers` table, which might violate the foreign key constraint on the `Orders` table.
 
 ### GoogleSQL
 
@@ -138,7 +138,7 @@ In the following example, you can't add a row deletion policy to the `  Customer
       CONSTRAINT fk_customerorder FOREIGN KEY (districtid, customerid) REFERENCES customers (districtid, customerid)
     );
 
-You can create a row deletion policy on a table that's referenced by a foreign key constraint that uses `  ON DELETE CASCADE  ` . In the following example, you can create a row deletion policy on the `  Customers  ` table which is referenced by the foreign key constraint `  CustomerOrder  ` , defined on the `  Orders  ` table. When TTL deletes rows in `  Customers  ` , the deletion cascades down to matching rows that are in the `  Orders  ` table.
+You can create a row deletion policy on a table that's referenced by a foreign key constraint that uses `ON DELETE CASCADE` . In the following example, you can create a row deletion policy on the `Customers` table which is referenced by the foreign key constraint `CustomerOrder` , defined on the `Orders` table. When TTL deletes rows in `Customers` , the deletion cascades down to matching rows that are in the `Orders` table.
 
 ### GoogleSQL
 
@@ -189,13 +189,13 @@ CREATE TABLE Orders (
       CONSTRAINT fk_customerorder FOREIGN KEY (districtid, customerid) REFERENCES customers (districtid, customerid) ON DELETE CASCADE
     );
 
-Similarly, you can create a row deletion policy on a parent of a table that's referenced by a `  ON DELETE CASCADE  ` foreign key constraint.
+Similarly, you can create a row deletion policy on a parent of a table that's referenced by a `ON DELETE CASCADE` foreign key constraint.
 
 ### TTL on columns with default values
 
-A row deletion policy can use a timestamp column with a default value. A typical default value is `  CURRENT_TIMESTAMP  ` . If no value is explicitly assigned to the column, or if the column is set to its default value by an `  INSERT  ` or `  UPDATE  ` statement, the default value is used in the rule calculation.
+A row deletion policy can use a timestamp column with a default value. A typical default value is `CURRENT_TIMESTAMP` . If no value is explicitly assigned to the column, or if the column is set to its default value by an `INSERT` or `UPDATE` statement, the default value is used in the rule calculation.
 
-In the following example, the default value for the column `  CreatedAt  ` in table `  Customers  ` is the timestamp at which the row is created.
+In the following example, the default value for the column `CreatedAt` in table `Customers` is the timestamp at which the row is created.
 
 ### GoogleSQL
 
@@ -218,15 +218,15 @@ For more information, see [CREATE TABLE](https://docs.cloud.google.com/spanner/d
 
 ### TTL on generated columns
 
-Row deletion policies can use [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) to express more sophisticated rules. For example, you can define a row deletion policy on the `  greatest  ` timestamp ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#greatest) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators) ) of multiple columns, or map another value to a timestamp.
+Row deletion policies can use [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) to express more sophisticated rules. For example, you can define a row deletion policy on the `greatest` timestamp ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#greatest) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators) ) of multiple columns, or map another value to a timestamp.
 
 **Note:** You can't specify a generated column that references a [commit timestamp](https://docs.cloud.google.com/spanner/docs/commit-timestamp) column.
 
 ### GoogleSQL
 
-The following table named `  Orders  ` tracks sales orders. The table owner wants to set up a row deletion policy that deletes cancelled orders after 30 days, and non-cancelled orders after 180 days.
+The following table named `Orders` tracks sales orders. The table owner wants to set up a row deletion policy that deletes cancelled orders after 30 days, and non-cancelled orders after 180 days.
 
-Spanner TTL only allows one row deletion policy per table. To express the two criteria in a single column, you can use a generated column with an `  IF  ` statement:
+Spanner TTL only allows one row deletion policy per table. To express the two criteria in a single column, you can use a generated column with an `IF` statement:
 
     CREATE TABLE Orders (
       OrderId INT64 NOT NULL,
@@ -238,11 +238,11 @@ Spanner TTL only allows one row deletion policy per table. To express the two cr
     ) PRIMARY KEY(OrderId),
     ROW DELETION POLICY (OLDER_THAN(ExpiredDate, INTERVAL 0 DAY));
 
-The statement creates a column named `  ExpiredDate  ` that adds either 30 days or 180 days to the `  LastModifiedDate  ` depending on the order status. Then, it defines the row deletion policy to expire rows on the day stored in the `  ExpiredDate  ` column by specifying `  INTERVAL 0 day  ` .
+The statement creates a column named `ExpiredDate` that adds either 30 days or 180 days to the `LastModifiedDate` depending on the order status. Then, it defines the row deletion policy to expire rows on the day stored in the `ExpiredDate` column by specifying `INTERVAL 0 day` .
 
 ### PostgreSQL
 
-The following table named `  Orders  ` tracks sales orders. The table owner wants to set up a row deletion policy that deletes rows after 30 days of inactivity.
+The following table named `Orders` tracks sales orders. The table owner wants to set up a row deletion policy that deletes rows after 30 days of inactivity.
 
 Spanner TTL only allows one row deletion policy per table. To express the two criteria in a single column, you can create a generated column:
 
@@ -255,11 +255,11 @@ Spanner TTL only allows one row deletion policy per table. To express the two cr
         PRIMARY KEY(orderid)
     ) TTL INTERVAL '30 days' ON expireddate;
 
-The statement creates a generated column named `  ExpiredDate  ` that evaluates the most recent of the two dates ( `  LastModifiedDate  ` or `  CreateDate  ` ). Then, it defines the row deletion policy to expire rows 30 days after the order was created, or if the order was modified within those 30 days, it'll extend the deletion by another 30 days.
+The statement creates a generated column named `ExpiredDate` that evaluates the most recent of the two dates ( `LastModifiedDate` or `CreateDate` ). Then, it defines the row deletion policy to expire rows 30 days after the order was created, or if the order was modified within those 30 days, it'll extend the deletion by another 30 days.
 
 ### TTL and interleaved tables
 
-[Interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#parent-child_table_relationships) are a performance optimization that associates related rows in a one-to-many child table with a row in a parent table. To add a row deletion policy on a parent table, all interleaved child tables must specify `  ON DELETE CASCADE  ` , meaning the child rows are deleted atomically with the parent row. This ensures referential integrity such that deletes on the parent table also delete the related child rows in the same transaction. Spanner TTL does not support `  ON DELETE NO ACTION  ` .
+[Interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#parent-child_table_relationships) are a performance optimization that associates related rows in a one-to-many child table with a row in a parent table. To add a row deletion policy on a parent table, all interleaved child tables must specify `ON DELETE CASCADE` , meaning the child rows are deleted atomically with the parent row. This ensures referential integrity such that deletes on the parent table also delete the related child rows in the same transaction. Spanner TTL does not support `ON DELETE NO ACTION` .
 
 ### Maximum transaction size
 
@@ -316,7 +316,7 @@ For more information, see [Information schema for PostgreSQL-dialect databases](
 
 ## Modify a row deletion policy
 
-You can alter the column or the interval expression of an existing row deletion policy. The following example switches the column from `  CreatedAt  ` to `  ModifiedAt  ` and extends the interval from `  1 DAY  ` to `  7 DAY  ` . This returns an error if there's no existing row deletion policy on the table.
+You can alter the column or the interval expression of an existing row deletion policy. The following example switches the column from `CreatedAt` to `ModifiedAt` and extends the interval from `1 DAY` to `7 DAY` . This returns an error if there's no existing row deletion policy on the table.
 
 ### GoogleSQL
 

@@ -1,6 +1,6 @@
 This page describes how you can calculate the Spanner API request latency of streaming and partition requests.
 
-You can calculate Spanner API streaming and partition request latencies with the fields in the `  metadata  ` struct object of an [`  AuditLog  `](https://docs.cloud.google.com/logging/docs/reference/audit/auditlog/rest/Shared.Types/AuditLog) . The metadata is of type `  QueryPerformanceMetadata  ` . For streaming and partition requests, the `  metadata  ` does not contain a `  processingSecondsDuration  ` field. For information on how to use `  processingSecondsDuration  ` to calculate request latencies for all other request types, see [Processing duration](https://docs.cloud.google.com/spanner/docs/audit-logging#processing-duration) .
+You can calculate Spanner API streaming and partition request latencies with the fields in the `metadata` struct object of an [`AuditLog`](https://docs.cloud.google.com/logging/docs/reference/audit/auditlog/rest/Shared.Types/AuditLog) . The metadata is of type `QueryPerformanceMetadata` . For streaming and partition requests, the `metadata` does not contain a `processingSecondsDuration` field. For information on how to use `processingSecondsDuration` to calculate request latencies for all other request types, see [Processing duration](https://docs.cloud.google.com/spanner/docs/audit-logging#processing-duration) .
 
 ## Request latencies for streaming requests
 
@@ -8,11 +8,11 @@ When a client sends a [streaming request](https://docs.cloud.google.com/spanner/
 
 ### Recognize streaming requests audit log entries
 
-To calculate the request latency of a streaming request, you need to identify the log entries related to the request. The log entries have the `  protoPayload.methodName  ` set to either `  google.spanner.v1.Spanner.ExecuteStreamingSql  ` or `  google.spanner.v1.Spanner.StreamingRead  ` . For each streaming request, there are two log entries, which are grouped by `  operation.id  ` . The first entry has `  operation.first  ` set to `  true  ` and the last entry has `  operation.last  ` set to `  true  ` . The `  protoPayload.metadata.responseTimestamp  ` object is also populated.
+To calculate the request latency of a streaming request, you need to identify the log entries related to the request. The log entries have the `protoPayload.methodName` set to either `google.spanner.v1.Spanner.ExecuteStreamingSql` or `google.spanner.v1.Spanner.StreamingRead` . For each streaming request, there are two log entries, which are grouped by `operation.id` . The first entry has `operation.first` set to `true` and the last entry has `operation.last` set to `true` . The `protoPayload.metadata.responseTimestamp` object is also populated.
 
 ### Calculate request latency for streaming requests
 
-To calculate the request latency of a streaming request, filter the audit logs by `  operation.id  ` . The difference between the latest `  protoPayload.metadata.responseTimestamp  ` and the earliest `  protoPayload.requestMetadata.requestAttributes.time  ` is the request latency.
+To calculate the request latency of a streaming request, filter the audit logs by `operation.id` . The difference between the latest `protoPayload.metadata.responseTimestamp` and the earliest `protoPayload.requestMetadata.requestAttributes.time` is the request latency.
 
 ### Sample audit logs for streaming requests
 
@@ -20,7 +20,7 @@ To find all log entries for a streaming request, run the following query in the 
 
     operation.id="OPERATION_ID"
 
-The following example finds log entries for a streaming request with the `  operation.id  ` of `  15327696495839874591  ` :
+The following example finds log entries for a streaming request with the `operation.id` of `15327696495839874591` :
 
     operation.id="15327696495839874591"
 
@@ -99,7 +99,7 @@ The following example finds log entries for a streaming request with the `  oper
       "receiveTimestamp": "2023-02-27T16:57:41.507770020Z"
     }
 
-The request latency is the latest `  metadata.responseTimestamp  ` minus the earliest `  requestAttributes.time  ` . The result is 2023-02-27T16:57:40.556138125Z-2023-02 - 2023-02-27T16:57:40.552952297Z, which equals 0.003185828 seconds.
+The request latency is the latest `metadata.responseTimestamp` minus the earliest `requestAttributes.time` . The result is 2023-02-27T16:57:40.556138125Z-2023-02 - 2023-02-27T16:57:40.552952297Z, which equals 0.003185828 seconds.
 
 ## Request latencies for partition requests
 
@@ -107,11 +107,11 @@ When a client sends a [partitioned request](https://docs.cloud.google.com/spanne
 
 ### Recognize partition requests audit log entries
 
-When you make a `  PartitionRead  ` or a `  PartitionQuery  ` request, a set of partitions are returned in the [`  PartitionResponse  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse) . As you make `  Read  ` , `  ExecuteSql  ` or `  ExecuteStreaming  ` calls respectively for each partition, Spanner records audit logs for these methods. Each of these logs contains an identifier to group them together, called `  protoPayload.metadata.partitionBatchIdentifier  ` . The `  protoPayload.metadata.responseTimestamp  ` object is also populated.
+When you make a `PartitionRead` or a `PartitionQuery` request, a set of partitions are returned in the [`PartitionResponse`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse) . As you make `Read` , `ExecuteSql` or `ExecuteStreaming` calls respectively for each partition, Spanner records audit logs for these methods. Each of these logs contains an identifier to group them together, called `protoPayload.metadata.partitionBatchIdentifier` . The `protoPayload.metadata.responseTimestamp` object is also populated.
 
 ### Calculate request latency for partition requests
 
-To calculate the request latency of a partition request, you can filter the audit logs by `  metadata.partitionBatchIdentifier  ` . The difference between the latest `  metadata.responseTimestamp  ` and the earliest `  protoPayload.requestMetadata.requestAttributes.time  ` is the request latency.
+To calculate the request latency of a partition request, you can filter the audit logs by `metadata.partitionBatchIdentifier` . The difference between the latest `metadata.responseTimestamp` and the earliest `protoPayload.requestMetadata.requestAttributes.time` is the request latency.
 
 ### Sample audit logs for partition requests
 
@@ -119,7 +119,7 @@ To find all log entries for a partition request, run the following query in the 
 
     metadata.partitionBatchIdentifier="PARTITION_BATCH_ID"
 
-The following example finds log entries for a partition request with the `  metadata.partitionBatchIdentifier  ` of `  15327696495839874591  ` :
+The following example finds log entries for a partition request with the `metadata.partitionBatchIdentifier` of `15327696495839874591` :
 
     metadata.partitionBatchIdentifier="15327696495839874591"
 
@@ -216,4 +216,4 @@ Depending on the number of partitions, Spanner might record more logs than in th
       "receiveTimestamp": "2023-02-15T18:13:39.983812511Z"
     }
 
-The request latency is the latest `  metadata.responseTimestamp  ` minus the earliest `  requestAttributes.time  ` . The result is 2023-02-15T18:13:39.441692339Z - 2023-02-15T18:13:39.341584693Z, which equals 0.100107646 seconds.
+The request latency is the latest `metadata.responseTimestamp` minus the earliest `requestAttributes.time` . The result is 2023-02-15T18:13:39.441692339Z - 2023-02-15T18:13:39.341584693Z, which equals 0.100107646 seconds.

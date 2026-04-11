@@ -10,15 +10,15 @@ You can monitor a database's overall using metrics that measure operations-per-s
 
 ## Access column operations statistics
 
-Spanner provides the column operations statistics in the `  SPANNER_SYS  ` schema. You can use the following to access `  SPANNER_SYS  ` data:
+Spanner provides the column operations statistics in the `SPANNER_SYS` schema. You can use the following to access `SPANNER_SYS` data:
 
   - A database's Spanner Studio page in the Google Cloud console
 
-  - The [`  gcloud spanner databases execute-sql  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command
+  - The [`gcloud spanner databases execute-sql`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command
 
-  - The [`  executeSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`  executeStreamingSql  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
+  - The [`executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
 
-The following single read methods that Spanner provides don't support `  SPANNER_SYS  ` :
+The following single read methods that Spanner provides don't support `SPANNER_SYS` :
 
   - Performing a strong read from a single row or multiple rows in a table.
   - Performing a stale read from a single row or multiple rows in a table.
@@ -30,9 +30,9 @@ For more information, see [Single read methods](https://docs.cloud.google.com/sp
 
 The following tables track the read, query, and write statistics on your columns during a specific time period:
 
-  - `  SPANNER_SYS.COLUMN_OPERATIONS_STATS_MINUTE  ` : Operations during 1-minute intervals
-  - `  SPANNER_SYS.COLUMN_OPERATIONS_STATS_10MINUTE  ` : Operations during 10-minute intervals
-  - `  SPANNER_SYS.COLUMN_OPERATIONS_STATS_HOUR  ` : Operations during 1-hour intervals
+  - `SPANNER_SYS.COLUMN_OPERATIONS_STATS_MINUTE` : Operations during 1-minute intervals
+  - `SPANNER_SYS.COLUMN_OPERATIONS_STATS_10MINUTE` : Operations during 10-minute intervals
+  - `SPANNER_SYS.COLUMN_OPERATIONS_STATS_HOUR` : Operations during 1-hour intervals
 
 These tables have the following properties:
 
@@ -48,27 +48,27 @@ These tables have the following properties:
 
 ### Schema for all column operations statistics tables
 
-| Column name                                   | Type                       | Description                                                               |
-| --------------------------------------------- | -------------------------- | ------------------------------------------------------------------------- |
-| `        INTERVAL_END       `                 | `        TIMESTAMP       ` | End of time interval in which the column usage statistics were collected. |
-| `        TABLE_NAME       `                   | `        STRING       `    | Name of the table or the index.                                           |
-| `        COLUMN_NAME       `                  | `        STRING       `    | Name of the column.                                                       |
-| `        READ_COUNT       `                   | `        INT64       `     | Number of reads from the column.                                          |
-| `        QUERY_COUNT       `                  | `        INT64       `     | Number of queries reading from the column.                                |
-| `        WRITE_COUNT       `                  | `        INT64       `     | Number of queries writing to the table.                                   |
-| `        IS_QUERY_CACHE_MEMORY_CAPPED       ` | `        BOOL       `      | Whether the statistics collection was capped due to memory pressure.      |
+| Column name                    | Type        | Description                                                               |
+| ------------------------------ | ----------- | ------------------------------------------------------------------------- |
+| `INTERVAL_END`                 | `TIMESTAMP` | End of time interval in which the column usage statistics were collected. |
+| `TABLE_NAME`                   | `STRING`    | Name of the table or the index.                                           |
+| `COLUMN_NAME`                  | `STRING`    | Name of the column.                                                       |
+| `READ_COUNT`                   | `INT64`     | Number of reads from the column.                                          |
+| `QUERY_COUNT`                  | `INT64`     | Number of queries reading from the column.                                |
+| `WRITE_COUNT`                  | `INT64`     | Number of queries writing to the table.                                   |
+| `IS_QUERY_CACHE_MEMORY_CAPPED` | `BOOL`      | Whether the statistics collection was capped due to memory pressure.      |
 
-If you insert data into your database using mutations, Spanner increments the `  WRITE_COUNT  ` by 1 for each table that the insert statement accesses. In addition, a query that accesses an index without scanning the underlying table only increments the `  QUERY_COUNT  ` on the index.
+If you insert data into your database using mutations, Spanner increments the `WRITE_COUNT` by 1 for each table that the insert statement accesses. In addition, a query that accesses an index without scanning the underlying table only increments the `QUERY_COUNT` on the index.
 
 ## Data retention
 
 At a minimum, Spanner keeps data for each table for the following time periods:
 
-  - `  SPANNER_SYS.COLUMN_OPERATIONS_STATS_MINUTE  ` : Intervals covering the previous six hours.
+  - `SPANNER_SYS.COLUMN_OPERATIONS_STATS_MINUTE` : Intervals covering the previous six hours.
 
-  - `  SPANNER_SYS.COLUMN_OPERATIONS_STATS_10MINUTE  ` : Intervals covering the previous four days.
+  - `SPANNER_SYS.COLUMN_OPERATIONS_STATS_10MINUTE` : Intervals covering the previous four days.
 
-  - `  SPANNER_SYS.COLUMN_OPERATIONS_STATS_HOUR  ` : Intervals covering the previous 30 days.
+  - `SPANNER_SYS.COLUMN_OPERATIONS_STATS_HOUR` : Intervals covering the previous 30 days.
 
 **Note:** You can't prevent Spanner from collecting column operations statistics. To delete the data in these tables, you must delete the database associated with them or wait until Spanner removes the data after the data retention period ends.
 
@@ -154,8 +154,8 @@ This section includes several example SQL statements that retrieve aggregate col
 
 Where:
 
-  - `  table_name  ` must be an existing table or index in the database.
-  - `  column_name  ` must be an existing column in the table.
+  - `table_name` must be an existing table or index in the database.
+  - `column_name` must be an existing column in the table.
 
 ### PostgreSQL
 
@@ -173,8 +173,8 @@ Where:
 
 Where:
 
-  - `  table_name  ` must be an existing table or index in the database.
-  - `  column_name  ` must be an existing column in the table.
+  - `table_name` must be an existing table or index in the database.
+  - `column_name` must be an existing column in the table.
 
 #### Query the usage of a column over the last 14 days
 
@@ -192,8 +192,8 @@ Where:
 
 Make the following replacements:
 
-  - `  table_name  ` : table or index name in the database.
-  - `  column_name  ` : column name in the table.
+  - `table_name` : table or index name in the database.
+  - `column_name` : column name in the table.
 
 ### PostgreSQL
 
@@ -209,8 +209,8 @@ Make the following replacements:
 
 Make the following replacements:
 
-  - `  table_name  ` : table or index name in the database.
-  - `  column_name  ` : column name in the table.
+  - `table_name` : table or index name in the database.
+  - `column_name` : column name in the table.
 
 ## What's next
 

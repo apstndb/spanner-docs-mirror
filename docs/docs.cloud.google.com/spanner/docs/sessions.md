@@ -77,10 +77,10 @@ The number of sessions that your application uses is equal to the number of conc
 
 For high concurrency applications the following is recommended:
 
-1.  Set `  MinSessions  ` to the expected number of concurrent transactions that a single client will execute.
-2.  Set `  MaxSessions  ` to the maximum number of concurrent transactions that a single client can execute.
-3.  Set `  MinSessions=MaxSessions  ` if the expected concurrency does not change much during the application lifetime. This prevents the session pool from scaling up or down. Scaling the session pool up or down also consumes some resources.
-4.  Set `  NumChannels  ` to `  MaxSessions / 100  ` . One gRPC channel can handle up to 100 requests concurrently. Increase this value if you observe a high tail latency (p95/p99 latency), because this could be an indication of gRPC channel congestion.
+1.  Set `MinSessions` to the expected number of concurrent transactions that a single client will execute.
+2.  Set `MaxSessions` to the maximum number of concurrent transactions that a single client can execute.
+3.  Set `MinSessions=MaxSessions` if the expected concurrency does not change much during the application lifetime. This prevents the session pool from scaling up or down. Scaling the session pool up or down also consumes some resources.
+4.  Set `NumChannels` to `MaxSessions / 100` . One gRPC channel can handle up to 100 requests concurrently. Increase this value if you observe a high tail latency (p95/p99 latency), because this could be an indication of gRPC channel congestion.
 
 Increasing the number of active sessions uses additional resources on the Spanner database service and in the client library. Increasing the number of sessions beyond the actual need of the application could degrade the performance of your system.
 
@@ -97,7 +97,7 @@ Increasing the size of the session pool beyond the maximum number of threads tha
 
 ### Manage the write-sessions fraction
 
-For some client libraries, Spanner reserves a portion of the sessions for read-write transactions, called the write-sessions fraction. If your app uses up all the read sessions, then Spanner uses the read-write sessions, even for read-only transactions. Read-write sessions require `  spanner.databases.beginOrRollbackReadWriteTransaction  ` . If the user is in the [`  spanner.databaseReader  `](https://docs.cloud.google.com/spanner/docs/iam#roles) IAM role, then the call fails and Spanner returns this error message:
+For some client libraries, Spanner reserves a portion of the sessions for read-write transactions, called the write-sessions fraction. If your app uses up all the read sessions, then Spanner uses the read-write sessions, even for read-only transactions. Read-write sessions require `spanner.databases.beginOrRollbackReadWriteTransaction` . If the user is in the [`spanner.databaseReader`](https://docs.cloud.google.com/spanner/docs/iam#roles) IAM role, then the call fails and Spanner returns this error message:
 
     generic::permission_denied: Resource %resource% is missing IAM permission:
     spanner.databases.beginOrRollbackReadWriteTransaction
@@ -110,7 +110,7 @@ All C++ sessions are the same. There are no read or read-write only sessions.
 
 ### C\#
 
-The default write-sessions fraction for C\# is 0.2. You can change the fraction using the WriteSessionsFraction field of [`  SessionPoolOptions  `](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.V1/latest/Google.Cloud.Spanner.V1.SessionPoolOptions#Google_Cloud_Spanner_V1_SessionPoolOptions_WriteSessionsFraction) .
+The default write-sessions fraction for C\# is 0.2. You can change the fraction using the WriteSessionsFraction field of [`SessionPoolOptions`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.V1/latest/Google.Cloud.Spanner.V1.SessionPoolOptions#Google_Cloud_Spanner_V1_SessionPoolOptions_WriteSessionsFraction) .
 
 ### Go
 
@@ -154,11 +154,11 @@ There are three ways to delete a session:
   - The Spanner database service can delete a session when the session is idle for more than 1 hour.
   - The Spanner database service may delete a session if the session is more than 28 days old.
 
-Attempts to use a deleted session result in [`  NOT_FOUND  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.rpc#google.rpc.Code) . If you encounter this error, create and use a new session, add the new session to the pool, and remove the deleted session from the pool.
+Attempts to use a deleted session result in [`NOT_FOUND`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.rpc#google.rpc.Code) . If you encounter this error, create and use a new session, add the new session to the pool, and remove the deleted session from the pool.
 
 ### Keep an idle session alive
 
-The Spanner database service reserves the right to drop an unused session. If you definitely need to keep an idle session alive, for example, if a significant near-term increase in database use is expected, then you can prevent the session from being dropped. Perform an inexpensive operation such as executing the SQL query `  SELECT 1  ` to keep the session alive. If you have an idle session that is not needed for near-term use, let Spanner drop the session, and then create a new session the next time a session is needed.
+The Spanner database service reserves the right to drop an unused session. If you definitely need to keep an idle session alive, for example, if a significant near-term increase in database use is expected, then you can prevent the session from being dropped. Perform an inexpensive operation such as executing the SQL query `SELECT 1` to keep the session alive. If you have an idle session that is not needed for near-term use, let Spanner drop the session, and then create a new session the next time a session is needed.
 
 One scenario for keeping sessions alive is to handle regular peak demand on the database. If heavy database use occurs daily from 9:00 AM to 6:00 PM, you should keep some idle sessions alive during that time, since they are likely required for the peak usage. After 6:00 PM, you can let Spanner drop idle sessions. Prior to 9:00 AM each day, create some new sessions so they will be ready for the expected demand.
 
@@ -170,7 +170,7 @@ If you are creating a client library, don't expose sessions to the client librar
 
 ### Handle errors for write transactions that are not idempotent
 
-Write transactions without replay protection may apply mutations more than once. If a mutation is not idempotent, a mutation that is applied more than once could result in a failure. For example, an insert may fail with [`  ALREADY_EXISTS  `](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.rpc#google.rpc.Code) even though the row did not exist prior to the write attempt. This could occur if the backend server committed the mutation but was unable to communicate the success to the client. In that event, the mutation could be retried, resulting in the `  ALREADY_EXISTS  ` failure.
+Write transactions without replay protection may apply mutations more than once. If a mutation is not idempotent, a mutation that is applied more than once could result in a failure. For example, an insert may fail with [`ALREADY_EXISTS`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.rpc#google.rpc.Code) even though the row did not exist prior to the write attempt. This could occur if the backend server committed the mutation but was unable to communicate the success to the client. In that event, the mutation could be retried, resulting in the `ALREADY_EXISTS` failure.
 
 Here are possible ways to address this scenario when you implement your own client library or use the REST API:
 
@@ -185,11 +185,11 @@ For best performance, the connection that you use to host a session should remai
 
 ### Monitor active sessions
 
-You can use the `  ListSessions  ` command to monitor active sessions in your database from the [command line](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#manage_sessions) , with [the REST API](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/list) , or with [the RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ListSessions) . `  ListSessions  ` shows the active sessions for a given database. This is useful if you need to find the cause of a session leak. (A session leak is an incident where sessions are being created but not returned to a session pool for reuse.)
+You can use the `ListSessions` command to monitor active sessions in your database from the [command line](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#manage_sessions) , with [the REST API](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/list) , or with [the RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ListSessions) . `ListSessions` shows the active sessions for a given database. This is useful if you need to find the cause of a session leak. (A session leak is an incident where sessions are being created but not returned to a session pool for reuse.)
 
-`  ListSessions  ` lets you view metadata about your active sessions, including when a session was created and when a session was last used. Analyzing this data will point you in the right direction when troubleshooting sessions. If most active sessions don't have a recent `  approximate_last_use_time  ` , this could indicate that sessions aren't being reused properly by your application. See the [RPC API reference](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Session) for more information about the `  approximate_last_use_time  ` field.
+`ListSessions` lets you view metadata about your active sessions, including when a session was created and when a session was last used. Analyzing this data will point you in the right direction when troubleshooting sessions. If most active sessions don't have a recent `approximate_last_use_time` , this could indicate that sessions aren't being reused properly by your application. See the [RPC API reference](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Session) for more information about the `approximate_last_use_time` field.
 
-See the [REST API reference](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/list) , the [RPC API reference](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ListSessions) , or the [gcloud command-line tool reference](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#manage_sessions) for more information on using `  ListSessions  ` .
+See the [REST API reference](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/list) , the [RPC API reference](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ListSessions) , or the [gcloud command-line tool reference](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#manage_sessions) for more information on using `ListSessions` .
 
 ### Automatic cleanup of session leaks
 
@@ -209,7 +209,7 @@ You can either enable client library to send warning logs and automatically reso
 
 ### Java
 
-To receive warning logs and remove inactive transactions, use `  setWarnAndCloseIfInactiveTransactions  ` .
+To receive warning logs and remove inactive transactions, use `setWarnAndCloseIfInactiveTransactions` .
 
 ``` 
  final SessionPoolOptions sessionPoolOptions = SessionPoolOptions.newBuilder().setWarnAndCloseIfInactiveTransactions().build()
@@ -222,7 +222,7 @@ To receive warning logs and remove inactive transactions, use `  setWarnAndClose
  final DatabaseClient client = spanner.getDatabaseClient(databaseId);
 ```
 
-To only receive warning logs, use `  setWarnIfInactiveTransactions  ` .
+To only receive warning logs, use `setWarnIfInactiveTransactions` .
 
 ``` 
  final SessionPoolOptions sessionPoolOptions = SessionPoolOptions.newBuilder().setWarnIfInactiveTransactions().build()
@@ -237,7 +237,7 @@ To only receive warning logs, use `  setWarnIfInactiveTransactions  ` .
 
 ### Go
 
-To receive warning logs and remove inactive transactions, use `  SessionPoolConfig  ` with `  InactiveTransactionRemovalOptions  ` .
+To receive warning logs and remove inactive transactions, use `SessionPoolConfig` with `InactiveTransactionRemovalOptions` .
 
 ``` 
  client, err := spanner.NewClientWithConfig(
@@ -253,7 +253,7 @@ To receive warning logs and remove inactive transactions, use `  SessionPoolConf
  defer client.Close()
 ```
 
-To only receive warning logs, use `  customLogger  ` .
+To only receive warning logs, use `customLogger` .
 
 ``` 
  customLogger := log.New(os.Stdout, "spanner-client: ", log.Lshortfile)
@@ -277,7 +277,7 @@ Multiplexed sessions are supported in the following:
 
   - Spanner ecosystem tools that depend on the mentioned client Libraries, such as PGAdapter, JDBC, Hibernate, database/sql driver, dbAPI driver and GORM.
 
-  - Spanner ecosystem tools that depend on the Java and Go client Libraries, such as PGAdapter, JDBC, Hibernate, database or sql driver, and GORM. You can use [OpenTelemetry metrics](https://docs.cloud.google.com/spanner/docs/sessions#opentelemetry) to see how traffic is split between the existing session pool and the multiplexed session. OpenTelemetry has a metric filter, `  is_multiplexed  ` , that shows multiplexed sessions when set to `  true  ` .
+  - Spanner ecosystem tools that depend on the Java and Go client Libraries, such as PGAdapter, JDBC, Hibernate, database or sql driver, and GORM. You can use [OpenTelemetry metrics](https://docs.cloud.google.com/spanner/docs/sessions#opentelemetry) to see how traffic is split between the existing session pool and the multiplexed session. OpenTelemetry has a metric filter, `is_multiplexed` , that shows multiplexed sessions when set to `true` .
 
 Multiplexed sessions are supported for all types of transactions.
 
@@ -287,9 +287,9 @@ Multiplexed sessions are enabled by default in some client libraries. For others
 
 ### Considerations
 
-If you're trying to commit either an empty read or write transaction body or a transaction where every query or DML statement has failed, there are a couple of scenarios to consider with multiplexed sessions. Multiplexed sessions require that you include a server-generated pre-commit token in each commit request. For transactions that contain queries or DML, there must be at least one previous successful query or DML transaction for the server to send back a valid token to the client library. If there haven't been any successful queries or DML transactions, the client library implicitly adds `  SELECT 1  ` before a commit.
+If you're trying to commit either an empty read or write transaction body or a transaction where every query or DML statement has failed, there are a couple of scenarios to consider with multiplexed sessions. Multiplexed sessions require that you include a server-generated pre-commit token in each commit request. For transactions that contain queries or DML, there must be at least one previous successful query or DML transaction for the server to send back a valid token to the client library. If there haven't been any successful queries or DML transactions, the client library implicitly adds `SELECT 1` before a commit.
 
-For a read or write transaction on a multiplexed session that only has mutations, if one of the mutations is for a table or a column that does NOT exist in the schema, the client could return an `  INVALID_ARGUMENT  ` error instead of a `  NOT_FOUND  ` error.
+For a read or write transaction on a multiplexed session that only has mutations, if one of the mutations is for a table or a column that does NOT exist in the schema, the client could return an `INVALID_ARGUMENT` error instead of a `NOT_FOUND` error.
 
 ### Enable multiplexed sessions
 
@@ -305,23 +305,23 @@ Multiplexed sessions are enabled by default in the following client libraries:
 
 To use multiplexed sessions in earlier versions of Node.js, Java and Go client libraries, you must first set an environment variable to enable it.
 
-To enable multiplexed sessions, set the `  GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS  ` environment variable to `  TRUE  ` . This flag also enables the multiplexed sessions support for `  ReadOnly  ` transactions.
+To enable multiplexed sessions, set the `GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS` environment variable to `TRUE` . This flag also enables the multiplexed sessions support for `ReadOnly` transactions.
 
     export GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS=TRUE
 
-To enable partitioned operations support for multiplexed sessions, set the `  GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS_PARTITIONED_OPS  ` environment variable to `  TRUE  ` .
+To enable partitioned operations support for multiplexed sessions, set the `GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS_PARTITIONED_OPS` environment variable to `TRUE` .
 
     export GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS_PARTITIONED_OPS=TRUE
 
-To enable read-write transactions support for multiplexed sessions, set the `  GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS_FOR_RW  ` environment variable to `  TRUE  ` .
+To enable read-write transactions support for multiplexed sessions, set the `GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS_FOR_RW` environment variable to `TRUE` .
 
     export GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS_FOR_RW=True
 
-You must set `  GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS  ` to `  TRUE  ` as a prerequisite for supporting a transaction on a multiplexed session.
+You must set `GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS` to `TRUE` as a prerequisite for supporting a transaction on a multiplexed session.
 
 ### View traffic for regular and multiplexed sessions
 
-OpenTelemetry has the `  is_multiplexed  ` filter to show the traffic for multiplexed sessions. You set this filter to `  true to view multiplexed sessions and  ` false\` to view regular sessions.
+OpenTelemetry has the `is_multiplexed` filter to show the traffic for multiplexed sessions. You set this filter to `true to view multiplexed sessions and` false\` to view regular sessions.
 
 1.  Set up OpenTelemetry for Spanner using the procedures in the Spanner OpenTelemetry [Before you begin](https://docs.cloud.google.com/spanner/docs/capture-visualize-latency#before_you_begin) section.
 
@@ -329,13 +329,13 @@ OpenTelemetry has the `  is_multiplexed  ` filter to show the traffic for multip
     
     [Go to Metrics Explorer](https://console.cloud.google.com/monitoring/metrics-explorer)
 
-3.  In the **Metric** drop-down, filter on `  generic  ` .
+3.  In the **Metric** drop-down, filter on `generic` .
 
 4.  Click **Generic Task** and navigate to **Spanner** \> **Spanner/num\_acquired\_sessions** .
 
 5.  In the **Filter** field, select from the following options:
     
-    a. `  is_multiplexed = false  ` to view regular sessions. b. `  is_multiplexed = true  ` to view multiplexed sessions.
+    a. `is_multiplexed = false` to view regular sessions. b. `is_multiplexed = true` to view multiplexed sessions.
     
     The following image shows the **Filter** option with multiplexed sessions selected.
 
@@ -347,7 +347,7 @@ For more information about using OpenTelemetry with Spanner, see [Leveraging Ope
 
 Common session-related errors that your application might encounter include:
 
-  - `  Session not found  `
-  - `  RESOURCE_EXHAUSTED  `
+  - `Session not found`
+  - `RESOURCE_EXHAUSTED`
 
 For more information, see [Session errors](https://docs.cloud.google.com/spanner/docs/error-codes#sessions) .

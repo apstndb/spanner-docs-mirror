@@ -4,17 +4,17 @@ gcloud alpha spanner instances config export - export the configuration for a Sp
 
 SYNOPSIS
 
-`  gcloud alpha spanner instances config export  ` (\[ `  INSTANCE  ` \] `  --all  ` ) \[ `  --path  ` = `  PATH  ` ; default="-"\] \[ `  --resource-format  ` = `  RESOURCE_FORMAT  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner instances config export` (\[ `  INSTANCE  ` \] `  --all  ` ) \[ `  --path  ` = `  PATH  ` ; default="-"\] \[ `  --resource-format  ` = `  RESOURCE_FORMAT  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` `  gcloud alpha spanner instances config export  ` exports the configuration for a Spanner instance.
+`(ALPHA)` `gcloud alpha spanner instances config export` exports the configuration for a Spanner instance.
 
-Instance configurations can be exported in Kubernetes Resource Model (krm) or Terraform HCL formats. The default format is `  krm  ` .
+Instance configurations can be exported in Kubernetes Resource Model (krm) or Terraform HCL formats. The default format is `krm` .
 
-Specifying `  --all  ` allows you to export the configurations for all instances within the project.
+Specifying `--all` allows you to export the configurations for all instances within the project.
 
-Specifying `  --path  ` allows you to export the configuration(s) to a local directory.
+Specifying `--path` allows you to export the configuration(s) to a local directory.
 
 EXAMPLES
 
@@ -49,26 +49,26 @@ Exactly one of these must be specified:
   - \[ `  INSTANCE  ` \]  
     ID of the instance or fully qualified identifier for the instance.
     
-    To set the `  instance  ` attribute:
+    To set the `instance` attribute:
     
-      - provide the argument `  instance  ` on the command line;
-      - set the property `  spanner/instance  ` .
+      - provide the argument `instance` on the command line;
+      - set the property `spanner/instance` .
 
-  - `  --all  `  
-    Retrieve all resources within the project. If `  --path  ` is specified and is a valid directory, resources will be output as individual files based on resource name and scope. If `  --path  ` is not specified, resources will be streamed to stdout.
+  - `--all`  
+    Retrieve all resources within the project. If `--path` is specified and is a valid directory, resources will be output as individual files based on resource name and scope. If `--path` is not specified, resources will be streamed to stdout.
 
 FLAGS
 
-  - `  --path  ` = `  PATH  ` ; default="-"  
+  - `--path` = `  PATH  ` ; default="-"  
     Path of the directory or file to output configuration(s). To output configurations to stdout, specify "--path=-".
-  - `  --resource-format  ` = `  RESOURCE_FORMAT  `  
-    Format of the configuration to export. Available configuration formats are Kubernetes Resource Model YAML (krm) or Terraform HCL (terraform). Command defaults to "krm". `  RESOURCE_FORMAT  ` must be one of: `  krm  ` , `  terraform  ` .
+  - `--resource-format` = `  RESOURCE_FORMAT  `  
+    Format of the configuration to export. Available configuration formats are Kubernetes Resource Model YAML (krm) or Terraform HCL (terraform). Command defaults to "krm". `  RESOURCE_FORMAT  ` must be one of: `krm` , `terraform` .
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

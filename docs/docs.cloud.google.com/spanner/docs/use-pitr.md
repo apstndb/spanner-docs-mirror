@@ -30,7 +30,7 @@ To set your database's retention period:
 
 ### gcloud
 
-Update the database's schema with the [`  ALTER DATABASE  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) statement. For example:
+Update the database's schema with the [`ALTER DATABASE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) statement. For example:
 
     gcloud spanner databases ddl update example-db \
         --instance=test-instance \
@@ -465,18 +465,18 @@ The following shows the output:
 
 Usage notes:
 
-  - The retention period must be between 1 hour and 7 days, and can be specified in days, hours, minutes, or seconds. For example, the values `  1d  ` , `  24h  ` , `  1440m  ` , and `  86400s  ` are equivalent.
+  - The retention period must be between 1 hour and 7 days, and can be specified in days, hours, minutes, or seconds. For example, the values `1d` , `24h` , `1440m` , and `86400s` are equivalent.
   - If you have [enabled logging](https://docs.cloud.google.com/logging/docs/audit/configure-data-access#config-console-enable) for the Spanner API in your project, the event is logged as [UpdateDatabaseDdl](https://docs.cloud.google.com/spanner/docs/audit-logging) and is visible in the [Logs Explorer](https://docs.cloud.google.com/logging/docs/view/logs-explorer-summary) .
-  - To revert to the default retention period of 1 hour, you can set the `  version_retention_period  ` database option to `  NULL  ` for GoogleSQL databases or `  DEFAULT  ` for PostgreSQL databases.
+  - To revert to the default retention period of 1 hour, you can set the `version_retention_period` database option to `NULL` for GoogleSQL databases or `DEFAULT` for PostgreSQL databases.
   - When you extend the retention period, the system doesn't backfill previous versions of data. For example, if you extend the retention period from one hour to 24 hours, then you must wait 23 hours for the system to accumulate old data before you can recover data from 24 hours in the past.
 
 ## Get the retention period and earliest version time
 
 The [Database](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database) resource includes two fields:
 
-  - [`  version_retention_period  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) : the period in which Spanner retains all versions of data for the database.
+  - [`version_retention_period`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) : the period in which Spanner retains all versions of data for the database.
 
-  - [`  earliest_version_time  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.earliest_version_time) : the earliest timestamp at which earlier versions of the data can be read from the database. This value is continuously updated by Spanner and becomes stale the moment it's queried. If you are using this value to recover data, make sure to account for the time from the moment when the value is queried to the moment when you initiate the recovery.
+  - [`earliest_version_time`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.earliest_version_time) : the earliest timestamp at which earlier versions of the data can be read from the database. This value is continuously updated by Spanner and becomes stale the moment it's queried. If you are using this value to recover data, make sure to account for the time from the moment when the value is queried to the moment when you initiate the recovery.
 
 ### Console
 
@@ -513,7 +513,7 @@ The following shows the output:
 
 ## Recover a portion of your database
 
-1.  Perform a [stale read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness) and specify the needed recovery timestamp. Make sure that the timestamp you specify is more recent than the database's `  earliest_version_time.  `
+1.  Perform a [stale read](https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness) and specify the needed recovery timestamp. Make sure that the timestamp you specify is more recent than the database's `earliest_version_time.`
     
     ### gcloud
     
@@ -534,7 +534,7 @@ The following shows the output:
     
     ### gcloud
     
-    **Note:** The `  gcloud spanner rows update  ` command doesn't isn't supported for the PostgreSQL interface for Spanner.
+    **Note:** The `gcloud spanner rows update` command doesn't isn't supported for the PostgreSQL interface for Spanner.
     
         gcloud spanner rows update --instance=test-instance \
             --database=example-db --table=Singers \
@@ -554,7 +554,7 @@ You can recover the entire database using either [Backup and Restore](https://do
 
 ### Backup and restore
 
-1.  Create a backup and set the [`  version_time  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup.FIELDS.version_time) to the needed recovery timestamp.
+1.  Create a backup and set the [`version_time`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup.FIELDS.version_time) to the needed recovery timestamp.
     
     ### Console
     
@@ -1368,7 +1368,7 @@ You can recover the entire database using either [Backup and Restore](https://do
 
 ### Import and export
 
-1.  Export the database, specifying the `  snapshotTime  ` parameter to the needed recovery timestamp.
+1.  Export the database, specifying the `snapshotTime` parameter to the needed recovery timestamp.
     
     ### Console
     
@@ -1400,7 +1400,7 @@ You can recover the entire database using either [Backup and Restore](https://do
   - You can track the progress of your import and export jobs in the [Dataflow Console](https://console.cloud.google.com/dataflow/jobs) .
   - Spanner guarantees that the exported data is externally and transactionally consistent at the specified timestamp.
   - Specify the timestamp in [RFC 3339 format](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#google.protobuf.Timestamp) . For example, 2020-09-01T23:59:30.234233Z.
-  - Make sure that the timestamp you specify is more recent than the database's `  earliest_version_time  ` . If data no longer exists at the specified timestamp, you get an error.
+  - Make sure that the timestamp you specify is more recent than the database's `earliest_version_time` . If data no longer exists at the specified timestamp, you get an error.
 
 <!-- end list -->
 

@@ -4,17 +4,17 @@ gcloud alpha spanner databases config export - export the configuration for a Sp
 
 SYNOPSIS
 
-`  gcloud alpha spanner databases config export  ` (\[ `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` \] `  --all  ` ) \[ `  --path  ` = `  PATH  ` ; default="-"\] \[ `  --resource-format  ` = `  RESOURCE_FORMAT  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner databases config export` (\[ `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` \] `  --all  ` ) \[ `  --path  ` = `  PATH  ` ; default="-"\] \[ `  --resource-format  ` = `  RESOURCE_FORMAT  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` `  gcloud alpha spanner databases config export  ` exports the configuration for a Spanner database.
+`(ALPHA)` `gcloud alpha spanner databases config export` exports the configuration for a Spanner database.
 
-Database configurations can be exported in Kubernetes Resource Model (krm) or Terraform HCL formats. The default format is `  krm  ` .
+Database configurations can be exported in Kubernetes Resource Model (krm) or Terraform HCL formats. The default format is `krm` .
 
-Specifying `  --all  ` allows you to export the configurations for all databases within the project.
+Specifying `--all` allows you to export the configurations for all databases within the project.
 
-Specifying `  --path  ` allows you to export the configuration(s) to a local directory.
+Specifying `--path` allows you to export the configuration(s) to a local directory.
 
 EXAMPLES
 
@@ -48,45 +48,45 @@ Exactly one of these must be specified:
 
 Database resource - Database to export the configuration for. The arguments in this group can be used to specify the attributes of this resource. (NOTE) Some attributes are not given arguments in this group but can be set in other ways.
 
-To set the `  project  ` attribute:
+To set the `project` attribute:
 
-  - provide the argument `  database  ` on the command line with a fully specified name;
-  - provide the argument `  --project  ` on the command line;
-  - set the property `  core/project  ` .
+  - provide the argument `database` on the command line with a fully specified name;
+  - provide the argument `--project` on the command line;
+  - set the property `core/project` .
 
 <!-- end list -->
 
   - `  DATABASE  `  
     ID of the database or fully qualified identifier for the database.
     
-    To set the `  database  ` attribute:
+    To set the `database` attribute:
     
-    provide the argument `  database  ` on the command line.
+    provide the argument `database` on the command line.
 
 This positional argument must be specified if any of the other arguments in this group are specified.
 
-  - `  --instance  ` = `  INSTANCE  `  
-    The name of the Cloud Spanner instance. To set the `  instance  ` attribute:
-    provide the argument `  database  ` on the command line with a fully specified name;
-    provide the argument `  --instance  ` on the command line;
-    set the property `  spanner/instance  ` .
+  - `--instance` = `  INSTANCE  `  
+    The name of the Cloud Spanner instance. To set the `instance` attribute:
+    provide the argument `database` on the command line with a fully specified name;
+    provide the argument `--instance` on the command line;
+    set the property `spanner/instance` .
 
-`  --all  `
+`--all`
 
-Retrieve all resources within the project. If `  --path  ` is specified and is a valid directory, resources will be output as individual files based on resource name and scope. If `  --path  ` is not specified, resources will be streamed to stdout.
+Retrieve all resources within the project. If `--path` is specified and is a valid directory, resources will be output as individual files based on resource name and scope. If `--path` is not specified, resources will be streamed to stdout.
 
 FLAGS
 
-  - `  --path  ` = `  PATH  ` ; default="-"  
+  - `--path` = `  PATH  ` ; default="-"  
     Path of the directory or file to output configuration(s). To output configurations to stdout, specify "--path=-".
-  - `  --resource-format  ` = `  RESOURCE_FORMAT  `  
-    Format of the configuration to export. Available configuration formats are Kubernetes Resource Model YAML (krm) or Terraform HCL (terraform). Command defaults to "krm". `  RESOURCE_FORMAT  ` must be one of: `  krm  ` , `  terraform  ` .
+  - `--resource-format` = `  RESOURCE_FORMAT  `  
+    Format of the configuration to export. Available configuration formats are Kubernetes Resource Model YAML (krm) or Terraform HCL (terraform). Command defaults to "krm". `  RESOURCE_FORMAT  ` must be one of: `krm` , `terraform` .
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 NOTES
 

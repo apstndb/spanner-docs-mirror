@@ -6,11 +6,11 @@
   - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs/delete#body.aspect)
   - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs/delete#try-it)
 
-Deletes the instance configuration. Deletion is only allowed when no instances are using the configuration. If any instances are using the configuration, returns `  FAILED_PRECONDITION  ` .
+Deletes the instance configuration. Deletion is only allowed when no instances are using the configuration. If any instances are using the configuration, returns `FAILED_PRECONDITION` .
 
 Only user-managed configurations can be deleted.
 
-Authorization requires `  spanner.instanceConfigs.delete  ` permission on the resource `  name  ` .
+Authorization requires `spanner.instanceConfigs.delete` permission on the resource `  name  ` .
 
 ### HTTP request
 
@@ -47,7 +47,7 @@ us-west8
 us-east7
 
   
-`  DELETE https://spanner.googleapis.com/v1/{name=projects/*/instanceConfigs/*}  `
+`DELETE https://spanner.googleapis.com/v1/{name=projects/*/instanceConfigs/*}`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -55,29 +55,29 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  name  `
+`name`
 
-`  string  `
+`string`
 
-Required. The name of the instance configuration to be deleted. Values are of the form `  projects/<project>/instanceConfigs/<instanceConfig>  `
+Required. The name of the instance configuration to be deleted. Values are of the form `projects/<project>/instanceConfigs/<instanceConfig>`
 
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `  name  ` :
+Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `name` :
 
-  - `  spanner.instanceConfigs.delete  `
+  - `spanner.instanceConfigs.delete`
 
 ### Query parameters
 
 Parameters
 
-`  etag  `
+`etag`
 
-`  string  `
+`string`
 
 Used for optimistic concurrency control as a way to help prevent simultaneous deletes of an instance configuration from overwriting each other. If not empty, the API only deletes the instance configuration when the etag provided matches the current status of the requested instance configuration. Otherwise, deletes the instance configuration without checking the current status of the requested instance configuration.
 
-`  validateOnly  `
+`validateOnly`
 
-`  boolean  `
+`boolean`
 
 An option to validate, but not actually execute, a request, and provide the same response.
 
@@ -93,7 +93,7 @@ If successful, the response body is an empty JSON object.
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

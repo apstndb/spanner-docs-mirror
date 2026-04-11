@@ -46,7 +46,7 @@ The following shows how to execute a SQL query statement against a database.
 
 ### C++
 
-Use `  ExecuteQuery()  ` to execute a SQL query statement against a database.
+Use `ExecuteQuery()` to execute a SQL query statement against a database.
 
     void QueryData(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -65,7 +65,7 @@ Use `  ExecuteQuery()  ` to execute a SQL query statement against a database.
 
 ### C\#
 
-Use `  ExecuteReaderAsync()  ` to query the database.
+Use `ExecuteReaderAsync()` to query the database.
 
     using Google.Cloud.Spanner.Data;
     using System.Collections.Generic;
@@ -104,7 +104,7 @@ Use `  ExecuteReaderAsync()  ` to query the database.
 
 ### Go
 
-Use `  Client.Single().Query  ` to query the database.
+Use `Client.Single().Query` to query the database.
 
     import (
      "context"
@@ -145,7 +145,7 @@ Use `  Client.Single().Query  ` to query the database.
 
 ### Java
 
-Use `  ReadContext.executeQuery  ` to query the database.
+Use `ReadContext.executeQuery` to query the database.
 
     static void query(DatabaseClient dbClient) {
       try (ResultSet resultSet =
@@ -161,7 +161,7 @@ Use `  ReadContext.executeQuery  ` to query the database.
 
 ### Node.js
 
-Use `  Database.run  ` to query the database.
+Use `Database.run` to query the database.
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -205,7 +205,7 @@ Use `  Database.run  ` to query the database.
 
 ### PHP
 
-Use `  Database::execute  ` to query the database.
+Use `Database::execute` to query the database.
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -237,7 +237,7 @@ Use `  Database::execute  ` to query the database.
 
 ### Python
 
-Use `  Database.execute_sql  ` to query the database.
+Use `Database.execute_sql` to query the database.
 
     def query_data(instance_id, database_id):
         """Queries sample data from the database using SQL."""
@@ -255,7 +255,7 @@ Use `  Database.execute_sql  ` to query the database.
 
 ### Ruby
 
-Use `  Client#execute  ` to query the database.
+Use `Client#execute` to query the database.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -338,7 +338,7 @@ The code to read data is the same as the previous sample for querying Spanner by
 
 ### Go
 
-Use `  Client.Single().Read  ` to read rows from the database.
+Use `Client.Single().Read` to read rows from the database.
 
     import (
      "context"
@@ -377,11 +377,11 @@ Use `  Client.Single().Read  ` to read rows from the database.
      }
     }
 
-The example uses `  AllKeys  ` to define a collection of keys or key ranges to read.
+The example uses `AllKeys` to define a collection of keys or key ranges to read.
 
 ### Java
 
-Use `  ReadContext.read  ` to read rows from the database.
+Use `ReadContext.read` to read rows from the database.
 
     static void read(DatabaseClient dbClient) {
       try (ResultSet resultSet =
@@ -398,11 +398,11 @@ Use `  ReadContext.read  ` to read rows from the database.
       }
     }
 
-The example uses `  KeySet  ` to define a collection of keys or key ranges to read.
+The example uses `KeySet` to define a collection of keys or key ranges to read.
 
 ### Node.js
 
-Use `  Table.read  ` to read rows from the database.
+Use `Table.read` to read rows from the database.
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -449,11 +449,11 @@ Use `  Table.read  ` to read rows from the database.
       await database.close();
     }
 
-The example uses `  keySet  ` to define a collection of keys or key ranges to read.
+The example uses `keySet` to define a collection of keys or key ranges to read.
 
 ### PHP
 
-Use `  Database::read  ` to read rows from the database.
+Use `Database::read` to read rows from the database.
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -486,11 +486,11 @@ Use `  Database::read  ` to read rows from the database.
         }
     }
 
-The example uses `  keySet  ` to define a collection of keys or key ranges to read.
+The example uses `keySet` to define a collection of keys or key ranges to read.
 
 ### Python
 
-Use `  Database.read  ` to read rows from the database.
+Use `Database.read` to read rows from the database.
 
     def read_data(instance_id, database_id):
         """Reads sample data from the database."""
@@ -507,11 +507,11 @@ Use `  Database.read  ` to read rows from the database.
             for row in results:
                 print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
 
-The example uses `  KeySet  ` to define a collection of keys or key ranges to read.
+The example uses `KeySet` to define a collection of keys or key ranges to read.
 
 ### Ruby
 
-Use `  Client#read  ` to read rows from the database.
+Use `Client#read` to read rows from the database.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -534,7 +534,7 @@ The following sample code shows how to perform a stale read of zero or more rows
 
 ### C++
 
-Use `  ExecuteQuery()  ` with `  MakeReadOnlyTransaction()  ` and `  Transaction::ReadOnlyOptions()  ` to perform a stale read.
+Use `ExecuteQuery()` with `MakeReadOnlyTransaction()` and `Transaction::ReadOnlyOptions()` to perform a stale read.
 
     void ReadStaleData(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -560,7 +560,7 @@ Use `  ExecuteQuery()  ` with `  MakeReadOnlyTransaction()  ` and `  Transaction
 
 ### C\#
 
-Use the `  BeginReadOnlyTransactionAsync  ` method on a `  connection  ` with a specified `  TimestampBound.OfExactStaleness()  ` value to query the database.
+Use the `BeginReadOnlyTransactionAsync` method on a `connection` with a specified `TimestampBound.OfExactStaleness()` value to query the database.
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -606,11 +606,11 @@ Use the `  BeginReadOnlyTransactionAsync  ` method on a `  connection  ` with a 
         }
     }
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `  TimestampBound.OfMaxStaleness()  ` value instead of a `  TimestampBound.OfExactStaleness()  ` value.
+**Note:** To use a *bounded-staleness* timestamp bound, specify a `TimestampBound.OfMaxStaleness()` value instead of a `TimestampBound.OfExactStaleness()` value.
 
 ### Go
 
-Use `  Client.ReadOnlyTransaction().WithTimestampBound()  ` and specify an `  ExactStaleness  ` value to perform a read of rows from the database using an exact-staleness timestamp bound.
+Use `Client.ReadOnlyTransaction().WithTimestampBound()` and specify an `ExactStaleness` value to perform a read of rows from the database using an exact-staleness timestamp bound.
 
     import (
      "context"
@@ -653,13 +653,13 @@ Use `  Client.ReadOnlyTransaction().WithTimestampBound()  ` and specify an `  Ex
      }
     }
 
-The example uses `  AllKeys  ` to define a collection of keys or key ranges to read.
+The example uses `AllKeys` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `  MaxStaleness  ` value instead of an `  ExactStaleness  ` value.
+**Note:** To use a *bounded-staleness* timestamp bound, specify a `MaxStaleness` value instead of an `ExactStaleness` value.
 
 ### Java
 
-Use the `  read  ` method of a `  ReadContext  ` that has a specified `  TimestampBound.ofExactStaleness()  ` to perform a read of rows from the database using an exact-staleness timestamp bound.
+Use the `read` method of a `ReadContext` that has a specified `TimestampBound.ofExactStaleness()` to perform a read of rows from the database using an exact-staleness timestamp bound.
 
     static void readStaleData(DatabaseClient dbClient) {
       try (ResultSet resultSet =
@@ -677,13 +677,13 @@ Use the `  read  ` method of a `  ReadContext  ` that has a specified `  Timesta
       }
     }
 
-The example uses `  KeySet  ` to define a collection of keys or key ranges to read.
+The example uses `KeySet` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `  TimestampBound.ofMaxStaleness  ` instead of a `  TimestampBound.ofExactStaleness()  ` .
+**Note:** To use a *bounded-staleness* timestamp bound, specify a `TimestampBound.ofMaxStaleness` instead of a `TimestampBound.ofExactStaleness()` .
 
 ### Node.js
 
-Use `  Table.read  ` with the `  exactStaleness  ` option to perform a read of rows from the database using an exact-staleness timestamp bound.
+Use `Table.read` with the `exactStaleness` option to perform a read of rows from the database using an exact-staleness timestamp bound.
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -739,13 +739,13 @@ Use `  Table.read  ` with the `  exactStaleness  ` option to perform a read of r
       await database.close();
     }
 
-The example uses `  keySet  ` to define a collection of keys or key ranges to read.
+The example uses `keySet` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, use the `  maxStaleness  ` option instead of the `  exactStaleness  ` option.
+**Note:** To use a *bounded-staleness* timestamp bound, use the `maxStaleness` option instead of the `exactStaleness` option.
 
 ### PHP
 
-Use `  Database::read  ` with a `  exactStaleness  ` value specified to perform a read of rows from the database using an exact-staleness timestamp bound.
+Use `Database::read` with a `exactStaleness` value specified to perform a read of rows from the database using an exact-staleness timestamp bound.
 
     use Google\Protobuf\Duration;
     use Google\Cloud\Spanner\SpannerClient;
@@ -781,13 +781,13 @@ Use `  Database::read  ` with a `  exactStaleness  ` value specified to perform 
         }
     }
 
-The example uses `  keySet  ` to define a collection of keys or key ranges to read.
+The example uses `keySet` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `  maxStaleness  ` value instead of an `  exactStaleness  ` value.
+**Note:** To use a *bounded-staleness* timestamp bound, specify a `maxStaleness` value instead of an `exactStaleness` value.
 
 ### Python
 
-Use the `  read  ` method of a `  Database  ` `  snapshot  ` that has a specified `  exact_staleness  ` value to perform a read of rows from the database using an exact-staleness timestamp bound.
+Use the `read` method of a `Database` `snapshot` that has a specified `exact_staleness` value to perform a read of rows from the database using an exact-staleness timestamp bound.
 
     def read_stale_data(instance_id, database_id):
         """Reads sample data from the database. The data is exactly 15 seconds
@@ -810,13 +810,13 @@ Use the `  read  ` method of a `  Database  ` `  snapshot  ` that has a specifie
             for row in results:
                 print("SingerId: {}, AlbumId: {}, MarketingBudget: {}".format(*row))
 
-The example uses `  KeySet  ` to define a collection of keys or key ranges to read.
+The example uses `KeySet` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `  max_staleness  ` value instead of the `  exact_staleness  ` value.
+**Note:** To use a *bounded-staleness* timestamp bound, specify a `max_staleness` value instead of the `exact_staleness` value.
 
 ### Ruby
 
-Use the `  read  ` method of a snapshot `  Client  ` that has a specified `  staleness  ` value (in seconds) to perform a read of rows from the database using an exact-staleness timestamp bound.
+Use the `read` method of a snapshot `Client` that has a specified `staleness` value (in seconds) to perform a read of rows from the database using an exact-staleness timestamp bound.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -833,7 +833,7 @@ Use the `  read  ` method of a snapshot `  Client  ` that has a specified `  sta
       end
     end
 
-**Note:** To use a *bounded-staleness* timestamp bound, use the sample code to [perform a strong read](https://docs.cloud.google.com/spanner/docs/reads#perform-strong-read) , but additionally specify a `  single_use:  ` parameter with a value of `  {max_staleness: [n seconds] }  ` to read with a staleness of \[n seconds\] .
+**Note:** To use a *bounded-staleness* timestamp bound, use the sample code to [perform a strong read](https://docs.cloud.google.com/spanner/docs/reads#perform-strong-read) , but additionally specify a `single_use:` parameter with a value of `{max_staleness: [n seconds] }` to read with a staleness of \[n seconds\] .
 
 ### Perform a read using an index
 
@@ -843,7 +843,7 @@ The following shows how to read zero or more rows from a database using an [inde
 
 ### C++
 
-Use the `  Read()  ` function to perform a read using an index.
+Use the `Read()` function to perform a read using an index.
 
     void ReadDataWithIndex(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -912,7 +912,7 @@ Read data using the index by executing a query that explicitly specifies the ind
 
 ### Go
 
-Use `  Client.Single().ReadUsingIndex  ` to read rows from the database using an index.
+Use `Client.Single().ReadUsingIndex` to read rows from the database using an index.
 
     import (
      "context"
@@ -953,7 +953,7 @@ Use `  Client.Single().ReadUsingIndex  ` to read rows from the database using an
 
 ### Java
 
-Use `  ReadContext.readUsingIndex  ` to read rows from the database using an index.
+Use `ReadContext.readUsingIndex` to read rows from the database using an index.
 
     static void readUsingIndex(DatabaseClient dbClient) {
       try (ResultSet resultSet =
@@ -972,7 +972,7 @@ Use `  ReadContext.readUsingIndex  ` to read rows from the database using an ind
 
 ### Node.js
 
-Use `  Table.read  ` and specify the index in the query to read rows from the database using an index.
+Use `Table.read` and specify the index in the query to read rows from the database using an index.
 
     /**
      * TODO(developer): Uncomment these variables before running the sample.
@@ -1023,7 +1023,7 @@ Use `  Table.read  ` and specify the index in the query to read rows from the da
 
 ### PHP
 
-Use `  Database::read  ` and specify the index to read rows from the database using an index.
+Use `Database::read` and specify the index to read rows from the database using an index.
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -1066,7 +1066,7 @@ Use `  Database::read  ` and specify the index to read rows from the database us
 
 ### Python
 
-Use `  Database.read  ` and specify the index to read rows from the database using an index.
+Use `Database.read` and specify the index to read rows from the database using an index.
 
     def read_data_with_index(instance_id, database_id):
         """Reads sample data from the database using an index.
@@ -1096,7 +1096,7 @@ Use `  Database.read  ` and specify the index to read rows from the database usi
 
 ### Ruby
 
-Use `  Client#read  ` and specify the index to read rows from the database using an index.
+Use `Client#read` and specify the index to read rows from the database using an index.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"
@@ -1116,7 +1116,7 @@ Use `  Client#read  ` and specify the index to read rows from the database using
 
 ## Read data in parallel
 
-When performing bulk read or query operations involving very large amounts of data from Spanner, you can use the [`  PartitionQuery  `](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) API for faster results. The API divides the query into batches, or *partitions* , by using multiple machines to fetch the partitions in parallel. Be mindful that using the `  PartitionQuery  ` API cause higher latency because it is only intended for bulk operations such as exporting or scanning the whole database.
+When performing bulk read or query operations involving very large amounts of data from Spanner, you can use the [`PartitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery) API for faster results. The API divides the query into batches, or *partitions* , by using multiple machines to fetch the partitions in parallel. Be mindful that using the `PartitionQuery` API cause higher latency because it is only intended for bulk operations such as exporting or scanning the whole database.
 
 You can perform any read API operation in parallel using the Spanner client libraries. However, you can only partition SQL queries when queries are root-partitionable. For a query to be root-partitionable, the query plan must satisfy one of the following conditions:
 
@@ -1124,7 +1124,7 @@ You can perform any read API operation in parallel using the Spanner client libr
 
   - There are no distributed operators in the query plan.
 
-The `  PartitionQuery  ` API runs the queries in batch mode. Spanner might choose a query execution plan that makes the queries root-partitionable when run in batch mode. As a result, the `  PartitionQuery  ` API and Spanner Studio might use different query execution plans for the same query. You might not be able to get the query execution plan used by the `  PartitionQuery  ` API on Spanner Studio.
+The `PartitionQuery` API runs the queries in batch mode. Spanner might choose a query execution plan that makes the queries root-partitionable when run in batch mode. As a result, the `PartitionQuery` API and Spanner Studio might use different query execution plans for the same query. You might not be able to get the query execution plan used by the `PartitionQuery` API on Spanner Studio.
 
 For partitioned queries like this, you can choose to enable Spanner Data Boost. Data Boost lets you run large analytic queries with near-zero impact to existing workloads on the provisioned Spanner instance. The C++, Go, Java, Node.js, and Python code examples on this page show how to enable Data Boost.
 
@@ -1136,7 +1136,7 @@ For more information about Data Boost, see [Data Boost overview](https://docs.cl
 
 ### C++
 
-This example fetches partitions of a SQL query of the `  Singers  ` table and executes the query over each partition through the following steps:
+This example fetches partitions of a SQL query of the `Singers` table and executes the query over each partition through the following steps:
 
   - Creating a Spanner batch transaction.
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
@@ -1174,7 +1174,7 @@ This example fetches partitions of a SQL query of the `  Singers  ` table and ex
 
 ### C\#
 
-This example fetches partitions of a SQL query of the `  Singers  ` table and executes the query over each partition through the following steps:
+This example fetches partitions of a SQL query of the `Singers` table and executes the query over each partition through the following steps:
 
   - Creating a Spanner batch transaction.
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
@@ -1240,7 +1240,7 @@ This example fetches partitions of a SQL query of the `  Singers  ` table and ex
 
 ### Go
 
-This example fetches partitions of a SQL query of the `  Singers  ` table and executes the query over each partition through the following steps:
+This example fetches partitions of a SQL query of the `Singers` table and executes the query over each partition through the following steps:
 
   - Creating a Spanner client and a transaction.
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
@@ -1312,7 +1312,7 @@ This example fetches partitions of a SQL query of the `  Singers  ` table and ex
 
 ### Java
 
-This example fetches partitions of a SQL query of the `  Singers  ` table and executes the query over each partition through the following steps:
+This example fetches partitions of a SQL query of the `Singers` table and executes the query over each partition through the following steps:
 
   - Creating a Spanner batch client and a transaction.
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
@@ -1377,7 +1377,7 @@ This example fetches partitions of a SQL query of the `  Singers  ` table and ex
 
 ### Node.js
 
-This example fetches partitions of a SQL query of the `  Singers  ` table and executes the query over each partition through the following steps:
+This example fetches partitions of a SQL query of the `Singers` table and executes the query over each partition through the following steps:
 
   - Creating a Spanner client and a batch.
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
@@ -1439,7 +1439,7 @@ This example fetches partitions of a SQL query of the `  Singers  ` table and ex
 
 ### PHP
 
-This example fetches partitions of a SQL query of the `  Singers  ` table and executes the query over each partition through the following steps:
+This example fetches partitions of a SQL query of the `Singers` table and executes the query over each partition through the following steps:
 
   - Creating a Spanner client and a batch.
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
@@ -1492,7 +1492,7 @@ This example fetches partitions of a SQL query of the `  Singers  ` table and ex
 
 ### Python
 
-This example fetches partitions of a SQL query of the `  Singers  ` table and executes the query over each partition through the following steps:
+This example fetches partitions of a SQL query of the `Singers` table and executes the query over each partition through the following steps:
 
   - Creating a Spanner client and a batch transaction.
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
@@ -1552,7 +1552,7 @@ This example fetches partitions of a SQL query of the `  Singers  ` table and ex
 
 ### Ruby
 
-This example fetches partitions of a SQL query of the `  Singers  ` table and executes the query over each partition through the following steps:
+This example fetches partitions of a SQL query of the `Singers` table and executes the query over each partition through the following steps:
 
   - Creating a Spanner batch client.
   - Creating partitions for the query, so that the partitions can be distributed to multiple workers.

@@ -6,179 +6,179 @@ This page summarizes the Spanner CLI supported commands.
 
 **Description**
 
-`  SHOW DATABASES;  `
+`SHOW DATABASES;`
 
 List databases.
 
-`  USE database_name  ` \[ROLE `  role_name  ` \];
+` USE database_name  ` \[ROLE `  role_name  ` \];
 
 Switch database. The role you set is used for [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
 
-`  CREATE DATABASE database_name  ` ;
+` CREATE DATABASE database_name  ` ;
 
 Create database.
 
-`  DROP DATABASE database_name  ` ;
+` DROP DATABASE database_name  ` ;
 
 Delete database.
 
-`  SHOW TABLES [ schema  ` \];
+` SHOW TABLES [ schema  ` \];
 
 List tables. If you don't provide a schema, Spanner uses the default schema.
 
-`  SHOW CREATE TABLE table_name  ` ;
+` SHOW CREATE TABLE table_name  ` ;
 
 Show table schema.
 
-`  SHOW COLUMNS FROM table_name  ` ;
+` SHOW COLUMNS FROM table_name  ` ;
 
 Show columns.
 
-`  SHOW INDEX FROM table_name  ` ;
+` SHOW INDEX FROM table_name  ` ;
 
 Show indexes.
 
-`  CREATE TABLE ...;  `
+`CREATE TABLE ...;`
 
 Create table.
 
-`  ALTER TABLE ...;  `
+`ALTER TABLE ...;`
 
 Change table schema.
 
-`  DROP TABLE ...;  `
+`DROP TABLE ...;`
 
 Delete table.
 
-`  TRUNCATE TABLE table_name  ` ;
+` TRUNCATE TABLE table_name  ` ;
 
 Truncate table. Only delete rows. This command is non-atomic because it's executed as a [partitioned DML statement](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
 
-`  CREATE INDEX ...;  `
+`CREATE INDEX ...;`
 
 Create index.
 
-`  DROP INDEX ...;  `
+`DROP INDEX ...;`
 
 Delete index.
 
-`  CREATE ROLE ...;  `
+`CREATE ROLE ...;`
 
 Create role. For more information, see Spanner [IAM overview](https://docs.cloud.google.com/spanner/docs/iam) .
 
-`  DROP ROLE ...;  `
+`DROP ROLE ...;`
 
 Delete role.
 
-`  GRANT ...;  `
+`GRANT ...;`
 
 Grant permission to a role.
 
-`  REVOKE ...;  `
+`REVOKE ...;`
 
 Revoke permission from a role.
 
-`  SELECT ...;  `
+`SELECT ...;`
 
 Run a query.
 
-`  { INSERT|UPDATE|DELETE } ...;  `
+`{ INSERT|UPDATE|DELETE } ...;`
 
 Execute a DML statement.
 
-`  PARTITIONED { UPDATE|DELETE } ...;  `
+`PARTITIONED { UPDATE|DELETE } ...;`
 
 Execute a partitioned DML statement. This command is non-atomic.
 
-`  EXPLAIN SELECT ...;  `
+`EXPLAIN SELECT ...;`
 
 Show a query execution plan. For more information, see [Query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) .
 
-`  EXPLAIN {INSERT|UPDATE|DELETE} ...;  `
+`EXPLAIN {INSERT|UPDATE|DELETE} ...;`
 
 Show the DML execution plan.
 
-`  EXPLAIN ANALYZE SELECT ...;  `
+`EXPLAIN ANALYZE SELECT ...;`
 
 Show query execution plan with optimizer statistics. For more information, see [Optimizer statistics packages](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) .
 
-`  EXPLAIN ANALYZE {INSERT|UPDATE|DELETE} ...;  `
+`EXPLAIN ANALYZE {INSERT|UPDATE|DELETE} ...;`
 
 Show the DML execution plan with optimizer statistics. For more information, see [Optimizer statistics packages](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) .
 
-`  DESCRIBE SELECT ...;  `
+`DESCRIBE SELECT ...;`
 
 Show query result shape.
 
-`  DESCRIBE {INSERT|UPDATE|DELETE} ... THEN RETURN ...;  `
+`DESCRIBE {INSERT|UPDATE|DELETE} ... THEN RETURN ...;`
 
 Show DML result shape.
 
-`  ANALYZE;  `
+`ANALYZE;`
 
 Start a new query optimizer statistics package construction.
 
-`  START BATCH DDL;  `
+`START BATCH DDL;`
 
 Start a DDL batch.
 
-`  RUN BATCH;  `
+`RUN BATCH;`
 
 Run batch commands.
 
-`  ABORT BATCH;  `
+`ABORT BATCH;`
 
 Abort batch commands.
 
-`  BEGIN [RW] [ISOLATION LEVEL {SERIALIZABLE|REPEATABLE READ}] [PRIORITY {HIGH|MEDIUM|LOW}] [TAG tag_name  ` \];
+` BEGIN [RW] [ISOLATION LEVEL {SERIALIZABLE|REPEATABLE READ}] [PRIORITY {HIGH|MEDIUM|LOW}] [TAG tag_name  ` \];
 
 Start a read-write transaction. For more information, see [Transaction commands](https://docs.cloud.google.com/spanner/docs/spanner-cli-commands#transaction-commands) .
 
-`  COMMIT;  `
+`COMMIT;`
 
 Commit a read-write transaction.
 
-`  ROLLBACK;  `
+`ROLLBACK;`
 
 Rollback (undo) a read-write transaction.
 
-`  BEGIN RO [{ seconds  ` | `  RFC 3339-formatted_time  ` }\] \[PRIORITY {HIGH|MEDIUM|LOW}\] \[TAG `  tag_name  ` \];
+` BEGIN RO [{ seconds  ` | `  RFC 3339-formatted_time  ` }\] \[PRIORITY {HIGH|MEDIUM|LOW}\] \[TAG `  tag_name  ` \];
 
 Start a read-only transaction. seconds and RFC 3339-formatted\_time are used for stale reads. For more information, see [Transaction commands](https://docs.cloud.google.com/spanner/docs/spanner-cli-commands#transaction-commands) .
 
-`  CLOSE;  `
+`CLOSE;`
 
 End a read-only transaction.
 
-`  EXIT;  `
+`EXIT;`
 
 Exit Spanner CLI.
 
-### `     BATCH    ` commands
+### `BATCH` commands
 
-The Spanner CLI lets you perform DDL operations in batch mode, which groups multiple DDL statements into a single operation and speeds up schema changes. The Spanner CLI supports the following `  BATCH  ` commands:
+The Spanner CLI lets you perform DDL operations in batch mode, which groups multiple DDL statements into a single operation and speeds up schema changes. The Spanner CLI supports the following `BATCH` commands:
 
-**`  START BATCH DDL;  `**
+**`START BATCH DDL;`**
 
-This command initiates a DDL batch. All subsequent DDL statements (for example, `  CREATE TABLE  ` , `  ALTER TABLE  ` , `  DROP INDEX  ` ) that you execute within this session remain in a pending state and aren't applied to the database immediately.
+This command initiates a DDL batch. All subsequent DDL statements (for example, `CREATE TABLE` , `ALTER TABLE` , `DROP INDEX` ) that you execute within this session remain in a pending state and aren't applied to the database immediately.
 
-**`  RUN BATCH;  `**
+**`RUN BATCH;`**
 
-After executing `  START BATCH DDL  ` and subsequent DDL statements, use the `  RUN BATCH  ` command to send all the pending DDL operations as a single request to Spanner. This command reduces the overhead associated with individual DDL statements, leading to faster schema modifications.
+After executing `START BATCH DDL` and subsequent DDL statements, use the `RUN BATCH` command to send all the pending DDL operations as a single request to Spanner. This command reduces the overhead associated with individual DDL statements, leading to faster schema modifications.
 
-**`  ABORT BATCH;  `**
+**`ABORT BATCH;`**
 
-If you decide not to apply the pending DDL changes, use the `  ABORT BATCH  ` command. This command discards all DDL statements collected since you issued the `  START BATCH DDL  ` command, effectively rolling back the batch and leaving the database schema unchanged.
+If you decide not to apply the pending DDL changes, use the `ABORT BATCH` command. This command discards all DDL statements collected since you issued the `START BATCH DDL` command, effectively rolling back the batch and leaving the database schema unchanged.
 
 ### Transaction commands
 
 The Spanner CLI supports the following transaction SQL commands:
 
-**`  BEGIN [TRANSACTION] [RO] [ seconds | RFC 3339-formatted_time ] [ISOLATION LEVEL {SERIALIZABLE|REPEATABLE READ}] [PRIORITY {HIGH|MEDIUM|LOW}] [TAG tag_name ];  `**
+**`BEGIN [TRANSACTION] [RO] [ seconds | RFC 3339-formatted_time ] [ISOLATION LEVEL {SERIALIZABLE|REPEATABLE READ}] [PRIORITY {HIGH|MEDIUM|LOW}] [TAG tag_name ];`**
 
 Start a transaction. You can configure these options:
 
-  - Transaction type: Start a read-write (no parameter needed) or read-only ( `  RO  ` ) transaction.
+  - Transaction type: Start a read-write (no parameter needed) or read-only ( `RO` ) transaction.
 
   - Stale reads time: Set the time, in seconds or RFC 3339-formatted, to read data from a specific timestamp.
 
@@ -186,20 +186,20 @@ Start a transaction. You can configure these options:
 
   - Priority: Set the request priority for the transaction. Medium priority is set by default.
 
-  - Tag: Set transaction tags using the `  BEGIN  ` command.
+  - Tag: Set transaction tags using the `BEGIN` command.
     
-      - In a read-write transaction, add a tag with `  BEGIN TAG tag  ` . The Spanner CLI adds the tag as a transaction tag. The tag is also used as a request tag within the transaction.
-      - In a read-only transaction, add a tag with `  BEGIN RO TAG tag  ` . Because read-only transactions don't support transaction tags, Spanner adds the tag as a request tag.
+      - In a read-write transaction, add a tag with ` BEGIN TAG tag  ` . The Spanner CLI adds the tag as a transaction tag. The tag is also used as a request tag within the transaction.
+      - In a read-only transaction, add a tag with ` BEGIN RO TAG tag  ` . Because read-only transactions don't support transaction tags, Spanner adds the tag as a request tag.
 
-**`  COMMIT;  `**
+**`COMMIT;`**
 
 Finalize and make permanent all changes in a read-write transaction.
 
-**`  CLOSE;  `**
+**`CLOSE;`**
 
 Close a read-only transaction.
 
-**`  ROLLBACK;  `**
+**`ROLLBACK;`**
 
 Rollback (undo) a read-write transaction.
 

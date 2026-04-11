@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** The `  JSON  ` data type is not supported in PostgreSQL-dialect databases. Use the [`  JSONB  ` data type](https://docs.cloud.google.com/spanner/docs/working-with-jsonb) for PostgreSQL-dialect databases.
+**PostgreSQL interface note:** The `JSON` data type is not supported in PostgreSQL-dialect databases. Use the [`JSONB` data type](https://docs.cloud.google.com/spanner/docs/working-with-jsonb) for PostgreSQL-dialect databases.
 
 This page describes how to work with JSON using Spanner.
 
@@ -22,15 +22,15 @@ Spanner JSON type stores a normalized representation of the input JSON document.
           - Signed integers in the range of \[INT64\_MIN, INT64\_MAX\] are preserved.
           - Unsigned integers in the range of \[0, UINT64\_MAX\] are preserved.
           - Double values that can be roundtripped from string to double to string without decimal precision loss are preserved. If a double value cannot round trip in this manner, the transaction or query fails.
-              - For example, `  SELECT JSON '2.2412421353246235436'  ` fails.
-              - A functional workaround is `  PARSE_JSON('2.2412421353246235436', wide_number_mode=>'round')  ` , which returns `  JSON '2.2412421353246237'  ` .
-  - Use the [`  TO_JSON()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) , [`  JSON_OBJECT()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object) , and the [`  JSON_ARRAY()  `](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array) functions to construct JSON documents in SQL. These functions implement the necessary quoting and escaping characters.
+              - For example, `SELECT JSON '2.2412421353246235436'` fails.
+              - A functional workaround is `PARSE_JSON('2.2412421353246235436', wide_number_mode=>'round')` , which returns `JSON '2.2412421353246237'` .
+  - Use the [`TO_JSON()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) , [`JSON_OBJECT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_object) , and the [`JSON_ARRAY()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_array) functions to construct JSON documents in SQL. These functions implement the necessary quoting and escaping characters.
 
 The maximum permitted size of the normalized document is 10 MB.
 
 ### Nullability
 
-JSON `  null  ` values are treated as SQL non-NULL.
+JSON `null` values are treated as SQL non-NULL.
 
 For example:
 
@@ -63,7 +63,7 @@ A JSON column can also be added to and dropped from existing tables.
     ALTER TABLE Venues ADD COLUMN VenueDetails JSON;
     ALTER TABLE Venues DROP COLUMN VenueDetails;
 
-The following sample shows how to add a `  JSON  ` column called `  VenueDetails  ` to the `  Venues  ` table using the gcloud CLI and Spanner client libraries.
+The following sample shows how to add a `JSON` column called `VenueDetails` to the `Venues` table using the gcloud CLI and Spanner client libraries.
 
 ### gcloud
 
@@ -322,7 +322,7 @@ The following sample shows how to add a `  JSON  ` column called `  VenueDetails
 
 ## Modify JSON data
 
-The following sample shows how to update `  JSON  ` data using the gcloud CLI and Spanner client libraries.
+The following sample shows how to update `JSON` data using the gcloud CLI and Spanner client libraries.
 
 ### gcloud
 
@@ -836,7 +836,7 @@ You can accelerate querying JSON data by using [secondary indexes](https://docs.
 
 Secondary indexes are useful when filtering against scalar values within a JSON document. To use secondary indexes with JSON, create a [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) that extracts the relevant scalar data and [convert](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#categories) the data to an appropriate SQL type. You can then create a secondary index over this generated column. The index accelerates eligible queries that run against the generated column.
 
-In the following example, you create a `  VenuesByCapacity  ` index that the database uses to find the venues with capacities greater than 1000. Instead of checking every row, Spanner uses the index to locate the relevant rows, which improves query performance, especially for large tables.
+In the following example, you create a `VenuesByCapacity` index that the database uses to find the venues with capacities greater than 1000. Instead of checking every row, Spanner uses the index to locate the relevant rows, which improves query performance, especially for large tables.
 
     ALTER TABLE Venues
     ADD COLUMN VenueCapacity INT64 AS (INT64(VenueDetails.capacity));
@@ -853,7 +853,7 @@ In the following example, you create a `  VenuesByCapacity  ` index that the dat
 
 Search indexes are useful when you query against JSON documents that are dynamic or varied. Unlike secondary indexes, you can [create search indexes](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-search-index) over any JSON document stored in a JSON column. The search index automatically adapts to variations across JSON documents, between different rows, and over time.
 
-In the following example, you create a `  VenuesByVenueDetails  ` search index that the database uses to find the venues with specific details such as size and operating schedule. Instead of checking every row, Spanner uses the index to locate the relevant rows, which improves query performance, especially for large tables.
+In the following example, you create a `VenuesByVenueDetails` search index that the database uses to find the venues with specific details such as size and operating schedule. Instead of checking every row, Spanner uses the index to locate the relevant rows, which improves query performance, especially for large tables.
 
     ALTER TABLE Venues
     ADD COLUMN VenueDetails_Tokens TOKENLIST AS (TOKENIZE_JSON(VenueDetails)) HIDDEN;
@@ -869,7 +869,7 @@ For more information, see [JSON search indexes](https://docs.cloud.google.com/sp
 
 ## Query JSON data
 
-The following sample shows how to query `  JSON  ` data using the gcloud CLI and Spanner client libraries.
+The following sample shows how to query `JSON` data using the gcloud CLI and Spanner client libraries.
 
 ### gcloud
 
@@ -1255,7 +1255,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## Restrictions
 
-  - You can't use JSON columns in an `  ORDER BY  ` clause.
+  - You can't use JSON columns in an `ORDER BY` clause.
   - You can't use JSON type columns as primary keys or as keys in secondary indexes. For more information, see [Index JSON data](https://docs.cloud.google.com/spanner/docs/working-with-json#index) .
 
 ## What's next

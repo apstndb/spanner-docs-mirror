@@ -43,7 +43,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{parent=projects/*/instances/*/databases/*}/backupSchedules  `
+`POST https://spanner.googleapis.com/v1/{parent=projects/*/instances/*/databases/*}/backupSchedules`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -51,26 +51,26 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  parent  `
+`parent`
 
-`  string  `
+`string`
 
 Required. The name of the database that this backup schedule applies to.
 
-Authorization requires one or more of the following [IAM](https://cloud.google.com/iam/docs/) permissions on the specified resource `  parent  ` :
+Authorization requires one or more of the following [IAM](https://cloud.google.com/iam/docs/) permissions on the specified resource `parent` :
 
-  - `  spanner.backupSchedules.create  `
-  - `  spanner.databases.createBackup  `
+  - `spanner.backupSchedules.create`
+  - `spanner.databases.createBackup`
 
 ### Query parameters
 
 Parameters
 
-`  backupScheduleId  `
+`backupScheduleId`
 
-`  string  `
+`string`
 
-Required. The Id to use for the backup schedule. The `  backupScheduleId  ` appended to `  parent  ` forms the full backup schedule name of the form `  projects/<project>/instances/<instance>/databases/<database>/backupSchedules/<backupScheduleId>  ` .
+Required. The Id to use for the backup schedule. The `backupScheduleId` appended to `parent` forms the full backup schedule name of the form `projects/<project>/instances/<instance>/databases/<database>/backupSchedules/<backupScheduleId>` .
 
 ### Request body
 
@@ -84,7 +84,7 @@ If successful, the response body contains a newly created instance of `  BackupS
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

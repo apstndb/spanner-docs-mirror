@@ -8,7 +8,7 @@
 
 Gets the access control policy for an instance resource. Returns an empty policy if an instance exists but does not have a policy set.
 
-Authorization requires `  spanner.instances.getIamPolicy  ` on `  resource  ` .
+Authorization requires `spanner.instances.getIamPolicy` on `  resource  ` .
 
 ### HTTP request
 
@@ -45,7 +45,7 @@ us-west8
 us-east7
 
   
-`  POST https://spanner.googleapis.com/v1/{resource=projects/*/instances/*}:getIamPolicy  `
+`POST https://spanner.googleapis.com/v1/{resource=projects/*/instances/*}:getIamPolicy`
 
 The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
@@ -53,11 +53,11 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 Parameters
 
-`  resource  `
+`resource`
 
-`  string  `
+`string`
 
-REQUIRED: The Cloud Spanner resource for which the policy is being retrieved. The format is `  projects/<project ID>/instances/<instance ID>  ` for instance resources and `  projects/<project ID>/instances/<instance ID>/databases/<database ID>  ` for database resources.
+REQUIRED: The Cloud Spanner resource for which the policy is being retrieved. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources.
 
 ### Request body
 
@@ -74,22 +74,18 @@ The request body contains data with the following structure:
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;options&quot;: {
-    object (GetPolicyOptions)
-  }
-}</code></pre></td>
+<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;options&quot;: {object (GetPolicyOptions)}}</code></pre></td>
 </tr>
 </tbody>
 </table>
 
 Fields
 
-`  options  `
+`options`
 
-`  object ( GetPolicyOptions  ` )
+` object ( GetPolicyOptions  ` )
 
-OPTIONAL: A `  GetPolicyOptions  ` object for specifying options to `  instances.getIamPolicy  ` .
+OPTIONAL: A `GetPolicyOptions` object for specifying options to `instances.getIamPolicy` .
 
 ### Response body
 
@@ -99,7 +95,7 @@ If successful, the response body contains an instance of `  Policy  ` .
 
 Requires one of the following OAuth scopes:
 
-  - `  https://www.googleapis.com/auth/spanner.admin  `
-  - `  https://www.googleapis.com/auth/cloud-platform  `
+  - `https://www.googleapis.com/auth/spanner.admin`
+  - `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

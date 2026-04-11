@@ -16,7 +16,7 @@ Fine-grained access control users must then specify a database role to perform q
 
 ## Before you begin
 
-Ensure that each principal who is to be a fine-grained access control user is granted the `  Cloud Spanner Viewer  ` Identity and Access Management (IAM) role ( `  roles/spanner.viewer  ` ). This role is recommended at the project level for users who must interact with Spanner resources in the Google Cloud console.
+Ensure that each principal who is to be a fine-grained access control user is granted the `Cloud Spanner Viewer` Identity and Access Management (IAM) role ( `roles/spanner.viewer` ). This role is recommended at the project level for users who must interact with Spanner resources in the Google Cloud console.
 
 For instructions, see [Grant permissions to principals](https://docs.cloud.google.com/spanner/docs/grant-permissions#grant_permissions_to_principals) .
 
@@ -48,11 +48,11 @@ To create a database role and grant fine-grained access privileges to it, follow
         
         Don't click **Submit** yet.
     
-    2.  To grant privileges to the role, enter a `  GRANT  ` statement on the next line after the `  CREATE ROLE  ` statement.
+    2.  To grant privileges to the role, enter a `GRANT` statement on the next line after the `CREATE ROLE` statement.
         
-        For syntax details for the `  GRANT  ` statement, see [GoogleSQL data definition language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#grant_statement) . For information about privileges, see [Fine-grained access control privileges](https://docs.cloud.google.com/spanner/docs/fgac-privileges) .
+        For syntax details for the `GRANT` statement, see [GoogleSQL data definition language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#grant_statement) . For information about privileges, see [Fine-grained access control privileges](https://docs.cloud.google.com/spanner/docs/fgac-privileges) .
         
-        For example, to grant `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` on tables `  employees  ` and `  contractors  ` to the database role `  hr_manager  ` , enter the following statement:
+        For example, to grant `SELECT` , `INSERT` , and `UPDATE` on tables `employees` and `contractors` to the database role `hr_manager` , enter the following statement:
         
         ### GoogleSQL
         
@@ -62,9 +62,9 @@ To create a database role and grant fine-grained access privileges to it, follow
         
             GRANT SELECT, INSERT, UPDATE ON TABLE employees, contractors TO hr_manager;
         
-        **Note:** Use the same case for schema object names that you used when you created the objects. For example, if you created a table named `  Customers  ` , you must use the name `  Customers  ` (with a capital C) in the `  GRANT  ` statement.
+        **Note:** Use the same case for schema object names that you used when you created the objects. For example, if you created a table named `Customers` , you must use the name `Customers` (with a capital C) in the `GRANT` statement.
         
-        You can use a DDL template for the `  GRANT  ` statement. In the **Explorer** pane, navigate to the role for which you want to grant privileges. Click more\_vert **View actions** and select the type of privilege you want to grant access to for this role. The `  GRANT  ` template statement populates in a new editor tab.
+        You can use a DDL template for the `GRANT` statement. In the **Explorer** pane, navigate to the role for which you want to grant privileges. Click more\_vert **View actions** and select the type of privilege you want to grant access to for this role. The `GRANT` template statement populates in a new editor tab.
 
 6.  Click **Submit** .
     
@@ -72,9 +72,9 @@ To create a database role and grant fine-grained access privileges to it, follow
 
 ### gcloud
 
-To create a database role and grant fine-grained access privileges to it, use the [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command with `  CREATE ROLE  ` and `  GRANT  ` statements.
+To create a database role and grant fine-grained access privileges to it, use the [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command with `CREATE ROLE` and `GRANT` statements.
 
-For syntax details on the `  CREATE ROLE  ` and `  GRANT  ` statements, see [GoogleSQL data definition language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) .
+For syntax details on the `CREATE ROLE` and `GRANT` statements, see [GoogleSQL data definition language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) .
 
 For example, use the following command to create a database role and grant privileges to it on one or more tables.
 
@@ -94,7 +94,7 @@ Replace the following:
 
   - `  TABLES  ` is a comma-delimited list of tables.
 
-For example, to grant `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` on the `  employees  ` and `  contractors  ` tables to the database role `  hr_analyst  ` in the database `  hrdb1  ` in the instance `  hr  ` , enter the following statement:
+For example, to grant `SELECT` , `INSERT` , and `UPDATE` on the `employees` and `contractors` tables to the database role `hr_analyst` in the database `hrdb1` in the instance `hr` , enter the following statement:
 
 ### GoogleSQL
 
@@ -106,7 +106,7 @@ For example, to grant `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` on the `  e
     gcloud spanner databases ddl update hrdb1 --instance=hr \
     --ddl='CREATE ROLE hr_analyst; GRANT SELECT, INSERT, UPDATE ON TABLE employees, contractors TO hr_analyst;'
 
-**Note:** Use the same case for schema object names that you used when you created the objects. For example, if you created a table named `  Customers  ` , you must use the name `  Customers  ` (with capital C) in the `  GRANT  ` statement.
+**Note:** Use the same case for schema object names that you used when you created the objects. For example, if you created a table named `Customers` , you must use the name `Customers` (with capital C) in the `GRANT` statement.
 
 ### Client libraries
 
@@ -567,7 +567,7 @@ To access Spanner resources, a principal must be granted the necessary database 
         
         Replace `  ROLE  ` with your role name.
         
-        To grant more than one role to the principal, add more conditions with the **or** ( `  ||  ` ) operator, as shown in the following example:
+        To grant more than one role to the principal, add more conditions with the **or** ( `||` ) operator, as shown in the following example:
         
             resource.type == "spanner.googleapis.com/DatabaseRole" &&
             (resource.name.endsWith("/ROLE1") || resource.name.endsWith("/ROLE2"))
@@ -600,7 +600,7 @@ To access Spanner resources, a principal must be granted the necessary database 
 
 ### gcloud
 
-1.  Enable fine-grained access control for the principal by using the [`  gcloud spanner databases add-iam-policy-binding  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/add-iam-policy-binding) command as follows:
+1.  Enable fine-grained access control for the principal by using the [`gcloud spanner databases add-iam-policy-binding`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/add-iam-policy-binding) command as follows:
     
         gcloud spanner databases add-iam-policy-binding DATABASE_NAME \
         --instance=INSTANCE_NAME \
@@ -608,13 +608,13 @@ To access Spanner resources, a principal must be granted the necessary database 
         --member=MEMBER_NAME \
         --condition=None
     
-      - `  MEMBER_NAME  ` is the identifier for the principal. It must use one of the following syntaxes: `  user|group|serviceAccount: email  ` or `  domain: domain  ` .
+      - `  MEMBER_NAME  ` is the identifier for the principal. It must use one of the following syntaxes: ` user|group|serviceAccount: email  ` or ` domain: domain  ` .
     
       - This command makes the principal a fine-grained access control user. Submit this command only once for each principal.
     
       - If successful, the command outputs the entire policy for the database.
 
-2.  Grant permission to use one or more database roles by using the [`  gcloud spanner databases add-iam-policy-binding  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/add-iam-policy-binding) command as follows:
+2.  Grant permission to use one or more database roles by using the [`gcloud spanner databases add-iam-policy-binding`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/add-iam-policy-binding) command as follows:
     
         gcloud spanner databases add-iam-policy-binding DATABASE_NAME \
         --instance=INSTANCE_NAME \
@@ -622,7 +622,7 @@ To access Spanner resources, a principal must be granted the necessary database 
         --member=MEMBER_NAME \
         --condition=CONDITION
     
-      - `  MEMBER_NAME  ` is the identifier for the principal. It must use one of the following syntaxes: `  user|group|serviceAccount: email  ` or `  domain: domain  ` .
+      - `  MEMBER_NAME  ` is the identifier for the principal. It must use one of the following syntaxes: ` user|group|serviceAccount: email  ` or ` domain: domain  ` .
     
       - `  CONDITION  ` is an IAM condition expression that specifies the roles to grant to the principal.
         
@@ -630,11 +630,11 @@ To access Spanner resources, a principal must be granted the necessary database 
         
             --condition='expression=(resource.type == "spanner.googleapis.com/DatabaseRole" && resource.name.endsWith("/ROLE1")),title=TITLE,description=DESCRIPTION'
         
-        Or, to grant access to the principal to more than one role, add more conditions with the **or** ( `  ||  ` ) operator, as shown in the following example:
+        Or, to grant access to the principal to more than one role, add more conditions with the **or** ( `||` ) operator, as shown in the following example:
         
             --condition='expression=(resource.type == "spanner.googleapis.com/DatabaseRole" && (resource.name.endsWith("/ROLE1") || resource.name.endsWith("/ROLE2"))),title=TITLE,description=DESCRIPTION'
         
-        This code grants two roles. Replace `  ROLE1  ` and `  ROLE2  ` with your role names. To grant more than two roles, add more **or** conditions with the `  ||  ` operator.
+        This code grants two roles. Replace `  ROLE1  ` and `  ROLE2  ` with your role names. To grant more than two roles, add more **or** conditions with the `||` operator.
         
         You can use any condition expression that's supported by IAM. For more information, see [Overview of IAM conditions](https://cloud.google.com/iam/docs/conditions-overview) .
     
@@ -642,7 +642,7 @@ To access Spanner resources, a principal must be granted the necessary database 
     
     If successful, the command outputs the entire policy for the database.
     
-    The following example grants the database roles `  hr_rep  ` and `  hr_manager  ` to the principal `  jsmith@example.com  ` .
+    The following example grants the database roles `hr_rep` and `hr_manager` to the principal `jsmith@example.com` .
     
         gcloud spanner databases add-iam-policy-binding myDatabase \
           --instance=myInstance \
@@ -1030,8 +1030,7 @@ To access Spanner resources, a principal must be granted the necessary database 
        >     -setPolicy($policy);
         $adminC>lient-setIamPolicy($setIamPolicyRequest);
     
-        printf('Enabled fine-grained access in IAM' . PHP_EOL);
-    }
+        printf('Enabled fine-grained access in IAM' . PHP_EOL);}
 
 **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
@@ -1143,7 +1142,7 @@ To transition a principal from database-level access control to fine-grained acc
 
 3.  Revoke all IAM database-level roles from the principal. This way, access for the principal is governed by only one method.
     
-    Exception: To interact with Spanner resources in the Google Cloud console, all users must have the `  roles/spanner.viewer  ` IAM role.
+    Exception: To interact with Spanner resources in the Google Cloud console, all users must have the `roles/spanner.viewer` IAM role.
     
     To revoke IAM database-level roles, follow the instructions in [Remove database-level permissions](https://docs.cloud.google.com/spanner/docs/grant-permissions#remove-iam-db-role) .
 
@@ -1169,7 +1168,7 @@ The response includes the current role and roles whose privileges the current ro
 
 ### gcloud
 
-To obtain an unfiltered list of database roles, enter the following command. It requires the `  spanner.databaseRoles.list  ` permission.
+To obtain an unfiltered list of database roles, enter the following command. It requires the `spanner.databaseRoles.list` permission.
 
     gcloud spanner databases roles list --database=DATABASE_NAME --instance=INSTANCE_NAME
 
@@ -1422,9 +1421,9 @@ To view the privileges granted to a role, run the following queries:
     SELECT * FROM INFORMATION_SCHEMA.COLUMN_PRIVILEGES WHERE grantee = 'ROLE_NAME';
     SELECT * FROM INFORMATION_SCHEMA.CHANGE_STREAM_PRIVILEGES WHERE grantee = 'ROLE_NAME';
 
-`  INFORMATION_SCHEMA.TABLE_PRIVILEGES  ` returns privileges on both tables and views. The `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` privileges in `  TABLE_PRIVILEGES  ` are also shown in `  COLUMN_PRIVILEGES  ` .
+`INFORMATION_SCHEMA.TABLE_PRIVILEGES` returns privileges on both tables and views. The `SELECT` , `INSERT` , and `UPDATE` privileges in `TABLE_PRIVILEGES` are also shown in `COLUMN_PRIVILEGES` .
 
-**Note:** If all privileges on a table are restricted to a subset of columns, then the table isn't included in the result set of the `  TABLE_PRIVILEGES  ` query.
+**Note:** If all privileges on a table are restricted to a subset of columns, then the table isn't included in the result set of the `TABLE_PRIVILEGES` query.
 
 ### PostgreSQL
 
@@ -1432,13 +1431,13 @@ To view the privileges granted to a role, run the following queries:
     SELECT * FROM information_schema.column_privileges WHERE grantee = 'ROLE_NAME';
     SELECT * FROM information_schema.change_stream_privileges WHERE grantee = 'ROLE_NAME';
 
-`  information_schema.table_privileges  ` returns privileges on both tables and views. The `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` privileges in `  table_privileges  ` are also shown in `  column_privileges  ` .
+`information_schema.table_privileges` returns privileges on both tables and views. The `SELECT` , `INSERT` , and `UPDATE` privileges in `table_privileges` are also shown in `column_privileges` .
 
-**Note:** If all privileges on a table are restricted to a subset of columns, then the table is not included in the result set of the `  table_privileges  ` query.
+**Note:** If all privileges on a table are restricted to a subset of columns, then the table is not included in the result set of the `table_privileges` query.
 
 ## View fine-grained access control users
 
-To view a list of principals that are fine-grained access control users, run the following command. To run the command, you must have the Cloud Asset API enabled on your project, and you must have the [`  cloudasset.assets.searchAllIamPolicies  `](https://docs.cloud.google.com/asset-inventory/docs/access-control#required_permissions) IAM permission.
+To view a list of principals that are fine-grained access control users, run the following command. To run the command, you must have the Cloud Asset API enabled on your project, and you must have the [`cloudasset.assets.searchAllIamPolicies`](https://docs.cloud.google.com/asset-inventory/docs/access-control#required_permissions) IAM permission.
 
     gcloud asset search-all-iam-policies \
     --scope=projects/PROJECT_NAME \
@@ -1458,7 +1457,7 @@ For more information, see [Enabling an API in your Google Cloud project](https:/
 
 ## View principals with database access
 
-To view a list of principals who have been granted access to a particular database, run the following commands. To run these commands, you must have the Cloud Asset API enabled on your project, and you must have the [`  cloudasset.assets.searchAllIamPolicies  `](https://docs.cloud.google.com/asset-inventory/docs/access-control#required_permissions) IAM permission.
+To view a list of principals who have been granted access to a particular database, run the following commands. To run these commands, you must have the Cloud Asset API enabled on your project, and you must have the [`cloudasset.assets.searchAllIamPolicies`](https://docs.cloud.google.com/asset-inventory/docs/access-control#required_permissions) IAM permission.
 
     gcloud asset search-all-iam-policies \
     --scope=projects/PROJECT_NAME \
@@ -1534,25 +1533,25 @@ To drop a database role, follow these steps:
 
 1.  On the database **Overview** page, click **Spanner Studio** .
 
-2.  To revoke privileges from the role, enter a `  REVOKE  ` statement.
+2.  To revoke privileges from the role, enter a `REVOKE` statement.
     
     ### GoogleSQL
     
-    For syntax details for the `  REVOKE  ` statement, see [GoogleSQL data definition language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#revoke_statement) . For information about privileges, see [Fine-grained access control privileges](https://docs.cloud.google.com/spanner/docs/fgac-privileges) .
+    For syntax details for the `REVOKE` statement, see [GoogleSQL data definition language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#revoke_statement) . For information about privileges, see [Fine-grained access control privileges](https://docs.cloud.google.com/spanner/docs/fgac-privileges) .
     
-    For example, to revoke `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` permissions on tables `  employees  ` and `  contractors  ` from the database role `  hr_manager  ` , enter the following statement:
+    For example, to revoke `SELECT` , `INSERT` , and `UPDATE` permissions on tables `employees` and `contractors` from the database role `hr_manager` , enter the following statement:
     
         REVOKE SELECT, INSERT, UPDATE ON TABLE employees, contractors FROM ROLE hr_manager;
     
     ### PostgreSQL
     
-    For syntax details for the `  REVOKE  ` statement, see [PostgreSQL data definition language](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#revoke_statement) . For information about privileges, see [Fine-grained access control privileges](https://docs.cloud.google.com/spanner/docs/fgac-privileges) .
+    For syntax details for the `REVOKE` statement, see [PostgreSQL data definition language](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#revoke_statement) . For information about privileges, see [Fine-grained access control privileges](https://docs.cloud.google.com/spanner/docs/fgac-privileges) .
     
-    For example, to revoke the `  SELECT  ` , `  INSERT  ` , and `  UPDATE  ` privileges on the `  employees  ` and `  contractors  ` tables from the database role `  hr_manager  ` , enter the following statement:
+    For example, to revoke the `SELECT` , `INSERT` , and `UPDATE` privileges on the `employees` and `contractors` tables from the database role `hr_manager` , enter the following statement:
     
         REVOKE SELECT, INSERT, UPDATE ON TABLE employees, contractors FROM hr_manager;
     
-    You can use a DDL template for the `  REVOKE  ` statement. In the **Explorer** pane, navigate to the role for which you want to revoke privilege. Click more\_vert **View actions** and select the type of privilege you want to revoke access for this role. The `  REVOKE  ` template statement populates in a new editor tab.
+    You can use a DDL template for the `REVOKE` statement. In the **Explorer** pane, navigate to the role for which you want to revoke privilege. Click more\_vert **View actions** and select the type of privilege you want to revoke access for this role. The `REVOKE` template statement populates in a new editor tab.
 
 3.  Delete any IAM conditions associated with the role.
     
@@ -1574,7 +1573,7 @@ To drop a database role, follow these steps:
 
 ### gcloud
 
-1.  To revoke all privileges for a role and then drop the role, use the [`  gcloud spanner databases ddl update  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command as follows:
+1.  To revoke all privileges for a role and then drop the role, use the [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command as follows:
     
     ### GoogleSQL
     
@@ -1588,9 +1587,9 @@ To drop a database role, follow these steps:
         --instance=INSTANCE_NAME \
         --ddl='REVOKE PERMISSIONS ON TABLE TABLE_NAME FROM ROLE_NAME; DROP ROLE ROLE_NAME;'
     
-    Valid values for `  PERMISSIONS  ` are `  SELECT  ` , `  INSERT  ` , `  UPDATE  ` , and `  DELETE  ` .
+    Valid values for `  PERMISSIONS  ` are `SELECT` , `INSERT` , `UPDATE` , and `DELETE` .
 
-2.  To delete any related IAM conditions, use the [`  gcloud spanner databases remove-iam-policy-binding  `](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/remove-iam-policy-binding) command as follows:
+2.  To delete any related IAM conditions, use the [`gcloud spanner databases remove-iam-policy-binding`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/remove-iam-policy-binding) command as follows:
     
         gcloud spanner databases remove-iam-policy-binding DATABASE_NAME \
         --instance=INSTANCE_NAME \
@@ -1598,7 +1597,7 @@ To drop a database role, follow these steps:
         --member=MEMBER_NAME \
         --condition=CONDITION
     
-      - `  MEMBER_NAME  ` is the identifier for the principal. It must be of the form `  user|group|serviceAccount: email  ` or `  domain: domain  ` .
+      - `  MEMBER_NAME  ` is the identifier for the principal. It must be of the form ` user|group|serviceAccount: email  ` or ` domain: domain  ` .
     
       - `  CONDITION  ` is an IAM condition expression that specifies the roles to grant to the principal.
         

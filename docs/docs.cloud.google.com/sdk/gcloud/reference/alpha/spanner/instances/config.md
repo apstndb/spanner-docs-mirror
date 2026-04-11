@@ -4,24 +4,24 @@ gcloud alpha spanner instances config - manage Spanner instance configurations
 
 SYNOPSIS
 
-`  gcloud alpha spanner instances config  ` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud alpha spanner instances config` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
-`  (ALPHA)  ` Manage Spanner instance configurations.
+`(ALPHA)` Manage Spanner instance configurations.
 
 GCLOUD WIDE FLAGS
 
 These flags are available to all commands: `  --help  ` .
 
-Run `  $ gcloud help  ` for details.
+Run ` $ gcloud help  ` for details.
 
 COMMANDS
 
 `  COMMAND  ` is one of the following:
 
   - `  export  `  
-    `  (ALPHA)  ` Export the configuration for a Spanner instance.
+    `(ALPHA)` Export the configuration for a Spanner instance.
 
 NOTES
 

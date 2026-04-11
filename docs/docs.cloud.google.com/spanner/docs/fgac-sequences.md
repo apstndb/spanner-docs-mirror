@@ -2,7 +2,7 @@ This page explains how [fine-grained access control](https://docs.cloud.google.c
 
 For fine-grained access control users, you can grant either one or both of the following privileges to allow access to read sequence information or generate values from the sequence.
 
-  - Grant `  SELECT  ` on the sequence to allow read access to the parameters and current state of the sequence.
+  - Grant `SELECT` on the sequence to allow read access to the parameters and current state of the sequence.
     
     ### GoogleSQL
     
@@ -12,7 +12,7 @@ For fine-grained access control users, you can grant either one or both of the f
     
         GRANT SELECT ON SEQUENCE SEQUENCE_NAME TO ROLE_NAME;
 
-  - Grant `  UPDATE  ` on the sequence to allow calls to the sequence value generator.
+  - Grant `UPDATE` on the sequence to allow calls to the sequence value generator.
     
     ### GoogleSQL
     
@@ -38,25 +38,25 @@ The following table contains details about which privileges you require when per
 </tr>
 <tr class="even">
 <td><p>GoogleSQL:</p>
-<p><code dir="ltr" translate="no">        GET_NEXT_SEQUENCE_VALUE()       </code></p>
+<p><code dir="ltr" translate="no">GET_NEXT_SEQUENCE_VALUE()</code></p>
 <p>PostgreSQL:</p>
-<p><code dir="ltr" translate="no">        nextval()       </code></p></td>
-<td>Requires an <code dir="ltr" translate="no">       UPDATE      </code> or <code dir="ltr" translate="no">       SELECT      </code> privilege on the sequence. Note that if you execute this function through generated columns or default values, you also need to have an <code dir="ltr" translate="no">       INSERT      </code> or <code dir="ltr" translate="no">       UPDATE      </code> privilege on the column. An <code dir="ltr" translate="no">       UPDATE      </code> privilege on a sequence doesn't automatically grant any privilege on the columns where you want to use the sequence.</td>
+<p><code dir="ltr" translate="no">nextval()</code></p></td>
+<td>Requires an <code dir="ltr" translate="no">UPDATE</code> or <code dir="ltr" translate="no">SELECT</code> privilege on the sequence. Note that if you execute this function through generated columns or default values, you also need to have an <code dir="ltr" translate="no">INSERT</code> or <code dir="ltr" translate="no">UPDATE</code> privilege on the column. An <code dir="ltr" translate="no">UPDATE</code> privilege on a sequence doesn't automatically grant any privilege on the columns where you want to use the sequence.</td>
 </tr>
 <tr class="odd">
 <td><p>GoogleSQL:</p>
-<p><code dir="ltr" translate="no">        GET_INTERNAL_SEQUENCE_STATE()       </code></p>
+<p><code dir="ltr" translate="no">GET_INTERNAL_SEQUENCE_STATE()</code></p>
 <p>PostgreSQL:</p>
-<p><code dir="ltr" translate="no">        spanner.get_internal_sequence_state()       </code></p></td>
-<td>Requires the <code dir="ltr" translate="no">       SELECT      </code> privilege on the sequence that you request.</td>
+<p><code dir="ltr" translate="no">spanner.get_internal_sequence_state()</code></p></td>
+<td>Requires the <code dir="ltr" translate="no">SELECT</code> privilege on the sequence that you request.</td>
 </tr>
 <tr class="even">
 <td><p>GoogleSQL:</p>
-<p><code dir="ltr" translate="no">        INFORMATION_SCHEMA.SEQUENCES       </code><br />
-<code dir="ltr" translate="no">        INFORMATION_SCHEMA.SEQUENCE_OPTIONS       </code></p>
+<p><code dir="ltr" translate="no">INFORMATION_SCHEMA.SEQUENCES</code><br />
+<code dir="ltr" translate="no">INFORMATION_SCHEMA.SEQUENCE_OPTIONS</code></p>
 <p>PostgreSQL</p>
-<p><code dir="ltr" translate="no">        INFORMATION_SCHEMA.SEQUENCES       </code></p></td>
-<td>You can have the <code dir="ltr" translate="no">       SELECT      </code> or <code dir="ltr" translate="no">       UPDATE      </code> privilege on the sequence you want to query. You can only see the sequences that you have a privilege to view.</td>
+<p><code dir="ltr" translate="no">INFORMATION_SCHEMA.SEQUENCES</code></p></td>
+<td>You can have the <code dir="ltr" translate="no">SELECT</code> or <code dir="ltr" translate="no">UPDATE</code> privilege on the sequence you want to query. You can only see the sequences that you have a privilege to view.</td>
 </tr>
 </tbody>
 </table>
@@ -64,6 +64,6 @@ The following table contains details about which privileges you require when per
 ## What's next
 
   - Learn more about using [sequences](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#bit-reversed-sequence) in Spanner.
-  - Learn about `  SEQUENCE  ` for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) .
+  - Learn about `SEQUENCE` for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) .
   - Learn about sequence functions in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#sequence) .
-  - Learn about sequences in the `  INFORMATION_SCHEMA  ` in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/information-schema#sequences) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/information-schema-pg#sequences) .
+  - Learn about sequences in the `INFORMATION_SCHEMA` in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/information-schema#sequences) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/information-schema-pg#sequences) .
