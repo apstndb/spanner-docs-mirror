@@ -13,8 +13,6 @@ To set your database's retention period:
 ### Console
 
 1.  Go to the Spanner Instances page in the Google Cloud console.
-    
-    [Go to the Spanner Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance containing the database to open its **Overview** page.
 
@@ -41,7 +39,7 @@ The following shows the output:
 
     ALTER DATABASE "example-db" SET "spanner.version_retention_period" = '7d';
 
-**Note:** Double quotes (") are required if the database name includes special characters like a hyphen (-).
+> **Note:** Double quotes (") are required if the database name includes special characters like a hyphen (-).
 
 To view the retention period, get your database's DDL:
 
@@ -237,7 +235,7 @@ The following shows the output:
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -296,7 +294,7 @@ The following shows the output:
       console.error('ERROR:', err);
     }
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -360,7 +358,7 @@ The following shows the output:
         ) . PHP_EOL);
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -412,7 +410,7 @@ The following shows the output:
             spanner_database_admin.DropDatabaseRequest(database=db.name)
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -481,8 +479,6 @@ The [Database](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/proj
 ### Console
 
 1.  Go to the Spanner Instances page in the Google Cloud console.
-    
-    [Go to the Spanner Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance containing the database to open its **Overview** page.
 
@@ -534,7 +530,7 @@ The following shows the output:
     
     ### gcloud
     
-    **Note:** The `gcloud spanner rows update` command doesn't isn't supported for the PostgreSQL interface for Spanner.
+    > **Note:** The `gcloud spanner rows update` command doesn't isn't supported for the PostgreSQL interface for Spanner.
     
         gcloud spanner rows update --instance=test-instance \
             --database=example-db --table=Singers \
@@ -559,8 +555,6 @@ You can recover the entire database using either [Backup and Restore](https://do
     ### Console
     
     1.  Go to the **Database details** page in the Cloud console.
-        
-        [Go to the Google Cloud console](https://console.cloud.google.com/spanner)
     
     2.  In the **Backup/Restore** tab, click **Create** .
     
@@ -777,7 +771,7 @@ You can recover the entire database using either [Backup and Restore](https://do
           );
         }
     
-    **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+    > **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
     
     ### Node.js
     
@@ -863,7 +857,7 @@ You can recover the entire database using either [Backup and Restore](https://do
           spanner.close();
         }
     
-    **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+    > **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
     
     ### PHP
     
@@ -927,7 +921,7 @@ You can recover the entire database using either [Backup and Restore](https://do
                 $info->getVersionTime()->getSeconds());
         }
     
-    **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+    > **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
     
     ### Python
     
@@ -968,7 +962,7 @@ You can recover the entire database using either [Backup and Restore](https://do
                 )
             )
 
-    **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+    > **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
     
     ### Ruby
     
@@ -1012,8 +1006,6 @@ You can recover the entire database using either [Backup and Restore](https://do
     ### Console
     
     1.  Go to the **Instance details** page in the Cloud console.
-        
-        [Go to the the Google Cloud console](https://console.cloud.google.com/spanner)
     
     2.  In the **Backup/Restore** tab, select a backup and click **Restore** .
     
@@ -1190,7 +1182,7 @@ You can recover the entire database using either [Backup and Restore](https://do
           }
         }
     
-    **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+    > **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
     
     ### Node.js
     
@@ -1245,7 +1237,7 @@ You can recover the entire database using either [Backup and Restore](https://do
             ).toISOString()}.`,
         );
     
-    **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+    > **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
     
     ### PHP
     
@@ -1295,7 +1287,7 @@ You can recover the entire database using either [Backup and Restore](https://do
             );
         }
     
-    **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+    > **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
     
     ### Python
     
@@ -1330,7 +1322,7 @@ You can recover the entire database using either [Backup and Restore](https://do
                 )
             )
 
-    **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+    > **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
     
     ### Ruby
     
@@ -1373,8 +1365,6 @@ You can recover the entire database using either [Backup and Restore](https://do
     ### Console
     
     1.  Go to the **Instance details** page in the Cloud console.
-        
-        [Go to the Google Cloud console](https://console.cloud.google.com/spanner)
     
     2.  In the **Import/Export** tab, click **Export** .
     
@@ -1409,8 +1399,6 @@ You can recover the entire database using either [Backup and Restore](https://do
     ### Console
     
     1.  Go to the **Instance details** page in the Cloud console.
-        
-        [Go to the Google Cloud console](https://console.cloud.google.com/spanner)
     
     2.  In the **Import/Export** tab, click **Import** .
     

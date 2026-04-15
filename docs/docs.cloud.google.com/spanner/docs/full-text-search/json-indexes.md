@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 In addition to indexing text, the Spanner [search index](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) provides an efficient way to index and query JSON and JSONB documents. Use search indexes for standalone JSON and JSONB queries, or to augment other [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) queries.
 

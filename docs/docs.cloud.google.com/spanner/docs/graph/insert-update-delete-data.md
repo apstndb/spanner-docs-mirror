@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document shows you how to manage data in a graph by inserting, updating, and deleting nodes and edges. Spanner Graph maps data from tables to graph nodes and edges. To mutate data in a graph, you must mutate data in the corresponding input tables. You can use the Google Cloud console, the Google Cloud CLI, or Spanner client libraries to manage graph data.
 

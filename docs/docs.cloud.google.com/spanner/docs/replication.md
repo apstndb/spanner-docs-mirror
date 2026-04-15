@@ -103,7 +103,7 @@ This section describes the role of replicas in Spanner writes and reads, which i
 
 ### In writes
 
-**Note:** In Spanner, deletes are a type of write.
+> **Note:** In Spanner, deletes are a type of write.
 
 Client write requests are always processed at the leader replica first, even if there is a non-leader replica that's closer to the client, or if the leader replica is geographically distant from the client. If you use a dual-region or multi-region instance configuration and your client application is located in a non-leader region, Spanner uses leader-aware routing to route read-write transactions dynamically to reduce latency in your database. For more information, see [Leader-aware routing](https://docs.cloud.google.com/spanner/docs/leader-aware-routing) .
 
@@ -121,26 +121,24 @@ Client read requests might be executed at or require communicating with the lead
     
       - Stale read requests go to the closest available read-only or read-write replica that's caught up to the timestamp of the request. This can be the leader replica if the leader is the closest replica to the client that issued the read request.
 
-### Aside: Why read-only and witness replicas?
-
-[Base multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) use a combination of read-write, read-only, and witness replicas, whereas [base dual-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual-region) use read-write and witness replicas, and [base regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) use only read-write replicas. The reasons for this difference have to do with the varying roles of replicas in writes and reads. For writes, Spanner needs a majority of voting replicas to agree on a commit in order to commit a mutation. In other words, every write to a Spanner database requires communication between voting replicas. To minimize the latency of this communication, it is desirable to use the fewest number of voting replicas, and to place these replicas as close together as possible. That's why base regional configurations contain exactly three read-write replicas, each of which is in its own availability zone, contains a full copy of your data, and is able to vote. If one replica fails, the other two can still form a write quorum, and because replicas in this configuration are in the same geographic region, network latencies are minimal.
-
-Base dual-region and multi-region configurations contain more replicas by design, and these replicas are in different data centers (so that clients can read their data quickly from more locations). What characteristics should these additional replicas have? They could all be read-write replicas, but that would be undesirable because adding more read-write replicas to a configuration increases the size of the write quorum (which means potentially higher network latencies due to more replicas communicating with each other, especially if the replicas are in geographically distributed locations) and also increases the amount of storage needed (because read-write replicas contain a full copy of data). Instead of using more read-write replicas, base dual-region configuration contain an additional witness replica, and base multi-region configurations contain read-only replicas and witness replicas, which have fewer responsibilities than read-write replicas.
-
-  - Read-only replicas don't vote for leaders or for committing writes, so they allow you to scale your read capacity without increasing the quorum size needed for writes.
-  - Witness replicas vote for leaders and for committing writes, but don't store a full copy of the data, can't become the leader, and can't serve reads. They make it easier to achieve quorums for writes without the storage and compute resources that are required by read-write replicas to store a full copy of data and serve reads.
+> ### Aside: Why read-only and witness replicas?
+> 
+> [Base multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) use a combination of read-write, read-only, and witness replicas, whereas [base dual-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual-region) use read-write and witness replicas, and [base regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) use only read-write replicas. The reasons for this difference have to do with the varying roles of replicas in writes and reads. For writes, Spanner needs a majority of voting replicas to agree on a commit in order to commit a mutation. In other words, every write to a Spanner database requires communication between voting replicas. To minimize the latency of this communication, it is desirable to use the fewest number of voting replicas, and to place these replicas as close together as possible. That's why base regional configurations contain exactly three read-write replicas, each of which is in its own availability zone, contains a full copy of your data, and is able to vote. If one replica fails, the other two can still form a write quorum, and because replicas in this configuration are in the same geographic region, network latencies are minimal.
+> 
+> Base dual-region and multi-region configurations contain more replicas by design, and these replicas are in different data centers (so that clients can read their data quickly from more locations). What characteristics should these additional replicas have? They could all be read-write replicas, but that would be undesirable because adding more read-write replicas to a configuration increases the size of the write quorum (which means potentially higher network latencies due to more replicas communicating with each other, especially if the replicas are in geographically distributed locations) and also increases the amount of storage needed (because read-write replicas contain a full copy of data). Instead of using more read-write replicas, base dual-region configuration contain an additional witness replica, and base multi-region configurations contain read-only replicas and witness replicas, which have fewer responsibilities than read-write replicas.
+> 
+>   - Read-only replicas don't vote for leaders or for committing writes, so they allow you to scale your read capacity without increasing the quorum size needed for writes.
+>   - Witness replicas vote for leaders and for committing writes, but don't store a full copy of the data, can't become the leader, and can't serve reads. They make it easier to achieve quorums for writes without the storage and compute resources that are required by read-write replicas to store a full copy of data and serve reads.
 
 ## Monitor data replication
 
 You can monitor the rate of change and the amount of data that's replicated from your leader replica to the cross region replicas in your instance configuration. The rate of change is in bytes per second and the amount of data is in bytes. To do this, use the [Cross region replicated bytes](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `instance/cross_region_replicated_bytes_count` ) monitoring metric.
 
-**Note:** The metric is sampled every 60 seconds. After sampling, data isn't visible for up to 120 seconds. For more information, see [Latency of metric data](https://docs.cloud.google.com/monitoring/api/v3/latency-n-retention#latency) .
+> **Note:** The metric is sampled every 60 seconds. After sampling, data isn't visible for up to 120 seconds. For more information, see [Latency of metric data](https://docs.cloud.google.com/monitoring/api/v3/latency-n-retention#latency) .
 
 To view this metric in the Google Cloud console, follow these steps:
 
 1.  In the Google Cloud console, go to **Monitoring** :
-    
-    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  In the navigation menu, select **Metrics explorer** .
 

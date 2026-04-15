@@ -119,15 +119,9 @@ Alternatively, you can also create this chart in metrics explorer as described b
 ### Create a chart for CPU utilization by operations type in Metrics Explorer
 
 1.  In the Google Cloud console, select **Monitoring** , or use the following button:
-    
-    [Go to Monitoring](https://console.cloud.google.com/monitoring)
-
 2.  Select **Metrics Explorer** in the navigation pane.
-
 3.  In the **Find resource type and metric** field, enter the value `spanner.googleapis.com/instance/cpu/utilization_by_operation_type` , then select the row that appears below the box.
-
 4.  In the **Filter** field, enter the value `instance_id` , then enter the instance ID you want to examine and click **\>Apply** .
-
 5.  In the **Group By** field, select `category` from the dropdown list. The chart will show CPU utilization of user tasks grouped by operation type, or category.
 
 While the **CPU utilization by priority** metric in the preceding section helped determine whether a user or system task caused an increase in CPU resource usage, with the **CPU utilization by operation type** metric you can dig deeper and find out the type of user-initiated operation behind this rise in CPU usage.
@@ -150,7 +144,7 @@ Use the following table as a guide to determine which statistics table to query 
 | executesql\_dml\_partitioned           |  No   |  No  |     Yes     |
 | beginorcommit                          |  No   |  No  |     Yes     |
 
-**Note:** Query statistics and read statistics tables both contain CPU usage data. However, the transaction statistics table doesn't contain CPU usage data per transaction shape. To troubleshoot elevated CPU using transaction statistics, you can use `AVG_TOTAL_LATENCY_SECONDS` or `AVG_COMMIT_LATENCY_SECONDS` because, as the latency increases, CPU usage to process the transaction increases accordingly.
+> **Note:** Query statistics and read statistics tables both contain CPU usage data. However, the transaction statistics table doesn't contain CPU usage data per transaction shape. To troubleshoot elevated CPU using transaction statistics, you can use `AVG_TOTAL_LATENCY_SECONDS` or `AVG_COMMIT_LATENCY_SECONDS` because, as the latency increases, CPU usage to process the transaction increases accordingly.
 
 For example, if **read\_withpartitiontoken** is the problem, troubleshoot using [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) .
 

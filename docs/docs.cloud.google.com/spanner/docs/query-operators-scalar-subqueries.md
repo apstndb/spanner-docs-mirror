@@ -1,6 +1,6 @@
 A *scalar subquery* is a SQL sub-expression that's part of a scalar expression. Spanner attempts to remove scalar subqueries whenever possible. However, in certain scenarios, plans explicitly contain scalar subqueries.
 
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 ## Database schema
 
@@ -80,7 +80,7 @@ You can use the following Data Manipulation Language (DML) statements to add dat
            (2, 3, 1, "Fight Story", 194, "ROCK"),
            (3, 1, 1, "Not About The Guitar", 278, "BLUES");
 
-**Note:** You can run queries and retrieve execution plans even if the tables have no data.
+> **Note:** You can run queries and retrieve execution plans even if the tables have no data.
 
 The following query demonstrates a scalar expression operator:
 

@@ -1,6 +1,6 @@
 The Django ORM is a powerful standalone component of the [Django web framework](https://www.djangoproject.com/) that maps Python objects to relational data. It provides a Pythonic interface to the underlying database, and includes tools for automatically generating schema changes and managing schema version history.
 
-**Note:** The PostgreSQL interface for Spanner doesn't support the Django ORM.
+> **Note:** The PostgreSQL interface for Spanner doesn't support the Django ORM.
 
 The [django-google-spanner](https://pypi.org/project/django-google-spanner/) package is a third-party database backend for using Spanner with the Django ORM, powered by the [Spanner Python client library](https://github.com/googleapis/python-spanner) .
 

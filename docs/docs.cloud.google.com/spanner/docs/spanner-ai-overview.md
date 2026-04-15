@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner and its multi-model capabilities integrate with Google Cloud's AI services and LangChain, an open-source framework, to help build generative AI applications. You can enhance applications with features like similarity search, retrieval-augmented generation (RAG), and knowledge graphs. Spanner builds this functionality on its foundation of scalability, availability, and consistency.
 

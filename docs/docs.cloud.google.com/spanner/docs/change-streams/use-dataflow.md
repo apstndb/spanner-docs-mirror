@@ -104,7 +104,7 @@ The connector needs to keep track of each partition when running the Apache Beam
 
 As described in [Change streams best practices](https://docs.cloud.google.com/spanner/docs/change-streams/manage#why-metadata) , we recommend creating a new database for this purpose, rather than allowing the connector to use your application's database to store its metadata table.
 
-**Important:** If you expect fine-grained access control users to run Dataflow jobs, you must create a separate database. For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
+> **Important:** If you expect fine-grained access control users to run Dataflow jobs, you must create a separate database. For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
 
 The owner of a Dataflow job that uses the SpannerIO connector needs to have the following [IAM permissions](https://docs.cloud.google.com/spanner/docs/iam) set with this metadata database:
 
@@ -670,7 +670,7 @@ This transformation will perform a stale read at the commit timestamp of each re
 
 This code creates a Spanner database client to perform the full row fetch, and configures the session pool to have just a few sessions, performing reads in one instance of the `ToFullReowJsonFn` sequentially. Dataflow makes sure to spawn many instances of this function, each with its own client pool.
 
-**Note:** We recommended adding a re-shuffle stage after a stage which reads the change stream. This re-distributes data into multiple worker threads, and increases parallelism.
+> **Note:** We recommended adding a re-shuffle stage after a stage which reads the change stream. This re-distributes data into multiple worker threads, and increases parallelism.
 
 ### Sample: Spanner to Pub/Sub
 

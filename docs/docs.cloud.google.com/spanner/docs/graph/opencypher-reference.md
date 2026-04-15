@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document compares openCypher and Spanner Graph in the following ways:
 
@@ -528,7 +528,7 @@ Besides graph functions and expressions, Spanner Graph also supports all GoogleS
 
 This section lists openCypher functions and expressions and their equivalents in Spanner Graph.
 
-**Note:** For a complete list of functions, see [GoogleSQL functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-all) . For a complete list of operators, see [GoogleSQL operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) . For a complete list of conditional expressions, see [GoogleSQL conditional expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions) .
+> **Note:** For a complete list of functions, see [GoogleSQL functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-all) . For a complete list of operators, see [GoogleSQL operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) . For a complete list of conditional expressions, see [GoogleSQL conditional expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions) .
 
 #### Structural type functions and expressions
 

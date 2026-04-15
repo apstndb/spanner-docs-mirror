@@ -9,8 +9,6 @@ You can change the leader region of a database. To monitor the progress of this 
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that contains the database whose leader region you want to change.
 
@@ -193,7 +191,7 @@ You can change the leader region of a database. To monitor the progress of this 
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -243,7 +241,7 @@ You can change the leader region of a database. To monitor the progress of this 
     }
     updateDatabaseWithDefaultLeader();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -289,7 +287,7 @@ You can change the leader region of a database. To monitor the progress of this 
         printf('Updated the default leader to %s' . PHP_EOL, $database->getDefaultLeader());
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -317,7 +315,7 @@ You can change the leader region of a database. To monitor the progress of this 
             "Database {} updated with default leader {}".format(database_id, default_leader)
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -353,8 +351,6 @@ You can change the leader region of a database. To monitor the progress of this 
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that contains the database whose leader region you want to change.
 
@@ -613,7 +609,7 @@ Replace the following:
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -685,7 +681,7 @@ Replace the following:
     }
     createDatabaseWithDefaultLeader();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -748,7 +744,7 @@ Replace the following:
             $databaseId, $instanceId, $database->getDefaultLeader());
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -790,7 +786,7 @@ Replace the following:
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -843,8 +839,6 @@ Replace the following:
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  The leader region of your database is listed under **Leader region** .
 
@@ -993,7 +987,7 @@ Replace the following:
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1037,7 +1031,7 @@ Replace the following:
     }
     getDatabaseDdl();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1070,7 +1064,7 @@ Replace the following:
         }
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1087,7 +1081,7 @@ Replace the following:
         for statement in ddl.statements:
             print(statement)
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -1299,7 +1293,7 @@ Replace the following:
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1343,7 +1337,7 @@ Replace the following:
     }
     getDatabaseDdl();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1381,7 +1375,7 @@ Replace the following:
         }
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1399,7 +1393,7 @@ Replace the following:
             for result in results:
                 print("Database {} has default leader {}".format(database_id, result[0]))
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -1552,7 +1546,7 @@ Replace the following:
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1587,7 +1581,7 @@ Replace the following:
     }
     listDatabases();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1618,7 +1612,7 @@ Replace the following:
         }
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1640,7 +1634,7 @@ Replace the following:
                 )
             )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -1788,7 +1782,7 @@ The regions that you can choose are listed under `leaderOptions` .
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1823,7 +1817,7 @@ The regions that you can choose are listed under `leaderOptions` .
     }
     getInstanceConfig();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1851,7 +1845,7 @@ The regions that you can choose are listed under `leaderOptions` .
         );
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1868,7 +1862,7 @@ The regions that you can choose are listed under `leaderOptions` .
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -2035,7 +2029,7 @@ To view the regions which you can set to be the default leader region for all of
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -2073,7 +2067,7 @@ To view the regions which you can set to be the default leader region for all of
     }
     listInstanceConfigs();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -2105,7 +2099,7 @@ To view the regions which you can set to be the default leader region for all of
         }
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -2127,7 +2121,7 @@ To view the regions which you can set to be the default leader region for all of
                 )
             )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 

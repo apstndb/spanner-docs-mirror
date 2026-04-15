@@ -1,20 +1,18 @@
 This page describes how to create, list, edit, and delete Spanner [instances](https://docs.cloud.google.com/spanner/docs/instances) .
 
-**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
+> **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 ## Create an instance
 
 You can create an instance with the Google Cloud console, the [Google Cloud CLI](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) , or client libraries. You can also create an instance with a [custom instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configuration) by adding optional [read-only replicas](https://docs.cloud.google.com/spanner/docs/replication#read-only) .
 
-**Note:** You don't need to provision storage in Spanner, and you are billed only for the storage that you use. Learn more about [storage pricing](https://docs.cloud.google.com/spanner/pricing#storage) .
+> **Note:** You don't need to provision storage in Spanner, and you are billed only for the storage that you use. Learn more about [storage pricing](https://docs.cloud.google.com/spanner/pricing#storage) .
 
 ### Console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
 
 2.  Click **Create instance** .
-    
-    [Go to Create instance](https://console.cloud.google.com/spanner/instances/new)
 
 3.  In the **Select an edition** section, select a Spanner edition.
     
@@ -30,7 +28,7 @@ You can create an instance with the Google Cloud console, the [Google Cloud CLI]
 
 8.  In the **Configure your instance** section, under **Choose a configuration** , select **Regional** , **Dual-region** , or **Multi-region** .
     
-    **Note:** Dual-region and multi-region instance configurations are only available in the Enterprise Plus edition. If you want to compare the specifications between the three configurations, then click **Compare region configurations** .
+    > **Note:** Dual-region and multi-region instance configurations are only available in the Enterprise Plus edition. If you want to compare the specifications between the three configurations, then click **Compare region configurations** .
 
 9.  Select a configuration location from the drop-down.
 
@@ -981,7 +979,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       console.error('ERROR:', err);
     }
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### Create an instance with managed autoscaling using Node.js
 
@@ -1174,7 +1172,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         printf('Created instance %s' . PHP_EOL, $instanceId);
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1213,7 +1211,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
         print("Created instance {}".format(instance_id))
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Create an instance with managed autoscaling using Python
 
@@ -1344,8 +1342,6 @@ You can show a list of your Spanner instances.
 
 Go to the **Spanner Instances** page in the Google Cloud console.
 
-[Go to the Instances page](https://console.cloud.google.com/spanner/instances)
-
 The Google Cloud console shows a list of your Spanner instances, along with each instance's ID, display name, configuration, and [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) expressed in both processing units and in nodes.
 
 ### gcloud
@@ -1367,8 +1363,6 @@ You can upgrade your Standard edition instances to a higher-tier edition. Standa
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to upgrade.
 
@@ -1603,8 +1597,6 @@ To monitor the usage of Enterprise edition and Enterprise Plus edition edition f
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to downgrade.
 
@@ -1630,8 +1622,6 @@ Replace the following:
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to rename.
 
@@ -1671,8 +1661,6 @@ If you want to increase the compute capacity of an instance, your Google Cloud p
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to change.
 
@@ -1719,8 +1707,6 @@ You can enable or modify autoscaling on a Spanner instance using the Google Clou
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to enable the managed autoscaler on.
 
@@ -1828,8 +1814,6 @@ You can change whether a Spanner instance uses manual or managed scaling by usin
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to disable managed autoscaler on.
 
@@ -1868,8 +1852,6 @@ Labels help organize your resources.
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the checkbox for the instance. The **Info panel** appears on the right-hand side of the page.
 
@@ -1883,7 +1865,7 @@ Default backup schedules are automatically enabled for all new instances. You ca
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
 
-[Go to the Instances page](https://console.cloud.google.com/spanner/instances)
+<!-- end list -->
 
 1.  Click the name of the instance that you want to edit the default backup schedule.
 2.  Click **Edit instance** .
@@ -2157,13 +2139,13 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## Move an instance
 
-**Note:** You can't move an instance that has managed autoscaler enabled.
+> **Note:** You can't move an instance that has managed autoscaler enabled.
 
 For instructions on how to move your instance from any instance configuration to any other instance configuration, including between regional and multi-regional configurations, see [Move an instance](https://docs.cloud.google.com/spanner/docs/move-instance#how-instance-move) .
 
 ## Delete an instance
 
-**Warning:** Deleting an instance permanently removes the instance and all its databases. You can't undo this later. Also, you can't create another free trial instance once you've deleted your first free trial instance. You can create one free trial instance per project lifecycle.
+> **Warning:** Deleting an instance permanently removes the instance and all its databases. You can't undo this later. Also, you can't create another free trial instance once you've deleted your first free trial instance. You can create one free trial instance per project lifecycle.
 
 You can delete an instance with the Google Cloud console or the [Google Cloud CLI](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) .
 
@@ -2172,8 +2154,6 @@ If you want to delete an instance that has one or more databases with deletion p
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to delete.
 

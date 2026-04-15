@@ -244,7 +244,7 @@ The advantage to this is that full validation provides higher confidence in data
 
 A way to do this is to partition the token ranges and query the Cassandra ring in parallel. For each Cassandra row, the equivalent Spanner row is fetched using the partition key. These two rows are then compared for discrepancies. For pointers to follow when building validator jobs, see [Tips to validate Cassandra using row matching](https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner#tips) .
 
-**Note:** During dual writes, the databases are in a non-static state which might cause a few mismatches. These mismatches are expected.
+> **Note:** During dual writes, the databases are in a non-static state which might cause a few mismatches. These mismatches are expected.
 
 ### Reconcile data or row count inconsistencies
 

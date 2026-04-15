@@ -1,6 +1,6 @@
 Spanner provides built-in tables that store statistics about reads. You can retrieve statistics from these `SPANNER_SYS.READ_STATS*` tables using SQL statements.
 
-**Note:** We will use the term **read shape** in this document to refer to the set of columns read in a read request. Read statistics track properties of these read shapes.
+> **Note:** We will use the term **read shape** in this document to refer to the set of columns read in a read request. Read statistics track properties of these read shapes.
 
 ## When to use read statistics
 
@@ -16,7 +16,7 @@ Read statistics provide insight into how an application is using the database, a
 
 ## Access read statistics
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 Spanner provides the read statistics in the `SPANNER_SYS` schema. You can use the following ways to access `SPANNER_SYS` data:
 
@@ -296,7 +296,7 @@ At a minimum, Spanner keeps data for each table for the following time periods:
 
   - `SPANNER_SYS.READ_STATS_TOP_HOUR` and `SPANNER_SYS.READ_STATS_TOTAL_HOUR` : Intervals covering the previous 30 days.
 
-**Note:** You can't prevent Spanner from collecting read statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically. The retention period for these tables is fixed. If you want to keep statistics for longer periods of time, we recommend that you periodically copy data out of these tables.
+> **Note:** You can't prevent Spanner from collecting read statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically. The retention period for these tables is fixed. If you want to keep statistics for longer periods of time, we recommend that you periodically copy data out of these tables.
 
 ## Troubleshoot high CPU usage with read statistics
 
@@ -389,7 +389,7 @@ When you have gone through the preceding steps, consider whether supplying any o
 
   - If you are looking for the lowest possible read latencies, especially when using multi-region instance configurations, use [stale reads instead of strong reads](https://docs.cloud.google.com/spanner/docs/reads#read_types) to reduce or remove the `AVG_LEADER_REFRESH_DELAY_SECONDS` component of read latency.
     
-    **Note:** Stale reads don't provide any latency benefits in regional configurations, so you should almost always use strong reads when your instance does not have a multi-region configuration.
+    > **Note:** Stale reads don't provide any latency benefits in regional configurations, so you should almost always use strong reads when your instance does not have a multi-region configuration.
 
   - If you are only doing reads, and you can express your read using a [single read method](https://docs.cloud.google.com/spanner/docs/reads#single_read_methods) , you should use that single read method. Single reads don't lock, unlike read-write transactions, therefore you should use read-only transactions over more expensive read-write transactions when you are not writing data.
 

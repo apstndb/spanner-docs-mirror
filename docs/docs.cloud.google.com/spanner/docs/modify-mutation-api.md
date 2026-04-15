@@ -42,7 +42,7 @@ This code shows how to write the data:
 
 You can insert data using the [`connection.CreateInsertCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateInsertCommand_System_String_Google_Cloud_Spanner_Data_SpannerParameterCollection_) method, which creates a new `SpannerCommand` to insert rows into a table. The [`SpannerCommand.ExecuteNonQueryAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteNonQueryAsync_System_Threading_CancellationToken_) method adds new rows to the table.
 
-**Note:** You can run multiple transactions in parallel using a single `SpannerConnection` object. When running additional transactions, you must ensure that the `SpannerConnection` object is in the `Open` state before you execute additional transaction commands by calling the [`SpannerCommand.ExecuteNonQueryAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_OpenAsync_System_Threading_CancellationToken_) method, as seen in the following example.
+> **Note:** You can run multiple transactions in parallel using a single `SpannerConnection` object. When running additional transactions, you must ensure that the `SpannerConnection` object is in the `Open` state before you execute additional transaction commands by calling the [`SpannerCommand.ExecuteNonQueryAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_OpenAsync_System_Threading_CancellationToken_) method, as seen in the following example.
 
 This code shows how to insert data:
 
@@ -403,7 +403,7 @@ This code shows how to write the data:
 
 ## Update rows in a table
 
-**Note:** Spanner needs to read the data in its tables to determine whether to write new values. You must use a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) to perform the reads and writes atomically.
+> **Note:** Spanner needs to read the data in its tables to determine whether to write new values. You must use a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) to perform the reads and writes atomically.
 
 Suppose that sales of `Albums(1, 1)` are lower than expected. As a result, you want to move $200,000 from the marketing budget of `Albums(2, 2)` to `Albums(1, 1)` , but only if the money is available in the budget of `Albums(2, 2)` .
 
@@ -1061,7 +1061,7 @@ Each client library provides multiple ways to delete rows:
   - Delete a group of rows by creating a key range.
   - Delete rows in an interleaved table by deleting the parent rows, if the interleaved table includes `ON DELETE CASCADE` in its schema definition.
 
-**Note:** The limit of mutations per commit is 80,000. Each secondary index on a table is an additional mutation per row. For example, on a table with one secondary index, you can delete up to 40,000 rows in a commit. To delete a large amount of data, use [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) . Partitioned DML handles transaction limits and is optimized to handle large-scale deletions.
+> **Note:** The limit of mutations per commit is 80,000. Each secondary index on a table is an additional mutation per row. For example, on a table with one secondary index, you can delete up to 40,000 rows in a commit. To delete a large amount of data, use [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) . Partitioned DML handles transaction limits and is optimized to handle large-scale deletions.
 
 ### C++
 

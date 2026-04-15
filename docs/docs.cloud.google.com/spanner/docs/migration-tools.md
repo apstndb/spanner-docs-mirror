@@ -19,7 +19,7 @@ We recommend using the following tools to assist you in various stages of your S
 
 If your source database is MySQL, then you can perform some of the initial migration stages using MySQL dump files. You must directly connect to your running source MySQL database to complete a production migration.
 
-**Note:** If your source database is not a MySQL or PostgreSQL and you have a sample dump file in a CSV, Avro, or Parquet file format, you can [load the file to BigQuery](https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv) and [copy to Spanner using reverse ETL](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) . For all other migration stages, you need to evaluate custom solutions.
+> **Note:** If your source database is not a MySQL or PostgreSQL and you have a sample dump file in a CSV, Avro, or Parquet file format, you can [load the file to BigQuery](https://docs.cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv) and [copy to Spanner using reverse ETL](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) . For all other migration stages, you need to evaluate custom solutions.
 
 The following table recommends migration tools based on the migration stage and whether you're using a dump file or directly connecting your source database:
 
@@ -133,9 +133,9 @@ The following table recommends migration tools based on the migration stage and 
 
 ### Migration tools for a Cassandra-source databases
 
-**Preview — Cassandra**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview — Cassandra**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 Spanner offers a Cassandra-compatible interface that supports near-zero application code changes when migrating from Cassandra to Spanner. For more information about compatibility details, see the [Cassandra overview](https://docs.cloud.google.com/spanner/docs/non-relational/spanner-for-cassandra-users) .
 

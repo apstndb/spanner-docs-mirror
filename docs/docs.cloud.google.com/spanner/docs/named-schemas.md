@@ -1,6 +1,6 @@
 This page describes how to create, use, and drop named schemas, and how to apply fine-grained access control to objects in named schemas. For overview information about named schemas, see [Named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .
 
-**Note:** To reference a database object in a non-default named schema within Spanner, you must use its fully qualified name. Using an unqualified name with a configured named schema search path isn't supported.
+> **Note:** To reference a database object in a non-default named schema within Spanner, you must use its fully qualified name. Using an unqualified name with a configured named schema search path isn't supported.
 
 ## Before you begin
 
@@ -14,8 +14,6 @@ To perform procedures on this page, you need the following:
 The `CREATE SCHEMA` command ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_schema) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_schema) ) is used to create a named schema.
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -134,8 +132,6 @@ To access an object in a named schema, you must have usage permission on the nam
 <!-- end list -->
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -186,8 +182,6 @@ When you have named schemas, the default schema is called `default` . You need t
 By default, all users and roles have the `USAGE` permission on the default schema.
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -216,8 +210,6 @@ By default, all users and roles have the `USAGE` permission on the default schem
 You can revoke the default fine-grained access control permissions on the default schema using the `REVOKE USAGE` command.
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -278,13 +270,11 @@ This statement provides a list of schemas and owners, similar to the following:
 
 ## Drop a named schema
 
-**Note:** Spanner doesn't support a cascading drop for named schemas. You must drop database objects that use the named schema before dropping the schema.
+> **Note:** Spanner doesn't support a cascading drop for named schemas. You must drop database objects that use the named schema before dropping the schema.
 
 The `DROP SCHEMA` command ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop_schema) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop_schema) ) is used to drop a named schema.
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 

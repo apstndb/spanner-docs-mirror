@@ -10,8 +10,6 @@ To import a Spanner database, first you need to enable the Spanner, Cloud Storag
 
 To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
-[Enable the APIs](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com,storage_component,compute,dataflow)
-
 You also need enough quota and the required IAM permissions.
 
 ### Quota requirements
@@ -42,7 +40,7 @@ To get the permissions that you need to export a database, ask your administrato
   - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
   - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
 
-**Note:** The Spanner Database Admin role is only required for import jobs.
+> **Note:** The Spanner Database Admin role is only required for import jobs.
 
 ## Export data from a non-Spanner database to Avro files
 
@@ -195,7 +193,7 @@ You must create a schema that uses the appropriate column type for each column i
 </tbody>
 </table>
 
-**Note:** If a column in your Avro data contains `NULL` values, you must ensure that you make the corresponding column in your Spanner table nullable.
+> **Note:** If a column in your Avro data contains `NULL` values, you must ensure that you make the corresponding column in your Spanner table nullable.
 
 ### Step 2: Create a spanner-export.json file
 
@@ -224,7 +222,7 @@ Where DATABASE\_DIALECT = { `GOOGLE_STANDARD_SQL` | `POSTGRESQL` }
 
 If the dialect element is omitted, the dialect defaults to `GOOGLE_STANDARD_SQL` .
 
-**Note:** Wildcards aren't supported; you must write out all filenames in full.
+> **Note:** Wildcards aren't supported; you must write out all filenames in full.
 
 ### Step 3: Run a Dataflow import job using gcloud CLI
 
@@ -234,9 +232,9 @@ After you have started an import job, you can [see details about the job](https:
 
 After the import job is finished, add any necessary [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) and [foreign-keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) .
 
-**Note:** To avoid [outbound data transfer charges](https://docs.cloud.google.com/storage/pricing#network-pricing) , choose a region that overlaps with your Cloud Storage bucket's location. For more information, see [Choose a region](https://docs.cloud.google.com/spanner/docs/import-non-spanner#choose-region) .
+> **Note:** To avoid [outbound data transfer charges](https://docs.cloud.google.com/storage/pricing#network-pricing) , choose a region that overlaps with your Cloud Storage bucket's location. For more information, see [Choose a region](https://docs.cloud.google.com/spanner/docs/import-non-spanner#choose-region) .
 
-**Note:** The Dataflow job doesn't resolve interleaved tables or foreign key constraints, so you might face write errors due to referential integrity violations. Remove all interleaving relations or foreign keys before initiating the Dataflow job.
+> **Note:** The Dataflow job doesn't resolve interleaved tables or foreign key constraints, so you might face write errors due to referential integrity violations. Remove all interleaving relations or foreign keys before initiating the Dataflow job.
 
 ## Choose a region for your import job
 
@@ -271,14 +269,12 @@ To see details for any import or export jobs that you ran within the last week, 
 To view a job that you ran more than one week ago:
 
 1.  Go to the Dataflow jobs page in the Google Cloud console.
-    
-    [Go to Jobs](https://console.cloud.google.com/dataflow)
 
 2.  Find your job in the list, then click its name.
     
     The Google Cloud console displays details of the Dataflow job.
 
-**Note:** Jobs of the same type for the same database have the same name. You can tell jobs apart by the values in their **Start time** or **End time** columns.
+> **Note:** Jobs of the same type for the same database have the same name. You can tell jobs apart by the values in their **Start time** or **End time** columns.
 
 ### View Dataflow logs for your job
 
@@ -319,8 +315,6 @@ To specify a limit on the number of Dataflow workers, instead of using the Impor
 ### Console
 
 If you are using the Dataflow console, the **Max workers** parameter is located in the **Optional parameters** section of the **Create job from template** page.
-
-[Go to Dataflow](https://console.cloud.google.com/dataflow)
 
 ### gcloud
 

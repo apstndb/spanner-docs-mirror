@@ -79,8 +79,6 @@ To enable read leases when you create a new database, set the `read_lease_region
 ### Console
 
 1.  Go to the **Instances** page in the Google Cloud console.
-    
-    [Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance in which you want to enable read lease.
 
@@ -158,8 +156,6 @@ To enable read lease when you update an existing database, set the `read_lease_r
 ### Console
 
 1.  Go to the **Instances** page in the Google Cloud console.
-    
-    [Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance in which you want to enable read lease.
 
@@ -227,15 +223,13 @@ Replace the following:
 
 To enable read lease when you create a new placement, use the `read_lease_regions` option in the `CREATE PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement to set one or more regions where you want to use read lease:
 
-**Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 ### Console
 
 1.  Go to the **Instances** page in the Google Cloud console.
-    
-    [Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance in which you want to enable read lease.
 
@@ -307,7 +301,7 @@ Replace the following:
 
 ### Disable read leases
 
-**Note:** You can't disable read lease in a placement.
+> **Note:** You can't disable read lease in a placement.
 
 Read lease is disabled by default.
 
@@ -316,8 +310,6 @@ To update and disable the feature on an existing database, set the `read_lease_r
 ### Console
 
 1.  Go to the **Instances** page in the Google Cloud console.
-    
-    [Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance in which you want to disable read lease.
 

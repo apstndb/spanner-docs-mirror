@@ -1,4 +1,4 @@
-**Note:** A Spanner free trial instance supports Standard edition features, and Enterprise edition features, such as [KNN vector distance functions](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) , [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) , and [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/overview) . For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** A Spanner free trial instance supports Standard edition features, and Enterprise edition features, such as [KNN vector distance functions](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) , [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) , and [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/overview) . For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This quickstart shows you how to use a Spanner free trial instance and sample application. For more information, see the [Spanner free trial instances overview](https://docs.cloud.google.com/spanner/docs/free-trial-instance) .
 
@@ -8,15 +8,13 @@ A Spanner 90-day free trial instance is available to anyone with a Google Accoun
 
 You can create a free trial instance using the Google Cloud console or Google Cloud CLI.
 
-**Note:** You can only create one free trial instance per project lifecycle, and a maximum of five free trial instances per Cloud Billing account.
+> **Note:** You can only create one free trial instance per project lifecycle, and a maximum of five free trial instances per Cloud Billing account.
 
 ## Before you begin
 
 ### Google Cloud console
 
 1.  In the Google Cloud console, go to the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select or create a Google Cloud project if you haven't done so already.
 
@@ -28,13 +26,11 @@ You can create a free trial instance using the Google Cloud console or Google Cl
     
     b. Then, click **Link a billing account** .
     
-    **Note:** If you're a new Google Cloud customer, you might also be eligible for the [Google Cloud 90-day, $300 Free Trial](https://docs.cloud.google.com/free/docs/free-cloud-features#free-trial) that offers $300 in free Cloud Billing credits to pay for any Google Cloud resources. The Spanner free trial instance is in addition to the $300 Free Trial credits offered by the Google Cloud Free Trial, and you don't need to use any free Cloud Billing credits to create a free trial instance.
+    > **Note:** If you're a new Google Cloud customer, you might also be eligible for the [Google Cloud 90-day, $300 Free Trial](https://docs.cloud.google.com/free/docs/free-cloud-features#free-trial) that offers $300 in free Cloud Billing credits to pay for any Google Cloud resources. The Spanner free trial instance is in addition to the $300 Free Trial credits offered by the Google Cloud Free Trial, and you don't need to use any free Cloud Billing credits to create a free trial instance.
     
     c. Follow the steps to **Create billing account** , and then link it to your project.
     
     d. After you enable Cloud Billing for your project, go to the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
     
     e. Click **Create free instance** , and proceed to [Create free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart#create) in the next section.
 
@@ -85,7 +81,7 @@ For example, to create a free trial instance named `trial-instance` with the dis
     gcloud spanner instances create trial-instance --config=regional-us-east5 \
       --instance-type=free-instance --description="Trial Instance"
 
-**Note:** Use the instance ID, not the display name, when referring to an instance in `gcloud CLI` commands.
+> **Note:** Use the instance ID, not the display name, when referring to an instance in `gcloud CLI` commands.
 
 After you create your free trial instance, you are prompted to continue learning and exploring Spanner by launching a step-by-step tutorial that teaches you how to create a database using a sample application. For more information, see [Get started with a sample application](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart#sample-app) .
 
@@ -98,8 +94,6 @@ You can access the sample database by using the Google Cloud console.
 ### Google Cloud console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the free trial instance.
 
@@ -134,8 +128,6 @@ If you choose to use a CSV file, you also need to upload a separate JSON file th
 ### Google Cloud console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance to create the database in.
 
@@ -181,8 +173,6 @@ The following steps explain how to upgrade your free trial instance.
 ### Google Cloud console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the free trial instance.
 
@@ -208,13 +198,11 @@ To upgrade your free trial instance to a paid Enterprise edition instance with t
 
 ## Delete the instance
 
-**Warning:** Deleting an instance permanently removes the instance and all its databases. You cannot undo this later. Also, you cannot create another free trial instance after you've deleted your first free trial instance. You can create one free trial instance per project lifecycle.
+> **Warning:** Deleting an instance permanently removes the instance and all its databases. You cannot undo this later. Also, you cannot create another free trial instance after you've deleted your first free trial instance. You can create one free trial instance per project lifecycle.
 
 ### Google Cloud console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to delete.
 

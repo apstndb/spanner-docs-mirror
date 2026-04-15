@@ -64,9 +64,9 @@ Set up [Application Default Credentials (ADC)](https://docs.cloud.google.com/doc
     
     You don't need to do this if you're using Cloud Shell.
     
-    **Note:** If the gcloud CLI prints a warning that your account doesn't have the `serviceusage.services.use` permission, then some gcloud CLI commands and client libraries might not work. Ask an administrator to grant you the Service Usage Consumer IAM role ( `roles/serviceusage.serviceUsageConsumer` ), then run the following command:
-    
-        gcloud auth application-default set-quota-project PROJECT_ID
+    > **Note:** If the gcloud CLI prints a warning that your account doesn't have the `serviceusage.services.use` permission, then some gcloud CLI commands and client libraries might not work. Ask an administrator to grant you the Service Usage Consumer IAM role ( `roles/serviceusage.serviceUsageConsumer` ), then run the following command:
+    > 
+    >     gcloud auth application-default set-quota-project PROJECT_ID
     
     If an authentication error is returned, and you are using an external identity provider (IdP), confirm that you have [signed in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) .
     
@@ -157,7 +157,7 @@ Use the gcloud CLI to create a service account and attach it to your resource:
           - `  PROJECT_ID  ` : the project ID where you created the service account
           - `  ROLE  ` : the role to grant
         
-        **Note** : The `--role` flag affects which resources the service account can access in your project. You can revoke these roles or grant additional roles later. In production environments, do not grant the Owner, Editor, or Viewer roles. Instead, grant a [predefined role](https://docs.cloud.google.com/iam/docs/understanding-roles#predefined_roles) or [custom role](https://docs.cloud.google.com/iam/docs/understanding-custom-roles) that meets your needs.
+        > **Note** : The `--role` flag affects which resources the service account can access in your project. You can revoke these roles or grant additional roles later. In production environments, do not grant the Owner, Editor, or Viewer roles. Instead, grant a [predefined role](https://docs.cloud.google.com/iam/docs/understanding-roles#predefined_roles) or [custom role](https://docs.cloud.google.com/iam/docs/understanding-custom-roles) that meets your needs.
     
     4.  To grant another role to the service account, run the command as you did in the previous step.
     

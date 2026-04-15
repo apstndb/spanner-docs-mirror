@@ -7,12 +7,10 @@ Client-side metrics are measured from the time a request leaves your application
 ## Before you begin
 
 1.  Client-side metrics are available after you enable the Cloud Monitoring API.
-    
-    [Enable the Monitoring API](https://console.cloud.google.com/flows/enableapi?apiid=monitoring.googleapis.com)
 
 2.  To ensure that your service account has the necessary permission to access client-side metrics, ask your administrator to grant the [Monitoring Metric Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.metricWriter) ( `roles/monitoring.metricWriter` ) IAM role to your service account on the project.
     
-    **Important:** You must grant this role to your service account, *not* to your user account. Failure to grant the role to the correct principal might result in permission errors.
+    > **Important:** You must grant this role to your service account, *not* to your user account. Failure to grant the role to the correct principal might result in permission errors.
     
     For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
     
@@ -32,8 +30,6 @@ You can access client-side metrics using the following client libraries:
 To view the client-side metrics in the Metrics Explorer, do the following:
 
 1.  In the Google Cloud console, go to the Metrics Explorer page.
-    
-    [Go to Metrics Explorer](https://console.cloud.google.com/projectselector/monitoring/metrics-explorer?supportedpurview=project,folder,organizationId)
 
 2.  Select your project.
 

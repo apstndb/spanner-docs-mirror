@@ -177,7 +177,7 @@ Spanner uses schema versioning so that there is no downtime during a schema upda
 
 The schema versions don't necessarily correspond one-to-one with either batches of DDL statements or individual DDL statements. Some individual DDL statements, such as index creation for existing base tables or statements that require data validation, result in multiple schema versions. In other cases, several DDL statements can be batched together in a single version. Old schema versions can consume significant server and storage resources, and they are retained until they expire (no longer needed to serve reads of earlier versions of data).
 
-**Note:** If you need to add multiple indexes, see the [options for large updates](https://docs.cloud.google.com/spanner/docs/schema-updates#large-updates) .
+> **Note:** If you need to add multiple indexes, see the [options for large updates](https://docs.cloud.google.com/spanner/docs/schema-updates#large-updates) .
 
 The following table shows how long it takes Spanner to update a schema.
 

@@ -225,11 +225,11 @@ For example, in the following, the `CALL` statement cancels a query with the ID 
 
     CALL cancel_query('37190103859320827')
 
-**Note:** In Spanner, the `CALL` operation only supports the `cancel_query` procedure call. For more information about stored procedures, see the Stored procedures page ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg) ).
+> **Note:** In Spanner, the `CALL` operation only supports the `cancel_query` procedure call. For more information about stored procedures, see the Stored procedures page ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg) ).
 
 You need to [query the `spanner_sys.oldest_active_queries` table](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries#retrieve_a_list_of_active_queries) to verify that the query is cancelled.
 
-**Note:** `CALL cancel_query` is a best effort operation. It might not cancel a query when Spanner servers are busy due to heavy query loads. If this occurs, try executing `CALL cancel_query` a second time.
+> **Note:** `CALL cancel_query` is a best effort operation. It might not cancel a query when Spanner servers are busy due to heavy query loads. If this occurs, try executing `CALL cancel_query` a second time.
 
 This walkthrough demonstrates how to use `SPANNER_SYS.OLDEST_ACTIVE_QUERIES` and `SPANNER_SYS.ACTIVE_QUERIES_SUMMARY` to analyze our running queries and take action if necessary on any queries that are contributing to high CPU usage. Of course, it is always cheaper to avoid expensive operations and to design the right schema for your use cases. For more information on constructing SQL statements that run efficiently, see [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
 

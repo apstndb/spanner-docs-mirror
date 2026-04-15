@@ -45,8 +45,6 @@ In this tutorial, you run commands in Cloud Shell. Cloud Shell gives you access 
 
 1.  In the Google Cloud console, activate Cloud Shell.
     
-    [Activate Cloud Shell](https://console.cloud.google.com/?cloudshell=true)
-    
     At the bottom of the Google Cloud console, a [Cloud Shell](https://docs.cloud.google.com/shell/docs/how-cloud-shell-works) session starts and displays a command-line prompt. Cloud Shell is a shell environment with the Google Cloud CLI already installed and with values already set for your current project. It can take a few seconds for the session to initialize.
 
 2.  Set the default Compute Engine zone. For example, `us-central1-b` . gcloud config set compute/zone us-central1-b
@@ -86,7 +84,7 @@ Follow these steps to create an AWS IAM user with programmatic access to AWS res
 
 3.  Under **Access type** , select the checkbox to the left of **Access key - Programmatic access** .
     
-    **Note:** Do not enable management console access, because you will not use this IAM user to sign in to the console.
+    > **Note:** Do not enable management console access, because you will not use this IAM user to sign in to the console.
 
 4.  Click **Next: Permissions** .
 
@@ -177,7 +175,7 @@ In the following section, you create an Amazon DynamoDB source table and populat
     
         python3 make-fake-data.py --table Migration --items 25000
     
-    **Note:** If slightly fewer than the number of requested records are created, you can ignore the discrepancy. Fewer records might be created if duplicate sample usernames were generated.
+    > **Note:** If slightly fewer than the number of requested records are created, you can ignore the discrepancy. Fewer records might be created if duplicate sample usernames were generated.
 
 ## Create a Spanner database
 
@@ -185,7 +183,7 @@ You create a Spanner instance with the smallest possible compute capacity: 100 p
 
 In this example, you create a table schema at the same time as the database. It is also possible, and common, to carry out [schema updates](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#update_databases) after you create the database.
 
-**Note:** Both Amazon DynamoDB and Spanner support the use of secondary indexes. The best practices for [bulk loading](https://docs.cloud.google.com/spanner/docs/bulk-loading) Spanner recommend that you create secondary indexes *after* you load your initial data. You [set up a secondary index](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#apply_secondary_indexes) later in this tutorial.
+> **Note:** Both Amazon DynamoDB and Spanner support the use of secondary indexes. The best practices for [bulk loading](https://docs.cloud.google.com/spanner/docs/bulk-loading) Spanner recommend that you create secondary indexes *after* you load your initial data. You [set up a secondary index](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#apply_secondary_indexes) later in this tutorial.
 
 1.  Create a Spanner instance in the same region where you set the default Compute Engine zone. For example, `us-central1` .
     
@@ -209,7 +207,7 @@ In this example, you create a table schema at the same time as the database. It 
 
 The next sections show you how to export the Amazon DynamoDB source table and set Pub/Sub replication to capture any changes to the database that occur while you export it.
 
-**Note:** If changes to your database are not [idempotent](https://wikipedia.org/wiki/Idempotence) and it is not safe to write the same data more than once, it is best to carry out the following steps during a maintenance period when you can pause app changes to the table.
+> **Note:** If changes to your database are not [idempotent](https://wikipedia.org/wiki/Idempotence) and it is not safe to write the same data more than once, it is best to carry out the following steps during a maintenance period when you can pause app changes to the table.
 
 ### Stream changes to Pub/Sub
 
@@ -379,7 +377,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
 
 Now that the Pub/Sub delivery is in place, you can push forward any table changes that occurred after the export.
 
-**Note:** If you paused writes to the database before exporting, it is time to reactivate writes to the database.
+> **Note:** If you paused writes to the database before exporting, it is time to reactivate writes to the database.
 
 ### Copy the exported table to Cloud Storage
 
@@ -409,8 +407,6 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
                      --region=us-central1"
     
     1.  To watch the progress of the import job, in the Google Cloud console, go to Dataflow.
-        
-        [Go to Dataflow](https://console.cloud.google.com/dataflow)
     
     2.  While the job is running, you can watch the execution graph to examine the logs. Click the job that shows the **Status** of **Running** .
         
@@ -427,7 +423,7 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
         gcloud spanner databases execute-sql migrationdb \
         --instance=spanner-migration --sql="select count(*) from Migration"
     
-    **Note:** Since Amazon DynamoDB item count is based on table metadata that is only updated every six hours, output from this command may not immediately reflect the total number of items in the table. The Spanner item count is based on a table query and accurately reflects the number of rows in the table when you run the query.
+    > **Note:** Since Amazon DynamoDB item count is based on table metadata that is only updated every six hours, output from this command may not immediately reflect the total number of items in the table. The Spanner item count is based on a table query and accurately reflects the number of rows in the table when you run the query.
     
     The following output appears:
     
@@ -514,11 +510,9 @@ The Lambda function you created is configured to capture changes to the source A
         --runner=DataflowRunner \
         --region=us-central1"
     
-    **Note:** To improve responsiveness during testing, you can set the [Windowing](https://beam.apache.org/documentation/programming-guide/#windowing) to `5` seconds by adding `--window 5` to the end of this command. The default is set to `60` seconds.
+    > **Note:** To improve responsiveness during testing, you can set the [Windowing](https://beam.apache.org/documentation/programming-guide/#windowing) to `5` seconds by adding `--window 5` to the end of this command. The default is set to `60` seconds.
     
     1.  Similar to the [batch load](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#batch_import_the_data) step, to watch the progress of the job, in the Google Cloud console, go to Dataflow.
-        
-        [Go to Dataflow](https://console.cloud.google.com/dataflow)
     
     2.  Click the job that has the **Status** of **Running** .
         
@@ -534,7 +528,7 @@ The Dataflow job that you ran in the batch loading phase was a finite set of inp
 
 You make some changes to the source table to verify that the changes are replicated to the Spanner table.
 
-**Note:** The changes are asynchronous and might take several moments to appear in Spanner. Wait a few minutes before each step.
+> **Note:** The changes are asynchronous and might take several moments to appear in Spanner. Wait a few minutes before each step.
 
 1.  Query a nonexistent row in Spanner.
     
@@ -626,15 +620,13 @@ Spanner supports the concept of [interleaving tables](https://docs.cloud.google.
 
 ### Apply secondary indexes
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 It is a [best practice](https://docs.cloud.google.com/spanner/docs/bulk-loading#secondary-indexes) to apply secondary indexes to Spanner tables *after* you load the data. Now that replication is working, you set up a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) to speed up queries. Like Spanner tables, Spanner secondary indexes are fully consistent. They are *not* [eventually consistent](https://wikipedia.org/wiki/Eventual_consistency) , which is common in many NoSQL databases. This feature can help simplify your app design
 
 Run a query that does not use any indexes. You are looking for the top *N* occurrences, given a particular column value. This is a common query in Amazon DynamoDB for database efficiency.
 
 1.  Go to Spanner.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner/instances)
 
 2.  Click **Spanner Studio** .
     
@@ -764,14 +756,12 @@ To avoid incurring charges to your Google Cloud account for the resources used i
 
 ### Delete the project
 
-**Caution** : Deleting a project has the following effects:
-
-  - **Everything in the project is deleted.** If you used an existing project for the tasks in this document, when you delete it, you also delete any other work you've done in the project.
-  - **Custom project IDs are lost.** When you created this project, you might have created a custom project ID that you want to use in the future. To preserve the URLs that use the project ID, such as an `appspot.com` URL, delete selected resources inside the project instead of deleting the whole project.
+> **Caution** : Deleting a project has the following effects:
+> 
+>   - **Everything in the project is deleted.** If you used an existing project for the tasks in this document, when you delete it, you also delete any other work you've done in the project.
+>   - **Custom project IDs are lost.** When you created this project, you might have created a custom project ID that you want to use in the future. To preserve the URLs that use the project ID, such as an `appspot.com` URL, delete selected resources inside the project instead of deleting the whole project.
 
 In the Google Cloud console, go to the **Manage resources** page.
-
-[Go to Manage resources](https://console.cloud.google.com/iam-admin/projects)
 
 In the project list, select the project that you want to delete, and then click **Delete** .
 

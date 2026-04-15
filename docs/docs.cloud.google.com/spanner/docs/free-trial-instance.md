@@ -1,4 +1,4 @@
-**Note:** A Spanner free trial instance supports Standard edition features, and Enterprise edition features, such as [KNN](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) , [ANN vector distance functions](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) , [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) , and [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/overview) . For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** A Spanner free trial instance supports Standard edition features, and Enterprise edition features, such as [KNN](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) , [ANN vector distance functions](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) , [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) , and [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/overview) . For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page provides an overview of Spanner free trial instances.
 
@@ -91,7 +91,7 @@ The free trial instance is meant for evaluation purposes. It is not meant for th
 
 ## Performance
 
-**Note:** These performance numbers are estimates only. Spanner performance is highly dependent on workload, schema design, and dataset characteristics.
+> **Note:** These performance numbers are estimates only. Spanner performance is highly dependent on workload, schema design, and dataset characteristics.
 
 A Spanner free trial instance can provide around 500 queries per second (QPS) of reads or 100 QPS of writes (writing single rows at 1 KB of data per row) when you follow these best practices:
 

@@ -1,10 +1,10 @@
-**Preview**
+> **Preview**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> 
+> For information about access to this release, see the [access request page](https://forms.gle/pJByTWfenZAWbaXo7) .
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
-For information about access to this release, see the [access request page](https://forms.gle/pJByTWfenZAWbaXo7) .
-
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 This document describes how to test QueryData and update the context set file. You can test QueryData's ability to generate SQL queries from natural language questions. If a generated query is not accurate, you can update the context set file.
 
@@ -19,8 +19,6 @@ Make sure that a context set is already created and the context set file is uplo
 To test a QueryData, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -52,15 +50,13 @@ To download and update a context set, perform the following steps:
 
 After you are satisfied with the accuracy of your responses, you can use the `QueryData` endpoint to connect your application to the context set.
 
-**Note:** After you upload the updated context set file, it overwrites the existing context set.
+> **Note:** After you upload the updated context set file, it overwrites the existing context set.
 
 ## Find the context set ID
 
 To connect a data application to the QueryData agent, you need the context set's ID.
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 

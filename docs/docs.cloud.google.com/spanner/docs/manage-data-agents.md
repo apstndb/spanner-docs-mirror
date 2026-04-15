@@ -1,10 +1,10 @@
-**Preview**
+> **Preview**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> 
+> For information about access to this release, see the [access request page](https://forms.gle/pJByTWfenZAWbaXo7) .
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
-For information about access to this release, see the [access request page](https://forms.gle/pJByTWfenZAWbaXo7) .
-
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 This document describes how to create context sets in Spanner Studio using a context set file. Context set names must be unique within a database.
 
@@ -20,7 +20,7 @@ Enable the following services for your project:
 
   - [Data Analytics API with Gemini](https://console.cloud.google.com/apis/library/geminidataanalytics.googleapis.com)
   - [Gemini for Google Cloud API](https://console.cloud.google.com/apis/library/cloudaicompanion.googleapis.com)
-  - [Dataplex Universal Catalog API](https://console.cloud.google.com/apis/library/dataplex.googleapis.com)
+  - [Knowledge Catalog API](https://console.cloud.google.com/apis/library/dataplex.googleapis.com)
 
 ### Prepare a Spanner instance
 
@@ -41,8 +41,6 @@ This tutorial requires you to have a database in your Spanner instance. For more
 To create a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -58,7 +56,7 @@ To create a context set, perform the following steps:
 
 8.  Click **Create** .
 
-**Note:** Creating the first context set in a project can take several minutes.
+> **Note:** Creating the first context set in a project can take several minutes.
 
 ## Build context sets
 
@@ -69,8 +67,6 @@ After creating a context set, follow the steps in [Build contexts using Gemini C
 To edit a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -91,8 +87,6 @@ To edit a context set, perform the following steps:
 To delete a context set, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -106,7 +100,7 @@ To delete a context set, perform the following steps:
 
 7.  Click **Confirm** to delete the context set.
 
-**Note:** Before you delete a database, you must delete all context sets associated with that database.
+> **Note:** Before you delete a database, you must delete all context sets associated with that database.
 
 ## What's next
 

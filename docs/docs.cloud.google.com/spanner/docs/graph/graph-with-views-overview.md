@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Use this document to learn about the benefits of using SQL views to create a graph. This document includes [benefits of creating graphs with views](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#benefits-views-graphs) , [requirements](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#requirements) , and [considerations](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#views-considerations) to help you decide if you should use [tables](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema) or views to create a graph.
 

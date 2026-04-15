@@ -54,13 +54,13 @@ If you use both, the buffer writes only at the very end of the transaction.
 
 You use the `  PENDING_COMMIT_TIMESTAMP  ` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
 
-**Note:** After you call the `PENDING_COMMIT_TIMESTAMP` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the coloumn is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner produces an error.
+> **Note:** After you call the `PENDING_COMMIT_TIMESTAMP` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the coloumn is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner produces an error.
 
 ### PostgreSQL
 
 You use the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
 
-**Note:** After you call the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function, the table and any derived index is unreadable to any subsequent SQL statements in the transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner returns an error.
+> **Note:** After you call the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function, the table and any derived index is unreadable to any subsequent SQL statements in the transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner returns an error.
 
 ## Partitioned DML and date and timestamp functions
 

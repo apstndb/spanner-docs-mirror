@@ -186,7 +186,7 @@ The following example creates a new table with an informational foreign key usin
 
 For more examples of how to create and manage foreign keys, see [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) . For more information about DDL statements, see the [DDL reference](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) .
 
-**Note:** You can also add and remove foreign keys using the Google Cloud console. Select **edit as text** from the table creation interface, and enter the DDL to manage foreign keys for your table.
+> **Note:** You can also add and remove foreign keys using the Google Cloud console. Select **edit as text** from the table creation interface, and enter the DDL to manage foreign keys for your table.
 
 ### Use informational foreign keys for query optimization
 
@@ -257,7 +257,7 @@ The following is an example of creating a new table with an enforced foreign key
 
 For more examples of how to create and manage foreign keys, see [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) .
 
-**Note:** You can also add and remove foreign keys using the Google Cloud console. Select **edit as text** from the table creation interface, and enter the DDL to manage foreign keys for your table.
+> **Note:** You can also add and remove foreign keys using the Google Cloud console. Select **edit as text** from the table creation interface, and enter the DDL to manage foreign keys for your table.
 
 ### Foreign key actions
 
@@ -381,7 +381,7 @@ If the number of mutations in a transaction exceeds [80,000](https://docs.cloud.
 
 If you have a user table with a foreign key relationship to another table, and deleting a row from the referenced table triggers the deletion of millions of rows, you should design your schema with a delete cascade action with "interleaved in parent".
 
-**Note:** Google recommends that you choose to represent parent-child relationships either as interleaved tables or as foreign keys, but not both. Using both is redundant and might consume additional storage and computing resources in order to verify constraints and maintain [backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes) .
+> **Note:** Google recommends that you choose to represent parent-child relationships either as interleaved tables or as foreign keys, but not both. Using both is redundant and might consume additional storage and computing resources in order to verify constraints and maintain [backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes) .
 
 #### Comparison table
 
@@ -492,7 +492,7 @@ Adding a new constraint and dropping the old constraint prevents a *Long-running
 
 Dropping a constraint can lead to dropping the foreign key backing indexes if the indexes aren't used by other foreign key constraints. Because of this, if you drop the old constraint first, adding the same foreign key constraint with an action later might lead to long-running operations, such as backfilling indexes, validating unique index constraints, or validating foreign key referential constraints.
 
-**Note:** If you don't drop the older foreign key constraint, then extra foreign key constraints need validation which causes unnecessary overhead. Also, if a `UNIQUE` constraint violation prevents the creation of the referenced index, then adding the new constraint might fail.
+> **Note:** If you don't drop the older foreign key constraint, then extra foreign key constraints need validation which causes unnecessary overhead. Also, if a `UNIQUE` constraint violation prevents the creation of the referenced index, then adding the new constraint might fail.
 
 You can query [`INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.SPANNER_STATE`](https://docs.cloud.google.com/spanner/docs/information-schema#referential-constraints) to check foreign key creation state.
 

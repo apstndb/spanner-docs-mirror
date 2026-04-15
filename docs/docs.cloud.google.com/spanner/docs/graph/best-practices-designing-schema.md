@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document describes best practices for designing a Spanner Graph schema, focusing on efficient queries, optimized edge traversal, and effective data management techniques.
 
@@ -227,7 +227,7 @@ Create a secondary index on the filtered property in your schema to speed up the
     CREATE INDEX AccountByNickName
     ON Account (nick_name);
 
-**Tip:** Use NULL-filtered indexes for sparse properties. For more information, see [Disable indexing of `NULL` values](https://docs.cloud.google.com/spanner/docs/secondary-indexes#null-indexing-disable) .
+> **Tip:** Use NULL-filtered indexes for sparse properties. For more information, see [Disable indexing of `NULL` values](https://docs.cloud.google.com/spanner/docs/secondary-indexes#null-indexing-disable) .
 
 #### Speed up filtering edges by property
 
@@ -294,7 +294,7 @@ You can use interleaving and enforced foreign keys on both endpoints to prevent 
 
 2.  Create an enforced foreign key constraint on edges to ensure that the destination node of an edge always exists. While enforced foreign keys prevent dangling edges, they make inserting and deleting edges more expensive.
 
-**Note:** You can't prevent a dangling edge with an informational foreign key.
+> **Note:** You can't prevent a dangling edge with an informational foreign key.
 
 The following example uses an enforced foreign key and interleaves the edge input table into the source node input table using the `INTERLEAVE IN PARENT` clause. Together, using an enforced foreign key and interleaving can also help [optimize forward edge traversal](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#optimize-forward-edge-traversal) .
 
@@ -328,7 +328,7 @@ Use interleaving to delete dangling edges when the source node is deleted. The f
     ) PRIMARY KEY (id, account_id),
       INTERLEAVE IN PARENT Person ON DELETE CASCADE
 
-**Note:** We also recommend interleaving for [optimizing forward edge traversal](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#optimize-forward-edge-traversal) .
+> **Note:** We also recommend interleaving for [optimizing forward edge traversal](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#optimize-forward-edge-traversal) .
 
 ### Destination node
 

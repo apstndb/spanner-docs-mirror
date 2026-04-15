@@ -27,7 +27,7 @@ Subquery expression that produces an array. If the subquery produces zero rows, 
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 In the following query, an array of transfer amounts is produced for each `Account` owned by each `Person` node:
 
@@ -73,7 +73,7 @@ Checks if the subquery produces at least one row. Returns `TRUE` if at least one
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query checks whether any person named `"Lee"` owns an account. The subquery contains a graph query expression.
 
@@ -139,7 +139,7 @@ The subquery result must have a single column and that column type must be compa
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query checks if `'Dana'` is a name of a person who owns an account.
 
@@ -177,7 +177,7 @@ The same as the column type in the subquery result.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query returns the name of any person whose `country` property is `"Australia"` :
 

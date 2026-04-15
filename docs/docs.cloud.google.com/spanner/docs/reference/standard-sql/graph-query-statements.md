@@ -105,7 +105,7 @@ The following example queries the [`FinGraph`](https://docs.cloud.google.com/spa
 
 ## `CALL` statement
 
-**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
+> **Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     [ OPTIONAL ] CALL ( [ variable_name [ , ... ] ] ) "{" subquery "}"
 
@@ -136,7 +136,7 @@ Queries that use the `CALL` statement must maintain the following column-naming 
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 **Example: Call an inline subquery**
 
@@ -360,7 +360,7 @@ The syntax for the `FILTER` statement is similar to the syntax for the [graph pa
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 In the following query, people with `Id = 1` are excluded from the results table:
 
@@ -456,7 +456,7 @@ The keyword `WITH` following the `FOR` statement is always interpreted as the be
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 In the following query, there are three rows in the working table prior to the `FOR` statement. After the `FOR` statement, each row is expanded into two rows, one per `element` value from the array.
 
@@ -563,7 +563,7 @@ Defines variables and assigns values to them for later use in the current linear
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 In the following graph query, the variable `a` is defined and then referenced later:
 
@@ -710,7 +710,7 @@ The `LIMIT` statement can appear before the `RETURN` statement. You can also use
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following example uses the `LIMIT` statement to limit the query results to three rows:
 
@@ -775,7 +775,7 @@ The `CROSS JOIN` semantics is used when the incoming working table and matched r
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query matches all `Person` nodes and returns the name and ID of each person:
 
@@ -965,7 +965,7 @@ Chains multiple linear query statements together.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following linear query statements are chained by the `NEXT` statement:
 
@@ -1011,7 +1011,7 @@ The `OFFSET` statement can appear anywhere in a linear query statement before th
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 In the following example, the first two rows aren't included in the results:
 
@@ -1063,7 +1063,7 @@ If you would like to apply `ORDER BY` to what is in `RETURN` statement, use the 
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query sorts the results by the `transfer.amount` values in descending order:
 
@@ -1182,7 +1182,7 @@ Ordinals aren't supported in the `ORDER BY` and `GROUP BY` clauses.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query returns `p.name` and `p.id` :
 
@@ -1337,7 +1337,7 @@ Synonym for the [`OFFSET` statement](https://docs.cloud.google.com/spanner/docs/
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 `SKIP` is a synonym for `OFFSET` . Therefore, these queries are equivalent:
 
@@ -1397,7 +1397,7 @@ Ordinals aren't supported in the `GROUP BY` clause.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query returns all distinct destination account IDs:
 
@@ -1555,7 +1555,7 @@ In a set operation, chaining the same kind of set operation is supported, but ch
 
 ## Graph hints
 
-**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
+> **Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     @"{" hint_key=hint_value "}"
 
@@ -1606,7 +1606,7 @@ You can add the following types of hints to a GQL query:
 
 **Examples**
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 Example of a traversal hint from one [`MATCH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match) statement to the next `MATCH` statement:
 

@@ -121,7 +121,7 @@ For more information, see [Create interleaved tables](https://docs.cloud.google.
 
 The following table lists the open source PostgreSQL data types that the PostgreSQL interface for Spanner doesn't support.
 
-**Note:** The Spanner migration tool can automatically make some of the conversions that are listed in the **Use instead** column. For more information, see [Spanner migration tool evaluation and migration](https://github.com/GoogleCloudPlatform/spanner-migration-tool) .
+> **Note:** The Spanner migration tool can automatically make some of the conversions that are listed in the **Use instead** column. For more information, see [Spanner migration tool evaluation and migration](https://github.com/GoogleCloudPlatform/spanner-migration-tool) .
 
 | Data type                                   | Use instead                                                 |
 | ------------------------------------------- | ----------------------------------------------------------- |

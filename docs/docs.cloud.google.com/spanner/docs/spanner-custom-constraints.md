@@ -55,8 +55,6 @@ To create a custom constraint, do the following:
 
 In the Google Cloud console, go to the **Organization policies** page.
 
-[Go to Organization policies](https://console.cloud.google.com/iam-admin/orgpolicies)
-
 From the project picker, select the project that you want to set the organization policy for.
 
 Click add **Custom constraint** .
@@ -136,27 +134,15 @@ You can enforce a constraint by creating an organization policy that references 
 ### Console
 
 1.  In the Google Cloud console, go to the **Organization policies** page.
-    
-    [Go to Organization policies](https://console.cloud.google.com/iam-admin/orgpolicies)
-
 2.  From the project picker, select the project that you want to set the organization policy for.
-
 3.  From the list on the **Organization policies** page, select your constraint to view the **Policy details** page for that constraint.
-
 4.  To configure the organization policy for this resource, click **Manage policy** .
-
 5.  On the **Edit policy** page, select **Override parent's policy** .
-
 6.  Click **Add a rule** .
-
 7.  In the **Enforcement** section, select whether this organization policy is enforced or not.
-
 8.  Optional: To make the organization policy conditional on a tag, click **Add condition** . Note that if you add a conditional rule to an organization policy, you must add at least one unconditional rule or the policy cannot be saved. For more information, see [Scope organization policies with tags](https://docs.cloud.google.com/organization-policy/scope-policies) .
-
 9.  Click **Test changes** to simulate the effect of the organization policy. For more information, see [Test organization policy changes with Policy Simulator](https://docs.cloud.google.com/policy-intelligence/docs/test-organization-policies) .
-
 10. To enforce the organization policy in dry-run mode, click **Set dry run policy** . For more information, see [Test organization policies](https://docs.cloud.google.com/organization-policy/test-policies) .
-
 11. After you verify that the organization policy in dry-run mode works as intended, set the live policy by clicking **Set policy** .
 
 ### gcloud

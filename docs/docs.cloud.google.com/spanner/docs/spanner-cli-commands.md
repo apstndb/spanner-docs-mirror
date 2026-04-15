@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](https://docs.cloud.google.com/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
+> **PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](https://docs.cloud.google.com/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
 
 This page summarizes the Spanner CLI supported commands.
 

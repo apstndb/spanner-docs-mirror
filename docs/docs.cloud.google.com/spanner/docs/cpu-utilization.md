@@ -57,7 +57,7 @@ The following table shows examples for each task:
 </tbody>
 </table>
 
-**Note:** Backups are not listed in this table because Spanner creates dedicated backup jobs to take backups instead of using instance CPU. For more information, see [Backup time and performance](https://docs.cloud.google.com/spanner/docs/backup/create-backup#time) .
+> **Note:** Backups are not listed in this table because Spanner creates dedicated backup jobs to take backups instead of using instance CPU. For more information, see [Backup time and performance](https://docs.cloud.google.com/spanner/docs/backup/create-backup#time) .
 
 <span id="rolling-24"></span> <span id="high-priority"></span> <span id="cpu-total"></span> <span id="view-charts-console"></span>
 

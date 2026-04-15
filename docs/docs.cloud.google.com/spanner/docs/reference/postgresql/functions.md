@@ -1,6 +1,6 @@
 This page defines the functions supported for PostgreSQL-dialect databases in Spanner.
 
-The content on this page is based on the PostgreSQL documentation, which is available under the [PostgreSQL License](https://www.postgresql.org/about/licence/) . There are differences in behavior between the PostgreSQL capabilities supported in Spanner and their open source PostgreSQL equivalents.
+> The content on this page is based on the PostgreSQL documentation, which is available under the [PostgreSQL License](https://www.postgresql.org/about/licence/) . There are differences in behavior between the PostgreSQL capabilities supported in Spanner and their open source PostgreSQL equivalents.
 
 ## Mathematical functions
 
@@ -225,7 +225,7 @@ Unless otherwise specified, functions return the same data type as provided in t
 
 ## Array functions and comparisons
 
-**PostgreSQL interface note:** The PostgreSQL interface does not support multi-dimensional arrays.
+> **PostgreSQL interface note:** The PostgreSQL interface does not support multi-dimensional arrays.
 
 ### Array functions
 
@@ -1143,7 +1143,7 @@ This section describes the pattern matching functions that are available in Span
 
 This section describes functions that possibly return more than one row.
 
-Unlike open source PostgreSQL, Spanner only supports these functions in the \`FROM\` clause.
+> Unlike open source PostgreSQL, Spanner only supports these functions in the \`FROM\` clause.
 
 <table>
 <colgroup>

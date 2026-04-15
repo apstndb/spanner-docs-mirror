@@ -325,7 +325,7 @@ Use the `PENDING_COMMIT_TIMESTAMP` function in a DML `INSERT` or `UPDATE` statem
 
 selects the commit timestamp when the transaction commits. You can use the `PENDING_COMMIT_TIMESTAMP` function as a value only when inserting or updating an appropriately typed column. It can't be used in a `SELECT` statement, or as the input to any other scalar expression.
 
-**Note:** After you call the `PENDING_COMMIT_TIMESTAMP` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the column is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then GoogleSQL produces an error.
+> **Note:** After you call the `PENDING_COMMIT_TIMESTAMP` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the column is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then GoogleSQL produces an error.
 
 **Return Data Type**
 
@@ -654,7 +654,7 @@ Truncates a `TIMESTAMP` value at a particular granularity.
 
   - `time_zone` : A time zone to use with the `TIMESTAMP` value. [Time zone parts](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#timestamp_time_zone_parts) can be used. Use this argument if you want to use a time zone other than the default time zone, America/Los\_Angeles, as part of the truncate operation.
     
-    **Note:** When truncating a timestamp to `MINUTE` or `HOUR` parts, this function determines the civil time of the timestamp in the specified (or default) time zone and subtracts the minutes and seconds (when truncating to `HOUR` ) or the seconds (when truncating to `MINUTE` ) from that timestamp. While this provides intuitive results in most cases, the result is non-intuitive near daylight savings transitions that aren't hour-aligned.
+    > **Note:** When truncating a timestamp to `MINUTE` or `HOUR` parts, this function determines the civil time of the timestamp in the specified (or default) time zone and subtracts the minutes and seconds (when truncating to `HOUR` ) or the seconds (when truncating to `MINUTE` ) from that timestamp. While this provides intuitive results in most cases, the result is non-intuitive near daylight savings transitions that aren't hour-aligned.
 
 <span id="timestamp_trunc_granularity_date"></span>
 

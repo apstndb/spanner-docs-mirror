@@ -10,7 +10,7 @@ Spanner is Google Cloud's fully managed, enterprise-grade, distributed, and cons
 
 ## Criteria for tenant data-mapping criteria
 
-**Note:** If you have read a previous version of this page, note that we have made some terminology changes. The previous "schema" data management pattern has been renamed to "table", and the previous "table" data management pattern has been renamed to "row". The new naming is more accurate and more consistent with how we use instance and database data management patterns in Spanner.
+> **Note:** If you have read a previous version of this page, note that we have made some terminology changes. The previous "schema" data management pattern has been renamed to "table", and the previous "table" data management pattern has been renamed to "row". The new naming is more accurate and more consistent with how we use instance and database data management patterns in Spanner.
 
 In a multi-tenant application, each tenant's data is isolated in one of several architecture approaches in the underlying Spanner database. The following list outlines the different architecture approaches used to map a tenant's data to Spanner:
 

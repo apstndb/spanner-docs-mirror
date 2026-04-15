@@ -4,7 +4,7 @@ Spanner manages many aspects of database operations, such as splitting and rebal
 
 If your instance becomes unhealthy, and if Google determines that the instance is out of compliance with the operational limits described on this page, then any resulting downtime may not be covered by (or does not count against) the Spanner SLA.
 
-**Note:** You're responsible for monitoring your Spanner instances and verifying that they are correctly sized and configured for the type of workloads that you're running.
+> **Note:** You're responsible for monitoring your Spanner instances and verifying that they are correctly sized and configured for the type of workloads that you're running.
 
 ## Configurations excluded from the Spanner SLA
 

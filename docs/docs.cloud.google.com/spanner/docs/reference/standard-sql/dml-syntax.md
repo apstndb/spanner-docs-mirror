@@ -182,7 +182,7 @@ If a statement does not comply with the rules, Spanner raises an error and the e
 
 If the statement attempts to insert a duplicate row, as determined by the primary key, then the entire statement fails.
 
-**Note:** `INSERT` is not supported in [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
+> **Note:** `INSERT` is not supported in [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
 
 ### Value type compatibility
 
@@ -270,7 +270,7 @@ There are two primary ways to specify the `conflict_target` :
   - Use a list of columns in a primary key or key columns of a `UNIQUE` index.
   - Use an `ON UNIQUE CONSTRAINT` clause, for example, `ON CONFLICT ON UNIQUE CONSTRAINT unique_index_name` .
 
-**Note:** Unique indexes with null filtered key columns aren't supported.
+> **Note:** Unique indexes with null filtered key columns aren't supported.
 
 The `conflict_target` must comply with the following rules:
 

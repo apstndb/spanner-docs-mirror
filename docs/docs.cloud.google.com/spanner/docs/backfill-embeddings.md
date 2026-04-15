@@ -1,6 +1,6 @@
 This document explains how to generate and backfill vector embeddings in bulk for textual data ( `STRING` or `JSON` ) that is stored in Spanner using SQL and the [Vertex AI text embedding models](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) .
 
-**Tip:** We recommend backfilling your embeddings at a time when you're not making a large number of updates to the text data that you're generating embeddings for. This is to minimize lock contention and maintain low latency in your database.
+> **Tip:** We recommend backfilling your embeddings at a time when you're not making a large number of updates to the text data that you're generating embeddings for. This is to minimize lock contention and maintain low latency in your database.
 
 ## Prerequisites
 

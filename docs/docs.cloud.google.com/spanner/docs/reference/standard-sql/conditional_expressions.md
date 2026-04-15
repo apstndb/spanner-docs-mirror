@@ -219,7 +219,7 @@ Returns `NULL` if `expr = expr_to_match` evaluates to `TRUE` , otherwise returns
 
 `expr` and `expr_to_match` must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) , and must be comparable.
 
-**Note:** `NULLIF` doesn't support `STRUCT` types.
+> **Note:** `NULLIF` doesn't support `STRUCT` types.
 
 **Return Data Type**
 

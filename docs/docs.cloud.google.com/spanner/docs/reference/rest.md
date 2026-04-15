@@ -38,36 +38,6 @@ A [service endpoint](https://cloud.google.com/apis/design/glossary#api_service_e
 
 A regional service endpoint is a base URL that specifies the network address of an API service in a single region. A service that is available in multiple regions might have multiple regional endpoints. Select a location to see its regional service endpoint for this service.
 
-global
-
-europe-west8
-
-me-central2
-
-us-central1
-
-us-central2
-
-us-east1
-
-us-east4
-
-us-east5
-
-us-south1
-
-us-west1
-
-us-west2
-
-us-west3
-
-us-west4
-
-us-west8
-
-us-east7
-
   
 
 `https://spanner.googleapis.com`

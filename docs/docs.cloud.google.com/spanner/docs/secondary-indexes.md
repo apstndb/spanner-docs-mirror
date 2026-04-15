@@ -34,7 +34,7 @@ To view the progress made for an index backfill process, refer to the [progress 
 
 Be aware that using the [commit timestamp](https://docs.cloud.google.com/spanner/docs/commit-timestamp) column as the first part of the secondary index can [create hotspots](https://docs.cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots) and reduce write performance.
 
-**Note:** If you are adding many secondary indexes to a database, follow the [guidance for large schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates#large-updates) when you create the indexes.
+> **Note:** If you are adding many secondary indexes to a database, follow the [guidance for large schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates#large-updates) when you create the indexes.
 
 Use the `CREATE INDEX` statement to define a secondary index in your schema. Here are some examples:
 
@@ -255,7 +255,7 @@ To send your request, expand one of these options:
 
 #### curl (Linux, macOS, or Cloud Shell)
 
-**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+> **Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -265,7 +265,7 @@ Execute the following command:
 
 #### PowerShell (Windows)
 
-**Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+> **Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
 
 Execute the following command:
 
@@ -329,7 +329,7 @@ Find the `OPERATION_ID` for the operation you want to cancel, then use the [`gcl
         --instance=INSTANCE \
         --database=DATABASE
 
-**Note:** When you cancel an ongoing operation to create more than one index, only indexes that are yet to be created are canceled. The indexes already created are not dropped by the cancellation.
+> **Note:** When you cancel an ongoing operation to create more than one index, only indexes that are yet to be created are canceled. The indexes already created are not dropped by the cancellation.
 
 ## View existing indexes
 
@@ -338,8 +338,6 @@ To view information about existing indexes in a database, you can use the Google
 ### Console
 
 1.  Go to the Spanner **Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance you want to view.
 
@@ -408,7 +406,7 @@ The following sections explain how to specify an index in a SQL statement and wi
 
 When you use SQL to query a Spanner table, Spanner automatically uses any indexes that are likely to make the query more efficient. As a result, you don't need to specify an index for SQL queries. However, for queries that are critical for your workload, Google advises you to use `FORCE_INDEX` directives in your SQL statements for more consistent performance.
 
-**Note:** After you make significant changes to the data or schema of your database, [constructing a new statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#construct-statistics-package) can improve the query optimizer's automatic index selection.
+> **Note:** After you make significant changes to the data or schema of your database, [constructing a new statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#construct-statistics-package) can improve the query optimizer's automatic index selection.
 
 In a few cases, Spanner might choose an index that causes query latency to increase. If you've followed the [troubleshooting steps for performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions) and confirmed that it makes sense to try a different index for the query, you can specify the index as part of your query.
 

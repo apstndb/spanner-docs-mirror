@@ -30,7 +30,7 @@ You can restore a Spanner database by using the following:
     
       - All: [Cloud Spanner Restore Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.restoreAdmin) ( `roles/spanner.restoreAdmin` )
     
-    **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to restore a database from a backup. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
+    > **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to restore a database from a backup. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
 
 ## Restore a database from a backup
 
@@ -38,7 +38,7 @@ You can restore a Spanner database by using the following:
 
 1.  Go to the Spanner Instances page in the Google Cloud console.
 
-[Go to the Spanner Instances page](https://console.cloud.google.com/spanner/instances)
+<!-- end list -->
 
 1.  Click the instance containing the database to open its **Overview** page.
 
@@ -58,7 +58,7 @@ To check the progress of the operation, see the progress indicator, as shown in 
 
 If the operation takes too long, you can cancel it. For more information, see [Cancel a long-running instance operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#cancel_a_long-running_instance_operation) .
 
-**Note:** If you are restoring a database from a backup or a copied backup, the restore operation appears in the instance containing the restored database, not the instance containing the backup.
+> **Note:** If you are restoring a database from a backup or a copied backup, the restore operation appears in the instance containing the restored database, not the instance containing the backup.
 
 ### gcloud
 
@@ -243,7 +243,7 @@ The following code sample restores a database from a given backup and waits for 
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -298,7 +298,7 @@ The following code sample restores a database from a given backup and waits for 
         ).toISOString()}.`,
     );
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -348,7 +348,7 @@ The following code sample restores a database from a given backup and waits for 
         );
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -383,7 +383,7 @@ The following code sample restores a database from a given backup and waits for 
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 

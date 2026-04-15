@@ -110,7 +110,7 @@ If you want to remove commit timestamp support from a column, use the option `al
 
 You use the `  PENDING_COMMIT_TIMESTAMP  ` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
 
-**Note:** After you call the `PENDING_COMMIT_TIMESTAMP` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the coloumn is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner produces an error.
+> **Note:** After you call the `PENDING_COMMIT_TIMESTAMP` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the coloumn is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner produces an error.
 
 The following DML statement updates the `LastUpdateTime` column in the `Performances` table with the commit timestamp:
 
@@ -664,7 +664,7 @@ The following example queries the commit timestamp column of the table.
 
 You can provide your own value for the commit timestamp column, instead of passing `spanner.commit_timestamp()` (or client library constant) as the column value. The value must be a timestamp in the past. This restriction ensures that writing timestamps is an inexpensive and fast operation. The server returns a `FailedPrecondition` error if a future timestamp is specified.
 
-**Note:** The `CURRENT_TIMESTAMP` value is not based on true time. So, the value it returns is not necessarily in the past and cannot be used to compare with a commit timestamp value.
+> **Note:** The `CURRENT_TIMESTAMP` value is not based on true time. So, the value it returns is not necessarily in the past and cannot be used to compare with a commit timestamp value.
 
 ## Create a changelog
 

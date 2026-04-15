@@ -37,7 +37,7 @@ When you rename a table, Spanner changes the table name in the table's schema. R
 
 Spanner doesn't automatically update views to use the new table name.
 
-**Warning:** Use care when renaming a table because it can cause an outage if there are processes that reference the table. One scenario where you might rename a table is if the table name was misspelled when you created it.
+> **Warning:** Use care when renaming a table because it can cause an outage if there are processes that reference the table. One scenario where you might rename a table is if the table name was misspelled when you created it.
 
 For more information, see [Rename a table](https://docs.cloud.google.com/spanner/docs/table-name-synonym#rename-table) .
 
@@ -113,7 +113,7 @@ You can make the following DDL request to rename the table and move the existing
 
 ## Swap table names
 
-**Warning:** Renaming a table that has a reference from a process can cause an outage unless the table name is assigned to another table in the same statement.
+> **Warning:** Renaming a table that has a reference from a process can cause an outage unless the table name is assigned to another table in the same statement.
 
 The following DDL statement changes the names of multiple tables atomically. This is useful when swapping the names between one or more pairs of tables.
 
@@ -228,7 +228,7 @@ After the DDL statement is applied, the table names are swapped, as shown in the
 
 ## Rename a table
 
-**Warning:** Renaming a table that has a reference from a process can cause an outage.
+> **Warning:** Renaming a table that has a reference from a process can cause an outage.
 
 To rename a table, use the following syntax:
 

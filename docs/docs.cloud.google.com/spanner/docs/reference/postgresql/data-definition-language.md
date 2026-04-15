@@ -159,9 +159,9 @@ Changes the definition of a database.
 
 ## PLACEMENT statements
 
-**Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 This section has information about `PLACEMENT` statements.
 
@@ -1028,7 +1028,7 @@ Defines a new [change stream](https://docs.cloud.google.com/spanner/docs/change-
     
       - `  table_name  ` `( [` `  column_name  ` `, ... ] )` : You can optionally specify a list of zero or more non-key columns following the table name. This watches only the primary key and the listed non-key columns of the table. With an empty list of non-key columns, `  table_name  ` `()` watches only the primary key.
     
-    **Note:** The change stream always watches the primary key columns. You only need to list the non-key columns. Listing any primary key columns is not allowed.
+    > **Note:** The change stream always watches the primary key columns. You only need to list the non-key columns. Listing any primary key columns is not allowed.
 
   - `ALL` lets you watch all tables and columns in the entire database, including all of the future tables and columns as soon as they are created.
 

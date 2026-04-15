@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes how to create and manage Spanner [locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) . You can use locality groups to define the tiered storage policy for data in your database schema. For information about how tiered storage works, see [Tiered storage](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
 
@@ -11,8 +11,6 @@ If you create a locality group without a tiered storage policy, the locality gro
 ### Console
 
 1.  Go to the Spanner **Instances** page in the Google Cloud console.
-    
-    [Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance in which you want to use tiered storage.
 

@@ -48,7 +48,7 @@ By default, a node displays its first property. If you want a node to display a 
 
 3.  In the detail panel that appears for the selected node, click the property you want to display. All nodes in your query results that are of the type of node you selected show the property you selected.
 
-**Note:** You can't choose which property to display on a schema node when you [view a schema through the **Object explorer**](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations#schema-through-object-explorer) .
+> **Note:** You can't choose which property to display on a schema node when you [view a schema through the **Object explorer**](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations#schema-through-object-explorer) .
 
 #### Choose the color of your nodes
 
@@ -93,8 +93,6 @@ You can see a visualization of a Spanner Graph schema in the Google Cloud consol
   - Click **View schema** on a Spanner Graph in the **Object explorer** :
     
     1.  In the Google Cloud console, open the **Spanner** page.
-        
-        [Go to Spanner](https://console.cloud.google.com/spanner)
     
     2.  Select an instance from the list.
     

@@ -59,7 +59,7 @@ In summary, query parameters support query execution in the following ways:
 
 ## Understand how Spanner executes queries
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 Spanner lets you query databases using declarative SQL statements that specify what data you want to retrieve. If you want to understand how Spanner obtains the results, examine the execution plan for the query. A query execution plan displays the computational cost associated with each step of the query. Using those costs, you can debug query performance issues and optimize your query. To learn more, see [Query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) .
 
@@ -68,8 +68,6 @@ You can retrieve query execution plans through the Google Cloud console or the [
 To get a query execution plan for a specific query using the Google Cloud console, follow these steps:
 
 1.  Open the Spanner instances page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the names of the Spanner instance and the database that you want to query.
 
@@ -225,8 +223,6 @@ Not all queries benefit from batch-oriented processing. The following query type
 To check if your query uses batch-oriented processing, row-oriented processing, or is automatically switching between the two scan methods:
 
 1.  Go to the Spanner **Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance with the query that you want to investigate.
 
@@ -420,7 +416,7 @@ The following best practices help you write efficient queries when fetching data
         FROM Table AS t
         WHERE t.Key BETWEEN @min AND @max
     
-    **Note:** Here, `@min` and `@max` are query parameters that are bound to the values 1 and 5, respectively.
+    > **Note:** Here, `@min` and `@max` are query parameters that are bound to the values 1 and 5, respectively.
     
     ### PostgreSQL
     
@@ -428,7 +424,7 @@ The following best practices help you write efficient queries when fetching data
         FROM Table AS t
         WHERE t.Key BETWEEN $1 AND $2
     
-    **Note:** Here, `$1` and `$2` are query parameters that are bound to the values 1 and 5, respectively.
+    > **Note:** Here, `$1` and `$2` are query parameters that are bound to the values 1 and 5, respectively.
     
     This query is only more efficient if the keys in the key range are adjacent. In other words, if your key list is `{1, 5, 1000}` , don't specify the lower and higher limits like in the preceding query because the resulting query would scan through every value between 1 and 1000.
 
@@ -558,14 +554,14 @@ Not recommended:
     SELECT a.AlbumTitle FROM Albums a
     WHERE a.AlbumTitle LIKE @like_clause;
 
-**Note:** This example assumes `@like_clause` is bound to `'Love%'` .
+> **Note:** This example assumes `@like_clause` is bound to `'Love%'` .
 
 ### PostgreSQL
 
     SELECT a.AlbumTitle FROM Albums a
     WHERE a.AlbumTitle LIKE $1;
 
-**Note:** This example assumes `$1` is bound to `'Love%'` .
+> **Note:** This example assumes `$1` is bound to `'Love%'` .
 
 Recommended:
 
@@ -574,14 +570,14 @@ Recommended:
     SELECT a.AlbumTitle FROM Albums a
     WHERE STARTS_WITH(a.AlbumTitle, @prefix);
 
-**Note:** This example assumes `@prefix` is bound to `'Love'` . This query is more efficient than the previous query. It runs faster if an index is defined on `Albums.AlbumTitle` .
+> **Note:** This example assumes `@prefix` is bound to `'Love'` . This query is more efficient than the previous query. It runs faster if an index is defined on `Albums.AlbumTitle` .
 
 ### PostgreSQL
 
     SELECT a.AlbumTitle FROM Albums a
     WHERE STARTS_WITH(a.AlbumTitle, $2);
 
-**Note:** This example assumes `$2` is bound to `'Love'` . This query is more efficient than the previous query. It runs faster if an index is defined on `Albums.AlbumTitle` .
+> **Note:** This example assumes `$2` is bound to `'Love'` . This query is more efficient than the previous query. It runs faster if an index is defined on `Albums.AlbumTitle` .
 
 ## Use commit timestamps
 

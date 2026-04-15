@@ -26,13 +26,23 @@ To watch a video, click a hyperlinked title or the icon next to a title.
 
 #### Spanner overview
 
+[Video](https://www.youtube.com/watch?v=amcf6W2Xv6M)
+
 #### Database administration
+
+[Video](https://www.youtube.com/watch?v=zb4Ad_LJ290)
 
 #### Choosing a database to ease development
 
+[Video](https://www.youtube.com/watch?v=uT59U1dS_AY)
+
 #### Choosing a database with strong consistency
 
+[Video](https://www.youtube.com/watch?v=bh0AEVwSJzA)
+
 #### What differentiates Spanner
+
+[Video](https://www.youtube.com/watch?v=l91HGuZXouU)
 
 #### Multi-region capabilities of Spanner provide industry-leading availability
 
@@ -56,13 +66,23 @@ To watch a video, click a hyperlinked title or the icon next to a title.
 
 #### Bringing retail trading to 34 million cryptocurrency wallets
 
+[Video](https://www.youtube.com/watch?v=MZWdlqagupI)
+
 #### Spanner & GFT
+
+[Video](https://www.youtube.com/watch?v=0p6MB8_iZr4)
 
 #### Lessons learned at Niantic: how to move live systems to a new database platform
 
+[Video](https://www.youtube.com/watch?v=TaO-GbvBonc)
+
 #### Nest cam services migration to Google Cloud
 
+[Video](https://www.youtube.com/watch?v=W68KMfMT74Q)
+
 #### nexuzhealth: See what's new with Spanner
+
+[Video](https://www.youtube.com/watch?v=dU6ccWrqjpQ)
 
 ### Customer innovations
 
@@ -91,14 +111,28 @@ To watch a video, click a hyperlinked title or the icon next to a title.
 
 #### Cloud OnAir: Spanner: How it works
 
+[Video](https://www.youtube.com/watch?v=QPpSzxs_8bc)
+
 #### Cloud OnAir: Stump the pros: Does Spanner go faster than the speed of light?
+
+[Video](https://www.youtube.com/watch?v=Otpeo5ePw7g)
 
 #### Migrating to Spanner
 
+[Video](https://www.youtube.com/watch?v=bh_8XTb-jy4)
+
 #### Migrating to Spanner: Best practices
+
+[Video](https://www.youtube.com/watch?v=FNeGQUqMa_c)
 
 #### Spanner internals part 1: What makes Spanner tick?
 
+[Video](https://www.youtube.com/watch?v=nvlt0dA7rsQ)
+
 #### Spanner internals part 2: Global metadata and scalable data backend
 
+[Video](https://www.youtube.com/watch?v=zy-rcR4MoN4)
+
 #### Optimizing applications, schemas, and query design on Spanner
+
+[Video](https://www.youtube.com/watch?v=DxrdatA_ULk)

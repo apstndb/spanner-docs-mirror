@@ -348,7 +348,7 @@ For more information on how to install Debezium-based Kafka connector JARs, see 
 
 The following is an example of the configuration for a Kafka connector that connects to a change stream called `changeStreamAll` in the database `users` in instance `test-instance` and project `test-project` .
 
-``` suppresswarning json
+``` json suppresswarning
 "name": "spanner-connector",
 "config": {
     "connector.class": "io.debezium.connector.spanner.SpannerConnector",

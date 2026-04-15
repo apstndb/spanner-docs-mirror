@@ -6,7 +6,7 @@ Transaction statistics are useful when investigating performance issues. For exa
 
 ## How to access transaction statistics
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 Spanner provides the table transaction statistics in the `SPANNER_SYS` schema. You can use the following ways to access `SPANNER_SYS` data:
 
@@ -172,7 +172,9 @@ For change streams, if the transaction involved writes to columns and tables wat
 <td><code dir="ltr" translate="no">TOTAL_LATENCY_DISTRIBUTION</code></td>
 <td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&gt;</code></td>
 <td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time, for all attempts of a transaction.</p>
+<blockquote>
 <strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">TOTAL_LATENCY_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
 <p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
 <p>The array contains a single element and has the following type:<br />
 <code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;  COUNT INT64,  MEAN FLOAT64,  SUM_OF_SQUARED_DEVIATION FLOAT64,  NUM_FINITE_BUCKETS INT64,  GROWTH_FACTOR FLOAT64,  SCALE FLOAT64,  BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code><br />
@@ -184,7 +186,9 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <td><code dir="ltr" translate="no">OPERATIONS_BY_TABLE</code></td>
 <td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&gt;</code></td>
 <td><p>Impact of <code dir="ltr" translate="no">INSERT</code> or <code dir="ltr" translate="no">UPDATE</code> operations by the transaction on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
+<blockquote>
 <strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">OPERATIONS_BY_TABLE_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
 <p>This column helps visualize the load on tables and provides insights into the rate at which a transaction writes to tables.</p>
 <p>Specify the array as follows:<br />
 <code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;  TABLE STRING(MAX),  INSERT_OR_UPDATE_COUNT INT64,  INSERT_OR_UPDATE_BYTES INT64&gt;&gt;</code></p></td>
@@ -418,7 +422,9 @@ Aggregate statistics tables have the following properties:
 <td><code dir="ltr" translate="no">TOTAL_LATENCY_DISTRIBUTION</code></td>
 <td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&gt;</code></td>
 <td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time for all transaction attempts.</p>
+<blockquote>
 <strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">TOTAL_LATENCY_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
 <p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
 <p>The array contains a single element and has the following type:<br />
 <code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;  COUNT INT64,  MEAN FLOAT64,  SUM_OF_SQUARED_DEVIATION FLOAT64,  NUM_FINITE_BUCKETS INT64,  GROWTH_FACTOR FLOAT64,  SCALE FLOAT64,  BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code><br />
@@ -430,7 +436,9 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <td><code dir="ltr" translate="no">OPERATIONS_BY_TABLE</code></td>
 <td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&gt;</code></td>
 <td><p>Impact of <code dir="ltr" translate="no">INSERT</code> or <code dir="ltr" translate="no">UPDATE</code> operations by all transactions on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
+<blockquote>
 <strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">OPERATIONS_BY_TABLE_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
 <p>This column helps visualize the load on tables and provides insights into the rate at which the transactions write to tables.</p>
 <p>Specify the array as follows:<br />
 <code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;  TABLE STRING(MAX),  INSERT_OR_UPDATE_COUNT INT64,  INSERT_OR_UPDATE_BYTES INT64&gt;&gt;</code></p></td>
@@ -545,7 +553,7 @@ At a minimum, Spanner keeps data for each table for the following time periods:
 
   - `SPANNER_SYS.TXN_STATS_TOP_HOUR` and `SPANNER_SYS.TXN_STATS_TOTAL_HOUR` : Intervals covering the previous 30 days.
 
-**Note:** You cannot prevent Spanner from collecting transaction statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically. You can't extend the retention period for these tables.
+> **Note:** You cannot prevent Spanner from collecting transaction statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically. You can't extend the retention period for these tables.
 
 Transaction statistics in Spanner give insight into how an application is using the database, and are useful when investigating performance issues. For example, you can check whether there are any slow running transactions that might be causing contention, or you can identify potential sources of high load, such as large volumes of updates to a particular column.
 

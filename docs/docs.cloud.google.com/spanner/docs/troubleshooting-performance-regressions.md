@@ -1,10 +1,10 @@
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 When you use SQL queries to look up data, Spanner automatically uses any [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) that are likely to help retrieve the data more efficiently. In a few cases, though, Spanner might choose an index that causes queries to be slower. As a result, you might notice that some queries run more slowly than they ran in the past.
 
 This page explains how to detect changes in query execution speed; inspect the query execution plan for those queries; and specify a different index for future queries if necessary.
 
-**Note:** The instructions on this page do not apply to the Spanner read interface.
+> **Note:** The instructions on this page do not apply to the Spanner read interface.
 
 ## Detect changes in query execution speed
 
@@ -48,13 +48,11 @@ Next, [find the secondary indexes](https://docs.cloud.google.com/spanner/docs/se
 
 ## Find the index used for a query
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 To find out what index Spanner is using to process a query, view the [query execution plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) in the Google Cloud console:
 
 1.  Go to the Spanner **Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance you want to query.
 
@@ -139,7 +137,7 @@ Use these guidelines to decide what index to test for the query:
 
   - If the query contains a very selective predicate (for example, `REGEXP_CONTAINS` , `STARTS_WITH` , `<` , `<=` , `>` , `>=` , or `!=` ), try using an index that includes the same columns that you use in the predicate.
 
-**Important:** If the database does not have a secondary index that is relevant to the query, do not create a new secondary index immediately. Adding a secondary index might affect the performance of other queries.
+> **Important:** If the database does not have a secondary index that is relevant to the query, do not create a new secondary index immediately. Adding a secondary index might affect the performance of other queries.
 
 ### Test the updated query
 
@@ -150,8 +148,6 @@ If your query includes [query parameters](https://docs.cloud.google.com/spanner/
 To test the updated query in the Google Cloud console, follow these steps:
 
 1.  Go to the Spanner **Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance you want to query.
 
@@ -183,7 +179,7 @@ Before you update your query mode, create a [session](https://docs.cloud.google.
     
     You will use it to perform the query profile in the next step. The created session will be alive for at most one hour between consecutive uses before it is deleted by the database.
 
-**Note:** For more information on how to use sessions, see [Sessions](https://docs.cloud.google.com/spanner/docs/sessions) .
+> **Note:** For more information on how to use sessions, see [Sessions](https://docs.cloud.google.com/spanner/docs/sessions) .
 
 ### Profile the query
 
@@ -201,4 +197,4 @@ Enable `PROFILE` mode for the query.
 
 4.  Click **Execute** . The returned response will include the query results, [query plan](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#QueryPlan) , and the execution statistics for the query.
 
-**Note:** To get more insights into the execution of a query, use the [REST API](https://docs.cloud.google.com/spanner/docs/getting-started/rest) .
+> **Note:** To get more insights into the execution of a query, use the [REST API](https://docs.cloud.google.com/spanner/docs/getting-started/rest) .

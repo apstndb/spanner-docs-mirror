@@ -1,4 +1,4 @@
-**Note:** This page describes the [Spanner JDBC driver](https://github.com/googleapis/java-spanner-jdbc) , which is recommended and authored by Google.
+> **Note:** This page describes the [Spanner JDBC driver](https://github.com/googleapis/java-spanner-jdbc) , which is recommended and authored by Google.
 
 This page shows you how to perform basic operations in Spanner using the [Spanner JDBC driver](https://github.com/googleapis/java-spanner-jdbc) .
 
@@ -52,7 +52,7 @@ To connect to the [emulator](https://docs.cloud.google.com/spanner/docs/emulator
 
 This instructs the Spanner JDBC driver driver to connect to the emulator running on the `localhost` instead of the default production service.
 
-**Note:** Although less common, you can specify the host in the connection string, for example `jdbc:cloudspanner://localhost:9010/projects/test-project/instances/test-instance/databases/test-db;usePlainText=true` . The host in the connection string always takes precedence regardless of whether `SPANNER_EMULATOR_HOST` is set. Also, you must specify `usePlainText=true` in the connection string because the emulator does not support SSL/TLS.
+> **Note:** Although less common, you can specify the host in the connection string, for example `jdbc:cloudspanner://localhost:9010/projects/test-project/instances/test-instance/databases/test-db;usePlainText=true` . The host in the connection string always takes precedence regardless of whether `SPANNER_EMULATOR_HOST` is set. Also, you must specify `usePlainText=true` in the connection string because the emulator does not support SSL/TLS.
 
 ## Examples
 

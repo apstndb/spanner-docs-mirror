@@ -1,6 +1,6 @@
-**Preview**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 This document shows you how to use the Spanner remote Model Context Protocol (MCP) server to connect with AI applications including Gemini CLI, ChatGPT, Claude, and custom applications you are developing. The Spanner MCP server lets you access and run Spanner tools to create, manage, and query Spanner resources from your AI-enabled development environments and AI agent platforms. .
 
@@ -36,8 +36,6 @@ For information about other MCP servers and information about security and gover
     **Roles required to enable APIs**
     
     To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
-    
-    [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=spanner)
     
     For new projects, the Spanner API is automatically enabled.
 
@@ -178,7 +176,7 @@ For more information about MCP security and governance, see [AI security and saf
 
 Model Armor is only available in specific regional locations. If Model Armor is enabled for a project, and a call to that project comes from an unsupported region, then Model Armor makes a cross-regional call. For more information, see [Model Armor locations](https://docs.cloud.google.com/model-armor/locations) .
 
-**Caution:** If a request fails, Model Armor logs the entire payload. This might expose sensitive information in the logs.
+> **Caution:** When Model Armor is enabled with [logging enabled](https://docs.cloud.google.com/model-armor/configure-logging) , Model Armor logs the entire payload. This might expose sensitive information in the logs.
 
 #### Enable Model Armor
 
@@ -191,8 +189,6 @@ You must enable Model Armor APIs before you can use Model Armor.
     **Roles required to enable APIs**
     
     To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
-    
-    [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=modelarmor.googleapis.com)
 
 2.  Select the project where you want to activate Model Armor.
 
@@ -201,8 +197,6 @@ You must enable Model Armor APIs before you can use Model Armor.
 Before you begin, follow these steps using the Google Cloud CLI with the Model Armor API:
 
 1.  In the Google Cloud console, activate Cloud Shell.
-    
-    [Activate Cloud Shell](https://console.cloud.google.com/?cloudshell=true)
     
     At the bottom of the Google Cloud console, a [Cloud Shell](https://docs.cloud.google.com/shell/docs/how-cloud-shell-works) session starts and displays a command-line prompt. Cloud Shell is a shell environment with the Google Cloud CLI already installed and with values already set for your current project. It can take a few seconds for the session to initialize.
 
@@ -216,11 +210,11 @@ Before you begin, follow these steps using the Google Cloud CLI with the Model A
 
 To help protect your MCP tool calls and responses you can use Model Armor floor settings. A floor setting defines the minimum security filters that apply across the project. This configuration applies a consistent set of filters to all MCP tool calls and responses within the project.
 
-**Tip:** Don't enable the prompt injection and jailbreak filter unless your MCP traffic carries natural language data.
+> **Tip:** Don't enable the prompt injection and jailbreak filter unless your MCP traffic carries natural language data.
 
 Set up a Model Armor floor setting with MCP sanitization enabled. For more information, see [Configure Model Armor floor settings](https://docs.cloud.google.com/model-armor/configure-floor-settings) .
 
-**Note:** If the agent and the MCP server are in different projects, you can create floor settings in both projects (the client project and the resource project). In this case, Model Armor is invoked twice, once for each project.
+> **Note:** If the agent and the MCP server are in different projects, you can create floor settings in both projects (the client project and the resource project). In this case, Model Armor is invoked twice, once for each project.
 
 See the following example command:
 

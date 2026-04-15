@@ -1,16 +1,10 @@
 # Spanner documentation
 
-[Read product documentation](https://docs.cloud.google.com/spanner/docs/getting-started/set-up)
-
 Spanner is a fully managed, mission-critical database service that brings together relational, graph, key-value, and search. It offers transactional consistency at global scale, automatic, synchronous replication for high availability, and support for two SQL dialects: GoogleSQL (ANSI 2011 with extensions) and PostgreSQL.
 
 [Go to the Spanner product page for more.](https://cloud.google.com/spanner)
 
 Not sure what database option is right for you? Learn more about our [database services](https://cloud.google.com/products/databases/) .
-
-## Documentation resources
-
-Find quickstarts and guides, review key references, and get help with common issues.
 
 format\_list\_numbered
 
@@ -73,16 +67,6 @@ info
   - [Release notes](https://docs.cloud.google.com/spanner/docs/release-notes)
 
   - [Get support](https://docs.cloud.google.com/spanner/docs/getting-support)
-
-## Related resources
-
-Training and tutorials
-
-Use cases
-
-Code samples
-
-Explore self-paced training, use cases, reference architectures, and code samples with examples of how to use and connect Google Cloud services.
 
 Training
 

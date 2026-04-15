@@ -13,7 +13,7 @@ To execute a Partitioned DML statement, use the `gcloud spanner databases execut
         --instance=test-instance --enable-partitioned-dml \
         --sql='UPDATE Albums SET MarketingBudget = 0 WHERE MarketingBudget IS NULL'
 
-**Note:** Spanner does not support `--query-mode=PLAN` and `--query-mode=PROFILE` for partitioned DML.
+> **Note:** Spanner does not support `--query-mode=PLAN` and `--query-mode=PROFILE` for partitioned DML.
 
 For the Spanner DML reference, see [Data Manipulation Language syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax) .
 

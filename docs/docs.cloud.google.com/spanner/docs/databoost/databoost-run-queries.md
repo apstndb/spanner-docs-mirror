@@ -30,8 +30,6 @@ The BigQuery connection API lets you manage BigQuery connections to external dat
     **Roles required to enable APIs**
     
     To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
-    
-    [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=bigqueryconnection.googleapis.com)
 
 For more information, see [BigQuery connection API](https://docs.cloud.google.com/bigquery/docs/reference/bigqueryconnection/rest) in the BigQuery documentation.
 
@@ -61,8 +59,6 @@ Use one of the following options to create a BigQuery connection ID, and then us
 To run a federated Data Boost query starting in the Spanner Studio, do the following:
 
 1.  Go to the Spanner **Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
     
     The console shows a list of your Spanner instances.
 
@@ -153,8 +149,6 @@ Select one of the following options:
 ### Console
 
 1.  Go to the **BigQuery** page.
-    
-    [Go to BigQuery](https://console.cloud.google.com/bigquery)
 
 2.  In the left pane, click explore **Explorer** :
     
@@ -183,8 +177,6 @@ Select one of the following options:
 Use the [`CREATE CONNECTION` statement](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_connection_statement) :
 
 1.  In the Google Cloud console, go to the **BigQuery** page.
-    
-    [Go to BigQuery](https://console.cloud.google.com/bigquery)
 
 2.  In the query editor, enter the following statement:
     
@@ -356,7 +348,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 Use the [`google_bigquery_connection`](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/bigquery_connection) resource.
 
-**Note:** To create BigQuery objects using Terraform, you must enable the [Cloud Resource Manager API](https://docs.cloud.google.com/resource-manager/reference/rest) .
+> **Note:** To create BigQuery objects using Terraform, you must enable the [Cloud Resource Manager API](https://docs.cloud.google.com/resource-manager/reference/rest) .
 
 To authenticate to BigQuery, set up Application Default Credentials. For more information, see [Set up authentication for client libraries](https://docs.cloud.google.com/bigquery/docs/authentication#client-libs) .
 
@@ -432,7 +424,7 @@ Each Terraform configuration file must have its own directory (also called a *ro
 
 3.  [Open your Google Cloud project](https://console.cloud.google.com/) to view the results. In the Google Cloud console, navigate to your resources in the UI to make sure that Terraform has created or updated them.
 
-**Note:** Terraform samples typically assume that the required APIs are enabled in your Google Cloud project.
+> **Note:** Terraform samples typically assume that the required APIs are enabled in your Google Cloud project.
 
 After you create the connection, open it, and in the **Connection info** pane, copy the service account ID. You need this ID when you configure permissions for the connection. When you create a connection resource, BigQuery creates a unique system service account and associates it with the connection.
 
@@ -443,8 +435,6 @@ You must give the service account that is associated with the new connection rea
 Follow these steps to grant access to database-level roles for the service account that you copied earlier from the connection:
 
 1.  Go to the Spanner **Instances** page.
-    
-    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that contains your database to go to the **Instance details** page.
 
@@ -466,8 +456,6 @@ To create an external dataset, do the following:
 ### Console
 
 1.  Open the BigQuery page in the Google Cloud console.
-    
-    [Go to the BigQuery page](https://console.cloud.google.com/bigquery)
 
 2.  In the left pane, click explore **Explorer** :
     
@@ -502,8 +490,6 @@ To create an external dataset, do the following:
 Use the [`CREATE EXTERNAL SCHEMA` data definition language (DDL) statement](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#create_external_schema_statement) .
 
 1.  In the Google Cloud console, go to the **BigQuery** page.
-    
-    [Go to BigQuery](https://console.cloud.google.com/bigquery)
 
 2.  In the query editor, enter the following statement:
     
@@ -552,7 +538,7 @@ Replace the following:
 
 Use the [`google_bigquery_dataset` resource](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/bigquery_dataset#example-usage---bigquery-dataset-external-reference-aws-docs) .
 
-**Note:** To create BigQuery objects using Terraform, you must enable the [Cloud Resource Manager API](https://docs.cloud.google.com/resource-manager/reference/rest) .
+> **Note:** To create BigQuery objects using Terraform, you must enable the [Cloud Resource Manager API](https://docs.cloud.google.com/resource-manager/reference/rest) .
 
 To authenticate to BigQuery, set up Application Default Credentials. For more information, see [Set up authentication for client libraries](https://docs.cloud.google.com/bigquery/docs/authentication#client-libs) .
 
@@ -629,7 +615,7 @@ Each Terraform configuration file must have its own directory (also called a *ro
 
 3.  [Open your Google Cloud project](https://console.cloud.google.com/) to view the results. In the Google Cloud console, navigate to your resources in the UI to make sure that Terraform has created or updated them.
 
-**Note:** Terraform samples typically assume that the required APIs are enabled in your Google Cloud project.
+> **Note:** Terraform samples typically assume that the required APIs are enabled in your Google Cloud project.
 
 ### API
 

@@ -439,7 +439,7 @@ Concatenates one or more `STRING` or `BYTE` values into a single result.
 
 The function returns `NULL` if any input argument is `NULL` .
 
-**Note:** You can also use the [|| concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) to concatenate values into a string.
+> **Note:** You can also use the [|| concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) to concatenate values into a string.
 
 **Return type**
 
@@ -1436,7 +1436,7 @@ If the `regexp` argument is invalid, the function returns an error.
 
 You can search for a full match by using `^` (beginning of text) and `$` (end of text). Due to regular expression operator precedence, it's good practice to use parentheses around everything between `^` and `$` .
 
-**Note:** GoogleSQL provides regular expression support using the [re2](https://github.com/google/re2/wiki/Syntax) library; see that documentation for its regular expression syntax.
+> **Note:** GoogleSQL provides regular expression support using the [re2](https://github.com/google/re2/wiki/Syntax) library; see that documentation for its regular expression syntax.
 
 **Return type**
 
@@ -1640,7 +1640,7 @@ The `REGEXP_REPLACE` function only replaces non-overlapping matches. For example
 
 If the `regexp` argument isn't a valid regular expression, this function returns an error.
 
-**Note:** GoogleSQL provides regular expression support using the [re2](https://github.com/google/re2/wiki/Syntax) library; see that documentation for its regular expression syntax.
+> **Note:** GoogleSQL provides regular expression support using the [re2](https://github.com/google/re2/wiki/Syntax) library; see that documentation for its regular expression syntax.
 
 **Return type**
 

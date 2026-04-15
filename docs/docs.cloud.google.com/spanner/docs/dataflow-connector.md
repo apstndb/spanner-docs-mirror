@@ -10,7 +10,7 @@ The Dataflow connector is the recommended method for efficiently moving data int
 
 The Dataflow connector for Spanner is part of the [Apache Beam Java SDK](https://beam.apache.org/documentation/sdks/javadoc/current/) , and it provides an API for performing the previous actions. For more information about some of the concepts discussed in this page, such as `PCollection` objects and transforms, see the [Apache Beam programming guide](https://beam.apache.org/documentation/programming-guide/) .
 
-**Note:** The Dataflow connector for Spanner only supports the Dataflow SDK 2.x for Java. For more information, see [Release notes: Dataflow SDK 2.x for Java](https://docs.cloud.google.com/dataflow/release-notes/release-notes-java-2) .
+> **Note:** The Dataflow connector for Spanner only supports the Dataflow SDK 2.x for Java. For more information, see [Release notes: Dataflow SDK 2.x for Java](https://docs.cloud.google.com/dataflow/release-notes/release-notes-java-2) .
 
 ## Add the connector to your Maven project
 
@@ -99,7 +99,7 @@ To do so, specify the table as shown in the previous example, and specify the [i
                 // part of the primary key of the songs table,
                 .withColumns("singer_id", "album_id", "track_id", "song_name"));
 
-**Note:** You can't use the `SpannerIO.Read` `withQuery` and `withTable` methods together. This is because `withQuery` overrides values that you pass into the `withTable` method.
+> **Note:** You can't use the `SpannerIO.Read` `withQuery` and `withTable` methods together. This is because `withQuery` overrides values that you pass into the `withTable` method.
 
 ### Control the staleness of transaction data
 
@@ -267,7 +267,7 @@ The following example shows how to apply a write transform to a `PCollection` of
 
 If a transform unexpectedly stops before completion, mutations that have already been applied aren't rolled back.
 
-**Note:** The `SpannerIO.write` transform doesn't guarantee that all of the mutations in the `PCollection` are applied atomically in a single transaction. If a small set of mutations must be applied atomically, see [Apply groups of mutations atomically](https://docs.cloud.google.com/spanner/docs/dataflow-connector#mutationgroup) .
+> **Note:** The `SpannerIO.write` transform doesn't guarantee that all of the mutations in the `PCollection` are applied atomically in a single transaction. If a small set of mutations must be applied atomically, see [Apply groups of mutations atomically](https://docs.cloud.google.com/spanner/docs/dataflow-connector#mutationgroup) .
 
 ### Apply groups of mutations atomically
 

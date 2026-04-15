@@ -10,7 +10,7 @@ This page describes the JDBC drivers that Spanner supports for GoogleSQL-dialect
 | Support     | Google                                                                                        | Google                                                                       |
 | Open source | Yes; Apache license                                                                           | Yes; BSD 2-Clause                                                            |
 
-**Note:** Spanner previously supported the Simba JDBC driver. If you already use the Simba driver with Spanner, you can continue to do so.
+> **Note:** Spanner previously supported the Simba JDBC driver. If you already use the Simba driver with Spanner, you can continue to do so.
 
 For information about the Spanner JDBC driver, see [Spanner JDBC driver FAQ](https://docs.cloud.google.com/spanner/docs/open-source-jdbc) and [How to use the Spanner JDBC driver](https://docs.cloud.google.com/spanner/docs/use-oss-jdbc) .
 

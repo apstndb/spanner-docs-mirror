@@ -194,7 +194,7 @@ The following sample shows how to add a `JSONB` column called `VenueDetails` to 
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -236,7 +236,7 @@ The following sample shows how to add a `JSONB` column called `VenueDetails` to 
     }
     pgJsonbAddColumn();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -273,7 +273,7 @@ The following sample shows how to add a `JSONB` column called `VenueDetails` to 
         print(sprintf('Added column VenueDetails on table %s.', $tableName) . PHP_EOL);
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -319,7 +319,7 @@ The following sample shows how to add a `JSONB` column called `VenueDetails` to 
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -905,7 +905,7 @@ In the following example, you create a `VenuesByCapacity` index that the databas
 
 ### Use search indexes
 
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Search indexes are useful when you query against JSONB documents that are dynamic or varied. Unlike secondary indexes, you can [create search indexes](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_search_index) over any JSONB document stored in a JSONB column. The search index automatically adapts to variations across JSON documents, between different rows, and over time.
 

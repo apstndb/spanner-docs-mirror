@@ -1,4 +1,4 @@
-**Note:** Reverse ETL requires BigQuery slot reservations that use the BigQuery Enterprise or Enterprise Plus edition. Spanner Graph requires Spanner Enterprise or Enterprise Plus edition. For more information, see [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) and [BigQuery editions overview](https://docs.cloud.google.com/bigquery/docs/editions-intro) .
+> **Note:** Reverse ETL requires BigQuery slot reservations that use the BigQuery Enterprise or Enterprise Plus edition. Spanner Graph requires Spanner Enterprise or Enterprise Plus edition. For more information, see [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) and [BigQuery editions overview](https://docs.cloud.google.com/bigquery/docs/editions-intro) .
 
 This document describes how to use reverse extract, transform, and load (ETL) pipelines to move and continuously synchronize graph data from BigQuery to Spanner Graph. It covers the following key aspects:
 
@@ -244,7 +244,7 @@ To ensure the pipeline loads only rows that satisfy the referential integrity ch
       WHERE poa.id = p.id
         AND poa.account_id = a.id;
 
-**Note:** If you add [unenforced primary keys and foreign key constraints](https://cloud.google.com/blog/products/data-analytics/join-optimizations-with-bigquery-primary-and-foreign-keys?e=48754805) to your BigQuery tables, this query doesn't apply the joins. BigQuery requires you to maintain the constraints.
+> **Note:** If you add [unenforced primary keys and foreign key constraints](https://cloud.google.com/blog/products/data-analytics/join-optimizations-with-bigquery-primary-and-foreign-keys?e=48754805) to your BigQuery tables, this query doesn't apply the joins. BigQuery requires you to maintain the constraints.
 
 ### Delete graph elements
 
@@ -271,7 +271,7 @@ This example adds an `is_deleted` column to the `PersonOwnAccount` table in Span
 
 #### Use BigQuery change history for INSERT, UPDATE and logical deletes
 
-**Note:** The BigQuery [`CHANGES`](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/time-series-functions#changes) function is in Preview and subject to the [Pre-GA Offerings Terms](https://cloud.google.com/terms/service-terms) in the Terms of Service. For more information, see the [launch stage](https://cloud.google.com/products?e=48754805#product-launch-stages) descriptions.
+> **Note:** The BigQuery [`CHANGES`](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/time-series-functions#changes) function is in Preview and subject to the [Pre-GA Offerings Terms](https://cloud.google.com/terms/service-terms) in the Terms of Service. For more information, see the [launch stage](https://cloud.google.com/products?e=48754805#product-launch-stages) descriptions.
 
 You can track changes to a BigQuery table using its change history. Use the GoogleSQL [`CHANGES`](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/time-series-functions#changes) function to find rows that changed within a specific time interval. Then, use the deleted row information with a reverse ETL pipeline. You can set up the pipeline to set an indicator, like a deleted flag or expiration date, in the Spanner table. This indicator marks rows for deletion in the Spanner tables.
 

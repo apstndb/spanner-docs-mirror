@@ -14,7 +14,7 @@ The response object contains a single field `error` whose value contains the fol
 
 If a request made with a content type of `application/x-protobuf` results in an error, it will return a serialized [`google.rpc.Status`](https://github.com/googleapis/googleapis/blob/master/google/rpc/status.proto) message as the payload.
 
-**Note:** The text provided in the message might change at any time so applications shouldn't depend on the actual text.
+> **Note:** The text provided in the message might change at any time so applications shouldn't depend on the actual text.
 
 ## Error codes
 

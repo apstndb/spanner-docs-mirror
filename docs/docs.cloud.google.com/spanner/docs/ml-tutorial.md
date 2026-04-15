@@ -190,9 +190,9 @@ This query produces a JSON response. For more information about the model's JSON
 
 ### Examples for using ML functions to generate predictions
 
-**Preview — [Gemini](https://docs.cloud.google.com/gemini/docs/overview) in Spanner**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview — [Gemini](https://docs.cloud.google.com/gemini/docs/overview) in Spanner**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 The following example uses the [gemini-pro](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini) model, from the Model Garden, to generate text based on a short prompt that is provided as an argument. This model is available as part of Gemini in Spanner.
 

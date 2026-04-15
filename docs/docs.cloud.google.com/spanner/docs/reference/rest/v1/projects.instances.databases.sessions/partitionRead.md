@@ -14,36 +14,6 @@ Partition tokens become invalid when the session used to create them is deleted,
 
 Choose a location:
 
-global
-
-europe-west8
-
-me-central2
-
-us-central1
-
-us-central2
-
-us-east1
-
-us-east4
-
-us-east5
-
-us-south1
-
-us-west1
-
-us-west2
-
-us-west3
-
-us-west4
-
-us-west8
-
-us-east7
-
   
 `POST https://spanner.googleapis.com/v1/{session=projects/*/instances/*/databases/*/sessions/*}:partitionRead`
 

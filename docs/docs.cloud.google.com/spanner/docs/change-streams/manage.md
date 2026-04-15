@@ -388,7 +388,7 @@ This example adjusts the value capture type to `NEW_VALUES` .
     ALTER CHANGE STREAM NamesAndAlbums
     SET ( value_capture_type = 'NEW_VALUES' );
 
-**Note:** Modifying the value capture type of a change stream doesn't cause columns to backfill. For example, modifying the value capture type from `NEW_VALUES` to `OLD_AND_NEW_VALUES` doesn't cause backfill of old values for a change stream.
+> **Note:** Modifying the value capture type of a change stream doesn't cause columns to backfill. For example, modifying the value capture type from `NEW_VALUES` to `OLD_AND_NEW_VALUES` doesn't cause backfill of old values for a change stream.
 
 ### Modify TTL-based deletes filter
 
@@ -650,7 +650,7 @@ The stream continues to exist in the database, but watches no objects, and gener
 
 To resume a suspended stream, issue another `ALTER CHANGE STREAM` statement with its previous configuration.
 
-**Note:** You can create a change stream in a suspended state by omitting the `FOR` clause entirely from the DDL: `CREATE CHANGE STREAM MyStream;` .
+> **Note:** You can create a change stream in a suspended state by omitting the `FOR` clause entirely from the DDL: `CREATE CHANGE STREAM MyStream;` .
 
 ## Delete a change stream
 
@@ -669,8 +669,6 @@ The Google Cloud console provides a web interface for listing and reviewing a da
 To see a list of a database's change streams and review their definitions:
 
 1.  Visit the Spanner instances page of the Google Cloud console.
-    
-    [Open the instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Navigate to the appropriate instance and database.
 

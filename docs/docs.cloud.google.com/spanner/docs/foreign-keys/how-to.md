@@ -63,7 +63,7 @@ The previous statement contains a `CONSTRAINT` clause that has the following cha
 
   - The referencing column in the referencing table is `CustomerID` . It references the `CustomerID` field in the `Customers` table. If someone tries to insert a row into `Orders` with a `CustomerID` that doesn't exist in `Customers` , the insert fails.
 
-**Note:** Often the referenced columns of the referenced table correspond to the primary key columns, but this is not required. A referencing table may also reference non-primary columns of a referenced table.
+> **Note:** Often the referenced columns of the referenced table correspond to the primary key columns, but this is not required. A referencing table may also reference non-primary columns of a referenced table.
 
 The following example shows an alternative table creation statement. Here, the foreign key constraint is defined without a name. When you use this syntax, Spanner generates a name for you. To discover the names of all foreign keys, refer to [View properties of a foreign key relationship](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to#view_props) .
 
@@ -132,7 +132,7 @@ The following `CREATE TABLE` DDL statement for the `Orders` table includes the f
 
 The previous statement contains a foreign key constraint with an `ON DELETE CASCADE` clause. The `CustomerID` column is a foreign key that references the `CustomerID` field in the `Customers` table. This means that each `CustomerID` value in the `Orders` table must also exist in the `Customers` table. If someone tries to delete a row from the `Customers` table, all of the rows in the `Orders` table that reference the deleted `CustomerID` value are also deleted in the same transaction.
 
-**Note:** If you don't specify a foreign key action, the default action is `NO ACTION` . This means that if someone tries to delete a row from the `Customers` table, and there are rows in the `Orders` table that reference the deleted `CustomerID` value, the delete operation fails with a foreign key constraint violation error.
+> **Note:** If you don't specify a foreign key action, the default action is `NO ACTION` . This means that if someone tries to delete a row from the `Customers` table, and there are rows in the `Orders` table that reference the deleted `CustomerID` value, the delete operation fails with a foreign key constraint violation error.
 
 ## Add a foreign key with a delete action to a table
 
@@ -144,7 +144,7 @@ You also want to make sure that orders are only created for products that exist.
 
 Deleting a row from the `Products` table deletes all of the rows in the `Orders` table that reference the deleted `ProductID` value.
 
-**Note:** Adding or dropping a foreign key action on an existing foreign key constraint isn't supported. You need to add a new foreign key constraint with an action. For more information, see [Long-running schema changes](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to#long-running-schema-changes) .
+> **Note:** Adding or dropping a foreign key action on an existing foreign key constraint isn't supported. You need to add a new foreign key constraint with an action. For more information, see [Long-running schema changes](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to#long-running-schema-changes) .
 
 ## Use informational foreign keys (GoogleSQL only)
 
@@ -167,7 +167,7 @@ By creating an informational foreign key with `NOT ENFORCED` , you allow for the
 
 You can allow the query optimizer to use the relationships to generate efficient query plans. This can improve the performance of queries that join the tables on foreign key columns. For more information, see [informational foreign key for query optimization](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-fk-query-optimization) .
 
-**Caution:** If your application logic requires strict referential integrity (for example, preventing orders for products that don't exist), you need to implement additional checks at the application level. Query results might be affected if there are inconsistencies in the data. For example, a query joining `Orders` with `Products` might return an order with a discontinued `ProductID` if the optimizer uses an informational foreign key.
+> **Caution:** If your application logic requires strict referential integrity (for example, preventing orders for products that don't exist), you need to implement additional checks at the application level. Query results might be affected if there are inconsistencies in the data. For example, a query joining `Orders` with `Products` might return an order with a discontinued `ProductID` if the optimizer uses an informational foreign key.
 
 ## Query data across foreign key relationships
 

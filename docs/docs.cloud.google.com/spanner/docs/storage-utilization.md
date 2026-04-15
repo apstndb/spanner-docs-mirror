@@ -13,8 +13,6 @@ You can view charts for these metrics [in the Google Cloud console](https://docs
 
 Also, database storage utilization is shown in the **Instances** and **Instance details** pages in the Google Cloud console.
 
-[Go to the instances page](https://console.cloud.google.com/spanner/instances)
-
 ### Multi-version storage
 
 If you use the previous storage metrics to check the size of your data frequently, you might occasionally encounter results contrary to your expectations. For example, you might see the reported total storage of your database decrease by a noticeable amount, even though you hadn't recently removed any data. Conversely, you might see its size remain relatively unchanged right after performing a significant deletion.

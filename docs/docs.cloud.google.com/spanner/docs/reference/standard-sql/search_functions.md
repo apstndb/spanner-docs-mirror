@@ -85,7 +85,7 @@ Displays a human-readable representation of tokens present in a `TOKENLIST` valu
 
 **Details**
 
-**Note:** The returned `STRING` value is intended solely for debugging purposes and its format is subject to change without notice.
+> **Note:** The returned `STRING` value is intended solely for debugging purposes and its format is subject to change without notice.
 
 The output of this function is dependent on the source of the `TOKENLIST` value provided as input.
 

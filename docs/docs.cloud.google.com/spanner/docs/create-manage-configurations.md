@@ -157,7 +157,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -197,7 +197,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
     }
     listInstanceConfigs();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -231,7 +231,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
         }
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -255,7 +255,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
                 )
             )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -459,7 +459,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -496,7 +496,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
     }
     getInstanceConfig();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -526,7 +526,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
         );
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -545,7 +545,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -916,7 +916,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -988,7 +988,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
     }
     createInstanceConfig();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1056,7 +1056,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
         printf('Created instance configuration %s' . PHP_EOL, $instanceConfigId);
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1098,7 +1098,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
     
         print("Created instance configuration {}".format(user_config_name))
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -1434,7 +1434,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1499,7 +1499,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
     }
     updateInstanceConfig();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1547,7 +1547,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
         printf('Updated instance configuration %s' . PHP_EOL, $instanceConfigId);
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1573,7 +1573,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
         operation.result(OPERATION_TIMEOUT_SECONDS)
         print("Updated instance configuration {}".format(user_config_name))
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -1609,7 +1609,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 ## Delete a custom instance configuration
 
-**Note:** Deleting an instance configuration permanently removes the instance configuration. You can't delete a custom instance configuration which is used by an instance. To delete an instance, see [Delete an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#delete-instance) .
+> **Note:** Deleting an instance configuration permanently removes the instance configuration. You can't delete a custom instance configuration which is used by an instance. To delete an instance, see [Delete an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#delete-instance) .
 
 To delete a custom instance configuration, first delete any instance in the instance configuration.
 
@@ -1745,7 +1745,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1791,7 +1791,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
     }
     deleteInstanceConfig();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1825,7 +1825,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
         printf('Deleted instance configuration %s' . PHP_EOL, $instanceConfigId);
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1837,7 +1837,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
         spanner_client.instance_admin_api.delete_instance_config(name=user_config_id)
         print("Instance config {} successfully deleted".format(user_config_id))
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 

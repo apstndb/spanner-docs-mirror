@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page explains how to manage schemaless data in Spanner Graph. It also provides [best practices](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#schemaless-data-best-practices) and [troubleshooting tips](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#troubleshoot) . We recommend that you are familiar with the Spanner Graph [schema](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) and [queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
 
@@ -84,7 +84,7 @@ The `DYNAMIC PROPERTIES` clause designates a `JSON` data type column to store pr
 
 For example, when a `GraphNode` row's `properties` column has the JSON value `'{"name": "David", "age": 43}'` , Spanner maps it to a node that has `age` and `name` properties with `43` and `"David"` as their respective values.
 
-**Note:** For more information about limitations when using dynamic properties, see [Limitations](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#limitations) .
+> **Note:** For more information about limitations when using dynamic properties, see [Limitations](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#limitations) .
 
 ## Considerations for schemaless data management
 
@@ -98,7 +98,7 @@ In addition, if your workload is highly sensitive to write performance, especial
 
 For more information about how to define the graph schema without using dynamic data labels and properties, see the [Spanner Graph schema overview](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) .
 
-**Tip:** To optimize batch updates of dynamic properties using DML, you can see this [best practice](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#optimize-batch-json-update-dml) .
+> **Tip:** To optimize batch updates of dynamic properties using DML, you can see this [best practice](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#optimize-batch-json-update-dml) .
 
 ## Query schemaless graph data
 
@@ -374,7 +374,7 @@ A node's key should be unique across all graph nodes. For example, as an `INT64`
 
 If multiple edges exist between two nodes, introduce a unique identifier for the edge. The [schema example](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#schema-example) uses an application logic `INT64` `edge_id` column.
 
-**Tip:** If you migrate data from a graph that uses both system-defined and user-defined IDs, use the user-defined ID in the primary key. This accelerates queries by those ID values.
+> **Tip:** If you migrate data from a graph that uses both system-defined and user-defined IDs, use the user-defined ID in the primary key. This accelerates queries by those ID values.
 
 When you create the schema for node and edge tables, optionally include the `label` column as a [primary key column](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#choose_a_primary_key) if the value is immutable. If you do this, the composite key formed by all key columns should be unique across all nodes or edges. This technique improves performance for queries that are only filtered by label.
 
@@ -446,7 +446,7 @@ Because label and property names must be [stored as lowercase values](https://do
 
 At query time, the label and property name are case insensitive.
 
-**Note:** Check constraints might impact write performance. If a constraint isn't met by a mutation, the mutation fails.
+> **Note:** Check constraints might impact write performance. If a constraint isn't met by a mutation, the mutation fails.
 
 The following example shows how to add a node label constraint to the `GraphNode` table to ensure the label is in lowercase.
 
@@ -499,7 +499,7 @@ Enforce a property data type using a data type constraint on a property value fo
     ADD CONSTRAINT PersonNameMustBeStringTypeConstraint
     CHECK (IF(label = 'person', JSON_TYPE(properties.name) = 'string', TRUE));
 
-**Note:** The `JSON_TYPE` function returns results in lowercase, such as `string` and `number` .
+> **Note:** The `JSON_TYPE` function returns results in lowercase, such as `string` and `number` .
 
 ### Combine defined and dynamic labels
 
@@ -603,7 +603,7 @@ If workloads involve batch updates to dynamic properties using DML, use the foll
 
   - Use [query parameters](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) in DML statements instead of hard coding them to improve performance.
 
-**Tip:** When cyclic write traffic such as periodic batch updates occurs, use [autoscaling](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) to manage compute capacity effectively.
+> **Tip:** When cyclic write traffic such as periodic batch updates occurs, use [autoscaling](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) to manage compute capacity effectively.
 
 Based on these suggestions, the following example shows how to update the `is_blocked` property for 100 nodes in a single DML statement. The query parameters include the following:
 

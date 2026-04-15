@@ -110,7 +110,7 @@ In the following example, there is a table for long-term player high-score recor
 
 This table contains the player ID (UUIDv4), a number representing a game mode, stage, or season, and the player's score.
 
-**Note:** Storing player scores in the database as shown in this example is *not* a suitable approach for maintaining a frequently updated live leaderboard. For that use case, we recommend an in-memory implementation using Redis, and periodically saving high scores to long-term storage as necessary.
+> **Note:** Storing player scores in the database as shown in this example is *not* a suitable approach for maintaining a frequently updated live leaderboard. For that use case, we recommend an in-memory implementation using Redis, and periodically saving high scores to long-term storage as necessary.
 
 In order to speed up queries that filter for the game mode, consider the following index:
 
@@ -165,7 +165,7 @@ When you develop against Spanner, consider how your code interfaces with the dat
 
 During development, a single-node Spanner instance is likely sufficient for most activities, including functional testing.
 
-**Warning:** We don't recommend a single-node instance in a production environment with live players. Before you put live traffic in a production environment, see the section about [sizing considerations for production](https://docs.cloud.google.com/spanner/docs/best-practices-gaming-database#size_the_production_environment_to_anticipate_peak_demand) .
+> **Warning:** We don't recommend a single-node instance in a production environment with live players. Before you put live traffic in a production environment, see the section about [sizing considerations for production](https://docs.cloud.google.com/spanner/docs/best-practices-gaming-database#size_the_production_environment_to_anticipate_peak_demand) .
 
 ### Evaluate Spanner needs for production
 

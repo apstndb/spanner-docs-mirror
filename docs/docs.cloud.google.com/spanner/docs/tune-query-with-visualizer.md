@@ -2,15 +2,13 @@ The query plan visualizer lets you quickly understand the structure of the [quer
 
 ## Before you begin
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 To familiarize yourself with the parts of the Google Cloud console user interface mentioned in this guide, read the following:
 
 ### Run a query in Google Cloud console
 
 1.  Go to the Spanner **Instances** page in Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the name of the instance containing the database you want to query.
     
@@ -80,8 +78,6 @@ The Spanner Studio page provides query tabs that let you type or paste SQL query
 ### View sampled query plans
 
 1.  Go to the Spanner **Instances** page in Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance with the queries that you want to investigate.
     

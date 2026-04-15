@@ -43,7 +43,7 @@ Graph elements with dynamic properties enabled can store properties beyond those
 
 If a property isn't defined in the schema, accessing it through the [field-access-operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#field_access_operator) returns the `JSON` type if the dynamic property exists, or `NULL` if the property doesn't exist.
 
-**Note:** Names uniquely identify all properties in a graph element, case-insensitively. A defined property takes precedence over any dynamic property when their names conflict.
+> **Note:** Names uniquely identify all properties in a graph element, case-insensitively. A defined property takes precedence over any dynamic property when their names conflict.
 
 **Example**
 

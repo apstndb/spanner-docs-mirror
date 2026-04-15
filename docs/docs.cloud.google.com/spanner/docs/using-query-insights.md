@@ -47,7 +47,7 @@ If you are a fine-grained access control user, verify that you:
   - Have fine-grained access control privileges and are granted the `spanner_sys_reader` system role or one of its member roles.
   - Select the `spanner_sys_reader` or a member role as your current system role on the database overview page.
 
-**Note:** If you already have an IAM database-level permission such as `spanner.databases.select` , the Google Cloud console assumes you are an IAM user. You cannot select the `spanner_sys_reader` or a member role on the database overview page as an IAM user.
+> **Note:** If you already have an IAM database-level permission such as `spanner.databases.select` , the Google Cloud console assumes you are an IAM user. You cannot select the `spanner_sys_reader` or a member role on the database overview page as an IAM user.
 
 For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) and [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
 

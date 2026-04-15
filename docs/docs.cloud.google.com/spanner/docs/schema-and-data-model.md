@@ -362,7 +362,7 @@ If possible, join data in interleaved tables by primary key. Because each interl
 
 ### Locality groups
 
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner uses locality groups to preserve data locality relationships across table columns. If you don't explicitly create any locality groups for your tables, Spanner groups all columns into the `default` locality group and stores the data of all tables on SSD storage. You can use locality groups to do the following:
 

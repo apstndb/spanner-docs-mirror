@@ -14,36 +14,6 @@ Authorization requires `spanner.databases.setIamPolicy` permission on `  resourc
 
 Choose a location:
 
-global
-
-europe-west8
-
-me-central2
-
-us-central1
-
-us-central2
-
-us-east1
-
-us-east4
-
-us-east5
-
-us-south1
-
-us-west1
-
-us-west2
-
-us-west3
-
-us-west4
-
-us-west8
-
-us-east7
-
   
 `POST https://spanner.googleapis.com/v1/{resource=projects/*/instances/*/databases/*/backupSchedules/*}:setIamPolicy`
 

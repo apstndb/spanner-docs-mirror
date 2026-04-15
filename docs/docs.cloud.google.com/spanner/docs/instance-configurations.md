@@ -243,7 +243,7 @@ For optimal performance, follow these best practices:
 
 ## Dual-region configurations
 
-**Note:** Dual-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** Dual-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Dual-region configurations let you replicate the database's data in multiple zones across two regions in a single country, as defined by the instance configuration.
 
@@ -364,7 +364,7 @@ You can't create a custom dual-region instance configuration. You can't add read
 
 ## Multi-region configurations
 
-**Note:** Multi-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** Multi-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner regional configurations replicate data between multiple zones within a single region. However, a regional configuration might not be optimal if:
 
@@ -678,7 +678,7 @@ In general, the voting regions in a multi-region configuration are placed geogra
 
 You can [create a custom multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) with optional read-only replicas. Any custom read-only replicas you create can't be included in write quorums. You can add locations listed under the Optional Region column as optional read-only replica(s). If you don't see your chosen read-only replica location, you can [request a new optional read-only replica region](https://docs.google.com/forms/d/e/1FAIpQLSfw9Rj4p4KA8oLu7MhIpSyPRd-4qxqazwsFZIY-_tkNrpWFcw/viewform) . For more information, see [Read-only replicas](https://docs.cloud.google.com/spanner/docs/replication#read-only) .
 
-**Note:** if you are interested in more detailed information about how data is replicated in Spanner, and about the different types of replicas and their roles in reads and writes, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
+> **Note:** if you are interested in more detailed information about how data is replicated in Spanner, and about the different types of replicas and their roles in reads and writes, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
 
 ### Performance best practices for multi-region configurations
 
@@ -703,7 +703,7 @@ To change the location of your database's default leader region to be closer to 
 
 The leader region is responsible for handling all database writes, therefore if most of your traffic comes from one geographic region, you can move it to that region to reduce latency. Updating the default leader region is cheap and does not involve any data moves. The new value takes a few minutes to take effect.
 
-**Note:** In the event that the default leader region fails or is not available, Spanner automatically places your database's leader replicas in the second read-write region of your instance configuration, ensuring high availability and no impact to your application.
+> **Note:** In the event that the default leader region fails or is not available, Spanner automatically places your database's leader replicas in the second read-write region of your instance configuration, ensuring high availability and no impact to your application.
 
 Changing the default leader region is a [schema change](https://docs.cloud.google.com/spanner/docs/schema-updates) , which uses a long-running operation. If needed, you can [Get the status of the long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations#get_the_status_of_a_long-running_database_operation) .
 

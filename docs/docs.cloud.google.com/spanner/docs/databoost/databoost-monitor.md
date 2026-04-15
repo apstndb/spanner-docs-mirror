@@ -7,7 +7,6 @@ Cloud Monitoring provides the ability to track total usage over time and to brea
 Follow these steps to track overall Data Boost usage:
 
 1.  In the Google Cloud console, go to **Monitoring** .  
-    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  If **Metrics Explorer** is shown in the navigation menu, select it. Otherwise, click **Resources** , and then select **Metrics Explorer** .
 
@@ -50,8 +49,6 @@ You must enable data access audit logs for Spanner before you can collect usage 
 To query the audit logs to view Data Boost usage by user, follow these steps:
 
 1.  Go to the Logs Explorer in the Google Cloud console.
-    
-    [Go to Logs Explorer](https://console.cloud.google.com/logs)
 
 2.  In the navigation menu, click **Log Analytics** .
 
@@ -81,8 +78,6 @@ The following example shows usage in processing units for 4 principals.
 To query the audit logs to view Data Boost usage broken down by database, user, and BigQuery job ID, follow these steps:
 
 1.  Go to the Logs Explorer in the Google Cloud console.
-    
-    [Go to Logs Explorer](https://console.cloud.google.com/logs)
 
 2.  In the navigation menu, click **Log Analytics** .
 
@@ -113,8 +108,6 @@ The following example shows usage by BigQuery job ID.
 To view Data Boost usage for multiple BigQuery jobs aggregated by the SQL text of those jobs, follow these steps:
 
 1.  Go to the Logs Explorer in the Google Cloud console.
-    
-    [Go to Logs Explorer](https://console.cloud.google.com/logs)
 
 2.  In the navigation menu, click **Log Analytics** .
 

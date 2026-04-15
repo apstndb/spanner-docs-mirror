@@ -1,4 +1,4 @@
-**Important:** Don't use locks to ensure exclusive access to a resource outside of Spanner. For more information, see [Unsupported use cases](https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable#unsupported-use-cases) .
+> **Important:** Don't use locks to ensure exclusive access to a resource outside of Spanner. For more information, see [Unsupported use cases](https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable#unsupported-use-cases) .
 
 This page describes how to use the `FOR UPDATE` clause in serializable isolation.
 

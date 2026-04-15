@@ -1,8 +1,8 @@
 This page explains how you can search for and manage your Spanner resources by using Data Catalog.
 
-**Caution:** Data Catalog is [deprecated](https://docs.cloud.google.com/data-catalog/docs/deprecations) in favor of [Dataplex Universal Catalog](https://docs.cloud.google.com/dataplex/docs/catalog-overview) . Dataplex Universal Catalog is also integrated with Spanner, offering similar capabilities. You can use Dataplex Universal Catalog to enrich your data with aspects, which are the equivalent of Data Catalog tags. For more information, see [Manage aspects and enrich metadata](https://docs.cloud.google.com/dataplex/docs/enrich-entries-metadata) .
+> **Caution:** Data Catalog is [deprecated](https://docs.cloud.google.com/data-catalog/docs/deprecations) in favor of [Knowledge Catalog](https://docs.cloud.google.com/dataplex/docs/catalog-overview) . Knowledge Catalog is also integrated with Spanner, offering similar capabilities. You can use Knowledge Catalog to enrich your data with aspects, which are the equivalent of Data Catalog tags. For more information, see [Manage aspects and enrich metadata](https://docs.cloud.google.com/dataplex/docs/enrich-entries-metadata) .
 
-Data Catalog is a fully managed, scalable metadata management service within Dataplex Universal Catalog. It automatically catalogs the following metadata about Spanner instances, databases, tables, columns, and views:
+Data Catalog is a fully managed, scalable metadata management service within Knowledge Catalog. It automatically catalogs the following metadata about Spanner instances, databases, tables, columns, and views:
 
   - Name and fully-qualified name
   - Location (region)
@@ -28,13 +28,11 @@ When you [move an instance](https://docs.cloud.google.com/spanner/docs/move-inst
 
 To learn more about Data Catalog see [What is Data Catalog](https://docs.cloud.google.com/data-catalog/docs/concepts/overview) .
 
-**Note:** Data Catalog refers to the resources in Spanner and in other Google Cloud services as *assets* . In this page, we refer to Spanner resources—instances, databases, tables, and views—as Spanner assets. We also use the term *assets* to refer to both the resources and Data Catalog metadata for the resources.
+> **Note:** Data Catalog refers to the resources in Spanner and in other Google Cloud services as *assets* . In this page, we refer to Spanner resources—instances, databases, tables, and views—as Spanner assets. We also use the term *assets* to refer to both the resources and Data Catalog metadata for the resources.
 
 ## Before you begin
 
 1.  Enable the Data Catalog API for the project.
-    
-    [Enable the Data Catalog API](https://console.cloud.google.com/flows/enableapi?apiid=datacatalog.googleapis.com)
 
 2.  Check permissions.
     
@@ -57,15 +55,13 @@ To learn more, see [Tags and tag templates](https://docs.cloud.google.com/data-c
 
 ## Search for Spanner assets
 
-Use the Dataplex Universal Catalog search page in the Google Cloud console to search for Spanner assets.
+Use the Knowledge Catalog search page in the Google Cloud console to search for Spanner assets.
 
-1.  Go to the Dataplex Universal Catalog search page.
-    
-    [Go to Search](https://console.cloud.google.com/dataplex/search)
+1.  Go to the Knowledge Catalog search page.
 
 2.  In the **Filters panel** , under **Systems** , select **Spanner** .
     
-    Dataplex Universal Catalog displays all known Spanner assets.
+    Knowledge Catalog displays all known Spanner assets.
 
 3.  Optional: Do one of the following to narrow down the search:
     
@@ -79,7 +75,7 @@ Use the Dataplex Universal Catalog search page in the Google Cloud console to se
      system=cloud_spanner type=database
     ```
     
-    **Note:** To search for Spanner instances, use `type=service` . To search for an instance configuration, use `instance_config=configuration-name` .
+    > **Note:** To search for Spanner instances, use `type=service` . To search for an instance configuration, use `instance_config=configuration-name` .
     
     You can also use parentheses and the logical operators `and` and `or` for complex expressions. To learn more about the expressions that you can use in the search field, see [Data Catalog search syntax](https://docs.cloud.google.com/data-catalog/docs/how-to/search-reference) .
 
@@ -96,9 +92,7 @@ Use the Dataplex Universal Catalog search page in the Google Cloud console to se
 
 In this example workflow, you start by searching for a Spanner instance, then view a member database, then view a table in that database, and then view the columns in the table.
 
-1.  Go to the Dataplex Universal Catalog search page.
-    
-    [Go to Search](https://console.cloud.google.com/dataplex/search)
+1.  Go to the Knowledge Catalog search page.
 
 2.  In the **Filters panel** , under **Systems** , select **Spanner** .
 
@@ -110,19 +104,19 @@ In this example workflow, you start by searching for a Spanner instance, then vi
 
 5.  On the **Spanner service details** page, click the **ENTRY LIST** tab, and then click **VIEW CHILD ENTRIES IN SEARCH** .
     
-    Dataplex Universal Catalog displays the databases in the instance.
+    Knowledge Catalog displays the databases in the instance.
     
-    **Note:** If there is no **ENTRY LIST** tab, return to the **Search** page and choose a different instance.
+    > **Note:** If there is no **ENTRY LIST** tab, return to the **Search** page and choose a different instance.
 
 6.  On the **Spanner database details** page, click the **ENTRY LIST** tab, and then click **VIEW CHILD ENTRIES IN SEARCH** .
     
-    Dataplex Universal Catalog displays the tables in the database.
+    Knowledge Catalog displays the tables in the database.
 
 7.  Select a table name, and then on the **Spanner table details** page, click **SCHEMA** to see the table columns.
 
 8.  Optional: To add a tag to a column, click the plus sign under **Column tags** .
 
-**Note:** This workflow demonstrates drilling down from an instance to a table. You can go directly to a list of tables by using the **Filters** panel or by entering `system=cloud_spanner,type=table` in the search field.
+> **Note:** This workflow demonstrates drilling down from an instance to a table. You can go directly to a list of tables by using the **Filters** panel or by entering `system=cloud_spanner,type=table` in the search field.
 
 ## Export and import tags
 
@@ -192,7 +186,7 @@ Replace the following:
 
 The following table shows the required IAM roles and permissions for the various Data Catalog operations.
 
-**Note:** Data Catalog doesn't support Spanner fine-grained access control.
+> **Note:** Data Catalog doesn't support Spanner fine-grained access control.
 
 **Data Catalog operation**
 

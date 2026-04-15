@@ -8,7 +8,7 @@ The Cloud Monitoring console provides several monitoring tools for Spanner:
 
 If you prefer to monitor Spanner programmatically, use the [Cloud Client Libraries for Cloud Monitoring](https://docs.cloud.google.com/monitoring/docs/reference/libraries) to retrieve metrics.
 
-**Note:** You can also monitor your instances by [viewing charts in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) . Use the Google Cloud console to get a quick view of the most important metrics for your instance.
+> **Note:** You can also monitor your instances by [viewing charts in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) . Use the Google Cloud console to get a quick view of the most important metrics for your instance.
 
 ## Use the Cloud Monitoring curated dashboard
 
@@ -22,8 +22,6 @@ Cloud Monitoring provides you with a curated dashboard that summarizes key infor
 To view the Spanner dashboard, do the following:
 
 1.  In the Google Cloud console, select **Monitoring** , or use the following button:
-    
-    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  If **Resources** is shown in the navigation pane, then select **Resources** and then select **Cloud Spanner** . Otherwise, select **Dashboards** and then select the dashboard named **Cloud Spanner** .
 
@@ -50,8 +48,6 @@ In particular, Cloud Monitoring lets you create a custom chart that shows whethe
 To get started with this example, follow these steps:
 
 1.  In the Google Cloud console, select **Monitoring** , or use the following button:
-    
-    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  If **Metrics Explorer** is shown in the navigation pane, select it. Otherwise, select **Resources** and then select **Metrics Explorer** .
 
@@ -102,8 +98,6 @@ To create an alerting policy that triggers when your high priority cpu utilizati
 To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
-    
-    [Go to **Alerting**](https://console.cloud.google.com/monitoring/alerting)
     
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
@@ -234,8 +228,6 @@ To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
     
-    [Go to **Alerting**](https://console.cloud.google.com/monitoring/alerting)
-    
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
 2.  If you haven't created your notification channels and if you want to be notified, then click **Edit Notification Channels** and add your notification channels. Return to the **Alerting** page after you add your channels.
@@ -357,8 +349,6 @@ To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
     
-    [Go to **Alerting**](https://console.cloud.google.com/monitoring/alerting)
-    
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
 2.  If you haven't created your notification channels and if you want to be notified, then click **Edit Notification Channels** and add your notification channels. Return to the **Alerting** page after you add your channels.
@@ -470,7 +460,7 @@ Value</th>
 </tbody>
 </table>
 
-**Note:** Spanner usage amounts are calculated in *binary terabytes* , where 1 TB is 2 <sup>40</sup> bytes. This unit of measurement is also known as a [tebibyte (TiB)](https://en.wikipedia.org/wiki/Tebibyte) .
+> **Note:** Spanner usage amounts are calculated in *binary terabytes* , where 1 TB is 2 <sup>40</sup> bytes. This unit of measurement is also known as a [tebibyte (TiB)](https://en.wikipedia.org/wiki/Tebibyte) .
 
 ## What's next
 

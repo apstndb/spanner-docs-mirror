@@ -23,7 +23,7 @@ GoogleSQL for Spanner supports the following Net functions.
 
 Takes a URL as a `STRING` value and returns the host. For best results, URL values should comply with the format as defined by [RFC 3986](https://tools.ietf.org/html/rfc3986#appendix-A) . If the URL value doesn't comply with RFC 3986 formatting, this function makes a best effort to parse the input and return a relevant result. If the function can't parse the input, it returns `NULL` .
 
-**Note:** The function doesn't perform any normalization.
+> **Note:** The function doesn't perform any normalization.
 
 **Return Data Type**
 
@@ -285,11 +285,11 @@ This function returns `NULL` if any of the following is true:
 
 Before looking up the public suffix, this function temporarily normalizes the host by converting uppercase English letters to lowercase and encoding all non-ASCII characters with [Punycode](https://en.wikipedia.org/wiki/Punycode) . The function then returns the public suffix as part of the original host instead of the normalized host.
 
-**Note:** The function doesn't perform [Unicode normalization](https://en.wikipedia.org/wiki/Unicode_equivalence) .
+> **Note:** The function doesn't perform [Unicode normalization](https://en.wikipedia.org/wiki/Unicode_equivalence) .
 
-**Note:** The public suffix data at [publicsuffix.org](https://publicsuffix.org/list/) also contains private domains. This function ignores the private domains.
+> **Note:** The public suffix data at [publicsuffix.org](https://publicsuffix.org/list/) also contains private domains. This function ignores the private domains.
 
-**Note:** The public suffix data may change over time. Consequently, input that produces a `NULL` result now may produce a non- `NULL` value in the future.
+> **Note:** The public suffix data may change over time. Consequently, input that produces a `NULL` result now may produce a non- `NULL` value in the future.
 
 **Return Data Type**
 
@@ -342,11 +342,11 @@ This function returns `NULL` if any of the following is true:
 
 Before looking up the public suffix, this function temporarily normalizes the host by converting uppercase English letters to lowercase and encoding all non-ASCII characters with [Punycode](https://en.wikipedia.org/wiki/Punycode) . The function then returns the registered or registerable domain as part of the original host instead of the normalized host.
 
-**Note:** The function doesn't perform [Unicode normalization](https://en.wikipedia.org/wiki/Unicode_equivalence) .
+> **Note:** The function doesn't perform [Unicode normalization](https://en.wikipedia.org/wiki/Unicode_equivalence) .
 
-**Note:** The public suffix data at [publicsuffix.org](https://publicsuffix.org/list/) also contains private domains. This function doesn't treat a private domain as a public suffix. For example, if `us.com` is a private domain in the public suffix data, `NET.REG_DOMAIN("foo.us.com")` returns `us.com` (the public suffix `com` plus the preceding label `us` ) rather than `foo.us.com` (the private domain `us.com` plus the preceding label `foo` ).
+> **Note:** The public suffix data at [publicsuffix.org](https://publicsuffix.org/list/) also contains private domains. This function doesn't treat a private domain as a public suffix. For example, if `us.com` is a private domain in the public suffix data, `NET.REG_DOMAIN("foo.us.com")` returns `us.com` (the public suffix `com` plus the preceding label `us` ) rather than `foo.us.com` (the private domain `us.com` plus the preceding label `foo` ).
 
-**Note:** The public suffix data may change over time. Consequently, input that produces a `NULL` result now may produce a non- `NULL` value in the future.
+> **Note:** The public suffix data may change over time. Consequently, input that produces a `NULL` result now may produce a non- `NULL` value in the future.
 
 **Return Data Type**
 

@@ -1,6 +1,6 @@
 This page describes the lexical structure used to create PostgreSQL statements in Spanner and defines the syntax of the lexical elements, called *tokens* , of this structure.
 
-The content on this page is based on the PostgreSQL documentation, which is available under the [PostgreSQL License](https://www.postgresql.org/about/licence/) . There are differences in behavior between the PostgreSQL capabilities supported in Spanner and their open-source PostgreSQL equivalents.
+> The content on this page is based on the PostgreSQL documentation, which is available under the [PostgreSQL License](https://www.postgresql.org/about/licence/) . There are differences in behavior between the PostgreSQL capabilities supported in Spanner and their open-source PostgreSQL equivalents.
 
 A PostgreSQL statement comprises a series of tokens. Tokens include *identifiers* , *quoted identifiers* , *keywords* , *literals* , *operators* , and *special characters* . You can separate tokens with whitespace (for example, space, tab, newline) or comments.
 
@@ -109,7 +109,7 @@ PostgreSQL also accepts *escape string constants* , which are an extension to th
 
 Any other character following a backslash is taken literally. Thus, to include a backslash character, write two backslashes ( `\\` ). Also, a single quote can be included in an escape string by writing `\'` , in addition to the normal way of writing `''` .
 
-**Note:** Backslash escapes are recognized only in escape string constants, not in regular string constants.
+> **Note:** Backslash escapes are recognized only in escape string constants, not in regular string constants.
 
 Ensure that the byte sequences that you create, especially when using the octal or hexadecimal escapes, compose valid characters in the server character set encoding. A useful alternative is to use Unicode escapes or the alternative Unicode escape syntax; then the server will check that the character conversion is possible.
 

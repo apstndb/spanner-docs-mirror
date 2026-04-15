@@ -2,7 +2,7 @@
 
 You can use the [Google Cloud Terraform Provider](https://www.terraform.io/docs/providers/google/index.html) to create Spanner instances and databases, and to modify or delete Spanner resources.
 
-**PostgreSQL interface note:** For PostgreSQL-dialect databases, Terraform doesn't support submitting DDL while creating a database. You must submit DDL in a separate operation.
+> **PostgreSQL interface note:** For PostgreSQL-dialect databases, Terraform doesn't support submitting DDL while creating a database. You must submit DDL in a separate operation.
 
 The Google Cloud Terraform Provider offers the following Spanner resources:
 

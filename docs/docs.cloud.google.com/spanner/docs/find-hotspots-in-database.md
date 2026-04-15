@@ -44,7 +44,7 @@ If you are a fine-grained access control user, ensure that you:
   - Have fine-grained access control privileges and are granted the `spanner_sys_reader` system role or one of its member roles.
   - Select the `spanner_sys_reader` or a member role as your current system role on the database **Overview** page.
 
-**Note:** If you already have an IAM database-level permission, such as `spanner.databases.select` , the Google Cloud console assumes that you are an IAM user. You can't select the `spanner_sys_reader` or a member role on the database overview page as an IAM user.
+> **Note:** If you already have an IAM database-level permission, such as `spanner.databases.select` , the Google Cloud console assumes that you are an IAM user. You can't select the `spanner_sys_reader` or a member role on the database overview page as an IAM user.
 
 For more information, see [fine-grained access control overview](https://docs.cloud.google.com/spanner/docs/fgac-about) and [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
 
@@ -55,8 +55,6 @@ The **Hotspot insights** dashboard shows the peak split CPU usage percentage. Th
 To view the **Hotspot insights** dashboard for a database, do the following:
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 

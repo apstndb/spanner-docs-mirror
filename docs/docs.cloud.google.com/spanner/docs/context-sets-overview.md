@@ -1,8 +1,8 @@
-**Preview**
+> **Preview**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 Context set is a collection of database-specific information that enables tools such as QueryData to generate queries with high accuracy. Context set includes templates, facets, and value searches that help QueryData understand your database schema and the business logic of your applications.
 
@@ -161,7 +161,7 @@ Context sets have the following limitations:
   - Context sets for databases only supports templates, facets, and value searches.
   - Context sets for databases is only used by the `QueryData` endpoint in the Conversational Analytics API.
 
-**Warning:** All agent contexts associated with a database are viewable to all users with any read access to that database. In cases where users have narrower access to the database, such as Spanner fine-grained access control, users can potentially discover other fields and tables from the agent context.
+> **Warning:** All agent contexts associated with a database are viewable to all users with any read access to that database. In cases where users have narrower access to the database, such as Spanner fine-grained access control, users can potentially discover other fields and tables from the agent context.
 
 ## What's next
 

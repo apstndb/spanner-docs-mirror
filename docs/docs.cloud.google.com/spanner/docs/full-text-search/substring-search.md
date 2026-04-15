@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 In addition to full token matching, Spanner [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) support substring searches. This page describes how to perform a substring search as part of a [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) in Spanner.
 

@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 In addition to indexing text, the [search index](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) provides an efficient way to index numbers. It's primarily used to augment [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) queries with conditions on numeric fields. This page describes indexing numbers for equality and inequality queries, and indexing an array of numbers.
 
@@ -25,7 +25,7 @@ Inequality and equality indexing can accelerate a wider range of conditions in t
 
 ### Array tokenization
 
-**Note:** The examples in this section are intended for GoogleSQL-dialect databases. PostgreSQL doesn't support numeric array acceleration with search indexes.
+> **Note:** The examples in this section are intended for GoogleSQL-dialect databases. PostgreSQL doesn't support numeric array acceleration with search indexes.
 
 In addition to scalar values, [`TOKENIZE_NUMBER`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_number) supports tokenization of an array of numbers.
 

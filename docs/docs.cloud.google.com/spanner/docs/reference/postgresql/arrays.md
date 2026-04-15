@@ -141,7 +141,7 @@ Each value must be checked when searching for a value in an array. If you know t
                                            quarterly_fee[3] = 1000 OR
                                            quarterly_fee[4] = 1000;
 
-**Note:** we advise against searching an array for specific array elements. Doing so may indicate suboptimal database design. Instead, consider using a separate table with a row for each array element. Doing so makes searching easier, and helps when you have many elements to search through.
+> **Note:** we advise against searching an array for specific array elements. Doing so may indicate suboptimal database design. Instead, consider using a separate table with a row for each array element. Doing so makes searching easier, and helps when you have many elements to search through.
 
 ## Finding lengths
 

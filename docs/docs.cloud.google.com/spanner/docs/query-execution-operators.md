@@ -2,7 +2,7 @@ This page describes the operators used in Spanner [query execution plans](https:
 
 Execution plans support GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases.
 
 ## Mapping SQL constructs to query execution operators
 

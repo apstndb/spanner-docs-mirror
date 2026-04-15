@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** Views are supported in PostgreSQL-dialect databases with some difference from open source PostgreSQL. In Spanner, views are read-only. Views can't be the target of an `INSERT` , `UPDATE` , or `DELETE` statement.
+> **PostgreSQL interface note:** Views are supported in PostgreSQL-dialect databases with some difference from open source PostgreSQL. In Spanner, views are read-only. Views can't be the target of an `INSERT` , `UPDATE` , or `DELETE` statement.
 
 This document introduces and describes Spanner views.
 

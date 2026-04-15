@@ -20,7 +20,7 @@ You can configure the leader region of a database by following the instructions 
 
 Optionally, you can grant non-leader, read-write regions the [read lease region](https://docs.cloud.google.com/spanner/docs/read-lease) status. Read lease regions help your database reduce [strong read](https://docs.cloud.google.com/spanner/docs/reads#read_types) latency in dual-region or multi-region instances. However, writes experience higher latency when you use read lease.
 
-**Key Point:** Place most of your read and write workloads in the default leader region. In the event of the loss of a default leader region, read and write workloads are served from the second read-write region.
+> **Key Point:** Place most of your read and write workloads in the default leader region. In the event of the loss of a default leader region, read and write workloads are served from the second read-write region.
 
 ## Read-only regions
 
@@ -32,13 +32,13 @@ Furthermore, adding read-only replicas to an instance configuration doesn't chan
 
 Optionally, to reduce read latency for transactions that require strong consistency, you can grant non-leader, read-only regions the [read lease region](https://docs.cloud.google.com/spanner/docs/read-lease) status. Read lease regions help your database reduce [strong read](https://docs.cloud.google.com/spanner/docs/reads#read_types) latency in dual-region or multi-region instances. However, writes experience higher latency when you use read lease.
 
-**Key Point:** Place additional read workloads in read-only regions to reduce latency on read-write regions.
+> **Key Point:** Place additional read workloads in read-only regions to reduce latency on read-write regions.
 
 ## Witness regions
 
 A witness region contains a [witness replica](https://docs.cloud.google.com/spanner/docs/replication#witness) , which is used to form a write quorum and vote on writes. Every Spanner mutation requires a write quorum that's composed of a majority of voting replicas (for dual-region configurations, the quorum requires two replicas from both regions). Witnesses become important in the rare event that the read-write regions become unavailable. Only dual-region and multi-region configurations contain witness regions. For more information about leader regions and voting replicas, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
 
-**Key Point:** The witness region are system-configured region for voting and achieving write quorums.
+> **Key Point:** The witness region are system-configured region for voting and achieving write quorums.
 
 ## What's next
 

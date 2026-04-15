@@ -92,11 +92,9 @@ If you move your instance according to these recommendations, then the move typi
 
 ### Google Cloud console
 
-**Note:** You can't move instances that contain [CMEK](https://docs.cloud.google.com/spanner/docs/cmek) -enabled databases using the Google Cloud console. Move the instance using the gcloud CLI.
+> **Note:** You can't move instances that contain [CMEK](https://docs.cloud.google.com/spanner/docs/cmek) -enabled databases using the Google Cloud console. Move the instance using the gcloud CLI.
 
 1.  Go to the **Instances** page in the Google Cloud console.
-    
-    [Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance that you want to move.
 
@@ -145,6 +143,7 @@ Usage notes:
   - Your keys must cover all the regions in the destination instance configuration. For example, if your destination instance configuration is in `nam3` , then you must set keys in `regional-us-east4` , `regional-us-east1` , and `regional-us-central1` .
   - You can't set KMS keys for databases that aren't CMEK-enabled while moving the instance.
   - You shouldn't disable or destroy CMEK keys in either the source or destination instance configuration while moving the instance. The migration doesn't proceed if you try.
+  - You can't move an instance that has instance partitions. For more information about geo-partitioning limitations, see the [limitations in the geo-partitioning overview](https://docs.cloud.google.com/spanner/docs/geo-partitioning#limitations) .
 
 <!-- end list -->
 
@@ -213,8 +212,6 @@ The **Total storage** and **Total database storage by databases** graphs in the 
 
 2.  In the Google Cloud console, go to the dashboard **Dashboards** page:
     
-    [Go to **Dashboards**](https://console.cloud.google.com/monitoring/dashboards)
-    
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
 3.  In the **Dashboards Overview** page, click **Create dashboard** .
@@ -248,7 +245,7 @@ This command requires the operation ID of the in progress instance move operatio
 1.  Get the operation ID by running:
     
         gcloud spanner operations list --type=INSTANCE --instance="INSTANCE_ID"
-        --filter="done:False AND metadata.@type:MoveInstanceMetadata
+        --filter="done:False AND metadata.@type:MoveInstanceMetadata"
     
     Replace the following:
     

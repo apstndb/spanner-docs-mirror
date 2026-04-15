@@ -865,8 +865,6 @@ For more information about this permission, see [Predefined roles](https://docs.
 To view the system insights dashboard, follow these steps:
 
 1.  In the Google Cloud console, open the list of Spanner instances.
-    
-    [Go to the instance list](https://console.cloud.google.com/spanner/instances)
 
 2.  Do one of the following:
     

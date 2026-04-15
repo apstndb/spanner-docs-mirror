@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** Spanner Vertex AI integration is not supported in PostgreSQL-dialect databases.
+> **PostgreSQL interface note:** Spanner Vertex AI integration is not supported in PostgreSQL-dialect databases.
 
 ## Objective
 

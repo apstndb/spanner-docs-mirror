@@ -4,7 +4,7 @@ PGAdapter is a sidecar proxy which is a small application that runs alongside yo
 
 PGAdapter adds, at most, 0.2 ms of latency overhead. The PostgreSQL interface has the same latency levels as GoogleSQL.
 
-**Note:** [PostgreSQL drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview#postgresql_drivers_and_orms) lists all clients that PGAdapter supports.
+> **Note:** [PostgreSQL drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview#postgresql_drivers_and_orms) lists all clients that PGAdapter supports.
 
 The following diagram shows how `psql` connects to Spanner through PGAdapter.
 

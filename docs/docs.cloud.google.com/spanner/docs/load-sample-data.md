@@ -26,7 +26,7 @@ The following instructions are performed using the [BigQuery reverse ETL](https:
 
 2.  Export the source data in the CSV file format. Consider using [`pg_dump`](https://www.postgresql.org/docs/current/app-pgdump.html) for PostgreSQL databases or [`mysqldump`](https://dev.mysql.com/doc/refman/8.4/en/mysqldump.html) for MySQL databases tools to convert your sample data into the CSV file format.
     
-    **Note:** If you are working with sample data that's not available in the CSV file format, then consider [batch loading](https://docs.cloud.google.com/bigquery/docs/batch-loading-data) the sample data to BigQuery.
+    > **Note:** If you are working with sample data that's not available in the CSV file format, then consider [batch loading](https://docs.cloud.google.com/bigquery/docs/batch-loading-data) the sample data to BigQuery.
 
 3.  Load the data into BigQuery by using the following `bq` commands:
     

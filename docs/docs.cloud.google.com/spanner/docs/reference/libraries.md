@@ -8,7 +8,7 @@ The Spanner client libraries are supported on Compute Engine, App Engine flexibl
 
 If you are using the App Engine standard environment with Go, PHP, or Python, use the [REST interface](https://docs.cloud.google.com/spanner/docs/reference/rest) to access Spanner.
 
-**Note:** [Additional client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries#more-libraries) are available for Java applications.
+> **Note:** [Additional client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries#more-libraries) are available for Java applications.
 
 <span id="installing_the_client_library"></span>
 
@@ -40,7 +40,7 @@ For more information, see [Setting Up a Go Development Environment](https://docs
 
 ### Java
 
-**Note:** If your application uses the Spring Framework, a [Spring Data module](https://docs.cloud.google.com/spanner/docs/adding-spring) is also available.
+> **Note:** If your application uses the Spring Framework, a [Spring Data module](https://docs.cloud.google.com/spanner/docs/adding-spring) is also available.
 
 If you are using [Maven](https://maven.apache.org/) , add the following to your `pom.xml` file. For more information about BOMs, see [The Google Cloud Platform Libraries BOM](https://cloud.google.com/java/docs/bom) .
 
@@ -79,7 +79,7 @@ If you're using Visual Studio Code or IntelliJ, you can add client libraries to 
 
 The plugins provide additional functionality, such as key management for service accounts. Refer to each plugin's documentation for details.
 
-**Note:** Cloud Java client libraries do not currently support Android.
+> **Note:** Cloud Java client libraries do not currently support Android.
 
 For more information, see [Setting Up a Java Development Environment](https://docs.cloud.google.com/java/docs/setup) .
 
@@ -97,7 +97,7 @@ For more information, see [Setting Up a Node.js Development Environment](https:/
 composer require google/cloud-spanner
 ```
 
-**Note:** The Spanner Client Library requires that you install and enable the [gRPC extension](https://docs.cloud.google.com/php/grpc) for PHP.
+> **Note:** The Spanner Client Library requires that you install and enable the [gRPC extension](https://docs.cloud.google.com/php/grpc) for PHP.
 
 For more information, see [Using PHP on Google Cloud](https://docs.cloud.google.com/php/docs) .
 

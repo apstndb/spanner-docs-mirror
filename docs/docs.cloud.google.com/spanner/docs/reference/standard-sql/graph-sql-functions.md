@@ -338,7 +338,7 @@ Gets the labels associated with a graph element and preserves the original case 
 
 Returns `NULL` if `element` is `NULL` .
 
-**Note:** Labels in a graph element are uniquely identified by their names. Labels are case insensitive. A defined label in the schema always takes precedence over [dynamic label](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_label_definition) when their names conflict. To learn how to model dynamic labels, see the [dynamic label definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_label_definition) .
+> **Note:** Labels in a graph element are uniquely identified by their names. Labels are case insensitive. A defined label in the schema always takes precedence over [dynamic label](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_label_definition) when their names conflict. To learn how to model dynamic labels, see the [dynamic label definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_label_definition) .
 
 **Return type**
 
@@ -592,7 +592,7 @@ Returns `NULL` if `graph_path` is `NULL` .
 
 Gets the name of each property associated with a graph element and preserves the original case of each name.
 
-**Note:** Properties in a graph element are uniquely identified by their names. Properties are case insensitive. Defined properties in the schema always take precedence over [dynamic properties](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_label_definition) when their names conflict. For more information, see [dynamic properties definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_properties_definition) .
+> **Note:** Properties in a graph element are uniquely identified by their names. Properties are case insensitive. Defined properties in the schema always take precedence over [dynamic properties](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_label_definition) when their names conflict. For more information, see [dynamic properties definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#dynamic_properties_definition) .
 
 **Arguments**
 

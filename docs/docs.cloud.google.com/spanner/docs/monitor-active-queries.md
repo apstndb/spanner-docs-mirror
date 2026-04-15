@@ -18,8 +18,6 @@ You might also be able to get the required permissions through [custom roles](ht
 To view active queries for each database, do the following:
 
 1.  In the Google Cloud console, go to the Spanner **Instances** page.
-    
-    [Go to the Spanner Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance that contains the queries that you want to monitor.
 

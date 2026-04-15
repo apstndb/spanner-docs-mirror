@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](https://docs.cloud.google.com/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
+> **PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](https://docs.cloud.google.com/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
 
 The Spanner CLI is a command-line interface (CLI) within the gcloud CLI that lets you connect to and interact with your Spanner databases. For example, you can use the Spanner CLI to run [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview) statements and automate tasks. This document describes how to set up and use the Spanner CLI.
 
@@ -34,7 +34,7 @@ To install the Spanner CLI manually, run the following command:
 
     gcloud components install spanner-cli
 
-**Note:** If you use the open source spanner-cli, you must manually install the Spanner CLI because the open source version isn't automatically upgraded.
+> **Note:** If you use the open source spanner-cli, you must manually install the Spanner CLI because the open source version isn't automatically upgraded.
 
 If installation using the Google Cloud CLI command is unsuccessful or not feasible in your shell environment, Spanner provides standalone Debian (.deb) and RPM (.rpm) packages. You can use these packages to manually install on compatible systems. To install, run the following command:
 

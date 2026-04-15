@@ -40,7 +40,7 @@ To access array elements in the `some_numbers` column, specify which type of ind
      | [5, 10]            | 10       | 5         |
      +--------------------+----------+-----------*/
 
-**Note:** `OFFSET` and `ORDINAL` will raise errors if the index is out of range. To avoid this, you can use `SAFE_OFFSET` or `SAFE_ORDINAL` to return `NULL` instead of raising an error.
+> **Note:** `OFFSET` and `ORDINAL` will raise errors if the index is out of range. To avoid this, you can use `SAFE_OFFSET` or `SAFE_ORDINAL` to return `NULL` instead of raising an error.
 
 To access the first or last element in an array, use the [`ARRAY_FIRST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_first) or [`ARRAY_LAST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_last) function:
 
@@ -266,7 +266,7 @@ The following example uses `UNNEST` with `INNER JOIN` to flatten an `ARRAY` of `
 
 You can find specific information from repeated fields. For example, the following query returns the fastest racer in an 800M race.
 
-**Note:** This example doesn't involve flattening an array, but does represent a common way to get information from a repeated field.
+> **Note:** This example doesn't involve flattening an array, but does represent a common way to get information from a repeated field.
 
 **Example**
 
@@ -593,7 +593,7 @@ The query itself contains a subquery. This subquery selects each row in the `som
 
 The following example uses a `WHERE` clause in the `ARRAY()` operator's subquery to filter the returned rows.
 
-**Note:** In the following examples, the resulting rows are not ordered.
+> **Note:** In the following examples, the resulting rows are not ordered.
 
     WITH Sequences AS
       (SELECT [0, 1, 1, 2, 3, 5] AS some_numbers
@@ -800,7 +800,7 @@ GoogleSQL also supports an aggregate function, `ARRAY_CONCAT_AGG()` , which conc
      | [1, 2, 3, 4, 5, 6]                               |
      +--------------------------------------------------*/
 
-**Note:** The array returned by `ARRAY_CONCAT_AGG()` is non-deterministic, since the order in which the function concatenates values is not guaranteed.
+> **Note:** The array returned by `ARRAY_CONCAT_AGG()` is non-deterministic, since the order in which the function concatenates values is not guaranteed.
 
 ## Converting arrays to strings
 

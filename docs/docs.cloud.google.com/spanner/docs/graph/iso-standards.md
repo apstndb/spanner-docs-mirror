@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 The page describes how Spanner Graph supports the ISO international standard query language for graph databases.
 
@@ -20,7 +20,7 @@ The following tables describe the high-level relationship between SQL/PGQ, GQL, 
 
 ## SQL/PGQ support
 
-**Note:** G000 is the feature ID from the ISO SQL/PGQ standard.
+> **Note:** G000 is the feature ID from the ISO SQL/PGQ standard.
 
 | Standard                                 | SQL/PGQ feature ID                                                                                                                                         | Spanner Graph                                                                                                                                                                          |
 | :--------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -38,7 +38,7 @@ The following tables describe the high-level relationship between SQL/PGQ, GQL, 
 
 ## GQL support
 
-**Note:** GG00 is the feature ID from the ISO GQL standard.
+> **Note:** GG00 is the feature ID from the ISO GQL standard.
 
 <table>
 <colgroup>

@@ -5,8 +5,6 @@ Spanner Data Boost is subject to quotas that limit the number of concurrent `Exe
 To check the concurrency quota in your project, follow these steps:
 
 1.  Go to the Quotas page in the Google Cloud console.
-    
-    [Go to Quotas](https://console.cloud.google.com/iam-admin/quotas)
 
 2.  In the **Filter** field, enter `databoost` . From the list, select one of the following:
     
@@ -15,14 +13,13 @@ To check the concurrency quota in your project, follow these steps:
 
 3.  In the resulting table, locate your region and view the limit for that region.
 
-**Note:** To check the default quota for regions, select **DataBoost operations per region (default)** or **DataBoost concurrent requests in milli-operations per region (default)** instead.
+> **Note:** To check the default quota for regions, select **DataBoost operations per region (default)** or **DataBoost concurrent requests in milli-operations per region (default)** instead.
 
 ## Monitor quota usage
 
 To monitor your quota usage, follow these steps:
 
 1.  In the Google Cloud console, go to **Monitoring** .  
-    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  If **Metrics Explorer** is shown in the navigation menu, select it. Otherwise, click **Resources** , and then select **Metrics Explorer** .
 
@@ -106,7 +103,7 @@ If one principal is consistently exceeding the amount of Data Boost resources th
 
   - [Modify the allow policy](https://cloud.google.com/iam/docs/granting-changing-revoking-access#modifying-policy) for sample code that revokes a role.
     
-    **Note:** A best practice is to add the `spanner.databases.useDataBoost` permission to a custom IAM role.
+    > **Note:** A best practice is to add the `spanner.databases.useDataBoost` permission to a custom IAM role.
 
 ## What's next
 

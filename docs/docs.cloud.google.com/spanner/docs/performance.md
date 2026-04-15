@@ -110,7 +110,7 @@ HDD: 22,500</td>
 
 For regional instance configurations that allow optional read-only replicas, the optional read-only replica can support an additional 7,500 reads per second for SSD storage and 500 reads per second for HDD storage.
 
-**Note:** These throughput numbers are **estimates only** , and they reflect a read-only or write-only workload. Spanner throughput is highly dependent on workload, schema design, and dataset characteristics. These throughput numbers can help as a starting point when you are estimating the approximate [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) (nodes or processing units) required for your Spanner instance. But these numbers can't be used for exact sizing and cost estimates.
+> **Note:** These throughput numbers are **estimates only** , and they reflect a read-only or write-only workload. Spanner throughput is highly dependent on workload, schema design, and dataset characteristics. These throughput numbers can help as a starting point when you are estimating the approximate [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) (nodes or processing units) required for your Spanner instance. But these numbers can't be used for exact sizing and cost estimates.
 
 ### Performance for dual-region configurations
 

@@ -6,7 +6,7 @@ Query statistics are useful when you need to investigate performance issues or o
 
 ## How to access query statistics
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 Spanner provides the query statistics in the `SPANNER_SYS` schema. You can use the following ways to access `SPANNER_SYS` data:
 
@@ -26,7 +26,7 @@ The following single read methods that Spanner provides don't support `SPANNER_S
 
 For more information, see [Single read methods](https://docs.cloud.google.com/spanner/docs/reads#single_read_methods) .
 
-**Note:** On a database's Spanner Studio page, you can copy and paste the example queries on this page to insert queries quickly.
+> **Note:** On a database's Spanner Studio page, you can copy and paste the example queries on this page to insert queries quickly.
 
 ## CPU usage grouped by query
 
@@ -202,7 +202,9 @@ Statistics for multiple queries that have the same tag string are grouped in a s
 <td><code dir="ltr" translate="no">LATENCY_DISTRIBUTION</code></td>
 <td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&gt;</code></td>
 <td><p>A histogram of the query execution time. The values are measured in seconds.</p>
+<blockquote>
 <strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">LATENCY_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
 <p>The array contains a single element and has the following type:<br />
 <code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;  COUNT INT64,  MEAN FLOAT64,  SUM_OF_SQUARED_DEVIATION FLOAT64,  NUM_FINITE_BUCKETS INT64,  GROWTH_FACTOR FLOAT64,  SCALE FLOAT64,  BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code><br />
 For more information about the values, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
@@ -393,7 +395,9 @@ These tables have the following properties:
 <td><code dir="ltr" translate="no">LATENCY_DISTRIBUTION</code></td>
 <td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&gt;</code></td>
 <td><p>A histogram of the execution time across queries. The values are measured in seconds.</p>
+<blockquote>
 <strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code dir="ltr" translate="no">LATENCY_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
 <p>Specify the array as follows:<br />
 <code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;  COUNT INT64,  MEAN FLOAT64,  SUM_OF_SQUARED_DEVIATION FLOAT64,  NUM_FINITE_BUCKETS INT64,  GROWTH_FACTOR FLOAT64,  SCALE FLOAT64,  BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code><br />
 For more information about the values, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
@@ -422,7 +426,7 @@ At a minimum, Spanner keeps data for each table for the following time periods:
 
   - `SPANNER_SYS.QUERY_STATS_TOP_HOUR` and `SPANNER_SYS.QUERY_STATS_TOTAL_HOUR` : Intervals covering the previous 30 days.
 
-**Note:** You cannot prevent Spanner from collecting query statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically.
+> **Note:** You cannot prevent Spanner from collecting query statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically.
 
 ## Example queries
 

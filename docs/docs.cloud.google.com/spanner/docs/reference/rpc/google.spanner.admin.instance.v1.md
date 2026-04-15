@@ -1783,7 +1783,7 @@ Output only. The names of the databases that reference this instance partition. 
 
 `string`
 
-This item is deprecated\!
+> This item is deprecated\!
 
 Output only. Deprecated: This field is not populated. Output only. The names of the backups that reference this instance partition. Referencing backups should share the parent instance. The existence of any referencing backup prevents the instance partition from being deleted.
 

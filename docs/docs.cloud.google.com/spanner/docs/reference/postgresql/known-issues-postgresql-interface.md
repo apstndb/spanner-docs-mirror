@@ -1,6 +1,6 @@
 This page points out differences in behavior between the PostgreSQL capabilities supported in Spanner and their open source PostgreSQL equivalents.
 
-**Caution:** The following specific behaviors may change to better align with open source PostgreSQL.
+> **Caution:** The following specific behaviors may change to better align with open source PostgreSQL.
 
 ## Float8 underflow
 

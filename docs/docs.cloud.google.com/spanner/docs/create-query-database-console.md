@@ -10,13 +10,11 @@ In the quickstart, you will:
 
 For information on the cost of using Spanner, see [Pricing](https://docs.cloud.google.com/spanner/pricing) .
 
-**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
+> **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 ## Before you begin
 
 1.  Optional: The Spanner API should be auto-enabled. If not, enable it manually:
-    
-    [Enable Spanner API](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com)
 
 2.  To get the permissions that you need to create instances and databases, ask your administrator to grant you the Cloud Spanner Admin (roles/spanner.admin) IAM role on your project.
 
@@ -25,8 +23,6 @@ For information on the cost of using Spanner, see [Pricing](https://docs.cloud.g
 When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases in that instance.
 
 1.  In the Google Cloud console, go to the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select or create a Google Cloud project if you haven't done so already.
 
@@ -53,8 +49,6 @@ When you first use Spanner, you must create an instance, which is an allocation 
 ## Create a database
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance you created, for example **Test Instance** .
 
@@ -76,7 +70,7 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 ## Create a schema for your database
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 1.  In the navigation menu, click **Spanner Studio** .
 
@@ -561,8 +555,6 @@ To avoid incurring additional charges to your Google Cloud account, delete the d
 ### Delete the database
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that has the database that you want to delete, for example, **Test Instance** .
 
@@ -575,8 +567,6 @@ To avoid incurring additional charges to your Google Cloud account, delete the d
 ### Delete the instance
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to delete, for example, **Test Instance** .
 

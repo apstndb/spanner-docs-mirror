@@ -10,8 +10,6 @@ To export a Spanner database, first you need to enable the Spanner, Cloud Storag
 
 To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
-[Enable the APIs](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com,storage_component,compute,dataflow)
-
 You also need enough quota and the required IAM permissions.
 
 ### Quota requirements
@@ -42,7 +40,7 @@ To get the permissions that you need to export a database, ask your administrato
   - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
   - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
 
-**Note:** The Spanner Database Admin role is only required for import jobs.
+> **Note:** The Spanner Database Admin role is only required for import jobs.
 
 To use the independent compute resources of Spanner Data Boost during an export, you also need the `spanner.databases.useDataBoost` IAM permission. For more information, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
 
@@ -50,13 +48,11 @@ To use the independent compute resources of Spanner Data Boost during an export,
 
 After you satisfy the quota and IAM requirements described previously, you can export an existing Spanner database.
 
-**Note:** It is safe to export a database that is in use. However, any changes you make after Dataflow creates a Spanner transaction aren't captured by the export, because all of the exported data is from the same database snapshot.
+> **Note:** It is safe to export a database that is in use. However, any changes you make after Dataflow creates a Spanner transaction aren't captured by the export, because all of the exported data is from the same database snapshot.
 
 To export your Spanner database to a Cloud Storage bucket, follow these steps:
 
 1.  Go to the Spanner **Instances** page.
-    
-    [Go to Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that contains your database.
 
@@ -81,7 +77,7 @@ To export your Spanner database to a Cloud Storage bucket, follow these steps:
 
 9.  Select a region in the **Choose a region for the export job** drop-down menu.
     
-    **Note:** To avoid [data transfer charges](https://docs.cloud.google.com/spanner/pricing#network) , choose a region that overlaps with your instance's configuration. For more information, see [Choose a region](https://docs.cloud.google.com/spanner/docs/export#choose-region) .
+    > **Note:** To avoid [data transfer charges](https://docs.cloud.google.com/spanner/pricing#network) , choose a region that overlaps with your instance's configuration. For more information, see [Choose a region](https://docs.cloud.google.com/spanner/docs/export#choose-region) .
 
 10. Optional: To encrypt the Dataflow pipeline state with a [customer-managed encryption key](https://docs.cloud.google.com/dataflow/docs/guides/customer-managed-encryption-keys) :
     
@@ -131,8 +127,6 @@ At import, the sequence starts from this new counter instead of the counter foun
 
 To view the folder that contains your exported database in the Google Cloud console, navigate to the Cloud Storage browser and choose the bucket you selected previously:
 
-[Go to Storage browser](https://console.cloud.google.com/storage/browser)
-
 The bucket now contains a folder with the exported database inside. The folder name begins with your instance's ID, database name, and the timestamp of your export job. The folder contains:
 
   - A `spanner-export.json` file
@@ -172,8 +166,6 @@ To export a subset of tables, start the export using Dataflow's [Spanner to Clou
 ### Console
 
 If you are using the Dataflow page in Google Cloud console, the **Cloud Spanner Table name(s)** parameter is located in the **Optional parameters** section of the **Create job from template** page. Multiple tables can be specified in a comma-separated format.
-
-[Go to Dataflow](https://console.cloud.google.com/dataflow)
 
 ### gcloud
 
@@ -227,14 +219,12 @@ To see details for any import or export jobs that you ran within the last week, 
 To view a job that you ran more than one week ago:
 
 1.  Go to the Dataflow jobs page in the Google Cloud console.
-    
-    [Go to Jobs](https://console.cloud.google.com/dataflow)
 
 2.  Find your job in the list, then click its name.
     
     The Google Cloud console displays details of the Dataflow job.
 
-**Note:** Jobs of the same type for the same database have the same name. You can tell jobs apart by the values in their **Start time** or **End time** columns.
+> **Note:** Jobs of the same type for the same database have the same name. You can tell jobs apart by the values in their **Start time** or **End time** columns.
 
 ### View Dataflow logs for your job
 
@@ -275,8 +265,6 @@ To specify a limit on the number of Dataflow workers, instead of using the Impor
 ### Console
 
 If you are using the Dataflow console, the **Max workers** parameter is located in the **Optional parameters** section of the **Create job from template** page.
-
-[Go to Dataflow](https://console.cloud.google.com/dataflow)
 
 ### gcloud
 

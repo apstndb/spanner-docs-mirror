@@ -248,7 +248,7 @@ The following query builds on the previous example by using the `AI.IF` function
 
 `ML.PREDICT` is a table-valued function that helps to access registered machine learning (ML) models and use them to generate ML predictions. This function applies ML computations defined by a model to each row of an input relation, and returns the results of those predictions. Additionally, you can use `ML.PREDICT` to perform vector search. When you use `ML.PREDICT` for vector search, it converts your natural language query text into an embedding.
 
-**Note:** Make sure that Spanner has access to the referenced Vertex AI endpoint as described in [Model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model_permissions) .
+> **Note:** Make sure that Spanner has access to the referenced Vertex AI endpoint as described in [Model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model_permissions) .
 
 **Supported Argument Types**
 
@@ -265,7 +265,7 @@ A table with the following columns:
   - Model outputs
   - Pass-through columns from the input relation
 
-**Note:** If a column of the input relation has the same name as one of the output columns, the value of the output column is returned.
+> **Note:** If a column of the input relation has the same name as one of the output columns, the value of the output column is returned.
 
 **Examples**
 

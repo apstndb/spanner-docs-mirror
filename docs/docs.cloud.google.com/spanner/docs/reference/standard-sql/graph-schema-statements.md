@@ -36,7 +36,7 @@ Graph Query Language (GQL) supports all GoogleSQL schema statements, including t
 
 Creates a property graph.
 
-**Note:** all GQL examples in the GQL reference use the [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) property graph example. To set up this property graph, see [Set up and query Spanner Graph](https://cloud.google.com/spanner/docs/graph/set-up) .
+> **Note:** all GQL examples in the GQL reference use the [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) property graph example. To set up this property graph, see [Set up and query Spanner Graph](https://cloud.google.com/spanner/docs/graph/set-up) .
 
 **Definitions**
 
@@ -349,7 +349,7 @@ Specifies a column that holds dynamic properties values.
 
 The following property graph, `FinGraph` , contains two node definitions ( `Account` and `Person` ) and two edge definitions ( `PersonOwnAccount` and `AccountTransferAccount` ).
 
-**Note:** all GQL examples in the GQL reference use the `FinGraph` property graph example. To set up this property graph, see [Set up and query Spanner Graph](https://cloud.google.com/spanner/docs/graph/set-up) .
+> **Note:** all GQL examples in the GQL reference use the `FinGraph` property graph example. To set up this property graph, see [Set up and query Spanner Graph](https://cloud.google.com/spanner/docs/graph/set-up) .
 
     CREATE OR REPLACE PROPERTY GRAPH FinGraph
       NODE TABLES (

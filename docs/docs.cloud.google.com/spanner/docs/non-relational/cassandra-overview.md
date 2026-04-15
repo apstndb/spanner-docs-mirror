@@ -368,8 +368,6 @@ You can create a custom Cloud Monitoring dashboard to display and monitor metric
 
 2.  In the Google Cloud console, go to the dashboard **Dashboards** page:
     
-    [Go to **Dashboards**](https://console.cloud.google.com/monitoring/dashboards)
-    
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
 3.  In the **Dashboards Overview** page, click **Create Custom Dashboard** .

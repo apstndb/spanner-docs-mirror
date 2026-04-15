@@ -144,13 +144,11 @@ You can monitor the usage of Enterprise edition and Enterprise Plus edition edit
   - Tiered storage
   - Vector search: includes use of the ANN vector distance functions and vector index
 
-**Note:** The Feature usage metric is sampled every 60 seconds, and might take up to 120 seconds to become visible.
+> **Note:** The Feature usage metric is sampled every 60 seconds, and might take up to 120 seconds to become visible.
 
 To view the edition feature usage metric in the Google Cloud console, follow these steps:
 
 1.  In the Google Cloud console, go to **Monitoring** :
-    
-    [Go to Monitoring](https://console.cloud.google.com/monitoring)
 
 2.  In the navigation menu, select **Metrics explorer** .
 

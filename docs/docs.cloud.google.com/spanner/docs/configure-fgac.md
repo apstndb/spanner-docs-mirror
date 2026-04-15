@@ -31,8 +31,6 @@ Decide on roles and role hierarchies in your database and encode them in DDL. As
 To create a database role and grant fine-grained access privileges to it, follow these steps:
 
 1.  Go to the **Instances** page in the Google Cloud console.
-    
-    [Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance containing the database for which you want to add the role.
 
@@ -62,7 +60,7 @@ To create a database role and grant fine-grained access privileges to it, follow
         
             GRANT SELECT, INSERT, UPDATE ON TABLE employees, contractors TO hr_manager;
         
-        **Note:** Use the same case for schema object names that you used when you created the objects. For example, if you created a table named `Customers` , you must use the name `Customers` (with a capital C) in the `GRANT` statement.
+        > **Note:** Use the same case for schema object names that you used when you created the objects. For example, if you created a table named `Customers` , you must use the name `Customers` (with a capital C) in the `GRANT` statement.
         
         You can use a DDL template for the `GRANT` statement. In the **Explorer** pane, navigate to the role for which you want to grant privileges. Click more\_vert **View actions** and select the type of privilege you want to grant access to for this role. The `GRANT` template statement populates in a new editor tab.
 
@@ -106,7 +104,7 @@ For example, to grant `SELECT` , `INSERT` , and `UPDATE` on the `employees` and 
     gcloud spanner databases ddl update hrdb1 --instance=hr \
     --ddl='CREATE ROLE hr_analyst; GRANT SELECT, INSERT, UPDATE ON TABLE employees, contractors TO hr_analyst;'
 
-**Note:** Use the same case for schema object names that you used when you created the objects. For example, if you created a table named `Customers` , you must use the name `Customers` (with capital C) in the `GRANT` statement.
+> **Note:** Use the same case for schema object names that you used when you created the objects. For example, if you created a table named `Customers` , you must use the name `Customers` (with capital C) in the `GRANT` statement.
 
 ### Client libraries
 
@@ -296,7 +294,7 @@ These code samples both create and drop a database role.
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -370,7 +368,7 @@ These code samples both create and drop a database role.
     }
     addAndDropNewDatabaseRole();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -426,7 +424,7 @@ These code samples both create and drop a database role.
         printf('Revoked privileges and dropped role %s%s', 'new_child', PHP_EOL);
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -473,7 +471,7 @@ These code samples both create and drop a database role.
     operation.result(OPERATION_TIMEOUT_SECONDS)
     print("Revoked privileges and dropped role {}".format(role_child))
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -546,11 +544,11 @@ To access Spanner resources, a principal must be granted the necessary database 
 
 6.  In **Select a role** , select **Cloud Spanner** \> **Cloud Spanner Database Role User** .
     
-    **Caution:** Avoid granting the Cloud Spanner Database User . role. It provides excessive permissions. For details, see [Cloud Spanner Database User](https://docs.cloud.google.com/spanner/docs/iam#spanner.databaseUser) . .
+    > **Caution:** Avoid granting the Cloud Spanner Database User . role. It provides excessive permissions. For details, see [Cloud Spanner Database User](https://docs.cloud.google.com/spanner/docs/iam#spanner.databaseUser) . .
 
 7.  Follow these steps to create the IAM condition that specifies the roles to grant.
     
-    **Caution:** If you don't add a condition, the principal has access to all database roles.
+    > **Caution:** If you don't add a condition, the principal has access to all database roles.
     
     1.  Next to the Cloud Spanner Database Role User role, click **ADD IAM CONDITION** .
     
@@ -638,7 +636,7 @@ To access Spanner resources, a principal must be granted the necessary database 
         
         You can use any condition expression that's supported by IAM. For more information, see [Overview of IAM conditions](https://cloud.google.com/iam/docs/conditions-overview) .
     
-    **Caution:** If you don't specify a condition, the principal has access to all database roles.
+    > **Caution:** If you don't specify a condition, the principal has access to all database roles.
     
     If successful, the command outputs the entire policy for the database.
     
@@ -899,7 +897,7 @@ To access Spanner resources, a principal must be granted the necessary database 
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -971,7 +969,7 @@ To access Spanner resources, a principal must be granted the necessary database 
     }
     enableFineGrainedAccess();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1032,7 +1030,7 @@ To access Spanner resources, a principal must be granted the necessary database 
     
         printf('Enabled fine-grained access in IAM' . PHP_EOL);}
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1086,7 +1084,7 @@ To access Spanner resources, a principal must be granted the necessary database 
         f"Enabled fine-grained access in IAM. New policy has version {new_policy.version}"
     )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -1148,7 +1146,7 @@ To transition a principal from database-level access control to fine-grained acc
 
 ## List database roles
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 You can list the database roles associated with a database.
 
@@ -1289,7 +1287,7 @@ To obtain an unfiltered list of database roles, enter the following command. It 
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1332,7 +1330,7 @@ To obtain an unfiltered list of database roles, enter the following command. It 
     }
     getDatabaseRoles();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1367,7 +1365,7 @@ To obtain an unfiltered list of database roles, enter the following command. It 
         }
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1388,7 +1386,7 @@ To obtain an unfiltered list of database roles, enter the following command. It 
     for role in database_admin_api.list_database_roles(request):
         print(role.name.split("/")[-1])
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -1423,7 +1421,7 @@ To view the privileges granted to a role, run the following queries:
 
 `INFORMATION_SCHEMA.TABLE_PRIVILEGES` returns privileges on both tables and views. The `SELECT` , `INSERT` , and `UPDATE` privileges in `TABLE_PRIVILEGES` are also shown in `COLUMN_PRIVILEGES` .
 
-**Note:** If all privileges on a table are restricted to a subset of columns, then the table isn't included in the result set of the `TABLE_PRIVILEGES` query.
+> **Note:** If all privileges on a table are restricted to a subset of columns, then the table isn't included in the result set of the `TABLE_PRIVILEGES` query.
 
 ### PostgreSQL
 
@@ -1433,7 +1431,7 @@ To view the privileges granted to a role, run the following queries:
 
 `information_schema.table_privileges` returns privileges on both tables and views. The `SELECT` , `INSERT` , and `UPDATE` privileges in `table_privileges` are also shown in `column_privileges` .
 
-**Note:** If all privileges on a table are restricted to a subset of columns, then the table is not included in the result set of the `table_privileges` query.
+> **Note:** If all privileges on a table are restricted to a subset of columns, then the table is not included in the result set of the `table_privileges` query.
 
 ## View fine-grained access control users
 
@@ -1795,7 +1793,7 @@ These code samples both create and drop a database role.
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1869,7 +1867,7 @@ These code samples both create and drop a database role.
     }
     addAndDropNewDatabaseRole();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -1925,7 +1923,7 @@ These code samples both create and drop a database role.
         printf('Revoked privileges and dropped role %s%s', 'new_child', PHP_EOL);
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -1972,7 +1970,7 @@ These code samples both create and drop a database role.
     operation.result(OPERATION_TIMEOUT_SECONDS)
     print("Revoked privileges and dropped role {}".format(role_child))
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 

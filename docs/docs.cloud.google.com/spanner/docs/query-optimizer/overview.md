@@ -26,7 +26,7 @@ Spanner releases optimizer updates as new query optimizer versions to improve th
 
 Spanner maintains statistics on the data distribution of table columns to help estimate how many rows will be produced by a query. The query optimizer uses these estimates to help choose the best query execution plan. These statistics are periodically updated by Spanner. Because the statistics are used to choose query execution plans, when the statistics are updated, it's possible for Spanner to change the query plan that it uses for a query.
 
-**Note:** These statistics are only available to the query optimizer, and cannot be queried by the end user.
+> **Note:** These statistics are only available to the query optimizer, and cannot be queried by the end user.
 
 By default, databases automatically use the latest generated statistics package. You can pin your database to an earlier statistics package version. You also have the option of running individual queries with a statistics package other than the latest.
 

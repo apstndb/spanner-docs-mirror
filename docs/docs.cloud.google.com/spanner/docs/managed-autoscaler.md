@@ -1,6 +1,6 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-**Note:** You can enable the Spanner managed autoscaler on both [instances](https://docs.cloud.google.com/spanner/docs/instances) and [instance partitions (in Preview)](https://docs.cloud.google.com/spanner/docs/geo-partitioning#how_geo-partitioning_works) . For brevity, this page uses the term *instance* to refer to both resources, unless the context specifically requires a distinction.
+> **Note:** You can enable the Spanner managed autoscaler on both [instances](https://docs.cloud.google.com/spanner/docs/instances) and [instance partitions (in Preview)](https://docs.cloud.google.com/spanner/docs/geo-partitioning#how_geo-partitioning_works) . For brevity, this page uses the term *instance* to refer to both resources, unless the context specifically requires a distinction.
 
 This page describes how the managed autoscaler works and describes costs and limitations when using the Spanner managed autoscaler. It also provides information to help you determine how to configure the managed autoscaler.
 
@@ -221,7 +221,7 @@ Keep an eye on your compute capacity usage and adjust your settings, if necessar
 
 ## Asymmetric read-only autoscaling
 
-**Note:** You can't use asymmetric autoscaling with read-write and witness replicas. You also can't enable asymmetric autoscaling on instance partitions.
+> **Note:** You can't use asymmetric autoscaling with read-write and witness replicas. You also can't enable asymmetric autoscaling on instance partitions.
 
 After you enable managed autoscaler, you can also enable and autoscale your read-only replicas independently from other replicas. Asymmetric read-only autoscaling lets you control the compute capacity limits and CPU utilization targets of your read-only regions based on their usage. This optimizes local read traffic patterns and improves cost efficiency. The following autoscaling configuration parameters are configurable for each read-only replica region:
 
@@ -289,8 +289,6 @@ Spanner creates a system event audit log each time it scales an instance or inst
 You can view the managed autoscaler system event logs in the Google Cloud console on the **System insights** page.
 
 1.  In the Google Cloud console, open Spanner:
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select the autoscaling-enabled instance or instance partition.
 
@@ -309,8 +307,6 @@ You can view the managed autoscaler system event logs in the Google Cloud consol
 You can also view logs using Logs Explorer:
 
 1.  In the Google Cloud console, open the Logs Explorer:
-    
-    [Go to the Logs Explorer](https://console.cloud.google.com/logs)
 
 2.  Select the appropriate Google Cloud project.
 

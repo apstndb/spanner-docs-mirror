@@ -4,7 +4,7 @@ This page describes how to migrate primary keys from your source database tables
 
   - To get the permissions that you need to migrate primary keys to Spanner, ask your administrator to grant you the [Cloud Spanner Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` ) IAM role on your instance.
     
-    **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to migrate primary keys to Spanner. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
+    > **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to migrate primary keys to Spanner. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
 
 ## Migrate auto-generated sequential keys
 

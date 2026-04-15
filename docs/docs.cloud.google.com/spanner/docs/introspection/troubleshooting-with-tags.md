@@ -9,7 +9,7 @@ Spanner supports two types of tags; ***request*** tags and ***transaction*** tag
 | [TopN Transaction Statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#table_schema) | Transaction tags                               |
 | [TopN Lock Statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#table_schema)               | Transaction tags                               |
 
-**Note:** Tags with the prefix `sys_cloud_console_` are created by the Google Cloud console.
+> **Note:** Tags with the prefix `sys_cloud_console_` are created by the Google Cloud console.
 
 ## Request tags
 
@@ -869,7 +869,7 @@ Yes
 
 <sup>1</sup> For change stream queries executed using the Apache Beam SpannerIO Dataflow connector, the `REQUEST_TAG` contains a Dataflow job name.
 
-**Note:** When you use a client library you can set a `TRANSACTION_TAG` at the beginning of the read-write transaction call which gets applied to all the individual operations inside that transaction.
+> **Note:** When you use a client library you can set a `TRANSACTION_TAG` at the beginning of the read-write transaction call which gets applied to all the individual operations inside that transaction.
 
 ## Limitations
 
@@ -957,7 +957,7 @@ service=shipping</td>
   - When you assign a `REQUEST_TAG` , statistics for multiple reads that have the same tag string are grouped in a single row in [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) table. The set of all columns that are read are added to the `READ_COLUMNS` field.
   - When you assign a `TRANSACTION_TAG` , statistics for transactions that have the same tag string are grouped in a single row in [transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) table. The set of all columns that are written by the transactions are added to the `WRITE_CONSTRUCTIVE_COLUMNS` field and the set of all columns that are read are added to the `READ_COLUMNS` field.
 
-**Note:** Avoid using personally identifiable information (PII) or other user data in a tag. Tags are not designed to handle sensitive information.
+> **Note:** Avoid using personally identifiable information (PII) or other user data in a tag. Tags are not designed to handle sensitive information.
 
 ## Troubleshooting scenarios using tags
 

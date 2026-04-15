@@ -6,7 +6,7 @@ Alternatively, other IDEs and developer tools supporting the MCP can connect thr
 
 ## Use the Gemini CLI extension in Spanner
 
-**Note:** MCP Toolbox for Databases is in beta (pre-v1.0), and may see breaking changes until the first stable release. (v1.0)
+> **Note:** MCP Toolbox for Databases is in beta (pre-v1.0), and may see breaking changes until the first stable release. (v1.0)
 
 The Spanner integration with Gemini CLI is through an open-source extension that offers additional capabilities compared to the standard MCP Toolbox connection. The extension offers an installation process and a set of tools, in addition to providing detailed information on installation, configuration, and usage examples. If you use the Gemini CLI extension, you don't need to install MCP Toolbox. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
 
@@ -40,7 +40,7 @@ The `spanner` extension includes tools for listing tables, and executing SQL and
 
 ## Install MCP Toolbox
 
-**Note:** MCP Toolbox is only required for MCP clients other than Gemini CLI, Gemini Code Assist, or Antigravity. Skip this section if you are using Gemini CLI, Gemini Code Assist, or Antigravity.
+> **Note:** MCP Toolbox is only required for MCP clients other than Gemini CLI, Gemini Code Assist, or Antigravity. Skip this section if you are using Gemini CLI, Gemini Code Assist, or Antigravity.
 
 1.  Download the latest version of MCP Toolbox as a binary. Select the [binary](https://github.com/googleapis/genai-toolbox/releases/latest) corresponding to your operating system (OS) and CPU architecture. You must use MCP Toolbox version 0.15.0 or later:
     

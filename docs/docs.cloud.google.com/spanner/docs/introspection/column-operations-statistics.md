@@ -70,7 +70,7 @@ At a minimum, Spanner keeps data for each table for the following time periods:
 
   - `SPANNER_SYS.COLUMN_OPERATIONS_STATS_HOUR` : Intervals covering the previous 30 days.
 
-**Note:** You can't prevent Spanner from collecting column operations statistics. To delete the data in these tables, you must delete the database associated with them or wait until Spanner removes the data after the data retention period ends.
+> **Note:** You can't prevent Spanner from collecting column operations statistics. To delete the data in these tables, you must delete the database associated with them or wait until Spanner removes the data after the data retention period ends.
 
 ### Example queries
 

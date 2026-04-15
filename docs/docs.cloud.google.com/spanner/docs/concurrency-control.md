@@ -7,7 +7,7 @@ The default behavior depends on the [isolation level](https://docs.cloud.google.
 
 ## Pessimistic concurrency control
 
-**Note:** Spanner doesn't support using pessimistic concurrency control with repeatable read isolation.
+> **Note:** Spanner doesn't support using pessimistic concurrency control with repeatable read isolation.
 
 By default, Spanner uses pessimistic concurrency with [serializable isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable) . This mode assumes that concurrent transactions might contend for the same data. It acquires [locks](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes) proactively on data as it is read or written within a transaction. It also verifies that locks acquired earlier in the transaction remain held in later statements. When Spanner detects a lock conflict, it uses the wound-wait algorithm to resolve the conflict.
 

@@ -41,7 +41,7 @@ Use the `INSERT` statement to add new rows to a table.
 
 See [PostgreSQL queries](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax) for a description of the `SELECT` syntax.
 
-**Note:** Hints are not supported for ***query*** in an `INSERT` statement.
+> **Note:** Hints are not supported for ***query*** in an `INSERT` statement.
 
 ### Default values
 

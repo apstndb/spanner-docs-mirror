@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document provides an overview using the graph query language with Spanner Graph, including its syntax for graph pattern matching, and shows you how to run queries against your graph. With Spanner Graph, you can run queries to find patterns, traverse relationships, and gain insights from your property graph data.
 
@@ -15,8 +15,6 @@ You can use the Google Cloud console, Google Cloud CLI, client libraries, the RE
 The following steps show you how to run a query in the Google Cloud console. These steps assume you have an instance named `test-instance` that contains a database named `example-db` . For information about how to create an instance with a database, see [Set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance named `test-instance` .
 
@@ -149,7 +147,7 @@ In the following results of this query:
 | Person  | 2  | 1980-10-31T08:00:00Z | NULL                     |
 | Person  | 3  | 1986-12-07T08:00:00Z | NULL                     |
 
-**Note:** `NULL` doesn't necessarily indicate the absence of a property, because an element can expose a property with a `NULL` value. To check the existence of a property, use the [`PROPERTY_EXISTS` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#property_exists_predicate) .
+> **Note:** `NULL` doesn't necessarily indicate the absence of a property, because an element can expose a property with a `NULL` value. To check the existence of a property, use the [`PROPERTY_EXISTS` predicate](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#property_exists_predicate) .
 
 #### Find all nodes matching the label expression and property filter
 
@@ -418,7 +416,7 @@ The following path patterns form the graph pattern:
 
 The variable `interm` acts as a common link between the two path patterns, which requires `interm` to reference the same element node in both path patterns. This creates an equi-join operation based on the `interm` variable.
 
-**Note:** If there is no shared variable among the path patterns, a [cross join](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#cross_join) is performed between the collection of matches for each path pattern.
+> **Note:** If there is no shared variable among the path patterns, a [cross join](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#cross_join) is performed between the collection of matches for each path pattern.
 
     GRAPH FinGraph
     MATCH

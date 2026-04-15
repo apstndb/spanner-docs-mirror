@@ -30,7 +30,7 @@ The [`spanner.googleapis.com/client/operation_latencies`](https://docs.cloud.goo
 
 For more information, see [View and manage client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) .
 
-**Note:** You can also use OpenTelemetry to capture and visualize end-to-end latency. For more information, see [Capture custom client-side metrics using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry) .
+> **Note:** You can also use OpenTelemetry to capture and visualize end-to-end latency. For more information, see [Capture custom client-side metrics using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry) .
 
 ## GFE latency
 
@@ -44,7 +44,7 @@ The [`spanner.googleapis.com/client/gfe_latencies`](https://docs.cloud.google.co
 
 For more information, see [View and manage client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) .
 
-**Note:** You can also use OpenTelemetry to capture and visualize GFE latency. For more information, see [Capture custom client-side metrics using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry) .
+> **Note:** You can also use OpenTelemetry to capture and visualize GFE latency. For more information, see [Capture custom client-side metrics using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry) .
 
 ## Spanner API request latency
 

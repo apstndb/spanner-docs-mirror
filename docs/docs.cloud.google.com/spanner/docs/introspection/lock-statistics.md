@@ -87,7 +87,9 @@ These tables have the following properties:
 <td><code dir="ltr" translate="no">SAMPLE_LOCK_REQUESTS</code></td>
 <td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;  column STRING,  lock_mode STRING,  transaction_tag STRING&gt;&gt;</code></td>
 <td>Each entry in this array corresponds to a sample lock request that contributed to the lock conflict by either waiting for a lock or blocking other transactions from taking the lock, on the given row key (range). The maximum number of samples in this array is 20.
+<blockquote>
 <strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#sample-lock-requests"><code dir="ltr" translate="no">SAMPLE_LOCK_REQUESTS_JSON_STRING</code></a> column instead for PostgreSQL-dialect databases.
+</blockquote>
 Each sample contains the following three fields:
 <ul>
 <li><code dir="ltr" translate="no">lock_mode</code> : The lock mode that was requested. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes">Lock modes</a> .</li>
@@ -213,7 +215,7 @@ Aggregate statistics tables have the following properties:
 
 ### Table schema
 
-**Note:** An increase in total lock wait time without corresponding entries in the [topN queries table](https://docs.cloud.google.com/spanner/docs/using-query-insights) , might be caused by locks from internal Spanner system tables (for example, for session management operations).
+> **Note:** An increase in total lock wait time without corresponding entries in the [topN queries table](https://docs.cloud.google.com/spanner/docs/using-query-insights) , might be caused by locks from internal Spanner system tables (for example, for session management operations).
 
 | Column name               | Type        | Description                                                                           |
 | ------------------------- | ----------- | ------------------------------------------------------------------------------------- |
@@ -297,7 +299,7 @@ At a minimum, Spanner keeps data for each table for the following time periods:
 
   - `SPANNER_SYS.LOCK_STATS_TOP_HOUR` and `SPANNER_SYS.LOCK_STATS_TOTAL_HOUR` : Intervals covering the previous 30 days.
 
-**Note:** You can't prevent Spanner from collecting lock statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically. The retention period for these tables is fixed. If you want to keep statistics for longer periods of time, we recommend that you periodically copy data out of these tables.
+> **Note:** You can't prevent Spanner from collecting lock statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically. The retention period for these tables is fixed. If you want to keep statistics for longer periods of time, we recommend that you periodically copy data out of these tables.
 
 ## Troubleshoot lock conflicts in your database using lock statistics
 
@@ -309,7 +311,7 @@ The following topics show how you can investigate such lock conflicts using SQL 
 
 You examine the [Latency metrics](https://docs.cloud.google.com/spanner/docs/latency-metrics) for your Spanner database and discover a time period when your app is experiencing high latency and CPU usage. For example, the issue started occurring around 10:50 PM on November 12th, 2020.
 
-**Note:** You can effectively troubleshoot lock contention issues using Transaction Tags. Read more at [discovering the transactions involved in lock conflict](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#discovering_the_transactions_involved_in_lock_conflict) .
+> **Note:** You can effectively troubleshoot lock contention issues using Transaction Tags. Read more at [discovering the transactions involved in lock conflict](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#discovering_the_transactions_involved_in_lock_conflict) .
 
 ### Determine whether transaction commit latency increased along with the lock wait time during the selected period
 

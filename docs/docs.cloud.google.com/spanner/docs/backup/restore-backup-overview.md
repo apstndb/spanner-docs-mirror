@@ -24,7 +24,7 @@ To restore a CMEK-enabled backup, both the key and key version must be available
 
 You can't restore a backup that uses higher-tier edition features to a lower-tier [edition](https://docs.cloud.google.com/spanner/docs/editions-overview) . For example, if your instance uses [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) , then you can't restore it to the Enterprise edition or Standard edition.
 
-**Note:** Before restoring a database, make sure your instance is properly provisioned with enough storage and compute capacity to handle the additional storage and traffic associated with the restored database. If the target instance is not properly provisioned, restoring a database could adversely affect the performance of existing databases in the instance.
+> **Note:** Before restoring a database, make sure your instance is properly provisioned with enough storage and compute capacity to handle the additional storage and traffic associated with the restored database. If the target instance is not properly provisioned, restoring a database could adversely affect the performance of existing databases in the instance.
 
 ### Restore a backup to a different region or project
 

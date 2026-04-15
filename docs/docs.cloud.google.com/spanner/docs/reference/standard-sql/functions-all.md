@@ -1,4 +1,4 @@
-GoogleSQL is the new name for Google Standard SQL\! New name, same great SQL dialect.
+> GoogleSQL is the new name for Google Standard SQL\! New name, same great SQL dialect.
 
 This topic contains all functions supported by GoogleSQL for Spanner.
 

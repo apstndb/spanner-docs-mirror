@@ -49,7 +49,7 @@ When you create an instance, you specify an *instance configuration* , which def
 
 Use `projects.instanceConfigs.list` to determine which configurations are available for your Google Cloud project.
 
-1.  Click [`projects.instanceConfigs.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs/list#try-it) .
+1.  Click .
 
 2.  For **parent** , enter:
     
@@ -75,7 +75,7 @@ You use the `name` value for one of the instance configurations when you create 
 
 ### Create an instance
 
-1.  Click [`projects.instances.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/create#try-it) .
+1.  Click .
 
 2.  For **parent** , enter:
     
@@ -98,13 +98,13 @@ You use the `name` value for one of the instance configurations when you create 
 
 7.  Click **Execute** . The response returns a [long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) . Query this operation to check its status.
 
-List instances using [`projects.instances.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/list) .
+List instances using .
 
 ## Create a database
 
 Create a database named `example-db` .
 
-1.  Click [`projects.instances.databases.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/create#try-it) .
+1.  Click .
 
 2.  For **parent** , enter:
     
@@ -120,13 +120,13 @@ The database name, `example-db` , contains a hyphen, so enclose it in backticks 
 
 1.  Click **Execute** . The response returns a [long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) . Query this operation to check its status.
 
-List your databases using [`projects.instances.databases.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/list) .
+List your databases using .
 
 ## Create a schema
 
 Use Spanner's [Data Definition Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) (DDL) to create, alter, or drop tables, and to create or drop indexes.
 
-1.  Click [`projects.instances.databases.updateDdl`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl#try-it) .
+1.  Click .
 
 2.  For **database** , enter:
     
@@ -147,13 +147,13 @@ Use Spanner's [Data Definition Language](https://docs.cloud.google.com/spanner/d
 
 The schema defines two tables, `Singers` and `Albums` , for a basic music application. This document uses these tables. Review the [example schema](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) .
 
-Retrieve your schema using [`projects.instances.databases.getDdl`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/getDdl) .
+Retrieve your schema using .
 
 ## Create a session
 
 Before you add, update, delete, or query data, create a [session](https://docs.cloud.google.com/spanner/docs/sessions) . A session represents a communication channel with the Spanner database service. (You do not directly use a session if you are using a Spanner [client library](https://docs.cloud.google.com/spanner/docs/reference/libraries) , because the client library manages sessions on your behalf.)
 
-1.  Click [`projects.instances.databases.sessions.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/create#try-it) .
+1.  Click .
 
 2.  For **database** , enter:
     
@@ -167,7 +167,7 @@ Before you add, update, delete, or query data, create a [session](https://docs.c
     
     Use this session when you read or write to your database.
 
-Sessions are intended to be long-lived. The Spanner database service deletes a session when the session is idle for more than one hour. Attempts to use a deleted session result in `NOT_FOUND` . If you encounter this error, create and use a new session. See if a session is still alive using [`projects.instances.databases.sessions.get`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/get) .
+Sessions are intended to be long-lived. The Spanner database service deletes a session when the session is idle for more than one hour. Attempts to use a deleted session result in `NOT_FOUND` . If you encounter this error, create and use a new session. See if a session is still alive using .
 
 For related information, see [Keep an idle session alive](https://docs.cloud.google.com/spanner/docs/sessions#keep_an_idle_session_alive) .
 
@@ -179,7 +179,7 @@ Next, write data to your database.
 
 You write data using the [`Mutation`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#Mutation) type. A `Mutation` is a container for mutation operations. A `Mutation` represents a sequence of inserts, updates, deletes, and other actions that apply atomically to different rows and tables in a Spanner database.
 
-1.  Click [`projects.instances.databases.sessions.commit`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -279,7 +279,7 @@ For information on how to encode data types, see [TypeCode](https://docs.cloud.g
 
 ## Query data using SQL
 
-1.  Click [`projects.instances.databases.sessions.executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -295,7 +295,7 @@ For information on how to encode data types, see [TypeCode](https://docs.cloud.g
 
 ## Read data using the read API
 
-1.  Click [`projects.instances.databases.sessions.read`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -323,7 +323,7 @@ Add a new column called `MarketingBudget` to the `Albums` table. This requires a
 
 ### Add a column
 
-1.  Click [`projects.instances.databases.updateDdl`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl#try-it) .
+1.  Click .
 
 2.  For **database** , enter:
     
@@ -348,7 +348,7 @@ Add a new column called `MarketingBudget` to the `Albums` table. This requires a
 
 This code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
-1.  Click [`projects.instances.databases.sessions.commit`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -396,7 +396,7 @@ This code writes data to the new column. It sets `MarketingBudget` to `100000` f
 
 Execute a SQL query or a read call to fetch the values you just wrote.
 
-1.  Click [`projects.instances.databases.sessions.executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -454,7 +454,7 @@ After you add a secondary index, Spanner automatically uses it for SQL queries t
 
 Add an index using `updateDdl` .
 
-1.  Click [`projects.instances.databases.updateDdl`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl#try-it) .
+1.  Click .
 
 2.  For **database** , enter:
     
@@ -472,7 +472,7 @@ Add an index using `updateDdl` .
 
 ### Query using the index
 
-1.  Click [`projects.instances.databases.sessions.executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -501,7 +501,7 @@ Add an index using `updateDdl` .
 
 ### Read using the index
 
-1.  Click [`projects.instances.databases.sessions.read`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -554,7 +554,7 @@ Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `Ma
 
 Add a STORING index using `updateDdl` .
 
-1.  Click [`projects.instances.databases.updateDdl`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl#try-it) .
+1.  Click .
 
 2.  For **database** , enter:
     
@@ -572,7 +572,7 @@ Add a STORING index using `updateDdl` .
 
 Now, execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
-1.  Click [`projects.instances.databases.sessions.read`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -629,7 +629,7 @@ To execute more than one read at the same timestamp, use [Read-only transactions
 
 ### Create a read-only transaction
 
-1.  Click [`projects.instances.databases.sessions.beginTransaction`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/beginTransaction#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -651,7 +651,7 @@ Use the read-only transaction to retrieve data at a consistent timestamp, even i
 
 ### Run a query using the read-only transaction
 
-1.  Click [`projects.instances.databases.sessions.executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -698,7 +698,7 @@ Use the read-only transaction to retrieve data at a consistent timestamp, even i
 
 ### Read using the read-only transaction
 
-1.  Click [`projects.instances.databases.sessions.read`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read#try-it) .
+1.  Click .
 
 2.  For **session** , enter:
     
@@ -759,7 +759,7 @@ To avoid additional charges to your Google Cloud account for the resources used 
 
 ### Drop a database
 
-1.  Click [`projects.instances.databases.dropDatabase`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/dropDatabase#try-it) .
+1.  Click .
 
 2.  For **name** , enter:
     
@@ -769,7 +769,7 @@ To avoid additional charges to your Google Cloud account for the resources used 
 
 ### Delete an instance
 
-1.  Click [`projects.instances.delete`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/delete#try-it) .
+1.  Click .
 
 2.  For **name** , enter:
     

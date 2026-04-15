@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** This page applies to migrating an open source PostgreSQL database to Spanner and the GoogleSQL dialect. For information about migrating to Spanner and the PostgreSQL dialect, see [Migrating from PostgreSQL to Spanner (PostgreSQL dialect)](https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner-pgcompat) .
+> **PostgreSQL interface note:** This page applies to migrating an open source PostgreSQL database to Spanner and the GoogleSQL dialect. For information about migrating to Spanner and the PostgreSQL dialect, see [Migrating from PostgreSQL to Spanner (PostgreSQL dialect)](https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner-pgcompat) .
 
 This page provides guidance on migrating an open source PostgreSQL database to Spanner.
 
@@ -41,7 +41,9 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 <td><code dir="ltr" translate="no">Bigserial</code>
 <code dir="ltr" translate="no">serial8</code></td>
 <td><code dir="ltr" translate="no">INT64</code>
-<strong>Note:</strong> There is no auto-increment capability in Spanner.</td>
+<blockquote>
+<strong>Note:</strong> There is no auto-increment capability in Spanner.
+</blockquote></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">bit [ (n) ]</code></td>
@@ -293,12 +295,17 @@ After you update your DDL statements to conform to Spanner schema requirements, 
 
 ### Console
 
-1.  [Go to the instances page](https://console.cloud.google.com/spanner/instances)
+1.  
 2.  Click on the name of the instance that you want to create the example database in to open the **Instance details** page.
+
 3.  Click **Create Database** .
+
 4.  Type a name for the database and click **Continue** .
+
 5.  In the **Define your database schema** section, toggle the **Edit as text** control.
+
 6.  Copy and paste your DDL statements into the **DDL statements** field.
+
 7.  Click **Create** .
 
 ### gcloud

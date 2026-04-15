@@ -86,7 +86,7 @@ Every data change record written by a change stream includes the following infor
 
 For a deeper look at the structure of data change records, see [Data change records](https://docs.cloud.google.com/spanner/docs/change-streams/details#data-change-records) .
 
-**Note:** A change stream's *value capture type* configuration option controls the way that it records a changed row's values. `OLD_AND_NEW_VALUES` is this option's default setting. For more information, see [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams/details#value-capture-type) .
+> **Note:** A change stream's *value capture type* configuration option controls the way that it records a changed row's values. `OLD_AND_NEW_VALUES` is this option's default setting. For more information, see [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams/details#value-capture-type) .
 
 ### Data retention
 

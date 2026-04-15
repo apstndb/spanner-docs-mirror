@@ -606,7 +606,7 @@ Use the `BeginReadOnlyTransactionAsync` method on a `connection` with a specifie
         }
     }
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `TimestampBound.OfMaxStaleness()` value instead of a `TimestampBound.OfExactStaleness()` value.
+> **Note:** To use a *bounded-staleness* timestamp bound, specify a `TimestampBound.OfMaxStaleness()` value instead of a `TimestampBound.OfExactStaleness()` value.
 
 ### Go
 
@@ -655,7 +655,7 @@ Use `Client.ReadOnlyTransaction().WithTimestampBound()` and specify an `ExactSta
 
 The example uses `AllKeys` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `MaxStaleness` value instead of an `ExactStaleness` value.
+> **Note:** To use a *bounded-staleness* timestamp bound, specify a `MaxStaleness` value instead of an `ExactStaleness` value.
 
 ### Java
 
@@ -679,7 +679,7 @@ Use the `read` method of a `ReadContext` that has a specified `TimestampBound.of
 
 The example uses `KeySet` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `TimestampBound.ofMaxStaleness` instead of a `TimestampBound.ofExactStaleness()` .
+> **Note:** To use a *bounded-staleness* timestamp bound, specify a `TimestampBound.ofMaxStaleness` instead of a `TimestampBound.ofExactStaleness()` .
 
 ### Node.js
 
@@ -741,7 +741,7 @@ Use `Table.read` with the `exactStaleness` option to perform a read of rows from
 
 The example uses `keySet` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, use the `maxStaleness` option instead of the `exactStaleness` option.
+> **Note:** To use a *bounded-staleness* timestamp bound, use the `maxStaleness` option instead of the `exactStaleness` option.
 
 ### PHP
 
@@ -783,7 +783,7 @@ Use `Database::read` with a `exactStaleness` value specified to perform a read o
 
 The example uses `keySet` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `maxStaleness` value instead of an `exactStaleness` value.
+> **Note:** To use a *bounded-staleness* timestamp bound, specify a `maxStaleness` value instead of an `exactStaleness` value.
 
 ### Python
 
@@ -812,7 +812,7 @@ Use the `read` method of a `Database` `snapshot` that has a specified `exact_sta
 
 The example uses `KeySet` to define a collection of keys or key ranges to read.
 
-**Note:** To use a *bounded-staleness* timestamp bound, specify a `max_staleness` value instead of the `exact_staleness` value.
+> **Note:** To use a *bounded-staleness* timestamp bound, specify a `max_staleness` value instead of the `exact_staleness` value.
 
 ### Ruby
 
@@ -833,7 +833,7 @@ Use the `read` method of a snapshot `Client` that has a specified `staleness` va
       end
     end
 
-**Note:** To use a *bounded-staleness* timestamp bound, use the sample code to [perform a strong read](https://docs.cloud.google.com/spanner/docs/reads#perform-strong-read) , but additionally specify a `single_use:` parameter with a value of `{max_staleness: [n seconds] }` to read with a staleness of \[n seconds\] .
+> **Note:** To use a *bounded-staleness* timestamp bound, use the sample code to [perform a strong read](https://docs.cloud.google.com/spanner/docs/reads#perform-strong-read) , but additionally specify a `single_use:` parameter with a value of `{max_staleness: [n seconds] }` to read with a staleness of \[n seconds\] .
 
 ### Perform a read using an index
 
@@ -1130,7 +1130,7 @@ For partitioned queries like this, you can choose to enable Spanner Data Boost. 
 
 For more information about Data Boost, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
 
-**Note:** The following samples work with the DDL table definition found in the [Quickstart](https://docs.cloud.google.com/spanner/docs/create-query-database-console#short-schema) .
+> **Note:** The following samples work with the DDL table definition found in the [Quickstart](https://docs.cloud.google.com/spanner/docs/create-query-database-console#short-schema) .
 
 ### GoogleSQL
 
@@ -1142,7 +1142,7 @@ This example fetches partitions of a SQL query of the `Singers` table and execut
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
   - Retrieving the query results for each partition.
 
-**Note:** For the sake of simplicity, the example fetches all of the partitions from multiple parallel tasks within a single process. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
+> **Note:** For the sake of simplicity, the example fetches all of the partitions from multiple parallel tasks within a single process. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
 
     void UsePartitionQuery(google::cloud::spanner::Client client) {
       namespace spanner = ::google::cloud::spanner;
@@ -1180,7 +1180,7 @@ This example fetches partitions of a SQL query of the `Singers` table and execut
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
   - Retrieving the query results for each partition.
 
-**Note:** For the sake of simplicity, the example fetches all of the partitions from multiple parallel tasks within a single process. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
+> **Note:** For the sake of simplicity, the example fetches all of the partitions from multiple parallel tasks within a single process. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
 
     using Google.Cloud.Spanner.Data;
     using System;
@@ -1246,7 +1246,7 @@ This example fetches partitions of a SQL query of the `Singers` table and execut
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
   - Retrieving the query results for each partition.
 
-**Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine and executes the partitions to fetch the results. If you have more than one processor available, the executions can also be run in parallel. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
+> **Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine and executes the partitions to fetch the results. If you have more than one processor available, the executions can also be run in parallel. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
 
     import (
      "context"
@@ -1318,7 +1318,7 @@ This example fetches partitions of a SQL query of the `Singers` table and execut
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
   - Retrieving the query results for each partition.
 
-**Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine, running multiple jobs in parallel if you have more than one processor available. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
+> **Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine, running multiple jobs in parallel if you have more than one processor available. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
 
     int numThreads = Runtime.getRuntime().availableProcessors();
     ExecutorService executor = Executors.newFixedThreadPool(numThreads);
@@ -1383,7 +1383,7 @@ This example fetches partitions of a SQL query of the `Singers` table and execut
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
   - Retrieving the query results for each partition.
 
-**Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine, running multiple jobs in parallel if you have more than one processor available. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
+> **Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine, running multiple jobs in parallel if you have more than one processor available. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
 
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
@@ -1445,7 +1445,7 @@ This example fetches partitions of a SQL query of the `Singers` table and execut
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
   - Retrieving the query results for each partition.
 
-**Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine and executes the partitions to fetch the results. If you have more than one processor available, the executions can also be run in parallel. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
+> **Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine and executes the partitions to fetch the results. If you have more than one processor available, the executions can also be run in parallel. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
 
     use Google\Cloud\Spanner\SpannerClient;
     
@@ -1498,7 +1498,7 @@ This example fetches partitions of a SQL query of the `Singers` table and execut
   - Generating partitions for the query, so that the partitions can be distributed to multiple workers.
   - Retrieving the query results for each partition.
 
-**Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine, running multiple jobs in parallel if you have more than one processor available. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
+> **Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine, running multiple jobs in parallel if you have more than one processor available. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
 
     def run_batch_query(instance_id, database_id):
         """Runs an example batch query."""
@@ -1558,7 +1558,7 @@ This example fetches partitions of a SQL query of the `Singers` table and execut
   - Creating partitions for the query, so that the partitions can be distributed to multiple workers.
   - Retrieving the query results for each partition.
 
-**Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine, running multiple jobs in parallel if you have more than one processor available. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
+> **Note:** For the sake of simplicity, the example fetches all of the partitions from a single machine, running multiple jobs in parallel if you have more than one processor available. For real-world use cases, you should distribute partitions to workers on different machines to improve efficiency.
 
     # project_id  = "Your Google Cloud project ID"
     # instance_id = "Your Spanner instance ID"

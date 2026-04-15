@@ -10,7 +10,7 @@ In the configuration files, the default timeout for operations that take a short
 
 If you decide to change the timeout, set it to the actual amount of time that the application is configured to wait for the result.
 
-**Note:** Never set a timeout that is shorter than the actual time that the application is configured to wait. Short timeouts cause your application to retry the operation more frequently than necessary.
+> **Note:** Never set a timeout that is shorter than the actual time that the application is configured to wait. Short timeouts cause your application to retry the operation more frequently than necessary.
 
 Don't configure a retry policy that is more aggressive than the default, because too many retries might overload the backend and throttle your requests.
 

@@ -193,9 +193,9 @@ See the [REST API reference](https://docs.cloud.google.com/spanner/docs/referenc
 
 ### Automatic cleanup of session leaks
 
-**Preview — [Automatic cleanup of session leaks](https://docs.cloud.google.com/spanner/docs/sessions#automatic_cleanup_of_session_leaks)**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview — [Automatic cleanup of session leaks](https://docs.cloud.google.com/spanner/docs/sessions#automatic_cleanup_of_session_leaks)**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 When you use all the sessions in your session pool, each new transaction waits until a session is returned to the pool. When sessions are created but not returned to the session pool for reuse, this is called a session leak. When there is a session leak, transactions waiting for an open session get stuck indefinitely and block the application. Session leaks are often caused by problematic transactions that are running for an extremely long time and aren't committed.
 
@@ -326,8 +326,6 @@ OpenTelemetry has the `is_multiplexed` filter to show the traffic for multiplexe
 1.  Set up OpenTelemetry for Spanner using the procedures in the Spanner OpenTelemetry [Before you begin](https://docs.cloud.google.com/spanner/docs/capture-visualize-latency#before_you_begin) section.
 
 2.  Navigate to the **Metrics Explorer** .
-    
-    [Go to Metrics Explorer](https://console.cloud.google.com/monitoring/metrics-explorer)
 
 3.  In the **Metric** drop-down, filter on `generic` .
 

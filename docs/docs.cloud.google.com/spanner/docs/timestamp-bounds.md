@@ -36,7 +36,7 @@ All rows yielded are consistent with each other - if any part of the read observ
 
 Bounded staleness reads are usually a little slower than comparable exact staleness reads.
 
-**Note:** If you're using bounded staleness with a read-only transaction, you can only use it with single-use read-only transactions, not with general-purpose read-only transactions.
+> **Note:** If you're using bounded staleness with a read-only transaction, you can only use it with single-use read-only transactions, not with general-purpose read-only transactions.
 
 ### Exact staleness
 

@@ -1,6 +1,6 @@
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes vector indexing best practices that optimize your [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) and improve [approximate nearest neighbor (ANN) query results](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#query-vector-embeddings) .
 

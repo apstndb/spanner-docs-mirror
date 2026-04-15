@@ -442,7 +442,7 @@ Graph elements with dynamic properties enabled can store properties beyond those
 
 If a property isn't defined in the schema, accessing it through the [field-access-operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#field_access_operator) returns the `JSON` type if the dynamic property exists, or `NULL` if the property doesn't exist.
 
-**Note:** Names uniquely identify all properties in a graph element, case-insensitively. A defined property takes precedence over any dynamic property when their names conflict.
+> **Note:** Names uniquely identify all properties in a graph element, case-insensitively. A defined property takes precedence over any dynamic property when their names conflict.
 
 **Example**
 
@@ -666,7 +666,7 @@ To learn more about the literal representation of a floating point type, see [Fl
 
 When working with floating point numbers, there are special non-numeric values that need to be considered: `NaN` and `+/-inf`
 
-**Note:** Format the floating point special values as `Infinity` , `-Infinity` , and `NaN` when using the Spanner REST and RPC APIs, as documented in [TypeCode (REST)](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetMetadata#TypeCode) and [TypeCode (RPC)](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TypeCode) . The literals `+inf` , `-inf` , and `nan` aren't supported in the Spanner REST and RPC APIs.
+> **Note:** Format the floating point special values as `Infinity` , `-Infinity` , and `NaN` when using the Spanner REST and RPC APIs, as documented in [TypeCode (REST)](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetMetadata#TypeCode) and [TypeCode (RPC)](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TypeCode) . The literals `+inf` , `-inf` , and `nan` aren't supported in the Spanner REST and RPC APIs.
 
 Arithmetic operators provide standard IEEE-754 behavior for all finite input values that produce finite output and for all operations for which at least one input is non-finite.
 
@@ -903,7 +903,7 @@ To learn more about the literal representation of a string type, see [String lit
 
 ## Struct type
 
-**Note:** See details about using `STRUCT` s in the [SELECT statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#using_structs_with_select) and in [subqueries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) .
+> **Note:** See details about using `STRUCT` s in the [SELECT statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#using_structs_with_select) and in [subqueries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) .
 
 | Name     | Description                                                                        |
 | -------- | ---------------------------------------------------------------------------------- |

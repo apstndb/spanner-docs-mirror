@@ -4,7 +4,7 @@ The emulator supports both the GoogleSQL and PostgreSQL dialects. It supports al
 
 The emulator is also available as an open source project in [GitHub](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator) .
 
-**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
+> **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 ## Limitations and differences
 
@@ -33,7 +33,7 @@ There are two common ways to run the emulator:
 
 Choose the way that is appropriate for your application development and test workflow.
 
-**Note:** For more ways to run the emulator, see the [README](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/blob/master/README.md#quickstart) .
+> **Note:** For more ways to run the emulator, see the [README](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator/blob/master/README.md#quickstart) .
 
 ## Set up the emulator for gcloud CLI
 
@@ -102,7 +102,7 @@ The emulator uses two local endpoints:
 
 You can use [supported versions](https://docs.cloud.google.com/spanner/docs/emulator#supported-versions) of the client libraries with the emulator by setting the `SPANNER_EMULATOR_HOST` environment variable. There are many ways to do this. For example:
 
-**Important:** If you are using C\#, see the [additional instructions for C\#](https://docs.cloud.google.com/spanner/docs/emulator#cs) .
+> **Important:** If you are using C\#, see the [additional instructions for C\#](https://docs.cloud.google.com/spanner/docs/emulator#cs) .
 
 ### Linux/macOS
 

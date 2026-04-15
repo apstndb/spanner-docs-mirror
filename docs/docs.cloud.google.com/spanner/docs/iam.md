@@ -154,7 +154,9 @@ The following permissions apply to Spanner databases. For more information, see 
 <tr class="odd">
 <td><code dir="ltr" translate="no">spanner.databases.update</code></td>
 <td>Update a database's metadata.
-Currently unavailable for IAM custom roles.</td>
+<blockquote>
+Currently unavailable for IAM custom roles.
+</blockquote></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">spanner.databases.updateDdl</code></td>
@@ -235,7 +237,7 @@ The following permissions apply to Spanner backup schedules. For more informatio
 
 The following permissions apply to Spanner sessions. For more information, see the database references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Session) APIs.
 
-**Note:** Sessions are an advanced concept that only apply to users of the REST API and those who are creating their own client libraries. Learn more in [Sessions](https://docs.cloud.google.com/spanner/docs/sessions) .
+> **Note:** Sessions are an advanced concept that only apply to users of the REST API and those who are creating their own client libraries. Learn more in [Sessions](https://docs.cloud.google.com/spanner/docs/sessions) .
 
 | Session permission name   | Description       |
 | ------------------------- | ----------------- |
@@ -251,7 +253,7 @@ A predefined role is a bundle of one or more [permissions](https://docs.cloud.go
   - Person roles: Granted to users or groups, which allows them to perform actions on the resources in your project.
   - Machine roles: Granted to service accounts, which allows machines running as those service accounts to perform actions on the resources in your project.
 
-**Note:** To avoid providing machines with unnecessarily broad permissions, don't grant person roles to service accounts.
+> **Note:** To avoid providing machines with unnecessarily broad permissions, don't grant person roles to service accounts.
 
 The following table lists the access control with IAM predefined roles, including a list of the permissions associated with each role:
 
@@ -385,6 +387,145 @@ The following table lists the access control with IAM predefined roles, includin
 <li><code dir="ltr" translate="no">spanner.sessions.get</code></li>
 <li><code dir="ltr" translate="no">spanner.sessions.list</code></li>
 </ul></td>
+</tr>
+<tr class="even">
+<td><h4 id="spanner.editor" class="role-title add-link" data-text="Spanner Editor" tabindex="-1">Spanner Editor</h4>
+<p>( <code dir="ltr" translate="no">roles/  spanner.editor</code> )</p>
+<p>Editor role for spanner</p></td>
+<td><p><code dir="ltr" translate="no">monitoring.timeSeries.list</code></p>
+<p><code dir="ltr" translate="no">resourcemanager.projects.get</code></p>
+<p><code dir="ltr" translate="no">resourcemanager.projects.list</code></p>
+<p><code dir="ltr" translate="no">spanner.backupOperations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">spanner.  backupOperations.  cancel</code></li>
+<li><code dir="ltr" translate="no">spanner.backupOperations.get</code></li>
+<li><code dir="ltr" translate="no">spanner.backupOperations.list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">spanner.backupSchedules.create</code></p>
+<p><code dir="ltr" translate="no">spanner.backupSchedules.delete</code></p>
+<p><code dir="ltr" translate="no">spanner.backupSchedules.get</code></p>
+<p><code dir="ltr" translate="no">spanner.  backupSchedules.  getIamPolicy</code></p>
+<p><code dir="ltr" translate="no">spanner.backupSchedules.list</code></p>
+<p><code dir="ltr" translate="no">spanner.backupSchedules.update</code></p>
+<p><code dir="ltr" translate="no">spanner.backups.copy</code></p>
+<p><code dir="ltr" translate="no">spanner.backups.create</code></p>
+<p><code dir="ltr" translate="no">spanner.backups.delete</code></p>
+<p><code dir="ltr" translate="no">spanner.backups.get</code></p>
+<p><code dir="ltr" translate="no">spanner.backups.getIamPolicy</code></p>
+<p><code dir="ltr" translate="no">spanner.backups.list</code></p>
+<p><code dir="ltr" translate="no">spanner.  backups.  restoreDatabase</code></p>
+<p><code dir="ltr" translate="no">spanner.backups.update</code></p>
+<p><code dir="ltr" translate="no">spanner.databaseOperations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">spanner.  databaseOperations.  cancel</code></li>
+<li><code dir="ltr" translate="no">spanner.databaseOperations.get</code></li>
+<li><code dir="ltr" translate="no">spanner.  databaseOperations.  list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">spanner.databaseRoles.list</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.adapt</code></p>
+<p><code dir="ltr" translate="no">spanner.  databases.  addSplitPoints</code></p>
+<p><code dir="ltr" translate="no">spanner.  databases.  beginOrRollbackReadWriteTransaction</code></p>
+<p><code dir="ltr" translate="no">spanner.  databases.  beginPartitionedDmlTransaction</code></p>
+<p><code dir="ltr" translate="no">spanner.  databases.  beginReadOnlyTransaction</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.changequorum</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.create</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.createBackup</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.drop</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.get</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.getDdl</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.getIamPolicy</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.list</code></p>
+<p><code dir="ltr" translate="no">spanner.  databases.  partitionQuery</code></p>
+<p><code dir="ltr" translate="no">spanner.  databases.  partitionRead</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.read</code></p>
+<p><code dir="ltr" translate="no">spanner.  databases.  runGraphAlgorithms</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.select</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.update</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.updateDdl</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.useDataBoost</code></p>
+<p><code dir="ltr" translate="no">spanner.  databases.  useRoleBasedAccess</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.write</code></p>
+<p><code dir="ltr" translate="no">spanner.  instanceConfigOperations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">spanner.  instanceConfigOperations.  cancel</code></li>
+<li><code dir="ltr" translate="no">spanner.  instanceConfigOperations.  delete</code></li>
+<li><code dir="ltr" translate="no">spanner.  instanceConfigOperations.  get</code></li>
+<li><code dir="ltr" translate="no">spanner.  instanceConfigOperations.  list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">spanner.instanceConfigs.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">spanner.instanceConfigs.create</code></li>
+<li><code dir="ltr" translate="no">spanner.instanceConfigs.delete</code></li>
+<li><code dir="ltr" translate="no">spanner.instanceConfigs.get</code></li>
+<li><code dir="ltr" translate="no">spanner.instanceConfigs.list</code></li>
+<li><code dir="ltr" translate="no">spanner.instanceConfigs.update</code></li>
+</ul>
+<p><code dir="ltr" translate="no">spanner.instanceOperations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">spanner.  instanceOperations.  cancel</code></li>
+<li><code dir="ltr" translate="no">spanner.  instanceOperations.  delete</code></li>
+<li><code dir="ltr" translate="no">spanner.instanceOperations.get</code></li>
+<li><code dir="ltr" translate="no">spanner.  instanceOperations.  list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">spanner.  instancePartitionOperations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">spanner.  instancePartitionOperations.  cancel</code></li>
+<li><code dir="ltr" translate="no">spanner.  instancePartitionOperations.  delete</code></li>
+<li><code dir="ltr" translate="no">spanner.  instancePartitionOperations.  get</code></li>
+<li><code dir="ltr" translate="no">spanner.  instancePartitionOperations.  list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">spanner.instancePartitions.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">spanner.  instancePartitions.  create</code></li>
+<li><code dir="ltr" translate="no">spanner.  instancePartitions.  delete</code></li>
+<li><code dir="ltr" translate="no">spanner.instancePartitions.get</code></li>
+<li><code dir="ltr" translate="no">spanner.  instancePartitions.  list</code></li>
+<li><code dir="ltr" translate="no">spanner.  instancePartitions.  update</code></li>
+</ul>
+<p><code dir="ltr" translate="no">spanner.instances.create</code></p>
+<p><code dir="ltr" translate="no">spanner.instances.delete</code></p>
+<p><code dir="ltr" translate="no">spanner.instances.get</code></p>
+<p><code dir="ltr" translate="no">spanner.instances.getIamPolicy</code></p>
+<p><code dir="ltr" translate="no">spanner.instances.list</code></p>
+<p><code dir="ltr" translate="no">spanner.  instances.  listEffectiveTags</code></p>
+<p><code dir="ltr" translate="no">spanner.  instances.  listTagBindings</code></p>
+<p><code dir="ltr" translate="no">spanner.instances.update</code></p>
+<p><code dir="ltr" translate="no">spanner.sessions.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">spanner.sessions.create</code></li>
+<li><code dir="ltr" translate="no">spanner.sessions.delete</code></li>
+<li><code dir="ltr" translate="no">spanner.sessions.get</code></li>
+<li><code dir="ltr" translate="no">spanner.sessions.list</code></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><h4 id="spanner.viewer" class="role-title add-link" data-text="Cloud Spanner Viewer" tabindex="-1">Cloud Spanner Viewer</h4>
+<p>( <code dir="ltr" translate="no">roles/  spanner.viewer</code> )</p>
+<p>A principal with this role can:</p>
+<ul>
+<li>View all Spanner instances (but cannot modify instances).</li>
+<li>View all Spanner databases (but cannot modify or read from databases).</li>
+</ul>
+<p>For example, you can combine this role with the <code dir="ltr" translate="no">roles/spanner.databaseUser</code> role to grant a user with access to a specific database, but only view access to other instances and databases.</p>
+<p>This role is recommended at the Google Cloud project level for users interacting with Cloud Spanner resources in the Google Cloud console.</p>
+<p>Lowest-level resources where you can grant this role:</p>
+<ul>
+<li>Instance</li>
+<li>Database</li>
+</ul></td>
+<td><p><code dir="ltr" translate="no">monitoring.timeSeries.list</code></p>
+<p><code dir="ltr" translate="no">resourcemanager.projects.get</code></p>
+<p><code dir="ltr" translate="no">resourcemanager.projects.list</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.get</code></p>
+<p><code dir="ltr" translate="no">spanner.databases.list</code></p>
+<p><code dir="ltr" translate="no">spanner.instanceConfigs.get</code></p>
+<p><code dir="ltr" translate="no">spanner.instanceConfigs.list</code></p>
+<p><code dir="ltr" translate="no">spanner.instancePartitions.get</code></p>
+<p><code dir="ltr" translate="no">spanner.  instancePartitions.  list</code></p>
+<p><code dir="ltr" translate="no">spanner.instances.get</code></p>
+<p><code dir="ltr" translate="no">spanner.instances.list</code></p>
+<p><code dir="ltr" translate="no">spanner.  instances.  listEffectiveTags</code></p>
+<p><code dir="ltr" translate="no">spanner.  instances.  listTagBindings</code></p></td>
 </tr>
 <tr class="even">
 <td><h4 id="spanner.backupAdmin" class="role-title add-link" data-text="Cloud Spanner Backup Admin" tabindex="-1">Cloud Spanner Backup Admin</h4>
@@ -651,116 +792,6 @@ The following table lists the access control with IAM predefined roles, includin
 </ul></td>
 </tr>
 <tr class="odd">
-<td><h4 id="spanner.editor" class="role-title add-link" data-text="Spanner Editor" tabindex="-1">Spanner Editor</h4>
-<p>( <code dir="ltr" translate="no">roles/  spanner.editor</code> )</p>
-<p>Editor role for spanner</p></td>
-<td><p><code dir="ltr" translate="no">monitoring.timeSeries.list</code></p>
-<p><code dir="ltr" translate="no">resourcemanager.projects.get</code></p>
-<p><code dir="ltr" translate="no">resourcemanager.projects.list</code></p>
-<p><code dir="ltr" translate="no">spanner.backupOperations.*</code></p>
-<ul>
-<li><code dir="ltr" translate="no">spanner.  backupOperations.  cancel</code></li>
-<li><code dir="ltr" translate="no">spanner.backupOperations.get</code></li>
-<li><code dir="ltr" translate="no">spanner.backupOperations.list</code></li>
-</ul>
-<p><code dir="ltr" translate="no">spanner.backupSchedules.create</code></p>
-<p><code dir="ltr" translate="no">spanner.backupSchedules.delete</code></p>
-<p><code dir="ltr" translate="no">spanner.backupSchedules.get</code></p>
-<p><code dir="ltr" translate="no">spanner.  backupSchedules.  getIamPolicy</code></p>
-<p><code dir="ltr" translate="no">spanner.backupSchedules.list</code></p>
-<p><code dir="ltr" translate="no">spanner.backupSchedules.update</code></p>
-<p><code dir="ltr" translate="no">spanner.backups.copy</code></p>
-<p><code dir="ltr" translate="no">spanner.backups.create</code></p>
-<p><code dir="ltr" translate="no">spanner.backups.delete</code></p>
-<p><code dir="ltr" translate="no">spanner.backups.get</code></p>
-<p><code dir="ltr" translate="no">spanner.backups.getIamPolicy</code></p>
-<p><code dir="ltr" translate="no">spanner.backups.list</code></p>
-<p><code dir="ltr" translate="no">spanner.  backups.  restoreDatabase</code></p>
-<p><code dir="ltr" translate="no">spanner.backups.update</code></p>
-<p><code dir="ltr" translate="no">spanner.databaseOperations.*</code></p>
-<ul>
-<li><code dir="ltr" translate="no">spanner.  databaseOperations.  cancel</code></li>
-<li><code dir="ltr" translate="no">spanner.databaseOperations.get</code></li>
-<li><code dir="ltr" translate="no">spanner.  databaseOperations.  list</code></li>
-</ul>
-<p><code dir="ltr" translate="no">spanner.databaseRoles.list</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.adapt</code></p>
-<p><code dir="ltr" translate="no">spanner.  databases.  addSplitPoints</code></p>
-<p><code dir="ltr" translate="no">spanner.  databases.  beginOrRollbackReadWriteTransaction</code></p>
-<p><code dir="ltr" translate="no">spanner.  databases.  beginPartitionedDmlTransaction</code></p>
-<p><code dir="ltr" translate="no">spanner.  databases.  beginReadOnlyTransaction</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.changequorum</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.create</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.createBackup</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.drop</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.get</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.getDdl</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.getIamPolicy</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.list</code></p>
-<p><code dir="ltr" translate="no">spanner.  databases.  partitionQuery</code></p>
-<p><code dir="ltr" translate="no">spanner.  databases.  partitionRead</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.read</code></p>
-<p><code dir="ltr" translate="no">spanner.  databases.  runGraphAlgorithms</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.select</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.update</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.updateDdl</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.useDataBoost</code></p>
-<p><code dir="ltr" translate="no">spanner.  databases.  useRoleBasedAccess</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.write</code></p>
-<p><code dir="ltr" translate="no">spanner.  instanceConfigOperations.*</code></p>
-<ul>
-<li><code dir="ltr" translate="no">spanner.  instanceConfigOperations.  cancel</code></li>
-<li><code dir="ltr" translate="no">spanner.  instanceConfigOperations.  delete</code></li>
-<li><code dir="ltr" translate="no">spanner.  instanceConfigOperations.  get</code></li>
-<li><code dir="ltr" translate="no">spanner.  instanceConfigOperations.  list</code></li>
-</ul>
-<p><code dir="ltr" translate="no">spanner.instanceConfigs.*</code></p>
-<ul>
-<li><code dir="ltr" translate="no">spanner.instanceConfigs.create</code></li>
-<li><code dir="ltr" translate="no">spanner.instanceConfigs.delete</code></li>
-<li><code dir="ltr" translate="no">spanner.instanceConfigs.get</code></li>
-<li><code dir="ltr" translate="no">spanner.instanceConfigs.list</code></li>
-<li><code dir="ltr" translate="no">spanner.instanceConfigs.update</code></li>
-</ul>
-<p><code dir="ltr" translate="no">spanner.instanceOperations.*</code></p>
-<ul>
-<li><code dir="ltr" translate="no">spanner.  instanceOperations.  cancel</code></li>
-<li><code dir="ltr" translate="no">spanner.  instanceOperations.  delete</code></li>
-<li><code dir="ltr" translate="no">spanner.instanceOperations.get</code></li>
-<li><code dir="ltr" translate="no">spanner.  instanceOperations.  list</code></li>
-</ul>
-<p><code dir="ltr" translate="no">spanner.  instancePartitionOperations.*</code></p>
-<ul>
-<li><code dir="ltr" translate="no">spanner.  instancePartitionOperations.  cancel</code></li>
-<li><code dir="ltr" translate="no">spanner.  instancePartitionOperations.  delete</code></li>
-<li><code dir="ltr" translate="no">spanner.  instancePartitionOperations.  get</code></li>
-<li><code dir="ltr" translate="no">spanner.  instancePartitionOperations.  list</code></li>
-</ul>
-<p><code dir="ltr" translate="no">spanner.instancePartitions.*</code></p>
-<ul>
-<li><code dir="ltr" translate="no">spanner.  instancePartitions.  create</code></li>
-<li><code dir="ltr" translate="no">spanner.  instancePartitions.  delete</code></li>
-<li><code dir="ltr" translate="no">spanner.instancePartitions.get</code></li>
-<li><code dir="ltr" translate="no">spanner.  instancePartitions.  list</code></li>
-<li><code dir="ltr" translate="no">spanner.  instancePartitions.  update</code></li>
-</ul>
-<p><code dir="ltr" translate="no">spanner.instances.create</code></p>
-<p><code dir="ltr" translate="no">spanner.instances.delete</code></p>
-<p><code dir="ltr" translate="no">spanner.instances.get</code></p>
-<p><code dir="ltr" translate="no">spanner.instances.getIamPolicy</code></p>
-<p><code dir="ltr" translate="no">spanner.instances.list</code></p>
-<p><code dir="ltr" translate="no">spanner.  instances.  listEffectiveTags</code></p>
-<p><code dir="ltr" translate="no">spanner.  instances.  listTagBindings</code></p>
-<p><code dir="ltr" translate="no">spanner.instances.update</code></p>
-<p><code dir="ltr" translate="no">spanner.sessions.*</code></p>
-<ul>
-<li><code dir="ltr" translate="no">spanner.sessions.create</code></li>
-<li><code dir="ltr" translate="no">spanner.sessions.delete</code></li>
-<li><code dir="ltr" translate="no">spanner.sessions.get</code></li>
-<li><code dir="ltr" translate="no">spanner.sessions.list</code></li>
-</ul></td>
-</tr>
-<tr class="even">
 <td><h4 id="spanner.fineGrainedAccessUser" class="role-title add-link" data-text="Cloud Spanner Fine-grained Access User" tabindex="-1">Cloud Spanner Fine-grained Access User</h4>
 <p>( <code dir="ltr" translate="no">roles/  spanner.fineGrainedAccessUser</code> )</p>
 <p>Grants permissions to use Spanner's fine-grained access control framework. To grant access to specific database roles, also add the `roles/spanner.databaseRoleUser` IAM role and its necessary conditions.</p>
@@ -772,7 +803,7 @@ The following table lists the access control with IAM predefined roles, includin
 <td><p><code dir="ltr" translate="no">spanner.databaseRoles.list</code></p>
 <p><code dir="ltr" translate="no">spanner.  databases.  useRoleBasedAccess</code></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><h4 id="spanner.graphIntelligenceUser" class="role-title add-link" data-text="Cloud Spanner Database Graph Intelligence features user" tabindex="-1">Cloud Spanner Database Graph Intelligence features user</h4>
 <p>( <code dir="ltr" translate="no">roles/  spanner.graphIntelligenceUser</code> )</p>
 <p>Access to Graph Intelligence features.</p></td>
@@ -796,7 +827,7 @@ The following table lists the access control with IAM predefined roles, includin
 <li><code dir="ltr" translate="no">spanner.sessions.list</code></li>
 </ul></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><h4 id="spanner.restoreAdmin" class="role-title add-link" data-text="Cloud Spanner Restore Admin" tabindex="-1">Cloud Spanner Restore Admin</h4>
 <p>( <code dir="ltr" translate="no">roles/  spanner.restoreAdmin</code> )</p>
 <p>A principal with this role can restore databases from backups.</p>
@@ -830,11 +861,32 @@ The following table lists the access control with IAM predefined roles, includin
 <p><code dir="ltr" translate="no">spanner.  instances.  listEffectiveTags</code></p>
 <p><code dir="ltr" translate="no">spanner.  instances.  listTagBindings</code></p></td>
 </tr>
+</tbody>
+</table>
+
+### Service agent roles
+
+Service agent roles should only be granted to [service agents](https://docs.cloud.google.com/iam/docs/service-agents) .
+
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Permissions</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
 <td><h4 id="spanner.serviceAgent" class="role-title add-link" data-text="Cloud Spanner API Service Agent" tabindex="-1">Cloud Spanner API Service Agent</h4>
 <p>( <code dir="ltr" translate="no">roles/  spanner.serviceAgent</code> )</p>
 <p>Cloud Spanner API Service Agent</p>
-<strong>Warning:</strong> Do not grant service agent roles to any principals except <a href="https://docs.cloud.google.com/iam/docs/service-agents">service agents</a> .</td>
+<blockquote>
+<strong>Warning:</strong> Do not grant service agent roles to any principals except <a href="https://docs.cloud.google.com/iam/docs/service-agents">service agents</a> .
+</blockquote></td>
 <td><p><code dir="ltr" translate="no">aiplatform.endpoints.get</code></p>
 <p><code dir="ltr" translate="no">aiplatform.endpoints.list</code></p>
 <p><code dir="ltr" translate="no">aiplatform.endpoints.predict</code></p>
@@ -874,39 +926,10 @@ The following table lists the access control with IAM predefined roles, includin
 <p><code dir="ltr" translate="no">storage.objects.get</code></p>
 <p><code dir="ltr" translate="no">storage.objects.list</code></p></td>
 </tr>
-<tr class="even">
-<td><h4 id="spanner.viewer" class="role-title add-link" data-text="Cloud Spanner Viewer" tabindex="-1">Cloud Spanner Viewer</h4>
-<p>( <code dir="ltr" translate="no">roles/  spanner.viewer</code> )</p>
-<p>A principal with this role can:</p>
-<ul>
-<li>View all Spanner instances (but cannot modify instances).</li>
-<li>View all Spanner databases (but cannot modify or read from databases).</li>
-</ul>
-<p>For example, you can combine this role with the <code dir="ltr" translate="no">roles/spanner.databaseUser</code> role to grant a user with access to a specific database, but only view access to other instances and databases.</p>
-<p>This role is recommended at the Google Cloud project level for users interacting with Cloud Spanner resources in the Google Cloud console.</p>
-<p>Lowest-level resources where you can grant this role:</p>
-<ul>
-<li>Instance</li>
-<li>Database</li>
-</ul></td>
-<td><p><code dir="ltr" translate="no">monitoring.timeSeries.list</code></p>
-<p><code dir="ltr" translate="no">resourcemanager.projects.get</code></p>
-<p><code dir="ltr" translate="no">resourcemanager.projects.list</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.get</code></p>
-<p><code dir="ltr" translate="no">spanner.databases.list</code></p>
-<p><code dir="ltr" translate="no">spanner.instanceConfigs.get</code></p>
-<p><code dir="ltr" translate="no">spanner.instanceConfigs.list</code></p>
-<p><code dir="ltr" translate="no">spanner.instancePartitions.get</code></p>
-<p><code dir="ltr" translate="no">spanner.  instancePartitions.  list</code></p>
-<p><code dir="ltr" translate="no">spanner.instances.get</code></p>
-<p><code dir="ltr" translate="no">spanner.instances.list</code></p>
-<p><code dir="ltr" translate="no">spanner.  instances.  listEffectiveTags</code></p>
-<p><code dir="ltr" translate="no">spanner.  instances.  listTagBindings</code></p></td>
-</tr>
 </tbody>
 </table>
 
-**Note:** When the assigned role is `spanner.databaseReader` , requests for a read-only transaction might occasionally fail with a permissions error. To resolve this problem, see [Manage the write-sessions fraction](https://docs.cloud.google.com/spanner/docs/sessions#write-sessions-fraction) .
+> **Note:** When the assigned role is `spanner.databaseReader` , requests for a read-only transaction might occasionally fail with a permissions error. To resolve this problem, see [Manage the write-sessions fraction](https://docs.cloud.google.com/spanner/docs/sessions#write-sessions-fraction) .
 
 ### Basic roles
 

@@ -58,7 +58,7 @@ To use CMEK for Spanner databases, you must create a new database and specify th
 
 Spanner's [data access APIs](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1) , such as those that are used to manage sessions and execute transactions on data, are exactly the same for both CMEK and Google-owned and Google-managed encryption keys. Applications don't need to specify keys or encryption configurations when reading or writing data. All encryption is handled by the service.
 
-**Note:** After you enable CMEK in your Spanner database, you can't change its encryption configuration unless you [back up and restore](https://docs.cloud.google.com/spanner/docs/cmek#backup) the database, or [export then import](https://docs.cloud.google.com/spanner/docs/import-export-overview) the database back to Spanner.
+> **Note:** After you enable CMEK in your Spanner database, you can't change its encryption configuration unless you [back up and restore](https://docs.cloud.google.com/spanner/docs/cmek#backup) the database, or [export then import](https://docs.cloud.google.com/spanner/docs/import-export-overview) the database back to Spanner.
 
 ## Manage keys
 
@@ -70,11 +70,11 @@ If Spanner detects that your Cloud KMS key has been disabled or destroyed, an op
 
 In addition, if a database is protected by multiple regional keys and all keys are disabled or destroyed, then Spanner immediately starts to make your database inaccessible. If Spanner detects that only a subset of the database's keys are disabled or destroyed, then it disables the database over a period of time within 12 hours. Disabling or destroying only a subset of keys in a CMEK-enabled database is strongly discouraged and might result in uncertain behavior. To prevent this from happening, you can use the [Spanner CMEK Keys metric](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `instance/replica/cmek/total_keys` ) to trigger an alert if a subset of keys are disabled or destroyed. For more information, see [Create alert for disabling a subset of CMEK](https://docs.cloud.google.com/spanner/docs/cmek#create-alert-subset-CMEK) .
 
-**Warning:** If a database remains disabled for more than seven consecutive days, Spanner automatically deletes it. To avoid permanent data loss, don't leave CMEK keys in an inaccessible state for an extended time.
-
-If a Cloud KMS key is deleted and can't be recovered, any Spanner database encrypted with that key becomes permanently inaccessible.
-
-We strongly recommend against disabling or destroying only a subset of keys in a CMEK database that uses multiple keys. You must disable all keys in the database.
+> **Warning:** If a database remains disabled for more than seven consecutive days, Spanner automatically deletes it. To avoid permanent data loss, don't leave CMEK keys in an inaccessible state for an extended time.
+> 
+> If a Cloud KMS key is deleted and can't be recovered, any Spanner database encrypted with that key becomes permanently inaccessible.
+> 
+> We strongly recommend against disabling or destroying only a subset of keys in a CMEK database that uses multiple keys. You must disable all keys in the database.
 
 ### Create alert for disabling a subset of CMEK
 
@@ -85,8 +85,6 @@ You can use the [Spanner CMEK Keys](https://docs.cloud.google.com/monitoring/api
 To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
-    
-    [Go to **Alerting**](https://console.cloud.google.com/monitoring/alerting)
     
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
@@ -339,9 +337,9 @@ If you're using multiple Cloud EKM keys to protect your Spanner database, only t
 
 For more considerations when using external keys, see the [Cloud External Key Manager documentation](https://docs.cloud.google.com/kms/docs/ekm#considerations) .
 
-**Warning:** If a database remains disabled for more than seven consecutive days, Spanner automatically deletes it. To avoid permanent data loss, don't leave external keys in an inaccessible state for an extended time.
-
-If an external key is deleted and can't be recovered, any Spanner database encrypted with that key becomes permanently inaccessible.
+> **Warning:** If a database remains disabled for more than seven consecutive days, Spanner automatically deletes it. To avoid permanent data loss, don't leave external keys in an inaccessible state for an extended time.
+> 
+> If an external key is deleted and can't be recovered, any Spanner database encrypted with that key becomes permanently inaccessible.
 
 ## Back up and restore
 

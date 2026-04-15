@@ -5,7 +5,7 @@ This page describes how to export data from Spanner to CSV files or import data 
 
 The process uses [Dataflow](https://docs.cloud.google.com/dataflow) . You can export data from Spanner to a [Cloud Storage](https://docs.cloud.google.com/storage) bucket, or you can import data into Spanner from a Cloud Storage bucket that contains a JSON manifest file and a set of CSV files.
 
-**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
+> **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 ## Before you begin
 
@@ -14,8 +14,6 @@ To import or export a Spanner database, first you need to enable the Spanner, Cl
 **Roles required to enable APIs**
 
 To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
-
-[Enable the APIs](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com,storage_component,compute,dataflow)
 
 You also need enough quota and the required IAM permissions.
 
@@ -47,7 +45,7 @@ To get the permissions that you need to export a database, ask your administrato
   - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
   - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
 
-**Note:** The Spanner Database Admin role is only required for import jobs.
+> **Note:** The Spanner Database Admin role is only required for import jobs.
 
 ## Export Spanner data to CSV files
 
@@ -55,7 +53,7 @@ To export data from Spanner to CSV files in Cloud Storage, follow the instructio
 
 You can also refer to the information in this page about [optimizing slow jobs](https://docs.cloud.google.com/spanner/docs/import-export-csv#optimize-slow) , and [factors affecting job performance](https://docs.cloud.google.com/spanner/docs/import-export-csv#performance-factors) .
 
-**Note:** Neither [change stream](https://docs.cloud.google.com/spanner/docs/change-streams) data nor the values in stored [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) are exported.
+> **Note:** Neither [change stream](https://docs.cloud.google.com/spanner/docs/change-streams) data nor the values in stored [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) are exported.
 
 ## Import data from CSV files into Spanner
 
@@ -66,7 +64,7 @@ The process to import data from CSV files includes the following steps:
 3.  Create empty target tables in your Spanner database **or** ensure that the data types for columns in your CSV files match any corresponding columns in your existing tables.
 4.  Run your import job.
 
-**Note:** The [dataflow template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) can't handle a CSV file with headers.
+> **Note:** The [dataflow template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) can't handle a CSV file with headers.
 
 ### Step 1: Export data from a non-Spanner database to CSV files
 
@@ -115,7 +113,7 @@ If you don't export your files directly to Cloud Storage, you must [upload the C
 
 You must also create a manifest file with a JSON description of files to import and place it in the same Cloud Storage bucket where you stored your CSV files. This manifest file contains a `tables` array that lists the name and data file locations for each table. The file also specifies the receiving database dialect. If the dialect is omitted, it defaults to GoogleSQL.
 
-**Note:** If a table has [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) , the manifest must include an explicit list of the non-generated columns to import for that table. Spanner uses this list to map CSV columns to the correct table columns. Generated column values automatically computed during import.
+> **Note:** If a table has [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) , the manifest must include an explicit list of the non-generated columns to import for that table. Spanner uses this list to map CSV columns to the correct table columns. Generated column values automatically computed during import.
 
 The format of the manifest file corresponds to the following message type, shown here in [protocol buffer](https://developers.google.com/protocol-buffers/docs/proto3) format:
 
@@ -187,7 +185,7 @@ After you have started an import job, you can [see details about the job](https:
 
 After the import job is finished, add any necessary [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) , [foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) , and [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) .
 
-**Note:** To avoid [outbound data transfer charges](https://docs.cloud.google.com/storage/pricing#network-pricing) , [choose a region](https://docs.cloud.google.com/spanner/docs/import-export-csv#choose-region) that overlaps with your Cloud Storage bucket's location.
+> **Note:** To avoid [outbound data transfer charges](https://docs.cloud.google.com/storage/pricing#network-pricing) , [choose a region](https://docs.cloud.google.com/spanner/docs/import-export-csv#choose-region) that overlaps with your Cloud Storage bucket's location.
 
 ## Choose a region for your import job
 
@@ -222,14 +220,12 @@ To see details for any import or export jobs that you ran within the last week, 
 To view a job that you ran more than one week ago:
 
 1.  Go to the Dataflow jobs page in the Google Cloud console.
-    
-    [Go to Jobs](https://console.cloud.google.com/dataflow)
 
 2.  Find your job in the list, then click its name.
     
     The Google Cloud console displays details of the Dataflow job.
 
-**Note:** Jobs of the same type for the same database have the same name. You can tell jobs apart by the values in their **Start time** or **End time** columns.
+> **Note:** Jobs of the same type for the same database have the same name. You can tell jobs apart by the values in their **Start time** or **End time** columns.
 
 ### View Dataflow logs for your job
 
@@ -270,8 +266,6 @@ To specify a limit on the number of Dataflow workers:
 ### Console
 
 If you are using the Dataflow console, the **Max workers** parameter is located in the **Optional parameters** section of the **Create job from template** page.
-
-[Go to Dataflow](https://console.cloud.google.com/dataflow)
 
 ### gcloud
 

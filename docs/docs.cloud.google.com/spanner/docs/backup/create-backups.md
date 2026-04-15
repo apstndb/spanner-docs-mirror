@@ -14,7 +14,7 @@ For more information about backups, see [Backups overview](https://docs.cloud.go
       - Create, view, update, and delete backups: [Cloud Spanner Backup Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupAdmin) ( `roles/spanner.backupAdmin` )
       - Create and view backups: [Cloud Spanner Backup Writer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.backupWriter) ( `roles/spanner.backupWriter` )
     
-    **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to create backups. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
+    > **Note:** [IAM basic roles](https://docs.cloud.google.com/iam/docs/roles-overview#basic) might also contain permissions to create backups. You shouldn't grant basic roles in a production environment, but you can grant them in a development or test environment.
 
   - The gcloud CLI examples on this page make the following assumptions:
     
@@ -41,8 +41,6 @@ You can also create backups on a specified frequency by using a backup schedule.
 ### Console
 
 1.  In the Google Cloud console, go to the Spanner **Instances** page.
-    
-    [Go to Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance that contains the database that you want to back up.
 
@@ -70,7 +68,7 @@ Execute the following command:
 
 #### Linux, macOS, or Cloud Shell
 
-**Note:** Ensure you have initialized the Google Cloud CLI with authentication and a project by running either [gcloud init](https://docs.cloud.google.com/sdk/gcloud/reference/init) ; or [gcloud auth login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) and [gcloud config set project](https://docs.cloud.google.com/sdk/gcloud/reference/config/set) .
+> **Note:** Ensure you have initialized the Google Cloud CLI with authentication and a project by running either [gcloud init](https://docs.cloud.google.com/sdk/gcloud/reference/init) ; or [gcloud auth login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) and [gcloud config set project](https://docs.cloud.google.com/sdk/gcloud/reference/config/set) .
 
     gcloud spanner backups create BACKUP_NAME \
     --instance=INSTANCE_ID \
@@ -81,7 +79,7 @@ Execute the following command:
 
 #### Windows (PowerShell)
 
-**Note:** Ensure you have initialized the Google Cloud CLI with authentication and a project by running either [gcloud init](https://docs.cloud.google.com/sdk/gcloud/reference/init) ; or [gcloud auth login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) and [gcloud config set project](https://docs.cloud.google.com/sdk/gcloud/reference/config/set) .
+> **Note:** Ensure you have initialized the Google Cloud CLI with authentication and a project by running either [gcloud init](https://docs.cloud.google.com/sdk/gcloud/reference/init) ; or [gcloud auth login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) and [gcloud config set project](https://docs.cloud.google.com/sdk/gcloud/reference/config/set) .
 
     gcloud spanner backups create BACKUP_NAME `
     --instance=INSTANCE_ID `
@@ -92,7 +90,7 @@ Execute the following command:
 
 #### Windows (cmd.exe)
 
-**Note:** Ensure you have initialized the Google Cloud CLI with authentication and a project by running either [gcloud init](https://docs.cloud.google.com/sdk/gcloud/reference/init) ; or [gcloud auth login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) and [gcloud config set project](https://docs.cloud.google.com/sdk/gcloud/reference/config/set) .
+> **Note:** Ensure you have initialized the Google Cloud CLI with authentication and a project by running either [gcloud init](https://docs.cloud.google.com/sdk/gcloud/reference/init) ; or [gcloud auth login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) and [gcloud config set project](https://docs.cloud.google.com/sdk/gcloud/reference/config/set) .
 
     gcloud spanner backups create BACKUP_NAME ^
     --instance=INSTANCE_ID ^
@@ -303,7 +301,7 @@ The following code sample creates a backup at a specific [`version_time`](https:
       );
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -389,7 +387,7 @@ The following code sample creates a backup at a specific [`version_time`](https:
       spanner.close();
     }
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -453,7 +451,7 @@ The following code sample creates a backup at a specific [`version_time`](https:
             $info->getVersionTime()->getSeconds());
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -494,7 +492,7 @@ The following code sample creates a backup at a specific [`version_time`](https:
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 

@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes how to use vector search in Spanner Graph to find K-nearest neighbors (KNN) and approximate nearest neighbors (ANN). You can use vector distance functions to perform KNN and ANN vector search for use cases like similarity search or retrieval-augmented generation for generative AI applications.
 
@@ -139,7 +139,7 @@ You can perform a KNN vector search on the `notes_embeddings` property of the `O
 
 ## Create a vector index and find approximate nearest neighbors
 
-**Note:** You can't use ANN search to search the edges in a Spanner Graph database.
+> **Note:** You can't use ANN search to search the edges in a Spanner Graph database.
 
 To perform an ANN search, you must create a [specialized vector index](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#vector-index) that Spanner Graph uses to accelerate the vector search. The vector index must use a specific distance metric. You can choose the distance metric most appropriate for your use case by setting the `distance_type` parameter to one of `COSINE` , `DOT_PRODUCT` or `EUCLIDEAN` . For more information, see [VECTOR INDEX statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
 

@@ -359,8 +359,6 @@ The code sample appends the string `spanner/query_stats_elapsed` to the metric n
 ## View metrics in the Metrics Explorer
 
 1.  In the Google Cloud console, go to the Metrics Explorer page.
-    
-    [Go to Metrics Explorer](https://console.cloud.google.com/projectselector/monitoring/metrics-explorer?supportedpurview=project,folder,organizationId)
 
 2.  Select your project.
 

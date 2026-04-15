@@ -1,10 +1,10 @@
-**Preview**
+> **Preview**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
-
-This tutorial describes how to set up and use QueryData in Spanner using the Google Cloud console and integrate it with your application. Learn how to build the context set file, create a context set that uses the context set file, use [MCP Toolbox](https://github.com/googleapis/genai-toolbox) to call the [QueryData API](https://docs.cloud.google.com/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases) to generate SQL queries for natural language questions, and integrate it with your application.
+This tutorial describes how to set up and use QueryData in Spanner using the Google Cloud console and integrate it with your application. Learn how to build the context set file, create a context set that uses the context set file, use [MCP Toolbox](https://github.com/googleapis/mcp-toolbox) to call the [QueryData API](https://docs.cloud.google.com/gemini/docs/conversational-analytics-api/data-agent-authored-context-databases) to generate SQL queries for natural language questions, and integrate it with your application.
 
 For more information, see [QueryData overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
 
@@ -14,7 +14,7 @@ For more information, see [QueryData overview](https://docs.cloud.google.com/spa
   - Build a context set file with Gemini CLI and MCP toolbox.
   - Create a context set and upload context set file.
   - Test QueryData and generate SQL queries in Studio.
-  - Integrate QueryData with your application using [Gemini Data Analytics QueryData](https://googleapis.github.io/genai-toolbox/resources/tools/cloudgda/cloud-gda-query/) tool in MCP Toolbox.
+  - Integrate QueryData with your application using [Gemini Data Analytics QueryData](https://mcp-toolbox.dev/integrations/cloudgda/tools/cloud-gda-query/) tool in MCP Toolbox.
   - Add grounding to LLM responses using value search queries.
 
 ## Costs
@@ -34,7 +34,7 @@ To avoid continued billing, delete the resources you created when you finish the
 
 Complete the following prerequisites before creating a context set.
 
-**Note:** Enable public IP for your Spanner instance.
+> **Note:** Enable public IP for your Spanner instance.
 
 ### Enable required services
 
@@ -42,7 +42,7 @@ Enable the following services for your project:
 
   - [Data Analytics API with Gemini](https://console.cloud.google.com/apis/library/geminidataanalytics.googleapis.com)
   - [Gemini for Google Cloud API](https://console.cloud.google.com/apis/library/cloudaicompanion.googleapis.com)
-  - [Dataplex Universal Catalog API](https://console.cloud.google.com/apis/library/dataplex.googleapis.com)
+  - [Knowledge Catalog API](https://console.cloud.google.com/apis/library/dataplex.googleapis.com)
 
 ### Prepare a Spanner instance
 
@@ -63,8 +63,6 @@ This tutorial requires you to have a database in your Spanner instance. For more
 In this section, you create the `flights` and `airports` database tables for this tutorial.
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -590,8 +588,6 @@ To create tokenized columns and search indexes, execute the following SQL statem
 In this section, create a context set named `flights-assistant` . This context set doesn't include any context set file uploaded to it.
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -639,7 +635,7 @@ In this section, use the `flights-assistant` context set by asking natural langu
     
     The database fails to understand the term `nighttime` traffic. This might prevent it from generating a SQL query or cause it to generate a query that ignores the term, as the following query shows.
     
-    **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
+    > **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
     
         -- The database schema does not contain information about traffic.
         -- Returning all flights departing from New York airports.
@@ -671,7 +667,7 @@ In this section, use the `flights-assistant` context set by asking natural langu
     
     The context set logic generates a query to find an airport with "Houston Intercontinental" in its name. Since no such airport or city exists in the database, the query won't return any rows.
     
-    **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
+    > **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
     
         SELECT
           f.*
@@ -706,7 +702,7 @@ To set up your environment, perform the following steps:
     
         gemini extensions install https://github.com/GoogleCloudPlatform/db-context-enrichment
     
-    **Note:** The extension requires a Gemini API key during installation to authenticate with the Gemini API, and to enable context generation. For more information about how to find your API key, see [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key) .
+    > **Note:** The extension requires a Gemini API key during installation to authenticate with the Gemini API, and to enable context generation. For more information about how to find your API key, see [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key) .
     
     Ensure that the version is `0.4.2` or higher. To update the DB Context Enrichment extension, run the following command:
     
@@ -728,7 +724,7 @@ To set up your environment, perform the following steps:
     
     To create the `tools.yaml` configuration file in your current directory, enter a prompt such as `Help me set up the database connection` and follow the instructions provided by the skill. For more information about the `tools.yaml` file, see [MCP Toolbox documentation](https://mcp-toolbox.dev/documentation/configuration/) .
     
-    **Note:** If this connection is not established, the extension returns error messages, such as `Error Discovering tools from mcp_toolbox` , and context generation fails to work.
+    > **Note:** If this connection is not established, the extension returns error messages, such as `Error Discovering tools from mcp_toolbox` , and context generation fails to work.
 
 9.  To reload the configuration after creating the `tools.yaml` file is created, run the following command in the Gemini CLI:
     
@@ -777,7 +773,7 @@ To generate template context, perform the following steps:
     
     Optionally, run the `/generate_bulk_templates` workflow to let Gemini CLI generate more context by scanning your database schema and suggesting related context.
     
-    **Note:** The `/generate_bulk_templates` workflow requires the list schema tool for fetching database schemas and the execute SQL tool for SQL validation, as the previous `tools.yaml` configuration shows.
+    > **Note:** The `/generate_bulk_templates` workflow requires the list schema tool for fetching database schemas and the execute SQL tool for SQL validation, as the previous `tools.yaml` configuration shows.
 
 5.  Review the generated query template. You can either save the query template as a new agent context file or append it to an existing agent context file.
 
@@ -864,8 +860,6 @@ In this section, you upload the context set file to QueryData, so that it improv
 To upload the context, perform the following steps:
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -885,7 +879,7 @@ To upload the context, perform the following steps:
 
 In this section, you use the context set file you uploaded to ask natural language questions. This lets you verify that QueryData correctly understands and applies definitions for terms like `nighttime traffic` and other related phrases
 
-**Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
+> **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
 
 To generate SQL queries, perform the following steps:
 
@@ -979,7 +973,7 @@ To generate SQL queries, perform the following steps:
 
 In this section, you create a QueryData agent for a flight-finding application. This QueryData agent provides a conversational interface to the `flights` and `airports` table you created earlier. It also explains how to create and integrate this QueryData agent into your application using [Agent Development Kit (ADK)](https://github.com/google/adk-python) , the Gemini Data Analytics QueryData MCP tool, and context set to improve quality of the responses.
 
-**Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
+> **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
 
 1.  Download [MCP Toolbox](https://mcp-toolbox.dev/documentation/introduction/) version 0.31.0 or later. MCP toolbox exposes the QueryData agent as a tool for applications to connect with. The MCP toolbox differs from the MCP Toolbox Gemini CLI extension you installed earlier, which generates context.
 
@@ -1030,7 +1024,7 @@ In this section, you create a QueryData agent for a flight-finding application. 
     
         ./toolbox --config "tools.yaml"
     
-    **Note:** Don't close the terminal window where the MCP Toolbox server is running.
+    > **Note:** Don't close the terminal window where the MCP Toolbox server is running.
 
 6.  Create an ADK application that invokes [Gemini Data Analytics QueryData tool](https://mcp-toolbox.dev/integrations/cloudgda/tools/cloud-gda-query/) using the MCP Toolbox's Python SDK. For more information about how to use the MCP Toolbox's Python SDK, see the [quickstart for Toolbox](https://mcp-toolbox.dev/documentation/getting-started/local_quickstart/) and for Python ADK, see the [quickstart for ADK](https://google.github.io/adk-docs/get-started/python/) .
     
@@ -1110,7 +1104,7 @@ In this section, you create a QueryData agent for a flight-finding application. 
                 tools=cast(list[ToolUnion], [mcp_tool]),
             )
     
-    **Note:** The instruction contains a system prompt that sets up a `flight assistant` QueryData agent. It also instructs the agent how to use the Gemini Data Analytics QueryData tool you set up in the `tools.yaml` file you created earlier in step 5.
+    > **Note:** The instruction contains a system prompt that sets up a `flight assistant` QueryData agent. It also instructs the agent how to use the Gemini Data Analytics QueryData tool you set up in the `tools.yaml` file you created earlier in step 5.
 
 7.  Run the following commands under the `flight-assistant-app` directory to start the application and access the ADK web server at `http://127.0.0.1:8000` .
     
@@ -1237,8 +1231,6 @@ The following sections describe how to delete these resources and objects.
 Before you delete the instance, delete the context set that you created.
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list, and then select a database.
 
@@ -1255,8 +1247,6 @@ Before you delete the instance, delete the context set that you created.
 When you delete the instance that you created in the [before you begin](https://docs.cloud.google.com/alloydb/docs/ai/use-natural-language-generate-sql-queries#create-and-connect-to-database) section, you also delete all of the objects you created.
 
 1.  In the Google Cloud console, go to the Spanner page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Click the name of the instance that you want to delete, for example, **Test Instance** .
 

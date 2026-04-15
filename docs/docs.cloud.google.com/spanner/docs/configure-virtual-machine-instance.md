@@ -12,8 +12,6 @@ Configure the service account on your instance with one of the following options
 To quickly allow your instance to access the Cloud Spanner API, create a new instance to use the default service account and a scope with full access to all Cloud APIs.
 
 1.  Go to the Compute Engine VM instances page.
-    
-    [Go to the VM instances page](https://console.cloud.google.com/compute/instances)
 
 2.  Select your project and click **Continue** .
 
@@ -37,8 +35,6 @@ To restrict instance access to specific APIs and roles, create a service account
 2.  [Grant a role to the service account](https://docs.cloud.google.com/iam/docs/granting-roles-to-service-accounts#granting_access_to_a_service_account_for_a_resource) so that it has the necessary permissions to access Spanner. For a list of roles that apply to Spanner, see [Access Control for Spanner](https://docs.cloud.google.com/spanner/docs/iam#roles) .
 
 3.  Go to the Compute Engine VM instances page.
-    
-    [Go to the VM instances page](https://console.cloud.google.com/compute/instances)
 
 4.  Select your project and click **Continue** .
 

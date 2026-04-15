@@ -86,7 +86,7 @@ A graph pattern consists of a list of path patterns. You can optionally include 
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query matches all nodes:
 
@@ -170,7 +170,7 @@ The following query converts a GQL path to JSON. Only unblocked accounts are inc
 
 ## Element pattern
 
-**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
+> **Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     element_pattern:
       {
@@ -400,7 +400,7 @@ Set operations support graph elements that have a common [supertype](https://doc
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query matches all nodes in the graph. `n` is a graph pattern variable that's bound to the matching nodes:
 
@@ -739,7 +739,7 @@ The following are examples of subpath patterns:
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 In the following query, the subpath `(src:Account)-[t1:Transfers]->(mid:Account)` is evaluated first, then the rest of the path pattern:
 
@@ -763,7 +763,7 @@ In the following query, the subpath `(src:Account)-[t1:Transfers]->(mid:Account)
 
 ## Quantified path pattern
 
-**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
+> **Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     quantified_path_primary:
       path_primary
@@ -926,7 +926,7 @@ The following are other syntax examples of a quantified path pattern:
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query uses a quantified path pattern to match all of the destination accounts that are one to three transfers away from a source account with `id` equal to `7` :
 
@@ -1056,7 +1056,7 @@ Labels can also be modeled from column values using the [dynamic label definitio
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query matches all nodes with the label `Person` in the [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) property graph.
 
@@ -1133,7 +1133,7 @@ To use `ANY CHEAPEST` in a query:
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query matches a shortest path between each pair of `[a, b]` .
 
@@ -1299,7 +1299,7 @@ A path can have either a path mode or a [path search prefix](https://docs.cloud.
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 The following query demonstrates the use of the `WALK` path mode on a non-quantified path pattern. The first path in the results uses the same edge for `t1` and `t3` .
 

@@ -5,8 +5,6 @@ The Google Cloud console provides an interface for inserting, editing, and delet
 To get started, select to view a Spanner table in the Google Cloud console.
 
 1.  Go to the **Spanner** page in the Google Cloud console.
-    
-    [Go to the Spanner page](https://console.cloud.google.com/spanner)
 
 2.  Click the name of an instance. The instance overview page is displayed.
     
@@ -24,7 +22,7 @@ To get started, select to view a Spanner table in the Google Cloud console.
 
 ## Insert data
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 1.  On the table's **Data** page, click **Insert** .
     
@@ -54,7 +52,7 @@ To get started, select to view a Spanner table in the Google Cloud console.
 
 ## Delete data
 
-**Note:** Deleting a row will also delete its child rows if the child rows have `ON DELETE CASCADE` enabled. However, if the child rows do not have this setting enabled, you will first have to delete all the child rows in order to delete the parent row.
+> **Note:** Deleting a row will also delete its child rows if the child rows have `ON DELETE CASCADE` enabled. However, if the child rows do not have this setting enabled, you will first have to delete all the child rows in order to delete the parent row.
 
 1.  On the table's **Data** page, select one or more rows that you want to delete, then click **Delete** .
     

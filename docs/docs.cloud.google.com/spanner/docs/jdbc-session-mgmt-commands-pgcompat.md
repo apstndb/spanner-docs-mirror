@@ -2,7 +2,7 @@ The Spanner JDBC driver (Java Database Connectivity) supports session management
 
 The following commands apply to PostgreSQL-dialect databases.
 
-**Note:** You can use session management statements only with the Spanner JDBC driver. Session management statements don't work in the client libraries, the Google Cloud CLI, or the JDBC driver created by Simba.
+> **Note:** You can use session management statements only with the Spanner JDBC driver. Session management statements don't work in the client libraries, the Google Cloud CLI, or the JDBC driver created by Simba.
 
 ## Connection statements
 
@@ -190,7 +190,7 @@ The supported time units for setting `MAX_STALENESS` and `EXACT_STALENESS` value
 
 You can modify the value of this property only while there is no active transaction.
 
-**Note:** You can use the values `MIN_READ_TIMESTAMP` and `MAX_STALENESS` only for queries in `AUTOCOMMIT` mode.
+> **Note:** You can use the values `MIN_READ_TIMESTAMP` and `MAX_STALENESS` only for queries in `AUTOCOMMIT` mode.
 
 ##### Example: Read-only staleness (Click to expand)
 
@@ -654,7 +654,7 @@ You can execute this statement only when `AUTOCOMMIT` is `false` , or if you hav
 
 This statement sets the transaction mode for the current transaction only. When the transaction commits or rolls back, the next transaction uses the default mode for the connection. (See [`SET SESSION CHARACTERISTICS`](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat#session_characteristics) .)
 
-**Note:** You can't set the transaction mode to `READ WRITE` if the connection is in `READ ONLY` mode.
+> **Note:** You can't set the transaction mode to `READ WRITE` if the connection is in `READ ONLY` mode.
 
 ##### Example: SET TRANSACTION (Click to expand)
 
@@ -733,7 +733,7 @@ Sends all buffered DDL statements in the current DDL batch to the database, wait
 
 If Spanner cannot execute at least one DDL statement, `RUN BATCH` returns an error for the first DDL statement that Spanner cannot execute. Otherwise, `RUN BATCH` returns successfully.
 
-**Note:** If a DDL statement in the batch returns an error, Spanner might still have applied the preceding DDL statements in the same batch to the database.
+> **Note:** If a DDL statement in the batch returns an error, Spanner might still have applied the preceding DDL statements in the same batch to the database.
 
 #### ABORT BATCH
 

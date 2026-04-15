@@ -2,7 +2,7 @@
 
 The [Spanner dialect for SQLAlchemy](https://github.com/googleapis/python-spanner-sqlalchemy) lets SQLAlchemy users to use Spanner databases. The dialect is built on top of the [Spanner API](https://github.com/googleapis/python-spanner/tree/main/google/cloud/spanner_dbapi) , which is designed in accordance with [PEP-249](https://www.python.org/dev/peps/pep-0249/) , and is compatible with SQLAlchemy versions between [1.1.13](https://pypi.org/project/SQLAlchemy/1.1.13/) and [1.3.23](https://pypi.org/project/SQLAlchemy/1.3.23/) , and [2.0](https://pypi.org/project/SQLAlchemy/2.0.0/) .
 
-**PostgreSQL interface note:** To use [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) with SQLAlchemy, see [Integrate Spanner with SQLAlchemy 2 ORM (PostgreSQL-dialect)](https://docs.cloud.google.com/spanner/docs/use-sqlalchemy-pg) .
+> **PostgreSQL interface note:** To use [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) with SQLAlchemy, see [Integrate Spanner with SQLAlchemy 2 ORM (PostgreSQL-dialect)](https://docs.cloud.google.com/spanner/docs/use-sqlalchemy-pg) .
 
 ## Set up the Spanner dialect for SQLAlchemy
 

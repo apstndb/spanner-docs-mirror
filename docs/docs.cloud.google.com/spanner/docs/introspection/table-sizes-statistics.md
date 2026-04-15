@@ -7,11 +7,11 @@ The table size is in bytes. Table sizes include data versions. You can use these
 
 Database storage can be monitored with the [Total database storage metric](https://docs.cloud.google.com/spanner/docs/storage-utilization) . You can see the breakdown of the database storage with `SPANNER_SYS.TABLE_SIZES_STATS_1HOUR` and `SPANNER_SYS.TABLE_SIZES_STATS_PER_LOCALITY_GROUP_1HOUR` .
 
-**Note:** These built-in tables provide a historical perspective of the sizes of your tables and indexes. It is not for real-time monitoring.
+> **Note:** These built-in tables provide a historical perspective of the sizes of your tables and indexes. It is not for real-time monitoring.
 
 ## Access table sizes statistics
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 Spanner provides the table sizes statistics in the `SPANNER_SYS` schema. You can use the following ways to access `SPANNER_SYS` data:
 
@@ -148,7 +148,7 @@ Where:
 
 At a minimum, Spanner keeps data for `SPANNER_SYS.TABLE_SIZES_STATS_1HOUR` for intervals covering the previous 30 days.
 
-**Note:** You can't prevent Spanner from collecting table size statistics. To delete the data in the statistics table, you must delete the database associated with the table or wait until Spanner removes the data automatically. The retention period for the table is fixed. If you want to keep statistics for longer periods of time, we recommend that you periodically copy data out of this table.
+> **Note:** You can't prevent Spanner from collecting table size statistics. To delete the data in the statistics table, you must delete the database associated with the table or wait until Spanner removes the data automatically. The retention period for the table is fixed. If you want to keep statistics for longer periods of time, we recommend that you periodically copy data out of this table.
 
 ## What's next
 

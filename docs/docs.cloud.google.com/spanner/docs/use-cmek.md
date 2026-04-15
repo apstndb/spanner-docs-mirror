@@ -17,7 +17,7 @@ To learn more about CMEK, see the [Customer-managed encryption keys (CMEK) overv
       - If your Spanner database is in the multi-region instance configuration `nam14` , then you can create Cloud KMS keys in `us-east4` , `northamerica-northeast1` , and `us-east1` .
       - If your database is in a custom instance configuration that uses `nam3` as the base instance configuration with an additional read-only replica in `us-central2` , then you can create Cloud KMS keys in `us-east4` , `us-east1` , `us-central1` , and `us-central2` .
     
-    **Note:** Protecting a CMEK database with a mix of Cloud KMS multi-region and single-region keys is not supported.
+    > **Note:** Protecting a CMEK database with a mix of Cloud KMS multi-region and single-region keys is not supported.
     
     Optional: To see a list of the replica locations in your Spanner instance configuration, use the [`gcloud spanner instances get-locations`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/get-locations) command:
     
@@ -62,15 +62,13 @@ To learn more about CMEK, see the [Customer-managed encryption keys (CMEK) overv
 
 3.  Create the database and specify your Cloud KMS key.
 
-**Note:** You can't use the Google Cloud console to create a database in a custom, dual-region, or multi-region instance configuration that uses multiple Cloud KMS keys. You must use the gcloud CLI or client libraries to do so.
+> **Note:** You can't use the Google Cloud console to create a database in a custom, dual-region, or multi-region instance configuration that uses multiple Cloud KMS keys. You must use the gcloud CLI or client libraries to do so.
 
 ### Console
 
 Use the console to create databases in regional instance configurations.
 
 1.  In the Google Cloud console, go to the **Instances** page.
-    
-    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance where you want to create a database.
 
@@ -613,7 +611,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -712,7 +710,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
     }
     createDatabaseWithMultipleKmsKeys();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -854,7 +852,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
         }
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -940,7 +938,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -1056,8 +1054,6 @@ When a database's key version changes, the change isn't immediately propagated t
 ### Console
 
 1.  In the Google Cloud console, go to the **Instances** page.
-    
-    [Go to Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance containing the database you want to view.
 
@@ -1086,7 +1082,7 @@ Here's an example output:
 
 ## Disable the key
 
-**Warning:** We strongly recommend against disabling only a subset of keys in a CMEK-enabled database that uses multiple keys. It might cause uncertain behavior. It's better to disable all keys in the database.
+> **Warning:** We strongly recommend against disabling only a subset of keys in a CMEK-enabled database that uses multiple keys. It might cause uncertain behavior. It's better to disable all keys in the database.
 
 1.  Disable the key version(s) that are in use by following [these instructions](https://docs.cloud.google.com/kms/docs/enable-disable#disable) for each key version.
 
@@ -1118,7 +1114,7 @@ Here's an example output:
 
 ## Back up a database
 
-**Note:** You can't use the Google Cloud console to specify multiple Cloud KMS keys when creating a backup in a custom, dual-region or multi-region instance configuration. You must use the gcloud CLI or client libraries to do so.
+> **Note:** You can't use the Google Cloud console to specify multiple Cloud KMS keys when creating a backup in a custom, dual-region or multi-region instance configuration. You must use the gcloud CLI or client libraries to do so.
 
 You can use [Spanner backups](https://docs.cloud.google.com/spanner/docs/backup) to create backups of your databases. By default, Spanner backups created from a database use the same [encryption configuration](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#CreateBackupEncryptionConfig) as the database itself. You can optionally specify a different encryption configuration for a backup.
 
@@ -1127,8 +1123,6 @@ You can use [Spanner backups](https://docs.cloud.google.com/spanner/docs/backup)
 Use the console to create backups in regional instance configurations.
 
 1.  In the Google Cloud console, go to the **Instances** page.
-    
-    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance name that contains the database that you want to back up.
 
@@ -1691,7 +1685,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1877,7 +1871,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
     }
     createBackupWithMultipleKmsKeys();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -2021,7 +2015,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
             print('Backup is not ready!' . PHP_EOL);
      }}
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -2115,7 +2109,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -2206,7 +2200,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
 
 ## Copy a backup
 
-**Note:** You can't use the Google Cloud console to specify multiple keys when copying a backup in a custom, dual-region, or multi-region instance configuration. You must use the gcloud CLI or client libraries to do so.
+> **Note:** You can't use the Google Cloud console to specify multiple keys when copying a backup in a custom, dual-region, or multi-region instance configuration. You must use the gcloud CLI or client libraries to do so.
 
 You can [copy a backup](https://docs.cloud.google.com/spanner/docs/backup#how-backup-copy-works) of your Spanner database from one instance to another instance in a different region or project. By default, a copied backup uses the same encryption configuration, either Google-managed or customer-managed, as its source backup encryption. You can override this behavior by specifying a different encryption configuration when copying the backup. If you want the copied backup to be encrypted with CMEK when copying across regions, specify the Cloud KMS keys corresponding to the destination regions.
 
@@ -2215,8 +2209,6 @@ You can [copy a backup](https://docs.cloud.google.com/spanner/docs/backup#how-ba
 Use the console to copy a backup in a regional instance configuration.
 
 1.  In the Google Cloud console, go to the **Instances** page.
-    
-    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance name that contains the database that you want to back up.
 
@@ -2827,7 +2819,7 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
 
 ## Restore from a backup
 
-**Note:** You can't use the Google Cloud console to specify multiple keys when restoring from a backup in a custom, dual-region, or multi-region instance configuration. You must use the gcloud CLI or client libraries to do so.
+> **Note:** You can't use the Google Cloud console to specify multiple keys when restoring from a backup in a custom, dual-region, or multi-region instance configuration. You must use the gcloud CLI or client libraries to do so.
 
 You can [restore a backup](https://docs.cloud.google.com/spanner/docs/backup/restore-backup-overview) of a Spanner database into a new database. By default, databases that are restored from a backup use the same [encryption configuration](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#restoredatabaseencryptionconfig) as the backup itself, but you can override this behavior by specifying a different encryption configuration for the restored database. If the backup is protected by CMEK, the key version that was used to create the backup must be available so that it can be decrypted.
 
@@ -2836,8 +2828,6 @@ You can [restore a backup](https://docs.cloud.google.com/spanner/docs/backup/res
 Use the console to restore a backup in a regional instance configuration.
 
 1.  In the Google Cloud console, go to the **Instances** page.
-    
-    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance containing the database you want to restore.
 
@@ -3328,7 +3318,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -3446,7 +3436,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
     }
     restoreBackupWithMultipleKmsKeys();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -3564,7 +3554,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
         );
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -3656,7 +3646,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -3749,8 +3739,6 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
 1.  Make sure that [logging is enabled](https://docs.cloud.google.com/logging/docs/audit/configure-data-access#config-console-enable) for the Cloud KMS API in your project.
 
 2.  In the Google Cloud console, go to **Logs Explorer** .
-    
-    [Go to Logs Explorer](https://console.cloud.google.com/logs/query)
 
 3.  Limit the log entries to your Cloud KMS key by adding the following lines to the Query builder:
     

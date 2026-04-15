@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** The `STRUCT` data type is not supported in the [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) .
+> **PostgreSQL interface note:** The `STRUCT` data type is not supported in the [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) .
 
 Spanner allows you to create `STRUCT` objects from data, as well as to use `STRUCT` objects as bound parameters when running a SQL query with one of the Spanner client libraries.
 

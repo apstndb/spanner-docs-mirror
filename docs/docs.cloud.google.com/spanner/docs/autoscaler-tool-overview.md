@@ -130,7 +130,7 @@ Specifying a margin parameter for a metric is optional, and it defaults to five 
 
 Spanner assigns ranges of data called *splits* to nodes or subdivisions of a node called processing units. The node or processing units independently manage and serve the data in the apportioned splits. Data splits are created based on several factors, including data volume and access patterns. For more details, see [Spanner - schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) .
 
-**Note:** Spanner charges you each hour for the maximum number of nodes or processing units that exist during that hour, multiplied by the hourly rate. As a result, any nodes or processing units that you provision are billed for a minimum of one hour. We don't recommend that you optimize your Autoscaler configuration for intra-hour scale-ins. For more information, see the [Spanner pricing overview](https://cloud.google.com/spanner/pricing) .
+> **Note:** Spanner charges you each hour for the maximum number of nodes or processing units that exist during that hour, multiplied by the hourly rate. As a result, any nodes or processing units that you provision are billed for a minimum of one hour. We don't recommend that you optimize your Autoscaler configuration for intra-hour scale-ins. For more information, see the [Spanner pricing overview](https://cloud.google.com/spanner/pricing) .
 
 Data is organized into splits and Spanner automatically manages the splits. So, when the Autoscaler tool adds or removes nodes or processing units, it needs to allow the Spanner backend sufficient time to reassign and reorganize the splits as new capacity is added or removed from instances.
 
@@ -145,7 +145,7 @@ For more information about scaling recommendations and cooldown periods, see [Sc
 
 The Autoscaler tool resource consumption is minor in terms of compute, memory, and storage. Depending on your configuration of the Autoscaler, when deployed to Cloud Run functions the Autoscaler's resource utilization is usually in the [Free Tier](https://docs.cloud.google.com/free/docs/free-cloud-features#free-tier-usage-limits) of its dependent services (Cloud Run functions, Cloud Scheduler, Pub/Sub, and Firestore).
 
-**Note:** This analysis doesn't include incurred charges for the Spanner instances that are managed by the Autoscaler. These charges include only the components of the Autoscaler. See the [Spanner pricing page](https://cloud.google.com/spanner/pricing) for more information on pricing for Spanner instances.
+> **Note:** This analysis doesn't include incurred charges for the Spanner instances that are managed by the Autoscaler. These charges include only the components of the Autoscaler. See the [Spanner pricing page](https://cloud.google.com/spanner/pricing) for more information on pricing for Spanner instances.
 
 Use the [Pricing Calculator](https://cloud.google.com/products/calculator) to generate a cost estimate of your environments, based on your projected usage.
 

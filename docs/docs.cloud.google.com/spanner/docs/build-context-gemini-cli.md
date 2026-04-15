@@ -1,8 +1,8 @@
-**Preview**
+> **Preview**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 This document describes how to use the Gemini CLI and the MCP toolbox to build agent context files. These files contain templates, facets, and value searches that provide context for generating SQL queries from natural language. You will also use the DB Context Enrichment extension.
 
@@ -26,7 +26,7 @@ Enable the following services for your project:
 
   - [Data Analytics API with Gemini](https://console.cloud.google.com/apis/library/geminidataanalytics.googleapis.com)
   - [Gemini for Google Cloud API](https://console.cloud.google.com/apis/library/cloudaicompanion.googleapis.com)
-  - [Dataplex Universal Catalog API](https://console.cloud.google.com/apis/library/dataplex.googleapis.com)
+  - [Knowledge Catalog API](https://console.cloud.google.com/apis/library/dataplex.googleapis.com)
 
 ### Prepare a Spanner instance
 
@@ -62,11 +62,11 @@ For more information about installing the DB Context Enrichment extension, see [
 
 To install the DB Context Enrichment extension, follow these steps:
 
-1.  Install the MCP Toolbox Gemini CLI extension:
+1.  Install the DB Context Enrichment Gemini CLI extension:
     
-        gemini extensions install https://github.com/gemini-cli-extensions/mcp-toolbox
+        gemini extensions install https://github.com/GoogleCloudPlatform/db-context-enrichment
     
-    **Note:** The extension requires a Gemini API key at installation to authenticate with the Gemini API and enable context generation. For more information about how to find your API key, see [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key) .
+    > **Note:** The extension requires a Gemini API key at installation to authenticate with the Gemini API and enable context generation. For more information about how to find your API key, see [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key) .
 
 2.  (Optional) Update the DB Context Enrichment extension.
     
@@ -107,7 +107,7 @@ The extension requires a database connection for context generation, which is su
 
 The `tools.yaml` file specifies your database source and tools required to either fetch schemas or execute SQL. The extension comes with pre-installed Agent Skills to help you generate the configuration.
 
-**Note:** If this connection is not established, the extension will return error messages, such as "Error Discovering tools from mcp\_toolbox" and context generation won't work.
+> **Note:** If this connection is not established, the extension will return error messages, such as "Error Discovering tools from mcp\_toolbox" and context generation won't work.
 
 1.  Start Gemini CLI:
     
@@ -129,7 +129,7 @@ For more information about manually configuring the `tools.yaml` file, see [MCP 
 
 The extensions installed earlier empower Gemini CLI to help you author context in the form of a JSON file.
 
-**Note:** Gemini CLI can access your local files to reduce overheads such as specifying exact locations of files in your local directories. For example, if a step in the Gemini CLI workflow asks you for information that you can find in your `tools.yaml` file, you can ask Gemini CLI to `use tools.yaml` or respond with a prompt such as `look it up` .
+> **Note:** Gemini CLI can access your local files to reduce overheads such as specifying exact locations of files in your local directories. For example, if a step in the Gemini CLI workflow asks you for information that you can find in your `tools.yaml` file, you can ask Gemini CLI to `use tools.yaml` or respond with a prompt such as `look it up` .
 
 ### Generate targeted templates
 

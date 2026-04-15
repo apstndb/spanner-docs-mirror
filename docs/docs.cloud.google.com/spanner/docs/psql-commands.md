@@ -4,7 +4,7 @@
 
 The PostgreSQL interface supports the following `psql` meta-commands categories:
 
-**Note: Enter the `\?` command to see the commands under each category.**
+> **Note: Enter the `\?` command to see the commands under each category.**
 
   - General
   - Help

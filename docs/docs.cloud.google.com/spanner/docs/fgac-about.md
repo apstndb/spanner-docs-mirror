@@ -4,7 +4,7 @@ As an administrator, you must enable fine-grained access control for individual 
 
 Resource access for users who are are not fine-grained access control users is governed by IAM database-level roles. Fine-grained access control is fully compatible and can co-exist with existing IAM database-level access control. You can use it to access individual database objects. To control access to the entire database, use [IAM roles](https://docs.cloud.google.com/spanner/docs/iam) .
 
-**Note:** Spanner relies on IAM for identity management rather than managing user credentials within the database.
+> **Note:** Spanner relies on IAM for identity management rather than managing user credentials within the database.
 
 With fine-grained access control, you can control access to tables, columns, views, and change streams.
 
@@ -55,7 +55,7 @@ No: Reject access.
 
 Yes: You can access the table.
 
-**Note:** You can use `ALL` to bulk grant privileges on all objects that use the same type in the schema. If you later add objects, you must grant privileges to the new objects as you add them.
+> **Note:** You can use `ALL` to bulk grant privileges on all objects that use the same type in the schema. If you later add objects, you must grant privileges to the new objects as you add them.
 
   - Tables  
     You can grant the `SELECT` , `INSERT` , `UPDATE` , and `DELETE` privileges on tables to database roles. For interleaved tables, a privilege granted on the parent table doesn't propagate to the child table.

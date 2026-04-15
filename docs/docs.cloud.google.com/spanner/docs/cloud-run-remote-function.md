@@ -1,6 +1,6 @@
-**Preview — Remote Functions in Spanner**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview — Remote Functions in Spanner**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 A Spanner remote function lets you implement your function in languages other than SQL. Functions must be hosted in [Cloud Run functions](https://cloud.google.com/functions) or [Cloud Run](https://cloud.google.com/run) . Hosting functions in this manner allows complex business logic to be split out into separate remote functions.
 
@@ -18,7 +18,7 @@ A typical remote function deployment has the following steps:
 
 To ensure that your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) has the necessary permissions to use Spanner remote functions, ask your administrator to grant the [Spanner API Service Agent](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.serviceAgent) ( `roles/spanner.serviceAgent` ) IAM role to your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com) on the project.
 
-**Important:** You must grant this role to your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com), *not* to your user account. Failure to grant the role to the correct principal might result in permission errors.
+> **Important:** You must grant this role to your Spanner agent service account (service- PROJECT\_ID @gcp-sa-spanner.iam.gserviceaccount.com), *not* to your user account. Failure to grant the role to the correct principal might result in permission errors.
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 

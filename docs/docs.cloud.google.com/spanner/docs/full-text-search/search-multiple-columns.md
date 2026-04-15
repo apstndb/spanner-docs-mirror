@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) can index multiple tokenized columns, making queries on these columns more efficient. This page describes how to perform a search on multiple columns, which is a type of [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) .
 

@@ -1,4 +1,4 @@
-GoogleSQL is the new name for Google Standard SQL\! New name, same great SQL dialect.
+> GoogleSQL is the new name for Google Standard SQL\! New name, same great SQL dialect.
 
 Query statements scan one or more tables or expressions and return the computed result rows. This topic describes the syntax for SQL queries in GoogleSQL for Spanner.
 
@@ -150,7 +150,7 @@ If the expression doesn't have an explicit alias, it receives an implicit alias 
 
 An item in a `SELECT` list can also take the form of `expression.*` . This produces one output column for each column or top-level field of `expression` . The expression must either be a table alias or evaluate to a single value of a data type with fields, such as a STRUCT.
 
-**Note:** The `*` or `.*` wildcard preserves the order of the fields in the data structure on which they're operating.
+> **Note:** The `*` or `.*` wildcard preserves the order of the fields in the data structure on which they're operating.
 
 The following query produces one output column for each column in the table `groceries` , aliased as `g` .
 
@@ -212,7 +212,7 @@ A `SELECT * EXCEPT` statement specifies the names of one or more columns to excl
      | sprocket  | 200      |
      +-----------+----------*/
 
-**Note:** `SELECT * EXCEPT` doesn't exclude columns that don't have names.
+> **Note:** `SELECT * EXCEPT` doesn't exclude columns that don't have names.
 
 ### `SELECT * REPLACE`
 
@@ -246,7 +246,7 @@ A `SELECT * REPLACE` statement doesn't change the names or order of columns. How
      | 5        | sprocket  | 100      |
      +----------+-----------+----------*/
 
-**Note:** `SELECT * REPLACE` doesn't replace columns that don't have names.
+> **Note:** `SELECT * REPLACE` doesn't replace columns that don't have names.
 
 ### `SELECT DISTINCT`
 
@@ -279,7 +279,7 @@ A `SELECT ALL` statement returns all rows, including duplicate rows. `SELECT ALL
         SELECT ARRAY(SELECT IF(STARTS_WITH(Users.username, "a"), NULL, STRUCT(1, 2)))
         FROM Users;
 
-**Note:** The logic inside Spanner that decides whether or not a query can return a `NULL` array of structs or `NULL` array of struct elements isn't *complete* (in the logic sense of *complete* ). That means some queries that clearly can't return `NULL` s are still rejected and fine-tuning is sometimes necessary to get a query shape that's supported. The least troublesome query shapes use the `ARRAY(SELECT AS STRUCT ... )` subquery to construct the array of struct values.
+> **Note:** The logic inside Spanner that decides whether or not a query can return a `NULL` array of structs or `NULL` array of struct elements isn't *complete* (in the logic sense of *complete* ). That means some queries that clearly can't return `NULL` s are still rejected and fine-tuning is sometimes necessary to get a query shape that's supported. The least troublesome query shapes use the `ARRAY(SELECT AS STRUCT ... )` subquery to construct the array of struct values.
 
 See [Querying STRUCT elements in an ARRAY](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays#query_structs_in_an_array) for more examples on how to query `STRUCTs` inside an `ARRAY` .
 
@@ -428,9 +428,9 @@ Some examples of valid `field_path` values include:
 
 Field paths in the `FROM` clause must end in an array or a repeated field. In addition, field paths can't contain arrays or repeated fields before the end of the path. For example, the path `array_column.some_array.some_array_field` is invalid because it contains an array before the end of the path.
 
-**Note:** If a path has only one name, it's interpreted as a table. To work around this, wrap the path using `UNNEST` , or use the fully-qualified path.
+> **Note:** If a path has only one name, it's interpreted as a table. To work around this, wrap the path using `UNNEST` , or use the fully-qualified path.
 
-**Note:** If a path has more than one name, and it matches a field name, it's interpreted as a field name. To force the path to be interpreted as a table name, wrap the path using `` ` `` .
+> **Note:** If a path has more than one name, and it matches a field name, it's interpreted as a field name. To force the path to be interpreted as a table name, wrap the path using `` ` `` .
 
 #### `unnest_operator`
 
@@ -2275,7 +2275,7 @@ The rows that are returned by `LIMIT` and `OFFSET` have undefined order unless t
 
 A constant expression can be represented by a general expression, literal, or parameter value.
 
-**Note:** Although the `LIMIT` clause limits the rows that a query produces, it doesn't limit the amount of data processed by that query.
+> **Note:** Although the `LIMIT` clause limits the rows that a query produces, it doesn't limit the amount of data processed by that query.
 
 **Examples**
 

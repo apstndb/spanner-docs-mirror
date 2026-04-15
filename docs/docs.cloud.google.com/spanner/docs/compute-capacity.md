@@ -23,7 +23,7 @@ Spanner is designed for [high availability](https://cloud.google.com/spanner/sla
 
 ### Data storage limits
 
-**Note:** Storage usage is calculated in *binary gigabytes* (GB), where 1 GB is 2 <sup>30</sup> bytes. This unit of measurement is also known as a [gibibyte (GiB)](https://en.wikipedia.org/wiki/Gibibyte) . Similarly, 1 TB is 2 <sup>40</sup> bytes, or 1024 GB.
+> **Note:** Storage usage is calculated in *binary gigabytes* (GB), where 1 GB is 2 <sup>30</sup> bytes. This unit of measurement is also known as a [gibibyte (GiB)](https://en.wikipedia.org/wiki/Gibibyte) . Similarly, 1 TB is 2 <sup>40</sup> bytes, or 1024 GB.
 
 As detailed in [Quotas & limits](https://docs.cloud.google.com/spanner/quotas) , to provide high availability and low latency when accessing a database, Spanner uses the compute capacity of an instance as a basis for determining storage limits, using the following guidelines:
 
@@ -80,7 +80,7 @@ Spanner doesn't have a suspend mode. Spanner compute capacity is a dedicated res
 
 You can use the [Google Cloud console](https://console.cloud.google.com/spanner) , [Google Cloud CLI](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) , or the Spanner client libraries to change compute capacity. For more information, see [Change the compute capacity](https://docs.cloud.google.com/spanner/docs/create-manage-instances) .
 
-**Note:** You can change compute capacity in your instance based on the [Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) metrics on CPU or storage utilization in conjunction with Cloud Run functions.
+> **Note:** You can change compute capacity in your instance based on the [Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) metrics on CPU or storage utilization in conjunction with Cloud Run functions.
 
 ## Compute capacity versus replicas
 

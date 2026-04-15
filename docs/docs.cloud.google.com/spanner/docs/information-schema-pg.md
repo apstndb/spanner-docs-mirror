@@ -32,7 +32,7 @@ For example, the following query fetches the names of all user-defined tables in
 
 The tables in the `information_schema` for PostgreSQL-dialect databases include columns from the tables in the `information_schema` for open source PostgreSQL and in some cases also include columns from Spanner. In these tables, the open source PostgreSQL columns come first and in the same order as they do for a open source PostgreSQL database, and any distinct columns for Spanner are appended afterwards. Queries written for the open source PostgreSQL version of `information_schema` should work without modification when using PostgreSQL-dialect databases in Google Cloud CLI.
 
-**Note:** Queries against the `information_schema` for PostgreSQL-dialect databases that use `select *` and reference columns by offset might not work the same as they do against open source PostgreSQL databases. The GoogleSQL-specific columns can shift in position if PostgreSQL adds new columns to an `information_schema` table.
+> **Note:** Queries against the `information_schema` for PostgreSQL-dialect databases that use `select *` and reference columns by offset might not work the same as they do against open source PostgreSQL databases. The GoogleSQL-specific columns can shift in position if PostgreSQL adds new columns to an `information_schema` table.
 
 Other notable differences in the `information_schema` for PostgreSQL-dialect databases are:
 

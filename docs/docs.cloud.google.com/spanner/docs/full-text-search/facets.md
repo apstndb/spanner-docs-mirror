@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes how to use facets for a [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) . As part of interactive filtering, a facet is a potential filter value, and the count of matches for that filter. On websites with this capability, when you enter a search phrase, you get a list of results in the navigation menu, and there's a list of facets that you can use to narrow the search results, along with the number of results that fit into each category.
 

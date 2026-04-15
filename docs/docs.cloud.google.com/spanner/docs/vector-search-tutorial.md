@@ -1,6 +1,6 @@
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This tutorial demonstrates how to build a generative AI application using Spanner and [Vertex AI](https://docs.cloud.google.com/vertex-ai/docs/start/introduction-unified-platform) .
 
@@ -22,16 +22,14 @@ To learn about Spanner pricing details, see [Spanner pricing](https://cloud.goog
 
 To try out a codelab, see [Getting started with Spanner vector search](https://codelabs.developers.google.com/codelabs/spanner-getting-started-vector-search) .
 
-**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
+> **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 ## Before you begin
 
 You must create a Google Cloud project that is connected to a billing account.
 
 1.  The Spanner API should be auto-enabled. If not, enable it manually:
-    [Enable Spanner API](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com)
 2.  The Vertex AI API should be auto-enabled. If not, enable it manually:
-    [Enable Vertex AI API](https://console.cloud.google.com/flows/enableapi?apiid=aiplatform.googleapis.com)
 
 <!-- end list -->
 
@@ -46,8 +44,6 @@ You must create a Google Cloud project that is connected to a billing account.
 When you first use Spanner, you must create an [instance](https://docs.cloud.google.com/spanner/docs/instances) , which is an allocation of resources that are used by Spanner databases. This section shows you how to create an instance using the Google Cloud console.
 
 1.  In the Google Cloud console, go to the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select or create a Google Cloud project if you haven't done so already.
 
@@ -86,8 +82,6 @@ When you first use Spanner, you must create an [instance](https://docs.cloud.goo
 After your instance starts running, you can create your database. You define your schema in the database .
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance you created, for example, `test-instance` .
 
@@ -125,7 +119,7 @@ When you use the [`CREATE MODEL`](https://docs.cloud.google.com/spanner/docs/ref
 
 The following example demonstrates how to register a Vertex AI [text embedding model](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings) , which is then used to perform similarity search to find similar products in a database.
 
-**Note:** The following schema uses the `us-central1` Vertex AI endpoint. Change this in the `EmbeddingsModel` definition if you chose a different Spanner region when creating the instance.
+> **Note:** The following schema uses the `us-central1` Vertex AI endpoint. Change this in the `EmbeddingsModel` definition if you chose a different Spanner region when creating the instance.
 
 1.  In the database **Overview** page, click **Spanner Studio** .
 
@@ -300,7 +294,7 @@ To create a vector index in your dataset, you need to modify the `productDescrip
 
 6.  Click **Run** .
 
-**Note:** In a production environment, instead of dropping the original embedding column first, we recommend that you add a new column with the new `vector_length` definition. Then, re-generate the embeddings in the new column. Finally, modify your applications to use the new column before dropping the original column.
+> **Note:** In a production environment, instead of dropping the original embedding column first, we recommend that you add a new column with the new `vector_length` definition. Then, re-generate the embeddings in the new column. Finally, modify your applications to use the new column before dropping the original column.
 
 ### Use ANN vector distance function
 
@@ -379,8 +373,6 @@ This section shows you how to use the Google Cloud console to clean up your reso
 ### Delete the database
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that has the database that you want to delete, for example, **test-instance** .
 
@@ -392,11 +384,9 @@ This section shows you how to use the Google Cloud console to clean up your reso
 
 ### Delete the instance
 
-**Warning:** Deleting an instance permanently removes the instance and all its databases. You can't undo this later. Also, if you're using a free trial instance, you can't create another free trial instance after you delete your first free trial instance. You can create one free trial instance per project lifecycle.
+> **Warning:** Deleting an instance permanently removes the instance and all its databases. You can't undo this later. Also, if you're using a free trial instance, you can't create another free trial instance after you delete your first free trial instance. You can create one free trial instance per project lifecycle.
 
 1.  In Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to delete, for example, **test-instance** .
 

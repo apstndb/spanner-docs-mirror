@@ -65,7 +65,7 @@ To add a commit timestamp column to an existing table, use the `ALTER TABLE` sta
 
 You use the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function to write the commit timestamp in a DML statement. Spanner selects the commit timestamp when the transaction commits.
 
-**Note:** After you call the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function, the table and any derived index is unreadable to any subsequent SQL statements in the transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner returns an error.
+> **Note:** After you call the `SPANNER.PENDING_COMMIT_TIMESTAMP()` function, the table and any derived index is unreadable to any subsequent SQL statements in the transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then Spanner returns an error.
 
 The following DML statement updates the `LastUpdateTime` column in the `Performances` table with the commit timestamp:
 

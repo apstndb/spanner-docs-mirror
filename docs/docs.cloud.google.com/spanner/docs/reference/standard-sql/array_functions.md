@@ -195,7 +195,7 @@ Concatenates one or more arrays with the same element type into a single array.
 
 The function returns `NULL` if any input argument is `NULL` .
 
-**Note:** You can also use the [|| concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) to concatenate arrays.
+> **Note:** You can also use the [|| concatenation operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) to concatenate arrays.
 
 **Return type**
 
@@ -261,7 +261,7 @@ Produces an error if the array is empty.
 
 Returns `NULL` if `array_expression` is `NULL` .
 
-**Note:** To get the last element in an array, see [`ARRAY_LAST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_last) .
+> **Note:** To get the last element in an array, see [`ARRAY_LAST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_last) .
 
 **Return type**
 
@@ -492,7 +492,7 @@ Produces an error if the array is empty.
 
 Returns `NULL` if `array_expression` is `NULL` .
 
-**Note:** To get the first element in an array, see [`ARRAY_FIRST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_first) .
+> **Note:** To get the first element in an array, see [`ARRAY_FIRST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_first) .
 
 **Return type**
 

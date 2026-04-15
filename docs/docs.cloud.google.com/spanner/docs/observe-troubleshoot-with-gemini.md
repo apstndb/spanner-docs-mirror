@@ -1,12 +1,10 @@
 This document describes how you can use Gemini assistance to help you use system insights to optimize and troubleshoot your Spanner resources.
 
-**Note:** Query insights aren't supported by Gemini in Spanner.
+> **Note:** Query insights aren't supported by Gemini in Spanner.
 
 To improve system performance for Spanner using Gemini Cloud Assist, follow these steps:
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  To open the **Overview** page of an instance, click the instance name.
 

@@ -33,8 +33,6 @@ After you create your tag key-value pairs, you can create a tag binding and atta
 ### Console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the checkbox next to the instance for which you would like to attach a tag.
 
@@ -91,7 +89,7 @@ To create a tag binding and attach it to your Spanner instance using REST or RPC
 
 You can use tags and IAM conditions to conditionally grant role bindings to users. If an IAM policy with conditional role bindings is applied, changing or deleting the tag attached to a resource might remove user access to that resource.
 
-**Note:** When managing access for users in [external identity providers](https://docs.cloud.google.com/iam/docs/workforce-identity-federation) , replace instances of Google Account principal identifiers—like `user:kiran@example.com` , `group:support@example.com` , and `domain:example.com` —with appropriate [Workforce Identity Federation principal identifiers](https://docs.cloud.google.com/iam/docs/principal-identifiers) .
+> **Note:** When managing access for users in [external identity providers](https://docs.cloud.google.com/iam/docs/workforce-identity-federation) , replace instances of Google Account principal identifiers—like `user:kiran@example.com` , `group:support@example.com` , and `domain:example.com` —with appropriate [Workforce Identity Federation principal identifiers](https://docs.cloud.google.com/iam/docs/principal-identifiers) .
 
 For more information, see [Overview of IAM Conditions](https://docs.cloud.google.com/iam/docs/conditions-overview) .
 
@@ -129,8 +127,6 @@ You can view a list of tag bindings directly attached to or inherited by the ins
 ### Console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Under the list of instances, look for the **Tags** column. Tags are shown in the `key:value` format.
 
@@ -163,8 +159,6 @@ When removing a tag key or value definition, ensure the tag is detached from the
 ### Console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the checkbox next to the instance for which you would like to delete a tag binding.
 

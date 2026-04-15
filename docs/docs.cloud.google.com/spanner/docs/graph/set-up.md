@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document shows you how to set up and query a Spanner Graph database to model, store, and analyze complex data relationships using the Google Cloud console and client libraries.
 
@@ -21,7 +21,6 @@ To try out a codelab, see [Getting started with Spanner Graph](https://codelabs.
 ## Before you begin
 
 1.  Enable the Spanner API:  
-    [Go to Enable Spanner API](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com)
 
 <!-- end list -->
 
@@ -33,13 +32,11 @@ To try out a codelab, see [Getting started with Spanner Graph](https://codelabs.
 
 ## Create a Spanner instance
 
-**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
+> **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 When you first use Spanner, you must create an *instance* , which allocates resources for Spanner databases. This section shows you how to create an instance using the Google Cloud console.
 
 1.  In the Google Cloud console, go to the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select or create a Google Cloud project if you haven't already.
 
@@ -84,8 +81,6 @@ This section shows you how to create a Spanner Graph database using a Spanner Gr
 ### Console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance you created, for example, `Test Instance` .
 
@@ -1020,8 +1015,6 @@ This section shows you how to clean up the resources that you created to avoid i
 ### Delete the database
 
 1.  In the Google Cloud console, go to **Spanner Instances** .
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance name, for example, **Test Instance** .
 
@@ -1033,11 +1026,9 @@ This section shows you how to clean up the resources that you created to avoid i
 
 ### Delete the instance
 
-**Warning:** Deleting an instance permanently removes the instance and all its databases. You can't undo this action. You can create only one free trial instance per project lifecycle. Deleting it prevents you from creating another.
+> **Warning:** Deleting an instance permanently removes the instance and all its databases. You can't undo this action. You can create only one free trial instance per project lifecycle. Deleting it prevents you from creating another.
 
 1.  In Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that you want to delete, for example, **Test Instance** .
 

@@ -1,4 +1,4 @@
-**Note:** The examples in this document are intended for GoogleSQL-dialect databases. However, the concepts and semantics apply to both GoogleSQL-dialect and PostgreSQL-dialect databases.
+> **Note:** The examples in this document are intended for GoogleSQL-dialect databases. However, the concepts and semantics apply to both GoogleSQL-dialect and PostgreSQL-dialect databases.
 
 This page describes transactions in Spanner and introduces Spanner's read-write, read-only, and partitioned DML transaction interfaces.
 
@@ -16,7 +16,7 @@ Spanner supports the following transaction types, each designed for specific dat
 
   - **Partitioned DML:** This transaction type executes DML statements as [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) operations. It's optimized for executing DML statements at scale but with restrictions to ensure the statement is idempotent and partitionable in a way that lets it execute independently of other partitions. For numerous writes that don't need an atomic transaction, consider using batch writes. For more information, see [Modify data using batch writes](https://docs.cloud.google.com/spanner/docs/batch-write) .
 
-**Note:** Because read-only transactions can execute on any replica, use them for read operations unless a read-write transaction is explicitly required. Only use locking read-write transactions when required.
+> **Note:** Because read-only transactions can execute on any replica, use them for read operations unless a read-write transaction is explicitly required. Only use locking read-write transactions when required.
 
 ## Read-write transactions
 
@@ -42,9 +42,9 @@ Alternatively, you can also configure serializable isolation to use [optimistic 
 
 ### Repeatable read isolation
 
-**Preview — Repeatable read isolation**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview — Repeatable read isolation**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 Note: Spanner doesn't support using pessimistic concurrency control with repeatable read isolation.
 
@@ -689,7 +689,7 @@ On the other hand, if you use repeatable read isolation, the following scenario 
 
 In this scenario, each transaction operates on its own consistent snapshot of the database, taken from the moment the transaction starts. This sequence can lead to a write skew anomaly if the write to `B` by `Txn2` was logically dependent on the value it read from `A` . In essence, `Txn2` made its updates based on outdated information, and its subsequent write might violate an application-level invariant. To prevent this scenario from arising, consider either [using `SELECT...FOR UPDATE` for repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) , or [creating check constraints in your schema](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
 
-**Note:** Regardless of isolation level, when using [DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks#using-dml) , changes are immediately visible to subsequent read statements within the same transaction. However, if you use [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) , changes are buffered locally and are only visible after the transaction commits.
+> **Note:** Regardless of isolation level, when using [DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks#using-dml) , changes are immediately visible to subsequent read statements within the same transaction. However, if you use [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) , changes are buffered locally and are only visible after the transaction commits.
 
 #### Read and write guarantees on transaction failure
 

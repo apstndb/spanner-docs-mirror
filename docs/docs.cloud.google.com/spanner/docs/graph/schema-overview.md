@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner Graph lets you model connected data as a property graph that represents information as a network of nodes and edges. Nodes symbolize entities, and edges show connections between them. Nodes and edges include labels that classify the types of nodes and edges. Nodes and edges also include properties that describe them.
 
@@ -48,7 +48,7 @@ The example graph uses *directed* edges that indicate a specific direction in th
 
 In Spanner Graph you use the [CREATE PROPERTY GRAPH](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#gql_create_graph) statement to create a graph from tables or SQL views. The tables that are used to create graphs are called *input tables* . This document shows you how to use tables to create a graph. For information about using SQL views, see [Create a Spanner Graph from a SQL view](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to) .
 
-**Note:** Spanner Graph uses [SQL/PGQ (Property Graph Queries)](https://www.iso.org/standard/79473.html) , which is part of SQL:2023 Standards.
+> **Note:** Spanner Graph uses [SQL/PGQ (Property Graph Queries)](https://www.iso.org/standard/79473.html) , which is part of SQL:2023 Standards.
 
 ### Define a node from a table
 
@@ -113,7 +113,7 @@ The following example defines `Account` node and `Person` node.
   - Each row with a non-null element key maps to a unique node in the graph, identified by the element key.
   - Rows with a null element key are ignored.
 
-**Note:** The same input table can be used in multiple node definitions. In this case, a given row in the table maps to unique nodes (one node for each of those node definitions).
+> **Note:** The same input table can be used in multiple node definitions. In this case, a given row in the table maps to unique nodes (one node for each of those node definitions).
 
 ### Define an edge from a table
 
@@ -174,7 +174,7 @@ Each `PersonOwnAccount` edge connects a `Person` (source) to an `Account` (desti
   - The source node of an edge is a `Person` node where the `id` is the same as the edge `id` .
   - The destination node of an edge is an `Account` node where the `id` is the same as the edge `account_id` .
 
-**Note:** You must define the source and destination nodes before using them in the edge definition.
+> **Note:** You must define the source and destination nodes before using them in the edge definition.
 
 Additionally, the following is true for the `PersonOwnAccount` edge:
 

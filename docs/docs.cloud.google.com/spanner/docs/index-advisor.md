@@ -28,8 +28,6 @@ To view and apply index advisor recommendations from a query's execution plan, f
 To view the query execution plan, run a query in the Google Cloud console:
 
 1.  Go to the Spanner **Instances** page in Google Cloud console.
-    
-    [Go to Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance that contains the database that you want to query.
 
@@ -68,8 +66,6 @@ To view and apply index advisor recommendations from the Query insights dashboar
 ### View recommendations
 
 1.  Go to the Spanner **Instances** page in Google Cloud console.
-    
-    [Go to Instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the name of the instance containing the database you want to query.
 

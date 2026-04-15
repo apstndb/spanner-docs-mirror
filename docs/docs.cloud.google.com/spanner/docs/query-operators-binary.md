@@ -9,7 +9,7 @@ A *binary* operator has two relational children. The following operators are bin
   - [Merge join](https://docs.cloud.google.com/spanner/docs/query-operators-binary#merge-join)
   - [Recursive union](https://docs.cloud.google.com/spanner/docs/query-operators-binary#recursive-union)
 
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 ## Database schema
 
@@ -89,7 +89,7 @@ You can use the following Data Manipulation Language (DML) statements to add dat
            (2, 3, 1, "Fight Story", 194, "ROCK"),
            (3, 1, 1, "Not About The Guitar", 278, "BLUES");
 
-**Note:** You can run queries and retrieve execution plans even if the tables have no data.
+> **Note:** You can run queries and retrieve execution plans even if the tables have no data.
 
 ## Apply join
 
@@ -274,7 +274,7 @@ In the execution plan, *build* is a [distributed union](https://docs.cloud.googl
 
 Resulting matches in the hash table might also be filtered by a residual condition before they're returned. (An example of where residual conditions appear is in non-equality joins). Hash join execution plans can be complex due to memory management and join variants. The main hash join algorithm is adapted to handle inner, semi, anti, and outer join variants.
 
-**Note:** A [visualized query plan](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer) renders *build* and *probe* as the left and right children, respectively, of a hash join.
+> **Note:** A [visualized query plan](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer) renders *build* and *probe* as the left and right children, respectively, of a hash join.
 
 #### Properties and execution statistics
 

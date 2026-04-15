@@ -10,7 +10,7 @@ The procedures on this page apply to both GoogleSQL-dialect databases and Postgr
 
 For the complete Spanner `gcloud` reference, see [gcloud](https://docs.cloud.google.com/sdk/gcloud/reference/spanner) .
 
-**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
+> **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 ## Pricing
 
@@ -59,7 +59,7 @@ To create an instance named `test-instance` with the display name `My Instance` 
 
 In the command above, the instance name is set to `test-instance` and `--description` sets the display name of the instance. Both of these values must be unique within a Google Cloud Platform project.
 
-**Note:** Use the instance ID, not the display name, when referring to an instance in `gcloud` commands.
+> **Note:** Use the instance ID, not the display name, when referring to an instance in `gcloud` commands.
 
 ### Set the default instance
 
@@ -170,7 +170,7 @@ By default, a comma is used to delimit items in lists. In the last insert comman
 
 ### PostgreSQL
 
-**Note:** There is a known issue where the gcloud CLI can't look up table names when using mutations to write data to a PostgreSQL database. Therefore, you must use DML to insert data.
+> **Note:** There is a known issue where the gcloud CLI can't look up table names when using mutations to write data to a PostgreSQL database. Therefore, you must use DML to insert data.
 
     gcloud spanner databases execute-sql example-db \
       --sql="INSERT INTO Singers (SingerId, FirstName, LastName) VALUES (1, 'Marc', 'Richards')"

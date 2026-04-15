@@ -1,6 +1,6 @@
 This article explains how to migrate your database from Oracle® Online Transaction Processing (OLTP) systems to [Spanner](https://docs.cloud.google.com/spanner) .
 
-**Note:** For Online Analytical Processing (OLAP) databases, consider using [BigQuery](https://docs.cloud.google.com/bigquery) as an alternative.
+> **Note:** For Online Analytical Processing (OLAP) databases, consider using [BigQuery](https://docs.cloud.google.com/bigquery) as an alternative.
 
 Spanner uses certain concepts differently from other enterprise database management tools, so you might need to adjust your application to take full advantage of its capabilities. You might also need to supplement Spanner with other services from Google Cloud to meet your needs.
 

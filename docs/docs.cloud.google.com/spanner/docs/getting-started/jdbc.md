@@ -20,7 +20,7 @@ Complete the steps described in [Set up](https://docs.cloud.google.com/spanner/d
 
 In particular, make sure that you run [`gcloud auth application-default login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login) to set up your local development environment with authentication credentials.
 
-**Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
+> **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
 ## Prepare your local JDBC environment
 
@@ -75,7 +75,7 @@ You should see:
 
 The following code creates a database and two tables in the database.
 
-**Note:** The subsequent code samples use these two tables. If you don't execute this code, then create the tables by using the Google Cloud console or the gcloud CLI. For more information, see the [example schema](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) .
+> **Note:** The subsequent code samples use these two tables. If you don't execute this code, then create the tables by using the Google Cloud console or the gcloud CLI. For more information, see the [example schema](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) .
 
 ### GoogleSQL
 
@@ -409,7 +409,7 @@ You should see:
 
     4 records inserted.
 
-**Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
+> **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
 <span id="write_data_with_dml_batch"></span>
 
@@ -417,7 +417,7 @@ You should see:
 
 You use the `PreparedStatement#addBatch()` and `PreparedStatement#executeBatch()` methods to execute multiple DML statements in one batch.
 
-**Tip:** You can also execute DML batches with the [`START BATCH DML` command](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_batch_dml) .
+> **Tip:** You can also execute DML batches with the [`START BATCH DML` command](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_batch_dml) .
 
 ### GoogleSQL
 
@@ -681,7 +681,7 @@ You should see:
 
     Inserted 10 rows.
 
-**Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
+> **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
 ## Query data using SQL
 
@@ -701,7 +701,7 @@ Execute the following SQL statement to read the values of all columns from the `
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT singer_id, album_id, album_title FROM albums'
 
-**Note:** For the GoogleSQL reference, see [Query syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) and for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
+> **Note:** For the GoogleSQL reference, see [Query syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) and for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
@@ -983,7 +983,7 @@ You should see:
 
 We recommend that you execute multiple schema modifications in one batch. Use the [`addBatch(String)`](https://docs.oracle.com/javase/8/docs/api/java/sql/Statement.html#addBatch-java.lang.String-) method of `java.sql.Statement` to add multiple DDL statements to a batch.
 
-**Tip:** You can also execute DDL batches with the [`START BATCH DDL` command](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_batch_ddl) .
+> **Tip:** You can also execute DDL batches with the [`START BATCH DDL` command](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands#start_batch_ddl) .
 
 ### GoogleSQL
 
@@ -1630,13 +1630,13 @@ Run the sample with this command:
     java -jar target/jdbc-snippets/jdbc-samples.jar \
     tagspg test-instance example-db
 
-**Tip:** For a full list of commands that can be used to access Spanner features in JDBC, see [Session management commands](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands) .
+> **Tip:** For a full list of commands that can be used to access Spanner features in JDBC, see [Session management commands](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands) .
 
 ## Retrieve data using read-only transactions
 
 Suppose you want to execute more than one read at the same timestamp. [Read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) observe a consistent prefix of the transaction commit history, so your application always gets consistent data. Set `ReadOnly=true` and `AutoCommit=false` on a `java.sql.Connection` , or use the `SET TRANSACTION READ ONLY` SQL statement, to execute a read-only transaction.
 
-**Tip:** The JDBC driver supports multiple additional SQL statements for executing specific types of transactions and batches, and for accessing specific Spanner features. For a full list of supported statements, see [JDBC session management commands (GoogleSQL)](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands) or [JDBC session management commands (PostgreSQL)](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat) .
+> **Tip:** The JDBC driver supports multiple additional SQL statements for executing specific types of transactions and batches, and for accessing specific Spanner features. For a full list of supported statements, see [JDBC session management commands (GoogleSQL)](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands) or [JDBC session management commands (PostgreSQL)](https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat) .
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
@@ -1965,8 +1965,6 @@ If you delete an instance, all databases within it are automatically deleted. Th
 #### Using the Google Cloud console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the instance.
 
@@ -1987,8 +1985,6 @@ Deleting an instance automatically drops all databases created in that instance.
 #### Using the Google Cloud console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click your instance.
 

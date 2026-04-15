@@ -92,7 +92,7 @@ You can avoid the view becoming invalid by explicitly casting the columns to the
 
 ## Grant and revoke access to a view
 
-**Note:** If you create a definer's rights view, use [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) alongside the view, otherwise the definer's rights view doesn't add any additional access control.
+> **Note:** If you create a definer's rights view, use [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) alongside the view, otherwise the definer's rights view doesn't add any additional access control.
 
 As a fine-grained access control user, you must have the `SELECT` privilege on a view. To grant `SELECT` privilege on a view to a database role:
 

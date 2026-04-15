@@ -52,11 +52,11 @@ Spanner offers incremental backups for your database through a backup schedule. 
 
 The backup creation begins within a four-hour window of the scheduled time. You can have a maximum of four backup schedules per database.
 
-**Note:** Backup schedules for newly created databases take up to 24 hours to become active and start creating backups.
+> **Note:** Backup schedules for newly created databases take up to 24 hours to become active and start creating backups.
 
 ### Incremental backups
 
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Incremental backups form *chains* between full backups. The first backup created by an incremental backup schedule is a full backup. The consecutive backups created in the chain are incremental backups, each containing only the data that has changed since the previous backup in the chain.
 

@@ -397,7 +397,7 @@ In the following example, the field access operations are `.address` and `.count
 
 ### Array subscript operator
 
-**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
+> **Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     array_expression "[" array_subscript_specifier "]"
     
@@ -447,7 +447,7 @@ When you reference an index that's out of range in an array, and a positional ke
 
 ### JSON subscript operator
 
-**Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
+> **Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
     json_expression "[" array_element_id "]"
 
@@ -1557,7 +1557,7 @@ The concatenation operator combines multiple values into one.
 | `BYTES \|\| BYTES [ \|\| ... ]`       | `BYTES`         | `BYTES`          |
 | `ARRAY<T> \|\| ARRAY<T> [ \|\| ... ]` | `ARRAY<T>`      | `ARRAY<T>`       |
 
-**Note:** The concatenation operator is translated into a nested [`CONCAT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#concat) function call. For example, `'A' || 'B' || 'C'` becomes `CONCAT('A', CONCAT('B', 'C'))` .
+> **Note:** The concatenation operator is translated into a nested [`CONCAT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#concat) function call. For example, `'A' || 'B' || 'C'` becomes `CONCAT('A', CONCAT('B', 'C'))` .
 
 ### `WITH` expression
 

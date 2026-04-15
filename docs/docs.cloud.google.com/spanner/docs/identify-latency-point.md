@@ -2,7 +2,7 @@ This page shows you how to identify and troubleshoot latency issues in your Span
 
 You can measure and compare the request latencies between different components and the database to determine which component is causing the latency. These latencies include [End-to-end latency](https://docs.cloud.google.com/spanner/docs/latency-points#end-to-end-latency) , [Google Front End (GFE) latency](https://docs.cloud.google.com/spanner/docs/latency-points#google-front-end-latency) , [Spanner API request latency](https://docs.cloud.google.com/spanner/docs/latency-points#spanner-api-request-latency) , and [Query latency](https://docs.cloud.google.com/spanner/docs/latency-points#query-latency) .
 
-**Note:** You can also use OpenTelemetry to capture and visualize end-to-end, GFE latency, and query latency. For more information, see [Capture custom client-side metrics using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry) .
+> **Note:** You can also use OpenTelemetry to capture and visualize end-to-end, GFE latency, and query latency. For more information, see [Capture custom client-side metrics using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry) .
 
 1.  In your client application that uses your service, confirm there's a latency increase from end-to-end latency. Check the following dimensions from your client-side metrics. For more information, see [Client-side metrics descriptions](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions) .
     
@@ -43,7 +43,7 @@ You can measure and compare the request latencies between different components a
 
 7.  Observe and troubleshoot potential hotspots or unbalanced access patterns using [Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer) and try to roll back any application code changes that strongly correlate with the issue timeframe.
     
-    **Note:** We recommend you follow [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) to ensure your access is balanced across Spanner computing resources.
+    > **Note:** We recommend you follow [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) to ensure your access is balanced across Spanner computing resources.
 
 8.  Check any traffic pattern changes.
 

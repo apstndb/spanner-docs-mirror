@@ -31,7 +31,7 @@ For a list of applicable SKUs, see [Spanner CUD Eligible SKUs](https://cloud.goo
 
 ## Purchase a Spanner CUD
 
-After your purchase a CUD, you can't cancel your commitment. Make sure the size and duration of your commitment aligns with both your historical and your expected minimum expenditure on Spanner capacity. For more information, see [Canceling commitments](https://docs.cloud.google.com/docs/cuds-spend-based#canceling_commitments) .
+> After your purchase a CUD, you can't cancel your commitment. Make sure the size and duration of your commitment aligns with both your historical and your expected minimum expenditure on Spanner capacity. For more information, see [Canceling commitments](https://docs.cloud.google.com/docs/cuds-spend-based#canceling_commitments) .
 
 To purchase or manage Spanner committed use discounts for your Cloud Billing account, follow the instructions at [Purchasing spend-based commitments](https://docs.cloud.google.com/docs/cuds-spend-based#purchasing) .
 
@@ -39,7 +39,7 @@ To purchase or manage Spanner committed use discounts for your Cloud Billing acc
 
 In this example, we calculate your expected on-demand usage cost and use that information to determine the savings offered by a one or three-year commitment. For this example, we assume that you use Spanner instances in two different regions, allocating 10 nodes in `us-central1` , and 20 nodes in `us-west2` .
 
-**Note:** 1-year and 3-year commitments provide different discounts.
+> **Note:** 1-year and 3-year commitments provide different discounts.
 
 ### Calculate the on-demand cost
 

@@ -53,7 +53,7 @@ You can configure the Dataflow job that performs the reverse replication to run 
 
   - To ensure that the compute engine service account has the necessary permissions to launch the reverse replication, ask your administrator to grant the following IAM roles to the compute engine service account on the instance:
     
-    **Important:** You must grant these roles to the compute engine service account, *not* to your user account. Failure to grant the roles to the correct principal might result in permission errors.
+    > **Important:** You must grant these roles to the compute engine service account, *not* to your user account. Failure to grant the roles to the correct principal might result in permission errors.
     
       - [Cloud Spanner Database User](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `roles/spanner.databaseUser` )
       - [Secret Manager Secret Accessor](https://docs.cloud.google.com/iam/docs/roles-permissions/secretmanager#secretmanager.secretAccessor) ( `roles/secretmanager.secretAccessor` )

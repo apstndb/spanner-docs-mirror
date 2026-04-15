@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 ## Database schema
 
@@ -78,7 +78,7 @@ You can use the following Data Manipulation Language (DML) statements to add dat
            (2, 3, 1, "Fight Story", 194, "ROCK"),
            (3, 1, 1, "Not About The Guitar", 278, "BLUES");
 
-**Note:** You can run queries and retrieve execution plans even if the tables have no data.
+> **Note:** You can run queries and retrieve execution plans even if the tables have no data.
 
 A *struct constructor* creates a *struct* , or a collection of fields. It creates a struct for rows resulting from a compute operation. A struct constructor isn't a standalone operator. Instead, it appears in [compute struct](https://docs.cloud.google.com/spanner/docs/query-operators-unary#compute_struct) operators or [serialize result](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result) operators.
 

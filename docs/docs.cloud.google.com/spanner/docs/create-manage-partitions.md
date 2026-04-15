@@ -1,8 +1,8 @@
-**Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
+> **Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
-**Note:** This feature is available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes how to create and manage Spanner [instance partitions](https://docs.cloud.google.com/spanner/docs/geo-partitioning) .
 
@@ -11,8 +11,6 @@ This page describes how to create and manage Spanner [instance partitions](https
 ### Console
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select the instance in which you want to add instance partitions.
 
@@ -460,8 +458,6 @@ For example, to describe the instance partition `europe-partition` , run the fol
 ### Console
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -490,8 +486,6 @@ If you want to increase the compute capacity of an instance partition, your Goog
 ### Console
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -538,8 +532,6 @@ The following limitations apply when you enable or change the managed autoscalin
 ### Console
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -610,8 +602,6 @@ After you enable the managed autoscaler on an instance partition, you can also m
 ### Console
 
 1.  Go to the **Spanner Instances** page in the Google Cloud console.
-    
-    [Go to the Instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Select an instance from the list.
 
@@ -657,8 +647,6 @@ You can't delete an instance partition while it's associated with any placements
 ### Console
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 

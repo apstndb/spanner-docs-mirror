@@ -4,7 +4,7 @@ You can import and export a large amount of data into or out of Spanner using an
   - Export any Spanner database into a Cloud Storage bucket using either Avro or CSV file formats.
   - Import data from Avro or CSV files into a new Spanner database.
 
-**Note:** If you export a Spanner database to Cloud Storage, then import it back to Spanner, make sure you import the database into a Spanner instance with the same (or higher-tier) Spanner edition as the source instance. Otherwise, the import might fail. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** If you export a Spanner database to Cloud Storage, then import it back to Spanner, make sure you import the database into a Spanner instance with the same (or higher-tier) Spanner edition as the source instance. Otherwise, the import might fail. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 ## Use cases
 

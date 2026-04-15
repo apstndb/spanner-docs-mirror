@@ -12,8 +12,6 @@ To import a Spanner database, first you need to enable the Spanner, Cloud Storag
 
 To enable APIs, you need the Service Usage Admin IAM role ( `roles/serviceusage.serviceUsageAdmin` ), which contains the `serviceusage.services.enable` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
-[Enable the APIs](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com,storage_component,compute,dataflow)
-
 You also need enough quota and the required IAM permissions.
 
 ### Quota requirements
@@ -44,13 +42,11 @@ To get the permissions that you need to export a database, ask your administrato
   - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
   - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
 
-**Note:** The Spanner Database Admin role is only required for import jobs.
+> **Note:** The Spanner Database Admin role is only required for import jobs.
 
 ## Optional: Find your database folder in Cloud Storage
 
 To find the folder that contains your exported database in the Google Cloud console, navigate to the Cloud Storage browser and click on the bucket that contains the exported folder.
-
-[Go to the Cloud Storage browser](https://console.cloud.google.com/storage/browser)
 
 The name of the folder that contains your exported data begins with your instance's ID, database name, and the timestamp of your export job. The folder contains:
 
@@ -71,8 +67,6 @@ The name of the folder that contains your exported data begins with your instanc
 To import your Spanner database from Cloud Storage to your instance, follow these steps.
 
 1.  Go to the Spanner **Instances** page.
-    
-    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance that will contain the imported database.
 
@@ -84,7 +78,7 @@ To import your Spanner database from Cloud Storage to your instance, follow thes
 
 6.  Find the folder with your exported files and click to select it.
     
-    **Note:** Be sure to select the folder created by the export job and not a higher-level folder that contains the exported folder.
+    > **Note:** Be sure to select the folder created by the export job and not a higher-level folder that contains the exported folder.
 
 7.  Click **Select** .
 
@@ -96,7 +90,7 @@ To import your Spanner database from Cloud Storage to your instance, follow thes
 
 11. Select a region in the **Choose a region for the import job** drop-down menu.
     
-    **Note:** To avoid [outbound data transfer charges](https://docs.cloud.google.com/storage/pricing#network-pricing) , choose a region that overlaps with your Cloud Storage bucket's location. See [Choose a region](https://docs.cloud.google.com/spanner/docs/import#choose-region) below for more information.
+    > **Note:** To avoid [outbound data transfer charges](https://docs.cloud.google.com/storage/pricing#network-pricing) , choose a region that overlaps with your Cloud Storage bucket's location. See [Choose a region](https://docs.cloud.google.com/spanner/docs/import#choose-region) below for more information.
 
 12. (Optional) To [encrypt the Dataflow pipeline state](https://docs.cloud.google.com/dataflow/docs/guides/customer-managed-encryption-keys) with a customer-managed encryption key, click **Show encryption options** and select **Use a customer-managed encryption key (CMEK)** . Then, select a key from the drop-down list.
 
@@ -112,7 +106,7 @@ When the job finishes or terminates, the Google Cloud console displays a message
 
 ![Import job success message](https://docs.cloud.google.com/static/spanner/docs/images/import_success_msg.png)
 
-**Note:** After the Dataflow import job successfully finishes, Spanner creates indexes and foreign keys for your imported database. While index creation is in progress, the Google Cloud console shows an in- progress icon to indicate that a long-running operation is occurring. The icon is next to the index's name, in the database hierarchy to the left of the **Database details** page. When the in-progress icon changes to the index icon ![Index icon](https://docs.cloud.google.com/static/spanner/docs/images/index_icon.png) , creation of that index is complete. You can query `SPANNER_STATE` on the [INFORMATION\_SCHEMA.REFERENTIAL\_CONSTRAINTS](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemareferential_constraints) view to see the creation progress of foreign keys.
+> **Note:** After the Dataflow import job successfully finishes, Spanner creates indexes and foreign keys for your imported database. While index creation is in progress, the Google Cloud console shows an in- progress icon to indicate that a long-running operation is occurring. The icon is next to the index's name, in the database hierarchy to the left of the **Database details** page. When the in-progress icon changes to the index icon ![Index icon](https://docs.cloud.google.com/static/spanner/docs/images/index_icon.png) , creation of that index is complete. You can query `SPANNER_STATE` on the [INFORMATION\_SCHEMA.REFERENTIAL\_CONSTRAINTS](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemareferential_constraints) view to see the creation progress of foreign keys.
 
 If the job does not succeed, a failure message appears:
 
@@ -171,14 +165,12 @@ To see details for any import or export jobs that you ran within the last week, 
 To view a job that you ran more than one week ago:
 
 1.  Go to the Dataflow jobs page in the Google Cloud console.
-    
-    [Go to Jobs](https://console.cloud.google.com/dataflow)
 
 2.  Find your job in the list, then click its name.
     
     The Google Cloud console displays details of the Dataflow job.
 
-**Note:** Jobs of the same type for the same database have the same name. You can tell jobs apart by the values in their **Start time** or **End time** columns.
+> **Note:** Jobs of the same type for the same database have the same name. You can tell jobs apart by the values in their **Start time** or **End time** columns.
 
 ### View Dataflow logs for your job
 
@@ -219,8 +211,6 @@ To specify a limit on the number of Dataflow workers, instead of using the Impor
 ### Console
 
 If you are using the Dataflow console, the **Max workers** parameter is located in the **Optional parameters** section of the **Create job from template** page.
-
-[Go to Dataflow](https://console.cloud.google.com/dataflow)
 
 ### gcloud
 

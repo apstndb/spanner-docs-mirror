@@ -1,6 +1,6 @@
 This document describes how to capture custom client-side metrics using [OpenCensus](https://opencensus.io/) . Custom client-side metrics can help find the source of latency in your system. For more information, see [Identify the latency point](https://docs.cloud.google.com/spanner/docs/latency-points) .
 
-**Note:** [OpenCensus is deprecated](https://opentelemetry.io/blog/2023/sunsetting-opencensus/) . We recommend using OpenTelemetry to capture and visualize Spanner observability metrics. For more information, see [Capture custom metrics using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry) .
+> **Note:** [OpenCensus is deprecated](https://opentelemetry.io/blog/2023/sunsetting-opencensus/) . We recommend using OpenTelemetry to capture and visualize Spanner observability metrics. For more information, see [Capture custom metrics using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry) .
 
 Spanner client libraries also provide statistics and traces using the OpenCensus observability framework. By default, the framework is disabled.
 
@@ -449,8 +449,6 @@ The code sample appends the string `spanner/query_stats_elapsed` to the metric n
 ## View metrics in the Metrics Explorer
 
 1.  In the Google Cloud console, go to the Metrics Explorer page.
-    
-    [Go to Metrics Explorer](https://console.cloud.google.com/projectselector/monitoring/metrics-explorer?supportedpurview=project,folder,organizationId)
 
 2.  Select your project.
 

@@ -13,7 +13,7 @@ When you submit a query, DML, or row operation, Spanner checks authorization by 
 
   - If you have only fine-grained access control privileges and no IAM database-level permissions, you must have been granted access to the `spanner_sys_reader` system role or one of its member roles. Select a role on the database **Overview** page so that your Google Cloud console session proceeds with the required privileges.
     
-    **Note:** To interact with Spanner resources in the Google Cloud console, you must have the `roles/spanner.viewer` IAM role.
+    > **Note:** To interact with Spanner resources in the Google Cloud console, you must have the `roles/spanner.viewer` IAM role.
 
 <!-- end list -->
 
@@ -30,7 +30,7 @@ Use these methods to specify a database role when accessing a Spanner database:
     
     By default, when a fine-grained access control user logs in, this field has the value `public` . For information about the `public` system role, see [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
     
-    **Note:** As stated earlier, if a fine-grained access control user has [database-level IAM permissions](https://docs.cloud.google.com/spanner/docs/iam#databases) , the **Current role** field isn't shown.
+    > **Note:** As stated earlier, if a fine-grained access control user has [database-level IAM permissions](https://docs.cloud.google.com/spanner/docs/iam#databases) , the **Current role** field isn't shown.
 
 2.  In the **Change database role** dialog, select another role from the list of available roles.
 

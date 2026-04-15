@@ -39,7 +39,7 @@ To launch the SMT web UI, you can run the following command:
 
 You need to provide your Google Cloud credentials to allow SMT to access resources. Click `http://localhost:8080` on the response to the previous command to open the web UI.
 
-**Note:** Keep the Google Cloud CLI tab open while you view the SMT web UI.
+> **Note:** Keep the Google Cloud CLI tab open while you view the SMT web UI.
 
 ## Connect to Spanner
 

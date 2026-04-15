@@ -1,6 +1,6 @@
-**Preview**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 This page describes how to create and manage saved queries. When you write SQL scripts in Spanner Studio , you can save and manage those SQL scripts. For more information, see [Saved queries overview](https://docs.cloud.google.com/spanner/docs/saved-queries) .
 
@@ -72,7 +72,7 @@ To create, view, modify, and delete saved queries, you need the following IAM pe
 </tbody>
 </table>
 
-**Note:** Having access to saved queries doesn't automatically mean that you have permissions to run the query.
+> **Note:** Having access to saved queries doesn't automatically mean that you have permissions to run the query.
 
 You can also get these permissions using [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
@@ -85,7 +85,6 @@ Grant the [Studio Query Admin](https://docs.cloud.google.com/iam/docs/roles-perm
 To create a saved query, follow these steps:
 
 1.  Go to the Spanner **Instances** page in the Google Cloud console.  
-    [Instances](https://console.cloud.google.com/spanner/instances)
 2.  Select the instance in which you want to create a saved query.
 3.  Select the database in which you want to create a saved query.
 4.  In the navigation menu, click **Spanner Studio** .
@@ -117,7 +116,6 @@ To update an existing saved query, follow these steps:
 To view a list of all saved queries in your project, follow these steps:
 
 1.  Go to the Spanner **Instances** page in the Google Cloud console.  
-    [Instances](https://console.cloud.google.com/spanner/instances)
 2.  Select any instance. Because a saved query is a child of a project, as long as you have the required role, you can view all saved queries in the project from any instance or database.
 
 <!-- end list -->

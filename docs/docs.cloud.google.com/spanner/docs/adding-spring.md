@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** The [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) doesn't support Spring Data Spanner. You can use [Spring Data JPA](https://docs.cloud.google.com/spanner/docs/use-spring-data-jpa-postgresql) instead.
+> **PostgreSQL interface note:** The [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) doesn't support Spring Data Spanner. You can use [Spring Data JPA](https://docs.cloud.google.com/spanner/docs/use-spring-data-jpa-postgresql) instead.
 
 The Spring Data Spanner module helps you use Spanner in any Java application that's built with the [Spring Framework](https://spring.io/projects/spring-framework) .
 

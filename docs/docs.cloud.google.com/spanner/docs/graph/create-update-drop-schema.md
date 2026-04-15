@@ -1,4 +1,4 @@
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document provides a guide on managing Spanner Graph schemas, detailing the processes for [creating](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#create-property-graph-schema) , [updating](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-property-graph-schema) , and [dropping](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#drop-property-graph-schema) schemas using DDL statements.
 

@@ -27,7 +27,7 @@ With the `GRAPH_TABLE` operator, you can use the [GQL syntax](https://docs.cloud
 
 #### Examples
 
-**Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+> **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
 
 You can use the `RETURN` statement to return specific node and edge properties. For example:
 

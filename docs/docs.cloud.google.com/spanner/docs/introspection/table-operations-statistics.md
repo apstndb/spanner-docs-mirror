@@ -10,7 +10,7 @@ When you query or write to a table, the corresponding operation count for the ta
 
 Overall operations-per-second metrics of a database can be monitored with `Operations per second` , `Operations per second by API method` , and other related metrics in your [System Insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) charts.
 
-**Note:** The sum of the operation counts on all tables and indexes might not be equal to the total operations on a database. For example, one write to a table increments the `write_count` on the table and on all indexes on the table. However, the write only counts as one operation on the database. The operation counts don't depend on the number of rows read or written to. They track the number of operations only. When the PartitionRead or PartitionQuery API returns multiple partition tokens, each Read or ExecuteSql call with a different token counts as a separate table operation.
+> **Note:** The sum of the operation counts on all tables and indexes might not be equal to the total operations on a database. For example, one write to a table increments the `write_count` on the table and on all indexes on the table. However, the write only counts as one operation on the database. The operation counts don't depend on the number of rows read or written to. They track the number of operations only. When the PartitionRead or PartitionQuery API returns multiple partition tokens, each Read or ExecuteSql call with a different token counts as a separate table operation.
 
 ## Access table operations statistics
 
@@ -70,7 +70,7 @@ At a minimum, Spanner keeps data for each table for the following time periods:
 
   - `SPANNER_SYS.TABLE_OPERATIONS_STATS_HOUR` : Intervals covering the previous 30 days.
 
-**Note:** You cannot prevent Spanner from collecting table operations statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically.
+> **Note:** You cannot prevent Spanner from collecting table operations statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically.
 
 ### Example queries
 

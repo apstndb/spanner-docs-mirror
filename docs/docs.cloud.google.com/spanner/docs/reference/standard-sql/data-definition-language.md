@@ -442,9 +442,9 @@ Use the `DROP LOCALITY GROUP` statement to drop the locality group. You can't dr
 
 ## PLACEMENT statements
 
-**Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
-
-This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+> **Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 This section has information about `PLACEMENT` statements.
 
@@ -1252,7 +1252,7 @@ Spanner automatically indexes the primary key columns of each table.
 
 You can use `CREATE INDEX` to create secondary indexes for other columns. Adding a secondary index on a column makes it more efficient to look up data in that column. For more details, see [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
 
-**Note:** Spanner has a hard size limit of 8 KB for the total size of a table key or an index key. To work around this limitation, you can create a stored [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) with expressions and an index column.
+> **Note:** Spanner has a hard size limit of 8 KB for the total size of a table key or an index key. To work around this limitation, you can create a stored [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) with expressions and an index column.
 
 #### Parameters
 
@@ -1608,7 +1608,7 @@ Defines a new [change stream](https://docs.cloud.google.com/spanner/docs/change-
     
       - `  table_name  ` `( [` `  column_name  ` `, ... ] )` : You can optionally specify a list of zero or more non-key columns following the table name. This watches only the primary key and the listed non-key columns of the table. With an empty list of non-key columns, `  table_name  ` `()` watches only the primary key.
     
-    **Note:** Primary key columns are always watched by the change stream. You only need to list the non-key columns. Listing any primary key columns is not allowed.
+    > **Note:** Primary key columns are always watched by the change stream. You only need to list the non-key columns. Listing any primary key columns is not allowed.
 
   - `ALL` lets you watch all tables and columns in the entire database, including all of the future tables and columns as soon as they are created.
 
@@ -2199,7 +2199,7 @@ This section has information about the `CREATE MODEL` , `ALTER MODEL` , and `DRO
 
 Use the `CREATE MODEL` or `CREATE OR REPLACE MODEL` statement to define an ML model.
 
-**Note:** Spanner Vertex AI integration supports only classifier, regression, and text ML models.
+> **Note:** Spanner Vertex AI integration supports only classifier, regression, and text ML models.
 
 #### Syntax
 
@@ -2299,7 +2299,7 @@ Follow the steps described in the [following tutorial](https://docs.cloud.google
 
 Changes the definition of a model.
 
-**Note:** Spanner Vertex AI integration supports only classifier, regression, and text ML models.
+> **Note:** Spanner Vertex AI integration supports only classifier, regression, and text ML models.
 
 #### Syntax
 

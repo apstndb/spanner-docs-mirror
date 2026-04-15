@@ -1,6 +1,4 @@
-**PostgreSQL interface note:** Some of the following codelabs aren't supported for PostgreSQL databases.
-
-**Getting started**
+> **PostgreSQL interface note:** Some of the following codelabs aren't supported for PostgreSQL databases.
 
   - [](https://codelabs.developers.google.com/codelabs/cloud-spanner-first-db)
     
@@ -26,7 +24,7 @@
     
     Learn how to set up a Spanner database and how to migrate your NoSQL database from Cassandra to Spanner.
 
-**Use-case specific**
+<!-- end list -->
 
   - [](https://codelabs.developers.google.com/spanner-online-banking-app)
     
@@ -58,7 +56,7 @@
     
     Learn how to create two Go services that interact with a regional Spanner database to allow players to sign up and start playing.
 
-**Integrations**
+<!-- end list -->
 
   - [](https://codelabs.developers.google.com/codelabs/cloud-spanner-hibernate)
     

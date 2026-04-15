@@ -1,4 +1,4 @@
-**PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases.
+> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases.
 
 ## Overview
 
@@ -92,7 +92,7 @@ You can use the following Data Manipulation Language (DML) statements to add dat
            (2, 3, 1, "Fight Story", 194, "ROCK"),
            (3, 1, 1, "Not About The Guitar", 278, "BLUES");
 
-**Note:** You can run queries and retrieve execution plans even if the tables have no data.
+> **Note:** You can run queries and retrieve execution plans even if the tables have no data.
 
 Obtaining efficient execution plans is challenging because Spanner divides data into [*splits*](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) . Splits can move independently from each other and get assigned to different servers, which could be in different physical locations. To evaluate execution plans over the distributed data, Spanner uses execution based on:
 

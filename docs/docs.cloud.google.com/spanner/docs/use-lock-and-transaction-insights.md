@@ -52,7 +52,7 @@ If you are a fine-grained access control user, ensure that you:
       - Only have fine-grained access control privileges and are granted the `spanner_sys_reader` system role or one of its member roles.
   - Select the `spanner_sys_reader` or a member roles as your current system role on the database overview page.
 
-**Note:** If you already have an IAM database-level permission such as `spanner.databases.select` , the Google Cloud console assumes you are an IAM user. You cannot select the `spanner_sys_reader` on the database overview page as an IAM user.
+> **Note:** If you already have an IAM database-level permission such as `spanner.databases.select` , the Google Cloud console assumes you are an IAM user. You cannot select the `spanner_sys_reader` on the database overview page as an IAM user.
 
 For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) and [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
 
@@ -65,8 +65,6 @@ If you get an alert that indicates a spike in the latencies for an instance, you
 To confirm a spike in write latencies at the 99th percentile, follow these steps:
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Click the name of the instance.
     
@@ -106,7 +104,7 @@ To check for high lock wait time, follow these steps:
     
     Additionally, another chart, **Lock wait per row range** , displays graphs for lock wait time by [row ranges](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-row-range) .
     
-    **Note:** An increase in total lock wait time without corresponding entries in the [topN queries table](https://docs.cloud.google.com/spanner/docs/using-query-insights) , might be caused by locks from internal Spanner system tables (for example, for session management operations).
+    > **Note:** An increase in total lock wait time without corresponding entries in the [topN queries table](https://docs.cloud.google.com/spanner/docs/using-query-insights) , might be caused by locks from internal Spanner system tables (for example, for session management operations).
 
 3.  Click the graph and drag horizontally to expand the hour where a latency spike is visible.
 
@@ -121,7 +119,7 @@ The **Lock Insights** table shows the following columns from the [`SPANNER_SYS.L
   - **Lock wait (seconds)** : The cumulative lock wait time of lock conflicts recorded for all columns in the row key range, in seconds.
   - **Lock wait (%)** : The wait time of the lock conflicts recorded for all columns in the row key range as a percentage of the total lock wait time for all row key ranges in the database.
 
-**Note:** The number of TopN lock ranges are limited to 100.
+> **Note:** The number of TopN lock ranges are limited to 100.
 
 To correlate the data on the **Lock wait per row range** chart with the data in the table, select a line. The related row appears highlighted. Conversely, select the checkbox for a row in the table to see the related line on the chart.
 
@@ -139,7 +137,7 @@ The table shows data matching the filter.
 
 The **Sample lock requests** panel shows details about sample lock requests from contending transactions.
 
-**Note:** The **Sample lock requests** panel is enabled only for GoogleSQL-dialect databases and not for PostgreSQL-dialect databases.
+> **Note:** The **Sample lock requests** panel is enabled only for GoogleSQL-dialect databases and not for PostgreSQL-dialect databases.
 
 To view sample lock request information for a row range start key, click the related link in the table.
 
@@ -196,7 +194,7 @@ To filter the data in the table, do the following:
 
 The table shows data matching the filter.
 
-**Note:** When you reach the Transaction insights page by clicking the **View transactions** link on the Lock insights page, the table appears with filters already applied.
+> **Note:** When you reach the Transaction insights page by clicking the **View transactions** link on the Lock insights page, the table appears with filters already applied.
 
 ![The Transaction insights table](https://docs.cloud.google.com/static/spanner/docs/images/txn-insights-table.png)
 

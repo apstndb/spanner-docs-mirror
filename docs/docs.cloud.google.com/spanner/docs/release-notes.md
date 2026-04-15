@@ -8,7 +8,7 @@ To get the latest product updates delivered to you, add the URL of this page to 
 
 Feature
 
-Context sets (previously known as data agents) enable you to interact with the data in your database using conversational language and are used by tools like [QueryData](https://docs.cloud.google.com/gemini/data-agents/reference/rest/v1beta/projects.locations/queryData) to build conversation agents. For more information, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) . This feature is available in ( [Preview](https://cloud.google.com/products#product-launch-stages) ).
+The QueryData tool lets you to query the data in your database using conversational language and build data agents. For more information, see [QueryData tool overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) . This feature is available in ( [Preview](https://cloud.google.com/products#product-launch-stages) ).
 
 The preview release increases the accuracy of SQL generation with value search queries which match values and their context within a database. Value search queries trigger automatically.
 
@@ -5074,7 +5074,7 @@ For more information, see [Manage resources using Data Catalog](https://docs.clo
 
 Feature
 
-Spanner integration with Data Catalog is available in Preview. Data Catalog is a fully managed, scalable metadata management service within Dataplex Universal Catalog. It catalogs metadata about Spanner instances, databases, tables, columns, and views. For Preview, integration with Data Catalog isn't available in the `europe-central2` region.
+Spanner integration with Data Catalog is available in Preview. Data Catalog is a fully managed, scalable metadata management service within Knowledge Catalog. It catalogs metadata about Spanner instances, databases, tables, columns, and views. For Preview, integration with Data Catalog isn't available in the `europe-central2` region.
 
 For more information, see [Manage resources using Data Catalog](https://docs.cloud.google.com/spanner/docs/dc-integration) .
 

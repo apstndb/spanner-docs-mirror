@@ -21,7 +21,7 @@ Spanner audit logs use the service name `spanner.googleapis.com` . Filter for th
 
 ## Methods by permission type
 
-Data access methods `Read` , `StreamingRead` , `ExecuteSql` , and `ExecuteStreamingSql` that perform a read operation might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will check both `DATA_READ` and `DATA_WRITE` permission types.
+> Data access methods `Read` , `StreamingRead` , `ExecuteSql` , and `ExecuteStreamingSql` that perform a read operation might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will check both `DATA_READ` and `DATA_WRITE` permission types.
 
 Each IAM permission has a `type` property, whose value is an enum that can be one of four values: `ADMIN_READ` , `ADMIN_WRITE` , `DATA_READ` , or `DATA_WRITE` . When you call a method, Spanner generates an audit log whose category is dependent on the `type` property of the permission required to perform the method. Methods that require an IAM permission with the `type` property value of `DATA_READ` , `DATA_WRITE` , or `ADMIN_READ` generate [Data Access](https://docs.cloud.google.com/logging/docs/audit#data-access) audit logs. Methods that require an IAM permission with the `type` property value of `ADMIN_WRITE` generate [Admin Activity](https://docs.cloud.google.com/logging/docs/audit#admin-activity) audit logs.
 
@@ -243,7 +243,7 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method is a long-running or streaming operation** : [**Long-running operation**](https://docs.cloud.google.com/logging/docs/audit/understanding-audit-logs#lro)  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup"`  
 
-**Note:** The entry that is logged when the operation finishes does not contain any authentication or authorization information. Authentication and authorization information is available in the matching entry that was logged when the operation begins. To find the matching log entry in the [Logs Explorer](https://docs.cloud.google.com/logging/docs/view/logs-explorer-summary) , click the log entry's `operation.id` field and then select *Show matching entries* in the menu.
+> **Note:** The entry that is logged when the operation finishes does not contain any authentication or authorization information. Authentication and authorization information is available in the matching entry that was logged when the operation begins. To find the matching log entry in the [Logs Explorer](https://docs.cloud.google.com/logging/docs/view/logs-explorer-summary) , click the log entry's `operation.id` field and then select *Show matching entries* in the menu.
 
 #### `CreateBackupSchedule`
 
@@ -401,8 +401,8 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method is a long-running or streaming operation** : [**Long-running operation**](https://docs.cloud.google.com/logging/docs/audit/understanding-audit-logs#lro)  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase"`  
 
-**Note:** Even though restoring a database requires authorization on two resources (the backup and restored database, which might reside in different instances), the `RestoreDatabase` event is logged only once as a single entry in the instance of the restored database. Within this entry, there will be two `authorizationInfo` entries: one for the database, checking the `spanner.databases.create` permission, and one for the backup, checking the `spanner.backups.restoreDatabase` permission.  
-The entry that is logged when the operation finishes does not contain any authentication or authorization information. Authentication and authorization information is available in the matching entry that was logged when the operation begins. To find the matching log entry in the [Logs Explorer](https://docs.cloud.google.com/logging/docs/view/logs-explorer-summary) , click the log entry's `operation.id` field and then select *Show matching entries* in the menu.
+> **Note:** Even though restoring a database requires authorization on two resources (the backup and restored database, which might reside in different instances), the `RestoreDatabase` event is logged only once as a single entry in the instance of the restored database. Within this entry, there will be two `authorizationInfo` entries: one for the database, checking the `spanner.databases.create` permission, and one for the backup, checking the `spanner.backups.restoreDatabase` permission.  
+> The entry that is logged when the operation finishes does not contain any authentication or authorization information. Authentication and authorization information is available in the matching entry that was logged when the operation begins. To find the matching log entry in the [Logs Explorer](https://docs.cloud.google.com/logging/docs/view/logs-explorer-summary) , click the log entry's `operation.id` field and then select *Show matching entries* in the menu.
 
 #### `SetIamPolicy`
 
@@ -666,7 +666,7 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.v1.Spanner.BeginTransaction"`  
 
-**Note:** This method will be `DATA_READ` for a **ReadOnly** transaction and `DATA_WRITE` for a **ReadWrite** transaction.
+> **Note:** This method will be `DATA_READ` for a **ReadOnly** transaction and `DATA_WRITE` for a **ReadWrite** transaction.
 
 #### `Commit`
 
@@ -714,7 +714,7 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.v1.Spanner.ExecuteSql"`  
 
-**Note:** This method might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will match both `DATA_READ` and `DATA_WRITE` permission types.
+> **Note:** This method might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will match both `DATA_READ` and `DATA_WRITE` permission types.
 
 #### `ExecuteStreamingSql`
 
@@ -726,7 +726,7 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method is a long-running or streaming operation** : [**Streaming RPC**](https://docs.cloud.google.com/logging/docs/audit/understanding-audit-logs#streaming)  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.v1.Spanner.ExecuteStreamingSql"`  
 
-**Note:** Note: This method might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will match both `DATA_READ` and `DATA_WRITE` permission types.
+> **Note:** Note: This method might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will match both `DATA_READ` and `DATA_WRITE` permission types.
 
 #### `GetSession`
 
@@ -776,8 +776,8 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.v1.Spanner.Read"`  
 
-**Note:** This method might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will match both `DATA_READ` and `DATA_WRITE` permission types.  
-Important: Requested keys are not logged.
+> **Note:** This method might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will match both `DATA_READ` and `DATA_WRITE` permission types.  
+> Important: Requested keys are not logged.
 
 #### `Rollback`
 
@@ -798,8 +798,8 @@ Important: Requested keys are not logged.
   - **Method is a long-running or streaming operation** : [**Streaming RPC**](https://docs.cloud.google.com/logging/docs/audit/understanding-audit-logs#streaming)  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.v1.Spanner.StreamingRead"`  
 
-**Note:** This method might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will match both `DATA_READ` and `DATA_WRITE` permission types.  
-Important: Requested keys are not logged.
+> **Note:** This method might also start a read-write transaction if specified in the method's [`TransactionSelector`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TransactionSelector) . In such cases, the method will match both `DATA_READ` and `DATA_WRITE` permission types.  
+> Important: Requested keys are not logged.
 
 ## System events
 

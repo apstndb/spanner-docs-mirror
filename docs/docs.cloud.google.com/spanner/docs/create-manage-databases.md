@@ -25,8 +25,6 @@ After you create your database, you can safeguard databases that are important t
 ### Google Cloud console
 
 1.  In the Google Cloud console, go to the **Spanner instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance to create the database in.
 
@@ -250,7 +248,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       }
     }
 
-**Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -326,7 +324,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     }
     createDatabaseWithDefaultLeader();
 
-**Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
+> **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
 ### PHP
 
@@ -383,7 +381,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             $databaseId, $instanceId);
     }
 
-**Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
+> **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
 ### Python
 
@@ -432,7 +430,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             )
         )
 
-**Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
+> **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
 ### Ruby
 
@@ -869,8 +867,6 @@ If you choose to use a CSV file, you also need to upload a separate JSON file th
 ### Google Cloud console
 
 1.  In the Google Cloud console, go to the **Spanner Instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance to create the database in.
 
@@ -916,8 +912,6 @@ You can populate new databases in an existing instance from sample datasets that
 ### Google Cloud console
 
 1.  In the Google Cloud console, go to the **Spanner instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance to create the database in.
 
@@ -963,8 +957,6 @@ For information about schema updates, see [Make schema updates](https://docs.clo
 ### Google Cloud console
 
 1.  In the Google Cloud console, go to the **Spanner instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance containing the database to alter.
 
@@ -1077,7 +1069,7 @@ Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcl
     
     #### curl (Linux, macOS, or Cloud Shell)
     
-    **Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+    > **Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) , or by using [Cloud Shell](https://docs.cloud.google.com/shell/docs) , which automatically logs you into the `gcloud` CLI . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
     
     Execute the following command:
     
@@ -1087,7 +1079,7 @@ Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcl
     
     #### PowerShell (Windows)
     
-    **Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
+    > **Note:** The following command assumes that you have logged in to the `gcloud` CLI with your user account by running [`gcloud init`](https://docs.cloud.google.com/sdk/gcloud/reference/init) or [`gcloud auth login`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) . You can check the currently active account by running [`gcloud auth list`](https://docs.cloud.google.com/sdk/gcloud/reference/auth/list) .
     
     Execute the following command:
     
@@ -1137,8 +1129,6 @@ Existing backups are **not** deleted when a database is deleted. For more inform
 ### Google Cloud console
 
 1.  In the Google Cloud console, go to the **Spanner instances** page.
-    
-    [Go to Spanner instances](https://console.cloud.google.com/spanner/instances)
 
 2.  Select the instance containing the database to delete.
 

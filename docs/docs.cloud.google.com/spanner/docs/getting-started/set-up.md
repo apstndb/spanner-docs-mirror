@@ -16,8 +16,6 @@ You might also be able to get the required permissions through [custom roles](ht
 ## Set up a Google Cloud project
 
 1.  Go to the **Projects** page in the Google Cloud console.
-    
-    [Go to the Projects page](https://console.cloud.google.com/project)
 
 2.  Create a new Google Cloud project, or open an existing project by clicking on the project name.
 
@@ -28,8 +26,6 @@ You might also be able to get the required permissions through [custom roles](ht
 4.  [Verify that billing is enabled for your Google Cloud project](https://docs.cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project) .
 
 5.  Enable the Cloud Spanner API for the project.
-    
-    [Enable the Cloud Spanner API](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com)
     
     Note: If you use a service account in a different project to access your Spanner instance, you need to enable the Spanner API in both projects.
 

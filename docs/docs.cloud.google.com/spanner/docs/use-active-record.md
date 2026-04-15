@@ -2,7 +2,7 @@ Ruby [Active Record](https://guides.rubyonrails.org/active_record_basics.html) i
 
 The [Spanner support for Active Record](https://github.com/googleapis/ruby-spanner-activerecord) enables [Active Record](https://guides.rubyonrails.org/active_record_basics.html) users to use Spanner databases. With this support, Ruby applications can take advantage of Spanner's high availability and external consistency at scale through an ORM.
 
-**PostgreSQL interface note:** The [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) doesn't support Active Record.
+> **PostgreSQL interface note:** The [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) doesn't support Active Record.
 
 ## Setting up the Spanner support for Active Record
 

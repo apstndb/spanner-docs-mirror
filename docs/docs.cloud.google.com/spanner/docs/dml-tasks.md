@@ -2,7 +2,7 @@ This page describes how to insert, update, and delete Spanner data using Data Ma
 
 For the complete DML syntax reference, see [Data Manipulation Language syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax) for GoogleSQL-dialect databases or [PostgreSQL data manipulation language](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax) for PostgreSQL-dialect databases
 
-**Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
+> **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 ## Use DML
 
@@ -62,13 +62,11 @@ Mutations performed using DML are not returned to the client. They are merged in
 
 ### Run statements in the Google Cloud console
 
-**Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
+> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
 
 Use the following steps to execute a DML statement in the Google Cloud console.
 
 1.  Go to the Spanner **Instances** page.
-    
-    [Go to the instances page](https://console.cloud.google.com/spanner/instances)
 
 2.  Select your project in the drop-down list in the toolbar.
 
@@ -85,7 +83,7 @@ Use the following steps to execute a DML statement in the Google Cloud console.
 
 7.  Click **Run query** . The Google Cloud console displays the result.
 
-**Note:** When you click **Run query** , the transaction commits automatically.
+> **Note:** When you click **Run query** , the transaction commits automatically.
 
 ### Execute statements with the Google Cloud CLI
 
@@ -3342,7 +3340,7 @@ To execute a Partitioned DML statement, use the `gcloud spanner databases execut
         --instance=test-instance --enable-partitioned-dml \
         --sql='UPDATE Albums SET MarketingBudget = 0 WHERE MarketingBudget IS NULL'
 
-**Note:** Spanner does not support `--query-mode=PLAN` and `--query-mode=PROFILE` for Partitioned DML.
+> **Note:** Spanner does not support `--query-mode=PLAN` and `--query-mode=PROFILE` for Partitioned DML.
 
 ### Modify data using the client library
 

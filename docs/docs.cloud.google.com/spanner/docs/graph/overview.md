@@ -1,6 +1,6 @@
-**PostgreSQL interface note:** The examples in topics for Spanner Graph are intended for GoogleSQL-dialect databases. Spanner Graph doesn't support the PostgreSQL interface.
+> **PostgreSQL interface note:** The examples in topics for Spanner Graph are intended for GoogleSQL-dialect databases. Spanner Graph doesn't support the PostgreSQL interface.
 
-**Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner Graph combines graph database capabilities with [Spanner](https://docs.cloud.google.com/spanner/docs) scalability, availability, and consistency. Spanner Graph supports an ISO Graph Query Language (GQL)-compatible graph query interface and enables interoperability between relational and graph models.
 

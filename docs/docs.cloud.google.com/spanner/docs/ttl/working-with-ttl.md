@@ -220,7 +220,7 @@ For more information, see [CREATE TABLE](https://docs.cloud.google.com/spanner/d
 
 Row deletion policies can use [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) to express more sophisticated rules. For example, you can define a row deletion policy on the `greatest` timestamp ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#greatest) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators) ) of multiple columns, or map another value to a timestamp.
 
-**Note:** You can't specify a generated column that references a [commit timestamp](https://docs.cloud.google.com/spanner/docs/commit-timestamp) column.
+> **Note:** You can't specify a generated column that references a [commit timestamp](https://docs.cloud.google.com/spanner/docs/commit-timestamp) column.
 
 ### GoogleSQL
 

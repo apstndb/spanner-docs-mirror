@@ -21,15 +21,13 @@ You can use the **Explorer** to view, search, and interact with your database ob
       - [Edges](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#property-graph-data-model)
   - [Saved queries (in preview)](https://docs.cloud.google.com/spanner/docs/saved-queries)
 
-**Note:** System-level views in the `INFORMATION_SCHEMA` and `SPANNER_SYS` schemas are read-only.
+> **Note:** System-level views in the `INFORMATION_SCHEMA` and `SPANNER_SYS` schemas are read-only.
 
 You can use the search field in the **Explorer** pane to search for database objects by name in your projects. The search finds resources that directly match, or contain matches, to your search query. If your search term matches too many resources in a database object level, the result might not show all matches. Narrow your search term, and search again.
 
 To access the **Explorer** , follow these steps:
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -46,8 +44,6 @@ Statements are executed based on the order in which you enter them in the query 
 To structure, modify, or query your data, follow these steps:
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
@@ -84,8 +80,6 @@ To structure, modify, or query your data, follow these steps:
 Spanner automatically detects opportunities to apply [schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) to your databases. If recommendations are available for your database, you can see them in **Spanner Studio** with the following steps:
 
 1.  In the Google Cloud console, open the **Spanner** page.
-    
-    [Go to Spanner](https://console.cloud.google.com/spanner)
 
 2.  Select an instance from the list.
 
