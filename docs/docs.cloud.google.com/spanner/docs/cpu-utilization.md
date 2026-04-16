@@ -8,9 +8,9 @@ Spanner measures CPU utilization based on the *source* and the *priority* of the
 
   - **Priority** : The [priority](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority) helps Spanner determine which tasks should execute first. The priority of *system* tasks is predetermined and cannot be configured. *User* tasks run at high priority unless otherwise specified. Many data requests, such as [read](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read) and [executeSql](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) , let you specify a lower priority for the request. This can be useful, for example, when you are running batch, maintenance, or analytical queries that don't have strict performance SLOs.
     
-    Higher-priority tasks are in general going to be executed ahead of lower-priority tasks. Spanner allows high-priority tasks to utilize up to 100% of the available CPU resources even if there are competing lower-priority tasks. While lower-priority system tasks can be delayed in the short term, they must run eventually. Therefore, you must [provision your instance with enough compute capacity](https://docs.cloud.google.com/spanner/docs/cpu-utilization#reduce) to handle all tasks.
+    Higher-priority tasks are in general going to be executed ahead of lower-priority tasks. Spanner allows high-priority tasks to utilize up to 100% of the available CPU capacity even if there are competing lower-priority tasks. While lower-priority system tasks can be delayed in the short term, they must run eventually. Therefore, you must [provision your instance with enough compute capacity](https://docs.cloud.google.com/spanner/docs/cpu-utilization#reduce) to handle all tasks.
     
-    If there are no high-priority tasks, Spanner will utilize up to 100% of the available CPU resources to complete lower-priority tasks more quickly. Spikes in background usage are not a sign of a problem. Lower-priority tasks can yield to higher-priority tasks, including user tasks, almost instantly.
+    If there are no high-priority tasks, Spanner will utilize up to 100% of the available CPU capacity to complete lower-priority tasks more quickly. Spikes in background usage are not a sign of a problem. Lower-priority tasks can yield to higher-priority tasks, including user tasks, almost instantly.
 
 The following table shows examples for each task:
 
@@ -29,20 +29,20 @@ The following table shows examples for each task:
 <tr class="even">
 <td>High priority</td>
 <td>Includes data requests, such as <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read">read</a> or <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql">executeSql</a> , where either no priority or <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority">PRIORITY_HIGH</a> is specified.</td>
-<td>Includes data splitting.</td>
+<td>Includes <a href="https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits">data splitting.</a></td>
 </tr>
 <tr class="odd">
 <td>Medium priority</td>
 <td>Includes:
 <ul>
-<li>Data requests where <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority">PRIORITY_MEDIUM</a> is specified</li>
+<li>Data requests where <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority">PRIORITY_MEDIUM</a> is specified.</li>
 <li>Reads and writes issued from Dataflow jobs, including <a href="https://docs.cloud.google.com/spanner/docs/import">Import</a> and <a href="https://docs.cloud.google.com/spanner/docs/export">Export</a> .</li>
 </ul></td>
 <td>Includes:
 <ul>
-<li>Database compaction</li>
-<li>Schema change validation</li>
-<li>The optimization phase of <a href="https://docs.cloud.google.com/spanner/docs/backup#restore">database restore</a></li>
+<li><a href="https://docs.cloud.google.com/spanner/docs/storage-utilization#multi-version-storage">Database compaction.</a></li>
+<li><a href="https://docs.cloud.google.com/spanner/docs/schema-updates#updates-that-require-validation">Schema change validation.</a></li>
+<li>The optimization phase of <a href="https://docs.cloud.google.com/spanner/docs/backup#restore">database restore.</a></li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -50,8 +50,9 @@ The following table shows examples for each task:
 <td>Includes data requests where <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority">PRIORITY_LOW</a> is specified.</td>
 <td>Includes:
 <ul>
-<li>Backfilling an index.</li>
-<li>Backfilling a generated column</li>
+<li><a href="https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-progress">Backfilling an index.</a></li>
+<li><a href="https://docs.cloud.google.com/spanner/docs/generated-column/how-to#alter-table">Backfilling a generated column.</a></li>
+<li><a href="https://docs.cloud.google.com/spanner/docs/ttl">TTL sweeper process.</a></li>
 </ul></td>
 </tr>
 </tbody>
@@ -65,11 +66,11 @@ The following table shows examples for each task:
 
 Spanner provides the following metrics for CPU utilization:
 
-  - **Smoothed CPU utilization** : A rolling average of total CPU utilization, as a percentage of the instance's CPU resources, for each database. Each data point is an average for the previous 24 hours. Use this metric to create alerts and analyze CPU usage over long period of time, for example, 24 hours. You can view a chart for this metric [in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) or [in the Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) as **Rolling average 24 hour** .
+  - **Smoothed CPU utilization** : A rolling average of total CPU utilization, as a percentage of the instance's CPU capacity, for each database. Each data point is an average for the previous 24 hours. Use this metric to create alerts and analyze CPU usage over long period of time, for example, 24 hours. You can view a chart for this metric [in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) or [in the Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) as **Rolling average 24 hour** .
 
-  - **CPU Utilization by priority** : The CPU utilization, as a percentage of the instance's CPU resources, grouped by priority, user-initiated tasks and system-initiated tasks. Use this metric to create alerts and analyze CPU usage at a high level. You can view a chart for this metric [in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) or [in the Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
+  - **CPU Utilization by priority** : The CPU utilization, as a percentage of the instance's CPU capacity, grouped by priority, user-initiated tasks and system-initiated tasks. Use this metric to create alerts and analyze CPU usage at a high level. You can view a chart for this metric [in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) or [in the Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
-  - **CPU Utilization by operation type** : The CPU utilization, as a percentage of the instance's CPU resources, grouped by user-initiated operations such as reads, writes, and commits. Use this metric to get a detailed breakdown of CPU usage and to troubleshoot further, as explained in [Investigating high CPU utilization](https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization) . You can create a chart for this metric [in the Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
+  - **CPU Utilization by operation type** : The CPU utilization, as a percentage of the instance's CPU capacity, grouped by user-initiated operations such as reads, writes, and commits. Use this metric to get a detailed breakdown of CPU usage and to troubleshoot further, as explained in [Investigating high CPU utilization](https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization) . You can create a chart for this metric [in the Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
     
     You can also use the Cloud Monitoring console to [create alerts for CPU utilization](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-alert) , as described later.
 
@@ -90,13 +91,13 @@ Thus, for performance-sensitive applications, you may need to further reduce CPU
 
 ### CPU utilization over 100%
 
-In certain cases the CPU utilization of a Spanner instance may reach above 100%. This means that the instance is using more CPU resources than the amount configured for the instance.
+In certain cases the CPU utilization of a Spanner instance may exceed 100%. This means that the instance is using more CPU capacity than the amount configured for the instance.
 
-CPU resources above 100% might be used to provide better and more predictable performance during CPU utilization spikes, for example, caused by sudden increase in request traffic.
+CPU utilization beyond 100% might be used to provide better and more predictable performance during CPU utilization spikes, for example, caused by sudden increase in request traffic.
 
-Any CPU capacity above 100% is NOT guaranteed and shouldn't be relied on for normal database operations.
+Any CPU capacity beyond 100% is not guaranteed and shouldn't be relied on for normal database operations.
 
-Running a Spanner instance near or over 100% CPU utilization for an extended period of time has a risk of degrading normal operation performance and latency. Additional CPU resources are not a safe mechanism to rely on for consistent performance.
+Running a Spanner instance near or over 100% CPU utilization for an extended period of time has a risk of degrading normal operation performance and latency.
 
 Customers are not billed for this additional CPU utilization.
 
@@ -114,7 +115,7 @@ If you exceed the recommended maximums for CPU utilization, we strongly recommen
 
 To determine how much compute capacity you need, consider the peak high-priority CPU utilization as well as the 24-hour smoothed average. Always allocate enough compute capacity to keep the CPU utilization below the recommended maximums. As previously described, you may need to allocate extra compute capacity for performance-sensitive applications (for example, to accommodate workload spikes).
 
-If you don't have enough compute capacity, Spanner postpones tasks by priority level. Low-priority system tasks, like database compaction and schema change validation, can be deferred in favor of user tasks. However, these tasks are critical to the health of your instance, and Spanner cannot defer them indefinitely. If Spanner cannot complete its low-priority system tasks within a certain time window—on the order of several hours to a day—due to insufficient compute resources, Spanner might increase the priority of the system tasks. **This change affects the performance of user tasks** .
+If you don't have enough compute capacity, Spanner postpones tasks by priority level. Low-priority system tasks, like database compaction and schema change validation, can be deferred in favor of user tasks. However, these tasks are critical to the health of your instance, and Spanner cannot defer them indefinitely. If Spanner cannot complete its low-priority system tasks within a certain time window—on the order of several hours to a day—due to insufficient compute capacity, Spanner might increase the priority of the system tasks. **This change affects the performance of user tasks** .
 
 ### Investigating further with introspection tools
 

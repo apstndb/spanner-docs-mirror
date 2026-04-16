@@ -111,7 +111,7 @@ Agents must only call tools that are necessary for the task. Make sure that your
 
 A general tool like `execute_sql` lets the caller execute database queries that can read any data that IAM and database permissions allow access to. When you create an agent that accesses data in a multi-tenant application without a trusted human in the loop, you might need to limit data access further.
 
-To make sure that the agent can only read subsets of the data that it has access to, we recommend that you create custom tools using a framework like [MCP Toolbox for Databases](https://github.com/googleapis/genai-toolbox) . For more information, see [Prebuilt vs. Custom Tools](https://googleapis.github.io/genai-toolbox/resources/tools/#prebuilt-vs-custom-tools) .
+To make sure that the agent can only read subsets of the data that it has access to, we recommend that you create custom tools using a framework like [MCP Toolbox for Databases](https://github.com/googleapis/mcp-toolbox) . For more information, see [Prebuilt vs. Custom Tools](https://mcp-toolbox.dev/dev/documentation/getting-started/#prebuilt-vs-custom-configs) .
 
 For example, imagine that your database stores orders for all end users in the `Orders` table. You're developing a chat agent that interacts with users and can look up their orders. The chat agent has permission to read the entire `Orders` table, but one end user must not be able to request information about another user's orders.
 

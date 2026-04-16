@@ -888,7 +888,7 @@ Changes the definition of a table.
 
 #### Syntax
 
-    ALTER TABLE table_name
+    ALTER TABLE [ IF EXISTS ] table_name
         action
     
     where action is:
@@ -1116,6 +1116,11 @@ Changes the definition of a table.
   - Alters the locality group used by the table.
 
 #### Parameters
+
+`IF EXISTS`
+
+  - If the specified table doesn't exist, the `ALTER TABLE` statement has no effect.
+  - `IF EXISTS` isn't supported for `SET OPTIONS`
 
 `  table_name  `
 

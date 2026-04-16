@@ -8,6 +8,7 @@ This page has information for both GoogleSQL-dialect databases and PostgreSQL-di
 
   - **Create a database** : you can create a new database by selecting the SQL dialect and defining your schema.
   - **Import your own data** : you can import a CSV, MySQL dump, or a PostgreSQL dump file into a new or existing database.
+  - **Import a Cloud SQL database** : you can import a Cloud SQL for MySQL database into Spanner.
   - **Create a database with sample data** : you can populate a database using one of the available sample datasets to try out Spanner's capabilities.
 
 ## Create a database
@@ -904,6 +905,14 @@ If you choose to use a CSV file, you also need to upload a separate JSON file th
 5.  Click **Import** .
 
 6.  Spanner opens the Cloud Shell and populates a command that installs the [Spanner migration tool](https://googlecloudplatform.github.io/spanner-migration-tool/) and runs the [`gcloud alpha spanner databases import`](https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/import) command. Press the `ENTER` key to import data into your database.x
+
+## Import a database from Cloud SQL
+
+If you use Cloud SQL for MySQL and want to evaluate Spanner, you can import data from your Cloud SQL for MySQL instance into Spanner. This feature converts the MySQL schema and generates a corresponding Spanner schema. Then, it loads data from the Cloud SQL for MySQL database into Spanner.
+
+This functionality performs only a one-time bulk data load. It doesn't support capturing live data changes or fallback from Spanner to your source database.
+
+For more information, see [Import from Cloud SQL to Spanner](https://docs.cloud.google.com/spanner/docs/import-database-cloudsql) .
 
 ## Use a sample dataset
 

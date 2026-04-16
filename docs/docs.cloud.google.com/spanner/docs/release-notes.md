@@ -4,6 +4,14 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## April 13, 2026
+
+Feature
+
+Spanner supports importing data from Cloud SQL for MySQL. This feature lets you migrate the schema and perform a one-time bulk data load to evaluate Spanner for your use case. For more information, see [Import from Cloud SQL to Spanner](https://docs.cloud.google.com/spanner/docs/import-database-cloudsql) .
+
+This feature is [generally available](https://docs.cloud.google.com/products#product-launch-stages) .
+
 ## April 06, 2026
 
 Feature
