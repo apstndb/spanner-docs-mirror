@@ -31,10 +31,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner operations
-```
+    gcloud spanner operations
 
-``` wrap-code
-gcloud alpha spanner operations
-```
+    gcloud alpha spanner operations

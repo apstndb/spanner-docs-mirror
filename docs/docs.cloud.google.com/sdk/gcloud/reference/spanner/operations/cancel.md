@@ -14,29 +14,21 @@ EXAMPLES
 
 To cancel an instance operation with ID `  auto_12345, run:  `
 
-``` wrap-code
-gcloud spanner operations cancel _auto_12345 --instance=my-instance-id
-```
+    gcloud spanner operations cancel _auto_12345 --instance=my-instance-id
 
 `To cancel a database operation with ID` auto\_12345, run:
 
-``` wrap-code
-gcloud spanner operations cancel _auto_12345 --instance=my-instance-id --database=my-database-id
-```
+    gcloud spanner operations cancel _auto_12345 --instance=my-instance-id --database=my-database-id
 
 To cancel a backup operation with ID `  auto_12345, run:  `
 
-``` wrap-code
-gcloud spanner operations cancel _auto_12345 --instance=my-instance-id --backup=my-backup-id
-```
+    gcloud spanner operations cancel _auto_12345 --instance=my-instance-id --backup=my-backup-id
 
 `  `
 
 To cancel an instance partition operation with ID auto\_12345, run:
 
-``` wrap-code
-gcloud spanner operations cancel auto_12345 --instance=my-instance-id --instance-partition=my-partition-id
-```
+    gcloud spanner operations cancel auto_12345 --instance=my-instance-id --instance-partition=my-partition-id
 
 POSITIONAL ARGUMENTS
 
@@ -71,10 +63,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner operations cancel
-```
+    gcloud alpha spanner operations cancel
 
-``` wrap-code
-gcloud beta spanner operations cancel
-```
+    gcloud beta spanner operations cancel

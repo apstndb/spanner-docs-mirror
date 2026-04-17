@@ -14,9 +14,7 @@ EXAMPLES
 
 To delete a Spanner instance partition, run:
 
-``` wrap-code
-gcloud alpha spanner instance-partitions delete my-instance-partition-id --instance=my-instance-id
-```
+    gcloud alpha spanner instance-partitions delete my-instance-partition-id --instance=my-instance-id
 
 POSITIONAL ARGUMENTS
 
@@ -58,10 +56,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner instance-partitions delete
-```
+    gcloud spanner instance-partitions delete
 
-``` wrap-code
-gcloud beta spanner instance-partitions delete
-```
+    gcloud beta spanner instance-partitions delete

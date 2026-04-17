@@ -42,21 +42,19 @@ Alternatively, you can also configure serializable isolation to use [optimistic 
 
 ### Repeatable read isolation
 
-> **Preview — Repeatable read isolation**
-> 
-> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
-Note: Spanner doesn't support using pessimistic concurrency control with repeatable read isolation.
-
 In Spanner, [repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) is implemented using a technique known as snapshot isolation. Repeatable read isolation ensures that all read operations within a transaction are consistent with the database as it existed at the start of the transaction. It also guarantees that concurrent writes on the same data only succeed if there are no conflicts.
 
-With its default [optimistic concurrency](https://docs.cloud.google.com/spanner/docs/concurrency-control#optimistic_concurrency_control) , no locks are acquired until commit time if data needs to be written. If there is a conflict with the written data or due to transient events within Spanner like a server restart, Spanner might still abort transactions. Because reads in read-write transactions don't acquire locks in repeatable read isolation, there is no difference between executing read-only operations within a read-only transaction or read-write transaction.
+With its default [optimistic concurrency](https://docs.cloud.google.com/spanner/docs/concurrency-control#optimistic_concurrency_control) , writes don't acquire locks until commit time. If there is a conflict with the written data or due to transient events within Spanner like a server restart, Spanner might still abort transactions. Because reads in read-write transactions don't acquire locks in repeatable read isolation, there is no difference between executing read-only operations within a read-only transaction or read-write transaction.
+
+Use [pessimistic concurrency](https://docs.cloud.google.com/spanner/docs/concurrency-control#pessimistic_concurrency_control) with repeatable read to acquire exclusive locks for data read with a `FOR UPDATE` clause or the `lock_scanned_ranges=exclusive` hint, and for data written by DML queries. These semantics are more similar to the locking behavior of repeatable read isolation in other databases. With pessimistic concurrency, all reads are served at the snapshot, so transactions might abort if concurrent transactions update the read data. However, it prevents concurrent transactions from updating the locked data from the time locks are acquired until commit time, which might reduce potential write-write conflicts.
 
 Consider using read-write transactions in repeatable read isolation in the following scenarios:
 
   - The workload is read-heavy and has low write conflicts.
   - The application is experiencing performance bottlenecks due to delays from lock-contention and transaction aborts caused by older, higher-priority transactions wounding newer, lower-priority transactions to prevent potential deadlocks (wound-wait).
   - The application doesn't require the stricter guarantees provided by the serializable isolation level.
+
+Consider using repeatable read isolation with pessimistic concurrency for workloads where `FOR UPDATE` and DML statements acquire locks.
 
 When performing a write operation that depends on one or more read operations, write skew is possible under repeatable read isolation. Write skew arise from a particular kind of concurrent update, where each update is independently accepted, but their combined effect violates application data integrity. Therefore, make sure you perform reads that are part of a transaction's critical section with either a `FOR UPDATE` clause or a `lock_scanned_ranges=exclusive` hint to avoid write skew. For more information, see [Read-write conflicts and correctness](https://docs.cloud.google.com/spanner/docs/isolation-levels#read-write-conflicts-correctness) , and the example discussed in [Read-write semantics](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_semantics) .
 
@@ -739,7 +737,9 @@ In serializable isolation, during the commit phase, as writes are applied, the t
   - Waits for all existing shared read locks on that data to be released.
   - After all shared read locks are cleared, it places an exclusive lock, granting it sole access to the data for the duration of the write.
 
-When committing a transaction in repeatable read isolation, the transaction acquires exclusive locks for the written data. The transaction might have to wait for locks if a concurrent transaction is also committing writes to the same data.
+In contrast, neither Spanner's serializable isolation with optimistic concurrency nor repeatable read isolation with optimistic concurrency acquire locks throughout the execution of the transaction. When committing, the transaction acquires exclusive locks for the written data. The transaction might have to wait for locks if a concurrent transaction is also committing writes to the same data.
+
+In repeatable read isolation with pessimistic concurrency, exclusive locks are acquired for the data read by queries that use `FOR UPDATE` , or the `lock_scanned_ranges=exclusive` hint, and for data written with DML queries. Therefore, no further locks need to be acquired at commit time.
 
 Notes about locks:
 

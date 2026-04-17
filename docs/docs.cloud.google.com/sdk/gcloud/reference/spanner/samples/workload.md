@@ -10,23 +10,17 @@ DESCRIPTION
 
 Before sending traffic to the backend service, create the database and start the service with:
 
-``` wrap-code
-gcloud spanner samples init APPNAME --instance-id=INSTANCE_IDgcloud spanner samples backend APPNAME --instance-id=INSTANCE_ID
-```
+    gcloud spanner samples init APPNAME --instance-id=INSTANCE_IDgcloud spanner samples backend APPNAME --instance-id=INSTANCE_ID
 
 To run all three steps together, use:
 
-``` wrap-code
-gcloud spanner samples run APPNAME --instance-id=INSTANCE_ID
-```
+    gcloud spanner samples run APPNAME --instance-id=INSTANCE_ID
 
 EXAMPLES
 
 To generate traffic for the 'finance' sample app, run:
 
-``` wrap-code
-gcloud spanner samples workload finance
-```
+    gcloud spanner samples workload finance
 
 POSITIONAL ARGUMENTS
 
@@ -52,10 +46,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner samples workload
-```
+    gcloud alpha spanner samples workload
 
-``` wrap-code
-gcloud beta spanner samples workload
-```
+    gcloud beta spanner samples workload

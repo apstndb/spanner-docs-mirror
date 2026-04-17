@@ -14,9 +14,7 @@ EXAMPLES
 
 To create a Cloud Spanner instance, run:
 
-``` wrap-code
-gcloud spanner instances create my-instance-id --config=regional-us-east1 --description=my-instance-display-name --nodes=3
-```
+    gcloud spanner instances create my-instance-id --config=regional-us-east1 --description=my-instance-display-name --nodes=3
 
 POSITIONAL ARGUMENTS
 
@@ -151,10 +149,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instances create
-```
+    gcloud alpha spanner instances create
 
-``` wrap-code
-gcloud beta spanner instances create
-```
+    gcloud beta spanner instances create

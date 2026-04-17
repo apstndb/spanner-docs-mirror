@@ -26,12 +26,13 @@ Spanner supports fine-grained access control at the table and column level. Fine
 
 Migration involves the following tasks:
 
-  - Mapping a PostgreSQL schema to Spanner.
-  - Translating SQL queries.
-  - Creating a Spanner instance, database, and schema.
-  - Refactoring the application to work with your Spanner database.
-  - Migrating your data.
-  - Verifying the new system and moving it to production status.
+1.  Mapping a PostgreSQL schema to Spanner.
+2.  Translating SQL queries.
+3.  Creating a Spanner instance, database, and schema.
+4.  Setting the transaction isolation level and concurrency control.
+5.  Refactoring the application to work with your Spanner database.
+6.  Migrating your data.
+7.  Verifying the new system and moving it to production status.
 
 ## Step 1: Map your PostgreSQL schema to Spanner
 
@@ -175,11 +176,15 @@ For more information, see:
   - [Create and manage databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases)
   - [About schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model)
 
-## Step 4: Refactor the application
+## Step 4: Set the transaction isolation level and concurrency control
+
+The default isolation level of transactions in Spanner is [serializable isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable) , which ensures external consistency of your data. Spanner also offers [repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) . We recommended that you set the isolation level to repeatable read, and the concurrency control to [pessimistic concurrency](https://docs.cloud.google.com/spanner/docs/concurrency-control#pessimistic_concurrency_in_repeatable_read_isolation) as part of the application migration process so that the transaction semantics of Spanner matches closely with the default transaction semantics of PostgreSQL. For instructions on how to set the isolation level and concurrency control in your application, see [Use repeatable read isolation level](https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation) and [Configure concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control#configure_concurrency_control) .
+
+## Step 5: Refactor the application
 
 Add application logic to account for the modified schema and revised SQL queries, and to replace database-resident logic such as procedures and triggers.
 
-## Step 5: Migrate your data
+## Step 6: Migrate your data
 
 There are two ways to migrate your data:
 

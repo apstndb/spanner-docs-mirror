@@ -14,9 +14,7 @@ EXAMPLES
 
 To create a Spanner instance partition, run:
 
-``` wrap-code
-gcloud spanner instance-partitions create my-instance-partition-id --instance=my-instance-id --config=regional-us-east1 --description=my-instance-display-name --nodes=3
-```
+    gcloud spanner instance-partitions create my-instance-partition-id --instance=my-instance-id --config=regional-us-east1 --description=my-instance-display-name --nodes=3
 
 POSITIONAL ARGUMENTS
 
@@ -126,10 +124,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instance-partitions create
-```
+    gcloud alpha spanner instance-partitions create
 
-``` wrap-code
-gcloud beta spanner instance-partitions create
-```
+    gcloud beta spanner instance-partitions create

@@ -54,10 +54,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner instances
-```
+    gcloud spanner instances
 
-``` wrap-code
-gcloud beta spanner instances
-```
+    gcloud beta spanner instances

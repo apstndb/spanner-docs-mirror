@@ -14,9 +14,7 @@ EXAMPLES
 
 To delete a Cloud Spanner backup schedule, run:
 
-``` wrap-code
-gcloud beta spanner backup-schedules delete backup-schedule-id --instance=instance-id --database=database-id
-```
+    gcloud beta spanner backup-schedules delete backup-schedule-id --instance=instance-id --database=database-id
 
 POSITIONAL ARGUMENTS
 
@@ -66,10 +64,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner backup-schedules delete
-```
+    gcloud spanner backup-schedules delete
 
-``` wrap-code
-gcloud alpha spanner backup-schedules delete
-```
+    gcloud alpha spanner backup-schedules delete

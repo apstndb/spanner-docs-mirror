@@ -10,13 +10,9 @@ EXAMPLES
 
 To insert a row with SingerId=1,SingName=abc in table Singers under my-database and my-instance, run:
 
-``` wrap-code
-gcloud alpha spanner rows insert --table=Singers --database=my-database --instance=my-instance --data=SingerId=1,SingerName=abc
-```
+    gcloud alpha spanner rows insert --table=Singers --database=my-database --instance=my-instance --data=SingerId=1,SingerName=abc
 
-``` wrap-code
-gcloud alpha spanner rows insert --table=Singers --database=my-database --instance=my-instance --flags-file=path/to/file.yaml
-```
+    gcloud alpha spanner rows insert --table=Singers --database=my-database --instance=my-instance --flags-file=path/to/file.yaml
 
 REQUIRED FLAGS
 
@@ -66,10 +62,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner rows insert
-```
+    gcloud spanner rows insert
 
-``` wrap-code
-gcloud beta spanner rows insert
-```
+    gcloud beta spanner rows insert

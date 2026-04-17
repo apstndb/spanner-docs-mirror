@@ -14,9 +14,7 @@ EXAMPLES
 
 To add a column to a table in the given Cloud Spanner database, run:
 
-``` wrap-code
-gcloud spanner databases ddl update my-database-id --instance=my-instance-id --ddl='ALTER TABLE test_table ADD COLUMN a INT64'
-```
+    gcloud spanner databases ddl update my-database-id --instance=my-instance-id --ddl='ALTER TABLE test_table ADD COLUMN a INT64'
 
 POSITIONAL ARGUMENTS
 
@@ -69,10 +67,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases ddl update
-```
+    gcloud alpha spanner databases ddl update
 
-``` wrap-code
-gcloud beta spanner databases ddl update
-```
+    gcloud beta spanner databases ddl update

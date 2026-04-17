@@ -325,6 +325,10 @@ After you update your DDL statements to conform to Spanner schema requirements, 
 
 After you create the database, follow the instructions in [Apply IAM roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) to create user accounts and grant permissions to the Spanner instance and database.
 
+## Set the transaction isolation level and concurrency control
+
+The default isolation level of transactions in Spanner is [serializable isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable) , which ensures external consistency of your data. Spanner also offers [repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) . We recommended that you set the isolation level to repeatable read, and the concurrency control to [pessimistic concurrency](https://docs.cloud.google.com/spanner/docs/concurrency-control#pessimistic_concurrency_in_repeatable_read_isolation) as part of the application migration process so that the transaction semantics of Spanner matches closely with the default transaction semantics of PostgreSQL. For instructions on how to set the isolation level and concurrency control in your application, see [Use repeatable read isolation level](https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation) and [Configure concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control#configure_concurrency_control) .
+
 ## Refactor the applications and data access layers
 
 In addition to the code needed to replace the [preceding database objects](https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner#other-database-objects) , you must add application logic to handle the following functionality:

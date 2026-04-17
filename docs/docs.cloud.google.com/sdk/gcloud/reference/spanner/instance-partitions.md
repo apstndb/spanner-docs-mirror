@@ -35,10 +35,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instance-partitions
-```
+    gcloud alpha spanner instance-partitions
 
-``` wrap-code
-gcloud beta spanner instance-partitions
-```
+    gcloud beta spanner instance-partitions

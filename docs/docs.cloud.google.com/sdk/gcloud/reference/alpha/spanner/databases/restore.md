@@ -14,15 +14,11 @@ EXAMPLES
 
 To restore a backup, run:
 
-``` wrap-code
-gcloud alpha spanner databases restore --source-backup=BACKUP_ID --source-instance=SOURCE_INSTANCE --destination-database=DATABASE --destination-instance=INSTANCE_NAME
-```
+    gcloud alpha spanner databases restore --source-backup=BACKUP_ID --source-instance=SOURCE_INSTANCE --destination-database=DATABASE --destination-instance=INSTANCE_NAME
 
 To restore a backup using relative names, run:
 
-``` wrap-code
-gcloud alpha spanner databases restore --source-backup=projects/PROJECT_ID/instances/SOURCE_INSTANCE_ID/backups/BACKUP_ID --destination-database=projects/PROJECT_ID/instances/SOURCE_INSTANCE_ID/databases/DATABASE_ID
-```
+    gcloud alpha spanner databases restore --source-backup=projects/PROJECT_ID/instances/SOURCE_INSTANCE_ID/backups/BACKUP_ID --destination-database=projects/PROJECT_ID/instances/SOURCE_INSTANCE_ID/databases/DATABASE_ID
 
 REQUIRED FLAGS
 
@@ -174,10 +170,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases restore
-```
+    gcloud spanner databases restore
 
-``` wrap-code
-gcloud beta spanner databases restore
-```
+    gcloud beta spanner databases restore

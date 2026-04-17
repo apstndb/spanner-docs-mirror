@@ -47,10 +47,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner instances
-```
+    gcloud spanner instances
 
-``` wrap-code
-gcloud alpha spanner instances
-```
+    gcloud alpha spanner instances

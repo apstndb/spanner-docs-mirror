@@ -89,17 +89,15 @@ To run a federated Data Boost query starting in the Spanner Studio, do the follo
     
     You can replace this with your federated query. For example, you might make a query that's similar to the following example. This example makes a federated query from a table named `orders` in a Spanner database and joins the results with a BigQuery table named `mydataset.customers` .
     
-    ``` notranslate
-    SELECT c.customer_id, c.name, rq.first_order_date
-    FROM mydataset.customers AS c
-    LEFT OUTER JOIN EXTERNAL_QUERY(
-      'my-project.us.example-db',
-      '''SELECT customer_id, MIN(order_date) AS first_order_date
-      FROM orders
-      GROUP BY customer_id''') AS rq
-      ON rq.customer_id = c.customer_id
-    GROUP BY c.customer_id, c.name, rq.first_order_date;
-    ```
+        SELECT c.customer_id, c.name, rq.first_order_date
+        FROM mydataset.customers AS c
+        LEFT OUTER JOIN EXTERNAL_QUERY(
+          'my-project.us.example-db',
+          '''SELECT customer_id, MIN(order_date) AS first_order_date
+          FROM orders
+          GROUP BY customer_id''') AS rq
+          ON rq.customer_id = c.customer_id
+        GROUP BY c.customer_id, c.name, rq.first_order_date;
 
 ### Start in BigQuery to run a Data Boost query
 
@@ -180,14 +178,12 @@ Use the [`CREATE CONNECTION` statement](https://docs.cloud.google.com/bigquery/d
 
 2.  In the query editor, enter the following statement:
     
-    ``` notranslate
-    CREATE CONNECTION [IF NOT EXISTS] `CONNECTION_NAME`
-    OPTIONS (
-      connection_type = "CLOUD_RESOURCE",
-      friendly_name = "FRIENDLY_NAME",
-      description = "DESCRIPTION"
-      );
-    ```
+        CREATE CONNECTION [IF NOT EXISTS] `CONNECTION_NAME`
+        OPTIONS (
+          connection_type = "CLOUD_RESOURCE",
+          friendly_name = "FRIENDLY_NAME",
+          description = "DESCRIPTION"
+          );
     
     Replace the following:
     
@@ -203,10 +199,8 @@ For more information about how to run queries, see [Run an interactive query](ht
 
 1.  In a command-line environment, create a connection:
     
-    ``` notranslate
-    bq mk --connection --location=REGION --project_id=PROJECT_ID \
-        --connection_type=CLOUD_RESOURCE CONNECTION_ID
-    ```
+        bq mk --connection --location=REGION --project_id=PROJECT_ID \
+            --connection_type=CLOUD_RESOURCE CONNECTION_ID
     
     The `--project_id` parameter overrides the default project.
     
@@ -220,19 +214,17 @@ For more information about how to run queries, see [Run an interactive query](ht
     
     **Troubleshooting** : If you get the following connection error, [update the Google Cloud SDK](https://docs.cloud.google.com/sdk/docs/quickstart) :
     
-    ``` console
+    ```console
     Flags parsing error: flag --connection_type=CLOUD_RESOURCE: value should be one of...
     ```
 
 2.  Retrieve and copy the service account ID for use in a later step:
     
-    ``` notranslate
-    bq show --connection PROJECT_ID.REGION.CONNECTION_ID
-    ```
+        bq show --connection PROJECT_ID.REGION.CONNECTION_ID
     
     The output is similar to the following:
     
-    ``` console
+    ```console
     name                          properties
     1234.REGION.CONNECTION_ID     {"serviceAccountId": "connection-1234-9u56h9@gcp-sa-bigquery-condel.iam.gserviceaccount.com"}
     ```
@@ -354,7 +346,7 @@ To authenticate to BigQuery, set up Application Default Credentials. For more in
 
 The following example creates a Cloud resource connection named `my_cloud_resource_connection` in the `US` region:
 
-``` lang-terraform
+```terraform
 # This queries the provider for project information.
 data "google_project" "default" {}
 
@@ -493,9 +485,7 @@ Use the [`CREATE EXTERNAL SCHEMA` data definition language (DDL) statement](http
 
 2.  In the query editor, enter the following statement:
     
-    ``` notranslate
-    CREATE EXTERNAL SCHEMA DATASET_NAME  OPTIONS (    external_source = 'SPANNER_EXTERNAL_SOURCE',    location = 'LOCATION');/*  Alternatively, create with a connection:*/CREATE EXTERNAL SCHEMA DATASET_NAME  WITH CONNECTION PROJECT_ID.LOCATION.CONNECTION_NAME  OPTIONS (    external_source = 'SPANNER_EXTERNAL_SOURCE',    location = 'LOCATION');
-    ```
+        CREATE EXTERNAL SCHEMA DATASET_NAME  OPTIONS (    external_source = 'SPANNER_EXTERNAL_SOURCE',    location = 'LOCATION');/*  Alternatively, create with a connection:*/CREATE EXTERNAL SCHEMA DATASET_NAME  WITH CONNECTION PROJECT_ID.LOCATION.CONNECTION_NAME  OPTIONS (    external_source = 'SPANNER_EXTERNAL_SOURCE',    location = 'LOCATION');
     
     Replace the following:
     
@@ -512,20 +502,16 @@ For more information about how to run queries, see [Run an interactive query](ht
 
 In a command-line environment, create an external dataset by using the [`bq mk` command](https://docs.cloud.google.com/bigquery/docs/reference/bq-cli-reference#mk-dataset) :
 
-``` notranslate
-bq --location=LOCATION mk --dataset \
-    --external_source SPANNER_EXTERNAL_SOURCE \
-    DATASET_NAME
-```
+    bq --location=LOCATION mk --dataset \
+        --external_source SPANNER_EXTERNAL_SOURCE \
+        DATASET_NAME
 
 Alternatively, create with a connection:
 
-``` notranslate
-bq --location=LOCATION mk --dataset \
-    --external_source SPANNER_EXTERNAL_SOURCE \
-    --connection_id PROJECT_ID.LOCATION.CONNECTION_NAME \
-    DATASET_NAME
-```
+    bq --location=LOCATION mk --dataset \
+        --external_source SPANNER_EXTERNAL_SOURCE \
+        --connection_id PROJECT_ID.LOCATION.CONNECTION_NAME \
+        DATASET_NAME
 
 Replace the following:
 
@@ -544,7 +530,7 @@ To authenticate to BigQuery, set up Application Default Credentials. For more in
 
 The following example creates a Spanner external dataset:
 
-``` lang-terraform
+```terraform
 resource "google_bigquery_dataset" "default" {
   dataset_id    = "my_external_dataset"
   friendly_name = "My external dataset"
@@ -631,18 +617,16 @@ Before you proceed, you must create the underlying Spanner external dataset usin
 
 You can create non-incremental materialized views that reference [Spanner external dataset tables](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets) by using the `allow_non_incremental_definition` option. The following example uses a base Spanner external dataset table:
 
-``` notranslate
-/*
-  You must create the spanner_external_dataset with a CLOUD_RESOURCE connection.
-*/
-CREATE MATERIALIZED VIEW sample_dataset.sample_spanner_mv
-  OPTIONS (
-      enable_refresh = true, refresh_interval_minutes = 60,
-      max_staleness = INTERVAL "24" HOUR,
-        allow_non_incremental_definition = true)
-AS
-  SELECT COUNT(*) cnt FROM spanner_external_dataset.spanner_table;
-```
+    /*
+      You must create the spanner_external_dataset with a CLOUD_RESOURCE connection.
+    */
+    CREATE MATERIALIZED VIEW sample_dataset.sample_spanner_mv
+      OPTIONS (
+          enable_refresh = true, refresh_interval_minutes = 60,
+          max_staleness = INTERVAL "24" HOUR,
+            allow_non_incremental_definition = true)
+    AS
+      SELECT COUNT(*) cnt FROM spanner_external_dataset.spanner_table;
 
 Only BigQuery non-incremental materialized views can have [Spanner external dataset tables as base tables](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets) . If a non-incremental materialized view's last refresh occurred outside the `max_staleness` interval, then the query reads the base Spanner external dataset tables. Learn more about BigQuery [non-incremental materialized views](https://docs.cloud.google.com/bigquery/docs/materialized-views-create#non-incremental) .
 

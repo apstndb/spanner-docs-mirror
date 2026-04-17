@@ -14,9 +14,7 @@ EXAMPLES
 
 To list all Cloud Spanner instances in this project, run:
 
-``` wrap-code
-gcloud alpha spanner instances list
-```
+    gcloud alpha spanner instances list
 
 LIST COMMAND FLAGS
 
@@ -41,10 +39,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner instances list
-```
+    gcloud spanner instances list
 
-``` wrap-code
-gcloud beta spanner instances list
-```
+    gcloud beta spanner instances list

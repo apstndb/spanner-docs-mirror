@@ -2717,7 +2717,7 @@ The following query statement hints are supported:
 <td><code dir="ltr" translate="no">package_name</code><br />
 | <code dir="ltr" translate="no">latest</code></td>
 <td><p>Executes the query using the specified optimizer statistics package. Possible values for <code dir="ltr" translate="no">         package_name        </code> can be found by running the following query:</p>
-<pre dir="ltr" data-is-upgraded="" translate="no"><code>SELECT * FROM INFORMATION_SCHEMA.SPANNER_STATISTICS</code></pre>
+<div class="sourceCode" id="cb1" dir="ltr" data-is-upgraded="" translate="no"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> INFORMATION_SCHEMA.SPANNER_STATISTICS</span></code></pre></div>
 <p>If the hint isn't set, the optimizer executes against the package that's set in the database option or specified through the client API. If neither of those are set, the optimizer defaults to the latest package.</p>
 <p>The value set by the client API takes precedence over the value in the database options and the value set by this hint takes precedence over everything else.</p>
 <p>The specified package needs to be pinned by the database option or have <code dir="ltr" translate="no">allow_gc=false</code> to prevent garbage collection.</p>

@@ -14,15 +14,11 @@ EXAMPLES
 
 To copy a backup within the same project, run:
 
-``` wrap-code
-gcloud beta spanner backups copy --source-instance=SOURCE_INSTANCE_ID --source-backup=SOURCE_BACKUP_ID --destination-instance=DESTINATION_INSTANCE_ID --destination-backup=DESTINATION_BACKUP_ID --expiration-date=2020-03-29T10:49:41Z
-```
+    gcloud beta spanner backups copy --source-instance=SOURCE_INSTANCE_ID --source-backup=SOURCE_BACKUP_ID --destination-instance=DESTINATION_INSTANCE_ID --destination-backup=DESTINATION_BACKUP_ID --expiration-date=2020-03-29T10:49:41Z
 
 To copy a backup to a different project, run:
 
-``` wrap-code
-gcloud beta spanner backups copy --source-backup=projects/SOURCE_PROJECT_ID/instances/SOURCE_INSTANCE_ID/backups/SOURCE_BACKUP_ID --destination-backup=projects/DESTINATION_PROJECT_ID/instances/DESTINATION_INSTANCE_ID/backups/DESTINATION_BACKUP_ID --expiration-date=2020-03-29T10:49:41Z
-```
+    gcloud beta spanner backups copy --source-backup=projects/SOURCE_PROJECT_ID/instances/SOURCE_INSTANCE_ID/backups/SOURCE_BACKUP_ID --destination-backup=projects/DESTINATION_PROJECT_ID/instances/DESTINATION_INSTANCE_ID/backups/DESTINATION_BACKUP_ID --expiration-date=2020-03-29T10:49:41Z
 
 REQUIRED FLAGS
 
@@ -181,10 +177,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner backups copy
-```
+    gcloud spanner backups copy
 
-``` wrap-code
-gcloud alpha spanner backups copy
-```
+    gcloud alpha spanner backups copy

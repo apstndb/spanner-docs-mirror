@@ -14,9 +14,7 @@ EXAMPLES
 
 To list the Cloud Spanner database roles in a database, run:
 
-``` wrap-code
-gcloud alpha spanner databases roles list --instance=my-instance-id --database=my-database-id
-```
+    gcloud alpha spanner databases roles list --instance=my-instance-id --database=my-database-id
 
 REQUIRED FLAGS
 
@@ -71,10 +69,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases roles list
-```
+    gcloud spanner databases roles list
 
-``` wrap-code
-gcloud beta spanner databases roles list
-```
+    gcloud beta spanner databases roles list

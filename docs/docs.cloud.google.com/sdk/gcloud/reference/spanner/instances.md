@@ -47,10 +47,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instances
-```
+    gcloud alpha spanner instances
 
-``` wrap-code
-gcloud beta spanner instances
-```
+    gcloud beta spanner instances

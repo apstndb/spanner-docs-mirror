@@ -1,10 +1,4 @@
-> **Preview — [Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine)**
-> 
-> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
-
-> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 This page provides an overview of the columnar engine for Spanner and describes how to use it.
 
@@ -18,7 +12,7 @@ Spanner builds the columnar representation in the background (as part of compact
 
 Workloads that would benefit from using columnar engine include the following:
 
-  - Operational reporting extract up-to-the-second business intelligence from the latest operational data.
+  - Operational reporting extracts up-to-the-second business intelligence from the latest operational data.
   - Served analytics power dashboards and custom drill-downs with interactive latency.
   - Federated analytics seamlessly combine data from Spanner and other sources in BigQuery.
 
@@ -26,7 +20,7 @@ Workloads that would benefit from using columnar engine include the following:
 
 ## Best practices for using columnar engine
 
-This section describes best practices when using columnar engine.
+This section describes best practices when using the columnar engine.
 
 ### Large scan optimization
 
@@ -38,7 +32,7 @@ If you use `SELECT *` , Spanner reads all columns from columnar storage. To maxi
 
 ### Performance bottleneck identification
 
-Columnar engine is effective for scan-bound workloads. To identify a scan-bound workload, check the [query plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) for a high latency level in the **Table scan** node. If your query isn't scan-bound, prioritize other optimizations first. Columnar engine can provide benefits later if your optimizations make the query scan-bound.
+The columnar engine is effective for scan-bound workloads. To identify a scan-bound workload, check the [query plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) for a high latency level in the **Table scan** node. If your query isn't scan-bound, prioritize other optimizations first. Columnar engine can provide benefits later if your optimizations make the query scan-bound.
 
 ### Optimal columnar coverage
 
@@ -60,10 +54,6 @@ There are two techniques that you can use to isolate analytical queries from tra
 Billing for the Spanner columnar engine is based on storage usage. After you enable the Spanner columnar engine and Spanner completes data compaction, storage usage increases to include the new columnar representation. Columnar engine provides storage metrics that let you monitor the impact to storage. For more information, see [Columnar data storage metrics](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine#monitor-storage-usage) .
 
 Spanner columnar engine isn't impacted by the [8 bytes per cell overhead](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#storage_size_for_data_types) .
-
-## Preview limitations
-
-  - Columnar engine only supports the GoogleSQL interface.
 
 ## What's next
 

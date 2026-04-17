@@ -35,10 +35,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instance-configs
-```
+    gcloud alpha spanner instance-configs
 
-``` wrap-code
-gcloud beta spanner instance-configs
-```
+    gcloud beta spanner instance-configs

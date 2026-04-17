@@ -14,9 +14,7 @@ EXAMPLES
 
 To delete a backup, run:
 
-``` wrap-code
-gcloud beta spanner backups delete BACKUP_NAME --instance=INSTANCE_NAME
-```
+    gcloud beta spanner backups delete BACKUP_NAME --instance=INSTANCE_NAME
 
 POSITIONAL ARGUMENTS
 
@@ -60,10 +58,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner backups delete
-```
+    gcloud spanner backups delete
 
-``` wrap-code
-gcloud alpha spanner backups delete
-```
+    gcloud alpha spanner backups delete

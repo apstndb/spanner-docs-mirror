@@ -2058,10 +2058,10 @@ Return the current optimizer-related database options:
 
 Return all available statistics packages:
 
-```` prettyprint lang-postgresql
+```` postgresql
 SELECT *
 FROM information_schema.spanner_statistics;
-``` ## What's
+```## What's
 next {: #whats-next}
 
 +   Learn about available [Introspection tools](/spanner/docs/introspection) to

@@ -60,15 +60,11 @@ Take a look through the `samples/schema.js` file, which shows how to create a da
 
 ### GoogleSQL
 
-``` notranslate
-node schema.js createDatabase test-instance example-db MY_PROJECT_ID
-```
+    node schema.js createDatabase test-instance example-db MY_PROJECT_ID
 
 ### PostgreSQL
 
-``` notranslate
-node schema.js createPgDatabase test-instance example-db MY_PROJECT_ID
-```
+    node schema.js createPgDatabase test-instance example-db MY_PROJECT_ID
 
 You should see:
 
@@ -285,9 +281,7 @@ You use the `runUpdate()` method to execute a DML statement.
 
 Run the sample using the `writeUsingDml` argument.
 
-``` notranslate
-node dml.js writeUsingDml test-instance example-db MY_PROJECT_ID
-```
+    node dml.js writeUsingDml test-instance example-db MY_PROJECT_ID
 
 You should see:
 
@@ -357,9 +351,7 @@ This code shows how to write the data using mutations:
 
 Run the sample using the `insert` argument.
 
-``` notranslate
-node crud.js insert test-instance example-db MY_PROJECT_ID
-```
+    node crud.js insert test-instance example-db MY_PROJECT_ID
 
 You should see:
 
@@ -437,9 +429,7 @@ Use [`Database.run()`](https://googleapis.dev/nodejs/spanner/latest/Database.htm
 
 Here's how to issue the query and access the data:
 
-``` notranslate
-node crud.js query test-instance example-db MY_PROJECT_ID
-```
+    node crud.js query test-instance example-db MY_PROJECT_ID
 
 You should see the following result:
 
@@ -621,9 +611,7 @@ Here's how to read the data:
 
 Run the sample using the `read` argument.
 
-``` notranslate
-node crud.js read test-instance example-db MY_PROJECT_ID
-```
+    node crud.js read test-instance example-db MY_PROJECT_ID
 
 You should see output similar to:
 
@@ -749,9 +737,7 @@ Use [`Database.updateSchema`](https://googleapis.dev/nodejs/spanner/latest/Datab
 
 Run the sample using the `addColumn` argument.
 
-``` notranslate
-node schema.js addColumn test-instance example-db MY_PROJECT_ID
-```
+    node schema.js addColumn test-instance example-db MY_PROJECT_ID
 
 You should see:
 
@@ -800,9 +786,7 @@ The following code writes data to the new column. It sets `MarketingBudget` to `
 
 Run the sample using the `update` argument.
 
-``` notranslate
-node crud.js update test-instance example-db MY_PROJECT_ID
-```
+    node crud.js update test-instance example-db MY_PROJECT_ID
 
 You should see:
 
@@ -864,9 +848,7 @@ Here's the code to execute the query:
 
 To execute this query, run the sample using the `queryNewColumn` argument.
 
-``` notranslate
-node schema.js queryNewColumn test-instance example-db MY_PROJECT_ID
-```
+    node schema.js queryNewColumn test-instance example-db MY_PROJECT_ID
 
 You should see:
 
@@ -1122,9 +1104,7 @@ Use [`Database.updateSchema()`](https://googleapis.dev/nodejs/spanner/latest/Dat
 
 Run the sample using the `createIndex` argument.
 
-``` notranslate
-node indexing.js createIndex test-instance example-db MY_PROJECT_ID
-```
+    node indexing.js createIndex test-instance example-db MY_PROJECT_ID
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
@@ -1182,9 +1162,7 @@ To use the index in the read interface, use the [`Table.read()`](https://googlea
 
 Run the sample using the `readIndex` argument.
 
-``` notranslate
-node indexing.js readIndex test-instance example-db MY_PROJECT_ID
-```
+    node indexing.js readIndex test-instance example-db MY_PROJECT_ID
 
 You should see:
 
@@ -1271,9 +1249,7 @@ Use [`Database.updateSchema()`](https://googleapis.dev/nodejs/spanner/latest/Dat
 
 Run the sample using the `createStoringIndex` argument.
 
-``` notranslate
-node indexing.js createStoringIndex test-instance example-db MY_PROJECT_ID
-```
+    node indexing.js createStoringIndex test-instance example-db MY_PROJECT_ID
 
 You should see:
 
@@ -1337,9 +1313,7 @@ Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `Mark
 
 Run the sample using the `readStoringIndex` argument.
 
-``` notranslate
-node indexing.js readStoringIndex test-instance example-db MY_PROJECT_ID
-```
+    node indexing.js readStoringIndex test-instance example-db MY_PROJECT_ID
 
 You should see output similar to:
 
@@ -1422,9 +1396,7 @@ The following shows how to run a query and perform a read in the same read-only 
 
 Run the sample using the `readOnly` argument.
 
-``` notranslate
-node transaction.js readOnly test-instance example-db MY_PROJECT_ID
-```
+    node transaction.js readOnly test-instance example-db MY_PROJECT_ID
 
 You should see output similar to:
 

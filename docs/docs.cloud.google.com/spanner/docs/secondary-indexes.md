@@ -279,28 +279,26 @@ Execute the following command:
 
 You should receive a JSON response similar to the following:
 
-``` readonly
-{
-...
-    "progress": [
-      {
-        "progressPercent": 100,
-        "startTime": "2023-05-27T00:52:27.366688Z",
-        "endTime": "2023-05-27T00:52:30.184845Z"
-      },
-      {
-        "progressPercent": 100,
-        "startTime": "2023-05-27T00:52:30.184845Z",
-        "endTime": "2023-05-27T00:52:40.750959Z"
+    {
+    ...
+        "progress": [
+          {
+            "progressPercent": 100,
+            "startTime": "2023-05-27T00:52:27.366688Z",
+            "endTime": "2023-05-27T00:52:30.184845Z"
+          },
+          {
+            "progressPercent": 100,
+            "startTime": "2023-05-27T00:52:30.184845Z",
+            "endTime": "2023-05-27T00:52:40.750959Z"
+          }
+        ],
+    ...
+      "done": true,
+      "response": {
+        "@type": "type.googleapis.com/google.protobuf.Empty"
       }
-    ],
-...
-  "done": true,
-  "response": {
-    "@type": "type.googleapis.com/google.protobuf.Empty"
-  }
-}
-```
+    }
 
 For `gcloud` and REST, you can find the progress of each index backfill statement in the `progress` section. For each statement in the statement array, there is a corresponding field in the progress array. This progress array order corresponds to the order of the statements array. Once available, the `startTime` , `progressPercent` , and `endTime` fields are populated accordingly. Note that the output doesn't show an estimated time for when the backfill progress will complete.
 

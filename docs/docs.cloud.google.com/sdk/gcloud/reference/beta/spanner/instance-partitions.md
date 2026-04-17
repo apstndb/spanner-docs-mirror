@@ -35,10 +35,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner instance-partitions
-```
+    gcloud spanner instance-partitions
 
-``` wrap-code
-gcloud alpha spanner instance-partitions
-```
+    gcloud alpha spanner instance-partitions

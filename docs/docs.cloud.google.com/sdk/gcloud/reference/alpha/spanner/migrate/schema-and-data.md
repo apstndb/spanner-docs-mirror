@@ -14,9 +14,7 @@ EXAMPLES
 
 To generate schema and copy data to Cloud Spanner from a source database:
 
-``` wrap-code
-gcloud alpha spanner migrate schema-and-data --source=postgresql < ~/cart.pg_dump --target-profile='instance=spanner-instance'
-```
+    gcloud alpha spanner migrate schema-and-data --source=postgresql < ~/cart.pg_dump --target-profile='instance=spanner-instance'
 
 REQUIRED FLAGS
 

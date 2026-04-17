@@ -14,9 +14,7 @@ EXAMPLES
 
 To describe a Cloud Spanner database, run:
 
-``` wrap-code
-gcloud beta spanner databases describe my-database-id --instance=my-instance-id
-```
+    gcloud beta spanner databases describe my-database-id --instance=my-instance-id
 
 POSITIONAL ARGUMENTS
 
@@ -58,10 +56,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases describe
-```
+    gcloud spanner databases describe
 
-``` wrap-code
-gcloud alpha spanner databases describe
-```
+    gcloud alpha spanner databases describe

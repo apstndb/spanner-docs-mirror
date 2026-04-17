@@ -14,9 +14,7 @@ EXAMPLES
 
 To describe a Cloud Spanner backup schedule, run:
 
-``` wrap-code
-gcloud alpha spanner backup-schedules describe backup-schedule-id --instance=instance-id --database=database-id
-```
+    gcloud alpha spanner backup-schedules describe backup-schedule-id --instance=instance-id --database=database-id
 
 POSITIONAL ARGUMENTS
 
@@ -66,10 +64,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner backup-schedules describe
-```
+    gcloud spanner backup-schedules describe
 
-``` wrap-code
-gcloud beta spanner backup-schedules describe
-```
+    gcloud beta spanner backup-schedules describe

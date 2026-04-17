@@ -1,7 +1,3 @@
-> **Preview — Repeatable read isolation**
-> 
-> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 This page introduces different isolation levels and explains how they work in Spanner.
 
 *Isolation level* is a database property that defines which data is visible to concurrent transactions. Spanner supports two of the isolation levels defined in the ANSI/ISO SQL standard: *serializable* and *repeatable read* . When you create a transaction, you need to choose the most appropriate isolation level for the transaction. The chosen isolation level lets individual transactions prioritize various factors such as latency, abort rate, and whether the application is susceptible to the effects of data anomalies. The best choice depends on the specific demands of the workload.
@@ -14,11 +10,17 @@ The trade-off is that Spanner might abort transactions if a workload has high re
 
 ## Repeatable read isolation
 
-In Spanner, repeatable read isolation is implemented using a technique commonly known as snapshot isolation. Repeatable read isolation in Spanner ensures that all read operations within a transaction see a consistent, or strong, snapshot of the database as it existed at the start of the transaction. It also guarantees that concurrent writes on the same data only succeed if there are no conflicts. This approach is beneficial in high read-write conflict scenarios where numerous transactions read data that other transactions might be modifying. By using a fixed snapshot, repeatable read avoids the performance impacts of the more restrictive serializable isolation level. Reads can execute without acquiring locks and without blocking concurrent writes, which results in fewer aborted transactions that might need to be retried due to potential serialization conflicts. In use cases where your clients already run everything in a read-write transaction, and it is difficult to redesign and use read-only transactions, you can use repeatable read isolation to improve the latency of your workloads.
+In Spanner, repeatable read isolation is implemented using a technique commonly known as snapshot isolation. Repeatable read isolation in Spanner ensures that all read operations within a transaction see a consistent, or strong, snapshot of the database as it existed at the start of the transaction. It also guarantees that concurrent writes on the same data only succeed if there are no conflicts. This approach is beneficial in high read-write conflict scenarios where numerous transactions read data that other transactions might be modifying. By using a fixed snapshot, repeatable read avoids the performance impacts of the more restrictive serializable isolation level.
+
+With its default [optimistic concurrency](https://docs.cloud.google.com/spanner/docs/concurrency-control#optimistic_concurrency_control) , reads execute without acquiring locks and without blocking concurrent writes, which results in fewer aborted transactions that might need to be retried due to potential serialization conflicts. With [pessimistic concurrency](https://docs.cloud.google.com/spanner/docs/concurrency-control#pessimistic_concurrency_control) , read operations use snapshots, but exclusive locks apply to data read from `FOR UPDATE` queries or `lock_scanned_ranges=exclusive` hints, and data written with DML queries.
+
+For workloads migrating from other databases, we recommend configuring your application to use repeatable read isolation in Spanner. Repeatable read transaction semantics, specifically the locking for reads, matches the default isolation levels in most other databases (for example, MySQL and PostgreSQL). This helps reduce the need to redesign your application to work with Spanner's default serializable isolation level.
 
 Unlike serializable isolation, repeatable read might lead to data anomalies if your application relies on specific data relationships or constraints that aren't enforced by the database schema, especially when the order of operations matter. In such cases, a transaction might read data, make decisions based on that data, and then write changes that violate those application-specific constraints, even if the database schema constraints are still met. This happens because repeatable read isolation allows concurrent transactions to proceed without strict serialization. One potential anomaly is known as a *write skew* , which arises from a particular kind of concurrent update, where each update is independently accepted, but their combined effect violates application data integrity. For example, imagine there's a hospital system where at least one doctor needs to be on-call at all times, and doctors can request to be taken off-call for a shift. Under repeatable read isolation, if both Dr. Richards and Dr. Smith are scheduled to be on-call for the same shift and concurrently try to request to be taken off-call, each request succeeds in parallel. This is because both transactions read that there is at least one other doctor who is scheduled to be on-call at the start of the transaction, causing data anomaly if the transactions succeed. On the other hand, using serializable isolation prevents these transactions from violating the constraint because serializable transactions will detect potential data anomalies and abort the transaction. Thereby ensuring application consistency by accepting higher abort rates.
 
-In the previous example, you can [use the `SELECT FOR UPDATE` clause in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) . The `SELECT…FOR UPDATE` clause verifies if the data it read at the chosen snapshot remains unchanged at commit time. Similarly, [DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks) and [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) , that read data internally to ensure the integrity of the writes, also verify that the data remains unchanged at commit time.
+In the previous example, you can [use the `SELECT FOR UPDATE` clause in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) . The `SELECT ... FOR UPDATE` clause verifies if the data it read at the chosen snapshot remains unchanged at commit time. Similarly, [DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks) and [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) , that read data internally to ensure the integrity of the writes, also verify that the data remains unchanged at commit time. Additionally, with pessimistic concurrency, the data read by the `SELECT ... FOR UPDATE` , and data written by DML statements acquire exclusive locks to prevent any future transactions from committing conflicting modifications before the current transaction commits.
+
+For workloads migrating from other databases that use `FOR UPDATE` queries, we recommend configuring your application to use repeatable read isolation with pessimistic concurrency in Spanner. The application continues to acquire locks for the data read by the `SELECT ... FOR UPDATE` , which is the default behavior in other databases.
 
 For more information, see [Use repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation) .
 
@@ -188,6 +190,10 @@ You can use the `SELECT...FOR UPDATE` syntax to validate that certain reads of a
 
 For more information, see [Use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
 
+You can also use pessimistic concurrency, which acquires exclusive locks on data read by the `SELECT...FOR UPDATE` statement. For example, `Transaction 1` aborts at commit time because `Transaction 2` committed its modifications before `Transaction 1` acquired locks, which results in a conflict. However, if the transaction ordering causes `Transaction 2` to attempt to update the marketing budget after `Transaction 1` acquires locks, then `Transaction 2` waits for `Transaction 1` to commit and release the locks before it can proceed. The pessimistic concurrency option serializes access to data.
+
+For more information, see [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
+
 ### Write-write conflicts and correctness
 
 By using repeatable read isolation level, concurrent writes on the same data only succeed if there are no conflicts.
@@ -265,6 +271,8 @@ The following `Transaction 2` reads the same data as `Transaction 1` and inserts
 ## What's next
 
   - Learn how to [Use repeatable read isolation level](https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation) .
+
+  - Learn about [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
 
   - Learn how to [Use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
 

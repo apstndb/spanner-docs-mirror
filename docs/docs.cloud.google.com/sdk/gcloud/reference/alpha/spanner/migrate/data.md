@@ -14,9 +14,7 @@ EXAMPLES
 
 To copy data to Cloud Spanner given a session file:
 
-``` wrap-code
-gcloud alpha spanner migrate data --session=./session.json --source=postgresql < ~/cart.pg_dump --target-profile='instance=spanner-instance'
-```
+    gcloud alpha spanner migrate data --session=./session.json --source=postgresql < ~/cart.pg_dump --target-profile='instance=spanner-instance'
 
 REQUIRED FLAGS
 

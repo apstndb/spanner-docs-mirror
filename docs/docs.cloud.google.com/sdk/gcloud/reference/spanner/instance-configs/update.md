@@ -14,27 +14,19 @@ EXAMPLES
 
 To update display name of a custom Cloud Spanner instance configuration 'custom-instance-config', run:
 
-``` wrap-code
-gcloud spanner instance-configs update custom-instance-config --display-name=nam3-RO-us-central1
-```
+    gcloud spanner instance-configs update custom-instance-config --display-name=nam3-RO-us-central1
 
 To modify the instance config 'custom-instance-config' by adding label 'k0', with value 'value1' and label 'k1' with value 'value2' and removing labels with key 'k3', run:
 
-``` wrap-code
-gcloud spanner instance-configs update custom-instance-config --update-labels=k0=value1,k1=value2 --remove-labels=k3
-```
+    gcloud spanner instance-configs update custom-instance-config --update-labels=k0=value1,k1=value2 --remove-labels=k3
 
 To clear all labels of a custom Cloud Spanner instance configuration 'custom-instance-config', run:
 
-``` wrap-code
-gcloud spanner instance-configs update custom-instance-config --clear-labels
-```
+    gcloud spanner instance-configs update custom-instance-config --clear-labels
 
 To remove an existing label of a custom Cloud Spanner instance configuration 'custom-instance-config', run:
 
-``` wrap-code
-gcloud spanner instance-configs update custom-instance-config --remove-labels=KEY1,KEY2
-```
+    gcloud spanner instance-configs update custom-instance-config --remove-labels=KEY1,KEY2
 
 POSITIONAL ARGUMENTS
 
@@ -72,15 +64,11 @@ At most one of these can be specified:
     
     For example, to remove all labels:
     
-    ``` wrap-code
-    gcloud spanner instance-configs update --clear-labels
-    ```
+        gcloud spanner instance-configs update --clear-labels
     
     To remove all existing labels and create two new labels, `  foo  ` and `  baz  ` :
     
-    ``` wrap-code
-    gcloud spanner instance-configs update --clear-labels --update-labels foo=bar,baz=qux
-    ```
+        gcloud spanner instance-configs update --clear-labels --update-labels foo=bar,baz=qux
 
   - `--remove-labels` =\[ `  KEY  ` ,…\]  
     List of label keys to remove. If a label does not exist it is silently ignored. If `--update-labels` is also specified then `--update-labels` is applied first.
@@ -95,10 +83,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instance-configs update
-```
+    gcloud alpha spanner instance-configs update
 
-``` wrap-code
-gcloud beta spanner instance-configs update
-```
+    gcloud beta spanner instance-configs update

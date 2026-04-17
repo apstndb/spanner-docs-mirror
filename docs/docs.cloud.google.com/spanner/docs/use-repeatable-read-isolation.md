@@ -1,10 +1,6 @@
-> **Preview — Repeatable read isolation**
-> 
-> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 This page describes how to use repeatable read isolation in Spanner.
 
-Repeatable read is an [isolation level](https://docs.cloud.google.com/spanner/docs/isolation-levels) that ensures that all read operations within a transaction see a consistent snapshot of the database as it existed at the start of the transaction. In Spanner, this isolation level is implemented using a technique that is also commonly called snapshot isolation. This approach is beneficial in high read-write concurrency scenarios where numerous transactions read data that other transactions might be modifying. By using a fixed snapshot, repeatable read avoids the performance impacts of the more rigorous serializable isolation level. Reads can execute without acquiring locks and without blocking concurrent writes, which results in potentially fewer aborted transactions that might need to be retried due to serialization conflicts. For more information, see [Isolation level overview](https://docs.cloud.google.com/spanner/docs/isolation-levels) .
+Repeatable read is an [isolation level](https://docs.cloud.google.com/spanner/docs/isolation-levels) that ensures that all read operations within a transaction see a consistent snapshot of the database as it existed at the start of the transaction. In Spanner, this isolation level is implemented using a technique that is also commonly called snapshot isolation. This approach is beneficial in high read-write concurrency scenarios where numerous transactions read data that other transactions might be modifying. By using a fixed snapshot, repeatable read avoids the performance impacts of the more rigorous serializable isolation level. With its default optimistic concurrency, reads can execute without acquiring locks and without blocking concurrent writes, which results in potentially fewer aborted transactions that might need to be retried due to serialization conflicts. With [pessimistic concurrency](https://docs.cloud.google.com/spanner/docs/concurrency-control#pessimistic_concurrency_control) , read operations use snapshots, but exclusive locks apply to data read from `FOR UPDATE` queries or `lock_scanned_ranges=exclusive` hints, and data written with DML queries. Pessimistic concurrency also reduces the likelihood of write-write conflicts. For more information, see [Isolation level overview](https://docs.cloud.google.com/spanner/docs/isolation-levels) and [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
 
 ## Set the isolation level
 
@@ -233,19 +229,113 @@ You can set the isolation level on read-write transactions at the database clien
         update_albums_with_isolation, isolation_level=isolation_options_for_transaction
     )
 
+### C++
+
+    void IsolationLevelSetting(std::string const& project_id,
+                               std::string const& instance_id,
+                               std::string const& database_id) {
+      namespace spanner = ::google::cloud::spanner;
+      using ::google::cloud::Options;
+      using ::google::cloud::StatusOr;
+    
+      auto db = spanner::Database(project_id, instance_id, database_id);
+    
+      // The isolation level specified at the client-level will be applied
+      // to all RW transactions.
+      auto options = Options{}.set<spanner::TransactionIsolationLevelOption>(
+          spanner::Transaction::IsolationLevel::kSerializable);
+      auto client = spanner::Client(spanner::MakeConnection(db, options));
+    
+      auto commit = client.Commit(
+          [&client](
+              spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
+            // Read an AlbumTitle.
+            auto sql = spanner::SqlStatement(
+                "SELECT AlbumTitle from Albums WHERE SingerId = @SingerId and "
+                "AlbumId = @AlbumId",
+                {{"SingerId", spanner::Value(1)}, {"AlbumId", spanner::Value(1)}});
+            auto rows = client.ExecuteQuery(txn, std::move(sql));
+            for (auto const& row :
+                 spanner::StreamOf<std::tuple<std::string>>(rows)) {
+              if (!row) return row.status();
+              std::cout << "Current album title: " << std::get<0>(*row) << "\n";
+            }
+    
+            // Update the title.
+            auto update_sql = spanner::SqlStatement(
+                "UPDATE Albums "
+                "SET AlbumTitle = @AlbumTitle "
+                "WHERE SingerId = @SingerId and AlbumId = @AlbumId",
+                {{"AlbumTitle", spanner::Value("New Album Title")},
+                 {"SingerId", spanner::Value(1)},
+                 {"AlbumId", spanner::Value(1)}});
+            auto result = client.ExecuteDml(txn, std::move(update_sql));
+            if (!result) return result.status();
+            std::cout << result->RowsModified() << " record updated.\n";
+    
+            return spanner::Mutations{};
+          },
+          // The isolation level specified at the transaction-level takes
+          // precedence over the isolation level configured at the client-level.
+          // kRepeatableRead is used here to demonstrate overriding the client-level
+          // setting.
+          Options{}.set<spanner::TransactionIsolationLevelOption>(
+              spanner::Transaction::IsolationLevel::kRepeatableRead));
+    
+      if (!commit) throw std::move(commit).status();
+      std::cout << "Update was successful [spanner_isolation_level_setting]\n";
+    }
+
+### C\#
+
+    using Google.Cloud.Spanner.Data;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using IsolationLevel = System.Data.IsolationLevel;
+    
+    public class IsolationLevelAsyncSample
+    {
+        public async Task IsolationLevelAsync(string projectId, string instanceId, string databaseId)
+        {
+            // Create client with IsolationLevel=Serializable.
+            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId};IsolationLevel=Serializable";
+    
+            using var connection = new SpannerConnection(connectionString);
+            await connection.OpenAsync();
+    
+            // Create transaction options overriding IsolationLevel to RepeatableRead.
+            var transactionOptions = SpannerTransactionCreationOptions.ReadWrite
+                .WithIsolationLevel(IsolationLevel.RepeatableRead);
+    
+            using var transaction = await connection.BeginTransactionAsync(transactionOptions, null, CancellationToken.None);
+    
+            using var cmd = connection.CreateSelectCommand("SELECT AlbumTitle FROM Albums WHERE SingerId = 1 AND AlbumId = 1");
+            cmd.Transaction = transaction;
+            using (var reader = await cmd.ExecuteReaderAsync())
+            {
+                while (await reader.ReadAsync())
+                {
+                    Console.WriteLine($"AlbumTitle: {reader.GetFieldValue<string>("AlbumTitle")}");
+                }
+            }
+    
+            using var updateCmd = connection.CreateDmlCommand("UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 1 AND AlbumId = 1");
+            updateCmd.Transaction = transaction;
+            var rowCount = await updateCmd.ExecuteNonQueryAsync();
+            Console.WriteLine($"{rowCount} records updated.");
+    
+            await transaction.CommitAsync();
+        }
+    }
+
 ### REST
 
 You can use the [`TransactionOptions.isolation_level`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#isolationlevel) REST API to set the isolation level on read-write and read-only transactions at the transaction-level. The valid options are `TransactionOptions.SERIALIZABLE` and `TransactionOptions.REPEATABLE_READ` . By default, Spanner sets the isolation level to serializable isolation.
 
-## Limitations
+You can use Spanner's drivers to set isolation level and read lock mode as a connection parameter at the connection level or as a `SET` statement option at the transaction level. For more information about each driver, see [Overview of drivers](https://docs.cloud.google.com/spanner/docs/drivers-overview) .
 
-The following set of limitations exist in the repeatable read isolation Preview.
-
-  - You might experience issues if your schema has [check constraints](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
-      - There is a known issue that prevents check constraints from being validated, which can result in constraint violations when transactions commit. Therefore we don't recommend using repeatable read isolation in Preview if your schema has check constraints.
-  - You might experience issues if concurrent schema changes occur in your database while transactions are executing.
-      - If your DML statements use the [`last_statement` option](https://docs.cloud.google.com/spanner/docs/dml-best-practices#use-last-statement) and a concurrent schema change occurs while the DML statement executes, it might internally retry and return an error stating that the DML was retried incorrectly after the `last_statement` option was set. Retrying the transaction after the schema change applies resolves this issue.
-      - If requests in a transaction experience a `DEADLINE_EXCEEDED` error from the client, retry the transaction after the schema change applies to resolve the issue.
+You can also configure the locking concurrency for each isolation level. For more information, see [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
 
 ## Unsupported use cases
 
@@ -256,6 +346,8 @@ The following set of limitations exist in the repeatable read isolation Preview.
 ## What's next
 
   - Learn more about [isolation levels](https://docs.cloud.google.com/spanner/docs/isolation-levels) .
+
+  - Learn about [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
 
   - Learn how to [use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
 

@@ -14,9 +14,7 @@ EXAMPLES
 
 To describe the DDL for a given Cloud Spanner database, run:
 
-``` wrap-code
-gcloud spanner databases ddl describe my-database-id --instance=my-instance-id
-```
+    gcloud spanner databases ddl describe my-database-id --instance=my-instance-id
 
 POSITIONAL ARGUMENTS
 
@@ -76,10 +74,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases ddl describe
-```
+    gcloud alpha spanner databases ddl describe
 
-``` wrap-code
-gcloud beta spanner databases ddl describe
-```
+    gcloud beta spanner databases ddl describe

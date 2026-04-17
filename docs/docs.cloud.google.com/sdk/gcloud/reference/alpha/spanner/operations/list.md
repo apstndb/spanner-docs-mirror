@@ -14,51 +14,35 @@ EXAMPLES
 
 To list Cloud Spanner instance operations for an instance, run:
 
-``` wrap-code
-gcloud alpha spanner operations list --instance=my-instance-id --type=INSTANCE
-```
+    gcloud alpha spanner operations list --instance=my-instance-id --type=INSTANCE
 
 To list Cloud Spanner backup operations for an instance, run:
 
-``` wrap-code
-gcloud alpha spanner operations list --instance=my-instance-id --type=BACKUP
-```
+    gcloud alpha spanner operations list --instance=my-instance-id --type=BACKUP
 
 To list Cloud Spanner database operations for an instance, run:
 
-``` wrap-code
-gcloud alpha spanner operations list --instance=my-instance-id --type=DATABASE
-```
+    gcloud alpha spanner operations list --instance=my-instance-id --type=DATABASE
 
 To list Cloud Spanner database operations for a database, run:
 
-``` wrap-code
-gcloud alpha spanner operations list --instance=my-instance-id --database=my-database-id --type=DATABASE
-```
+    gcloud alpha spanner operations list --instance=my-instance-id --database=my-database-id --type=DATABASE
 
 To list Cloud Spanner backup operations for a database, run:
 
-``` wrap-code
-gcloud alpha spanner operations list --instance=my-instance-id --database=my-database-id --type=BACKUP
-```
+    gcloud alpha spanner operations list --instance=my-instance-id --database=my-database-id --type=BACKUP
 
 To list Cloud Spanner backup operations for a backup, run:
 
-``` wrap-code
-gcloud alpha spanner operations list --instance=my-instance-id --backup=my-backup-id --type=BACKUP
-```
+    gcloud alpha spanner operations list --instance=my-instance-id --backup=my-backup-id --type=BACKUP
 
 To list instance partition operations for an instance partition, run:
 
-``` wrap-code
-gcloud alpha spanner operations list --instance=my-instance-id --instance-partition=my-partition-id --type=INSTANCE_PARTITION
-```
+    gcloud alpha spanner operations list --instance=my-instance-id --instance-partition=my-partition-id --type=INSTANCE_PARTITION
 
 To list instance partition operations for all instance partitions belonging to this instance, run:
 
-``` wrap-code
-gcloud alpha spanner operations list --instance=my-instance-id --type=INSTANCE_PARTITION
-```
+    gcloud alpha spanner operations list --instance=my-instance-id --type=INSTANCE_PARTITION
 
 REQUIRED FLAGS
 
@@ -123,10 +107,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner operations list
-```
+    gcloud spanner operations list
 
-``` wrap-code
-gcloud beta spanner operations list
-```
+    gcloud beta spanner operations list

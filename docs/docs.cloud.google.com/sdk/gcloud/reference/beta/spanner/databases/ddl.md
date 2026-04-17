@@ -29,10 +29,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases ddl
-```
+    gcloud spanner databases ddl
 
-``` wrap-code
-gcloud alpha spanner databases ddl
-```
+    gcloud alpha spanner databases ddl

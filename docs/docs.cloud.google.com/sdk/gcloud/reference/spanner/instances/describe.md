@@ -14,9 +14,7 @@ EXAMPLES
 
 To describe a Cloud Spanner instance, run:
 
-``` wrap-code
-gcloud spanner instances describe my-instance-id
-```
+    gcloud spanner instances describe my-instance-id
 
 POSITIONAL ARGUMENTS
 
@@ -33,10 +31,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instances describe
-```
+    gcloud alpha spanner instances describe
 
-``` wrap-code
-gcloud beta spanner instances describe
-```
+    gcloud beta spanner instances describe

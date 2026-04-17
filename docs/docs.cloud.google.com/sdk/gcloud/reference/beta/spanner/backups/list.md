@@ -14,15 +14,11 @@ EXAMPLES
 
 To list existing backups for the instance, run:
 
-``` wrap-code
-gcloud beta spanner backups list --instance=INSTANCE_NAME
-```
+    gcloud beta spanner backups list --instance=INSTANCE_NAME
 
 To list existing backups for a database, run:
 
-``` wrap-code
-gcloud beta spanner backups list --instance=INSTANCE_NAME --database=DATABASE
-```
+    gcloud beta spanner backups list --instance=INSTANCE_NAME --database=DATABASE
 
 FLAGS
 
@@ -73,10 +69,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner backups list
-```
+    gcloud spanner backups list
 
-``` wrap-code
-gcloud alpha spanner backups list
-```
+    gcloud alpha spanner backups list

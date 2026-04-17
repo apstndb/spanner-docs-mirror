@@ -14,9 +14,7 @@ EXAMPLES
 
 To list the Cloud Spanner instance configs that are availble for this project, run:
 
-``` wrap-code
-gcloud beta spanner instance-configs list
-```
+    gcloud beta spanner instance-configs list
 
 LIST COMMAND FLAGS
 
@@ -41,10 +39,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner instance-configs list
-```
+    gcloud spanner instance-configs list
 
-``` wrap-code
-gcloud alpha spanner instance-configs list
-```
+    gcloud alpha spanner instance-configs list

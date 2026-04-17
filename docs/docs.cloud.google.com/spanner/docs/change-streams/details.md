@@ -193,7 +193,7 @@ The change streams read function returns a single `ChangeRecord` column of type 
 
 The array elements have the following type:
 
-``` lang-googlesql
+```googlesql
 STRUCT <
   data_change_record ARRAY<STRUCT<...>>,
   heartbeat_record ARRAY<STRUCT<...>>,
@@ -285,35 +285,35 @@ The fields of a data change record include the following:
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">column_types</code></td>
-<td><pre class="lang-json" dir="ltr" data-is-upgraded="" translate="no"><code>[
-  {
-      &quot;name&quot;: &quot;STRING&quot;,
-      &quot;type&quot;: {
-        &quot;code&quot;: &quot;STRING&quot;
-      },
-      &quot;is_primary_key&quot;: BOOLEAN
-      &quot;ordinal_position&quot;: NUMBER
-    },
-    ...
-]</code></pre></td>
+<td><div class="sourceCode" id="cb1" dir="ltr" data-is-upgraded="" translate="no"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1"></a><span class="ot">[</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">{</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;STRING&quot;</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>        <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;STRING&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>      <span class="fu">},</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>      <span class="dt">&quot;is_primary_key&quot;</span><span class="fu">:</span> <span class="er">BOOLEAN</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>      <span class="st">&quot;ordinal_position&quot;</span><span class="er">:</span> <span class="er">NUMBER</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="er">...</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="ot">]</span></span></code></pre></div></td>
 <td>Indicates the name of the column, the column type, whether it is a primary key, and the position of the column as defined in the schema ( <code dir="ltr" translate="no">ordinal_position</code> ). The first column of a table in the schema would have an ordinal position of <code dir="ltr" translate="no">1</code> . The column type may be nested for array columns. The format matches the type structure described in the <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type">Spanner API reference</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">mods</code></td>
-<td><pre class="lang-json" dir="ltr" data-is-upgraded="" translate="no"><code>[
-  {
-    &quot;keys&quot;: {&quot;STRING&quot; : &quot;STRING&quot;},
-    &quot;new_values&quot;: {
-      &quot;STRING&quot; : &quot;VALUE-TYPE&quot;,
-      [...]
-    },
-    &quot;old_values&quot;: {
-      &quot;STRING&quot; : &quot;VALUE-TYPE&quot;,
-      [...]
-    },
-  },
-  [...]
-]</code></pre></td>
+<td><div class="sourceCode" id="cb2" dir="ltr" data-is-upgraded="" translate="no"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="ot">[</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">{</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="dt">&quot;keys&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;STRING&quot;</span> <span class="fu">:</span> <span class="st">&quot;STRING&quot;</span><span class="fu">},</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="dt">&quot;new_values&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>      <span class="dt">&quot;STRING&quot;</span> <span class="fu">:</span> <span class="st">&quot;VALUE-TYPE&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>      <span class="er">[...]</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="fu">},</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="dt">&quot;old_values&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>      <span class="dt">&quot;STRING&quot;</span> <span class="fu">:</span> <span class="st">&quot;VALUE-TYPE&quot;</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>      <span class="er">[...]</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="fu">},</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="ot">[</span><span class="er">...</span><span class="ot">]</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="ot">]</span></span></code></pre></div></td>
 <td>Describes the changes that were made, including the primary key values, the old values, and the new values of the changed or tracked columns. The availability and content of the old and new values depends on the configured <code dir="ltr" translate="no">value_capture_type</code> . The <code dir="ltr" translate="no">new_values</code> and <code dir="ltr" translate="no">old_values</code> fields only contain the non-key columns.</td>
 </tr>
 <tr class="odd">
@@ -400,35 +400,35 @@ The fields of a data change record include the following:
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">column_types</code></td>
-<td><pre class="lang-json" dir="ltr" data-is-upgraded="" translate="no"><code>[
-  {
-      &quot;name&quot;: &quot;STRING&quot;,
-      &quot;type&quot;: {
-        &quot;code&quot;: &quot;STRING&quot;
-      },
-      &quot;is_primary_key&quot;: BOOLEAN
-      &quot;ordinal_position&quot;: NUMBER
-    },
-    ...
-]</code></pre></td>
+<td><div class="sourceCode" id="cb1" dir="ltr" data-is-upgraded="" translate="no"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1"></a><span class="ot">[</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">{</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;STRING&quot;</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>      <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>        <span class="dt">&quot;code&quot;</span><span class="fu">:</span> <span class="st">&quot;STRING&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>      <span class="fu">},</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>      <span class="dt">&quot;is_primary_key&quot;</span><span class="fu">:</span> <span class="er">BOOLEAN</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>      <span class="st">&quot;ordinal_position&quot;</span><span class="er">:</span> <span class="er">NUMBER</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="er">...</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="ot">]</span></span></code></pre></div></td>
 <td>Indicates the name of the column, the column type, whether it's a primary key, and the position of the column as defined in the schema ( <code dir="ltr" translate="no">ordinal_position</code> ). The first column of a table in the schema would have an ordinal position of <code dir="ltr" translate="no">1</code> . The column type may be nested for array columns. The format matches the type structure described in the <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type">Spanner API reference</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">mods</code></td>
-<td><pre class="lang-json" dir="ltr" data-is-upgraded="" translate="no"><code>[
-  {
-    &quot;keys&quot;: {&quot;STRING&quot; : &quot;STRING&quot;},
-    &quot;new_values&quot;: {
-      &quot;STRING&quot; : &quot;VALUE-TYPE&quot;,
-      [...]
-    },
-    &quot;old_values&quot;: {
-      &quot;STRING&quot; : &quot;VALUE-TYPE&quot;,
-      [...]
-    },
-  },
-  [...]
-]</code></pre></td>
+<td><div class="sourceCode" id="cb2" dir="ltr" data-is-upgraded="" translate="no"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="ot">[</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">{</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    <span class="dt">&quot;keys&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;STRING&quot;</span> <span class="fu">:</span> <span class="st">&quot;STRING&quot;</span><span class="fu">},</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="dt">&quot;new_values&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>      <span class="dt">&quot;STRING&quot;</span> <span class="fu">:</span> <span class="st">&quot;VALUE-TYPE&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>      <span class="er">[...]</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="fu">},</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="dt">&quot;old_values&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>      <span class="dt">&quot;STRING&quot;</span> <span class="fu">:</span> <span class="st">&quot;VALUE-TYPE&quot;</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>      <span class="er">[...]</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="fu">},</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>  <span class="ot">[</span><span class="er">...</span><span class="ot">]</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="ot">]</span></span></code></pre></div></td>
 <td>Describes the changes that were made, including the primary key values, the old values, and the new values of the changed or tracked columns. The availability and content of the old and new values depends on the configured <code dir="ltr" translate="no">value_capture_type</code> . The <code dir="ltr" translate="no">new_values</code> and <code dir="ltr" translate="no">old_values</code> fields only contain the non-key columns.</td>
 </tr>
 <tr class="odd">
@@ -765,7 +765,7 @@ The fields of a child partition record includes the following:
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">child_partitions</code></td>
-<td><pre class="lang=json" dir="ltr" data-is-upgraded="" translate="no"><code>[
+<td><pre dir="ltr" data-is-upgraded="" translate="no"><code>[
   {
     &quot;token&quot; : &quot;STRING&quot;,
     &quot;parent_partition_tokens&quot; : [&quot;STRING&quot;]
@@ -804,7 +804,7 @@ The fields of a child partition record includes the following:
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">child_partitions</code></td>
-<td><pre class="lang=json" dir="ltr" data-is-upgraded="" translate="no"><code>[
+<td><pre dir="ltr" data-is-upgraded="" translate="no"><code>[
   {
     &quot;token&quot;: &quot;STRING&quot;,
     &quot;parent_partition_tokens&quot;: [&quot;STRING&quot;],

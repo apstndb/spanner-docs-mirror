@@ -14,9 +14,7 @@ EXAMPLES
 
 To print the IAM policy for a given Cloud Spanner backup schedule, run:
 
-``` wrap-code
-gcloud spanner backup-schedules get-iam-policy backup-schedule-id --instance=instance-id --database=database-id
-```
+    gcloud spanner backup-schedules get-iam-policy backup-schedule-id --instance=instance-id --database=database-id
 
 POSITIONAL ARGUMENTS
 
@@ -77,10 +75,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner backup-schedules get-iam-policy
-```
+    gcloud alpha spanner backup-schedules get-iam-policy
 
-``` wrap-code
-gcloud beta spanner backup-schedules get-iam-policy
-```
+    gcloud beta spanner backup-schedules get-iam-policy

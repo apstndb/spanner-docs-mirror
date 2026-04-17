@@ -31,10 +31,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner rows
-```
+    gcloud spanner rows
 
-``` wrap-code
-gcloud alpha spanner rows
-```
+    gcloud alpha spanner rows

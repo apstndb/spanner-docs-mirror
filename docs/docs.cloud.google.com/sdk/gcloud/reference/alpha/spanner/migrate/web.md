@@ -14,9 +14,7 @@ EXAMPLES
 
 To run the web UI assistant:
 
-``` wrap-code
-gcloud alpha spanner migrate web
-```
+    gcloud alpha spanner migrate web
 
 FLAGS
 

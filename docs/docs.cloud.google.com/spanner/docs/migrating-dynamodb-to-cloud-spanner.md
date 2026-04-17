@@ -106,7 +106,7 @@ Follow these steps to create an AWS IAM user with programmatic access to AWS res
     
     The following output appears:
     
-    ``` console
+    ```console
     AWS Access Key ID [None]: PASTE_YOUR_ACCESS_KEY_ID
     AWS Secret Access Key [None]: PASTE_YOUR_SECRET_ACCESS_KEY
     Default region name [None]: us-west-2
@@ -224,7 +224,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     
     The following output appears:
     
-    ``` console
+    ```console
     Created topic [projects/your-project/topics/spanner-migration].
     ```
 
@@ -235,7 +235,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     
     The following output appears:
     
-    ``` console
+    ```console
     Created service account [spanner-migration].
     ```
 
@@ -247,7 +247,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     
     The following output appears:
     
-    ``` console
+    ```console
     bindings:
     (...truncated...)
     - members:
@@ -262,7 +262,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     
     The following output appears:
     
-    ``` console
+    ```console
     created key [5e559d9f6bd8293da31b472d85a233a3fd9b381c] of type [json] as [credentials.json] for [spanner-migration@your-project.iam.gserviceaccount.com]
     ```
 
@@ -289,7 +289,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     
     The following output appears:
     
-    ``` console
+    ```console
     {
         "FunctionName": "dynamodb-spanner-lambda",
         "LastModified": "2022-03-17T23:45:26.445+0000",
@@ -321,7 +321,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     
     You will see output similar to the following:
     
-    ``` console
+    ```console
     {
         "UUID": "44e4c2bf-493a-4ba2-9859-cde0ae5c5e92",
         "StateTransitionReason": "User action",
@@ -364,7 +364,7 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     
     Expect this step to take about 5 minutes. After it is complete, you see output like the following:
     
-    ``` console
+    ```console
     2022-02-17 04:41:46          0 AWSDynamoDB/01645072900758-ee1232a3/_started
     2022-02-17 04:46:04     500441 AWSDynamoDB/01645072900758-ee1232a3/data/xygt7i2gje4w7jtdw5652s43pa.json.gz
     2022-02-17 04:46:17        199 AWSDynamoDB/01645072900758-ee1232a3/manifest-files.json
@@ -427,7 +427,7 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
     
     The following output appears:
     
-    ``` console
+    ```console
     $ aws dynamodb describe-table --table-name Migration --query Table.ItemCount
     25000
     $ gcloud spanner databases execute-sql migrationdb --instance=spanner-migration --sql="select count(*) from Migration"
@@ -442,7 +442,7 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
     
     The following output appears:
     
-    ``` console
+    ```console
      Username: aadams4495
      PointsEarned: 5247
      ReminderDate: 2022-03-14
@@ -457,7 +457,7 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
     
     The values of the other fields should match those from the Spanner output. The following output appears:
     
-    ``` console
+    ```console
     {
         "Item": {
             "Username": {
@@ -492,7 +492,7 @@ The Lambda function you created is configured to capture changes to the source A
     
     The following output appears:
     
-    ``` console
+    ```console
     Created subscription [projects/your-project/subscriptions/spanner-migration].
     ```
 
@@ -552,7 +552,7 @@ You make some changes to the source table to verify that the changes are replica
     
     The output shows the inserted row:
     
-    ``` console
+    ```console
     Username: my-test-username
     PointsEarned: None
     ReminderDate: None
@@ -571,7 +571,7 @@ You make some changes to the source table to verify that the changes are replica
     
     You will see output similar to the following:
     
-    ``` console
+    ```console
     {
         "Attributes": {
             "Username": {
@@ -595,7 +595,7 @@ You make some changes to the source table to verify that the changes are replica
     
     The output appears as follows:
     
-    ``` console
+    ```console
     Username          PointsEarned  ReminderDate  Subscribed  Zipcode
     my-test-username  4500          None          True
     ```

@@ -14,9 +14,7 @@ EXAMPLES
 
 To list available sample applications, run:
 
-``` wrap-code
-gcloud beta spanner samples list
-```
+    gcloud beta spanner samples list
 
 LIST COMMAND FLAGS
 
@@ -41,10 +39,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner samples list
-```
+    gcloud spanner samples list
 
-``` wrap-code
-gcloud alpha spanner samples list
-```
+    gcloud alpha spanner samples list

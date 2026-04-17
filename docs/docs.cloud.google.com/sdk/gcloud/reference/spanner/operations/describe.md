@@ -14,27 +14,19 @@ EXAMPLES
 
 To describe a Cloud Spanner instance operation, run:
 
-``` wrap-code
-gcloud spanner operations describe _auto_12345 --instance=my-instance-id
-```
+    gcloud spanner operations describe _auto_12345 --instance=my-instance-id
 
 To describe a Cloud Spanner database operation, run:
 
-``` wrap-code
-gcloud spanner operations describe _auto_12345 --instance=my-instance-id --database=my-database-id
-```
+    gcloud spanner operations describe _auto_12345 --instance=my-instance-id --database=my-database-id
 
 To describe a Cloud Spanner backup operation, run:
 
-``` wrap-code
-gcloud spanner operations describe _auto_12345 --instance=my-instance-id --backup=my-backup-id
-```
+    gcloud spanner operations describe _auto_12345 --instance=my-instance-id --backup=my-backup-id
 
 To describe an instance partition operation, run:
 
-``` wrap-code
-gcloud spanner operations describe _auto_12345 --instance=my-instance-id --instance-partition=my-partition-id
-```
+    gcloud spanner operations describe _auto_12345 --instance=my-instance-id --instance-partition=my-partition-id
 
 POSITIONAL ARGUMENTS
 
@@ -69,10 +61,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner operations describe
-```
+    gcloud alpha spanner operations describe
 
-``` wrap-code
-gcloud beta spanner operations describe
-```
+    gcloud beta spanner operations describe

@@ -6,7 +6,7 @@ You can integrate GoogleSQL-dialect databases with GORM using the open source [S
 
 To use the GoogleSQL GORM dialect in your application, add the following import statement to the file where GORM is initialized:
 
-```` prettyprint
+```` 
   import (
     "fmt"
 

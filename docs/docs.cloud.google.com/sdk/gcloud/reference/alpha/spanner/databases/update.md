@@ -14,21 +14,15 @@ EXAMPLES
 
 To enable database deletion protection on a Cloud Spanner database 'my-database', run:
 
-``` wrap-code
-gcloud alpha spanner databases update my-database --enable-drop-protection
-```
+    gcloud alpha spanner databases update my-database --enable-drop-protection
 
 To disable database deletion protection on a Cloud Spanner database 'my-database', run:
 
-``` wrap-code
-gcloud alpha spanner databases update my-database --no-enable-drop-protection
-```
+    gcloud alpha spanner databases update my-database --no-enable-drop-protection
 
 To update KMS key references for a Cloud Spanner database 'my-database', run:
 
-``` wrap-code
-gcloud alpha spanner databases update my-database --kms-keys="KEY1,KEY2"
-```
+    gcloud alpha spanner databases update my-database --kms-keys="KEY1,KEY2"
 
 POSITIONAL ARGUMENTS
 
@@ -83,10 +77,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases update
-```
+    gcloud spanner databases update
 
-``` wrap-code
-gcloud beta spanner databases update
-```
+    gcloud beta spanner databases update

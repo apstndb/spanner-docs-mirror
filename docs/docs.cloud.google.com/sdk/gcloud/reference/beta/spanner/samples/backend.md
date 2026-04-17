@@ -10,29 +10,21 @@ DESCRIPTION
 
 `(BETA)` This command starts the backend gRPC service for the given sample application. Before starting the service, create the database and load any initial data with:
 
-``` wrap-code
-gcloud beta spanner samples init APPNAME --instance-id=INSTANCE_ID
-```
+    gcloud beta spanner samples init APPNAME --instance-id=INSTANCE_ID
 
 After starting the service, generate traffic with:
 
-``` wrap-code
-gcloud beta spanner samples workload APPNAME
-```
+    gcloud beta spanner samples workload APPNAME
 
 To run all three steps together, use:
 
-``` wrap-code
-gcloud beta spanner samples run APPNAME --instance-id=INSTANCE_ID
-```
+    gcloud beta spanner samples run APPNAME --instance-id=INSTANCE_ID
 
 EXAMPLES
 
 To run the backend gRPC service for the 'finance' sample app using instance 'my-instance', run:
 
-``` wrap-code
-gcloud beta spanner samples backend finance --instance-id=my-instance
-```
+    gcloud beta spanner samples backend finance --instance-id=my-instance
 
 POSITIONAL ARGUMENTS
 
@@ -63,10 +55,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner samples backend
-```
+    gcloud spanner samples backend
 
-``` wrap-code
-gcloud alpha spanner samples backend
-```
+    gcloud alpha spanner samples backend

@@ -7,9 +7,11 @@ The default behavior depends on the [isolation level](https://docs.cloud.google.
 
 ## Pessimistic concurrency control
 
-> **Note:** Spanner doesn't support using pessimistic concurrency control with repeatable read isolation.
+By default, Spanner uses pessimistic concurrency with [serializable isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable) . You can also use pessimistic concurrency with [repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) .
 
-By default, Spanner uses pessimistic concurrency with [serializable isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable) . This mode assumes that concurrent transactions might contend for the same data. It acquires [locks](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes) proactively on data as it is read or written within a transaction. It also verifies that locks acquired earlier in the transaction remain held in later statements. When Spanner detects a lock conflict, it uses the wound-wait algorithm to resolve the conflict.
+### Pessimistic concurrency in serializable isolation
+
+This mode assumes that concurrent transactions might contend for the same data. It acquires [locks](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes) proactively on data as it is read or written within a transaction. It also verifies that locks acquired earlier in the transaction remain held in later statements. When Spanner detects a lock conflict, it uses the wound-wait algorithm to resolve the conflict.
 
 In pessimistic concurrency, transactions acquire locks on data during both the execution and commit phases of the transaction.
 
@@ -18,9 +20,17 @@ In pessimistic concurrency, transactions acquire locks on data during both the e
       - During execution, for data modified by DML or writes, the transaction might acquire read locks on row-existence.
       - At commit time, the transaction attempts to acquire write or exclusive locks for the written data. Write locks block concurrent reads, but might not block concurrent writes, especially when they both use write locks. This means multiple transactions can proceed to commit, and write-write conflicts are resolved at commit time using the wound-wait algorithm. All locks are held until the transaction commits.
 
+### Pessimistic concurrency in repeatable read isolation
+
+Use pessimistic concurrency in repeatable read isolation to serialize writes. In this mode, read operations use snapshots, but [exclusive locks](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes) apply to data read from `FOR UPDATE` queries or `lock_scanned_ranges=exclusive` hints, and data written with DML queries.
+
 ### Benefits of pessimistic concurrency with serializable isolation
 
 The main benefit of using pessimistic concurrency with serializable isolation is that, in highly contentious workloads, it helps transactions make progress. Spanner prioritizes older transactions over newer ones during conflicts, ensuring that transactions eventually complete while reducing the amount of repeatedly aborting transactions.
+
+### Benefits of pessimistic concurrency with repeatable read isolation
+
+With repeatable read isolation, transactions that acquire locks might still abort at commit time if the data read as part of a query with `FOR UPDATE` or as part of a DML query, was modified by a concurrent transaction before the transaction commits. However, after locks are acquired, it prevents further concurrent updates until the transaction commits, serializing the writes.
 
 ### Risks of pessimistic concurrency
 
@@ -29,9 +39,13 @@ Pessimistic concurrency with serializable isolation presents the following risks
   - Long-running reads might block latency-sensitive writes.
   - Transactions that involve user interaction before completion might cause locks to be held for a long time, potentially blocking other operations.
 
-### Use cases for pessimistic concurrency
+### Use cases for pessimistic concurrency with serializable isolation
 
 Pessimistic concurrency is suitable for workloads with high read-write and write-write contention. It is also appropriate when transaction aborts and retries are costly. Use this default mode unless your workload has excessive long lock delays, or is significantly impacted by lock conflicts.
+
+### Use cases for pessimistic concurrency with repeatable read isolation
+
+Use pessimistic concurrency with repeatable read for workloads that require a `FOR UPDATE` clause or DML queries to acquire locks. This approach is particularly useful for workloads migrated to Spanner from other databases that acquire locks for these statements.
 
 ## Optimistic concurrency control
 
@@ -364,6 +378,63 @@ You can use the Spanner client libraries, REST, and RPC API to specify the concu
     
             await transaction.CommitAsync();
         }
+    }
+
+### C++
+
+    void ReadLockModeSetting(std::string const& project_id,
+                             std::string const& instance_id,
+                             std::string const& database_id) {
+      namespace spanner = ::google::cloud::spanner;
+      using ::google::cloud::Options;
+      using ::google::cloud::StatusOr;
+    
+      auto db = spanner::Database(project_id, instance_id, database_id);
+    
+      // The read lock mode specified at the client-level will be applied
+      // to all RW transactions.
+      auto options = Options{}.set<spanner::TransactionReadLockModeOption>(
+          spanner::Transaction::ReadLockMode::kOptimistic);
+      auto client = spanner::Client(spanner::MakeConnection(db, options));
+    
+      auto commit = client.Commit(
+          [&client](
+              spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
+            // Read an AlbumTitle.
+            auto sql = spanner::SqlStatement(
+                "SELECT AlbumTitle from Albums WHERE SingerId = @SingerId and "
+                "AlbumId = @AlbumId",
+                {{"SingerId", spanner::Value(2)}, {"AlbumId", spanner::Value(1)}});
+            auto rows = client.ExecuteQuery(txn, std::move(sql));
+            for (auto const& row :
+                 spanner::StreamOf<std::tuple<std::string>>(rows)) {
+              if (!row) return row.status();
+              std::cout << "Current Album Title: " << std::get<0>(*row) << "\n";
+            }
+    
+            // Update the title.
+            auto update_sql = spanner::SqlStatement(
+                "UPDATE Albums "
+                "SET AlbumTitle = @AlbumTitle "
+                "WHERE SingerId = @SingerId and AlbumId = @AlbumId",
+                {{"AlbumTitle", spanner::Value("A New Title")},
+                 {"SingerId", spanner::Value(2)},
+                 {"AlbumId", spanner::Value(1)}});
+            auto result = client.ExecuteDml(txn, std::move(update_sql));
+            if (!result) return result.status();
+            std::cout << result->RowsModified() << " record(s) updated.\n";
+    
+            return spanner::Mutations{};
+          },
+          // The read lock mode specified at the transaction-level takes
+          // precedence over the read lock mode configured at the client-level.
+          // kPessimistic is used here to demonstrate overriding the client-level
+          // setting.
+          Options{}.set<spanner::TransactionReadLockModeOption>(
+              spanner::Transaction::ReadLockMode::kPessimistic));
+    
+      if (!commit) throw std::move(commit).status();
+      std::cout << "Update was successful [spanner_read_lock_mode]\n";
     }
 
 ### REST

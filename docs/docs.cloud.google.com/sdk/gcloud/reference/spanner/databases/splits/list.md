@@ -14,9 +14,7 @@ EXAMPLES
 
 To list the user added split points of the given Spanner database, run:
 
-``` wrap-code
-gcloud spanner databases splits list my-database-id --instance=my-instance-id
-```
+    gcloud spanner databases splits list my-database-id --instance=my-instance-id
 
 POSITIONAL ARGUMENTS
 
@@ -69,10 +67,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases splits list
-```
+    gcloud alpha spanner databases splits list
 
-``` wrap-code
-gcloud beta spanner databases splits list
-```
+    gcloud beta spanner databases splits list

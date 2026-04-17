@@ -53,7 +53,9 @@ Specifying `latest` as a value instructs Cloud Spanner to use the latest generat
 
 The statistics package requested by the query has to be exempt from garbage collection. This can be achieved with the following DDL statement:
 
-    ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
+```sql
+ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
+```
 
 The list of available statistics packages can be queried from `INFORMATION_SCHEMA.SPANNER_STATISTICS` .
 

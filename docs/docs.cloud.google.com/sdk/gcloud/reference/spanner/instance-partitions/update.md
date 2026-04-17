@@ -14,15 +14,11 @@ EXAMPLES
 
 To update the display name of a Spanner instance partition, run:
 
-``` wrap-code
-gcloud spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --description=my-new-display-name
-```
+    gcloud spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --description=my-new-display-name
 
 To update the node count of a Spanner instance partition, run:
 
-``` wrap-code
-gcloud spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --nodes=1
-```
+    gcloud spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --nodes=1
 
 POSITIONAL ARGUMENTS
 
@@ -117,10 +113,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instance-partitions update
-```
+    gcloud alpha spanner instance-partitions update
 
-``` wrap-code
-gcloud beta spanner instance-partitions update
-```
+    gcloud beta spanner instance-partitions update

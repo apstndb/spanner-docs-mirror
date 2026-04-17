@@ -14,9 +14,7 @@ EXAMPLES
 
 To list the Cloud Spanner databases in an instance, run:
 
-``` wrap-code
-gcloud alpha spanner databases list --instance=my-instance-id
-```
+    gcloud alpha spanner databases list --instance=my-instance-id
 
 FLAGS
 
@@ -61,10 +59,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases list
-```
+    gcloud spanner databases list
 
-``` wrap-code
-gcloud beta spanner databases list
-```
+    gcloud beta spanner databases list

@@ -22,7 +22,7 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
 
 2.  Start PGAdapter in-process with your application.
     
-    ``` suppresswarning
+    ``` 
     OptionsMetadata.Builder builder =
       OptionsMetadata.newBuilder()
         .setProject("PROJECT_NAME")
@@ -40,7 +40,7 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
 
 3.  Make sure the PostgreSQL JDBC driver driver is loaded.
     
-    ``` suppresswarning
+    ``` 
     Class.forName("org.postgresql.Driver");
     
     try (Connection connection =
@@ -68,7 +68,7 @@ This section explains how to use Unix domain sockets to connect PostgreSQL JDBC 
 
 To use Unix domain sockets, PGAdapter must be running on the same host as the client application.
 
-``` suppresswarning
+``` 
 // Make sure the PG JDBC driver is loaded.
 Class.forName("org.postgresql.Driver");
 
@@ -123,7 +123,7 @@ This section explains how to use the Spanner JDBC driver to connect to a Postgre
 2.  Use a Spanner JDBC connection URL to connect to the PostgreSQL-dialect database.  
       
     
-    ``` suppresswarning
+    ``` 
         // Make sure the PostgreSQL JDBC driver is loaded.
         Class.forName("org.postgresql.Driver");
     

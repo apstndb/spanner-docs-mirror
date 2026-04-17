@@ -14,9 +14,7 @@ EXAMPLES
 
 To describe a backup, run:
 
-``` wrap-code
-gcloud spanner backups describe BACKUP_ID --instance=INSTANCE_NAME
-```
+    gcloud spanner backups describe BACKUP_ID --instance=INSTANCE_NAME
 
 POSITIONAL ARGUMENTS
 
@@ -60,10 +58,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner backups describe
-```
+    gcloud alpha spanner backups describe
 
-``` wrap-code
-gcloud beta spanner backups describe
-```
+    gcloud beta spanner backups describe

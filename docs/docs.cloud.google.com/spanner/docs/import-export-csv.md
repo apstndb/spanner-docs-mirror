@@ -78,7 +78,7 @@ Keep the following things in mind when exporting your data:
 
 ### GoogleSQL
 
-``` lang-googlesql
+```googlesql
 BOOL
 INT64
 FLOAT64
@@ -92,16 +92,14 @@ JSON
 
 ### PostgreSQL
 
-``` lang-psotgresql
-boolean
-bigint
-double precision
-numeric
-character varying, text
-date
-timestamp with time zone
-bytea
-```
+    boolean
+    bigint
+    double precision
+    numeric
+    character varying, text
+    date
+    timestamp with time zone
+    bytea
 
   - You don't have to include or generate any metadata when you export the CSV files.
 

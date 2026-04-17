@@ -31,10 +31,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner rows
-```
+    gcloud alpha spanner rows
 
-``` wrap-code
-gcloud beta spanner rows
-```
+    gcloud beta spanner rows

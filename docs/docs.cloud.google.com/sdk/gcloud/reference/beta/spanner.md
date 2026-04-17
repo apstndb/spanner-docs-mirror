@@ -43,10 +43,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner
-```
+    gcloud spanner
 
-``` wrap-code
-gcloud alpha spanner
-```
+    gcloud alpha spanner

@@ -10,13 +10,9 @@ EXAMPLES
 
 To update a row with SingerId=1,SingName=abc in table Singers under my-database and my-instance, run:
 
-``` wrap-code
-gcloud beta spanner rows update --table=Singers --database=my-database --instance=my-instance --data=SingerId=1,SingerName=abc
-```
+    gcloud beta spanner rows update --table=Singers --database=my-database --instance=my-instance --data=SingerId=1,SingerName=abc
 
-``` wrap-code
-gcloud beta spanner rows update --table=Singers --database=my-database --instance=my-instance --flags-file=path/to/file.yaml
-```
+    gcloud beta spanner rows update --table=Singers --database=my-database --instance=my-instance --flags-file=path/to/file.yaml
 
 REQUIRED FLAGS
 
@@ -66,10 +62,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner rows update
-```
+    gcloud spanner rows update
 
-``` wrap-code
-gcloud alpha spanner rows update
-```
+    gcloud alpha spanner rows update

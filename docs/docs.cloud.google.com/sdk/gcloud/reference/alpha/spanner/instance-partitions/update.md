@@ -14,15 +14,11 @@ EXAMPLES
 
 To update the display name of a Spanner instance partition, run:
 
-``` wrap-code
-gcloud alpha spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --description=my-new-display-name
-```
+    gcloud alpha spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --description=my-new-display-name
 
 To update the node count of a Spanner instance partition, run:
 
-``` wrap-code
-gcloud alpha spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --nodes=1
-```
+    gcloud alpha spanner instance-partitions update my-instance-partition-id --instance=my-instance-id --nodes=1
 
 POSITIONAL ARGUMENTS
 
@@ -117,10 +113,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner instance-partitions update
-```
+    gcloud spanner instance-partitions update
 
-``` wrap-code
-gcloud beta spanner instance-partitions update
-```
+    gcloud beta spanner instance-partitions update

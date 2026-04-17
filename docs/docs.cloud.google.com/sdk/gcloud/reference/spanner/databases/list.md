@@ -14,9 +14,7 @@ EXAMPLES
 
 To list the Cloud Spanner databases in an instance, run:
 
-``` wrap-code
-gcloud spanner databases list --instance=my-instance-id
-```
+    gcloud spanner databases list --instance=my-instance-id
 
 FLAGS
 
@@ -61,10 +59,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases list
-```
+    gcloud alpha spanner databases list
 
-``` wrap-code
-gcloud beta spanner databases list
-```
+    gcloud beta spanner databases list

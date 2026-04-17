@@ -100,19 +100,17 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
-createTime: '2022-03-29T22:06:05.905823Z'
-database: projects/PROJECT_ID/instances/SOURCE_INSTANCE_ID/databases/SOURCE_DATABASE_ID
-databaseDialect: GOOGLE_STANDARD_SQL
-encryptionInfo:
-encryptionType: GOOGLE_DEFAULT_ENCRYPTION
-expireTime: '2022-03-30T10:49:41Z'
-maxExpireTime: '2023-03-17T20:46:33.479336Z'
-name: projects/PROJECT_ID/instances/DESTINATION_INSTANCE_ID/backups/DESTINATION_BACKUP_NAME
-sizeBytes: '7957667'
-state: READY
-versionTime: '2022-03-16T20:46:33.479336Z'
-```
+    createTime: '2022-03-29T22:06:05.905823Z'
+    database: projects/PROJECT_ID/instances/SOURCE_INSTANCE_ID/databases/SOURCE_DATABASE_ID
+    databaseDialect: GOOGLE_STANDARD_SQL
+    encryptionInfo:
+    encryptionType: GOOGLE_DEFAULT_ENCRYPTION
+    expireTime: '2022-03-30T10:49:41Z'
+    maxExpireTime: '2023-03-17T20:46:33.479336Z'
+    name: projects/PROJECT_ID/instances/DESTINATION_INSTANCE_ID/backups/DESTINATION_BACKUP_NAME
+    sizeBytes: '7957667'
+    state: READY
+    versionTime: '2022-03-16T20:46:33.479336Z'
 
 ### Copy a backup in a different project
 
@@ -164,19 +162,17 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
-createTime: '2022-03-29T22:06:05.905823Z'
-database: projects/SOURCE_PROJECT_ID/instances/SOURCE_INSTANCE_ID/databases/SOURCE_DATABASE_ID
-databaseDialect: GOOGLE_STANDARD_SQL
-encryptionInfo:
-encryptionType: GOOGLE_DEFAULT_ENCRYPTION
-expireTime: '2022-03-30T10:49:41Z'
-maxExpireTime: '2023-03-17T20:46:33.479336Z'
-name: projects/DESTINATION_PROJECT_ID/instances/DESTINATION_INSTANCE_ID/backups/DESTINATION_BACKUP_NAME
-sizeBytes: '7957667'
-state: READY
-versionTime: '2022-03-16T20:46:33.479336Z'
-```
+    createTime: '2022-03-29T22:06:05.905823Z'
+    database: projects/SOURCE_PROJECT_ID/instances/SOURCE_INSTANCE_ID/databases/SOURCE_DATABASE_ID
+    databaseDialect: GOOGLE_STANDARD_SQL
+    encryptionInfo:
+    encryptionType: GOOGLE_DEFAULT_ENCRYPTION
+    expireTime: '2022-03-30T10:49:41Z'
+    maxExpireTime: '2023-03-17T20:46:33.479336Z'
+    name: projects/DESTINATION_PROJECT_ID/instances/DESTINATION_INSTANCE_ID/backups/DESTINATION_BACKUP_NAME
+    sizeBytes: '7957667'
+    state: READY
+    versionTime: '2022-03-16T20:46:33.479336Z'
 
 To check the progress of a copy operation, see [Check the operation progress](https://docs.cloud.google.com/spanner/docs/backup/manage-backups#check-operation-progress) .
 
@@ -664,11 +660,9 @@ Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcl
     
     You should receive a response similar to the following:
     
-    ``` readonly
-    OPERATION_ID     DONE  @TYPE                 BACKUP          SOURCE_DATABASE       START_TIME                   END_TIME
-    _auto_op_123456  True  CreateBackupMetadata  example-db-backup-7  example-db       2020-02-04T02:12:38.075515Z  2020-02-04T02:22:40.581170Z
-    _auto_op_234567  True  CreateBackupMetadata  example-db-backup-6  example-db       2020-02-04T02:05:43.920377Z  2020-02-04T02:07:59.089820Z
-    ```
+        OPERATION_ID     DONE  @TYPE                 BACKUP          SOURCE_DATABASE       START_TIME                   END_TIME
+        _auto_op_123456  True  CreateBackupMetadata  example-db-backup-7  example-db       2020-02-04T02:12:38.075515Z  2020-02-04T02:22:40.581170Z
+        _auto_op_234567  True  CreateBackupMetadata  example-db-backup-6  example-db       2020-02-04T02:05:43.920377Z  2020-02-04T02:07:59.089820Z
     
     Usage notes:
     
@@ -717,19 +711,17 @@ Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcl
     
     You should receive a response similar to the following:
     
-    ``` readonly
-    done: true
-    metadata:
-    ...
-    progress:
-    - endTime: '2022-03-01T00:28:06.691403Z'
-      progressPercent: 100
-      startTime: '2022-03-01T00:28:04.221401Z'
-    - endTime: '2022-03-01T00:28:17.624588Z'
-      startTime: '2022-03-01T00:28:06.691403Z'
-      progressPercent: 100
-    ...
-    ```
+        done: true
+        metadata:
+        ...
+        progress:
+        - endTime: '2022-03-01T00:28:06.691403Z'
+          progressPercent: 100
+          startTime: '2022-03-01T00:28:04.221401Z'
+        - endTime: '2022-03-01T00:28:17.624588Z'
+          startTime: '2022-03-01T00:28:06.691403Z'
+          progressPercent: 100
+        ...
     
     The `progress` section in the output shows the percentage of the operation that's complete.
     
@@ -1284,11 +1276,9 @@ The Google Cloud console doesn't support canceling a backup operation. However, 
     
     You should receive a response similar to the following:
     
-    ``` readonly
-    OPERATION_ID     DONE  @TYPE                 BACKUP          SOURCE_DATABASE       START_TIME                   END_TIME
-    _auto_op_123456  True  CreateBackupMetadata  example-db-backup-7  example-db       2020-02-04T02:12:38.075515Z  2020-02-04T02:22:40.581170Z
-    _auto_op_234567  True  CreateBackupMetadata  example-db-backup-6  example-db       2020-02-04T02:05:43.920377Z  2020-02-04T02:07:59.089820Z
-    ```
+        OPERATION_ID     DONE  @TYPE                 BACKUP          SOURCE_DATABASE       START_TIME                   END_TIME
+        _auto_op_123456  True  CreateBackupMetadata  example-db-backup-7  example-db       2020-02-04T02:12:38.075515Z  2020-02-04T02:22:40.581170Z
+        _auto_op_234567  True  CreateBackupMetadata  example-db-backup-6  example-db       2020-02-04T02:05:43.920377Z  2020-02-04T02:07:59.089820Z
     
     Usage notes:
     
@@ -1804,14 +1794,12 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
-createTime: '2020-02-04T02:05:43.920377Z'
-database: projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID
-expireTime: '2021-02-04T02:05:43.268327Z'
-name: projects/PROJECT_ID/instances/INSTANCE_ID/backups/BACKUP_NAME
-sizeBytes: '1000000000'
-state: READY
-```
+    createTime: '2020-02-04T02:05:43.920377Z'
+    database: projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID
+    expireTime: '2021-02-04T02:05:43.268327Z'
+    name: projects/PROJECT_ID/instances/INSTANCE_ID/backups/BACKUP_NAME
+    sizeBytes: '1000000000'
+    state: READY
 
 ### Client libraries
 
@@ -1857,7 +1845,7 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
+``` 
   BACKUP               SOURCE_DATABASE  CREATION_TIME                EXPIRATION_TIME              STATE  BACKUP_SIZE_IN_BYTES  IN_USE_BY
   example-db-backup-6  example-db       2020-02-04T02:05:43.920377Z  2021-02-04T02:05:43.268327Z  CREATING
   example-db-backup-4  example-db       2020-02-04T01:21:20.873839Z  2021-02-04T01:21:20.530151Z  READY  32
@@ -2652,14 +2640,12 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
-createTime: '2020-02-04T02:05:43.920377Z'
-database: projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID
-expireTime: '2020-05-05T00:00:00Z'
-name: projects/PROJECT_ID/instances/INSTANCE_ID/backups/BACKUP_ID
-sizeBytes: '1000000000'
-state: READY
-```
+    createTime: '2020-02-04T02:05:43.920377Z'
+    database: projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID
+    expireTime: '2020-05-05T00:00:00Z'
+    name: projects/PROJECT_ID/instances/INSTANCE_ID/backups/BACKUP_ID
+    sizeBytes: '1000000000'
+    state: READY
 
 ### Client libraries
 
@@ -3058,13 +3044,11 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
-You are about to delete backup BACKUP_NAME
-
-Do you want to continue (Y/n)?  Y
-
-Deleted backup BACKUP_NAME.
-```
+    You are about to delete backup BACKUP_NAME
+    
+    Do you want to continue (Y/n)?  Y
+    
+    Deleted backup BACKUP_NAME.
 
 ### Client libraries
 

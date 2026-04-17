@@ -29,10 +29,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases splits
-```
+    gcloud spanner databases splits
 
-``` wrap-code
-gcloud beta spanner databases splits
-```
+    gcloud beta spanner databases splits

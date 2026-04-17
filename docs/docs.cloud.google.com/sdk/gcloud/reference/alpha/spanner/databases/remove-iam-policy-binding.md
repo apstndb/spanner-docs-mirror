@@ -14,15 +14,11 @@ EXAMPLES
 
 To remove an IAM policy binding for the role of 'roles/editor' for the user 'test-user@gmail.com' with database 'my-database' and instance 'my-instance', run:
 
-``` wrap-code
-gcloud alpha spanner databases remove-iam-policy-binding my-database --instance='my-instance' --member='user:test-user@gmail.com' --role='roles/editor'
-```
+    gcloud alpha spanner databases remove-iam-policy-binding my-database --instance='my-instance' --member='user:test-user@gmail.com' --role='roles/editor'
 
 To remove an IAM policy binding which expires at the end of the year 2018 for the role of 'roles/spanner.databaseAdmin' and the user 'test-user@gmail.com' with database 'my-database' and instance 'my-instance', run:
 
-``` wrap-code
-gcloud alpha spanner databases remove-iam-policy-binding my-database --instance='my-instance' --member='user:test-user@gmail.com' --role='roles/spanner.databaseAdmin' --condition='expression=request.time < timestamp("2019-01-01T00:00:00Z"),title=expires_end_of_2018,descrip\tion=Expires at midnight on 2018-12-31'
-```
+    gcloud alpha spanner databases remove-iam-policy-binding my-database --instance='my-instance' --member='user:test-user@gmail.com' --role='roles/spanner.databaseAdmin' --condition='expression=request.time < timestamp("2019-01-01T00:00:00Z"),title=expires_end_of_2018,descrip\tion=Expires at midnight on 2018-12-31'
 
 See <https://cloud.google.com/iam/docs/managing-policies> for details of policy role and member types.
 
@@ -111,10 +107,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases remove-iam-policy-binding
-```
+    gcloud spanner databases remove-iam-policy-binding
 
-``` wrap-code
-gcloud beta spanner databases remove-iam-policy-binding
-```
+    gcloud beta spanner databases remove-iam-policy-binding

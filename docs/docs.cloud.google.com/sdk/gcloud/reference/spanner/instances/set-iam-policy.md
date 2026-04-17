@@ -14,9 +14,7 @@ EXAMPLES
 
 The following command reads an IAM policy defined in a JSON file `policy.json` and sets it for a spanner instance with the ID `example-instance` :
 
-``` wrap-code
-gcloud spanner instances set-iam-policy example-instance policy.json
-```
+    gcloud spanner instances set-iam-policy example-instance policy.json
 
 See <https://cloud.google.com/iam/docs/managing-policies> for details of the policy file format and contents.
 
@@ -60,10 +58,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instances set-iam-policy
-```
+    gcloud alpha spanner instances set-iam-policy
 
-``` wrap-code
-gcloud beta spanner instances set-iam-policy
-```
+    gcloud beta spanner instances set-iam-policy

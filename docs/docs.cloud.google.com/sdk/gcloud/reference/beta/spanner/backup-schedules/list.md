@@ -14,9 +14,7 @@ EXAMPLES
 
 To list Cloud Spanner backup schedules, run:
 
-``` wrap-code
-gcloud beta spanner backup-schedules list --instance=instance-id --database=database-id
-```
+    gcloud beta spanner backup-schedules list --instance=instance-id --database=database-id
 
 REQUIRED FLAGS
 
@@ -71,10 +69,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner backup-schedules list
-```
+    gcloud spanner backup-schedules list
 
-``` wrap-code
-gcloud alpha spanner backup-schedules list
-```
+    gcloud alpha spanner backup-schedules list

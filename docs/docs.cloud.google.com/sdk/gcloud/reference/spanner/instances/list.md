@@ -14,9 +14,7 @@ EXAMPLES
 
 To list all Cloud Spanner instances in this project, run:
 
-``` wrap-code
-gcloud spanner instances list
-```
+    gcloud spanner instances list
 
 LIST COMMAND FLAGS
 
@@ -41,10 +39,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instances list
-```
+    gcloud alpha spanner instances list
 
-``` wrap-code
-gcloud beta spanner instances list
-```
+    gcloud beta spanner instances list

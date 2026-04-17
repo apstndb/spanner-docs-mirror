@@ -14,15 +14,11 @@ EXAMPLES
 
 To describe an instance config named regional-us-central1, run:
 
-``` wrap-code
-gcloud beta spanner instance-configs describe regional-us-central1
-```
+    gcloud beta spanner instance-configs describe regional-us-central1
 
 To describe an instance config named nam-eur-asia1, run:
 
-``` wrap-code
-gcloud beta spanner instance-configs describe nam-eur-asia1
-```
+    gcloud beta spanner instance-configs describe nam-eur-asia1
 
 POSITIONAL ARGUMENTS
 
@@ -39,10 +35,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner instance-configs describe
-```
+    gcloud spanner instance-configs describe
 
-``` wrap-code
-gcloud alpha spanner instance-configs describe
-```
+    gcloud alpha spanner instance-configs describe

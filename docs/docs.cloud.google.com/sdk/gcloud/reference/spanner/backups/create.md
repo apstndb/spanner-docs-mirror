@@ -14,15 +14,11 @@ EXAMPLES
 
 To create a backup asynchronously, run:
 
-``` wrap-code
-gcloud spanner backups create BACKUP_ID --instance=INSTANCE_NAME --database=DATABASE --expiration-date=2020-03-29T10:49:41Z --async
-```
+    gcloud spanner backups create BACKUP_ID --instance=INSTANCE_NAME --database=DATABASE --expiration-date=2020-03-29T10:49:41Z --async
 
 To create a backup synchronously, run:
 
-``` wrap-code
-gcloud spanner backups create BACKUP_ID --instance=INSTANCE_NAME --database=DATABASE --retention-period=2w
-```
+    gcloud spanner backups create BACKUP_ID --instance=INSTANCE_NAME --database=DATABASE --retention-period=2w
 
 POSITIONAL ARGUMENTS
 
@@ -163,10 +159,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner backups create
-```
+    gcloud alpha spanner backups create
 
-``` wrap-code
-gcloud beta spanner backups create
-```
+    gcloud beta spanner backups create

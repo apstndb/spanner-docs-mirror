@@ -14,15 +14,11 @@ EXAMPLES
 
 To update the display name of a Cloud Spanner instance, run:
 
-``` wrap-code
-gcloud spanner instances update my-instance-id --description=my-new-display-name
-```
+    gcloud spanner instances update my-instance-id --description=my-new-display-name
 
 To update the node count of a Cloud Spanner instance, run:
 
-``` wrap-code
-gcloud spanner instances update my-instance-id --nodes=1
-```
+    gcloud spanner instances update my-instance-id --nodes=1
 
 POSITIONAL ARGUMENTS
 
@@ -136,10 +132,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instances update
-```
+    gcloud alpha spanner instances update
 
-``` wrap-code
-gcloud beta spanner instances update
-```
+    gcloud beta spanner instances update

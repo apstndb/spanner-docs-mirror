@@ -62,10 +62,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases
-```
+    gcloud alpha spanner databases
 
-``` wrap-code
-gcloud beta spanner databases
-```
+    gcloud beta spanner databases

@@ -101,10 +101,8 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
-Create request issued for: BACKUP_NAME
-Check operation [projects/PROJECT_ID/instances/INSTANCE_ID/backups/BACKUP_NAME/operations/_auto_op_234567] for status.
-```
+    Create request issued for: BACKUP_NAME
+    Check operation [projects/PROJECT_ID/instances/INSTANCE_ID/backups/BACKUP_NAME/operations/_auto_op_234567] for status.
 
 Here are some usage notes:
 

@@ -14,9 +14,7 @@ EXAMPLES
 
 To delete a custom Cloud Spanner instance configuration, run:
 
-``` wrap-code
-gcloud spanner instance-configs delete custom-instance-config
-```
+    gcloud spanner instance-configs delete custom-instance-config
 
 POSITIONAL ARGUMENTS
 
@@ -40,10 +38,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instance-configs delete
-```
+    gcloud alpha spanner instance-configs delete
 
-``` wrap-code
-gcloud beta spanner instance-configs delete
-```
+    gcloud beta spanner instance-configs delete

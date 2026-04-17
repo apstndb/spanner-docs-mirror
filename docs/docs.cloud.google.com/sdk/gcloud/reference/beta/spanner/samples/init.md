@@ -14,15 +14,11 @@ EXAMPLES
 
 To initialize the 'finance' sample app using instance 'my-instance', run:
 
-``` wrap-code
-gcloud beta spanner samples init finance --instance-id=my-instance
-```
+    gcloud beta spanner samples init finance --instance-id=my-instance
 
 To initialize the 'finance-graph' sample app using instance 'my-instance', run:
 
-``` wrap-code
-gcloud beta spanner samples init finance-graph --instance-id=my-instance
-```
+    gcloud beta spanner samples init finance-graph --instance-id=my-instance
 
 POSITIONAL ARGUMENTS
 
@@ -49,10 +45,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner samples init
-```
+    gcloud spanner samples init
 
-``` wrap-code
-gcloud alpha spanner samples init
-```
+    gcloud alpha spanner samples init

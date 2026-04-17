@@ -18,7 +18,7 @@ Use [Spanner federated queries](https://docs.cloud.google.com/bigquery/docs/span
 
 Use `TEXT` columns with checked constraints instead. Unlike `ENUMS` , the sort order of a `TEXT` column can't be user-defined. The following example restricts the column to only support the `'C'` , `'B'` , and `'A'` values.
 
-``` prettyprint, lang-sql
+```sql
 CREATE TABLE singers (
  singer_id BIGINT PRIMARY KEY,
  type TEXT NOT NULL CHECK (type IN ('C', 'B', 'A'))
@@ -38,7 +38,7 @@ No recommendation available.
 
 Use a `JOIN` or a subquery to filter for the `MAX` or `MIN` value for the aggregation. The following example requires filtering `MAX` or `MIN` in a subquery.
 
-``` prettyprint, lang-sql
+```sql
 WITH amount_per_year AS (
  SELECT 1000 AS amount, 2025 AS year
  UNION ALL
@@ -68,7 +68,7 @@ Use the [`JSONB` data type.](https://docs.cloud.google.com/spanner/docs/referenc
 
 We recommend explicitly mapping each column with the `jsonb_build_object` function:
 
-``` prettyprint, lang-sql
+```sql
 WITH singers AS (
   SELECT 1::int8 AS id, 'Singer First Name'::text AS first_name
 )
@@ -85,7 +85,7 @@ No recommendation available.
 
 We recommend using an index over a `TEXT` generated column, as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 CREATE TABLE singers(
  id numeric NOT NULL,
  pk text GENERATED ALWAYS AS (id::text) STORED,
@@ -129,7 +129,7 @@ We recommend that you apply a custom function `F` , which converts a row to `TEX
   
 In the following example, we use `CONCAT` as our function `F` :
 
-``` prettyprint, lang-sql
+```sql
 -- Given the following schema
 
 CREATE TABLE singers (
@@ -167,7 +167,7 @@ LIMIT 10; /* Optional: LIMIT to a max of 10 rows
 
 Use the equality operator with the `ANY` function, as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 SELECT value = any(array[...])
 ```
 
@@ -181,7 +181,7 @@ PostgreSQL dialect recommendation
 
 Use the formula of the function explicitly, as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 SELECT LN(x + SQRT(x*x - 1));
 ```
 
@@ -197,7 +197,7 @@ No recommendation available.
 
 Workaround available outside of aggregation and `GROUP BY` . Use a subquery with the `ORDER BY` or `LIMIT` clauses, as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 SELECT * FROM
 (
   (expression)
@@ -211,7 +211,7 @@ LIMIT 1;
 
 You can use `ARRAY_AGG` and `UNNEST` as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 WITH albums AS
 (
   SELECT ARRAY['Song A', NULL, 'Song B'] AS songs
@@ -228,7 +228,7 @@ SELECT ARRAY_AGG(song) FROM albums, UNNEST(songs) song;
 
 Use the array subscript operator, as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 SELECT array_expression[1];
 ```
 
@@ -238,7 +238,7 @@ Note that this will return `NULL` for empty arrays.
 
 Use the equality operator with the `ANY` function, as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 SELECT search_value = ANY(array_to_search);
 ```
 
@@ -246,7 +246,7 @@ SELECT search_value = ANY(array_to_search);
 
 Use the array contains operator, as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 SELECT array_to_search @> search_values;
 ```
 
@@ -254,7 +254,7 @@ SELECT array_to_search @> search_values;
 
 Use the array overlap operator, as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 SELECT array_to_search && search_values;
 ```
 
@@ -262,7 +262,7 @@ SELECT array_to_search && search_values;
 
 Use a subquery to count distinct values and compare them to the original array length, as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 SELECT ARRAY_LENGTH(value, 1) = (
 SELECT COUNT(DISTINCT e)
 FROM UNNEST(value) AS e);
@@ -272,7 +272,7 @@ FROM UNNEST(value) AS e);
 
 Use the array subscript operator, as shown in the following example
 
-``` prettyprint, lang-sql
+```sql
 SELECT (value)[ARRAY_LENGTH(value, 1)];
       
 ```
@@ -283,7 +283,7 @@ This returns `NULL` for empty arrays.
 
 Use a subquery with `UNNEST` and the `MAX` function, as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 SELECT MAX(e) FROM UNNEST(value) AS e;
       
 ```
@@ -292,7 +292,7 @@ SELECT MAX(e) FROM UNNEST(value) AS e;
 
 Use a subquery with `UNNEST` and the `MIN` function, as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 SELECT MIN(e) FROM UNNEST(value) AS e;
       
 ```
@@ -305,7 +305,7 @@ No recommendation available.
 
 Use the formula of the function explicitly, as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 SELECT LN(x + SQRT(x*x - 1));
 ```
 
@@ -313,7 +313,7 @@ SELECT LN(x + SQRT(x*x - 1));
 
 Use the formula of the function explicitly, as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 SELECT 0.5 * LN((1 + x) / (1 - x));
 ```
 
@@ -333,7 +333,7 @@ No recommendation available.
 
 Use the formula of the function explicitly, as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 SELECT (EXP(x) + EXP(-x)) / 2;
       
 ```
@@ -356,7 +356,7 @@ No recommendation available.
 
 Use a regular expression and the `substring` function, as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 /* Use modified regular expression from
   https://tools.ietf.org/html/rfc3986#appendix-A. */
 
@@ -394,7 +394,7 @@ No recommendation available.
 
 We recommend that you protect against an overflow explicitly leveraging the `NUMERIC` data type.
 
-``` prettyprint, lang-sql
+```sql
 WITH numbers AS
 (
   SELECT 1::int8 AS a, 9223372036854775807::int8 AS b
@@ -421,7 +421,7 @@ No recommendation available.
 
 We recommend that you protect against an overflow explicitly leveraging the `NUMERIC` data type during a division operation.
 
-``` prettyprint, lang-sql
+```sql
 WITH numbers AS
 (
   SELECT 1::int8 AS a, 9223372036854775807::int8 AS b
@@ -443,7 +443,7 @@ FROM numbers;
 
 We recommend that you protect against an overflow explicitly leveraging the `NUMERIC` data type during a multiplication operation.
 
-``` prettyprint, lang-sql
+```sql
 WITH numbers AS
 (
   SELECT 1::int8 AS a, 9223372036854775807::int8 AS b
@@ -464,7 +464,7 @@ FROM numbers;
 
 We recommend that you protect against an overflow explicitly leveraging the `NUMERIC` data type during a negation operation.
 
-``` prettyprint, lang-sql
+```sql
 WITH numbers AS
 (
   SELECT 9223372036854775807 AS a
@@ -485,7 +485,7 @@ FROM numbers;
 
 We recommend that you protect against an overflow explicitly leveraging the `NUMERIC` data type during a subtraction operation.
 
-``` prettyprint, lang-sql
+```sql
 WITH numbers AS
 (
   SELECT 1::int8 AS a, 9223372036854775807::int8 AS b
@@ -510,7 +510,7 @@ No recommendation available.
 
 Use the formula of the function explicitly, as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 SELECT (EXP(x) - EXP(-x)) / 2;
 ```
 
@@ -518,7 +518,7 @@ SELECT (EXP(x) - EXP(-x)) / 2;
 
 Use the `regexp_split_to_array` function, as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 WITH letters AS
 (
   SELECT '' as letter_group
@@ -536,7 +536,7 @@ FROM letters;
 
 Use the formula of the function explicitly (unbiased standard deviation), as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 WITH numbers AS
 (
   SELECT 1 AS x
@@ -562,7 +562,7 @@ CROSS JOIN mean
 
 Use the formula of the function explicitly (unbiased standard deviation), as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 WITH numbers AS
 (
   SELECT 1 AS x
@@ -588,7 +588,7 @@ CROSS JOIN mean
 
 Use the formula of the function explicitly.  
 
-``` prettyprint, lang-sql
+```sql
 SELECT (EXP(x) - EXP(-x)) / (EXP(x) + EXP(-x));
 ```
 
@@ -596,7 +596,7 @@ SELECT (EXP(x) - EXP(-x)) / (EXP(x) + EXP(-x));
 
 Use the `to_timestamp` function and truncate the microseconds part of the input (precision loss), as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 SELECT to_timestamp(1230219000123456 / 1000000);
 ```
 
@@ -604,7 +604,7 @@ SELECT to_timestamp(1230219000123456 / 1000000);
 
 Use the `to_timestamp` function and truncate the milliseconds part of the input (precision loss), as shown in the following example:
 
-``` prettyprint, lang-sql
+```sql
 SELECT to_timestamp(1230219000123 / 1000);
 ```
 
@@ -622,7 +622,7 @@ No recommendation available.
 
 Use the formula of the function explicitly (unbiased variance), as shown in the following:  
 
-``` prettyprint, lang-sql
+```sql
 -- Use formula directly (unbiased)
 
 WITH numbers AS
@@ -645,7 +645,7 @@ CROSS JOIN mean
 
 Use the formula of the function explicitly (unbiased variance), as shown in the following example:  
 
-``` prettyprint, lang-sql
+```sql
 -- Use formula directly (unbiased VARIANCE like VAR_SAMP)
 
 WITH numbers AS

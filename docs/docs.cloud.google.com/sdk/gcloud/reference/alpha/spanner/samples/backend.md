@@ -10,29 +10,21 @@ DESCRIPTION
 
 `(ALPHA)` This command starts the backend gRPC service for the given sample application. Before starting the service, create the database and load any initial data with:
 
-``` wrap-code
-gcloud alpha spanner samples init APPNAME --instance-id=INSTANCE_ID
-```
+    gcloud alpha spanner samples init APPNAME --instance-id=INSTANCE_ID
 
 After starting the service, generate traffic with:
 
-``` wrap-code
-gcloud alpha spanner samples workload APPNAME
-```
+    gcloud alpha spanner samples workload APPNAME
 
 To run all three steps together, use:
 
-``` wrap-code
-gcloud alpha spanner samples run APPNAME --instance-id=INSTANCE_ID
-```
+    gcloud alpha spanner samples run APPNAME --instance-id=INSTANCE_ID
 
 EXAMPLES
 
 To run the backend gRPC service for the 'finance' sample app using instance 'my-instance', run:
 
-``` wrap-code
-gcloud alpha spanner samples backend finance --instance-id=my-instance
-```
+    gcloud alpha spanner samples backend finance --instance-id=my-instance
 
 POSITIONAL ARGUMENTS
 
@@ -63,10 +55,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner samples backend
-```
+    gcloud spanner samples backend
 
-``` wrap-code
-gcloud beta spanner samples backend
-```
+    gcloud beta spanner samples backend

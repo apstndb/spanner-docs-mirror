@@ -14,9 +14,7 @@ EXAMPLES
 
 To print the IAM policy for a given Cloud Spanner instance, run:
 
-``` wrap-code
-gcloud beta spanner instances get-iam-policy my-instance
-```
+    gcloud beta spanner instances get-iam-policy my-instance
 
 POSITIONAL ARGUMENTS
 
@@ -63,10 +61,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner instances get-iam-policy
-```
+    gcloud spanner instances get-iam-policy
 
-``` wrap-code
-gcloud alpha spanner instances get-iam-policy
-```
+    gcloud alpha spanner instances get-iam-policy

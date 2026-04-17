@@ -14,9 +14,7 @@ EXAMPLES
 
 To print the IAM policy for a given Cloud Spanner backup, run:
 
-``` wrap-code
-gcloud alpha spanner backups get-iam-policy example-backup --instance=example-instance
-```
+    gcloud alpha spanner backups get-iam-policy example-backup --instance=example-instance
 
 POSITIONAL ARGUMENTS
 
@@ -71,10 +69,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner backups get-iam-policy
-```
+    gcloud spanner backups get-iam-policy
 
-``` wrap-code
-gcloud beta spanner backups get-iam-policy
-```
+    gcloud beta spanner backups get-iam-policy

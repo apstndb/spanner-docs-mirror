@@ -20,27 +20,19 @@ EXAMPLES
 
 To export the configuration for a database, run:
 
-``` wrap-code
-gcloud alpha spanner databases config export my-database
-```
+    gcloud alpha spanner databases config export my-database
 
 To export the configuration for a database to a file, run:
 
-``` wrap-code
-gcloud alpha spanner databases config export my-database --path=/path/to/dir/
-```
+    gcloud alpha spanner databases config export my-database --path=/path/to/dir/
 
 To export the configuration for a database in Terraform HCL format, run:
 
-``` wrap-code
-gcloud alpha spanner databases config export my-database --resource-format=terraform
-```
+    gcloud alpha spanner databases config export my-database --resource-format=terraform
 
 To export the configurations for all databases within a project, run:
 
-``` wrap-code
-gcloud alpha spanner databases config export --all
-```
+    gcloud alpha spanner databases config export --all
 
 POSITIONAL ARGUMENTS
 

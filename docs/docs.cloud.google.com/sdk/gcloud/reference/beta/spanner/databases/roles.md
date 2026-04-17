@@ -27,10 +27,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases roles
-```
+    gcloud spanner databases roles
 
-``` wrap-code
-gcloud alpha spanner databases roles
-```
+    gcloud alpha spanner databases roles

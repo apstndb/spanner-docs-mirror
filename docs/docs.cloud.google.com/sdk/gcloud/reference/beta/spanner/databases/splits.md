@@ -29,10 +29,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases splits
-```
+    gcloud spanner databases splits
 
-``` wrap-code
-gcloud alpha spanner databases splits
-```
+    gcloud alpha spanner databases splits

@@ -14,9 +14,7 @@ EXAMPLES
 
 To describe a Spanner instance partition, run:
 
-``` wrap-code
-gcloud spanner instance-partitions describe my-instance-partition-id --instance=my-instance-id
-```
+    gcloud spanner instance-partitions describe my-instance-partition-id --instance=my-instance-id
 
 POSITIONAL ARGUMENTS
 
@@ -58,10 +56,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instance-partitions describe
-```
+    gcloud alpha spanner instance-partitions describe
 
-``` wrap-code
-gcloud beta spanner instance-partitions describe
-```
+    gcloud beta spanner instance-partitions describe

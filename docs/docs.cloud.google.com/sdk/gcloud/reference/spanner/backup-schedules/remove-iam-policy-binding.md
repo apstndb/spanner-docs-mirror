@@ -14,15 +14,11 @@ EXAMPLES
 
 To remove an IAM policy binding for the role of 'roles/editor' for the user 'test-user@gmail.com', run:
 
-``` wrap-code
-gcloud spanner backup-schedules remove-iam-policy-binding backup-schedule-id --instance=instance-id --database=database-id --member='user:test-user@gmail.com' --role='roles/editor'
-```
+    gcloud spanner backup-schedules remove-iam-policy-binding backup-schedule-id --instance=instance-id --database=database-id --member='user:test-user@gmail.com' --role='roles/editor'
 
 To remove an IAM policy binding which expires at the end of the year 2025 for the role of 'roles/editor' and the user 'test-user@gmail.com', run:
 
-``` wrap-code
-gcloud spanner backup-schedules remove-iam-policy-binding backup-schedule-id --instance=instance-id --database=database-id --member='user:test-user@gmail.com' --role='roles/editor' --condition='expression=request.time < timestamp("2026-01-01T00:00:00Z"),title=expires_end_of_2025,descrip\tion=Expires at midnight on 2025-12-31'
-```
+    gcloud spanner backup-schedules remove-iam-policy-binding backup-schedule-id --instance=instance-id --database=database-id --member='user:test-user@gmail.com' --role='roles/editor' --condition='expression=request.time < timestamp("2026-01-01T00:00:00Z"),title=expires_end_of_2025,descrip\tion=Expires at midnight on 2025-12-31'
 
 See <https://cloud.google.com/iam/docs/managing-policies> for details of policy role and member types.
 
@@ -117,10 +113,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner backup-schedules remove-iam-policy-binding
-```
+    gcloud alpha spanner backup-schedules remove-iam-policy-binding
 
-``` wrap-code
-gcloud beta spanner backup-schedules remove-iam-policy-binding
-```
+    gcloud beta spanner backup-schedules remove-iam-policy-binding

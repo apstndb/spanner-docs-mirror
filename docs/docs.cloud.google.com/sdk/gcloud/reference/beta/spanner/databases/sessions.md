@@ -29,10 +29,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases sessions
-```
+    gcloud spanner databases sessions
 
-``` wrap-code
-gcloud alpha spanner databases sessions
-```
+    gcloud alpha spanner databases sessions

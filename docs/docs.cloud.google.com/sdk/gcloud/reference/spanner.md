@@ -50,10 +50,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner
-```
+    gcloud alpha spanner
 
-``` wrap-code
-gcloud beta spanner
-```
+    gcloud beta spanner

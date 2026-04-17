@@ -28,15 +28,11 @@ In particular, make sure that you run [`gcloud auth application-default login`](
     
     1.  First, set `PROJECT_ID` for the current PowerShell session:
         
-        ``` notranslate
-        $env:PROJECT_ID = "MY_PROJECT_ID"
-        ```
+            $env:PROJECT_ID = "MY_PROJECT_ID"
     
     2.  Then, set `PROJECT_ID` for all processes created after this command:
         
-        ``` notranslate
-        [Environment]::SetEnvironmentVariable("PROJECT_ID", "MY_PROJECT_ID", "User")
-        ```
+            [Environment]::SetEnvironmentVariable("PROJECT_ID", "MY_PROJECT_ID", "User")
 
 2.  Download credentials.
     
@@ -50,15 +46,11 @@ In particular, make sure that you run [`gcloud auth application-default login`](
     
     1.  First, to set `GOOGLE_APPLICATION_CREDENTIALS` for this PowerShell session:
         
-        ``` notranslate
-        $env:GOOGLE_APPLICATION_CREDENTIALS = "C:\Users\CURRENT_USER\Downloads\FILENAME.json"
-        ```
+            $env:GOOGLE_APPLICATION_CREDENTIALS = "C:\Users\CURRENT_USER\Downloads\FILENAME.json"
     
     2.  Then, to set `GOOGLE_APPLICATION_CREDENTIALS` for all processes created after this command:
         
-        ``` notranslate
-        [Environment]::SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "C:\Users\CURRENT_USER\Downloads\FILENAME.json", "User")
-        ```
+            [Environment]::SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "C:\Users\CURRENT_USER\Downloads\FILENAME.json", "User")
 
 4.  Clone the sample app repository to your local machine:
     

@@ -14,15 +14,11 @@ EXAMPLES
 
 To add an IAM policy binding for the role of 'roles/editor' for the user 'test-user@gmail.com', run:
 
-``` wrap-code
-gcloud beta spanner backup-schedules add-iam-policy-binding backup-schedule-id --instance=instance-id --database=database-id --member='user:test-user@gmail.com' --role='roles/editor'
-```
+    gcloud beta spanner backup-schedules add-iam-policy-binding backup-schedule-id --instance=instance-id --database=database-id --member='user:test-user@gmail.com' --role='roles/editor'
 
 To add an IAM policy binding which expires at the end of the year 2025 for the role of 'roles/editor' and the user 'test-user@gmail.com', run:
 
-``` wrap-code
-gcloud beta spanner backup-schedules add-iam-policy-binding backup-schedule-id --instance=instance-id --database=database-id --member='user:test-user@gmail.com' --role='roles/editor' --condition='expression=request.time < timestamp("2026-01-01T00:00:00Z"),title=expires_end_of_2025,descrip\tion=Expires at midnight on 2025-12-31'
-```
+    gcloud beta spanner backup-schedules add-iam-policy-binding backup-schedule-id --instance=instance-id --database=database-id --member='user:test-user@gmail.com' --role='roles/editor' --condition='expression=request.time < timestamp("2026-01-01T00:00:00Z"),title=expires_end_of_2025,descrip\tion=Expires at midnight on 2025-12-31'
 
 See <https://cloud.google.com/iam/docs/managing-policies> for details of policy role and member types.
 
@@ -112,10 +108,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner backup-schedules add-iam-policy-binding
-```
+    gcloud spanner backup-schedules add-iam-policy-binding
 
-``` wrap-code
-gcloud alpha spanner backup-schedules add-iam-policy-binding
-```
+    gcloud alpha spanner backup-schedules add-iam-policy-binding

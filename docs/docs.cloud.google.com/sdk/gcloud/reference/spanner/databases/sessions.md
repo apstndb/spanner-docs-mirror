@@ -29,10 +29,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases sessions
-```
+    gcloud alpha spanner databases sessions
 
-``` wrap-code
-gcloud beta spanner databases sessions
-```
+    gcloud beta spanner databases sessions

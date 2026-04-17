@@ -43,10 +43,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner backup-schedules
-```
+    gcloud spanner backup-schedules
 
-``` wrap-code
-gcloud alpha spanner backup-schedules
-```
+    gcloud alpha spanner backup-schedules

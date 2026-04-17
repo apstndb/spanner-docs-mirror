@@ -82,7 +82,7 @@ The following options are optional:
 
 The following example starts PGAdapter in standalone mode on port 5432 using the default application credentials.
 
-``` printprint lang-sh
+```sh
 java -jar pgadapter.jar \
 -p my-project \
 -i my-instance \

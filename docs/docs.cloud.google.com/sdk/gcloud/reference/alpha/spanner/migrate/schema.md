@@ -14,9 +14,7 @@ EXAMPLES
 
 To generate schema file from the source database:
 
-``` wrap-code
-gcloud alpha spanner migrate schema --source=postgresql < ~/cart.pg_dump
-```
+    gcloud alpha spanner migrate schema --source=postgresql < ~/cart.pg_dump
 
 REQUIRED FLAGS
 

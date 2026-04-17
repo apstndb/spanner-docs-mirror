@@ -14,15 +14,11 @@ EXAMPLES
 
 To remove an IAM policy binding for the role of 'roles/spanner.backupAdmin' for the user 'test-user@gmail.com' with backup 'example-backup' and instance 'example-instance', run:
 
-``` wrap-code
-gcloud spanner backups remove-iam-policy-binding example-backup --instance='example-instance' --member='user:test-user@gmail.com' --role='roles/spanner.backupAdmin'
-```
+    gcloud spanner backups remove-iam-policy-binding example-backup --instance='example-instance' --member='user:test-user@gmail.com' --role='roles/spanner.backupAdmin'
 
 To remove an IAM policy binding which expires at the end of the year 2018 for the role of 'roles/spanner.backupAdmin' and the user 'test-user@gmail.com' with backup 'example-backup' and instance 'example-instance', run:
 
-``` wrap-code
-gcloud spanner backups remove-iam-policy-binding example-backup --instance='example-instance' --member='user:test-user@gmail.com' --role='roles/spanner.backupAdmin' --condition='expression=request.time < timestamp("2019-01-01T00:00:00Z"),title=expires_end_of_2018,descrip\tion=Expires at midnight on 2018-12-31'
-```
+    gcloud spanner backups remove-iam-policy-binding example-backup --instance='example-instance' --member='user:test-user@gmail.com' --role='roles/spanner.backupAdmin' --condition='expression=request.time < timestamp("2019-01-01T00:00:00Z"),title=expires_end_of_2018,descrip\tion=Expires at midnight on 2018-12-31'
 
 See <https://cloud.google.com/iam/docs/managing-policies> for details of policy role and member types.
 
@@ -111,10 +107,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner backups remove-iam-policy-binding
-```
+    gcloud alpha spanner backups remove-iam-policy-binding
 
-``` wrap-code
-gcloud beta spanner backups remove-iam-policy-binding
-```
+    gcloud beta spanner backups remove-iam-policy-binding

@@ -14,9 +14,7 @@ EXAMPLES
 
 The following command reads an IAM policy defined in a JSON file `policy.json` and sets it for a Cloud Spanner backup schedule:
 
-``` wrap-code
-gcloud beta spanner backup-schedules set-iam-policy backup-schedule-id --instance=instance-id --database=database-id policy.json
-```
+    gcloud beta spanner backup-schedules set-iam-policy backup-schedule-id --instance=instance-id --database=database-id policy.json
 
 See <https://cloud.google.com/iam/docs/managing-policies> for details of the policy file format and contents.
 
@@ -74,10 +72,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner backup-schedules set-iam-policy
-```
+    gcloud spanner backup-schedules set-iam-policy
 
-``` wrap-code
-gcloud alpha spanner backup-schedules set-iam-policy
-```
+    gcloud alpha spanner backup-schedules set-iam-policy

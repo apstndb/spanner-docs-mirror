@@ -14,21 +14,15 @@ EXAMPLES
 
 To trigger change quorum from single-region mode to dual-region mode, run:
 
-``` wrap-code
-gcloud beta spanner databases change-quorum my-database-id --instance=my-instance-id --dual-region
-```
+    gcloud beta spanner databases change-quorum my-database-id --instance=my-instance-id --dual-region
 
 To trigger change quorum from dual-region mode to single-region mode with serving location as `asia-south1` , run:
 
-``` wrap-code
-gcloud beta spanner databases change-quorum my-database-id --instance=my-instance-id --single-region --serving-location=asia-south1
-```
+    gcloud beta spanner databases change-quorum my-database-id --instance=my-instance-id --single-region --serving-location=asia-south1
 
 To trigger change quorum using etag specified, run:
 
-``` wrap-code
-gcloud beta spanner databases change-quorum my-database-id --instance=my-instance-id --dual-region --etag=ETAG
-```
+    gcloud beta spanner databases change-quorum my-database-id --instance=my-instance-id --dual-region --etag=ETAG
 
 POSITIONAL ARGUMENTS
 
@@ -94,10 +88,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases change-quorum
-```
+    gcloud spanner databases change-quorum
 
-``` wrap-code
-gcloud alpha spanner databases change-quorum
-```
+    gcloud alpha spanner databases change-quorum

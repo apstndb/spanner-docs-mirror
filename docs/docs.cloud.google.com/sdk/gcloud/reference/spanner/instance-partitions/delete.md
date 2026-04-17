@@ -14,9 +14,7 @@ EXAMPLES
 
 To delete a Spanner instance partition, run:
 
-``` wrap-code
-gcloud spanner instance-partitions delete my-instance-partition-id --instance=my-instance-id
-```
+    gcloud spanner instance-partitions delete my-instance-partition-id --instance=my-instance-id
 
 POSITIONAL ARGUMENTS
 
@@ -58,10 +56,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner instance-partitions delete
-```
+    gcloud alpha spanner instance-partitions delete
 
-``` wrap-code
-gcloud beta spanner instance-partitions delete
-```
+    gcloud beta spanner instance-partitions delete

@@ -32,9 +32,7 @@ To install the `Google.Cloud.Spanner.Data` client library in Visual Studio, do t
 
 ### Go
 
-``` notranslate
-go get cloud.google.com/go/spanner/...
-```
+    go get cloud.google.com/go/spanner/...
 
 For more information, see [Setting Up a Go Development Environment](https://docs.cloud.google.com/go/docs/setup) .
 
@@ -85,17 +83,13 @@ For more information, see [Setting Up a Java Development Environment](https://do
 
 ### Node.js
 
-``` notranslate
-npm install @google-cloud/spanner
-```
+    npm install @google-cloud/spanner
 
 For more information, see [Setting Up a Node.js Development Environment](https://docs.cloud.google.com/nodejs/docs/setup) .
 
 ### PHP
 
-``` notranslate
-composer require google/cloud-spanner
-```
+    composer require google/cloud-spanner
 
 > **Note:** The Spanner Client Library requires that you install and enable the [gRPC extension](https://docs.cloud.google.com/php/grpc) for PHP.
 
@@ -103,17 +97,13 @@ For more information, see [Using PHP on Google Cloud](https://docs.cloud.google.
 
 ### Python
 
-``` notranslate
-pip install --upgrade google-cloud-spanner
-```
+    pip install --upgrade google-cloud-spanner
 
 For more information, see [Setting Up a Python Development Environment](https://docs.cloud.google.com/python/docs/setup) .
 
 ### Ruby
 
-``` notranslate
-gem install google-cloud-spanner
-```
+    gem install google-cloud-spanner
 
 For more information, see [Setting Up a Ruby Development Environment](https://docs.cloud.google.com/ruby/docs/setup) .
 

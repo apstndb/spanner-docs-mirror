@@ -144,24 +144,22 @@ Save the request body in a file named `request.json` , and execute the following
 
 You should receive a JSON response similar to the following:
 
-``` readonly
-{
-  "name": "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID/backupSchedules/SCHEDULE_ID",
-  "retentionDuration": "86400s",
-  "encryptionConfig": {
-    "encryptionType": "USE_DATABASE_ENCRYPTION"
-  },
-  "spec": {
-    "cronSpec": {
-      "text": "0 2 * * *",
-      "timeZone": "UTC",
-      "creationWindow": "14400s"
+    {
+      "name": "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID/backupSchedules/SCHEDULE_ID",
+      "retentionDuration": "86400s",
+      "encryptionConfig": {
+        "encryptionType": "USE_DATABASE_ENCRYPTION"
+      },
+      "spec": {
+        "cronSpec": {
+          "text": "0 2 * * *",
+          "timeZone": "UTC",
+          "creationWindow": "14400s"
+        }
+      },
+      "BACKUP_TYPE": {},
+      "updateTime": "2024-05-22T11:13:51.835590Z"
     }
-  },
-  "BACKUP_TYPE": {},
-  "updateTime": "2024-05-22T11:13:51.835590Z"
-}
-```
 
 ### Client libraries
 
@@ -843,21 +841,19 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
-{
-  encryptionConfig:
-    encryptionType: USE_DATABASE_ENCRYPTION
-  incrementalBackupSpec: {}
-  name: projects/my-project/instances/my-instance/databases/my-database/backupSchedules/my-schedule
-  retentionDuration: 2592000s
-  spec:
-    cronSpec:
-      creationWindow: 14400s
-      text: 0 */4 * * *
-      timeZone: UTC
-  updateTime: '2024-09-13T10:24:18.754839Z'
-}
-```
+    {
+      encryptionConfig:
+        encryptionType: USE_DATABASE_ENCRYPTION
+      incrementalBackupSpec: {}
+      name: projects/my-project/instances/my-instance/databases/my-database/backupSchedules/my-schedule
+      retentionDuration: 2592000s
+      spec:
+        cronSpec:
+          creationWindow: 14400s
+          text: 0 */4 * * *
+          timeZone: UTC
+      updateTime: '2024-09-13T10:24:18.754839Z'
+    }
 
 ### REST v1
 
@@ -900,24 +896,22 @@ Execute the following command:
 
 You should receive a JSON response similar to the following:
 
-``` readonly
-{
-  "name": "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID/backupSchedules/SCHEDULE_ID",
-  "retentionDuration": "100000s",
-  "encryptionConfig": {
-    "encryptionType": "USE_DATABASE_ENCRYPTION"
-  },
-  "spec": {
-    "cronSpec": {
-      "text": "0 2 * * *",
-      "timeZone": "UTC",
-      "creationWindow": "14400s"
+    {
+      "name": "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID/backupSchedules/SCHEDULE_ID",
+      "retentionDuration": "100000s",
+      "encryptionConfig": {
+        "encryptionType": "USE_DATABASE_ENCRYPTION"
+      },
+      "spec": {
+        "cronSpec": {
+          "text": "0 2 * * *",
+          "timeZone": "UTC",
+          "creationWindow": "14400s"
+        }
+      },
+      "fullBackupSpec": {},
+      "updateTime": "2024-05-22T11:13:51.835590Z"
     }
-  },
-  "fullBackupSpec": {},
-  "updateTime": "2024-05-22T11:13:51.835590Z"
-}
-```
 
 ### Client libraries
 
@@ -1182,7 +1176,7 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
+``` 
 ```
 
 | Name             | Backup type | Cron            | Retention duration | Encryption type           |
@@ -1230,45 +1224,43 @@ Execute the following command:
 
 You should receive a JSON response similar to the following:
 
-``` readonly
-{
-  "backupSchedules": [
     {
-      "name": "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID/backupSchedules/SCHEDULE_ID",
-      "retentionDuration": "172800s",
-      "encryptionConfig": {
-        "encryptionType": "USE_DATABASE_ENCRYPTION"
-      },
-      "spec": {
-        "cronSpec": {
-          "text": "0 */12 * * *",
-          "timeZone": "UTC",
-          "creationWindow": "14400s"
+      "backupSchedules": [
+        {
+          "name": "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID/backupSchedules/SCHEDULE_ID",
+          "retentionDuration": "172800s",
+          "encryptionConfig": {
+            "encryptionType": "USE_DATABASE_ENCRYPTION"
+          },
+          "spec": {
+            "cronSpec": {
+              "text": "0 */12 * * *",
+              "timeZone": "UTC",
+              "creationWindow": "14400s"
+            }
+          },
+          "fullBackupSpec": {},
+          "updateTime": "2024-09-09T07:21:43.946180Z"
+        },
+        {
+          "name": "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID/backupSchedules/SCHEDULE_ID",
+          "retentionDuration": "2592000s",
+          "encryptionConfig": {
+            "encryptionType": "CUSTOMER_MANAGED_ENCRYPTION",
+            "kmsKeyName": "projects/PROJECT_ID/locations/us-central1/keyRings/cmek-demo/cryptoKeys/test-key"
+          },
+          "spec": {
+            "cronSpec": {
+              "text": "30 12 * * *",
+              "timeZone": "UTC",
+              "creationWindow": "14400s"
+            }
+          },
+          "fullBackupSpec": {},
+          "updateTime": "2024-09-17T18:27:53.868741Z"
         }
-      },
-      "fullBackupSpec": {},
-      "updateTime": "2024-09-09T07:21:43.946180Z"
-    },
-    {
-      "name": "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID/backupSchedules/SCHEDULE_ID",
-      "retentionDuration": "2592000s",
-      "encryptionConfig": {
-        "encryptionType": "CUSTOMER_MANAGED_ENCRYPTION",
-        "kmsKeyName": "projects/PROJECT_ID/locations/us-central1/keyRings/cmek-demo/cryptoKeys/test-key"
-      },
-      "spec": {
-        "cronSpec": {
-          "text": "30 12 * * *",
-          "timeZone": "UTC",
-          "creationWindow": "14400s"
-        }
-      },
-      "fullBackupSpec": {},
-      "updateTime": "2024-09-17T18:27:53.868741Z"
+      ]
     }
-  ]
-}
-```
 
 ### Client libraries
 
@@ -1614,7 +1606,7 @@ Save the request body in a file named `request.json` , and execute the following
 
 You should receive a JSON response similar to the following:
 
-``` readonly
+``` 
   {
     "name": "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID/backupSchedules/SCHEDULE_ID",
     "retentionDuration": "86400s",
@@ -2368,15 +2360,13 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
-Updated IAM policy for backupSchedule [SCHEDULE_ID].
-bindings:
-- members:
-  - user:test@google.com
-  role: roles/editor
-etag: BwYi82k-fho=
-version: 1
-```
+    Updated IAM policy for backupSchedule [SCHEDULE_ID].
+    bindings:
+    - members:
+      - user:test@google.com
+      role: roles/editor
+    etag: BwYi82k-fho=
+    version: 1
 
 The following is an example `policy.json` file that you can use along with this Google Cloud CLI command:
 
@@ -2455,22 +2445,20 @@ Save the request body in a file named `request.json` , and execute the following
 
 You should receive a JSON response similar to the following:
 
-``` readonly
-{
-  {
-    "version": 1,
-    "etag": "etag",
-    "bindings": [
+    {
       {
-        "role": "roles/non-primitive",
-        "members": [
-          "user:test@gmail.com"
+        "version": 1,
+        "etag": "etag",
+        "bindings": [
+          {
+            "role": "roles/non-primitive",
+            "members": [
+              "user:test@gmail.com"
+            ]
+          }
         ]
       }
-    ]
-  }
-}
-```
+    }
 
 ## Get IAM access control policy
 
@@ -2514,14 +2502,12 @@ Execute the following command:
 
 You should receive a response similar to the following:
 
-``` readonly
-bindings:
-- members:
-  - user:test@gmail.com
-  role: roles/editor
-etag: BwYi82k-fho=
-version: 1
-```
+    bindings:
+    - members:
+      - user:test@gmail.com
+      role: roles/editor
+    etag: BwYi82k-fho=
+    version: 1
 
 ### REST v1
 
@@ -2566,22 +2552,20 @@ Execute the following command:
 
 You should receive a JSON response similar to the following:
 
-``` readonly
-{
-  {
-    "version": 1,
-    "etag": "BwYbyZ9pc4o=",
-    "bindings": [
+    {
       {
-        "role": "roles/editor",
-        "members": [
-          "user:test@gmail.com"
+        "version": 1,
+        "etag": "BwYbyZ9pc4o=",
+        "bindings": [
+          {
+            "role": "roles/editor",
+            "members": [
+              "user:test@gmail.com"
+            ]
+          }
         ]
       }
-    ]
-  }
-}
-```
+    }
 
 ## What's next
 

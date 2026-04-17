@@ -14,9 +14,7 @@ EXAMPLES
 
 To print the IAM policy for a given Cloud Spanner database, run:
 
-``` wrap-code
-gcloud spanner databases get-iam-policy my-database-id
-```
+    gcloud spanner databases get-iam-policy my-database-id
 
 POSITIONAL ARGUMENTS
 
@@ -69,10 +67,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases get-iam-policy
-```
+    gcloud alpha spanner databases get-iam-policy
 
-``` wrap-code
-gcloud beta spanner databases get-iam-policy
-```
+    gcloud beta spanner databases get-iam-policy

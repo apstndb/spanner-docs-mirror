@@ -14,9 +14,7 @@ EXAMPLES
 
 To list the sessions for a given Cloud Spanner database, run:
 
-``` wrap-code
-gcloud spanner databases sessions list --instance=my-instance-id --database=my-database-id
-```
+    gcloud spanner databases sessions list --instance=my-instance-id --database=my-database-id
 
 REQUIRED FLAGS
 
@@ -76,10 +74,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases sessions list
-```
+    gcloud alpha spanner databases sessions list
 
-``` wrap-code
-gcloud beta spanner databases sessions list
-```
+    gcloud beta spanner databases sessions list

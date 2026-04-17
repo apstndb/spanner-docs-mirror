@@ -45,10 +45,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner backups
-```
+    gcloud alpha spanner backups
 
-``` wrap-code
-gcloud beta spanner backups
-```
+    gcloud beta spanner backups

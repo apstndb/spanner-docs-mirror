@@ -1,10 +1,4 @@
-> **Preview — [Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine)**
-> 
-> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
-
-> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 This page describes how to monitor Spanner's columnar engine. You can monitor using:
 
@@ -40,6 +34,10 @@ To view columnar data storage metrics:
     **columnar storage - hdd** and **columnar storage - ssd** . These metrics show the columnar representation usage of HDD and SSD. The total storage metrics include both PAX and columnar data. You can see these metrics on storage usage graphs on the **System insights** page. For example:
     
     ![The amount of columnar storage ssd.](https://docs.cloud.google.com/static/spanner/docs/images/columnar-storage.svg)
+
+## Query and table operations statistics
+
+`SPANNER_SYS.QUERY_STATS_TOP_*` tables have a column named `AVG_COLUMNAR_READ_SHARE` , which is an average percentage of bytes read from columnar storage out of total bytes read from both row-based and columnar storage. A high percentage is optimal, while a low percentage suggests that much of the data remains unconverted to columnar format.
 
 ## What's next
 

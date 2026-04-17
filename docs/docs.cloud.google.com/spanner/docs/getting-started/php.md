@@ -68,15 +68,11 @@ Take a look at the functions in `src/create_database.php` and `src/add_column.ph
 
 ### GoogleSQL
 
-``` notranslate
-php src/create_database.php test-instance example-db
-```
+    php src/create_database.php test-instance example-db
 
 ### PostgreSQL
 
-``` notranslate
-php src/pg_create_database.php test-instance example-db
-```
+    php src/pg_create_database.php test-instance example-db
 
 You should see:
 

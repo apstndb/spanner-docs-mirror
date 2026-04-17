@@ -29,10 +29,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases splits
-```
+    gcloud alpha spanner databases splits
 
-``` wrap-code
-gcloud beta spanner databases splits
-```
+    gcloud beta spanner databases splits

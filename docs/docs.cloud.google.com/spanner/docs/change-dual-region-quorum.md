@@ -94,38 +94,36 @@ Save the request body in a file named `request.json` , and execute the following
 
 You should receive a JSON response similar to the following:
 
-``` readonly
-{
-  "timeSeries": [
     {
-      "metric": {
-        "type": "spanner.googleapis.com/instance/dual_region_quorum_availability"
-      },
-      "resource": {
-        "type": "spanner_instance",
-        "labels": {
-          "project_id": "spanner-project",
-          "location": "australia-southeast1"
-        }
-      },
-      "metricKind": "GAUGE",
-      "valueType": "DOUBLE",
-      "points": [
+      "timeSeries": [
         {
-          "interval": {
-            "startTime": "2024-07-11T05:41:23Z",
-            "endTime": "2024-07-11T05:41:23Z"
+          "metric": {
+            "type": "spanner.googleapis.com/instance/dual_region_quorum_availability"
           },
-          "value": {
-            "doubleValue": 1
-          }
+          "resource": {
+            "type": "spanner_instance",
+            "labels": {
+              "project_id": "spanner-project",
+              "location": "australia-southeast1"
+            }
+          },
+          "metricKind": "GAUGE",
+          "valueType": "DOUBLE",
+          "points": [
+            {
+              "interval": {
+                "startTime": "2024-07-11T05:41:23Z",
+                "endTime": "2024-07-11T05:41:23Z"
+              },
+              "value": {
+                "doubleValue": 1
+              }
+            }
+          ]
         }
-      ]
+      ],
+      "unit": "10^2.%"
     }
-  ],
-  "unit": "10^2.%"
-}
-```
 
 If you don't see a similar response, your region might not be healthy, and you might need to [change the dual-region quorum from dual-region to single region](https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum#failover) .
 

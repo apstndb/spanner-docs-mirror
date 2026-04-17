@@ -1102,28 +1102,26 @@ Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcl
     
     You should receive a JSON response similar to the following:
     
-    ``` readonly
-    {
-    ...
-        "progress": [
-          {
-            "progressPercent": 100,
-            "startTime": "2023-05-27T00:52:27.366688Z",
-            "endTime": "2023-05-27T00:52:30.184845Z"
-          },
-          {
-            "progressPercent": 100,
-            "startTime": "2023-05-27T00:52:30.184845Z",
-            "endTime": "2023-05-27T00:52:40.750959Z"
+        {
+        ...
+            "progress": [
+              {
+                "progressPercent": 100,
+                "startTime": "2023-05-27T00:52:27.366688Z",
+                "endTime": "2023-05-27T00:52:30.184845Z"
+              },
+              {
+                "progressPercent": 100,
+                "startTime": "2023-05-27T00:52:30.184845Z",
+                "endTime": "2023-05-27T00:52:40.750959Z"
+              }
+            ],
+        ...
+          "done": true,
+          "response": {
+            "@type": "type.googleapis.com/google.protobuf.Empty"
           }
-        ],
-    ...
-      "done": true,
-      "response": {
-        "@type": "type.googleapis.com/google.protobuf.Empty"
-      }
-    }
-    ```
+        }
 
 If the operation takes too long, you can cancel it. For more information, see [Cancel a long-running database operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#cancel_a_long-running_database_operation) .
 

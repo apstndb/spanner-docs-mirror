@@ -14,21 +14,15 @@ EXAMPLES
 
 To create an empty Cloud Spanner database, run:
 
-``` wrap-code
-gcloud beta spanner databases create testdb --instance=my-instance-id
-```
+    gcloud beta spanner databases create testdb --instance=my-instance-id
 
 To create a Cloud Spanner database with populated schema, run:
 
-``` wrap-code
-gcloud beta spanner databases create testdb --instance=my-instance-id --ddl='CREATE TABLE mytable (a INT64, b INT64) PRIMARY KEY(a)'
-```
+    gcloud beta spanner databases create testdb --instance=my-instance-id --ddl='CREATE TABLE mytable (a INT64, b INT64) PRIMARY KEY(a)'
 
 To create a Cloud Spanner database with the PostgreSQL dialect, run:
 
-``` wrap-code
-gcloud beta spanner databases create testdb --instance=my-instance-id --database-dialect=POSTGRESQL
-```
+    gcloud beta spanner databases create testdb --instance=my-instance-id --database-dialect=POSTGRESQL
 
 POSITIONAL ARGUMENTS
 
@@ -157,10 +151,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases create
-```
+    gcloud spanner databases create
 
-``` wrap-code
-gcloud alpha spanner databases create
-```
+    gcloud alpha spanner databases create

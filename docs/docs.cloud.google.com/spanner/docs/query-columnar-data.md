@@ -1,10 +1,4 @@
-> **Preview — [Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine)**
-> 
-> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
-
-> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 This page describes how to run queries against columnar data.
 
@@ -12,9 +6,17 @@ This page describes how to run queries against columnar data.
 
 Spanner query engine analyzes queries and automatically selects the columnar format if it is beneficial. However, several classes of queries might still need the query hint to use the columnar format. The following are examples of how to use the `@{scan_method=columnar}` query hint:
 
+### GoogleSQL
+
   - `@{scan_method=columnar} SELECT COUNT(*) FROM Singers;`
   - `SELECT COUNT(*) FROM Singers @{scan_method=columnar};`
-  - `@{scan_method=columnar} SELECT m.MsgBlob FROM Messages WHERE m.id='1234';`
+  - `@{scan_method=columnar} SELECT MsgBlob FROM Messages WHERE id='1234';`
+
+### Postgres
+
+  - `/*@ scan_method=columnar */ SELECT COUNT(*) FROM "Singers";`
+  - `SELECT COUNT(*) FROM "Singers" /*@ scan_method=columnar*/;`
+  - `/*@ scan_method=columnar */ SELECT "MsgBlob" FROM "Messages" WHERE id ='1234';`
 
 In addition, you can disable the automatic selection of columnar explicitly by using the query hint `@{scan_method=no_columnar}` .
 

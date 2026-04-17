@@ -14,9 +14,7 @@ EXAMPLES
 
 To execute a SQL SELECT statement against example-database under example-instance, run:
 
-``` wrap-code
-gcloud beta spanner databases execute-sql example-database --instance=example-instance --sql='SELECT * FROM MyTable WHERE MyKey = 1'
-```
+    gcloud beta spanner databases execute-sql example-database --instance=example-instance --sql='SELECT * FROM MyTable WHERE MyKey = 1'
 
 POSITIONAL ARGUMENTS
 
@@ -105,10 +103,6 @@ NOTES
 
 This command is currently in beta and might change without notice. These variants are also available:
 
-``` wrap-code
-gcloud spanner databases execute-sql
-```
+    gcloud spanner databases execute-sql
 
-``` wrap-code
-gcloud alpha spanner databases execute-sql
-```
+    gcloud alpha spanner databases execute-sql

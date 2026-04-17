@@ -10,23 +10,17 @@ DESCRIPTION
 
 `(ALPHA)` Before sending traffic to the backend service, create the database and start the service with:
 
-``` wrap-code
-gcloud alpha spanner samples init APPNAME --instance-id=INSTANCE_IDgcloud alpha spanner samples backend APPNAME --instance-id=INSTANCE_ID
-```
+    gcloud alpha spanner samples init APPNAME --instance-id=INSTANCE_IDgcloud alpha spanner samples backend APPNAME --instance-id=INSTANCE_ID
 
 To run all three steps together, use:
 
-``` wrap-code
-gcloud alpha spanner samples run APPNAME --instance-id=INSTANCE_ID
-```
+    gcloud alpha spanner samples run APPNAME --instance-id=INSTANCE_ID
 
 EXAMPLES
 
 To generate traffic for the 'finance' sample app, run:
 
-``` wrap-code
-gcloud alpha spanner samples workload finance
-```
+    gcloud alpha spanner samples workload finance
 
 POSITIONAL ARGUMENTS
 
@@ -52,10 +46,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner samples workload
-```
+    gcloud spanner samples workload
 
-``` wrap-code
-gcloud beta spanner samples workload
-```
+    gcloud beta spanner samples workload

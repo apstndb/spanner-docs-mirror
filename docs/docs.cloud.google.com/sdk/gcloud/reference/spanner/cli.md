@@ -14,9 +14,7 @@ EXAMPLES
 
 To start an interactive shell with your Spanner example database, run the following command:
 
-``` wrap-code
-gcloud spanner cli example-database --instance=example-instance
-```
+    gcloud spanner cli example-database --instance=example-instance
 
 POSITIONAL ARGUMENTS
 
@@ -99,6 +97,4 @@ NOTES
 
 This variant is also available:
 
-``` wrap-code
-gcloud alpha spanner cli
-```
+    gcloud alpha spanner cli

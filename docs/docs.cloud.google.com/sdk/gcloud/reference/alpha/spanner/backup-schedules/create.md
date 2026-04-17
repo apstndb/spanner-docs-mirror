@@ -14,9 +14,7 @@ EXAMPLES
 
 To create a Cloud Spanner backup schedule, run:
 
-``` wrap-code
-gcloud alpha spanner backup-schedules create backup-schedule-id --instance=instance-id --database=database-id --cron="0 2 * * *" --retention-duration=2w --backup-type=full-backup
-```
+    gcloud alpha spanner backup-schedules create backup-schedule-id --instance=instance-id --database=database-id --cron="0 2 * * *" --retention-duration=2w --backup-type=full-backup
 
 POSITIONAL ARGUMENTS
 
@@ -163,10 +161,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner backup-schedules create
-```
+    gcloud spanner backup-schedules create
 
-``` wrap-code
-gcloud beta spanner backup-schedules create
-```
+    gcloud beta spanner backup-schedules create

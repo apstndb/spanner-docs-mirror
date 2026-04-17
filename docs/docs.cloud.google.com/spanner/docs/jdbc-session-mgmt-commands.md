@@ -152,18 +152,16 @@ A statement timeout during a transaction invalidates the transaction, all subseq
 
 A property of type `STRING` indicating the current [read-only staleness setting](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) that Spanner uses for read-only transactions and queries in `AUTOCOMMIT` mode.
 
-``` prettyprint,lang-sql
-SHOW VARIABLE READ_ONLY_STALENESS
-SET READ_ONLY_STALENESS = staleness_type
-
-staleness_type:
-
-{ 'STRONG'
-  | 'MIN_READ_TIMESTAMP timestamp'
-  | 'READ_TIMESTAMP timestamp'
-  | 'MAX_STALENESS <INT64>{ s | ms | us | ns }'
-  | 'EXACT_STALENESS <INT64>{ s | ms | us | ns }' }
-```
+    SHOW VARIABLE READ_ONLY_STALENESS
+    SET READ_ONLY_STALENESS = staleness_type
+    
+    staleness_type:
+    
+    { 'STRONG'
+      | 'MIN_READ_TIMESTAMP timestamp'
+      | 'READ_TIMESTAMP timestamp'
+      | 'MAX_STALENESS <INT64>{ s | ms | us | ns }'
+      | 'EXACT_STALENESS <INT64>{ s | ms | us | ns }' }
 
 The [read-only staleness](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) value applies to all subsequent read-only transactions and for all queries in `AUTOCOMMIT` mode.
 

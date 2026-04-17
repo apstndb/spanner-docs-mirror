@@ -348,7 +348,7 @@ For more information on how to install Debezium-based Kafka connector JARs, see 
 
 The following is an example of the configuration for a Kafka connector that connects to a change stream called `changeStreamAll` in the database `users` in instance `test-instance` and project `test-project` .
 
-``` suppresswarning json
+```json
 "name": "spanner-connector",
 "config": {
     "connector.class": "io.debezium.connector.spanner.SpannerConnector",
@@ -396,33 +396,56 @@ You can send this configuration with a `POST` command to a running Kafka Connect
 
 The following is an example `POST` command:
 
-``` notranslate
-POST /connectors HTTP/1.1
-Host: http://localhost:8083
-Accept: application/json
-{
-  "name": "spanner-connector"
-  "config": {
-      "connector.class": "io.debezium.connector.spanner.SpannerConnector",
-      "gcp.spanner.project.id": "test-project",
-      "gcp.spanner.instance.id": "test-instance",
-      "gcp.spanner.database.id": "users",
-      "gcp.spanner.change.stream": "changeStreamAll",
-      "gcp.spanner.credentials.json": "{\"client_id\": \"XXXX\".... }",
-      "heartbeat.interval.ms": "100",
-      "tasks.max": "10"
-  }
-}
-```
+    POST /connectors HTTP/1.1
+    Host: http://localhost:8083
+    Accept: application/json
+    {
+      "name": "spanner-connector"
+      "config": {
+          "connector.class": "io.debezium.connector.spanner.SpannerConnector",
+          "gcp.spanner.project.id": "test-project",
+          "gcp.spanner.instance.id": "test-instance",
+          "gcp.spanner.database.id": "users",
+          "gcp.spanner.change.stream": "changeStreamAll",
+          "gcp.spanner.credentials.json": "{\"client_id\": \"XXXX\".... }",
+          "heartbeat.interval.ms": "100",
+          "tasks.max": "10"
+      }
+    }
 
 Example successful response:
 
-``` notranslate
-HTTP/1.1 201 Created
-Content-Type: application/json
-{
-    "name": "spanner-connector",
-    "config": {
+    HTTP/1.1 201 Created
+    Content-Type: application/json
+    {
+        "name": "spanner-connector",
+        "config": {
+            "connector.class": "io.debezium.connector.spanner.SpannerConnector",
+            "gcp.spanner.project.id": "test-project",
+            "gcp.spanner.instance.id": "test-instance",
+            "gcp.spanner.database.id": "users",
+            "gcp.spanner.change.stream": "changeStreamAll",
+            "gcp.spanner.credentials.json": "{\"client_id\": \"XXXX\".... }",
+            "heartbeat.interval.ms": "100",
+            "tasks.max": "10"
+        },
+        "tasks": [
+            { "connector": "spanner-connector", "task": 1 },
+            { "connector": "spanner-connector", "task": 2 },
+            { "connector": "spanner-connector", "task": 3 }
+        ]
+    }
+
+### Update the Kafka connector configuration
+
+To update the connector configuration, send a `PUT` command to the running Kafka Connect service with the same connector name.
+
+Assume that we have a connector running with the configuration from the previous section. The following is an example `PUT` command:
+
+    PUT /connectors/spanner-connector/config HTTP/1.1
+    Host: http://localhost:8083
+    Accept: application/json
+    {
         "connector.class": "io.debezium.connector.spanner.SpannerConnector",
         "gcp.spanner.project.id": "test-project",
         "gcp.spanner.instance.id": "test-instance",
@@ -431,54 +454,23 @@ Content-Type: application/json
         "gcp.spanner.credentials.json": "{\"client_id\": \"XXXX\".... }",
         "heartbeat.interval.ms": "100",
         "tasks.max": "10"
-    },
-    "tasks": [
-        { "connector": "spanner-connector", "task": 1 },
-        { "connector": "spanner-connector", "task": 2 },
-        { "connector": "spanner-connector", "task": 3 }
-    ]
-}
-```
-
-### Update the Kafka connector configuration
-
-To update the connector configuration, send a `PUT` command to the running Kafka Connect service with the same connector name.
-
-Assume that we have a connector running with the configuration from the previous section. The following is an example `PUT` command:
-
-``` notranslate
-PUT /connectors/spanner-connector/config HTTP/1.1
-Host: http://localhost:8083
-Accept: application/json
-{
-    "connector.class": "io.debezium.connector.spanner.SpannerConnector",
-    "gcp.spanner.project.id": "test-project",
-    "gcp.spanner.instance.id": "test-instance",
-    "gcp.spanner.database.id": "users",
-    "gcp.spanner.change.stream": "changeStreamAll",
-    "gcp.spanner.credentials.json": "{\"client_id\": \"XXXX\".... }",
-    "heartbeat.interval.ms": "100",
-    "tasks.max": "10"
-}
-```
+    }
 
 Example successful response:
 
-``` notranslate
-HTTP/1.1 200 OK
-Content-Type: application/json
-{
-    "connector.class": "io.debezium.connector.spanner.SpannerConnector",
-    "tasks.max": "10",
-    "gcp.spanner.project.id": "test-project",
-    "gcp.spanner.instance.id": "test-instance",
-    "gcp.spanner.database.id": "users",
-    "gcp.spanner.change.stream": "changeStreamAll",
-    "gcp.spanner.credentials.json": "{\"client_id\": \"XXXX\".... }",
-    "heartbeat.interval.ms": "100",
-    "tasks.max": "10"
-}
-```
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+    {
+        "connector.class": "io.debezium.connector.spanner.SpannerConnector",
+        "tasks.max": "10",
+        "gcp.spanner.project.id": "test-project",
+        "gcp.spanner.instance.id": "test-instance",
+        "gcp.spanner.database.id": "users",
+        "gcp.spanner.change.stream": "changeStreamAll",
+        "gcp.spanner.credentials.json": "{\"client_id\": \"XXXX\".... }",
+        "heartbeat.interval.ms": "100",
+        "tasks.max": "10"
+    }
 
 ### Stop the Kafka connector
 
@@ -486,16 +478,12 @@ To stop the connector, send a `DELETE` command to the running Kafka Connect serv
 
 Assume that we have a connector running with the configuration from the previous section. The following is an example `DELETE` command:
 
-``` notranslate
-DELETE /connectors/spanner-connector HTTP/1.1
-Host: http://localhost:8083
-```
+    DELETE /connectors/spanner-connector HTTP/1.1
+    Host: http://localhost:8083
 
 Example successful response:
 
-``` notranslate
-HTTP/1.1 204 No Content
-```
+    HTTP/1.1 204 No Content
 
 ### Monitor the Kafka connector
 

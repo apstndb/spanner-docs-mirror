@@ -1,10 +1,4 @@
-> **Preview — [Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine)**
-> 
-> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
-
-> **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 This document explains how to manually trigger a major compaction in a Spanner database.
 
@@ -34,7 +28,11 @@ Major compactions run as background operations. However, if your instance has co
 
 5.  Invoke the following command to initiate compaction:
     
+        # GoogleSQL
         CALL compact_all();
+        
+        #Postgres
+        CALL spanner.compact_all();
     
     This operation returns a long-running operation (LRO) ID that you can use to find the operation in the **Operations** list.
 

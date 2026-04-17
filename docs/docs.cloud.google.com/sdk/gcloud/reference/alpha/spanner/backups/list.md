@@ -14,15 +14,11 @@ EXAMPLES
 
 To list existing backups for the instance, run:
 
-``` wrap-code
-gcloud alpha spanner backups list --instance=INSTANCE_NAME
-```
+    gcloud alpha spanner backups list --instance=INSTANCE_NAME
 
 To list existing backups for a database, run:
 
-``` wrap-code
-gcloud alpha spanner backups list --instance=INSTANCE_NAME --database=DATABASE
-```
+    gcloud alpha spanner backups list --instance=INSTANCE_NAME --database=DATABASE
 
 FLAGS
 
@@ -73,10 +69,6 @@ NOTES
 
 This command is currently in alpha and might change without notice. If this command fails with API permission errors despite specifying the correct project, you might be trying to access an API with an invitation-only early access allowlist. These variants are also available:
 
-``` wrap-code
-gcloud spanner backups list
-```
+    gcloud spanner backups list
 
-``` wrap-code
-gcloud beta spanner backups list
-```
+    gcloud beta spanner backups list

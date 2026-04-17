@@ -14,17 +14,13 @@ These sample apps are open source and available at <https://github.com/GoogleClo
 
 To see a list of available sample apps, run:
 
-``` wrap-code
-gcloud spanner samples list
-```
+    gcloud spanner samples list
 
 EXAMPLES
 
 To run the 'finance' sample app using instance 'my-instance', run:
 
-``` wrap-code
-gcloud spanner samples run finance --instance-id=my-instance
-```
+    gcloud spanner samples run finance --instance-id=my-instance
 
 POSITIONAL ARGUMENTS
 
@@ -57,10 +53,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner samples run
-```
+    gcloud alpha spanner samples run
 
-``` wrap-code
-gcloud beta spanner samples run
-```
+    gcloud beta spanner samples run

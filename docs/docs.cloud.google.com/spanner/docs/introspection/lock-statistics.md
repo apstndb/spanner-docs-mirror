@@ -510,7 +510,9 @@ When looking at potential issues in your solution, or even when designing your s
 
   - Follow [schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
 
-  - Consider using optimistic concurrency control for transactional workloads with low read-write contention. For more information about the suitability of your workload for using optimistic locking, see [Optimistic concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control#optimistic_concurrency_control) .
+  - If the possibility of write-skew isn't an issue for your application, consider using repeatable read isolation with its default optimistic concurrency to avoid read-write contentions. For more information, see [Repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) .
+
+  - For workloads that have low read-write contention, consider using serializable isolation with optimistic concurrency control to avoid acquiring locks in transactions until commit time, while enforcing that all reads of the transaction are valid at commit time. For more information about the suitability of this option, see [Optimistic concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control#optimistic_concurrency_control) .
 
 ## What's next
 

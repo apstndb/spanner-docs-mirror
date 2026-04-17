@@ -16,9 +16,7 @@ EXAMPLES
 
 To delete a Cloud Spanner database, run:
 
-``` wrap-code
-gcloud spanner databases delete my-database-id --instance=my-instance-id
-```
+    gcloud spanner databases delete my-database-id --instance=my-instance-id
 
 POSITIONAL ARGUMENTS
 
@@ -60,10 +58,6 @@ NOTES
 
 These variants are also available:
 
-``` wrap-code
-gcloud alpha spanner databases delete
-```
+    gcloud alpha spanner databases delete
 
-``` wrap-code
-gcloud beta spanner databases delete
-```
+    gcloud beta spanner databases delete
