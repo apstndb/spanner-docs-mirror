@@ -182,19 +182,17 @@ Calculates a relevance score of a `TOKENLIST` for a full-text search query. The 
 
 **Versions**
 
-The scorer algorithm is periodically updated. After a short evaluation period, the default behavior updates to the newest version. You are encouraged to leave the version unspecified so that your database can benefit from improvements to the scorer algorithm. However, you can set the version number in the `options` argument to retain old behavior. You can also use the `default_score_version` database option to set the default scorer version for your database. If the `version` parameter is present in a request, it overrides the `default_score_version` setting. + **2** (2025-08):
+The `SCORE` algorithm is periodically updated. After a short evaluation period, the default behavior updates to the newest version. You are encouraged to leave the version unspecified so that your database can benefit from improvements to the `SCORE` algorithm. However, you can set the version number in the `options` argument to retain old behavior.
 
-    +   When `enhance_query` is true, hits on synonyms are now demoted based on
-        confidence in the synonym's accuracy.
+  - **2** (2025-08):
     
-    +   Improved the algorithm that limits each query term's maximum
-        contribution to the overall score.
+      - When `enhance_query` is true, hits on synonyms are now demoted based on confidence in the synonym's accuracy.
     
-    +   Fixed an issue where documents with exactly one hit for a query term
-        received a lower score than intended.
+      - Improved the algorithm that limits each query term's maximum contribution to the overall score.
     
-    +   Fixed an issue where query terms under an "OR" were not weighted
-        correctly, especially when `enhance_query` was used.
+      - Fixed an issue where documents with exactly one hit for a query term received a lower score than intended.
+    
+      - Fixed an issue where query terms under an "OR" were not weighted correctly, especially when `enhance_query` was used.
 
   - **1** ( *Default* ): The initial version.
 

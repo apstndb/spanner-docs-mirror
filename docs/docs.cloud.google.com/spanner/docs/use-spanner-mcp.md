@@ -21,11 +21,11 @@ For information on the Spanner local MCP server, see [Spanner MCP server on GitH
 
 Google and Google Cloud remote MCP servers have the following features and benefits:
 
-  - Simplified, centralized discovery.
-  - Managed global or regional HTTP endpoints.
-  - Fine-grained authorization.
-  - Optional prompt and response security with Model Armor protection.
-  - Centralized audit logging.
+  - Simplified, centralized discovery
+  - Managed global or regional HTTP endpoints
+  - Fine-grained authorization
+  - Optional prompt and response security with Model Armor protection
+  - Centralized audit logging
 
 For information about other MCP servers and information about security and governance controls available for Google Cloud MCP servers, see [Google Cloud MCP servers overview](https://docs.cloud.google.com/mcp/overview) .
 

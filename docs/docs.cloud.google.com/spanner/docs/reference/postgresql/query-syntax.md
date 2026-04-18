@@ -283,9 +283,11 @@ Spanner supports the following statement hints as extensions to open source Post
 <td><code dir="ltr" translate="no">SCAN_METHOD</code></td>
 <td><code dir="ltr" translate="no">AUTO</code> (default) |<br />
 <code dir="ltr" translate="no">BATCH</code> |<br />
-<code dir="ltr" translate="no">ROW</code></td>
+<code dir="ltr" translate="no">ROW</code> |<br />
+<code dir="ltr" translate="no">COLUMNAR</code> |<br />
+<code dir="ltr" translate="no">NO_COLUMNAR</code></td>
 <td>Use this hint to enforce the query scan method.
-<p>The default Spanner scan method is <code dir="ltr" translate="no">AUTO</code> (automatic). The <code dir="ltr" translate="no">AUTO</code> setting specifies that depending on the heuristics of the query, batch or row-oriented query processing might be used to improve query performance. If you want to change the default scanning method, you can use a statement hint to enforce the <code dir="ltr" translate="no">BATCH</code> -oriented or <code dir="ltr" translate="no">ROW</code> -oriented processing method. You can't manually set the scan method to <code dir="ltr" translate="no">AUTO</code> . However, if you remove the statement hint, then Spanner uses the <code dir="ltr" translate="no">AUTO</code> scan method. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-scans">Optimize scans</a> .</p></td>
+<p>The default Spanner scan method is <code dir="ltr" translate="no">AUTO</code> (automatic). The <code dir="ltr" translate="no">AUTO</code> setting specifies that batch-oriented query processing and columnar formatted data, if available, could be used to improve query performance. The <code dir="ltr" translate="no">ROW</code> scan method forces the scan to read row formatted data and use row-oriented execution, whereas the <code dir="ltr" translate="no">BATCH</code> scan method uses row formatted data and batch-oriented execution. The <code dir="ltr" translate="no">COLUMNAR</code> scan method will read columnar formatted data, if available, and utilize batch-oriented execution. The <code dir="ltr" translate="no">NO_COLUMNAR</code> scan method disables automatic selection of columnar formatted data but allows automatic selection of batch-oriented query processing, similar to the <code dir="ltr" translate="no">AUTO</code> scan method. You can't manually set the scan method to <code dir="ltr" translate="no">AUTO</code> , but if you remove the hint, then Spanner uses the <code dir="ltr" translate="no">AUTO</code> scan method. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-scans">Optimize scans</a> .</p></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">EXECUTION_METHOD</code></td>
@@ -348,9 +350,11 @@ Spanner supports the following table hints as extensions to open source PostgreS
 <td><code dir="ltr" translate="no">SCAN_METHOD</code></td>
 <td><code dir="ltr" translate="no">AUTO</code> (default) |<br />
 <code dir="ltr" translate="no">BATCH</code> |<br />
-<code dir="ltr" translate="no">ROW</code></td>
+<code dir="ltr" translate="no">ROW</code> |<br />
+<code dir="ltr" translate="no">COLUMNAR</code> |<br />
+<code dir="ltr" translate="no">NO_COLUMNAR</code></td>
 <td>Use this hint to enforce the query scan method.
-<p>By default, Spanner sets the scan method as <code dir="ltr" translate="no">AUTO</code> (automatic) which means depending on the heuristics of the query, batch-oriented query processing might be used to improve query performance. If you want to change the default scanning method from <code dir="ltr" translate="no">AUTO</code> , you can use the hint to enforce a <code dir="ltr" translate="no">ROW</code> or <code dir="ltr" translate="no">BATCH</code> oriented processing method. For more information see <a href="https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-scans">Optimize scans</a> .</p></td>
+<p>The default Spanner scan method is <code dir="ltr" translate="no">AUTO</code> (automatic). The <code dir="ltr" translate="no">AUTO</code> setting specifies that batch-oriented query processing and columnar formatted data, if available, could be used to improve query performance. The <code dir="ltr" translate="no">ROW</code> scan method forces the scan to read row formatted data and use row-oriented execution, whereas the <code dir="ltr" translate="no">BATCH</code> scan method uses row formatted data and batch-oriented execution. The <code dir="ltr" translate="no">COLUMNAR</code> scan method will read columnar formatted data, if available, and utilize batch-oriented execution. The <code dir="ltr" translate="no">NO_COLUMNAR</code> scan method disables automatic selection of columnar formatted data but allows automatic selection of batch-oriented query processing, similar to the <code dir="ltr" translate="no">AUTO</code> scan method. You can't manually set the scan method to <code dir="ltr" translate="no">AUTO</code> , but if you remove the hint, then Spanner uses the <code dir="ltr" translate="no">AUTO</code> scan method. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-scans">Optimize scans</a> .</p></td>
 </tr>
 </tbody>
 </table>

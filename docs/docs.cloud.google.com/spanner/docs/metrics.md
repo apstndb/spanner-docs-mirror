@@ -934,6 +934,56 @@ Rows scanned count
 *Number of rows that the queries scanned excluding deleted values. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `database` : Target database.
 
+`queue/buffered_ready_message` <sup>BETA</sup> ***(project)***  
+Buffered ready messages
+
+`GAUGE` , `INT64` , `1`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Number of buffered ready messages in the queue.*  
+`database` : Target database.  
+`queue` : Target queue.
+
+`queue/lease_expiration_count` <sup>BETA</sup> ***(project)***  
+Lease expirations
+
+`DELTA` , `INT64` , `1`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Count of expired message leases. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
+`database` : Target database.  
+`queue` : Target queue.
+
+`queue/message_ack_count` <sup>BETA</sup> ***(project)***  
+Messages acknowledged
+
+`DELTA` , `INT64` , `1`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Count of messages acknowledged. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
+`database` : Target database.  
+`queue` : Target queue.
+
+`queue/message_send_count` <sup>BETA</sup> ***(project)***  
+Messages sent
+
+`DELTA` , `INT64` , `1`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Count of messages sent. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
+`database` : Target database.  
+`queue` : Target queue.
+
+`queue/oldest_unacked_message_age` <sup>BETA</sup> ***(project)***  
+Oldest unacked message age
+
+`GAUGE` , `INT64` , `s`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Age of the oldest unacknowledged message in seconds. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
+`database` : Target database.  
+`queue` : Target queue.
+
 `quota/internal/instance_admin_update_instance_requests/exceeded` <sup>ALPHA</sup> ***(project)***  
 Instance update requests quota exceeded error
 
@@ -1125,7 +1175,7 @@ Transaction latencies
 *Distribution of total seconds takenfrom the first operation of the transaction to commit or abort. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `database` : Target database.
 
-<span class="small">Table generated at 2026-04-10 19:48:34 UTC.</span>
+<span class="small">Table generated at 2026-04-17 00:10:13 UTC.</span>
 
 ## What's next
 

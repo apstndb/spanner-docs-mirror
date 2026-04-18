@@ -82,6 +82,14 @@ IAM roles</td>
 <td><br />
 Bigtable offers granular control through IAM roles at the project, instance, and table levels.</td>
 </tr>
+<tr class="even">
+<td><br />
+<strong>Oracle Database@Google Cloud</strong></td>
+<td><br />
+IAM roles</td>
+<td><br />
+Oracle Database@Google Cloud offers granular control through IAM roles at the project and resource levels.</td>
+</tr>
 </tbody>
 </table>
 
@@ -173,18 +181,19 @@ Your primary defense against this scenario is a robust recovery strategy.
 
 Nearly all Data Cloud products provide features for data recovery, either through traditional backups, point-in-time recovery (PITR), or data snapshots. You are responsible for enabling and configuring these features.
 
-| **Product** | **Backup and recovery mechanisms**                                                                                                                                                                     |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Cloud SQL   | Supports both on-demand and automated backups, allowing you to restore an instance to a previous state. It also supports Point-in-Time Recovery (PITR).                                                |
-| AlloyDB     | Provides continuous backup and recovery by default. This enables PITR with microsecond granularity, allowing you to restore a cluster to any time in your retention window.                            |
-| BigQuery    | Data recovery is achieved using "Time Travel," which lets you access and restore data from any point in the last 7 days. For longer-term retention, you can create Table Snapshots.                    |
-| Spanner     | Supports both on-demand backups and PITR.                                                                                                                                                              |
-| Firestore   | Supports automated backups that let you restore a database to a previous state. It also offers PITR to protect against accidental deletions or writes. Both of these features are disabled by default. |
-| Bigtable    | Supports on-demand and automated backups. These backups are fully managed and can be restored to a new table.                                                                                          |
+| **Product**                  | **Backup and recovery mechanisms**                                                                                                                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Cloud SQL                    | Supports both on-demand and automated backups, allowing you to restore an instance to a previous state. It also supports Point-in-Time Recovery (PITR).                                                |
+| AlloyDB                      | Provides continuous backup and recovery by default. This enables PITR with microsecond granularity, allowing you to restore a cluster to any time in your retention window.                            |
+| BigQuery                     | Data recovery is achieved using "Time Travel," which lets you access and restore data from any point in the last 7 days. For longer-term retention, you can create Table Snapshots.                    |
+| Spanner                      | Supports both on-demand backups and PITR.                                                                                                                                                              |
+| Firestore                    | Supports automated backups that let you restore a database to a previous state. It also offers PITR to protect against accidental deletions or writes. Both of these features are disabled by default. |
+| Bigtable                     | Supports on-demand and automated backups. These backups are fully managed and can be restored to a new table.                                                                                          |
+| Oracle Database@Google Cloud | Supports automated backups and PITR.                                                                                                                                                                   |
 
 ### Enable Cloud Audit Logs
 
-Make sure that [Data Access audit logs](https://docs.cloud.google.com/logging/docs/audit#data-access) are enabled for MCP as well as all relevant Google Cloud services like BigQuery, Cloud SQL, AlloyDB, Firestore, and Spanner. By default, only [Admin Activity audit logs](https://docs.cloud.google.com/logging/docs/audit#admin-activity) are enabled. Data Access audit logs record every read and write operation performed by the agent. For more information, see [Data access audit logs for MCP](https://docs.cloud.google.com/mcp/audit-logging#data-access-audit-logs-for-mcp) .
+Make sure that [Data Access audit logs](https://docs.cloud.google.com/logging/docs/audit#data-access) are enabled for MCP as well as all relevant Google Cloud services like BigQuery, Cloud SQL, AlloyDB, Firestore, Spanner, and Oracle Database@Google Cloud. By default, only [Admin Activity audit logs](https://docs.cloud.google.com/logging/docs/audit#admin-activity) are enabled. Data Access audit logs record every read and write operation performed by the agent. For more information, see [Data access audit logs for MCP](https://docs.cloud.google.com/mcp/audit-logging#data-access-audit-logs-for-mcp) .
 
 ### Audit sensitive actions
 

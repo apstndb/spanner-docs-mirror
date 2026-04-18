@@ -336,7 +336,8 @@ Changes the definition of a database.
           version_retention_period = { 'duration' | null } |
           default_sequence_kind = { 'bit_reversed_positive' | null } |
           default_time_zone = { 'time_zone_name' | null } |
-          read_lease_regions = {'read_lease_region_name[, ... ]' | null } }
+          read_lease_regions = {'read_lease_region_name [, ... ]' | null } |
+          columnar_policy = {'columnar_policy' | null } }
 
 #### Description
 
@@ -369,6 +370,8 @@ Changes the definition of a database.
   - The `default_time_zone = { 'time_zone_name' | null }` option sets the default time zone for your database. If set to `NULL` , the system defaults to `America/Los_Angeles` . Specifying a time zone within a `DATE` or `TIMESTAMP` function overrides this setting. The `time_zone_name` must be a valid entry from the [IANA Time Zone Database](https://www.iana.org/time-zones) . This option can only be set on empty databases without any tables.
 
   - The `read_lease_regions = {'read_lease_region_name' | null }` option sets the [read lease](https://docs.cloud.google.com/spanner/docs/read-lease) region for your database. By default, or when set to `NULL` , the database doesn't use any read lease regions. If you set one or more read lease regions for your database, Spanner gives the right to serve reads locally to one or more non-leader, read-write, or read-only regions. This allows the non-leader regions directly serve strong reads and reduce strong read latency.
+
+  - The `columnar_policy = {'columnar_policy' | null }` option sets the [columnar policy](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-gsql) for the database. By default, or when set to `NULL` , no data will be written in columnar format unless enabled on a more specific schema object, such as a table or index. For more information about how to configure columnar, see [Configure Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-gsql) .
 
 ## LOCALITY GROUP statements
 
@@ -593,7 +596,7 @@ Defines a new table.
            | AUTO_INCREMENT } ]
          [ HIDDEN ]
          [ PRIMARY KEY ]
-         [ options_def ]
+         [ OPTIONS ( column_options_def [ , ... ] ) ]
        | location_name STRING(MAX) NOT NULL PLACEMENT KEY
        | table_constraint
        | synonym_definition }
@@ -601,14 +604,14 @@ Defines a new table.
     ] ) [ PRIMARY KEY ( [column_name [ { ASC | DESC } ], ...] ) ]
     [, INTERLEAVE IN [PARENT] table_name [ ON DELETE { CASCADE | NO ACTION } ] ]
     [, ROW DELETION POLICY ( OLDER_THAN ( timestamp_column, INTERVAL num_days DAY ) ) ]
-    [, OPTIONS ( locality_group = 'locality_group_name' ) ]
+    [, OPTIONS ( table_options_def [ , ... ] ) ]
     
     where data_type is:
         { scalar_type | array_type | proto_type_name }
     
-    and options_def is:
-        { OPTIONS ( allow_commit_timestamp = { true | null } |
-                    locality_group = 'locality_group_name' ) }
+    and column_options_def is:
+        { allow_commit_timestamp = { true | null }
+        | locality_group = 'locality_group_name' }
     
     and table_constraint is:
         [ CONSTRAINT constraint_name ]
@@ -624,6 +627,10 @@ Defines a new table.
         { BIT_REVERSED_POSITIVE
         | SKIP RANGE skip_range_min, skip_range_max
         | START COUNTER WITH start_with_counter }
+    
+    and table_options_def is:
+        { locality_group = 'locality_group_name'
+        | columnar_policy = 'columnar_policy' }
 
 #### Description
 
@@ -866,17 +873,21 @@ For more details, see [Schema and data model](https://docs.cloud.google.com/span
 
 For more information, see [Foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) .
 
-`OPTIONS ( allow_commit_timestamp = { true | null } )`
+`  column_options_def  `
 
-  - The `allow_commit_timestamp` option allows insert and update operations to request that Spanner write the commit timestamp of the transaction into the column. For more information, see [Commit timestamps in GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/commit-timestamp) .
+  - `allow_commit_timestamp = { true | null }` allows insert and update operations to request that Spanner write the commit timestamp of the transaction into the column. For more information, see [Commit timestamps in GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/commit-timestamp) .
+
+  - `locality_group =` `  locality_group_name  ` stores columns together or sets a tiered storage policy. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) and [Tiered storage overview](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
+
+`  table_options_def  `
+
+  - `locality_group =` `  locality_group_name  ` stores tables together or to set a tiered storage policy. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) and [Tiered storage overview](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
+
+  - `columnar_policy =` `  columnar_policy  ` sets the columnar policy for the table. For more information, see [Configure Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-gsql) .
 
 `[, ROW DELETION POLICY ( OLDER_THAN (` `  timestamp_column  ` `, INTERVAL` `  num_days  ` `DAY ) ) ]`
 
   - Use this clause to set a row deletion policy for this table. For more information, see [Time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl) .
-
-`OPTIONS ( locality_group = '<code><b><i>locality_group_name</b></i></code>' )`
-
-  - Use this clause to store columns together or to set a tiered storage policy. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) and [Tiered storage overview](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
 
 `SYNONYM ( synonym )`
 
@@ -895,7 +906,7 @@ Changes the definition of a table.
         ADD SYNONYM synonym
         DROP SYNONYM synonym
         RENAME TO new_table_name [, ADD SYNONYM synonym]
-        ADD [ COLUMN ] [ IF NOT EXISTS] column_name data_type [ column_expression ] [ options_def ]
+        ADD [ COLUMN ] [ IF NOT EXISTS] column_name data_type [ column_expression ] [ column_options_def ]
         DROP [ COLUMN ] column_name
         ADD table_constraint
         DROP CONSTRAINT constraint_name
@@ -909,7 +920,7 @@ Changes the definition of a table.
                   | AS ( expression )
                   | GENERATED BY DEFAULT AS IDENTITY [ ( sequence_option_clause ... ) ]
               } ]
-            | SET OPTIONS ( options_def )
+            | SET OPTIONS ( column_options_def [ , ... ] )
             | SET DEFAULT ( expression )
             | DROP DEFAULT
             | SET ON UPDATE ( expression )
@@ -923,7 +934,7 @@ Changes the definition of a table.
         ADD ROW DELETION POLICY ( OLDER_THAN ( timestamp_column, INTERVAL num_days DAY ))
         DROP ROW DELETION POLICY
         REPLACE ROW DELETION POLICY ( OLDER_THAN ( timestamp_column, INTERVAL num_days DAY ))
-        OPTIONS ( locality_group = 'locality_group_name' )
+        SET OPTIONS ( table_options_def [ , ... ] )
     
     and data_type is:
         { scalar_type | array_type }
@@ -933,7 +944,7 @@ Changes the definition of a table.
         | AS ( expression ) STORED
         | GENERATED BY DEFAULT AS IDENTITY [ ( sequence_option_clause ) ] } ]
     
-    and options_def is:
+    and column_options_def is:
         allow_commit_timestamp = { true | null } |
         locality_group = 'locality_group_name'
     
@@ -943,6 +954,10 @@ Changes the definition of a table.
           FOREIGN KEY ( column_name [, ... ] ) REFERENCES ref_table ( ref_column [, ... ] )
             [ ON DELETE { CASCADE | NO ACTION } ] [ { ENFORCED | NOT ENFORCED } ]
         }
+    
+    and table_options_def is:
+        { locality_group = 'locality_group_name'
+        | columnar_policy = { 'columnar_policy' | null } }
 
 #### Description
 
@@ -1056,7 +1071,7 @@ Changes the definition of a table.
     
       - `ARRAY (vector_length=> vector_length_value )` : You can use this clause to update the vector length of an array column for vector embeddings. The value of the vector length annotation indicates the dimension of the vectors in the column. The value must be an integer greater than or equal to zero. You can only use this parameter with an array that uses the `FLOAT32` or `FLOAT64` data types. That is, `ARRAY<FLOAT32> (vector_length=>INT)` or `ARRAY<FLOAT64> (vector_length=>INT)` . All values in the column must have the same array dimensions as defined by `vector_length` . It isn't supported for a `DEFAULT` or generated column.
 
-  - `SET OPTIONS` `( options_def )`
+  - `SET OPTIONS` `( column_options_def )`
     
       - Use this clause to set an option at the column level of the schema hierarchy.
 
@@ -1111,9 +1126,9 @@ Changes the definition of a table.
 
   - Replaces the existing row deletion policy with a new policy.
 
-`SET OPTIONS ( locality_group = '<code><b><i>locality_group_name</b></i></code>' )`
+`SET OPTIONS` `( table_options_def )`
 
-  - Alters the locality group used by the table.
+  - Use this clause to set an option at the table level of the schema hierarchy.
 
 #### Parameters
 
@@ -1136,15 +1151,11 @@ Changes the definition of a table.
 
   - You can't change the data type of a generated column, or any columns referenced by the generated column.
 
-  - Changing the data type is not allowed on any columns referenced in a `  CHECK  ` constraint. `  options_def  `
+  - Changing the data type is not allowed on any columns referenced in a `  CHECK  ` constraint.
+
+`  column_options_def  `
 
   - The `(allow_commit_timestamp=true)` option allows insert and update operations to request that Spanner write the commit timestamp of the transaction into the column. For more information, see [Commit timestamps in GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/commit-timestamp) .
-
-`  options_def  `
-
-  - The `allow_commit_timestamp = { true | null }` clause is the only allowed option. If `true` , a commit timestamp can be stored into the column.
-    
-    To learn about commit timestamps, see [Commit timestamps in GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/commit-timestamp) .
 
 `  table_constraint  `
 
@@ -1234,7 +1245,7 @@ Use the `CREATE INDEX` statement to define [secondary indexes](https://docs.clou
     CREATE [ UNIQUE ] [ NULL_FILTERED ] INDEX [ IF NOT EXISTS ] index_name
     ON table_name ( key_part [, ...] ) [ storing_clause ]
     [ where_clause ] [ , interleave_clause ]
-    [ OPTIONS ( locality_group = 'locality_group_name' ) ]
+    [ OPTIONS ( index_options [, ...] ) ]
     
     where index_name is:
         {a—z|A—Z}[{a—z|A—Z|0—9|_}+]
@@ -1250,6 +1261,10 @@ Use the `CREATE INDEX` statement to define [secondary indexes](https://docs.clou
     
     and interleave_clause is:
         INTERLEAVE IN table_name
+    
+    and index_options is:
+        { locality_group = 'locality_group_name'
+        | columnar_policy = 'columnar_policy' }
 
 #### Description
 
@@ -1303,23 +1318,30 @@ You can use `CREATE INDEX` to create secondary indexes for other columns. Adding
 
   - Provides a mechanism for duplicating data from the table into one or more secondary indexes on that table. At the cost of extra storage, this can reduce read latency when looking up data using a secondary index, because it eliminates the need to retrieve data from the main table after having found the selected entries in the index. See [STORING clause](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing_clause) for an example.
 
-`[ OPTIONS ( locality_group = ' locality_group_name ' ) ]`
+`index_options`
 
-  - Use this clause to set a secondary index-level locality group override. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) and [Tiered storage overview](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
+  - Use `locality_group =` `  locality_group_name  ` to set a secondary index-level locality group override. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) and [Tiered storage overview](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
+
+  - Use `columnar_policy =` `  columnar_policy  ` to write index data in columnar format. For more information, see [Configure Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-gsql) .
 
 <span id="alter_index"></span>
 
 ### ALTER INDEX
 
-Use the `ALTER INDEX` statement to add additional columns or remove stored columns from the [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
+Use the `ALTER INDEX` statement to add additional columns or remove stored columns from the [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) or to modify index options.
 
 #### Syntax
 
     ALTER INDEX index_name {ADD|DROP} STORED COLUMN column_name
+    [ OPTIONS ( index_options [, ...] ) ]
+    
+    where index_options is:
+        { locality_group = 'locality_group_name'
+        | columnar_policy = { 'columnar_policy' | null } }
 
 #### Description
 
-Add an additional column into an index or remove a column from an index.
+Add an additional column into an index, remove a column from an index or modify index options.
 
 #### Parameters
 
@@ -1330,6 +1352,12 @@ Add an additional column into an index or remove a column from an index.
 `  column_name  `
 
   - The name of the column to add into the index or to remove from the index.
+
+`  index_options  `
+
+  - Use `locality_group =` `  locality_group_name  ` to alter the locality group. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) and [Tiered storage overview](https://docs.cloud.google.com/spanner/docs/tiered-storage) .
+
+  - Use `columnar_policy =` `  columnar_policy  ` to write index data in columnar format. For more information, see [Configure Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-gsql) .
 
 <span id="drop_index"></span>
 

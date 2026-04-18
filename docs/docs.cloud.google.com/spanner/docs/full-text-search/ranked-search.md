@@ -148,35 +148,6 @@ Spanner applies an exact match boost when all of the previous rules are true, an
 | Bridge "Over Troubled" Water                  | exact boost   |
 | Bridge ("Over Troubled" OR missingterm) Water | exact boost   |
 
-## Scorer versions
-
-The scorer algorithm is updated periodically. Each release bundles a set of scoring algorithm improvements. For a detailed list of differences between versions, see [Scorer Versions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score) .
-
-You can set the default scorer version for your database, or you can specify a version for a specific query.
-
-### Set the database's default scorer version
-
-You can set the default version of the scorer algorithm for your database using the `default_score_version` database option. This option determines which version of the scoring algorithm Spanner uses when the `SCORE` function is called without an explicit `version` score option.
-
-    ALTER DATABASE my_database SET OPTIONS (default_score_version = 2)
-
-The valid values for `default_score_version` are `1` or `2` . If the `version` parameter is present in a request, it overrides the `default_score_version` setting.
-
-### Override the scorer version per query
-
-You can override the default scorer version for a specific query using the `version` parameter in the `SCORE` function's `options` argument. If a query defines a scorer version, it overrides the database's default version.
-
-The following example overrides the default scorer version by specifying `version` in the `options` parameter:
-
-    SELECT AlbumId
-    FROM Albums
-    WHERE SEARCH(AlbumTitle_Tokens, @query)
-    ORDER BY SCORE(
-      AlbumTitle_Tokens,
-      @query,
-      options=>JSON '{"version": 2}'
-    ) DESC
-
 ## Limit retrieval depth
 
 Search indexes often contain millions of documents. For queries where the predicates have low selectivity, it's impractical to rank all the results. Scoring queries usually have two limits:

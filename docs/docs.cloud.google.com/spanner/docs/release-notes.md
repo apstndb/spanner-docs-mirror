@@ -4,6 +4,18 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## April 17, 2026
+
+Feature
+
+Repeatable read isolation is [generally available](https://docs.cloud.google.com/products#product-launch-stages) . You can use it to reduce latency and transaction failure rates for workloads that have many reads contending with fewer writes. For more information, see [Repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) .
+
+Feature
+
+Columnar engine for Spanner is now [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) . Columnar engine is a storage technique used with analytical queries to make scans up to 200 times faster on live operational data without affecting transaction workloads. This release enables support for Columnar Engine in databases that use the [Postgres interface](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-postgres) .
+
+For more information, see the [Columnar engine for Spanner overview](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-postgres) .
+
 ## April 13, 2026
 
 Feature

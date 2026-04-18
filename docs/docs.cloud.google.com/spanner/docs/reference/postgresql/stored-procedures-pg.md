@@ -15,6 +15,7 @@ Replace procedure\_name with the name of the stored system procedure. You can ru
 Spanner supports the following stored system procedure:
 
   - [Query cancellation](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg#query-cancellation)
+  - [Major compaction](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg#major-compaction)
 
 ### Query cancellation
 
@@ -40,3 +41,15 @@ Query cancellations might fail because of one or more of the following:
   - The query is in the process of restarting due to an error.
 
 If one of these causes the query to fail, you can run the query cancellation stored system procedure again.
+
+### Major Compaction
+
+This section describes the major compaction stored system procedure.
+
+#### Syntax
+
+    CALL spanner.compact_all()
+
+#### Description
+
+The `compact_all` stored procedure initiates a major compaction long-running operation to compact all of the data in the database. The procedure returns an identifier that can be used to query the status of the compaction. See [Manual Data Compaction](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) for more details.

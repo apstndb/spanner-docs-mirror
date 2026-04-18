@@ -534,8 +534,7 @@ Gets the number of rows in the input or the number of rows with an expression ev
 
   - `*` : Use this value to get the number of all rows in the input.
   - `expression` : A value of any data type that represents the expression to evaluate. If `DISTINCT` is present, `expression` can only be a data type that is [groupable](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#groupable_data_types) .
-  - `DISTINCT` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
-  - `HAVING { MAX | MIN }` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
+  - Optional aggregate clauses: To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Details**
 
@@ -648,8 +647,7 @@ Gets the number of `TRUE` values for an expression.
 **Definitions**
 
   - `expression` : A `BOOL` value that represents the expression to evaluate.
-  - `DISTINCT` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
-  - `HAVING { MAX | MIN }` : To learn more, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
+  - Optional aggregate clauses: To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
 **Details**
 

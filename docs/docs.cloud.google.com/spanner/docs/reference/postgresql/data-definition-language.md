@@ -113,6 +113,7 @@ Changes the definition of a database.
             | spanner.default_sequence_kind { TO | = } { 'bit_reversed_positive' | DEFAULT }
             | spanner.default_time_zone { TO | = } { 'time_zone_name' | DEFAULT }
             | spanner.read_lease_regions { TO | = } { 'read_lease_region_name' | DEFAULT }
+            | spanner.columnar_policy { TO | = } { 'columnar_policy' | DEFAULT }
         }
     
     and the configuration_parameter is:
@@ -125,6 +126,7 @@ Changes the definition of a database.
             | spanner.default_sequence_kind
             | spanner.default_time_zone
             | spanner.read_lease_regions
+            | spanner.columnar_policy
         }
 
 #### Spanner differences from open source PostgreSQL
@@ -156,6 +158,10 @@ Changes the definition of a database.
 `spanner.read_lease_regions { TO | = } { ' read_lease_region_name ' | DEFAULT }`
 
   - This configuration parameter sets the [read lease](https://docs.cloud.google.com/spanner/docs/read-lease) region for your database. By default, or when you set it to `DEFAULT` , the database doesn't use any read lease regions. If you set one or more read lease regions for your database, Spanner gives the right to serve reads locally to one or more non-leader, read-write, or read-only regions. This lets the non-leader regions directly serve strong reads and reduce strong read latency.
+
+`spanner.columnar_policy { TO | = } { ' columnar_policy ' | DEFAULT }`
+
+  - This configuration parameter sets the [columnar policy](https://docs.cloud.google.com/spanner/docs/columnar-engine) for your database. By default, or when you set it to `DEFAULT` , no data will be written in columnar format unless enabled on a more specific schema object, such as a table or index. no data will be written in columnar format. For more information about how to configure columnar, see [Configure Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-postgres) .
 
 ## PLACEMENT statements
 
@@ -299,6 +305,7 @@ This section has information about `INDEX` statements.
         ( { column_name } [ ASC | DESC ] [ NULLS { FIRST | LAST } ] [, ...] )
         [ INCLUDE ( column_name [, ...] ) ]
         [ LOCALITY GROUP locality_group_name ]
+        [ COLUMNAR POLICY columnar_policy ]
         [ INTERLEAVE IN parent_table_name ]
         [ WHERE predicate ]
     
@@ -324,6 +331,11 @@ This section has information about `INDEX` statements.
 Adds or removes a non-key column from an index.
 
     ALTER INDEX index_name {ADD|DROP} INCLUDE COLUMN column_name
+    [ SET index_option ]
+    
+    where index_option is:
+        { LOCALITY GROUP 'locality_group_name'
+        | COLUMNAR POLICY { 'columnar_policy' | NULL } }
 
 <span id="drop_index"></span>
 
@@ -664,6 +676,7 @@ Defines a new table.
           PRIMARY KEY (column_name)
         )
         [ LOCALITY GROUP locality_group_name ]
+        [ COLUMNAR POLICY columnar_policy ]
         [ INTERLEAVE IN [ PARENT ] parent_table_name ]
         [ ON DELETE ( CASCADE | NO ACTION ) ]
         [ TTL INTERVAL interval_spec ON timestamp_column_name ]
@@ -835,6 +848,10 @@ Spanner extends open source PostgreSQL with the following:
     
       - `  locality_group_name  ` is the name of the locality group.
 
+` COLUMNAR POLICY columnar_policy  `
+
+  - This clause defines a [columnar policy](https://docs.cloud.google.com/spanner/docs/columnar-engine) for the table. For more information about how to configure columnar, see [Configure Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-postgres) .
+
 `[ SYNONYM ( synonym )]`
 
   - Defines a [synonym](https://docs.cloud.google.com/spanner/docs/table-name-synonym#add-synonym) for a table, which is an additional name that an application can use to access the table. A table can have one synonym. You can only use a synonym in queries and DML. You can't use the synonym for DDL or schema changes. You can see the synonym in the DDL representation of the table.
@@ -853,6 +870,7 @@ Changes the definition of a table.
           [, ALTER TABLE [ IF EXISTS ] [ ONLY ] new_table_name RENAME TO new_table_name ...]
         RENAME WITH SYNONYM TO new_table_name
         SET LOCALITY GROUP locality_group_name
+        SET COLUMNAR POLICY columnar_policy
         ADD [ COLUMN ] [ IF NOT EXISTS ] column_name data_type [ column_expression ]
         DROP [ COLUMN ] column_name
         ADD table_constraint
