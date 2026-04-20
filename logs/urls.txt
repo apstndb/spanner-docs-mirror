@@ -506,6 +506,7 @@ https://docs.cloud.google.com/spanner/docs/modify-mutation-api
 https://docs.cloud.google.com/spanner/docs/modifying-leader-region
 https://docs.cloud.google.com/spanner/docs/monitor-active-queries
 https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine
+https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai
 https://docs.cloud.google.com/spanner/docs/monitoring-cloud
 https://docs.cloud.google.com/spanner/docs/monitoring-console
 https://docs.cloud.google.com/spanner/docs/move-instance
@@ -516,7 +517,6 @@ https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview
 https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter
 https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner
 https://docs.cloud.google.com/spanner/docs/non-relational/overview
-https://docs.cloud.google.com/spanner/docs/observe-troubleshoot-with-gemini
 https://docs.cloud.google.com/spanner/docs/open-source-jdbc
 https://docs.cloud.google.com/spanner/docs/optimize-schema-performance
 https://docs.cloud.google.com/spanner/docs/org-policy-violations

@@ -237,15 +237,13 @@ Note the following settings:
 
 #### Disable scanning MCP traffic with Model Armor
 
-If you want to stop scanning Google MCP traffic with Model Armor, run the following command:
+To stop Model Armor from automatically scanning traffic to and from Google MCP servers based on the project's floor settings, run the following command:
 
     gcloud model-armor floorsettings update \
       --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
       --remove-integrated-services=GOOGLE_MCP_SERVER
 
-Replace `  PROJECT_ID  ` with the Google Cloud project ID.
-
-Model Armor won't scan MCP traffic in the project.
+Replace `  PROJECT_ID  ` with the Google Cloud project ID. Model Armor doesn't automatically apply the rules defined in this project's floor settings to any Google MCP server traffic.
 
 ### Control MCP use with IAM deny policies
 

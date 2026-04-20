@@ -12,6 +12,12 @@ Repeatable read isolation is [generally available](https://docs.cloud.google.com
 
 Feature
 
+Spanner supports Gemini Cloud Assist investigation capabilities. You can create, run, and edit [Gemini Cloud Assist investigations](https://docs.cloud.google.com/cloud-assist/investigations) only if you have a [Premium support contract](https://docs.cloud.google.com/support/premium) .
+
+For more information, see [monitor and troubleshoot your Spanner instance with AI assistance](https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai) .
+
+Feature
+
 Columnar engine for Spanner is now [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) . Columnar engine is a storage technique used with analytical queries to make scans up to 200 times faster on live operational data without affecting transaction workloads. This release enables support for Columnar Engine in databases that use the [Postgres interface](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-postgres) .
 
 For more information, see the [Columnar engine for Spanner overview](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-postgres) .
