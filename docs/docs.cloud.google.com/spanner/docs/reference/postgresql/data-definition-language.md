@@ -675,6 +675,7 @@ Defines a new table.
           } [, ... ],
           PRIMARY KEY (column_name)
         )
+        [ WITH ( table_options ) ]
         [ LOCALITY GROUP locality_group_name ]
         [ COLUMNAR POLICY columnar_policy ]
         [ INTERLEAVE IN [ PARENT ] parent_table_name ]
@@ -716,6 +717,10 @@ Defines a new table.
         | SKIP RANGE skip_range_min skip_range_max
         | START COUNTER [ WITH ] start_with_counter
         | NO CYCLE }
+    
+    and table_options are:
+        { type = 'fulltext_dictionary' |
+          fulltext_dictionary_staleness = 'staleness' }
 
 `PRIMARY KEY` `( column_name )`
 
@@ -851,6 +856,14 @@ Spanner extends open source PostgreSQL with the following:
 ` COLUMNAR POLICY columnar_policy  `
 
   - This clause defines a [columnar policy](https://docs.cloud.google.com/spanner/docs/columnar-engine) for the table. For more information about how to configure columnar, see [Configure Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-postgres) .
+
+`WITH ( table_options )`
+
+  - Use this clause to specify options for the table.
+    
+      - `type = 'fulltext_dictionary'` Use this option to define the table as a custom dictionary for full-text search. For more information, see [Search with query enhancement](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries) .
+    
+      - `fulltext_dictionary_staleness = 'staleness'` Use this option to define the maximum staleness, as a string, for custom dictionary lookups. For more information, see [Dictionary lookup staleness](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#dictionary-lookup-staleness) .
 
 `[ SYNONYM ( synonym )]`
 

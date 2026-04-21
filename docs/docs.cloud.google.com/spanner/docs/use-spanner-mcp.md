@@ -1,7 +1,3 @@
-> **Preview**
-> 
-> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) , and the [Additional Terms for Generative AI Preview Products](https://cloud.google.com/trustedtester/aitos) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 This document shows you how to use the Spanner remote Model Context Protocol (MCP) server to connect with AI applications including Gemini CLI, ChatGPT, Claude, and custom applications you are developing. The Spanner MCP server lets you access and run Spanner tools to create, manage, and query Spanner resources from your AI-enabled development environments and AI agent platforms. .
 
 The Spanner remote MCP server is enabled when you enable the Spanner API.
@@ -44,6 +40,7 @@ For information about other MCP servers and information about security and gover
 To get the permissions that you need to use the Spanner MCP server, ask your administrator to grant you the following IAM roles on the project where you want to use the Spanner MCP server:
 
   - Make MCP tool calls: [MCP Tool User](https://docs.cloud.google.com/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `roles/mcp.toolUser` )
+  - Create an OAuth client ID: [OAuth Config Editor](https://docs.cloud.google.com/iam/docs/roles-permissions/oauthconfig#oauthconfig.editor) ( `roles/oauthconfig.editor` )
   - Use Spanner MCP tools: [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `roles/spanner.admin` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
@@ -91,26 +88,185 @@ For more information about these scopes, see [Spanner API](https://developers.go
 
 ## Configure an MCP client to use the Spanner MCP server
 
-AI applications and agents, such as Gemini CLI or Claude, can instantiate an MCP client that connects to a single MCP server. An AI application can have multiple clients that connect to different MCP servers. To connect to a remote MCP server, the MCP client must know at a minimum the URL of the remote MCP server.
+Host programs, such as Claude or the Gemini CLI, can instantiate MCP clients that connect to a single MCP server. A host program can have multiple clients that connect to different MCP servers. To connect to a remote MCP server, the MCP client must know at a minimum the URL of the remote MCP server.
 
-In your AI application, look for a way to connect to a remote MCP server. You are prompted to enter details about the server, such as its name and URL.
+Use the following instructions to configure MCP clients to connect to your remote Spanner MCP server.
 
-For the Spanner MCP server, enter the following as required:
+### Gemini CLI
+
+To add a Spanner remote MCP server to your Gemini CLI, configure it as an extension.
+
+1.  Create an extension file in the following location: `~/.gemini/extensions/ EXT_NAME /gemini-extension.json` where `~/` is your home directory and EXT\_NAME is the name you want to give the extension.
+
+2.  Add the following content to your extension file:
+    
+    ``` 
+            {
+              "name": "EXT_NAME",
+              "version": "1.0.0",
+              "mcpServers": {
+                "Spanner MCP Server": {
+                  "httpUrl": "https://spanner.googleapis.com/mcp",
+                  "authProviderType": "google_credentials",
+                  "oauth": {
+                    "scopes": ["https://www.googleapis.com/auth/cloud-platform"]
+                  },
+                  "timeout": 30000,
+                  "headers": {
+                    "x-goog-user-project": "PROJECT_ID"
+                  }
+                }
+              }
+            }
+            
+    ```
+
+3.  Save the extensions file.
+
+4.  Start Gemini CLI:
+    
+    ``` 
+            gemini
+            
+    ```
+
+5.  Run `/mcp` in the CLI to view your configured MCP server and its tools.
+    
+    The response is similar to the following:
+    
+    ``` 
+            Configured MCP servers:
+            🟢 Spanner MCP Server (from spanner )
+              - get_database_ddl
+              - get_instance
+              - get_operation
+              - create_database
+              - create_instance
+              - create_session
+              - commit
+              - execute_sql
+              - list_databases
+              - list_instances
+            
+    ```
+
+The remote MCP server is ready to use in Gemini CLI.
+
+### Claude.ai
+
+You must have the Claude Enterprise, Pro, Max, or Team plan to configure Google and Google Cloud MCP servers in Claude.ai. For pricing information, see [Claude Pricing](https://claude.com/pricing) .
+
+To add a Spanner remote MCP server to Claude.ai, configure a custom connector with an OAuth client ID and OAuth client secret:
+
+#### Create an Oauth 2.0 client ID and secret
+
+1.  In the Google Cloud console, go to **Google Auth Platform \> Clients \> Create client** .
+    
+    You are prompted to create a project if you don't have one selected.
+
+2.  In the **Application type** list, select **Web application** .
+
+3.  In the **Name** field, enter a name for your application.
+
+4.  In the **Authorized redirect URIs** section, click **+ Add URI** , and then add `https://claude.ai/api/mcp/auth_callback` in the **URIs** field.
+
+5.  Click **Create** . The client is created. To access the client ID, in the Google Cloud console, go to **Google Auth Platform \> Clients** .
+
+6.  In the **OAuth 2.0 client IDs** list, select the client name.
+
+7.  In the **Client secrets** section, copy the **Client secret** and save it in a secure place. You can only copy it once. If you lose it, delete the secret and create a new one.
+    
+    > **Caution:** Treat client secrets like passwords and store them in a secure place.
+
+#### Create a custom connector in Claude.ai
+
+1.  In Claude.ai, navigate to the Connectors settings for your plan:
+    
+      - For the Enterprise or Team plan, navigate to **Admin settings \> Connectors** .
+      - For the Pro or Max plan, navigate to **Settings \> Connectors** .
+
+2.  Click **Add custom connector** .
+
+3.  In the **Add custom connector** dialog, enter the following:
+    
+      - **Server name** : a human readable name for the server.
+      - **Remote MCP server URL** : `https://spanner.googleapis.com/mcp`
+
+4.  Expand the **Advanced settings** menu and then enter the following:
+    
+      - **OAuth client ID** : the OAuth 2.0 client ID you created.
+      - **OAuth client secret** (Pro and Max plans only): the secret for your OAuth 2.0 client. To retrieve the secret, go to **Google Auth Platform \> Clients** and then select the OAuth client ID you created. In the **Client secrets** section, click to copy the **Client secret** .
+
+5.  Click **Add** .
+    
+    The custom connector is created.
+
+6.  Open the **Tools** menu and enable the connector.
+    
+    Claude.ai can use the MCP server.
+
+### ChatGPT
+
+You must have a [ChatGPT Business subscription](https://chatgpt.com/business/) to use Google and Spanner MCP servers with ChatGPT.
+
+To add a Spanner remote MCP server to ChatGPT, create a Google OAuth 2.0 client ID and secret, and then add the MCP server as an App in ChatGPT.
+
+#### Create an Oauth 2.0 client ID and secret
+
+1.  In the Google Cloud console, go to **Google Auth Platform \> Clients \> Create client** .
+    
+    You are prompted to create a project if you don't have one selected.
+
+2.  In the **Application type** list, select **Web application** .
+
+3.  In the **Name** field, enter a name for your application.
+
+4.  In the **Authorized JavaScript origins** section, click **+ Add URI** , and then add `https://chatgpt.com` in the **URIs** field.
+
+5.  In the **Authorized redirect URIs** section, click **+ Add URI** , and then add `https://chatgpt.com/connector_platform_oauth_redirect` in the **URIs** field.
+
+6.  Click **Create** . The client is created. To access the client ID, in the Google Cloud console, go to **Google Auth Platform \> Clients** .
+
+7.  In the **OAuth 2.0 client IDs** list, select the client name.
+
+8.  In the **Client secrets** section, copy the **Client secret** and save it in a secure place. You can only copy it once. If you lose it, delete the secret and create a new one.
+    
+    > **Caution:** Treat client secrets like passwords and store them in a secure place.
+
+#### Add the MCP server as an app in ChatGPT
+
+1.  Sign in to ChatGPT.
+2.  Turn on Developer mode:
+    1.  In ChatGPT, click your username to open the **Profile menu** , and then select **Settings** .
+    2.  In the Settings menu, select **Apps** , and then click **Advanced settings** .
+    3.  In the **Advanced settings** , click the **Developer mode** toggle to the on position.
+3.  In **Settings** \> **Apps** , click the **Create app** button.
+4.  In the **New app** dialog, enter the following information:
+      - **Name** : the name of the MCP server.
+      - **Description** : an optional description of the MCP server.
+      - **MCP server URL** : `https://spanner.googleapis.com/mcp`
+      - **Authentication** :
+          - In the **Authentication** menu, select **OAuth** .
+          - In the **OAuth client ID** field, enter your Google OAuth client ID.
+          - In the **OAuth secret** field, enter your Google OAuth client secret.
+      - Confirm that you understand the risk associated with MCP server use, and then click **Create** .
+
+The MCP server is displayed in the **Apps** menu, and is ready for use through chat prompts.
+
+## General guidance for MCP clients
+
+If specific instructions for your MCP client aren't included in [Configure an MCP client to use the Spanner MCP server](https://docs.cloud.google.com/spanner/docs/use-spanner-mcp#configure-client) , use the following information to connect to a remote MCP server in your host program or AI application. You are prompted to enter details about the server, such as its name and URL.
+
+For the Spanner remote MCP server, enter the following information:
 
   - **Server name** : Spanner MCP server
   - **Server URL** or **Endpoint** : `https://spanner.googleapis.com/mcp`
   - **Transport** : HTTP
-  - **Authentication details** : Depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information on authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
-  - **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Spanner MCP server.
-
-For host specific guidance, see the following:
-
-  - [Gemini CLI](https://docs.cloud.google.com/mcp/configure-mcp-ai-application#gemini-cli)
-  - [Claude.ai](https://docs.cloud.google.com/mcp/configure-mcp-ai-application#claude-ai)
+  - **Authentication details** : Depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials.
 
 For more general guidance, see the following resources:
 
-  - [Connect to remote MCP servers](https://modelcontextprotocol.io/docs/develop/connect-remote-servers) .
+  - [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
   - [Configure MCP in an AI application](https://docs.cloud.google.com/mcp/configure-mcp-ai-application) .
 
 ## Available tools
@@ -130,6 +286,20 @@ Use the [MCP inspector](https://modelcontextprotocol.io/docs/tools/inspector) to
       "method": "tools/list",
     }
 
+## Observability
+
+The Spanner MCP server supports Spanner introspection and observability tools.
+
+### Request Tags
+
+The queries executed or transactions committed using the Spanner MCP server are autotagged with specific request tags. You can use these tags to debug queries and transactions. For more information, see [Troubleshoot with request tags and transaction tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) .
+
+| Tool name              | Request tag                |
+| ---------------------- | -------------------------- |
+| `execute_sql`          | `mcp_execute_sql`          |
+| `execute_sql_readonly` | `mcp_execute_sql_readonly` |
+| `commit`               | `mcp_commit`               |
+
 ## Sample use cases
 
 The following are sample use cases for the Spanner MCP server.
@@ -138,7 +308,7 @@ The following are sample use cases for the Spanner MCP server.
 
 An application developer can use the Spanner MCP server to provision resources, create databases, and populate sample data.
 
-**Sample prompt** : Create a regional Spanner instance in the PROJECT\_ID project in the `us-central1` regional instance configuration. Create a database for tracking inventory and populate 5 sample products.
+**Sample prompt** : "Create a regional Spanner instance in the PROJECT\_ID project in the `us-central1` regional instance configuration. Create a database for tracking inventory and populate 5 sample products."
 
 Replace `PROJECT_ID` with your Google Cloud project ID.
 
@@ -160,13 +330,13 @@ Spanner administrators can use the Spanner MCP server to gather information abou
 
 **Sample prompts** :
 
-  - List all Spanner instances in the current project.
-  - List all databases in the current Spanner instance.
-  - Show the schema for the current Spanner database.
+  - "List all Spanner instances in the current project."
+  - "List all databases in the current Spanner instance."
+  - "Show the schema for the current Spanner database."
 
 ## Optional security and safety configurations
 
-MCP introduces new security risks and considerations due to the wide variety of actions that can be taken with MCP tools. To minimize and manage these risks, Google Cloud offers default and customizable policies to control the use of MCP tools in your Google Cloud organization or project.
+MCP introduces new security risks and considerations due to the wide variety of actions that you can do with the MCP tools. To minimize and manage these risks, Google Cloud offers default settings and customizable policies to control the use of MCP tools in your Google Cloud organization or project.
 
 For more information about MCP security and governance, see [AI security and safety](https://docs.cloud.google.com/mcp/ai-security-safety) .
 

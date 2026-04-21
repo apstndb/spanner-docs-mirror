@@ -1,6 +1,6 @@
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-This page describes the `SEARCH` function and the enhanced query mode, which are used to perform [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) queries on Spanner tables.
+This page describes the `SEARCH` function and its various advanced capabilities, which are used to perform [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) queries on Spanner tables.
 
 ## Query a search index
 
@@ -59,29 +59,14 @@ Same as rquery, the words\_phrase dialect follows the same rules as the plain-te
 
 For information about using the words\_phrase dialect, see [words phrase syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#words-phrase-syntax) .
 
-## Enhanced query mode
+### Expand search queries to increase related results
 
-Spanner offers two full-text search modes: a basic token-based search and a more advanced mode called *`enhance_query`* . When enabled, `enhance_query` expands the search query to include related terms and synonyms, increasing the likelihood of finding relevant results.
+You can increase the likelihood of finding relevant results with Spanner's advanced capabilities to expand search queries with related terms, synonyms, and spelling corrections. These capabilities include:
 
-To enable this option, set the optional argument `enhance_query=>true` in the `SEARCH` function. For example, the search query `hotl cal` matches the album `Hotel California` .
+  - [Enhanced query](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#enhanced-query)
+  - [Custom dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries)
 
-### GoogleSQL
-
-    SELECT AlbumId
-    FROM Albums
-    WHERE SEARCH(AlbumTitle_Tokens, 'hotl cal', enhance_query=>true)
-
-### PostgreSQL
-
-    SELECT albumid
-    FROM albums
-    WHERE spanner.search(albumtitle_tokens, 'hotl cal', enhance_query=>true)
-
-The `enhance_query` mode is a query-time option. It doesn't affect tokenization. You can use the same search index with or without `enhance_query` .
-
-Google is continuously improving the query enhancement algorithms. As a result, a query with `enhance_query == true` might yield slightly different results over time.
-
-When the `enhance_query` mode is enabled, it might increase the number of terms that the `SEARCH` function is looking for which could slightly elevate latency.
+For more information, see [Search with query enhancement](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement) .
 
 ## SQL query requirements
 

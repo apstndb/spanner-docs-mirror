@@ -770,10 +770,6 @@ To generate template context, perform the following steps:
           f.departure_time;
 
 4.  Press **Enter** . Gemini converts your input into a specific format that refines the context set's performance across a wide range of user queries. For more information, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-set) .
-    
-    Optionally, run the `/generate_bulk_templates` workflow to let Gemini CLI generate more context by scanning your database schema and suggesting related context.
-    
-    > **Note:** The `/generate_bulk_templates` workflow requires the list schema tool for fetching database schemas and the execute SQL tool for SQL validation, as the previous `tools.yaml` configuration shows.
 
 5.  Review the generated query template. You can either save the query template as a new agent context file or append it to an existing agent context file.
 

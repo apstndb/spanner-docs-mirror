@@ -384,6 +384,7 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview
 https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns
+https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-vs-secondary-index
 https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search
 https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization
@@ -410,6 +411,7 @@ https://docs.cloud.google.com/spanner/docs/grant-permissions
 https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema
 https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries
 https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema
+https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema-visually
 https://docs.cloud.google.com/spanner/docs/graph/full-text-search-and-graph
 https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to
 https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview

@@ -134,6 +134,7 @@ The following query illustrates how equality and range are represented:
       [, dialect => { "rquery" | "words" | "words_phrase" } ]
       [, language_tag => value ]
       [, enhance_query => { TRUE | FALSE } ]
+      [, dictionary => value]
       [, options => value ]
     )
 
@@ -163,6 +164,8 @@ Calculates a relevance score of a `TOKENLIST` for a full-text search query. The 
       - If `TRUE` , the search query is enhanced to improve search quality.
     
       - If `FALSE` (default), the search query isn't enhanced.
+
+  - `dictionary` : A named argument with a `STRING` value. The value is the name of a custom dictionary table that defines terms and their synonyms in your dataset. If a search term matches a key in the dictionary, the search term is expanded to include all corresponding synonyms along with the original term. For more information, see [Custom dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries) .
 
   - `options` : A named argument with a `JSON` value. The value represents the fine-tuning for the search scoring.
     
@@ -363,6 +366,7 @@ The following query uses `SCORE_NGRAMS` in the `ORDER BY` clause to produce the 
       [, dialect => { "rquery" | "words" | "words_phrase" } ]
       [, language_tag => value]
       [, enhance_query => { TRUE | FALSE }]
+      [, dictionary => value]
     )
 
 **Description**
@@ -391,6 +395,8 @@ Returns `TRUE` if a full-text search query matches tokens.
       - If `TRUE` , the search query is enhanced to improve search quality.
     
       - If `FALSE` (default), the search query isn't enhanced.
+
+  - `dictionary` : A named argument with a `STRING` value. The value is the name of a custom dictionary table that defines terms and their synonyms in your dataset. If a search term matches a key in the dictionary, the search term is expanded to include all corresponding synonyms along with the original term. For more information, see [Custom dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries) .
 
 **Details**
 
@@ -778,6 +784,7 @@ The following query searches the column called `Description` for a token called 
       raw_search_query
       [, language_tag => value ]
       [, enhance_query => { TRUE | FALSE } ]
+      [, dictionary => value]
       [, max_snippet_width => value ]
       [, max_snippets => value ]
       [, content_type => { "text/plain" | "text/html" } ]
@@ -805,6 +812,8 @@ Gets a list of snippets that match a full-text search query.
       - If `TRUE` , the search query is enhanced to improve search quality.
     
       - If `FALSE` (default), the search query isn't enhanced.
+
+  - `dictionary` : A named argument with a `STRING` value. The value is the name of a custom dictionary table that defines terms and their synonyms in your dataset. If a search term matches a key in the dictionary, the search term is expanded to include all corresponding synonyms along with the original term. For more information, see [Custom dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries) .
 
   - `content_type` : A named argument with a `STRING` value. Indicates the MIME type of `data_to_search` . This can be:
     

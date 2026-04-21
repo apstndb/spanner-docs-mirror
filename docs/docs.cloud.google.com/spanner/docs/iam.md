@@ -389,9 +389,9 @@ The following table lists the access control with IAM predefined roles, includin
 </ul></td>
 </tr>
 <tr class="even">
-<td><h4 id="spanner.editor" class="role-title add-link" data-text="Spanner Editor" tabindex="-1">Spanner Editor</h4>
+<td><h4 id="spanner.editor" class="role-title add-link" data-text="Cloud Spanner Editor" tabindex="-1">Cloud Spanner Editor</h4>
 <p>( <code dir="ltr" translate="no">roles/  spanner.editor</code> )</p>
-<p>Editor role for spanner</p></td>
+<p>Editor role for Cloud Spanner</p></td>
 <td><p><code dir="ltr" translate="no">monitoring.timeSeries.list</code></p>
 <p><code dir="ltr" translate="no">resourcemanager.projects.get</code></p>
 <p><code dir="ltr" translate="no">resourcemanager.projects.list</code></p>

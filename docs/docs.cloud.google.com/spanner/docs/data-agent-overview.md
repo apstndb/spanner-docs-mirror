@@ -37,12 +37,12 @@ The context file looks similar to the following:
       ],
       "facets": [
         {
-          "sql_snippet": "T.\"A11\" BETWEEN 6000 AND 10000",
+          "sql_snippet": "employee.\"A11\" BETWEEN 6000 AND 10000",
           "intent": "Average salary between 6000 and 10000",
           "manifest": "Average salary between a given number and a given number",
           "parameterized": {
              "parameterized_intent": "Average salary between $1 and $2",
-             "parameterized_sql_snippet": "T.\"A11\" BETWEEN $1 AND $2"
+             "parameterized_sql_snippet": "employee.\"A11\" BETWEEN $1 AND $2"
           }
         }
       ],

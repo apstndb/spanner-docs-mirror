@@ -630,7 +630,9 @@ Defines a new table.
     
     and table_options_def is:
         { locality_group = 'locality_group_name'
-        | columnar_policy = 'columnar_policy' }
+        | columnar_policy = 'columnar_policy'
+        | fulltext_dictionary_table = { true | false | null }
+        | fulltext_dictionary_staleness = 'staleness' }
 
 #### Description
 
@@ -885,6 +887,10 @@ For more information, see [Foreign keys](https://docs.cloud.google.com/spanner/d
 
   - `columnar_policy =` `  columnar_policy  ` sets the columnar policy for the table. For more information, see [Configure Spanner columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine#enable-columnar-engine-gsql) .
 
+  - `fulltext_dictionary_table = { true | false | null }` specifies if the table is a custom dictionary table for full-text search. Once set, the value of this option can't be changed. This option must be set during table creation. For more information, see [Custom Dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries) .
+
+  - `fulltext_dictionary_staleness = 'staleness'` specifies the staleness allowed for the full-text search dictionary. The value must be a valid duration, for example, `'5s'` . For more information, see [Custom Dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries) .
+
 `[, ROW DELETION POLICY ( OLDER_THAN (` `  timestamp_column  ` `, INTERVAL` `  num_days  ` `DAY ) ) ]`
 
   - Use this clause to set a row deletion policy for this table. For more information, see [Time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl) .
@@ -957,7 +963,8 @@ Changes the definition of a table.
     
     and table_options_def is:
         { locality_group = 'locality_group_name'
-        | columnar_policy = { 'columnar_policy' | null } }
+        | columnar_policy = { 'columnar_policy' | null }
+        | fulltext_dictionary_staleness = 'staleness' }
 
 #### Description
 
