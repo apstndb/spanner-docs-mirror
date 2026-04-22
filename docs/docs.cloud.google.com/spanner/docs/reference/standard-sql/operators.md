@@ -375,6 +375,8 @@ Input values:
       - `ORDINAL(index)` : The index starts at one. Produces an error if the index is out of range. To produce `NULL` instead of an error, use `SAFE_ORDINAL(index)` .
       - `SAFE_ORDINAL(index)` : The index starts at one. Returns `NULL` if the index is out of range.
 
+> **Tip:** To access the first or last element in an array, use the [`ARRAY_FIRST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_first) or [`ARRAY_LAST`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_last) function.
+
 **Return type**
 
 `T` where `array_expression` is `ARRAY<T>` .

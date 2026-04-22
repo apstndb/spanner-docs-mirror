@@ -127,6 +127,7 @@ Use the following command to create an instance with managed autoscaler.
     --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
     --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
     --autoscaling-storage-target=STORAGE_PERCENTAGE \
+    [--disable-downscaling | --no-disable-downscaling] \
     [--asymmetric-autoscaling-option \
        location=ASYMMETRIC_AUTOSCALING_LOCATION,\
        min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
@@ -150,6 +151,7 @@ or
     --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
     --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
     --autoscaling-storage-target=STORAGE_PERCENTAGE \
+    [--disable-downscaling | --no-disable-downscaling] \
     [--asymmetric-autoscaling-option \
        location=ASYMMETRIC_AUTOSCALING_LOCATION,\
        min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
@@ -173,6 +175,8 @@ Replace the following:
   - STORAGE\_PERCENTAGE : the target percentage of storage to use, from 10 to 99%. For more information, see [Determine the storage utilization target](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-storage) .
 
 Optional flags:
+
+  - `--disable-downscaling` : use this boolean flag to disable downscaling. When set to `TRUE` , it prevents the autoscaler from reducing the number of nodes or processing units. Upscaling continues to function normally to meet increased demand. To enable downscaling after disabling it, use the `--no-disable-downscaling` flag.
 
   - `--asymmetric-autoscaling-option` : use this flag to enable [asymmetric autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) . Replace the following parameters:
     
@@ -1750,6 +1754,7 @@ You can add the managed autoscaler with the following command:
     --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
     --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
     --autoscaling-storage-target=STORAGE_PERCENTAGE \
+    [--disable-downscaling | --no-disable-downscaling] \
     [--asymmetric-autoscaling-option \
        location=ASYMMETRIC_AUTOSCALING_LOCATION,\
        min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
@@ -1769,6 +1774,7 @@ or
     --autoscaling-high-priority-cpu-target=HIGH_PRIORITY_CPU_PERCENTAGE \
     --autoscaling-total-cpu-target=TOTAL_CPU_PERCENTAGE \
     --autoscaling-storage-target=STORAGE_PERCENTAGE \
+    [--disable-downscaling | --no-disable-downscaling] \
     [--asymmetric-autoscaling-option \
        location=ASYMMETRIC_AUTOSCALING_LOCATION,\
        min_nodes=ASYMMETRIC_AUTOSCALING_MIN,\
@@ -1789,6 +1795,8 @@ Replace the following:
   - STORAGE\_PERCENTAGE : the target percentage of storage to use, from 10% to 99%. For more information, see [Determine the storage utilization target](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-storage) .
 
 Optional flags:
+
+  - `--disable-downscaling` : use this boolean flag to disable downscaling. When set to `TRUE` , it prevents the autoscaler from reducing the number of nodes or processing units. Upscaling continues to function normally to meet increased demand. To enable downscaling after disabling it, use the `--no-disable-downscaling` flag.
 
   - `--asymmetric-autoscaling-option` : Use this flag to enable [asymmetric autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
     

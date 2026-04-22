@@ -124,7 +124,7 @@ The main components of the facet JSON object are as follows:
 
 ### Value search queries
 
-\[Value search queries\](/spanner/docs/build-context-gemini-cli\#generate-value-searches) are developer-defined queries that use match functions to find values and their context within a database. Value linking uses the results of these queries to identify which tables and columns contain a matching value, understand the value's concept type, and correct misspellings.
+[*Value search queries*](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli#generate-value-search-queries) are developer-defined queries that use match functions to find values and their context within a database. Value linking uses the results of these queries to identify which tables and columns contain a matching value, understand the value's concept type, and correct misspellings.
 
 The QueryData API uses value linking to more accurately convert natural language into SQL. By using value search queries, the API can correct misspellings and resolve value types based on database values, thus improving conversion accuracy.
 
