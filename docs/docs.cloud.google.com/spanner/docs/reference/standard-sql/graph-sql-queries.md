@@ -1,4 +1,4 @@
-GoogleSQL for Spanner supports the following syntax to use GQL within SQL queries.
+GoogleSQL for Spanner supports the following syntax to use graphs within SQL queries.
 
 ## Language list
 

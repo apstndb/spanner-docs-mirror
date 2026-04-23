@@ -415,6 +415,8 @@ To stop Model Armor from automatically scanning traffic to and from Google MCP s
 
 Replace `  PROJECT_ID  ` with the Google Cloud project ID. Model Armor doesn't automatically apply the rules defined in this project's floor settings to any Google MCP server traffic.
 
+Model Armor floor settings and general configuration can impact more than just MCP. Because Model Armor integrates with services like Agent Platform, any changes you make to floor settings can affect traffic scanning and safety behaviors across all integrated services, not just MCP.
+
 ### Control MCP use with IAM deny policies
 
 [Identity and Access Management (IAM) deny policies](https://docs.cloud.google.com/iam/docs/deny-overview) help you secure Google Cloud remote MCP servers. Configure these policies to block unwanted MCP tool access.

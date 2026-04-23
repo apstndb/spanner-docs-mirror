@@ -153,7 +153,7 @@ Spanner offers multiple ways to read a change stream's data:
 
   - Through using the Debezium-based Kafka connector for Spanner change streams. This connector streams change records directly into Kafka topics.
 
-  - Using Datastream to directly stream your changes to BigQuery, BigLake Iceberg tables, or Cloud Storage.
+  - Using Datastream to directly stream your changes to BigQuery, Google Cloud Lakehouse Iceberg tables, or Cloud Storage.
 
 You can provide partial isolation for change streams reads by using directed reads. Directed reads can help to minimize impact on transactional workloads in your database. You can use the Spanner API to route change streams reads to a specific replica type or region within a multi-region instance configuration or a custom regional configuration with optional read-only region(s). For more information, see [directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) .
 

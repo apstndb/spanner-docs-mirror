@@ -45,7 +45,7 @@ To make the required updates to your graph database, do the following:
 
 3.  Create embeddings for the text in the `nick_name` column, and populate them into the new `nick_name_embeddings` column.
     
-    To generate Vertex AI embeddings for your operational data in Spanner Graph, see [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
+    To generate Agent Platform embeddings for your operational data in Spanner Graph, see [Get Agent Platform text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
     
     For illustrative purposes, our examples use artificial, low-dimensional vector values.
     
@@ -62,7 +62,7 @@ To make the required updates to your graph database, do the following:
 
 5.  Create embeddings for the text in the `notes` column, and populate them into the `notes_embeddings` column.
     
-    To generate Vertex AI embeddings for your operational data in Spanner Graph, see [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
+    To generate Agent Platform embeddings for your operational data in Spanner Graph, see [Get Agent Platform text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
     
     For illustrative purposes, our examples use artificial, low-dimensional vector values.
     
@@ -182,6 +182,6 @@ The [graph hint](https://docs.cloud.google.com/spanner/docs/reference/standard-s
 
   - [Perform vector similarity search in Spanner by finding the K-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
   - [Find approximate nearest neighbors, create vector index, and query vector embeddings](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
-  - [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings)
+  - [Get Agent Platform text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings)
   - Learn more about [Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
   - Learn [best practices for tuning queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries) .

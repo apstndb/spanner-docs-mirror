@@ -930,6 +930,7 @@ https://docs.cloud.google.com/spanner/docs/schema-design
 https://docs.cloud.google.com/spanner/docs/schema-drop-protection
 https://docs.cloud.google.com/spanner/docs/schema-migration
 https://docs.cloud.google.com/spanner/docs/schema-updates
+https://docs.cloud.google.com/spanner/docs/schema-updates-best-practices
 https://docs.cloud.google.com/spanner/docs/secondary-indexes
 https://docs.cloud.google.com/spanner/docs/secure-agent-interactions-mcp
 https://docs.cloud.google.com/spanner/docs/security-privacy-compliance
@@ -970,6 +971,7 @@ https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer
 https://docs.cloud.google.com/spanner/docs/use-active-record
 https://docs.cloud.google.com/spanner/docs/use-ado-net
 https://docs.cloud.google.com/spanner/docs/use-cmek
+https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp
 https://docs.cloud.google.com/spanner/docs/use-entity-framework
 https://docs.cloud.google.com/spanner/docs/use-golang-database-sql
 https://docs.cloud.google.com/spanner/docs/use-gorm

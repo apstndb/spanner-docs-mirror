@@ -4,6 +4,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## April 21, 2026
+
+Feature
+
+Spanner full-text search supports [custom dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries) to create custom synonym mappings. You can use custom dictionaries with the `SEARCH` , `SCORE` , and `SNIPPET` functions.
+
 ## April 20, 2026
 
 Feature
@@ -13,6 +19,10 @@ The [Spanner remote MCP server](https://docs.cloud.google.com/spanner/docs/use-s
 Feature
 
 You can use the [Database Insights remote MCP server](https://docs.cloud.google.com/spanner/docs/reference/mcp/databaseinsights/mcp) to analyze Spanner's performance and system metrics. This feature is generally available ( [GA](https://cloud.google.com/products#product-launch-stages) ).
+
+Feature
+
+You can now use Spanner Studio to [visually create and manage a Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema-visually) . Visual modeling simplifies graph design by enabling you to map nodes and edges through an intuitive interface instead of creating manual DDL statements. This feature is available in [Preview](https://docs.cloud.google.com/products#product-launch-stages) .
 
 ## April 17, 2026
 

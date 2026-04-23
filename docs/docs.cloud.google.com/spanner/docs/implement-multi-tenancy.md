@@ -320,7 +320,8 @@ In summary, the key takeaways are:
   - **Advantage:** Moderate level of scalability and resource efficiency.
   - **Disadvantage:**
       - Moderate level of data isolation, and resource isolation.
-      - Location inflexibility if not using the new geo-partitioning feature.
+      - Schema update operations can be throttled if tenants are onboarded frequently.
+      - Location inflexibility if not using the geo-partitioning feature.
       - Inability to separately monitor tenants. The only available table level resource consumption info is [table size statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics) .
       - Tenants can't have their own CMEK and backups.
 

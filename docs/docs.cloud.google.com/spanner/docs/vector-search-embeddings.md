@@ -1,4 +1,4 @@
-[Vertex AI Vector Search](https://docs.cloud.google.com/vertex-ai/docs/vector-search/overview) allows users to search for semantically similar items using vector embeddings. Using the [Spanner To Vertex AI Vector Search Workflow](https://github.com/cloudspannerecosystem/spanner-ai/tree/main/vertex-vector-search/workflows#readme) , you can integrate your Spanner database with Vector Search to perform a vector similarity search on your Spanner data.
+[Agent Platform Vector Search](https://docs.cloud.google.com/vertex-ai/docs/vector-search/overview) allows users to search for semantically similar items using vector embeddings. Using the [Spanner To Agent Platform Vector Search Workflow](https://github.com/cloudspannerecosystem/spanner-ai/tree/main/vertex-vector-search/workflows#readme) , you can integrate your Spanner database with Vector Search to perform a vector similarity search on your Spanner data.
 
 The following diagram shows the end-to-end application workflow of how you can enable and use Vector Search on your Spanner data:
 
@@ -8,11 +8,11 @@ The general workflow is as follows:
 
 1.  **Generate and store vector embeddings.**
     
-    You can generate vector embeddings of your data, then store and manage them in Spanner with your operational data. You can generate embeddings with Spanner's `ML.PREDICT` SQL function to [access the Vertex AI text embedding model](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings#generate-store-embeddings) or [use other embedding models deployed to Vertex AI](https://docs.cloud.google.com/spanner/docs/ml-tutorial) .
+    You can generate vector embeddings of your data, then store and manage them in Spanner with your operational data. You can generate embeddings with Spanner's `ML.PREDICT` SQL function to [access the Agent Platform text embedding model](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings#generate-store-embeddings) or [use other embedding models deployed to Agent Platform](https://docs.cloud.google.com/spanner/docs/ml-tutorial) .
 
 2.  **Sync embeddings to Vector Search.**
     
-    Use the [Spanner To Vertex AI Vector Search Workflow](https://github.com/cloudspannerecosystem/spanner-ai/tree/main/vertex-vector-search/workflows#readme) , which is deployed using [Workflows](https://docs.cloud.google.com/workflows/docs/overview) to export and upload embeddings into a Vector Search index. You can use Cloud Scheduler to periodically schedule this workflow to keep your Vector Search index up to date with the latest changes to your embeddings in Spanner.
+    Use the [Spanner To Agent Platform Vector Search Workflow](https://github.com/cloudspannerecosystem/spanner-ai/tree/main/vertex-vector-search/workflows#readme) , which is deployed using [Workflows](https://docs.cloud.google.com/workflows/docs/overview) to export and upload embeddings into a Vector Search index. You can use Cloud Scheduler to periodically schedule this workflow to keep your Vector Search index up to date with the latest changes to your embeddings in Spanner.
 
 3.  **Perform vector similarity search using your Vector Search index.**
     
@@ -37,5 +37,5 @@ You can also use [generative AI](https://docs.cloud.google.com/vertex-ai/generat
   - Learn how to [generate embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) using Spanner.
   - Learn more about [AI's multitool: Vector embeddings](https://cloud.google.com/blog/topics/developers-practitioners/meet-ais-multitool-vector-embeddings)
   - Learn more about machine learning and embeddings in our [crash course on embeddings](https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture) .
-  - Learn more about the Spanner To Vertex AI Vector Search Workflow, see the [GitHub repository](https://github.com/cloudspannerecosystem/spanner-ai/tree/main/vertex-vector-search/workflows) .
+  - Learn more about the Spanner To Agent Platform Vector Search Workflow, see the [GitHub repository](https://github.com/cloudspannerecosystem/spanner-ai/tree/main/vertex-vector-search/workflows) .
   - Learn more about the [open source spanner-analytics package](https://github.com/cloudspannerecosystem/spanner-analytics/) that facilitates common data-analytic operations in Python and includes integrations with Jupyter Notebooks.

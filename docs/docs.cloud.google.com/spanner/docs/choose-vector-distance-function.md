@@ -31,6 +31,6 @@ If you're unsure whether or not your data is normalized and you want to use `DOT
 ## What's next
 
   - Learn more about how to [perform a vector search by finding the k-nearest neighbor](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
-  - Learn how to [export embeddings to Vertex AI Vector Search](https://docs.cloud.google.com/spanner/docs/vector-search-embeddings) .
+  - Learn how to [export embeddings to Agent Platform Vector Search](https://docs.cloud.google.com/spanner/docs/vector-search-embeddings) .
   - Learn more about the [GoogleSQL `COSINE_DISTANCE()` , `EUCLIDEAN_DISTANCE()` , and `DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
   - Learn more about the [PostgreSQL `spanner.cosine_distance()` , `spanner.euclidean_distance(), and spanner.dot_product()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) functions.

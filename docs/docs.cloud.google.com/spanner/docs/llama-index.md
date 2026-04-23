@@ -96,4 +96,4 @@ To learn how to use graph retrievers with Spanner to answer questions, see the [
 
   - To learn how to use Spanner to store vector embeddings, see [Get Spanner text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
 
-  - To learn more about machine learning with Spanner, see the [Vertex AI integration overview](https://docs.cloud.google.com/spanner/docs/ml) .
+  - To learn more about machine learning with Spanner, see the [Agent Platform integration overview](https://docs.cloud.google.com/spanner/docs/ml) .
