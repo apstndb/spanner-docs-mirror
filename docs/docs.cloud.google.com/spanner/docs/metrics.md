@@ -940,7 +940,7 @@ Buffered ready messages
 `GAUGE` , `INT64` , `1`  
 **[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
-*Number of buffered ready messages in the queue.*  
+*Number of buffered ready messages in the queue. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
 `database` : Target database.  
 `queue` : Target queue.
 
@@ -1175,7 +1175,7 @@ Transaction latencies
 *Distribution of total seconds takenfrom the first operation of the transaction to commit or abort. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `database` : Target database.
 
-<span class="small">Table generated at 2026-04-17 00:10:13 UTC.</span>
+<span class="small">Table generated at 2026-04-23 19:46:18 UTC.</span>
 
 ## What's next
 

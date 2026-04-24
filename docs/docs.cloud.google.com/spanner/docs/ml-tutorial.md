@@ -1,12 +1,12 @@
 This page shows how to generate machine learning (ML) predictions from a Spanner database. ML predictions work with both GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
-Spanner Vertex AI integration gives you the ability to generate predictions using your SQL code by calling the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function for GoogleSQL or the [`spanner.ML_PREDICT_ROW`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#ml) function for PostgreSQL. For more information about Spanner Vertex AI integration, see [Spanner Vertex AI integration overview](https://docs.cloud.google.com/spanner/docs/ml) .
+Spanner Agent Platform integration gives you the ability to generate predictions using your SQL code by calling the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function for GoogleSQL or the [`spanner.ML_PREDICT_ROW`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#ml) function for PostgreSQL. For more information about Spanner Agent Platform integration, see [Spanner Agent Platform integration overview](https://docs.cloud.google.com/spanner/docs/ml) .
 
 ## Before you begin
 
 Before you can generate predictions from a Spanner instance, you must prepare your database and select a model.
 
-### Configure access for Spanner Vertex AI integration to Agent Platform endpoints
+### Configure access for Spanner Agent Platform integration to Agent Platform endpoints
 
 Spanner creates the service agent and grants the necessary permissions automatically when Spanner executes the first MODEL DDL statement. If both the Spanner database and the Agent Platform endpoint are in the same project, no additional setup is required.
 
@@ -24,7 +24,7 @@ When you use the `ML.PREDICT` (for GoogleSQL) or the `spanner.ML_PREDICT_ROW` (f
 
   - A Agent Platform model with an active endpoint that your [Spanner service agent](https://docs.cloud.google.com/iam/docs/service-agents) has IAM permission to access.
 
-To learn more about Spanner Vertex AI integration, see [How does Spanner Vertex AI integration work?](https://docs.cloud.google.com/spanner/docs/ml#how-does-it-work) .
+To learn more about Spanner Agent Platform integration, see [How does Spanner Agent Platform integration work?](https://docs.cloud.google.com/spanner/docs/ml#how-does-it-work) .
 
 ## Generate predictions
 
@@ -113,7 +113,7 @@ This query produces a JSON response. For more information about the model's JSON
 
 ### Use a Agent Platform model endpoint
 
-To use a trained or downloaded model with Spanner Vertex AI integration, you need to deploy the model to Agent Platform. For more information on how to deploy a model to an endpoint in Agent Platform, see [Deploy a model to an endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) .
+To use a trained or downloaded model with Spanner Agent Platform integration, you need to deploy the model to Agent Platform. For more information on how to deploy a model to an endpoint in Agent Platform, see [Deploy a model to an endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) .
 
 ### GoogleSQL
 

@@ -157,7 +157,7 @@ The example search in this section takes the following steps to narrow down the 
 
 ## ML reranking
 
-ML-based reranking is a computationally intensive but highly precise approach. It applies a machine learning model to a small candidate set that has been reduced by FTS, vector search, or a combination of both. For more information about Spanner Vertex AI integration, see the [Spanner Vertex AI integration overview](https://docs.cloud.google.com/spanner/docs/ml) .
+ML-based reranking is a computationally intensive but highly precise approach. It applies a machine learning model to a small candidate set that has been reduced by FTS, vector search, or a combination of both. For more information about Spanner Agent Platform integration, see the [Spanner Agent Platform integration overview](https://docs.cloud.google.com/spanner/docs/ml) .
 
 You can integrate ML reranking using the Spanner [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function with a deployed Agent Platform model.
 

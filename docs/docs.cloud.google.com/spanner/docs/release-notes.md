@@ -3364,6 +3364,10 @@ Spanner supports the `dot_product()` function (in [Preview](https://cloud.google
 
 Feature
 
+Spanner supports the `ML_PREDICT_ROW()` function for PostgreSQL. You can use this function to generate predictions using SQL. To learn more about this function and how to use it, see [Using Spanner Agent Platform integration functions](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) .
+
+Feature
+
 Spanner GoogleSQL supports [`SAFE.ML.PREDICT()`](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) , which lets you to return a `null` instead of an error in your predictions.
 
 Feature
@@ -3384,11 +3388,7 @@ You can [generate ML predictions using the Spanner emulator](https://docs.cloud.
 
 Feature
 
-Spanner supports the `ML_PREDICT_ROW()` function for PostgreSQL. You can use this function to generate predictions using SQL. To learn more about this function and how to use it, see [Using Spanner Vertex AI integration functions](https://docs.cloud.google.com/spanner/docs/ml#ml-functions) .
-
-Feature
-
-You can generate and backfill vector embeddings for textual data ( `STRING` or `JSON` ) stored in Spanner using GoogleSQL partitioned DML and the Vertex AI `textembedding-gecko` model. For more information, see [Generate vector embeddings for textual data in bulk using partitioned DML](https://docs.cloud.google.com/spanner/docs/backfill-embeddings) .
+You can generate and backfill vector embeddings for textual data ( `STRING` or `JSON` ) stored in Spanner using GoogleSQL partitioned DML and the Agent Platform `textembedding-gecko` model. For more information, see [Generate vector embeddings for textual data in bulk using partitioned DML](https://docs.cloud.google.com/spanner/docs/backfill-embeddings) .
 
 Feature
 
@@ -4296,7 +4296,7 @@ Spanner batch write is available in Preview. You can use Spanner batch write to 
 
 Feature
 
-Spanner Vertex AI integration supports Vertex AI Generative AI text embeddings and the [`text-bison`](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) model. For more information, see [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
+Spanner Agent Platform integration supports Agent Platform Generative AI text embeddings and the [`text-bison`](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) model. For more information, see [Get Agent Platform text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
 
 ## October 05, 2023
 
@@ -4785,7 +4785,7 @@ For more information, see [Data Boost overview](https://docs.cloud.google.com/sp
 
 Feature
 
-Spanner Vertex AI integration is generally available. You can use Vertex AI with GoogleSQL to enhance your Spanner applications with machine learning capabilities. For more information, see [About Spanner Vertex AI integration](https://docs.cloud.google.com/spanner/docs/ml) .
+Spanner Vertex AI integration is generally available. You can use Agent Platform with GoogleSQL to enhance your Spanner applications with machine learning capabilities. For more information, see [About Spanner Vertex AI integration](https://docs.cloud.google.com/spanner/docs/ml) .
 
 ## June 09, 2023
 

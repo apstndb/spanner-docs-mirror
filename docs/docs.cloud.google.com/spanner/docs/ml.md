@@ -1,22 +1,22 @@
-This page provides an overview of Spanner Vertex AI integration. Spanner Vertex AI integration works with both GoogleSQL and PostgreSQL databases.
+This page provides an overview of Spanner Agent Platform integration. Spanner Agent Platform integration works with both GoogleSQL and PostgreSQL databases.
 
-Spanner Vertex AI integration helps you to access classifier and regression ML models hosted on [Agent Platform](https://docs.cloud.google.com/vertex-ai) through the GoogleSQL and PostgreSQL interface. This helps to seamlessly integrate ML predictions serving functionality with general Spanner data access operations performed using DQL/DML queries.
+Spanner Agent Platform integration helps you to access classifier and regression ML models hosted on [Agent Platform](https://docs.cloud.google.com/vertex-ai) through the GoogleSQL and PostgreSQL interface. This helps to seamlessly integrate ML predictions serving functionality with general Spanner data access operations performed using DQL/DML queries.
 
-## Benefits of Spanner Vertex AI integration
+## Benefits of Spanner Agent Platform integration
 
-Generating ML predictions using Spanner Vertex AI integration provides multiple benefits compared to the approach where Spanner data access and access to the Agent Platform prediction endpoint are performed separately:
+Generating ML predictions using Spanner Agent Platform integration provides multiple benefits compared to the approach where Spanner data access and access to the Agent Platform prediction endpoint are performed separately:
 
   - Performance:
-      - Better latency: Spanner Vertex AI integration talking to the Agent Platform service directly eliminates additional round-trips between a compute node running a Spanner's client and the Agent Platform service.
-      - Better throughput/parallelism: Spanner Vertex AI integration runs on top of Spanner's distributed query processing infrastructure, which supports highly parallelizable query execution.
+      - Better latency: Spanner Agent Platform integration talking to the Agent Platform service directly eliminates additional round-trips between a compute node running a Spanner's client and the Agent Platform service.
+      - Better throughput/parallelism: Spanner Agent Platform integration runs on top of Spanner's distributed query processing infrastructure, which supports highly parallelizable query execution.
   - User experience:
       - Ability to use a single, simple, coherent, and familiar SQL interface to facilitate both data transformation and ML serving scenarios on Spanner level of scale lowers the ML entry barrier and allows for a much smoother user experience.
   - Costs:
-      - Spanner Vertex AI integration uses Spanner [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to merge the results of ML computations and SQL query execution, which eliminates the need to provision an additional compute (for example, in Compute Engine or Google Kubernetes Engine) for that.
+      - Spanner Agent Platform integration uses Spanner [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to merge the results of ML computations and SQL query execution, which eliminates the need to provision an additional compute (for example, in Compute Engine or Google Kubernetes Engine) for that.
 
-## How does Spanner Vertex AI integration work?
+## How does Spanner Agent Platform integration work?
 
-Spanner Vertex AI integration doesn't host ML models, but relies on the Agent Platform service infrastructure instead. You don't need to train a model using Agent Platform to use it with Spanner Vertex AI integration, but you must deploy it to a Agent Platform endpoint.
+Spanner Agent Platform integration doesn't host ML models, but relies on the Agent Platform service infrastructure instead. You don't need to train a model using Agent Platform to use it with Spanner Agent Platform integration, but you must deploy it to a Agent Platform endpoint.
 
 To train models on data stored in Spanner, you can use the following:
 
@@ -24,15 +24,15 @@ To train models on data stored in Spanner, you can use the following:
 
   - [Dataflow](https://docs.cloud.google.com/dataflow) to export data from Spanner into CSV format and import the [CSV data source](https://docs.cloud.google.com/vertex-ai/docs/datasets/prepare-tabular#csv) into Agent Platform.
 
-Spanner Vertex AI integration extends the following functions for using ML models:
+Spanner Agent Platform integration extends the following functions for using ML models:
 
   - **Generate ML predictions** by calling a model using SQL on your Spanner data. You can use a model from the [Agent Platform Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or a model deployed to your [Agent Platform endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) .
 
   - **Generate text embeddings** to have an LLM translate text prompts into numbers. To learn more about embeddings, see [Get text embeddings](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-text-embeddings) .
 
-## Using Spanner Vertex AI integration functions
+## Using Spanner Agent Platform integration functions
 
-A model in Spanner Vertex AI integration can be used to generate predictions or text embeddings in your SQL code using the ML Predict functions. These functions are as follows:
+A model in Spanner Agent Platform integration can be used to generate predictions or text embeddings in your SQL code using the ML Predict functions. These functions are as follows:
 
 ### GoogleSQL
 
@@ -60,7 +60,7 @@ For more information on how to use these functions to generate text embeddings, 
 
 ## Pricing
 
-There are no additional charges from Spanner when you use it with Spanner Vertex AI integration. However, there are other potential charges associated with this feature:
+There are no additional charges from Spanner when you use it with Spanner Agent Platform integration. However, there are other potential charges associated with this feature:
 
   - You pay the [standard rates](https://docs.cloud.google.com/vertex-ai/pricing) for Agent Platform online prediction. The total charge depends on the model type you use. Some model types have a flat per hour rate, depending on the machine type and number of nodes that you use. Some model types have per call rates. We recommend you deploy the latter in a dedicated project where you have set explicit prediction quotas.
 
@@ -68,7 +68,7 @@ There are no additional charges from Spanner when you use it with Spanner Vertex
 
 ## SLA
 
-Due to [Agent Platform online prediction availability](https://docs.cloud.google.com/vertex-ai/sla) being lower, you must properly configure Spanner ML models to maintain [Spanner's high availability](https://docs.cloud.google.com/spanner/sla) while using Spanner Vertex AI integration:
+Due to [Agent Platform online prediction availability](https://docs.cloud.google.com/vertex-ai/sla) being lower, you must properly configure Spanner ML models to maintain [Spanner's high availability](https://docs.cloud.google.com/spanner/sla) while using Spanner Agent Platform integration:
 
 1.  Spanner ML models must use multiple Agent Platform endpoints on the backend to enable failover.
 2.  Agent Platform endpoints must conform to the [Agent Platform SLA](https://docs.cloud.google.com/vertex-ai/sla) .
@@ -93,6 +93,6 @@ Agent Platform endpoints don't need to host exactly the same model. We recommend
 
 ## Compliance
 
-[Assured Workloads](https://docs.cloud.google.com/assured-workloads/docs/overview) don't support the Agent Platform Prediction API. Enabling a [restrict resource usage constraint](https://docs.cloud.google.com/assured-workloads/docs/restrict-resource-usage) disables the Agent Platform API and effectively the Spanner Vertex AI integration feature.
+[Assured Workloads](https://docs.cloud.google.com/assured-workloads/docs/overview) don't support the Agent Platform Prediction API. Enabling a [restrict resource usage constraint](https://docs.cloud.google.com/assured-workloads/docs/restrict-resource-usage) disables the Agent Platform API and effectively the Spanner Agent Platform integration feature.
 
 Additionally, we recommend that you create a [VPC Service Controls perimeter](https://docs.cloud.google.com/assured-workloads/docs/configure-vpc-sc) to ensure your production databases cannot connect to Agent Platform endpoints in your non-production projects that might not have the proper compliance configuration.

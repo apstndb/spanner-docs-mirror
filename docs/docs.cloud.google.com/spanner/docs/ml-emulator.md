@@ -1,6 +1,6 @@
 This page describes how to generate ML predictions using the Spanner emulator for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
-Spanner Vertex AI integration can be used with the Spanner emulator to generate predictions using the GoogleSQL or PostgreSQL ML predict functions. The emulator is a binary that mimics a Spanner server, and can also be used in unit and integration testing. You can use the emulator as an [open source project](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator) or [locally](https://docs.cloud.google.com/spanner/docs/emulator) using the Google Cloud CLI. To learn more about the ML predict functions, see [How does Spanner Vertex AI integration work?](https://docs.cloud.google.com/spanner/docs/ml#how_does_work) .
+Spanner Agent Platform integration can be used with the Spanner emulator to generate predictions using the GoogleSQL or PostgreSQL ML predict functions. The emulator is a binary that mimics a Spanner server, and can also be used in unit and integration testing. You can use the emulator as an [open source project](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator) or [locally](https://docs.cloud.google.com/spanner/docs/emulator) using the Google Cloud CLI. To learn more about the ML predict functions, see [How does Spanner Agent Platform integration work?](https://docs.cloud.google.com/spanner/docs/ml#how_does_work) .
 
 You can use any model with the emulator to generate predictions. You can also use a model from the [Agent Platform Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or a model deployed to your [Agent Platform endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) . Since the emulator doesn't connect to Agent Platform, the emulator can't verify the model or its schema for any model used from the Agent Platform Model Garden or deployed to the Agent Platform endpoints.
 
@@ -18,7 +18,7 @@ You can either [install the emulator locally](https://docs.cloud.google.com/span
 
 When you use the `ML.PREDICT` (for GoogleSQL) or the `ML_PREDICT_ROW` (for PostgreSQL) function, you must specify the location of the ML model. You can use any trained model. If you select a model that is running in the [Agent Platform Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or a model that is [deployed to your Agent Platform endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) , you must provide the `input` and `output` values for these models.
 
-To learn more about Spanner Vertex AI integration, see [How does Spanner Vertex AI integration work?](https://docs.cloud.google.com/spanner/docs/ml#how-does-it-work) .
+To learn more about Spanner Agent Platform integration, see [How does Spanner Agent Platform integration work?](https://docs.cloud.google.com/spanner/docs/ml#how-does-it-work) .
 
 ## Generate predictions
 

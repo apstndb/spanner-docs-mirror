@@ -39,7 +39,7 @@ The previous `UserAccessLogs` table includes five example rows of data, which re
 
 This is problematic because Spanner assigns work to different servers in units of splits, so the server assigned to this particular split ends up handling all the insert requests. As the frequency of user access events increases, the frequency of insert requests to the corresponding server also increases. The server then becomes prone to becoming a hotspot, and looks like the red border and background shown in the previous image. In this simplified illustration, each server handles at most one split but Spanner can assign each server more than one split.
 
-When Spanner appends more rows to the table, the split grows, and when it reaches approximately 8 GiB, Spanner creates another split, as described in [Load-based splitting](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#load-based_splitting) . Spanner appends subsequent new rows to this new split, and the server assigned to the split becomes the new potential hotspot.
+When Spanner appends more rows to the table, the split grows, and then Spanner creates new splits as needed. To learn more about how splits are created, see [Load-based splitting](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#load-based_splitting) . Spanner appends subsequent new rows to this new split, and the server assigned to the split becomes the new potential hotspot.
 
 When hotspots occur, you might observe that your inserts are slow and other work on the same server might slow down. Changing the order of the `LastAccess` column to ascending order doesn't solve this problem because then all the writes are inserted at the top of the table instead, which still sends all the inserts to a single server.
 

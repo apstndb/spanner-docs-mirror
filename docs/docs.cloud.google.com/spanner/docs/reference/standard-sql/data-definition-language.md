@@ -2239,7 +2239,7 @@ This section has information about the `CREATE MODEL` , `ALTER MODEL` , and `DRO
 
 Use the `CREATE MODEL` or `CREATE OR REPLACE MODEL` statement to define an ML model.
 
-> **Note:** Spanner Vertex AI integration supports only classifier, regression, and text ML models.
+> **Note:** Spanner Agent Platform integration supports only classifier, regression, and text ML models.
 
 #### Syntax
 
@@ -2339,7 +2339,7 @@ Follow the steps described in the [following tutorial](https://docs.cloud.google
 
 Changes the definition of a model.
 
-> **Note:** Spanner Vertex AI integration supports only classifier, regression, and text ML models.
+> **Note:** Spanner Agent Platform integration supports only classifier, regression, and text ML models.
 
 #### Syntax
 

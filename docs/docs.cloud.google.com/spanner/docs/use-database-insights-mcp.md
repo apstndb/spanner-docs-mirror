@@ -1,6 +1,6 @@
 This document describes how to use the Database Insights remote Model Context Protocol (MCP) server to monitor Spanner from AI applications such as Gemini CLI, agent mode in Gemini Code Assist, Claude Code, or in AI applications that you're developing.
 
-The Database Insights remote MCP server is enabled when you enable the Database Insights.
+The Database Insights remote MCP server is enabled when you enable Database Insights.
 
 [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) (MCP) standardizes how large language models (LLMs) and AI applications or agents connect to external data sources. MCP servers let you use their tools, resources, and prompts to take actions and get updated data from their backend service.
 

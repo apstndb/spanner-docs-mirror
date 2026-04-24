@@ -1,4 +1,4 @@
-> **PostgreSQL interface note:** Spanner Vertex AI integration is not supported in PostgreSQL-dialect databases.
+> **PostgreSQL interface note:** Spanner Agent Platform integration is not supported in PostgreSQL-dialect databases.
 
 ## Objective
 
@@ -200,4 +200,4 @@ To look for a gift for their child, the user can create a profile for their teen
 
 You can add purchase history or other relevant details to the prompt to give the customer a more customized experience.
 
-Spanner Vertex AI integration helps you assemble complex prompts containing live data and use them to build AI-enabled applications.
+Spanner Agent Platform integration helps you assemble complex prompts containing live data and use them to build AI-enabled applications.
