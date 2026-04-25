@@ -16,7 +16,7 @@
     
     ### Spanner: Get started with vector search open\_in\_new
     
-    Learn how to set up a Spanner database to perform vector search and access embedding and LLM models from Agent Platform's model garden using SQL.
+    Learn how to set up a Spanner database to perform vector search and access embedding and LLM models from Vertex AI's model garden using SQL.
 
   - [](https://codelabs.developers.google.com/codelabs/spanner-cassandra-adapter-getting-started)
     

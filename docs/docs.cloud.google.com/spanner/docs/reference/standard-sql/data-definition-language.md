@@ -2265,29 +2265,29 @@ Use the `CREATE MODEL` or `CREATE OR REPLACE MODEL` statement to define an ML mo
 
 #### Description
 
-`CREATE MODEL` registers a reference to the Agent Platform ML model in the current database. If a model named `model_name` already exists, the `CREATE MODEL` statement fails.
+`CREATE MODEL` registers a reference to the Vertex AI ML model in the current database. If a model named `model_name` already exists, the `CREATE MODEL` statement fails.
 
-`CREATE OR REPLACE MODEL` registers a reference to the Agent Platform ML model in the current database. If a model named `model_name` already exists, its definition is replaced.
+`CREATE OR REPLACE MODEL` registers a reference to the Vertex AI ML model in the current database. If a model named `model_name` already exists, its definition is replaced.
 
-`CREATE MODEL IF NOT EXISTS` registers a reference to the Agent Platform ML model in the current database. If a model named `model_name` already exists, the `CREATE MODEL IF NOT EXISTS` statement does not have any effect and no error is generated.
+`CREATE MODEL IF NOT EXISTS` registers a reference to the Vertex AI ML model in the current database. If a model named `model_name` already exists, the `CREATE MODEL IF NOT EXISTS` statement does not have any effect and no error is generated.
 
 As soon as the model reference is registered in a database, it can be used from queries that use the [ML.Predict](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function.
 
-Model registration doesn't result in copying a model from the Agent Platform to a database, but only in creation of a reference to this models' endpoint hosted in the Agent Platform. If the model's endpoint gets removed from the Agent Platform, Spanner queries referencing this model fail.
+Model registration doesn't result in copying a model from the Vertex AI to a database, but only in creation of a reference to this models' endpoint hosted in the Vertex AI. If the model's endpoint gets removed from the Vertex AI, Spanner queries referencing this model fail.
 
 <span id="create_model_permissions"></span>
 
 #### Model endpoint access control
 
-To be able to access a registered Agent Platform model endpoint from Spanner, you need to grant access permission to Spanner's [service agent](https://docs.cloud.google.com/iam/docs/service-agents) account.
+To be able to access a registered Vertex AI model endpoint from Spanner, you need to grant access permission to Spanner's [service agent](https://docs.cloud.google.com/iam/docs/service-agents) account.
 
-Spanner creates the service agent and grants the necessary permissions when Spanner executes the first `MODEL` DDL statement. If both the Spanner database and the Agent Platform endpoint are in the same project, then no additional setup is required.
+Spanner creates the service agent and grants the necessary permissions when Spanner executes the first `MODEL` DDL statement. If both the Spanner database and the Vertex AI endpoint are in the same project, then no additional setup is required.
 
 If the Spanner service agent account doesn't exist for your Spanner project, [create](https://docs.cloud.google.com/sdk/gcloud/reference/beta/services/identity/create) it by running the following command:
 
     gcloud beta services identity create --service=spanner.googleapis.com --project={PROJECT}`
 
-Follow the steps described in the [following tutorial](https://docs.cloud.google.com/iam/docs/manage-access-service-accounts#grant-single-role) to grant the [`Spanner API Service Agent`](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.serviceAgent) role to the Spanner [service agent](https://docs.cloud.google.com/iam/docs/service-agents) account `service-{PROJECT}@gcp-sa-spanner.iam.gserviceaccount.com` on your Agent Platform project.
+Follow the steps described in the [following tutorial](https://docs.cloud.google.com/iam/docs/manage-access-service-accounts#grant-single-role) to grant the [`Spanner API Service Agent`](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.serviceAgent) role to the Spanner [service agent](https://docs.cloud.google.com/iam/docs/service-agents) account `service-{PROJECT}@gcp-sa-spanner.iam.gserviceaccount.com` on your Vertex AI project.
 
 #### Parameters
 
@@ -2301,13 +2301,13 @@ Follow the steps described in the [following tutorial](https://docs.cloud.google
     
       - Map the model's input or output columns with 32-bit integer types to `INT64` .
 
-  - If the Agent Platform endpoint has [instance and prediction schemas](https://docs.cloud.google.com/vertex-ai/docs/reference/rest/v1/PredictSchemata) , Spanner validates the provided `INPUT` and `OUTPUT` clauses against those remote schemas. You can also omit `INPUT` and `OUTPUT` clauses, letting Spanner automatically discover the endpoint schema.
+  - If the Vertex AI endpoint has [instance and prediction schemas](https://docs.cloud.google.com/vertex-ai/docs/reference/rest/v1/PredictSchemata) , Spanner validates the provided `INPUT` and `OUTPUT` clauses against those remote schemas. You can also omit `INPUT` and `OUTPUT` clauses, letting Spanner automatically discover the endpoint schema.
 
-  - If the Agent Platform endpoint does not have [instance and prediction schemas](https://docs.cloud.google.com/vertex-ai/docs/reference/rest/v1/PredictSchemata) , `INPUT` and `OUTPUT` clauses must be provided. Spanner doesn't perform validation and mismatches result in runtime errors. We strongly recommend providing instance and prediction schemas, especially when using custom models.
+  - If the Vertex AI endpoint does not have [instance and prediction schemas](https://docs.cloud.google.com/vertex-ai/docs/reference/rest/v1/PredictSchemata) , `INPUT` and `OUTPUT` clauses must be provided. Spanner doesn't perform validation and mismatches result in runtime errors. We strongly recommend providing instance and prediction schemas, especially when using custom models.
 
 `  model_column_options  `
 
-  - ***required*** lets you mark input or output columns as optional to match your Agent Platform schema.
+  - ***required*** lets you mark input or output columns as optional to match your Vertex AI schema.
       - Input columns cannot be declared optional if the instance field is required.
       - Optional input columns can be omitted in ML function calls.
       - Required input columns must be provided to ML function calls.
@@ -2317,14 +2317,14 @@ Follow the steps described in the [following tutorial](https://docs.cloud.google
 
 `  model_options  `
 
-  - ***endpoint*** is the address of the Agent Platform endpoint to connect to. Mutually exclusive with endpoints option. Supported formats:
+  - ***endpoint*** is the address of the Vertex AI endpoint to connect to. Mutually exclusive with endpoints option. Supported formats:
     
       - `//aiplatform.googleapis.com/projects/{project}/locations/{location}/endpoints/{endpoint}` .
       - `//aiplatform.googleapis.com/projects/{project}/locations/{location}/publishers/{publisher}/models/{endpoint}` .
       - `https://{location}-aiplatform.googleapis.com/v1/projects/{project}/locations/{location}/endpoints/{endpoint}` .
       - `https://{location}-aiplatform.googleapis.com/v1/projects/{project}/locations/{location}/publishers/{publisher}/models/{endpoint}` .
 
-  - ***endpoints*** is a list of addresses of Agent Platform endpoints to connect to. Mutually exclusive with endpoint option. Prediction starts with the first endpoint on the list and fails over in the specified order. Endpoints can host different models as long as their schemas can be merged together:
+  - ***endpoints*** is a list of addresses of Vertex AI endpoints to connect to. Mutually exclusive with endpoint option. Prediction starts with the first endpoint on the list and fails over in the specified order. Endpoints can host different models as long as their schemas can be merged together:
     
       - Each column's name must use the same case across all endpoints
       - Each column's type must be the same across all endpoints.
@@ -2371,8 +2371,8 @@ Changes the definition of a model.
 
   - The following list of options which can be updated:
     
-      - ***endpoint*** is the address of the Agent Platform endpoint to connect to.
-      - ***endpoints*** is a list of addresses of Agent Platform endpoints to connect to. Mutually exclusive with endpoint option.
+      - ***endpoint*** is the address of the Vertex AI endpoint to connect to.
+      - ***endpoints*** is a list of addresses of Vertex AI endpoints to connect to. Mutually exclusive with endpoint option.
       - ***default\_batch\_size*** specifies the maximum number of rows per remote inference call. The value must be between 1 and 10. For models that don't support batching, you must set the value to 1. This default value can be overridden with per-query hints.
 
 <span id="drop_model"></span>
@@ -2389,7 +2389,7 @@ Removes a model.
 
 Use the `DROP MODEL` statement to remove a model definition from the database. Unless the `IF EXISTS` clause is specified, the statement fails if the model doesn't exist.
 
-After you delete a model definition, all SQL queries referencing the deleted model fail. Dropping a model definition does not affect the underlying the Agent Platform endpoint that this model is attached to.
+After you delete a model definition, all SQL queries referencing the deleted model fail. Dropping a model definition does not affect the underlying the Vertex AI endpoint that this model is attached to.
 
 #### Parameters
 

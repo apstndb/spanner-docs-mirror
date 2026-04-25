@@ -12,7 +12,7 @@ This section introduces the following key concepts of vector search:
 
 ### Vector embeddings
 
-Vector embeddings are high-dimensional, numerical representations of unstructured data. They are generated from the unstructured data using machine learning models. For example, you can use the Agent Platform text embedding API to [generate, store, and update text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) for data stored in Spanner.
+Vector embeddings are high-dimensional, numerical representations of unstructured data. They are generated from the unstructured data using machine learning models. For example, you can use the Vertex AI text embedding API to [generate, store, and update text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) for data stored in Spanner.
 
 ### Search methods
 
@@ -26,7 +26,7 @@ Spanner supports two methods for finding similar vectors:
 
   - **Scalability** : Supports billions of vectors for unpartitioned ANN search, or trillions of vectors for partitioned KNN workloads.
 
-  - **Unified AI database and engine** : Use the [GoogleSQL `ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) or [PostgreSQL `spanner.ML_PREDICT_ROW`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#ml) function to generate embeddings from Agent Platform models directly within your query flow.
+  - **Unified AI database and engine** : Use the [GoogleSQL `ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) or [PostgreSQL `spanner.ML_PREDICT_ROW`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#ml) function to generate embeddings from Vertex AI models directly within your query flow.
 
   - **Inline filtering** : Efficiently combine vector search with structured metadata filters (for example, "Find similar images where category = 'shoes' and price \< 100") without losing performance.
 
@@ -45,6 +45,6 @@ Vector search is most powerful when combined with Spanner's other data features:
 ## What's next
 
   - Learn more about [Spanner AI](https://docs.cloud.google.com/spanner/docs/spanner-ai-overview) .
-  - Learn more about how to [get Agent Platform text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
+  - Learn more about how to [get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
   - Learn more about how to [perform K-nearest neighbors (KNN) search](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
   - Learn more about how to [perform approximate nearest neighbors (ANN) search](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .

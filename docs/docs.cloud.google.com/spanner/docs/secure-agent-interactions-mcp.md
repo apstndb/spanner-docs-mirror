@@ -135,7 +135,7 @@ Spanner provides Model Armor to enforce safety boundaries at the platform level.
 
 Use the Google Cloud CLI to enable Model Armor on your model deployment. This activates built-in protection against known attack vectors like injection and jailbreaking.
 
-The following example enables Model Armor on a Agent Platform endpoint.
+The following example enables Model Armor on a Vertex AI endpoint.
 
     # Example: Enable Model Armor on a Vertex AI endpoint
     gcloud ai endpoints update ENDPOINT_ID \

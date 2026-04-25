@@ -159,13 +159,13 @@ The example search in this section takes the following steps to narrow down the 
 
 ML-based reranking is a computationally intensive but highly precise approach. It applies a machine learning model to a small candidate set that has been reduced by FTS, vector search, or a combination of both. For more information about Spanner Agent Platform integration, see the [Spanner Agent Platform integration overview](https://docs.cloud.google.com/spanner/docs/ml) .
 
-You can integrate ML reranking using the Spanner [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function with a deployed Agent Platform model.
+You can integrate ML reranking using the Spanner [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function with a deployed Vertex AI model.
 
 ### Implement ML-based reranking
 
-1.  [Deploy a reranker model](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) (such as from [HuggingFace](https://huggingface.co/) ) to a Agent Platform endpoint.
+1.  [Deploy a reranker model](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) (such as from [HuggingFace](https://huggingface.co/) ) to a Vertex AI endpoint.
 
-2.  [Create a Spanner `MODEL` object](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) that points to the Agent Platform endpoint. For example, in the following `Reranker` model example:
+2.  [Create a Spanner `MODEL` object](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) that points to the Vertex AI endpoint. For example, in the following `Reranker` model example:
     
       - `text ARRAY<string(max)>` is the documents.
       - `text_pair ARRAY<string(max)>` is the query text in the example.

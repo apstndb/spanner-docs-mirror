@@ -1,8 +1,8 @@
 GoogleSQL for Spanner supports the following timestamp functions.
 
-IMPORTANT: Before working with these functions, you need to understand the difference between the formats in which timestamps are stored and displayed, and how time zones are used for the conversion between these formats. To learn more, see [How time zones work with timestamp functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#timezone_definitions) .
+> **Important:** Before working with these functions, you need to understand the difference between the formats in which timestamps are stored and displayed, and how time zones are used for the conversion between these formats. To learn more, see [How time zones work with timestamp functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#timezone_definitions) .
 
-NOTE: These functions return a runtime error if overflow occurs; result values are bounded by the defined [`DATE` range](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) and [`TIMESTAMP` range](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#timestamp_type) .
+> **Note:** These functions return a runtime error if overflow occurs; result values are bounded by the defined [`DATE` range](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) and [`TIMESTAMP` range](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#timestamp_type) .
 
 ## Function list
 

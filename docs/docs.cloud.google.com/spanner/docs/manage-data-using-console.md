@@ -12,7 +12,7 @@ You can use the **Explorer** to view, search, and interact with your database ob
   - Columns
   - [Indexes and keys](https://docs.cloud.google.com/spanner/docs/secondary-indexes)
   - [Change streams](https://docs.cloud.google.com/spanner/docs/change-streams)
-  - ML models hosted on [Agent Platform](https://docs.cloud.google.com/spanner/docs/ml)
+  - ML models hosted on [Vertex AI](https://docs.cloud.google.com/spanner/docs/ml)
   - [Roles](https://docs.cloud.google.com/spanner/docs/fgac-about)
   - [Views](https://docs.cloud.google.com/spanner/docs/views)
   - [Placements (in preview)](https://docs.cloud.google.com/spanner/docs/geo-partitioning)

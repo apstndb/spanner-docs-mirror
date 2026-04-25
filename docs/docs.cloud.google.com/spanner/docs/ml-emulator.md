@@ -2,7 +2,7 @@ This page describes how to generate ML predictions using the Spanner emulator fo
 
 Spanner Agent Platform integration can be used with the Spanner emulator to generate predictions using the GoogleSQL or PostgreSQL ML predict functions. The emulator is a binary that mimics a Spanner server, and can also be used in unit and integration testing. You can use the emulator as an [open source project](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator) or [locally](https://docs.cloud.google.com/spanner/docs/emulator) using the Google Cloud CLI. To learn more about the ML predict functions, see [How does Spanner Agent Platform integration work?](https://docs.cloud.google.com/spanner/docs/ml#how_does_work) .
 
-You can use any model with the emulator to generate predictions. You can also use a model from the [Agent Platform Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or a model deployed to your [Agent Platform endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) . Since the emulator doesn't connect to Agent Platform, the emulator can't verify the model or its schema for any model used from the Agent Platform Model Garden or deployed to the Agent Platform endpoints.
+You can use any model with the emulator to generate predictions. You can also use a model from the [Vertex AI Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or a model deployed to your [Vertex AI endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) . Since the emulator doesn't connect to Vertex AI, the emulator can't verify the model or its schema for any model used from the Vertex AI Model Garden or deployed to the Vertex AI endpoints.
 
 By default, when you use a prediction function with the emulator, the function yields a random value based on the provided model inputs and model output schema. You can use a callback function to modify the model input and output, and generate prediction results based on specific behaviors.
 
@@ -16,7 +16,7 @@ You can either [install the emulator locally](https://docs.cloud.google.com/span
 
 ### Select a model
 
-When you use the `ML.PREDICT` (for GoogleSQL) or the `ML_PREDICT_ROW` (for PostgreSQL) function, you must specify the location of the ML model. You can use any trained model. If you select a model that is running in the [Agent Platform Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or a model that is [deployed to your Agent Platform endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) , you must provide the `input` and `output` values for these models.
+When you use the `ML.PREDICT` (for GoogleSQL) or the `ML_PREDICT_ROW` (for PostgreSQL) function, you must specify the location of the ML model. You can use any trained model. If you select a model that is running in the [Vertex AI Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) or a model that is [deployed to your Vertex AI endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) , you must provide the `input` and `output` values for these models.
 
 To learn more about Spanner Agent Platform integration, see [How does Spanner Agent Platform integration work?](https://docs.cloud.google.com/spanner/docs/ml#how-does-it-work) .
 
@@ -87,7 +87,7 @@ The expected output of this query is `TRUE` .
 
 ### Custom Callback
 
-You can use a custom callback function to implement selected model behaviors, and to transform specific model inputs to outputs. The following example uses the `gemini-pro` model from the Agent Platform Model Garden and the Spanner emulator to generate predictions using a custom callback.
+You can use a custom callback function to implement selected model behaviors, and to transform specific model inputs to outputs. The following example uses the `gemini-pro` model from the Vertex AI Model Garden and the Spanner emulator to generate predictions using a custom callback.
 
 When using a custom callback for a model, you must [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the [Spanner emulator repository](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator) , then build and deploy it. For more information on how to build and deploy the Spanner emulator, see the [Spanner emulator quickstart](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator?tab=readme-ov-file#quickstart) .
 
@@ -105,7 +105,7 @@ Before you can use a model with the [ML.PREDICT](https://docs.cloud.google.com/s
     default_batch_size = 1
     );
 
-Since the emulator doesn't connect to the Agent Platform, you must provide the `input` and `output` values.
+Since the emulator doesn't connect to the Vertex AI, you must provide the `input` and `output` values.
 
 Replace the following:
 
@@ -209,4 +209,4 @@ The expected output of this query is `"YES"` .
 ## What's next?
 
   - [Generate ML predictions using SQL](https://docs.cloud.google.com/spanner/docs/ml-tutorial) .
-  - [Get Agent Platform text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
+  - [Get Vertex AI text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .

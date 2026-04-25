@@ -4,7 +4,7 @@
 
 In this tutorial, you learn how to:
 
-  - Use Google provided Agent Platform [Generative AI](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/overview) models in a Spanner database.
+  - Use Google provided Vertex AI [Generative AI](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/overview) models in a Spanner database.
   - Use [Generative AI](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/overview) to provide personalized product recommendations in a sample ecommerce application.
 
 ## Costs
@@ -12,11 +12,11 @@ In this tutorial, you learn how to:
 This tutorial uses billable components of Google Cloud, including:
 
   - Spanner
-  - Agent Platform
+  - Vertex AI
 
 For more information about Spanner costs, see the [Spanner pricing](https://docs.cloud.google.com/spanner/pricing) page.
 
-For more information about Agent Platform costs, see the [Agent Platform pricing](https://docs.cloud.google.com/vertex-ai/pricing) page.
+For more information about Vertex AI costs, see the [Vertex AI pricing](https://docs.cloud.google.com/vertex-ai/pricing) page.
 
 ## Create the ecommerce website schema
 
@@ -55,7 +55,7 @@ For this tutorial, we use the following schema and data:
 
 ## Register a Generative AI model in a Spanner schema
 
-In this tutorial, we use the Agent Platform [text-bison](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) model to provide personalized product recommendations to end customers. To register this model in a Spanner database, [execute](https://docs.cloud.google.com/spanner/docs/schema-updates) the following DDL [statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) :
+In this tutorial, we use the Vertex AI [text-bison](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) model to provide personalized product recommendations to end customers. To register this model in a Spanner database, [execute](https://docs.cloud.google.com/spanner/docs/schema-updates) the following DDL [statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) :
 
     CREATE MODEL TextBison
     INPUT (prompt STRING(MAX))
@@ -68,13 +68,13 @@ In this tutorial, we use the Agent Platform [text-bison](https://docs.cloud.goog
 Replace the following:
 
   - `PROJECT` : the project ID
-  - `LOCATION` : the region where you are using Agent Platform
+  - `LOCATION` : the region where you are using Vertex AI
 
-Schema discovery and validation isn't available for Generative AI models. Therefore, you must provide `INPUT` and `OUTPUT` clauses that match the model's schema. You can find the full schema of the `text-bison` model on the Agent Platform [Model API reference](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) page.
+Schema discovery and validation isn't available for Generative AI models. Therefore, you must provide `INPUT` and `OUTPUT` clauses that match the model's schema. You can find the full schema of the `text-bison` model on the Vertex AI [Model API reference](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text) page.
 
 As long as both the database and endpoints are in the same project, Spanner should grant appropriate permissions automatically. Otherwise, review the [model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#model_endpoint_access_control) section of the `CREATE MODEL` reference page.
 
-To verify the model was registered correctly, query it with the [ML.PREDICT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function. The model expects a single `STRING` column named `prompt` . You can use a [Spanner subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) to generate the `prompt` column. The `TextBison` model requires you to specify a `maxOutputTokens` model parameter. Other parameters are optional. The Agent Platform `text-bison` model doesn't support batching, so you must use the `@{remote_udf_max_rows_per_rpc=1}` parameter to set the batch size to 1.
+To verify the model was registered correctly, query it with the [ML.PREDICT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function. The model expects a single `STRING` column named `prompt` . You can use a [Spanner subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) to generate the `prompt` column. The `TextBison` model requires you to specify a `maxOutputTokens` model parameter. Other parameters are optional. The Vertex AI `text-bison` model doesn't support batching, so you must use the `@{remote_udf_max_rows_per_rpc=1}` parameter to set the batch size to 1.
 
     SELECT content
     FROM ML.PREDICT(

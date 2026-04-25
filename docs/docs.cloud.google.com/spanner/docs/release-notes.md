@@ -4785,7 +4785,7 @@ For more information, see [Data Boost overview](https://docs.cloud.google.com/sp
 
 Feature
 
-Spanner Vertex AI integration is generally available. You can use Agent Platform with GoogleSQL to enhance your Spanner applications with machine learning capabilities. For more information, see [About Spanner Vertex AI integration](https://docs.cloud.google.com/spanner/docs/ml) .
+Spanner Agent Platform integration is generally available. You can use Agent Platform with GoogleSQL to enhance your Spanner applications with machine learning capabilities. For more information, see [About Spanner Agent Platform integration](https://docs.cloud.google.com/spanner/docs/ml) .
 
 ## June 09, 2023
 

@@ -10,7 +10,7 @@ Use the following templates to process data in bulk:
   - [Spanner to BigQuery](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-bigquery)
   - [Spanner to Cloud Storage Avro](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-avro)
   - [Spanner to Cloud Storage Text](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-cloud-storage)
-  - [Spanner to Agent Platform Vector Search files on Cloud Storage](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-vertex-vector-search)
+  - [Spanner to Vertex AI Vector Search files on Cloud Storage](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-vertex-vector-search)
 
 For more information about using these templates, see [Import, export, and modify data using Dataflow](https://docs.cloud.google.com/spanner/docs/dataflow-connector) .
 

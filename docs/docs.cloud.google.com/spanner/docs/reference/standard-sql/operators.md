@@ -466,7 +466,7 @@ All arithmetic operators accept input of numeric type `T` , and the result type 
 | Unary Plus     | `+ X`   |
 | Unary Minus    | `- X`   |
 
-NOTE: Divide by zero operations return an error. To return a different result, consider the `IEEE_DIVIDE` or `SAFE_DIVIDE` functions.
+> **Note:** Divide by zero operations return an error. To return a different result, consider the `IEEE_DIVIDE` or `SAFE_DIVIDE` functions.
 
 Result types for Addition, Subtraction and Multiplication:
 

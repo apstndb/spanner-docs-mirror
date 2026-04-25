@@ -2,9 +2,9 @@
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-This tutorial demonstrates how to build a generative AI application using Spanner and [Agent Platform](https://docs.cloud.google.com/vertex-ai/docs/start/introduction-unified-platform) .
+This tutorial demonstrates how to build a generative AI application using Spanner and [Vertex AI](https://docs.cloud.google.com/vertex-ai/docs/start/introduction-unified-platform) .
 
-This application lets you perform semantic similarity search, enabling you to find products that match a natural language query. It achieves this by using embeddings, which are numerical representations of text that capture the meaning and context of words. You'll use a Agent Platform model to generate these embeddings, and then store and search the embeddings in Spanner. This approach is particularly useful for use cases like product search, where users might describe what they want in natural language instead of specific keywords.
+This application lets you perform semantic similarity search, enabling you to find products that match a natural language query. It achieves this by using embeddings, which are numerical representations of text that capture the meaning and context of words. You'll use a Vertex AI model to generate these embeddings, and then store and search the embeddings in Spanner. This approach is particularly useful for use cases like product search, where users might describe what they want in natural language instead of specific keywords.
 
 The following topics help you learn how to:
 
@@ -29,7 +29,7 @@ To try out a codelab, see [Getting started with Spanner vector search](https://c
 You must create a Google Cloud project that is connected to a billing account.
 
 1.  The Spanner API should be auto-enabled. If not, enable it manually:
-2.  The Agent Platform API should be auto-enabled. If not, enable it manually:
+2.  The Vertex AI API should be auto-enabled. If not, enable it manually:
 
 <!-- end list -->
 
@@ -115,11 +115,11 @@ After your instance starts running, you can create your database. You define you
 
 ## Create an embedding model
 
-When you use the [`CREATE MODEL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) DDL statement in Spanner, you are registering a reference to the Agent Platform model's endpoint from your database. After you register the model, you can use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function to access the model in your queries.
+When you use the [`CREATE MODEL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) DDL statement in Spanner, you are registering a reference to the Vertex AI model's endpoint from your database. After you register the model, you can use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function to access the model in your queries.
 
-The following example demonstrates how to register a Agent Platform [text embedding model](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings) , which is then used to perform similarity search to find similar products in a database.
+The following example demonstrates how to register a Vertex AI [text embedding model](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings) , which is then used to perform similarity search to find similar products in a database.
 
-> **Note:** The following schema uses the `us-central1` Agent Platform endpoint. Change this in the `EmbeddingsModel` definition if you chose a different Spanner region when creating the instance.
+> **Note:** The following schema uses the `us-central1` Vertex AI endpoint. Change this in the `EmbeddingsModel` definition if you chose a different Spanner region when creating the instance.
 
 1.  In the database **Overview** page, click **Spanner Studio** .
 
@@ -138,7 +138,7 @@ The following example demonstrates how to register a Agent Platform [text embedd
     Replace the following:
     
       - PROJECT\_ID : a permanent identifier that is unique for your Google Cloud project.
-      - TEXT\_EMBEDDING\_MODEL : the name of the text embedding model. For a list of the Agent Platform text embedding models, see [Supported models](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) .
+      - TEXT\_EMBEDDING\_MODEL : the name of the text embedding model. For a list of the Vertex AI text embedding models, see [Supported models](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) .
 
 4.  Click **Run** to create the model.
     
@@ -398,4 +398,4 @@ This section shows you how to use the Google Cloud console to clean up your reso
 
   - Learn more about Spanner's [k-nearest neighbor (KNN) feature](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
   - Learn more about Spanner's [approximate nearest neighbor (ANN) feature](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
-  - Learn more about how to [perform online predictions with SQL using Agent Platform](https://docs.cloud.google.com/spanner/docs/ml) .
+  - Learn more about how to [perform online predictions with SQL using Vertex AI](https://docs.cloud.google.com/spanner/docs/ml) .
