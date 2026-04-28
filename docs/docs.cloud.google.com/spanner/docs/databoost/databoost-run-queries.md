@@ -470,7 +470,7 @@ To create an external dataset, do the following:
           - Check the box next to **Link to an external dataset** .
           - For **External dataset type** , select `Spanner` .
           - For **External source** , enter the full identifier of your Spanner database in the following format: ` projects/ PROJECT_ID /instances/ INSTANCE /databases/ DATABASE  ` . For example: `projects/my_project/instances/my_instance/databases/my_database` .
-          - Optionally, for **Database role** enter the name of a Spanner database role. For more information read about Database roles used for [creating Spanner Connections](https://docs.cloud.google.com/bigquery/docs/connect-to-spanner#create-spanner-connection)
+          - Optionally, for **Database role** enter the name of a Spanner database role. For more information read about database roles used for [creating Spanner Connections](https://docs.cloud.google.com/bigquery/docs/connect-to-spanner#create-spanner-connection)
           - Optionally, check the box next to **Use a Cloud Resource connection** to create the external dataset with a connection.
     
       - Leave the other default settings as they are.

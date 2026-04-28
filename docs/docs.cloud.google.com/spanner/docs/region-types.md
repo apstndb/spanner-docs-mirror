@@ -10,7 +10,7 @@ Each [dual-region configuration](https://docs.cloud.google.com/spanner/docs/inst
 
 Each [multi-region configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) contains two read-write regions, each of which contains two [read-write replicas](https://docs.cloud.google.com/spanner/docs/replication#read-write) .
 
-One of these read-write regions is designated the default *leader region* . A leader is selected from the replicas in the default leader region for each split. In the event of a leader replica failure, the other replica in the default leader region automatically assumes leadership. In fact, leaders run health checks on themselves and can preemptively give up leadership if they detect they are unhealthy. In most cases, when the default leader region returns to a healthy state, it automatically re-assumes the leadership.
+One of these read-write regions is designated the default *leader region* . A leader is selected from the replicas in the default leader region for each split. In the event of a leader replica failure, the other replica in the default leader region automatically assumes leadership. In fact, leaders run health checks on themselves and can preemptively give up leadership if they detect they are unhealthy. In most cases, when the default leader region returns to a healthy state, a replica in that region automatically re-assumes leadership.
 
 Writes are first processed in the default leader region. You can monitor the percentage of replicas within a given region by using the `instance/leader_percentage_by_region` monitoring metric. For more information, see [Spanner metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
 

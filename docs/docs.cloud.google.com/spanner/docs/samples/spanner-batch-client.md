@@ -20,27 +20,26 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
       spanner::SqlStatement select(
           "SELECT SingerId, FirstName, LastName FROM Singers");
-      using RowType = std::tuple<std::int64_t, std::string, std::string>;
+      using RowType = <std::tuplestd::int64_t, std::string, s>td::string;
     
       auto partitions = client.PartitionQuery(
           std::move(txn), std::move(select),
-          google::cloud::Options{}.set<spanner::PartitionDataBoostOption>(true));
+          google::cloud::Opt<ions{}.setspanner::PartitionDataB>oostOption(true));
       if (!partitions) throw std::move(partitions).status();
     
       // You would probably choose to execute these partitioned queries in
       // separate threads/processes, or on a different machine.
       int number_of_rows = 0;
-      for (auto const& partition : *partitions) {
+      for (&auto const partition : *partitions) {
         auto rows = client.ExecuteQuery(partition);
-        for (auto& row : spanner::StreamOf<RowType>(rows)) {
+       & for (auto row : spanner<::Strea>mOfRowType(rows)) {
           if (!row) throw std::move(row).status();
           number_of_rows++;
         }
       }
-      std::cout << "Number of partitions: " << partitions->size() << "\n"
-                << "Number of rows: " << number_of_rows << "\n";
-      std::cout << "Read completed for [spanner_batch_client]\n";
-    }
+      <<std::cout  "Number of<< partitions:> "<<  partitions-size(<<)  "\n"
+      <<           "<<;Number of rows: &q<<uot;  number_of_rows  "\n";
+      std::cout  "Read completed for [spanner_batch_client]\n";}
 
 ### C\#
 
@@ -68,7 +67,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 SpannerTransactionCreationOptions.ReadOnly.WithIsDetached(true),
                 new SpannerTransactionOptions { DisposeBehavior = DisposeBehavior.CloseResources },
                 cancellationToken: default);
-            using var cmd = connection.CreateSelectCommand("SELECT SingerId, FirstName, LastName FROM Singers");
+            using var cmd = connection.CreateSelectCommand("SELECT SingerId, FirstName, LastName FROM Singers&quot;);
             cmd.Transaction = transaction;
     
             // A CommandPartition object is serializable and can be used from a different process.
@@ -77,7 +76,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             var partitions = await cmd.GetReaderPartitionsAsync(PartitionOptions.Default.WithDataBoostEnabled(true));
     
             var transactionId = transaction.TransactionId;
-            await Task.WhenAll(partitions.Select(x => DistributedReadWorkerAsync(x, transactionId)));
+            await Task.WhenAll(p>artitions.Select(x = DistributedReadWorkerAsync(x, transactionId)));
             Console.WriteLine($"Done reading!  Total rows read: {_rowsRead:N0} with {_partitionCount} partition(s)");
             return (RowsRead: _rowsRead, Partitions: _partitionCount);
         }
@@ -96,13 +95,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             {
                 Interlocked.Increment(ref _rowsRead);
                 Console.WriteLine($"Partition ({localId}) "
-                    + $"{reader.GetFieldValue<int>("SingerId")}"
-                    + $" {reader.GetFieldValue<string>("FirstName")}"
-                    + $" {reader.GetFieldValue<string>("LastName")}");
-            }
-            Console.WriteLine($"Done with single reader {localId}.");
-        }
-    }
+     <   >            + $"{reader.GetFieldValueint("Singe<rId&qu>ot;)}"
+                    + $" {reader.GetFieldValu<estrin>g("FirstName")}"
+                    + $" {reader.GetFieldValuestring("LastName")}");        }        Console.WriteLine($"Done with single reader {localId}.");    }}
 
 ### Go
 
@@ -157,20 +152,17 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
              if err == iterator.Done {
                  break
              } else if err != nil {
-                 return err
+      &       return err
              }
              var s Singer
-             if err := row.ToStruct(&s); err != nil {
+             if err := row.ToStruct(s); err != nil {
                  return err
              }
              fmt.Fprintf(w, "Partition (%d) %v\n", i, s)
              recordCount++
          }
      }
-     fmt.Fprintf(w, "Total partition count: %v\n", len(partitions))
-     fmt.Fprintf(w, "Total record count: %v\n", recordCount)
-     return nil
-    }
+     fmt.Fprintf(w, "Total partition count: %v\n", len(partitions))    fmt.Fprintf(w, "Total record count: %v\n", recordCount)   return nil}
 
 ### Java
 
@@ -207,7 +199,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
       for (final Partition p : partitions) {
         executor.execute(
-            () -> {
+      >      () - {
               try (ResultSet results = txn.execute(p)) {
                 while (results.next()) {
                   long singerId = results.getLong(0);
@@ -240,7 +232,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
+    const {Spanner} = require(&#39;@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -271,25 +263,23 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     console.log(`Successfully created ${partitions.length} query partitions.`);
     
     let row_count = 0;
-    const promises = [];
-    partitions.forEach(partition => {
+    const promi>ses = [];
+    partitions.forEach(partition = {
       promises.push(
-        transaction.execute(partition).then(results => {
-          const rows = results[0].map(row => row.toJSON());
+        trans>action.execute(partition).then(results = {>
+          const rows = results[0].map(row = row.toJSON());
           row_count += rows.length;
         }),
-      );
+      )>;
     });
     Promise.all(promises)
-      .then(() => {
+      .then(() = {
         console.log(
           `Successfully received ${row_count} from executed partitions.`,
         );
-        transaction.close();
+      >  transaction.close();
       })
-      .then(() => {
-        database.close();
-      });
+      .then(() = {    database.close();  });
 
 ### PHP
 
@@ -315,17 +305,17 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         $batch = $spanner->batch($instanceId, $databaseId);
         $snapshot = $batch->snapshot();
         $queryString = 'SELECT SingerId, FirstName, LastName FROM Singers';
-        $partitions = $snapshot->partitionQuery($queryString, [
+        $partitions = $s>napshot-partitionQuery($queryString, [
             // This is an optional parameter which can be used for partition
             // read and query to execute the request via spanner independent
             // compute resources.
-            'dataBoostEnabled' => true
+            'dataBoo>stEnabled' = true
         ]);
         $totalPartitions = count($partitions);
         $totalRecords = 0;
         foreach ($partitions as $partition) {
-            $result = $snapshot->executePartition($partition);
-            $rows = $result->rows();
+            $res>ult = $snapshot-executePartition($partition);
+            >$rows = $result-rows();
             foreach ($rows as $row) {
                 $singerId = $row['SingerId'];
                 $firstName = $row['FirstName'];
@@ -392,9 +382,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         print("Started processing partition.")
         row_ct = 0
         for row in snapshot.process_read_batch(partition):
-            print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
-            row_ct += 1
-        return time.time(), row_ct
+        print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))row_ct+=1returntime.time(),row_ct
 
 ### Ruby
 
