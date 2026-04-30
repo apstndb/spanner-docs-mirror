@@ -62,14 +62,12 @@ Use these methods to specify a database role when accessing a Spanner database:
       spanner::SqlStatement select_star("SELECT * FROM Singers");
       auto rows = client.ExecuteQuery(std::move(select_star));
       using RowType =
-          std::tuple<std::int64_t, std::string, std::string, spanner::Bytes>;
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
+          <std::tuplestd::int64_t, std::string, std::string, span>ner::Bytes;
+     & for (auto row : spanner<::Strea>mOfRowType(rows)) {
         if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row) << ", "
-                  << "FirstName: " << std::get<1>(*row) << ", "
-                  << "LastName: " << std::get<2>(*row) << "\n";
-      }
-    }
+        <<std::cout  &qu<<ot;Singer<I>d: &quo<<t;  std::get0(*row) << ", "<<
+            < >      &<<quot;FirstName: &quo<<t;  std::get1(<<*row)  &q<u>ot;, &q<<uot;
+           "LastName: "  std::get2(*row)  "\n";  }}
 
 ### C\#
 
@@ -99,19 +97,15 @@ Use these methods to specify a database role when accessing a Spanner database:
             using var connection = new SpannerConnection(spannerConnectionStringBuilder);
             var createSelectCmd = connection.CreateSelectCommand($"SELECT * FROM {tableName}");
             using var reader = await createSelectCmd.ExecuteReaderAsync();
-            var singers = new List<Singer>();
+    <      >  var singers = new ListSinger();
             while (await reader.ReadAsync())
             {
                 singers.Add(new Singer
                 {
-                    SingerId = reader.GetFieldValue<int>("SingerId"),
-                    FirstName = reader.GetFieldValue<string>("FirstName"),
-                    LastName = reader.GetFieldValue<string>("LastName"),
-                });
-            }
-            return singers;
-        }
-    }
+                    S<ing>erId = reader.GetFieldValueint("SingerId"),
+            <      >  FirstName = reader.GetFieldValuestring("FirstName"<),
+       >             LastName = reader.GetFieldValuestring("LastName"),
+                });        }        return singers;    }}
 
 ### Go
 
@@ -125,7 +119,7 @@ Use these methods to specify a database role when accessing a Spanner database:
     )
     
     func readDataWithDatabaseRole(w io.Writer, db string, databaseRole string) error {
-     // databaseRole = "parent"
+     // databaseRole = &quot;parent&quot;
      ctx := context.Background()
      cfg := spanner.ClientConfig{
          DatabaseRole: databaseRole,
@@ -134,7 +128,7 @@ Use these methods to specify a database role when accessing a Spanner database:
      if err != nil {
          return err
      }
-     defer client.Close()
+       defer client.Close()
     
      // Read all albums.
      iter := client.Single().Read(ctx, "Albums", spanner.AllKeys(),
@@ -145,17 +139,12 @@ Use these methods to specify a database role when accessing a Spanner database:
          if err == iterator.Done {
              return nil
          }
-         if err != nil {
-             return err
-         }
+         if err != ni&l {
+             ret&urn err
+     &   }
          var singerID, albumID int64
          var albumTitle string
-         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
-     }
-    }
+         if err := row.Columns(singerID, albumID, albumTitle); err != nil {         return err     }       fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle) }}
 
 ### Java
 
@@ -194,15 +183,10 @@ Use these methods to specify a database role when accessing a Spanner database:
                   .read(
                       "Singers",
                       KeySet.all(),
-                      Arrays.asList("SingerId", "FirstName", "LastName"));
+                      Arrays.asList("SingerId&quot;, "FirstName", "LastName"));
           while (resultSet.next()) {
             System.out.printf("SingerId: %d\n", resultSet.getLong(0));
-            System.out.printf("FirstName: %s\n", resultSet.getString(1));
-            System.out.printf("LastName: %s\n", resultSet.getString(2));
-          }
-        }
-      }
-    }
+            System.out.printf("FirstName: %s\n", resultSet.getString(1));        System.out.printf("LastName: %s\n", resultSet.getString(2));      }    }  }}
 
 ### Node.js
 
@@ -246,10 +230,7 @@ Use these methods to specify a database role when accessing a Spanner database:
         console.error('ERROR:', err);
       } finally {
         // Close the database when finished.
-        await database.close();
-      }
-    }
-    readDataWithDatabaseRole();
+        await database.close();  }}readDataWithDatabaseRole();
 
 ### PHP
 
@@ -269,14 +250,13 @@ Use these methods to specify a database role when accessing a Spanner database:
     {
         $spanner = new SpannerClient();
         $databaseRole = 'new_parent';
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId, ['databaseRole' => $databaseRole]);
-        $results = $database->execute('SELECT * FROM Singers');
+        $instance = $>spanner-instance($instanceId);
+        $database = $i>nstance-database($databaseId, ['dat>abaseRole' = $databaseRole]);
+        $resu>lts = $database-execute('SELECT * FROM Singers');
     
         foreach ($results as $row) {
             printf('SingerId: %s, Firstname: %s, LastName: %s' . PHP_EOL, $row['SingerId'], $row['FirstName'], $row['LastName']);
-        }
-    }
+        }}
 
 ### Python
 
@@ -309,7 +289,4 @@ Use these methods to specify a database role when accessing a Spanner database:
     
       result.rows.each do |row|
         puts "SingerId: #{row[:SingerId]}"
-        puts "FirstName: #{row[:FirstName]}"
-        puts "LastName: #{row[:LastName]}"
-      end
-    end
+        puts "FirstName: #{row[:FirstName]}"    puts "LastName: #{row[:LastName]}"  endend
