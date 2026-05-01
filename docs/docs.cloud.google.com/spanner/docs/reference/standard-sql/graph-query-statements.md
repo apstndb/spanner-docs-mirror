@@ -58,7 +58,7 @@ Creates a graph query with the GQL syntax. The syntax rules define how to compos
 
 #### Definitions
 
-  - `primitive_query_statement` : A statement in [Query statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#language-list) except for the `NEXT` statement.
+  - `primitive_query_statement` : A statement in [Query statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#language_list) except for the `NEXT` statement.
   - `simple_linear_query_statement` : A list of `primitive_query_statement` s that ends with a [`RETURN` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_return) .
   - `composite_linear_query_statement` : A list of `simple_linear_query_statement` s composited with the [set operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#set_operators) .
   - `linear_query_statement` : A statement that's either a `simple_linear_query_statement` or a `composite_linear_query_statement` .
