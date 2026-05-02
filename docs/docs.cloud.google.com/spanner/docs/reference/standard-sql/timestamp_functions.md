@@ -323,7 +323,7 @@ The following additional considerations apply when using the `PARSE_TIMESTAMP` f
 
 Use the `PENDING_COMMIT_TIMESTAMP` function in a DML `INSERT` or `UPDATE` statement to write the pending commit timestamp, that is, the commit timestamp of the write when it commits, into a column of type `TIMESTAMP` . You can also use this function as a default value and `ON UPDATE` value, but only if you use the `allow_commit_timestamp=true` column option with it.
 
-selects the commit timestamp when the transaction commits. You can use the `PENDING_COMMIT_TIMESTAMP` function as a value only when inserting or updating an appropriately typed column. It can't be used in a `SELECT` statement, or as the input to any other scalar expression.
+Spanner selects the commit timestamp when the transaction commits. You can use the `PENDING_COMMIT_TIMESTAMP` function as a value only when inserting or updating an appropriately typed column. It can't be used in a `SELECT` statement, or as the input to any other scalar expression.
 
 > **Note:** After you call the `PENDING_COMMIT_TIMESTAMP` function, the table and any derived index is unreadable to any future SQL statements in the transaction. Because of this, the change stream can't extract the previous value for the column that has a pending commit timestamp, if the column is modified again later in the same transaction. You must write commit timestamps as the last statement in a transaction to prevent the possibility of trying to read the table. If you try to read the table, then GoogleSQL produces an error.
 

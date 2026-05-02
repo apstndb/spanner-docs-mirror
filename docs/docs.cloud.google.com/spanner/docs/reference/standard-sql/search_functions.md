@@ -430,7 +430,7 @@ Search query uses rquery syntax by default. You can specify other supported synt
     
       - Double quotes mean a phrase search. For example, the rquery `"fast car"` matches "You got a fast car", but doesn't match "driving fast in my car".
     
-      - The `AROUND` operator matches terms that are within a certain distance of each other, and in the same order (the default is five tokens). For example, the rquery `fast AROUND car` matches "driving fast in my car", but doesn't match "driving fast in his small shiny metal Italian car". The default is to match terms separated by, at most, five positions. To adjust the distance, pass an argument to the `AROUND` operator. supports two syntaxes for `AROUND` :
+      - The `AROUND` operator matches terms that are within a certain distance of each other, and in the same order (the default is five tokens). For example, the rquery `fast AROUND car` matches "driving fast in my car", but doesn't match "driving fast in his small shiny metal Italian car". The default is to match terms separated by, at most, five positions. To adjust the distance, pass an argument to the `AROUND` operator. Spanner supports two syntaxes for `AROUND` :
         
           - `fast AROUND(10) car`
           - `fast AROUND 10 car`
