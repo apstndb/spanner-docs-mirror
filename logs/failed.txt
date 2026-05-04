@@ -1,4 +1,2 @@
 200 https://cloud.google.com/spanner/pricing
 200 https://cloud.google.com/spanner/sla
-200 https://docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics
-200 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-struct-with-data

@@ -451,6 +451,7 @@ https://docs.cloud.google.com/spanner/docs/integrate-applications-data-agent
 https://docs.cloud.google.com/spanner/docs/integrate-google-cloud-platform
 https://docs.cloud.google.com/spanner/docs/introspection
 https://docs.cloud.google.com/spanner/docs/introspection/active-partitioned-dmls
+https://docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics
 https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics
 https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization
 https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics
@@ -845,6 +846,7 @@ https://docs.cloud.google.com/spanner/docs/samples/spanner-create-database-with-
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-index
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-instance
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-storing-index
+https://docs.cloud.google.com/spanner/docs/samples/spanner-create-struct-with-data
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-table-with-datatypes
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-table-with-timestamp-column
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-user-defined-struct
