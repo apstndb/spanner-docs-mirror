@@ -303,7 +303,9 @@ This section has information about `INDEX` statements.
 
     CREATE [ UNIQUE ] INDEX [ IF NOT EXISTS ] name ] ON table_name
         ( { column_name } [ ASC | DESC ] [ NULLS { FIRST | LAST } ] [, ...] )
+        [ USING method ( column_name [, ...] ) ]
         [ INCLUDE ( column_name [, ...] ) ]
+        [ WITH ( index_option_list) ]
         [ LOCALITY GROUP locality_group_name ]
         [ COLUMNAR POLICY columnar_policy ]
         [ INTERLEAVE IN parent_table_name ]
@@ -316,6 +318,8 @@ This section has information about `INDEX` statements.
 
 #### Spanner differences from open source PostgreSQL
 
+  - `USING` and `WITH` are used to create [vector indexes](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#vector-indexes-ddl) only.
+
 `[ INTERLEAVE IN parent_table_name ]`
 
   - `INTERLEAVE IN` clause defines a table to interleave the index in (see [Index options](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design#index-options) for more details). If T is the table into which the index is interleaved, then the primary key of T must be the key prefix of the index, with each key matching in type, sort order, and nullability. Matching by name is not required.
@@ -323,6 +327,28 @@ This section has information about `INDEX` statements.
 `[ WHERE predicate ]`
 
   - The `  predicate  ` can refer only to columns that are specified earlier in the `CREATE INDEX` statement, not to any column in the underlying table.
+
+#### Vector indexes
+
+The following parameters are supported for [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) used in approximate nearest neighbor (ANN) search:
+
+`[ USING method ( column_name [, ...] ) ]` (vector indexes only)
+
+  - The `method` specifies the index access method. Currently, Spanner only supports `scann` for vector indexes. Spanner uses the ScaNN algorithm to perform tree-quantization-based indexing of vectors.
+
+`[ WITH ( index_option_list ) ]` (vector indexes only)
+
+  - The index option list specifies algorithmic configuration for the index. Currently, this is only supported for vector indexes that use the `scann` method. Specify the options in the following format: `NAME=VALUE, ...` .
+    
+    The following index options are supported for ScaNN indexes:
+    
+    | `Name`          | `Value`   | Details                                                                                                                                                                                                                                                                                                                                                                                                   |
+    | --------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `distance_type` | `varchar` | Required. The distance metric used to build the vector index. This value can be [`COSINE`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#mathematical) , [`DOT_PRODUCT`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#mathematical) , or [`EUCLIDEAN`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#mathematical) . |
+    | `tree_depth`    | `int`     | The tree depth (level). This value can be either `2` or `3` . A tree with 2 levels only has leaves ( `num_leaves` ) as nodes. If the dataset has more than 100 million rows, then you can use a tree with 3 levels and add branches ( `num_branches` ) to further partition the dataset.                                                                                                                  |
+    | `num_leaves`    | `bigint`  | The number of leaves (that is, potential partitions) for the vector data. You can designate `num_leaves` for trees with 2 or 3 levels. We recommend that the number of leaves is `number_of_rows_in_dataset/1000` .                                                                                                                                                                                       |
+    | `num_branches`  | `bigint`  | The number of branches to further partition the vector data. You can only designate `num_branches` for trees with 3 levels. The number of branches must be fewer than the number of leaves. We recommend that the number of branches is between `1000` and `sqrt(number_of_rows_in_dataset)` .                                                                                                            |
+    
 
 <span id="alter_index"></span>
 
@@ -667,7 +693,6 @@ This section has information about `TABLE` statements.
 Defines a new table.
 
     CREATE TABLE [ IF NOT EXISTS ] table_name (
-    
           {
             column_name data_type
             [ column_constraint [ ... ] ] | table_constraint

@@ -137,7 +137,46 @@ Unless otherwise specified, functions return the same data type as provided in t
 <td>Returns a bit-reversed value for a <code dir="ltr" translate="no">bigint</code> value. When <code dir="ltr" translate="no">preserve_sign</code> is <code dir="ltr" translate="no">true</code> , this function provides the same bit-reversal algorithm used in bit-reversed sequence. See <a href="https://docs.cloud.google.com/spanner/docs/primary-key-default-value#bit-reversed-sequence">Bit-reversed sequence</a> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">spanner.cosine_distance(float4[], float4[])  spanner.cosine_distance(float8[], float8[])</code></td>
+<td><code dir="ltr" translate="no">spanner.approx_cosine_distance(float4[], float4[] [, options=&gt;'{value}'] | float8[], float8[] [, options=&gt;'{value}'])</code></td>
+<td><p><code dir="ltr" translate="no">spanner.approx_cosine_distance('{1.0, 2.0}'::float4[], '{3.0, 4.0}'::float4[])</code></p>
+<p><code dir="ltr" translate="no">spanner.approx_cosine_distance('{2.0, 1.0}'::float8[], '{4.0, 3.0}'::float8[])</code></p>
+<p><code dir="ltr" translate="no">spanner.approx_cosine_distance('{1.0, 2.0}'::float4[], '{3.0, 4.0}'::float4[], options=&gt;'{"num_leaves_to_search": 1000}')</code></p></td>
+<td><p>Computes the approximate <a href="https://en.wikipedia.org/wiki/Cosine_similarity#Cosine_distance">cosine distance</a> between two vectors. Approximation typically occurs when using specific indexing strategies that precompute clustering, using approximate cosine distances. Approximation is non-deterministic and volatile. You must create a vector index first before using this function. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/vector-indexes#create-vector-index">Create vector index</a> .</p>
+<p>Each vector represents a quantity that includes magnitude and direction. Vectors are represented as <code dir="ltr" translate="no">float4[]</code> or <code dir="ltr" translate="no">float8[]</code> .</p>
+<p>A vector can have one or more dimensions. Both vectors in this function must share these same dimensions, and if they don't, Spanner produces an error.</p>
+<p>Spanner produces an error if an element or field in a vector is <code dir="ltr" translate="no">null</code> .</p>
+<p>A vector can't be a zero vector. A vector is a zero vector if all elements in the vector are 0. For example, <code dir="ltr" translate="no">'{0.0, 0.0}'::float4</code> . If a zero vector is encountered by the vector index, Spanner produces an error.</p>
+<p>If either of the arguments is <code dir="ltr" translate="no">null</code> , <code dir="ltr" translate="no">null</code> is returned.</p>
+<p><code dir="ltr" translate="no">options</code> is a named argument with a value that represents a Spanner-specific optimization. <code dir="ltr" translate="no">value</code> must be <code dir="ltr" translate="no">"num_leaves_to_search": int4</code> .<br />
+This option specifies the approximate nearest neighbors (ANN) algorithm configuration used in your query. The total number of leaves is specified when you create your vector index. A larger value improves recall, but is less performant. Some experimentation might be required for specific use cases. We recommend using a number that's 1% the total number of leaves defined in the <code dir="ltr" translate="no">CREATE INDEX</code> statement to start. The number of leaves to search is defined by the <code dir="ltr" translate="no">num_leaves_to_search</code> option for both 2-level and 3-level trees. If an unsupported option is provided, an error is produced.</p></td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">spanner.approx_dot_product(float4[], float4[] [, options=&gt;'{value}'] | float8[], float8[] [, options=&gt;'{value}'])</code></td>
+<td><p><code dir="ltr" translate="no">spanner.approx_dot_product('{100, 10}'::float4[], '{200, 6}'::float4[])</code></p>
+<p><code dir="ltr" translate="no">spanner.approx_dot_product('{100, 10}'::float4[], '{200, 6}'::float4[], options=&gt;'{"num_leaves_to_search": 1000}')</code></p></td>
+<td><p>Computes the approximate <a href="https://mathworld.wolfram.com/DotProduct.html">dot product</a> between two vectors. The dot product is computed by summing the product of corresponding vector elements. Approximation typically occurs when using specific indexing strategies that precompute clustering, using approximate dot products. Approximation is non-deterministic and volatile. You must create a vector index first before using this function. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/vector-indexes#create-vector-index">Create vector index</a> .</p>
+<p>Each vector represents a quantity that includes magnitude and direction. Vectors are represented as <code dir="ltr" translate="no">int8[]</code> , <code dir="ltr" translate="no">float4[]</code> , or <code dir="ltr" translate="no">float8[]</code> .</p>
+<p>A vector can have one or more dimensions. Both vectors in this function must share these same dimensions, and if they don't, Spanner produces an error.</p>
+<p>Spanner produces an error if an element or field in a vector is <code dir="ltr" translate="no">null</code> .</p>
+<p>If either of the arguments is <code dir="ltr" translate="no">null</code> , <code dir="ltr" translate="no">null</code> is returned.</p>
+<p><code dir="ltr" translate="no">options</code> is a named argument with a value that represents a Spanner-specific optimization. <code dir="ltr" translate="no">value</code> must be <code dir="ltr" translate="no">"num_leaves_to_search": int4</code> .<br />
+This option specifies the approximate nearest neighbors (ANN) algorithm configuration used in your query. The total number of leaves is specified when you create your vector index. A larger value improves recall, but is less performant. Some experimentation might be required for specific use cases. We recommend using a number that's 1% the total number of leaves defined in the <code dir="ltr" translate="no">CREATE INDEX</code> statement to start. The number of leaves to search is defined by the <code dir="ltr" translate="no">num_leaves_to_search</code> option for both 2-level and 3-level trees. If an unsupported option is provided, an error is produced.</p></td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">spanner.approx_euclidean_distance(float4[], float4[] [, options=&gt;'{value}'] | float8[], float8[] [, options=&gt;'{value}'])</code></td>
+<td><p><code dir="ltr" translate="no">spanner.approx_euclidean_distance('{1.0, 2.0}'::float4[], '{3.0, 4.0}'::float4[])</code></p>
+<p><code dir="ltr" translate="no">spanner.approx_euclidean_distance('{2.0, 1.0}'::float8[], '{4.0, 3.0}'::float8[])</code></p>
+<p><code dir="ltr" translate="no">spanner.approx_euclidean_distance('{1.0, 2.0}'::float4[], '{3.0, 4.0}'::float4[], options=&gt;'{"num_leaves_to_search": 1000}')</code></p></td>
+<td><p>Computes the approximate <a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean distance</a> between two vectors. Approximation typically occurs when using specific indexing strategies that precompute clustering, using approximate Euclidean distances. Approximation is non-deterministic and volatile. However, the result might be the exact <code dir="ltr" translate="no">EUCLIDEAN_DISTANCE</code> , or it might have engine-specific approximations applied, depending on the options and the schema configuration. You must create a vector index first before using this function. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/vector-indexes#create-vector-index">Create vector index</a> .</p>
+<p>Each vector represents a quantity that includes magnitude and direction. Vectors are represented as <code dir="ltr" translate="no">float4[]</code> or <code dir="ltr" translate="no">float8[]</code> .</p>
+<p>A vector can have one or more dimensions. Both vectors in this function must share these same dimensions, and if they don't, Spanner produces an error.</p>
+<p>Spanner produces an error if an element or field in a vector is <code dir="ltr" translate="no">null</code> .</p>
+<p>If either of the arguments is <code dir="ltr" translate="no">null</code> , <code dir="ltr" translate="no">null</code> is returned.</p>
+<p><code dir="ltr" translate="no">options</code> is a named argument with a value that represents a Spanner-specific optimization. <code dir="ltr" translate="no">value</code> must be <code dir="ltr" translate="no">"num_leaves_to_search": int4</code> .<br />
+This option specifies the approximate nearest neighbors (ANN) algorithm configuration used in your query. The total number of leaves is specified when you create your vector index. A larger value improves recall, but is less performant. Some experimentation might be required for specific use cases. We recommend using a number that's 1% the total number of leaves defined in the <code dir="ltr" translate="no">CREATE INDEX</code> statement to start. The number of leaves to search is defined by the <code dir="ltr" translate="no">num_leaves_to_search</code> option for both 2-level and 3-level trees. If an unsupported option is provided, an error is produced.</p></td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">spanner.cosine_distance(float4[], float4[] | float8[], float8[])</code></td>
 <td><p>Returns float8.</p>
 <p><code dir="ltr" translate="no">spanner.cosine_distance('{1.0, 2.0}'::float4[], '{3.0, 4.0}'::float4[]) → 0.016130</code></p>
 <p><code dir="ltr" translate="no">spanner.cosine_distance('{2.0, 1.0}'::float8[], '{4.0, 3.0}'::float8[]) → 0.016130</code></p></td>
@@ -149,7 +188,7 @@ Unless otherwise specified, functions return the same data type as provided in t
 <p>A vector can't be a zero vector. A vector is a zero vector if all elements in the vector are 0. For example, <code dir="ltr" translate="no">'{0.0, 0.0}'::float4</code> . If a zero vector is encountered, an error is produced.</p>
 <p>If either of the arguments is <code dir="ltr" translate="no">null</code> , <code dir="ltr" translate="no">null</code> is returned.</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">spanner.dot_product(int8[], int8[])  spanner.dot_product(float4[], float4[])  spanner.dot_product(float8[], float8[])</code></td>
 <td><p>Returns float8.</p>
 <p><code dir="ltr" translate="no">spanner.dot_product('{100}'::int8[], '{200}'::int8[]) → 20000</code></p>
@@ -159,10 +198,10 @@ Unless otherwise specified, functions return the same data type as provided in t
 <p>A vector can have one or more dimensions. Both vectors in this function must share these same dimensions, and if they don't, an error is produced.</p>
 <p>The ordering of numeric values in a vector doesn't impact the results produced by this function.</p>
 <p>An error is produced if an element or field in a vector is <code dir="ltr" translate="no">null</code> .</p>
-<p>A vector can be a zero vector. A vector is a zero vector if it has no dimensions or if all elements in the vector are 0. For example, <code dir="ltr" translate="no">'{0.0, 0.0}'::float4</code> . If a zero vector is encountered, an error is produced.</p>
+<p>A vector can be a zero vector. A vector is a zero vector if it has no dimensions or if all elements in the vector are 0. For example, <code dir="ltr" translate="no">'{0.0, 0.0}'::float4</code> .</p>
 <p>If either of the arguments is <code dir="ltr" translate="no">null</code> , <code dir="ltr" translate="no">null</code> is returned.</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">spanner.euclidean_distance(float4[], float4[])  spanner.euclidean_distance(float8[], float8[])</code></td>
 <td><p>Returns float8.</p>
 <p><code dir="ltr" translate="no">spanner.euclidean_distance('{1.0, 2.0}'::float4[], '{3.0, 4.0}'::float4[]) → 2.828</code></p>
@@ -175,22 +214,22 @@ Unless otherwise specified, functions return the same data type as provided in t
 <p>A vector can be a zero vector. A vector is a zero vector if all elements in the vector are 0. For example, <code dir="ltr" translate="no">'{0.0, 0.0}'::float4</code> .</p>
 <p>If either of the arguments is <code dir="ltr" translate="no">null</code> , <code dir="ltr" translate="no">null</code> is returned.</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">sqrt(float8)</code></td>
 <td><code dir="ltr" translate="no">sqrt(2::FLOAT8) → 1.4142135623730951</code></td>
 <td>Square root.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">tan(float8)</code></td>
 <td><code dir="ltr" translate="no">tan(1) → 1.5574077246549023</code></td>
 <td>Tangent, argument in radians.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">trunc(float8)</code></td>
 <td><code dir="ltr" translate="no">trunc(42.8::FLOAT8) → 42  trunc(-42.8::FLOAT8) → -42</code></td>
 <td>Truncates to integer (towards zero).</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">trunc(x numeric, y integer)</code></td>
 <td><code dir="ltr" translate="no">trunc(42.4382, 2) → 42.43</code></td>
 <td>Truncates x to y decimal places.</td>

@@ -45,6 +45,74 @@ The following permissions are required to manage organization policies:
 
 You might also be able to get these permissions with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
+## Spanner supported resources
+
+The following table lists the Spanner resources that you can reference in custom constraints.
+
+Resource
+
+Field
+
+spanner.googleapis.com/Backup
+
+`resource.database`
+
+`resource.expireTime`
+
+`resource.name`
+
+`resource.versionTime`
+
+spanner.googleapis.com/Database
+
+`resource.enableDropProtection`
+
+`resource.name`
+
+spanner.googleapis.com/Instance
+
+`resource.autoscalingConfig.autoscalingLimits.maxNodes`
+
+`resource.autoscalingConfig.autoscalingLimits.maxProcessingUnits`
+
+`resource.autoscalingConfig.autoscalingLimits.minNodes`
+
+`resource.autoscalingConfig.autoscalingLimits.minProcessingUnits`
+
+`resource.autoscalingConfig.autoscalingTargets.highPriorityCpuUtilizationPercent`
+
+`resource.autoscalingConfig.autoscalingTargets.storageUtilizationPercent`
+
+`resource.config`
+
+`resource.displayName`
+
+`resource.freeInstanceMetadata.expireBehavior`
+
+`resource.instanceType`
+
+`resource.name`
+
+`resource.nodeCount`
+
+`resource.processingUnits`
+
+spanner.googleapis.com/InstanceConfig
+
+`resource.baseConfig`
+
+`resource.displayName`
+
+`resource.leaderOptions`
+
+`resource.name`
+
+`resource.replicas.defaultLeaderLocation`
+
+`resource.replicas.location`
+
+`resource.replicas.type`
+
 ## Set up a custom constraint
 
 A custom constraint is defined in a YAML file by the resources, methods, conditions, and actions that are supported by the service on which you are enforcing the organization policy. Conditions for your custom constraints are defined using [Common Expression Language (CEL)](https://github.com/google/cel-spec/blob/master/doc/intro.md) . For more information about how to build conditions in custom constraints using CEL, see the CEL section of [Creating and managing custom constraints](https://docs.cloud.google.com/organization-policy/create-custom-constraints#common_expression_language) .
@@ -291,74 +359,6 @@ To avoid disruptive restrictions on production workloads, use the following tool
   - **Dry-run mode:** You can [create organization policies in dry-run mode](https://docs.cloud.google.com/resource-manager/docs/organization-policy/dry-run-policy) to monitor the effects of a constraint without actively blocking resource creation or updates.
 
 For more information about Google-managed constraints, see [Organization policy constraints](https://docs.cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints) .
-
-## Spanner supported resources
-
-The following table lists the Spanner resources that you can reference in custom constraints.
-
-Resource
-
-Field
-
-spanner.googleapis.com/Backup
-
-`resource.database`
-
-`resource.expireTime`
-
-`resource.name`
-
-`resource.versionTime`
-
-spanner.googleapis.com/Database
-
-`resource.enableDropProtection`
-
-`resource.name`
-
-spanner.googleapis.com/Instance
-
-`resource.autoscalingConfig.autoscalingLimits.maxNodes`
-
-`resource.autoscalingConfig.autoscalingLimits.maxProcessingUnits`
-
-`resource.autoscalingConfig.autoscalingLimits.minNodes`
-
-`resource.autoscalingConfig.autoscalingLimits.minProcessingUnits`
-
-`resource.autoscalingConfig.autoscalingTargets.highPriorityCpuUtilizationPercent`
-
-`resource.autoscalingConfig.autoscalingTargets.storageUtilizationPercent`
-
-`resource.config`
-
-`resource.displayName`
-
-`resource.freeInstanceMetadata.expireBehavior`
-
-`resource.instanceType`
-
-`resource.name`
-
-`resource.nodeCount`
-
-`resource.processingUnits`
-
-spanner.googleapis.com/InstanceConfig
-
-`resource.baseConfig`
-
-`resource.displayName`
-
-`resource.leaderOptions`
-
-`resource.name`
-
-`resource.replicas.defaultLeaderLocation`
-
-`resource.replicas.location`
-
-`resource.replicas.type`
 
 ## What's next
 

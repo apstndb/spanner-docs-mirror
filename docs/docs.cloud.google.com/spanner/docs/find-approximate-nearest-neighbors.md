@@ -10,11 +10,16 @@ When a dataset is small, you can use [K-nearest neighbors (KNN)](https://docs.cl
 
 In an ANN search, the k-returned vectors aren't the true top k-nearest neighbors because the ANN search calculates approximate distances and might not look at all the vectors in the dataset. Occasionally, a few vectors that aren't among the top k-nearest neighbors are returned. This is known as *recall loss* . How much recall loss is acceptable to you depends on the use case, but in most cases, losing a bit of recall in return for improved database performance is an acceptable tradeoff.
 
-For more details about the approximate distance functions supported in Spanner, see the following GoogleSQL reference pages:
+For more details about the approximate distance functions supported in Spanner, see the following reference pages for your database dialect:
 
-  - [`APPROX_COSINE_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_cosine_distance)
-  - [`APPROX_EUCLIDEAN_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_euclidean_distance)
-  - [`APPROX_DOT_PRODUCT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product)
+  - **GoogleSQL**
+      - [`APPROX_COSINE_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_cosine_distance)
+      - [`APPROX_EUCLIDEAN_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_euclidean_distance)
+      - [`APPROX_DOT_PRODUCT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product)
+  - **PostgreSQL**
+      - [`spanner.approx_cosine_distance()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#mathematical)
+      - [`spanner.approx_euclidean_distance()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#mathematical)
+      - [`spanner.approx_dot_product()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#mathematical)
 
 ## Query vector embeddings
 
@@ -32,17 +37,34 @@ For a detailed list of limitations, see the [approximate distance function refer
 
 Consider a `Documents` table that has a `DocEmbedding` column of precomputed text embeddings from the `DocContents` bytes column, and a `NullableDocEmbedding` column populated from other sources that might be null.
 
+### GoogleSQL
+
     CREATE TABLE Documents (
-    UserId       INT64 NOT NULL,
-    DocId        INT64 NOT NULL,
-    Author       STRING(1024),
-    DocContents  BYTES(MAX),
-    DocEmbedding ARRAY<FLOAT32> NOT NULL,
-    NullableDocEmbedding ARRAY<FLOAT32>,
-    WordCount    INT64
+      UserId       INT64 NOT NULL,
+      DocId        INT64 NOT NULL,
+      Author       STRING(1024),
+      DocContents  BYTES(MAX),
+      DocEmbedding ARRAY<FLOAT32> NOT NULL,
+      NullableDocEmbedding ARRAY<FLOAT32>,
+      WordCount    INT64
     ) PRIMARY KEY (UserId, DocId);
 
+### PostgreSQL
+
+    CREATE TABLE documents (
+      user_id      bigint not null,
+      doc_id       bigint not null,
+      author       varchar(1024),
+      doc_contents bytea,
+      doc_embedding float4[] not null,
+      nullable_doc_embedding float4[],
+      word_count   bigint,
+      PRIMARY KEY (user_id, doc_id)
+    );
+
 To search for the nearest 100 vectors to `[1.0, 2.0, 3.0]` :
+
+### GoogleSQL
 
     SELECT DocId
     FROM Documents
@@ -52,7 +74,20 @@ To search for the nearest 100 vectors to `[1.0, 2.0, 3.0]` :
       options => JSON '{"num_leaves_to_search": 10}')
     LIMIT 100
 
+### PostgreSQL
+
+    SELECT doc_id
+    FROM documents
+    WHERE word_count > 1000
+    ORDER BY spanner.approx_euclidean_distance(
+      ARRAY[1.0, 2.0, 3.0]::float4[], doc_embedding,
+      options=>jsonb'{"num_leaves_to_search": 10}'
+    )
+    LIMIT 100;
+
 If the embedding column is nullable:
+
+### GoogleSQL
 
     SELECT DocId
     FROM Documents
@@ -62,13 +97,24 @@ If the embedding column is nullable:
       options => JSON '{"num_leaves_to_search": 10}')
     LIMIT 100
 
+### PostgreSQL
+
+    SELECT doc_id
+    FROM documents
+    WHERE nullable_doc_embedding IS NOT NULL AND word_count > 1000
+    ORDER BY spanner.approx_euclidean_distance(
+      ARRAY[1.0, 2.0, 3.0]::float4[], nullable_doc_embedding,
+      options=>jsonb'{"num_leaves_to_search": 10}'
+    )
+    LIMIT 100;
+
 ## What's next
 
   - Learn more about Spanner [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) .
 
-  - Learn more about the [GoogleSQL `APPROXIMATE_COSINE_DISTANCE()` , `APPROXIMATE_EUCLIDEAN_DISTANCE()` , `APPROXIMATE_DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
+  - Learn more about the approximate distance functions in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#mathematical) .
 
-  - Learn more about the [GoogleSQL `VECTOR INDEX` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
+  - Learn more about index statements for [GoogleSQL `VECTOR INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) and [PostgreSQL `INDEX`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#index-statements) .
 
   - Learn more about [vector index best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) .
 

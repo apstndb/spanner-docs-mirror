@@ -351,11 +351,12 @@ If no value is provided for the `CreatedTime` or `LastUpdatedTime` column in an 
         VenueId         INT64 NOT NULL,
         EventDate       DATE,
         Revenue         INT64,
-        CreatedTime     NOT NULL DEFAULT (PENDING_COMMIT_TIMESTAMP()) OPTIONS (allow_commit_timestamp=true)
-        LastUpdatedTime  NOT NULL DEFAULT (PENDING_COMMIT_TIMESTAMP()) ON UPDATE (PENDING_COMMIT_TIMESTAMP())
-          OPTIONS (allow_commit_timestamp=true)
+        CreatedTime     TIMESTAMP NOT NULL DEFAULT (PENDING_COMMIT_TIMESTAMP())
+          OPTIONS (allow_commit_timestamp=true),
+        LastUpdatedTime TIMESTAMP NOT NULL DEFAULT (PENDING_COMMIT_TIMESTAMP())
+          ON UPDATE (PENDING_COMMIT_TIMESTAMP()) OPTIONS (allow_commit_timestamp=true)
     ) PRIMARY KEY (SingerId, VenueId, EventDate),
-      INTERLEAVE IN PARENT Singers ON DELETE CASCADE
+      INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
 
 ## `STRING`
 
