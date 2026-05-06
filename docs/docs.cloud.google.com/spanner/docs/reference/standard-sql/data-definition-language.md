@@ -1823,6 +1823,10 @@ Grants privileges that allow database roles to access database objects.
         | ON ALL CHANGE STREAMS IN SCHEMA schema_name [, ...]
         TO ROLE role_list
     
+    GRANT { SELECT | UPDATE }
+       ON SEQUENCE sequence_list | ON ALL SEQUENCES IN SCHEMA schema_name [, ...]
+       TO ROLE role_list
+    
     GRANT SELECT ON VIEW view_list | ON ALL VIEWS IN SCHEMA schema_name [, ...]
         TO ROLE role_list
     
@@ -1847,6 +1851,9 @@ Grants privileges that allow database roles to access database objects.
     and change_stream_list is:
         change_stream_name [, ...]
     
+    and sequence_list is:
+        sequence_name [, ...]
+    
     and function_list is:
         change_stream_read_function_name [, ...]
     
@@ -1858,7 +1865,7 @@ Grants privileges that allow database roles to access database objects.
 
 #### Description
 
-For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) , grants privileges on one or more tables, views, change streams, or change stream read functions to database roles. Also grants database roles to other database roles to create a database role hierarchy with inheritance. When granting `SELECT` , `INSERT` , or `UPDATE` on a table, optionally grants privileges on only a subset of table columns.
+For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) , grants privileges on one or more tables, views, change streams, `SEQUENCE` objects, or change stream read functions to database roles. Also grants database roles to other database roles to create a database role hierarchy with inheritance. When granting `SELECT` , `INSERT` , or `UPDATE` on a table, optionally grants privileges on only a subset of table columns.
 
 #### Parameters
 
@@ -1885,6 +1892,10 @@ For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fga
 `  schema_name  `
 
   - The name of the schema.
+
+`  sequence_name  `
+
+  - The name of an existing sequence.
 
 `  database_role_name  `
 
@@ -1930,6 +1941,14 @@ The next example grants the database role `pii_access` to the roles `hr_manager`
 
     GRANT ROLE pii_access TO ROLE hr_manager, hr_director;
 
+The following example grants `SELECT` and `UPDATE` on the `sequence_object` sequence to the `app_developer` role.
+
+    GRANT SELECT, UPDATE ON SEQUENCE sequence_object TO ROLE app_developer;
+
+The next example grants `SELECT` on all sequences in the `default` schema to the `data_analyst` role.
+
+    GRANT SELECT ON ALL SEQUENCES IN SCHEMA default TO ROLE data_analyst;
+
 ### REVOKE
 
 Revokes privileges that allow database roles access to database objects.
@@ -1952,6 +1971,11 @@ Revokes privileges that allow database roles access to database objects.
         ON CHANGE STREAM change_stream_list
         FROM ROLE role_list
     
+    REVOKE { SELECT | UPDATE }
+        ON SEQUENCE sequence_list | ON ALL SEQUENCES IN SCHEMA schema_name [, ...]
+        FROM ROLE role_list
+    
+    
     REVOKE EXECUTE
         ON TABLE FUNCTION function_list
         FROM ROLE role_list
@@ -1971,6 +1995,9 @@ Revokes privileges that allow database roles access to database objects.
     and change_stream_list is:
         change_stream_name [, ...]
     
+    and sequence_list is:
+        sequence_name [, ...]
+    
     and function_list is:
         change_stream_read_function_name [, ...]
     
@@ -1979,7 +2006,7 @@ Revokes privileges that allow database roles access to database objects.
 
 #### Description
 
-For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) , revokes privileges on one or more tables, views, change streams, or change stream read functions from database roles. Also revokes database roles from other database roles. When revoking `SELECT` , `INSERT` , or `UPDATE` on a table, optionally revokes privileges on only a subset of table columns.
+For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) , revokes privileges on one or more tables, views, change streams, `SEQUENCE` objects, or change stream read functions from database roles. Also revokes database roles from other database roles. When revoking `SELECT` , `INSERT` , or `UPDATE` on a table, optionally revokes privileges on only a subset of table columns.
 
 #### Parameters
 
@@ -2006,6 +2033,10 @@ For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fga
 `  database_role_name  `
 
   - The name of an existing database role.
+
+`  sequence_name  `
+
+  - The name of an existing sequence.
 
 #### Notes and restrictions
 
@@ -2044,6 +2075,10 @@ The next example revokes `INSERT` on a subset of columns.
 The following example revokes the database role `pii_access` from the `hr_manager` and `hr_director` database roles. The `hr_manager` and `hr_director` roles lose any privileges that they inherited from `pii_access` .
 
 `REVOKE ROLE pii_access FROM ROLE hr_manager, hr_director;`
+
+The following example revokes `UPDATE` on the `sequence_object` sequence from the `app_developer` role.
+
+`REVOKE UPDATE ON SEQUENCE sequence_object FROM ROLE app_developer;`
 
 ## SEQUENCE statements
 

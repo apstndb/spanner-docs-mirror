@@ -4,7 +4,7 @@ gcloud spanner databases update - update a Cloud Spanner database
 
 SYNOPSIS
 
-`gcloud spanner databases update` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  --async  ` \] \[ `  --[no-]enable-drop-protection  ` | `  --kms-keys  ` = `  KMS_KEY  ` , \[ `  KMS_KEY  ` , …\]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner databases update` ( `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  --async  ` \] \[ `  --clear-kms-keys  ` | `  --[no-]enable-drop-protection  ` | `  --kms-keys  ` = `  KMS_KEY  ` , \[ `  KMS_KEY  ` , …\]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -23,6 +23,10 @@ To disable database deletion protection on a Cloud Spanner database 'my-database
 To update KMS key references for a Cloud Spanner database 'my-database', run:
 
     gcloud spanner databases update my-database --kms-keys="KEY1,KEY2"
+
+To remove all KMS key references and revert a Cloud Spanner database 'my-database' to Google-managed encryption, run:
+
+    gcloud spanner databases update my-database --clear-kms-keys
 
 POSITIONAL ARGUMENTS
 
@@ -62,6 +66,8 @@ Return immediately, without waiting for the operation in progress to complete.
 
 At most one of these can be specified:
 
+  - `--clear-kms-keys`  
+    Removes all KMS key references and reverts the database to Google-managed encryption.
   - `--[no-]enable-drop-protection`  
     Enable database deletion protection on this database. Use `--enable-drop-protection` to enable and `--no-enable-drop-protection` to disable.
   - `--kms-keys` = `  KMS_KEY  ` ,\[ `  KMS_KEY  ` ,…\]  
