@@ -441,6 +441,7 @@ https://docs.cloud.google.com/spanner/docs/import-export-csv
 https://docs.cloud.google.com/spanner/docs/import-export-overview
 https://docs.cloud.google.com/spanner/docs/import-non-spanner
 https://docs.cloud.google.com/spanner/docs/index-advisor
+https://docs.cloud.google.com/spanner/docs/index-geo-partitioning
 https://docs.cloud.google.com/spanner/docs/information-schema
 https://docs.cloud.google.com/spanner/docs/information-schema-pg
 https://docs.cloud.google.com/spanner/docs/inspect-data-agent

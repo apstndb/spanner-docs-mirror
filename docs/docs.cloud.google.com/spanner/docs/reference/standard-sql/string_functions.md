@@ -1455,9 +1455,7 @@ The following queries check to see if an email is valid:
      +-----------------+----------+
      | foo@example.com | TRUE     |
      +-----------------+----------*/
-     ```
-    
-     ```googlesql
+
     SELECT
       'www.example.net' AS email,
       REGEXP_CONTAINS('www.example.net', r'@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+') AS is_valid
@@ -1467,14 +1465,9 @@ The following queries check to see if an email is valid:
      +-----------------+----------+
      | www.example.net | FALSE    |
      +-----------------+----------*/
-     ```
-    
-    The following queries check to see if an email is valid. They
-    perform a full match, using `^` and `$`. Due to regular expression operator
-    precedence, it's good practice to use parentheses around everything between `^`
-    and `$`.
-    
-    ```googlesql
+
+The following queries check to see if an email is valid. They perform a full match, using `^` and `$` . Due to regular expression operator precedence, it's good practice to use parentheses around everything between `^` and `$` .
+
     SELECT
       'a@foo.com' AS email,
       REGEXP_CONTAINS('a@foo.com', r'^([\w.+-]+@foo\.com|[\w.+-]+@bar\.org)$') AS valid_email_address,

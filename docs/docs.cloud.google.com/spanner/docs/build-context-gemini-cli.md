@@ -93,7 +93,7 @@ The extension requires a database connection to fetch schemas and ability to val
 
 #### Configure Application Default Credentials
 
-Configure [Application Default Credentials (ADC)](https://docs.cloud.google.com/authentication/set-up-adc-local-dev-environment) to provide user credentials for two main components:
+Configure [Application Default Credentials (ADC)](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) to provide user credentials for two main components:
 
   - Toolbox MCP server: Uses credentials to connect to your database, fetch schemas, and run SQL for validation.
   - DB Context Enrichment extension: Uses credentials to authenticate and call the Gemini API.
