@@ -12,7 +12,7 @@ For more information, see [Quickstart: Create and query a database in Spanner us
 
 ## Authentication for Google Cloud management
 
-Administrators and developers who create and manage Spanner instances must authenticate to Google Cloud to verify their identity and access privileges. You must set up each user with a [user account that is managed](https://docs.cloud.google.com/architecture/identity/overview-google-authentication#google_for_organizations) by Cloud Identity, Google Workspace, or an [identity provider that you've federated](https://docs.cloud.google.com/architecture/identity/best-practices-for-federating) with Cloud Identity or Google Workspace. For more information, see [Overview of identity and access management](https://docs.cloud.google.com/architecture/identity/overview-google-authentication) .
+Administrators and developers who create and manage Spanner instances must authenticate to Google Cloud to verify their identity and access privileges. You must set up each user with a [user account that is managed](https://docs.cloud.google.com/architecture/identity/overview-google-authentication#google_for_organizations) by Cloud Identity, Google Workspace, or an [identity provider that you've federated](https://docs.cloud.google.com/architecture/identity/best-practices-for-federating) with Cloud Identity or Google Workspace. For more information, see [Overview of Google identity management](https://docs.cloud.google.com/architecture/identity/overview-google-authentication) .
 
 After you create the user accounts, implement security best practices such as [single sign-on](https://docs.cloud.google.com/architecture/identity/single-sign-on) and [2-step verification](https://support.google.com/a/answer/175197) .
 

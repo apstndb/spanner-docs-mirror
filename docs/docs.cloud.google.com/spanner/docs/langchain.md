@@ -20,9 +20,11 @@ Spanner offers the following LangChain interfaces:
   - [Graph store](https://docs.cloud.google.com/spanner/docs/langchain#graph-store)
   - [Graph QA](https://docs.cloud.google.com/spanner/docs/langchain#graph-qa)
 
+Learn how to use these components in an application with the [LangChain Quickstart for Spanner](https://github.com/googleapis/langchain-google-spanner-python/blob/main/samples/langchain_quick_start.ipynb) .
+
 ## Vector store for Spanner
 
-Vector store retrieves and stores documents and metadata from a vector database. Vector store gives an application the ability to perform semantic searches that interpret the meaning of a user query. This type of search is a called a vector search, and it can find topics that match the query conceptually. At query time, vector store retrieves the embedding vectors that are most similar to the embedding of the search request. In LangChain, a vector store takes care of storing embedded data and performing the vector search for you.
+Vector store retrieves and stores documents and metadata from a vector database. Vector store gives an application the ability to perform semantic searches that interpret the meaning of a user query. This type of search is called a vector search, and it can find topics that match the query conceptually. At query time, vector store retrieves the embedding vectors that are most similar to the embedding of the search request. In LangChain, a vector store takes care of storing embedded data and performing the vector search for you.
 
 To work with vector store in Spanner, use the `SpannerVectorStore` class.
 
@@ -85,7 +87,7 @@ Graph store retrieves and stores nodes and edges from a graph database. Use grap
 
 You can also use graph store with graph QA chain to create an application that can chat with a graph.
 
-To use graph store with Spanner Graph, use the [`SpannerGraphStore`](https://docs.cloud.google.com/python/docs/reference/langchain-google-spanner/latest#spanner-graph-store-usage) class. to store nodes and edges that are extracted from documents. `SpannerGraphStore` supports the Graph Query Language (GQL).
+To use graph store with Spanner Graph, use the [`SpannerGraphStore`](https://docs.cloud.google.com/python/docs/reference/langchain-google-spanner/latest#spanner-graph-store-usage) class to store nodes and edges that are extracted from documents. `SpannerGraphStore` supports the Graph Query Language (GQL).
 
 ### Graph store procedure guide
 
