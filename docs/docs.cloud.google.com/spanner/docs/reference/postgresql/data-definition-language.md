@@ -1223,31 +1223,43 @@ Grants roles to database objects.
 
 #### Syntax
 
-    GRANT { SELECT | INSERT | UPDATE | DELETE } ON [TABLE] table_list TO role_list
+    GRANT { privilege_type [, ...] }
+      ON {
+           SCHEMA schema_name_list |
+           [ TABLE ] table_list |
+           [ TABLE ] view_list |
+           CHANGE STREAM change_stream_list |
+           SEQUENCE sequence_list |
+           FUNCTION function_list
+         }
+      TO role_list
     
     GRANT { SELECT | INSERT | UPDATE }(column_list) ON [TABLE] table_list TO role_list
     
-    GRANT SELECT ON [TABLE] view_list TO role_list
-    
-    GRANT SELECT ON CHANGE STREAM change_stream_list TO role_list
-    
-    GRANT EXECUTE ON FUNCTION function_list TO role_list
-    
     GRANT role_list TO role_list
     
-    GRANT USAGE ON SCHEMA schema_name_list TO role_list
+    where privilege_type depends on the object type:
+      FOR SCHEMAS: { USAGE }
+      FOR TABLES: { SELECT | INSERT | UPDATE | DELETE }
+      FOR VIEWS: { SELECT }
+      FOR CHANGE STREAMS: { SELECT }
+      FOR SEQUENCES: { SELECT | UPDATE }
+      FOR FUNCTIONS: { EXECUTE }
     
-    where table_list is:
-          table_name [, ...]
+    and table_list is:
+        table_name [, ...]
     
     and column_list is:
-        column_name [,...]
+        column_name [, ...]
     
     and view_list is:
         view_name [, ...]
     
     and change_stream_list is:
         change_stream_name [, ...]
+    
+    and sequence_list is:
+        sequence_name [, ...]
     
     and function_list is:
         change_stream_read_function_name [, ...]
@@ -1289,6 +1301,8 @@ For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fga
   - The name of an existing database role.
 
 #### Notes and restrictions
+
+The following notes and restrictions apply when you grant privileges to database roles.
 
   - Identifiers for database objects named in the `GRANT` statement must use the case that was specified when the object was created. For example, if you created a table with a name that is in all lowercase with a capitalized first letter, you must use that same case in the `GRANT` statement. For each change stream, PostgreSQL automatically creates a change stream read function with a name that consists of a prefix added to the change stream name, so ensure that you use the proper case for both the prefix and the change stream name. For more information about change stream read functions, see [Change stream query syntax](https://docs.cloud.google.com/spanner/docs/change-streams/details#change_stream_query_syntax) .
 
@@ -1338,29 +1352,43 @@ Revokes privileges on one or more tables, views, change streams, or change strea
 
 #### Syntax
 
-    REVOKE { SELECT | INSERT | UPDATE | DELETE } ON [TABLE] table_list FROM role_list
+    REVOKE { privilege_type [, ...] }
+      ON {
+           SCHEMA schema_name_list |
+           [ TABLE ] table_list |
+           [ TABLE ] view_list |
+           CHANGE STREAM change_stream_list |
+           SEQUENCE sequence_list |
+           FUNCTION function_list
+         }
+      FROM role_list
     
     REVOKE { SELECT | INSERT | UPDATE }(column_list) ON [TABLE] table_list FROM role_list
     
-    REVOKE SELECT ON [TABLE] view_list FROM role_list
-    
-    REVOKE SELECT ON CHANGE STREAM change_stream_list FROM role_list
-    
-    REVOKE EXECUTE ON FUNCTION function_list FROM role_list
-    
     REVOKE role_list FROM role_list
+    
+    where privilege_type depends on the object type:
+      FOR SCHEMAS: { USAGE }
+      FOR TABLES: { SELECT | INSERT | UPDATE | DELETE }
+      FOR VIEWS: { SELECT }
+      FOR CHANGE STREAMS: { SELECT }
+      FOR SEQUENCES: { SELECT | UPDATE }
+      FOR FUNCTIONS: { EXECUTE }
     
     and table_list is:
         table_name [, ...]
     
     and column_list is:
-        column_name [,...]
+        column_name [, ...]
     
     and view_list is:
         view_name [, ...]
     
     and change_stream_list is:
         change_stream_name [, ...]
+    
+    and sequence_list is:
+        sequence_name [, ...]
     
     and function_list is:
         change_stream_read_function_name [, ...]
@@ -1400,7 +1428,9 @@ For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fga
 
 #### Notes and restrictions
 
-  - Identifiers for database objects named in the `REVOKE` statement must use the case that was specified when the object was created. For example, if you created a table with a name that is in all lowercase with a capitalized first letter, you must use that same case in the `REVOKE` statement. For each change stream, PostgreSQL automatically creates a change stream read function with a name that consists of a prefix added to the change stream name, so ensure that you use the proper case for both the prefix and the change stream name. For more information about change stream read functions, see [Change stream query syntax](https://docs.cloud.google.com/spanner/docs/change-streams/details#change_stream_query_syntax) .
+The following notes and restrictions apply when you revoke privileges from database roles.
+
+  - Identifiers for database objects named in the `REVOKE` statement must use the case that was specified when the object was created. For example, if you created a table with a name that is in all lowercase with a capitalized first letter, you must use that same case in the `REVOKE` statement. For each change stream, PostgreSQL automatically creates a change stream read function with a name that consists of a prefix added to the change stream name, so ensure that you use the proper case for both the prefix and the change stream name. For more information about change stream read functions, see [Change stream query syntax](https://docs.cloud.google.com/spanner/docs/fgac-change-streams/details#change_stream_query_syntax) .
 
   - When revoking column-level privileges on multiple tables, each table must contain the named columns.
 

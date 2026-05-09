@@ -9,7 +9,7 @@ This document shows you how to use the Spanner remote Model Context Protocol (MC
   - Remote MCP servers  
     Run on the service's infrastructure and offer an HTTP endpoint to AI applications for communication between the AI MCP client and the MCP server. For more information about MCP architecture, see [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) .
 
-For information on the Spanner local MCP server, see [Spanner MCP server on GitHub](https://googleapis.github.io/genai-toolbox/resources/sources/spanner/) .
+For information on the Spanner local MCP server, see [MCP Toolbox for Databases](https://mcp-toolbox.dev/documentation/introduction/) .
 
 ## Google and Google Cloud remote MCP servers
 
