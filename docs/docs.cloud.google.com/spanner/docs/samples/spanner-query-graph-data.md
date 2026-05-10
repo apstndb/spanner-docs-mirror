@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-query-graph-data
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-query-graph-data
+title: Query data in a graph
+description: Query data in a Spanner Graph.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Query data in a Spanner Graph.
 
 ## Explore further

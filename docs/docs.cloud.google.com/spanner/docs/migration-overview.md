@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/migration-overview
+uri: https://docs.cloud.google.com/spanner/docs/migration-overview
+title: Migration overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This section provides an overview of how to migrate your database to Spanner. The process to migrate to Spanner might vary depending on factors like your source database, data size, downtime requirements, application code complexity, sharding schema, custom functions or transformations, and failover and replication strategies.
 
 A typical Spanner migration involves the following stages:

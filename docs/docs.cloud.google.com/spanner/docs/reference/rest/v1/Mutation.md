@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation
+title: Mutation
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-01-30T17:50:06Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation#SCHEMA_REPRESENTATION)
   - [Write](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation#Write)
       - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Mutation#Write.SCHEMA_REPRESENTATION)

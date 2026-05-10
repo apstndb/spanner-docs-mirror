@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/pg-pgx-connect
+uri: https://docs.cloud.google.com/spanner/docs/pg-pgx-connect
+title: Connect pgx to a PostgreSQL-dialect database
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page explains how to connect the PostgreSQL pgx driver to a PostgreSQL-dialect database in Spanner. `pgx` is a Golang driver for PostgreSQL.
 
 Verify that PGAdapter is running on the same machine as the application that is connecting using the PostgreSQL pgx driver.

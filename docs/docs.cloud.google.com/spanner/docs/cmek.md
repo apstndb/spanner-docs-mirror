@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/cmek
+uri: https://docs.cloud.google.com/spanner/docs/cmek
+title: Customer-managed encryption keys (CMEK) overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This page describes customer-managed encryption keys (CMEK) for Spanner. For more information about CMEK in general, including when and why to enable it, see the [Cloud Key Management Service documentation](https://docs.cloud.google.com/kms/docs/cmek) .
 
 By default, Spanner encrypts customer content at rest. Spanner handles encryption for you without any additional actions on your part. This option is called *Google default encryption* .

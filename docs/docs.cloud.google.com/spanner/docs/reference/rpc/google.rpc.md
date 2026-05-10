@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rpc/google.rpc
+uri: https://docs.cloud.google.com/spanner/docs/reference/rpc/google.rpc
+title: Package google.rpc
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:52:34Z"
+---
+
 ## Index
 
   - `  Code  ` (enum)

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-dml-batch-update
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-batch-update
+title: Batch DML
+description: Call multiple SQL statements in a single transaction by using batch DML.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:54Z"
+---
+
 Call multiple SQL statements in a single transaction by using batch DML.
 
 ## Explore further

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/databases/execute-sql
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/databases/execute-sql
+title: gcloud beta spanner databases execute-sql
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:35:46Z"
+---
+
 NAME
 
 gcloud beta spanner databases execute-sql - executes a SQL query against a Cloud Spanner database

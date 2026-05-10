@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration
+uri: https://docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration
+title: Accelerate pattern-matching expressions
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) can accelerate pattern matching expressions such as [`LIKE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#like_operator) , [`STARTS_WITH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#starts_with) , [`ENDS_WITH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#ends_with) , and regular expression matching predicate [`REGEXP_CONTAINS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#regexp_contains) . This page describes how to create and configure a search index using [`TOKENIZE_NGRAMS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_ngrams) to accelerate pattern matching predicates.

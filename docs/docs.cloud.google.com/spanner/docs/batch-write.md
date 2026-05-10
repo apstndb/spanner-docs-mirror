@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/batch-write
+uri: https://docs.cloud.google.com/spanner/docs/batch-write
+title: Modify data using batch write
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This page describes Spanner batch write requests and how you can use them to modify your Spanner data.
 
 You can use Spanner batch write to insert, update, or delete multiple rows in your Spanner tables. Spanner batch write supports low latency writes without a read operation, and returns responses as mutations are applied in batches. To use batch write, you group related mutations together, and all mutations in a group are committed atomically. The mutations across groups are applied in an unspecified order and are independent of one another (non-atomic). Spanner doesn't need to wait for all mutations to be applied before sending a response, which means that batch write allows for partial failure. You can also execute multiple batch writes at a time. For more information, see [How to use batch write](https://docs.cloud.google.com/spanner/docs/batch-write#how-to) .

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/schema-updates-best-practices
+uri: https://docs.cloud.google.com/spanner/docs/schema-updates-best-practices
+title: Schema update best practices
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 This document describes best practices for updating schemas.
 
 ## Procedures before you begin the schema update

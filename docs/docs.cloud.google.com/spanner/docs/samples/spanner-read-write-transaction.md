@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-read-write-transaction
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-read-write-transaction
+title: Read/write transaction
+description: Use a read/write transaction.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Use a read/write transaction.
 
 ## Explore further

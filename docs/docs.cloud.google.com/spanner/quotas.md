@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/quotas
+uri: https://docs.cloud.google.com/spanner/quotas
+title: Quotas & limits
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This page describes production quotas and limits for Spanner. Quota and limit might be used interchangeably in the Google Cloud console.
 
 The quota and limit values are subject to change.

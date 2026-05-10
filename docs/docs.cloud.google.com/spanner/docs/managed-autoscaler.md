@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/managed-autoscaler
+uri: https://docs.cloud.google.com/spanner/docs/managed-autoscaler
+title: Managed autoscaler
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 > **Note:** You can enable the Spanner managed autoscaler on both [instances](https://docs.cloud.google.com/spanner/docs/instances) and [instance partitions (in Preview)](https://docs.cloud.google.com/spanner/docs/geo-partitioning#how_geo-partitioning_works) . For brevity, this page uses the term *instance* to refer to both resources, unless the context specifically requires a distinction.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/spanner-ai-overview
+uri: https://docs.cloud.google.com/spanner/docs/spanner-ai-overview
+title: Spanner AI overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner and its multi-model capabilities integrate with Google Cloud's AI services and LangChain, an open-source framework, to help build generative AI applications. You can enhance applications with features like similarity search, retrieval-augmented generation (RAG), and knowledge graphs. Spanner builds this functionality on its foundation of scalability, availability, and consistency.

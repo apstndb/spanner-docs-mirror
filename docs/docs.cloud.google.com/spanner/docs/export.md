@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/export
+uri: https://docs.cloud.google.com/spanner/docs/export
+title: Export databases from Spanner to Avro
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page describes how to export Spanner databases with the Google Cloud console.
 
 To export a Spanner database using the REST API or the Google Cloud CLI, complete the steps in the [Before you begin](https://docs.cloud.google.com/spanner/docs/export#before-you-begin) section on this page, and then see the detailed instructions in [Spanner to Cloud Storage Avro](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#cloudspannertogcsavro) in the Dataflow documentation. The export process uses [Dataflow](https://docs.cloud.google.com/dataflow) and writes data to a folder in a [Cloud Storage](https://docs.cloud.google.com/storage) bucket. The resulting folder contains a set of [Avro files](https://en.wikipedia.org/wiki/Apache_Avro) and JSON manifest files.

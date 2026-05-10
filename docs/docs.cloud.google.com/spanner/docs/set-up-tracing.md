@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/set-up-tracing
+uri: https://docs.cloud.google.com/spanner/docs/set-up-tracing
+title: Set up trace collection using OpenTelemetry
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 This document shows you how to set up client-side and end-to-end tracing using [OpenTelemetry](https://opentelemetry.io/) . Before you can opt in for end-to-end tracing, you must set up client-side tracing. For more information, see [Trace collection overview](https://docs.cloud.google.com/spanner/docs/tracing-overview) .
 
 ## Before you begin

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/cutover-fallback-mechanisms
+uri: https://docs.cloud.google.com/spanner/docs/cutover-fallback-mechanisms
+title: Configure cutover and fallback mechanisms
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 Migrations are often time consuming and complex. It is possible that after the data migration and cutover, you might face inconsistent performance or issues.
 
 We recommend building in fallback mechanisms to avoid significant impact in case of an error during migration, allowing you to switch back to the source database with minimal downtime.

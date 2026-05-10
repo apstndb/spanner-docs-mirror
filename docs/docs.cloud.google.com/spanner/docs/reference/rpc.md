@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rpc
+uri: https://docs.cloud.google.com/spanner/docs/reference/rpc
+title: Cloud Spanner API
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:51:49Z"
+---
+
 Cloud Spanner is a managed, mission-critical, globally consistent and scalable relational database service.
 
 ## Service: spanner.googleapis.com

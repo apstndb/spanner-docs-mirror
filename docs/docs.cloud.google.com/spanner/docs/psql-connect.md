@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/psql-connect
+uri: https://docs.cloud.google.com/spanner/docs/psql-connect
+title: Connect psql to a PostgreSQL-dialect database
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page explains how to connect `psql` to a PostgreSQL-dialect database in Spanner. `psql` is the command-line front end to PostgreSQL.
 
 1.  Ensure that PGAdapter is running on the same machine as the `psql` command.

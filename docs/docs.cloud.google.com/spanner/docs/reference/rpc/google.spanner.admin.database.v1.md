@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1
+uri: https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1
+title: Package google.spanner.admin.database.v1
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-02-24T16:35:36Z"
+---
+
 ## Index
 
   - `  DatabaseAdmin  ` (interface)

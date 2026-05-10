@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read
+uri: https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read
+title: Use SELECT FOR UPDATE in repeatable read isolation
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This page describes how to use the `FOR UPDATE` clause in [repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) .
 
 The locking mechanism of the `FOR UPDATE` clause is different for repeatable read and serializable isolation. Unlike in serializable isolation, the `FOR UPDATE` clause doesn't acquire locks in repeatable read isolation. For more information about locks in `FOR UPDATE` , see [Use SELECT FOR UPDATE in serializable isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable) .

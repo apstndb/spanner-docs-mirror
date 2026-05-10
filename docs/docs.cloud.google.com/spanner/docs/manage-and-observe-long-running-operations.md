@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations
+uri: https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations
+title: Manage and observe long-running operations
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This page describes how to manage the lifecycle of a Spanner *long-running operation* using `gcloud spanner operations` commands and the [operations REST API](https://docs.cloud.google.com/spanner/docs/reference/rest) . Some procedures can also be done in the Google Cloud console.
 
 *Long-running operations* are method calls that might take a substantial amount of time to complete. Spanner creates long-running operations for several instance, database, and backup actions. An example is the method to restore a database, [`projects.instances.databases.restore`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#try-it) . When you restore a database, the Spanner service creates a long-running operation to track the restore progress. If the operation is taking longer than you expected, you can use `gcloud` to check the progress of the operation. If the operation isn't responding, you can use `gcloud` to cancel the operation.

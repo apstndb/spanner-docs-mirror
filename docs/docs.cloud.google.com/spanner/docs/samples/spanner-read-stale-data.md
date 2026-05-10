@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-read-stale-data
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-read-stale-data
+title: Read stale data
+description: Read stale data.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Read stale data.
 
 ## Explore further

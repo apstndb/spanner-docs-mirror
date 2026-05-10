@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/Type
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type
+title: Type
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-01-30T17:50:06Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type#SCHEMA_REPRESENTATION)
   - [TypeCode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type#TypeCode)
   - [TypeAnnotationCode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type#TypeAnnotationCode)

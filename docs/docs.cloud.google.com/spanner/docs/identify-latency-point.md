@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/identify-latency-point
+uri: https://docs.cloud.google.com/spanner/docs/identify-latency-point
+title: Identify where latency occurs
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page shows you how to identify and troubleshoot latency issues in your Spanner components.To learn more about possible latency points in a Spanner request, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .
 
 You can measure and compare the request latencies between different components and the database to determine which component is causing the latency. These latencies include [End-to-end latency](https://docs.cloud.google.com/spanner/docs/latency-points#end-to-end-latency) , [Google Front End (GFE) latency](https://docs.cloud.google.com/spanner/docs/latency-points#google-front-end-latency) , [Spanner API request latency](https://docs.cloud.google.com/spanner/docs/latency-points#spanner-api-request-latency) , and [Query latency](https://docs.cloud.google.com/spanner/docs/latency-points#query-latency) .

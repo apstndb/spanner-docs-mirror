@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/DdlStatementActionInfo
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DdlStatementActionInfo
+title: DdlStatementActionInfo
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:52:04Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DdlStatementActionInfo#SCHEMA_REPRESENTATION)
 
 Action information extracted from a DDL statement. This proto is used to display the brief info of the DDL statement for the operation `  databases.updateDdl  ` .

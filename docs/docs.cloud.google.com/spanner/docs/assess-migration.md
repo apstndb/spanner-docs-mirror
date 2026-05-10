@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/assess-migration
+uri: https://docs.cloud.google.com/spanner/docs/assess-migration
+title: Assess your migration
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 Assessing your source database and how its usage maps to Spanner requires evaluating your business, technical, operational, and financial needs. We recommend covering the following key areas for your assessment:
 
   - **Business goals** : Define the specific business problems Spanner solves, such as scalability, availability, and consistency. Establish measurable success criteria, such as reduced latency, increased transaction volume, and cost reduction.

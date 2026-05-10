@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/pg-psycopg3-connect
+uri: https://docs.cloud.google.com/spanner/docs/pg-psycopg3-connect
+title: Connect psycopg3 to a PostgreSQL-dialect database
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page explains how to connect the [PostgreSQL psycopg3 driver](https://www.psycopg.org/psycopg3/) to a PostgreSQL-dialect database in Spanner. `psycopg3` is a Python driver for PostgreSQL.
 
 1.  Verify that PGAdapter is running on the same machine as the application that is connecting using the PostgreSQL psycopg3 driver.

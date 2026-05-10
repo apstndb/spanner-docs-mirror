@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-dml-write-then-read
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-write-then-read
+title: DML write then read
+description: Insert data and then read the inserted data.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:54Z"
+---
+
 Insert data and then read the inserted data.
 
 ## Explore further

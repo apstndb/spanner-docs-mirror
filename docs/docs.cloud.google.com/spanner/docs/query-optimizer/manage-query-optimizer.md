@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer
+uri: https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer
+title: Manage the query optimizer
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 This page describes how to manage the query optimizer in Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 The Spanner query optimizer determines the most efficient way to execute a SQL query. However, the query plan determined by the optimizer might change slightly when the query optimizer itself evolves, or when the database statistics are updated. To minimize any potential for performance regression when the query optimizer or statistics change, Spanner provides the following query options.

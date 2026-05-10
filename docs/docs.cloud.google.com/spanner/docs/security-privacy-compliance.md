@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/security-privacy-compliance
+uri: https://docs.cloud.google.com/spanner/docs/security-privacy-compliance
+title: Security, privacy, risk, and compliance for Spanner
+description: Understand Spanner security and compliance options.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 This document provides an overview of various controls that support the security of Spanner on Google Cloud and links to further information on how to configure the controls. Security controls such as network security options, policies, and access management can help you address your business risks and meet the privacy and regulatory requirements that apply to your business.
 
 The security, privacy, risk, and compliance for Spanner use a [shared responsibility](https://docs.cloud.google.com/architecture/framework/security/shared-responsibility-shared-fate) model. For example, Google secures the infrastructure that Spanner and other Google Cloud services run on, and provides you with the capabilities that help you manage access to your services and resources. For more information about how we secure the infrastructure, see the [Google infrastructure security design overview](https://docs.cloud.google.com/docs/security/infrastructure/design) .

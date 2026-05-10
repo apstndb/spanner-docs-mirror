@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/PartialResultSet
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartialResultSet
+title: PartialResultSet
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-12-12T16:30:02Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartialResultSet#SCHEMA_REPRESENTATION)
 
 Partial results from a streaming read or SQL query. Streaming reads and SQL queries better tolerate large result sets, large rows, and large values, but are a little trickier to consume.

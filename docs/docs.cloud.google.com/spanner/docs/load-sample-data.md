@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/load-sample-data
+uri: https://docs.cloud.google.com/spanner/docs/load-sample-data
+title: Load sample data
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This document provides instructions on how to load a small amount of data in the CSV file format into Spanner. You can load sample data before performing a production data migration to test schemas, queries, and applications.
 
 ## Before you begin

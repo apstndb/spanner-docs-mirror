@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/adding-spring
+uri: https://docs.cloud.google.com/spanner/docs/adding-spring
+title: Integrate Spanner with Spring Data
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 > **PostgreSQL interface note:** The [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) doesn't support Spring Data Spanner. You can use [Spring Data JPA](https://docs.cloud.google.com/spanner/docs/use-spring-data-jpa-postgresql) instead.
 
 The Spring Data Spanner module helps you use Spanner in any Java application that's built with the [Spring Framework](https://spring.io/projects/spring-framework) .

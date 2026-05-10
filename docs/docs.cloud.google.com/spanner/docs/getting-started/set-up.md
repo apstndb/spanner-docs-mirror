@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/getting-started/set-up
+uri: https://docs.cloud.google.com/spanner/docs/getting-started/set-up
+title: Set up your environment
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 This page walks you through the setup steps required to use the Cloud Spanner API with the [Google Cloud CLI](https://docs.cloud.google.com/sdk/gcloud) , [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , and [Spanner drivers](https://docs.cloud.google.com/spanner/docs/drivers-overview) .
 
 If you want to use Spanner with the Google Cloud console, see [Quickstart using the console](https://docs.cloud.google.com/spanner/docs/create-query-database-console) .

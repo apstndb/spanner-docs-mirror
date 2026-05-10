@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-create-storing-index
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-storing-index
+title: Create storing index
+description: Create a storing index.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:54Z"
+---
+
 Create a storing index.
 
 ## Explore further

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/get-iam-policy
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/get-iam-policy
+title: gcloud spanner backups get-iam-policy
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:35:46Z"
+---
+
 NAME
 
 gcloud spanner backups get-iam-policy - get the IAM policy for a Cloud Spanner backup

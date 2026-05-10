@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/views
+uri: https://docs.cloud.google.com/spanner/docs/views
+title: Views overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 > **PostgreSQL interface note:** Views are supported in PostgreSQL-dialect databases with some difference from open source PostgreSQL. In Spanner, views are read-only. Views can't be the target of an `INSERT` , `UPDATE` , or `DELETE` statement.
 
 This document introduces and describes Spanner views.

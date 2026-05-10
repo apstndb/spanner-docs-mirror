@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/ListOperationsResponse
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ListOperationsResponse
+title: ListOperationsResponse
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-01-30T17:50:06Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ListOperationsResponse#SCHEMA_REPRESENTATION)
 
 The response message for `  Operations.ListOperations  ` .

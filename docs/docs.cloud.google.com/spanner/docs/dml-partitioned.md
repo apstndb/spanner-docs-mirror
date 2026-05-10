@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/dml-partitioned
+uri: https://docs.cloud.google.com/spanner/docs/dml-partitioned
+title: Partitioned Data Manipulation Language
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 Partitioned [Data Manipulation Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax) (partitioned DML) is designed for the following types of bulk updates and deletes:
 
   - Periodic cleanup and garbage collection. Examples are deleting old rows or setting columns to `NULL` .

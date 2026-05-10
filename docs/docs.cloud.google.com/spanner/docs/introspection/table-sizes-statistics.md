@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics
+uri: https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics
+title: Table sizes statistics
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 Spanner provides the following built-in tables:
 
   - `SPANNER_SYS.TABLE_SIZES_STATS_1HOUR` : lists the sizes of your tables and indexes within your databases.

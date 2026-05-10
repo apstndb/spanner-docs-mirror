@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations
+title: 'REST Resource: projects.instances.backups.operations'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:52:04Z"
+---
+
   - [Resource: Operation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations#Operation)
       - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations#Operation.SCHEMA_REPRESENTATION)
   - [Methods](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations#METHODS_SUMMARY)

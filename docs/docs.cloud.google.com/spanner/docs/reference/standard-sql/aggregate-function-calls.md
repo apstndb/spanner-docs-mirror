@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls
+title: Aggregate function calls in GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 An aggregate function summarizes the rows of a group into a single value.
 
 ## Aggregate function call syntax

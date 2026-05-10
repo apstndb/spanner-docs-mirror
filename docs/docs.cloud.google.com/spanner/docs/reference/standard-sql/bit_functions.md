@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions
+title: Bit functions in GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 GoogleSQL for Spanner supports the following bit functions.
 
 ## Function list

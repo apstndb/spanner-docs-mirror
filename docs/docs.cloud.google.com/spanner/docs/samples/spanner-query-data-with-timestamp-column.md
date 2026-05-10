@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-query-data-with-timestamp-column
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-query-data-with-timestamp-column
+title: Query data with commit timestamp
+description: Query data from a table containing a commit TIMESTAMP column.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Query data from a table containing a commit TIMESTAMP column.
 
 ## Explore further

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter
+uri: https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter
+title: Connect to Spanner using the Cassandra Adapter
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 This page describes the Cassandra Adapter and explains how to use and connect Spanner from it.
 
 The Cassandra Adapter is designed to run on the same machine as your application. The adapter exposes an endpoint on localhost that supports the Cassandra Query Language (CQL) wire protocol. It translates the CQL wire protocol into gRPC, the Spanner wire protocol. With this proxy running locally, a Cassandra client can connect to a Spanner database.

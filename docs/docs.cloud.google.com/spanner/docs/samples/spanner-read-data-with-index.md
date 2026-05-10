@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-read-data-with-index
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-read-data-with-index
+title: Read data with index
+description: Read data by using an index.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Read data by using an index.
 
 ## Explore further

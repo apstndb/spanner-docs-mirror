@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics
+uri: https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics
+title: Split statistics
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 This document describes how to detect and debug hotspots in your database. You can access statistics about hotspots in splits with both GoogleSQL and PostgreSQL.
 
 Spanner stores your data as a contiguous key space, ordered by the primary keys of your tables and indexes. A split is a range of rows from a set of tables or an index. The split's start is called the *split start* . The *split limit* sets the end of the split. The split includes the split start, but not the split limit.

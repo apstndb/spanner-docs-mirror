@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/sequence-tasks
+uri: https://docs.cloud.google.com/spanner/docs/sequence-tasks
+title: Create and manage sequences
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 This page describes how to create, alter, and drop a sequence in Spanner using Data Definition Language (DDL) statements. You can also see how to use a sequence in a default value to populate a primary key column.
 
 See the complete sequence DDL syntax reference for ( [GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#sequence_statements) and [PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#sequence_statements) ).

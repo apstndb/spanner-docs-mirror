@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/dataflow-connector
+uri: https://docs.cloud.google.com/spanner/docs/dataflow-connector
+title: Import, export, and modify data using Dataflow
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page describes how to use the Dataflow connector for Spanner to import, export, and modify data in Spanner GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 [Dataflow](https://docs.cloud.google.com/dataflow) is a managed service for transforming and enriching data. The Dataflow connector for Spanner lets you read data from and write data to Spanner in a Dataflow pipeline, optionally transforming or modifying the data. You can also create pipelines that transfer data between Spanner and other Google Cloud products.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases
+title: 'REST Resource: projects.instances.databases'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:52:44Z"
+---
+
   - [Resource: Database](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database)
       - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.SCHEMA_REPRESENTATION)
   - [State](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#State)

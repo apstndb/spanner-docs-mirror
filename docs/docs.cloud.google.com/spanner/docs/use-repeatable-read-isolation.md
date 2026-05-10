@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation
+uri: https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation
+title: Use repeatable read isolation
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This page describes how to use repeatable read isolation in Spanner.
 
 Repeatable read is an [isolation level](https://docs.cloud.google.com/spanner/docs/isolation-levels) that ensures that all read operations within a transaction see a consistent snapshot of the database as it existed at the start of the transaction. In Spanner, this isolation level is implemented using a technique that is also commonly called snapshot isolation. This approach is beneficial in high read-write concurrency scenarios where numerous transactions read data that other transactions might be modifying. By using a fixed snapshot, repeatable read avoids the performance impacts of the more rigorous serializable isolation level. With its default optimistic concurrency, reads can execute without acquiring locks and without blocking concurrent writes, which results in potentially fewer aborted transactions that might need to be retried due to serialization conflicts. With [pessimistic concurrency](https://docs.cloud.google.com/spanner/docs/concurrency-control#pessimistic_concurrency_control) , read operations use snapshots, but exclusive locks apply to data read from `FOR UPDATE` queries or `lock_scanned_ranges=exclusive` hints, and data written with DML queries. Pessimistic concurrency also reduces the likelihood of write-write conflicts. For more information, see [Isolation level overview](https://docs.cloud.google.com/spanner/docs/isolation-levels) and [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/audit-logging
+uri: https://docs.cloud.google.com/spanner/docs/audit-logging
+title: Spanner audit logging
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This document describes audit logging for Spanner. Google Cloud services generate audit logs that record administrative and access activities within your Google Cloud resources. For more information about Cloud Audit Logs, see the following:
 
   - [Types of audit logs](https://docs.cloud.google.com/logging/docs/audit#types)

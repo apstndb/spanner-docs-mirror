@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionSelector
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionSelector
+title: TransactionSelector
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-12-12T16:30:02Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionSelector#SCHEMA_REPRESENTATION)
 
 This message is used to select the transaction in which a `  sessions.read  ` or `  ExecuteSql  ` call runs.

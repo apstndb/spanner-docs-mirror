@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions
+title: GQL functions
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 All GoogleSQL [functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-all) are supported, including the following GQL-specific functions:
 
 ## Function list

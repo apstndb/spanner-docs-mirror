@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/performance
+uri: https://docs.cloud.google.com/spanner/docs/performance
+title: Performance overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page describes the approximate performance that Spanner can provide under optimal conditions, factors that can affect performance, and tips for testing and troubleshooting Spanner performance issues.
 
 The information on this page applies to both GoogleSQL and PostgreSQL databases.

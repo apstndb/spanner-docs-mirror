@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types
+title: GQL data types
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 Graph Query Language (GQL) supports all GoogleSQL [data types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types) , including the following GQL-specific data type:
 
 ## Graph data types list

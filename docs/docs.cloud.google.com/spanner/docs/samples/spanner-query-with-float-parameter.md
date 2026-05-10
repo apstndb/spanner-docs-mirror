@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-query-with-float-parameter
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-float-parameter
+title: Query with FLOAT parameter
+description: Query data by using a FLOAT parameter.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Query data by using a FLOAT parameter.
 
 ## Code sample

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/latency-metrics
+uri: https://docs.cloud.google.com/spanner/docs/latency-metrics
+title: Use metrics to diagnose latency
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This page describes the latency metrics that Spanner provides. If your application experiences high latency, use these metrics to help you diagnose and resolve the issue.
 
 You can view these metrics [in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) and [in the Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .

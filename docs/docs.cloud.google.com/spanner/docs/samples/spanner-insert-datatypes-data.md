@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-insert-datatypes-data
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-insert-datatypes-data
+title: Mutations write data types data
+description: Insert data into a table with example data types by using mutations.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Insert data into a table with example data types by using mutations.
 
 ## Code sample

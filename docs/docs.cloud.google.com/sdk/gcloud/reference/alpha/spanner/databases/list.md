@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/list
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/databases/list
+title: gcloud alpha spanner databases list
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:36:00Z"
+---
+
 NAME
 
 gcloud alpha spanner databases list - list the Cloud Spanner databases contained within the given instance

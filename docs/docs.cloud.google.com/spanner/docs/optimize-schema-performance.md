@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/optimize-schema-performance
+uri: https://docs.cloud.google.com/spanner/docs/optimize-schema-performance
+title: Test and tune your schema and application performance
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 Performance tuning is an iterative process in which you evaluate metrics like CPU utilization and latency, adjust your schema and application to improve performance, and test again.
 
 For example, in your schema, you might add or change an index, or change a primary key. In your application, you might batch writes, or you might merge or modify your queries.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/using-query-insights
+uri: https://docs.cloud.google.com/spanner/docs/using-query-insights
+title: Analyze query performance
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This page describes how to use the Query insights dashboard to detect and analyze Spanner performance problems.
 
 ## Query insights overview

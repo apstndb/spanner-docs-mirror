@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/change-streams/details
+uri: https://docs.cloud.google.com/spanner/docs/change-streams/details
+title: Change stream partitions, records, and queries
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 This page describes change streams in Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases, including:
 
   - The split-based partitioning model

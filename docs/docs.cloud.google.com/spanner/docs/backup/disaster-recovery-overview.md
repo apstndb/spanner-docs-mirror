@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/backup/disaster-recovery-overview
+uri: https://docs.cloud.google.com/spanner/docs/backup/disaster-recovery-overview
+title: Disaster recovery overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This document provides information about disaster recovery tools and techniques that help you protect your data from loss and downtime.
 
 ## Spanner disaster recovery features

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-jdbc-set-statement-for-query-options
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-jdbc-set-statement-for-query-options
+title: JDBC set statement for query options
+description: Use the SET statement to specify query options by using JDBC.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Use the SET statement to specify query options by using JDBC.
 
 ## Explore further

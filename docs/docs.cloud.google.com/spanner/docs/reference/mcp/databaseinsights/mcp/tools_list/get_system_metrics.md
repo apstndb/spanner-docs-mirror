@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/mcp/databaseinsights/mcp/tools_list/get_system_metrics
+uri: https://docs.cloud.google.com/spanner/docs/reference/mcp/databaseinsights/mcp/tools_list/get_system_metrics
+title: 'MCP Tools Reference: databaseinsights.googleapis.com'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-04-16T16:08:44Z"
+---
+
 ## Tool: `get_system_metrics`
 
 Fetches system related telemetry data for a given database instance using a PromQL query from cloud monitoring.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views
+uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views
+title: PostgreSQL system catalog views
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 This page lists the PostgreSQL system catalog views that Spanner supports.
 
 ### pg\_available\_extension\_versions

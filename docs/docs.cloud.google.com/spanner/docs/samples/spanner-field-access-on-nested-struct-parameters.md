@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-field-access-on-nested-struct-parameters
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-field-access-on-nested-struct-parameters
+title: Field access on nested STRUCT
+description: Query data using field access on a nested STRUCT.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Query data using field access on a nested STRUCT.
 
 ## Explore further

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-update-data-with-timestamp-column
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-update-data-with-timestamp-column
+title: Mutations update data with TIMESTAMP
+description: Update data in a table containing a TIMESTAMP column by using mutations.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Update data in a table containing a TIMESTAMP column by using mutations.
 
 ## Explore further

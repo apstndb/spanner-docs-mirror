@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/dialect-differences
+uri: https://docs.cloud.google.com/spanner/docs/reference/dialect-differences
+title: Dialect parity between GoogleSQL and PostgreSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 This page describes the dialect differences between GoogleSQL and PostgreSQL and offers recommendations for using PostgreSQL approaches for specific GoogleSQL features.
 
 ## GoogleSQL dialect feature differences

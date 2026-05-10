@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results
+uri: https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results
+title: Paginate search results
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Web applications often paginate data as it's presented to users. The end user receives one page of results, and when they navigate to the next page, the next batch of results is retrieved and presented. This page describes how to add pagination to search results when performing a [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) in Spanner.

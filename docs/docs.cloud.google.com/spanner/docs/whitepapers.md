@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/whitepapers
+uri: https://docs.cloud.google.com/spanner/docs/whitepapers
+title: Whitepapers
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
   - [](https://research.google/pubs/spanner-becoming-a-sql-system/)
     
     ### Spanner: Becoming a SQL System (SIGMOD 2017) open\_in\_new

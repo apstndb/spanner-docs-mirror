@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/dml-versus-mutations
+uri: https://docs.cloud.google.com/spanner/docs/dml-versus-mutations
+title: Compare DML and Mutations
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 Data Manipulation Language (DML) and Mutations are two APIs in Spanner that you can use to modify data. Each offer similar data manipulation features. This page compares both approaches.
 
 ## What is Data Manipulation Language (DML)?

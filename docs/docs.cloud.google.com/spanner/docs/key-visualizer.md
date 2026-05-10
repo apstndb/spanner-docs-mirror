@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/key-visualizer
+uri: https://docs.cloud.google.com/spanner/docs/key-visualizer
+title: Key Visualizer overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:02Z"
+---
+
 ## What is Key Visualizer?
 
 Key Visualizer helps you analyze your Spanner data access patterns.

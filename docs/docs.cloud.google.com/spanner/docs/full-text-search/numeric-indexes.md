@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes
+uri: https://docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes
+title: Numeric search indexes
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 In addition to indexing text, the [search index](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) provides an efficient way to index numbers. It's primarily used to augment [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) queries with conditions on numeric fields. This page describes indexing numbers for equality and inequality queries, and indexing an array of numbers.

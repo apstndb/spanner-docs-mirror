@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/schema-and-data-model
+uri: https://docs.cloud.google.com/spanner/docs/schema-and-data-model
+title: Schemas overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 <span id="standard-sql-tables"></span>
 
 This page discusses Spanner schema requirements, how to use the schema to create hierarchical relationships, and schema features. It also introduces interleaved tables, which can improve query performance when querying tables in a parent-child relationship.

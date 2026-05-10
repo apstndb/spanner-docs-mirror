@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-hibernate-generated-ids
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-hibernate-generated-ids
+title: Hibernate generated IDs
+description: Create a hibernate UUID.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Create a hibernate UUID.
 
 ## Code sample

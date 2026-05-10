@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-set-custom-timeout-and-retry
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-set-custom-timeout-and-retry
+title: Set custom timeout and retry
+description: Set custom timeout and retry for request settings.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Set custom timeout and retry for request settings.
 
 ## Explore further

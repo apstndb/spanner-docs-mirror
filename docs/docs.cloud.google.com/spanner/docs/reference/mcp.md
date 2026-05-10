@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/mcp
+uri: https://docs.cloud.google.com/spanner/docs/reference/mcp
+title: MCP server overview
+description: Explore Model Context Protocol (MCP) servers for Spanner. Manage instances, execute SQL, and analyze database performance.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:02Z"
+---
+
 The [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) (MCP) standardizes how AI applications and agents connect to outside data sources. MCP servers can be local or remote. Local MCP servers typically run on your local machine and use the standard input and output streams (stdio) for communication between services on the same device. Remote MCP servers run on the service's infrastructure and offer an HTTP endpoint to AI applications for communication between the AI MCP client and the MCP server.
 
 For more information, see [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) .

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview
+uri: https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview
+title: Cassandra interface
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 This page compares [Apache Cassandra](https://cassandra.apache.org/) and Spanner architecture as well as helps you understand the capabilities and limitations of the Spanner Cassandra interface. It assumes you're familiar with Cassandra and want to migrate existing applications or design new applications while using Spanner as your database.
 
 Cassandra and Spanner are both large-scale distributed databases built for applications requiring high scalability and low latency. While both databases can support demanding NoSQL workloads, Spanner provides advanced features for data modeling, querying, and transactional operations. For more information about how Spanner meets NoSQL database criteria, see [Spanner for non-relational workloads](https://docs.cloud.google.com/spanner/docs/non-relational/overview) .

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/ml
+uri: https://docs.cloud.google.com/spanner/docs/ml
+title: Spanner Agent Platform integration overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page provides an overview of Spanner Agent Platform integration. Spanner Agent Platform integration works with both GoogleSQL and PostgreSQL databases.
 
 Spanner Agent Platform integration helps you to access classifier and regression ML models hosted on [Vertex AI](https://docs.cloud.google.com/vertex-ai) through the GoogleSQL and PostgreSQL interface. This helps to seamlessly integrate ML predictions serving functionality with general Spanner data access operations performed using DQL/DML queries.

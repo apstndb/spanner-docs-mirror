@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/describe
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/describe
+title: gcloud spanner databases ddl describe
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:35:46Z"
+---
+
 NAME
 
 gcloud spanner databases ddl describe - describe the DDL for a Cloud Spanner database

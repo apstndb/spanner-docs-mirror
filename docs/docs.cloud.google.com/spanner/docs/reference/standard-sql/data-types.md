@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types
+title: Data types in GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 This page provides an overview of all GoogleSQL for Spanner data types, including information about their value domains. For information on data type literals and constructors, see [Lexical Structure and Syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#literals) .
 
 ## Data type list

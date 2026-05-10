@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata
+title: RestoreDatabaseMetadata
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:52:04Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata#SCHEMA_REPRESENTATION)
 
 Metadata type for the long-running operation returned by `  databases.restore  ` .

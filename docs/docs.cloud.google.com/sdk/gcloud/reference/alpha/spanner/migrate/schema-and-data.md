@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/migrate/schema-and-data
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/migrate/schema-and-data
+title: gcloud alpha spanner migrate schema-and-data
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:35:28Z"
+---
+
 NAME
 
 gcloud alpha spanner migrate schema-and-data - migrate data from a source database to Cloud Spanner given a schema

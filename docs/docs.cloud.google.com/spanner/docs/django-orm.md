@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/django-orm
+uri: https://docs.cloud.google.com/spanner/docs/django-orm
+title: Django ORM with Spanner
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 The Django ORM is a powerful standalone component of the [Django web framework](https://www.djangoproject.com/) that maps Python objects to relational data. It provides a Pythonic interface to the underlying database, and includes tools for automatically generating schema changes and managing schema version history.
 
 > **Note:** The PostgreSQL interface for Spanner doesn't support the Django ORM.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-create-clients
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-clients
+title: Create clients
+description: Create a client that can read, write, and run transactions.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Create a client that can read, write, and run transactions.
 
 ## Explore further

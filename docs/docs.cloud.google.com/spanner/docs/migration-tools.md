@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/migration-tools
+uri: https://docs.cloud.google.com/spanner/docs/migration-tools
+title: Migration tools
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 We recommend using the following tools to assist you in various stages of your Spanner migration, depending on your source database and other factors. Some tools only support certain source databases. For some steps of the migration process, no tool is available, so you must complete those steps manually.
 
   - [Spanner migration tool (SMT)](https://github.com/GoogleCloudPlatform/spanner-migration-tool) is an open-source tool that performs assessments, schema conversion, and data migrations. For information on setting up the Spanner migration tool, see [Set up Spanner migration tool](https://docs.cloud.google.com/spanner/docs/set-up-spanner-migration-tool) .

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/graph/work-with-visualizations
+uri: https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations
+title: Use Spanner Graph visualizations
+description: Understand Spanner Graph visualizations. See how to display query results, interpret nodes and edges, and resolve problems.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 Spanner Graph visualizations show the graph elements returned by a query or the elements of a graph schema. A visualization helps you understand how data points (nodes) are connected (edges). While a table of hundreds of data points can be difficult to interpret, its graph visualization can reveal patterns, dependencies, and anomalies.
 
 ## Visualize Spanner Graph query results

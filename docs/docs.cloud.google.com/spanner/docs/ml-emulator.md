@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/ml-emulator
+uri: https://docs.cloud.google.com/spanner/docs/ml-emulator
+title: Generate ML predictions using the Spanner emulator
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This page describes how to generate ML predictions using the Spanner emulator for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 Spanner Agent Platform integration can be used with the Spanner emulator to generate predictions using the GoogleSQL or PostgreSQL ML predict functions. The emulator is a binary that mimics a Spanner server, and can also be used in unit and integration testing. You can use the emulator as an [open source project](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator) or [locally](https://docs.cloud.google.com/spanner/docs/emulator) using the Google Cloud CLI. To learn more about the ML predict functions, see [How does Spanner Agent Platform integration work?](https://docs.cloud.google.com/spanner/docs/ml#how_does_work) .

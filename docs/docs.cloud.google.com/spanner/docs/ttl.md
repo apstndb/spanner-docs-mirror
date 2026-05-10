@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/ttl
+uri: https://docs.cloud.google.com/spanner/docs/ttl
+title: Time to live (TTL) overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 Time to live (TTL) lets you set policies to periodically delete data from Spanner tables. Removing unneeded data:
 
   - Decreases storage and backup costs.

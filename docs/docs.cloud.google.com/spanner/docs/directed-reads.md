@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/directed-reads
+uri: https://docs.cloud.google.com/spanner/docs/directed-reads
+title: Directed reads
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 The page describes Spanner directed reads and how to use it.
 
 Directed reads in Spanner provide the flexibility to route [read-only transactions](https://docs.cloud.google.com/spanner/docs/samples/spanner-read-only-transaction) and [single reads](https://docs.cloud.google.com/spanner/docs/reads#single_read_methods) to a specific replica type or region within a dual-region or multi-region instance configuration or a custom regional configuration with optional read-only region(s).

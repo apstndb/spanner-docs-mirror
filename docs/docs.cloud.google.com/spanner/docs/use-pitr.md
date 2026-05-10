@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-pitr
+uri: https://docs.cloud.google.com/spanner/docs/use-pitr
+title: Recover data using point-in-time recovery (PITR)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This page describes how to use point-in-time recovery (PITR) to retain and recover data in Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 To learn more, see [Point-in-time recovery](https://docs.cloud.google.com/spanner/docs/pitr) .

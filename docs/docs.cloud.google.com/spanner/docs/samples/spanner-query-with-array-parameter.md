@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-query-with-array-parameter
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-array-parameter
+title: Query with ARRAY parameter
+description: Query data by using an ARRAY parameter.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Query data by using an ARRAY parameter.
 
 ## Code sample

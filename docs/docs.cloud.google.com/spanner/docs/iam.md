@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/iam
+uri: https://docs.cloud.google.com/spanner/docs/iam
+title: IAM overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 [Identity and Access Management](https://docs.cloud.google.com/iam/docs/overview) (IAM) lets you control user and group access to Spanner resources at the project, Spanner instance, and Spanner database levels. For example, you can specify that a user has full control of a specific database in a specific instance in your project, but cannot create, modify, or delete any instances in your project. Using access control with IAM lets you grant a permission to a user or group without having to modify each Spanner instance or database permission individually.
 
 This document focuses on the IAM *permissions* relevant to Spanner and the IAM *roles* that grant those permissions. For a detailed description of IAM and its features, see the [Identity and Access Management](https://docs.cloud.google.com/iam/docs/overview) developer's guide. In particular, see the [Managing IAM policies](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) section.

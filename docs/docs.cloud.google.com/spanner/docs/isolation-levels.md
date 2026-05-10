@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/isolation-levels
+uri: https://docs.cloud.google.com/spanner/docs/isolation-levels
+title: Isolation levels overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This page introduces different isolation levels and explains how they work in Spanner.
 
 *Isolation level* is a database property that defines which data is visible to concurrent transactions. Spanner supports two of the isolation levels defined in the ANSI/ISO SQL standard: *serializable* and *repeatable read* . When you create a transaction, you need to choose the most appropriate isolation level for the transaction. The chosen isolation level lets individual transactions prioritize various factors such as latency, abort rate, and whether the application is susceptible to the effects of data anomalies. The best choice depends on the specific demands of the workload.

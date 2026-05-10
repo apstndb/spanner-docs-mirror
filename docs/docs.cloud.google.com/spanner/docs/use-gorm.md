@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-gorm
+uri: https://docs.cloud.google.com/spanner/docs/use-gorm
+title: Integrate Spanner with GORM (GoogleSQL dialect)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 GORM is an object-relational mapping tool for the Go programming language. It provides a framework for mapping an object-oriented domain model to a relational database.
 
 You can integrate GoogleSQL-dialect databases with GORM using the open source [Spanner Dialect](https://github.com/googleapis/go-gorm-spanner) ( `SpannerDialect` ).

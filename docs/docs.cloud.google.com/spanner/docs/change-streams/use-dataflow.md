@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/change-streams/use-dataflow
+uri: https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow
+title: Build change streams connections using Dataflow
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 This page demonstrates how to create Dataflow pipelines that consume and forward Spanner change data by using [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) . You can use the example code on this page to build custom pipelines.
 
 ## Core concepts

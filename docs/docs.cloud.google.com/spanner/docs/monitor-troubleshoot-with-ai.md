@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai
+uri: https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai
+title: Monitor and troubleshoot with AI assistance
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 > **Important** : As of April 10, 2026, you can create, run, and edit [Gemini Cloud Assist investigations](https://docs.cloud.google.com/cloud-assist/investigations) only if you have a [Premium Support contract](https://cloud.google.com/support/premium) .
 
 > **Preview**

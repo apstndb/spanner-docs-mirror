@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/region-types
+uri: https://docs.cloud.google.com/spanner/docs/region-types
+title: Region types
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 This page describes the different region types available in Spanner:
 
   - Read-write regions

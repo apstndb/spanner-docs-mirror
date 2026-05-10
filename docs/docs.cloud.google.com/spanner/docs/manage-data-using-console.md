@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/manage-data-using-console
+uri: https://docs.cloud.google.com/spanner/docs/manage-data-using-console
+title: Manage your data using the Google Cloud console
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This page explains how to explore and manage your Spanner data using Spanner Studio in the Google Cloud console.
 
 Spanner Studio includes an **Explorer** pane that integrates with a query editor and a SQL query results table. You can run DDL, DML, and SQL statements from this one interface. For example, instead of configuring a third-party database query tool, you can create a table and immediately query your data using the query editor.

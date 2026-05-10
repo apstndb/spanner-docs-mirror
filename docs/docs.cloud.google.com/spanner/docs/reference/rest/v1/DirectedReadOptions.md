@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions
+title: DirectedReadOptions
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:52:44Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#SCHEMA_REPRESENTATION)
   - [IncludeReplicas](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#IncludeReplicas)
       - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/DirectedReadOptions#IncludeReplicas.SCHEMA_REPRESENTATION)

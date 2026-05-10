@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/query-operators-array-subqueries
+uri: https://docs.cloud.google.com/spanner/docs/query-operators-array-subqueries
+title: Array subqueries
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 An *array subquery* is similar to a scalar subquery, except that the subquery is allowed to consume more than one input row. Spanner converts the consumed rows to a single scalar output array that contains one element per consumed input row.
 
 > **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.

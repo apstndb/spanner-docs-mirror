@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/operators
+uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/operators
+title: Supported PostgreSQL operators
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 This page describes the operators supported for PostgreSQL-dialect databases in Spanner.
 
 An operator manipulates any number of data inputs, also called operands, and returns a result.

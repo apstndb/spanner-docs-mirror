@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/transactions
+uri: https://docs.cloud.google.com/spanner/docs/transactions
+title: Transactions overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 > **Note:** The examples in this document are intended for GoogleSQL-dialect databases. However, the concepts and semantics apply to both GoogleSQL-dialect and PostgreSQL-dialect databases.
 
 This page describes transactions in Spanner and introduces Spanner's read-write, read-only, and partitioned DML transaction interfaces.

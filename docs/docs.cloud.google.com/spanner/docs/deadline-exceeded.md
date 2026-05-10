@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/deadline-exceeded
+uri: https://docs.cloud.google.com/spanner/docs/deadline-exceeded
+title: Troubleshoot Spanner deadline exceeded errors
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page provides an overview of Spanner deadline exceeded errors: what they are, why they occur, and how to troubleshoot and resolve them.
 
 When accessing Spanner APIs, requests might fail due to `DEADLINE_EXCEEDED` errors. This error indicates that a response has not been received within the configured timeout period.

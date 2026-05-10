@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to
+uri: https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to
+title: Create a graph from a SQL view
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Learn how to create a graph using [SQL views](https://docs.cloud.google.com/spanner/docs/views) . This document provides step-by-step instructions and code examples for defining views and using them to define node and edge tables. Explore [examples](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#use-cases-graphs-views) with sample code that demonstrate use cases for creating graphs with views. To learn more about using views to create a property graph, including benefits and considerations, see [Overview of graphs created from SQL views](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview) .

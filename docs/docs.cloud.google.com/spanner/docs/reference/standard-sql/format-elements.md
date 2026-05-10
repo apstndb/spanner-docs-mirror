@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/format-elements
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/format-elements
+title: Format elements in GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 GoogleSQL for Spanner supports the following format elements.
 
 ## Format elements for date and time parts

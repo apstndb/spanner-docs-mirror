@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-spring-data-jpa-postgresql
+uri: https://docs.cloud.google.com/spanner/docs/use-spring-data-jpa-postgresql
+title: Integrate Spanner with Spring Data JPA (PostgreSQL dialect)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 Spring Data JPA, part of the larger Spring Data family, makes it easier to implement JPA based repositories. Spring Data JPA supports PostgreSQL and a wide range of other database systems. It adds an abstraction layer between your application and your database that makes your application easier to port from one database system to another.
 
 ## Set up Spring Data JPA for Spanner PostgreSQL-dialect databases

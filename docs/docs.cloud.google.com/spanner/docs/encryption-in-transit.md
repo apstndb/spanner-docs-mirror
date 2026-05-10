@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/encryption-in-transit
+uri: https://docs.cloud.google.com/spanner/docs/encryption-in-transit
+title: Data encryption in transit
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page describes how Google and Spanner encrypt data in transit.
 
 ## Overview

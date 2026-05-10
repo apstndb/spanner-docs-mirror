@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/Status
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Status
+title: Status
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:52:44Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Status#SCHEMA_REPRESENTATION)
 
 The `Status` type defines a logical error model that is suitable for different programming environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc) . Each `Status` message contains three pieces of data: error code, error message, and error details.

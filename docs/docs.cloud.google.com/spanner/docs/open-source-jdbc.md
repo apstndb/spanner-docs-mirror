@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/open-source-jdbc
+uri: https://docs.cloud.google.com/spanner/docs/open-source-jdbc
+title: Spanner JDBC driver
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page describes the Spanner JDBC driver, which is recommended and authored by Google.
 
 Google offers an open-source JDBC driver for Spanner. The open-source driver enables applications to access Spanner through the Java Database Connectivity (JDBC) API.

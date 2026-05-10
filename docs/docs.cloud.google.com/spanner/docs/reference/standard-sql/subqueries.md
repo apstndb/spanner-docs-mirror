@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries
+title: Subqueries in GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:44Z"
+---
+
 GoogleSQL for Spanner supports subqueries.
 
 ## About subqueries

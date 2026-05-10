@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions
+title: Hash functions in GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:44Z"
+---
+
 GoogleSQL for Spanner supports the following hash functions.
 
 ## Function list

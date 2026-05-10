@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/instance-partitions/list
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/instance-partitions/list
+title: gcloud beta spanner instance-partitions list
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:35:46Z"
+---
+
 NAME
 
 gcloud beta spanner instance-partitions list - list the Spanner instance partitions contained within the given instance

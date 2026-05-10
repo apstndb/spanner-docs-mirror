@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-dml-standard-update-with-timestamp
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-standard-update-with-timestamp
+title: DML update commit timestamp
+description: Write a commit timestamp by using a DML statement.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Write a commit timestamp by using a DML statement.
 
 ## Explore further

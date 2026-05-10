@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/spanner/rows
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows
+title: gcloud spanner rows
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:35:46Z"
+---
+
 NAME
 
 gcloud spanner rows - manage the rows in Cloud Spanner databases

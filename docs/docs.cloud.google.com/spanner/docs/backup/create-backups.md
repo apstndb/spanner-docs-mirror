@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/backup/create-backups
+uri: https://docs.cloud.google.com/spanner/docs/backup/create-backups
+title: Create backups
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This page offers information about how you can create backups of Spanner databases.
 
 For more information about backups, see [Backups overview](https://docs.cloud.google.com/spanner/docs/backup) . You can back up databases using the following ways:

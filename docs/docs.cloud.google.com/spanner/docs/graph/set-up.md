@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/graph/set-up
+uri: https://docs.cloud.google.com/spanner/docs/graph/set-up
+title: Set up and query Spanner Graph
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document shows you how to set up and query a Spanner Graph database to model, store, and analyze complex data relationships using the Google Cloud console and client libraries.

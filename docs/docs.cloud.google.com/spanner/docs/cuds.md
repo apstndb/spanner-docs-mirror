@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/cuds
+uri: https://docs.cloud.google.com/spanner/docs/cuds
+title: Committed use discounts
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This document describes spend-based committed use discounts (CUDs) for Spanner.
 
 Committed use discounts (CUDs) for Spanner provide discounted prices in exchange for your commitment to continuously spend a minimum hourly amount on Spanner capacity for a year or longer.

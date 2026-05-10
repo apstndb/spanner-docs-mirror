@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner
+uri: https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner
+title: Migrate from Cassandra to Spanner
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 This page explains how to migrate your NoSQL database from Cassandra to Spanner.
 
 Cassandra and Spanner are both large-scale distributed databases built for applications that require high scalability and low latency. While both databases can support demanding NoSQL workloads, Spanner provides advanced features for data modeling, querying, and transactional operations. Spanner supports the Cassandra Query Language (CQL).

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-create-database
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-database
+title: Create database
+description: Create a database.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:54Z"
+---
+
 Create a database.
 
 ## Explore further

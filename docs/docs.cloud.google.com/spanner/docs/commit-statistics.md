@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/commit-statistics
+uri: https://docs.cloud.google.com/spanner/docs/commit-statistics
+title: Retrieve commit statistics for a transaction
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 To help you better understand, optimize, and diagnose transaction issues, Spanner gives you access to transaction commit statistics. Currently, you can retrieve the total number of mutations for a transaction.
 
 ## When to use commit statistics

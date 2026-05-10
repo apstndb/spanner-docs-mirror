@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/signal-capture-overview
+uri: https://docs.cloud.google.com/spanner/docs/signal-capture-overview
+title: Signal capture overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 This document describes telemetry signals, including metrics, logs, traces, and statistics, that are captured for Spanner.
 
 Spanner generates observability data, including metrics, logs, traces, and statistics. You can set up capturing for some signals that are not captured. You can use these signals to get a complete picture of how your system is performing.

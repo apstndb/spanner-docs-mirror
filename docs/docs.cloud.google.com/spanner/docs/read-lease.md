@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/read-lease
+uri: https://docs.cloud.google.com/spanner/docs/read-lease
+title: Read lease
+description: Understand how Spanner read leases reduce strong read latency by enabling replicas to serve reads directly.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 This page describes and explains how to use Spanner read leases. Read leases help your databases and [placements](https://docs.cloud.google.com/spanner/docs/geo-partitioning) reduce strong read latency in read-write or read-only regions at the cost of higher write latency.
 
 By default, when Spanner receives a [strong read request](https://docs.cloud.google.com/spanner/docs/reads#read_types) in a non-leader region, the replica serving the read contacts the instance's [leader read-write region](https://docs.cloud.google.com/spanner/docs/region-types#read-write) . This contact confirms that its data is up-to-date before serving the request. This process incurs a network round trip between the region that receives the request and the leader region. Unlike communication within a single region, the geographic distance between regions adds additional latency to the request.

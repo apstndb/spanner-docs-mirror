@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/audit-logging-request-latency-guide
+uri: https://docs.cloud.google.com/spanner/docs/audit-logging-request-latency-guide
+title: Calculate Spanner streaming and partition request latency
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This page describes how you can calculate the Spanner API request latency of streaming and partition requests.
 
 You can calculate Spanner API streaming and partition request latencies with the fields in the `metadata` struct object of an [`AuditLog`](https://docs.cloud.google.com/logging/docs/reference/audit/auditlog/rest/Shared.Types/AuditLog) . The metadata is of type `QueryPerformanceMetadata` . For streaming and partition requests, the `metadata` does not contain a `processingSecondsDuration` field. For information on how to use `processingSecondsDuration` to calculate request latencies for all other request types, see [Processing duration](https://docs.cloud.google.com/spanner/docs/audit-logging#processing-duration) .

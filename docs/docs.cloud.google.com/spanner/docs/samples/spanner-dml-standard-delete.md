@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-dml-standard-delete
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-standard-delete
+title: DML delete data
+description: Delete rows that match a WHERE condition by using DML.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Delete rows that match a WHERE condition by using DML.
 
 ## Explore further

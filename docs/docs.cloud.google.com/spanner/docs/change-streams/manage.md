@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/change-streams/manage
+uri: https://docs.cloud.google.com/spanner/docs/change-streams/manage
+title: Create and manage change streams
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 This page describes how to create, modify, and view Spanner change streams for GoogleSQL-dialect databases and PostgreSQL-dialect databases. To learn more about change streams, see [About change streams](https://docs.cloud.google.com/spanner/docs/change-streams) .
 
 Because change streams are schema objects, you create and manage them through the same DDL-driven [schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) used for any other kind of database-definition work, such as creating tables or adding indexes.

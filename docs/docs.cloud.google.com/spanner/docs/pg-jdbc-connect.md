@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/pg-jdbc-connect
+uri: https://docs.cloud.google.com/spanner/docs/pg-jdbc-connect
+title: Connect JDBC to a PostgreSQL-dialect database
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 You can use either the PostgreSQL JDBC driver or the Spanner JDBC driver with a Spanner PostgreSQL-dialect database. This page explains how to connect to your database with these drivers.
 
 ### PostgreSQL JDBC driver

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/postgresql-interface
+uri: https://docs.cloud.google.com/spanner/docs/postgresql-interface
+title: PostgreSQL interface
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 The PostgreSQL interface for Spanner lets you take advantage of Spanner's fully managed, scalable, and highly available infrastructure using familiar PostgreSQL tools and syntax. This page helps you understand the capabilities and limitations of the PostgreSQL interface.
 
 ## Benefits of the PostgreSQL interface

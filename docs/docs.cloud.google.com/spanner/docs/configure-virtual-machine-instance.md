@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance
+uri: https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance
+title: Using Spanner in a virtual machine instance
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This page describes how to grant your Compute Engine [virtual machine instance](https://docs.cloud.google.com/compute/docs/instances) permission to access a Spanner database.
 
 Your instance can access the Cloud Spanner API from Compute Engine by using a service account to act on your behalf. The service account provides [application default credentials](https://developers.google.com/identity/protocols/application-default-credentials) for your applications so that you don't need to configure each Compute Engine instance to use your personal user credentials.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig
+title: AutoscalingConfig
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-02-24T05:58:50Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#SCHEMA_REPRESENTATION)
   - [AutoscalingLimits](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AutoscalingLimits)
       - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/AutoscalingConfig#AutoscalingLimits.SCHEMA_REPRESENTATION)

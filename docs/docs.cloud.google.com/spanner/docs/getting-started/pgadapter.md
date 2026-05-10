@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/getting-started/pgadapter
+uri: https://docs.cloud.google.com/spanner/docs/getting-started/pgadapter
+title: Getting started with Spanner and PGAdapter
+description: Get started with PGAdapter to connect PostgreSQL tools and clients to your Spanner PostgreSQL interface for Spanner databases.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:02Z"
+---
+
 ## Objectives
 
 This tutorial walks you through the following steps using the Spanner PGAdapter local proxy for PostgreSQL drivers:

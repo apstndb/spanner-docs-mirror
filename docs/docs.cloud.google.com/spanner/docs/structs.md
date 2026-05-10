@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/structs
+uri: https://docs.cloud.google.com/spanner/docs/structs
+title: Working with STRUCT objects
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 > **PostgreSQL interface note:** The `STRUCT` data type is not supported in the [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) .
 
 Spanner allows you to create `STRUCT` objects from data, as well as to use `STRUCT` objects as bound parameters when running a SQL query with one of the Spanner client libraries.

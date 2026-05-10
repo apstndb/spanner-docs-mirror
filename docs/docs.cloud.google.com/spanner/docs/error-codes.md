@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/error-codes
+uri: https://docs.cloud.google.com/spanner/docs/error-codes
+title: Spanner error codes
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page describes Spanner error codes and recommended actions to handle these errors. Google APIs, including Spanner, use the canonical error codes defined by [`google.rpc.Code`](https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto) .
 
 When a Spanner request is successful, the API returns an HTTP `200 OK` status code along with the requested data in the body of the response.

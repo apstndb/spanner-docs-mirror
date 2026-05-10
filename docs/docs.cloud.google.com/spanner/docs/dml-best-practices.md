@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/dml-best-practices
+uri: https://docs.cloud.google.com/spanner/docs/dml-best-practices
+title: Data Manipulation Language best practices
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page describes best practices for using data manipulation language (DML) and partitioned DML for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 ## Use a `WHERE` clause to reduce the scope of locks

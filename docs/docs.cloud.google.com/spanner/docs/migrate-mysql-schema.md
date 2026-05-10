@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/migrate-mysql-schema
+uri: https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema
+title: Migrate a schema from MySQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This page shows how to migrate your MySQL schema to Spanner schema. We recommend using the [Spanner migration tool](https://googlecloudplatform.github.io/spanner-migration-tool/ui/schema-conv) for building a Spanner schema from an existing MySQL schema. The tool maps most of the MySQL data types to Spanner types, and highlight choices and provide suggestions to avoid potential migration issues.
 
 ## Data type comparison

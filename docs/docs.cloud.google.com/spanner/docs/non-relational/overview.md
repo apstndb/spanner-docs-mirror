@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/non-relational/overview
+uri: https://docs.cloud.google.com/spanner/docs/non-relational/overview
+title: Spanner for non-relational workloads
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 Spanner is a highly reliable, fully managed, database system. While Spanner has [evolved](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46103.pdf) to become a relational database management system, it has its [roots](https://static.googleusercontent.com/media/research.google.com/en//archive/spanner-osdi2012.pdf) as a non-relational, key-value storage system, and retains the fundamental characteristics of such a system. As such, you can use Spanner as a non-relational (NoSQL) database and migrate from other non-relational databases to Spanner. This document helps you understand whether Spanner is the right fit for your non-relational workloads.
 
 NoSQL databases came into use during a time when conventional relational databases lacked features to support emerging applications that required high scalability, availability, and compute elasticity. They did so by sacrificing several features often critical for data management such as transactions, consistency, and ad-hoc queries. Spanner was built to support both the demanding nature of highly available applications and functionalities provided by conventional relational databases, so that customers can take advantage of both sets of features.

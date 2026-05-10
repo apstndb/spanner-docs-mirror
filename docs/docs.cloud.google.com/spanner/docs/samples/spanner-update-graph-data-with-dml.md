@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-update-graph-data-with-dml
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-update-graph-data-with-dml
+title: Update graph data with DML
+description: Update data in a Spanner Graph using DML.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:37Z"
+---
+
 Update data in a Spanner Graph using DML.
 
 ## Explore further

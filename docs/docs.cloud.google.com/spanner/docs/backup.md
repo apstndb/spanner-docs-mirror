@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/backup
+uri: https://docs.cloud.google.com/spanner/docs/backup
+title: Backups overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:47Z"
+---
+
 This document provides an overview of Spanner backups and backup schedules.
 
 Spanner lets you create full backups of databases on demand and full or incremental backups using a backup schedule. Full backups store the entire data of a database, whereas incremental backups contain only the data that has changed since a previous backup.

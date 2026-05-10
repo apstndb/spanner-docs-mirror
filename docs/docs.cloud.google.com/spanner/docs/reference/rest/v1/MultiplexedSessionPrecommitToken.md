@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/MultiplexedSessionPrecommitToken
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/MultiplexedSessionPrecommitToken
+title: MultiplexedSessionPrecommitToken
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:52:34Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/MultiplexedSessionPrecommitToken#SCHEMA_REPRESENTATION)
 
 When a read-write transaction is executed on a multiplexed session, this precommit token is sent back to the client as a part of the `  Transaction  ` message in the `sessions.beginTransaction` response and also as a part of the `  ResultSet  ` and `  PartialResultSet  ` responses.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-hibernate
+uri: https://docs.cloud.google.com/spanner/docs/use-hibernate
+title: Integrate Spanner with Hibernate ORM (GoogleSQL dialect)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 Hibernate is an object-relational mapping tool for the Java programming language. It provides a framework for mapping an object-oriented domain model to a relational database.
 
 You can integrate GoogleSQL-dialect databases with Hibernate using the open source [Spanner Dialect](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) ( `SpannerDialect` ). Spanner is compatible with [Hibernate ORM 6.x](https://hibernate.org/orm/) . Spanner Dialect produces SQL, DML, and DDL statements for most common entity types and relationships using standard Hibernate and Java Persistence annotations.

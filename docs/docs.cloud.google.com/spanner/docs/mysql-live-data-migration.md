@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/mysql-live-data-migration
+uri: https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration
+title: Live data migration from MySQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This document explains how to perform a live data migration from a source MySQL instance to Spanner with minimal downtime using Terraform to deploy Dataflow and Datastream.
 
 Once you perform the live data migration and are confident that all your data has been transferred, you've migrated your code and dependencies, and completed testing, you can switch your application to using Spanner instead of your source MySQL database.

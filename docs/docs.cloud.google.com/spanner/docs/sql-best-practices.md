@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/sql-best-practices
+uri: https://docs.cloud.google.com/spanner/docs/sql-best-practices
+title: SQL best practices
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 As described in [Query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) , SQL compiler transforms a SQL statement into a query execution plan, which is used to obtain the results of the query. This page describes best practices for constructing SQL statements to help Spanner find efficient execution plans.
 
 The example SQL statements shown in this page use the following sample schema:

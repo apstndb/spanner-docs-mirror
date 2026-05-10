@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/ml-tutorial
+uri: https://docs.cloud.google.com/spanner/docs/ml-tutorial
+title: Generate ML predictions using SQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page shows how to generate machine learning (ML) predictions from a Spanner database. ML predictions work with both GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 Spanner Agent Platform integration gives you the ability to generate predictions using your SQL code by calling the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function for GoogleSQL or the [`spanner.ML_PREDICT_ROW`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#ml) function for PostgreSQL. For more information about Spanner Agent Platform integration, see [Spanner Agent Platform integration overview](https://docs.cloud.google.com/spanner/docs/ml) .

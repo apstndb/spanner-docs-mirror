@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/foreign-keys/how-to
+uri: https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to
+title: Create and manage foreign key relationships
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 This page describes how to manage foreign key relationships in your database.
 
 A foreign key is a column that is shared between tables to establish a link between related data. When you use a foreign key, Spanner ensures that this relationship is maintained.

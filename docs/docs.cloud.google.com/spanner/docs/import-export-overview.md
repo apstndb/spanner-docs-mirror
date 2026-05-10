@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/import-export-overview
+uri: https://docs.cloud.google.com/spanner/docs/import-export-overview
+title: Spanner import and export overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 You can import and export a large amount of data into or out of Spanner using any of the following methods:
 
   - Import or export any Spanner database using [Dataflow](https://docs.cloud.google.com/dataflow) .

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_configs
+uri: https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_configs
+title: 'MCP Tools Reference: spanner.googleapis.com'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-04-16T16:08:44Z"
+---
+
 ## Tool: `list_configs`
 
 List instance configs in a given project.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/getIamPolicy
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/getIamPolicy
+title: 'Method: projects.instances.databases.getIamPolicy'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-12-12T16:30:02Z"
+---
+
   - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/getIamPolicy#body.HTTP_TEMPLATE)
   - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/getIamPolicy#body.PATH_PARAMETERS)
   - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/getIamPolicy#body.request_body)

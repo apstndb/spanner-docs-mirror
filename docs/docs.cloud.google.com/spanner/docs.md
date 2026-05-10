@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs
+uri: https://docs.cloud.google.com/spanner/docs
+title: Spanner documentation
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:47Z"
+---
+
 # Spanner documentation
 
 Spanner is a fully managed, mission-critical database service that brings together relational, graph, key-value, and search. It offers transactional consistency at global scale, automatic, synchronous replication for high availability, and support for two SQL dialects: GoogleSQL (ANSI 2011 with extensions) and PostgreSQL.

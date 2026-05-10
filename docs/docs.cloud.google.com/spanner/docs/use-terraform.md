@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-terraform
+uri: https://docs.cloud.google.com/spanner/docs/use-terraform
+title: Use Terraform with Spanner
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 [Terraform](https://www.terraform.io/) is a tool for building, changing, and versioning infrastructure. It uses configuration files to describe the components needed to run a single application or your entire infrastructure.
 
 You can use the [Google Cloud Terraform Provider](https://www.terraform.io/docs/providers/google/index.html) to create Spanner instances and databases, and to modify or delete Spanner resources.

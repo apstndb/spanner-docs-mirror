@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp
+uri: https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp
+title: 'MCP Reference: spanner.googleapis.com'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-04-16T16:08:44Z"
+---
+
 A [Model Context Protocol (MCP) server](https://modelcontextprotocol.io/docs/learn/server-concepts) acts as a proxy between an external service that provides context, data, or capabilities to a Large Language Model (LLM) or AI application. MCP servers connect AI applications to external systems such as databases and web services, translating their responses into a format that the AI application can understand.
 
 ### Server Setup

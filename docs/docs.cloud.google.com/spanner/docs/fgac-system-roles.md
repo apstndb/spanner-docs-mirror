@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/fgac-system-roles
+uri: https://docs.cloud.google.com/spanner/docs/fgac-system-roles
+title: Fine-grained access control system roles
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page defines the characteristics, constraints, and intended use of the three predefined system roles that fine-grained access control provides for each database. Each system role has a different set of privileges, which can't be revoked. This information applies to both GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 ### `public` system role

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/getting-started/database_sql
+uri: https://docs.cloud.google.com/spanner/docs/getting-started/database_sql
+title: Getting started with Spanner in Go database/sql
+description: 'Get started with the Spanner Go database/sql driver: connect to your database and execute SQL statements in Go applications.'
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:02Z"
+---
+
 ## Objectives
 
 This tutorial walks you through the following steps using the Spanner database/sql driver:

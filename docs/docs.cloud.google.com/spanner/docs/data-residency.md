@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/data-residency
+uri: https://docs.cloud.google.com/spanner/docs/data-residency
+title: Data residency overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page describes data residency for Spanner.
 
 Spanner meets data residency compliance and regulatory requirements by letting you to specify the geographic locations (regions) where Spanner data is stored.

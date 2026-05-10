@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat
+uri: https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat
+title: JDBC session management commands (PostgreSQL)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 The Spanner JDBC driver (Java Database Connectivity) supports session management statements, which let you modify the state of your connection, execute transactions, and efficiently execute batches of statements.
 
 The following commands apply to PostgreSQL-dialect databases.

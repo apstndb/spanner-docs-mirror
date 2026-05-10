@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-intellij
+uri: https://docs.cloud.google.com/spanner/docs/use-intellij
+title: Integrate Spanner with IntelliJ
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This page describes how to connect to a Spanner database in IntelliJ and other JetBrains products.
 
 [IntelliJ IDEA](https://www.jetbrains.com/idea/) is an integrated development environment for developing software in Java, Kotlin, Groovy, and other JVM-based languages.

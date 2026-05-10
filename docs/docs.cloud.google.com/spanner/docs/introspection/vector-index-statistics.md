@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/introspection/vector-index-statistics
+uri: https://docs.cloud.google.com/spanner/docs/introspection/vector-index-statistics
+title: Vector index statistics
+description: Optimize Spanner vector index performance. Query `SPANNER_SYS.VECTOR_INDEX_STATS` for cluster metrics and tuning guidance.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes the built-in Spanner table that stores statistics about your vector indexes. You can use vector index statistics to review the performance of your vector index, identify areas for improvement, and tune your index based on the metrics.

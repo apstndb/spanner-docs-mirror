@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema
+uri: https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema
+title: Create and manage a Spanner Graph schema using DDL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This document provides a guide on managing Spanner Graph schemas, detailing the processes for [creating](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#create-property-graph-schema) , [updating](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-property-graph-schema) , and [dropping](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#drop-property-graph-schema) schemas using DDL statements. Spanner Graph schemas can also be [created in Spanner Studio](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema-visually) without writing manual DDL statements.

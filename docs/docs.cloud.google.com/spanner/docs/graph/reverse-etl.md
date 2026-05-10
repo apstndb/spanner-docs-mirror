@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/graph/reverse-etl
+uri: https://docs.cloud.google.com/spanner/docs/graph/reverse-etl
+title: Use reverse ETL to load data from BigQuery into Spanner Graph
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 > **Note:** Reverse ETL requires BigQuery slot reservations that use the BigQuery Enterprise or Enterprise Plus edition. Spanner Graph requires Spanner Enterprise or Enterprise Plus edition. For more information, see [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) and [BigQuery editions overview](https://docs.cloud.google.com/bigquery/docs/editions-intro) .
 
 This document describes how to use reverse extract, transform, and load (ETL) pipelines to move and continuously synchronize graph data from BigQuery to Spanner Graph. It covers the following key aspects:

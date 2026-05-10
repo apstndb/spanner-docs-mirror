@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/statement-timeout
+uri: https://docs.cloud.google.com/spanner/docs/statement-timeout
+title: Configure statement timeout
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 This page describes how to set a timeout for a single statement execution using the Spanner client libraries. This can be used to override the default timeout configuration of the client library. The statement fails with a `DEADLINE_EXCEEDED` error if the statement cannot finish within the given timeout value.
 
 > **Note:** It is possible that the timeout occurs after the statement has finished executing on Spanner, but before the response reaches the client. In that case, it's possible that the statement was committed to Spanner successfully.

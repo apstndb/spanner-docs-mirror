@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/prevent-database-deletion
+uri: https://docs.cloud.google.com/spanner/docs/prevent-database-deletion
+title: Prevent accidental database deletion
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page describes how to protect Spanner databases from accidental deletion.
 
 Spanner database deletion protection prevents the accidental deletion of existing databases by users or service accounts that have the necessary IAM permissions to delete the database. By enabling database deletion protection, you can safeguard databases that are important to your application and services. Use database deletion protection along with [point-in-time recovery](https://docs.cloud.google.com/spanner/docs/pitr) and [backup features](https://docs.cloud.google.com/spanner/docs/backup) to provide a comprehensive set of data protection capabilities for your Spanner databases.

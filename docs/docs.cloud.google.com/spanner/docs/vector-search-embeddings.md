@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/vector-search-embeddings
+uri: https://docs.cloud.google.com/spanner/docs/vector-search-embeddings
+title: Export embeddings from Spanner to Vertex AI Vector Search
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 [Vertex AI Vector Search](https://docs.cloud.google.com/vertex-ai/docs/vector-search/overview) allows users to search for semantically similar items using vector embeddings. Using the [Spanner To Vertex AI Vector Search Workflow](https://github.com/cloudspannerecosystem/spanner-ai/tree/main/vertex-vector-search/workflows#readme) , you can integrate your Spanner database with Vector Search to perform a vector similarity search on your Spanner data.
 
 The following diagram shows the end-to-end application workflow of how you can enable and use Vector Search on your Spanner data:

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-list-backups
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-list-backups
+title: List backups
+description: List all backups and access backup data using filters and paging.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 List all backups and access backup data using filters and paging.
 
 ## Explore further

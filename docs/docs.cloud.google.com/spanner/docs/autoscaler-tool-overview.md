@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/autoscaler-tool-overview
+uri: https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview
+title: Autoscaler tool overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This page introduces the Autoscaler tool for Spanner (Autoscaler), an [open source tool](https://github.com/cloudspannerecosystem/autoscaler) that you can use as a companion tool to Spanner. This tool lets you automatically increase or reduce the compute capacity in one or more Spanner instances based on how much capacity is in use.
 
 For more information about scaling in Spanner, see [Autoscaling Spanner](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) . For information about deploying the Autoscaler tool, see the following:

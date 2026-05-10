@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures
+title: Stored system procedures for GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:38Z"
+---
+
 This section describes stored system procedures for Spanner.
 
 A stored system procedure contains SQL code that you can reuse. Spanner provides stored system procedures for you to use. You can't create your own stored procedure in Spanner. You can only execute one stored procedure at a time in a `CALL` statement.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-create-instance
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-instance
+title: Create instance
+description: Create an instance.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Create an instance.
 
 ## Explore further

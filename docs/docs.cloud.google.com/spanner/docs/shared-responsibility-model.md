@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/shared-responsibility-model
+uri: https://docs.cloud.google.com/spanner/docs/shared-responsibility-model
+title: Spanner shared responsibility model
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 Spanner is a fully managed, globally distributed, multi-model database service designed for high availability and extreme scale. As a managed service on Google Cloud, security and operational resilience responsibilities are shared between you and Google.
 
 This document outlines the division of responsibility to ensure the security, compliance, and operation of your Spanner instances and data.

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/graph/schema-overview
+uri: https://docs.cloud.google.com/spanner/docs/graph/schema-overview
+title: Spanner Graph schema overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner Graph lets you model connected data as a property graph that represents information as a network of nodes and edges. Nodes symbolize entities, and edges show connections between them. Nodes and edges include labels that classify the types of nodes and edges. Nodes and edges also include properties that describe them.

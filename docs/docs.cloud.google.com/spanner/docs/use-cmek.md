@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-cmek
+uri: https://docs.cloud.google.com/spanner/docs/use-cmek
+title: Secure a database with customer-managed encryption keys (CMEK)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This page describes how to use manually-created customer-managed encryption keys (CMEK) for Spanner.
 
 To learn more about CMEK, see the [Customer-managed encryption keys (CMEK) overview](https://docs.cloud.google.com/spanner/docs/cmek) .

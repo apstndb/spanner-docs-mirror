@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/pgadapter-session-mgmt-commands
+uri: https://docs.cloud.google.com/spanner/docs/pgadapter-session-mgmt-commands
+title: PGAdapter session management commands
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 Spanner PGAdapter supports session management statements, which let you modify the state and behavior of your connection, execute transactions, and efficiently execute batches of statements. All statements that are described in this document can be used with any client or driver that connects to PGAdapter.
 
 For more information, see a full list of supported [PostgreSQL drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview#postgresql_drivers_and_orms) . The following commands apply to PostgreSQL-dialect databases.

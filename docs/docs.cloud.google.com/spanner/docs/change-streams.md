@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/change-streams
+uri: https://docs.cloud.google.com/spanner/docs/change-streams
+title: Change streams overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:47Z"
+---
+
 A **change stream** watches and streams out a Spanner database's *data changes* —inserts, updates, and deletes—in near real-time.
 
 This page offers a high-level overview of Spanner change streams: what they do, and how they work. To learn how to create and manage change streams in your database and connect them with other services, follow the links in [What's Next](https://docs.cloud.google.com/spanner/docs/change-streams#whats-next) .

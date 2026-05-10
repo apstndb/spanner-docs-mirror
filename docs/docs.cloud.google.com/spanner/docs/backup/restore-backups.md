@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/backup/restore-backups
+uri: https://docs.cloud.google.com/spanner/docs/backup/restore-backups
+title: Restore from a backup
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 This page describes Spanner restoration operations and explains how to restore a database. For more information about database restoration in Spanner, see [Restore overview](https://docs.cloud.google.com/spanner/docs/backup/restore-backup-overview) .
 
 You can restore the backup to the destination instance if it uses the same or a higher-tier [edition](https://docs.cloud.google.com/spanner/docs/editions-overview) as the source backup instance. Alternatively, you can restore it to any instance with the same instance configuration and an edition that is the same or higher-tier than the source instance.

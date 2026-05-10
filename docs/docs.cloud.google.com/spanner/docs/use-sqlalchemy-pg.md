@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-sqlalchemy-pg
+uri: https://docs.cloud.google.com/spanner/docs/use-sqlalchemy-pg
+title: Integrate Spanner with SQLAlchemy 2 ORM (PostgreSQL dialect)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 [SQLAlchemy 2](https://docs.sqlalchemy.org/en/20/) is a Python SQL toolkit and Object Relational Mapper (ORM).
 
 You can use the SQLAlchemy 2 ORM in combination with the standard [PostgreSQL psycopg3 driver](https://www.psycopg.org/psycopg3/) and PGAdapter.

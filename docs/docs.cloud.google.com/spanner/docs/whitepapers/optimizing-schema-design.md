@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design
+uri: https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design
+title: Optimizing Schema Design for Spanner
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:37Z"
+---
+
 Google storage technologies power some of the world's largest applications. However, scale is not always an automatic result of using these systems. Designers must think carefully about how to model their data to ensure that their application can scale and perform as it grows in various dimensions.
 
 Spanner is a *distributed database* , and using it effectively requires thinking differently about schema design and access patterns than you might with other databases. Distributed systems, by their nature, force designers to think about data and processing locality.

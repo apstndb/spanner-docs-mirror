@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/find-hotspots-in-database
+uri: https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database
+title: Find hotspots in your database
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This document describes how to use the Hotspot insights dashboard to detect hotspots in your Spanner database.
 
 ## Hotspot insights overview

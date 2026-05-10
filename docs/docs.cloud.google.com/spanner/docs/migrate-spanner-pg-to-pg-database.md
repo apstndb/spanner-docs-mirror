@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/migrate-spanner-pg-to-pg-database
+uri: https://docs.cloud.google.com/spanner/docs/migrate-spanner-pg-to-pg-database
+title: Migrate Spanner to a PostgreSQL-dialect database
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This page describes key considerations and steps to follow when migrating from Spanner to another PostgreSQL-dialect database if you want to move an application out of Spanner or Google Cloud. You can also use information on this page if you need to understand or demonstrate thefeasibility of moving your database, for example, for *stressed exit* disaster planning.
 
 Spanner's PostgreSQL interface is the best choice for applications that need the option to deploy to another PostgreSQL-compatible environment, either within Google Cloud or elsewhere. Using familiar syntax and standard clients from the PostgreSQL ecosystem, the PostgreSQL interface lets developers and operators use their existing PostgreSQL knowledge and skills.

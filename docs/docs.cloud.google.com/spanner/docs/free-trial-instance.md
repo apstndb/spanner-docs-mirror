@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/free-trial-instance
+uri: https://docs.cloud.google.com/spanner/docs/free-trial-instance
+title: Spanner free trial instances overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 > **Note:** A Spanner free trial instance supports Standard edition features, and Enterprise edition features, such as [KNN](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) , [ANN vector distance functions](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) , [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) , and [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/overview) . For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page provides an overview of Spanner free trial instances.

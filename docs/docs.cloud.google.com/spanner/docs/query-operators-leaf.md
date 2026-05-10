@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/query-operators-leaf
+uri: https://docs.cloud.google.com/spanner/docs/query-operators-leaf
+title: Leaf operators
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 A *leaf* operator has no children. The types of leaf operators are:
 
   - [Array unnest](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#array-unnest)

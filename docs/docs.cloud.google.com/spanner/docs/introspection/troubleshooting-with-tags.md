@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags
+uri: https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags
+title: Troubleshoot with request tags and transaction tags
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 Spanner provides a set of built-in statistics tables to help you gain insight into your queries, reads, and transactions. To correlate statistics with your application code and to improve troubleshooting, you can add a tag (a free-form string) to Spanner read, query, and transaction operations in your application code. These tags are populated in statistics tables helping you to correlate and search based on tags.
 
 Spanner supports two types of tags; ***request*** tags and ***transaction*** tags. As their names suggest, you can add transaction tags to transactions, and request tags to individual queries and reads APIs. You can set a transaction tag at the transaction scope and set individual request tags for each applicable API request within the transaction. Request tags and transaction tags that are set in the application code are populated in the columns of following statistics tables.

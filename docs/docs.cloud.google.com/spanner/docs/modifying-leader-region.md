@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/modifying-leader-region
+uri: https://docs.cloud.google.com/spanner/docs/modifying-leader-region
+title: Modify the leader region of a database
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page explains how to modify the [leader region](https://docs.cloud.google.com/spanner/docs/instance-configurations#replication_2) of a database. You can only change the leader region of a Spanner instance that uses a dual-region or multi-region instance configuration. The new leader region must be one of the two read-write regions within the [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) configuration of your database. For more information about changing the leader region, see [Configure the default leader region](https://docs.cloud.google.com/spanner/docs/instance-configurations#configure-leader-region) .
 
 To view data on the database leader distribution of a dual-region or multi-region instance, open the Google Cloud console, and refer to the **Leader distribution** charts. For more information, see [Spanner charts and metrics](https://docs.cloud.google.com/spanner/docs/monitoring-console#charts-metrics) .

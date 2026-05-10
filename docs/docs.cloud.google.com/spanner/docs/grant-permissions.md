@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/grant-permissions
+uri: https://docs.cloud.google.com/spanner/docs/grant-permissions
+title: Apply IAM roles
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page describes how to grant Spanner Identity and Access Management (IAM) permissions to an account for a Google Cloud project, instance, database, or backup.
 
 For information on Google Cloud roles, see [Understanding roles](https://docs.cloud.google.com/iam/docs/understanding-roles) , and for more information on Spanner roles, see [Access control: roles](https://docs.cloud.google.com/spanner/docs/iam#roles) .

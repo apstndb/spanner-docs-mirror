@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/FulfillmentPeriod
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/FulfillmentPeriod
+title: FulfillmentPeriod
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:51:49Z"
+---
+
 Indicates the expected fulfillment period of an operation.
 
 Enums

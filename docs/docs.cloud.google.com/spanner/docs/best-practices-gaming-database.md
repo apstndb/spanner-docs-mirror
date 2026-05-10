@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/best-practices-gaming-database
+uri: https://docs.cloud.google.com/spanner/docs/best-practices-gaming-database
+title: Best practices for using Spanner as a gaming database
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This document describes best practices for using Spanner as the primary backend database for game state storage. You can use [Spanner](https://docs.cloud.google.com/spanner) in place of common databases to store player authentication data and inventory data. This document is intended for game backend engineers working on long-term state storage, and game infrastructure operators and admins who support those systems and are interested in hosting their backend database on Google Cloud.
 
 Multiplayer and online games have evolved to require increasingly complex database structures for tracking player entitlements, state, and inventory data. Growing player bases and increasing game complexity have led to database solutions that are a challenge to scale and manage, frequently requiring the use of [sharding](https://wikipedia.org/wiki/Shard_\(database_architecture\)) or [clustering](https://wikipedia.org/wiki/MySQL_Cluster) . Tracking valuable in-game items or critical player progress typically requires transactions and is challenging to work around in many types of distributed databases.

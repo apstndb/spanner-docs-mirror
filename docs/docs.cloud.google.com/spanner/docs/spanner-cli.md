@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/spanner-cli
+uri: https://docs.cloud.google.com/spanner/docs/spanner-cli
+title: Spanner CLI quickstart
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 > **PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](https://docs.cloud.google.com/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
 
 The Spanner CLI is a command-line interface (CLI) within the gcloud CLI that lets you connect to and interact with your Spanner databases. For example, you can use the Spanner CLI to run [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview) statements and automate tasks. This document describes how to set up and use the Spanner CLI.

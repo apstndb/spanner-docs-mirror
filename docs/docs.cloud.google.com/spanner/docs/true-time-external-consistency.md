@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/true-time-external-consistency
+uri: https://docs.cloud.google.com/spanner/docs/true-time-external-consistency
+title: 'Spanner: TrueTime and external consistency'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 TrueTime is a highly available, distributed clock that is provided to applications on all Google servers [<sup>1</sup>](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency#1) . TrueTime enables applications to generate monotonically increasing timestamps: an application can compute a timestamp T that is guaranteed to be greater than any timestamp T', if T' finished being generated before T started being generated. This guarantee holds across all servers and all timestamps.
 
 This feature of TrueTime is used by Spanner to assign timestamps to transactions. Specifically, every transaction is assigned a timestamp that reflects the instant at which Spanner considers it to have occurred. Because Spanner uses multi-version concurrency control (MVCC), the ordering guarantee on timestamps enables clients of Spanner to perform consistent reads across an entire database (even across multiple Cloud [regions](https://cloud.google.com/about/locations) ) without blocking writes.

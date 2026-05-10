@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface
+uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface
+title: Known issues in the PostgreSQL interface for Spanner
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 This page points out differences in behavior between the PostgreSQL capabilities supported in Spanner and their open source PostgreSQL equivalents.
 
 > **Caution:** The following specific behaviors may change to better align with open source PostgreSQL.

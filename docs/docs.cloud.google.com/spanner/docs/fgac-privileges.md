@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/fgac-privileges
+uri: https://docs.cloud.google.com/spanner/docs/fgac-privileges
+title: Fine-grained access control privileges
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page describes the privileges that you can grant to a database role for fine-grained access control. This information applies to both GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 To learn about database roles and fine-grained access control, see [Fine-grained access control overview](https://docs.cloud.google.com/spanner/docs/fgac-about) .

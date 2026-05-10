@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/foreign-keys/overview
+uri: https://docs.cloud.google.com/spanner/docs/foreign-keys/overview
+title: Foreign keys
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 This document describes foreign keys in Spanner, and how you can use them to enforce referential integrity in your database. The following topics help you learn about foreign keys and how to use them:
 
   - [Overview of foreign keys in Spanner](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#foreign-key-overview)

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/tags
+uri: https://docs.cloud.google.com/spanner/docs/tags
+title: Control access and organize instances with tags
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 This page describes how you can use Google Cloud tags to manage access to your Spanner instances.
 
 A [Google Cloud tag](https://docs.cloud.google.com/resource-manager/docs/tags/tags-overview) is a key-value pair that you can attach to your Google Cloud resources, such as projects or Spanner instances. You can use tags to group and organize your instances, and to conditionally set [Identity and Access Management (IAM) access policies](https://docs.cloud.google.com/iam/docs/policies) based on whether an instance has a specific tag. You can create and manage Spanner instance tags using the Google Cloud CLI or Google Cloud console. After you create your tags, you can create a tag binding to attach the tag to your Google Cloud resources. Tag bindings are inherited by children of the resource according to the [Google Cloud resource hierarchy](https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy) . For example, if you attach a tag to your project, all instances in that project inherit the tag. You can also use [labels](https://docs.cloud.google.com/resource-manager/docs/creating-managing-labels#what-are-labels) to organize your Google Cloud resources, but you can't use labels to set conditions on IAM policies.

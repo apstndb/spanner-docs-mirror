@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/getting-started/cpp
+uri: https://docs.cloud.google.com/spanner/docs/getting-started/cpp
+title: Getting started with Spanner in C++
+description: 'Get started with Spanner in C++: set up your environment, connect to a database, and perform basic data operations.'
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:02Z"
+---
+
 ## Objectives
 
 > **Note:** This tutorial uses the [C++ client library](https://github.com/googleapis/google-cloud-cpp) for Linux, with Bazel as the build tool. If you would like to use another build tool or platform, refer to the instructions in the [samples/](https://github.com/googleapis/google-cloud-cpp/blob/master/google/cloud/spanner/samples/) directory on GitHub.

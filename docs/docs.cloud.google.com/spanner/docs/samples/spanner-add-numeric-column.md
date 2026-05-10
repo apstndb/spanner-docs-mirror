@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-add-numeric-column
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-add-numeric-column
+title: Add NUMERIC column
+description: Update a schema by adding a NUMERIC column.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:54Z"
+---
+
 Update a schema by adding a NUMERIC column.
 
 ## Explore further

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/set-iam-policy
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/set-iam-policy
+title: gcloud spanner databases set-iam-policy
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:35:28Z"
+---
+
 NAME
 
 gcloud spanner databases set-iam-policy - set the IAM policy for a Cloud Spanner database

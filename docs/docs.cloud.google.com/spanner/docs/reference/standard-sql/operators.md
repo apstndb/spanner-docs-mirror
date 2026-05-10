@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/operators
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators
+title: Operators in GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:38Z"
+---
+
 GoogleSQL for Spanner supports operators. Operators are represented by special characters or keywords; they don't use function call syntax. An operator manipulates any number of data inputs, also called operands, and returns a result.
 
 Common conventions:

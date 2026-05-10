@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/cancel
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/cancel
+title: 'Method: projects.instanceConfigs.operations.cancel'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-12-12T16:30:02Z"
+---
+
   - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/cancel#body.HTTP_TEMPLATE)
   - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/cancel#body.PATH_PARAMETERS)
   - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/cancel#body.request_body)

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/OptimizeRestoredDatabaseMetadata
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/OptimizeRestoredDatabaseMetadata
+title: OptimizeRestoredDatabaseMetadata
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:51:49Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/OptimizeRestoredDatabaseMetadata#SCHEMA_REPRESENTATION)
 
 Metadata type for the long-running operation used to track the progress of optimizations performed on a newly restored database. This long-running operation is automatically created by the system after the successful completion of a database restore, and cannot be cancelled.

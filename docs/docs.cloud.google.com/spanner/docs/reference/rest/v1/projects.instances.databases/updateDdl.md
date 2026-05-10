@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl
+title: 'Method: projects.instances.databases.updateDdl'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-12-12T16:30:02Z"
+---
+
   - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl#body.HTTP_TEMPLATE)
   - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl#body.PATH_PARAMETERS)
   - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl#body.request_body)

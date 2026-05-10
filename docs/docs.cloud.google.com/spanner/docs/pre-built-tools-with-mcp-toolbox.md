@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/pre-built-tools-with-mcp-toolbox
+uri: https://docs.cloud.google.com/spanner/docs/pre-built-tools-with-mcp-toolbox
+title: Use Spanner with MCP Toolbox for Databases, Gemini CLI, and other agents
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This document describes how to connect your Spanner instance to various developer tools that support the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) .
 
 We recommend using the dedicated Spanner extension for [Gemini CLI](https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli) . This extension abstracts away the need to set up a separate server connection. You can configure Gemini Code Assist to use the Gemini CLI, offering similar setup benefits in your IDE. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .

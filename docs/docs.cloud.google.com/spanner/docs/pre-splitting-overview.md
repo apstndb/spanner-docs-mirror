@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/pre-splitting-overview
+uri: https://docs.cloud.google.com/spanner/docs/pre-splitting-overview
+title: Pre-splitting overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This document contains information to help you pre-split your database.
 
 Spanner manages [database splits](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) and scales in response to load and size changes. Splitting and merging are dynamic, based on traffic. As a split receives more traffic, Spanner subdivides it into smaller ranges and redistributes the resulting splits over other available resources in the instance. Spanner merges the split when the split consistently receives less traffic.

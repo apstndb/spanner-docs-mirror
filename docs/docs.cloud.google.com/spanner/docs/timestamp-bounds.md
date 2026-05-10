@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/timestamp-bounds
+uri: https://docs.cloud.google.com/spanner/docs/timestamp-bounds
+title: Timestamp bounds
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 ## Introduction
 
 When reading data in Spanner in either a [read-only transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) or a [single read call](https://docs.cloud.google.com/spanner/docs/reads) , you can set a **timestamp bound** , which tells Spanner how to choose a timestamp at which to read the data.

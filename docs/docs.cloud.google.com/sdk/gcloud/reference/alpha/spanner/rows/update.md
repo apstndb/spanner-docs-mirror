@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/rows/update
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/rows/update
+title: gcloud alpha spanner rows update
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:36:00Z"
+---
+
 NAME
 
 gcloud alpha spanner rows update - update a row in a Cloud Spanner database

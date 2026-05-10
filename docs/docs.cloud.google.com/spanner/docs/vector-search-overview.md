@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/vector-search-overview
+uri: https://docs.cloud.google.com/spanner/docs/vector-search-overview
+title: Spanner vector search overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This page describes vector search and how it works in Spanner.
 
 Vector search is a high-performance, built-in capability that enables semantic search and similarity matching on high-dimensional vector data. By storing and indexing vector embeddings directly within your transactional database, Spanner eliminates the need for separate vector databases and complex ETL pipelines.

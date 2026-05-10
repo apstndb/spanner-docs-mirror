@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps
+uri: https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps
+title: Explore heatmaps
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 This page describes the features of the Key Visualizer interface.
 
 Before you read this page, you should be familiar with the [Key Visualizer overview](https://docs.cloud.google.com/spanner/docs/key-visualizer) and ensure you have [access to Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer/getting-started) .

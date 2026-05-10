@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/pitr
+uri: https://docs.cloud.google.com/spanner/docs/pitr
+title: Point-in-time recovery (PITR) overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 Spanner point-in-time recovery (PITR) provides protection against accidental deletion or writes. For example, if an operator inadvertently writes data or an application rollout corrupts the database, with PITR you can recover the data from a point-in-time in the past (up to a maximum of seven days) seamlessly. If you need longer-term retention of data, you can use either [Backup and Restore](https://docs.cloud.google.com/spanner/docs/backup) or [Export and Import](https://docs.cloud.google.com/spanner/docs/export) .
 
 By default, your database retains all versions of its data and schema for one hour. You can increase this time limit to as long as seven days through the [`version_retention_period`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) option. For instructions, see [Set the retention period](https://docs.cloud.google.com/spanner/docs/use-pitr#set-period) . Spanner stores earlier versions of data at microsecond granularity and the database maintains an [`earliest_version_time`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.earliest_version_time) , which represents the earliest time in the past that you can recover earlier versions of the data.

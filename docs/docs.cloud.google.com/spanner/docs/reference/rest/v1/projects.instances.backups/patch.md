@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch
+title: 'Method: projects.instances.backups.patch'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-12-12T16:30:02Z"
+---
+
   - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.HTTP_TEMPLATE)
   - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.PATH_PARAMETERS)
   - [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.QUERY_PARAMETERS)

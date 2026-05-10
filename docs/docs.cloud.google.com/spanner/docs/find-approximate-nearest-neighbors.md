@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors
+uri: https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors
+title: Find approximate nearest neighbors (ANN) and query vector embeddings
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 > **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .

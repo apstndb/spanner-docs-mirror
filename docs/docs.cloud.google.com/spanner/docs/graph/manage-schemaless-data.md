@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data
+uri: https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data
+title: Manage schemaless data
+description: Learn to manage flexible schemaless data in Spanner Graph databases. Add, update, or delete node and edge types without schema changes.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page explains how to manage schemaless data in Spanner Graph. It also provides [best practices](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#schemaless-data-best-practices) and [troubleshooting tips](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#troubleshoot) . We recommend that you are familiar with the Spanner Graph [schema](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) and [queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .

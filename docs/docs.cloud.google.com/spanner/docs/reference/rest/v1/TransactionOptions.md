@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions
+title: TransactionOptions
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-03-06T22:34:24Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#SCHEMA_REPRESENTATION)
   - [ReadWrite](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#ReadWrite)
       - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions#ReadWrite.SCHEMA_REPRESENTATION)

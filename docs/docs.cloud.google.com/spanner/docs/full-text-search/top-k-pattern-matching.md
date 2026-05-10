@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/full-text-search/top-k-pattern-matching
+uri: https://docs.cloud.google.com/spanner/docs/full-text-search/top-k-pattern-matching
+title: Perform efficient top-k retrieval
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Many applications query a database to populate a single page in their applications. In such applications, the application doesn't need all of the matches, but only the top-k matches based on index sort order. Search indexes can implement this type of search very efficiently. This page describes how to create and search an index that has top-k matching.

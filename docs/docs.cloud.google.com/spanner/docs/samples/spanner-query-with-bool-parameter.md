@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-query-with-bool-parameter
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-bool-parameter
+title: Query with BOOL parameter
+description: Query data by using a BOOL parameter.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Query data by using a BOOL parameter.
 
 ## Code sample

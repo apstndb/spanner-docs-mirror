@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/application-migration
+uri: https://docs.cloud.google.com/spanner/docs/application-migration
+title: Migrate your application code
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 A typical application uses a client, such as a low-level driver or an object-relational mapper (ORM) to connect to the database. Spanner supports clients in multiple languages that let you use common libraries, such as JDBC, across developer environments. For more information, see [Overview of drivers](https://docs.cloud.google.com/spanner/docs/drivers-overview) .
 
 In addition to managing how your application connects to Spanner, you also have to manage which queries are sent and which syntax the queries are using. Spanner supports two SQL dialects, both based on ANSI SQL standard. You can choose to use GoogleSQL or PostgreSQL interface for Spanner based on the ecosystem you want to operate in. For more information, see [Choosing the right dialect for your Spanner database](https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres) . Because of the architectural differences between the Spanner database and your source database, the syntax used in Spanner might not align with the syntax of your source database.

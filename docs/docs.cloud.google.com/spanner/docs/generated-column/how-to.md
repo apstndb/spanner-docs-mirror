@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/generated-column/how-to
+uri: https://docs.cloud.google.com/spanner/docs/generated-column/how-to
+title: Create and manage generated columns
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 A generated column is a column that is always computed from other columns in a row. These columns can make a query simpler, save the cost of evaluating an expression at query time, and can be indexed or used as a foreign key. This page describes how to manage this column type in your database for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 ## Add a generated column to a new table

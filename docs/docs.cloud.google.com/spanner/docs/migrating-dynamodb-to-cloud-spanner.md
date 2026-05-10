@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner
+uri: https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner
+title: Migrate from DynamoDB to Spanner
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This tutorial describes how to migrate from Amazon DynamoDB to [Spanner](https://docs.cloud.google.com/spanner) . It is primarily intended for app owners who want to move from a NoSQL system to Spanner, a fully relational, fault-tolerant, highly scalable SQL database system that supports transactions. If you have consistent Amazon DynamoDB table usage, in terms of types and layout, mapping to Spanner is straightforward. If your Amazon DynamoDB tables contain arbitrary data types and values, it might be simpler to move to other NoSQL services, such as [Datastore](https://docs.cloud.google.com/datastore) or [Firestore](https://firebase.google.com/docs/firestore) .
 
 This tutorial assumes that you are familiar with database schemas, data types, the fundamentals of NoSQL, and relational database systems. The tutorial relies on running predefined tasks to perform an example migration. After the tutorial, you can modify the provided code and steps to [match your environment](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#adjust-data-model) .

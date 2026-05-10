@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/move-instance
+uri: https://docs.cloud.google.com/spanner/docs/move-instance
+title: Move an instance
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page describes moving an instance in Spanner.
 
 You can move your Spanner instance from any instance configuration to any other [instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations) , including between regional, dual-region, and multi-region configurations. Moving your instance doesn't cause downtime, and Spanner continues to provide the usual [transaction guarantees](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_properties) , including strong consistency, during the move.

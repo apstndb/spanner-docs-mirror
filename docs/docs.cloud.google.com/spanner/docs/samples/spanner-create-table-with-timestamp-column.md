@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-create-table-with-timestamp-column
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-table-with-timestamp-column
+title: Create table with TIMESTAMP column
+description: Create a table with a TIMESTAMP column.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Create a table with a TIMESTAMP column.
 
 ## Code sample

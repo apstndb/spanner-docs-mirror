@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/primary-key-default-value
+uri: https://docs.cloud.google.com/spanner/docs/primary-key-default-value
+title: Primary key default values management
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page discusses strategies to use to generate primary key values in your table using default value expressions. Information on this page applies to both GoogleSQL-dialect databases and PostgreSQL-dialect databases. These strategies have the following benefits:
 
   - Prevent hotspots

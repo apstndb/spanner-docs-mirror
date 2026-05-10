@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-googlesql
+uri: https://docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-googlesql
+title: Integrate Spanner with Spring Data JDBC (GoogleSQL)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 [Spring Data JDBC](https://spring.io/projects/spring-data-jdbc) , part of the larger Spring Data family, makes it easier to implement JDBC based repositories in your application. It adds an abstraction layer between your application and your database that makes your application easier to port from one database system to another.
 
 ## Set up Spring Data JDBC for Spanner GoogleSQL-dialect databases

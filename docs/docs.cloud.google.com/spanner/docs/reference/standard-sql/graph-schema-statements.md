@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements
+title: GQL schema statements
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:38Z"
+---
+
 Graph Query Language (GQL) supports all GoogleSQL schema statements, including the following GQL-specific schema statements:
 
 ## Statement list

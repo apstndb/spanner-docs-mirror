@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/query-optimizer/versions
+uri: https://docs.cloud.google.com/spanner/docs/query-optimizer/versions
+title: Spanner query optimizer versions
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 This page describes and provides a history of the various Spanner query optimizer versions. The current default version is 8. To learn more about the query optimizer, see [Query optimizer overview](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) .
 
 Spanner rolls out query optimizer updates as new query optimizer versions. By default, each database starts using the latest version of the optimizer no sooner than 30 days after that version has been released.

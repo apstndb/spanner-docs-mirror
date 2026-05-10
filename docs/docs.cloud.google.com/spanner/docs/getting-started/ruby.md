@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/getting-started/ruby
+uri: https://docs.cloud.google.com/spanner/docs/getting-started/ruby
+title: Getting started with Spanner in Ruby
+description: 'Get started with Spanner in Ruby: install the client library, authenticate, and interact with your databases.'
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:02Z"
+---
+
 ## Objectives
 
 This tutorial walks you through the following steps using the Spanner client library for Ruby:

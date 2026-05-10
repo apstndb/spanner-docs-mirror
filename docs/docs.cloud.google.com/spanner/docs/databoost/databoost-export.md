@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/databoost/databoost-export
+uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-export
+title: Export data with Data Boost
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 This page explains how to use Spanner Data Boost to export Spanner data with near-zero impact to existing workloads on the provisioned Spanner instance.
 
 To learn about Data Boost, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .

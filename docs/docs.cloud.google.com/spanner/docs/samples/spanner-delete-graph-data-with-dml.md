@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-delete-graph-data-with-dml
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-delete-graph-data-with-dml
+title: Delete graph data with DML
+description: Delete Spanner Graph data using DML.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Delete Spanner Graph data using DML.
 
 ## Explore further

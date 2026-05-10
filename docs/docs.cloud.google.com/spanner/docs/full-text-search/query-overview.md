@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/full-text-search/query-overview
+uri: https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview
+title: Query overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes the `SEARCH` function and its various advanced capabilities, which are used to perform [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) queries on Spanner tables.

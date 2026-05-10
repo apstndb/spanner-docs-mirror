@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays
+title: Work with arrays in GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:36Z"
+---
+
 In GoogleSQL for Spanner, an array is an ordered list consisting of zero or more values of the same data type. You can construct arrays of a simple data type, such as `INT64` , or a complex data type, such as `STRUCT` . However, arrays of arrays aren't supported. To learn more about the `ARRAY` data type, see [Array type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type) .
 
 With GoogleSQL, you can construct array literals, build arrays from subqueries using the [`ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions) function, and aggregate values into an array using the [`ARRAY_AGG`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions#array_agg) function.

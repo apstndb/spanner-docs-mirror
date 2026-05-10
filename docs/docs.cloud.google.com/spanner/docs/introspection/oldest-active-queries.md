@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries
+uri: https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries
+title: Oldest active queries statistics
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 *Oldest active queries* , also known as *longest running queries* , is a list of queries that are active in your database, sorted by how long they've been running. Gaining insight into these queries can help identify causes of system latency and high CPU usage as they are happening.
 
 Spanner provides a built-in table, `SPANNER_SYS.OLDEST_ACTIVE_QUERIES` , that lists running queries, including queries containing DML statements, sorted by start time, in ascending order. It does not include change stream queries.

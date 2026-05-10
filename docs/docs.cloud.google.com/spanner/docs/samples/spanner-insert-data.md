@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-insert-data
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-insert-data
+title: Mutations write data
+description: Insert several rows of data into a table by using mutations.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Insert several rows of data into a table by using mutations.
 
 ## Explore further

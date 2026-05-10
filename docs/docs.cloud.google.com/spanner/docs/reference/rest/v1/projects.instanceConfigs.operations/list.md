@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/list
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/list
+title: 'Method: projects.instanceConfigs.operations.list'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-01-30T17:50:06Z"
+---
+
   - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/list#body.HTTP_TEMPLATE)
   - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/list#body.PATH_PARAMETERS)
   - [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations/list#body.QUERY_PARAMETERS)

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/jdbc-drivers
+uri: https://docs.cloud.google.com/spanner/docs/jdbc-drivers
+title: JDBC drivers
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This page describes the JDBC drivers that Spanner supports for GoogleSQL-dialect databases and PostgreSQL-dialect databases. You can use these drivers to connect to Spanner from Java applications. Spanner supports the following JDBC drivers:
 
   - The Spanner JDBC driver, which is an open-source JDBC driver that is written, provided, and supported by Google, similar to the [Cloud Client Libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) . This is the recommended JDBC driver for Spanner, especially for the GoogleSQL dialect. You can also use it to connect to PostgreSQL-dialect databases.

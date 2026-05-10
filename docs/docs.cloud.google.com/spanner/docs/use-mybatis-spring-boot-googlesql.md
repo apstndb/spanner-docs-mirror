@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-googlesql
+uri: https://docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-googlesql
+title: Integrate Spanner with MyBatis and Spring Boot (GoogleSQL)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 [MyBatis](https://mybatis.org/mybatis-3/) is a persistence framework with support for custom SQL and advanced mappings. MyBatis eliminates most of the JDBC code and manual setting of parameters and retrieval of results in your application.
 
 ## Set up MyBatis for Spanner GoogleSQL-dialect databases

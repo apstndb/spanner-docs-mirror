@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/install-mysql-functions
+uri: https://docs.cloud.google.com/spanner/docs/install-mysql-functions
+title: Install MySQL user-defined functions
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:28Z"
+---
+
 This document describes how to install a predefined library of MySQL functions in a Spanner database. You can add these functions to your database using the Google Cloud console or the Google Cloud CLI.
 
 Installing these MySQL functions extends Spanner's capabilities, allowing you to perform operations that are common in MySQL environments directly within Spanner.

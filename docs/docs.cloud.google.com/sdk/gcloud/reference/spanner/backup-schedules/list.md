@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/list
+uri: https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/list
+title: gcloud spanner backup-schedules list
+description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
+data_source: docs.cloud.google.com
+update_time: "2026-02-18T19:36:00Z"
+---
+
 NAME
 
 gcloud spanner backup-schedules list - list Cloud Spanner backup schedules

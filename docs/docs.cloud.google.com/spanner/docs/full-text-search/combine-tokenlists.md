@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/full-text-search/combine-tokenlists
+uri: https://docs.cloud.google.com/spanner/docs/full-text-search/combine-tokenlists
+title: Combine TOKENLISTs
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:41:20Z"
+---
+
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes how to concatenate `TOKENLIST` s in either a [search index](https://docs.cloud.google.com/spanner/docs/full-text-search) when you set up your schema or in a search query when performing a full-text search in Spanner.

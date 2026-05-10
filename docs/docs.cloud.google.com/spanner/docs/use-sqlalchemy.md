@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-sqlalchemy
+uri: https://docs.cloud.google.com/spanner/docs/use-sqlalchemy
+title: Integrate Spanner with SQLAlchemy ORM (GoogleSQL dialect)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 [SQLAlchemy](https://www.sqlalchemy.org/) is a Python SQL toolkit and Object Relational Mapper.
 
 The [Spanner dialect for SQLAlchemy](https://github.com/googleapis/python-spanner-sqlalchemy) lets SQLAlchemy users to use Spanner databases. The dialect is built on top of the [Spanner API](https://github.com/googleapis/python-spanner/tree/main/google/cloud/spanner_dbapi) , which is designed in accordance with [PEP-249](https://www.python.org/dev/peps/pep-0249/) , and is compatible with SQLAlchemy versions between [1.1.13](https://pypi.org/project/SQLAlchemy/1.1.13/) and [1.3.23](https://pypi.org/project/SQLAlchemy/1.3.23/) , and [2.0](https://pypi.org/project/SQLAlchemy/2.0.0/) .

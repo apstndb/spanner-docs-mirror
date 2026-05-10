@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-dml-getting-started-insert
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-getting-started-insert
+title: DML write data
+description: Write data by using DML.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Write data by using DML.
 
 ## Explore further

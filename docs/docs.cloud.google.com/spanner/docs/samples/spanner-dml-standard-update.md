@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-dml-standard-update
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-standard-update
+title: DML update data
+description: Update data using DML.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Update data using DML.
 
 ## Explore further

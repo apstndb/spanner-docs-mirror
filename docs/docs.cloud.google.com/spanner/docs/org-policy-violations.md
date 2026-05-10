@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/org-policy-violations
+uri: https://docs.cloud.google.com/spanner/docs/org-policy-violations
+title: Troubleshoot organization policy violations
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This document describes how to troubleshoot customer-managed encryption key (CMEK) and data residency organization policy violations in Spanner. To help you monitor your database fleet, Database Center detects CMEK and data residency organization policy violations using the following health check:
 
   - An *Encryption org policy not satisfied* violation indicates that a CMEK organization policy on a Spanner database isn't satisfied.

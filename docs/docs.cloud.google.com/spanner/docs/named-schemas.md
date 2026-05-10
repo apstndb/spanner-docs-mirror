@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/named-schemas
+uri: https://docs.cloud.google.com/spanner/docs/named-schemas
+title: Create and manage named schemas
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T19:57:31Z"
+---
+
 This page describes how to create, use, and drop named schemas, and how to apply fine-grained access control to objects in named schemas. For overview information about named schemas, see [Named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .
 
 > **Note:** To reference a database object in a non-default named schema within Spanner, you must use its fully qualified name. Using an unqualified name with a configured named schema search path isn't supported.

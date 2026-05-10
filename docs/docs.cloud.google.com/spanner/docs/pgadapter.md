@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/pgadapter
+uri: https://docs.cloud.google.com/spanner/docs/pgadapter
+title: PGAdapter overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page provides an overview of PGAdapter. To learn how to start PGAdapter, see [Starting PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
 PGAdapter is a sidecar proxy which is a small application that runs alongside your main application to support communications between the [PostgreSQL interface for Spanner](https://docs.cloud.google.com/spanner/docs/postgresql-interface) and Spanner. For Java applications you can even link PGAdapter to the application directly without having to run it in a separate process. PGAdapter is designed to run on the same machine as the application and exposes an endpoint on localhost that supports the PostgreSQL wire protocol. It translates the PostgreSQL wire protocol into the Spanner wire protocol, gRPC. With this proxy running locally, a PostgreSQL client such as `psql` can connect to a PostgreSQL-dialect Spanner database.

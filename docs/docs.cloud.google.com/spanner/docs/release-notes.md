@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/release-notes
+uri: https://docs.cloud.google.com/spanner/docs/release-notes
+title: Spanner release notes
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:02Z"
+---
+
 This page documents production updates to Spanner. You can periodically check this page for announcements about new or updated features, bug fixes, known issues, and deprecated functionality.
 
 You can see the latest product updates for all of Google Cloud on the [Google Cloud](https://docs.cloud.google.com/release-notes) page, browse and filter all release notes in the [Google Cloud console](https://console.cloud.google.com/release-notes) , or programmatically access release notes in [BigQuery](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=google_cloud_release_notes&t=release_notes&page=table) .

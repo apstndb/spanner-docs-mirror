@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics
+uri: https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics
+title: Table operations statistics
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 Spanner provides built-in tables that records the read (or query), write, and delete operations statistics for your tables (including change streams tables) and indexes. With table operations statistics you can do the following:
 
   - Identify tables with increased write traffic corresponding to storage increase.

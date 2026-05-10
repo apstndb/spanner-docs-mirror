@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run
+uri: https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run
+title: Deploy the Autoscaler tool to Cloud Run functions
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:16Z"
+---
+
 The Autoscaler tool is designed to allow for flexibility, and can accommodate the existing separation of responsibilities between your operations and application teams. The responsibility to configure the autoscaling of Spanner instances can be centralized with a single operations team, or it can be distributed to the teams closer to the applications served by those Spanner instances.
 
 This document is part of a series that also includes:

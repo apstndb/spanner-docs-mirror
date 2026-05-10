@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/query-operators-distributed
+uri: https://docs.cloud.google.com/spanner/docs/query-operators-distributed
+title: Distributed operators
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 *Distributed operators* execute across multiple servers unlike leaf, unary, binary, or n-ary operators.
 
 The following operators are distributed operators:

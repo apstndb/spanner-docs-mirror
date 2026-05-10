@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/backup/restore-backup-overview
+uri: https://docs.cloud.google.com/spanner/docs/backup/restore-backup-overview
+title: Restore overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T22:44:15Z"
+---
+
 You can restore a backup of a Spanner database into a new database. The restored database will have all the data and schema from the original database at the `version_time` of the backup, including all database options that are set with the [`ALTER DATABASE SET OPTIONS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) command. However, the following aren't included in the restored database:
 
   - Identity and Access Management (IAM) permissions (except for those inherited from the instance containing the restored database). You must apply appropriate IAM permissions after the restore completes.

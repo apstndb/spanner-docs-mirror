@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-entity-framework
+uri: https://docs.cloud.google.com/spanner/docs/use-entity-framework
+title: Using Entity Framework Core with Spanner
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 > **PostgreSQL interface note:** The Spanner Entity Framework Core provider isn't supported in PostgreSQL databases.
 
 The [Spanner Entity Framework Core provider](https://github.com/googleapis/dotnet-spanner-entity-framework) lets you create a Spanner database, run queries, and update data through an application using [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) . The provider is compatible with [Microsoft.EntityFrameworkCore 8](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/8.0) .

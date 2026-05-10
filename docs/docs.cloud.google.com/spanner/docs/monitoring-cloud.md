@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/monitoring-cloud
+uri: https://docs.cloud.google.com/spanner/docs/monitoring-cloud
+title: Monitor instances with Cloud Monitoring
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This document describes how to use the Cloud Monitoring console to monitor your Spanner instances.
 
 The Cloud Monitoring console provides several monitoring tools for Spanner:

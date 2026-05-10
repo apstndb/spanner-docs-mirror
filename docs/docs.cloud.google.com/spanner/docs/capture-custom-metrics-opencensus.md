@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/capture-custom-metrics-opencensus
+uri: https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opencensus
+title: Capture custom client-side metrics using OpenCensus
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This document describes how to capture custom client-side metrics using [OpenCensus](https://opencensus.io/) . Custom client-side metrics can help find the source of latency in your system. For more information, see [Identify the latency point](https://docs.cloud.google.com/spanner/docs/latency-points) .
 
 > **Note:** [OpenCensus is deprecated](https://opentelemetry.io/blog/2023/sunsetting-opencensus/) . We recommend using OpenTelemetry to capture and visualize Spanner observability metrics. For more information, see [Capture custom metrics using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry) .

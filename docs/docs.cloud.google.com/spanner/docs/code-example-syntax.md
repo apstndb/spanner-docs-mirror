@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/code-example-syntax
+uri: https://docs.cloud.google.com/spanner/docs/code-example-syntax
+title: SQL syntax quick reference
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This document provides a quick reference (also known as a *cheat sheet* ) for SQL syntax used in Spanner documentation code examples.
 
 For a more comprehensive reference of SQL query syntax in Spanner, see [Query syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) .

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/use-hibernate-postgresql
+uri: https://docs.cloud.google.com/spanner/docs/use-hibernate-postgresql
+title: Integrate Spanner with Hibernate ORM (PostgreSQL dialect)
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 Hibernate is an object-relational mapping tool for the Java programming language. It provides a framework for mapping an object-oriented domain model to a relational database.
 
 You can integrate PostgreSQL-dialect databases with Hibernate using the open source PostgreSQL JDBC Driver. [Hibernate ORM 6.3](https://hibernate.org/orm/) is supported with PostgreSQL-dialect databases.

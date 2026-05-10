@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/pgadapter-start
+uri: https://docs.cloud.google.com/spanner/docs/pgadapter-start
+title: Start PGAdapter
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:59Z"
+---
+
 This page explains how to start PGAdapter in Spanner. To learn about PGAdapter, see [About PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) . To get the PGAdapter binary, see [Get PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-get) .
 
 You can start PGAdapter in the following ways:

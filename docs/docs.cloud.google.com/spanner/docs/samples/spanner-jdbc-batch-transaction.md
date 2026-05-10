@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-jdbc-batch-transaction
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-jdbc-batch-transaction
+title: JDBC batch transaction
+description: Make a batch transaction by using JDBC.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Make a batch transaction by using JDBC.
 
 ## Explore further

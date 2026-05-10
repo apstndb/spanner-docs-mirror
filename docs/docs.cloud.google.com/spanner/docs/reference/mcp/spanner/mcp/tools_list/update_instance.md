@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/update_instance
+uri: https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/update_instance
+title: 'MCP Tools Reference: spanner.googleapis.com'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-04-16T16:08:44Z"
+---
+
 ## Tool: `update_instance`
 
 Update a Spanner instance.

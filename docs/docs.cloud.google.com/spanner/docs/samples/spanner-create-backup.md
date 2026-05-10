@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-create-backup
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-backup
+title: Create backup
+description: Create database backup that can be used to restore the database.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Create database backup that can be used to restore the database.
 
 ## Explore further

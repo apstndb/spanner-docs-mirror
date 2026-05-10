@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions
+uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions
+title: String functions in GoogleSQL
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:38Z"
+---
+
 GoogleSQL for Spanner supports string functions. These string functions work on two different values: `STRING` and `BYTES` data types. `STRING` values must be well-formed UTF-8.
 
 Functions that return position values, such as [STRPOS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions#strpos) , encode those positions as `INT64` . The value `1` refers to the first character (or byte), `2` refers to the second, and so on. The value `0` indicates an invalid position. When working on `STRING` types, the returned positions refer to character positions.

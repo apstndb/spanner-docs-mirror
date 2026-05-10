@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry
+uri: https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry
+title: Capture custom client-side metrics using OpenTelemetry
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This document describes how to capture custom client metrics using [OpenTelemetry](https://opentelemetry.io) . Custom client metrics are available using the [Java](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/overview) and [Go](https://pkg.go.dev/cloud.google.com/go/spanner) client libraries.
 
 Custom client-side metrics can help you find the source of latency in your system. For more information, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .

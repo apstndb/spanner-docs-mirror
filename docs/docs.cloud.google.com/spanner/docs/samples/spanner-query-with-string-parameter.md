@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-query-with-string-parameter
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-string-parameter
+title: Query with STRING parameter
+description: Query data by using a STRING parameter.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Query data by using a STRING parameter.
 
 ## Code sample

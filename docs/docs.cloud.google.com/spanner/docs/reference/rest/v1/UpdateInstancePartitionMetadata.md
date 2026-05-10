@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/rest/v1/UpdateInstancePartitionMetadata
+uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/UpdateInstancePartitionMetadata
+title: UpdateInstancePartitionMetadata
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2025-10-17T23:52:34Z"
+---
+
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/UpdateInstancePartitionMetadata#SCHEMA_REPRESENTATION)
 
 Metadata type for the operation returned by `  instancePartitions.patch  ` .

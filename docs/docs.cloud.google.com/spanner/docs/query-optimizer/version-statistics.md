@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/query-optimizer/version-statistics
+uri: https://docs.cloud.google.com/spanner/docs/query-optimizer/version-statistics
+title: List query optimizer versions
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:37Z"
+---
+
 Spanner provides a built-in `SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS` table to keep track of query optimizer versions. You can retrieve this data using SQL queries.
 
 ## `SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS` table schema

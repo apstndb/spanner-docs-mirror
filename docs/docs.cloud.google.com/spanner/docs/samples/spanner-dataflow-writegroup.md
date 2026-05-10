@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-dataflow-writegroup
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dataflow-writegroup
+title: Dataflow write group
+description: Use the Dataflow connector to write data by using a MutationGroup class to ensure that a group of mutations is applied atomically.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:00Z"
+---
+
 Use the Dataflow connector to write data by using a MutationGroup class to ensure that a group of mutations is applied atomically.
 
 ## Explore further

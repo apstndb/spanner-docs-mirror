@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/samples/spanner-functions-quickstart
+uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-functions-quickstart
+title: Functions
+description: Connect by using functions.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:03Z"
+---
+
 Connect by using functions.
 
 ## Explore further

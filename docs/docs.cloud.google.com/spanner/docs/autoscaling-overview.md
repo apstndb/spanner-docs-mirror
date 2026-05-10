@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/autoscaling-overview
+uri: https://docs.cloud.google.com/spanner/docs/autoscaling-overview
+title: Autoscaling overview
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:33:13Z"
+---
+
 This page explains how autoscaling works in Spanner, and introduces the two types of autoscaling you can use in Spanner.
 
 ## Scaling Spanner

@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics
+uri: https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics
+title: View and manage client-side metrics
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:42:54Z"
+---
+
 This page offers information about viewing and managing client-side metrics. Client-side metrics offer latency information about the client's RPC requests to Spanner.
 
 Spanner provides client-side metrics that you can use along with server-side metrics to optimize performance and troubleshoot performance issues if they occur.

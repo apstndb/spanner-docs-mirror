@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/dc-integration
+uri: https://docs.cloud.google.com/spanner/docs/dc-integration
+title: Manage resources using Data Catalog
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-05-08T21:32:46Z"
+---
+
 This page explains how you can search for and manage your Spanner resources by using Data Catalog.
 
 > **Caution:** Data Catalog is [deprecated](https://docs.cloud.google.com/data-catalog/docs/deprecations) in favor of [Knowledge Catalog](https://docs.cloud.google.com/dataplex/docs/catalog-overview) . Knowledge Catalog is also integrated with Spanner, offering similar capabilities. You can use Knowledge Catalog to enrich your data with aspects, which are the equivalent of Data Catalog tags. For more information, see [Manage aspects and enrich metadata](https://docs.cloud.google.com/dataplex/docs/enrich-entries-metadata) .

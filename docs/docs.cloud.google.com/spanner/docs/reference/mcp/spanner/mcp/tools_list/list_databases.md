@@ -1,3 +1,12 @@
+---
+name: documents/docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_databases
+uri: https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_databases
+title: 'MCP Tools Reference: spanner.googleapis.com'
+description: A managed, mission-critical, globally consistent and scalable relational database service.
+data_source: docs.cloud.google.com
+update_time: "2026-04-16T16:08:44Z"
+---
+
 ## Tool: `list_databases`
 
 List Spanner databases in a given spanner instance. \* Response may include next\_page\_token to fetch additional databases using list\_databases tool with page\_token set.
