@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/table-name-synonym
 title: Manage table names
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page describes how to rename tables and how to add, use, and drop table synonyms in GoogleSQL-dialect databases and PostgreSQL-dialect databases.

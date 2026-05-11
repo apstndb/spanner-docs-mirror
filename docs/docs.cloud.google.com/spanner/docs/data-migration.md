@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/data-migration
 title: Migrate your data
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 After optimizing your Spanner schema and migrating your application, you can move your data into an empty production-sized Spanner database, and then switch over your application to use the Spanner database.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/develop
 title: Develop with Spanner Omni
 description: Learn how to develop applications using Spanner Omni, including supported client libraries, CLI differences, and compatible Spanner features.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

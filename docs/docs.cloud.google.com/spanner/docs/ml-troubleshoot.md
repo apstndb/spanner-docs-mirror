@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/ml-troubleshoot
 title: Troubleshoot Spanner Agent Platform integration
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 MODEL DDL statements and ML functions in Spanner invoke Vertex AI endpoints and can fail due to various reasons:

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/psql-commands
 title: psql command-line tool
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 `psql` is the command-line front end to PostgreSQL. This page describes the `psql` commands that the PostgreSQL interface for Spanner supports. To learn how to connect with `psql` see [Connecting psql to a PostgreSQL-dialect database](https://docs.cloud.google.com/spanner/docs/psql-connect) .

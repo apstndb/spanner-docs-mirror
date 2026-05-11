@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/connect-gke-cluster
 title: Connect Spanner with a GKE cluster
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This page describes how to grant your [Google Kubernetes Engine (GKE)](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/kubernetes-engine-overview) cluster permissions to access your Spanner database.

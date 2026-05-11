@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/ml-tutorial
 title: Generate ML predictions using SQL
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page shows how to generate machine learning (ML) predictions from a Spanner database. ML predictions work with both GoogleSQL-dialect databases and PostgreSQL-dialect databases.

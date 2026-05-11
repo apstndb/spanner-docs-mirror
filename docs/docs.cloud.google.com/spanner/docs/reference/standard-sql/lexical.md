@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical
 title: Lexical structure and syntax in GoogleSQL
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:38Z"
 ---
 
 A GoogleSQL statement comprises a series of tokens. Tokens include identifiers, quoted identifiers, literals, keywords, operators, and special characters. You can separate tokens with comments or whitespace such as spaces, backspaces, tabs, or newlines.

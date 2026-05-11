@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/authentication
 title: Authentication and authorization in Spanner Omni
 description: Learn about authentication and authorization for secure deployments of Spanner Omni.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

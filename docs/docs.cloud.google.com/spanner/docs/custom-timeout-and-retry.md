@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry
 title: Configure custom timeouts and retries
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 This page shows you how to override the default timeout configuration and configure a retry policy using the Spanner client libraries.

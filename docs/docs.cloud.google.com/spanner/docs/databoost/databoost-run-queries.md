@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries
 title: Run federated queries with Data Boost
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 This page explains how to use Spanner Data Boost when you run federated queries from BigQuery to a Spanner database. With Data Boost, federated queries run with minimal impact to existing workloads on the provisioned Spanner instance. The Data Boost queries from BigQuery to a Spanner database can join BigQuery data with Spanner data.

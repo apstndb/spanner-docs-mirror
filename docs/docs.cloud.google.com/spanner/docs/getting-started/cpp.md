@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/getting-started/cpp
 title: Getting started with Spanner in C++
 description: 'Get started with Spanner in C++: set up your environment, connect to a database, and perform basic data operations.'
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:02Z"
 ---
 
 ## Objectives

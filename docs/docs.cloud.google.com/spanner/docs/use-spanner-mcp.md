@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-spanner-mcp
 title: Use the Spanner remote MCP server
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T23:09:06Z"
 ---
 
 This document shows you how to use the Spanner remote Model Context Protocol (MCP) server to connect with AI applications including Gemini CLI, ChatGPT, Claude, and custom applications you are developing. The Spanner MCP server lets you access and run Spanner tools to create, manage, and query Spanner resources from your AI-enabled development environments and AI agent platforms. The Spanner remote MCP server is enabled when you enable the Spanner API.

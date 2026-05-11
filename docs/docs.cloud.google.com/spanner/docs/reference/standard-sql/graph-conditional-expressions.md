@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-con
 title: GQL conditional expressions
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:36Z"
 ---
 
 Graph Query Language (GQL) supports all GoogleSQL conditional expressions. To learn more, see [Conditional expressions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions) .

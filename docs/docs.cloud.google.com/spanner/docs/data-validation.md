@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/data-validation
 title: Validate your data migration
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 Data validation is the process of comparing data from both the source and the destination database tables to ensure they match.

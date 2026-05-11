@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/use-console
 title: Use the Spanner Omni console
 description: Learn how to use the Spanner Omni console to monitor the health and performance of your deployment.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:01Z"
 ---
 
 > **Preview**

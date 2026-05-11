@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/replication
 title: Replication
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page describes how data is replicated in Spanner, the different types of Spanner replicas and their roles in reads and writes, and the benefits of replication.

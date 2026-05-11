@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/getting-started/nodejs
 title: Getting started with Spanner in Node.js
 description: 'Get started with Spanner in Node.js: install the client library, connect to a database, and perform data operations.'
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:02Z"
 ---
 
 ## Objectives

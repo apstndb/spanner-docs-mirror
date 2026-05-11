@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/getting-started/jdbc
 title: Getting started with Spanner in JDBC
 description: 'Get started with the Spanner JDBC driver: connect your Java applications to Spanner and execute SQL statements.'
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:02Z"
 ---
 
 ## Objectives

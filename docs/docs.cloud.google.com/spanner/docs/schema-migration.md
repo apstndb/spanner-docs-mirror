@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/schema-migration
 title: Migrate your schema
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 Migrating a schema from your source database to Spanner involves a multi-step process that combines automated tooling with manual analysis and refinement. The following steps outline the recommended approach:

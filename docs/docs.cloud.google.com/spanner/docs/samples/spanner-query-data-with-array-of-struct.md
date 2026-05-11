@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-query-data-with-
 title: Query data with array of STRUCT
 description: Query data by using an array of STRUCT objects.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 Query data by using an array of STRUCT objects.

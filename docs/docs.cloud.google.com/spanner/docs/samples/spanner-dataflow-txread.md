@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dataflow-txread
 title: Dataflow read with transaction
 description: Use the Dataflow connector to read data from multiple tables at the same point in time to ensure data consistency by performing all of the reads in a single transaction.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Use the Dataflow connector to read data from multiple tables at the same point in time to ensure data consistency by performing all of the reads in a single transaction.

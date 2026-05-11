@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ReplicaSelecti
 title: ReplicaSelection
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-02-24T05:58:50Z"
 ---
 
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ReplicaSelection#SCHEMA_REPRESENTATION)

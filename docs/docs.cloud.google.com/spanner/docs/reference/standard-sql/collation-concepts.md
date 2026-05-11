@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation
 title: Collation in GoogleSQL
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:36Z"
 ---
 
 GoogleSQL for Spanner supports collation. Collation defines rules to sort and compare strings in an [`ORDER BY` operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#order_by_clause) .

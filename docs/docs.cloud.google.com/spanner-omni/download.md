@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/download
 title: Download Spanner Omni
 description: A downloadable, self-managed version of Spanner. {% setvar launch_stage %}preview{% endsetvar %} {% include "cloud/_shared/_info_launch_stage_disclaimer.html" %}
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

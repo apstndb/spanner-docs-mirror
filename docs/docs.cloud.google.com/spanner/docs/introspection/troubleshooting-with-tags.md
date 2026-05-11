@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-wi
 title: Troubleshoot with request tags and transaction tags
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 Spanner provides a set of built-in statistics tables to help you gain insight into your queries, reads, and transactions. To correlate statistics with your application code and to improve troubleshooting, you can add a tag (a free-form string) to Spanner read, query, and transaction operations in your application code. These tags are populated in statistics tables helping you to correlate and search based on tags.

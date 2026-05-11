@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/access-with-fgac
 title: Access a database with fine-grained access control
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This page explains how to access a Spanner database when you are a fine-grained access control user.

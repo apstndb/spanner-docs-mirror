@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-active-record
 title: Using Active Record with Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 Ruby [Active Record](https://guides.rubyonrails.org/active_record_basics.html) is an Object-Relational Mapping (ORM) library bundled with [Ruby on Rails](https://rubyonrails.org/) . Active Record provides an abstraction over the underlying database and includes capabilities such as automatically generating schema changes and managing schema version history.

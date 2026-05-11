@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-oss-r2dbc
 title: Use the open-source R2DBC driver
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 [R2DBC](https://r2dbc.io/) is a specification for non-blocking access to relational databases, based on [Reactive Streams](https://www.reactive-streams.org/) . Your application can make use of the reactive database connectivity with Spanner by using the Spanner R2DBC driver.

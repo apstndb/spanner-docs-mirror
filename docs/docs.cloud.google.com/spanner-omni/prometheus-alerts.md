@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/prometheus-alerts
 title: Use Prometheus alerts to monitor Spanner Omni
 description: Learn about the Prometheus alerts available for Spanner Omni and how to use them to monitor your deployment.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

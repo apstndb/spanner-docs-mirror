@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/instance-co
 title: gcloud beta spanner instance-configs create
 description: Offers tools and libraries that allow you to create and manage resources across Google Cloud.
 data_source: docs.cloud.google.com
-update_time: "2026-02-18T19:35:46Z"
 ---
 
 NAME

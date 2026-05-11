@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-golang-database-sql
 title: Use the Spanner database/sql driver
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 [Go database/sql](https://pkg.go.dev/database/sql) is a generic interface around SQL (or SQL-like) databases for the Go programming language. To use database/sql with your application, use the [Spanner database/sql driver](https://github.com/googleapis/go-sql-spanner) .

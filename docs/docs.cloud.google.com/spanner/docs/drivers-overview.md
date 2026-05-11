@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/drivers-overview
 title: Overview of drivers
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 This page describes the drivers that are supported for Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.

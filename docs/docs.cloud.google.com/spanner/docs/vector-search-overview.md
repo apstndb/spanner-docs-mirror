@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/vector-search-overview
 title: Spanner vector search overview
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 This page describes vector search and how it works in Spanner.

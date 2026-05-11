@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-write-then-r
 title: DML write then read
 description: Insert data and then read the inserted data.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Insert data and then read the inserted data.

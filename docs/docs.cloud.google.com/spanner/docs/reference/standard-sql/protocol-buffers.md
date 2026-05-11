@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-
 title: Work with protocol buffers in GoogleSQL
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:38Z"
 ---
 
 Protocol buffers are a flexible mechanism for serializing structured data. They are small in size and efficient to send over RPCs. Protocol buffers are represented in Spanner using the `PROTO` data type. A column can contain `PROTO` values the same way it can contain `INT32` or `STRING` values.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CompactDatabas
 title: CompactDatabaseMetadata
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-01-27T21:58:46Z"
 ---
 
   - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CompactDatabaseMetadata#SCHEMA_REPRESENTATION)

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-hibernate-table-
 title: Hibernate table name
 description: Specify a table name by using hibernate.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 Specify a table name by using hibernate.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-client-wi
 title: Create client with query options
 description: Create a client with query options. The client can then be used to read, write, and run transactions.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Create a client with query options. The client can then be used to read, write, and run transactions.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/rest-endpoints
 title: Global and regional service endpoints
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page describes Spanner REST global and regional service endpoints. You can use a global or regional service endpoint to make requests to Spanner.

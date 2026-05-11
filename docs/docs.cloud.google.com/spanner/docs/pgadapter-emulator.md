@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/pgadapter-emulator
 title: Connect PGAdapter to the emulator
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page shows how to connect PGAdapter to the [Spanner emulator](https://docs.cloud.google.com/spanner/docs/emulator) . The emulator runs locally, and you can use to it to develop and test your applications without creating a Google Cloud project or a billing account. As the emulator stores data only in memory, all state, including data, schema, and configs, is lost on restart. The emulator offers the same APIs as the Spanner production service and is intended for local development and testing, not for production deployments.

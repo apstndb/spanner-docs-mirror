@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/quickstart
 title: Spanner Omni quickstart
 description: Get started with Spanner Omni by running a single-server container.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

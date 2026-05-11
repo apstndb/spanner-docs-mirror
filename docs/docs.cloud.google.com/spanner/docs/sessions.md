@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/sessions
 title: Sessions
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page describes the advanced concept of sessions in Spanner, including best practices for sessions when creating a client library, using the REST or RPC APIs, or using the Google client libraries.

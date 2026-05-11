@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli
 title: Build context sets using Gemini CLI
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 > **Preview**

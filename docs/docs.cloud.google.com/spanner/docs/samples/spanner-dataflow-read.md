@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dataflow-read
 title: Dataflow read
 description: Use a SQL query with the Dataflow connector to read data from all the columns and rows in the specified table.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:00Z"
 ---
 
 Use a SQL query with the Dataflow connector to read data from all the columns and rows in the specified table.

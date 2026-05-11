@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/launch-checklist
 title: Launch checklist for Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This launch checklist provides a list of considerations that need to be made prior to launching a production application on Spanner. It isn't intended to be exhaustive, but serves to highlights key considerations to minimize risks, optimize performance, and ensure alignment with business and operational goals, offering a systematic approach to deliver a seamless and reliable Spanner deployment.

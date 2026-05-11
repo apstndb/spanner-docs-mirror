@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/create-manage-views
 title: Create and manage views
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 This page describes how to create and manage Spanner views for GoogleSQL-dialect databases and PostgreSQL-dialect databases. For more information about Spanner views, see [Views overview](https://docs.cloud.google.com/spanner/docs/views) .

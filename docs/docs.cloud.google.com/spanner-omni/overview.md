@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/overview
 title: Spanner Omni overview
 description: Learn about the features, topologies, and system requirements for Spanner Omni.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

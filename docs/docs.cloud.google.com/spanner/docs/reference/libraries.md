@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/libraries
 title: Spanner client libraries
 description: Start writing code for Spanner in C#, Python, Java, Go, Node.js, PHP, Ruby, C++.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 This page shows how to get started with the Cloud Client Libraries for the Cloud Spanner API. Client libraries make it easier to access Google Cloud APIs from a supported language. Although you can use Google Cloud APIs directly by making raw requests to the server, client libraries provide simplifications that significantly reduce the amount of code you need to write.

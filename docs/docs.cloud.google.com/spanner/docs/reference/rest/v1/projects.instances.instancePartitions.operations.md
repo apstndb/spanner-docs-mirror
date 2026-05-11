@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.insta
 title: 'REST Resource: projects.instances.instancePartitions.operations'
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2025-10-17T23:51:49Z"
 ---
 
   - [Resource: Operation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions.operations#Operation)

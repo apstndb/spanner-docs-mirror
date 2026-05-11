@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/storage-utilization
 title: Storage utilization metrics
 description: Learn about storage utilization metrics for Spanner Omni.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:01Z"
 ---
 
 > **Preview**

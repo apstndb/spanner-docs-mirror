@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-structs
 title: DML update data with STRUCT
 description: Update data by using DML with a STRUCT object.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Update data by using DML with a STRUCT object.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/release-notes
 title: Spanner release notes
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:02Z"
 ---
 
 This page documents production updates to Spanner. You can periodically check this page for announcements about new or updated features, bug fixes, known issues, and deprecated functionality.

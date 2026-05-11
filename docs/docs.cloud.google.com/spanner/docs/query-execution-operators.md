@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/query-execution-operators
 title: Query execution operators
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page describes the operators used in Spanner [query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) . For information about how to retrieve an execution plan for a specific query using the Google Cloud console, see [Understanding how Spanner executes queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#how-execute-queries) .

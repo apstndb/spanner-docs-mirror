@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/partners/looker
 title: Using Looker with Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 [Looker](https://looker.com/) is an enterprise platform for business intelligence, data applications, and embedded analytics. Looker helps you explore, share, and visualize your company's data so that you can make better business decisions.

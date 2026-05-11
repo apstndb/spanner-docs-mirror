@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays
 title: Work with arrays in PostgreSQL-dialect databases
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:36Z"
 ---
 
 This page describes syntax and behavior for performing essential array management tasks for the PostgreSQL interface for Spanner. Arrays for the PostgreSQL interface share the same syntax as arrays in [open source PostgreSQL](https://www.postgresql.org/docs/current/arrays.html) , except as described in [Array type limitations](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types#array_type_limitations) . One important limitation is no support for multidimensional arrays.

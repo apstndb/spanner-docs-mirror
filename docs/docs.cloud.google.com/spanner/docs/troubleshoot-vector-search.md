@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/troubleshoot-vector-search
 title: Troubleshoot Spanner vector search
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page describes tips that can help you if you encounter issues using Spanner vector search.

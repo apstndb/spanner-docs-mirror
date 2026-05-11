@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/api-parameters
 title: Standard API parameters
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 The following query parameters can be used with all methods and all resources in the Cloud Spanner API.

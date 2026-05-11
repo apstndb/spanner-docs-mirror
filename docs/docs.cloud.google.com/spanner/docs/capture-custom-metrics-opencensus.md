@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opencensu
 title: Capture custom client-side metrics using OpenCensus
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This document describes how to capture custom client-side metrics using [OpenCensus](https://opencensus.io/) . Custom client-side metrics can help find the source of latency in your system. For more information, see [Identify the latency point](https://docs.cloud.google.com/spanner/docs/latency-points) .

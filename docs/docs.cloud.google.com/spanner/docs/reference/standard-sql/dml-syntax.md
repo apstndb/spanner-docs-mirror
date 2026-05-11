@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-synta
 title: GoogleSQL data manipulation language
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:36Z"
 ---
 
 The GoogleSQL data manipulation language (DML) lets you update, insert, and delete data in GoogleSQL tables.

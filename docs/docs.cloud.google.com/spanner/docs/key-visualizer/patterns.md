@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns
 title: Heatmap patterns
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 This page shows examples of patterns that you might see in a Key Visualizer heat map. These patterns can help you to troubleshoot specific performance issues.

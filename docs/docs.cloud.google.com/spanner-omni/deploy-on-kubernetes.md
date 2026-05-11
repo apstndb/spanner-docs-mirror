@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/deploy-on-kubernetes
 title: Create a deployment on Kubernetes
 description: Deploy Spanner Omni on Kubernetes. Configure single-server or regional deployments and understand security risks.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

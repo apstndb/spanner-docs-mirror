@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/modify-mutation-api
 title: Insert, update, and delete data using mutations
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page describes how to insert, update, and delete data using mutations. A mutation represents a sequence of inserts, updates, and deletes that Spanner applies atomically to different rows and tables in a database. Mutations are designed for writing data. They can't read data from your tables. Many update operations must read existing data before performing modifications. For these use cases, you must use a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) , which lets Spanner read rows and then apply mutations within the same atomic operation.

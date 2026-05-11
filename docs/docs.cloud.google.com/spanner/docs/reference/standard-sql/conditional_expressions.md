@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/condition
 title: Conditional expressions in GoogleSQL
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:36Z"
 ---
 
 GoogleSQL for Spanner supports conditional expressions. Conditional expressions impose constraints on the evaluation order of their inputs. In essence, they are evaluated left to right, with short-circuiting, and only evaluate the output value that was chosen. In contrast, all inputs to regular functions are evaluated before calling the function. Short-circuiting in conditional expressions can be exploited for error handling or performance tuning.

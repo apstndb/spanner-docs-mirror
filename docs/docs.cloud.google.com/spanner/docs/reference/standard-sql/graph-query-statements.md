@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-que
 title: GQL query statements
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:36Z"
 ---
 
 Graph Query Language (GQL) lets you execute multiple linear graph queries in one query. Each linear graph query generates results (the working table) and then passes those results to the next.

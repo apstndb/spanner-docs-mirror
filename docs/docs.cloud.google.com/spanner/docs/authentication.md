@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/authentication
 title: Authenticate to Spanner
 description: Learn how to authenticate to Spanner.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This document describes how to authenticate to Spanner programmatically. How you authenticate to Spanner depends on the interface you use to access the API and the environment where your code is running.

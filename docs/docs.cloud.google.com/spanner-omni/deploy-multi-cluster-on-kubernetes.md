@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/deploy-multi-cluster-on-kubernet
 title: Create a multi-cluster deployment for Spanner Omni on Kubernetes
 description: Learn how to create a Spanner Omni deployment across multiple Kubernetes clusters.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/manage-data-using-console
 title: Manage your data using the Google Cloud console
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page explains how to explore and manage your Spanner data using Spanner Studio in the Google Cloud console.

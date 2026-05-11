@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/vector-index-stati
 title: Vector index statistics
 description: Optimize Spanner vector index performance. Query `SPANNER_SYS.VECTOR_INDEX_STATS` for cluster metrics and tuning guidance.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .

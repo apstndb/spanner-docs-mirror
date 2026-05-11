@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics
 title: Lock statistics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 This document describes how to use Spanner lock statistics built-in tables to identify the row keys and table columns that caused transaction lock conflicts in your database during a specific time period. You can retrieve statistics from these `SPANNER_SYS.LOCK_STATS*` tables using SQL statements.

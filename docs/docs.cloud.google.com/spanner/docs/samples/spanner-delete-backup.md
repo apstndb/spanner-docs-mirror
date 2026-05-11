@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-delete-backup
 title: Delete backup
 description: Delete a database backup.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Delete a database backup.

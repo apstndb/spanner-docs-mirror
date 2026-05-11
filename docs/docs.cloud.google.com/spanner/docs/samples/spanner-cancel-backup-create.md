@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-cancel-backup-cr
 title: Cancel backup create operation
 description: Cancel a create backup database operation.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Cancel a create backup database operation.

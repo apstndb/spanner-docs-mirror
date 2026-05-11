@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints
 title: Add a custom organization policy
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page shows you how to use Organization Policy Service custom constraints to restrict specific operations on the following Google Cloud resources:

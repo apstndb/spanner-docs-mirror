@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializab
 title: Use SELECT FOR UPDATE in serializable isolation
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 > **Important:** Don't use locks to ensure exclusive access to a resource outside of Spanner. For more information, see [Unsupported use cases](https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable#unsupported-use-cases) .

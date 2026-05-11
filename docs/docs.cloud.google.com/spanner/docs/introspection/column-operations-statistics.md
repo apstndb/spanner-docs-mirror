@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/column-operations-
 title: Column operations statistics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 Spanner provides built-in tables that record read, query, and write operation statistics for your table columns. With column operations statistics you can do the following:

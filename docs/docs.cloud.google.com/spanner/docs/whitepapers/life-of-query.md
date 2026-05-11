@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query
 title: Life of a Spanner Query
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 ## Client

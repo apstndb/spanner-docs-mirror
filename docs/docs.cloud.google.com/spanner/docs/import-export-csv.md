@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/import-export-csv
 title: Import and export data in CSV format
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page describes how to export data from Spanner to CSV files or import data from CSV files into Spanner GoogleSQL-dialect databases or PostgreSQL-dialect databases.

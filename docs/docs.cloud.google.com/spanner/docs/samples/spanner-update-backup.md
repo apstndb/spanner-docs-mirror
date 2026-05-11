@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-update-backup
 title: Update backup
 description: Update a backup by retrieving the expiry time of a backup and extending it.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 Update a backup by retrieving the expiry time of a backup and extending it.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/pgadapter
 title: PGAdapter overview
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page provides an overview of PGAdapter. To learn how to start PGAdapter, see [Starting PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .

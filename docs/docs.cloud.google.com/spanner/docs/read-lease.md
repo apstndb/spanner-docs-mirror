@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/read-lease
 title: Read lease
 description: Understand how Spanner read leases reduce strong read latency by enabling replicas to serve reads directly.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page describes and explains how to use Spanner read leases. Read leases help your databases and [placements](https://docs.cloud.google.com/spanner/docs/geo-partitioning) reduce strong read latency in read-write or read-only regions at the cost of higher write latency.

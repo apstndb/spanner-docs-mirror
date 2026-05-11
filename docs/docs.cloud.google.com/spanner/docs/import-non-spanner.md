@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/import-non-spanner
 title: Import data from non-Spanner databases
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page describes how to prepare Avro files that you exported from non- Spanner databases and then import those files into Spanner. These procedures include information for both GoogleSQL-dialect databases and PostgreSQL-dialect databases. If you want to import a Spanner database that you previously exported, see [Import Spanner Avro files](https://docs.cloud.google.com/spanner/docs/import) .

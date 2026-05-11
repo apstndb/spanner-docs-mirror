@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/schema-updates
 title: Make schema updates
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 Spanner lets you make schema updates with no downtime. You can update the schema of an existing database in several ways:

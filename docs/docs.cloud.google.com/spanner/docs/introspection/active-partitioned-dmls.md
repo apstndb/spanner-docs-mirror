@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/active-partitioned
 title: Active partitioned DMLs statistics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 *Active partitioned Data Manipulation Language (DML)* provides real time progress for the [partitioned DMLs](https://docs.cloud.google.com/spanner/docs/dml-partitioned) that are active in your database.

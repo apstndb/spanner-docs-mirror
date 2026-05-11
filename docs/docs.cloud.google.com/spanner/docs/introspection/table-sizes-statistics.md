@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statis
 title: Table sizes statistics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 Spanner provides the following built-in tables:

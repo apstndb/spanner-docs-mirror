@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/dataflow-templates
 title: Dataflow templates
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 Google Cloud provides [open source Dataflow templates](https://github.com/GoogleCloudPlatform/DataflowTemplates) that you can use to create Dataflow jobs. These jobs are based on prebuilt Docker images for common use cases using the Google Cloud console, the Google Cloud CLI, or REST API calls. This page lists the available, Spanner-related Dataflow templates.

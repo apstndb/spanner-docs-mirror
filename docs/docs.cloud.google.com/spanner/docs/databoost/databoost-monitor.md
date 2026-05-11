@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-monitor
 title: Monitor Data Boost usage
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 This page describes how to use Cloud Monitoring and Spanner audit logs to monitor and analyze Spanner Data Boost usage.

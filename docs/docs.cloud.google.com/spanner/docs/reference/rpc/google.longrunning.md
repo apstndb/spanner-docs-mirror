@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning
 title: Package google.longrunning
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-01-30T17:50:06Z"
 ---
 
 ## Index

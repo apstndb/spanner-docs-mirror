@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/mysql/user_defined_fun
 title: MySQL functions
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:36Z"
 ---
 
 GoogleSQL for Spanner supports the following MySQL functions. You need to install the MySQL functions in your Spanner database before you can use them. For more information on installing the functions, see [Install MySQL functions](https://docs.cloud.google.com/spanner/docs/install-mysql-functions) .

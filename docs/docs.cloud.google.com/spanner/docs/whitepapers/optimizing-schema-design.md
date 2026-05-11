@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-de
 title: Optimizing Schema Design for Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 Google storage technologies power some of the world's largest applications. However, scale is not always an automatic result of using these systems. Designers must think carefully about how to model their data to ensure that their application can scale and perform as it grows in various dimensions.

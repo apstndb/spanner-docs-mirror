@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/set-up-spanner-migration-tool
 title: Set up Spanner migration tool
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This document describes how to install and run the Spanner migration tool (SMT) on Cloud Shell. For more information about SMT, see [Spanner migration tool](https://googlecloudplatform.github.io/spanner-migration-tool/) .

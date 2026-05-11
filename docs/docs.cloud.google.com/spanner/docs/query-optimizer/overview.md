@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/query-optimizer/overview
 title: Query optimizer overview
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 This page describes the Spanner query optimizer and its benefits. Query optimizer is available for GoogleSQL-dialect databases and PostgreSQL-dialect databases.

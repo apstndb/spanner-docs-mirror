@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-ado-net
 title: Use the Spanner ADO.NET driver
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 [ADO.NET](https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/ado-net-overview) is a generic interface for access to data sources for .NET. To use ADO.NET with your application, use the [Spanner ADO.NET driver](https://github.com/googleapis/dotnet-spanner-entity-framework/blob/-/spanner-ado-net/spanner-ado-net) .

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/import-export-data
 title: Import and export data
 description: Learn how to import and export data in Spanner Omni using Avro and CSV formats with Amazon S3, Google Cloud Storage, and local file systems.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

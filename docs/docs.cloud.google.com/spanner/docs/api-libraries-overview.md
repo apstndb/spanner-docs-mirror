@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/api-libraries-overview
 title: Overview of APIs, client libraries, and ORM drivers
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 ## Available interfaces

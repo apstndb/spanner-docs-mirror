@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/getting-started/rest
 title: Getting started with Spanner using REST
 description: 'Get started with the Spanner REST API: explore endpoints for managing resources and running queries using HTTP requests.'
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:02Z"
 ---
 
 ## Objectives

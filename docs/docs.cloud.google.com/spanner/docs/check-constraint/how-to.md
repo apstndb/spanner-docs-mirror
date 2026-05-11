@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/check-constraint/how-to
 title: Create and manage check constraints
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 A `CHECK` constraint lets you specify that the values of one or more columns must satisfy a boolean expression. In this page, we describe how to add and manage this type of constraint in GoogleSQL-dialect databases and PostgreSQL-dialect databases.

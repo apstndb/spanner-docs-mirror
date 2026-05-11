@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-user-defi
 title: Create user-defined STRUCT
 description: Create a user-defined STRUCT.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Create a user-defined STRUCT.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-query-graph-data
 title: Query data in a graph with a parameter
 description: Query data in a Spanner Graph using a parameter.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 Query data in a Spanner Graph using a parameter.

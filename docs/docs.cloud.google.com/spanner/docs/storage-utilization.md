@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/storage-utilization
 title: Storage utilization metrics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page describes the storage utilization metrics that Spanner provides.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-struct-wi
 title: Create STRUCT object with data
 description: Create a STRUCT object populated with data.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Create a STRUCT object populated with data.

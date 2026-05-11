@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical
 title: PostgreSQL lexical structure and syntax
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:36Z"
 ---
 
 This page describes the lexical structure used to create PostgreSQL statements in Spanner and defines the syntax of the lexical elements, called *tokens* , of this structure.

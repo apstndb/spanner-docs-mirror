@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-proc
 title: Stored procedures for PostgreSQL
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T18:29:19Z"
 ---
 
 A *stored procedure* is a collection of statements that can be called from other queries or other stored procedures. Some stored procedures are *system procedures* that are built into Spanner. System procedures don't need to be created. Spanner lets you use system procedures.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/leader-aware-routing
 title: Leader-aware routing
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page describes leader-aware routing in Spanner and how to use it. Spanner uses leader-aware routing to dynamically route read-write transactions in dual-region and multi-region instance configurations to reduce latency and improve performance in your database. Leader-aware routing is enabled by default.

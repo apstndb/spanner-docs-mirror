@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.adm
 title: Package google.spanner.admin.instance.v1
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-02-24T05:58:50Z"
 ---
 
 ## Index

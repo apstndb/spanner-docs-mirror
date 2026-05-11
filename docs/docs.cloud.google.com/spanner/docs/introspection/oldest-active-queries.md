@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-quer
 title: Oldest active queries statistics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 *Oldest active queries* , also known as *longest running queries* , is a list of queries that are active in your database, sorted by how long they've been running. Gaining insight into these queries can help identify causes of system latency and high CPU usage as they are happening.

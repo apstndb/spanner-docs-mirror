@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/isolation-levels
 title: Isolation levels overview
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page introduces different isolation levels and explains how they work in Spanner.

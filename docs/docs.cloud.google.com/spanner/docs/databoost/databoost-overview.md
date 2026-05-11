@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview
 title: Data Boost overview
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 Spanner Data Boost is a fully managed, serverless service that provides independent compute resources for supported Spanner workloads. Data Boost lets you execute analytics queries and data exports with near-zero impact to existing workloads on the provisioned Spanner instance. The service consists of Spanner clusters that Google manages at the region level. For eligible queries that request Data Boost, Spanner routes the workload to these servers transparently. Eligible queries are those for which the first operator in the query execution plan is a distributed union. These queries don't have to change to take advantage of Data Boost.

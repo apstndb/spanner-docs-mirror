@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instan
 title: Using Spanner in a virtual machine instance
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This page describes how to grant your Compute Engine [virtual machine instance](https://docs.cloud.google.com/compute/docs/instances) permission to access a Spanner database.

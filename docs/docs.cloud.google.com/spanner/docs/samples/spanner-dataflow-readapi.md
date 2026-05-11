@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dataflow-readapi
 title: Dataflow read api
 description: Use the Dataflow connector to read from a database without using a query by specifying a table name and a list of columns.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Use the Dataflow connector to read from a database without using a query by specifying a table name and a list of columns.

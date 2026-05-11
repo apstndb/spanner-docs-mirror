@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection
 title: Spanner built-in statistics tables overview
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:02Z"
 ---
 
 Built-in statistics tables for Spanner help you investigate issues in your database. You can query these tables to gain insight about queries, transactions, and reads. The following list of built-in statistics tables (or introspection tools) are available in Spanner:

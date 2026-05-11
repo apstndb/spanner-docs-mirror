@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/dml-tasks
 title: Insert, update, and delete data using data manipulation language (DML)
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 This page describes how to insert, update, and delete Spanner data using Data Manipulation Language (DML) statements. You can run DML statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/dml-tasks#client-library-dml) , the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/modify-data) , and the [`gcloud`](https://docs.cloud.google.com/spanner/docs/modify-gcloud) command-line tool. You can run [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statements using the client libraries and the [`gcloud`](https://docs.cloud.google.com/spanner/docs/modify-gcloud) command-line tool.

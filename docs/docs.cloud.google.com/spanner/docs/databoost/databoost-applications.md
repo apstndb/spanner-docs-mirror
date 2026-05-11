@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-applications
 title: Use Data Boost in your applications
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 This page lists the Spanner APIs that support Spanner Data Boost and explains how to view sample code that uses Data Boost. With Data Boost, you can run large analytic queries with near-zero impact to existing workloads on the provisioned Spanner instance.

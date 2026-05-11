@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/backup/restore-backups
 title: Restore from a backup
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 This page describes Spanner restoration operations and explains how to restore a database. For more information about database restoration in Spanner, see [Restore overview](https://docs.cloud.google.com/spanner/docs/backup/restore-backup-overview) .

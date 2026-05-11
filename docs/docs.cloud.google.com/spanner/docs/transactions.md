@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/transactions
 title: Transactions overview
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 > **Note:** The examples in this document are intended for GoogleSQL-dialect databases. However, the concepts and semantics apply to both GoogleSQL-dialect and PostgreSQL-dialect databases.

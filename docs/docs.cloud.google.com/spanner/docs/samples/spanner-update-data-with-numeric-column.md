@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-update-data-with
 title: Mutations update data with NUMERIC
 description: Update data in NUMERIC column by using mutations.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 Update data in NUMERIC column by using mutations.

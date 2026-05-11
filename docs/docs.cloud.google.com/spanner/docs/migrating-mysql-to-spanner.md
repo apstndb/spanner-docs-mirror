@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/migrating-mysql-to-spanner
 title: Migrate from MySQL to Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page offers an overview of how to migrate your Online Transactional Processing (OLTP) database from MySQL to [Spanner](https://docs.cloud.google.com/spanner) . The process to migrate to Spanner might vary depending on factors like data size, downtime requirements, application code complexity, sharding schema, custom functions, and failover and replication strategies.

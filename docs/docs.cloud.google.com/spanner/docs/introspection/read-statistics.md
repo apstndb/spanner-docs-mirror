@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/read-statistics
 title: Read statistics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 Spanner provides built-in tables that store statistics about reads. You can retrieve statistics from these `SPANNER_SYS.READ_STATS*` tables using SQL statements.

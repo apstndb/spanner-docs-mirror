@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-insert-graph-dat
 title: Insert graph data with DML
 description: Insert data into a Spanner Graph using DML.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 Insert data into a Spanner Graph using DML.

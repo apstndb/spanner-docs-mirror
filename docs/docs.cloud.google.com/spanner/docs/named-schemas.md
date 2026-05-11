@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/named-schemas
 title: Create and manage named schemas
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T19:57:31Z"
 ---
 
 This page describes how to create, use, and drop named schemas, and how to apply fine-grained access control to objects in named schemas. For overview information about named schemas, see [Named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .

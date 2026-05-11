@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-entity-framework
 title: Using Entity Framework Core with Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 > **PostgreSQL interface note:** The Spanner Entity Framework Core provider isn't supported in PostgreSQL databases.

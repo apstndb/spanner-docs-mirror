@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/commit-timestamp-postgresql
 title: Commit timestamps in PostgreSQL-dialect databases
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This page describes how to write a commit timestamp for each insert and update operation that you perform with Spanner in PostgreSQL-dialect databases.

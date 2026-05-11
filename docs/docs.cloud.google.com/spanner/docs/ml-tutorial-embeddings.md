@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings
 title: Get Vertex AI text embeddings
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page describes how to use the [Vertex AI text embedding](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) API to generate, store, and update text embeddings for data stored in Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/import
 title: Import Spanner Avro files
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page describes how to import Spanner databases into Spanner using the Google Cloud console. To import Avro files from another source, see [Import data from non-Spanner databases](https://docs.cloud.google.com/spanner/docs/import-non-spanner) .

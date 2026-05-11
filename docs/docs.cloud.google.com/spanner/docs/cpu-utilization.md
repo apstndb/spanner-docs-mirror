@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/cpu-utilization
 title: CPU utilization metrics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This page describes the CPU utilization metrics that Spanner provides. You can view these metrics [in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) and [in the Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .

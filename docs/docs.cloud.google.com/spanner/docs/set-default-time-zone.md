@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/set-default-time-zone
 title: Set the default time zone of a database
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 Spanner provides [date](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions) and [timestamp](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions) functions in GoogleSQL and Cloud SQL for PostgreSQL. Some functions, such as [`TIMESTAMP`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#timestamp) , are time zone dependent and accept an optional time zone parameter. If no time zone parameter is provided in a function, Spanner databases default to the `America/Los_Angeles` time zone.

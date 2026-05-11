@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres
 title: Choosing the Right Dialect for Your Spanner Database
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 When creating a Spanner database, you can choose between two SQL dialects: GoogleSQL and PostgreSQL. Both dialects offer the same core Spanner features, performance, and scalability. Requirements of applications, developers, and the ecosystem in which you work should inform your choice of dialect. This page lists the deciding factors between using GoogleSQL and PostgreSQL interface dialect databases.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/migrating-primary-keys
 title: Migrate primary keys
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page describes how to migrate primary keys from your source database tables to Spanner GoogleSQL-dialect databases and PostgreSQL-dialect databases. Before performing the procedures on the page, review the [Primary key migration overview](https://docs.cloud.google.com/spanner/docs/primary-keys-overview) .

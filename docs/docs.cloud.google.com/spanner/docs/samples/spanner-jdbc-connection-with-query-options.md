@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-jdbc-connection-
 title: JDBC connection with query options
 description: Set connection query options by using JDBC.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 Set connection query options by using JDBC.

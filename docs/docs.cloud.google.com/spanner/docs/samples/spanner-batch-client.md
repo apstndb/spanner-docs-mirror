@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-batch-client
 title: Read data in parallel
 description: Read data in parallel by dividing the query into smaller pieces, or partitions, and fetching the partitions in parallel.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Read data in parallel by dividing the query into smaller pieces, or partitions, and fetching the partitions in parallel.

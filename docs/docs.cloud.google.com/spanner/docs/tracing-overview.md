@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/tracing-overview
 title: Trace collection overview
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page offers overview information about trace collection with OpenTelemetry. To monitor and debug Spanner requests, you can enable traces in the [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) . Client-side and end-to-end tracing can help you monitor performance and debug issues.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/operational-guidelines
 title: Spanner operational guidelines
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This page describes some of the user-controlled configurations that can cause an outage for a Spanner instance to be excluded from the Spanner Service Level Agreement (SLA), which excludes outages "caused by factors outside of Google's reasonable control". It also provides guidelines on how to avoid these configurations.

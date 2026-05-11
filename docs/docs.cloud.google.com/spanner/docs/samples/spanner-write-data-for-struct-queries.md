@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-write-data-for-s
 title: Mutations write data for STRUCT queries
 description: Insert data used for STRUCT queries.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 Insert data used for STRUCT queries.

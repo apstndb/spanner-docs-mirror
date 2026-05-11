@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-defini
 title: PostgreSQL data definition language
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T18:29:19Z"
 ---
 
 This page defines the syntax of the SQL data definition language (DDL) statements supported for PostgreSQL-dialect databases.

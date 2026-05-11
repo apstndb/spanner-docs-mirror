@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/key-terms
 title: Spanner Omni key terms
 description: Understand Spanner Omni key terms and concepts.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

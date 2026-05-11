@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas
 title: Monitor and manage Data Boost quota usage
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 Spanner Data Boost is subject to quotas that limit the number of concurrent `ExecuteStreamingSQL` and `StreamingRead` calls executing per project and per region. When the number of concurrent requests exceeds the quota, requests fail with `RESOURCE EXHAUSTED` errors.

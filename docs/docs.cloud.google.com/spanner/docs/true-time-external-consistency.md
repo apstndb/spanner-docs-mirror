@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/true-time-external-consistency
 title: 'Spanner: TrueTime and external consistency'
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 TrueTime is a highly available, distributed clock that is provided to applications on all Google servers [<sup>1</sup>](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency#1) . TrueTime enables applications to generate monotonically increasing timestamps: an application can compute a timestamp T that is guaranteed to be greater than any timestamp T', if T' finished being generated before T started being generated. This guarantee holds across all servers and all timestamps.

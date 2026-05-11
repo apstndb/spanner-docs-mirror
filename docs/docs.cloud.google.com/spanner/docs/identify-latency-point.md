@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/identify-latency-point
 title: Identify where latency occurs
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 This page shows you how to identify and troubleshoot latency issues in your Spanner components.To learn more about possible latency points in a Spanner request, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/deploy-on-vms
 title: Create a deployment on VMs
 description: Set up an insecure Spanner Omni deployment on VMs. Understand risks, configure topology, and manage databases.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

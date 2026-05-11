@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/schema-drop-protection
 title: Schema object drop protection
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page describes how to protect schema objects such as tables, indexes, and columns from accidental deletion.

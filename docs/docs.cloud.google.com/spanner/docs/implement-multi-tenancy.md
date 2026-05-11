@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/implement-multi-tenancy
 title: Implement multi-tenancy in Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page describes various ways to implement multi-tenancy in Spanner. It also discusses data management patterns and tenant lifecycle management. It is intended for database architects, data architects, and engineers that implement multi-tenant applications on Spanner as their relational database. Using that context, it outlines various approaches to store multi-tenant data. The terms "tenant", "customer", and "organization" are used interchangeably throughout the article to indicate the entity that's accessing the multi-tenant application. The examples provided on this page are based on a human resources (HR) SaaS provider's implementation of its multi-tenant application on Google Cloud. One requirement is that several customers of the HR SaaS provider must access the multi-tenant application. These customers are called tenants.

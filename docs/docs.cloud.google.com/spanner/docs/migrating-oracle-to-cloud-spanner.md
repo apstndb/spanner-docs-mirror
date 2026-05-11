@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/migrating-oracle-to-cloud-spanne
 title: Migrate from Oracle&reg; OLTP system to Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This article explains how to migrate your database from Oracle® Online Transaction Processing (OLTP) systems to [Spanner](https://docs.cloud.google.com/spanner) .

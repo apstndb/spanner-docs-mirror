@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/sql-shell-commands
 title: SQL shell commands
 description: List and describe all supported SQL shell commands
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:01Z"
 ---
 
 > **Preview**

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/graph/visualization-integrations
 title: Work with Spanner Graph visualization tools and integrations
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 The notebook and third-party tools listed on this page are integrated with Spanner Graph. These tools let you see a visualization of a Spanner Graph query result, providing more ways, outside the Google Cloud console.

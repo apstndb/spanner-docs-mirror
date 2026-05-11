@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/modify-data
 title: Insert and modify data using the Google Cloud console
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 The Google Cloud console provides an interface for inserting, editing, and deleting data in a Spanner table.

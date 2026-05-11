@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/monitor-active-queries
 title: Monitor active queries
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page describes how to monitor and troubleshoot queries that are running in your Spanner instance. Active queries are long-running queries that might affect the performance of your instance. Monitoring these queries can help you identify causes of instance latency and high CPU usage.

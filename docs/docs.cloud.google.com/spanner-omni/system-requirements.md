@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/system-requirements
 title: Spanner Omni system requirements
 description: System requirements for deploying Spanner Omni on-premises and in cloud environments.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:01Z"
 ---
 
 > **Preview**

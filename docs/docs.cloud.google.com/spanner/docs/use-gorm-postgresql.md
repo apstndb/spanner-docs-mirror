@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-gorm-postgresql
 title: Integrate Spanner with GORM (PostgreSQL dialect)
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 GORM is an object-relational mapping tool for the Go programming language. It provides a framework for mapping an object-oriented domain model to a relational database.

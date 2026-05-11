@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-
 title: Manage and observe long-running operations
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page describes how to manage the lifecycle of a Spanner *long-running operation* using `gcloud spanner operations` commands and the [operations REST API](https://docs.cloud.google.com/spanner/docs/reference/rest) . Some procedures can also be done in the Google Cloud console.

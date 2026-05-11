@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/metrics
 title: Metrics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T19:59:16Z"
 ---
 
 The following Spanner metrics are provided to Cloud Monitoring. For the best performance debugging results, use server-side metrics with [client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) .

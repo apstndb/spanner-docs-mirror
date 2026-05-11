@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/storing-numeric-data
 title: Store arbitrary precision numeric data
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 Spanner provides the `NUMERIC` type that can store decimal precision numbers exactly. The semantics of the `NUMERIC` type in Spanner varies between its two SQL dialects (GoogleSQL and PostgreSQL), especially around the limits on [scale and precision](https://docs.cloud.google.com/spanner/docs/storing-numeric-data#precision) :

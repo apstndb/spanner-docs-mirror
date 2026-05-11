@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/working-with-jsonb
 title: Work with JSONB data
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 This page describes how to work with the `JSONB` data type when using Spanner.

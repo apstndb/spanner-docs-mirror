@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/emulator
 title: Emulate Spanner locally
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 The [gcloud CLI](https://docs.cloud.google.com/sdk) provides a local, in-memory emulator, which you can use to develop and test your applications. Because the emulator stores data only in memory, all state, including data, schema, and configs, is lost on restart. The emulator offers the same APIs as the Spanner production service and is intended for local development and testing, not for production deployments.

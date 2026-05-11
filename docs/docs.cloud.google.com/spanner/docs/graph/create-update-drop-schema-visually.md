@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema-
 title: Create and manage a Spanner Graph schema visually
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 > **Preview — Spanner Graph visual management**

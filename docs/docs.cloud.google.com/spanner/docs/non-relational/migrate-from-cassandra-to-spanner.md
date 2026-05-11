@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cass
 title: Migrate from Cassandra to Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 This page explains how to migrate your NoSQL database from Cassandra to Spanner.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-opt
 title: Manage the query optimizer
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 This page describes how to manage the query optimizer in Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/create-helm-configuration
 title: Create a Helm chart configuration for Spanner Omni
 description: Configure Helm for Spanner Omni insecure deployments on Kubernetes. Learn about configuration options and platform-specific defaults.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

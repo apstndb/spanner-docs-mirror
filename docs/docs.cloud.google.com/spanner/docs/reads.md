@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reads
 title: Reads outside of transactions
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 This page describes how to perform reads in Spanner outside the context of read-only and read-write transactions. If either of the following applies, you should read the [Transactions](https://docs.cloud.google.com/spanner/docs/transactions) page instead:

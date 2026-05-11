@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/pgadapter-get
 title: Get PGAdapter
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page explains how to get the PGAdapter binary. PGAdapter is used with PostgreSQL-dialect databases.

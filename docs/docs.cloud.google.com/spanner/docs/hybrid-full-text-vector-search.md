@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/hybrid-full-text-vector-search
 title: Hybrid full-text and vector search patterns
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:46Z"
 ---
 
 This page describes how to conduct full-text and vector hybrid searches in Spanner. Hybrid search combines the precision of keyword matching (full-text search, FTS) with the recall of semantic matching (vector search) to produce highly relevant search results.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/schema-design
 title: Schema design best practices
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 The distributed architecture of Spanner lets you design your schema to avoid *hotspots* - situations where too many requests are sent to the same server which saturates the resources of the server and potentially causes high latencies.

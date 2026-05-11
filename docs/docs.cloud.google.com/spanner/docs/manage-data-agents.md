@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/manage-data-agents
 title: Manage context sets in Spanner Studio
 description: Manage context sets in Cloud SQL Studio to build agents that interact with your data using conversational language.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 > **Preview**

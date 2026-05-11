@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-partitioned-
 title: Bulk delete with partitioned DML
 description: Bulk delete data by using a partitioned DML statement.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Bulk delete data by using a partitioned DML statement.

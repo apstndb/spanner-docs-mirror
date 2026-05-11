@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/transaction-statis
 title: Transaction statistics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 This document describes the transaction statistics Spanner offers as built-in tables. You can retrieve statistics from these `SPANNER_SYS.TXN_STATS*` tables using SQL statements.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/latency-points
 title: Latency points in a Spanner request
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page gives an overview of the high-level components involved in a Spanner request and how each component can affect latency.

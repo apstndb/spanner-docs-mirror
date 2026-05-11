@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/getting-started/python
 title: Getting started with Spanner in Python
 description: 'Get started with Spanner in Python: install the client library, connect to a database, and perform data operations.'
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:02Z"
 ---
 
 ## Objectives

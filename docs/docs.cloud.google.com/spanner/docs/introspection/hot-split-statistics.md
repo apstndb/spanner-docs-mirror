@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statisti
 title: Split statistics
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 This document describes how to detect and debug hotspots in your database. You can access statistics about hotspots in splits with both GoogleSQL and PostgreSQL.

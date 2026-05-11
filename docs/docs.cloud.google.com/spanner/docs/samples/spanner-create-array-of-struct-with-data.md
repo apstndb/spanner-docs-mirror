@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-create-array-of-
 title: Create STRUCT object array with data
 description: Create an array of STRUCT objects populated with data.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Create an array of STRUCT objects populated with data.

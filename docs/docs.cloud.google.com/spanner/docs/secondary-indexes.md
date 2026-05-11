@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/secondary-indexes
 title: Secondary indexes
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 In a Spanner database, Spanner automatically creates an index for each table's primary key. For example, you don't need to do anything to index the primary key of `Singers` , because it's automatically indexed for you.

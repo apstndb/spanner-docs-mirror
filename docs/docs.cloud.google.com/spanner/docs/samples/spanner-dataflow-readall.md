@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-dataflow-readall
 title: Dataflow read all
 description: Use SQL queries with the Dataflow connector to read data from all available tables in a database.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:54Z"
 ---
 
 Use SQL queries with the Dataflow connector to read data from all available tables in a database.

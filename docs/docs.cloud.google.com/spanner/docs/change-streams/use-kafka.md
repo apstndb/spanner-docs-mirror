@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka
 title: Build change streams connections to Kafka
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 This page explains how to use the Kafka connector to consume and forward Spanner [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) data.

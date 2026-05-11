@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback
 title: Configure fallback for MySQL
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page explains how to set up fallback for MySQL using reverse replication. Fallback refers to a contingency plan to revert to your source MySQL database if you encounter issues with Spanner.

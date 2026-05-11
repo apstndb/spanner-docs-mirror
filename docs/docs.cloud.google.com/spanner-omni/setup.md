@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/setup
 title: Set up Spanner Omni
 description: Learn how to set up Spanner Omni using a TAR file or a Docker container.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:01Z"
 ---
 
 > **Preview**

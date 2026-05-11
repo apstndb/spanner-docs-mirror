@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook
 title: Spanner proof of concept playbook
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page provides a strategy for planning and running a proof of concept (POC) with Spanner. It provides in-depth references and insights into crucial aspects of a POC, such as instance configuration, schema design, data loading, and performance evaluation. It highlights essential steps for evaluating Spanner's capabilities and helps you identify potential risks and benefits tied to Spanner adoption.

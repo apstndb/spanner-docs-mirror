@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp
 title: Monitor Spanner using the Database Insights MCP server
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 This document describes how to use the Database Insights remote Model Context Protocol (MCP) server to monitor Spanner from AI applications such as Gemini CLI, agent mode in Gemini Code Assist, Claude Code, or in AI applications that you're developing.

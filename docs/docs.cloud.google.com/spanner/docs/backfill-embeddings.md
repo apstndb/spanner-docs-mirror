@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/backfill-embeddings
 title: Generate vector embeddings for textual data in bulk using partitioned DML
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This document explains how to generate and backfill vector embeddings in bulk for textual data ( `STRING` or `JSON` ) that is stored in Spanner using SQL and the [Vertex AI text embedding models](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) .

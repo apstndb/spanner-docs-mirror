@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-list-backup-oper
 title: List backup operations
 description: List all create backup operations running on the database and list the percentage complete for each operation.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 List all create backup operations running on the database and list the percentage complete for each operation.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions
 title: Function calls in GoogleSQL
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:36Z"
 ---
 
 When you call a function, specific rules may apply. You can also add the `SAFE.` prefix, which prevents functions from generating some types of errors. To learn more, see the next sections.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview
 title: Overview of graphs created from SQL views
 description: Learn about using SQL views to create node and edge tables in a graph. Implement access control, flexible data modeling, and schemaless data transition.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .

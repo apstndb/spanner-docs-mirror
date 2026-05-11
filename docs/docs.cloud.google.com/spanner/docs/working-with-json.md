@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/working-with-json
 title: Work with JSON data
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 > **PostgreSQL interface note:** The `JSON` data type is not supported in PostgreSQL-dialect databases. Use the [`JSONB` data type](https://docs.cloud.google.com/spanner/docs/working-with-jsonb) for PostgreSQL-dialect databases.

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/best-practices-gaming-database
 title: Best practices for using Spanner as a gaming database
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This document describes best practices for using Spanner as the primary backend database for game state storage. You can use [Spanner](https://docs.cloud.google.com/spanner) in place of common databases to store player authentication data and inventory data. This document is intended for game backend engineers working on long-term state storage, and game infrastructure operators and admins who support those systems and are interested in hosting their backend database on Google Cloud.

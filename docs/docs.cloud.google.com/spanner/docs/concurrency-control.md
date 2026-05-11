@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/concurrency-control
 title: Concurrency control
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 Spanner transactions offer two modes of concurrency control: *pessimistic* and *optimistic* . The choice of concurrency control mode affects how transactions handle simultaneous reads and writes, influencing performance, latency, and transaction abort rates. Choose the mode that best suits your application's performance and consistency requirements.

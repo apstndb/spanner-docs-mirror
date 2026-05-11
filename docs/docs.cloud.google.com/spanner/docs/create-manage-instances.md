@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/create-manage-instances
 title: Create and manage instances
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-11T03:24:21Z"
 ---
 
 This page describes how to create, list, edit, and delete Spanner [instances](https://docs.cloud.google.com/spanner/docs/instances) .

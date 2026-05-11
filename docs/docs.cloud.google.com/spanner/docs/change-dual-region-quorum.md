@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum
 title: Change dual-region quorum
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 This page describes how to check the health status of your Spanner dual-region quorum, and how to manually change the quorum in case of service disruptions.

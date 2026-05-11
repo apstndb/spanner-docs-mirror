@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-hibernate-inheri
 title: Hibernate inheritance
 description: Use hibernate inheritance and UUIDs to save a payment record in a database.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 Use hibernate inheritance and UUIDs to save a payment record in a database.

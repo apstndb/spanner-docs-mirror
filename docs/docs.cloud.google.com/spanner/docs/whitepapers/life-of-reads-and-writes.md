@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-wr
 title: Life of Spanner Reads & Writes
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 Spanner is a strongly-consistent, distributed, scalable database built by Google engineers to support some of Google's most critical applications. It takes core ideas from the database and distributed systems communities and expands on them in new ways. Spanner exposes this internal Spanner service as a publicly available service on Google Cloud Platform.

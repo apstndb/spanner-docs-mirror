@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-ut
 title: Investigate high CPU utilization
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:37Z"
 ---
 
 This page describes how to use CPU utilization metrics and charts, along with other introspection tools, to investigate high CPU usage in your database.

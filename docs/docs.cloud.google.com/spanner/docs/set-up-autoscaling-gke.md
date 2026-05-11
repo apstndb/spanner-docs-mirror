@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke
 title: Deploy the Autoscaler tool to GKE
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:16Z"
 ---
 
 The Google Kubernetes Engine (GKE) deployment model is is a good choice for independent teams who want to self-manage the infrastructure and configuration of their own Autoscalers on Kubernetes.

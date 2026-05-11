@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms
 title: Create a deployment with TLS encryption on VMs
 description: Describes how to add TLS encryption to a deployment of Spanner Omni on virtual machines (VMs).
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

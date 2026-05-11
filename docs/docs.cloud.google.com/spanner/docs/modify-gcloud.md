@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/modify-gcloud
 title: Inserting, updating, and deleting data using the Google Cloud CLI
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:59Z"
 ---
 
 This page describes how to insert, update, and delete data using the [`gcloud`](https://docs.cloud.google.com/sdk) command-line tool.

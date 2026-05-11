@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni
 title: Spanner Omni documentation
 description: Get documentation for Spanner Omni
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:02Z"
 ---
 
 # Spanner Omni documentation

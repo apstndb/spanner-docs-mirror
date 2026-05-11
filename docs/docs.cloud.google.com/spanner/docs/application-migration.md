@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/application-migration
 title: Migrate your application code
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
 ---
 
 A typical application uses a client, such as a low-level driver or an object-relational mapper (ORM) to connect to the database. Spanner supports clients in multiple languages that let you use common libraries, such as JDBC, across developer environments. For more information, see [Overview of drivers](https://docs.cloud.google.com/spanner/docs/drivers-overview) .

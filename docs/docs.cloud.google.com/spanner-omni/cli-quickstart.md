@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/cli-quickstart
 title: Quickstart using the Spanner Omni CLI
 description: Learn how to interact with and manage a Spanner Omni deployment using the Spanner Omni CLI.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

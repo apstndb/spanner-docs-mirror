@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner
 title: Migrate from PostgreSQL to Spanner (GoogleSQL dialect)
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 > **PostgreSQL interface note:** This page applies to migrating an open source PostgreSQL database to Spanner and the GoogleSQL dialect. For information about migrating to Spanner and the PostgreSQL dialect, see [Migrating from PostgreSQL to Spanner (PostgreSQL dialect)](https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner-pgcompat) .

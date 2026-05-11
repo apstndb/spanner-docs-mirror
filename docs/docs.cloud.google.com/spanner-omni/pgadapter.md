@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/pgadapter
 title: Connect using PGAdapter
 description: Learn how to connect to Spanner Omni using PGAdapter in plain text, TLS, and mTLS security modes.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

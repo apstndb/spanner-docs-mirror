@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-list-database-op
 title: List database operations
 description: List all operations running on the database and list the percentage complete for each operation.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
 ---
 
 List all operations running on the database and list the percentage complete for each operation.

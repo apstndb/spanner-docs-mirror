@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner-omni/grafana-dashboards
 title: Use Grafana dashboards to monitor Spanner Omni
 description: Learn about the Grafana dashboards and charts available to monitor the health and performance of your Spanner Omni deployments.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:37Z"
 ---
 
 > **Preview**

@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/import-database-cloudsql
 title: Import from Cloud SQL to Spanner
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:32:28Z"
 ---
 
 This page describes how to import data from Cloud SQL for MySQL into Spanner.

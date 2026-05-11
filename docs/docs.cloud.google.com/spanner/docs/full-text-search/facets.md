@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/full-text-search/facets
 title: Perform a search using facets
 description: Understand how to use facets with full-text searches.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
 ---
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .

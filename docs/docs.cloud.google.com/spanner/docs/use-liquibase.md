@@ -4,7 +4,6 @@ uri: https://docs.cloud.google.com/spanner/docs/use-liquibase
 title: Integrate Spanner with Liquibase
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:42:54Z"
 ---
 
 This page describes how to manage Spanner database schema changes with [Liquibase](https://www.liquibase.org/) for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
