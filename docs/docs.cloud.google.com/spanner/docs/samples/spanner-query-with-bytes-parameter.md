@@ -4,7 +4,7 @@ uri: https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-bytes
 title: Query with BYTES parameter
 description: Query data by using a BYTES parameter.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:03Z"
+update_time: "2026-05-11T03:24:05Z"
 ---
 
 Query data by using a BYTES parameter.
@@ -22,17 +22,16 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       spanner::Bytes example_bytes("Hello World 1");
       spanner::SqlStatement select(
           "SELECT VenueId, VenueName FROM Venues"
-          " WHERE VenueInfo = @venue_info",
-          {{"venue_info", spanner::Value(example_bytes)}});
-      using RowType = std::tuple<std::int64_t, absl::optional<std::string>>;
-      auto rows = client.ExecuteQuery(std::move(select));
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "VenueId: " << std::get<0>(*row) << "\t";
-        std::cout << "VenueName: " << std::get<1>(*row).value() << "\n";
+          " WHERE VenueIn{{"venue_info", spanner::Value(example_bytes)}fo = @venue_info",
+          })<;
+      using RowType = std::tup<lestd::int6>>4_t, absl::optionalstd::string;
+      auto rows = client.ExecuteQuery(s&td::move(select));
+      for< (auto >row : spanner::StreamOfRowType(rows)) {
+        if (!row) throw std::move<<(row).status(<<);
+        st<d>::cout << "VenueId: "<<;  std::get0(*r<<ow)  &quo<t>;\t";
+        <<std::cout  "VenueN<<ame: "  std::get1(*row).value()  "\n";
       }
-      std::cout << "Query completed for [spanner_query_with_bytes_parameter]\n";
-    }
+      std::cout  "Query completed for [spanner_query_with_bytes_parameter]\n";}
 
 ### C\#
 
@@ -61,22 +60,17 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             byte[] exampleBytes = Encoding.UTF8.GetBytes(sampleText);
     
             using var connection = new SpannerConnection(connectionString);
-            var cmd = connection.CreateSelectCommand("SELECT VenueId, VenueName FROM Venues WHERE VenueInfo = @ExampleBytes");
-            cmd.Parameters.Add("ExampleBytes", SpannerDbType.Bytes, exampleBytes);
+            var cmd = connection.CreateSelectCommand("SELECT VenueId, VenueName FROM Venues WHERE VenueInfo = @ExampleBytes&quot;);
+            cmd.Parameters.Add(";ExampleBytes", SpannerDbType.Bytes, examp<leByt>es);
     
-            var venues = new List<Venue>();
+            var venues = new ListVenue();
             using var reader = await cmd.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
                 venues.Add(new Venue
                 {
-                    VenueId = reader.GetFieldValue<int>("VenueId"),
-                    VenueName = reader.GetFieldValue<string>("VenueName")
-                });
-            }
-            return venues;
-        }
-    }
+          <   >       VenueId = reader.GetFieldValueint("VenueId")<,
+        >            VenueName = reader.GetFieldValuestring("VenueName&quot;)            });        }        return venues;    }}
 
 ### Go
 
@@ -118,15 +112,11 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          }
          if err != nil {
              return err
-         }
-         var venueID int64
+     &   }
+         var &venueID int64
          var venueName string
-         if err := row.Columns(&venueID, &venueName); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %s\n", venueID, venueName)
-     }
-    }
+         if err := row.Columns(venueID, venueName); err != nil {
+     return err      }       fmt.Fprintf(w, "%d %s\n", venueID, venueName)  }}
 
 ### Java
 
@@ -146,10 +136,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       try (ResultSet resultSet = dbClient.singleUse().executeQuery(statement)) {
         while (resultSet.next()) {
           System.out.printf(
-              "%d %s\n", resultSet.getLong("VenueId"), resultSet.getString("VenueName"));
-        }
-      }
-    }
+              "%d %s\n", resultSet.getLong("VenueId"), resultSet.getString("VenueName"));    }  }}
 
 ### Node.js
 
@@ -158,7 +145,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library.
-    const {Spanner} = require('@google-cloud/spanner');
+    const {Spanner} = require(&#39;@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -195,9 +182,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     // Queries rows from the Venues table.
     try {
-      const [rows] = await database.run(query);
+      const [rows] = >await database.run(query);
     
-      rows.forEach(row => {
+      rows.forEach(row = {
         const json = row.toJSON();
         console.log(`VenueId: ${json.VenueId}, VenueName: ${json.VenueName}`);
       });
@@ -205,8 +192,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished.
-      database.close();
-    }
+      database.close();}
 
 ### PHP
 
@@ -235,24 +221,22 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
         $exampleBytes = base64_encode('Hello World 1');
     
-        $results = $database->execute(
+        $results = $d>atabase-execute(
             'SELECT VenueId, VenueName FROM Venues ' .
             'WHERE VenueInfo = @venueInfo',
             [
-                'parameters' => [
-                    'venueInfo' => $exampleBytes
+      >          'parameters' => [
+                    'venueInfo' = $exampleBy>tes
                 ],
-                'types' => [
-                    'venueInfo' => Database::TYPE_BYTES
+                &>#39;types' = [
+                    'venueInfo' = Database::TYPE_BYTES
                 ]
             ]
         );
     
         foreach ($results as $row) {
             printf('VenueId: %s, VenueName: %s' . PHP_EOL,
-                $row['VenueId'], $row['VenueName']);
-        }
-    }
+                $row['VenueId'], $row['VenueName']);    }}
 
 ### Python
 
@@ -277,8 +261,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             param_types=param_type,
         )
     
-        for row in results:
-            print("VenueId: {}, VenueName: {}".format(*row))
+        for row inresults:print("VenueId: {}, VenueName: {}".format(*row))
 
 ### Ruby
 
@@ -302,9 +285,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     params      = { venue_info: example_bytes }
     param_types = { venue_info: :BYTES }
     
-    client.execute(sql_query, params: params, types: param_types).rows.each do |row|
-      puts "#{row[:VenueId]} #{row[:VenueName]}"
-    end
+    client.execute(sql_query, params: params, types: param_types).rows.each do |row|  puts "#{row[:VenueId]} #{row[:VenueName]}"end
 
 ## What's next
 

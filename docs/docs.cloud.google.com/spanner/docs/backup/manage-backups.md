@@ -4,7 +4,7 @@ uri: https://docs.cloud.google.com/spanner/docs/backup/manage-backups
 title: Manage backups
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:41:20Z"
+update_time: "2026-05-11T03:34:55Z"
 ---
 
 This page offers information about Spanner backup operations. For more information about backups, see [Backups overview](https://docs.cloud.google.com/spanner/docs/backup) .

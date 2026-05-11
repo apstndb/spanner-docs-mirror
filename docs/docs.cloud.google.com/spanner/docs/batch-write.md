@@ -4,7 +4,7 @@ uri: https://docs.cloud.google.com/spanner/docs/batch-write
 title: Modify data using batch write
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
+update_time: "2026-05-11T03:34:55Z"
 ---
 
 This page describes Spanner batch write requests and how you can use them to modify your Spanner data.

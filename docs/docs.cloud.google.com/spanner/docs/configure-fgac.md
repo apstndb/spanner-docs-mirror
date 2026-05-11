@@ -4,7 +4,7 @@ uri: https://docs.cloud.google.com/spanner/docs/configure-fgac
 title: Configure fine-grained access control
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
-update_time: "2026-05-08T21:33:13Z"
+update_time: "2026-05-11T03:24:21Z"
 ---
 
 This page explains how to configure fine-grained access control for Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
