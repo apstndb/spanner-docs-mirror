@@ -1438,7 +1438,7 @@ For [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fga
 
 The following notes and restrictions apply when you revoke privileges from database roles.
 
-  - Identifiers for database objects named in the `REVOKE` statement must use the case that was specified when the object was created. For example, if you created a table with a name that is in all lowercase with a capitalized first letter, you must use that same case in the `REVOKE` statement. For each change stream, PostgreSQL automatically creates a change stream read function with a name that consists of a prefix added to the change stream name, so ensure that you use the proper case for both the prefix and the change stream name. For more information about change stream read functions, see [Change stream query syntax](https://docs.cloud.google.com/spanner/docs/fgac-change-streams/details#change_stream_query_syntax) .
+  - Identifiers for database objects named in the `REVOKE` statement must use the case that was specified when the object was created. For example, if you created a table with a name that is in all lowercase with a capitalized first letter, you must use that same case in the `REVOKE` statement. For each change stream, PostgreSQL automatically creates a change stream read function with a name that consists of a prefix added to the change stream name, so ensure that you use the proper case for both the prefix and the change stream name. For more information about change stream read functions, see [Change stream query syntax](https://docs.cloud.google.com/spanner/docs/change-streams/details#change_stream_query_syntax) .
 
   - When revoking column-level privileges on multiple tables, each table must contain the named columns.
 

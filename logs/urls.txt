@@ -640,7 +640,7 @@ https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions	2
 https://docs.cloud.google.com/spanner/docs/reference/mysql/user_defined_functions_all	2026-05-08T21:32:36Z
 https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions	2026-05-08T21:32:36Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays	2026-05-08T21:32:36Z
-https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language	2026-05-08T18:29:19Z
+https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language	2026-05-11T17:27:06Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types	2026-05-08T21:32:36Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax	2026-05-08T21:32:36Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions	2026-05-08T21:32:36Z
@@ -995,7 +995,7 @@ https://docs.cloud.google.com/spanner/docs/signal-capture-overview	2026-05-08T21
 https://docs.cloud.google.com/spanner/docs/spanner-ai-overview	2026-05-08T21:33:16Z
 https://docs.cloud.google.com/spanner/docs/spanner-cli	2026-05-08T21:33:16Z
 https://docs.cloud.google.com/spanner/docs/spanner-cli-commands	2026-05-08T21:33:16Z
-https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints	2026-05-08T21:33:16Z
+https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints	2026-05-11T05:53:06Z
 https://docs.cloud.google.com/spanner/docs/sql-best-practices	2026-05-08T21:33:16Z
 https://docs.cloud.google.com/spanner/docs/statement-timeout	2026-05-08T21:33:16Z
 https://docs.cloud.google.com/spanner/docs/storage-utilization	2026-05-08T21:33:16Z
