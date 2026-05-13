@@ -109,6 +109,15 @@ Obtaining efficient execution plans is challenging because Spanner divides data 
 
 Spanner uses the primitive operator [`distributed union`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , along with its variants [`distributed cross apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-cross-apply) and [`distributed outer apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-outer-apply) , to enable this model.
 
+## Key performance metrics
+
+The Spanner Studio query plan visualizer displays summary metrics for query execution. Summary metrics represent the aggregate of metrics from all individual operators executed during the query. The following table describes the key performance metrics:
+
+| Metric             | Description                                                                                                                                                                                                    |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Total elapsed time | The total wall-clock time taken to execute the query.                                                                                                                                                          |
+| CPU time           | The total amount of CPU time spent across all servers involved in executing the query. Because some parts of query execution can proceed in parallel, the CPU time can be greater than the total elapsed time. |
+
 ## Sampled query plans
 
 Spanner sampled query plans allow you to view samples of historic query plans and compare the performance of a query over time. Not all queries have sampled query plans available. Only queries that consume higher CPU might be sampled. The data retention for Spanner query plan samples is 30 days. You can find query plan samples on the [Query insights](https://docs.cloud.google.com/spanner/docs/using-query-insights) page of the Google Cloud console. For instructions, see [View sampled query plans](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer#view-sampled-queries) .
