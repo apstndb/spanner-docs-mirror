@@ -755,9 +755,11 @@ The primary use case for `HIDDEN` columns is to omit `TOKENLIST` columns from a 
     
       - The expression can only reference columns in the same table.
     
-      - The expression can't contain [subqueries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) .
+      - The expression can only use immutable functions. An immutable function is one that returns the same results every time it's called with the same argument values. For more information, see [Function volatility](https://docs.cloud.google.com/spanner/docs/concepts/function-volatility) .
     
-      - Expressions with non-deterministic functions such as [`PENDING_COMMIT_TIMESTAMP()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#pending_commit_timestamp) , [`CURRENT_DATE()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions#current_date) , and [`CURRENT_TIMESTAMP()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#current_timestamp) can't be made into a `STORED` generated column or a generated column that is indexed.
+      - The expression must be scalar, meaning it returns a single value.
+    
+      - The expression can't contain [subqueries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) .
     
       - You can't modify the expression of a `STORED` or indexed generated column.
 

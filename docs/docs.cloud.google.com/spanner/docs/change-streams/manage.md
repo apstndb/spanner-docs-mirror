@@ -16,7 +16,7 @@ Spanner begins a [long-running operation](https://docs.cloud.google.com/spanner/
 
 To create a change stream, you need to provide its name and the schema objects it watches: either the entire database, or a list of specific tables and columns. You can optionally configure a change stream with any of the following:
 
-  - [Specify the data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) to override the default, one-day retention period.
+  - [Specify the data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) to override the default, seven-days retention period.
 
   - [Specify the value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) to override the default value capture type `OLD_AND_NEW_VALUES` .
 
@@ -102,7 +102,7 @@ You can combine table-watching and column-watching syntax from the previous two 
 
 ### Specify a longer retention period
 
-To specify a [change stream data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) longer than the default of one day, set the `retention_period` to a period of up to thirty days, expressed as either hours ( `h` ) or days ( `d` ).
+To specify a [change stream data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) longer than the default of seven days, set the `retention_period` to a period of up to thirty days, expressed as either hours ( `h` ) or days ( `d` ).
 
 Two examples:
 

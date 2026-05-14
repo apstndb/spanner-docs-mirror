@@ -28,7 +28,7 @@ You can configure a change stream to watch data changes across an entire databas
 
 You can optionally configure a change stream with the following:
 
-  - [Specify the data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) to override the default, one-day retention period.
+  - [Specify the data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) to override the default, seven-days retention period.
   - [Specify the value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) to override the default value capture type `OLD_AND_NEW_VALUES` .
   - [Apply a TTL-based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) to filter out TTL-based deletes from your change streams.
   - [Apply a table modifications filter](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) to exclude all `INSERT` , `UPDATE` , or `DELETE` table modifications.
@@ -98,7 +98,7 @@ For a deeper look at the structure of data change records, see [Data change reco
 
 ### Data retention
 
-A change stream retains its data change records for a period of time between one and thirty days. [You can use DDL](https://docs.cloud.google.com/spanner/docs/change-streams/manage) to specify a data-retention limit other than the one-day default when initially creating a change stream, or adjust it at any future time. Note that reducing a change stream's data retention limit will make all historical change data older than the new limit immediately and permanently unavailable to that change stream's readers.
+A change stream retains its data change records for a period of time between one and thirty days. [You can use DDL](https://docs.cloud.google.com/spanner/docs/change-streams/manage) to specify a data-retention limit other than the seven-days default when initially creating a change stream, or adjust it at any future time. Note that reducing a change stream's data retention limit will make all historical change data older than the new limit immediately and permanently unavailable to that change stream's readers.
 
 This data retention period presents a trade-off; a longer retention period carries greater storage demands on the stream's database.
 

@@ -46,7 +46,7 @@ Returns the current date and time as a timestamp object. The timestamp is contin
 
 This function handles leap seconds by smearing them across a window of 20 hours around the inserted leap second.
 
-The current timestamp value is set at the start of the query statement that contains this function. All invocations of `CURRENT_TIMESTAMP()` within a query statement yield the same value.
+`CURRENT_TIMESTAMP` is a *stable* function. This means it returns the same `TIMESTAMP` value throughout the execution of a single SQL statement. Subsequent statements return an updated `TIMESTAMP` value. For more information, see [Function volatility](https://docs.cloud.google.com/spanner/docs/concepts/function-volatility) .
 
 **Supported Input Types**
 
