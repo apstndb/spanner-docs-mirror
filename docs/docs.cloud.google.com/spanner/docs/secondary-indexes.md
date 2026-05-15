@@ -106,7 +106,7 @@ Note that the previous `DESC` annotation applies only to `SongName` . To index b
 
 Also note that `PRIMARY_KEY` is a reserved word and cannot be used as the name of an index. It is the name given to the [pseudo-index](https://docs.cloud.google.com/spanner/docs/information-schema#indexes) that is created when a table with PRIMARY KEY specification is created
 
-For more details and best practices for choosing non-interleaved indexes and interleaved indexes, see [Index options](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design#index-options) and [Use an interleaved index on a column whose value monotonically increases or decreases](https://docs.cloud.google.com/spanner/docs/schema-design#creating-indexes) .
+For more details and best practices for choosing non-interleaved indexes and interleaved indexes, see [Choose between interleaved and global indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes#choose-index-type) , [Index options](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design#index-options) , and [Use an interleaved index on a column whose value monotonically increases or decreases](https://docs.cloud.google.com/spanner/docs/schema-design#creating-indexes) .
 
 ## Indexes and Interleaving
 
@@ -163,6 +163,56 @@ Further, you could also create an index of `Songs` on `(PublisherId, SingerId, A
     CREATE INDEX SongsByPublisherSingerAlbumSongName
         ON Songs(PublisherId, SingerId, AlbumId, SongName),
         INTERLEAVE IN Publishers;
+
+## Choose between interleaved and global indexes
+
+When you create a secondary index in Spanner, you define it as either a *global index* (the default, non-interleaved index) or an *interleaved index* . Choosing the optimal index type is critical for read and write performance.
+
+### Index comparison
+
+| Feature              | Interleaved index                                                                                                                                                                                                                                                                 | Global index                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Storage location** | Co-located with the parent row in the same split (row tree).                                                                                                                                                                                                                      | Stored in a separate root table, which can be split independently of the base table. |
+| **Key requirements** | The primary key of the parent table must be a prefix of the index keys.                                                                                                                                                                                                           | No restrictions on the index keys.                                                   |
+| **Write overhead**   | **Low.** When interleaved in an ancestor of the base table, updates are usually local to the split, avoiding two-phase commits across splits. If interleaved in a table that is not an ancestor, write overhead is higher because updates might require distributed transactions. | **Higher.** Updates often span different splits, requiring distributed transactions. |
+| **Best for**         | Queries scoped to a single parent entity—for example, "find photos for user USER\_NAME ."                                                                                                                                                                                         | Queries that search across the entire database—for example, "find user by email".    |
+
+### Why interleaved indexes are usually preferred
+
+In a distributed database like Spanner, data locality is key to performance. Interleaved indexes are usually preferred because they preserve data locality:
+
+  - **Efficient reads:** If your queries always filter by a parent entity's ID, an interleaved index allows Spanner to satisfy the query by scanning only the split that contains that parent entity, rather than consulting multiple splits.
+  - **Efficient writes:** When you update a row in a table, Spanner must also update its secondary indexes. If you use a global index, the index entry likely resides in a different split than the base row. This forces Spanner to perform a distributed transaction (two-phase commit) across splits, which increases latency and CPU usage. If an interleaved index is interleaved in an ancestor of the base table, the index entry is stored in the same split as the base row, making the write a local operation.
+
+### Decision guide
+
+Use the following guidelines to choose the optimal index type for your use case:
+
+#### When to use an interleaved index
+
+Use an interleaved index when one or more of the following are true:
+
+  - Your queries always include a filter on the parent table's primary key—for example, `WHERE UserId = @userId AND ...` .
+  - The parent table's primary key columns can naturally be used as a prefix for your index keys.
+  - You want to minimize the write latency and CPU overhead of index maintenance.
+
+*Example:*
+
+    -- Indexing albums by title for a specific singer
+    CREATE INDEX AlbumsBySingerTitle ON Albums(SingerId, AlbumTitle),
+      INTERLEAVE IN Singers;
+
+#### When to use a global index
+
+Use a global index when one or more of the following are true:
+
+  - You need to query data across the entire database without filtering by a parent entity—for example, a global search.
+  - The columns you want to index don't share a prefix with any parent table.
+
+*Example:*
+
+    -- Indexing all albums globally by title. For example, for a global search catalog.
+    CREATE INDEX AlbumsByTitle ON Albums(AlbumTitle);
 
 ## Check index backfill progress
 

@@ -2675,6 +2675,13 @@ The following example selects the range variable `Coordinate` , which is a refer
 
 GoogleSQL supports hints, which make the query optimizer use a specific operator in the execution plan. If performance is an issue for you, a hint might be able to help by suggesting a different query execution plan shape.
 
+The syntax for specifying hints differs between the GoogleSQL and PostgreSQL dialects:
+
+  - **GoogleSQL dialect:** Hints use the format `@{ hint_key = value, ... }` .
+  - **PostgreSQL dialect:** Hints use a comment-like format `/*@ hint_key = value, ... */` .
+
+While the syntax varies, the available hints and their intended effects remain largely consistent. For details on PostgreSQL hint syntax and usage, see [Hints in PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical#hints) .
+
 **Definitions**
 
   - `hint_key` : The name of the hint key.

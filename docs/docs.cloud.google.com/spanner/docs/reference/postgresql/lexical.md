@@ -240,3 +240,50 @@ Alternatively, C-style block comments can be used:
 where the comment begins with /\* and extends to the matching occurrence of \*/. These block comments nest, as specified in the SQL standard but unlike C, so that one can comment out larger blocks of code that might contain existing block comments.
 
 A comment is removed from the input stream before further syntax analysis and is effectively replaced by whitespace. The exception is a comment that contains hints, which are preserved for interpretation by the query planner.
+
+## Hints
+
+Hints are special instructions within a SQL statement that influence the query optimizer's choices for the execution plan. They don't change the result of the query, but might affect performance.
+
+The syntax for specifying hints differs between the PostgreSQL and GoogleSQL dialects:
+
+  - **PostgreSQL dialect:** Hints use a comment-like format `/*@ hint_key = value, ... */` .
+  - **GoogleSQL dialect:** Hints use the format `@{ hint_key = value, ... }` .
+
+While the syntax varies, the available hints and their intended effects remain largely consistent. For details on GoogleSQL hint syntax and usage, see [Hints in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#hints) . The following sections describe hint usage with PostgreSQL syntax.
+
+**Syntax**
+
+In PostgreSQL databases, embed hints within comments using the following format:
+
+    /*@ hint_key = value [, ...] */
+
+  - Hints start with `/*@` and end with `*/` .
+  - Place multiple hints for the same query element within the same comment block, separated by commas.
+  - Hint keys are not case-sensitive.
+  - Hint values can be identifiers, string literals, numeric literals, or boolean literals, depending on the specific hint.
+
+**Example**
+
+    -- Example of statement hints
+    /*@ OPTIMIZER_VERSION = latest, USE_ADDITIONAL_PARALLELISM = TRUE */
+    SELECT * FROM Singers;
+    
+    -- Example of a table hint and a join hint
+    SELECT s.SingerName, a.AlbumTitle
+    FROM Singers /*@ FORCE_INDEX = SingersByLastName */ s
+    JOIN /*@ JOIN_METHOD = HASH_JOIN */ Albums a ON s.SingerId = a.SingerId;
+
+**Types of hints**
+
+Spanner supports several types of hints in PostgreSQL databases:
+
+  - [**Statement hints**](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#statement-hints) : Apply to the entire SQL statement.
+
+  - [**Table hints**](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#table-hints) : Apply to a specific table or subquery in the `FROM` clause.
+
+  - [**Join hints**](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#join-hints) : Apply to a specific `JOIN` operation.
+
+  - [**Function hints**](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#function-hints) : Apply to certain function calls.
+
+For more information about supported hints and their usage, see the [Query syntax in PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax) .

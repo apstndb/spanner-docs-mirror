@@ -106,7 +106,8 @@ Use the `SELECT` statement to retrieve data from a database.
     and statement_hint_key is:
     
         USE_ADDITIONAL_PARALLELISM | LOCK_SCANNED_RANGES | SCAN_METHOD |
-        EXECUTION_METHOD | ALLOW_TIMESTAMP_PREDICATE_PUSHDOWN
+        EXECUTION_METHOD | ALLOW_TIMESTAMP_PREDICATE_PUSHDOWN |
+        OPTIMIZER_VERSION | OPTIMIZER_STATISTICS_PACKAGE
     
     and table_hint_key is:
     
@@ -250,7 +251,8 @@ Spanner has extensions for [statement hints](https://docs.cloud.google.com/spann
     where statement_hint_key is:
     
         USE_ADDITIONAL_PARALLELISM | LOCK_SCANNED_RANGES | SCAN_METHOD |
-        EXECUTION_METHOD | ALLOW_TIMESTAMP_PREDICATE_PUSHDOWN
+        EXECUTION_METHOD | ALLOW_TIMESTAMP_PREDICATE_PUSHDOWN |
+        OPTIMIZER_VERSION | OPTIMIZER_STATISTICS_PACKAGE
 
 Spanner supports the following statement hints as extensions to open source PostgreSQL.
 
@@ -274,6 +276,16 @@ Spanner supports the following statement hints as extensions to open source Post
 <code dir="ltr" translate="no">FALSE</code> (default)</td>
 <td>If <code dir="ltr" translate="no">TRUE</code> , the execution engine favors using more parallelism when possible.
 <p>Because this can reduce resources available to other operations, you may want to avoid this hint if you run latency-sensitive operations on the same instance.</p></td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">OPTIMIZER_VERSION</code></td>
+<td>Integer or <code dir="ltr" translate="no">"latest"</code></td>
+<td>Specifies the query optimizer version to use. This lets you test new optimizer versions or pin to a specific version. See <a href="https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer">Manage the query optimizer</a> . Example: <code dir="ltr" translate="no">/*@ OPTIMIZER_VERSION = 7 */ SELECT ...</code></td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">OPTIMIZER_STATISTICS_PACKAGE</code></td>
+<td>String (package name) or <code dir="ltr" translate="no">"latest"</code></td>
+<td>Specifies the optimizer statistics package to use for query compilation. Use this to ensure plan stability or test the effect of different statistics. The specified package must have garbage collection disabled. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer">Manage the query optimizer</a> . Example: <code dir="ltr" translate="no">/*@ OPTIMIZER_STATISTICS_PACKAGE = auto_20260501_10_00_00UTC */ SELECT ...</code></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">LOCK_SCANNED_RANGES</code></td>

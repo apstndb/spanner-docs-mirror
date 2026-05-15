@@ -269,6 +269,8 @@ Add the `DESC` keyword to make the timestamp key descending. For example:
 
 ## When to use an interleaved index
 
+For guidance on choosing between interleaved and global indexes, see [Choose between interleaved and global indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes#choose-index-type) .
+
 Similar to the previous primary key example that you should avoid, it's also a bad idea to create non-interleaved indexes on columns whose values are monotonically increasing or decreasing, even if they aren't primary key columns.
 
 For example, suppose you define the following table, in which `LastAccess` is a non-primary-key column:

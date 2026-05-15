@@ -358,7 +358,7 @@ https://docs.cloud.google.com/spanner/docs/commit-timestamp	2026-05-13T14:17:58Z
 https://docs.cloud.google.com/spanner/docs/commit-timestamp-postgresql	2026-05-13T14:17:58Z
 https://docs.cloud.google.com/spanner/docs/compute-capacity	2026-05-08T21:33:13Z
 https://docs.cloud.google.com/spanner/docs/concepts/function-volatility	2026-05-13T21:22:47Z
-https://docs.cloud.google.com/spanner/docs/concurrency-control	2026-05-13T14:17:58Z
+https://docs.cloud.google.com/spanner/docs/concurrency-control	2026-05-14T21:58:38Z
 https://docs.cloud.google.com/spanner/docs/configure-columnar-engine	2026-05-08T21:33:13Z
 https://docs.cloud.google.com/spanner/docs/configure-fgac	2026-05-13T14:17:58Z
 https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance	2026-05-08T21:33:13Z
@@ -646,12 +646,12 @@ https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types	2026-
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax	2026-05-08T21:32:36Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions	2026-05-13T21:22:47Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface	2026-05-08T21:32:36Z
-https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical	2026-05-08T21:32:36Z
+https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical	2026-05-14T17:56:18Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/operators	2026-05-08T21:32:36Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview	2026-05-08T21:32:36Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables	2026-05-08T21:32:36Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views	2026-05-08T21:32:36Z
-https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax	2026-05-08T18:29:19Z
+https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax	2026-05-14T17:56:18Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg	2026-05-08T18:29:19Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries	2026-05-08T21:32:36Z
 https://docs.cloud.google.com/spanner/docs/reference/rest	2025-12-12T16:30:02Z
@@ -867,7 +867,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview	2026-
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language	2026-05-08T21:33:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers	2026-05-08T21:33:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions	2026-05-08T21:33:38Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-05-08T21:33:38Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-05-14T17:56:18Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-05-08T21:33:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions	2026-05-08T21:33:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions	2026-05-08T21:33:38Z
@@ -976,12 +976,12 @@ https://docs.cloud.google.com/spanner/docs/samples/spanner-update-graph-data-wit
 https://docs.cloud.google.com/spanner/docs/samples/spanner-write-data-for-struct-queries	2026-05-08T21:32:37Z
 https://docs.cloud.google.com/spanner/docs/saved-queries	2026-05-08T21:33:16Z
 https://docs.cloud.google.com/spanner/docs/schema-and-data-model	2026-05-13T14:17:38Z
-https://docs.cloud.google.com/spanner/docs/schema-design	2026-05-13T14:17:38Z
+https://docs.cloud.google.com/spanner/docs/schema-design	2026-05-14T22:42:15Z
 https://docs.cloud.google.com/spanner/docs/schema-drop-protection	2026-05-13T14:17:38Z
 https://docs.cloud.google.com/spanner/docs/schema-migration	2026-05-08T21:33:16Z
 https://docs.cloud.google.com/spanner/docs/schema-updates	2026-05-13T14:17:38Z
 https://docs.cloud.google.com/spanner/docs/schema-updates-best-practices	2026-05-13T14:17:38Z
-https://docs.cloud.google.com/spanner/docs/secondary-indexes	2026-05-13T14:17:38Z
+https://docs.cloud.google.com/spanner/docs/secondary-indexes	2026-05-14T22:42:15Z
 https://docs.cloud.google.com/spanner/docs/secure-agent-interactions-mcp	2026-05-08T21:33:16Z
 https://docs.cloud.google.com/spanner/docs/security-privacy-compliance	2026-05-13T14:17:38Z
 https://docs.cloud.google.com/spanner/docs/sequence-tasks	2026-05-13T14:17:38Z
@@ -1036,7 +1036,7 @@ https://docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-postgresql	20
 https://docs.cloud.google.com/spanner/docs/use-oss-jdbc	2026-05-13T14:20:48Z
 https://docs.cloud.google.com/spanner/docs/use-oss-r2dbc	2026-05-08T21:42:54Z
 https://docs.cloud.google.com/spanner/docs/use-pitr	2026-05-13T14:20:48Z
-https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation	2026-05-13T14:20:48Z
+https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation	2026-05-14T21:58:38Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read	2026-05-08T21:42:54Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable	2026-05-08T21:42:54Z
 https://docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema	2026-05-08T21:42:54Z

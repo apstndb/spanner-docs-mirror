@@ -445,6 +445,79 @@ You can use the Spanner client libraries, REST, and RPC API to specify the concu
       std::cout << "Update was successful [spanner_read_lock_mode]\n";
     }
 
+### PHP
+
+    use Google\Cloud\Spanner\SpannerClient;
+    use Google\Cloud\Spanner\Transaction;
+    use Google\Cloud\Spanner\V1\TransactionOptions\ReadWrite\ReadLockMode;
+    
+    /**
+     * Shows how to run a Read Write transaction with read lock mode options.
+     *
+     * Example:
+     * ```
+     * read_lock_mode($instanceId, $databaseId);
+     * ```
+     *
+     * @param string $instanceId The Spanner instance ID.
+     * @param string $databaseId The Spanner database ID.
+     */
+    function read_lock_mode(string $instanceId, string $databaseId): void
+    {
+        // The read lock mode specified at the client-level will be applied to all
+        // RW transactions.
+        $spanner = new SpannerClient([
+            'readLockMode' => ReadLockMode::OPTIMISTIC
+        ]);
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
+    
+        // The read lock mode specified at the request level takes precedence over
+        // the read lock mode configured at the client level.
+        $database->runTransaction(function (Transaction $t) {
+            // Read an AlbumTitle.
+            $results = $t->execute('SELECT AlbumTitle from Albums WHERE SingerId = 2 and AlbumId = 1');
+            foreach ($results as $row) {
+                printf('Current Album Title: %s' . PHP_EOL, $row['AlbumTitle']);
+            }
+    
+            // Update the AlbumTitle.
+            $rowCount = $t->executeUpdate('UPDATE Albums SET AlbumTitle = \'A New Title\' WHERE SingerId = 2 and AlbumId = 1');
+    
+            // Commit the transaction!
+            $t->commit();
+    
+            printf('%d record(s) updated.' . PHP_EOL, $rowCount);
+        }, [
+            'transactionOptions' => [
+                'readLockMode' => ReadLockMode::PESSIMISTIC
+            ]
+        ]);
+    }
+
+### Ruby
+
+    require "google/cloud/spanner"
+    
+    def spanner_read_lock_mode project_id:, instance_id:, database_id:
+      # Instantiates a client with read_lock_mode: :OPTIMISTIC
+      spanner = Google::Cloud::Spanner.new project: project_id
+      client = spanner.client instance_id, database_id, read_lock_mode: :OPTIMISTIC
+    
+      # Overrides read_lock_mode to :PESSIMISTIC at transaction level
+      client.transaction read_lock_mode: :PESSIMISTIC do |tx|
+        results = tx.execute_query "SELECT AlbumTitle FROM Albums WHERE SingerId = 2 AND AlbumId = 1"
+    
+        results.rows.each do |row|
+          puts "AlbumTitle: #{row[:AlbumTitle]}"
+        end
+    
+        row_count = tx.execute_update "UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 2 AND AlbumId = 1"
+    
+        puts "#{row_count} records updated."
+      end
+    end
+
 ### REST
 
 The Spanner [TransactionOptions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions) REST API provides a `ReadLockMode` enum within the `ReadWrite` message that lets you select either the `PESSIMISTIC` or `OPTIMISTIC` lock mode.
