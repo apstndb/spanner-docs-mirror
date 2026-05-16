@@ -55,4 +55,5 @@ Replace the following:
 ## What's next
 
   - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
-  - For more information about PostgreSQL psycopg2 driver connection options, see [psycopg2 Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/psycopg2.md) in the PGAdapter GitHub repository.
+  - For more information about PostgreSQL psycopg2 driver connection options, see [psycopg2 Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/psycopg2.md) in the PGAdapter GitHub repository.
+  - See an [overview of drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview) supported for Spanner.

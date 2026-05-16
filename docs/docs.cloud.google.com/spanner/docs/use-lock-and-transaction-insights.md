@@ -217,10 +217,10 @@ The **Transaction details** page appears. Besides the details table at the top, 
       - **Average bytes** : The average number of bytes written by the transaction.
       - **Average latency** : The average seconds taken from the first operation of the transaction to commit or abort.
       - **Average commit latency** : The average seconds taken to perform the commit operation.
-      - **Total attempt count** : The total number of transaction attempts.
-      - **Total abort count** : The total number of transaction attempts that were aborted, including those that are aborted before calling the transaction's commit method.
+      - **Total attempt count** : The total number of transaction attempts. This count represents a per-minute rate. For more information about intervals, see [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals) .
+      - **Total abort count** : The total number of transaction attempts that abort, including attempts that abort before calling the transaction commit method. This count represents a per-minute rate. For more information about intervals, see [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals) .
 
-  - Charts depicting these values.
+  - Charts depicting these values. The **Total attempts and aborts** chart displays the per-minute count, or rate, of transaction attempts and aborts. To display per-minute transaction attempts and aborts, the Google Cloud console queries the `SPANNER_SYS.TXN_STATS_TOP_*` table that best covers your selected time range ( `_MINUTE` , `_10MINUTE` , or `_HOUR` ). The Google Cloud console then divides the values in the `ATTEMPT_COUNT` column and the `COMMIT_ABORT_COUNT` column from the chosen table by the interval duration in minutes (1, 10, or 60) to present a per-minute rate. For more information about intervals, see [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals) .
     
     Additionally, the **Average participants** chart shows the average number of [participants](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes#multi-split_write) in each commit attempt.
 

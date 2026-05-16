@@ -119,17 +119,17 @@ For change streams, if the transaction involved writes to columns and tables wat
 <tr class="odd">
 <td><code dir="ltr" translate="no">ATTEMPT_COUNT</code></td>
 <td><code dir="ltr" translate="no">INT64</code></td>
-<td>Total number of times that the transaction is attempted, including the attempts that abort before calling `commit`.</td>
+<td>Total number of transaction attempts, including attempts that abort before calling the <code dir="ltr" translate="no">commit</code> method. This count represents the total attempts during the specified interval. For more information about intervals, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals">Intervals</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">COMMIT_ATTEMPT_COUNT</code></td>
 <td><code dir="ltr" translate="no">INT64</code></td>
-<td>Total number of transaction commit attempts. This must match the number of calls to the transaction's <code dir="ltr" translate="no">commit</code> method.</td>
+<td>Total number of transaction commit attempts. This must match the number of calls to the transaction's <code dir="ltr" translate="no">commit</code> method. This count represents the total commit attempts during the specified interval. For more information about intervals, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals">Intervals</a> .</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">COMMIT_ABORT_COUNT</code></td>
 <td><code dir="ltr" translate="no">INT64</code></td>
-<td>Total number of transaction attempts that were aborted, including those that were aborted before calling the transaction's <code dir="ltr" translate="no">commit</code> method.</td>
+<td>Total number of transaction attempts that abort, including attempts that abort before calling the transaction's <code dir="ltr" translate="no">commit</code> method. This count represents the total aborts during the specified interval. For more information about intervals, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals">Intervals</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">COMMIT_RETRY_COUNT</code></td>
@@ -374,17 +374,17 @@ Aggregate statistics tables have the following properties:
 <tr class="even">
 <td><code dir="ltr" translate="no">ATTEMPT_COUNT</code></td>
 <td><code dir="ltr" translate="no">INT64</code></td>
-<td>Total number of times that the transactions are attempted, including the attempts that abort before calling `commit`.</td>
+<td>Total number of transaction attempts, including attempts that abort before calling `commit`. This count represents the total attempts during the specified interval. For more information about intervals, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals">Intervals</a> .</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">COMMIT_ATTEMPT_COUNT</code></td>
 <td><code dir="ltr" translate="no">INT64</code></td>
-<td>Total number of transaction commit attempts. This must match the number of calls to the transaction's <code dir="ltr" translate="no">commit</code> method.</td>
+<td>Total number of transaction commit attempts. This must match the number of calls to the transaction's <code dir="ltr" translate="no">commit</code> method. This count represents the total commit attempts during the specified interval. For more information about intervals, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals">Intervals</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">COMMIT_ABORT_COUNT</code></td>
 <td><code dir="ltr" translate="no">INT64</code></td>
-<td>Total number of transaction attempts that were aborted, including those that are aborted before calling the transaction's <code dir="ltr" translate="no">commit</code> method.</td>
+<td>Total number of transaction attempts that abort, including attempts that abort before calling the transaction's <code dir="ltr" translate="no">commit</code> method. This count represents the total aborts during the specified interval. For more information about intervals, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals">Intervals</a> .</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">COMMIT_RETRY_COUNT</code></td>

@@ -12,6 +12,18 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## May 14, 2026
+
+Announcement
+
+The Spanner change streams default [retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) has been increased from 1 day to 7 days. This change affects both new and existing change streams that don't have a retention period explicitly set. You can always specify the retention period through [create change stream](https://docs.cloud.google.com/spanner/docs/change-streams/manage#create) or [alter change stream](https://docs.cloud.google.com/spanner/docs/change-streams/manage#modify) DDL statements to override the default.
+
+Feature
+
+You can populate new PostgreSQL dialect databases in an existing Spanner instance from sample datasets that help you explore Spanner capabilities.
+
+For more information, see [Create and manage databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases#use-datasets) .
+
 ## May 04, 2026
 
 Feature
@@ -1258,10 +1270,6 @@ Spanner Graph lets you model schemaless data with a dynamic label and properties
 
 ## April 30, 2025
 
-Feature
-
-The `enhance_query` option on the [`SEARCH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) , [`SCORE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score) , and [`SNIPPET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#snippet) functions provides automatic synonym matching and spell correction of single words, by default. Previously, if you provided a single word as the search string it likely didn't return any matches and required a phrase with context to perform the enhanced search.
-
 Libraries
 
 A monthly digest of client library updates from across the [Google Cloud SDK](https://docs.cloud.google.com/sdk) .
@@ -1364,6 +1372,10 @@ A monthly digest of client library updates from across the [Google Cloud SDK](ht
 ##### Bug Fixes
 
   - Adding span attributes for request tag and transaction tag ( [\#2236](https://github.com/googleapis/nodejs-spanner/issues/2236) ) ( [3f69dad](https://github.com/googleapis/nodejs-spanner/commit/3f69dad36cfdeb4effd191e0d38079ead1bd6654) )
+
+Feature
+
+The `enhance_query` option on the [`SEARCH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) , [`SCORE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score) , and [`SNIPPET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#snippet) functions provides automatic synonym matching and spell correction of single words, by default. Previously, if you provided a single word as the search string it likely didn't return any matches and required a phrase with context to perform the enhanced search.
 
 ## April 28, 2025
 

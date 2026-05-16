@@ -66,4 +66,5 @@ Replace the following:
 ## What's next
 
   - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
-  - Learn more about [pgx Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/pgx.md) in the PGAdapter GitHub repository.
+  - Learn more about [pgx Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/pgx.md) in the PGAdapter GitHub repository.
+  - See an [overview of drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview) supported for Spanner.

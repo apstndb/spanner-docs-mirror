@@ -10,11 +10,9 @@ This document describes how to connect your Spanner instance to various develope
 
 We recommend using the dedicated Spanner extension for [Gemini CLI](https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli) . This extension abstracts away the need to set up a separate server connection. You can configure Gemini Code Assist to use the Gemini CLI, offering similar setup benefits in your IDE. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
 
-Alternatively, other IDEs and developer tools supporting the MCP can connect through [MCP Toolbox for Databases](https://github.com/googleapis/genai-toolbox) . MCP Toolbox is an open-source MCP server designed to connect AI agents to your data. It handles tasks like authentication and connection pooling, letting you interact with your data with natural language directly from your IDE.
+Alternatively, other IDEs and developer tools supporting the MCP can connect through [MCP Toolbox for Databases](https://github.com/googleapis/mcp-toolbox) . MCP Toolbox is an open-source MCP server designed to connect AI agents to your data. It handles tasks like authentication and connection pooling, letting you interact with your data with natural language directly from your IDE.
 
 ## Use the Gemini CLI extension in Spanner
-
-> **Note:** MCP Toolbox for Databases is in beta (pre-v1.0), and may see breaking changes until the first stable release. (v1.0)
 
 The Spanner integration with Gemini CLI is through an open-source extension that offers additional capabilities compared to the standard MCP Toolbox connection. The extension offers an installation process and a set of tools, in addition to providing detailed information on installation, configuration, and usage examples. If you use the Gemini CLI extension, you don't need to install MCP Toolbox. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
 
@@ -34,7 +32,7 @@ The `spanner` extension includes tools for listing tables, and executing SQL and
 
 ## Set up the Spanner instance
 
-1.  [Enable the Spanner API in the Google Cloud project](https://console.cloud.google.com/flows/enableapi?apiid=spanner.googleapis.com&redirect=https://console.cloud.google.com/) .
+1.  [Enable the Spanner API in the Google Cloud project](https://console.cloud.google.com/apis/enableflow?apiid=spanner.googleapis.com&redirect=https://console.cloud.google.com/) .
 
 2.  [Create or select a Spanner instance and database](https://docs.cloud.google.com/spanner/docs/create-query-database-console) .
 
@@ -50,23 +48,23 @@ The `spanner` extension includes tools for listing tables, and executing SQL and
 
 > **Note:** MCP Toolbox is only required for MCP clients other than Gemini CLI, Gemini Code Assist, or Antigravity. Skip this section if you are using Gemini CLI, Gemini Code Assist, or Antigravity.
 
-1.  Download the latest version of MCP Toolbox as a binary. Select the [binary](https://github.com/googleapis/genai-toolbox/releases/latest) corresponding to your operating system (OS) and CPU architecture. You must use MCP Toolbox version 0.15.0 or later:
+1.  Download the latest version of MCP Toolbox as a binary. Select the [binary](https://github.com/googleapis/mcp-toolbox/releases/latest) corresponding to your operating system (OS) and CPU architecture. You must use MCP Toolbox version 0.15.0 or later:
     
     ### linux/amd64
     
-        curl -O https://storage.googleapis.com/genai-toolbox/version/linux/amd64/toolbox
+        curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/linux/amd64/toolbox
     
     ### darwin/arm64
     
-        curl -O https://storage.googleapis.com/genai-toolbox/version/darwin/arm64/toolbox
+        curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/darwin/arm64/toolbox
     
     ### darwin/amd64
     
-        curl -O https://storage.googleapis.com/genai-toolbox/version/darwin/amd64/toolbox
+        curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/darwin/amd64/toolbox
     
     ### windows/amd64
     
-        curl -O https://storage.googleapis.com/genai-toolbox/version/windows/amd64/toolbox
+        curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/windows/amd64/toolbox
 
 2.  Make the binary executable:
     

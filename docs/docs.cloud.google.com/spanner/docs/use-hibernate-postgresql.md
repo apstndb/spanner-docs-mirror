@@ -63,3 +63,4 @@ For more information about the features and recommendations for integrating Hibe
   - Learn more about [Hibernate ORM](https://hibernate.org/orm/) .
   - For more information about PostgreSQL JDBC driver connection options, see [PGAdapter - JDBC Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/jdbc.md) in the PGAdapter GitHub repository.
   - Learn more about [Integrate Spanner with Hibernate ORM (GoogleSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-hibernate) .
+  - See an [overview of drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview) supported for Spanner.

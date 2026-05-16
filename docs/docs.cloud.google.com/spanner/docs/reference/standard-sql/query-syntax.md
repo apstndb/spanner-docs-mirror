@@ -220,7 +220,7 @@ A `SELECT * EXCEPT` statement specifies the names of one or more columns to excl
      | sprocket  | 200      |
      +-----------+----------*/
 
-> **Note:** `SELECT * EXCEPT` doesn't exclude columns that don't have names.
+> **Note:** `SELECT * EXCEPT` doesn't exclude columns that don't have names. Also, `SELECT * EXCEPT` and the [`EXCEPT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#except) set operator have different use cases and rules.
 
 ### `SELECT * REPLACE`
 

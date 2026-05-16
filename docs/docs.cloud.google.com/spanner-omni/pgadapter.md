@@ -113,7 +113,7 @@ You can also start PGAdapter in-process with your application. To establish secu
 
 ### Use plain text mode
 
-For plain text communication, such as local development or testing in secure environments where encryption overhead is unnecessary, use the following configuration:
+For plain text communication in environments such as local development or testing, use the following configuration:
 
     OptionsMetadata.Builder builder =
         OptionsMetadata.newBuilder()

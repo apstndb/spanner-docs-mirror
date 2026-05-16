@@ -924,9 +924,7 @@ For more information, see [Import from Cloud SQL to Spanner](https://docs.cloud.
 
 ## Use a sample dataset
 
-You can populate new databases in an existing instance from sample datasets that help you explore Spanner capabilities such as its relational model, full-text search, or vector search.
-
-### Google Cloud console
+To explore [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/overview) , vector search, or the relational model, you can create a new database pre-populated with a sample dataset. Available sample datasets depend on the selected database dialect (GoogleSQL or PostgreSQL).
 
 1.  In the Google Cloud console, go to the **Spanner instances** page.
 
@@ -934,12 +932,20 @@ You can populate new databases in an existing instance from sample datasets that
 
 3.  Click **Explore datasets** .
 
-4.  Select one of the following datasets:
+4.  Select a dataset, depending on your database dialect:
     
-      - **Finance graph** : use this dataset to explore Spanner's [graph](https://docs.cloud.google.com/spanner/docs/graph/overview) features.
+    ### GoogleSQL
+    
+      - **Finance graph** : use this dataset to explore Spanner's [graph](https://docs.cloud.google.com/spanner/docs/graph/overview) and relational database features.
+      - **Online banking** : use this dataset to explore Spanner's [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) and [vector search](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) features.
+      - **Online gaming** : use this dataset to explore Spanner's relational database features.
+      - **Retail** : use this dataset to explore Spanner's [graph](https://docs.cloud.google.com/spanner/docs/graph/overview) , [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) , and [vector search](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) features.
+    
+    ### PostgreSQL
+    
       - **Online banking** : use this dataset to explore Spanner's [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) features.
       - **Online gaming** : use this dataset to explore Spanner's relational database features.
-      - **Retail** : use this dataset to explore Spanner's [graph](https://docs.cloud.google.com/spanner/docs/graph/overview) and [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) features.
+      - **Retail** : use this dataset to explore Spanner's [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) and [vector search](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) features.
 
 5.  Click **Create database** .
 

@@ -40,3 +40,4 @@ For more information about the features and recommendations for SQLAlchemy 2 wit
   - Learn more about [SQLAlchemy](https://docs.sqlalchemy.org/en/20/) .
   - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
   - [File a GitHub issue](https://github.com/GoogleCloudPlatform/pgadapter/issues) to report a bug or ask a question about Spanner dialect for SQLAlchemy with PGAdapter.
+  - See an [overview of drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview) supported for Spanner.

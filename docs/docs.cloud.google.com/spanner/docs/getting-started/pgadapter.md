@@ -1223,11 +1223,11 @@ You can also insert data using [mutations](https://docs.cloud.google.com/spanner
 
 PGAdapter translates the PostgreSQL `COPY` command to mutations. Using `COPY` is the most efficient way to quickly insert data in your Spanner database.
 
-`COPY` operations are by default atomic. Atomic operations on Spanner are bound by the commit size limit. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
+`COPY` operations are by default atomic. Atomic operations on Spanner are bound by the commit size limit. See [Limits for creating, reading, updating, and deleting data](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
 These examples show how to execute a non-atomic `COPY` operation. This lets the `COPY` operation exceed the commit size limit.
 
-> **Tip:** See [COPY support](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/copy.md) for more information on how to copy data directly from PostgreSQL to Spanner. You can also [import data directly from MySQL](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/import-mysql-data.md) using the `COPY` command.
+> **Tip:** See [`COPY` support](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/copy.md) for more information on how to copy data directly from PostgreSQL to Spanner. You can also [import data directly from MySQL](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/import-mysql-data.md) using the `COPY` command.
 
 ### psql
 

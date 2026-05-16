@@ -14,13 +14,9 @@ GoogleSQL feature
 
 PostgreSQL dialect recommendation
 
-[Sample datasets](https://docs.cloud.google.com/spanner/docs/create-manage-databases#use-datasets)
-
-No recommendation available.
-
 [BigQuery external datasets](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets)
 
-Use [Spanner federated queries](https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries) .
+Use [Spanner federated queries](https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries) . When you run a federated query against a PostgreSQL-dialect database using the [`EXTERNAL_QUERY`](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/federated_query_functions#external_query) function, you must write the query in PostgreSQL syntax.
 
 [`ENUM`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#enum_type)
 

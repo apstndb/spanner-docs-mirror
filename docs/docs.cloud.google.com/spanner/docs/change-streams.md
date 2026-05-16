@@ -155,15 +155,26 @@ If you don't set the `exclude_txn_from_change_streams` option or if it's set to 
 
 Spanner offers multiple ways to read a change stream's data:
 
-  - Through Dataflow, using the Apache Beam SpannerIO connector. This is our recommended solution for most change stream applications. Google also provides Dataflow templates for common use cases.
+  - Directly, using the Spanner API.
 
-  - Directly, using the Spanner API. This trades away the abstraction and capabilities of Dataflow pipelines for maximum speed and flexibility.
+  - Through Dataflow, using the Apache Beam SpannerIO connector. Google also provides Dataflow templates for common use cases.
 
   - Through using the Debezium-based Kafka connector for Spanner change streams. This connector streams change records directly into Kafka topics.
 
   - Using Datastream to directly stream your changes to BigQuery, BigLake Iceberg tables, or Cloud Storage.
 
-You can provide partial isolation for change streams reads by using directed reads. Directed reads can help to minimize impact on transactional workloads in your database. You can use the Spanner API to route change streams reads to a specific replica type or region within a multi-region instance configuration or a custom regional configuration with optional read-only region(s). For more information, see [directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) .
+You can provide partial isolation for change streams reads by using directed reads. Directed reads can help to minimize impact on transactional workloads in your database. You can use the Spanner API to route change streams reads to a specific replica type or region within a multi-region instance configuration or a custom regional configuration with optional read-only regions. For more information, see [directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) .
+
+### Using the API
+
+You can write code to use the Spanner API to read change stream records directly. This method provides the lowest possible read latency and the highest code flexibility. However, using the API directly requires you to manage several tasks in your code:
+
+  - Track returned partition tokens and their states.
+  - Divide large time windows into smaller, non-overlapping windows.
+  - Continuously read from partitions and track their states.
+  - Manage commits or checkpoints for efficient retry and error recovery.
+
+For more information on how to query change streams and interpret the records returned, see [Change streams partitions, records, and queries](https://docs.cloud.google.com/spanner/docs/change-streams/details) .
 
 ### Using Dataflow
 
@@ -174,12 +185,6 @@ Dataflow uses windowing functions to divide unbounded collections into logical c
 Google provides templates that let you rapidly build Dataflow pipelines for common change stream use cases, including sending all of a stream's data changes [to a BigQuery](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-bigquery) dataset, or copying them [to a Cloud Storage bucket](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-cloud-storage) .
 
 For a more detailed overview of how change streams and Dataflow work together, see [Build change streams connections with Dataflow](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow) .
-
-### Using the API
-
-As an alternative to using Dataflow to build change stream pipelines, you can instead write code that uses the Spanner API to read a change stream's records directly. This lets you read data change records in the same way that the SpannerIO connector does, by providing the lowest possible latencies when reading change stream data instead of providing the flexibility of Dataflow.
-
-To learn more, see [Query change streams](https://docs.cloud.google.com/spanner/docs/change-streams/details#query) . For a more detailed discussion on how to query change streams and interpret the records returned, see [Change streams partitions, records, and queries](https://docs.cloud.google.com/spanner/docs/change-streams/details) .
 
 ### Using the Kafka connector
 

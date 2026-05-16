@@ -153,4 +153,5 @@ This section explains how to use the Spanner JDBC driver to connect to a Postgre
 ## What's next
 
   - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
-  - For more information about PostgreSQL JDBC driver connection options, see [PGAdapter - JDBC Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/postgresql-dialect/docs/jdbc.md) in the PGAdapter GitHub repository.
+  - For more information about PostgreSQL JDBC driver connection options, see [PGAdapter - JDBC Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/jdbc.md) in the PGAdapter GitHub repository.
+  - See an [overview of drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview) supported for Spanner.
