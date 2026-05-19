@@ -1,24 +1,24 @@
 ---
 name: documents/docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings
 uri: https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings
-title: Get Vertex AI text embeddings
+title: Get Agent Platform text embeddings
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
 ---
 
-This page describes how to use the [Vertex AI text embedding](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) API to generate, store, and update text embeddings for data stored in Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
+This page describes how to use the [Gemini Enterprise Agent Platform text embedding](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) API to generate, store, and update text embeddings for data stored in Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 A text embedding is a vector representation of text data, and they are used in many ways to find similar items. You interact with them every time you complete a Google Search or see recommendations when shopping online. When you create text embeddings, you get vector representations of natural text as arrays of floating point numbers. This means that all of your input text is assigned a numerical representation. By comparing the numerical distance between the vector representations of two pieces of text, an application can determine the similarity between the text or the objects represented by the text.
 
-With the Vertex AI text embeddings API, you can create a text embedding with [Generative AI](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/overview) . In this tutorial, you use the Vertex AI text embedding model to generate text embeddings for the data stored in Spanner.
+With the Agent Platform text embeddings API, you can create a text embedding with [Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview) . In this tutorial, you use the Agent Platform text embedding model to generate text embeddings for the data stored in Spanner.
 
-To learn more about text embeddings and supported models, see [Get text embeddings](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-text-embeddings) .
+To learn more about text embeddings and supported models, see [Get text embeddings](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings) .
 
 ## Objective
 
 In this tutorial, you learn how to:
 
-  - Register a [Vertex AI text embedding model](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) in a Spanner schema using DDL statements.
+  - Register a [Agent Platform text embedding model](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) in a Spanner schema using DDL statements.
   - Reference the registered model using SQL queries to generate embeddings from data stored in Spanner.
 
 ## Pricing
@@ -26,11 +26,11 @@ In this tutorial, you learn how to:
 This tutorial uses billable components of Google Cloud, including:
 
   - Spanner
-  - Vertex AI
+  - Agent Platform
 
-For more information about Spanner costs, see the [Spanner pricing](https://docs.cloud.google.com/spanner/pricing) page.
+For more information about Spanner costs, see the [Spanner pricing](https://docs.cloud.google.com/products/gemini-enterprise-agent-platform/pricing) page.
 
-For more information about Vertex AI costs, see the [Vertex AI pricing](https://docs.cloud.google.com/vertex-ai/pricing) page.
+For more information about Agent Platform costs, see the [Agent Platform pricing](https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing) page.
 
 ## Generate and store text embeddings
 
@@ -40,7 +40,7 @@ Depending on the model you use, generating embeddings might take some time. For 
 
 **Register a text embeddings model in Spanner**
 
-In GoogleSQL, you must register a model before using it with the `ML.PREDICT` function. To register the Vertex AI text embedding model in a Spanner database, [execute](https://docs.cloud.google.com/spanner/docs/schema-updates) the following DDL [statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) :
+In GoogleSQL, you must register a model before using it with the `ML.PREDICT` function. To register the Agent Platform text embedding model in a Spanner database, [execute](https://docs.cloud.google.com/spanner/docs/schema-updates) the following DDL [statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) :
 
     CREATE MODEL MODEL_NAME
     INPUT(
@@ -60,13 +60,13 @@ In GoogleSQL, you must register a model before using it with the `ML.PREDICT` fu
 
 Replace the following:
 
-  - `  MODEL_NAME  ` : the name of the Vertex AI text embedding model
-  - `  PROJECT  ` : the project hosting the Vertex AI endpoint
-  - `  LOCATION  ` : the location of the Vertex AI endpoint
+  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
+  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
+  - `  LOCATION  ` : the location of the Agent Platform endpoint
 
 Spanner grants appropriate permissions automatically. If it doesn't, review the [model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#model_endpoint_access_control) .
 
-Schema discovery and validation is not available for Generative AI models. You are required to provide `INPUT` and `OUTPUT` clauses which match against the models schema. For the full schema of the text embedding model, see [Get text embeddings](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-text-embeddings) .
+Schema discovery and validation is not available for Generative AI models. You are required to provide `INPUT` and `OUTPUT` clauses which match against the models schema. For the full schema of the text embedding model, see [Get text embeddings](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings) .
 
 **Generate text embeddings**
 
@@ -86,7 +86,7 @@ To generate embeddings for data stored in a table, use the following SQL:
       (SELECT id, description as content FROM Products)
     );
 
-To specify [task type](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/embeddings/task-types) and [output dimensions](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-text-embeddings#choose_an_embedding_dimension) :
+To specify [task type](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/task-types) and [output dimensions](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#choose_an_embedding_dimension) :
 
     UPDATE Products p
     SET description_embedding = (
@@ -145,9 +145,9 @@ To generate embeddings, pass a piece of text directly to the [`spanner.ML_PREDIC
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Vertex AI endpoint
-  - `  LOCATION  ` : the location of the Vertex AI endpoint
-  - `  MODEL_NAME  ` : the name of the Vertex AI text embedding model
+  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
+  - `  LOCATION  ` : the location of the Agent Platform endpoint
+  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
 
 To generate embeddings for data stored in a table, use the following SQL:
 
@@ -159,11 +159,11 @@ To generate embeddings for data stored in a table, use the following SQL:
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Vertex AI endpoint
-  - `  LOCATION  ` : the location of the Vertex AI endpoint
-  - `  MODEL_NAME  ` : the name of the Vertex AI text embedding model
+  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
+  - `  LOCATION  ` : the location of the Agent Platform endpoint
+  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
 
-To specify [task type](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/embeddings/task-types) and [output dimensions](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/embeddings/get-text-embeddings#choose_an_embedding_dimension) :
+To specify [task type](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/task-types) and [output dimensions](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#choose_an_embedding_dimension) :
 
     UPDATE Products p
     SET description_embedding = spanner.float64_array(
@@ -204,9 +204,9 @@ To specify [task type](https://docs.cloud.google.com/vertex-ai/docs/generative-a
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Vertex AI endpoint
-  - `  LOCATION  ` : the location of the Vertex AI endpoint
-  - `  MODEL_NAME  ` : the name of the Vertex AI text embedding model
+  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
+  - `  LOCATION  ` : the location of the Agent Platform endpoint
+  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
 
 **Store text embeddings**
 
@@ -230,9 +230,9 @@ For workloads that are less performance sensitive, you can generate and insert e
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Vertex AI endpoint
-  - `  LOCATION  ` : the location of the Vertex AI endpoint
-  - `  MODEL_NAME  ` : the name of the Vertex AI text embedding model
+  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
+  - `  LOCATION  ` : the location of the Agent Platform endpoint
+  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
 
 ## Update text embeddings
 
@@ -252,7 +252,7 @@ To update the `Products` table in the previous example, use the following SQL:
 
 Replace the following:
 
-  - `  MODEL_NAME  ` : the name of the Vertex AI text embedding model
+  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
 
 ### PostgreSQL
 
@@ -270,12 +270,12 @@ Replace the following:
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Vertex AI endpoint
-  - `  LOCATION  ` : the location of the Vertex AI endpoint
-  - `  MODEL_NAME  ` : the name of the Vertex AI text embedding model
+  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
+  - `  LOCATION  ` : the location of the Agent Platform endpoint
+  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
 
 ## What's next
 
-  - Learn [how to use Vertex AI Vector Search](https://docs.cloud.google.com/vertex-ai/docs/vector-search/overview) to search for semantically similar items.
+  - Learn [how to use Agent Platform Vector Search](https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/overview) to search for semantically similar items.
   - Learn more about machine learning and embeddings in our [crash course on embeddings](https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture) .
-  - Learn more about [Vertex AI text embedding models](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings#supported-models) .
+  - Learn more about [Agent Platform text embedding models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) .

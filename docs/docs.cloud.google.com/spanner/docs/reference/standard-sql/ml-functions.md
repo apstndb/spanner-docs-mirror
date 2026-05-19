@@ -56,9 +56,9 @@ The following are common use cases:
 
 `AI.CLASSIFY` returns a `STRING` value containing the provided category that best fits the input.
 
-The prompt value is evaluated using [Vertex AI Gemini LLM](https://docs.cloud.google.com/vertex-ai/generative-ai/docs) in the same project as the database. Enable the API before calling this function. [pricing](https://cloud.google.com/vertex-ai/pricing) applies.
+The prompt value is evaluated using [Gemini Enterprise Agent Platform Gemini LLM](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/google-models) in the same project as the database. Enable the Agent Platform API before calling this function. [Agent Platform pricing](https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing) applies.
 
-If the call to is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
+If the call to Agent Platform is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
 
 **Return Type**
 
@@ -117,9 +117,9 @@ You can use the `AI.IF` function to filter and join data based on conditions des
 
 **Details**
 
-The prompt value is evaluated using [Vertex AI Gemini LLM](https://docs.cloud.google.com/vertex-ai/generative-ai/docs) in the same project as the database. Enable the API before calling this function. [pricing](https://cloud.google.com/vertex-ai/pricing) applies.
+The prompt value is evaluated using [Agent Platform Gemini LLM](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/google-models) in the same project as the database. Enable the Agent Platform API before calling this function. [Agent Platform pricing](https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing) applies.
 
-If the call to is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
+If the call to Agent Platform is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
 
 **Return Type**
 
@@ -189,9 +189,9 @@ Use the `AI.SCORE` function with the `ORDER BY` clause to rank items. The follow
 
 `AI.SCORE` returns a `FLOAT64` indicating the score assigned to the input. There is no fixed default range for the score. For best results, provide a scoring range in the prompt.
 
-The prompt value is evaluated using [Vertex AI Gemini LLM](https://docs.cloud.google.com/vertex-ai/generative-ai/docs) in the same project as the database. Enable the API before calling this function. [pricing](https://cloud.google.com/vertex-ai/pricing) applies.
+The prompt value is evaluated using [Agent Platform Gemini LLM](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/google-models) in the same project as the database. Enable the Agent Platform API before calling this function. [Agent Platform pricing](https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing) applies.
 
-If the call to is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
+If the call to Agent Platform is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
 
 **Return Type**
 
@@ -256,7 +256,7 @@ The following query builds on the previous example by using the `AI.IF` function
 
 `ML.PREDICT` is a table-valued function that helps to access registered machine learning (ML) models and use them to generate ML predictions. This function applies ML computations defined by a model to each row of an input relation, and returns the results of those predictions. Additionally, you can use `ML.PREDICT` to perform vector search. When you use `ML.PREDICT` for vector search, it converts your natural language query text into an embedding.
 
-> **Note:** Make sure that Spanner has access to the referenced Vertex AI endpoint as described in [Model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model_permissions) .
+> **Note:** Make sure that Spanner has access to the referenced Agent Platform endpoint as described in [Model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model_permissions) .
 
 **Supported Argument Types**
 

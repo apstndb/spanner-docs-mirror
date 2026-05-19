@@ -336,7 +336,7 @@ The following table shows whether columns have content.
 | `seqincrement` | `int8` | N           |
 | `seqmax`       | `int8` | N           |
 | `seqmin`       | `int8` | N           |
-| `seqcache`     | `int8` | Y           |
+| seqcache       | `int8` | Y           |
 | `seqcycle`     | `bool` | Y           |
 
 ### `pg_type`

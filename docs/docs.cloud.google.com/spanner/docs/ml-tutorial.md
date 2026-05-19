@@ -14,23 +14,23 @@ Spanner Agent Platform integration gives you the ability to generate predictions
 
 Before you can generate predictions from a Spanner instance, you must prepare your database and select a model.
 
-### Configure access for Spanner Agent Platform integration to Vertex AI endpoints
+### Configure access for Spanner Agent Platform integration to Agent Platform endpoints
 
-Spanner creates the service agent and grants the necessary permissions automatically when Spanner executes the first MODEL DDL statement. If both the Spanner database and the Vertex AI endpoint are in the same project, no additional setup is required.
+Spanner creates the service agent and grants the necessary permissions automatically when Spanner executes the first MODEL DDL statement. If both the Spanner database and the Gemini Enterprise Agent Platform endpoint are in the same project, no additional setup is required.
 
 If the Spanner service agent account doesn't exist for your Spanner project, [create](https://docs.cloud.google.com/sdk/gcloud/reference/beta/services/identity/create) it by running the following command:
 
     gcloud beta services identity create --service=spanner.googleapis.com --project={PROJECT}`
 
-Follow the steps described in the [Grant a single role](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access#iam-grant-single-role-gcloud) to grant the [`Spanner API Service Agent`](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.serviceAgent) role to the Spanner [service agent](https://docs.cloud.google.com/iam/docs/service-agents) account `service- PROJECT_NUMBER @gcp-sa-spanner.iam.gserviceaccount.com` on your Vertex AI project.
+Follow the steps described in the [Grant a single role](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access#iam-grant-single-role-gcloud) to grant the [`Spanner API Service Agent`](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.serviceAgent) role to the Spanner [service agent](https://docs.cloud.google.com/iam/docs/service-agents) account `service- PROJECT_NUMBER @gcp-sa-spanner.iam.gserviceaccount.com` on your Agent Platform project.
 
 ### Select a model
 
 When you use the `ML.PREDICT` (for GoogleSQL) or the `spanner.ML_PREDICT_ROW` (for PostgreSQL) function, you must specify the location of the ML model. Your selected model can be one of the following:
 
-  - A model running in the [Vertex AI Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) .
+  - A model running in [Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models) .
 
-  - A Vertex AI model with an active endpoint that your [Spanner service agent](https://docs.cloud.google.com/iam/docs/service-agents) has IAM permission to access.
+  - An Agent Platform model with an active endpoint that your [Spanner service agent](https://docs.cloud.google.com/iam/docs/service-agents) has IAM permission to access.
 
 To learn more about Spanner Agent Platform integration, see [How does Spanner Agent Platform integration work?](https://docs.cloud.google.com/spanner/docs/ml#how-does-it-work) .
 
@@ -38,9 +38,9 @@ To learn more about Spanner Agent Platform integration, see [How does Spanner Ag
 
 Depending on the type of your selected model, the steps to generating your predictions will differ.
 
-### Use a model in the Vertex AI Model Garden
+### Use a model in Model Garden
 
-To generate a prediction using a model from the Vertex AI Model Garden, [select a model from the Model Garden](https://docs.cloud.google.com/vertex-ai/docs/start/explore-models) .
+To generate a prediction using a model from Model Garden, [select a model from Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models) .
 
 ### GoogleSQL
 
@@ -72,9 +72,9 @@ Replace the following:
 
   - `  MODEL_ID  ` : the ID of the ML model you want to use—for example, `gemini-pro`
     
-    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/overview#models) .
+    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
 
-Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function with the model selected from the Model Garden to generate your prediction.
+Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function with the model selected from Model Garden to generate your prediction.
 
     SELECT * FROM ML.PREDICT(
       MODEL `MODEL_NAME`,
@@ -84,7 +84,7 @@ Replace the following:
 
   - `  MODEL_NAME  ` : the name you want to give your model
     
-    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/overview#models) .
+    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
 
   - `  INPUT_RELATION  ` : either `TABLE table_name` or a subquery the table or subquery supplying data to run the ML prediction on.
 
@@ -94,7 +94,7 @@ You can also use `SAFE.ML.PREDICT` to return `null` instead of an error in your 
 
 ### PostgreSQL
 
-Use the `ML_PREDICT_ROW` PostgreSQL function with the model selected from the Model Garden to generate your prediction.
+Use the `ML_PREDICT_ROW` PostgreSQL function with the model selected from Model Garden to generate your prediction.
 
     SELECT spanner.ml_predict_row(
       'projects/PROJECT_ID/locations/REGION_ID/publishers/google/models/MODEL_ID'::text,
@@ -111,21 +111,21 @@ Replace the following:
 
   - `  MODEL_ID  ` : the ID of the ML model you want to use—for example, `gemini-pro`
     
-    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/overview#models) .
+    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
 
   - `  INSTANCES  ` : the inputs for the prediction call, in JSON format
 
   - `  PARAMETERS  ` : optional parameters for the prediction call, in JSON format
 
-This query produces a JSON response. For more information about the model's JSON response messages, see [PredictResponse](https://docs.cloud.google.com/vertex-ai/docs/reference/rest/v1/PredictResponse) .
+This query produces a JSON response. For more information about the model's JSON response messages, see [PredictResponse](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1/PredictResponse) .
 
-### Use a Vertex AI model endpoint
+### Use a Agent Platform model endpoint
 
-To use a trained or downloaded model with Spanner Agent Platform integration, you need to deploy the model to Vertex AI. For more information on how to deploy a model to an endpoint in Vertex AI, see [Deploy a model to an endpoint](https://docs.cloud.google.com/vertex-ai/docs/general/deployment) .
+To use a trained or downloaded model with Spanner Agent Platform integration, you need to deploy the model to Agent Platform. For more information on how to deploy a model to an endpoint in Agent Platform, see [Deploy a model to an endpoint](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment) .
 
 ### GoogleSQL
 
-Use the `ML.PREDICT` GoogleSQL function with the model in a Vertex AI endpoint to generate your prediction. Before you use a model with `ML.PREDICT()` , you need to register the model using the [`CREATE MODEL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) statement. Each deployed model has its own unique schema. The following is an example schema from [Classification and regression Overview](https://docs.cloud.google.com/vertex-ai/docs/tabular-data/classification-regression/overview)
+Use the `ML.PREDICT` GoogleSQL function with the model in a Agent Platform endpoint to generate your prediction. Before you use a model with `ML.PREDICT()` , you need to register the model using the [`CREATE MODEL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) statement. Each deployed model has its own unique schema. The following is an example schema from [Classification and regression overview](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/tabular-data/classification-regression/overview)
 
     CREATE MODEL MyClassificationModel
     INPUT (
@@ -150,9 +150,9 @@ Replace the following:
 
   - `  ENDPOINT_ID  ` : the ID of the ML model you want to use—for example, `gemini-pro`
     
-    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/overview#models) .
+    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
 
-Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function with the model selected from the Model Garden to generate your prediction.
+Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function with the model selected from Model Garden to generate your prediction.
 
     SELECT * FROM ML.PREDICT(
       `MODEL_ID`,
@@ -170,7 +170,7 @@ This query produces a relation containing all output columns of the model and al
 
 ### PostgreSQL
 
-Use the `ML.PREDICT` PostgreSQL function with the model in a Vertex AI endpoint to generate your prediction.
+Use the `ML.PREDICT` PostgreSQL function with the model in an Agent Platform endpoint to generate your prediction.
 
 ```` 
   SELECT spanner.ml_predict_row(
@@ -194,7 +194,7 @@ Replace the following:
 
   - `  PARAMETERS  ` : optional parameters to the prediction call, in JSON format
 
-This query produces a JSON response. For more information about the model's JSON response messages, see [PredictResponse](https://docs.cloud.google.com/vertex-ai/docs/reference/rest/v1/PredictResponse) .
+This query produces a JSON response. For more information about the model's JSON response messages, see [PredictResponse](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1/PredictResponse) .
 
 ### Examples for using ML functions to generate predictions
 
@@ -202,7 +202,7 @@ This query produces a JSON response. For more information about the model's JSON
 > 
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-The following example uses the [gemini-pro](https://docs.cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini) model, from the Model Garden, to generate text based on a short prompt that is provided as an argument. This model is available as part of Gemini in Spanner.
+The following example uses the [gemini-pro](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) model, from Model Garden, to generate text based on a short prompt that is provided as an argument. This model is available as part of Gemini in Spanner.
 
 ### GoogleSQL
 
@@ -220,7 +220,7 @@ The following example uses the [gemini-pro](https://docs.cloud.google.com/vertex
 Replace the following:
 
   - `PROJECT` : the project ID
-  - `LOCATION` : the region where you are using Vertex AI
+  - `LOCATION` : the region where you are using Agent Platform
 
 **Run the model**
 

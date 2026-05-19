@@ -1185,12 +1185,37 @@ Execute the following command:
 You should receive a response similar to the following:
 
 ``` 
+  
+    Name
 ```
 
-| Name             | Backup type | Cron            | Retention duration | Encryption type           |
-| ---------------- | ----------- | --------------- | ------------------ | ------------------------- |
-| my-full-schedule | FULL        | 30 12 \* \* \*  | 2592000s           | USE\_DATABASE\_ENCRYPTION |
-| my-incr-schedule | INCREMENTAL | 0 \*/4 \* \* \* | 2592000s           | USE\_DATABASE\_ENCRYPTION |
+Backup type
+
+Cron
+
+Retention duration
+
+Encryption type
+
+my-full-schedule
+
+FULL
+
+30 12 \* \* \*
+
+2592000s
+
+USE\_DATABASE\_ENCRYPTION
+
+my-incr-schedule
+
+INCREMENTAL
+
+0 \*/4 \* \* \*
+
+2592000s
+
+USE\_DATABASE\_ENCRYPTION
 
 ### REST v1
 
