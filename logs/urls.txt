@@ -996,7 +996,7 @@ https://docs.cloud.google.com/spanner/docs/signal-capture-overview	2026-05-17T00
 https://docs.cloud.google.com/spanner/docs/spanner-ai-overview	2026-05-18T15:52:01Z
 https://docs.cloud.google.com/spanner/docs/spanner-cli	2026-05-17T00:38:10Z
 https://docs.cloud.google.com/spanner/docs/spanner-cli-commands	2026-05-17T00:38:10Z
-https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints	2026-05-15T21:59:04Z
+https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints	2026-05-18T20:43:59Z
 https://docs.cloud.google.com/spanner/docs/sql-best-practices	2026-05-17T00:38:10Z
 https://docs.cloud.google.com/spanner/docs/statement-timeout	2026-05-17T00:38:10Z
 https://docs.cloud.google.com/spanner/docs/storage-utilization	2026-05-17T00:38:10Z
