@@ -12,54 +12,28 @@ You can integrate GoogleSQL-dialect databases with GORM using the open source [S
 
 ## Set up GORM with Spanner GoogleSQL-dialect databases
 
-To use the GoogleSQL GORM dialect in your application, add the following import statement to the file where GORM is initialized:
+To use the GoogleSQL GORM dialect in your application, add the following code to the file where GORM is initialized:
 
-```` 
-  import (
-    "fmt"
+    import (
+      "fmt"
+    
+      "gorm.io/gorm"
+      _ "github.com/googleapis/go-sql-spanner"
+      spannergorm "github.com/googleapis/go-gorm-spanner"
+    )
+    
+    dsn := fmt.Sprintf("projects/%s/instances/%s/databases/%s", projectId, instanceId, databaseId)
+    db, err := gorm.Open(spannergorm.New(spannergorm.Config{DriverName: "spanner", DSN: dsn}), &gorm.Config{})
 
-    "gorm.io/gorm"
-    _ "github.com/googleapis/go-sql-spanner"
-    spannergorm "github.com/googleapis/go-gorm-spanner"
-  )
-
-  dsn := fmt.Sprintf("projects/%s/instances/%s/databases/%s", projectId, instanceId, databaseId),
-  db, err := gorm.Open(spannergorm.New(spannergorm.Config{DriverName: "spanner", DSN: dsn}), &gorm.Config{})
-  ```
-
-See the
-
-[GORM with GoogleSQL documentation][go-driver-documentation]
-
-for more connection options for Spanner.
+For more connection options for Spanner, see the [GORM with GoogleSQL documentation](https://github.com/googleapis/go-sql-spanner/blob/-/driver.go) .
 
 ## Use GORM with Spanner GoogleSQL-dialect databases
 
-For more information about the features and recommendations for using
-GORM with Spanner, consult the [reference documentation][spanner-gorm-github]
-on GitHub.
+For more information about the features and recommendations for using GORM with Spanner, consult the [reference documentation](https://github.com/googleapis/go-gorm-spanner) on GitHub.
 
-## What's next {: #whats-next}
+## What's next
 
-*   Checkout the [sample application][gorm-gsql-sample-application] using
-    GORM with GoogleSQL and Spanner.
-*   Learn more about [GORM][gorm].
-*   [File a GitHub issue][spanner-gorm-issue] to report a bug or ask a question
-    about using GORM with Spanner with GoogleSQL.
-*   Learn more about [Integrate Spanner with GORM (
-    PostgreSQL dialect)](/spanner/docs/use-gorm-postgresql).
-
-
-
-
-
-
-
-
-
-  
-
-  
-    
-  
-````
+  - Checkout the [sample application](https://github.com/googleapis/go-gorm-spanner/blob/-/samples/helloworld/main.go) using GORM with GoogleSQL and Spanner.
+  - Learn more about [GORM](https://gorm.io/) .
+  - [File a GitHub issue](https://github.com/googleapis/go-gorm-spanner/issues) to report a bug or ask a question about using GORM with Spanner with GoogleSQL.
+  - Learn more about [Integrate Spanner with GORM ( PostgreSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-gorm-postgresql) .

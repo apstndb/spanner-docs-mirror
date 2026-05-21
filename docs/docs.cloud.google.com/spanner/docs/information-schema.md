@@ -1378,7 +1378,8 @@ Return information about each table in the user's schema:
       AND t.table_type = 'BASE TABLE'
     ORDER BY
       t.table_catalog,
-     t.table_schema,  t.table_name
+      t.table_schema,
+      t.table_name
 
 Return the name of all tables in the INFORMATION\_SCHEMA:
 
@@ -1406,7 +1407,8 @@ Return information about the columns in the user table `MyTable` in default sche
     ORDER BY
       t.table_catalog,
       t.table_schema,
-      t.table_name,  t.ordinal_position
+      t.table_name,
+      t.ordinal_position
 
 Return information on what the default leader region for the database is. Returns empty if the default leader is not set:
 
@@ -1435,7 +1437,9 @@ Return information about each index in the user's schema:
       t.index_type != 'PRIMARY_KEY'
     ORDER BY
       t.table_catalog,
-      t.table_schema,  t.table_name,  t.index_name
+      t.table_schema,
+      t.table_name,
+      t.index_name
 
 Returns all the columns that use options other than the default:
 

@@ -28,7 +28,7 @@ To check the current quotas for resources in your project, use the Google Cloud 
 
 As your use of Spanner expands over time, your quotas can increase accordingly. If you expect a notable upcoming increase in usage, you should make your request a few days in advance to verify that your quotas are adequately sized.
 
-You might also need to increase your consumer quota override. For more information, see [Creating a consumer quota override](https://docs.cloud.google.com/service-usage/docs/manage-quota#create_consumer_quota_override) .
+You might also need to increase your consumer quota override. For more information, see [Manage your quotas using the Google Cloud console](https://docs.cloud.google.com/docs/quotas/view-manage#managing_your_quota_console) .
 
 You can increase your current Spanner instance configuration node limit by using the Google Cloud console.
 
