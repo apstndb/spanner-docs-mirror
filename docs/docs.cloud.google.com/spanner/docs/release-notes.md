@@ -12,7 +12,25 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## May 18, 2026
+
+Feature
+
+You can optimize Spanner Graph query performance by using factorized execution. If a graph pattern traversal generates duplicate intermediate results, add the `@{factorize_mode}` hint to the pattern traversal or at the query level to optimize the query.
+
+For more information, see [Use factorized execution to optimize queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries#use-factorized-execution) .
+
+## May 15, 2026
+
+Feature
+
+Spanner Studio supports query parameters, which let you bind literal values to a templated SQL statement at query time in the Google Cloud console. For more information, see [query parameters](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) .
+
 ## May 14, 2026
+
+Feature
+
+Spanner supports the `FACTORIZED_MODE` join hint. You can control which sides of a join to factorize (deduplicate) before executing the join by using the `FACTORIZE_LEFT` , `FACTORIZE_RIGHT` , or `FACTORIZE_BOTH` hint values. For more information, see [Factorized mode](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#factorized_mode) .
 
 Announcement
 

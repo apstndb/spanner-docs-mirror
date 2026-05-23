@@ -2912,6 +2912,13 @@ The following join hints are supported:
 <td>Used to disable batched apply join in favor of row-at-a-time apply join. Can only be used with <code dir="ltr" translate="no">JOIN_METHOD=APPLY_JOIN</code> .</td>
 </tr>
 <tr class="odd">
+<td><code dir="ltr" translate="no">FACTORIZED_MODE</code></td>
+<td><code dir="ltr" translate="no">FACTORIZE_LEFT</code><br />
+<code dir="ltr" translate="no">FACTORIZE_RIGHT</code><br />
+<code dir="ltr" translate="no">FACTORIZE_BOTH</code></td>
+<td>Specifies which sides of the join should be factorized (deduplicated) prior to the join. Learn more in <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#factorized_mode">Factorized Mode</a> .</td>
+</tr>
+<tr class="even">
 <td><code dir="ltr" translate="no">HASH_JOIN_EXECUTION</code></td>
 <td><code dir="ltr" translate="no">MULTI_PASS</code> (default)<br />
 <code dir="ltr" translate="no">ONE_PASS</code></td>
@@ -2930,6 +2937,14 @@ Join methods are specific implementations of the various logical join types. Som
 | `APPLY_JOIN`               | The apply join operator gets each item from one side (the input side), and evaluates the subquery on other side (the map side) using the values of the item from the input side.                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Different variants are used for various join types. Cross apply is used for inner join, and outer apply is used for left joins. Read more about the [Cross apply operator](https://cloud.google.com/spanner/docs/query-execution-operators#cross-apply) and [Outer apply operator](https://cloud.google.com/spanner/docs/query-execution-operators#outer-apply) |
 | `MERGE_JOIN`               | The merge join operator joins two streams of sorted data. The optimizer adds Sort operators to the plan if the data isn't already providing the required sort property for the given join condition. The engine provides a distributed merge sort by default, which when coupled with merge join may allow for larger joins, potentially avoiding disk spilling and improving scale and latency.                                                                                                                                                                                                                                        | Different variants are used for various join types. View the query execution plan for your query to see which variant is used. Read more about the [Merge join operator](https://cloud.google.com/spanner/docs/query-execution-operators#merge-join) .                                                                                                          |
 | `PUSH_BROADCAST_HASH_JOIN` | The push broadcast hash join operator builds a batch of data from the build side of the join. The batch is then sent in parallel to all the local splits of the probe side of the join. On each of the local servers, a hash join is executed between the batch and the local data. This join is most likely to be beneficial when the input can fit within one batch, but isn't strict. Another potential area of benefit is when operations can be distributed to the local servers, such as an aggregation that occurs after a join. A push broadcast hash join can distribute some aggregation where a traditional hash join can't. | Different variants are used for various join types. View the query execution plan for your query to see which variant is used. Read more about the [Push broadcast hash join operator](https://cloud.google.com/spanner/docs/query-execution-operators#push-broadcast-hash-join) .                                                                              |
+
+#### Factorized mode
+
+When you execute a join, multiple rows on one side can match a single row or multiple rows on the other side. This can lead to overhead from repeated join-key comparisons or hashtable probes during execution.
+
+Factorization is a join execution technique that reduces redundant work by deduplicating join-key values on one or both sides before joining them. Deduplication decreases the number of processed rows and eliminates repeated computations without altering the join result. Use the hint values `FACTORIZE_LEFT` , `FACTORIZE_RIGHT` , or `FACTORIZE_BOTH` to explicitly control which join sides are factorized. Factorized mode is supported only for INNER JOINs with equality conditions.
+
+Explicit deduplication can introduce its own overhead, potentially outweighing the benefits of factorized join execution. The performance impact depends on several factors, including the join-key's duplication factor, the chosen join method (hash, apply, or merge), the join cardinality (for example, one-to-many, many-to-one, or many-to-many), and the overall join topology. However, the most benefit is expected for queries with a large number of many-to-many joins, which is typical in graph traversal scenarios. For more guidance on when to apply the factorized execution mode, see [Best practices for tuning Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries#use-factorized-execution) .
 
 #### Hash Join Execution
 

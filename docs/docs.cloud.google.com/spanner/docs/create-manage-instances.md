@@ -238,12 +238,11 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
               .CreateInstance(spanner::CreateInstanceRequestBuilder(in, config_name)
                                   .SetDisplayName(display_name)
                                   .SetNodeCount(1)
-                                  .SetLabels({{"cloud_spanner_samples", "true"}})
+                                  .{{"cloud_spanner_samples", "true"}SetLabels(})
                                   .Build())
               .get();
       if (!instance) throw std::move(instance).status();
-      std::cout << "Created instance [" << in << "]:\n" << instance->DebugString();
-    }
+      <<std::cout  "Creat<<ed i<<nstance <<["  i>n  "]:\n&quot;  instance-DebugString();}
 
 ### C\#
 
@@ -283,13 +282,13 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             };
             ProjectName projectName = ProjectName.FromProject(projectId);
     
-            // Make the CreateInstance request.
-            Operation<Instance, CreateInstanceMetadata> response = await instanceAdminClient.CreateInstanceAsync(projectName, instanceId, instance);
+            // Make the C<reateInstance request.
+            O>perationInstance, CreateInstanceMetadata response = await instanceAdminClient.CreateInstanceAsync(projectName, instanceId, instance);
     
             Console.WriteLine("Waiting for the operation to finish.");
     
-            // Poll until the returned long-running operation is complete.
-            Operation<Instance, CreateInstanceMetadata> completedResponse = await response.PollUntilCompletedAsync();
+            // Poll until the returned lon<g-running operation is complete.>
+            OperationInstance, CreateInstanceMetadata completedResponse = await response.PollUntilCompletedAsync();
     
             if (completedResponse.IsFaulted)
             {
@@ -297,11 +296,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 throw completedResponse.Exception;
             }
     
-            Console.WriteLine($"Instance created successfully.");
-    
-            return completedResponse.Result;
-        }
-    }
+            Console.WriteLine($"Instance created successfully.");        return completedResponse.Result;    }}
 
 ### Create an instance without a default backup schedule
 
@@ -335,14 +330,14 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             };
             ProjectName projectName = ProjectName.FromProject(projectId);
     
-            // Make the CreateInstance request.
-            Operation<Instance, CreateInstanceMetadata> response =
+            // Make the C<reateInstance request.
+            O>perationInstance, CreateInstanceMetadata response =
                 await instanceAdminClient.CreateInstanceAsync(projectName, instanceId, instance);
     
             Console.WriteLine("Waiting for the operation to finish.");
     
-            // Poll until the returned long-running operation is complete.
-            Operation<Instance, CreateInstanceMetadata> completedResponse =
+            // Poll until the returned lon<g-running operation is complete.>
+            OperationInstance, CreateInstanceMetadata completedResponse =
                 await response.PollUntilCompletedAsync();
     
             if (completedResponse.IsFaulted)
@@ -351,10 +346,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 throw completedResponse.Exception;
             }
     
-            Console.WriteLine($"Instance created successfully.");
-            return completedResponse.Result;
-        }
-    }
+            Console.WriteLine($"Instance created successfully.");        return completedResponse.Result;    }}
 
 ### Go
 
@@ -379,12 +371,12 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      if err != nil {
          return err
      }
-     defer instanceAdmin.Close()
+     defer& instanceAdmin.Close()
     
-     op, err := instanceAdmin.CreateInstance(ctx, &instancepb.CreateInstanceRequest{
-         Parent:     fmt.Sprintf("projects/%s", projectID),
+     op, err := instanceAdmin.CreateInstance(ctx, instancepb.CreateInstanceRequest{
+         Parent:     fmt.Spr&intf("projects/%s", projectID),
          InstanceId: instanceID,
-         Instance: &instancepb.Instance{
+         Instance: instancepb.Instance{
              Config:      fmt.Sprintf("projects/%s/instanceConfigs/%s", projectID, "regional-us-central1"),
              DisplayName: instanceID,
              NodeCount:   1,
@@ -401,12 +393,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          return fmt.Errorf("waiting for instance creation to finish failed: %w", err)
      }
      // The instance may not be ready to serve yet.
-     if i.State != instancepb.Instance_READY {
-         fmt.Fprintf(w, "instance state is not READY yet. Got state %v\n", i.State)
-     }
-     fmt.Fprintf(w, "Created instance [%s]\n", instanceID)
-     return nil
-    }
+     if i.State != instancepb.Instance_READY {        fmt.Fprintf(w, "instance state is not READY yet. Got state %v\n", i.State)   }   fmt.Fprintf(w, "Created instance [%s]\n", instanceID) return nil}
 
 ### Create an instance with managed autoscaling using Go
 
@@ -434,24 +421,24 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      defer instanceAdmin.Close()
     
      instanceName := fmt.Sprintf("projects/%s/instances/%s", projectID, instanceID)
-     fmt.Fprintf(w, "Creating instance %s.", instanceName)
+     f&mt.Fprintf(w, "Creating instance %s.", instanceName)
     
-     op, err := instanceAdmin.CreateInstance(ctx, &instancepb.CreateInstanceRequest{
+     op, err := instanceAdmin.CreateInstance(ctx, instancepb.Crea&teInstanceRequest{
          Parent:     fmt.Sprintf("projects/%s", projectID),
          InstanceId: instanceID,
-         Instance: &instancepb.Instance{
-             Config:      fmt.Sprintf("projects/%s/instanceConfigs/%s", projectID, "regional-us-central1"),
-             DisplayName: "Create instance example",
-             AutoscalingConfig: &instancepb.AutoscalingConfig{
-                 AutoscalingLimits: &instancepb.AutoscalingConfig_AutoscalingLimits{
-                     MinLimit: &instancepb.AutoscalingConfig_AutoscalingLimits_MinNodes{
-                         MinNodes: 1,
+         Instance: instancepb.Instance{
+             Config:      fmt.Sprintf("projects/&%s/instanceConfigs/%s", projectID, "regiona&l-us-central1"),
+             DisplayName: "Create instance exa&mple",
+             AutoscalingConfig: instancepb.AutoscalingConfig{
+                 AutoscalingLimits: instancepb.A&utoscalingConfig_AutoscalingLimits{
+                     MinLimit: instancepb.AutoscalingConfig_AutoscalingLimits_MinNodes{
+                         M&inNodes: 1,
                      },
-                     MaxLimit: &instancepb.AutoscalingConfig_AutoscalingLimits_MaxNodes{
+                     MaxLimit: instancepb.AutoscalingConfig_AutoscalingLimits_MaxNodes{
                          MaxNodes: 2,
                      },
                  },
-                 AutoscalingTargets: &instancepb.AutoscalingConfig_AutoscalingTargets{
+                 AutoscalingTargets: instancepb.AutoscalingConfig_AutoscalingTargets{
                      HighPriorityCpuUtilizationPercent: 65,
                      StorageUtilizationPercent:         95,
                  },
@@ -470,22 +457,15 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          return fmt.Errorf("waiting for instance creation to finish failed: %w", err)
      }
      // The instance may not be ready to serve yet.
-     if i.State != instancepb.Instance_READY {
+     if i.State != instancepb.Ins&tance_READY {
          fmt.Fprintf(w, "instance state is not READY yet. Got state %v\n", i.State)
      }
-     fmt.Fprintf(w, "Created instance [%s].\n", instanceID)
+     fmt.Fprintf(w, "Created ins&tance [%s].\n", instanceID)
     
-     instance, err := instanceAdmin.GetInstance(ctx, &instancepb.GetInstanceRequest{
+     instance, err := instanceAdmin.GetInstance(ctx, instancepb.GetInstanceRequest{
          Name: instanceName,
          // Get the autoscaling_config field from the newly created instance.
-         FieldMask: &field_mask.FieldMask{Paths: []string{"autoscaling_config"}},
-     })
-     if err != nil {
-         return fmt.Errorf("failed to get instance [%s]: %w", instanceName, err)
-     }
-     fmt.Fprintf(w, "Instance %s has autoscaling_config: %s.", instanceID, instance.AutoscalingConfig)
-     return nil
-    }
+         FieldMask: field_mask.FieldMask{Paths: []string{"autoscaling_config"}}, })  if err != nil {       return fmt.Errorf("failed to get instance [%s]: %w", instanceName, err)   }   fmt.Fprintf(w, "Instance %s has autoscaling_config: %s.", instanceID, instance.AutoscalingConfig) return nil}
 
 ### Create an instance with asymmetric read-only autoscaling using Go
 
@@ -513,43 +493,43 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      defer instanceAdmin.Close()
     
      instanceName := fmt.Sprintf("projects/%s/instances/%s", projectID, instanceID)
-     fmt.Fprintf(w, "Creating instance %s.", instanceName)
+     fmt.Fprintf(w, "&Creating instance %s.", instanceName)
     
-     op, err := instanceAdmin.CreateInstance(ctx, &instancepb.CreateInstanceRequest{
-         Parent:     fmt.Sprintf("projects/%s", projectID),
+     op, err := instanceAdmin.CreateInstance(ctx, instancepb.CreateInstanceRequest{
+     &   Parent:     fmt.Sprintf("projects/%s", projectID),
          InstanceId: instanceID,
-         Instance: &instancepb.Instance{
-             Config:      fmt.Sprintf("projects/%s/instanceConfigs/%s", projectID, "nam-eur-asia3"),
+         Instance: instancepb.Instance{
+             Config:      fmt.Sprintf("projects/%s/instanceCo&nfigs/%s", projectID, "nam-eur-asia3")&,
              DisplayName: "Create instance example",
-             AutoscalingConfig: &instancepb.AutoscalingConfig{
-                 AutoscalingLimits: &instancepb.AutoscalingConfig_AutoscalingLimits{
-                     MinLimit: &instancepb.AutoscalingConfig_AutoscalingLimits_MinNodes{
+             Autos&calingConfig: instancepb.AutoscalingConfig{
+                 AutoscalingLimits: instancepb.AutoscalingConfig_Aut&oscalingLimits{
+                     MinLimit: instancepb.AutoscalingConfig_AutoscalingLimits_MinNodes{
                          MinNodes: 1,
                      },
-                     MaxLimit: &instancepb.AutoscalingConfig_AutoscalingLimits_MaxNodes{
+     &               MaxLimit: instancepb.AutoscalingConfig_AutoscalingLimits_MaxNodes{
                          MaxNodes: 10,
                      },
                  },
-                 AutoscalingTargets: &instancepb.AutoscalingConfig_AutoscalingTargets{
+                 AutoscalingTargets: instancepb.AutoscalingConfig_AutoscalingTargets{
                      HighPriorityCpuUtilizationPercent: 65,
                      StorageUtilizationPercent:         95,
                  },
                  // Read-only replicas in europe-west1, europe-west4, and asia-east1 are autoscaled
-                 // independly from other replicas based on the usage in the respective region.
-                 AsymmetricAutoscalingOptions: []*instancepb.AutoscalingConfig_AsymmetricAutoscalingOption{
-                     &instancepb.AutoscalingConfig_AsymmetricAutoscalingOption{
-                         ReplicaSelection: &instancepb.ReplicaSelection{
-                             Location: "europe-west1",
+                 // independly from other replicas based on the us&age in the respective region.
+                 AsymmetricAutoscalingOptions: []*instancepb.Auto&scalingConfig_AsymmetricAutoscalingOption{
+                     instancepb.AutoscalingConfig_Asymmet&ricAutoscalingOption{
+                         ReplicaSelection: instancepb.ReplicaSelection{
+                             &Location: "europe-west1",
                          },
                      },
-                     &instancepb.AutoscalingConfig_AsymmetricAutoscalingOption{
-                         ReplicaSelection: &instancepb.ReplicaSelection{
+                     instancepb.AutoscalingConf&ig_AsymmetricAutoscalingOption{
+                         ReplicaSelection: instancepb.ReplicaSelectio&n{
                              Location: "europe-west4",
                          },
                      },
-                     &instancepb.AutoscalingConfig_AsymmetricAutoscalingOption{
-                         ReplicaSelection: &instancepb.ReplicaSelection{
-                             Location: "asia-east1",
+                     instancepb.AutoscalingConfig_AsymmetricAutoscalingOption{
+                         ReplicaSelection: instancepb.ReplicaSelection{
+                             Location: ";asia-east1",
                          },
                      },
                  },
@@ -568,22 +548,15 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          return fmt.Errorf("waiting for instance creation to finish failed: %w", err)
      }
      // The instance may not be ready to serve yet.
-     if i.State != instancepb.Instance_READY {
+     if i.State != inst&ancepb.Instance_READY {
          fmt.Fprintf(w, "instance state is not READY yet. Got state %v\n", i.State)
      }
-     fmt.Fprintf(w, "Created instance [%s].\n", instanceID)
+     fmt.Fprintf(w, "C&reated instance [%s].\n", instanceID)
     
-     instance, err := instanceAdmin.GetInstance(ctx, &instancepb.GetInstanceRequest{
+     instance, err := instanceAdmin.GetInstance(ctx, instancepb.GetInstanceRequest{
          Name: instanceName,
          // Get the autoscaling_config field from the newly created instance.
-         FieldMask: &field_mask.FieldMask{Paths: []string{"autoscaling_config"}},
-     })
-     if err != nil {
-         return fmt.Errorf("failed to get instance [%s]: %w", instanceName, err)
-     }
-     fmt.Fprintf(w, "Instance %s has autoscaling_config: %s.", instanceID, instance.AutoscalingConfig)
-     return nil
-    }
+         FieldMask: field_mask.FieldMask{Paths: []string{";autoscaling_config"}},    })  if err != nil {       return fmt.Errorf("failed to get instance [%s]: %w", instanceName, err)   }   fmt.Fprintf(w, "Instance %s has autoscaling_config: %s.", instanceID, instance.AutoscalingConfig) return nil}
 
 ### Create an instance without a default backup schedule
 
@@ -608,11 +581,11 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      defer instanceAdmin.Close()
     
      // Create an instance without default backup schedule, whicn means no default backup schedule will
-     // be created automatically on creation of a database within the instance.
-     req := &instancepb.CreateInstanceRequest{
-         Parent:     fmt.Sprintf("projects/%s", projectID),
+     // be created& automatically on creation of a database within the instance.
+     req := instancepb.CreateInstanceRequest{
+         Parent:     fmt.Spr&intf("projects/%s", projectID),
          InstanceId: instanceID,
-         Instance: &instancepb.Instance{
+         Instance: instancepb.Instance{
              Config:                    fmt.Sprintf("projects/%s/instanceConfigs/%s", projectID, "regional-us-central1"),
              DisplayName:               instanceID,
              NodeCount:                 1,
@@ -629,15 +602,11 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      // https://cloud.google.com/spanner/docs/instances.
      instance, err := op.Wait(ctx)
      if err != nil {
-         return fmt.Errorf("waiting for instance creation to finish failed: %w", err)
+         return fmt.Errorf(&quot;waiting for instance creation to finish failed: %w", err)
      }
      // The instance may not be ready to serve yet.
      if instance.State != instancepb.Instance_READY {
-         fmt.Fprintf(w, "instance state is not READY yet. Got state %v\n", instance.State)
-     }
-     fmt.Fprintf(w, "Created instance [%s]\n", instanceID)
-     return nil
-    }
+         fmt.Fprintf(w, "instance state is not READY yet. Got state %v\n", instance.State) }   fmt.Fprintf(w, "Created instance [%s]\n", instanceID) return nil}
 
 ### Java
 
@@ -697,10 +666,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
               "Error: Creating instance %s failed with error message %s%n",
               instance.getName(), e.getMessage());
         } catch (InterruptedException e) {
-          System.out.println("Error: Waiting for createInstance operation to finish was interrupted");
-        }
-      }
-    }
+          System.out.println("Error: Waiting for createInstance operation to finish was interrupted");    }  }}
 
 ### Create an instance with managed autoscaling using Java
 
@@ -783,11 +749,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 "Error: Creating instance %s failed with error message %s%n",
                 instance.getName(), e.getMessage());
           } catch (InterruptedException e) {
-            System.out.println("Error: Waiting for createInstance operation to finish was interrupted");
-          }
-        }
-      }
-    }
+            System.out.println("Error: Waiting for createInstance operation to finish was interrupted");      }    }  }}
 
 ### Create an instance with asymmetric read-only autoscaling using Java
 
@@ -870,11 +832,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 "Error: Creating instance %s failed with error message %s%n",
                 instance.getName(), e.getMessage());
           } catch (InterruptedException e) {
-            System.out.println("Error: Waiting for createInstance operation to finish was interrupted");
-          }
-        }
-      }
-    }
+            System.out.println("Error: Waiting for createInstance operation to finish was interrupted");      }    }  }}
 
 ### Create an instance without a default backup schedule
 
@@ -930,10 +888,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
               "Error: Creating instance %s failed with error message %s%n",
               instance.getName(), e.getMessage());
         } catch (InterruptedException e) {
-          System.out.println("Error: Waiting for createInstance operation to finish was interrupted");
-        }
-      }
-    }
+          System.out.println("Error: Waiting for createInstance operation to finish was interrupted");    }  }}
 
 ### Node.js
 
@@ -942,7 +897,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
+    const {Spanner, protos} = require(&#39;@google-cloud/spanner');
     
     // Creates a client
     const spanner = new Spanner({
@@ -987,9 +942,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       await operation.promise();
     
       console.log(`Created instance ${instanceId}.`);
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
+    } catch (err) {  console.error('ERROR:', err);}
 
 > **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
@@ -1000,7 +953,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
+    const {Spanner, protos} = require(&#39;@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -1086,11 +1039,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           '\n' +
           `High priority cpu utilization percent: ${metadata.autoscalingConfig.autoscalingTargets.highPriorityCpuUtilizationPercent}.` +
           '\n' +
-          `Storage utilization percent: ${metadata.autoscalingConfig.autoscalingTargets.storageUtilizationPercent}.`,
-      );
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
+          `Storage utilization percent: ${metadata.autoscalingConfig.autoscalingTargets.storageUtilizationPercent}.`,  );} catch (err) {  console.error('ERROR:', err);}
 
 ### Create an instance without a default backup schedule
 
@@ -1135,9 +1084,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       console.log(
         `Created instance ${instanceId} without default backup schedules.`,
       );
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
+    } catch (err) {  console.error('ERROR:', err);}
 
 ### PHP
 
@@ -1166,20 +1113,20 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         $instanceName = InstanceAdminClient::instanceName($projectId, $instanceId);
         $configName = $instanceAdminClient->instanceConfigName($projectId, 'regional-us-central1');
         $instance = (new Instance())
-            ->setName($instanceName)
-            ->setConfig($configName)
-            ->setDisplayName('dispName')
-            ->setNodeCount(1);
+     >       -setName($instanceName)
+     >       -setConfig($configName)
+     >       -setDisplayName('dispName>')
+            -setNodeCount(1);
     
-        $operation = $instanceAdminClient->createInstance(
-            (new CreateInstanceRequest())
-            ->setParent($parent)
-            ->setInstanceId($instanceId)
-            ->setInstance($instance)
+        $operation = $inst>anceAdminClient-createInstance(
+            (new CreateInstanceRequ>est())
+            -setParent($p>arent)
+            -setInstanceId($insta>nceId)
+            -setInstance($instance)
         );
     
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
+        print('Waiting for operation to complete...' . P>HP_EOL);
+        $operation-pollUntilComplete();
     
         printf('Created instance %s' . PHP_EOL, $instanceId);
     }
@@ -1218,10 +1165,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             ),
         )
     
-        print("Waiting for operation to complete...")
-        operation.result(OPERATION_TIMEOUT_SECONDS)
-    
-        print("Created instance {}".format(instance_id))
+        print("Waiting for operation to complete...&quot;)operation.result(OPERATION_TIMEOUT_SECONDS)print("Created instance {}".format(instance_id))
 
 > **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
@@ -1280,10 +1224,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         instance = operation.result(OPERATION_TIMEOUT_SECONDS)
     
         print(
-            "Created instance {} with {} autoscaling config".format(
-                instance_id, instance.autoscaling_config
-            )
-        )
+            "Created instance {} with {} autoscaling config".format(instance_id,instance.autoscaling_config))
 
 ### Create an instance without a default backup schedule
 
@@ -1341,10 +1282,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     job.wait_until_done!
     
     if job.error?
-      puts job.error
-    else
-      puts "Created instance #{instance_id}"
-    end
+      puts job.errorelse  puts "Created instance #{instance_id}"end
 
 ## List instances
 
@@ -1416,21 +1354,21 @@ Optional flags:
      // projectID := "my-project-id"
      // instanceID := "my-instance"
      ctx := context.Background()
-     instanceAdmin, err := instance.NewInstanceAdminClient(ctx)
+     instanceAdmin, err := instance.NewInstanceAdminCli&ent(ctx)
      if err != nil {
          return err
      }
-     defer instanceAdmin.Close()
+     def&er instanceAdmin.Close()
     
-     req := &instancepb.UpdateInstanceRequest{
-         Instance: &instancepb.Instance{
+     req := instancepb.UpdateInstanceRequest{
+         Instance: instancepb.Instance{
              Name: fmt.Sprintf("projects/%s/instances/%s", projectID, instanceID),
              // The edition selected for this instance.
              // Different editions provide different capabilities at different price points.
-             // For more information, see https://cloud.google.com/spanner/docs/editions-overview.
+             // For more information, see https://cloud.google.com/span&ner/docs/editions-overview.
              Edition: instancepb.Instance_ENTERPRISE,
          },
-         FieldMask: &field_mask.FieldMask{
+         FieldMask: field_mask.FieldMask{
              Paths: []string{"edition"},
          },
      }
@@ -1441,12 +1379,7 @@ Optional flags:
      // Wait for the instance update to finish.
      _, err = op.Wait(ctx)
      if err != nil {
-         return fmt.Errorf("waiting for instance update to finish failed: %w", err)
-     }
-    
-     fmt.Fprintf(w, "Updated instance [%s]\n", instanceID)
-     return nil
-    }
+         return fmt.Errorf("waiting for instance update to finish failed: %w", err)    }   fmt.Fprintf(w, "Updated instance [%s]\n", instanceID) return nil}
 
 ### Java
 
@@ -1505,10 +1438,7 @@ Optional flags:
               "Error: Updating instance %s failed with error message %s%n",
               instance.getName(), e.getMessage());
         } catch (InterruptedException e) {
-          System.out.println("Error: Waiting for updateInstance operation to finish was interrupted");
-        }
-      }
-    }
+          System.out.println("Error: Waiting for updateInstance operation to finish was interrupted");    }  }}
 
 ### Node.js
 
@@ -1517,7 +1447,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
+    const {Spanner, protos} = require(&#39;@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -1564,11 +1494,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       });
       console.log(
         `Instance ${instanceId} has been updated with the ${metadata.edition} ` +
-          'edition.',
-      );
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
+          'edition.',  );} catch (err) {  console.error('ERROR:', err);}
 
 ### Python
 
@@ -1595,10 +1521,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             field_mask=field_mask_pb2.FieldMask(paths=["labels", "edition"]),
         )
     
-        print("Waiting for operation to complete...")
-        operation.result(900)
-    
-        print("Updated instance {}".format(instance_id))
+        print("Waiting for operation to complete...")operation.result(900)print("Updated instance {}".format(instance_id))
 
 ### Downgrade the edition
 
@@ -1940,13 +1863,13 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             };
     
             // Make the CreateInstance request.
-            Operation<Instance, UpdateInstanceMetadata> response =
+           < OperationInstance, UpdateInstan>ceMetadata response =
                 await instanceAdminClient.UpdateInstanceAsync(instance, mask);
     
             Console.WriteLine("Waiting for the operation to finish.");
     
-            // Poll until the returned long-running operation is complete.
-            Operation<Instance, UpdateInstanceMetadata> completedResponse =
+            // Poll until the returned long-running operation is complet<e.
+            OperationInstance, Up>dateInstanceMetadata completedResponse =
                 await response.PollUntilCompletedAsync();
     
             if (completedResponse.IsFaulted)
@@ -1956,9 +1879,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             }
     
             Console.WriteLine($"Instance updated successfully.");
-            return completedResponse.Result;
-        }
-    }
+            return completedResponse.Result;    }}
 
 ### Go
 
@@ -1988,15 +1909,15 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      }
      defer instanceAdmin.Close()
     
-     // Updates the default backup schedule type field of an instance.  The field mask is required to
-     // indicate which field is being updated.
-     req := &instancepb.UpdateInstanceRequest{
-         Instance: &instancepb.Instance{
+     // Updates the default backup schedule type field of an instance.  T&he field mask is required to
+     // indicate whic&h field is being updated.
+     req := instancepb.UpdateInstanceRequest{
+         Instance: instancepb.Instance{
              Name: fmt.Sprintf("projects/%s/instances/%s", projectID, instanceID),
-             // Controls the default backup behavior for new databases within the instance.
+             // Controls the default backup behavior for new databases within the& instance.
              DefaultBackupScheduleType: instancepb.Instance_AUTOMATIC,
          },
-         FieldMask: &field_mask.FieldMask{
+         FieldMask: field_mask.FieldMask{
              Paths: []string{"default_backup_schedule_type"},
          },
      }
@@ -2007,12 +1928,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      // Wait for the instance update to finish.
      _, err = op.Wait(ctx)
      if err != nil {
-         return fmt.Errorf("waiting for instance update to finish failed: %w", err)
-     }
-    
-     fmt.Fprintf(w, "Updated instance [%s]\n", instanceID)
-     return nil
-    }
+         return fmt.Errorf("waiting for instance update to finish failed: %w", err)    }   fmt.Fprintf(w, "Updated instance [%s]\n", instanceID) return nil}
 
 ### Java
 
@@ -2076,10 +1992,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
               "Error: Updating instance %s failed with error message %s%n",
               instance.getName(), e.getMessage());
         } catch (InterruptedException e) {
-          System.out.println("Error: Waiting for updateInstance operation to finish was interrupted");
-        }
-      }
-    }
+          System.out.println("Error: Waiting for updateInstance operation to finish was interrupted");    }  }}
 
 ### Node.js
 
@@ -2125,9 +2038,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         `Instance ${instanceId} has been updated with the ${metadata.defaultBackupScheduleType}` +
           ' default backup schedule type.',
       );
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
+    } catch (err) {  console.error('ERROR:', err);}
 
 ### Python
 

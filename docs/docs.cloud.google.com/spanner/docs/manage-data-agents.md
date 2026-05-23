@@ -113,5 +113,5 @@ To delete a context set, perform the following steps:
 ## What's next
 
   - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/context-sets-overview) .
-  - Learn how to [test a context set](https://docs.cloud.google.com/spanner/docs/test-context-set) .
+  - Learn how to [test a context set](https://docs.cloud.google.com/spanner/docs/inspect-data-agent) .
   - Learn how to [build contexts using Gemini CLI](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli) .
