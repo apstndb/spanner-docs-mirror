@@ -40,18 +40,20 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             if (!result) return std::move(result).status();
             // Note: This mutator might be re-run, or its effects discarded, so
             // changing non-transactional state (e.g., by producing output) is,
-            /</ in gen>eral, not something to be imitated.
-         <<   for (>std::size_t i = 0; <<i  result-stats.size(); ++i) {
-           <<   std::cout  result-st<<ats[i].ro<<w_count  " rows affected"
-                         " for the statement "  (i + 1)  ".\n";
+            // in general, not something to be imitated.
+            for (std::size_t i = 0; i < result->stats.size(); ++i) {
+              std::cout << result->stats[i].row_count << " rows affected"
+                        << " for the statement " << (i + 1) << ".\n";
             }
             // Batch operations may have partial failures, in which case
-            // ExecuteBatchDml returns with success, >but the application should
-    >        // verify that all statements completed successfully
-            if (!result-status.ok()) return result-status;
-            return<< spanner::Mutations{};
+            // ExecuteBatchDml returns with success, but the application should
+            // verify that all statements completed successfully
+            if (!result->status.ok()) return result->status;
+            return spanner::Mutations{};
           });
-      if (!commit_result) throw std::move(commit_result).status();  std::cout  "Update was successful [spanner_dml_batch_update]\n";}
+      if (!commit_result) throw std::move(commit_result).status();
+      std::cout << "Update was successful [spanner_dml_batch_update]\n";
+    }
 
 ### C\#
 
@@ -78,11 +80,14 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
             cmd.Add("INSERT INTO Albums (SingerId, AlbumId, AlbumTitle, MarketingBudget) VALUES (1, 3, 'Test Album Title', 10000)");
     
-            cmd.Add("UPDATE Albums SET MarketingBudget = MarketingBudget * 2 WHERE SingerId = 1 and Al<bumI>d = 3");
+            cmd.Add("UPDATE Albums SET MarketingBudget = MarketingBudget * 2 WHERE SingerId = 1 and AlbumId = 3");
     
-            IEnumerablelong affectedRows = await cmd.ExecuteNonQueryAsync();
+            IEnumerable<long> affectedRows = await cmd.ExecuteNonQueryAsync();
     
-            Console.WriteLine($"Executed {affectedRows.Count()} " + "SQL statements using Batch DML.");        return affectedRows.Count();    }}
+            Console.WriteLine($"Executed {affectedRows.Count()} " + "SQL statements using Batch DML.");
+            return affectedRows.Count();
+        }
+    }
 
 ### Go
 
@@ -119,7 +124,11 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          if err != nil {
              return err
          }
-         fmt.Fprintf(w, "Executed %d SQL statements using Batch DML.\n", len(rowCounts))       return nil })  return err}
+         fmt.Fprintf(w, "Executed %d SQL statements using Batch DML.\n", len(rowCounts))
+         return nil
+     })
+     return err
+    }
 
 ### Java
 
@@ -146,10 +155,14 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             try {
               rowCounts = transaction.batchUpdate(stmts);
             } catch (SpannerBatchUpdateException e) {
-              r<owCounts = e.getUpdateCounts();
+              rowCounts = e.getUpdateCounts();
             }
-            for (int i = 0; i  rowCounts.length; i++) {
-              System.out.printf("%d record updated by stmt %d.\n", rowCounts[i], i);        }        return null;      });}
+            for (int i = 0; i < rowCounts.length; i++) {
+              System.out.printf("%d record updated by stmt %d.\n", rowCounts[i], i);
+            }
+            return null;
+          });
+    }
 
 ### Node.js
 
@@ -158,7 +171,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner} = require(&#39;@google-cloud/spanner');
+    const {Spanner} = require('@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -189,7 +202,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const dmlStatements = [insert, update];
     
     try {
-      await databa>se.runTransactionAsync(async transaction = {
+      await database.runTransactionAsync(async transaction => {
         const [rowCounts] = await transaction.batchUpdate(dmlStatements);
         await transaction.commit();
         console.log(
@@ -201,7 +214,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       throw err;
     } finally {
       // Close the database when finished.
-      database.close();}
+      database.close();
+    }
 
 ### PHP
 
@@ -238,20 +252,22 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         $batchDmlResult = $database->runTransaction(function (Transaction $t) {
             $result = $t->executeUpdateBatch([
                 [
-                    'sq>l' = 'INSERT INTO Albums '
+                    'sql' => 'INSERT INTO Albums '
                     . '(SingerId, AlbumId, AlbumTitle, MarketingBudget) '
                     . "VALUES (1, 3, 'Test Album Title', 10000)"
-              >  ],
+                ],
                 [
-                    'sql' = 'UPDATE Albums '
+                    'sql' => 'UPDATE Albums '
                     . 'SET MarketingBudget = MarketingBudget * 2 '
-                    . 'WHER>E SingerId = 1 and AlbumId = 3'
-             >   ],
+                    . 'WHERE SingerId = 1 and AlbumId = 3'
+                ],
             ]);
-            $t-commit();
-            $rowCounts = count($result-rowCounts());
+            $t->commit();
+            $rowCounts = count($result->rowCounts());
             printf('Executed %s SQL statements using Batch DML.' . PHP_EOL,
-                $rowCounts);    });}
+                $rowCounts);
+        });
+    }
 
 ### Python
 
@@ -289,7 +305,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             # `commit` is called by `run_in_transaction`.
             return
     
-        print("Executed {} SQL statements using Batch DML.".format(len(row_cts)))database.run_in_transaction(update_albums)
+        print("Executed {} SQL statements using Batch DML.".format(len(row_cts)))
+    
+    database.run_in_transaction(update_albums)
 
 ### Ruby
 
@@ -319,7 +337,12 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           "SET MarketingBudget = MarketingBudget * 2 " \
           "WHERE SingerId = 1 and AlbumId = 3"
         )
-      endendstatement_count = row_counts.countputs "Executed #{statement_count} SQL statements using Batch DML."
+      end
+    end
+    
+    statement_count = row_counts.count
+    
+    puts "Executed #{statement_count} SQL statements using Batch DML."
 
 ## What's next
 
