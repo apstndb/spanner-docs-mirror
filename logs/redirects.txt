@@ -1,5 +1,2 @@
-https://cloud.google.com/sdk/gcloud/reference/spanner https://docs.cloud.google.com/sdk/gcloud/reference/spanner
-https://cloud.google.com/spanner/docs https://docs.cloud.google.com/spanner/docs
-https://cloud.google.com/spanner/docs/samples/spanner-add-column https://docs.cloud.google.com/spanner/docs/samples/spanner-add-column
 https://docs.cloud.google.com/spanner/pricing https://cloud.google.com/spanner/pricing
 https://docs.cloud.google.com/spanner/sla https://cloud.google.com/spanner/sla
