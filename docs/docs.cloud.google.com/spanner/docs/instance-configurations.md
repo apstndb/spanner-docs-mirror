@@ -599,7 +599,8 @@ Montréal: <code dir="ltr" translate="no">northamerica-northeast1</code> <a href
 Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
 <td>None</td>
 <td>Iowa: <code dir="ltr" translate="no">us-central1</code></td>
-<td></td>
+<td>Read-only:<br />
+<code dir="ltr" translate="no">us-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">nam16</code></td>

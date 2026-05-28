@@ -52,7 +52,7 @@ For example, the following query combines the output of two `SCORE` functions:
 
     SELECT AlbumId
     FROM Albums
-    WHERE SEARCH(Title_Tokens, @p1) AND SEARCH(Studio_Tokens, @p2)
+    WHERE SEARCH(Title_Tokens, @p1) OR SEARCH(Studio_Tokens, @p2)
     ORDER BY SCORE(Title_Tokens, @p1) * @titleweight + SCORE(Studio_Tokens, @p2) * @studioweight
     LIMIT 25
 
@@ -62,7 +62,7 @@ This example uses query parameters `$1` and `$2` which are bound to 'fifth symph
 
     SELECT albumid
     FROM albums
-    WHERE spanner.search(title_tokens, $1) AND spanner.search(studio_tokens, $2)
+    WHERE spanner.search(title_tokens, $1) OR spanner.search(studio_tokens, $2)
     ORDER BY spanner.score(title_tokens, $1) * $titleweight
             + spanner.score(studio_tokens, $2) * $studioweight
     LIMIT 25
@@ -78,7 +78,7 @@ For readability, the query uses the `WITH` operator.
 
     SELECT AlbumId
     FROM Albums
-    WHERE SEARCH(Title_Tokens, @p1) AND SEARCH(Studio_Tokens, @p2)
+    WHERE SEARCH(Title_Tokens, @p1) OR SEARCH(Studio_Tokens, @p2)
     ORDER BY WITH(
       TitleScore AS SCORE(Title_Tokens, @p1) * @titleweight,
       StudioScore AS SCORE(Studio_Tokens, @p2) * @studioweight,
@@ -102,7 +102,7 @@ This example uses query parameters `$1` , `$2` , `$3` , `$4` , `$5` , and `$6` w
           (extract(epoch FROM current_timestamp) * 10e+6 - releasetimestamp) / 8.64e+10 AS daysold,
           (1 + CASE WHEN hasgrammy THEN $5 ELSE 0 END) AS popularityboost
         FROM albums
-        WHERE spanner.search(title_tokens, $1) AND spanner.search(studio_tokens, $2)
+        WHERE spanner.search(title_tokens, $1) OR spanner.search(studio_tokens, $2)
       ) AS subquery
     ORDER BY (subquery.TitleScore + subquery.studioscore)
       * (1 + $6 * greatest(0, 30 - subquery.daysold) / 30) * subquery.popularityboost

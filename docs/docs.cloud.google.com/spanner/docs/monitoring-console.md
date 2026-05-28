@@ -8,6 +8,8 @@ data_source: docs.cloud.google.com
 
 This document describes how to use the system insights dashboard to monitor Spanner instances and databases.
 
+> **Note:** Time-series graphs on the system insights dashboard display data as average rates per minute.
+
 ## System insights overview
 
 The system insights dashboard displays scorecards and charts with respect to a selected instance or database, and provides measures of latencies, CPU utilization, storage, throughput, and other performance statistics. You can view charts for selectable time periods, ranging from the past 1 hour to the past 30 days.
@@ -445,6 +447,97 @@ Write throughput includes requests and responses to commit data through the <a h
 </tr>
 <tr class="even">
 <td><br />
+New connections<br />
+<br />
+<br />
+<a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/connection_creation_count</a></td>
+<td><br />
+The average rate of new active connections established with the database, in connections per minute.</td>
+<td><br />
+<em>done</em></td>
+<td><br />
+<em>done</em></td>
+</tr>
+<tr class="odd">
+<td><br />
+Bytes read/scanned<br />
+<br />
+<br />
+<a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/read/bytes</a></td>
+<td><br />
+The average rate of data bytes read or scanned from the database, in bytes per minute.</td>
+<td><br />
+<em>done</em></td>
+<td><br />
+<em>done</em></td>
+</tr>
+<tr class="even">
+<td><br />
+Bytes returned<br />
+<br />
+<br />
+<a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">api/sent_bytes_count</a></td>
+<td><br />
+The average rate of data bytes returned by the database, in bytes per minute.</td>
+<td><br />
+<em>done</em></td>
+<td><br />
+<em>done</em></td>
+</tr>
+<tr class="odd">
+<td><br />
+Bytes written<br />
+<br />
+<br />
+<a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">api/received_bytes_count</a></td>
+<td><br />
+The average rate of data bytes written to the database, in bytes per minute.</td>
+<td><br />
+<em>done</em></td>
+<td><br />
+<em>done</em></td>
+</tr>
+<tr class="even">
+<td><br />
+DML throughput (insert)<br />
+<br />
+<br />
+<a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/dml/inserted_rows_count</a></td>
+<td><br />
+The average rate of insert DML rows executed, in rows per minute.</td>
+<td><br />
+<em>done</em></td>
+<td><br />
+<em>done</em></td>
+</tr>
+<tr class="odd">
+<td><br />
+DML throughput (update)<br />
+<br />
+<br />
+<a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/dml/updated_rows_count</a></td>
+<td><br />
+The average rate of update DML rows executed, in rows per minute.</td>
+<td><br />
+<em>done</em></td>
+<td><br />
+<em>done</em></td>
+</tr>
+<tr class="even">
+<td><br />
+DML throughput (delete)<br />
+<br />
+<br />
+<a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/dml/deleted_rows_count</a></td>
+<td><br />
+The average rate of delete DML rows executed, in rows per minute.</td>
+<td><br />
+<em>done</em></td>
+<td><br />
+<em>done</em></td>
+</tr>
+<tr class="odd">
+<td><br />
 Total storage<br />
 <br />
 <br />
@@ -456,7 +549,7 @@ The amount of data that is stored in the database. This value is measured in bin
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 Total database storage by database<br />
 <br />
@@ -469,7 +562,7 @@ The amount of data that is stored in the instance, grouped by database. This val
 <td><br />
 <em>close</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 Total backup storage<br />
 <br />
@@ -482,7 +575,7 @@ The amount of data that is stored in the backups that are associated with the da
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 Lock wait time<br />
 <br />
@@ -497,7 +590,7 @@ Total lock wait time for <a href="https://docs.cloud.google.com/spanner/docs/int
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 Lock wait time by database<br />
 <br />
@@ -512,7 +605,7 @@ Total lock wait time for <a href="https://docs.cloud.google.com/spanner/docs/int
 <td><br />
 <em>close</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 Total backup storage by database<br />
 <br />
@@ -525,7 +618,7 @@ The amount of data that is stored in the backups that are associated with the in
 <td><br />
 <em>close</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 Compute capacity<br />
 <br />
@@ -539,7 +632,7 @@ The <a href="https://docs.cloud.google.com/spanner/docs/compute-capacity">comput
 <td><br />
 <em>close</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 <br />
 Leader distribution<br />
@@ -559,7 +652,7 @@ This chart is only available for dual-region and multi-region instances.</td>
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 Peak split CPU usage score<br />
 <br />
@@ -571,7 +664,7 @@ Peak split CPU usage score<br />
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 <br />
 Remote service calls<br />
@@ -587,7 +680,7 @@ Responds with an HTTP response code, such as 200 or 500.</td>
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 <br />
 Latency: Remote service calls<br />
@@ -603,7 +696,7 @@ You can view latency metrics for the 50th and 99th percentile latencies by using
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 <br />
 Remote service processed rows<br />
@@ -619,7 +712,7 @@ Responds with an HTTP response code, such as 200 or 500.</td>
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 <br />
 Latency: Remote service rows<br />
@@ -635,7 +728,7 @@ You can view latency metrics for the 50th and 99th percentile latencies by using
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 <br />
 Remote service network bytes<br />
@@ -655,7 +748,7 @@ You can view metrics for the 50th and 99th percentile of network bytes exchange 
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 <br />
 Micro service calls<br />
@@ -668,7 +761,7 @@ Micro service calls<br />
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 <br />
 Latency: Micro service calls<br />
@@ -681,7 +774,7 @@ Latency: Micro service calls<br />
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 Database storage by table<br />
 <br />
@@ -696,7 +789,7 @@ This chart obtains its data by querying <code dir="ltr" translate="no">SPANNER_S
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><br />
 Most-used tables by operations<br />
 <br />
@@ -710,7 +803,7 @@ This chart obtains its data by querying the table operations statistics tables. 
 <td><br />
 <em>done</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><br />
 Least-used tables by operations<br />
 <br />

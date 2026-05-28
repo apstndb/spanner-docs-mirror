@@ -8,6 +8,8 @@ data_source: docs.cloud.google.com
 
 This page describes how to use the Query insights dashboard to detect and analyze Spanner performance problems.
 
+> **Note:** Time-series graphs on the Query insights dashboard display data as average rates per minute.
+
 ## Query insights overview
 
 [Video](https://www.youtube.com/watch?v=viOJRB9YdFw)
@@ -72,8 +74,8 @@ The areas of the dashboard include:
 
 1.  **Databases list** : Filters the query load on a specific database or all databases.
 2.  **Time range filter** : Filters the query load by time ranges, such as hours, days, or a custom range.
-3.  **Total CPU Utilization (All queries) graph** : Displays the aggregated load of all queries.
-4.  **Total CPU Utilization (per Query or Request tag) graph** : Displays the CPU utilization by each query or request tag.
+3.  **Total CPU Utilization (All queries) graph** : Displays the aggregated average rate of CPU usage (in CPU seconds per minute) of all queries.
+4.  **Total CPU Utilization (per Query or Request tag) graph** : Displays the average rate of CPU usage (in CPU seconds per minute) by each query or request tag.
 5.  **TopN queries and tags table** : Displays the list of top queries and request tags sorted by CPU utilization. See [Identify a potentially problematic query or tag](https://docs.cloud.google.com/spanner/docs/using-query-insights#filter-db-load) .
 
 ![Query insights dashboard](https://docs.cloud.google.com/static/spanner/docs/images/insights-dashboard-2.png)
@@ -84,7 +86,7 @@ Use [query parameters](https://docs.cloud.google.com/spanner/docs/sql-best-pract
 
 ## Confirm if inefficient queries are responsible for high CPU utilization
 
-Total CPU Utilization is a measure of the work (in CPU seconds) that the executed queries in your selected database perform over time.
+Total CPU Utilization is a measure of the average rate of CPU usage (in CPU seconds per minute) that the executed queries in your selected database perform over time.
 
 ![Total CPU utilization for all queries](https://docs.cloud.google.com/static/spanner/docs/images/database-load-graph.png)
 
@@ -134,7 +136,7 @@ The table shows the following properties:
 
   - **CPU (%)** : CPU resource consumption by a query, as a percentage of the total CPU resources used by all the queries running on the databases in that time interval.
 
-  - **Execution count** : Number of times Spanner saw the query during the interval.
+  - **Execution count** : The average rate of query executions, in executions per minute, that Spanner saw during the interval.
 
   - **Avg latency (ms)** : Average length of time, in microseconds, for each query execution within the database. This average excludes the encoding and transmission time for the result set as well as overhead.
 
@@ -182,7 +184,7 @@ The Query Details page shows the following information:
 
 2.  The values of the following fields:
     
-      - **Execution count** : Number of times Spanner saw the query during the interval.
+      - **Execution count** : The average rate of query executions, in executions per minute, that Spanner saw during the interval.
       - **Avg. CPU (ms)** : Average CPU resource consumption, in milliseconds, by a query of the instance's CPU resources in a time interval.
       - **Avg. Latency (ms)** : Average length of time, in milliseconds, for each query execution within the database. This average excludes the encoding and transmission time for the result set and overhead.
       - **Avg. rows returned** : Average number of rows that the query returned.
@@ -212,7 +214,7 @@ The Query Details page shows the following information:
 
 6.  **CPU Utilization graph** : Shows the CPU utilization by a query, in percentage, over a time period. It also shows the average CPU utilization.
 
-7.  **Execution count/failed graph** : Shows the execution count of a query over a time period and the number of times the query execution failed.
+7.  **Execution count/failed graph** : Shows the average rate of query executions (in executions per minute) over a time period and the average rate of failed query executions (in failed executions per minute).
 
 8.  **Rows scanned graph** : Shows the number of rows that the query scanned over a time period.
 

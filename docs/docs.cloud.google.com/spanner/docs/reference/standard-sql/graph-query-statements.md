@@ -16,7 +16,7 @@ GQL supports the following building blocks, which can be composed into a GQL que
 | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | [GQL syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax)             | Creates a graph query with the GQL syntax.                                                       |
 | [`GRAPH` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_query)        | Specifies a property graph to query.                                                             |
-| [`CALL` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_call)         | Executes an inline subquery over the working table.                                              |
+| [`CALL` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_call)         | Executes a table valued function (TVF) or an inline subquery over the working table.             |
 | [`FILTER` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_filter)     | Filters out rows in the query results that don't satisfy a specified condition.                  |
 | [`FOR` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_for)           | Unnests an `ARRAY` -typed expression.                                                            |
 | [`LET` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_let)           | Defines variables and assigns values for later use in the current linear query statement.        |
@@ -115,36 +115,71 @@ The following example queries the [`FinGraph`](https://docs.cloud.google.com/spa
 
 > **Note:** Syntax characters enclosed in double quotes ( `""` ) are literal and required.
 
+    [ OPTIONAL ] CALL [ PER () ] tvf_name ( [ expression [ , ... ] ] ) [ YIELD tvf_column [ AS alias ] [ , ... ] ]
+
     [ OPTIONAL ] CALL ( [ variable_name [ , ... ] ] ) "{" subquery "}"
 
 #### Description
 
-Executes an inline subquery over the working table.
+Executes a table valued function (TVF) or an inline subquery over the working table.
 
 #### Definitions
 
   - `OPTIONAL` : A clause that retains all rows, including rows for which the TVF or subquery produces no output. Rows with no output return `NULL` values.
+  - `PER ()` : A clause that executes the TVF once on the entire working table instead of repeatedly on each row in the working table. You can't use the `OPTIONAL` clause with the `PER ()` clause.
+  - `tvf_name` : The name of the TVF to call.
+  - `expression` : An expression to pass as an argument to the TVF. The expression can also include variables from the current scope.
+  - `YIELD` : A clause that you use only with named TVFs to select and potentially rename output columns.
+  - `tvf_column` : The output column to return from the named TVF.
+  - `alias` : An optional alias to rename the yielded column in the working table.
   - `variable_name` : A required, parenthesized list of variables from the outer scope that are available to the subquery. You can also use an empty variable list ( `()` ) for subqueries that don't reference any variables from the outer scope. You can redeclare or *multiply-declare* only node or edge variables from the outer scope to an inner scope path pattern of the subquery. With multiply-declared node or edge variables, both the outer and inner scope instances of the variable are equal. You can't multiply-declare other types of variables. For a demonstration of variable usage in subqueries, see the [inline subquery example](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#call_example_subquery) .
   - `subquery` : A graph query enclosed in curly braces ( `{}` ) to execute. The subquery can reference only variables from the outer scope that the variable scope list includes. The subquery's `RETURN` statement defines the subquery output.
 
 #### Details
 
-The `CALL` statement supports modular query design and the invocation of complex logic in a graph query.
+The `CALL` statement supports modular query design and the invocation of complex logic, such as graph algorithms, in a graph query.
 
-When you use an inline subquery, you must use a variable scope list in parentheses `()` before the opening curly brace `{` of the subquery. The variable scope list specifies which variables from the outer query scope the subquery can access. An empty variable scope list `()` indicates that the subquery is self-contained and can't reference any variables from the outer scope.
+When calling a named TVF, you can use the optional `YIELD` clause to specify which output columns from the TVF to add to the current working table. If you omit the `YIELD` clause when calling a named TVF, all columns from the TVF result are included.
+
+When you use an inline subquery, you must use a variable scope list in parentheses `()` before the opening curly brace `{` of the subquery. The variable scope list specifies which variables from the outer query scope the subquery can access. An empty variable scope list `()` indicates that the subquery is self-contained and can't reference any variables from the outer scope. Inline subqueries don't use the `YIELD` clause because the subquery `RETURN` statement explicitly defines subquery output columns.
 
 The `OPTIONAL CALL` clause ensures that the input row still appears even if the `CALL` statement produces no results for a given input row. In such cases, the `CALL` statement adds `NULL` values to the columns where it produced no output.
+
+**Behavior of `CALL PER ()` statement**
+
+A bare `CALL` statement executes a TVF repeatedly for each row in the working table. By contrast, a `CALL PER()` statement executes a TVF only once on the entire working table, passing the working table as its first argument. This first argument must be declared as a `TABLE` type in the TVF signature.
+
+The `CALL PER()` statement allows the TVF to perform operations on the whole set of intermediate results, such as graph-wide algorithms. The TVF can access all columns of the input working table.
+
+The `CALL PER()` statement can be used with only named TVFs and doesn't support inline subqueries. The `CALL PER()` statement doesn't support the `OPTIONAL` clause.
+
+The working table resulting from a `CALL PER()` statement contains only the columns specified in the `YIELD` clause, or all columns from the TVF output if you omit `YIELD` . The `CALL PER()` statement doesn't carry over columns from the input working table. The number of rows in the working table might also change depending on the TVF's output cardinality.
 
 **Column-naming rules**
 
 Queries that use the `CALL` statement must maintain the following column-naming rules for uniqueness:
 
-  - **Within the subquery output:** The columns returned by the inline subquery itself must have unique names. For a subquery, the `RETURN` statement enforces name uniqueness.
-  - **Combined output:** The final set of columns generated by the query includes columns from the input table and columns added by the `CALL` statement. All final columns must have unique names. For subqueries, ensure that the column names in the `RETURN` statement don't conflict with existing columns in the outer scope.
+  - **Within the TVF or subquery output:** The columns returned by the TVF or inline subquery itself must have unique names. For a subquery, the `RETURN` statement enforces name uniqueness. For a TVF, the TVF definition inherently ensures name uniqueness.
+  - **Combined output:** The final set of columns generated by the query includes columns from the input table and columns added by the `CALL` statement. All final columns must have unique names. When you call a named TVF, you can use the `YIELD` clause with `AS` to rename output columns and prevent naming conflicts. For subqueries, ensure that the column names in the `RETURN` statement don't conflict with existing columns in the outer scope.
 
 #### Examples
 
 > **Note:** The examples in this section reference a property graph called [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) .
+
+**Example: Call a named TVF with `YIELD`**
+
+The following example calls a named TVF and uses the `YIELD` clause to rename a column. This example assumes a TVF `graph.neighbors(node)` exists.
+
+    GRAPH FinGraph
+    MATCH (p:Person {Id: 1})
+    CALL graph.neighbors(p) YIELD neighbor AS friend
+    RETURN p.name AS person_name, friend.name AS friend_name;
+    
+    /*---------------------------+
+     | person_name | friend_name |
+     +---------------------------+
+     | Alex        | Dana        |
+     +---------------------------*/
 
 **Example: Call an inline subquery**
 
@@ -259,6 +294,17 @@ The following query finds the two most recent account transfers `t` for each per
      | Lee    | 16         | 300             | 2020-09-25    |
      +-------------------------------------------------------*/
 
+**Example: Use `YIELD` to rename conflicting TVF column names**
+
+The following example uses the `YIELD` clause to rename the `Id` TVF column to `tvf_Id` to avoid conflicting with the person `Id` column.
+
+    GRAPH FinGraph
+    MATCH (p:Person {Id: 1})
+    CALL my_tvf(p) YIELD Id AS tvf_Id
+    RETURN p.Id AS person_Id, tvf_Id;
+    
+    -- No returned results in this case
+
 **Example: Use `RETURN` to rename conflicting subquery column names**
 
 The following query uses the `RETURN` alias in the subquery to avoid conflicting with the `p.Id` column.
@@ -347,6 +393,35 @@ The following query uses nested subqueries with scoped variables. The query find
      +------------------------------------------+
      | Dana   | 20         | 0                  |
      +------------------------------------------*/
+
+**Example: Call a named TVF on the entire working table with `PER ()`**
+
+The following query uses the `CALL PER()` statement to call a `PageRank` TVF on the entire working table. The query takes the entire graph, including all nodes and edges from the input table, and returns a table with each element and its calculated `PageRank` score.
+
+    GRAPH FinGraph
+    MATCH (n)
+    RETURN n
+    
+    NEXT
+    
+    -- Assumes PageRank() is a built-in TVF that takes a TABLE of graph elements
+    -- and returns the same table with an additional 'rank' column.
+    CALL PER() PageRank() YIELD n, rank
+    RETURN n.Id AS node_id, rank
+    ORDER BY rank DESC
+    LIMIT 5;
+    
+    /*-----------------+
+     | node_id | rank  |
+     +-----------------+
+     | 17      | 0.213 |
+     | 20      | 0.198 |
+     | 7       | 0.188 |
+     | 3       | 0.150 |
+     | 2       | 0.120 |
+     +-----------------*/
+
+The previous example is a clear use case for the `CALL PER()` statement because a PageRank algorithm considers the entire graph structure (all nodes and edges in the working table) to compute ranks, instead of processing each row independently.
 
 ## `FILTER` statement
 

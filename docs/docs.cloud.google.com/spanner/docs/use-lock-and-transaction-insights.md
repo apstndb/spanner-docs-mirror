@@ -8,6 +8,8 @@ data_source: docs.cloud.google.com
 
 This page describes how to use Lock insights and Transaction insights to identify transactions that lead to high latencies.
 
+> **Note:** Time-series graphs on the Lock insights and Transaction insights dashboards display data as average rates per minute.
+
 ## Overview
 
 To ensure the consistency of multiple concurrent transactions, Spanner uses [locks](https://docs.cloud.google.com/spanner/docs/transactions#locking) to control access to the data. Lock contention occurs when many transactions require frequent access to the same lock, leading to high latencies. Without a visual interface, it can be tedious to identify the problematic transactions that lead to a high number of lock contention issues.
@@ -100,7 +102,7 @@ To check for high lock wait time, follow these steps:
 
 1.  Click **Lock insights** on the navigation menu.
     
-    The Google Cloud console displays the **Total lock wait** chart, which shows the lock wait time for each database in the instance.
+    The Google Cloud console displays the **Total lock wait** chart, which shows the lock wait time for each database in the instance, in lock wait seconds per minute.
     
     The data shown is for `1 hour` by default, as the time selector at the upper-right corner of the Lock insights dashboard shows. To see data for a wider range, select another option, such as `1 day` .
     
@@ -214,13 +216,13 @@ The **Transaction details** page appears. Besides the details table at the top, 
 
   - A bar showing numeric values for each of these metrics:
     
-      - **Average bytes** : The average number of bytes written by the transaction.
+      - **Average bytes** : The average rate of bytes written by the transaction, in bytes per minute.
       - **Average latency** : The average seconds taken from the first operation of the transaction to commit or abort.
       - **Average commit latency** : The average seconds taken to perform the commit operation.
-      - **Total attempt count** : The total number of transaction attempts. This count represents a per-minute rate. For more information about intervals, see [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals) .
-      - **Total abort count** : The total number of transaction attempts that abort, including attempts that abort before calling the transaction commit method. This count represents a per-minute rate. For more information about intervals, see [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals) .
+      - **Total attempt count** : The average rate of transaction attempts, in attempts per minute. For more information about intervals, see [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals) .
+      - **Total abort count** : The average rate of transaction attempts that abort, in aborts per minute, including attempts that abort before calling the transaction commit method. For more information about intervals, see [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals) .
 
-  - Charts depicting these values. The **Total attempts and aborts** chart displays the per-minute count, or rate, of transaction attempts and aborts. To display per-minute transaction attempts and aborts, the Google Cloud console queries the `SPANNER_SYS.TXN_STATS_TOP_*` table that best covers your selected time range ( `_MINUTE` , `_10MINUTE` , or `_HOUR` ). The Google Cloud console then divides the values in the `ATTEMPT_COUNT` column and the `COMMIT_ABORT_COUNT` column from the chosen table by the interval duration in minutes (1, 10, or 60) to present a per-minute rate. For more information about intervals, see [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals) .
+  - Charts depicting these values. The **Total attempts and aborts** chart displays the per-minute rate of transaction attempts (in attempts per minute) and aborts (in aborts per minute). To display per-minute transaction attempts and aborts, the Google Cloud console queries the `SPANNER_SYS.TXN_STATS_TOP_*` table that best covers your selected time range ( `_MINUTE` , `_10MINUTE` , or `_HOUR` ). The Google Cloud console then divides the values in the `ATTEMPT_COUNT` column and the `COMMIT_ABORT_COUNT` column from the chosen table by the interval duration in minutes (1, 10, or 60) to present a per-minute rate. For more information about intervals, see [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#stats-intervals) .
     
     Additionally, the **Average participants** chart shows the average number of [participants](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes#multi-split_write) in each commit attempt.
 

@@ -12,7 +12,7 @@ gcloud spanner instances create - create a Cloud Spanner instance
 
 SYNOPSIS
 
-`gcloud spanner instances create` `  INSTANCE  ` `  --config  ` = `  CONFIG  ` `  --description  ` = `  DESCRIPTION  ` \[ `  --async  ` \] \[ `  --default-backup-schedule-type  ` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  ` \] \[ `  --edition  ` = `  EDITION  ` \] \[ `  --expire-behavior  ` = `  EXPIRE_BEHAVIOR  ` \] \[ `  --instance-type  ` = `  INSTANCE_TYPE  ` \] \[ `  --nodes  ` = `  NODES  ` | `  --processing-units  ` = `  PROCESSING_UNITS  ` | \[ `  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  ` ( `  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  ` `  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  ` ) ( `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  ` `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  ` | `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  ` `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  ` ) : `  --asymmetric-autoscaling-option  ` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \], \[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \], \[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \], \[ `  location  ` = `  LOCATION  ` \], \[ `  max_nodes  ` = `  MAX_NODES  ` \], \[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \], \[ `  min_nodes  ` = `  MIN_NODES  ` \], \[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \], \[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \] `  --[no-]disable-downscaling  ` \]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instances create` `  INSTANCE  ` `  --config  ` = `  CONFIG  ` `  --description  ` = `  DESCRIPTION  ` \[ `  --async  ` \] \[ `  --default-backup-schedule-type  ` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  ` \] \[ `  --edition  ` = `  EDITION  ` \] \[ `  --expire-behavior  ` = `  EXPIRE_BEHAVIOR  ` \] \[ `  --instance-type  ` = `  INSTANCE_TYPE  ` \] \[ `  --labels  ` =\[ `  KEY  ` = `  VALUE  ` , …\]\] \[ `  --nodes  ` = `  NODES  ` | `  --processing-units  ` = `  PROCESSING_UNITS  ` | \[ `  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  ` ( `  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  ` `  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  ` ) ( `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  ` `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  ` | `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  ` `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  ` ) : `  --asymmetric-autoscaling-option  ` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \], \[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \], \[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \], \[ `  location  ` = `  LOCATION  ` \], \[ `  max_nodes  ` = `  MAX_NODES  ` \], \[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \], \[ `  min_nodes  ` = `  MIN_NODES  ` \], \[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \], \[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \] `  --[no-]disable-downscaling  ` \]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -83,6 +83,12 @@ Specifies the type for this instance. `  INSTANCE_TYPE  ` must be one of:
     Free trial instances provide no guarantees for dedicated resources, both node\_count and processing\_units should be 0. They come with stricter usage limits and limited support.
   - `provisioned`  
     Provisioned instances have dedicated resources, standard usage limits, and support.
+
+`--labels` =\[ `  KEY  ` = `  VALUE  ` ,…\]
+
+List of label KEY=VALUE pairs to add.
+
+Keys must start with a lowercase character and contain only hyphens ( `-` ), underscores ( `_` ), lowercase characters, and numbers. Values must contain only hyphens ( `-` ), underscores ( `_` ), lowercase characters, and numbers.
 
 At most one of these can be specified:
 

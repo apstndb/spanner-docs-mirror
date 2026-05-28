@@ -58,9 +58,9 @@ Consider the following before creating your instance partitions, placements, and
 
   - **Instance partition location** : Carefully select the instance partition regions that provide the most benefits for your application.
     
-    Although you can create instance partitions in an instance with a regional instance configuration, we recommend that you create instance partitions in an instance with a multi-region instance configuration so that the default instance partition location is also in a multi-region configuration.
+      - You must create instance partitions in an instance with a multi-region instance configuration.
     
-    Moreover, select a multi-region default instance partition location that has read-write and read-only regions that cover all jurisdictions required by your application. Then, create additional instance partitions (which can be regional) with leader regions that match the regions in the multi-region default instance partition.
+      - For better latency, we recommend that you select a multi-region default instance partition location that has read-write and read-only regions that cover all jurisdictions required by your application. Then, create additional instance partitions (which can be regional) with leader regions that match the regions in the multi-region default instance partition.
 
   - **Number of instance partitions** : Too many instance partitions can lead to overhead, while too few might not offer enough benefits. You can create a maximum of ten instance partitions per instance.
 
@@ -68,6 +68,7 @@ Consider the following before creating your instance partitions, placements, and
 
 The following limitations apply during the [Preview](https://cloud.google.com/products#product-launch-stages) release and are subject to change or removal upon the GA release or after:
 
+  - Your default instance partition must be a multi-region configuration.
   - You can't create an instance partition using a [dual-region configuration](https://docs.cloud.google.com/spanner/docs/geo-partitioning#limitations) .
   - For each instance partition, the compute capacity must be at least one node (1000 processing units).
   - For a given instance, you can't create more than one instance partition that uses the same base instance configuration. For example, within `test-instance` , you can't create two partitions, `partition-1` and `partition-2` that both use `us-central1` as the instance partition configuration.
@@ -86,6 +87,7 @@ The following limitations apply during the [Preview](https://cloud.google.com/pr
   - You can't use [named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .
   - You can't create instance partitions in [free trial instances](https://docs.cloud.google.com/spanner/docs/free-trial-instance) or granular-sized instances smaller than one node (1000 processing units).
   - You can't alter a placement. Instead, you can [create a new placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#create-placement) , use [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) to update the placement of your data to a new placement, and then [drop the original placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#drop-placement) .
+  - Your default instance partition must be a multi-region configuration.
 
 ## Access control with IAM
 

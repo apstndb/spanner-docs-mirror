@@ -12,7 +12,7 @@ gcloud spanner instances update - update a Cloud Spanner instance
 
 SYNOPSIS
 
-`gcloud spanner instances update` `  INSTANCE  ` \[ `  --async  ` \] \[ `  --default-backup-schedule-type  ` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  ` \] \[ `  --description  ` = `  DESCRIPTION  ` \] \[ `  --edition  ` = `  EDITION  ` \] \[ `  --expire-behavior  ` = `  EXPIRE_BEHAVIOR  ` \] \[ `  --instance-type  ` = `  INSTANCE_TYPE  ` \] \[ `  --nodes  ` = `  NODES  ` | `  --processing-units  ` = `  PROCESSING_UNITS  ` | `  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  ` `  --[no-]disable-downscaling  ` `  --asymmetric-autoscaling-option  ` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \], \[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \], \[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \], \[ `  location  ` = `  LOCATION  ` \], \[ `  max_nodes  ` = `  MAX_NODES  ` \], \[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \], \[ `  min_nodes  ` = `  MIN_NODES  ` \], \[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \], \[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \] | `  --clear-asymmetric-autoscaling-option  ` = `  LOCATION  ` , \[ `  LOCATION  ` , …\] `  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  ` `  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  ` `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  ` `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  ` | `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  ` `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instances update` `  INSTANCE  ` \[ `  --async  ` \] \[ `  --default-backup-schedule-type  ` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  ` \] \[ `  --description  ` = `  DESCRIPTION  ` \] \[ `  --edition  ` = `  EDITION  ` \] \[ `  --expire-behavior  ` = `  EXPIRE_BEHAVIOR  ` \] \[ `  --instance-type  ` = `  INSTANCE_TYPE  ` \] \[ `  --update-labels  ` =\[ `  KEY  ` = `  VALUE  ` , …\]\] \[ `  --clear-labels  ` | `  --remove-labels  ` =\[ `  KEY  ` , …\]\] \[ `  --nodes  ` = `  NODES  ` | `  --processing-units  ` = `  PROCESSING_UNITS  ` | `  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  ` `  --[no-]disable-downscaling  ` `  --asymmetric-autoscaling-option  ` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \], \[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \], \[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \], \[ `  location  ` = `  LOCATION  ` \], \[ `  max_nodes  ` = `  MAX_NODES  ` \], \[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \], \[ `  min_nodes  ` = `  MIN_NODES  ` \], \[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \], \[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \] | `  --clear-asymmetric-autoscaling-option  ` = `  LOCATION  ` , \[ `  LOCATION  ` , …\] `  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  ` `  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  ` `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  ` `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  ` | `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  ` `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
 
 DESCRIPTION
 
@@ -75,6 +75,28 @@ Specifies the type for this instance. `  INSTANCE_TYPE  ` must be one of:
     Free trial instances provide no guarantees for dedicated resources, both node\_count and processing\_units should be 0. They come with stricter usage limits and limited support.
   - `provisioned`  
     Provisioned instances have dedicated resources, standard usage limits, and support.
+
+`--update-labels` =\[ `  KEY  ` = `  VALUE  ` ,…\]
+
+List of label KEY=VALUE pairs to update. If a label exists, its value is modified. Otherwise, a new label is created.
+
+Keys must start with a lowercase character and contain only hyphens ( `-` ), underscores ( `_` ), lowercase characters, and numbers. Values must contain only hyphens ( `-` ), underscores ( `_` ), lowercase characters, and numbers.
+
+At most one of these can be specified:
+
+  - `--clear-labels`  
+    Remove all labels. If `--update-labels` is also specified then `--clear-labels` is applied first.
+    
+    For example, to remove all labels:
+    
+        gcloud spanner instances update --clear-labels
+    
+    To remove all existing labels and create two new labels, `  foo  ` and `  baz  ` :
+    
+        gcloud spanner instances update --clear-labels --update-labels foo=bar,baz=qux
+
+  - `--remove-labels` =\[ `  KEY  ` ,…\]  
+    List of label keys to remove. If a label does not exist it is silently ignored. If `--update-labels` is also specified then `--update-labels` is applied first.
 
 At most one of these can be specified:
 

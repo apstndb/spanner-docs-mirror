@@ -34,13 +34,15 @@ Major compactions run as background operations. However, if your instance has co
 
 4.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
 
-5.  Invoke the following command to initiate compaction:
+5.  Run one of the following commands to start compaction, based on your database dialect:
     
-        # GoogleSQL
-        CALL compact_all();
-        
-        #Postgres
-        CALL spanner.compact_all();
+    ### GoogleSQL
+    
+    `sql CALL compact_all();`
+    
+    ### PostgreSQL
+    
+    `sql CALL spanner.compact_all();`
     
     This operation returns a long-running operation (LRO) ID that you can use to find the operation in the **Operations** list.
 
@@ -54,7 +56,6 @@ To trigger compactions programmatically using the C++ client library:
       namespace spanner = ::google::cloud::spanner;
     
       spanner::SqlStatement select("CALL compact_all()");
-      auto rows = client.ExecuteQuery(statement);
       using RowType = std::tuple<std::string>;
       auto rows = client.ExecuteQuery(std::move(select));
     

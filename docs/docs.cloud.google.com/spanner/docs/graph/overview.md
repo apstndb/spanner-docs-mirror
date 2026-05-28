@@ -22,9 +22,9 @@ Graphs provide a natural mechanism for representing relationships in data. Examp
 
 Traditionally, applications represent this type of graph data as tables in a relational database, using multiple joins to traverse the graph. Expressing graph traversal logic in SQL creates complex queries that are difficult to write, maintain, and debug.
 
-The graph interface in Spanner Graph lets you navigate relationships and identify patterns in the graph in intuitive ways. In addition, Spanner Graph provides graph-optimized storage and query enhancements suited for online analytical and transactional graph workloads, all built into Spanner's core capabilities.
+The graph interface in Spanner Graph lets you navigate relationships and identify patterns in the graph in intuitive ways. In addition, Spanner Graph provides graph-optimized storage and query enhancements suited for online analytical and transactional graph workloads. For more complex analytical needs, Spanner Graph offers built-in high-performance graph algorithms.
 
-This approach makes Spanner Graph the ideal solution for even mission-critical graph applications. In particular, Spanner's transparent sharding scales elastically to very large datasets. It uses massively parallel processing without user intervention.
+This approach makes Spanner Graph the ideal solution for mission-critical graph applications with ability for deep analytical mining. In particular, Spanner's transparent sharding scales elastically, allowing for massively parallel processing without user intervention.
 
 ## Use cases for Spanner Graph
 
@@ -56,6 +56,8 @@ Spanner Graph is a multi-model database that integrates graph, relational, searc
 
   - **AI-powered insights** : Deep integration with Agent Platform unlocks a suite of AI models directly in Spanner Graph, helping you accelerate your AI workflows.
 
+  - **Fully managed, high-performance graph algorithms** : A suite of fully managed graph algorithms for centrality, clustering, similarity, and path finding. These algorithms utilize on-demand dedicated compute to scale to tens of billions of edges with near-zero impact on transactional workloads, bringing you new insights without additional complexity.
+
   - **Scalability, availability, and consistency** : Spanner's established scalability, availability, and consistency provide a solid foundation.
 
 ## What's next
@@ -64,3 +66,4 @@ Spanner Graph is a multi-model database that integrates graph, relational, searc
   - Set up and query [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
   - Learn about the [Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) .
   - Learn how to create, update, or drop a [Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema) .
+  - Learn about [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview) .
