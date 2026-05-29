@@ -12,6 +12,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## May 27, 2026
+
+Feature
+
+Spanner Graph supports a suite of [graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview) covering use cases such as fraud detection, entity resolution, and recommendations. You can invoke graph algorithms as built-in function calls in Spanner Graph queries. You can save your output to Cloud Storage or Spanner. This feature is available in [Preview](https://docs.cloud.google.com/products#product-launch-stages) .
+
 ## May 18, 2026
 
 Feature

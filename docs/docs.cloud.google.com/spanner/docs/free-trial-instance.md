@@ -90,6 +90,7 @@ The free trial instance is subject to the following limitations:
   - Free trial instances don't support [backup and restore](https://docs.cloud.google.com/spanner/docs/backup) .
   - Free trial instances don't support [customer-managed encryption keys (CMEK)](https://docs.cloud.google.com/spanner/docs/cmek) .
   - Spanner free trial instances are available in all [regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) . They aren't available in [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) or [multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) .
+  - [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) , and graph algorithms that rely on it, are not available.
 
 The free trial instance is meant for evaluation purposes. It is not meant for the following use cases:
 

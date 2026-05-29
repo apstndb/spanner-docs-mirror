@@ -147,8 +147,6 @@ The table shows data matching the filter.
 
 The **Sample lock requests** panel shows details about sample lock requests from contending transactions.
 
-> **Note:** The **Sample lock requests** panel is enabled only for GoogleSQL-dialect databases and not for PostgreSQL-dialect databases.
-
 To view sample lock request information for a row range start key, click the related link in the table.
 
 The table shows the following columns of information:

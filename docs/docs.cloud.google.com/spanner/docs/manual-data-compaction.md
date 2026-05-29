@@ -16,7 +16,7 @@ The compaction process is a [long-running operation (LRO)](https://docs.cloud.go
 
 ## Pricing
 
-Triggering a major compaction temporarily increases [compute capacity](https://docs.cloud.google.com/spanner/pricing#compute-capacity) on the Spanner instance. This might result in increased costs.
+Manually triggering a major compaction temporarily increases [CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization) on your Spanner instance. If additional [compute capacity](https://docs.cloud.google.com/spanner/pricing#compute-capacity) is required to offset this increase in CPU utilization, this will increase costs.
 
 ## Performance
 
@@ -38,11 +38,11 @@ Major compactions run as background operations. However, if your instance has co
     
     ### GoogleSQL
     
-    `sql CALL compact_all();`
+        CALL compact_all();
     
     ### PostgreSQL
     
-    `sql CALL spanner.compact_all();`
+        CALL spanner.compact_all();
     
     This operation returns a long-running operation (LRO) ID that you can use to find the operation in the **Operations** list.
 
