@@ -16,6 +16,16 @@ The Go client library supports plain text, TLS, and mTLS connections. For all co
 
 For more information, see [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go) in the Spanner documentation.
 
+## Before you begin
+
+To connect the Go client library to Spanner Omni, you need to use the `IsExperimentalHost: true` configuration. This option specifies that the library connects to a local or on-premises deployment of Spanner Omni rather than the managed version of Spanner.
+
+To use this configuration option, your environment must meet the following requirements:
+
+  - The Go client library must be [version v1.91.0](https://docs.cloud.google.com/go/docs/reference/cloud.google.com/go/spanner/1.91.0%60) or later.
+
+  - The Go release must be [version 1.25](https://go.dev/doc/go1.25) or later.
+
 ## Plain-text communication
 
 To establish plain-text communication, run the following code:

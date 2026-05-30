@@ -29,7 +29,7 @@ When you restore a Spanner database, you must specify a source backup and a new 
 When you restore a database, consider the following compatibility rules for the [Spanner edition](https://docs.cloud.google.com/spanner/docs/editions-overview) :
 
   - Spanner supports restoring the database to an instance that uses the same or a higher-tier edition than the backup instance.
-  - You can restore the database to an instance that uses a [lower-tier edition](https://docs.cloud.google.com/spanner/docs/editions-overview$features) . However, the restore operation fails if the database uses features that are not available in the lower-tier edition.
+  - You can restore the database to an instance that uses a [lower-tier edition](https://docs.cloud.google.com/spanner/docs/editions-overview#features) . However, the restore operation fails if the database uses features that are not available in the lower-tier edition.
 
 To restore a backup to an instance with a different instance configuration or in a different project, you can first [copy the backup](https://docs.cloud.google.com/spanner/docs/backup/restore-backup-overview#cross-region-project) to the target region or project.
 
