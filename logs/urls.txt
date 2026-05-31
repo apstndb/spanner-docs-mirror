@@ -484,7 +484,7 @@ https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions	202
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays	2026-05-29T04:39:10Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language	2026-05-29T04:39:10Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types	2026-05-29T04:39:10Z
-https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax	2026-05-29T04:39:10Z
+https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax	2026-05-31T07:04:24Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions	2026-05-29T04:39:10Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface	2026-05-29T04:39:10Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical	2026-05-29T04:39:10Z

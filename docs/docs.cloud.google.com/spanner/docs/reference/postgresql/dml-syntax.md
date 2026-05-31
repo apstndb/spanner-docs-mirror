@@ -114,7 +114,9 @@ You can use the following query without a columns list:
     DO UPDATE SET SingerId=excluded.SingerId,
                   FirstName=excluded.FirstName,
                   LastName=excluded.LastName,
-                  Birthdate=excluded.Birthdate,              Status=excluded.Status,              SingerInfo=excluded.SingerInfo;
+                  Birthdate=excluded.Birthdate,
+                  Status=excluded.Status,
+                  SingerInfo=excluded.SingerInfo;
 
 Or you can use the following query with a columns list:
 
@@ -315,7 +317,7 @@ With the optional `RETURNING` clause, you can obtain data from rows that are bei
 
     UPDATE Singers
     SET BirthDate = '1990-10-10'
-    WHERE FirstName = 'Russell9;
+    WHERE FirstName = 'Russell'
     RETURNING *;
 
 To learn more about the values that you can use in this clause, see [INSERT RETURNING](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-returning) .
