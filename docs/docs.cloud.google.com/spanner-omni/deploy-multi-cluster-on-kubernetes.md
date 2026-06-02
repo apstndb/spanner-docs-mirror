@@ -41,6 +41,8 @@ To prepare for the deployment, complete these requirements:
 
 Create a Helm configuration. For more information, see [Create a Helm configuration](https://docs.cloud.google.com/spanner-omni/create-helm-configuration) .
 
+The number of root servers per zone must be an odd number between one and nine, inclusive, to ensure quorum for consistency. If the number of serviers is an even number, deployments might fail. When configuring your zones, designate servers as root servers. For very small zones, use one root server. For larger zones, use three, five, or nine root servers.
+
 Because this is a multi-cluster deployment, ensure your Helm configuration YAML file includes the following:
 
     # This is required for a multi-cluster deployment setup.
