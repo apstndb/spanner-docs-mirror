@@ -44,7 +44,7 @@ A server is a compute resource, such as a VM or container, where the Spanner Omn
 
 Root servers store critical metadata to support the zone. For example, the root server stores server membership and other zone configuration information.
 
-The number of root servers per zone must be an odd number between one and nine, inclusive, to ensure quorum for consistency. If the number of serviers is an even number, deployments might fail. When configuring your zones, designate servers as root servers. For very small zones, use one root server. For larger zones, use three, five, or nine root servers.
+The number of root servers per zone must be an odd number between one and nine, inclusive, to ensure quorum for consistency. If the number of servers is an even number, deployments might fail. When configuring your zones, designate servers as root servers. We recommend that you use one for development or testing and three for highly available production zones.
 
 Consider the number of root servers carefully while planning the deployment. While you can change the number of root servers in the deployment after you create it, we don't recommend it.
 

@@ -21,7 +21,7 @@ An aggregate function summarizes the rows of a group into a single value.
 
 **Description**
 
-Each aggregate function supports all or a subset of the aggregate function call syntax. You can use the following syntax to build an aggregate function:
+Each aggregate function supports all or a subset of the aggregate function call syntax. To build an aggregate function, use the following syntax:
 
   - `DISTINCT` : Each distinct value of `expression` is aggregated only once into the result.
 

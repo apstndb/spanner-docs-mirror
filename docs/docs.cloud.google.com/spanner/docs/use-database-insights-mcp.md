@@ -76,11 +76,9 @@ Additional scopes might be required on the resources accessed during a tool call
 
 ## Configure an MCP client to use the Database Insights MCP server
 
-AI applications and agents, such as Claude or Gemini CLI, can instantiate an MCP client that connects to a single MCP server. An AI application can have multiple clients that connect to different MCP servers. To connect to a remote MCP server, the MCP client must know the remote MCP server's URL.
+AI applications and agents, such as Claude or Antigravity, can instantiate an MCP client that connects to a single MCP server. An AI application can have multiple clients that connect to different MCP servers. If your application isn't listed in the [client-specific guidance](https://docs.cloud.google.com/mcp/configure-mcp-ai-application#client-specific-guidance) , then you can use the following information to connect from most applications.
 
-In your AI application, look for a way to connect to a remote MCP server. You are prompted to enter details about the server, such as its name and URL.
-
-For the Database Insights MCP server, enter the following as required:
+In your AI application, look for a way to add or connect to a remote MCP server. For the Database Insights MCP server, enter the following information as required:
 
   - **Server name** : Database Insights MCP server
   - **Server URL** or **Endpoint** : `https://databaseinsights.googleapis.com/mcp`
@@ -88,10 +86,7 @@ For the Database Insights MCP server, enter the following as required:
   - **Authentication details** : Depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information about authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
   - **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Database Insights MCP server.
 
-For host-specific guidance about setting up and connecting to MCP server, see the following:
-
-  - [Claude.ai](https://docs.cloud.google.com/mcp/configure-mcp-ai-application#claude-ai)
-  - [Gemini CLI](https://docs.cloud.google.com/mcp/configure-mcp-ai-application#gemini-cli)
+For application-specific guidance about setting up and connecting to MCP server, see [Client-specific guidance](https://docs.cloud.google.com/mcp/configure-mcp-ai-application#client-specific-guidance) .
 
 For more general guidance, see the following resources:
 

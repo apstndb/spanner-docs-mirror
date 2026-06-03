@@ -72,7 +72,7 @@ To run Spanner Omni on multiple servers in a single zone ( `us-central1-a` ) in 
 
 > **Note:** To deploy in Amazon EKS, Update `global.platform` to `eks` and `locations` to the AWS zone where your Amazon EKS cluster is created.
 
-The number of root servers per zone must be an odd number between one and nine, inclusive, to ensure quorum for consistency. If the number of serviers is an even number, deployments might fail. When configuring your zones, designate servers as root servers. For very small zones, use one root server. For larger zones, use three, five, or nine root servers.
+The number of root servers per zone must be an odd number between one and nine, inclusive, to ensure quorum for consistency. If the number of servers is an even number, deployments might fail. When configuring your zones, designate servers as root servers. We recommend that you use one for development or testing and three for highly available production zones.
 
 ### Example 3: Highly available regional deployment
 
