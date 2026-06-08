@@ -6,7 +6,7 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-Spanner Data Boost is subject to quotas that limit the number of concurrent `ExecuteStreamingSQL` and `StreamingRead` calls executing per project and per region. When the number of concurrent requests exceeds the quota, requests fail with `RESOURCE EXHAUSTED` errors.
+Spanner Data Boost is subject to quotas that limit the number of concurrent `ExecuteStreamingSQL` and `StreamingRead` calls executing per project and per region. When the number of concurrent requests exceeds the quota, requests fail with `RESOURCE_EXHAUSTED` errors.
 
 ## Check your quota
 

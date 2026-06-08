@@ -47,13 +47,13 @@ For Maven, add the following new dependency under the `<dependencies>` section:
     <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-spanner-cassandra</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </dependency>
 
 For Gradle, add the following:
 
     dependencies {
-        implementation 'com.google.cloud:google-cloud-spanner-cassandra:1.1.0'
+        implementation 'com.google.cloud:google-cloud-spanner-cassandra:1.2.0'
     }
 
 1.  Modify your `CqlSession` creation code. Instead of using `CqlSessionBuilder` , use `SpannerCqlSessionBuilder` and provide the Spanner database URI:

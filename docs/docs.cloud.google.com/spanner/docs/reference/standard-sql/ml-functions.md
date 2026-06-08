@@ -1,12 +1,12 @@
 ---
 name: documents/docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions
 uri: https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions
-title: Machine learning functions in GoogleSQL
+title: Machine learning and AI functions in GoogleSQL
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
 ---
 
-GoogleSQL for Spanner supports the following machine learning (ML) functions.
+GoogleSQL for Spanner supports the following machine learning (ML) and AI functions.
 
 ## Function list
 

@@ -208,7 +208,7 @@ https://docs.cloud.google.com/spanner/docs/databoost/databoost-applications	2026
 https://docs.cloud.google.com/spanner/docs/databoost/databoost-export	2026-06-03T10:12:46Z
 https://docs.cloud.google.com/spanner/docs/databoost/databoost-monitor	2026-06-03T10:12:46Z
 https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview	2026-06-03T10:12:46Z
-https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas	2026-06-03T10:12:46Z
+https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas	2026-06-05T00:36:33Z
 https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries	2026-06-03T10:12:46Z
 https://docs.cloud.google.com/spanner/docs/dataflow-connector	2026-06-03T10:00:55Z
 https://docs.cloud.google.com/spanner/docs/dataflow-templates	2026-06-03T10:00:55Z
@@ -306,7 +306,7 @@ https://docs.cloud.google.com/spanner/docs/graph/visualization-integrations	2026
 https://docs.cloud.google.com/spanner/docs/graph/work-with-paths	2026-06-03T10:01:04Z
 https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations	2026-06-03T10:01:04Z
 https://docs.cloud.google.com/spanner/docs/hybrid-full-text-vector-search	2026-06-03T10:00:26Z
-https://docs.cloud.google.com/spanner/docs/iam	2026-06-03T10:00:26Z
+https://docs.cloud.google.com/spanner/docs/iam	2026-06-05T02:16:27Z
 https://docs.cloud.google.com/spanner/docs/identify-latency-point	2026-06-03T10:00:26Z
 https://docs.cloud.google.com/spanner/docs/implement-multi-tenancy	2026-06-03T10:00:26Z
 https://docs.cloud.google.com/spanner/docs/import	2026-06-03T10:00:26Z
@@ -393,7 +393,7 @@ https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-06-03T1
 https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-06-03T10:00:33Z
 https://docs.cloud.google.com/spanner/docs/named-schemas	2026-06-03T10:00:33Z
 https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview	2026-06-03T10:01:31Z
-https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter	2026-06-03T10:01:31Z
+https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter	2026-06-05T02:16:47Z
 https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner	2026-06-03T10:01:31Z
 https://docs.cloud.google.com/spanner/docs/non-relational/overview	2026-06-03T10:01:31Z
 https://docs.cloud.google.com/spanner/docs/open-source-jdbc	2026-06-03T10:00:33Z
@@ -698,10 +698,10 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-quer
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries	2026-06-03T10:00:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions	2026-06-03T10:00:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions	2026-06-03T10:00:57Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions	2026-06-03T10:00:57Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions	2026-06-05T02:16:15Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical	2026-06-03T10:00:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions	2026-06-03T10:00:57Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions	2026-06-03T10:00:57Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions	2026-06-04T19:46:19Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions	2026-06-03T10:00:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators	2026-06-03T10:00:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview	2026-06-03T10:00:57Z
@@ -709,7 +709,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-lan
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers	2026-06-03T10:00:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions	2026-06-03T10:00:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-06-03T10:00:57Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-06-03T10:00:57Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-06-05T02:16:15Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions	2026-06-03T10:00:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions	2026-06-03T10:00:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures	2026-06-03T10:00:57Z

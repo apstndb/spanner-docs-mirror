@@ -698,7 +698,14 @@ The following table lists the access control with IAM predefined roles, includin
 <li>Instance</li>
 <li>Database</li>
 </ul></td>
-<td><p><code dir="ltr" translate="no">monitoring.timeSeries.create</code></p>
+<td><p><code dir="ltr" translate="no">dataplex.locations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">dataplex.locations.get</code></li>
+<li><code dir="ltr" translate="no">dataplex.locations.list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">dataplex.operations.get</code></p>
+<p><code dir="ltr" translate="no">dataplex.operations.list</code></p>
+<p><code dir="ltr" translate="no">monitoring.timeSeries.create</code></p>
 <p><code dir="ltr" translate="no">spanner.  databases.  beginReadOnlyTransaction</code></p>
 <p><code dir="ltr" translate="no">spanner.databases.get</code></p>
 <p><code dir="ltr" translate="no">spanner.databases.getDdl</code></p>
@@ -725,7 +732,14 @@ The following table lists the access control with IAM predefined roles, includin
 <li>Instance</li>
 <li>Database</li>
 </ul></td>
-<td><p><code dir="ltr" translate="no">monitoring.timeSeries.create</code></p>
+<td><p><code dir="ltr" translate="no">dataplex.locations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">dataplex.locations.get</code></li>
+<li><code dir="ltr" translate="no">dataplex.locations.list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">dataplex.operations.get</code></p>
+<p><code dir="ltr" translate="no">dataplex.operations.list</code></p>
+<p><code dir="ltr" translate="no">monitoring.timeSeries.create</code></p>
 <p><code dir="ltr" translate="no">spanner.  databases.  beginReadOnlyTransaction</code></p>
 <p><code dir="ltr" translate="no">spanner.databases.get</code></p>
 <p><code dir="ltr" translate="no">spanner.databases.getDdl</code></p>
@@ -769,7 +783,19 @@ The following table lists the access control with IAM predefined roles, includin
 <li>Instance</li>
 <li>Database</li>
 </ul></td>
-<td><p><code dir="ltr" translate="no">monitoring.timeSeries.create</code></p>
+<td><p><code dir="ltr" translate="no">dataplex.locations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">dataplex.locations.get</code></li>
+<li><code dir="ltr" translate="no">dataplex.locations.list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">dataplex.operations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">dataplex.operations.cancel</code></li>
+<li><code dir="ltr" translate="no">dataplex.operations.delete</code></li>
+<li><code dir="ltr" translate="no">dataplex.operations.get</code></li>
+<li><code dir="ltr" translate="no">dataplex.operations.list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">monitoring.timeSeries.create</code></p>
 <p><code dir="ltr" translate="no">spanner.databaseOperations.*</code></p>
 <ul>
 <li><code dir="ltr" translate="no">spanner.  databaseOperations.  cancel</code></li>
@@ -815,7 +841,14 @@ The following table lists the access control with IAM predefined roles, includin
 <td><h4 id="spanner.graphIntelligenceUser" class="role-title add-link" data-text="Cloud Spanner Database Graph Intelligence features user" tabindex="-1">Cloud Spanner Database Graph Intelligence features user</h4>
 <p>( <code dir="ltr" translate="no">roles/  spanner.graphIntelligenceUser</code> )</p>
 <p>Access to Graph Intelligence features.</p></td>
-<td><p><code dir="ltr" translate="no">monitoring.timeSeries.create</code></p>
+<td><p><code dir="ltr" translate="no">dataplex.locations.*</code></p>
+<ul>
+<li><code dir="ltr" translate="no">dataplex.locations.get</code></li>
+<li><code dir="ltr" translate="no">dataplex.locations.list</code></li>
+</ul>
+<p><code dir="ltr" translate="no">dataplex.operations.get</code></p>
+<p><code dir="ltr" translate="no">dataplex.operations.list</code></p>
+<p><code dir="ltr" translate="no">monitoring.timeSeries.create</code></p>
 <p><code dir="ltr" translate="no">spanner.  databases.  beginReadOnlyTransaction</code></p>
 <p><code dir="ltr" translate="no">spanner.databases.get</code></p>
 <p><code dir="ltr" translate="no">spanner.databases.getDdl</code></p>
