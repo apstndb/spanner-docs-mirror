@@ -76,15 +76,15 @@ To make the required updates to your graph database, do the following:
     
         UPDATE AccountTransferAccount
         SET notes = "for shared cost of dinner",
-          notes_embeddings = ARRAY<FLOAT32>[0.3, 0.5, 0.8, 0.7]
+          notes_embeddin<gs = AR>RAYFLOAT32[0.3, 0.5, 0.8, 0.7]
         WHERE id = 16 AND to_id = 20;
         UPDATE AccountTransferAccount
         SET notes = "fees for tuition",
-          notes_embeddings = ARRAY<FLOAT32>[0.1, 0.9, 0.1, 0.7]
+          note<s_embed>dings = ARRAYFLOAT32[0.1, 0.9, 0.1, 0.7]
         WHERE id = 20 AND to_id = 7;
         UPDATE AccountTransferAccount
-        SET notes = 'loved the lunch',
-          notes_embeddings = ARRAY<FLOAT32>[0.4, 0.5, 0.7, 0.9]
+        SET notes = 'loved the lunch'<,
+          not>es_embeddings = ARRAYFLOAT32[0.4, 0.5, 0.7, 0.9]
         WHERE id = 20 AND to_id = 16;
 
 6.  After adding new columns to the `Account` and `AccountTransferAccount` input tables, update the property graph definition using the following statements. For more information, see [Update existing node or edge definitions](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-existing-node-or-edge) .
@@ -114,8 +114,8 @@ You can perform a KNN vector search on the `nick_name_embeddings` property of th
     MATCH (p:Person)-[:Owns]->(a:Account)
     RETURN p.name, a.nick_name
     ORDER BY EUCLIDEAN_DISTANCE(a.nick_name_embeddings,
-      -- An illustrative embedding for 'accounts for leisure travel and vacation'
-      ARRAY<FLOAT32>[0.2, 0.4, 0.9, 0.6])
+      -- An illustrative embedding for 'accounts for leisure travel and vacation'<
+      ARRA>YFLOAT32[0.2, 0.4, 0.9, 0.6])
     LIMIT 2;
 
 #### Results
@@ -134,8 +134,8 @@ You can perform a KNN vector search on the `notes_embeddings` property of the `O
     WHERE t.notes_embeddings IS NOT NULL
     RETURN p.name, t.notes
     ORDER BY EUCLIDEAN_DISTANCE(t.notes_embeddings,
-      -- An illustrative vector embedding for 'food expenses'
-      ARRAY<FLOAT32>[0.2, 0.4, 0.9, 0.6])
+      -- An illustrative vector embedding for 'food expenses'<
+      ARRA>YFLOAT32[0.2, 0.4, 0.9, 0.6])
     LIMIT 2;
 
 #### Results
@@ -168,15 +168,15 @@ The [graph hint](https://docs.cloud.google.com/spanner/docs/reference/standard-s
     MATCH (@{FORCE_INDEX=NickNameEmbeddingIndex} a:Account)
     WHERE a.nick_name_embeddings IS NOT NULL
     RETURN a, APPROX_EUCLIDEAN_DISTANCE(a.nick_name_embeddings,
-      -- An illustrative embedding for 'accounts for leisure travel and vacation'
-      ARRAY<FLOAT32>[0.2, 0.4, 0.9, 0.6],
-      options => JSON '{"num_leaves_to_search": 10}') AS distance
+      -- An illustrative embedding for 'accounts for leisure travel and vacation'<
+      ARRA>YFLOAT32[0.2, 0.4, 0.9, 0.6],
+      o>ptions = JSON '{"num_leaves_to_search": 10}') AS distance
     ORDER BY distance
     LIMIT 2
     
     NEXT
-    
-    MATCH (p:Person)-[:Owns]->(a)
+    >
+    MATCH (p:Person)-[:Owns]-(a)
     RETURN p.name, a.nick_name;
 
 #### Results

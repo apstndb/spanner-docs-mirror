@@ -252,7 +252,7 @@ The following query is like the previous one. However, scores are boosted more w
       SCORE(
         a.DescriptionTokens,
         'classical album',
-        >options=JSON '{"bigram_weight": 3.0}'
+        options=>JSON '{"bigram_weight": 3.0}'
       ) AS Score
     FROM Albums a
     WHERE SEARCH(a.DescriptionTokens, 'classical album');
@@ -371,9 +371,11 @@ The following query uses `SCORE_NGRAMS` in the `ORDER BY` clause to produce the 
     SEARCH(
       tokens,
       search_query
-      [, dialect => { "rquery" | "words" | "words_phrase>" } ]
-      [, language_tag> = value]
-      [, enhance_query = { TRU>E | FALSE }]  [, dictionary = value])
+      [, dialect => { "rquery" | "words" | "words_phrase" } ]
+      [, language_tag => value]
+      [, enhance_query => { TRUE | FALSE }]
+      [, dictionary => value]
+    )
 
 **Description**
 
@@ -425,7 +427,8 @@ Search query uses rquery syntax by default. You can specify other supported synt
         
             SEARCH(tl, 'big')
             AND (SEARCH(tl, 'time')
-                OR SEARCH(tl, 'fast'))AND SEARCH(tl, 'car');
+                OR SEARCH(tl, 'fast'))
+            AND SEARCH(tl, 'car');
         
         `OR` only applies to the two adjacent terms so the search expression `big time OR fast car` searches for all the documents that have the terms `big` and `car` and either `time` or `fast` .
         
@@ -528,7 +531,7 @@ The following query is like the previous ones. However, if `Description` contain
 
     SELECT a.AlbumId, a.Description
     FROM Albums a
-    WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classic albums', enhance>_query = TRUE);
+    WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classic albums', enhance_query => TRUE);
     
     /*---------------------------+
      | AlbumId | Description     |
@@ -618,7 +621,7 @@ If we change the `min_ngrams` to 1, then the query will also return the row with
     FROM
       Albums a
     WHERE
-      SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic', min>_ngrams=1);
+      SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic', min_ngrams=>1);
     
     /*---------------------------+
      | AlbumId | Description     |
@@ -758,7 +761,7 @@ The following query searches the column called `Description` for a token called 
     FROM
       Albums a
     WHERE
-      a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_sear>ch_type='word_prefix');
+      a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_search_type=>'word_prefix');
     
     /*---------------------------+
      | AlbumId | Description     |
@@ -774,7 +777,7 @@ The following query searches the column called `Description` for a token called 
     FROM
       Albums a
     WHERE
-      a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_sear>ch_type='value_prefix');
+      a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_search_type=>'value_prefix');
     
     /*---------------------------+
      | AlbumId | Description     |
@@ -792,7 +795,8 @@ The following query searches the column called `Description` for a token called 
       [, dictionary => value]
       [, max_snippet_width => value ]
       [, max_snippets => value ]
-      [, content_type => { "text/plain" | "text/html" } ])
+      [, content_type => { "text/plain" | "text/html" } ]
+    )
 
 **Description**
 
@@ -847,7 +851,11 @@ The `JSON` value has this format and definitions:
             },
           ],
           "snippet": json_string,
-          "source_begin";: json_number,      "source_end": json_number    }  ]}
+          "source_begin": json_number,
+          "source_end": json_number
+        }
+      ]
+    }
 
   - `snippets` : A JSON object that contains snippets from `data_to_search` . These are snippets of text for `raw_search_query` from the provided `data_to_search` argument.
   - `highlights` : A JSON array that contains the position of each search term found in `snippet` .
@@ -988,7 +996,9 @@ The following query finds the column `IsAwarded` is equal to `TRUE` . The query 
       value_to_tokenize
       [, language_tag => value ]
       [, content_type => { "text/plain" | "text/html" } ]
-     > [, token_category = { "small" | "medium" | ">large" | "title" } ]  [, remove_diacritics = { TRUE | FALSE }])
+      [, token_category => { "small" | "medium" | "large" | "title" } ]
+      [, remove_diacritics => { TRUE | FALSE }]
+    )
 
 **Description**
 
@@ -1092,7 +1102,7 @@ The `Albums` table contains a column called `MetadataTokens` , which tokenizes t
     INSERT INTO Albums (SingerId, AlbumId, Metadata)
       VALUES (1, 1, JSON '{"AvailableFormats": ["vinyl", "cd"]}'),
              (1, 2, JSON '{"ReissueDate": "1999-07-13", "MultiDiscCount": 2}'),
-             (1, 3, JSON &#39;{"RegionalReleases": [{"Region": "Japan", "ReleaseDate": "2025-01-05"}]}');
+             (1, 3, JSON '{"RegionalReleases": [{"Region": "Japan", "ReleaseDate": "2025-01-05"}]}');
 
 The following queries perform containment and existence checks on the `Metadata` column. The query optimizer might choose to accelerate these conditions using `AlbumsIndex` and `MetadataTokens` .
 
@@ -1123,7 +1133,11 @@ The following queries perform containment and existence checks on the `Metadata`
     FROM Albums a
     WHERE a.Metadata.ReissueDate IS NOT NULL;
     
-    /*---------+ | AlbumId | +---------+ | 2       | +---------*/
+    /*---------+
+     | AlbumId |
+     +---------+
+     | 2       |
+     +---------*/
 
 ## `TOKENIZE_NGRAMS`
 
@@ -1182,7 +1196,7 @@ Second, any n-grams with length equal to `ngram_size_max` are stored in sequence
     
     CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionNgramTokens);
     
-    INSERT INTO Albums (AlbumId, Description) VALUES (1, 'Heavy Metal&#39;);
+    INSERT INTO Albums (AlbumId, Description) VALUES (1, 'Heavy Metal');
 
 To query an n-gram `TOKENLIST` column, see the [SEARCH\_NGRAMS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_ngrams) function.
 
@@ -1190,12 +1204,14 @@ To query an n-gram `TOKENLIST` column, see the [SEARCH\_NGRAMS](https://docs.clo
 
     TOKENIZE_NUMBER(
       value_to_tokenize,
-      [, comparison_type => { "all" | "equality" >} ]
-      [, algorithm = { "logtree" | "prefixtre>e" | "flo>atingpoint" } ]
-      [, m>in = value ]
-      [, max = v>alue ]
+      [, comparison_type => { "all" | "equality" } ]
+      [, algorithm => { "logtree" | "prefixtree" | "floatingpoint" } ]
+      [, min => value ]
+      [, max => value ]
       [, granularity => value ]
-      [, tree_base = value ]  [, precision = value ])
+      [, tree_base => value ]
+      [, precision => value ]
+    )
 
 **Description**
 
@@ -1317,8 +1333,9 @@ The following query is like the previous ones. However, the condition is range t
       [, ngram_size_max => value ]
       [, relative_search_types => value ]
       [, content_type => { "text/plain" | "text/html" } ]
-      [, short_token>s_only_for_anchors = {TRUE | FALSE } ]
-      [,> remove_diacritics = { TRUE | FALSE } ])
+      [, short_tokens_only_for_anchors => {TRUE | FALSE } ]
+      [, remove_diacritics => { TRUE | FALSE } ]
+    )
 
 **Description**
 
@@ -1435,7 +1452,7 @@ In the following example, full-text `TOKENLIST` columns are created using the `T
     -- The INSERT statement below generates SingerOrAlbumNameTokens by concatenating
     -- all the tokens in SingerNameTokens and AlbumNameTokens.
     INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (1, 1, 'Alice Trentor', 'Go Go Go');
-    INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (2, 1, 'Catalina Smith';, 'Alice Wonderland');
+    INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (2, 1, 'Catalina Smith', 'Alice Wonderland');
 
 The following query searches for a token `alice` in the `SingerOrAlbumNameColumnTokens` . The rows that match `alice` in either `SingerNameTokens` or `AlbumNameTokens` are returned.
 

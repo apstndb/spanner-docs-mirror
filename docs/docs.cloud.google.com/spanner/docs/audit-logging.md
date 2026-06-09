@@ -6,7 +6,7 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-This document describes audit logging for Spanner. Google Cloud services generate audit logs that record administrative and access activities within your Google Cloud resources. For more information about Cloud Audit Logs, see the following:
+This document lists the audited methods for Spanner. Google Cloud services generate audit logs that record administrative and access activities within your Google Cloud resources. For more information about Cloud Audit Logs, see the following:
 
   - [Types of audit logs](https://docs.cloud.google.com/logging/docs/audit#types)
   - [Audit log entry structure](https://docs.cloud.google.com/logging/docs/audit#audit_log_entry_structure)
@@ -20,12 +20,16 @@ To view the time it took to process a `DATA_READ` or `DATA_WRITE` request, refer
 
 ## Service name
 
-Spanner audit logs use the service name `spanner.googleapis.com` . Filter for this service:
+To view the Spanner audit logs, do the following:
 
-``` 
-    protoPayload.serviceName="spanner.googleapis.com"
-  
-```
+1.  In the Google Cloud console, go to the Logs Explorer page:
+
+2.  Copy and paste the following query into the **Query** field of the Logs Explorer, and then click **Run query** .
+    
+    ``` 
+        protoPayload.serviceName="spanner.googleapis.com"
+      
+    ```
 
 ## Methods by permission type
 
@@ -67,7 +71,9 @@ API methods in the following list that are marked with (LRO) are long-running op
 <code dir="ltr" translate="no">google.spanner.admin.instance.v1.InstanceAdmin.GetInstance</code><br />
 <code dir="ltr" translate="no">google.spanner.admin.instance.v1.InstanceAdmin.GetInstanceConfig</code><br />
 <code dir="ltr" translate="no">google.spanner.admin.instance.v1.InstanceAdmin.GetInstancePartition</code><br />
+<code dir="ltr" translate="no">google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations</code><br />
 <code dir="ltr" translate="no">google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs</code><br />
+<code dir="ltr" translate="no">google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations</code><br />
 <code dir="ltr" translate="no">google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions</code><br />
 <code dir="ltr" translate="no">google.spanner.admin.instance.v1.InstanceAdmin.ListInstances</code><br />
 <code dir="ltr" translate="no">google.spanner.admin.instance.v1.InstanceAdmin.TestIamPermissions</code></td>
@@ -75,6 +81,7 @@ API methods in the following list that are marked with (LRO) are long-running op
 <tr class="even">
 <td><code dir="ltr" translate="no">ADMIN_WRITE</code></td>
 <td><code dir="ltr" translate="no">google.longrunning.Operations.CancelOperation</code><br />
+<code dir="ltr" translate="no">google.longrunning.Operations.DeleteOperation</code><br />
 <code dir="ltr" translate="no">google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints</code><br />
 <code dir="ltr" translate="no">google.spanner.admin.database.v1.DatabaseAdmin.ChangeQuorum</code> (LRO)<br />
 <code dir="ltr" translate="no">google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup</code> (LRO)<br />
@@ -105,6 +112,7 @@ API methods in the following list that are marked with (LRO) are long-running op
 <tr class="odd">
 <td><code dir="ltr" translate="no">DATA_READ</code></td>
 <td><code dir="ltr" translate="no">google.cloud.keyvisualizer.KeyVisualizer.GetScan</code><br />
+<code dir="ltr" translate="no">google.cloud.keyvisualizer.KeyVisualizer.ListScans</code><br />
 <code dir="ltr" translate="no">google.spanner.adapter.v1.Adapter.AdaptMessage</code><br />
 <code dir="ltr" translate="no">google.spanner.v1.Spanner.BeginTransaction</code><br />
 <code dir="ltr" translate="no">google.spanner.v1.Spanner.ExecuteSql</code><br />
@@ -149,6 +157,15 @@ The following audit logs are associated with methods belonging to `google.cloud.
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.cloud.keyvisualizer.KeyVisualizer.GetScan"`  
 
+#### `ListScans`
+
+  - **Method** : `google.cloud.keyvisualizer.KeyVisualizer.ListScans`  
+  - **Audit log type** : [Data access](https://docs.cloud.google.com/logging/docs/audit#data-access)  
+  - **Permissions** :
+      - `spanner.databases.read - DATA_READ`
+  - **Method is a long-running or streaming operation** : No.  
+  - **Filter for this method** : `protoPayload.methodName="google.cloud.keyvisualizer.KeyVisualizer.ListScans"`  
+
 ### `google.longrunning.Operations`
 
 The following audit logs are associated with methods belonging to `google.longrunning.Operations` .
@@ -164,6 +181,15 @@ The following audit logs are associated with methods belonging to `google.longru
       - `spanner.instancePartitionOperations.cancel - ADMIN_WRITE`
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.longrunning.Operations.CancelOperation"`  
+
+#### `DeleteOperation`
+
+  - **Method** : `google.longrunning.Operations.DeleteOperation`  
+  - **Audit log type** : [Admin activity](https://docs.cloud.google.com/logging/docs/audit#admin-activity)  
+  - **Permissions** :
+      - `spanner.instancePartitionOperations.delete - ADMIN_WRITE`
+  - **Method is a long-running or streaming operation** : No.  
+  - **Filter for this method** : `protoPayload.methodName="google.longrunning.Operations.DeleteOperation"`  
 
 #### `GetOperation`
 
@@ -344,6 +370,14 @@ The following audit logs are associated with methods belonging to `google.spanne
       - `spanner.databases.getIamPolicy - ADMIN_READ`
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.admin.database.v1.DatabaseAdmin.GetIamPolicy"`  
+
+#### `InternalUpdateGraphOperation`
+
+  - **Method** : `google.spanner.admin.database.v1.DatabaseAdmin.InternalUpdateGraphOperation`  
+  - **Audit log type** : [Admin activity](https://docs.cloud.google.com/logging/docs/audit#admin-activity)  
+  - **Permissions** :
+  - **Method is a long-running or streaming operation** : No.  
+  - **Filter for this method** : `protoPayload.methodName="google.spanner.admin.database.v1.DatabaseAdmin.InternalUpdateGraphOperation"`  
 
 #### `ListBackupOperations`
 
@@ -561,6 +595,15 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.admin.instance.v1.InstanceAdmin.GetInstancePartition"`  
 
+#### `ListInstanceConfigOperations`
+
+  - **Method** : `google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations`  
+  - **Audit log type** : [Data access](https://docs.cloud.google.com/logging/docs/audit#data-access)  
+  - **Permissions** :
+      - `spanner.instanceConfigOperations.list - ADMIN_READ`
+  - **Method is a long-running or streaming operation** : No.  
+  - **Filter for this method** : `protoPayload.methodName="google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations"`  
+
 #### `ListInstanceConfigs`
 
   - **Method** : `google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs`  
@@ -569,6 +612,15 @@ The following audit logs are associated with methods belonging to `google.spanne
       - `spanner.instanceConfigs.list - ADMIN_READ`
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs"`  
+
+#### `ListInstancePartitionOperations`
+
+  - **Method** : `google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations`  
+  - **Audit log type** : [Data access](https://docs.cloud.google.com/logging/docs/audit#data-access)  
+  - **Permissions** :
+      - `spanner.instancePartitionOperations.list - ADMIN_READ`
+  - **Method is a long-running or streaming operation** : No.  
+  - **Filter for this method** : `protoPayload.methodName="google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations"`  
 
 #### `ListInstancePartitions`
 
@@ -708,6 +760,7 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method** : `google.spanner.v1.Spanner.ExecuteBatchDml`  
   - **Audit log type** : [Data access](https://docs.cloud.google.com/logging/docs/audit#data-access)  
   - **Permissions** :
+      - `spanner.databases.beginOrRollbackReadWriteTransaction - DATA_WRITE`
       - `spanner.databases.write - DATA_WRITE`
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.v1.Spanner.ExecuteBatchDml"`  
@@ -717,6 +770,7 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method** : `google.spanner.v1.Spanner.ExecuteSql`  
   - **Audit log type** : [Data access](https://docs.cloud.google.com/logging/docs/audit#data-access)  
   - **Permissions** :
+      - `spanner.databases.beginOrRollbackReadWriteTransaction - DATA_WRITE`
       - `spanner.databases.select - DATA_READ`
       - `spanner.databases.write - DATA_WRITE`
   - **Method is a long-running or streaming operation** : No.  
@@ -759,10 +813,8 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method** : `google.spanner.v1.Spanner.PartitionQuery`  
   - **Audit log type** : [Data access](https://docs.cloud.google.com/logging/docs/audit#data-access)  
   - **Permissions** :
-      - `spanner.databaseRoles.use - DATA_WRITE`
       - `spanner.databases.beginReadOnlyTransaction - DATA_READ`
       - `spanner.databases.partitionQuery - DATA_READ`
-      - `spanner.databases.useRoleBasedAccess - DATA_WRITE`
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.v1.Spanner.PartitionQuery"`  
 
@@ -813,11 +865,12 @@ The following audit logs are associated with methods belonging to `google.spanne
 
 System Event audit logs are generated by GCP systems, not direct user action. For more information, see [System Event audit logs](https://docs.cloud.google.com/logging/docs/audit#system-event) .
 
-| Method Name              | Filter For This Event                                | Notes |
-| ------------------------ | ---------------------------------------------------- | ----- |
-| AutoscaleInstance        | `protoPayload.methodName="AutoscaleInstance"`        |       |
-| CreateScheduledBackup    | `protoPayload.methodName="CreateScheduledBackup"`    |       |
-| OptimizeRestoredDatabase | `protoPayload.methodName="OptimizeRestoredDatabase"` |       |
+| Method Name                | Filter For This Event                                  | Notes |
+| -------------------------- | ------------------------------------------------------ | ----- |
+| AutoscaleInstance          | `protoPayload.methodName="AutoscaleInstance"`          |       |
+| AutoscaleInstancePartition | `protoPayload.methodName="AutoscaleInstancePartition"` |       |
+| CreateScheduledBackup      | `protoPayload.methodName="CreateScheduledBackup"`      |       |
+| OptimizeRestoredDatabase   | `protoPayload.methodName="OptimizeRestoredDatabase"`   |       |
 
 ## Methods that don't produce audit logs
 
@@ -829,7 +882,6 @@ A method might not produce audit logs for one or more of the following reasons:
 
 The following methods don't produce audit logs:
 
-  - `google.cloud.keyvisualizer.KeyVisualizer.ListScans`
   - `google.longrunning.Operations.WaitOperation`
 
 ## Processing duration
