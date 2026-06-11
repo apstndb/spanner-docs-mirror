@@ -28,7 +28,7 @@ To create a Helm chart configuration, do the following:
 
 1.  Use the `helm show values` command to review the configuration options available for creating a deployment:
     
-        helm show values oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.1.0
+        helm show values oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.2.0
     
     The documentation for creating a deployment uses the `--set` flag to specify various options. You can also specify these options in a YAML file and use the `-f` flag in the `helm` command. For ease of deployment, the Helm template includes the `global.platform` property, which determines the default values for the `StorageClass` , service annotations, and other settings based on the platform.
 

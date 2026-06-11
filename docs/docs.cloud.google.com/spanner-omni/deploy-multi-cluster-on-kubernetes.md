@@ -153,7 +153,7 @@ The following commands install a Helm chart on clusters. In each command, PATH\_
 
 #### Install a chart in `us-west1` with monitoring enabled
 
-    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.1.0 \
+    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.2.0 \
       -f PATH_TO_HELM_CONFIG_FILE \
       --namespace spanner-ns-usw1 \
       --set currentLocation=us-west1 \
@@ -163,7 +163,7 @@ The following commands install a Helm chart on clusters. In each command, PATH\_
 
 #### Install a chart in `us-west2` without monitoring
 
-    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.1.0 \
+    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.2.0 \
       -f  PATH_TO_HELM_CONFIG_FILE \
       --namespace spanner-ns-usw2 \
       --set currentLocation=us-west2 \
@@ -172,7 +172,7 @@ The following commands install a Helm chart on clusters. In each command, PATH\_
 
 #### Install a chart in `us-west3` without monitoring
 
-    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.1.0 \
+    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.2.0 \
       -f  PATH_TO_HELM_CONFIG_FILE \
       --namespace spanner-ns-usw3 \
       --set currentLocation=us-west3 \

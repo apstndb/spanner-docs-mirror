@@ -32,13 +32,13 @@ Specify the exact version tag when pulling a container image.
 
 The following table lists the available container image versions.
 
-| Version tag    | Release date   |
-| -------------- | -------------- |
-| `2026.r1-beta` | April 22, 2026 |
+| Version tag      | Release date   |
+| ---------------- | -------------- |
+| `2026.r1-beta.1` | April 22, 2026 |
 
-For example, to download the `spanner-omni` image for the 2026.r1-beta release, run the following command:
+For example, to download the `spanner-omni` image for the 2026.r1-beta.1 release, run the following command:
 
-    docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r1-beta
+    docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r1-beta.1
 
 ## Helm charts
 
@@ -52,11 +52,11 @@ The following table lists the available Helm chart versions.
 
 | Version tag | Release date   |
 | ----------- | -------------- |
-| `0.1.0`     | April 22, 2026 |
+| `0.2.0`     | April 22, 2026 |
 
-For example, to download the Helm chart for version 0.1.0, run the following command:
+For example, to download the Helm chart for version 0.2.0, run the following command:
 
-    helm pull oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.1.0
+    helm pull oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.2.0
 
 ## Standalone binaries
 
@@ -68,14 +68,14 @@ Each release is in a folder named after the version tag.
 
 The following table lists the available Spanner Omni CLI binaries.
 
-| Filename                                             | Description                           |
-| ---------------------------------------------------- | ------------------------------------- |
-| `spanner-omni-cli-2026.r1-beta-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
-| `spanner-omni-cli-2026.r1-beta-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
-| `spanner-omni-cli-2026.r1-beta-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
-| `spanner-omni-cli-2026.r1-beta-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
+| Filename                                               | Description                           |
+| ------------------------------------------------------ | ------------------------------------- |
+| `spanner-omni-cli-2026.r1-beta.1-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
+| `spanner-omni-cli-2026.r1-beta.1-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
+| `spanner-omni-cli-2026.r1-beta.1-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
+| `spanner-omni-cli-2026.r1-beta.1-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
 
 For example, to download the current version of the Spanner Omni CLI for Linux (x86), run the following command:
 
     # Download CLI for Linux (x86)
-    curl -O https://storage.googleapis.com/spanner-omni/2026.r1-beta/spanner-omni-cli-2026.r1-beta-linux-x86_64.tar.gz
+    curl -O https://storage.googleapis.com/spanner-omni/2026.r1-beta.1/spanner-omni-cli-2026.r1-beta.1-linux-x86_64.tar.gz

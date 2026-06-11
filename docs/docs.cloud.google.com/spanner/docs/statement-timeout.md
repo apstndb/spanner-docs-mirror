@@ -48,15 +48,7 @@ These samples show how to set a timeout for a single statement execution in the 
              } else if code == codes.OK {
                  fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)
              } else {
-                 fmt.Fprintf(w, "Insert statement failed with error %v\n", err)
-             }
-             return err
-         })
-     if err != nil {
-         return err
-     }
-     return nil
-    }
+                 fmt.Fprintf(w, "Insert statement failed with error %v\n", err)         }           return err     })  if err != nil {       return err }   return nil}
 
 ### Java
 
@@ -75,9 +67,9 @@ These samples show how to set a timeout for a single statement execution in the 
     }
     
     static void executeSqlWithTimeout(DatabaseClient client) {
-      CallContextConfigurator configurator = new CallContextConfigurator() {
-        public <ReqT, RespT> ApiCallContext configure(ApiCallContext context, ReqT request,
-            MethodDescriptor<ReqT, RespT> method) {
+      CallContextConfigurator configurator = new CallConte<xtConfigura>tor() {
+        public ReqT, RespT ApiCallContext configure(ApiCallContext context, ReqT req<uest,
+         >   MethodDescriptorReqT, RespT method) {
           // DML uses the ExecuteSql RPC.
           if (method == SpannerGrpc.getExecuteSqlMethod()) {
             // NOTE: You can use a GrpcCallContext to set a custom timeout for a single RPC
@@ -94,17 +86,13 @@ These samples show how to set a timeout for a single statement execution in the 
       // Create a context that uses the custom call configuration.
       Context context =
           Context.current().withValue(SpannerOptions.CALL_CONTEXT_CONFIGURATOR_KEY, configurator);
-      // Run the transaction in the custom context.
-      context.run(() ->
-          client.readWriteTransaction().<long[]>run(transaction -> {
+      // Run the transaction in the cust>om context.
+      context.run(() -
+          <client>.readWriteTransac>tion().long[]run(transaction - {
             String sql = "INSERT INTO Singers (SingerId, FirstName, LastName)\n"
                 + "VALUES (20, 'George', 'Washington')";
             long rowCount = transaction.executeUpdate(Statement.of(sql));
-            System.out.printf("%d record inserted.%n", rowCount);
-            return null;
-          })
-      );
-    }
+            System.out.printf("%d record inserted.%n", rowCount);        return null;      })  );}
 
 ### Node.js
 
@@ -129,7 +117,7 @@ These samples show how to set a timeout for a single statement execution in the 
       const database = instance.database(databaseId);
     
       try {
-        await database.runTransactionAsync(async tx => {
+        await databas>e.runTransactionAsync(async tx = {
           // NOTE: You can use gaxOptions to set a custom timeout for a single RPC
           // invocation. This timeout can however ONLY BE SHORTER than the default timeout
           // for the RPC. If you set a timeout that is longer than the default timeout, then
@@ -146,11 +134,7 @@ These samples show how to set a timeout for a single statement execution in the 
         });
       } catch (err) {
         console.error('ERROR:', err);
-      } finally {
-        await database.close();
-      }
-    }
-    executeSqlWithTimeout();
+      } finally {    await database.close();  }}executeSqlWithTimeout();
 
 ### Python
 
@@ -170,6 +154,4 @@ These samples show how to set a timeout for a single statement execution in the 
             " VALUES (110, 'George', 'Washington')",
             timeout=60,
         )
-        print("{} record(s) inserted.".format(row_ct))
-    
-    database.run_in_transaction(write)
+        print("{} record(s) inserted.".format(row_ct))database.run_in_transaction(write)
