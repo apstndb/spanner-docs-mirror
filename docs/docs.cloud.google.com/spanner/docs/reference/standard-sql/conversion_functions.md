@@ -313,6 +313,7 @@ GoogleSQL supports [casting](https://docs.cloud.google.com/spanner/docs/referenc
 GoogleSQL supports [casting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions#cast) to `DATE` . The `expression` parameter can represent an expression for these data types:
 
   - `STRING`
+  - `DATETIME`
   - `TIMESTAMP`
 
 **Conversion rules**
@@ -595,6 +596,7 @@ GoogleSQL supports [casting](https://docs.cloud.google.com/spanner/docs/referenc
   - `BYTES`
   - `PROTO`
   - `DATE`
+  - `DATETIME`
   - `TIMESTAMP`
   - `INTERVAL`
   - `STRING`
@@ -650,11 +652,16 @@ If an enum value has multiple names (aliases), the canonical name/alias for that
 <td>Casting from a date type to a string is independent of time zone and is of the form <code dir="ltr" translate="no">YYYY-MM-DD</code> .</td>
 </tr>
 <tr class="odd">
+<td><code dir="ltr" translate="no">DATETIME</code></td>
+<td><code dir="ltr" translate="no">STRING</code></td>
+<td>Casting from a datetime type to a string is independent of time zone and is of the form <code dir="ltr" translate="no">YYYY-MM-DD HH:MM:SS</code> .</td>
+</tr>
+<tr class="even">
 <td><code dir="ltr" translate="no">TIMESTAMP</code></td>
 <td><code dir="ltr" translate="no">STRING</code></td>
 <td>When casting from timestamp types to string, the timestamp is interpreted using the default time zone, America/Los_Angeles. The number of subsecond digits produced depends on the number of trailing zeroes in the subsecond part: the CAST function will truncate zero, three, or six digits.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">INTERVAL</code></td>
 <td><code dir="ltr" translate="no">STRING</code></td>
 <td>Casting from an interval to a string is of the form <code dir="ltr" translate="no">Y-M D H:M:S</code> .</td>
@@ -737,6 +744,8 @@ GoogleSQL supports [casting](https://docs.cloud.google.com/spanner/docs/referenc
 
 GoogleSQL supports [casting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions#cast) to `TIMESTAMP` . The `expression` parameter can represent an expression for these data types:
 
+  - `DATE`
+  - `DATETIME`
   - `STRING`
   - `TIMESTAMP`
 
@@ -769,6 +778,13 @@ An error is produced if the <code dir="ltr" translate="no">string_expression</co
 <td><code dir="ltr" translate="no">DATE</code></td>
 <td><code dir="ltr" translate="no">TIMESTAMP</code></td>
 <td>Casting from a date to a timestamp interprets <code dir="ltr" translate="no">date_expression</code> as of midnight (start of the day) in the default time zone, America/Los_Angeles.</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">DATETIME</code></td>
+<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
+<td>Casting from a datetime to a timestamp interprets <code dir="ltr" translate="no">datetime_expression</code> in the default time zone, America/Los_Angeles.<br />
+<br />
+Most valid datetime values have exactly one corresponding timestamp in each time zone. However, there are certain combinations of valid datetime values and time zones that have zero or two corresponding timestamp values. This happens in a time zone when clocks are set forward or set back, such as for Daylight Savings Time. When there are two valid timestamps, the earlier one is used. When there is no valid timestamp, the length of the gap in time (typically one hour) is added to the datetime.</td>
 </tr>
 </tbody>
 </table>

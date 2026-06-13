@@ -392,11 +392,13 @@ Converts a timestamp to a string. Supports an optional parameter to specify a ti
 
     TIMESTAMP(string_expression[, time_zone])
     TIMESTAMP(date_expression[, time_zone])
+    TIMESTAMP(datetime_expression[, time_zone])
 
 **Description**
 
   - `string_expression[, time_zone]` : Converts a string to a timestamp. `string_expression` must include a timestamp literal. If `string_expression` includes a time zone in the timestamp literal, don't include an explicit `time_zone` argument.
   - `date_expression[, time_zone]` : Converts a date to a timestamp. The value returned is the earliest timestamp that falls within the given date.
+  - `datetime_expression[, time_zone]` : Converts a datetime to a timestamp.
 
 This function supports an optional parameter to [specify a time zone](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions#timezone_definitions) . If no time zone is specified, the default time zone, America/Los\_Angeles, is used.
 
@@ -432,6 +434,10 @@ This function supports an optional parameter to [specify a time zone](https://do
      +----------------------+
      | 2008-12-25T15:30:00Z |
      +----------------------*/
+
+    SELECT TIMESTAMP(DATETIME "2008-12-25 15:30:00") AS timestamp_datetime;
+    
+    -- Display of results may differ, depending upon the environment and time zone where this query was executed.
 
     SELECT TIMESTAMP(DATE "2008-12-25") AS timestamp_date;
     

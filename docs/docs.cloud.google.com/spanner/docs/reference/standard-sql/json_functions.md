@@ -3794,6 +3794,14 @@ JSON output: <code dir="ltr" translate="no">"2017-03-06T12:34:56.789012Z"</code>
 </td>
 </tr>
 <tr class="even">
+<td>DATETIME</td>
+<td><p>string</p>
+<p>Encoded as ISO 8601 date and time, where T separates the date and time.</p></td>
+<td>SQL input: <code dir="ltr" translate="no">DATETIME '2017-03-06 12:34:56.789012'</code><br />
+JSON output: <code dir="ltr" translate="no">"2017-03-06T12:34:56.789012"</code><br />
+</td>
+</tr>
+<tr class="odd">
 <td>UUID</td>
 <td><p>string</p>
 <p>Encoded as lowercase hexadecimal format as specified in <a href="https://www.rfc-editor.org/rfc/rfc9562#name-uuid-format">RFC 9562</a> .</p></td>
@@ -3801,7 +3809,7 @@ JSON output: <code dir="ltr" translate="no">"2017-03-06T12:34:56.789012Z"</code>
 JSON output: <code dir="ltr" translate="no">"f81d4fae-7dec-11d0-a765-00a0c91e6bf6"</code><br />
 </td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>JSON</td>
 <td><p>data of the input JSON</p></td>
 <td>SQL input: <code dir="ltr" translate="no">JSON '{"item": "pen", "price": 10}'</code><br />
@@ -3812,7 +3820,7 @@ SQL input: <code dir="ltr" translate="no">[1, 2, 3]</code><br />
 JSON output: <code dir="ltr" translate="no">[1, 2, 3]</code><br />
 </td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>ARRAY</td>
 <td><p>array</p>
 <p>Can contain zero or more elements.</p></td>
@@ -3824,7 +3832,7 @@ SQL input: <code dir="ltr" translate="no">[1, 2, 3]</code><br />
 JSON output: <code dir="ltr" translate="no">[1,2,3]</code><br />
 </td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>STRUCT</td>
 <td><p>object</p>
 <p>The object can contain zero or more key-value pairs. Each value is formatted according to its type.</p>
@@ -3835,7 +3843,7 @@ JSON output: <code dir="ltr" translate="no">[1,2,3]</code><br />
 JSON output: <code dir="ltr" translate="no">{"inStock": true,"purchases":12}</code><br />
 </td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>PROTO</td>
 <td><p>object</p>
 <p>The object can contain zero or more key-value pairs. Each value is formatted according to its type.</p>
@@ -3851,7 +3859,7 @@ JSON output: <code dir="ltr" translate="no">{"inStock": true,"purchases":12}</co
 JSON output: <code dir="ltr" translate="no">{"purchases":12,"inStock": true}</code><br />
 </td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>GRAPH_ELEMENT</td>
 <td><p>( <code dir="ltr" translate="no">TO_JSON</code> only)</p>
 <p>object</p>
@@ -3873,7 +3881,7 @@ JSON output (truncated):<br />
 
 <pre dir="ltr" data-is-upgraded="" translate="no"><code>{&quot;identifier&quot;:&quot;ZGFuYQ==&quot;,&quot;kind&quot;:&quot;node&quot;,&quot;labels&quot;:[&quot;Person&quot;],&quot;properties&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;Dana&quot;}}</code></pre></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>GRAPH_PATH</td>
 <td><p>( <code dir="ltr" translate="no">TO_JSON</code> only)</p>
 <p>array</p>

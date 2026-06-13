@@ -397,6 +397,36 @@ the string literal `"2014-09-27"` will be coerced to a date literal.
 
 A date literal represents a constant value of the [date data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) .
 
+### Datetime literals
+
+Syntax:
+
+    DATETIME 'datetime_canonical_format'
+
+Datetime literals contain the `DATETIME` keyword and [`datetime_canonical_format`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical_format_for_datetime_literals) , a string literal that conforms to the canonical datetime format, enclosed in single quotation marks.
+
+For example, the following datetime represents 12:30 p.m. on September 27, 2014:
+
+    DATETIME '2014-09-27 12:30:00.45'
+
+Datetime literals support a range between the years 1 and 9999, inclusive. Datetimes outside of this range are invalid.
+
+String literals with the canonical datetime format implicitly coerce to a datetime literal when used where a datetime expression is expected.
+
+For example:
+
+    SELECT * FROM foo
+    WHERE datetime_col = "2014-09-27 12:30:00.45"
+
+In the query above, the string literal `"2014-09-27 12:30:00.45"` is coerced to a datetime literal.
+
+A datetime literal can also include the optional character `T` or `t` . If you use this character, a space can't be included before or after it. These are valid:
+
+    DATETIME '2014-09-27T12:30:00.45'
+    DATETIME '2014-09-27t12:30:00.45'
+
+A datetime literal represents a constant value of the [datatime data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#datetime_type) .
+
 ### Timestamp literals
 
 Syntax:

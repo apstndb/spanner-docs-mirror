@@ -96,6 +96,7 @@ The following table summarizes all possible cast and coercion possibilities for 
 <code dir="ltr" translate="no">STRING</code><br />
 <code dir="ltr" translate="no">BYTES</code><br />
 <code dir="ltr" translate="no">DATE</code><br />
+<code dir="ltr" translate="no">DATETIME</code><br />
 <code dir="ltr" translate="no">TIMESTAMP</code><br />
 <code dir="ltr" translate="no">ENUM</code><br />
 <code dir="ltr" translate="no">PROTO</code><br />
@@ -114,25 +115,37 @@ The following table summarizes all possible cast and coercion possibilities for 
 <td><code dir="ltr" translate="no">DATE</code></td>
 <td><code dir="ltr" translate="no">STRING</code><br />
 <code dir="ltr" translate="no">DATE</code><br />
+<code dir="ltr" translate="no">DATETIME</code><br />
 <code dir="ltr" translate="no">TIMESTAMP</code><br />
 </td>
-<td></td>
+<td><code dir="ltr" translate="no">DATETIME</code><br />
+</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
+<td><code dir="ltr" translate="no">DATETIME</code></td>
 <td><code dir="ltr" translate="no">STRING</code><br />
 <code dir="ltr" translate="no">DATE</code><br />
+<code dir="ltr" translate="no">DATETIME</code><br />
 <code dir="ltr" translate="no">TIMESTAMP</code><br />
 </td>
 <td></td>
 </tr>
 <tr class="even">
+<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
+<td><code dir="ltr" translate="no">STRING</code><br />
+<code dir="ltr" translate="no">DATE</code><br />
+<code dir="ltr" translate="no">DATETIME</code><br />
+<code dir="ltr" translate="no">TIMESTAMP</code><br />
+</td>
+<td></td>
+</tr>
+<tr class="odd">
 <td><code dir="ltr" translate="no">ARRAY</code></td>
 <td><code dir="ltr" translate="no">ARRAY</code><br />
 </td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">ENUM</code></td>
 <td><code dir="ltr" translate="no">ENUM</code> (with the same <code dir="ltr" translate="no">ENUM</code> name)<br />
 <code dir="ltr" translate="no">INT64</code><br />
@@ -140,13 +153,13 @@ The following table summarizes all possible cast and coercion possibilities for 
 </td>
 <td><code dir="ltr" translate="no">ENUM</code> (with the same <code dir="ltr" translate="no">ENUM</code> name)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">STRUCT</code></td>
 <td><code dir="ltr" translate="no">STRUCT</code><br />
 </td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">PROTO</code></td>
 <td><code dir="ltr" translate="no">PROTO</code> (with the same <code dir="ltr" translate="no">PROTO</code> name)<br />
 <code dir="ltr" translate="no">STRING</code><br />
@@ -222,32 +235,37 @@ A supertype is a common type to which two or more expressions can be coerced. Su
 </td>
 </tr>
 <tr class="even">
+<td><code dir="ltr" translate="no">DATETIME</code></td>
+<td><code dir="ltr" translate="no">DATETIME</code><br />
+</td>
+</tr>
+<tr class="odd">
 <td><code dir="ltr" translate="no">TIMESTAMP</code></td>
 <td><code dir="ltr" translate="no">TIMESTAMP</code><br />
 </td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">ENUM</code></td>
 <td><code dir="ltr" translate="no">ENUM</code> with the same name. The resulting enum supertype is the one that occurred first.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">BYTES</code></td>
 <td><code dir="ltr" translate="no">BYTES</code><br />
 </td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">STRUCT</code></td>
 <td><code dir="ltr" translate="no">STRUCT</code> with the same field position types.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">ARRAY</code></td>
 <td><code dir="ltr" translate="no">ARRAY</code> with the same element types.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">PROTO</code></td>
 <td><code dir="ltr" translate="no">PROTO</code> with the same name. The resulting <code dir="ltr" translate="no">PROTO</code> supertype is the one that occurred first. For example, the first occurrence could be in the first branch of a set operation or the first result expression in a <code dir="ltr" translate="no">CASE</code> statement.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code dir="ltr" translate="no">GRAPH_ELEMENT</code></td>
 <td><code dir="ltr" translate="no">GRAPH_ELEMENT</code> . Graph element <code dir="ltr" translate="no">a</code> is a supertype of graph element <code dir="ltr" translate="no">b</code> if the following are true:
 <ul>
@@ -255,7 +273,7 @@ A supertype is a common type to which two or more expressions can be coerced. Su
 <li>Graph element <code dir="ltr" translate="no">a</code> 's property type list is a compatible superset of graph element <code dir="ltr" translate="no">b</code> 's property type list. This means that properties with the same name must also have the same type.</li>
 </ul></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code dir="ltr" translate="no">GRAPH_PATH</code></td>
 <td><code dir="ltr" translate="no">GRAPH_PATH</code> . Graph path <code dir="ltr" translate="no">a</code> is a supertype of graph path <code dir="ltr" translate="no">b</code> if the following are true:
 <ul>

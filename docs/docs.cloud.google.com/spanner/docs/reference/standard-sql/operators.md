@@ -510,6 +510,7 @@ Result types for Unary Minus:
 
     date_expression - date_expression
     timestamp_expression - timestamp_expression
+    datetime_expression - datetime_expression
 
 **Description**
 
@@ -535,8 +536,12 @@ Computes the difference between two datetime values as an interval.
 
 **Addition and subtraction**
 
+    date_expression + interval_expression = DATETIME
+    date_expression - interval_expression = DATETIME
     timestamp_expression + interval_expression = TIMESTAMP
     timestamp_expression - interval_expression = TIMESTAMP
+    datetime_expression + interval_expression = DATETIME
+    datetime_expression - interval_expression = DATETIME
 
 **Description**
 
@@ -545,14 +550,14 @@ Adds an interval to a datetime value or subtracts an interval from a datetime va
 **Example**
 
     SELECT
-      TIMESTAMP "2021-05-02 00:01:02.345+00" + INTERVAL 25 HOUR AS time_plus,
+      DATE "2021-04-20" + INTERVAL 25 HOUR AS date_plus,
       TIMESTAMP "2021-05-02 00:01:02.345+00" - INTERVAL 10 SECOND AS time_minus;
     
-    /*------------------------------+--------------------------------+
-     | time_plus                    | time_minus                     |
-     +------------------------------+--------------------------------+
-     | 2021-05-03 08:01:02.345+00   | 2021-05-02 00:00:52.345+00     |
-     +------------------------------+--------------------------------*/
+    /*-------------------------+--------------------------------+
+     | date_plus               | time_minus                     |
+     +-------------------------+--------------------------------+
+     | 2021-04-21 01:00:00     | 2021-05-02 00:00:52.345+00     |
+     +-------------------------+--------------------------------*/
 
 **Multiplication and division**
 

@@ -44,31 +44,36 @@ SQL type name: <code dir="ltr" translate="no">BYTES</code></td>
 SQL type name: <code dir="ltr" translate="no">DATE</code></td>
 </tr>
 <tr class="odd">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#datetime_type">Datetime type</a></td>
+<td>A Gregorian date and a time, as they might be displayed on a watch, independent of time zone.<br />
+SQL type name: <code dir="ltr" translate="no">DATETIME</code></td>
+</tr>
+<tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#enum_type">Enum type</a></td>
 <td>Named type that enumerates a list of possible values.<br />
 SQL type name: <code dir="ltr" translate="no">ENUM</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#graph_element_type">Graph element type</a></td>
 <td>An element in a property graph. Can be a <code dir="ltr" translate="no">GRAPH_NODE</code> or <code dir="ltr" translate="no">GRAPH_EDGE</code> .<br />
 SQL type name: <code dir="ltr" translate="no">GRAPH_ELEMENT</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#graph_path_type">Graph path type</a></td>
 <td>A path in a property graph.<br />
 SQL type name: <code dir="ltr" translate="no">GRAPH_PATH</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_type">Interval type</a></td>
 <td>A duration of time, without referring to any specific point in time.<br />
 SQL type name: <code dir="ltr" translate="no">INTERVAL</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type">JSON type</a></td>
 <td>Represents JSON, a lightweight data-interchange format.<br />
 SQL type name: <code dir="ltr" translate="no">JSON</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_types">Numeric types</a></td>
 <td><p>A numeric value. Several types are supported.</p>
 <p>A 64-bit integer.<br />
@@ -80,27 +85,27 @@ SQL type name: <code dir="ltr" translate="no">FLOAT32</code></p>
 <p>An approximate double precision numeric value.<br />
 SQL type name: <code dir="ltr" translate="no">FLOAT64</code></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#protocol_buffer_type">Protocol buffer type</a></td>
 <td>A protocol buffer.<br />
 SQL type name: <code dir="ltr" translate="no">PROTO</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#string_type">String type</a></td>
 <td>Variable-length character data.<br />
 SQL type name: <code dir="ltr" translate="no">STRING</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#struct_type">Struct type</a></td>
 <td>Container of ordered fields.<br />
 SQL type name: <code dir="ltr" translate="no">STRUCT</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#timestamp_type">Timestamp type</a></td>
 <td>A timestamp value represents an absolute point in time, independent of any time zone or convention such as daylight saving time (DST).<br />
 SQL type name: <code dir="ltr" translate="no">TIMESTAMP</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#uuid_type">UUID type</a></td>
 <td>A universally unique identifier (UUID) represented as a 128-bit number.</td>
 </tr>
@@ -413,6 +418,35 @@ The date type represents a Gregorian calendar date, independent of time zone. A 
   - `[D]D` : One or two digit day.
 
 To learn more about the literal representation of a date type, see [Date literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#date_literals) .
+
+## Datetime type
+
+| Name       | Range                                                |
+| ---------- | ---------------------------------------------------- |
+| `DATETIME` | 0001-01-01 00:00:00 to 9999-12-31 23:59:59.999999999 |
+
+A datetime value represents a Gregorian date and a time, as they might be displayed on a watch, independent of time zone. It includes the year, month, day, hour, minute, second, and subsecond. To represent an absolute point in time, use a [timestamp](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#timestamp_type) .
+
+##### Canonical format
+
+    civil_date_part[time_part]
+    
+    civil_date_part:
+        YYYY-[M]M-[D]D
+    
+    time_part:
+        { |T|t}[H]H:[M]M:[S]S[.F]
+
+  - `YYYY` : Four-digit year.
+  - `[M]M` : One or two digit month.
+  - `[D]D` : One or two digit day.
+  - `{ |T|t}` : A space or a `T` or `t` separator. The `T` and `t` separators are flags for time.
+  - `[H]H` : One or two digit hour (valid values from 00 to 23).
+  - `[M]M` : One or two digit minutes (valid values from 00 to 59).
+  - `[S]S` : One or two digit seconds (valid values from 00 to 60).
+  - `[.F]` : Up to nine fractional digits (nanosecond precision).
+
+To learn more about the literal representation of a datetime type, see [Datetime literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#datetime_literals) .
 
 ## Enum type
 
@@ -1007,6 +1041,7 @@ A timestamp is typically represented internally as the number of elapsed nanosec
 Note that a timestamp itself doesn't have a time zone; it represents the same instant in time globally. However, the *display* of a timestamp for human readability usually includes a Gregorian date, a time, and a time zone, in an implementation-dependent format. For example, the displayed values "2020-01-01 00:00:00 UTC", "2019-12-31 19:00:00 America/New\_York", and "2020-01-01 05:30:00 Asia/Kolkata" all represent the same instant in time and therefore represent the same timestamp value.
 
   - To represent a Gregorian date as it might appear on a calendar (a civil date), use a [date](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) value.
+  - To represent a Gregorian date and time as they might appear on a watch, use a [datetime](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#datetime_type) value.
 
 ##### Canonical format
 
