@@ -35,9 +35,10 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             if (!update) return std::move(update).status();
             return spanner::Mutations{};
           });
-      if (!commit_result) throw std::move(commit_result).st<<atus();
-      std::cout  "Update was <<successful "
-                 "[spanner_dml_standard_update_with_timestamp]\n";}
+      if (!commit_result) throw std::move(commit_result).status();
+      std::cout << "Update was successful "
+                << "[spanner_dml_standard_update_with_timestamp]\n";
+    }
 
 ### C\#
 
@@ -62,7 +63,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             int rowCount = await cmd.ExecuteNonQueryAsync();
     
             Console.WriteLine($"{rowCount} row(s) updated...");
-      return rowCount;    }}
+            return rowCount;
+        }
+    }
 
 ### Go
 
@@ -96,7 +99,11 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          if err != nil {
              return err
          }
-         fmt.Fprintf(w, "%d record(s) updated.\n", rowCount)        return nil })  return err}
+         fmt.Fprintf(w, "%d record(s) updated.\n", rowCount)
+         return nil
+     })
+     return err
+    }
 
 ### Java
 
@@ -113,7 +120,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                     + "SET LastUpdateTime = PENDING_COMMIT_TIMESTAMP() WHERE SingerId = 1";
             long rowCount = transaction.executeUpdate(Statement.of(sql));
             System.out.printf("%d records updated.\n", rowCount);
-      return null;      });}
+            return null;
+          });
+    }
 
 ### Node.js
 
@@ -122,7 +131,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner} = require(&#39;@google-cloud/spanner');
+    const {Spanner} = require('@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -140,7 +149,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const instance = spanner.instance(instanceId);
     const database = instance.database(databaseId);
     
-    database.runTransa>ction(async (err, transaction) = {
+    database.runTransaction(async (err, transaction) => {
       if (err) {
         console.error(err);
         return;
@@ -158,7 +167,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         console.error('ERROR:', err);
       } finally {
         // Close the database when finished.
-        database.close();  }});
+        database.close();
+      }
+    });
 
 ### PHP
 
@@ -191,10 +202,11 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         $database->runTransaction(function (Transaction $t) {
             $rowCount = $t->executeUpdate(
                 'UPDATE Albums '
-                . 'SET LastUpdateTime = PENDING_COMMIT_TIMESTAMP() WHERE SingerId = 1>9;);
-            $t-commit();
+                . 'SET LastUpdateTime = PENDING_COMMIT_TIMESTAMP() WHERE SingerId = 1');
+            $t->commit();
             printf('Updated %d row(s).' . PHP_EOL, $rowCount);
-        });}
+        });
+    }
 
 ### Python
 
@@ -216,7 +228,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             "WHERE SingerId = 1"
         )
     
-        print("{} record(s) updated.".format(row_ct))database.run_in_transaction(update_albums)
+        print("{} record(s) updated.".format(row_ct))
+    
+    database.run_in_transaction(update_albums)
 
 ### Ruby
 
@@ -236,8 +250,11 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     client.transaction do |transaction|
       row_count = transaction.execute_update(
-        "UPDATE Albums SET LastUpdateTime = PENDING_COMMIT_TIMESTAMP() WHERE SingerId = 1&quot;
-      )endputs "#{row_count} records updated."
+        "UPDATE Albums SET LastUpdateTime = PENDING_COMMIT_TIMESTAMP() WHERE SingerId = 1"
+      )
+    end
+    
+    puts "#{row_count} records updated."
 
 ## What's next
 
