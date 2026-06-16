@@ -1,7 +1,7 @@
 ---
 name: documents/docs.cloud.google.com/spanner/docs/build-context-gemini-cli
 uri: https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli
-title: Build context sets using Gemini CLI
+title: Build context sets using the context engineering agent
 description: A managed, mission-critical, globally consistent and scalable relational database service.
 data_source: docs.cloud.google.com
 ---
@@ -12,22 +12,44 @@ data_source: docs.cloud.google.com
 
 > **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
-This document describes how to create and optimize the context that lets you improve the accuracy of [QueryData](https://docs.cloud.google.com/spanner/docs/data-agent-overview) for building your data agent applications. Using the DB context enrichment extension in the Gemini CLI, this provides access to a suite of developer tools that automate the creation and optimization of context sets.
+This document describes how to create and optimize the context sets that help achieve high QueryData query accuracy on your data agent applications. The context engineering agent helps you build, evaluate, and improve context sets by automating their creation and optimization.
 
-To learn about context sets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview) .
+To learn about context sets and QueryData, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview) and [QueryData overview](https://docs.cloud.google.com/spanner/docs/data-agent-overview) .
 
-The extension automates the creation and optimization of the context sets in the following sequence:
+To build enterprise-grade data applications, text-to-SQL model accuracy typically needs to achieve near-100% quality. Incorrect query results affect overall application usability and user experience. Achieving explainable, business-relevant answers with high accuracy requires context engineering, which is the process of creating and iteratively optimizing the context to achieve optimal accuracy.
 
-1.  Understand applications: Ingest artifacts such as database schemas, application code, and business requirements to establish the foundational business logic for your data agent.
-2.  Create datasets: Curate an evaluation dataset containing representative natural language questions and their expected SQL answers. Establishing this baseline dataset is crucial for measuring performance and tracking improvements over time.
-3.  Generate initial context: Automatically generate a baseline context set derived directly from your database schema and optional application artifacts as a quick start.
-4.  Optimize context iteratively: Evaluate your dataset to identify why specific queries fail. Gemini uses automated reasoning to suggest targeted context updates, iteratively achieving higher accuracy.
+By providing [QueryData](https://docs.cloud.google.com/spanner/docs/data-agent-overview) with the context targeted to your business application, you supply the precise business rules the system needs to resolve nuanced user intent.
 
-While the extension offers a robust automated workflow, it is adaptable to your needs. You can bypass automation to author and insert context at a more granular level. Using specialized generation commands, you control the creation of high-quality templates, facets, and value search queries.
+## Context engineering agent
+
+The context engineering agent automates this optimization workflow. You can converse with the agent to handle ad hoc tasks to optimize your context. The following list provides examples of natural language prompts you can use to instruct the agent, along with a description of how the agent responds. Use these examples to help build and optimize your context:
+
+  - **Example prompt for failure analysis** : *"Update context so that we correctly identify the airport for queries like 'disney world flights'."* The agent analyzes the failure, reasons about the gap, and recommends adding an appropriate context item, such as a value search query.
+  - **Example prompt for context suggestion** : *"Read my app code and suggest some context to add."* The agent parses through the code, reasons about the domain of your application, and suggests what context items would be relevant.
+  - **Example prompt for bulk processing** : *"Here are 10 examples of questions and SQL queries. Turn them into templates."* The agent bulk-processes your inputs and updates your context set.
+
+### Importance of the golden dataset
+
+To optimize your context, you must first create a dataset that matches the natural language inputs of your application. The agent can help you build this golden dataset, which consists of user questions and their expected database queries. A golden dataset lets you:
+
+  - Establish a baseline for query performance.
+  - Validate updates against ground-truth database queries.
+  - Measure accuracy improvements across iterations.
+
+### The systematic hill-climbing process
+
+In systematic hill-climbing, the agent iteratively improves a context set through evaluation of the golden dataset, gap analysis, and updates to drive accuracy toward near-100%.
+
+  - **Auto-generate baseline context** : Create a starting context set derived from your database schema and application artifacts.
+  - **Hill-climbing optimization workflow** : Let the agent evaluate your QueryData accuracy, perform gap analysis on failures, and automatically propose improvements to drive accuracy higher.
+
+The following diagram shows the systematic hill-climbing workflow:
+
+![Workflow for iteratively building context.](https://docs.cloud.google.com/static/docs/databases/images/context-engineering-agent-hillclimb.png)
 
 ## Before you begin
 
-Complete the following prerequisites before creating an agent.
+Complete the following prerequisites before using the context engineering agent.
 
 ### Enable required services
 
@@ -55,56 +77,88 @@ This tutorial requires you to have a database in your Spanner instance. For more
 
 You can build context set files from any local development environment or IDE. To prepare your environment, complete the following steps:
 
-  - Install Gemini CLI
-  - Install the DB Context Enrichment extension
+  - Install the context engineering agent
   - Set up the database connection
 
-### Install Gemini CLI
+### Install the context engineering agent
 
-To install Gemini CLI, see [Get Started with Gemini CLI](https://geminicli.com/docs/get-started) .
+The context engineering agent runs Model Context Protocol (MCP) server that requires `uv` to manage underlying Python packages.
 
-### Install the DB Context Enrichment extension
+1.  Install `uv` by following the instructions in [Install `uv`](https://docs.astral.sh/uv/getting-started/installation/) .
 
-The DB context enrichment extension provides a guided, interactive workflow to generate structured context sets and iterate on them.
+2.  Verify that `uv` is installed and accessible from your command line:
+    
+        uv --version
 
-For more information about installing the DB Context Enrichment extension, see [DB Context Enrichment extension](https://github.com/GoogleCloudPlatform/db-context-enrichment/tree/main/mcp) .
+To prepare your environment, install the context engineering agent in your selected agent harness, such as the Antigravity CLI, Claude Code, or the Gemini CLI.
 
-To install the DB Context Enrichment extension, complete these steps:
+> **Note:** Gemini CLI support is now deprecated. If you are using Gemini CLI, we recommend transitioning to the Antigravity CLI. For more information, see [Migrating from Gemini CLI](https://antigravity.google/docs/gcli-migration) .
 
-1.  Install the DB Context Enrichment Gemini CLI extension:
+Depending on your selected agent harness, follow the corresponding installation steps:
+
+### Antigravity CLI
+
+To install the context engineering agent in the Antigravity CLI, follow these steps:
+
+1.  Install the Antigravity CLI. See [Get Started with Antigravity CLI](https://antigravity.google/cli/docs/get-started) .
+
+2.  Install the context engineering agent plugin, which includes workflows for context generation. Replace VERSION with the required [released version](https://github.com/GoogleCloudPlatform/db-context-enrichment/releases) :
+    
+        agy plugin install https://github.com/GoogleCloudPlatform/db-context-enrichment/tree/VERSION
+
+3.  Start the Antigravity CLI:
+    
+        agy
+
+4.  Optional. Update the plugin:
+    
+        agy plugin uninstall google-cloud-db-context-engineering
+        agy plugin install https://github.com/GoogleCloudPlatform/db-context-enrichment/tree/NEW_VERSION
+
+### Claude Code
+
+To install the context engineering agent in Claude Code, follow these steps:
+
+1.  Add the plugin marketplace:
+    
+        /plugin marketplace add https://github.com/GoogleCloudPlatform/db-context-enrichment.git
+
+2.  Install the plugin:
+    
+        /plugin install db-context-engineering@db-context-enrichment-marketplace
+
+3.  Reload plugins to activate the changes:
+    
+        /reload-plugins
+
+4.  Optional. Update the plugin:
+    
+        /plugin update db-context-engineering@db-context-enrichment-marketplace
+
+### Gemini CLI (Deprecated)
+
+To install the context engineering agent in the Gemini CLI, follow these steps:
+
+1.  Install the Gemini CLI. See [Get Started with Gemini CLI](https://geminicli.com/docs/get-started) .
+
+2.  Install the extension:
     
         gemini extensions install https://github.com/GoogleCloudPlatform/db-context-enrichment
-    
-    > **Note:** The extension requires a Gemini API key at installation to authenticate with the Gemini API and enable context generation. For more information about how to find your API key, see [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key) .
 
-2.  (Optional) Update the DB Context Enrichment extension.
+3.  Optional. Update the extension:
     
-    To verify the installed version of the extension, run the following command:
-    
-        gemini extensions list
-    
-    Ensure the version is `0.5.0` or higher. To update the DB Context Enrichment extension, run the following command:
-    
-    ``` 
-      gemini extensions update mcp-db-context-enrichment
-    ```
-    
-    To update the DB Context Enrichment extension or replace the `GEMINI_API_KEY` , run the following command:
-    
-        gemini extensions config mcp-db-context-enrichment GEMINI_API_KEY
-    
-    Replace GEMINI\_API\_KEY with your Gemini API key.
+        gemini extensions update mcp-db-context-enrichment
 
 ### Set up the database connection
 
-The extension requires a database connection to fetch schemas and ability to validate the syntax of generated SQL context. To enable the extension to interact with your database, configure authentication credentials and define your database connection configuration.
+The agent requires a database connection to fetch schemas and the ability to validate the syntax of generated SQL context. To let the agent interact with your database, configure authentication credentials and define your database connection configuration.
 
 #### Configure Application Default Credentials
 
-Configure [Application Default Credentials (ADC)](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) to provide user credentials for two main components:
+Configure [Application Default Credentials (ADC)](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) to provide user credentials for accessing Google Cloud resources from the context engineering agent:
 
   - Toolbox MCP server: Uses credentials to connect to your database, fetch schemas, and run SQL for validation.
-  - DB Context Enrichment extension: Uses credentials to authenticate and call the Gemini API.
+  - Evalbench: Uses credentials to invoke QueryData for evaluation.
 
 Run the following commands in your terminal to authenticate:
 
@@ -112,61 +166,47 @@ Run the following commands in your terminal to authenticate:
 
 #### Configure the database connection file
 
-The extension requires a database connection for context generation, which the [MCP Toolbox](https://mcp-toolbox.dev/documentation/introduction/) supports and defines within a configuration file.
+The agent requires a database connection for context generation, which the [MCP Toolbox](https://mcp-toolbox.dev/documentation/introduction/) supports and defines within a configuration file.
 
-The configuration file specifies your database source and tools required to either fetch schemas or execute SQL. The DB context enrichment extension comes with pre-installed Agent Skills to help you generate the configuration.
+The configuration file specifies your database source and tools required to either fetch schemas or execute SQL. The context engineering agent comes with pre-installed Agent Skills to help you generate the configuration.
 
-> **Note:** If this connection is not established, the extension returns error messages, such as "Error Discovering tools from mcp\_toolbox", and context generation doesn't work.
+> **Note:** If this connection is not established, the agent returns error messages, such as "Error Discovering tools from mcp\_toolbox", and context generation doesn't work.
 
-1.  Start the Gemini CLI:
+1.  Start your agent environment.
+
+2.  Ask the agent to help set up the database connection—for example, prompt "help me set up the database connection." Follow the agent's instructions to create the configuration file in your current working directory as autoctx/tools.yaml.
+
+3.  To apply the new `tools.yaml` configuration, reload your connection:
     
-        gemini
-
-2.  Verify the skills are active by typing the following in the Gemini CLI:
-    
-        /skills
-
-3.  Type a prompt, for example, `help me set up the database connection` . The skill guides you through creating the configuration file in your current working directory as `autoctx/tools.yaml` .
-
-4.  Run the following command in the Gemini CLI to apply the `tools.yaml` configuration to the Toolbox MCP server.
-    
-        /mcp reload
+      - In the Antigravity CLI, run `/mcp` and select `toolbox` to restart.
+      - In the Gemini CLI, run `/mcp reload` .
+      - In Claude Code, run `/reload-plugins` .
 
 For more information about manually configuring the database configuration file, see [MCP Toolbox Configuration](https://mcp-toolbox.dev/documentation/configuration/) .
 
-## Generate the context with automated workflow
+## Generate and optimize context
 
-Improving accuracy through context engineering is usually a manual process of trial and error. Developers often guess why a query failed, write a fix, and test it manually. The DB Context Enrichment extension in the Gemini CLI automates this improvement process. It uses evaluation datasets—sets of questions with their correct SQL answers—to measure performance and identify why certain queries fail. Gemini then automatically suggests specific context updates to achieve higher accuracy. Complete these steps to systematically improve the accuracy of your data agent.
+The context engineering agent provides a set of Agent Skills and MCP tools to enhance your coding agent's context engineering capability. You can use these tools together to generate a baseline, measure effectiveness, and iteratively apply improvements. However, you can begin at any stage of the workflow:
 
-### Initialize a workspace
+  - If you already have a context set, you can proceed directly to evaluation.
+  - If you have failing queries that you want to fix, you can proceed directly to gap analysis.
 
-The initialization command sets up your local workspace, including the database connection configuration and experiment directory. This dedicated workspace ensures that all configurations, experiments, and generated files are organized in one place, making it easier to manage and track your context optimization efforts.
+Each capability describes the agent's actions, use cases, and invocation commands.
 
-1.  Create a new directory to serve as your workspace for the iterative optimization flow, and navigate to it.
+The example prompts show how you can query the agent in natural language. If the agent requires additional details to complete a request, it prompts you for clarification.
 
-2.  Start the Gemini CLI in the new directory:
-    
-        gemini
+### Build and expand evaluation datasets
 
-3.  Run the initialization command:
-    
-        /autoctx:init
-    
-    The agent guides you through creating the `tools.yaml` file if no database connection has been set up, and also initializes the local `state.md` file and an `experiments` directory.
-    
-    After the initialization, your workspace should look like the following:
-    
-        my-workspace/
-        └── autoctx/
-            ├── tools.yaml          # Database connection and tools configuration
-            ├── state.md            # Local file to track the experiment progress
-            └── experiments/        # Dedicated directory for future experiment-specific files
+To improve performance, you must first measure it. Context engineering without a golden dataset, which consists of user questions paired with their expected SQL, lacks systematic verification. With a golden dataset, every change is a measurable improvement that you can validate against ground truth.
 
-### Prepare and expand datasets
+Creating a representative golden dataset manually is time-consuming, and small datasets might miss variations in user phrasing. The agent resolves this by:
 
-To enable Gemini to systematically perform optimizations on your context set, prepare an evaluation dataset of representative natural language questions and their expected SQL answers ("goldens") to evaluate your context set. A high-quality evaluation dataset is crucial for measuring performance, identifying query failures, and tracking improvements over time. The dataset should be a JSON file containing the Natural Language Question (NLQ) and the golden SQL which covers the targeted use cases in your data application.
+  - Generating candidate question-SQL pairs based on your database schema.
+  - Expanding a small seed dataset using filter variations, synonyms, and rephrasings.
 
-Here is an example of the expected format:
+Optionally, you can let the agent execute the generated SQL against your database. This verification confirms that queries execute successfully before you add them to the dataset.
+
+The dataset is a JSON file containing question-SQL pairs:
 
     [
       {
@@ -176,268 +216,95 @@ Here is an example of the expected format:
       }
     ]
 
-The Gemini CLI extension includes a provided command that creates and scales a small baseline of questions for evaluation purposes.
+Approved pairs populate the `autoctx/golden.json` file in your workspace, where they are ready for evaluation. You can provide an existing file or write some evaluation examples inline for the agent to expand.
 
-1.  Navigate to your workspace folder.
+You can use the following example prompts to instruct the agent:
 
-2.  Start the Gemini CLI in the new directory:
-    
-        gemini
+  - *"Generate an evaluation dataset from my schema."*
+  - *"Here's a seed question and SQL—expand it into a broader dataset and verify the queries run."*
 
-3.  Run the `/autoctx:generate-dataset` command in the Gemini CLI:
-    
-        /autoctx:generate-dataset
+### Generate a baseline context set
 
-4.  When you're prompted by the agent, provide a seed, which is an initial example or small set of examples that guides the generation of a larger dataset. A seed can be one of the following:
-    
-      - A small golden dataset file
-      - Specific natural language-to-SQL (NL2SQL) golden pairs
-    
-    For example, you could provide the following NL2SQL golden pair as a seed:
-    
-        Question: "What are the names of all airports in California?"
-        SQL: "SELECT name FROM airports WHERE state = 'CA';"
+To avoid creating context from scratch, you can let the agent derive an initial context set from your database schema and application artifacts, such as business rules, sample queries, or README files. Although this baseline context is not final, it provides a validated starting point grounded in your database model.
 
-5.  The agent prompts for permission to verify syntax and execution validity using the `execute_sql` tool. This step is optional.
+You can use the following example prompts to instruct the agent:
 
-6.  The agent asks whether to expand the dataset with variations from seed data (applying different filters, synonyms, and so on). This step is optional.
-    
-    The agent uses the `execute_sql` tool to run the newly generated SQL queries against the database to verify syntax and execution validity before presenting them to you.
+  - *"Generate a context set from my schema."*
+  - *"Generate initial context using these schemas and the business rules in `requirements.md` ."*
 
-7.  Selectively accept, edit, or reject the suggestions. Approved pairs are automatically saved locally and ready for evaluation.
-    
-        my-workspace/
-        └── autoctx/
-            ├── tools.yaml
-            ├── state.md
-            ├── golden.json  # Generated dataset
-            └── experiments/
-
-### Create initial context set
-
-> **Note:** Skip this section if you already have a context set ready for optimization.
-
-Generating an initial context set provides a baseline for evaluation and iterative improvement. This step uses your database schema and application artifacts to create a foundational context that reflects your business logic.
-
-The Gemini CLI extension includes a prebuilt command to generate an initial set of templates and facets based on the database schema and information about your data agent application, for example, your application code or files with information about your business requirements. To generate a baseline context set from scratch:
-
-1.  Navigate to your workspace folder.
-
-2.  Start the Gemini CLI in the new directory:
-    
-        gemini
-
-3.  Run the `/autoctx:bootstrap` command in the Gemini CLI:
-    
-        /autoctx:bootstrap
-    
-    You can generally expect the following from the agent.
-    
-      - The agent prompts you to specify an experiment name. An experiment is a dedicated workspace folder that encapsulates the complete lifecycle of a database context configuration, tracking its baseline state, evaluation test results, and subsequent iterative hill-climbing improvements. This name is used to organize all generated files under the experiment folder in your workspace; choose a name that is descriptive and memorable.
-    
-      - The agent fetches and lists schemas from your target database, and prompts you to optionally provide additional resources or files. If the schema is complex, the agent also prompts you to select specific schemas or tables for the initial context set. If you don't specify any, it assumes all tables available in the current database schemas.
-
-4.  Review and optionally refine the generated context set. Once refined, the agent produces a JSON context file directly on your local disk under your workspace folder:
-    
-        my-workspace/
-        └── autoctx/
-            ├── tools.yaml
-            ├── state.md
-            └── experiments/
-                └── my-experiment/
-                    └── bootstrap_context.json  # The generated initial context set file
-
-5.  Follow the instructions to [upload the context from Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents#edit-context-set) .
+The agent prompts you to name the experiment, which organizes generated artifacts, and might ask you to narrow the scope if your database schema is large. To upload the context using Spanner Studio, follow the [instructions](https://docs.cloud.google.com/spanner/docs/manage-data-agents#edit-context-set) after the agent generates the JSON file.
 
 ### Evaluate context effectiveness
 
-The Gemini CLI extension includes a built-in command to evaluate your data agent using a golden dataset. The extension integrates with [Evalbench](https://github.com/GoogleCloudPlatform/evalbench) to perform evaluations by querying the agent's QueryData API with the questions specified in the golden set, and then comparing the generated SQL and its execution results with the golden SQL. Evaluation is key to understanding the effectiveness of your current context set. By comparing the generated SQL against the golden dataset, you can pinpoint specific queries that are failing and identify areas where context improvement is needed.
+After you establish a context set and a golden dataset, you can let the agent measure context performance by querying your data agent's QueryData API with each golden question. The agent compares the generated SQL and its execution results against the expected answer using [Evalbench](https://github.com/GoogleCloudPlatform/evalbench) to handle the comparison.
 
-To measure your current context effectiveness against your golden dataset:
+Running an evaluation provides the following:
 
-1.  Upload the context from Spanner Studio to the target context sets for evaluation. This step is optional if the context to be evaluated is not uploaded.
+  - Quantitative metrics, such as pass and fail results and aggregate scores, to track progress across context iterations.
+  - An inline conversation summary and detailed CSV reports written to the `eval_reports/` directory in your experiment folder.
 
-2.  Navigate to your workspace folder.
+To start an evaluation, provide the golden dataset path and the context set ID. To learn about finding the context set ID, see [Find the agent context ID](https://docs.cloud.google.com/spanner/docs/inspect-data-agent#find-context-set-id) .
 
-3.  Start the Gemini CLI in the folder:
-    
-        gemini
+You can use the following example prompts to instruct the agent:
 
-4.  Run the `/autoctx:evaluate` command in the Gemini CLI:
-    
-        /autoctx:evaluate
+  - *"Evaluate my context against `golden.json` ."*
+  - *"Re-run the evaluation using the config from my last experiment."*
 
-5.  Provide the paths for your golden dataset, your context set ID for evaluation configuration generation and evaluation run, and a designated output directory.
-    
-    > **Note:** For more information about how to find the context set ID, see [Find the agent context ID](https://docs.cloud.google.com/spanner/docs/inspect-data-agent#find-context-set-id) .
-    
-    Once complete, the agent generates the evaluation results as files in your experiment folder and summarizes the evaluation result.
-    
-    Optionally, you can manually inspect the evaluation from the detailed evaluation report, which is stored as CSV files in your experiment folder.
-    
-        my-workspace/
-        └── autoctx/
-            ├── tools.yaml
-            ├── state.md
-            ├── golden.json
-            └── experiments/
-                └── my-experiment/
-                    └── bootstrap_context.json
-                    └── eval_configs/
-                        └── <configs_for_eval_run>/
-                    └── eval_reports/
-                        └── <eval_id>/
-                            └── eval_report/
-                                ├── configs.csv
-                                ├── evals.csv
-                                ├── scores.csv
-                                └── summary.csv
+To re-run a previously generated evaluation configuration without setting it up again, ask the agent or invoke the CLI directly:
 
-### Perform gap analysis and context optimization
+    uvx google-evalbench --run_config=autoctx/experiments/my-experiment/eval_configs/run_config.json
 
-As a critical step in optimizing the context set, the Gemini CLI extension includes a built-in command to perform gap analysis on your existing context set and propose changes to improve its quality. Gap analysis is critical to understand why specific queries are failing and where context can be improved. Based on this analysis, Gemini uses automated reasoning to suggest targeted context updates—such as new templates or facets—to address these failures and iteratively improve query accuracy.
+For details on the evaluation configuration schema and how to customize evaluation runs, see the [Evalbench documentation](https://github.com/GoogleCloudPlatform/evalbench) .
 
-1.  Navigate to your workspace folder.
+### Perform gap analysis and propose improvements
 
-2.  Start the Gemini CLI in the folder:
-    
-        gemini
+To resolve query failures, you must identify their root causes, such as incorrect columns, missing table joins, or unresolved fuzzy terms. Manually identifying these issues requires extensive analysis of evaluation reports.
 
-3.  Run the `/autoctx:hillclimb` command in the Gemini CLI:
-    
-        /autoctx:hillclimb
-    
-    The agent automatically identifies the most suitable evaluation results and base context for hill-climbing and asks for confirmation if there are multiple options.
-    
-    If no evaluation result is available, the agent prompts you for an evaluation run with the dataset and context set.
-    
-    Once ready, the agent reads the evaluation results and the existing context set, then generates a gap analysis report.
-    
-        my-workspace/
-        └── autoctx/
-            ├── tools.yaml
-            ├── state.md
-            ├── golden.json
-            └── experiments/
-                └── my-experiment/
-                    └── bootstrap_context.json
-                    └── eval_configs/
-                    └── eval_reports/
-                    └── hillclimb/
-                        └── gap_analysis_v1.md
-    
-    The agent formulates fixes by proposing new prescriptive templates and facets, optionally testing SQL against the DB through `execute_sql` .
-    
-    Once ready, a new, improved context JSON file is generated locally, leaving the baseline context JSON file intact.
-    
-        my-workspace/
-        └── autoctx/
-            ├── tools.yaml
-            ├── state.md
-            ├── golden.json
-            └── experiments/
-                └── my-experiment/
-                    └── bootstrap_context.json
-                    └── eval_configs/
-                    └── eval_reports/
-                    └── hillclimb/
-                        ├── gap_analysis_v1.md
-                        └── improved_context_v1.md
+The agent automates this analysis and correction loop:
 
-4.  Follow the instructions to [upload the context to the target context set from Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents#edit-context-set) , ready for the next round of iteration starting with evaluation.
+  - Gap analysis: The agent reads evaluation results and your context set to group similar failures and recommend targeted context additions, such as templates, facets, or value searches.
+  - Proposed fixes: The agent proposes concrete edits and optionally tests the SQL against your database to verify the resolution.
+  - Baseline preservation: The agent writes the improvements to a new JSON file alongside your baseline context, preserving the original files.
 
-### Limitations
+You can use the following example prompts to instruct the agent:
 
-The automated workflow supports generating and optimizing templates and facets only. If you want to configure value search for your data agent, see [Generate value search queries](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli#generate-value-search-queries) .
+  - *"Run gap analysis on my last evaluation and propose fixes."*
+  - *"Optimize this context set against `golden.json` ."*
 
-## Generate targeted context
+To prepare for the next iteration, upload the improved context to the target context set using Spanner Studio, follow the [instructions](https://docs.cloud.google.com/spanner/docs/manage-data-agents#edit-context-set) .
 
-If you prefer a more customized approach to context creation, you can use the DB Context Enrichment extension to manually generate specific context elements. The following commands guide you through authoring context as a JSON file, giving you fine-grained control over template, facet, and value search query generation.
+### Author specific context items on demand
 
-> **Note:** the Gemini CLI can access your local files to reduce overhead, for example, by specifying exact locations of files in your local directories. For example, if a step in the Gemini CLI workflow asks for information from your `tools.yaml` file, you can ask the Gemini CLI to `use tools.yaml` or respond with a prompt, for example, `look it up` .
+If you already know the required context, such as a template for a specific question, a facet for a repeated filter, or a value search for a particular column, writing the context JSON manually can introduce serialization errors in parameter names, type metadata, or fragment syntax. The agent handles JSON formatting to let you focus on your business intent.
 
-### Generate targeted templates
+You can also use this feature for ad hoc updates, such as when you need to support a new query pattern or address a missing schema detail. To get the JSON, describe the required context to the agent without running an evaluation or setting up an experiment.
 
-To add a specific query-SQL pair as a query template to the context set, use the `/generate_targeted_templates` command.
+This is also the right capability to reach for when you're handed a one-off task: a stakeholder gives you a new question-SQL pair they want supported, or you spot a missing facet during a code review. You don't need to set up an experiment or run an evaluation to fix it—describe what you want and the agent produces the JSON.
 
-For more information about the context set file and the query template, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-sets) .
+You can use the following example prompts to instruct the agent:
 
-To add a query template to the context set, complete the following steps:
+  - *"Create a template for: 'Which airports are in California?' with SQL: `SELECT name FROM airports WHERE country = 'United States' AND state = 'CA'` ."*
+  - *"Create a facet for the filter `departure_time BETWEEN '00:00:00' AND '06:00:00'` labeled 'red eye'."*
+  - *"Create a value search for `airports.iata` ."*
 
-1.  Run the `/generate_targeted_templates` command in the Gemini CLI:
-    
-        /generate_targeted_templates
+### Reason about which context type selection
 
-2.  Enter the natural language query to add to the query template.
+Selecting the correct context type regardless of whether a template, facet, or value search, helps prevent context bloat and database query regressions. For example, using a template instead of a facet can cause duplicate rules, while value searches introduced where a template is sufficient can increase query latency. To find the correct schema format, prompt the agent to recommend a type based on the query structure or database columns before you create context items. The agent explains its reasoning to help you understand the context options.
 
-3.  Enter the corresponding SQL query to the query template.
+You can use the following example prompts to instruct the agent:
 
-4.  Review the generated query template. You can save the query template as a context set file or append it to an existing context set file.
+  - *"I keep writing the filter `departure_time BETWEEN '00:00:00' AND '06:00:00'` across many queries. What's the best way to capture this?"*
+  - *"Users describe flight status in free text and I want to match them to `flights.status` . What kind of value search should I set up?"*
+  - *"What's the difference between a template and a facet, and when should I use each?"*
 
-The context set file, for example, `my-cluster-psc-primary_postgres_context_set_20251104111122.json` , is saved in the directory where you ran the commands.
+### Apply bulk operations across a context set
 
-### Generate targeted facets
+The agent supports bulk updates to manage large context sets consistently. If you need to update multiple context items simultaneously, such as when a database column is renamed, a code value changes format, or templates reference a deprecated table, the agent can apply the change across every affected item without altering unrelated entries.
 
-To add a specific query to SQL condition as a facet to the context set file, use the `/generate_targeted_facets` command.
+You can use the following example prompts to instruct the agent:
 
-For more information about the context set file and facets, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-sets)
-
-To add a facet to the context set file, complete the following steps:
-
-1.  Run the `/generate_targeted_facets` command in the Gemini CLI:
-    
-        /generate_targeted_facets
-
-2.  Enter the natural language intent to add to the facet.
-
-3.  Enter the corresponding SQL snippet to the facet.
-
-4.  Review the generated facet. You can save the facet to a context set file or append it to an existing context set file.
-
-The context set file, for example, `my-cluster-psc-primary_postgres_context_set_20251104111122.json` , is saved in the directory where you ran the commands.
-
-### Generate value search queries
-
-To generate value searches that specify how the system searches for and matches specific values within a concept type, use the `/generate_targeted_value_searches` command.
-
-For more information about the value index, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-sets)
-
-To generate a value index, complete the following steps:
-
-1.  Run the `/generate_targeted_value_searches` command:
-    
-        /generate_targeted_value_searches
-
-2.  Enter `spanner` to select Spanner as the database engine.
-
-3.  Enter the value search configuration as follows:
-    
-        Table name: TABLE_NAME
-        Column name: COLUMN_NAME
-        Concept type: CONCEPT_TYPE
-        Match function: MATCH_FUNCTION
-        Description: DESCRIPTION
-    
-    Replace the following:
-    
-      - `  TABLE_NAME  ` : The table where the column associated with the concept type exists.
-    
-      - `  COLUMN_NAME  ` : The column name associated with the concept type.
-    
-      - `  CONCEPT_TYPE  ` : The concept type to define—for example, `City name` .
-    
-      - `  MATCH_FUNCTION  ` : The match function to use for value search. You can use one of the following functions:
-        
-          - `EXACT_STRING_MATCH` : For exact match of two string values. Best for unique IDs, codes, and primary keys.
-          - `TRIGRAM_STRING_MATCH` : For fuzzy-matching that calculates normalized trigram distance. Best for user searches and name correction.
-    
-      - `  DESCRIPTION  ` : (Optional) The description of the value search query.
-
-4.  Add additional value searches as needed. If you skip adding additional value indexes, the template-based SQL generation moves to the next step.
-
-5.  Review the generated value searches. You can save the context set as a context set file or append it to an existing context set file.
-
-The context set file, for example, `my-cluster-psc-primary_postgres_context_set_20251104111122.json` , is saved in the directory where you ran the commands.
+  - *"Read `golden.txt` and turn all the pairs into templates."*
+  - *"In `context_set.json` , replace `airline = 'UA'` with `airline = 'United Airlines'` for any item referencing 'United'. Leave unrelated items alone."*
 
 ## What's next
 

@@ -155,7 +155,7 @@ https://docs.cloud.google.com/spanner/docs/backup/restore-backup-overview	2026-0
 https://docs.cloud.google.com/spanner/docs/backup/restore-backups	2026-06-14T14:42:35Z
 https://docs.cloud.google.com/spanner/docs/batch-write	2026-06-14T14:43:19Z
 https://docs.cloud.google.com/spanner/docs/best-practices-gaming-database	2026-06-14T14:43:19Z
-https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli	2026-06-14T14:43:19Z
+https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli	2026-06-16T03:01:01Z
 https://docs.cloud.google.com/spanner/docs/build-data-agents-conversational-analytics	2026-06-14T14:43:19Z
 https://docs.cloud.google.com/spanner/docs/bulk-loading	2026-06-14T14:43:19Z
 https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opencensus	2026-06-14T14:43:19Z
@@ -184,7 +184,7 @@ https://docs.cloud.google.com/spanner/docs/configure-columnar-engine	2026-06-14T
 https://docs.cloud.google.com/spanner/docs/configure-fgac	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/connect-gke-cluster	2026-06-14T14:42:41Z
-https://docs.cloud.google.com/spanner/docs/context-sets-overview	2026-06-14T14:42:41Z
+https://docs.cloud.google.com/spanner/docs/context-sets-overview	2026-06-16T03:01:01Z
 https://docs.cloud.google.com/spanner/docs/cpu-utilization	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/create-manage-configurations	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/create-manage-data-placements	2026-06-14T14:42:41Z
@@ -323,7 +323,7 @@ https://docs.cloud.google.com/spanner/docs/inspect-data-agent	2026-06-14T14:42:1
 https://docs.cloud.google.com/spanner/docs/install-mysql-functions	2026-06-14T14:42:14Z
 https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-06-14T14:42:14Z
 https://docs.cloud.google.com/spanner/docs/instances	2026-06-14T14:42:14Z
-https://docs.cloud.google.com/spanner/docs/integrate-applications-data-agent	2026-06-14T14:42:14Z
+https://docs.cloud.google.com/spanner/docs/integrate-applications-data-agent	2026-06-16T03:01:01Z
 https://docs.cloud.google.com/spanner/docs/integrate-google-cloud-platform	2026-06-14T14:42:14Z
 https://docs.cloud.google.com/spanner/docs/introspection	2026-06-14T14:42:58Z
 https://docs.cloud.google.com/spanner/docs/introspection/active-partitioned-dmls	2026-06-14T14:42:29Z
@@ -709,7 +709,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-lan
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers	2026-06-14T14:42:23Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions	2026-06-14T14:42:23Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-06-14T14:42:23Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-06-14T14:42:23Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-06-15T19:19:10Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions	2026-06-14T14:42:23Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions	2026-06-14T14:42:23Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures	2026-06-14T14:42:23Z

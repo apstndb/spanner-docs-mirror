@@ -682,7 +682,7 @@ Returns `TRUE` if a substring query matches tokens.
 
   - `language_tag` : A named argument with a `STRING` value. The value contains an [IETF BCP 47 language tag](https://en.wikipedia.org/wiki/IETF_language_tag) . You can use this tag to specify the language for `substring_query` . If the value for this argument is `NULL` , this function doesn't use a specific language. If this argument isn't specified, `NULL` is used by default.
 
-  - `relative_search_type` : A named argument with a `STRING` value. The value refines the substring search result. To use a given `relative_search_type` , the substring `TOKENLIST` must have been generated with the corresponding type in its `TOKENIZE_SUBSTRING` `relative_search_types` argument. This function supports these relative search types:
+  - `relative_search_type` : A named argument with a `STRING` value. The value refines the substring search result. To use a given `relative_search_type` , the substring `TOKENLIST` must have been generated with the corresponding type in its `TOKENIZE_SUBSTRING` `relative_search_types` argument. This function supports the following relative search types:
     
       - `phrase` : The substring query terms must appear adjacent to one another and in order in the tokenized value (the value that was tokenized to produce the `tokens` argument).
     
@@ -715,7 +715,7 @@ The `Albums` table contains a column called `DescriptionSubstrTokens` , which to
       SingerId INT64 NOT NULL,
       AlbumId INT64 NOT NULL,
       Description STRING(MAX),
-      DescriptionSubstrTokens TOKENLIST AS (TOKENIZE_SUBSTRING(Description, support_relative_search=>TRUE)) HIDDEN
+      DescriptionSubstrTokens TOKENLIST AS (TOKENIZE_SUBSTRING(Description, relative_search_types => ['all'])) HIDDEN
     ) PRIMARY KEY (SingerId, AlbumId);
     
     CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionSubstrTokens)

@@ -25,7 +25,7 @@ The following databases are supported:
 
 To build effective agentic applications, tools such as QueryData must understand your data organization and business logic. You provide this information in the form of context set.
 
-You define context in files that contain JSON objects for each context type. You author these context files with the help of the [Gemini CLI](https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli) . You then upload the context file to a context set that you create in the Google Cloud console. This process enables tools such as QueryData to learn the specific schema of the database and business logic of the application.
+You define context in files that contain JSON objects for each context type. You author these context files with the help of the [context engineering agent](https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli) . You then upload the context file to a context set that you create in the Google Cloud console. This process enables tools such as QueryData to learn the specific schema of the database and business logic of the application.
 
 The context file looks similar to the following:
 

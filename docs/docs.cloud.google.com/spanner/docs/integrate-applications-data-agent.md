@@ -698,7 +698,7 @@ Before you can start generating context, you must prepare your environment.
 
 To set up your environment, perform the following steps:
 
-1.  Install Gemini CLI. For more information, see [Gemini CLI quickstart](https://geminicli.com/docs/get-started/) .
+1.  Install Antigravity CLI. For more information, see [Antigravity CLI quickstart](https://antigravity.google/product/antigravity-cli) .
 
 2.  [Install the Google Cloud CLI](https://cloud.google.com/sdk/docs/install) .
 
@@ -706,41 +706,36 @@ To set up your environment, perform the following steps:
     
         gcloud auth application-default login
 
-4.  Install the DB Context Enrichment extension, which includes workflows for context generation.
+4.  Install the context engineering agent plugin, which includes workflows for context generation. Replace VERSION with the required [released version](https://github.com/GoogleCloudPlatform/db-context-enrichment/releases) :
     
-        gemini extensions install https://github.com/GoogleCloudPlatform/db-context-enrichment
+        agy plugin install https://github.com/GoogleCloudPlatform/db-context-enrichment/tree/VERSION
     
-    > **Note:** The extension requires a Gemini API key during installation to authenticate with the Gemini API, and to enable context generation. For more information about how to find your API key, see [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key) .
+    Make sure that the version you install is `v0.6.0` or higher. To update the context engineering agent plugin, uninstall the old version and install the new version:
     
-    Ensure that the version is `0.4.2` or higher. To update the DB Context Enrichment extension, run the following command:
-    
-        gemini extensions update mcp-db-context-enrichment
+        agy plugin uninstall google-cloud-db-context-engineering
+        agy plugin install https://github.com/GoogleCloudPlatform/db-context-enrichment/tree/NEW_VERSION
 
-5.  To update the DB Context Enrichment extension or to replace the `GEMINI_API_KEY` , run the following command:
+5.  In your terminal, start the antigravity CLI.
     
-        gemini extensions config mcp-db-context-enrichment GEMINI_API_KEY
-    
-    Replace `  GEMINI_API_KEY  ` with your Gemini API key.
+        agy
 
-6.  In your terminal, start Gemini CLI.
-    
-        gemini
-
-7.  Complete the [Gemini CLI Authentication Setup](https://geminicli.com/docs/get-started/authentication/) .
-
-8.  Set up Database Connection. The extension requires a database connection for context generation, which is supported by the [MCP Toolbox](https://mcp-toolbox.dev/documentation/introduction/) and defined within the tools.yaml configuration file.
+6.  Set up Database Connection. The extension requires a database connection for context generation, which is supported by the [MCP Toolbox](https://mcp-toolbox.dev/documentation/introduction/) and defined within the tools.yaml configuration file.
     
     To create the `tools.yaml` configuration file in your current directory, enter a prompt such as `Help me set up the database connection` and follow the instructions provided by the skill. For more information about the `tools.yaml` file, see [MCP Toolbox documentation](https://mcp-toolbox.dev/documentation/configuration/) .
     
     > **Note:** If this connection is not established, the extension returns error messages, such as `Error Discovering tools from mcp_toolbox` , and context generation fails to work.
 
-9.  To reload the configuration after creating the `tools.yaml` file is created, run the following command in the Gemini CLI:
+7.  To reload the configuration after the `tools.yaml` file is created, run the following command in the Antigravity CLI and follow the instruction to reload the toolbox MCP server:
     
-        /mcp reload
+        /mcp
 
-10. Verify that the MCP toolbox and the database enrichment extension are connected and ready to use.
+8.  Select `toolbox` .
+
+9.  Select `Restart` .
+
+10. Verify that the MCP toolbox and the context engineering agent plugin are connected and ready to use.
     
-        /mcp list
+        /mcp
 
 ### Generate template context
 
@@ -748,16 +743,9 @@ In this section, to address the issue from the previous section where QueryData 
 
 To generate template context, perform the following steps:
 
-1.  Run the `/generate_targeted_templates` command and follow the workflow:
+1.  Enter the following prompt into the agent harness:
     
-        /generate_targeted_templates
-
-2.  Provide the natural language query that you want to add to the query template in the terminal.
-    
-        Tell me flights that can help me beat nighttime traffic if traveling from New York
-
-3.  Provide a corresponding SQL query that you want to add to the query template. This query template defines the term `nighttime` as occurring between `5:00 PM` and `7:00 PM` .
-    
+        Generate a template for the question: "Tell me flights that can help me beat nighttime traffic if traveling from New York" with the following SQL query:
         SELECT
           f.airline,
           f.flight_number,
@@ -777,11 +765,11 @@ To generate template context, perform the following steps:
         ORDER BY
           f.departure_time;
 
-4.  Press **Enter** . Gemini converts your input into a specific format that refines the context set's performance across a wide range of user queries. For more information, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-set) .
+2.  The agent converts your input into a specific format that refines the context set's performance across a wide range of user queries. For more information, see [Context sets overview](https://docs.cloud.google.com/spanner/docs/context-sets-overview#context-set) .
 
-5.  Review the generated query template. You can either save the query template as a new agent context file or append it to an existing agent context file.
+3.  Review the generated query template. You can either save the query template as a new agent context file or append it to an existing agent context file.
 
-6.  Select the option to create a new agent context file. Gemini creates a filename `  INSTANCE_ID _ DATABASE_ID _context_set_ TIMESTAMP .json ` in the same directory, with the following content:
+4.  Prompt the agent with `save it to contextset.json` . The agent creates a the file in the same directory, with the following content:
     
         {
           "templates": [
@@ -804,28 +792,17 @@ In this section, you generate value search context to help context set logic map
 
 To generate value search context, perform the following steps:
 
-1.  Run the `/generate_targeted_value_searches` command:
+1.  Enter the following prompt into the agent harness:
     
-        /generate_targeted_value_searches
+        Generate a value search on table "airports" for column "city" with concept "Airport City" using match function "TRIGRAM_STRING_MATCH".
 
-2.  Enter `spanner` to select Spanner as the database.
+2.  Review the generated value search definition. You can either save the value search definition as a new context set file or append it to an existing context set file.
 
-3.  Enter the value search configuration as follows:
+3.  Prompt the agent `Append the context to context_set.json` . This adds the value search definition to the context file created in the earlier section.
+
+4.  Enter the database instance and database name for which the context set file was generated.
     
-        Table: airports
-        Column: city
-        Concept: Airport City
-        Match Function: TRIGRAM_STRING_MATCH
-
-4.  Confirm if you want to generate the value search definition.
-
-5.  Review the generated value search definition. You can either save the value search definition as a new context set file or append it to an existing context set file.
-
-6.  Select the option to append to an existing context set file. This adds the value search definition to the context file created in the earlier section.
-
-7.  Enter the database instance and database name for which the context set file was generated.
-    
-    The existing context file is updated with the value search definition. Gemini creates a filename `  INSTANCE_ID _ DATABASE_ID _context_set_ TIMESTAMP .json ` in the same directory, with the following content:
+    The existing context file is updated with the value search definition, with the following content:
     
     ``` 
       {
