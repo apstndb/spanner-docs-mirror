@@ -19,7 +19,7 @@ For more information, see [QueryData overview](https://docs.cloud.google.com/spa
 ## Objectives
 
   - Create database tables and populate them with data.
-  - Build a context set file with Gemini CLI and MCP toolbox.
+  - Build a context set file with the context engineering agent.
   - Create a context set and upload context set file.
   - Test QueryData and generate SQL queries in Studio.
   - Integrate QueryData with your application using [Gemini Data Analytics QueryData](https://mcp-toolbox.dev/integrations/cloudgda/tools/cloud-gda-query/) tool in MCP Toolbox.
@@ -956,7 +956,7 @@ In this section, you create a QueryData agent for a flight-finding application. 
 
 > **Note:** GenAI models are nondeterministic, meaning the same prompt may yield different responses across separate calls due to the probabilistic nature of the output generation.
 
-1.  Download [MCP Toolbox](https://mcp-toolbox.dev/documentation/introduction/) version 0.31.0 or later. MCP toolbox exposes the QueryData agent as a tool for applications to connect with. The MCP toolbox differs from the MCP Toolbox Gemini CLI extension you installed earlier, which generates context.
+1.  Download [MCP Toolbox](https://mcp-toolbox.dev/documentation/introduction/) version 0.31.0 or later. MCP toolbox exposes the QueryData agent as a tool for applications to connect with. The MCP toolbox differs from the context engineering agent you installed earlier, which generates context.
 
 2.  Set up [Application Default Credentials (ADC)](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
     
@@ -1160,7 +1160,7 @@ For example, for the input text `How many flights depart from the west side?` yo
 
 ### Refine response accuracy
 
-You can continuously refine the accuracy of responses from the Gemini Data Analytics QueryData tool by adding additional context. Use the Gemini CLI to generate context, and then upload the updated context set file to the existing `flights-assistant` QueryData agent. For more information, see [Build contexts using Gemini CLI](https://docs.cloud.google.com/alloydb/docs/ai/build-context-gemini-cli) . The console immediately ingests new context after you upload it, enabling you to enhance the agent's accuracy without any application downtime.
+You can continuously refine the accuracy of responses from the Gemini Data Analytics QueryData tool by adding additional context. Use the context engineering agent to generate context, and then upload the updated context set file to the existing `flights-assistant` QueryData agent. For more information, see [Manage context sets in Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents) . The console immediately ingests new context after you upload it, enabling you to enhance the agent's accuracy without any application downtime.
 
 ### Multiple agents
 

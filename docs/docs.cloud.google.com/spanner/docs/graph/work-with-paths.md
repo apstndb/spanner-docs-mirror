@@ -265,9 +265,9 @@ You can use a path search prefix to restrict a path pattern to return the shorte
 
 The `ANY SHORTEST` path search prefix returns the shortest path (the path with the least number of edges) that matches the pattern from each data partition. If there are more than one shortest paths per partition, returns any one of them.
 
-#### Example
+#### Example 1
 
-The following query matches any path between each pair of `[a, b]` .
+The following query matches any shortest path between each pair of `[a, b]` .
 
     GRAPH FinGraph
     MATCH p = ANY SHORTEST (a:Account {is_blocked:true})-[t:Transfers]->{1,4}(b:Account)
@@ -281,6 +281,20 @@ The following query matches any path between each pair of `[a, b]` .
 | 16           | 500           | 16           |
 | 16           | 800           | 7            |
 | 16           | 300           | 20           |
+
+#### Example 2
+
+The following GQL query combines a path variable with the `ANY SHORTEST` path search prefix and converts the path to JSON. This method is useful for retrieving a single structured object that contains the complete sequence of nodes and edges that make up the shortest path, instead of only the endpoints or path length. The query returns only the shortest path between the two accounts.
+
+    GRAPH FinGraph
+    MATCH p = ANY SHORTEST (a:Account {id: 7})-[:Transfers]->{1,3}(d:Account {id: 20})
+    RETURN TO_JSON(p) AS results;
+
+#### Result
+
+| results                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------- |
+| \[{"identifier": ..., "properties": {"id": 7, "is\_blocked": false, "nick\_name": "Vacation Fund"}, ...}, ...\] |
 
 ### `ANY CHEAPEST`
 

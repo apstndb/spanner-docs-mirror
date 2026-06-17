@@ -184,7 +184,7 @@ https://docs.cloud.google.com/spanner/docs/configure-columnar-engine	2026-06-14T
 https://docs.cloud.google.com/spanner/docs/configure-fgac	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/connect-gke-cluster	2026-06-14T14:42:41Z
-https://docs.cloud.google.com/spanner/docs/context-sets-overview	2026-06-16T03:01:01Z
+https://docs.cloud.google.com/spanner/docs/context-sets-overview	2026-06-17T01:17:13Z
 https://docs.cloud.google.com/spanner/docs/cpu-utilization	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/create-manage-configurations	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/create-manage-data-placements	2026-06-14T14:42:41Z
@@ -199,7 +199,7 @@ https://docs.cloud.google.com/spanner/docs/create-query-database-console	2026-06
 https://docs.cloud.google.com/spanner/docs/cuds	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/cutover-fallback-mechanisms	2026-06-14T14:42:41Z
-https://docs.cloud.google.com/spanner/docs/data-agent-overview	2026-06-14T14:42:41Z
+https://docs.cloud.google.com/spanner/docs/data-agent-overview	2026-06-16T16:12:20Z
 https://docs.cloud.google.com/spanner/docs/data-migration	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/data-residency	2026-06-14T14:42:41Z
 https://docs.cloud.google.com/spanner/docs/data-validation	2026-06-14T14:42:41Z
@@ -303,7 +303,7 @@ https://docs.cloud.google.com/spanner/docs/graph/schema-overview	2026-06-14T14:4
 https://docs.cloud.google.com/spanner/docs/graph/set-up	2026-06-14T14:42:29Z
 https://docs.cloud.google.com/spanner/docs/graph/troubleshoot	2026-06-14T14:42:29Z
 https://docs.cloud.google.com/spanner/docs/graph/visualization-integrations	2026-06-14T14:42:29Z
-https://docs.cloud.google.com/spanner/docs/graph/work-with-paths	2026-06-14T14:42:29Z
+https://docs.cloud.google.com/spanner/docs/graph/work-with-paths	2026-06-16T22:51:19Z
 https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations	2026-06-14T14:42:29Z
 https://docs.cloud.google.com/spanner/docs/hybrid-full-text-vector-search	2026-06-14T14:42:14Z
 https://docs.cloud.google.com/spanner/docs/iam	2026-06-14T14:42:14Z
@@ -319,11 +319,11 @@ https://docs.cloud.google.com/spanner/docs/index-advisor	2026-06-14T14:42:14Z
 https://docs.cloud.google.com/spanner/docs/index-geo-partitioning	2026-06-14T14:42:14Z
 https://docs.cloud.google.com/spanner/docs/information-schema	2026-06-14T14:42:14Z
 https://docs.cloud.google.com/spanner/docs/information-schema-pg	2026-06-14T14:42:14Z
-https://docs.cloud.google.com/spanner/docs/inspect-data-agent	2026-06-14T14:42:14Z
+https://docs.cloud.google.com/spanner/docs/inspect-data-agent	2026-06-17T01:17:13Z
 https://docs.cloud.google.com/spanner/docs/install-mysql-functions	2026-06-14T14:42:14Z
-https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-06-14T14:42:14Z
+https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-06-16T22:46:18Z
 https://docs.cloud.google.com/spanner/docs/instances	2026-06-14T14:42:14Z
-https://docs.cloud.google.com/spanner/docs/integrate-applications-data-agent	2026-06-16T03:01:01Z
+https://docs.cloud.google.com/spanner/docs/integrate-applications-data-agent	2026-06-17T01:17:13Z
 https://docs.cloud.google.com/spanner/docs/integrate-google-cloud-platform	2026-06-14T14:42:14Z
 https://docs.cloud.google.com/spanner/docs/introspection	2026-06-14T14:42:58Z
 https://docs.cloud.google.com/spanner/docs/introspection/active-partitioned-dmls	2026-06-14T14:42:29Z
@@ -393,7 +393,7 @@ https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-06-14T1
 https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-06-14T14:42:26Z
 https://docs.cloud.google.com/spanner/docs/named-schemas	2026-06-14T14:42:26Z
 https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview	2026-06-14T14:43:21Z
-https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter	2026-06-14T14:43:21Z
+https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter	2026-06-16T21:22:36Z
 https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner	2026-06-14T14:43:21Z
 https://docs.cloud.google.com/spanner/docs/non-relational/overview	2026-06-14T14:43:21Z
 https://docs.cloud.google.com/spanner/docs/open-source-jdbc	2026-06-14T14:42:26Z
@@ -410,7 +410,7 @@ https://docs.cloud.google.com/spanner/docs/pgadapter	2026-06-14T14:42:26Z
 https://docs.cloud.google.com/spanner/docs/pgadapter-emulator	2026-06-14T14:42:26Z
 https://docs.cloud.google.com/spanner/docs/pgadapter-get	2026-06-14T14:42:26Z
 https://docs.cloud.google.com/spanner/docs/pgadapter-session-mgmt-commands	2026-06-14T14:42:26Z
-https://docs.cloud.google.com/spanner/docs/pgadapter-start	2026-06-14T14:42:26Z
+https://docs.cloud.google.com/spanner/docs/pgadapter-start	2026-06-16T21:22:36Z
 https://docs.cloud.google.com/spanner/docs/pitr	2026-06-14T14:42:28Z
 https://docs.cloud.google.com/spanner/docs/postgresql-interface	2026-06-14T14:42:28Z
 https://docs.cloud.google.com/spanner/docs/pre-built-tools-with-mcp-toolbox	2026-06-14T14:42:28Z

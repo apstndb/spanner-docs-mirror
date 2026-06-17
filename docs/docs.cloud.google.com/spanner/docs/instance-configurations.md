@@ -613,6 +613,17 @@ Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https
 <code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
 </tr>
 <tr class="odd">
+<td><code dir="ltr" translate="no">nam22</code></td>
+<td>us (United States)</td>
+<td>Columbus: <code dir="ltr" translate="no">us-east5</code> ( <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a> )<br />
+South Carolina: <code dir="ltr" translate="no">us-east1</code> ( <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a> )</td>
+<td>None</td>
+<td>Northern Virginia: <code dir="ltr" translate="no">us-east4</code></td>
+<td>Read-only:<br />
+<code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+</td>
+</tr>
+<tr class="even">
 <td><code dir="ltr" translate="no">nam23</code></td>
 <td>us (United States)</td>
 <td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />

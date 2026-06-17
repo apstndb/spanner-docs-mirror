@@ -67,7 +67,7 @@ When an end user asks a natural language question, QueryData prioritizes matchin
 
 A recommended step is to define value searches within your context. Value searches allow the agent to map value phrases to specific values stored in your database columns. This grounds the LLM in your actual data, helping it resolve ambiguities, such as whether a term refers to a `District` name or a `City` .
 
-If the agent fails to find a matching template, then it uses value searches to map natural language phrases to specific values stored in your database columns. This grounds the LLM in your actual data, helping it resolve ambiguities, such as whether a term refers to a `District` , `Name` , or a `City` .
+The agent uses value searches to map natural language phrases to specific values stored in your database columns. This grounds the LLM in your actual data, helping it resolve ambiguities, such as whether a term refers to a `District` , `Name` , or a `City` .
 
 The `QueryData` endpoint in the [Conversational Analytics API](https://docs.cloud.google.com/gemini/docs/conversational-analytics-api/overview#key_api_operations) is an agentic tool that allows programmatic integration with your applications to enable SQL query generation from natural language questions. In a conversational application, the `QueryData` endpoint must be used within the framework that manages the conversation history and context..
 

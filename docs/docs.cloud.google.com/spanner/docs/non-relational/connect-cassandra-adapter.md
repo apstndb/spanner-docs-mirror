@@ -24,7 +24,7 @@ Before starting the Cassandra Adapter, ensure that you have authenticated with e
 For more information, see:
 
   - [Authenticate to Spanner](https://docs.cloud.google.com/spanner/docs/authentication)
-  - [Authorize the gcloud CLI](https://docs.cloud.google.com/sdk/docs/authorizing)
+  - [Authenticate for the gcloud CLI](https://docs.cloud.google.com/sdk/docs/authenticate)
 
 ## Connect the Cassandra Adapter to your application
 

@@ -23,7 +23,7 @@ Before starting PGAdapter, ensure that you have authenticated with either a user
 For more information, see:
 
   - [Authenticate to Spanner](https://docs.cloud.google.com/spanner/docs/authentication)
-  - [Authorizing the gcloud CLI](https://docs.cloud.google.com/sdk/docs/authorizing)
+  - [How Application Default Credentials works](https://docs.cloud.google.com/docs/authentication/application-default-credentials)
 
 ## Choose a method for running PGAdapter
 

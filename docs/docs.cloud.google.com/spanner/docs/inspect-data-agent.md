@@ -50,7 +50,7 @@ To download and update a context set, perform the following steps:
 
 1.  In the **Explorer pane** , click **View actions** .
 2.  Click **Download context file** .
-3.  Follow steps in [Build contexts using Gemini CLI](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli) to update context with additional query pairs.
+3.  Follow steps in [Build contexts sets using the context engineering agent](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli) to update context with additional query pairs.
 4.  In the **Explorer pane** , click **View actions** next to the context set you're using.
 5.  Click **Edit context set** .
 6.  Click **Browse** in the **Upload context set file** section, and select the updated context set file.
@@ -165,5 +165,5 @@ Here is an example of a successful response from a `QueryData` call:
 ## What's next
 
   - Learn more about [context sets](https://docs.cloud.google.com/spanner/docs/context-sets-overview) .
-  - Learn how to [build contexts using Gemini CLI](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli)
+  - Learn how to [build contexts sets using the context engineering agent](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli)
   - Learn how to [Manage context sets in Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents)

@@ -174,3 +174,4 @@ Context sets have the following limitations:
 ## What's next
 
   - Learn how to [create or delete a context set in Spanner Studio](https://docs.cloud.google.com/spanner/docs/manage-data-agents) .
+  - Learn how to [build contexts sets using the context engineering agent](https://docs.cloud.google.com/spanner/docs/build-context-gemini-cli)
