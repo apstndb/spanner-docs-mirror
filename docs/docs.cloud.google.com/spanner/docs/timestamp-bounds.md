@@ -17,8 +17,12 @@ Why set a timestamp bound? If your database is geographically distributed (that 
 The types of timestamp bound are:
 
   - Strong (the default): read the latest data.
+
   - Bounded staleness: read a version of the data that's no staler than a bound.
+
   - Exact staleness: read the version of the data at an exact timestamp, for example, a point in time in the past, though you can specify a timestamp for a time that hasn't passed yet. (If you specify a timestamp in the future, Spanner will wait for that timestamp before serving the read.)
+    
+    > **Caution:** Certain Java timestamp APIs (for example, `java.sql.Timestamp` and `java.util.Date` ) are inherently subject to Daylight Saving Time (DST) handling. When using these APIs to specify staleness, you might produce staleness values that are off by an hour during DST time shifts. To avoid this problem use newer Java APIs, such as `java.time.Instant` , that don't exhibit this issue.
 
 Notes:
 
@@ -32,7 +36,7 @@ The Spanner timestamp bound types are explained in more detail later.
 
 ### Strong
 
-Spanner provides a bound type for strong reads. Strong reads are guaranteed to see the effects of all transactions that have committed before the start of the read. Furthermore, all rows yielded by a single read are consistent with each other - if any part of the read observes a transaction, all parts of the read see the transaction.
+Spanner provides a bound type for strong reads. Strong reads reflect the effects of all transactions that have committed before the start of the read. Furthermore, all rows yielded by a single read are consistent with each other - if any part of the read observes a transaction, all parts of the read see the transaction.
 
 Strong reads are not repeatable: two consecutive strong read-only transactions might return inconsistent results if there are concurrent writes. If consistency across reads is required, the reads should be executed within the same transaction or at an exact read timestamp.
 
@@ -48,12 +52,12 @@ Bounded staleness reads are usually a little slower than comparable exact stalen
 
 ### Exact staleness
 
-Spanner provides a bound type for exact staleness. These timestamp bounds execute reads at a user-specified timestamp. Reads at a timestamp are guaranteed to see a consistent prefix of the global transaction history: they observe modifications done by all transactions with a commit timestamp less than or equal to the read timestamp, and observe none of the modifications done by transactions with a larger commit timestamp. They will block until all conflicting transactions that may be assigned commit timestamps less than or equal to the read timestamp have finished.
+Spanner provides a bound type for exact staleness. These timestamp bounds execute reads at a user-specified timestamp. Reads at a timestamp reflect a consistent prefix of the global transaction history: they observe modifications done by all transactions with a commit timestamp less than or equal to the read timestamp, and observe none of the modifications done by transactions with a larger commit timestamp. They will block until all conflicting transactions that may be assigned commit timestamps less than or equal to the read timestamp have finished.
 
 The timestamp can either be expressed as an absolute Spanner commit timestamp or a staleness relative to the current time.
 
-These modes do not require a "negotiation phase" to pick a timestamp. As a result, they execute slightly faster than the equivalent boundedly stale concurrency modes. On the other hand, boundedly stale reads usually return fresher results.
+These modes don't require a negotiation phase to pick a timestamp. As a result, they execute slightly faster than the equivalent boundedly stale concurrency modes. On the other hand, boundedly stale reads usually return fresher results.
 
 ## Maximum timestamp staleness
 
-Spanner continuously garbage collects deleted and overwritten data in the background to reclaim storage space. This process is known as **version GC** . Version GC reclaims versions after they expire past a database's [`version_retention_period`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) , which defaults to 1 hour, but can be configured up to 1 week. This restriction also applies to in-progress reads and/or SQL queries whose timestamp become too old while executing. Reads and SQL queries with too-old read timestamps fail with the error `FAILED_PRECONDITION` . The only exception is [Partition Read/Query](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) with partition tokens, which will prevent garbage collection of expired data while the session remains active.
+Spanner continuously garbage collects deleted and overwritten data in the background to reclaim storage space. This process is known as **version garbage collection** . Version garbage collection reclaims versions after they expire past a database's [`version_retention_period`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) , which defaults to 1 hour, but can be configured up to 1 week. This restriction also applies to in-progress reads or SQL queries with timestamps that become too old while executing. Reads and SQL queries with too-old read timestamps fail with the error `FAILED_PRECONDITION` . The only exception is [Partition Read/Query](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) with partition tokens, which will prevent garbage collection of expired data while the session remains active.
