@@ -84,6 +84,7 @@ https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/list	2026-05-
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run	2026-05-27T16:48:47Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/workload	2026-05-27T16:47:28Z
 https://docs.cloud.google.com/spanner-omni	2026-06-17T16:45:28Z
+https://docs.cloud.google.com/spanner-omni/audit-logs	2026-06-18T18:35:06Z
 https://docs.cloud.google.com/spanner-omni/authentication	2026-06-17T16:44:44Z
 https://docs.cloud.google.com/spanner-omni/backups	2026-06-17T16:44:44Z
 https://docs.cloud.google.com/spanner-omni/beam	2026-06-17T16:44:44Z
@@ -108,14 +109,14 @@ https://docs.cloud.google.com/spanner-omni/gorm	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/grafana-dashboards	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/graph-notebook	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/hibernate	2026-06-17T16:45:31Z
-https://docs.cloud.google.com/spanner-omni/iam	2026-06-17T16:45:31Z
+https://docs.cloud.google.com/spanner-omni/iam	2026-06-18T18:35:06Z
 https://docs.cloud.google.com/spanner-omni/import-export-data	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/java	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/java-cassandra	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/jdbc-driver	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/key-terms	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/major-compaction	2026-06-17T16:45:31Z
-https://docs.cloud.google.com/spanner-omni/monitoring-overview	2026-06-17T16:45:31Z
+https://docs.cloud.google.com/spanner-omni/monitoring-overview	2026-06-18T18:35:06Z
 https://docs.cloud.google.com/spanner-omni/overview	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/pgadapter	2026-06-17T16:45:31Z
 https://docs.cloud.google.com/spanner-omni/prometheus-alerts	2026-06-17T16:45:31Z
@@ -356,7 +357,7 @@ https://docs.cloud.google.com/spanner/docs/manage-data-using-console	2026-06-17T
 https://docs.cloud.google.com/spanner/docs/managed-autoscaler	2026-06-17T16:44:31Z
 https://docs.cloud.google.com/spanner/docs/manual-data-compaction	2026-06-17T16:44:31Z
 https://docs.cloud.google.com/spanner/docs/media	2026-06-17T16:44:31Z
-https://docs.cloud.google.com/spanner/docs/metrics	2026-06-17T16:44:31Z
+https://docs.cloud.google.com/spanner/docs/metrics	2026-06-18T19:01:52Z
 https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema	2026-06-17T16:44:31Z
 https://docs.cloud.google.com/spanner/docs/migrate-spanner-pg-to-pg-database	2026-06-17T16:44:31Z
 https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner	2026-06-17T16:44:31Z

@@ -232,3 +232,4 @@ Spanner Omni has a few more notable limitations:
 
   - Learn more about [IAM](https://docs.cloud.google.com/iam/docs/overview) .
   - Learn about [Authentication and authorization in Spanner Omni](https://docs.cloud.google.com/spanner-omni/authentication) .
+  - Learn about [configuring audit logs using the IAM policy](https://docs.cloud.google.com/spanner-omni/audit-logs#configure-data-access) .

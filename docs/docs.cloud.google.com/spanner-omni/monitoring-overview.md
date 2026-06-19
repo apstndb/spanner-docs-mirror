@@ -51,7 +51,7 @@ For more information, see [Set up trace collection using OpenTelemetry](https://
 
 ### Audit logs
 
-Audit logs track administrative changes and data access events for security and compliance. You can use audit logs to monitor request latencies by referring to the processing duration fields. For more information, see [Audit logs](https://docs.cloud.google.com/spanner/docs/audit-logging) in the Spanner documentation.
+Audit logs track administrative changes and data access events for security and compliance. You can use audit logs to monitor request latencies by referring to the processing duration fields. For more information, see [Audit logs](https://docs.cloud.google.com/spanner-omni/audit-logs) .
 
 ## Monitor instances
 
@@ -66,3 +66,5 @@ The system insights dashboard provides charts and metrics for latency, CPU utili
   - [Use Grafana dashboards to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/grafana-dashboards) .
 
   - [Use Prometheus alerts to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/prometheus-alerts) .
+
+  - [Learn about audit logging in Spanner Omni](https://docs.cloud.google.com/spanner-omni/audit-logs) .
