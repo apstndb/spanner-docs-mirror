@@ -169,7 +169,7 @@ https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka	2026-06-19T1
 https://docs.cloud.google.com/spanner/docs/check-constraint/how-to	2026-06-19T17:39:35Z
 https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres	2026-06-19T17:35:47Z
 https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function	2026-06-19T17:35:47Z
-https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions	2026-06-19T17:35:47Z
+https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions	2026-06-22T21:50:51Z
 https://docs.cloud.google.com/spanner/docs/cloud-run-remote-function	2026-06-19T17:35:47Z
 https://docs.cloud.google.com/spanner/docs/cmek	2026-06-19T17:35:47Z
 https://docs.cloud.google.com/spanner/docs/code-example-syntax	2026-06-19T17:35:47Z
@@ -347,7 +347,7 @@ https://docs.cloud.google.com/spanner/docs/labels	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/labs	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/langchain	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/latency-metrics	2026-06-19T17:35:57Z
-https://docs.cloud.google.com/spanner/docs/latency-points	2026-06-19T17:35:57Z
+https://docs.cloud.google.com/spanner/docs/latency-points	2026-06-22T21:50:51Z
 https://docs.cloud.google.com/spanner/docs/launch-checklist	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/leader-aware-routing	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/llama-index	2026-06-19T17:35:57Z

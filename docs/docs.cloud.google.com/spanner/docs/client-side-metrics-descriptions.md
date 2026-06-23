@@ -14,7 +14,7 @@ An attempt is a single RPC request from the client to Spanner. The client can ma
 
 An operation represents completion of all RPC requests, including all the attempts the client made to Spanner. An operation is completed when the client receives a response or exhausts all attempts.
 
-An RPC request first reaches the Google frontend (GFE) and then the Spanner API frontend (AFE). For more information, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .
+An RPC request first reaches the Global Front End (GFE) and then the Spanner API frontend (AFE). For more information, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .
 
 These metrics include `DISTRIBUTION` and `INT64` metric value types. For more information, see [Value types and metric kinds](https://docs.cloud.google.com/monitoring/api/v3/kinds-and-types) .
 
@@ -31,6 +31,8 @@ All client-side metrics have the following dimensions:
   - `method` : the RPC method name—for example, `spanner.commit` .
   - `status` : the RPC status—for example, `OK` or `INTERNAL` .
   - `client_name` : the library name and version—for example, `spanner-java/6.70.1` .
+  - `directpath_enabled` : whether the client library is configured to directly access Spanner without going through the frontend.
+  - `directpath_used` : whether the current request was sent directly to Spanner without going through the frontend. A `false` value while `directpath_enabled` is `true` indicates the request fell back to the standard path going through the GFE.
 
 ## AFE connectivity error count
 
