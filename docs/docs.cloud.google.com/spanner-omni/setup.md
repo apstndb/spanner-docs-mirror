@@ -30,7 +30,7 @@ We recommend storing Spanner data in a [Docker volume](https://docs.docker.com/s
     
         docker volume create spanner
 
-2.  Start the Spanner Omni server container. Replace VERSION\_TAG with the Spanner Omni version you want to use. The current version is `2026.r1-beta.1` .
+2.  Start the Spanner Omni server container. Replace VERSION\_TAG with the Spanner Omni version you want to use. The current version is `2026.r1-beta.2` .
     
         docker run -d --network host \
             --name spanneromni \

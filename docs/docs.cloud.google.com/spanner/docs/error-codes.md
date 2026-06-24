@@ -44,7 +44,9 @@ The recommended way to classify errors is to inspect the value of the [canonical
 <tbody>
 <tr class="odd">
 <td><code dir="ltr" translate="no">ABORTED</code></td>
-<td>The operation was aborted, typically due to concurrency issue such as a sequencer check failure or <a href="https://docs.cloud.google.com/spanner/docs/transactions">transaction</a> abort. Indicates that the request conflicted with another request.</td>
+<td>The operation was aborted, typically due to concurrency issue such as a sequencer check failure or <a href="https://docs.cloud.google.com/spanner/docs/transactions">transaction</a> abort. Indicates that the request conflicted with another request.<br />
+<br />
+For more information about <code dir="ltr" translate="no">Database schema has changed</code> errors, see <a href="https://docs.cloud.google.com/spanner/docs/error-codes#database-schema-has-changed">Database schema has changed error</a> .</td>
 <td>For a non-transactional commit:<br />
 Retry the request or structure your entities to reduce contention.<br />
 <br />
@@ -135,6 +137,17 @@ In general, if your application is experiencing <code dir="ltr" translate="no">R
 </tr>
 </tbody>
 </table>
+
+### Database schema has changed error
+
+You might see an `ABORTED` error with a message similar to one of the following:
+
+  - `Database schema has changed`
+  - `Transaction aborted. Database schema probably changed during transaction, retry may succeed.`
+
+These errors typically occur when a schema update aborts the transaction. However, other reasons can also trigger them without an explicit schema update. For example, a temporary internal state, such as a stale client schema during a transaction commit, can trigger this error.
+
+Like other `ABORTED` errors, handle this error by retrying the entire transaction.
 
 ### Session errors
 

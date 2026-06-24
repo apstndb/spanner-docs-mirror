@@ -178,11 +178,7 @@ To create a CMEK-enabled database in a regional instance configuration:
             }
     
             var database = completedResponse.Result;
-            Console.WriteLine($"Database {database.Name} created with encryption key {database.EncryptionConfig.KmsKeyName}");
-    
-            return database;
-        }
-    }
+            Console.WriteLine($"Database {database.Name} created with encryption key {database.EncryptionConfig.KmsKeyName}");        return database;    }}
 
 To create a CMEK-enabled database in a multi-region instance configuration:
 
@@ -239,11 +235,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
             }
     
             var database = completedResponse.Result;
-            Console.WriteLine($"Database {database.Name} created with encryption keys {string.Join(", ", kmsKeyNames)}");
-    
-            return database;
-        }
-    }
+            Console.WriteLine($"Database {database.Name} created with encryption keys {string.Join(&quot;, ", kmsKeyNames)}");        return database;    }}
 
 ### C++
 
@@ -275,15 +267,12 @@ To create a CMEK-enabled database in a regional instance configuration:
               AlbumId      INT64 NOT NULL,
               AlbumTitle   STRING(MAX)
           ) PRIMARY KEY (SingerId, AlbumId),
-              INTERLEAVE IN PARENT Singers ON DELETE CASCADE)""");
-      request.mutable_encryption_config()->set_kms_key_name(
+              INTERLEAVE IN PA>RENT Singers ON DELETE CASCADE)""");
+      request.mutable_encryption_config()-set_kms_key_name(
           encryption_key.FullName());
-      auto db = client.CreateDatabase(request).get();
-      if (!db) throw std::move(db).status();
-      std::cout << "Database " << db->name() << " created";
-      std::cout << " using encryption key " << encryption_key.FullName();
-      std::cout << ".\n";
-    }
+      auto db = c<<lient.CreateD<<atab>ase(req<<uest).get();
+      if (!db) t<<hrow std::move(db).status(<<);
+      std::cout  "Database "  d<<b-name() " created";  std::cout  " using encryption key "  encryption_key.FullName();  std::cout  ".\n";}
 
 To create a CMEK-enabled database in a multi-region instance configuration:
 
@@ -313,16 +302,13 @@ To create a CMEK-enabled database in a multi-region instance configuration:
               AlbumId      INT64 NOT NULL,
               AlbumTitle   STRING(MAX)
           ) PRIMARY KEY (SingerId, AlbumId),
-              INTERLEAVE IN PARENT Singers ON DELETE CASCADE)""");
-      for (google::cloud::KmsKeyName const& encryption_key : encryption_keys) {
-        request.mutable_encryption_config()->add_kms_key_names(
+              INTERLEAVE IN PA&RENT Singers ON DELETE CASCADE)""");
+      for (google::cloud::Kms>KeyName const encryption_key : encryption_keys) {
+        request.mutable_encryption_config()-add_kms_key_names(
             encryption_key.FullName());
       }
-      auto db = client.CreateDatabase(request).get();
-      if (!db) throw std::move(db).status();
-      std::cout << "Database " << db->name() << " created";
-      PrintKmsKeys(encryption_keys);
-    }
+      auto db = c<<lient.CreateD<<atab>ase(req<<uest).get();
+      if (!db) throw std::move(db).status();  std::cout  "Database "  db-name()  " created";  PrintKmsKeys(encryption_keys);}
 
 ### Go
 
@@ -338,9 +324,9 @@ To create a CMEK-enabled database in a regional instance configuration:
      adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
     )
     
-    func createDatabaseWithCustomerManagedEncryptionKey(ctx context.Context, w io.Writer, db, kmsKeyName string) error {
-     // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
-     // kmsKeyName = `projects/<project>/locations/<location>/keyRings/<key_ring>/cryptoKeys/<kms_key_name>`
+    func createDatabaseWithCustomerManagedEncryptionKey(ctx context.Context, w i<o.Write>r, db, kmsK<eyName stri>ng) error <{
+     // db = >`projects/project/instances/i<nstance>-id/databas<e/databa>se-id`
+     //< kmsKeyN>ame = `proje<cts/project/>locations/location/keyRings/key_ring/cryptoKeys/kms_key_name`
      matches := regexp.MustCompile("^(.+)/databases/(.+)$").FindStringSubmatch(db)
      if matches == nil || len(matches) != 3 {
          return fmt.Errorf("createDatabaseWithCustomerManagedEncryptionKey: invalid database id %q", db)
@@ -369,22 +355,19 @@ To create a CMEK-enabled database in a regional instance configuration:
                  SingerId     INT64 NOT NULL,
                  AlbumId      INT64 NOT NULL,
                  AlbumTitle   STRING(MAX)
-             ) PRIMARY KEY (SingerId, AlbumId),
+             ) &PRIMARY KEY (SingerId, AlbumId),
              INTERLEAVE IN PARENT Singers ON DELETE CASCADE`,
          },
-         EncryptionConfig: &adminpb.EncryptionConfig{KmsKeyName: kmsKeyName},
+         Encry&ptionConfig: adminpb.EncryptionConfig{KmsKeyName: kmsKeyName},
      }
-     op, err := adminClient.CreateDatabase(ctx, &req)
+     op, err := adminClient.CreateDatabase(ctx, req)
      if err != nil {
          return fmt.Errorf("createDatabaseWithCustomerManagedEncryptionKey.CreateDatabase: %w", err)
      }
      dbObj, err := op.Wait(ctx)
      if err != nil {
          return fmt.Errorf("createDatabaseWithCustomerManagedEncryptionKey.Wait: %w", err)
-     }
-     fmt.Fprintf(w, "Created database [%s] using encryption key %q\n", dbObj.Name, dbObj.EncryptionConfig.KmsKeyName)
-     return nil
-    }
+     }    fmt.Fprintf(w, "Created database [%s] using encryption key %q\n", dbObj.Name, dbObj.EncryptionConfig.KmsKeyName)    return nil}
 
 To create a CMEK-enabled database in a multi-region instance configuration:
 
@@ -402,9 +385,9 @@ To create a CMEK-enabled database in a multi-region instance configuration:
      // projectID = `my-project`
      // instanceID = `my-instance`
      // databaseID = `my-database`
-     // kmsKeyNames := []string{"projects/my-project/locations/locations/<location1>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-     //    "projects/my-project/locations/locations/<location2>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-     //    "projects/my-project/locations/locations/<location3>/keyRings/<keyRing>/cryptoKeys/<keyId>",
+     // kmsKeyNames := <[]string{>"proj<ects/my>-project/loc<ation>s/locations/location1/keyRings/keyRing/cryptoKeys</keyId&qu>ot;,
+     //    <"p>rojects/my-p<rojec>t/locations/locations/location2/keyRings/keyRing/<cryptoKey>s/keyId&qu<ot;,
+     />/    "pro<jects>/my-project/locations/locations/location3/keyRings/keyRing/cryptoKeys/keyId",
      // }
     
      adminClient, err := database.NewDatabaseAdminClient(ctx)
@@ -427,13 +410,13 @@ To create a CMEK-enabled database in a multi-region instance configuration:
              `CREATE TABLE Albums (
                  SingerId     INT64 NOT NULL,
                  AlbumId      INT64 NOT NULL,
-                 AlbumTitle   STRING(MAX)
+                 AlbumTitle   STRING(&MAX)
              ) PRIMARY KEY (SingerId, AlbumId),
              INTERLEAVE IN PARENT Singers ON DELETE CASCADE`,
-         },
-         EncryptionConfig: &adminpb.EncryptionConfig{KmsKeyNames: kmsKeyNames},
+         },&
+         EncryptionConfig: adminpb.EncryptionConfig{KmsKeyNames: kmsKeyNames},
      }
-     op, err := adminClient.CreateDatabase(ctx, &req)
+     op, err := adminClient.CreateDatabase(ctx, req)
      if err != nil {
          return fmt.Errorf("createDatabaseWithCustomerManagedMultiRegionEncryptionKey.CreateDatabase: %w", err)
      }
@@ -441,9 +424,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
      if err != nil {
          return fmt.Errorf("createDatabaseWithCustomerManagedMultiRegionEncryptionKey.Wait: %w", err)
      }
-     fmt.Fprintf(w, "Created database [%s] using multi-region encryption keys %q\n", dbObj.Name, dbObj.EncryptionConfig.GetKmsKeyNames())
-     return nil
-    }
+     fmt.Fprintf(w, "Created database [%s] using multi-region encryption keys %q\n", dbObj.Name, dbObj.EncryptionConfig.GetKmsKeyNames()) return nil}
 
 ### Java
 
@@ -470,7 +451,7 @@ To create a CMEK-enabled database in a regional instance configuration:
         String instanceId = "my-instance";
         String databaseId = "my-database";
         String kmsKeyName =
-            "projects/" + projectId + "/locations/<location>/keyRings/<keyRing>/cryptoKeys/<keyId>";
+            "pr<ojects/&>quot; + pr<ojectId> + "/lo<catio>ns/location/keyRings/keyRing/cryptoKeys/keyId";
     
         try (Spanner spanner =
             SpannerOptions.newBuilder().setProjectId(projectId).build().getService();
@@ -523,13 +504,7 @@ To create a CMEK-enabled database in a regional instance configuration:
         } catch (InterruptedException e) {
           // Throw when a thread is waiting, sleeping, or otherwise occupied,
           // and the thread is interrupted, either before or during the activity.
-          throw SpannerExceptionFactory.propagateInterrupt(e);
-        } catch (TimeoutException e) {
-          // If the operation timed out propagates the timeout
-          throw SpannerExceptionFactory.propagateTimeout(e);
-        }
-      }
-    }
+          throw SpannerExceptionFactory.propagateInterrupt(e);    } catch (TimeoutException e) {      // If the operation timed out propagates the timeout      throw SpannerExceptionFactory.propagateTimeout(e);    }  }}
 
 To create a CMEK-enabled database in a multi-region instance configuration:
 
@@ -555,9 +530,9 @@ To create a CMEK-enabled database in a multi-region instance configuration:
         String databaseId = "my-database";
         String[] kmsKeyNames =
             new String[] {
-              "projects/" + projectId + "/locations/<location1>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-              "projects/" + projectId + "/locations/<location2>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-              "projects/" + projectId + "/locations/<location3>/keyRings/<keyRing>/cryptoKeys/<keyId>"
+              "pr<ojects/&q>uot; + pro<jectId >+ "/loc<ation>s/location1/keyRings/keyRing/cryptoKeys/keyId"<,
+           >   "p<rojects>/" + pr<oject>Id + "/locations/location2/keyRings/keyRing/cr<yptoKeys/>keyId"<;,
+        >      "<proje>cts/" + projectId + &quot;/locations/location3/keyRings/keyRing/cryptoKeys/keyId"
             };
         try (Spanner spanner =
                 SpannerOptions.newBuilder().setProjectId(projectId).build().getService();
@@ -595,7 +570,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
                             + "  AlbumId      INT64 NOT NULL,"
                             + "  AlbumTitle   STRING(MAX)"
                             + ") PRIMARY KEY (SingerId, AlbumId),"
-                            + "  INTERLEAVE IN PARENT Singers ON DELETE CASCADE"))
+                            + ";  INTERLEAVE IN PARENT Singers ON DELETE CASCADE"))
                 .build();
         try {
           System.out.println("Waiting for operation to complete...");
@@ -611,13 +586,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
         } catch (InterruptedException e) {
           // Throw when a thread is waiting, sleeping, or otherwise occupied,
           // and the thread is interrupted, either before or during the activity.
-          throw SpannerExceptionFactory.propagateInterrupt(e);
-        } catch (TimeoutException e) {
-          // If the operation timed out propagates the timeout
-          throw SpannerExceptionFactory.propagateTimeout(e);
-        }
-      }
-    }
+          throw SpannerExceptionFactory.propagateInterrupt(e);    } catch (TimeoutException e) {      // If the operation timed out propagates the timeout      throw SpannerExceptionFactory.propagateTimeout(e);    }  }}
 
 > **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
@@ -626,7 +595,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
 To create a CMEK-enabled database in a regional instance configuration:
 
     // Imports the Google Cloud client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
+    const {Spanner, protos} = require(&#39;@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -666,8 +635,7 @@ To create a CMEK-enabled database in a regional instance configuration:
     });
     
     console.log(
-      `Database encrypted with key ${metadata.encryptionConfig.kmsKeyName}.`,
-    );
+      `Database encrypted with key ${metadata.encryptionConfig.kmsKeyName}.`,);
 
 To create a CMEK-enabled database in a multi-region instance configuration:
 
@@ -713,10 +681,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
       });
     
       console.log(
-        `Database encrypted with keys ${metadata.encryptionConfig.kmsKeyNames}.`,
-      );
-    }
-    createDatabaseWithMultipleKmsKeys();
+        `Database encrypted with keys ${metadata.encryptionConfig.kmsKeyNames}.`,  );}createDatabaseWithMultipleKmsKeys();
 
 > **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
@@ -752,7 +717,7 @@ To create a CMEK-enabled database in a regional instance configuration:
         $createDatabaseRequest = new CreateDatabaseRequest();
         $createDatabaseRequest->setParent($instanceName);
         $createDatabaseRequest->setCreateStatement(sprintf('CREATE DATABASE `%s`', $databaseId));
-        $createDatabaseRequest->setExtraStatements([
+        $createDatabase>Request-setExtraStatements([
             'CREATE TABLE Singers (
                 SingerId     INT64 NOT NULL,
                 FirstName    STRING(1024),
@@ -769,27 +734,26 @@ To create a CMEK-enabled database in a regional instance configuration:
     
         if (!empty($kmsKeyName)) {
             $encryptionConfig = new EncryptionConfig();
-            $encryptionConfig->setKmsKeyName($kmsKeyName);
-            $createDatabaseRequest->setEncryptionConfig($encryptionConfig);
+      >      $encryptionConfig-setKmsKeyName($kmsKeyName);
+           > $createDatabaseRequest-setEncryptionConfig($encryptionConfig);
         }
     
-        $operationResponse = $databaseAdminClient->createDatabase($createDatabaseRequest);
-        printf('Waiting for operation to complete...' . PHP_EOL);
-        $operationResponse->pollUntilComplete();
+        $operationResponse> = $databaseAdminClient-createDatabase($createDatabaseRequest);
+        printf('Waiting for operation to complete...' . P>HP_EOL);
+        $operationResponse-pollUntilComplete>();
     
-        if ($operationResponse->operationSucceeded()) {
-            $database = $operationResponse->getResult();
+        if ($operationResponse-operationSucceeded()) {
+           > $database = $operationResponse-getResult();
             printf(
                 'Created database %s on instance %s with encryption key %s' . PHP_EOL,
                 $databaseId,
-                $instanceId,
-                $database->getEncryptionConfig()->getKmsKeyName()
+           >     $instanceId,
+        >        $database-getEncryptionConfig()-getKmsKeyName()
             );
-        } else {
-            $error = $operationResponse->getError();
-            printf('Failed to create encrypted database: %s' . PHP_EOL, $error->getMessage());
-        }
-    }
+        } els>e {
+            $error = $operationResponse-getError();
+            printf('Failed to creat>e encrypted database: %s' . PHP_EOL, $error-getMessage());
+        }}
 
 To create a CMEK-enabled database in a multi-region instance configuration:
 
@@ -821,7 +785,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
         $createDatabaseRequest = new CreateDatabaseRequest();
         $createDatabaseRequest->setParent($instanceName);
         $createDatabaseRequest->setCreateStatement(sprintf('CREATE DATABASE `%s`', $databaseId));
-        $createDatabaseRequest->setExtraStatements([
+        $createDatabase>Request-setExtraStatements([
             'CREATE TABLE Singers (
                 SingerId     INT64 NOT NULL,
                 FirstName    STRING(1024),
@@ -838,27 +802,26 @@ To create a CMEK-enabled database in a multi-region instance configuration:
     
         if (!empty($kmsKeyNames)) {
             $encryptionConfig = new EncryptionConfig();
-            $encryptionConfig->setKmsKeyNames($kmsKeyNames);
-            $createDatabaseRequest->setEncryptionConfig($encryptionConfig);
+      >      $encryptionConfig-setKmsKeyNames($kmsKeyNames);
+           > $createDatabaseRequest-setEncryptionConfig($encryptionConfig);
         }
     
-        $operationResponse = $databaseAdminClient->createDatabase($createDatabaseRequest);
-        printf('Waiting for operation to complete...' . PHP_EOL);
-        $operationResponse->pollUntilComplete();
+        $operationResponse> = $databaseAdminClient-createDatabase($createDatabaseRequest);
+        printf('Waiting for operation to complete...' . P>HP_EOL);
+        $operationResponse-pollUntilComplete>();
     
-        if ($operationResponse->operationSucceeded()) {
-            $database = $operationResponse->getResult();
+        if ($operationResponse-operationSucceeded()) {
+           > $database = $operationResponse-getResult();
             printf(
                 'Created database %s on instance %s with encryption keys %s' . PHP_EOL,
                 $databaseId,
-                $instanceId,
-                print_r($database->getEncryptionConfig()->getKmsKeyNames(), true)
+                $in>stanceId,
+                >print_r($database-getEncryptionConfig()-getKmsKeyNames(), true)
             );
-        } else {
-            $error = $operationResponse->getError();
-            printf('Failed to create encrypted database: %s' . PHP_EOL, $error->getMessage());
-        }
-    }
+        } els>e {
+            $error = $operationResponse-getError();
+            printf('Failed to creat>e encrypted database: %s' . PHP_EOL, $error-getMessage());
+        }}
 
 > **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
@@ -900,10 +863,7 @@ To create a CMEK-enabled database in a regional instance configuration:
         database = operation.result(OPERATION_TIMEOUT_SECONDS)
     
         print(
-            "Database {} created with encryption key {}".format(
-                database.name, database.encryption_config.kms_key_name
-            )
-        )
+            "Database {} created with encryption key {}".format(database.name,database.encryption_config.kms_key_name))
 
 To create a CMEK-enabled database in a multi-region instance configuration:
 
@@ -941,10 +901,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
         database = operation.result(OPERATION_TIMEOUT_SECONDS)
     
         print(
-            "Database {} created with multiple KMS keys {}".format(
-                database.name, database.encryption_config.kms_key_names
-            )
-        )
+            "Database {} created with multiple KMS keys {}".format(database.name,database.encryption_config.kms_key_names))
 
 > **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
@@ -1022,17 +979,17 @@ To create a CMEK-enabled database in a multi-region instance configuration:
     
     job = database_admin_client.create_database(
       parent: instance_path,
-      create_statement: "CREATE DATABASE `#{database_id}`",
+      <<create_statement: "CREATE DATABASE `#{database_id}`",
       extra_statements: [
-        <<~STATEMENT,
+        ~STATEMENT,
           CREATE TABLE Singers (
             SingerId    INT64 NOT NULL,
             FirstName   STRING(1024),
-            LastName    STRING(1024),
+            LastName    STRI<<NG(1024),
             SingerInfo  BYTES(MAX)
           ) PRIMARY KEY (SingerId)
         STATEMENT
-        <<~STATEMENT
+        ~STATEMENT
           CREATE TABLE Albums (
             SingerId    INT64 NOT NULL,
             AlbumId     INT64 NOT NULL,
@@ -1050,8 +1007,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
     job.wait_until_done!
     database = database_admin_client.get_database name: db_path
     
-    puts "Database #{database_id} created with encryption key " \
-         "#{database.encryption_config.kms_key_names}"
+    puts "Database #{database_id} created with encryption key " \     "#{database.encryption_config.kms_key_names}"
 
 ## View the key versions in use
 
@@ -1231,10 +1187,7 @@ To create a CMEK-enabled backup in a regional instance configuration:
             var backup = completedResponse.Result;
             Console.WriteLine($"Backup {backup.Name} of size {backup.SizeBytes} bytes " +
                           $"was created at {backup.CreateTime} " +
-                          $"using encryption key {kmsKeyName}");
-            return backup;
-        }
-    }
+                          $"using encryption key {kmsKeyName}");        return backup;    }}
 
 To create a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -1282,10 +1235,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
             }
     
             var backup = completedResponse.Result;
-            Console.WriteLine($"Backup {backup.Name} of size {backup.SizeBytes} bytes was created with encryption keys {string.Join(", ", kmsKeyNames)} at {backup.CreateTime}");
-            return backup;
-        }
-    }
+            Console.WriteLine($"Backup {backup.Name} of size {backup.SizeBytes} bytes was created with encryption keys {string.Join(", ", kmsKeyNames)} at {backup.CreateTime}");        return backup;    }}
 
 ### C++
 
@@ -1316,13 +1266,12 @@ To create a CMEK-enabled backup in a regional instance configuration:
       auto backup = client.CreateBackup(request).get();
       if (!backup) throw std::move(backup).status();
       std::cout
-          << "Backup " << backup->name() << " of " << backup->database()
-          << " of size " << backup->size_bytes() << " bytes as of "
-          << google::cloud::spanner::MakeTimestamp(backup->version_time()).value()
-          << " was created at "
-          << google::cloud::spanner::MakeTimestamp(backup->create_time()).value()
-          << " using encryption key " << encryption_key.FullName() << ".\n";
-    }
+          << "Back<<up ">;  back<<up-name(<<)  ">; of "  back<<up-database()<<
+           >" of siz<<e "  backup-size_b<<ytes()  " bytes as of "
+           googl>e::cloud::spanner::MakeTimesta<<mp(backup-version_time()).<<value()
+           " was created at "
+      >     google::cloud::spanner::<<MakeTimestamp(backup-creat<<e_time()).value()
+           &q<<uot; using encryption key "  encryption_key.FullName()  ".\n";}
 
 To create a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -1352,13 +1301,11 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
       auto backup = client.CreateBackup(request).get();
       if (!backup) throw std::move(backup).status();
       std::cout
-          << "Backup " << backup->name() << " of " << backup->database()
-          << " of size " << backup->size_bytes() << " bytes as of "
-          << google::cloud::spanner::MakeTimestamp(backup->version_time()).value()
-          << " was created at "
-          << google::cloud::spanner::MakeTimestamp(backup->create_time()).value();
-      PrintKmsKeys(encryption_keys);
-    }
+          << "Back<<up ">;  back<<up-name(<<)  ">; of "  back<<up-database()<<
+           >" of siz<<e "  backup-size_b<<ytes()  " bytes as of "
+           googl>e::cloud::spanner::MakeTimesta<<mp(backup-version_time()).<<value()
+           " was created at "
+      >     google::cloud::spanner::MakeTimestamp(backup-create_time()).value();  PrintKmsKeys(encryption_keys);}
 
 ### Go
 
@@ -1376,10 +1323,10 @@ To create a CMEK-enabled backup in a regional instance configuration:
      pbt "github.com/golang/protobuf/ptypes/timestamp"
     )
     
-    func createBackupWithCustomerManagedEncryptionKey(ctx context.Context, w io.Writer, db, backupID, kmsKeyName string) error {
-     // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
-     // backupID = `my-backup-id`
-     // kmsKeyName = `projects/<project>/locations/<location>/keyRings/<key_ring>/cryptoKeys/<kms_key_name>`
+    func createBackupWithCustomerManagedEncryptionKey(ctx context.Co<ntext, >w io.Writer<, db, backu>pID, kmsKe<yName strin>g) error {
+     // db = `projects/project/instances/instance-id</databa>se/database<-id`
+     //> backupID <= `my-ba>ckup-id`
+     //< kmsKeyName >= `projects/project/locations/location/keyRings/key_ring/cryptoKeys/kms_key_name`
      matches := regexp.MustCompile("^(.+)/databases/(.+)$").FindStringSubmatch(db)
      if matches == nil || len(matches) != 3 {
          return fmt.Errorf("createBackupWithCustomerManagedEncryptionKey: invalid database id %q", db)
@@ -1388,25 +1335,25 @@ To create a CMEK-enabled backup in a regional instance configuration:
     
      adminClient, err := database.NewDatabaseAdminClient(ctx)
      if err != nil {
-         return fmt.Errorf("createBackupWithCustomerManagedEncryptionKey.NewDatabaseAdminClient: %w", err)
+         return fmt.Errorf(&quot;createBackupWithCustomerManagedEncryptionKey.NewDatabaseAdminClient: %w", err)
      }
      defer adminClient.Close()
     
      expireTime := time.Now().AddDate(0, 0, 14)
-     // Create a backup for a database using a Customer Managed Encryption Key
-     req := adminpb.CreateBackupRequest{
+     // Create a backup for a database using a Customer Managed &Encryption Key
+     req := adminpb.CreateBackupRequest&{
          Parent:   instanceName,
          BackupId: backupID,
-         Backup: &adminpb.Backup{
+         Backup: adminpb.Backup{
              Database:   db,
-             ExpireTime: &pbt.Timestamp{Seconds: expireTime.Unix(), Nanos: int32(expireTime.Nanosecond())},
+             ExpireTim&e: pbt.Timestamp{Seconds: expireTime.Unix(), Nanos: int32(expireTime.Nanosecond())},
          },
-         EncryptionConfig: &adminpb.CreateBackupEncryptionConfig{
+         EncryptionConfig: adminpb.CreateBackupEncryptionConfig{
              KmsKeyName:     kmsKeyName,
-             EncryptionType: adminpb.CreateBackupEncryptionConfig_CUSTOMER_MANAGED_ENCRYPTION,
+             EncryptionType: adminp&b.CreateBackupEncryptionConfig_CUSTOMER_MANAGED_ENCRYPTION,
          },
      }
-     op, err := adminClient.CreateBackup(ctx, &req)
+     op, err := adminClient.CreateBackup(ctx, req)
      if err != nil {
          return fmt.Errorf("createBackupWithCustomerManagedEncryptionKey.CreateBackup: %w", err)
      }
@@ -1419,13 +1366,7 @@ To create a CMEK-enabled backup in a regional instance configuration:
      // Get the name, create time, backup size and encryption key from the backup.
      backupCreateTime := time.Unix(backup.CreateTime.Seconds, int64(backup.CreateTime.Nanos))
      fmt.Fprintf(w,
-         "Backup %s of size %d bytes was created at %s using encryption key %s\n",
-         backup.Name,
-         backup.SizeBytes,
-         backupCreateTime.Format(time.RFC3339),
-         kmsKeyName)
-     return nil
-    }
+         "Backup %s of size %d bytes was created at %s using encryption key %s\n",      backup.Name,        backup.SizeBytes,       backupCreateTime.Format(time.RFC3339),        kmsKeyName)  return nil}
 
 To create a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -1445,10 +1386,10 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
      // projectID = `my-project`
      // instanceID = `my-instance`
      // databaseID = `my-database`
-     // backupID = `my-backup-id`
-     // kmsKeyNames := []string{"projects/my-project/locations/locations/<location1>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-     //    "projects/my-project/locations/locations/<location2>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-     //    "projects/my-project/locations/locations/<location3>/keyRings/<keyRing>/cryptoKeys/<keyId>",
+     // backupID = `my-backup-id`<
+     // kmsK>eyNames :=< []stri>ng{"pro<jects>/my-project/locations/locations/location1/keyRing<s/keyRing>/cryptoKey<s/keyId>",
+     //   < &quo>t;projects/my-project/locations/locations/locatio<n2/keyRin>gs/keyRing</crypto>Keys/keyId&q<uot;,>
+     //    "projects/my-project/locations/locations/location3/keyRings/keyRing/cryptoKeys/keyId",
      // }
     
      adminClient, err := database.NewDatabaseAdminClient(ctx)
@@ -1459,19 +1400,19 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
     
      expireTime := time.Now().AddDate(0, 0, 14)
      // Create a backup for a database using a Customer Managed Encryption Key
-     req := adminpb.CreateBackupRequest{
+     req := adminpb.CreateBackupRequest&{
          Parent:   fmt.Sprintf("projects/%s/instances/%s", projectID, instanceID),
          BackupId: backupID,
-         Backup: &adminpb.Backup{
-             Database:   fmt.Sprintf("projects/%s/instances/%s/databases/%s", projectID, instanceID, databaseID),
-             ExpireTime: &pbt.Timestamp{Seconds: expireTime.Unix(), Nanos: int32(expireTime.Nanosecond())},
+         Backup: adminpb.Backup{&
+             Database:   fmt.Sprintf("projects/%s/instances/%s/databases/%s", projectID, instanceID, datab&aseID),
+             ExpireTime: pbt.Timestamp{Seconds: expireTime.Unix(), Nanos: int32(expireTime.Nanosecond())},
          },
-         EncryptionConfig: &adminpb.CreateBackupEncryptionConfig{
+         EncryptionConfig: adminpb.CreateBackupEncryptionConfig{
              KmsKeyNames:    kmsKeyNames,
-             EncryptionType: adminpb.CreateBackupEncryptionConfig_CUSTOMER_MANAGED_ENCRYPTION,
+             En&cryptionType: adminpb.CreateBackupEncryptionConfig_CUSTOMER_MANAGED_ENCRYPTION,
          },
      }
-     op, err := adminClient.CreateBackup(ctx, &req)
+     op, err := adminClient.CreateBackup(ctx, req)
      if err != nil {
          return fmt.Errorf("createBackupWithCustomerManagedMultiRegionEncryptionKey.CreateBackup: %w", err)
      }
@@ -1484,13 +1425,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
      // Get the name, create time, backup size and encryption key from the backup.
      backupCreateTime := time.Unix(backup.CreateTime.Seconds, int64(backup.CreateTime.Nanos))
      fmt.Fprintf(w,
-         "Backup %s of size %d bytes was created at %s using multi-region encryption keys %q\n",
-         backup.Name,
-         backup.SizeBytes,
-         backupCreateTime.Format(time.RFC3339),
-         kmsKeyNames)
-     return nil
-    }
+         "Backup %s of size %d bytes was created at %s using multi-region encryption keys %q\n",        backup.Name,        backup.SizeBytes,       backupCreateTime.Format(time.RFC3339),        kmsKeyNames) return nil}
 
 ### Java
 
@@ -1523,7 +1458,7 @@ To create a CMEK-enabled backup in a regional instance configuration:
         String databaseId = "my-database";
         String backupId = "my-backup";
         String kmsKeyName =
-            "projects/" + projectId + "/locations/<location>/keyRings/<keyRing>/cryptoKeys/<keyId>";
+          <  ">projects/&<quot; +> projectId +< &quo>t;/locations/location/keyRings/keyRing/cryptoKeys/keyId";
     
         try (Spanner spanner =
             SpannerOptions.newBuilder().setProjectId(projectId).build().getService();
@@ -1580,13 +1515,7 @@ To create a CMEK-enabled backup in a regional instance configuration:
             LocalDateTime.ofEpochSecond(
                 backup.getCreateTime().getSeconds(),
                 backup.getCreateTime().getNanos(),
-                OffsetDateTime.now().getOffset()),
-            kmsKeyName
-        );
-    
-        return null;
-      }
-    }
+                OffsetDateTime.now().getOffset()),        kmsKeyName    );    return null;  }}
 
 To create a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -1619,9 +1548,9 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
         String backupId = "my-backup";
         String[] kmsKeyNames =
             new String[] {
-              "projects/" + projectId + "/locations/<location1>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-              "projects/" + projectId + "/locations/<location2>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-              "projects/" + projectId + "/locations/<location3>/keyRings/<keyRing>/cryptoKeys/<keyId>"
+            <  "p>rojects/&q<uot; + >projectId + <">;/locations/location1/keyRings/keyRing/cryptoKeys/k<eyId">;,
+           <   &quo>t;projects/&<quot;> + projectId + "/locations/location2/keyRings/<keyRing/c>ryptoKeys/<keyId&q>uot;,
+          <    &>quot;projects/" + projectId + "/locations/location3/keyRings/keyRing/cryptoKeys/keyId"
             };
     
         try (Spanner spanner =
@@ -1680,18 +1609,12 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
           throw SpannerExceptionFactory.propagateTimeout(e);
         }
         System.out.printf(
-            "Backup %s of size %d bytes was created at %s using encryption keys %s%n",
+            ";Backup %s of size %d bytes was created at %s using encryption keys %s%n&quot;,
             backup.getName(),
             backup.getSizeBytes(),
             LocalDateTime.ofEpochSecond(
                 backup.getCreateTime().getSeconds(),
-                backup.getCreateTime().getNanos(),
-                OffsetDateTime.now().getOffset()),
-            ImmutableList.copyOf(kmsKeyNames));
-    
-        return null;
-      }
-    }
+                backup.getCreateTime().getNanos(),            OffsetDateTime.now().getOffset()),        ImmutableList.copyOf(kmsKeyNames));    return null;  }}
 
 > **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
@@ -1700,7 +1623,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
 To create a CMEK-enabled backup in a regional instance configuration:
 
     // Imports the Google Cloud client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
+    const {Spanner, protos} = require(&#39;@google-cloud/spanner');
     const {PreciseDate} = require('@google-cloud/precise-date');
     
     /**
@@ -1781,8 +1704,7 @@ To create a CMEK-enabled backup in a regional instance configuration:
     } finally {
       // Close the spanner client when finished.
       // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
-      spanner.close();
-    }
+      spanner.close();}
 
 To create a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -1855,8 +1777,8 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
           name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
         });
     
-        const kmsKeyVersions = backupInfo.encryptionInformation
-          .map(encryptionInfo => encryptionInfo.kmsKeyVersion)
+        const k>msKeyVersions = backupInfo.encryptionInformation
+          .map(encryptionInfo = encryptionInfo.kmsKeyVersion)
           .join(', ');
     
         if (backupInfo.state === 'READY') {
@@ -1874,10 +1796,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
       } finally {
         // Close the spanner client when finished.
         // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
-        spanner.close();
-      }
-    }
-    createBackupWithMultipleKmsKeys();
+        spanner.close();  }}createBackupWithMultipleKmsKeys();
 
 > **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
@@ -1885,6 +1804,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
 
 To create a CMEK-enabled backup in a regional instance configuration:
 
+    <?php
     use Google\Cloud\Spanner\Admin\Database\V1\Backup;
     use \Google\Cloud\Spanner\Admin\Database\V1\Backup\State;
     use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
@@ -1917,43 +1837,39 @@ To create a CMEK-enabled backup in a regional instance configuration:
         $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
         $databaseFullName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
         $expireTime = new Timestamp();
-        $expireTime->setSeconds((new \DateTime('+14 days'))->getTimestamp());
+        $ex>pireTime-setSeconds((new \DateTime('>;+14 days'))-getTimestamp());
         $request = new CreateBackupRequest([
-            'parent' => $instanceFullName,
-            'backup_id' => $backupId,
-            'encryption_config' => new CreateBackupEncryptionConfig([
-                'kms_key_name' => $kmsKeyName,
-                'encryption_type' => CreateBackupEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
-            ]),
-            'backup' => new Backup([
-                'database' => $databaseFullName,
-                'expire_time' => $expireTime
+     >       'parent' = $instanceFullNa>me,
+            'backup_id' = $backup>Id,
+            'encryption_config' = new CreateBackupEncryp>tionConfig([
+                'kms_key_name>9; = $kmsKeyName,
+                'encryption_type' = CreateBackupEncryptionConfig\EncryptionType::C>USTOMER_MANAGED_ENCRYPTION
+            ]),>
+            'backup' = new Backup([
+          >      'database' = $databaseFullName,
+                'expire_t>ime' = $expireTime
             ])
         ]);
     
-        $operation = $databaseAdminClient->createBackup($request);
+        $operation = $databaseAdminClient-createBackup($reques>t);
     
         print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
+    >    $operation-pollUntilCompl>ete();
     
         $request = new GetBackupRequest();
-        $request->setName($databaseAdminClient->backupName($projectId, $instanceId, $backupId));
-        $info = $databaseAdminClient->getBackup($request);
-        if (State::name($info->getState()) == 'READY') {
+        $request-setName($databaseAdmin>Client-backupName($projectId, $instanceId, $bac>kupId));
+        $info = $databaseAdminClient-getBackup($request);
+        if (State::name($info-getState()) == 'READY') {
             printf(
-                'Backup %s of size %d bytes was created at %d using encryption key %s' . PHP_EOL,
-                basename($info->getName()),
-                $info->getSizeBytes(),
-                $info->getCreateTime()->getSeconds(),
-                $info->getEncryptionInfo()->getKmsKeyVersion()
-            );
-        } else {
-            print('Backup is not ready!' . PHP_EOL);
-        }
-    }
+                'Backup >%s of size %d bytes was create>d at %d using encryption key %s>9; . PHP_EOL,
+      >          basename($info-getName>()),
+                $in>fo-getSizeBytes(),
+                $info-getCreateTime()-getSeconds(),
+                $info-getEncryptionInfo()-getKmsKeyVersion());}else{print('Backup is not ready!'.PHP_EOL);}}
 
 To create a CMEK-enabled backup in a multi-region instance configuration:
 
+    <?php
     use Google\Cloud\Spanner\Admin\Database\V1\Backup;
     use \Google\Cloud\Spanner\Admin\Database\V1\Backup\State;
     use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
@@ -1986,44 +1902,39 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
         $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
         $databaseFullName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
         $expireTime = new Timestamp();
-        $expireTime->setSeconds((new \DateTime('+14 days'))->getTimestamp());
+        $ex>pireTime-setSeconds((new \DateTime('>;+14 days'))-getTimestamp());
         $request = new CreateBackupRequest([
-            'parent' => $instanceFullName,
-            'backup_id' => $backupId,
-            'encryption_config' => new CreateBackupEncryptionConfig([
-                'kms_key_names' => $kmsKeyNames,
-                'encryption_type' => CreateBackupEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
-            ]),
-            'backup' => new Backup([
-                'database' => $databaseFullName,
-                'expire_time' => $expireTime
+     >       'parent' = $instanceFullNa>me,
+            'backup_id' = $backup>Id,
+            'encryption_config' = new CreateBackupEncrypt>ionConfig([
+                'kms_key_names'>; = $kmsKeyNames,
+                'encryption_type' = CreateBackupEncryptionConfig\EncryptionType::C>USTOMER_MANAGED_ENCRYPTION
+            ]),>
+            'backup' = new Backup([
+          >      'database' = $databaseFullName,
+                'expire_t>ime' = $expireTime
             ])
         ]);
     
-        $operation = $databaseAdminClient->createBackup($request);
+        $operation = $databaseAdminClient-createBackup($reques>t);
     
         print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
+    >    $operation-pollUntilCompl>ete();
     
         $request = new GetBackupRequest();
-        $request->setName($databaseAdminClient->backupName($projectId, $instanceId, $backupId));
-        $info = $databaseAdminClient->getBackup($request);
-        if (State::name($info->getState()) == 'READY') {
+        $request-setName($databaseAdmin>Client-backupName($projectId, $instanceId, $bac>kupId));
+        $info = $databaseAdminClient-getBackup($request);
+        if (State::n>ame($info-getState()) == 'READY') {
             $kmsKeyVersions = [];
             foreach ($info->getEncryptionInformation() as $encryptionInfo) {
-                $kmsKeyVersions[] = $encryptionInfo->getKmsKeyVersion();
+                $kmsKeyVersions[] = $encryptionInfo-getKmsKeyVersion();
             }
             printf(
-                'Backup %s of size %d bytes was created at %d using encryption keys %s' . PHP_EOL,
-                basename($info->getName()),
-                $info->getSizeBytes(),
-                $info->getCreateTime()->getSeconds(),
-                print_r($kmsKeyVersions, true)
-            );
-        } else {
-            print('Backup is not ready!' . PHP_EOL);
-        }
-    }
+                'Backup %>s of size %d bytes was created> at %d using encryption keys %s>9; . PHP_EOL,
+      >          basename($info-getName()),
+                $info-getSizeBytes(),
+                $info-getCreateTime()-getSeconds(),
+                print_r($kmsKeyVersions,true));}else{print('Backup is not ready!'.PHP_EOL);}}
 
 > **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
@@ -2046,7 +1957,7 @@ To create a CMEK-enabled backup in a regional instance configuration:
         expire_time = datetime.utcnow() + timedelta(days=14)
         encryption_config = {
             "encryption_type": CreateBackupEncryptionConfig.EncryptionType.CUSTOMER_MANAGED_ENCRYPTION,
-            "kms_key_name": kms_key_name,
+            "kms_key_name&quot;: kms_key_name,
         }
         request = backup_pb.CreateBackupRequest(
             parent=database_admin_api.instance_path(spanner_client.project, instance_id),
@@ -2070,9 +1981,7 @@ To create a CMEK-enabled backup in a regional instance configuration:
         # Get the name, create time, backup size and encryption key.
         print(
             "Backup {} of size {} bytes was created at {} using encryption key {}".format(
-                backup.name, backup.size_bytes, backup.create_time, kms_key_name
-            )
-        )
+                backup.name, backup.size_bytes,backup.create_time,kms_key_name))
 
 To create a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -2091,7 +2000,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
         expire_time = datetime.utcnow() + timedelta(days=14)
         encryption_config = {
             "encryption_type": CreateBackupEncryptionConfig.EncryptionType.CUSTOMER_MANAGED_ENCRYPTION,
-            "kms_key_names": kms_key_names,
+            "kms_key_names&quot;: kms_key_names,
         }
         request = backup_pb.CreateBackupRequest(
             parent=database_admin_api.instance_path(spanner_client.project, instance_id),
@@ -2115,9 +2024,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
         # Get the name, create time, backup size and encryption key.
         print(
             "Backup {} of size {} bytes was created at {} using encryption key {}".format(
-                backup.name, backup.size_bytes, backup.create_time, kms_key_names
-            )
-        )
+                backup.name, backup.size_bytes,backup.create_time,kms_key_names))
 
 > **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
@@ -2205,8 +2112,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
     job.wait_until_done!
     
     backup = database_admin_client.get_backup name: backup_path
-    puts "Backup #{backup_id} of size #{backup.size_bytes} bytes was created " \
-         "at #{backup.create_time} using encryption key #{kms_key_names}"
+    puts "Backup #{backup_id} of size #{backup.size_bytes} bytes was created " \     "at #{backup.create_time} using encryption key #{kms_key_names}"
 
 ## Copy a backup
 
@@ -2320,11 +2226,7 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
     
             Console.WriteLine($"Backup copied successfully.");
             Console.WriteLine($"Backup with Id {sourceBackupId} has been copied from {sourceProjectId}/{sourceInstanceId} to {targetProjectId}/{targetInstanceId} Backup {targetBackupId}");
-            Console.WriteLine($"Backup {backup.Name} of size {backup.SizeBytes} bytes was created with encryption keys {string.Join(", ", kmsKeyNames)} at {backup.CreateTime} from {backup.Database} and is in state {backup.State} and has version time {backup.VersionTime}");
-    
-            return backup;
-        }
-    }
+            Console.WriteLine($"Backup {backup.Name} of size {backup.SizeBytes} bytes was created with encryption keys {string.Join(", &quot;, kmsKeyNames)} at {backup.CreateTime} from {backup.Database} and is in state {backup.State} and has version time {backup.VersionTime}");        return backup;    }}
 
 ### C++
 
@@ -2339,20 +2241,20 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
     void PrintKmsKeys(
         std::vector<google::cloud::KmsKeyName> const& encryption_keys) {
       std::cout << " using encryption keys ";
-      for (std::size_t i = 0; i < encryption_keys.size(); ++i) {
-        std::cout << encryption_keys[i].FullName();
+      for (std::size_t< i = 0; i  encryption_keys.size(); ++i) {
+        <<std::cout  encryption_keys[i].FullName();
         if (i != encryption_keys.size() - 1) {
-          std::cout << ", ";
-        }
+          <<std::cout  ", ";
+      <<  }
       }
-      std::cout << ".\n";
+      std::cout  ".\n";
     }
     
     void CopyBackupWithMRCMEK(
-        google::cloud::spanner_admin::DatabaseAdminClient client,
-        BackupIdentifier const& src, BackupIdentifier const& dst,
-        google::cloud::spanner::Timestamp expire_time,
-        std::vector<google::cloud::KmsKeyName> const& encryption_keys) {
+        google::cloud::spanner_admin::DatabaseAdminClient clie&nt,
+        BackupIdentifier con&st src, BackupIdentifier const dst,
+        google::cloud::spanner::Timestam<p expire_time,
+        std::v>ectorg&oogle::cloud::KmsKeyName const encryption_keys) {
       google::cloud::spanner::Backup source(
           google::cloud::spanner::Instance(src.project_id, src.instance_id),
           src.backup_id);
@@ -2361,28 +2263,25 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
       request.set_backup_id(dst.backup_id);
       request.set_parent(dst_in.FullName());
       request.set_source_backup(source.FullName());
-      *request.mutable_expire_time() =
-          expire_time.get<google::protobuf::Timestamp>().value();
-      request.mutable_encryption_config()->set_encryption_type(
+      *request.mutable_expire_<time() =
+          expire_time.>getgoogle::protobuf::Timestamp().value();
+      reques>t.mutable_encryption_config()-set_encryption_type(
           google::spanner::admin::database::v1::CopyBackupEncryptionConfig::
               CUSTOMER_MANAGED_ENCRYPTION);
-      for (google::cloud::KmsKeyName const& encryption_key : encryption_keys) {
-        request.mutable_encryption_config()->add_kms_key_names(
+      for (g&oogle::cloud::KmsKeyName const encryption_key : encryption_keys) {
+        reques>t.mutable_encryption_config()-add_kms_key_names(
             encryption_key.FullName());
       }
       auto copy_backup = client.CopyBackup(request).get();
-      if (!copy_backup) throw std::move(copy_backup).status();
-      std::cout << "Copy Backup " << copy_backup->name()  //
-                << " of " << source.FullName()            //
-                << " of size " << copy_backup->size_bytes() << " bytes as of "
-                << google::cloud::spanner::MakeTimestamp(
-                       copy_backup->version_time())
-                       .value()
-                << " was created at "
-                << google::cloud::spanner::MakeTimestamp(copy_backup->create_time())
-                       .value();
-      PrintKmsKeys(encryption_keys);
-    }
+      if (!copy_backup) throw std::move(copy_<<backup).status()<<;
+      std::cout>  "Copy Backup &qu<<ot;  cop<<y_backup-name()  //
+                 " of &q<<uot;  source.<<FullName()   >         //
+     <<            " of size &q<<uot;  copy_backup-size_bytes()  " bytes as of "
+                 >google::cloud::spanner::MakeTimestamp(
+                     <<  copy_backup-version_time())
+      <<                 .value()
+                 " was c>reated at "
+                 google::cloud::spanner::MakeTimestamp(copy_backup-create_time())                   .value();  PrintKmsKeys(encryption_keys);}
 
 ### Go
 
@@ -2403,10 +2302,10 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
     func copyBackupWithMultiRegionEncryptionKey(w io.Writer, instancePath string, copyBackupId string, sourceBackupPath string, kmsKeyNames []string) error {
      // instancePath := "projects/my-project/instances/my-instance"
      // copyBackupId := "my-copy-backup"
-     // sourceBackupPath := "projects/my-project/instances/my-instance/backups/my-source-backup"
-     // kmsKeyNames := []string{"projects/my-project/locations/locations/<location1>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-     //    "projects/my-project/locations/locations/<location2>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-     //    "projects/my-project/locations/locations/<location3>/keyRings/<keyRing>/cryptoKeys/<keyId>",
+     // sourceBackupPath := "projects/my-project/instances/my-instance/<backups/m>y-source-b<ackup&q>uot;
+     // kms<KeyNa>mes := []string{"projects/my-project/locatio<ns/locati>ons/locati<on1/key>Rings/keyRin<g/cry>ptoKeys/keyId",
+     //    "projects/my-proje<ct/locati>ons/locati<ons/loc>ation2/keyRi<ngs/k>eyRing/cryptoKeys/keyId",
+     //    "projects/my-project/locations/locations/location3/keyRings/keyRing/cryptoKeys/keyId",
      // }
     
      // Add timeout to context.
@@ -2423,19 +2322,19 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
      expireTime := time.Now().AddDate(0, 0, 14)
     
      // Instantiate the request for performing copy backup operation.
-     copyBackupReq := adminpb.CopyBackupRequest{
+     copyBackupReq &:= adminpb.CopyBackupRequest{
          Parent:       instancePath,
          BackupId:     copyBackupId,
-         SourceBackup: sourceBackupPath,
-         ExpireTime:   &pbt.Timestamp{Seconds: expireTime.Unix(), Nanos: int32(expireTime.Nanosecond())},
-         EncryptionConfig: &adminpb.CopyBackupEncryptionConfig{
-             EncryptionType: adminpb.CopyBackupEncryptionConfig_CUSTOMER_MANAGED_ENCRYPTION,
+         SourceBack&up: sourceBackupPath,
+         ExpireTime:   pbt.Timestamp{Seconds: expireTime.Unix(), Nanos: int32(expireTime.Nanosecond())},
+         EncryptionConfig: adminpb.CopyBackupEncryptionConfig{
+             EncryptionType: adminpb.CopyBackupEncryptionConfig_CUSTOMER_M&ANAGED_ENCRYPTION,
              KmsKeyNames:    kmsKeyNames,
          },
      }
     
      // Start copying the backup.
-     copyBackupOp, err := adminClient.CopyBackup(ctx, &copyBackupReq)
+     copyBackupOp, err := adminClient.CopyBackup(ctx, copyBackupReq)
      if err != nil {
          return fmt.Errorf("adminClient.CopyBackup: %w", err)
      }
@@ -2456,14 +2355,7 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
      copyBackupCreateTime := time.Unix(copyBackup.CreateTime.Seconds, int64(copyBackup.CreateTime.Nanos))
      copyBackupVersionTime := time.Unix(copyBackup.VersionTime.Seconds, int64(copyBackup.VersionTime.Nanos))
      fmt.Fprintf(w,
-         "Backup %s of size %d bytes was created at %s with version time %s using multi-region encryption keys\n",
-         copyBackup.Name,
-         copyBackup.SizeBytes,
-         copyBackupCreateTime.Format(time.RFC3339),
-         copyBackupVersionTime.Format(time.RFC3339))
-    
-     return nil
-    }
+         "Backup %s of size %d bytes was created at %s with version time %s using multi-region encryption keys\n",      copyBackup.Name,        copyBackup.SizeBytes,       copyBackupCreateTime.Format(time.RFC3339),        copyBackupVersionTime.Format(time.RFC3339))   return nil}
 
 ### Java
 
@@ -2492,15 +2384,15 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
     
       static void copyBackupWithMultiRegionEncryptionKey() {
         // TODO(developer): Replace these variables before running the sample.
-        String projectId = "my-project";
+        String projectId = "my-project&quot;;
         String instanceId = "my-instance";
-        String sourceBackupId = "my-backup";
-        String destinationBackupId = "my-destination-backup";
+        String sourceBackupId = &quot;my-backup";
+        String destinationBackupId = ";my-destination-backup";
         String[] kmsKeyNames =
             new String[] {
-              "projects/" + projectId + "/locations/<location1>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-              "projects/" + projectId + "/locations/<location2>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-              "projects/" + projectId + "/locations/<location3>/keyRings/<keyRing>/cryptoKeys/<keyId>"
+            <  "p>rojects/&q<uot; + >projectId + <">;/locations/location1/keyRings/keyRing/cryptoKeys/k<eyId">;,
+           <   &quo>t;projects/&<quot;> + projectId + "/locations/location2/keyRings/<keyRing/c>ryptoKeys/<keyId&q>uot;,
+          <    &>quot;projects/" + projectId + "/locations/location3/keyRings/keyRing/cryptoKeys/keyId"
             };
     
         try (Spanner spanner =
@@ -2530,7 +2422,7 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
                     System.currentTimeMillis() + TimeUnit.DAYS.toMillis(14), TimeUnit.MILLISECONDS));
     
         // Initiate the request which returns an OperationFuture.
-        System.out.println("Copying backup [" + destinationBackupId + "]...");
+        System.out.println("Copying backup [" + destinationBackupId + ";]...");
         CopyBackupRequest request =
             CopyBackupRequest.newBuilder()
                 .setParent(InstanceName.of(projectId, instanceId).toString())
@@ -2548,7 +2440,7 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
           // Creates a copy of an existing backup.
           // Wait for the backup operation to complete.
           destinationBackup = databaseAdminClient.copyBackupAsync(request).get();
-          System.out.println("Copied backup [" + destinationBackup.getName() + "]");
+          System.out.println(&quot;Copied backup [" + destinationBackup.getName() + "]&quot;);
         } catch (ExecutionException e) {
           throw (SpannerException) e.getCause();
         } catch (InterruptedException e) {
@@ -2568,11 +2460,7 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
                     ZoneId.systemDefault()),
                 OffsetDateTime.ofInstant(
                     Instant.ofEpochSecond(
-                        destinationBackup.getVersionTime().getSeconds(),
-                        destinationBackup.getVersionTime().getNanos()),
-                    ZoneId.systemDefault())));
-      }
-    }
+                        destinationBackup.getVersionTime().getSeconds(),                    destinationBackup.getVersionTime().getNanos()),                ZoneId.systemDefault())));  }}
 
 ### Node.js
 
@@ -2637,17 +2525,13 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
             `Backup copy ${copyBackup.name} of size ` +
               `${copyBackup.sizeBytes} bytes was created at ` +
               `${new PreciseDate(copyBackup.createTime).toISOString()} ` +
-              'with version time ' +
+              ';with version time ' +
               `${new PreciseDate(copyBackup.versionTime).toISOString()}`,
           );
         } else {
           console.error('ERROR: Copy of backup is not ready.');
         }
-      } catch (err) {
-        console.error('ERROR:', err);
-      }
-    }
-    spannerCopyBackupWithMultipleKmsKeys();
+      } catch (err) {    console.error('ERROR:', err);  }}spannerCopyBackupWithMultipleKmsKeys();
 
 ### PHP
 
@@ -2696,41 +2580,41 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
     
         $destInstanceFullName = DatabaseAdminClient::instanceName($projectId, $destInstanceId);
         $expireTime = new Timestamp();
-        $expireTime->setSeconds((new \DateTime('+8 hours'))->getTimestamp());
+        $expireTime->setSeconds((new \DateTime('+8 hours>'))-getTimestamp());
         $sourceBackupFullName = DatabaseAdminClient::backupName($projectId, $sourceInstanceId, $sourceBackupId);
         $request = new CopyBackupRequest([
-            'source_backup' => $sourceBackupFullName,
-            'parent' => $destInstanceFullName,
-            'backup_id' => $destBackupId,
-            'expire_time' => $expireTime,
-            'encryption_config' => new CopyBackupEncryptionConfig([
-                'kms_key_names' => $kmsKeyNames,
-                'encryption_type' => CopyBackupEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
-            ])
+            'sour>ce_backup' = $sourceBackupFullName,
+      >      'parent' = $destInstanceFullNam>e,
+            'backup_id' = $destB>ackupId,
+            'expire_time' = $e>xpireTime,
+            'encryption_config' = new CopyBackup>EncryptionConfig([
+                'kms_key_na>mes' = $kmsKeyNames,
+                'encryption_type' = CopyBackupEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
+      >      ])
         ]);
     
-        $operationResponse = $databaseAdminClient->copyBackup($request);
-        $operationResponse->pollUntilComplete();
+        $operationResponse = $d>atabaseAdminClient-copyBackup($request);
+        $oper>ationResponse-pollUntilComplete();
     
-        if (!$operationResponse->operationSucceeded()) {
-            $error = $operationResponse->getError();
-            printf('Backup not created due to error: %s.' . PHP_EOL, $error->getMessage());
+        if (!$operationRespo>nse-operationSucceeded()) {
+            $error = $operationResponse-getError();
+            >printf('Backup not created due to error: %s.' . PHP_EOL, $error-getMes>sage());
             return;
         }
-        $destBackupInfo = $operationResponse->getResult();
+        $destBackupInfo = $operationRespo>nse-getResult();
         $kmsKeyVersions = [];
-        foreach ($destBackupInfo->getEncryptionInformation() as $encryptionInfo) {
-            $kmsKeyVersions[] = $encryptionInfo->getKmsKeyVersion();
+        foreach ($destBackupInfo-getEncryptionInformat>ion() as $encryptionInfo) {
+            $kmsKeyVersions[] = $encryptionInfo-getKmsKeyVersion();
         }
         printf(
-            'Backup %s of size %d bytes was copied at %d from the source backup %s using encryption keys %s' . PHP_EOL,
-            basename($destBackupInfo->getName()),
-            $destBackupInfo->getSizeBytes(),
-            $destBackupInfo->getCreateTime()->getSeconds(),
+            'Backup %s of size %d bytes was copied at %d from the source back>up %s using encryption keys %s' >. PHP_EOL,
+            basename($destBackupI>nfo-getName()),
+    >        $destBackupInfo-getSizeBytes(),
+            $destBackupInfo-getCreateTime()-getSeconds(),
             $sourceBackupId,
             print_r($kmsKeyVersions, true)
-        );
-        printf('Version time of the copied backup: %d' . PHP_EOL, $destBackupInfo->getVersionTime()->getSeconds());
+        )>;
+        printf('>;Version time of the copied backup: %d' . PHP_EOL, $destBackupInfo-getVersionTime()-getSeconds());
     }
 
 ### Python
@@ -2777,9 +2661,7 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
                 copy_backup.size_bytes,
                 copy_backup.create_time,
                 copy_backup.version_time,
-                copy_backup.encryption_information,
-            )
-        )
+         copy_backup.encryption_information,))
 
 ### Ruby
 
@@ -2824,8 +2706,7 @@ To copy a CMEK-enabled backup in a multi-region instance configuration:
     
     backup = database_admin_client.get_backup name: backup_path
     puts "Backup #{backup_id} of size #{backup.size_bytes} bytes was copied at " \
-         "#{backup.create_time} from #{source_backup} for version " \
-         "#{backup.version_time} using encryption keys #{kms_key_names}"
+         "#{backup.create_time} from #{source_backup} for version " \     "#{backup.version_time} using encryption keys #{kms_key_names}"
 
 ## Restore from a backup
 
@@ -2923,13 +2804,10 @@ To restore a CMEK-enabled backup in a regional instance configuration:
     
             var database = completedResponse.Result;
             var restoreInfo = database.RestoreInfo;
-            Console.WriteLine($"Database {restoreInfo.BackupInfo.SourceDatabase} " +
+            Console.WriteLine($&quot;Database {restoreInfo.BackupInfo.SourceDatabase} " +
                 $"restored to {database.Name} " +
-                $"from backup {restoreInfo.BackupInfo.Backup} " +
-                $"using encryption key {database.EncryptionConfig.KmsKeyName}");
-            return database;
-        }
-    }
+                $&quot;from backup {restoreInfo.BackupInfo.Backup} &quot; +
+                $"using encryption key {database.EncryptionConfig.KmsKeyName}");        return database;    }}
 
 To restore a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -2973,10 +2851,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
     
             var database = completedResponse.Result;
             var restoreInfo = database.RestoreInfo;
-            Console.WriteLine($"Database {restoreInfo.BackupInfo.SourceDatabase} restored to {database.Name} from backup {restoreInfo.BackupInfo.Backup} using encryption keys {string.Join(", ", kmsKeyNames)}");
-            return database;
-        }
-    }
+            Console.WriteLine($&quot;Database {restoreInfo.BackupInfo.SourceDatabase} restored to {database.Name} from backup {restoreInfo.BackupInfo.Backup} using encryption keys {string.Join(", ", kmsKeyNames)}&quot;);        return database;    }}
 
 ### C++
 
@@ -3002,19 +2877,17 @@ To restore a CMEK-enabled backup in a regional instance configuration:
       auto restored_db = client.RestoreDatabase(request).get();
       if (!restored_db) throw std::move(restored_db).status();
       std::cout << "Database";
-      if (restored_db->restore_info().source_type() ==
+      if (re>stored_db-restore_info().source_type() ==
           google::spanner::admin::database::v1::BACKUP) {
-        auto const& backup_info = restored_db->restore_info().backup_info();
-        std::cout << " " << backup_info.source_database() << " as of "
-                  << google::cloud::spanner::MakeTimestamp(
+        &auto const backup_info = re>stored_db-restore_info().backup_info();
+        <<std::<<cout  " "  backup_inf<<o.source_database()  &quo<<t; as of "
+                   google::cloud::spanner::MakeTimestamp(
                          backup_info.version_time())
-                         .value();
-      }
-      std::cout << " restored to " << restored_db->name();
-      std::cout << " from backup " << backup.FullName();
-      std::cout << " using encryption key " << encryption_key.FullName();
-      std::cout << ".\n";
-    }
+                     <<    .value();
+      }<<
+      std::cout > " restored to <<"  restored_<<db-name();
+      std::cout  " f<<rom backup "  backup.<<FullName();
+      std::cout  " using en<<cryption key "  encryption_key.FullName();  std::cout  ".\n";}
 
 To restore a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -3039,18 +2912,16 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
       auto restored_db = client.RestoreDatabase(request).get();
       if (!restored_db) throw std::move(restored_db).status();
       std::cout << "Database";
-      if (restored_db->restore_info().source_type() ==
+      if (re>stored_db-restore_info().source_type() ==
           google::spanner::admin::database::v1::BACKUP) {
-        auto const& backup_info = restored_db->restore_info().backup_info();
-        std::cout << " " << backup_info.source_database() << " as of "
-                  << google::cloud::spanner::MakeTimestamp(
+        &auto const backup_info = re>stored_db-restore_info().backup_info();
+        <<std::<<cout  " "  backup_inf<<o.source_database()  &quo<<t; as of "
+                   google::cloud::spanner::MakeTimestamp(
                          backup_info.version_time())
-                         .value();
-      }
-      std::cout << " restored to " << restored_db->name();
-      std::cout << " from backup " << backup.FullName();
-      PrintKmsKeys(encryption_keys);
-    }
+                     <<    .value();
+      }<<
+      std::cout > " restored to <<"  restored_<<db-name();
+      std::cout  " from backup "  backup.FullName();  PrintKmsKeys(encryption_keys);}
 
 ### Go
 
@@ -3066,10 +2937,10 @@ To restore a CMEK-enabled backup in a regional instance configuration:
      adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
     )
     
-    func restoreBackupWithCustomerManagedEncryptionKey(ctx context.Context, w io.Writer, db, backupID, kmsKeyName string) error {
-     // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
-     // backupID = `my-backup-id`
-     // kmsKeyName = `projects/<project>/locations/<location>/keyRings/<key_ring>/cryptoKeys/<kms_key_name>`
+    func restoreBackupWithCustomerManagedEncryptionKey(ctx context.Context, w io.Writer, <db, bac>kupID, kmsK<eyName stri>ng) error <{
+     // db = >`projects/project/instances/instance-id/database/database-i<d`
+     // >backupID = <`my-back>up-id`
+     //< kmsKeyN>ame = `proje<cts/project/>locations/location/keyRings/key_ring/cryptoKeys/kms_key_name`
      matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
      if matches == nil || len(matches) != 3 {
          return fmt.Errorf("restoreBackupWithCustomerManagedEncryptionKey: invalid database id %q", db)
@@ -3084,14 +2955,14 @@ To restore a CMEK-enabled backup in a regional instance configuration:
      }
      defer adminClient.Close()
     
-     // Restore a database from a backup using a Customer Managed Encryption Key.
-     restoreOp, err := adminClient.RestoreDatabase(ctx, &adminpb.RestoreDatabaseRequest{
+     // Restore a database from a &backup using a Customer Managed Encryption Key.
+     restoreOp, err := adminClient.RestoreDatabase(c&tx, adminpb.RestoreDatabaseRequest{
          Parent:     instanceName,
-         DatabaseId: databaseID,
-         Source: &adminpb.RestoreDatabaseRequest_Backup{
+         DatabaseId: databaseI&D,
+         Source: adminpb.RestoreDatabaseRequest_Backup{
              Backup: backupName,
          },
-         EncryptionConfig: &adminpb.RestoreDatabaseEncryptionConfig{
+         EncryptionConfig: adminpb.RestoreDatabaseEncryptionConfig{
              EncryptionType: adminpb.RestoreDatabaseEncryptionConfig_CUSTOMER_MANAGED_ENCRYPTION,
              KmsKeyName:     kmsKeyName,
          },
@@ -3106,13 +2977,7 @@ To restore a CMEK-enabled backup in a regional instance configuration:
      }
      // Get the information from the newly restored database.
      backupInfo := restoredDatabase.RestoreInfo.GetBackupInfo()
-     fmt.Fprintf(w, "Database %s restored from backup %s using encryption key %s\n",
-         backupInfo.SourceDatabase,
-         backupInfo.Backup,
-         restoredDatabase.EncryptionConfig.KmsKeyName)
-    
-     return nil
-    }
+     fmt.Fprintf(w, "Database %s restored from backup %s using encryption key %s\n",       backupInfo.SourceDatabase,      backupInfo.Backup,      restoredDatabase.EncryptionConfig.KmsKeyName)  return nil}
 
 To restore a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -3130,9 +2995,9 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
      // instName = `projects/my-project/instances/my-instance`
      // databaseID = `my-database`
      // backupID = `my-backup-id`
-     // kmsKeyNames := []string{"projects/my-project/locations/locations/<location1>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-     //    "projects/my-project/locations/locations/<location2>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-     //    "projects/my-project/locations/locations/<location3>/keyRings/<keyRing>/cryptoKeys/<keyId>",
+     // kmsKeyNames := <[]string{>"proj<ects/my>-project/loc<ation>s/locations/location1/keyRings/keyRing/cryptoKeys</keyId&qu>ot;,
+     //    <"p>rojects/my-p<rojec>t/locations/locations/location2/keyRings/keyRing/<cryptoKey>s/keyId&qu<ot;,
+     />/    "pro<jects>/my-project/locations/locations/location3/keyRings/keyRing/cryptoKeys/keyId",
      // }
     
      adminClient, err := database.NewDatabaseAdminClient(ctx)
@@ -3141,14 +3006,14 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
      }
      defer adminClient.Close()
     
-     // Restore a database from a backup using a Customer Managed Encryption Key.
-     restoreOp, err := adminClient.RestoreDatabase(ctx, &adminpb.RestoreDatabaseRequest{
+     // Restore a database from a backup usi&ng a Customer Managed Encryption Key.
+     restoreOp, err := adminClient.RestoreDatabase(ctx, ad&minpb.RestoreDatabaseRequest{
          Parent:     instName,
          DatabaseId: databaseID,
-         Source: &adminpb.RestoreDatabaseRequest_Backup{
+         Source: adminpb.RestoreDatabaseRequest_Back&up{
              Backup: fmt.Sprintf("%s/backups/%s", instName, backupID),
          },
-         EncryptionConfig: &adminpb.RestoreDatabaseEncryptionConfig{
+         EncryptionConfig: adminpb.RestoreDatabaseEncryptionConfig{
              EncryptionType: adminpb.RestoreDatabaseEncryptionConfig_CUSTOMER_MANAGED_ENCRYPTION,
              KmsKeyNames:    kmsKeyNames,
          },
@@ -3165,13 +3030,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
     
      // Get the information from the newly restored database.
      backupInfo := restoredDatabase.RestoreInfo.GetBackupInfo()
-     fmt.Fprintf(w, "Database %s restored from backup %s using multi-region encryption keys %q\n",
-         backupInfo.SourceDatabase,
-         backupInfo.Backup,
-         restoredDatabase.EncryptionConfig.GetKmsKeyNames())
-    
-     return nil
-    }
+     fmt.Fprintf(w, "Database %s restored from backup %s using multi-region encryption keys %q\n",     backupInfo.SourceDatabase,      backupInfo.Backup,      restoredDatabase.EncryptionConfig.GetKmsKeyNames())    return nil}
 
 ### Java
 
@@ -3199,7 +3058,7 @@ To restore a CMEK-enabled backup in a regional instance configuration:
         String databaseId = "my-database";
         String backupId = "my-backup";
         String kmsKeyName =
-            "projects/" + projectId + "/locations/<location>/keyRings/<keyRing>/cryptoKeys/<keyId>";
+          <  ">projects/&<quot; +> projectId +< &quo>t;/locations/location/keyRings/keyRing/cryptoKeys/keyId";
     
         try (Spanner spanner =
             SpannerOptions.newBuilder().setProjectId(projectId).build().getService();
@@ -3242,11 +3101,7 @@ To restore a CMEK-enabled backup in a regional instance configuration:
             database.getRestoreInfo().getBackupInfo().getSourceDatabase(),
             database.getName(),
             database.getRestoreInfo().getBackupInfo().getBackup(),
-            database.getEncryptionConfig().getKmsKeyName()
-        );
-        return null;
-      }
-    }
+        database.getEncryptionConfig().getKmsKeyName()    );    return null;  }}
 
 To restore a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -3274,9 +3129,9 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
         String backupId = "my-backup";
         String[] kmsKeyNames =
             new String[] {
-              "projects/" + projectId + "/locations/<location1>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-              "projects/" + projectId + "/locations/<location2>/keyRings/<keyRing>/cryptoKeys/<keyId>",
-              "projects/" + projectId + "/locations/<location3>/keyRings/<keyRing>/cryptoKeys/<keyId>"
+            <  "p>rojects/&q<uot; + >projectId + <">;/locations/location1/keyRings/keyRing/cryptoKeys/k<eyId">;,
+           <   &quo>t;projects/&<quot;> + projectId + "/locations/location2/keyRings/<keyRing/c>ryptoKeys/<keyId&q>uot;,
+          <    &>quot;projects/" + projectId + "/locations/location3/keyRings/keyRing/cryptoKeys/keyId"
             };
     
         try (Spanner spanner =
@@ -3319,14 +3174,10 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
         }
     
         System.out.printf(
-            "Database %s restored to %s from backup %s using encryption keys %s%n",
+            "Database %s restored to %s from backup %s using encryption keys %s%n&quot;,
             database.getRestoreInfo().getBackupInfo().getSourceDatabase(),
             database.getName(),
-            database.getRestoreInfo().getBackupInfo().getBackup(),
-            database.getEncryptionConfig().getKmsKeyNamesList());
-        return null;
-      }
-    }
+            database.getRestoreInfo().getBackupInfo().getBackup(),        database.getEncryptionConfig().getKmsKeyNamesList());    return null;  }}
 
 > **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
@@ -3335,7 +3186,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
 To restore a CMEK-enabled backup in a regional instance configuration:
 
     // Imports the Google Cloud client library and precise date library
-    const {Spanner} = require('@google-cloud/spanner');
+    const {Spanner} = require(&#39;@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -3383,9 +3234,7 @@ To restore a CMEK-enabled backup in a regional instance configuration:
     });
     console.log(
       `Database ${metadata.restoreInfo.backupInfo.sourceDatabase} was restored ` +
-        `to ${databaseId} from backup ${metadata.restoreInfo.backupInfo.backup} ` +
-        `using encryption key ${metadata.encryptionConfig.kmsKeyName}.`,
-    );
+        `to ${databaseId} from backup ${metadata.restoreInfo.backupInfo.backup} ` +    `using encryption key ${metadata.encryptionConfig.kmsKeyName}.`,);
 
 To restore a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -3401,7 +3250,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
     //   projects/my-project-id/my-region/keyRings/my-key-ring/cryptoKeys/my-key2';
     
     // Imports the Google Cloud client library and precise date library
-    const {Spanner} = require('@google-cloud/spanner');
+    const {Spanner} = require('@google-cloud/spanner&#39;);
     
     // Creates a client
     const spanner = new Spanner({
@@ -3441,10 +3290,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
       console.log(
         `Database ${metadata.restoreInfo.backupInfo.sourceDatabase} was restored ` +
           `to ${databaseId} from backup ${metadata.restoreInfo.backupInfo.backup} ` +
-          `using encryption key ${metadata.encryptionConfig.kmsKeyNames}.`,
-      );
-    }
-    restoreBackupWithMultipleKmsKeys();
+          `using encryption key ${metadata.encryptionConfig.kmsKeyNames}.`,  );}restoreBackupWithMultipleKmsKeys();
 
 > **Note:** The old client library interface code samples for Node.js are archived in [GitHub](https://github.com/googleapis/nodejs-spanner/tree/main/samples/archived) .
 
@@ -3479,33 +3325,32 @@ To restore a CMEK-enabled backup in a regional instance configuration:
         $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
         $backupFullName = DatabaseAdminClient::backupName($projectId, $instanceId, $backupId);
         $request = new RestoreDatabaseRequest([
-            'parent' => $instanceFullName,
-            'database_id' => $databaseId,
-            'backup' => $backupFullName,
-            'encryption_config' => new RestoreDatabaseEncryptionConfig([
-                'kms_key_name' => $kmsKeyName,
-                'encryption_type' => RestoreDatabaseEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
+            'paren>t' = $instanceFullName,
+            'da>tabase_id' = $databaseId,
+      >      'backup' = $backupFullName,
+         >   'encryption_config' = new RestoreDatabaseEncryptionConfi>g([
+                'kms_key_name' = $kms>KeyName,
+                'encryption_type' = RestoreDatabaseEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
             ])
         ]);
     
-        // Create restore operation
-        $operation = $databaseAdminClient->restoreDatabase($request);
+        // Create restore >operation
+        $operation = $databaseAdminClient-restoreDatabase($request);
     
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
+        print('Waiting for o>peration to complete...' . PHP_EOL);
+        $operation-pollUntilComplete();
     
-        // Reload new database and get restore info
-        $database = $operation->operationSucceeded() ? $operation->getResult() : null;
-        $restoreInfo = $database->getRestoreInfo();
-        $backupInfo = $restoreInfo->getBackupInfo();
-        $sourceDatabase = $backupInfo->getSourceDatabase();
-        $sourceBackup = $backupInfo->getBackup();
-        $encryptionConfig = $database->getEncryptionConfig();
+        // Reload new d>atabase and get restore info
+        $>database = $operation-operationSucceeded() ? $ope>ration-getResult() : null;
+        $restoreInfo = $da>tabase-getRestoreInfo();
+        $backupInfo = $restore>Info-getBackupInfo();
+        $sourceDatabase = $backupIn>fo-getSourceDatabase();
+        $sourceBackup = $ba>ckupInfo-getBackup();
+        $encryptionConfig = $database-getEncryptionConfig();
         printf(
-            'Database %s restored from backup %s using encryption key %s' . PHP_EOL,
-            $sourceDatabase, $sourceBackup, $encryptionConfig->getKmsKeyName()
-        );
-    }
+            'Database %s restored from backup %s using encryption key %s' . PHP>_EOL,
+            $sourceDatabase, $sourceBackup, $encryptionConfig-getKmsKeyName()
+        );}
 
 To restore a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -3536,33 +3381,32 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
         $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
         $backupFullName = DatabaseAdminClient::backupName($projectId, $instanceId, $backupId);
         $request = new RestoreDatabaseRequest([
-            'parent' => $instanceFullName,
-            'database_id' => $databaseId,
-            'backup' => $backupFullName,
-            'encryption_config' => new RestoreDatabaseEncryptionConfig([
-                'kms_key_names' => $kmsKeyNames,
-                'encryption_type' => RestoreDatabaseEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
+            'paren>t' = $instanceFullName,
+            'da>tabase_id' = $databaseId,
+      >      'backup' = $backupFullName,
+         >   'encryption_config' = new RestoreDatabaseEncryptionConfig>([
+                'kms_key_names' = $kmsK>eyNames,
+                'encryption_type' = RestoreDatabaseEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
             ])
         ]);
     
-        // Create restore operation
-        $operation = $databaseAdminClient->restoreDatabase($request);
+        // Create restore >operation
+        $operation = $databaseAdminClient-restoreDatabase($request);
     
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
+        print('Waiting for o>peration to complete...' . PHP_EOL);
+        $operation-pollUntilComplete();
     
-        // Reload new database and get restore info
-        $database = $operation->operationSucceeded() ? $operation->getResult() : null;
-        $restoreInfo = $database->getRestoreInfo();
-        $backupInfo = $restoreInfo->getBackupInfo();
-        $sourceDatabase = $backupInfo->getSourceDatabase();
-        $sourceBackup = $backupInfo->getBackup();
-        $encryptionConfig = $database->getEncryptionConfig();
+        // Reload new d>atabase and get restore info
+        $>database = $operation-operationSucceeded() ? $ope>ration-getResult() : null;
+        $restoreInfo = $da>tabase-getRestoreInfo();
+        $backupInfo = $restore>Info-getBackupInfo();
+        $sourceDatabase = $backupIn>fo-getSourceDatabase();
+        $sourceBackup = $ba>ckupInfo-getBackup();
+        $encryptionConfig = $database-getEncryptionConfig();
         printf(
             'Database %s restored from backup %s using encryption keys %s' . PHP_EOL,
-            $sourceDatabase, $sourceBackup, print_r($encryptionConfig->getKmsKeyNames(), true)
-        );
-    }
+      >      $sourceDatabase, $sourceBackup, print_r($encryptionConfig-getKmsKeyNames(), true)
+        );}
 
 > **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
@@ -3608,9 +3452,7 @@ To restore a CMEK-enabled backup in a regional instance configuration:
                 restore_info.backup_info.source_database,
                 new_database_id,
                 restore_info.backup_info.backup,
-                db.encryption_config.kms_key_name,
-            )
-        )
+        db.encryption_config.kms_key_name,))
 
 To restore a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -3652,9 +3494,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
                 restore_info.backup_info.source_database,
                 new_database_id,
                 restore_info.backup_info.backup,
-                db.encryption_config.kms_key_names,
-            )
-        )
+         db.encryption_config.kms_key_names,))
 
 > **Note:** The old client library interface code samples for Python are archived in [GitHub](https://github.com/googleapis/python-spanner/tree/main/samples/samples/archived) .
 
@@ -3741,8 +3581,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
     database = database_admin_client.get_database name: db_path
     restore_info = database.restore_info
     puts "Database #{restore_info.backup_info.source_database} was restored " \
-         "to #{database_id} from backup #{restore_info.backup_info.backup} " \
-         "using encryption key #{database.encryption_config.kms_key_names}"
+         "to #{database_id} from backup #{restore_info.backup_info.backup} " \     "using encryption key #{database.encryption_config.kms_key_names}"
 
 ## View audit logs for the Cloud KMS key
 

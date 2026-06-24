@@ -34,11 +34,11 @@ The following table lists the available container image versions.
 
 | Version tag      | Release date   |
 | ---------------- | -------------- |
-| `2026.r1-beta.1` | April 22, 2026 |
+| `2026.r1-beta.2` | April 22, 2026 |
 
-For example, to download the `spanner-omni` image for the 2026.r1-beta.1 release, run the following command:
+For example, to download the `spanner-omni` image for the 2026.r1-beta.2 release, run the following command:
 
-    docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r1-beta.1
+    docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r1-beta.2
 
 ## Helm charts
 
@@ -70,12 +70,12 @@ The following table lists the available Spanner Omni CLI binaries.
 
 | Filename                                               | Description                           |
 | ------------------------------------------------------ | ------------------------------------- |
-| `spanner-omni-cli-2026.r1-beta.1-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
-| `spanner-omni-cli-2026.r1-beta.1-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
-| `spanner-omni-cli-2026.r1-beta.1-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
-| `spanner-omni-cli-2026.r1-beta.1-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
+| `spanner-omni-cli-2026.r1-beta.2-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
+| `spanner-omni-cli-2026.r1-beta.2-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
+| `spanner-omni-cli-2026.r1-beta.2-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
+| `spanner-omni-cli-2026.r1-beta.2-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
 
 For example, to download the current version of the Spanner Omni CLI for Linux (x86), run the following command:
 
     # Download CLI for Linux (x86)
-    curl -O https://storage.googleapis.com/spanner-omni/2026.r1-beta.1/spanner-omni-cli-2026.r1-beta.1-linux-x86_64.tar.gz
+    curl -O https://storage.googleapis.com/spanner-omni/2026.r1-beta.2/spanner-omni-cli-2026.r1-beta.2-linux-x86_64.tar.gz
