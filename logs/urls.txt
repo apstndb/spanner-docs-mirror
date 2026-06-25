@@ -383,7 +383,7 @@ https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine	2026-06-19T17
 https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/monitoring-cloud	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/monitoring-console	2026-06-19T17:35:57Z
-https://docs.cloud.google.com/spanner/docs/move-instance	2026-06-19T17:35:57Z
+https://docs.cloud.google.com/spanner/docs/move-instance	2026-06-24T17:32:43Z
 https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-06-23T09:08:28Z
 https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/named-schemas	2026-06-19T17:35:57Z
@@ -665,7 +665,7 @@ https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1	2026-
 https://docs.cloud.google.com/spanner/docs/reference/rpc/google.type	2025-10-17T23:52:19Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls	2026-06-19T17:35:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions	2026-06-19T17:35:38Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions	2026-06-19T17:35:38Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions	2026-06-24T18:51:29Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays	2026-06-19T17:35:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions	2026-06-19T17:35:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts	2026-06-19T17:35:38Z
@@ -695,7 +695,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueri
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions	2026-06-19T17:35:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions	2026-06-19T17:35:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions	2026-06-19T17:35:38Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical	2026-06-19T17:35:38Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical	2026-06-24T16:35:20Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions	2026-06-19T17:35:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions	2026-06-19T17:35:38Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/net_functions	2026-06-19T17:35:38Z

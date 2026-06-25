@@ -37,6 +37,9 @@ If you're moving your instance to a new regional, dual-region, or multi-region i
   - The following APIs are disabled during an instance move:
       - `InstanceAdmin.DeleteInstance`
       - `InstanceAdmin.UpdateInstance`
+      - `InstanceAdmin.CreateInstancePartition`
+      - `InstanceAdmin.UpdateInstancePartition`
+      - `InstanceAdmin.DeleteInstancePartition`
       - `DatabaseAdmin.CreateDatabase`
       - `DatabaseAdmin.UpdateDatabaseDdl` (Disabled if `default_leader` is specified in the request.)
       - `DatabaseAdmin.RestoreDatabase`
@@ -51,6 +54,7 @@ If you're moving your instance to a new regional, dual-region, or multi-region i
   - You can't move an instance if the [Spanner managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler) feature is enabled on it. To move the instance, you need to disable the managed autoscaler, move the instance, and then re-enable the managed autoscaler.
       - Additionally, if you're using [autoscaling](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) , you must provision enough nodes for peak CPU usage according to the maximum recommendations noted, and then disable autoscaling before you move the instance.
   - You can't move a [Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-instance) . You can move the instance after [upgrading to a paid instance](https://docs.cloud.google.com/spanner/docs/free-trial-instance#upgrade) .
+  - If the instance uses [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) , then moving the instance only moves the default instance partition, not any additional instance partitions.
 
 ## Performance considerations
 
