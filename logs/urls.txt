@@ -357,7 +357,7 @@ https://docs.cloud.google.com/spanner/docs/manage-data-using-console	2026-06-19T
 https://docs.cloud.google.com/spanner/docs/managed-autoscaler	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/manual-data-compaction	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/media	2026-06-19T17:35:57Z
-https://docs.cloud.google.com/spanner/docs/metrics	2026-06-18T19:01:52Z
+https://docs.cloud.google.com/spanner/docs/metrics	2026-06-25T13:31:34Z
 https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/migrate-spanner-pg-to-pg-database	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner	2026-06-19T17:35:57Z
