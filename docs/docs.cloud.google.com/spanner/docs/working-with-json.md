@@ -10,7 +10,7 @@ data_source: docs.cloud.google.com
 
 This page describes how to work with JSON using Spanner.
 
-The JSON data type is a semi-structured data type used for holding JSON (JavaScript Object Notation) data. The specifications for the JSON format are described in [RFC 7159](https://tools.ietf.org/pdf/rfc7159.pdf) .
+The JSON data type is a semi-structured data type used for holding JSON (JavaScript Object Notation) data. The specifications for the JSON format are described in [RFC 7159](https://datatracker.ietf.org/doc/rfc7159/) .
 
 JSON is useful to supplement a relational schema for data that is sparse or has a loosely-defined or changing structure. However, the query optimizer relies on the relational model to efficiently filter, join, aggregate, and sort at scale. Queries over JSON will have fewer built-in optimizations and fewer affordances to inspect and tune performance.
 

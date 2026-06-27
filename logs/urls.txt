@@ -122,7 +122,7 @@ https://docs.cloud.google.com/spanner-omni/pgadapter	2026-06-23T16:18:43Z
 https://docs.cloud.google.com/spanner-omni/prometheus-alerts	2026-06-23T16:18:43Z
 https://docs.cloud.google.com/spanner-omni/python	2026-06-23T16:18:43Z
 https://docs.cloud.google.com/spanner-omni/quickstart	2026-06-23T16:18:43Z
-https://docs.cloud.google.com/spanner-omni/release-notes	2026-06-23T16:18:43Z
+https://docs.cloud.google.com/spanner-omni/release-notes	2026-06-27T07:43:54Z
 https://docs.cloud.google.com/spanner-omni/restores	2026-06-23T16:18:43Z
 https://docs.cloud.google.com/spanner-omni/setup	2026-06-23T16:18:43Z
 https://docs.cloud.google.com/spanner-omni/spanner-graph-overview	2026-06-23T16:18:43Z
@@ -231,7 +231,7 @@ https://docs.cloud.google.com/spanner/docs/fgac-models	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/fgac-privileges	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/fgac-sequences	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/fgac-system-roles	2026-06-19T17:35:57Z
-https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors	2026-06-19T17:35:57Z
+https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors	2026-06-26T20:56:43Z
 https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to	2026-06-19T17:39:35Z
@@ -266,7 +266,7 @@ https://docs.cloud.google.com/spanner/docs/getting-started/database_sql	2026-06-
 https://docs.cloud.google.com/spanner/docs/getting-started/gcloud	2026-06-19T17:36:51Z
 https://docs.cloud.google.com/spanner/docs/getting-started/go	2026-06-19T17:36:51Z
 https://docs.cloud.google.com/spanner/docs/getting-started/java	2026-06-21T17:32:07Z
-https://docs.cloud.google.com/spanner/docs/getting-started/jdbc	2026-06-21T17:32:07Z
+https://docs.cloud.google.com/spanner/docs/getting-started/jdbc	2026-06-27T07:43:54Z
 https://docs.cloud.google.com/spanner/docs/getting-started/nodejs	2026-06-19T17:36:51Z
 https://docs.cloud.google.com/spanner/docs/getting-started/pgadapter	2026-06-19T17:36:51Z
 https://docs.cloud.google.com/spanner/docs/getting-started/php	2026-06-19T17:36:51Z
@@ -857,7 +857,7 @@ https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl	2026-06-19T17:35
 https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-active-record	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-ado-net	2026-06-19T17:38:21Z
-https://docs.cloud.google.com/spanner/docs/use-cmek	2026-06-23T09:17:25Z
+https://docs.cloud.google.com/spanner/docs/use-cmek	2026-06-27T07:46:50Z
 https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-entity-framework	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-golang-database-sql	2026-06-19T17:38:21Z
@@ -886,8 +886,8 @@ https://docs.cloud.google.com/spanner/docs/use-sqlalchemy	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-sqlalchemy-pg	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-terraform	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/using-query-insights	2026-06-19T17:39:35Z
-https://docs.cloud.google.com/spanner/docs/vector-index-best-practices	2026-06-19T17:39:35Z
-https://docs.cloud.google.com/spanner/docs/vector-indexes	2026-06-19T17:39:35Z
+https://docs.cloud.google.com/spanner/docs/vector-index-best-practices	2026-06-26T20:56:43Z
+https://docs.cloud.google.com/spanner/docs/vector-indexes	2026-06-26T20:56:43Z
 https://docs.cloud.google.com/spanner/docs/vector-search-best-practices	2026-06-19T17:39:35Z
 https://docs.cloud.google.com/spanner/docs/vector-search-embeddings	2026-06-19T17:39:35Z
 https://docs.cloud.google.com/spanner/docs/vector-search-overview	2026-06-19T17:39:35Z
@@ -898,8 +898,8 @@ https://docs.cloud.google.com/spanner/docs/whitepapers	2026-06-19T17:39:35Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query	2026-06-19T17:35:39Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes	2026-06-19T17:35:39Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design	2026-06-19T17:35:39Z
-https://docs.cloud.google.com/spanner/docs/working-with-json	2026-06-23T09:08:27Z
-https://docs.cloud.google.com/spanner/docs/working-with-jsonb	2026-06-23T09:08:27Z
+https://docs.cloud.google.com/spanner/docs/working-with-json	2026-06-27T02:09:25Z
+https://docs.cloud.google.com/spanner/docs/working-with-jsonb	2026-06-27T02:09:25Z
 https://docs.cloud.google.com/spanner/docs/working-with-numerics	2026-06-21T17:36:33Z
 https://docs.cloud.google.com/spanner/docs/write-hibernate-app	2026-06-19T17:39:35Z
 https://docs.cloud.google.com/spanner/docs/write-spring-boot-app	2026-06-19T17:39:35Z

@@ -14,11 +14,19 @@ This page documents production updates to Spanner Omni. Check this page for anno
 
 You can see the latest product updates for all of Google Cloud on the [Google Cloud](https://docs.cloud.google.com/release-notes) page, browse and filter all release notes in the [Google Cloud console](https://console.cloud.google.com/release-notes) , or programmatically access release notes in [BigQuery](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=google_cloud_release_notes&t=release_notes&page=table) .
 
+## June 18, 2026
+
+Fixed
+
+Spanner Omni patch release `2026.r1-beta.2` is available. This patch includes the following update:
+
+  - Fixed an issue related to importing a backup in regional and multi-regional deployments. For more information, see [Restore a Spanner Omni backup](https://docs.cloud.google.com/spanner-omni/restores) .
+
 ## June 04, 2026
 
 Fixed
 
-Spanner Omni patch release `2026.r1-beta.1` is available. This patch includes the following updates:
+Spanner Omni patch release `2026.r1-beta.2` is available. This patch includes the following updates:
 
   - Fixed a [TrueTime](https://docs.cloud.google.com/spanner-omni/true-time-external-consistency) issue in which time servers entered a repeated failover mode, causing the uncertainty window to spike.
 

@@ -8,7 +8,7 @@ data_source: docs.cloud.google.com
 
 This page describes how to work with the `JSONB` data type when using Spanner.
 
-`JSONB` is a PostgreSQL data type used for holding semi-structured data in the Spanner PostgreSQL dialect. `JSONB` holds data in JavaScript Object Notation (JSON) format, which follows the specification described in [RFC 7159](https://tools.ietf.org/pdf/rfc7159.pdf) .
+`JSONB` is a PostgreSQL data type used for holding semi-structured data in the Spanner PostgreSQL dialect. `JSONB` holds data in JavaScript Object Notation (JSON) format, which follows the specification described in [RFC 7159](https://datatracker.ietf.org/doc/rfc7159/) .
 
 ## Specifications
 
