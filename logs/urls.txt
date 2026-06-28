@@ -151,10 +151,10 @@ https://docs.cloud.google.com/spanner/docs/backup	2026-06-19T17:36:51Z
 https://docs.cloud.google.com/spanner/docs/backup/create-backups	2026-06-19T17:39:35Z
 https://docs.cloud.google.com/spanner/docs/backup/create-manage-backup-schedules	2026-06-19T17:39:35Z
 https://docs.cloud.google.com/spanner/docs/backup/disaster-recovery-overview	2026-06-19T17:39:35Z
-https://docs.cloud.google.com/spanner/docs/backup/manage-backups	2026-06-23T09:08:27Z
+https://docs.cloud.google.com/spanner/docs/backup/manage-backups	2026-06-27T07:47:08Z
 https://docs.cloud.google.com/spanner/docs/backup/restore-backup-overview	2026-06-19T17:39:35Z
-https://docs.cloud.google.com/spanner/docs/backup/restore-backups	2026-06-19T17:39:35Z
-https://docs.cloud.google.com/spanner/docs/batch-write	2026-06-23T09:10:05Z
+https://docs.cloud.google.com/spanner/docs/backup/restore-backups	2026-06-27T07:47:08Z
+https://docs.cloud.google.com/spanner/docs/batch-write	2026-06-27T07:42:58Z
 https://docs.cloud.google.com/spanner/docs/best-practices-gaming-database	2026-06-19T17:35:48Z
 https://docs.cloud.google.com/spanner/docs/build-data-agents-conversational-analytics	2026-06-19T17:35:48Z
 https://docs.cloud.google.com/spanner/docs/bulk-loading	2026-06-19T17:35:48Z
@@ -181,14 +181,14 @@ https://docs.cloud.google.com/spanner/docs/compute-capacity	2026-06-19T17:35:47Z
 https://docs.cloud.google.com/spanner/docs/concepts/function-volatility	2026-06-19T17:39:35Z
 https://docs.cloud.google.com/spanner/docs/concurrency-control	2026-06-23T09:08:44Z
 https://docs.cloud.google.com/spanner/docs/configure-columnar-engine	2026-06-19T17:35:47Z
-https://docs.cloud.google.com/spanner/docs/configure-fgac	2026-06-23T09:08:44Z
+https://docs.cloud.google.com/spanner/docs/configure-fgac	2026-06-27T07:42:58Z
 https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance	2026-06-19T17:35:47Z
 https://docs.cloud.google.com/spanner/docs/connect-gke-cluster	2026-06-19T17:35:47Z
 https://docs.cloud.google.com/spanner/docs/cpu-utilization	2026-06-19T17:35:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-configurations	2026-06-21T17:31:36Z
 https://docs.cloud.google.com/spanner/docs/create-manage-data-placements	2026-06-19T17:35:47Z
-https://docs.cloud.google.com/spanner/docs/create-manage-databases	2026-06-21T17:31:36Z
-https://docs.cloud.google.com/spanner/docs/create-manage-instances	2026-06-21T17:31:36Z
+https://docs.cloud.google.com/spanner/docs/create-manage-databases	2026-06-27T07:42:58Z
+https://docs.cloud.google.com/spanner/docs/create-manage-instances	2026-06-27T07:42:58Z
 https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups	2026-06-19T17:35:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-partitions	2026-06-21T17:31:36Z
 https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries	2026-06-19T17:35:47Z
@@ -382,7 +382,7 @@ https://docs.cloud.google.com/spanner/docs/monitor-active-queries	2026-06-19T17:
 https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai	2026-06-19T17:35:57Z
 https://docs.cloud.google.com/spanner/docs/monitoring-cloud	2026-06-19T17:35:57Z
-https://docs.cloud.google.com/spanner/docs/monitoring-console	2026-06-19T17:35:57Z
+https://docs.cloud.google.com/spanner/docs/monitoring-console	2026-06-27T07:43:09Z
 https://docs.cloud.google.com/spanner/docs/move-instance	2026-06-24T17:32:43Z
 https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-06-23T09:08:28Z
 https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-06-19T17:35:57Z
@@ -800,7 +800,7 @@ https://docs.cloud.google.com/spanner/docs/samples/spanner-quickstart	2026-06-23
 https://docs.cloud.google.com/spanner/docs/samples/spanner-read-data	2026-06-23T09:08:52Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-read-data-with-index	2026-06-23T09:08:52Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-read-only-transaction	2026-06-23T09:08:52Z
-https://docs.cloud.google.com/spanner/docs/samples/spanner-read-stale-data	2026-06-21T17:32:01Z
+https://docs.cloud.google.com/spanner/docs/samples/spanner-read-stale-data	2026-06-27T07:43:25Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-read-write-transaction	2026-06-23T09:08:52Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-restore-backup	2026-06-19T17:35:39Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-set-custom-timeout-and-retry	2026-06-23T09:08:52Z
@@ -872,7 +872,7 @@ https://docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-googlesql	202
 https://docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-postgresql	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-oss-jdbc	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-oss-r2dbc	2026-06-19T17:38:21Z
-https://docs.cloud.google.com/spanner/docs/use-pitr	2026-06-23T09:17:25Z
+https://docs.cloud.google.com/spanner/docs/use-pitr	2026-06-27T07:46:50Z
 https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read	2026-06-19T17:38:21Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable	2026-06-19T17:38:21Z
@@ -903,6 +903,6 @@ https://docs.cloud.google.com/spanner/docs/working-with-jsonb	2026-06-27T02:09:2
 https://docs.cloud.google.com/spanner/docs/working-with-numerics	2026-06-21T17:36:33Z
 https://docs.cloud.google.com/spanner/docs/write-hibernate-app	2026-06-19T17:39:35Z
 https://docs.cloud.google.com/spanner/docs/write-spring-boot-app	2026-06-19T17:39:35Z
-https://docs.cloud.google.com/spanner/docs/write-sql-gemini	2026-06-19T17:39:35Z
+https://docs.cloud.google.com/spanner/docs/write-sql-gemini	2026-06-27T07:47:08Z
 https://docs.cloud.google.com/spanner/operational-guidelines	2026-06-19T17:35:48Z
 https://docs.cloud.google.com/spanner/quotas	2026-06-19T17:35:48Z
