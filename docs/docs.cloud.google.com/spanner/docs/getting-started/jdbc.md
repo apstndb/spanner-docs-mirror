@@ -117,7 +117,11 @@ The following code creates a database and two tables in the database.
         // If the operation failed during execution, expose the cause.
         throw (SpannerException) e.getCause();
       } catch (InterruptedException e) {
-        // Throw when a thread is waiting, sleeping, or otherwise occupied,    // and the thread is interrupted, either before or during the activity.    throw SpannerExceptionFactory.propagateInterrupt(e);  }}
+        // Throw when a thread is waiting, sleeping, or otherwise occupied,
+        // and the thread is interrupted, either before or during the activity.
+        throw SpannerExceptionFactory.propagateInterrupt(e);
+      }
+    }
 
 ### PostgreSQL
 
@@ -160,14 +164,19 @@ The following code creates a database and two tables in the database.
                 "CREATE TABLE Albums ("
                     + "  SingerId     bigint NOT NULL,"
                     + "  AlbumId      bigint NOT NULL,"
-                    + "  AlbumTitle   character varyi&ng(1024),"
+                    + "  AlbumTitle   character varying(1024),"
                     + "  PRIMARY KEY (SingerId, AlbumId)"
                     + ") INTERLEAVE IN PARENT Singers ON DELETE CASCADE")).get();
-        System.out.println("Created Singers  Albums tables in database: [" + databaseName + "]");
+        System.out.println("Created Singers & Albums tables in database: [" + databaseName + "]");
       } catch (ExecutionException e) {
         // If the operation failed during execution, expose the cause.
         throw SpannerExceptionFactory.asSpannerException(e);
-      } catch (InterruptedException e) {    // Throw when a thread is waiting, sleeping, or otherwise occupied,    // and the thread is interrupted, either before or during the activity.    throw SpannerExceptionFactory.propagateInterrupt(e);  }}
+      } catch (InterruptedException e) {
+        // Throw when a thread is waiting, sleeping, or otherwise occupied,
+        // and the thread is interrupted, either before or during the activity.
+        throw SpannerExceptionFactory.propagateInterrupt(e);
+      }
+    }
 
 The next step is to write data to your database.
 
@@ -195,7 +204,11 @@ Before you can do reads or writes, you must create a [`Connection`](https://docs
         try (ResultSet resultSet =
             connection.createStatement().executeQuery("select 'Hello World!'")) {
           while (resultSet.next()) {
-            System.out.println(resultSet.getString(1));      }    }  }}
+            System.out.println(resultSet.getString(1));
+          }
+        }
+      }
+    }
 
 ### PostgreSQL
 
@@ -217,7 +230,11 @@ Before you can do reads or writes, you must create a [`Connection`](https://docs
         try (ResultSet resultSet =
             connection.createStatement().executeQuery("select 'Hello World!'")) {
           while (resultSet.next()) {
-            System.out.println(resultSet.getString(1));      }    }  }}
+            System.out.println(resultSet.getString(1));
+          }
+        }
+      }
+    }
 
 For a full list of supported properties, see [Connection URL Properties](https://github.com/googleapis/java-spanner-jdbc?tab=readme-ov-file#connection-url-properties) .
 
@@ -255,7 +272,11 @@ This example shows how to use the `autoConfigEmulator=true` connection URL optio
         try (ResultSet resultSet =
             connection.createStatement().executeQuery("select 'Hello World!'")) {
           while (resultSet.next()) {
-            System.out.println(resultSet.getString(1));      }    }  }}
+            System.out.println(resultSet.getString(1));
+          }
+        }
+      }
+    }
 
 ### PostgreSQL
 
@@ -278,7 +299,11 @@ This example shows how to use the `autoConfigEmulator=true` connection URL optio
         try (ResultSet resultSet =
             connection.createStatement().executeQuery("select 'Hello World!'")) {
           while (resultSet.next()) {
-            System.out.println(resultSet.getString(1));      }    }  }}
+            System.out.println(resultSet.getString(1));
+          }
+        }
+      }
+    }
 
 <span id="write_data"></span>
 
@@ -309,9 +334,9 @@ You use the `PreparedStatement.executeUpdate()` method to execute a DML statemen
                     + "(?, ?, ?), "
                     + "(?, ?, ?), "
                     + "(?, ?, ?), "
-      <      >        + "(?, ?, ?)")) {
+                    + "(?, ?, ?)")) {
     
-          final ImmutableListSinger singers =
+          final ImmutableList<Singer> singers =
               ImmutableList.of(
                   new Singer(/* SingerId = */ 12L, "Melissa", "Garcia"),
                   new Singer(/* SingerId = */ 13L, "Russel", "Morales"),
@@ -324,7 +349,13 @@ You use the `PreparedStatement.executeUpdate()` method to execute a DML statemen
             preparedStatement.setLong(++paramIndex, singer.singerId);
             preparedStatement.setString(++paramIndex, singer.firstName);
             preparedStatement.setString(++paramIndex, singer.lastName);
-          }      int updateCount = preparedStatement.executeUpdate();      System.out.printf("%d records inserted.\n", updateCount);    }  }}
+          }
+    
+          int updateCount = preparedStatement.executeUpdate();
+          System.out.printf("%d records inserted.\n", updateCount);
+        }
+      }
+    }
 
 ### PostgreSQL
 
@@ -347,9 +378,9 @@ You use the `PreparedStatement.executeUpdate()` method to execute a DML statemen
                     + "(?, ?, ?), "
                     + "(?, ?, ?), "
                     + "(?, ?, ?), "
-      <      >        + "(?, ?, ?)")) {
+                    + "(?, ?, ?)")) {
     
-          final ImmutableListSinger singers =
+          final ImmutableList<Singer> singers =
               ImmutableList.of(
                   new Singer(/* SingerId = */ 12L, "Melissa", "Garcia"),
                   new Singer(/* SingerId = */ 13L, "Russel", "Morales"),
@@ -362,7 +393,13 @@ You use the `PreparedStatement.executeUpdate()` method to execute a DML statemen
             preparedStatement.setLong(++paramIndex, singer.singerId);
             preparedStatement.setString(++paramIndex, singer.firstName);
             preparedStatement.setString(++paramIndex, singer.lastName);
-          }      int updateCount = preparedStatement.executeUpdate();      System.out.printf("%d records inserted.\n", updateCount);    }  }}
+          }
+    
+          int updateCount = preparedStatement.executeUpdate();
+          System.out.printf("%d records inserted.\n", updateCount);
+        }
+      }
+    }
 
 Run the sample with this command:
 
@@ -408,8 +445,8 @@ You use the `PreparedStatement#addBatch()` and `PreparedStatement#executeBatch()
         try (PreparedStatement preparedStatement =
             connection.prepareStatement(
                 "INSERT INTO Singers (SingerId, FirstName, LastName) "
-                    + "VALUES (?, ?, <?)&quo>t;)) {
-          final ImmutableListSinger singers =
+                    + "VALUES (?, ?, ?)")) {
+          final ImmutableList<Singer> singers =
               ImmutableList.of(
                   new Singer(/* SingerId = */ 16L, "Sarah", "Wilson"),
                   new Singer(/* SingerId = */ 17L, "Ethan", "Miller"),
@@ -426,7 +463,11 @@ You use the `PreparedStatement#addBatch()` and `PreparedStatement#executeBatch()
     
           int[] updateCounts = preparedStatement.executeBatch();
           System.out.printf(
-              "%d records inserted.\n",          Arrays.stream(updateCounts).sum());    }  }}
+              "%d records inserted.\n",
+              Arrays.stream(updateCounts).sum());
+        }
+      }
+    }
 
 ### PostgreSQL
 
@@ -446,8 +487,8 @@ You use the `PreparedStatement#addBatch()` and `PreparedStatement#executeBatch()
         try (PreparedStatement preparedStatement =
             connection.prepareStatement(
                 "INSERT INTO singers (singer_id, first_name, last_name)"
-                    + " VALUES (?, ?, <?)&quo>t;)) {
-          final ImmutableListSinger singers =
+                    + " VALUES (?, ?, ?)")) {
+          final ImmutableList<Singer> singers =
               ImmutableList.of(
                   new Singer(/* SingerId = */ 16L, "Sarah", "Wilson"),
                   new Singer(/* SingerId = */ 17L, "Ethan", "Miller"),
@@ -464,7 +505,11 @@ You use the `PreparedStatement#addBatch()` and `PreparedStatement#executeBatch()
     
           int[] updateCounts = preparedStatement.executeBatch();
           System.out.printf(
-              "%d records inserted.\n",          Arrays.stream(updateCounts).sum());    }  }}
+              "%d records inserted.\n",
+              Arrays.stream(updateCounts).sum());
+        }
+      }
+    }
 
 Run the sample with this command:
 
@@ -507,10 +552,10 @@ This code shows how to write the data using mutations:
             new Singer(2, "Catalina", "Smith"),
             new Singer(3, "Alice", "Trentor"),
             new Singer(4, "Lea", "Martin"),
-            new Singer<(5, &>quot;David", "Lomond"));
+            new Singer(5, "David", "Lomond"));
     
     /** The list of Albums to insert. */
-    static final ListAlbum ALBUMS =
+    static final List<Album> ALBUMS =
         Arrays.asList(
             new Album(1, 1, "Total Junk"),
             new Album(1, 2, "Go, Go, Go"),
@@ -530,11 +575,11 @@ This code shows how to write the data using mutations:
                   project, instance, database),
               properties)) {
         // Unwrap the CloudSpannerJdbcConnection interface
-        // <from the> java.sql.Connection.
-        <>CloudSpannerJdbcConnection cloudSpannerJdbcConnection =
+        // from the java.sql.Connection.
+        CloudSpannerJdbcConnection cloudSpannerJdbcConnection =
             connection.unwrap(CloudSpannerJdbcConnection.class);
     
-        ListMutation mutations = new ArrayList();
+        List<Mutation> mutations = new ArrayList<>();
         for (Singer singer : SINGERS) {
           mutations.add(
               Mutation.newInsertBuilder("Singers")
@@ -553,8 +598,15 @@ This code shows how to write the data using mutations:
                   .to(album.singerId)
                   .set("AlbumId")
                   .to(album.albumId)
-                  .set("AlbumTitle&quot;)
-                  .to(album.albumTitle)              .build());    }    // Apply the mutations atomically to Spanner.    cloudSpannerJdbcConnection.write(mutations);    System.out.printf("Inserted %d rows.\n", mutations.size());  }}
+                  .set("AlbumTitle")
+                  .to(album.albumTitle)
+                  .build());
+        }
+        // Apply the mutations atomically to Spanner.
+        cloudSpannerJdbcConnection.write(mutations);
+        System.out.printf("Inserted %d rows.\n", mutations.size());
+      }
+    }
 
 ### PostgreSQL
 
@@ -565,10 +617,10 @@ This code shows how to write the data using mutations:
             new Singer(2, "Catalina", "Smith"),
             new Singer(3, "Alice", "Trentor"),
             new Singer(4, "Lea", "Martin"),
-            new Singer<(5, &>quot;David", "Lomond"));
+            new Singer(5, "David", "Lomond"));
     
     /** The list of Albums to insert. */
-    static final ListAlbum ALBUMS =
+    static final List<Album> ALBUMS =
         Arrays.asList(
             new Album(1, 1, "Total Junk"),
             new Album(1, 2, "Go, Go, Go"),
@@ -588,11 +640,11 @@ This code shows how to write the data using mutations:
                   project, instance, database),
               properties)) {
         // Unwrap the CloudSpannerJdbcConnection interface
-        // <from the> java.sql.Connection.
-        <>CloudSpannerJdbcConnection cloudSpannerJdbcConnection =
+        // from the java.sql.Connection.
+        CloudSpannerJdbcConnection cloudSpannerJdbcConnection =
             connection.unwrap(CloudSpannerJdbcConnection.class);
     
-        ListMutation mutations = new ArrayList();
+        List<Mutation> mutations = new ArrayList<>();
         for (Singer singer : SINGERS) {
           mutations.add(
               Mutation.newInsertBuilder("singers")
@@ -611,8 +663,15 @@ This code shows how to write the data using mutations:
                   .to(album.singerId)
                   .set("album_id")
                   .to(album.albumId)
-                  .set("album_title&quot;)
-                  .to(album.albumTitle)              .build());    }    // Apply the mutations atomically to Spanner.    cloudSpannerJdbcConnection.write(mutations);    System.out.printf("Inserted %d rows.\n", mutations.size());  }}
+                  .set("album_title")
+                  .to(album.albumTitle)
+                  .build());
+        }
+        // Apply the mutations atomically to Spanner.
+        cloudSpannerJdbcConnection.write(mutations);
+        System.out.printf("Inserted %d rows.\n", mutations.size());
+      }
+    }
 
 Run the sample with this command:
 
@@ -698,7 +757,11 @@ Here's how to issue the query and access the data:
                 "%d %d %s\n",
                 resultSet.getLong("SingerId"),
                 resultSet.getLong("AlbumId"),
-                resultSet.getString("AlbumTitle"));      }    }  }}
+                resultSet.getString("AlbumTitle"));
+          }
+        }
+      }
+    }
 
 ### PostgreSQL
 
@@ -724,7 +787,11 @@ Here's how to issue the query and access the data:
                 "%d %d %s\n",
                 resultSet.getLong("singer_id"),
                 resultSet.getLong("album_id"),
-                resultSet.getString("album_title"));      }    }  }}
+                resultSet.getString("album_title"));
+          }
+        }
+      }
+    }
 
 Run the sample with this command:
 
@@ -779,7 +846,12 @@ Use a [`java.sql.PreparedStatement`](https://docs.oracle.com/javase/8/docs/api/j
                   "%d %s %s\n",
                   resultSet.getLong("SingerId"),
                   resultSet.getString("FirstName"),
-                  resultSet.getString("LastName"));        }      }    }  }}
+                  resultSet.getString("LastName"));
+            }
+          }
+        }
+      }
+    }
 
 ### PostgreSQL
 
@@ -806,7 +878,12 @@ Use a [`java.sql.PreparedStatement`](https://docs.oracle.com/javase/8/docs/api/j
                   "%d %s %s\n",
                   resultSet.getLong("singer_id"),
                   resultSet.getString("first_name"),
-                  resultSet.getString("last_name"));        }      }    }  }}
+                  resultSet.getString("last_name"));
+            }
+          }
+        }
+      }
+    }
 
 Run the sample with this command:
 
@@ -870,7 +947,9 @@ Use the [`execute(String)`](https://docs.oracle.com/javase/8/docs/api/java/sql/S
         connection
             .createStatement()
             .execute("ALTER TABLE Albums ADD COLUMN MarketingBudget INT64");
-        System.out.println("Added MarketingBudget column");  }}
+        System.out.println("Added MarketingBudget column");
+      }
+    }
 
 ### PostgreSQL
 
@@ -888,7 +967,9 @@ Use the [`execute(String)`](https://docs.oracle.com/javase/8/docs/api/java/sql/S
         connection
             .createStatement()
             .execute("alter table albums add column marketing_budget bigint");
-        System.out.println("Added marketing_budget column");  }}
+        System.out.println("Added marketing_budget column");
+      }
+    }
 
 Run the sample with this command:
 
@@ -943,7 +1024,13 @@ We recommend that you execute multiple schema modifications in one batch. Use th
                   + "  CONSTRAINT Fk_Concerts_Venues FOREIGN KEY"
                   + "    (VenueId) REFERENCES Venues (VenueId),"
                   + "  CONSTRAINT Fk_Concerts_Singers FOREIGN KEY"
-                  + "    (SingerId) REFERENCES Singers (SingerId),"              + ") PRIMARY KEY (ConcertId)");      statement.executeBatch();    }    System.out.println("Added Venues and Concerts tables");  }}
+                  + "    (SingerId) REFERENCES Singers (SingerId),"
+                  + ") PRIMARY KEY (ConcertId)");
+          statement.executeBatch();
+        }
+        System.out.println("Added Venues and Concerts tables");
+      }
+    }
 
 ### PostgreSQL
 
@@ -977,7 +1064,12 @@ We recommend that you execute multiple schema modifications in one batch. Use th
                   + "    (venue_id) references venues (venue_id),"
                   + "  constraint fk_concerts_singers foreign key"
                   + "    (singer_id) references singers (singer_id)"
-                  + ")");      statement.executeBatch();    }    System.out.println("Added venues and concerts tables");  }}
+                  + ")");
+          statement.executeBatch();
+        }
+        System.out.println("Added venues and concerts tables");
+      }
+    }
 
 Run the sample with this command:
 
@@ -1020,8 +1112,8 @@ The following code writes data to the new column. It sets `MarketingBudget` to `
         final long marketingBudgetAlbum1 = 100000L;
         final long marketingBudgetAlbum2 = 500000L;
         // Mutation can be used to update/insert/delete a single row in a table.
-        // Here we use newUpdateBuilder to create update mutations<.
-        Li>stMutation mutations =
+        // Here we use newUpdateBuilder to create update mutations.
+        List<Mutation> mutations =
             Arrays.asList(
                 Mutation.newUpdateBuilder("Albums")
                     .set("SingerId")
@@ -1041,7 +1133,9 @@ The following code writes data to the new column. It sets `MarketingBudget` to `
                     .build());
         // This writes all the mutations to Cloud Spanner atomically.
         cloudSpannerJdbcConnection.write(mutations);
-        System.out.println("Updated albums");  }}
+        System.out.println("Updated albums");
+      }
+    }
 
 ### PostgreSQL
 
@@ -1064,8 +1158,8 @@ The following code writes data to the new column. It sets `MarketingBudget` to `
         final long marketingBudgetAlbum1 = 100000L;
         final long marketingBudgetAlbum2 = 500000L;
         // Mutation can be used to update/insert/delete a single row in a table.
-        // Here we use newUpdateBuilder to create update mutations<.
-        Li>stMutation mutations =
+        // Here we use newUpdateBuilder to create update mutations.
+        List<Mutation> mutations =
             Arrays.asList(
                 Mutation.newUpdateBuilder("albums")
                     .set("singer_id")
@@ -1085,7 +1179,9 @@ The following code writes data to the new column. It sets `MarketingBudget` to `
                     .build());
         // This writes all the mutations to Cloud Spanner atomically.
         cloudSpannerJdbcConnection.write(mutations);
-        System.out.println("Updated albums");  }}
+        System.out.println("Updated albums");
+      }
+    }
 
 Run the sample with this command:
 
@@ -1135,7 +1231,11 @@ Here's the code to execute the query:
                 "%s %s %s\n",
                 resultSet.getObject("SingerId"),
                 resultSet.getObject("AlbumId"),
-                resultSet.getObject("MarketingBudget"));      }    }  }}
+                resultSet.getObject("MarketingBudget"));
+          }
+        }
+      }
+    }
 
 ### PostgreSQL
 
@@ -1165,7 +1265,11 @@ Here's the code to execute the query:
                 "%s %s %s\n",
                 resultSet.getObject("singer_id"),
                 resultSet.getObject("album_id"),
-                resultSet.getObject("marketing_budget"));      }    }  }}
+                resultSet.getObject("marketing_budget"));
+          }
+        }
+      }
+    }
 
 To execute this query, run the following command:
 
@@ -1232,8 +1336,8 @@ Set `AutoCommit=false` to execute read-write transactions in JDBC.
           }
           // The transaction will only be committed if this condition still holds
           // at the time of commit. Otherwise, the transaction will be aborted.
-          fin>al long transfer = 200000;
-          if (album2Budget = transfer) {
+          final long transfer = 200000;
+          if (album2Budget >= transfer) {
             long album1Budget = 0;
             // Re-use the existing PreparedStatement for selecting the
             // MarketingBudget to get the budget for Album 1.
@@ -1280,7 +1384,9 @@ Set `AutoCommit=false` to execute read-write transactions in JDBC.
         // Commit the current transaction.
         connection.commit();
         System.out.println(
-            "Transferred marketing budget from Album 2 to Album 1");  }}
+            "Transferred marketing budget from Album 2 to Album 1");
+      }
+    }
 
 ### PostgreSQL
 
@@ -1320,8 +1426,8 @@ Set `AutoCommit=false` to execute read-write transactions in JDBC.
           }
           // The transaction will only be committed if this condition still holds
           // at the time of commit. Otherwise, the transaction will be aborted.
-          fin>al long transfer = 200000;
-          if (album2Budget = transfer) {
+          final long transfer = 200000;
+          if (album2Budget >= transfer) {
             long album1Budget = 0;
             // Re-use the existing PreparedStatement for selecting the
             // marketing_budget to get the budget for Album 1.
@@ -1368,7 +1474,9 @@ Set `AutoCommit=false` to execute read-write transactions in JDBC.
         // Commit the current transaction.
         connection.commit();
         System.out.println(
-            "Transferred marketing budget from Album 2 to Album 1");  }}
+            "Transferred marketing budget from Album 2 to Album 1");
+      }
+    }
 
 Run the sample with this command:
 
@@ -1428,9 +1536,9 @@ Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/do
           }
         }
         // Reduce the marketing budget by 10% if it is more than 1,000.
-        final long maxMarketi>ngBudget = 1000L;
+        final long maxMarketingBudget = 1000L;
         final float reduction = 0.1f;
-        if (marketingBudget  maxMarketingBudget) {
+        if (marketingBudget > maxMarketingBudget) {
           marketingBudget -= (long) (marketingBudget * reduction);
           connection
               .createStatement()
@@ -1446,7 +1554,11 @@ Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/do
           }
         }
     
-        // Commit the current transaction.    connection.commit();    System.out.println("Reduced marketing budget");  }}
+        // Commit the current transaction.
+        connection.commit();
+        System.out.println("Reduced marketing budget");
+      }
+    }
 
 ### PostgreSQL
 
@@ -1490,9 +1602,9 @@ Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/do
           }
         }
         // Reduce the marketing budget by 10% if it is more than 1,000.
-        final long maxMarketi>ngBudget = 1000L;
+        final long maxMarketingBudget = 1000L;
         final float reduction = 0.1f;
-        if (marketingBudget  maxMarketingBudget) {
+        if (marketingBudget > maxMarketingBudget) {
           marketingBudget -= (long) (marketingBudget * reduction);
           connection
               .createStatement()
@@ -1508,7 +1620,11 @@ Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/do
           }
         }
     
-        // Commit the current transaction.    connection.commit();    System.out.println("Reduced marketing budget");  }}
+        // Commit the current transaction.
+        connection.commit();
+        System.out.println("Reduced marketing budget");
+      }
+    }
 
 Run the sample with this command:
 
@@ -1578,7 +1694,13 @@ The following shows how to run a query and perform a read in the same read-only 
                 "%d %d %s\n",
                 resultSet.getLong("SingerId"),
                 resultSet.getLong("AlbumId"),
-                resultSet.getString("AlbumTitle"));      }    }    // End the read-only transaction by calling commit().    connection.commit();  }}
+                resultSet.getString("AlbumTitle"));
+          }
+        }
+        // End the read-only transaction by calling commit().
+        connection.commit();
+      }
+    }
 
 ### PostgreSQL
 
@@ -1626,7 +1748,13 @@ The following shows how to run a query and perform a read in the same read-only 
                 "%d %d %s\n",
                 resultSet.getLong("singer_id"),
                 resultSet.getLong("album_id"),
-                resultSet.getString("album_title"));      }    }    // End the read-only transaction by calling commit().    connection.commit();  }}
+                resultSet.getString("album_title"));
+          }
+        }
+        // End the read-only transaction by calling commit().
+        connection.commit();
+      }
+    }
 
 Run the sample with this command:
 
@@ -1689,7 +1817,12 @@ The [`partitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rest
             System.out.printf(
                 "%d %s %s\n",
                 resultSet.getLong("SingerId"),
-                resultSet.getString("FirstName"),            resultSet.getString("LastName"));      }    }  }}
+                resultSet.getString("FirstName"),
+                resultSet.getString("LastName"));
+          }
+        }
+      }
+    }
 
 ### PostgreSQL
 
@@ -1721,7 +1854,12 @@ The [`partitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rest
             System.out.printf(
                 "%d %s %s\n",
                 resultSet.getLong("singer_id"),
-                resultSet.getString("first_name"),            resultSet.getString("last_name"));      }    }  }}
+                resultSet.getString("first_name"),
+                resultSet.getString("last_name"));
+          }
+        }
+      }
+    }
 
 Run the sample with this command:
 
@@ -1771,7 +1909,9 @@ For more information on running partitioned queries and using Data Boost with th
                 .executeUpdate("UPDATE Albums "
                     + "SET MarketingBudget=0 "
                     + "WHERE MarketingBudget IS NULL");
-        System.out.printf(&quot;Updated at least %d albums\n", lowerBoundUpdateCount);  }}
+        System.out.printf("Updated at least %d albums\n", lowerBoundUpdateCount);
+      }
+    }
 
 ### PostgreSQL
 
@@ -1797,7 +1937,9 @@ For more information on running partitioned queries and using Data Boost with th
                 .executeUpdate("update albums "
                     + "set marketing_budget=0 "
                     + "where marketing_budget is null");
-        System.out.printf(&quot;Updated at least %d albums\n", lowerBoundUpdateCount);  }}
+        System.out.printf("Updated at least %d albums\n", lowerBoundUpdateCount);
+      }
+    }
 
 Run the sample with this command:
 
