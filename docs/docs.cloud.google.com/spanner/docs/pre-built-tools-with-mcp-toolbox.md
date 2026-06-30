@@ -8,21 +8,17 @@ data_source: docs.cloud.google.com
 
 This document describes how to connect your Spanner instance to various developer tools that support the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) .
 
-We recommend using the dedicated Spanner extension for [Gemini CLI](https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli) . This extension abstracts away the need to set up a separate server connection. You can configure Gemini Code Assist to use the Gemini CLI, offering similar setup benefits in your IDE. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
+We recommend using the dedicated Spanner extension for [Gemini CLI](https://docs.cloud.google.com/gemini/docs/codeassist/gemini-cli) . The extension bundles the underlying skills directly into the extension, which simplifies setup and configuration. You can configure Gemini Code Assist to use the Gemini CLI, offering similar setup benefits in your IDE. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
 
 Alternatively, other IDEs and developer tools supporting the MCP can connect through [MCP Toolbox for Databases](https://github.com/googleapis/mcp-toolbox) . MCP Toolbox is an open-source MCP server designed to connect AI agents to your data. It handles tasks like authentication and connection pooling, letting you interact with your data with natural language directly from your IDE.
 
 ## Use the Gemini CLI extension in Spanner
 
-The Spanner integration with Gemini CLI is through an open-source extension that offers additional capabilities compared to the standard MCP Toolbox connection. The extension offers an installation process and a set of tools, in addition to providing detailed information on installation, configuration, and usage examples. If you use the Gemini CLI extension, you don't need to install MCP Toolbox. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
+The Spanner integration with Gemini CLI is through an open-source extension that offers additional capabilities compared to the standard MCP Toolbox connection. The extension offers a streamlined installation process and a set of skills based on MCP Tools. If you use the Gemini CLI extension, you don't need to install MCP Toolbox. For more information, see [Gemini CLI Extension - Spanner](https://github.com/gemini-cli-extensions/spanner) .
 
-The `spanner` extension includes tools for listing tables, and executing SQL and SQL DQL statements.
+The `spanner` extension includes skills for listing tables, and executing SQL and SQL DQL statements.
 
-| Tools             | Example natural language prompt                                |
-| ----------------- | -------------------------------------------------------------- |
-| `list_tables`     | What tables do I have in my Spanner instance?                  |
-| `execute_sql`     | Insert test data into the products table.                      |
-| `execute_sql_dql` | What products in the electronics category are sold in America? |
+For all available skills, see the [Spanner skills on GitHub](https://github.com/gemini-cli-extensions/spanner/tree/main/skills) .
 
 ## Before you begin
 
@@ -74,41 +70,39 @@ The `spanner` extension includes tools for listing tables, and executing SQL and
     
         ./toolbox --version
 
-## Set up the agent tool
+## Set up clients and connections
 
-This section describes how to configure various developer tools to connect to your Spanner instance. Select your agent tool from the following options:
+This section describes how to configure various developer tools to connect to your Spanner instance. Select your client from the following options:
 
 ### Gemini CLI
 
-1.  Install the [Gemini CLI.](https://github.com/google-gemini/gemini-cli?tab=readme-ov-file#-installation)  
+1.  Install the [Gemini CLI.](https://github.com/google-gemini/gemini-cli?tab=readme-ov-file#-installation)
 
-2.  Install the Spanner extension for Gemini CLI from the GitHub repository using the following command:  
-
-3.  Set the following environment variables to connect to your Spanner instance:  
+2.  Install the Spanner extension for Gemini CLI from the GitHub repository using the following command:
     
-    ``` 
+        gemini extensions install https://github.com/gemini-cli-extensions/spanner
+
+3.  Set the following environment variables to connect to your Spanner instance:
+    
         export SPANNER_PROJECT="PROJECT_ID"
         export SPANNER_INSTANCE="INSTANCE_NAME"
         export SPANNER_DATABASE="DATABASE_NAME"
         export SPANNER_DIALECT="DIALECT_NAME"
-        
-    ```
     
     Replace the following:
     
-      - `  PROJECT_ID  ` : your Google Cloud project ID.
-      - `  INSTANCE_NAME  ` : your Spanner instance name.
-      - `  DATABASE_NAME  ` : your Spanner database name.
-      - `  DIALECT_NAME  ` : your Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
+      - PROJECT\_ID : The Google Cloud project ID.
+      - INSTANCE\_NAME : The Spanner instance name.
+      - DATABASE\_NAME : The Spanner database name.
+      - DIALECT\_NAME : The Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
 
 4.  Start the Gemini CLI in interactive mode:
     
-    ``` 
         gemini
-        
-    ```
     
-    The CLI automatically loads the Spanner extension for Gemini CLI and its tools, which you can use to interact with your database.
+    The CLI automatically loads the Spanner extension for Gemini CLI and its skills, which you can use to interact with your database.
+    
+    In the Gemini CLI, use the [`/extensions`](https://github.com/google-gemini/gemini-cli/blob/bbcc90613390e4d3d3aed911fbc1535af80d643b/docs/cli/commands.md) command to verify the extension is installed.
 
 ### Gemini Code Assist
 
@@ -164,45 +158,73 @@ Spanner with **PostgreSQL** dialect:
 
 ### Claude Code
 
-  
-1\. Install [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) .  
-2\. Create `.mcp.json` file in your project root, if it doesn't exist.  
-3\. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
-  
-Spanner with **GoogleSQL** dialect:  
-  
+1.  Install [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) .
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
-      }
-    }
+2.  Set the environment variables to connect to your Spanner instance:
+    
+    ```sh
+    export SPANNER_PROJECT="PROJECT_ID"
+    export SPANNER_INSTANCE="INSTANCE_NAME"
+    export SPANNER_DATABASE="DATABASE_NAME"
+    export SPANNER_DIALECT="DIALECT_NAME"
+    ```
+    
+    Replace the following:
+    
+      - PROJECT\_ID : The Google Cloud project ID.
+      - INSTANCE\_NAME : The Spanner instance name.
+      - DATABASE\_NAME : The Spanner database name.
+      - DIALECT\_NAME : The Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
 
-  
-Spanner with **PostgreSQL** dialect:  
-  
+3.  Start the agent:
+    
+    ```sh
+    claude
+    ```
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner-postgres","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
-      }
-    }
+4.  Install the plugin:
+    
+    ```sh
+    /plugin install spanner@claude-plugins-official
+    ```
+
+> **Tip:** Run `/plugin list` inside Claude Code to verify the plugin is active, or `/reload-plugins` if you just installed it.
+
+### Codex
+
+1.  Install the Data Agent Kit marketplace:
+    
+    ```sh
+    codex plugin marketplace add GoogleCloudPlatform/data-agent-kit
+    ```
+
+2.  Install the Spanner plugin:
+    
+    ```sh
+    codex plugin install spanner@data-agent-kit
+    ```
+
+3.  Configure the environment variables to connect to your Spanner instance:
+    
+    ```sh
+    export SPANNER_PROJECT="PROJECT_ID"
+    export SPANNER_INSTANCE="INSTANCE_NAME"
+    export SPANNER_DATABASE="DATABASE_NAME"
+    export SPANNER_DIALECT="DIALECT_NAME"
+    ```
+    
+    Replace the following:
+    
+      - PROJECT\_ID : The Google Cloud project ID.
+      - INSTANCE\_NAME : The Spanner instance name.
+      - DATABASE\_NAME : The Spanner database name.
+      - DIALECT\_NAME : The Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
+
+4.  Optional. Update the marketplace:
+    
+    ```sh
+    codex plugin marketplace upgrade data-agent-kit
+    ```
 
 ### Claude for Desktop
 
@@ -443,7 +465,7 @@ The most recommended way to connect to [Antigravity](https://antigravity.google/
 3.  Locate **Spanner** in the list of available servers and click **Install** .
 4.  Follow the on-screen steps to authorize Antigravity to access your Google Cloud Project. This lets Antigravity access the Spanner instance on your project.
 
-Once you install the Spanner server in the MCP Store, the resources and tools from the server are available to the editor.
+Once you install the Spanner server in the MCP Store, the resources and skills from the server are available to the editor.
 
 ### Custom configuration
 
@@ -471,7 +493,7 @@ To connect to a custom MCP server, do the following steps:
       }
     }
 
-Once you configure the custom MCP server, the resources and tools from the Spanner server are available to the editor.
+Once you configure the custom MCP server, the resources and skills from the Spanner server are available to the editor.
 
 Replace the following:
 
