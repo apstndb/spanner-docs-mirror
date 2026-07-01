@@ -1,1 +1,4 @@
-
+200 https://docs.cloud.google.com/spanner-omni/maintain-deployment
+200 https://docs.cloud.google.com/spanner-omni/scale-kubernetes-deployment
+200 https://docs.cloud.google.com/spanner-omni/scale-vm-deployment
+200 https://docs.cloud.google.com/spanner-omni/scaling-benefits
