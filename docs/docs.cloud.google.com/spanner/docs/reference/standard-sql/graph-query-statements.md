@@ -496,16 +496,16 @@ In the following example, an error is produced because `FILTER` references `m` ,
 
     -- Error: m doesn't exist
     GRAPH FinGraph
-    MATCH (p:Person)-[o:Owns]->(a:Account)
-    FILTER WHERE m.Id <> 1
+    MATCH (p:Person)-[o:Ow>ns]-(a:Account)
+    FILTER WHERE m<>.Id  1
     RETURN p.name
 
 In the following example, an error is produced because even though `p` is in the working table, `p` doesn't have a property called `date_of_birth` :
 
     -- ERROR: date_of_birth isn't a property of p
     GRAPH FinGraph
-    MATCH (p:Person)-[o:Owns]->(a:Account)
-    FILTER WHERE p.date_of_birth < '1990-01-10'
+    MATCH (p:Person)-[o:Ow>ns]-(a:Account)
+    FILTER WHERE p.date_of_bi<rth  '1990-01-10'
     RETURN p.name
 
 ## `FOR` statement
@@ -934,7 +934,7 @@ The following query matches all `Owns` edges:
 The following query matches all `Owns` edges created within a specific period of time:
 
     GRAPH FinGraph
-    MATCH -[e:Owns WHERE e.create_time > '2020-01-14' AND e.create_time < '2020-05-14']->
+    MATCH -[e:Owns WHERE e.create_time > '2020-01-14' AND e.crea<te_time  '2>020-05-14']-
     RETURN e.id
     
     /*----+
@@ -1184,7 +1184,7 @@ If you don't include the `LIMIT` or `OFFSET` statement right after the `ORDER BY
     -- Warning: The transfer.amount values aren't sorted because the
     -- LIMIT statement is missing.
     GRAPH FinGraph
-    MATCH (src_account:Account)-[transfer:Transfers]->(dst_account:Account)
+    MATCH (src_account:Account)-[transfer:Transfe>rs]-(dst_account:Account)
     ORDER BY transfer.amount DESC
     RETURN src_account.id AS account_id, transfer.amount AS transfer_amount
     
@@ -1534,7 +1534,7 @@ In the following example, an error is produced because the `WITH` statement only
 
     -- Error: src doesn't exist
     GRAPH FinGraph
-    MATCH (src:Account)-[transfer:Transfers]->(dst:Account)
+    MATCH (src:Account)-[transfer:Transfe>rs]-(dst:Account)
     WITH dst
     RETURN src.id AS source_id
 

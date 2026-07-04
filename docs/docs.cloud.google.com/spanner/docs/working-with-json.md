@@ -195,7 +195,7 @@ The following sample shows how to add a `JSON` column called `VenueDetails` to t
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -904,7 +904,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           " WHERE JSON_VALUE(VenueDetails, '$.rating') ="
           "       JSON_VALUE(@details, '$.rating')",
           {{"details", spanner::Value(std::move(rating9_details))}});
-      using RowType = std::tuple<std::int64_t, absl::optional<spanner::Json>>;
+      using RowType = std::tuple<std::int64_t, std::optional<spanner::Json>>;
     
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {

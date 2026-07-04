@@ -31,7 +31,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           "  FROM Venues"
           " WHERE Revenue < @revenue",
           {{"revenue", spanner::Value(std::move(revenue))}});
-      using RowType = std::tuple<std::int64_t, absl::optional<spanner::Numeric>>;
+      using RowType = std::tuple<std::int64_t, std::optional<spanner::Numeric>>;
     
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {

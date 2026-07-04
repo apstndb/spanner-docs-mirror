@@ -433,7 +433,7 @@ For example, the following DDL statements create a `Songs` table with a `LyricsC
 
 ## Move data between storage options
 
-You can move data between SSD and HDD storage. Moving data can take up to seven days. You can monitor the progress of the move by querying the built-in `SPANNER_SYS.TABLE_SIZES_STATS_1HOUR` table to check HDD and SSD storage usage for each table in your database. You can also monitor your storage usage by using the Cloud Monitoring `spanner.googleapis.com/instance/storage/used_bytes` metric to show the SSD and HDD breakdown for your database or instance. For more information, see [tiered storage observability](https://docs.cloud.google.com/spanner/docs/tiered-storage#observability) .
+You can move data between SSD and HDD storage. Moving data can take up to seven days. To migrate data between SSD and HDD faster, you can [manually trigger a major compaction](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) . You can monitor the progress of the move by querying the built-in `SPANNER_SYS.TABLE_SIZES_STATS_1HOUR` table to check HDD and SSD storage usage for each table in your database. You can also monitor your storage usage by using the Cloud Monitoring `spanner.googleapis.com/instance/storage/used_bytes` metric to show the SSD and HDD breakdown for your database or instance. For more information, see [tiered storage observability](https://docs.cloud.google.com/spanner/docs/tiered-storage#observability) .
 
 ### Move data from SSD to HDD storage
 

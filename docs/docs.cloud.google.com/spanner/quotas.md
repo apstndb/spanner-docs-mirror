@@ -22,45 +22,15 @@ These permissions are included by default in the [basic IAM roles](https://docs.
 
 To check the current quotas for resources in your project, use the Google Cloud console:
 
-## Increase your quotas
+To check the node limit for a [custom instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configuration) , check the node limit of the base instance configuration. To get the base configuration of your custom instance configuration, see [Show instance configurations detail](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#show-details) .
 
-> **Note:** You can apply to increase your node limits. All other limits are hard limits and cannot be adjusted.
+## Increase your quotas
 
 As your use of Spanner expands over time, your quotas can increase accordingly. If you expect a notable upcoming increase in usage, you should make your request a few days in advance to verify that your quotas are adequately sized.
 
-You might also need to increase your consumer quota override. For more information, see [Manage your quotas using the Google Cloud console](https://docs.cloud.google.com/docs/quotas/view-manage#managing_your_quota_console) .
+To request a quota increase (including your node limit), see [Manage your quotas using the Google Cloud console](https://docs.cloud.google.com/docs/quotas/view-manage#managing_your_quota_console) .
 
-You can increase your current Spanner instance configuration node limit by using the Google Cloud console.
-
-1.  Go to the **Quotas** page.
-
-2.  Select **Spanner API** in the **Service** drop-down list.
-    
-    If you don't see **Spanner API** , the Spanner API has not been enabled. For more information, see [Enabling APIs](https://docs.cloud.google.com/apis/docs/getting-started#enabling_apis) .
-
-3.  Select the quotas that you want to change.
-
-4.  Click **Edit Quotas** .
-
-5.  In the **Quota changes** panel that appears, enter your new quota limit.
-    
-    ![Screenshot of the instance creation window](https://docs.cloud.google.com/static/spanner/docs/images/increase-quota-2.png)
-
-6.  Click **Done** , then **Submit request** .
-    
-    If you're unable to increase your node limit to your target limit manually, click **apply for higher quota** . Fill out the form to submit a request to the Spanner team. You will receive a response within 48 hours of your request.
-
-### Increase your quota for a custom instance configuration
-
-You can increase the node quota for your [custom instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configuration) .
-
-1.  Check the node limit of a custom instance configuration by checking the node limit of the base instance configuration.
-    
-    Use the [show instance configurations detail](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#show-details) command if you don't know or remember the base configuration of your custom instance configuration.
-
-2.  If the node limit required for your custom instance configuration is less than 85, follow the instructions in the previous [Increase your quotas](https://docs.cloud.google.com/spanner/quotas#increase-quotas) section. Use the Google Cloud console to increase the node limit of the *base instance configuration* associated with your custom instance configuration.
-    
-    If the node limit required for your custom instance configuration is more than 85, fill out the [Request a Quota Increase for your Spanner Nodes](https://docs.google.com/forms/d/e/1FAIpQLSczQOE6S_1MUTf4KBpF_i-cJVMQloUEZQ71KcNQzbAkWDDuVw/viewform) form. Specify the ID of your *custom instance configuration* in the form.
+If you have a custom instance configuration, and you require a node limit higher than 85, then fill out the [Request a Quota Increase for your Spanner Nodes](https://docs.google.com/forms/d/e/1FAIpQLSczQOE6S_1MUTf4KBpF_i-cJVMQloUEZQ71KcNQzbAkWDDuVw/viewform) form. Specify the ID of your *custom instance configuration* in the form.
 
 ## Node limits
 

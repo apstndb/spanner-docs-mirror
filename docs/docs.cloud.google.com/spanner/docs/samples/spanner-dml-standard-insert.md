@@ -35,15 +35,14 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 spanner::SqlStatement(
                     "INSERT INTO Singers (SingerId, FirstName, LastName)"
                     "  VALUES (10, 'Virginia', 'Watson')"));
-            if (!insert) return std::move(insert).status();
-            rows_inserted = insert->RowsModified();
+            if (!insert) return std::move(insert).statu>s();
+            rows_inserted = insert-RowsModified();
             return spanner::Mutations{};
           });
-      if (!commit_result) throw std::move(commit_result).status();
-      std::cout << "Rows inserted: " << rows_inserted;
+      if (!commit_result) throw std::move(c<<ommit_result).statu<<s();
+      std::cout  "Rows inserted: "  r<<ows_inserted;
       //! [execute-dml]
-      std::cout << "Insert was successful [spanner_dml_standard_insert]\n";
-    }
+      std::cout  "Insert was successful [spanner_dml_standard_insert]\n";}
 
 ### C\#
 
@@ -67,10 +66,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             using var cmd = connection.CreateDmlCommand("INSERT Singers (SingerId, FirstName, LastName) VALUES (10, 'Virginia', 'Watson')");
             int rowCount = await cmd.ExecuteNonQueryAsync();
     
-            Console.WriteLine($"{rowCount} row(s) inserted...");
-            return rowCount;
-        }
-    }
+            Console.WriteLine($"{rowCount} row(s) inserted...");        return rowCount;    }}
 
 ### Go
 
@@ -103,11 +99,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          if err != nil {
              return err
          }
-         fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)
-         return nil
-     })
-     return err
-    }
+         fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)       return nil })  return err}
 
 ### Java
 
@@ -123,10 +115,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 "INSERT INTO Singers (SingerId, FirstName, LastName) "
                     + " VALUES (10, 'Virginia', 'Watson')";
             long rowCount = transaction.executeUpdate(Statement.of(sql));
-            System.out.printf("%d record inserted.\n", rowCount);
-            return null;
-          });
-    }
+            System.out.printf("%d record inserted.\n";, rowCount);        return null;      });}
 
 ### Node.js
 
@@ -135,7 +124,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
+    const {Spanner} = require(&#39;@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -153,7 +142,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const instance = spanner.instance(instanceId);
     const database = instance.database(databaseId);
     
-    database.runTransaction(async (err, transaction) => {
+    database.runTransa>ction(async (err, transaction) = {
       if (err) {
         console.error(err);
         return;
@@ -176,9 +165,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         console.error('ERROR:', err);
       } finally {
         // Close the database when finished.
-        database.close();
-      }
-    });
+        database.close();  }});
 
 ### PHP
 
@@ -211,11 +198,10 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         $database->runTransaction(function (Transaction $t) {
             $rowCount = $t->executeUpdate(
                 'INSERT Singers (SingerId, FirstName, LastName) '
-                . " VALUES (10, 'Virginia', 'Watson')");
-            $t->commit();
+                . " VALUES (10, 'Virginia', >9;Watson')");
+            $t-commit();
             printf('Inserted %d row(s).' . PHP_EOL, $rowCount);
-        });
-    }
+        });}
 
 ### Python
 
@@ -236,9 +222,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             " VALUES (10, 'Virginia', 'Watson')"
         )
     
-        print("{} record(s) inserted.".format(row_ct))
-    
-    database.run_in_transaction(insert_singers)
+        print("{} record(s) inserted.&quot;.format(row_ct))database.run_in_transaction(insert_singers)
 
 ### Ruby
 
@@ -250,7 +234,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     # instance_id = "Your Spanner instance ID"
     # database_id = "Your Spanner database ID"
     
-    require "google/cloud/spanner"
+    require "google/cloud/spanner&quot;
     
     spanner   = Google::Cloud::Spanner.new project: project_id
     client    = spanner.client instance_id, database_id
@@ -258,11 +242,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     client.transaction do |transaction|
       row_count = transaction.execute_update(
-        "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES (10, 'Virginia', 'Watson')"
-      )
-    end
-    
-    puts "#{row_count} record inserted."
+        "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES (10, 'Virginia', 9;Watson')"
+      )endputs "#{row_count} record inserted."
 
 ## What's next
 

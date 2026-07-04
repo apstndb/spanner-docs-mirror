@@ -36,13 +36,13 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 
 2.  Clone the sample app repository to your local machine:
     
-        git clone https://github.com/googleapis/python-spanner
+        git clone https://github.com/googleapis/google-cloud-python.git
     
-    Alternatively, you can [download the sample](https://github.com/googleapis/python-spanner/archive/main.zip) as a zip file and extract it.
+    Alternatively, you can [download the sample](https://github.com/googleapis/google-cloud-python/archive/main.zip) as a zip file and extract it.
 
 3.  Change to the directory that contains the Spanner sample code:
     
-        cd python-spanner/samples/samples
+        cd google-cloud-python/packages/google-cloud-spanner/samples/samples
 
 4.  Create an isolated Python environment, and install dependencies:
     

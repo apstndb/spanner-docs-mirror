@@ -631,8 +631,8 @@ The following example queries the commit timestamp column of the table.
           "  FROM Albums"
           " ORDER BY LastUpdateTime DESC");
       using RowType =
-          std::tuple<std::int64_t, std::int64_t, absl::optional<std::int64_t>,
-                     absl::optional<spanner::Timestamp>>;
+          std::tuple<std::int64_t, std::int64_t, std::optional<std::int64_t>,
+                     std::optional<spanner::Timestamp>>;
     
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {

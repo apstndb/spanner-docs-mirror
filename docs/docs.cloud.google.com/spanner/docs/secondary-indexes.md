@@ -534,7 +534,7 @@ The following examples show how to write and execute queries that fetch the valu
           {{"start_title", spanner::Value("Aardvark")},
            {"end_title", spanner::Value("Goo")}});
       using RowType =
-          std::tuple<std::int64_t, std::string, absl::optional<std::int64_t>>;
+          std::tuple<std::int64_t, std::string, std::optional<std::int64_t>>;
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();
@@ -1172,7 +1172,7 @@ If you use the read interface instead of SQL, the new `AlbumsByAlbumTitle2` inde
                       google::cloud::Options{}.set<spanner::ReadIndexNameOption>(
                           "AlbumsByAlbumTitle2"));
       using RowType =
-          std::tuple<std::int64_t, std::string, absl::optional<std::int64_t>>;
+          std::tuple<std::int64_t, std::string, std::optional<std::int64_t>>;
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();
         std::cout << "AlbumId: " << std::get<0>(*row) << "\t";

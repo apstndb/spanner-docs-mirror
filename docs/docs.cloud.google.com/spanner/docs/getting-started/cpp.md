@@ -542,7 +542,7 @@ Here's the code to execute the query:
       spanner::SqlStatement select(
           "SELECT SingerId, AlbumId, MarketingBudget FROM Albums");
       using RowType =
-          std::tuple<std::int64_t, std::int64_t, absl::optional<std::int64_t>>;
+          std::tuple<std::int64_t, std::int64_t, std::optional<std::int64_t>>;
     
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
@@ -589,7 +589,7 @@ You use the `Client::ExecuteDml()` function to execute a DML statement.
                             std::int64_t singer_id) -> StatusOr<std::int64_t> {
         auto key = spanner::KeySet().AddKey(spanner::MakeKey(album_id, singer_id));
         auto rows = client.Read(std::move(txn), "Albums", key, {"MarketingBudget"});
-        using RowType = std::tuple<absl::optional<std::int64_t>>;
+        using RowType = std::tuple<std::optional<std::int64_t>>;
         auto row = spanner::GetSingularRow(spanner::StreamOf<RowType>(rows));
         if (!row) return std::move(row).status();
         auto const budget = std::get<0>(*row);
@@ -641,7 +641,7 @@ You use the `Client::ExecuteDml()` function to execute a DML statement.
         auto key = google::cloud::spanner::KeySet().AddKey(
             google::cloud::spanner::MakeKey(album_id, singer_id));
         auto rows = client.Read(std::move(txn), "Albums", key, {"MarketingBudget"});
-        using RowType = std::tuple<absl::optional<std::int64_t>>;
+        using RowType = std::tuple<std::optional<std::int64_t>>;
         auto row = google::cloud::spanner::GetSingularRow(
             google::cloud::spanner::StreamOf<RowType>(rows));
         if (!row) return std::move(row).status();
@@ -863,7 +863,7 @@ Read data using the storing index you created by executing a query that explicit
                       google::cloud::Options{}.set<spanner::ReadIndexNameOption>(
                           "AlbumsByAlbumTitle2"));
       using RowType =
-          std::tuple<std::int64_t, std::string, absl::optional<std::int64_t>>;
+          std::tuple<std::int64_t, std::string, std::optional<std::int64_t>>;
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();
         std::cout << "AlbumId: " << std::get<0>(*row) << "\t";

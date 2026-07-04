@@ -559,7 +559,7 @@ Spanner extends open source PostgreSQL with the following:
 
 In the following example, you create a positive bit-reversed positive sequence. When you create a table, you can use `nextval` , the sequence generator function, as the default value of the primary key column, `SingerId` . Values the sequence generates are positive and bit-reversed.
 
-    CREATE SEQUENCE mysequence bit_reversed_positive;
+    CREATE SEQUENCE mysequence bit_reversed_positive START COUNTER WITH 50;
     
     CREATE TABLE singers (
       singerid bigint DEFAULT nextval('mysequence'),

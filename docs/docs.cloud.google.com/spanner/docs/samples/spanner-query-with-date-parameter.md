@@ -23,8 +23,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           "SELECT VenueId, VenueName, LastContactDate FROM Venues"
           " WHERE LastContactDate < @last_contact_date",
           {{"last_contact_date", spanner::Value(example_date)}});
-      using RowType = std::tuple<std::int64_t, absl::optional<std::string>,
-                                 absl::optional<absl::CivilDay>>;
+      using RowType = std::tuple<std::int64_t, std::optional<std::string>,
+                                 std::optional<absl::CivilDay>>;
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();

@@ -147,6 +147,35 @@ If the embedding column is nullable:
     )
     LIMIT 100;
 
+### Add the distance to the query results
+
+In the previous examples the ANN distance is used to order the query results, but is not displayed in those results. To add the distance to the results place the distance function in the `SELECT` clause and alias it, then use that alias as your sole ordering key in the `ORDER BY` clause.
+
+**Examples**
+
+### GoogleSQL
+
+    SELECT DocId,
+      APPROX_EUCLIDEAN_DISTANCE(
+        ARRAY<FLOAT32>[1.0, 2.0, 3.0], NullableDocEmbedding,
+        options => JSON '{"num_leaves_to_search": 10}') AS distance
+    FROM Documents
+    WHERE NullableDocEmbedding IS NOT NULL AND WordCount > 1000
+    ORDER BY distance
+    LIMIT 100
+
+### PostgreSQL
+
+    SELECT doc_id,
+      spanner.approx_euclidean_distance(
+        ARRAY[1.0, 2.0, 3.0]::float4[], nullable_doc_embedding,
+        options=>jsonb'{"num_leaves_to_search": 10}'
+      ) AS distance
+    FROM documents
+    WHERE nullable_doc_embedding IS NOT NULL AND word_count > 1000
+    ORDER BY distance
+    LIMIT 100;
+
 ## What's next
 
   - Learn more about Spanner [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) .

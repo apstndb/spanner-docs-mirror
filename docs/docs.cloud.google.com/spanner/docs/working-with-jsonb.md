@@ -202,7 +202,7 @@ The following sample shows how to add a `JSONB` column called `VenueDetails` to 
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -954,7 +954,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           "  WHERE CAST(VenueDetails ->> 'rating' AS INTEGER) > $1",
           {{"p1", google::cloud::spanner::Value(2)}});
       using RowType =
-          std::tuple<std::int64_t, absl::optional<google::cloud::spanner::JsonB>>;
+          std::tuple<std::int64_t, std::optional<google::cloud::spanner::JsonB>>;
       auto rows = client.ExecuteQuery(std::move(sql));
       for (auto& row : google::cloud::spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();

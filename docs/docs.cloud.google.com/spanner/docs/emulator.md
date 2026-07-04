@@ -154,16 +154,16 @@ Once `SPANNER_EMULATOR_HOST` is set, you can test the emulator by following the 
 
 The following table lists the versions of the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) that support the emulator.
 
-| Client library | Minimum version                                                       |
-| -------------- | --------------------------------------------------------------------- |
-| C++            | [v0.9.x+](https://github.com/googleapis/google-cloud-cpp/releases)    |
-| C\#            | [v3.1.0+](https://github.com/googleapis/google-cloud-dotnet/releases) |
-| Go             | [v1.5.0+](https://github.com/googleapis/google-cloud-go/releases)     |
-| Java           | [v1.51.0+](https://github.com/googleapis/java-spanner/releases)       |
-| Node.js        | [v4.5.0+](https://github.com/googleapis/nodejs-spanner/releases)      |
-| PHP            | [v1.25.0+](https://github.com/googleapis/google-cloud-php/releases)   |
-| Python         | [v1.15.0+](https://github.com/googleapis/python-spanner/releases)     |
-| Ruby           | [v1.13.0+](https://github.com/googleapis/google-cloud-ruby/releases)  |
+| Client library | Minimum version                                                        |
+| -------------- | ---------------------------------------------------------------------- |
+| C++            | [v0.9.x+](https://github.com/googleapis/google-cloud-cpp/releases)     |
+| C\#            | [v3.1.0+](https://github.com/googleapis/google-cloud-dotnet/releases)  |
+| Go             | [v1.5.0+](https://github.com/googleapis/google-cloud-go/releases)      |
+| Java           | [v1.51.0+](https://github.com/googleapis/google-cloud-java/releases)   |
+| Node.js        | [v4.5.0+](https://github.com/googleapis/google-cloud-node/releases)    |
+| PHP            | [v1.25.0+](https://github.com/googleapis/google-cloud-php/releases)    |
+| Python         | [v1.15.0+](https://github.com/googleapis/google-cloud-python/releases) |
+| Ruby           | [v1.13.0+](https://github.com/googleapis/google-cloud-ruby/releases)   |
 
 ### Additional instructions for C\#
 

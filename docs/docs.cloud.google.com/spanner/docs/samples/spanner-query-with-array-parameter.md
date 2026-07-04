@@ -25,8 +25,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           " UNNEST(v.AvailableDates) as AvailableDate "
           " WHERE AvailableDate in UNNEST(@available_dates)",
           {{"available_dates", spanner::Value(example_array)}});
-      using RowType = std::tuple<std::int64_t, absl::optional<std::string>,
-                                 absl::optional<absl::CivilDay>>;
+      using RowType = std::tuple<std::int64_t, std::optional<std::string>,
+                                 std::optional<absl::CivilDay>>;
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();

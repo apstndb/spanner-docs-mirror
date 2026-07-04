@@ -619,7 +619,7 @@ To create a CMEK-enabled database in a multi-region instance configuration:
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1693,7 +1693,7 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -3326,7 +3326,7 @@ To restore a CMEK-enabled backup in a multi-region instance configuration:
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 

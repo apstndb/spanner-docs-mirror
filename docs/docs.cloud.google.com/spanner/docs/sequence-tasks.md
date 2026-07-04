@@ -12,6 +12,22 @@ See the complete sequence DDL syntax reference for ( [GoogleSQL-dialect database
 
 > **Note:** Spanner now supports [automatically generated primary key values](https://docs.cloud.google.com/spanner/docs/primary-key-default-value) . For more information, see [Simplifying best practices at scale with auto-generated keys in Spanner](https://cloud.google.com/blog/products/databases/announcing-support-for-auto-generated-keys-in-spanner) .
 
+## Configure sequence options
+
+When you create or alter a sequence, you can configure its behavior using sequence options. In GoogleSQL, use the `OPTIONS` clause. In PostgreSQL, use standard clauses. Supported parameters include:
+
+  - `sequence_kind` : The type of sequence. The only valid type is `bit_reversed_positive` .
+  - `start_with_counter` : Begins the sequence's internal counter with a positive `INT64` for GoogleSQL or `bigint` for PostgreSQL.
+  - `skip_range_min` and `skip_range_max` : Specifies a range of values to skip, inclusive. You can define one or both of these parameters.
+
+For example, the following command creates a standard GoogleSQL sequence that uses these options:
+
+    CREATE SEQUENCE IF NOT EXISTS customer_garage_seq_seed OPTIONS (
+        sequence_kind = 'bit_reversed_positive',
+        start_with_counter = 1000,
+        skip_range_min = 100,
+        skip_range_max = 200);
+
 ## Create a sequence
 
 The following code example creates a sequence `Seq` , uses it in the primary key default value of the table `Customers` , and inserts three new rows into the `Customers` table.
@@ -282,7 +298,7 @@ The following code example creates a sequence `Seq` , uses it in the primary key
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -787,7 +803,7 @@ The following code example creates a sequence `Seq` , uses it in the primary key
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1288,7 +1304,7 @@ The following code example alters the sequence `Seq` to skip a value range from 
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -1767,7 +1783,7 @@ The following code example alters the sequence `Seq` to skip a value range from 
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -2149,7 +2165,7 @@ The following code example alters the table `Customers` to remove the sequence `
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -2461,7 +2477,7 @@ The following code example alters the table `Customers` to remove the sequence `
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 

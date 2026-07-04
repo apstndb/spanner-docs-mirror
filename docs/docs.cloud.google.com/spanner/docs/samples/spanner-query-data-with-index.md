@@ -32,7 +32,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           {{"start_title", spanner::Value("Aardvark")},
            {"end_title", spanner::Value("Goo")}});
       using RowType =
-          std::tuple<std::int64_t, std::string, absl::optional<std::int64_t>>;
+          std::tuple<std::int64_t, std::string, std::optional<std::int64_t>>;
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();

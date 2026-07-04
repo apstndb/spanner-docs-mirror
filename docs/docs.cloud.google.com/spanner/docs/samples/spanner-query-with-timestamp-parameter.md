@@ -24,8 +24,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           "SELECT VenueId, VenueName, LastUpdateTime FROM Venues"
           " WHERE LastUpdateTime <= @last_update_time",
           {{"last_update_time", spanner::Value(example_timestamp)}});
-      using RowType = std::tuple<std::int64_t, absl::optional<std::string>,
-                                 absl::optional<spanner::Timestamp>>;
+      using RowType = std::tuple<std::int64_t, std::optional<std::string>,
+                                 std::optional<spanner::Timestamp>>;
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();

@@ -23,8 +23,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           "SELECT VenueId, VenueName, Capacity FROM Venues"
           " WHERE Capacity >= @capacity",
           {{"capacity", spanner::Value(example_int)}});
-      using RowType = std::tuple<std::int64_t, absl::optional<std::string>,
-                                 absl::optional<std::int64_t>>;
+      using RowType = std::tuple<std::int64_t, std::optional<std::string>,
+                                 std::optional<std::int64_t>>;
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();

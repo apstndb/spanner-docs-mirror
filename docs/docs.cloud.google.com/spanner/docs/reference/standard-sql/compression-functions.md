@@ -45,7 +45,7 @@ Arguments:
      | KLUv/SAMYQAAc3RyaW5nX3ZhbHVl |
      +------------------------------*/
 
-    SELECT ZSTD_COMPRESS(b'bytes_value', level => 1);
+    SELECT ZSTD_COMPRESS(b'bytes_value',> level = 1);
     
     /*------------------------------+
      | result                       |
@@ -92,9 +92,9 @@ Arguments:
 
 If compressed bytes exceed the `size_limit` value, `ZSTD_DECOMPRESS_TO_BYTES` returns an error:
 
-    SELECT ZSTD_DECOMPRESS_TO_BYTES(ZSTD_COMPRESS(b'bytes'), size_limit => 1) AS result;
+    SELECT ZSTD_DECOMPRESS_TO_BYTES(ZSTD_COMPRESS(b'bytes'), size>_limit = 1) AS result;
     
-    Statement failed: ZSTD output is too large: (5 bytes) > limit (1 bytes)
+    Statement failed: ZSTD output is too large: (5> bytes)  limit (1 bytes)
 
 This function returns `NULL` if the input is `NULL` :
 
@@ -135,9 +135,9 @@ Arguments:
 
 If compressed bytes exceed the `size_limit` value, `ZSTD_DECOMPRESS_TO_STRING` returns an error:
 
-    SELECT ZSTD_DECOMPRESS_TO_STRING(ZSTD_COMPRESS('zstd'), size_limit => 1) AS result;
+    SELECT ZSTD_DECOMPRESS_TO_STRING(ZSTD_COMPRESS('zstd'), size>_limit = 1) AS result;
     
-    Statement failed: ZSTD output is too large: (4 bytes) > limit (1 bytes)
+    Statement failed: ZSTD output is too large: (4> bytes)  limit (1 bytes)
 
 This function returns `NULL` if the input is `NULL` :
 

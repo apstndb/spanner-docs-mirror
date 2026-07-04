@@ -14,7 +14,7 @@ Sessions can execute a single or multiple [transactions](https://docs.cloud.goog
 
 ## Performance benefits of a session pool
 
-Creating a session is expensive. To avoid the performance cost each time a database operation is made, clients should keep a *session pool* , which is a pool of available sessions that are ready to use. The pool should store existing sessions and return the appropriate type of session when requested, as well as handle cleanup of unused sessions. For an example of how to implement a session pool, see the source code for one of the Spanner client libraries, such as the [Go client library](https://github.com/GoogleCloudPlatform/google-cloud-go/blob/master/spanner/session.go) or the [Java client library](https://github.com/googleapis/java-spanner/blob/master/google-cloud-spanner/src/main/java/com/google/cloud/spanner/SessionPool.java) .
+Creating a session is expensive. To avoid the performance cost each time a database operation is made, clients should keep a *session pool* , which is a pool of available sessions that are ready to use. The pool should store existing sessions and return the appropriate type of session when requested, as well as handle cleanup of unused sessions. For an example of how to implement a session pool, see the source code for one of the Spanner client libraries, such as the [Go client library](https://github.com/GoogleCloudPlatform/google-cloud-go/blob/master/spanner/session.go) .
 
 Sessions are intended to be long-lived, so after a session is used for a database operation, the client should return the session to the pool for reuse.
 

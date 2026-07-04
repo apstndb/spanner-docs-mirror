@@ -23,8 +23,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           "SELECT VenueId, VenueName, OutdoorVenue FROM Venues"
           " WHERE OutdoorVenue = @outdoor_venue",
           {{"outdoor_venue", spanner::Value(example_bool)}});
-      using RowType = std::tuple<std::int64_t, absl::optional<std::string>,
-                                 absl::optional<bool>>;
+      using RowType =
+          std::tuple<std::int64_t, std::optional<std::string>, std::optional<bool>>;
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
         if (!row) throw std::move(row).status();

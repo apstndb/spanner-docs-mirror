@@ -2482,6 +2482,8 @@ In the `SELECT` list, if there is an expression that doesn't have an explicit al
   - For path expressions, the alias is the last identifier in the path. For example, `SELECT abc.def.ghi` implies `AS ghi` .
   - For field access using the "dot" member field access operator, the alias is the field name. For example, `SELECT (struct_function()).fname` implies `AS fname` .
 
+> **Note:** If you omit whitespace between a literal and an alias, GoogleSQL returns a "Missing whitespace" error. For example, `SELECT 123 abc` implies `SELECT 123 AS abc, but` SELECT 123abc\` produces the error.
+
 In all other cases, there is no implicit alias, so the column is anonymous and can't be referenced by name. The data from that column will still be returned and the displayed query results may have a generated label for that column, but the label can't be used like an alias.
 
 In a `FROM` clause, `from_item` s aren't required to have an alias. The following rules apply:

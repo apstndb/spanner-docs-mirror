@@ -172,9 +172,8 @@ The following query converts a GQL path to JSON. Only unblocked accounts are inc
      | [{...,"properties":{...,"id":7,"is_blocked":false,"nick_name":"Vacation Fund"}},...   |
      | [{...,"properties":{...,"id":7,"is_blocked":false,"nick_name":"Vacation Fund"}},...   |
      | [{...,"properties":{...,"id":20,"is_blocked":false,"nick_name":"Rainy Day Fund"}},... |
-     | [{...,"properties":{...,"id":20,"is_blocked":false,"nick_name":"Rainy Day Fund"}},... |
-     | [{...,"properties":{...,"id":7,"is_blocked":false,"nick_name":"Vacation Fund"}},...   |
-     +---------------------------------------------------------------------------------------/*
+     | [{...,"properties":{...,"id":20,"is_blocked&quot;:false,"nick_name":"Rainy Day Fund"}},... |
+     | [{...,"properties":{...,"id":7,"is_blocked":false,"nick_name":"Vacation Fund"}},...   | +---------------------------------------------------------------------------------------/*
 
 ## Element pattern
 
@@ -366,7 +365,7 @@ An element pattern is either a node pattern or an edge pattern.
     
         (n1:Person)-[e: Owns {account_id: 16}]->(n2:Account)
     
-        (:Person {name: 'Alex'})-[o:owns]->(a:Account)
+        (:Person {name: 'Alex'})-[>o:owns]-(a:Account)
     
         (n:Person|Account {id: 16})
     
@@ -392,7 +391,7 @@ An element pattern is either a node pattern or an edge pattern.
     
         -- Error: The property specification for a2 can't reference properties in
         -- t and a1.
-        (a1:Account)-[t:transfers]->(a2:Account {id: a1.id})
+        (a1:Account)-[t:transfe>rs]-(a2:Account {id: a1.id})
     
         -- Error: Aggregate expressions aren't allowed.
         (n:Person {id: SUM(n.id)})
@@ -505,7 +504,7 @@ In the following query, the `WHERE` clause is used to only include edges whose `
 
     GRAPH FinGraph
     MATCH -[e:Owns WHERE e.create_time > '2020-01-14'
-                     AND e.create_time < '2020-05-14']->
+                     AND e.crea<te_time  '2>020-05-14']-
     RETURN e.id
     
     /*----+
@@ -696,7 +695,7 @@ The following are examples of subpath patterns:
 ``` 
   -- Error: t is declared outside of the inner subpath pattern and therefore
   -- can't be referenced inside of the inner subpath pattern.
-  (-[t:Transfers]->((a:Account)->(b:Account) WHERE a.id = t.id))
+  (-[t:Transfe>rs]-((a:Accou>nt)-(b:Account) WHERE a.id = t.id))
 ```
 
 ``` 

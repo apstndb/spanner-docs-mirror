@@ -36,13 +36,13 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 
 2.  Clone the sample app repository to your local machine:
     
-        git clone https://github.com/googleapis/nodejs-spanner
+        git clone https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git
     
-    Alternatively, you can [download the sample](https://github.com/googleapis/nodejs-spanner/archive/main.zip) as a zip file and extract it.
+    Alternatively, you can [download the sample](https://github.com/GoogleCloudPlatform/nodejs-docs-samples/archive/main.zip) as a zip file and extract it.
 
 3.  Change to the directory that contains the Spanner sample code:
     
-        cd samples/
+        cd nodejs-docs-samples/spanner/
 
 4.  Install dependencies using `npm` :
     

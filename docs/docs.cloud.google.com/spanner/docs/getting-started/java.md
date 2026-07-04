@@ -39,11 +39,11 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 
 2.  Clone the sample app repository to your local machine:
     
-        git clone https://github.com/googleapis/java-spanner.git
+        git clone https://github.com/googleapis/google-cloud-java.git
 
 3.  Change to the directory that contains the Spanner sample code:
     
-        cd java-spanner/samples/snippets
+        cd google-cloud-java/java-spanner/samples/snippets
 
 4.  Generate the sample JAR file:
     

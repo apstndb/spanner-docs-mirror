@@ -809,6 +809,88 @@ TRANSACTION_TAG: [empty string]</td>
 
 From this table of results, we can see that if you have assigned a `TRANSACTION_TAG` to a transaction, then it gets populated in the lock statistics table. If there is no transaction tag assigned, it is displayed as an empty string.
 
+## Automatically assign tags
+
+Spanner Java and Go client libraries support automated call-stack auto-tagging. When auto-tagging is enabled, the client library inspects your application's execution call stack to determine which class and method initiated the database request. It automatically generates a tag based on these names (for example, `OrderDao.placeOrder` in Java or `db__OrderDao__PlaceOrder` in Go) and populates the `request_tag` or `transaction_tag` .
+
+### Considerations for auto-tagging
+
+Consider the following before using auto-tagging:
+
+  - **CPU and latency overhead:** Inspecting runtime call stacks using reflection or runtime caller walking on every request and transaction introduces CPU and latency overhead. Before force-enabling auto-tagging globally in high-QPS production environments, evaluate the performance impact on your services.
+  - **Differences from key-value tagging:** Auto-generated tags (such as `OrderDao.placeOrder` ) identify code origin symbols rather than structured key-value metadata (such as `app=cart,env=dev` ). If your monitoring queries filter statistics tables using key prefixes like `STARTS_WITH(request_tag, "app=")` , auto-tagged operations won't match those filters.
+  - **Tag cardinality:** Dynamic or heavily overloaded method names can increase tag cardinality in statistics tables. If the number of unique tags exceeds Spanner's tracking capacity during an interval, Spanner prioritizes tracking operations with the highest resource consumption.
+  - **Information disclosure:** Because tags are stored in plaintext in `SPANNER_SYS` statistics tables, internal class and method names are visible to anyone with access to query database statistics. Avoid using sensitive business terminology in method or class names if monitoring access is shared across boundaries.
+
+### Enable and disable auto-tagging
+
+You can configure auto-tagging in code, or set settings globally with environment variables.
+
+#### Configuration priority rules
+
+If you manually assign a `request_tag` or `transaction_tag` on a request or transaction builder, that tag always takes precedence over any auto-generated call-stack tag. If no manual tag is present, the auto-tagging configuration follows these priority rules:
+
+1.  **Force-disable override:** If `SPANNER_DISABLE_AUTO_TAGGING=true` is set, auto-tagging is completely disabled globally, overriding programmatic configurations.
+2.  **Force-enable override:** If `SPANNER_ENABLE_AUTO_TAGGING=true` is set, auto-tagging is enabled globally, overriding programmatic configurations.
+3.  **Programmatic configuration:** If no override environment variables are set, the library uses the programmatic configuration set in `SpannerOptions` (Java) or `ClientConfig` (Go).
+4.  **Default behavior:** If you don't configure auto-tagging, it is disabled by default.
+
+#### Global overrides
+
+To force-enable or force-disable auto-tagging globally without modifying application code, set environment variables in your runtime environment:
+
+    # Force-enable globally
+    export SPANNER_ENABLE_AUTO_TAGGING=true
+    
+    # Force-disable globally (overrides code configuration)
+    export SPANNER_DISABLE_AUTO_TAGGING=true
+
+#### Programmatic configuration
+
+The following samples show how to enable call-stack auto-tagging using the Spanner client libraries.
+
+### Go
+
+    package main
+    
+    import (
+        "context"
+        "cloud.google.com/go/spanner"
+    )
+    
+    func main() {
+        ctx := context.Background()
+        config := spanner.ClientConfig{
+            // Enable call-stack auto-tagging
+            EnableAutoTagging: true,
+            // Optional: Specify target application package prefixes
+            AutoTaggingPackages: []string{"github.com/mycompany/orderingservice"},
+            // Optional: Set maximum stack depth to inspect (default is 50)
+            AutoTaggingTracerLimit: 50,
+        }
+        client, err := spanner.NewClientWithConfig(ctx, "projects/p/instances/i/databases/d", config)
+        if err != nil {
+            panic(err)
+        }
+        defer client.Close()
+    }
+
+### Java
+
+    import com.google.cloud.spanner.Spanner;
+    import com.google.cloud.spanner.SpannerOptions;
+    import java.util.Arrays;
+    
+    SpannerOptions options = SpannerOptions.newBuilder()
+        // Enable call-stack auto-tagging
+        .enableAutoTagging()
+        // Optional: Specify target application package prefixes
+        .setAutoTaggingPackages(Arrays.asList("com.mycompany.orderingservice."))
+        // Optional: Set maximum stack depth to inspect (default is 50)
+        .setAutoTaggingTracerLimit(100)
+        .build();
+    Spanner spanner = options.getService();
+
 ## Mapping between API methods and request/transaction tag
 
 Request tags and transaction tags are applicable to specific API methods based on whether the transaction mode is a read-only transaction or a read-write transaction. Generally, transaction tags are applicable to read-write transactions whereas request tags are applicable to read-only transactions. The following table shows the mapping from API methods to applicable types of tags.

@@ -38,7 +38,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       spanner::SqlStatement select(
           "SELECT SingerId, AlbumId, MarketingBudget FROM Albums");
       using RowType =
-          std::tuple<std::int64_t, std::int64_t, absl::optional<std::int64_t>>;
+          std::tuple<std::int64_t, std::int64_t, std::optional<std::int64_t>>;
     
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {

@@ -195,7 +195,7 @@ Spanner might activate its flow control mechanism to protect itself from overloa
 The flow control mechanism is supported by the following client libraries:
 
   - [Go Client v1.65 or later](https://github.com/googleapis/google-cloud-go/releases/tag/spanner%2Fv1.65.0)
-  - [Java Client v6.72 or later](https://github.com/googleapis/java-spanner/releases/tag/v6.72.0)
+  - [Java Client v6.72 or later](https://github.com/googleapis/google-cloud-java/releases)
 
 The overall time for the request to complete won't increase due to the use of the flow control mechanism. Without this mechanism, Spanner waits before processing the request and eventually returns a `DEADLINE_EXCEEDED` error.
 

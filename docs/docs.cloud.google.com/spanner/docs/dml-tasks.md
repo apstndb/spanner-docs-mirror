@@ -1734,7 +1734,7 @@ The following code example updates the `MarketingBudget` column of the `Albums` 
                   WHERE SingerId = 1 AND AlbumId = 1
                   THEN RETURN MarketingBudget
             )""");
-            using RowType = std::tuple<absl::optional<std::int64_t>>;
+            using RowType = std::tuple<std::optional<std::int64_t>>;
             auto rows = client.ExecuteQuery(std::move(txn), std::move(sql));
             // Note: This mutator might be re-run, or its effects discarded, so
             // changing non-transactional state (e.g., by producing output) is,
@@ -2069,7 +2069,7 @@ The following code example updates the `MarketingBudget` column of the `Albums` 
                   WHERE SingerId = 1 AND AlbumId = 1
                   RETURNING MarketingBudget
             )""");
-            using RowType = std::tuple<absl::optional<std::int64_t>>;
+            using RowType = std::tuple<std::optional<std::int64_t>>;
             auto rows = client.ExecuteQuery(std::move(txn), std::move(sql));
             for (auto& row : google::cloud::spanner::StreamOf<RowType>(rows)) {
               if (!row) return std::move(row).status();

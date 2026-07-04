@@ -286,7 +286,7 @@ The following sample shows how to add a `NUMERIC` column to a table called `Venu
       }
     }
 
-> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/java-spanner/tree/main/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
+> **Note:** The old client library interface code samples for Java are archived in [GitHub](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/samples/snippets/src/main/java/com/example/spanner/admin/archived) .
 
 ### Node.js
 
@@ -727,7 +727,7 @@ The following sample shows how to query `NUMERIC` data using the Spanner client 
           "  FROM Venues"
           " WHERE Revenue < @revenue",
           {{"revenue", spanner::Value(std::move(revenue))}});
-      using RowType = std::tuple<std::int64_t, absl::optional<spanner::Numeric>>;
+      using RowType = std::tuple<std::int64_t, std::optional<spanner::Numeric>>;
     
       auto rows = client.ExecuteQuery(std::move(select));
       for (auto& row : spanner::StreamOf<RowType>(rows)) {
