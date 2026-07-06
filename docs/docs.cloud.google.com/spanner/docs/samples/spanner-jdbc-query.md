@@ -55,12 +55,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             while (rs.next()) {
               System.out.printf(
                   "%d %s %s %s%n",
-                  rs.getLong(1), rs.getString(2), rs.getString(3), rs.getBigDecimal(4));
-            }
-          }
-        }
-      }
-    }
+                  rs.getLong(1), rs.getString(2), rs.getString(3), rs.getBigDecimal(4));        }      }    }  }}
 
 ## What's next
 

@@ -666,60 +666,72 @@ Additional details:
     /*-----------+
      | result    |
      +-----------+
-     | [b, c, d] | +-----------*/
+     | [b, c, d] |
+     +-----------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], -1, 3) AS result
     
     /*-----------+
      | result    |
      +-----------+
-     | []        | +-----------*/
+     | []        |
+     +-----------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], 1, -3) AS result
     
     /*--------+
      | result |
-     +--------+ | [b, c] | +--------*/
+     +--------+
+     | [b, c] |
+     +--------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], -1, -3) AS result
     
     /*-----------+
      | result    |
      +-----------+
-     | []        | +-----------*/
+     | []        |
+     +-----------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], -3, -1) AS result
     
     /*-----------+
      | result    |
      +-----------+
-     | [c, d, e] | +-----------*/
+     | [c, d, e] |
+     +-----------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], 3, 3) AS result
     
     /*--------+
      | result |
-     +--------+ | [d]    | +--------*/
+     +--------+
+     | [d]    |
+     +--------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], -3, -3) AS result
     
     /*--------+
      | result |
-     +--------+ | [c]    | +--------*/
+     +--------+
+     | [c]    |
+     +--------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], 1, 30) AS result
     
     /*--------------+
      | result       |
      +--------------+
-     | [b, c, d, e] | +--------------*/
+     | [b, c, d, e] |
+     +--------------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], 1, -30) AS result
     
     /*-----------+
      | result    |
      +-----------+
-     | []        | +-----------*/
+     | []        |
+     +-----------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], -30, 30) AS result
     
@@ -733,20 +745,25 @@ Additional details:
     
     /*--------+
      | result |
-     +--------+ | [a]    | +--------*/
+     +--------+
+     | [a]    |
+     +--------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], 5, 30) AS result
     
     /*--------+
      | result |
-     +--------+ | []     | +--------*/
+     +--------+
+     | []     |
+     +--------*/
 
     SELECT ARRAY_SLICE(['a', 'b', 'c', 'd', 'e'], 1, NULL) AS result
     
     /*-----------+
      | result    |
      +-----------+
-     | NULL      | +-----------*/
+     | NULL      |
+     +-----------*/
 
     SELECT ARRAY_SLICE(['a', 'b', NULL, 'd', 'e'], 1, 3) AS result
     

@@ -49,8 +49,14 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                                .EmplaceRow(1, 2, "Go, Go, Go")
                                .EmplaceRow(2, 1, "Green")
                                .EmplaceRow(2, 2, "Forever Hold Your Peace")
-                               .EmplaceRow(2, 3, &<<quot;Terrified")
-                               .Build();  auto commit_result =      client.Commit(spanner::Mutations{insert_singers, insert_albums});  if (!commit_result) throw std::move(commit_result).status();  std::cout  "Insert was successful [spanner_insert_data]\n";}
+                               .EmplaceRow(2, 3, "Terrified")
+                               .Build();
+    
+      auto commit_result =
+          client.Commit(spanner::Mutations{insert_singers, insert_albums});
+      if (!commit_result) throw std::move(commit_result).status();
+      std::cout << "Insert was successful [spanner_insert_data]\n";
+    }
 
 ### C\#
 
@@ -83,15 +89,15 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         public async Task InsertDataAsync(string projectId, string instanceId, string databaseId)
         {
             string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-      <      >ListSinger singers <= new >ListSinger
+            List<Singer> singers = new List<Singer>
             {
                 new Singer { SingerId = 1, FirstName = "Marc", LastName = "Richards" },
                 new Singer { SingerId = 2, FirstName = "Catalina", LastName = "Smith" },
                 new Singer { SingerId = 3, FirstName = "Alice", LastName = "Trentor" },
                 new Singer { SingerId = 4, FirstName = "Lea", LastName = "Martin" },
-                new <Singe>r { SingerId = 5, <First>Name = "David", LastName = "Lomond" },
+                new Singer { SingerId = 5, FirstName = "David", LastName = "Lomond" },
             };
-            ListAlbum albums = new ListAlbum
+            List<Album> albums = new List<Album>
             {
                 new Album { SingerId = 1, AlbumId = 1, AlbumTitle = "Total Junk" },
                 new Album { SingerId = 1, AlbumId = 2, AlbumTitle = "Go, Go, Go" },
@@ -101,32 +107,40 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             };
     
             // Create connection to Cloud Spanner.
-            using var connection> = new SpannerConnection(connectionString);
-            await connect>ion.OpenAsync();
+            using var connection = new SpannerConnection(connectionString);
+            await connection.OpenAsync();
     
-            await connection.RunWithRetriableTransactionAsync(async transaction =
+            await connection.RunWithRetriableTransactionAsync(async transaction =>
             {
-                await Task.WhenAll(singers.Select(singer =
+                await Task.WhenAll(singers.Select(singer =>
                 {
                     // Insert rows into the Singers table.
                     using var cmd = connection.CreateInsertCommand("Singers", new SpannerParameterCollection
                     {
                             { "SingerId", SpannerDbType.Int64, singer.SingerId },
                             { "FirstName", SpannerDbType.String, singer.FirstName },
-                            { "LastName", SpannerDbType.String, singer>.LastName }
+                            { "LastName", SpannerDbType.String, singer.LastName }
                     });
                     cmd.Transaction = transaction;
                     return cmd.ExecuteNonQueryAsync();
                 }));
     
-                await Task.WhenAll(albums.Select(album =
+                await Task.WhenAll(albums.Select(album =>
                 {
                     // Insert rows into the Albums table.
                     using var cmd = connection.CreateInsertCommand("Albums", new SpannerParameterCollection
                     {
                             { "SingerId", SpannerDbType.Int64, album.SingerId },
                             { "AlbumId", SpannerDbType.Int64, album.AlbumId },
-                            { "AlbumTitle", SpannerDbType.String,album.AlbumTitle }                });                cmd.Transaction = transaction;                return cmd.ExecuteNonQueryAsync();            }));        });        Console.WriteLine("Data inserted.");    }}
+                            { "AlbumTitle", SpannerDbType.String,album.AlbumTitle }
+                    });
+                    cmd.Transaction = transaction;
+                    return cmd.ExecuteNonQueryAsync();
+                }));
+            });
+            Console.WriteLine("Data inserted.");
+        }
+    }
 
 ### Go
 
@@ -152,14 +166,20 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      singerColumns := []string{"SingerId", "FirstName", "LastName"}
      albumColumns := []string{"SingerId", "AlbumId", "AlbumTitle"}
      m := []*spanner.Mutation{
-         spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{1, "Marc", ";Richards";}),
+         spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{1, "Marc", "Richards"}),
          spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{2, "Catalina", "Smith"}),
          spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{3, "Alice", "Trentor"}),
-         spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{4, "Lea&quot;, "Martin"}),
+         spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{4, "Lea", "Martin"}),
          spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{5, "David", "Lomond"}),
          spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{1, 1, "Total Junk"}),
-         spanner.InsertOrUpdate(&quot;Albums", albumColumns, []interface{}{1, 2, "Go, Go, Go"}),
-         spanner.InsertOrUpdate(";Albums", albumColumns, []interface{}{2, 1, "Green"}),       spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 2, "Forever Hold Your Peace"}),       spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 3, "Terrified"}), }   _, err = client.Apply(ctx, m)   return err}
+         spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{1, 2, "Go, Go, Go"}),
+         spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 1, "Green"}),
+         spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 2, "Forever Hold Your Peace"}),
+         spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 3, "Terrified"}),
+     }
+     _, err = client.Apply(ctx, m)
+     return err
+    }
 
 ### Java
 
@@ -172,18 +192,18 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             new Singer(1, "Marc", "Richards"),
             new Singer(2, "Catalina", "Smith"),
             new Singer(3, "Alice", "Trentor"),
-            new Singer(4, "Lea", &q<uot;M>artin"),
+            new Singer(4, "Lea", "Martin"),
             new Singer(5, "David", "Lomond"));
     
-    static final ListAlbum ALBUMS =
+    static final List<Album> ALBUMS =
         Arrays.asList(
             new Album(1, 1, "Total Junk"),
             new Album(1, 2, "Go, Go, Go"),
             new Album(2, 1, "Green"),
-            new Album(2, 2,< "F>orever Hold Your Peace&quo<>t;),
+            new Album(2, 2, "Forever Hold Your Peace"),
             new Album(2, 3, "Terrified"));
     static void writeExampleData(DatabaseClient dbClient) {
-      ListMutation mutations = new ArrayList();
+      List<Mutation> mutations = new ArrayList<>();
       for (Singer singer : SINGERS) {
         mutations.add(
             Mutation.newInsertBuilder("Singers")
@@ -199,7 +219,15 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         mutations.add(
             Mutation.newInsertBuilder("Albums")
                 .set("SingerId")
-       .to(album.singerId)            .set("AlbumId")            .to(album.albumId)            .set("AlbumTitle")            .to(album.albumTitle)            .build());  }  dbClient.write(mutations);}
+                .to(album.singerId)
+                .set("AlbumId")
+                .to(album.albumId)
+                .set("AlbumTitle")
+                .to(album.albumTitle)
+                .build());
+      }
+      dbClient.write(mutations);
+    }
 
 ### Node.js
 
@@ -208,7 +236,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner} = require(&#39;@google-cloud/spanner');
+    const {Spanner} = require('@google-cloud/spanner');
     
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
@@ -246,7 +274,16 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         {SingerId: '1', AlbumId: '1', AlbumTitle: 'Total Junk'},
         {SingerId: '1', AlbumId: '2', AlbumTitle: 'Go, Go, Go'},
         {SingerId: '2', AlbumId: '1', AlbumTitle: 'Green'},
-        {SingerId: '2', AlbumId: '2', AlbumTitle: 'Forever Hold your Peace'},    {SingerId: '2', AlbumId: '3', AlbumTitle: 'Terrified'},  ]);  console.log('Inserted data.');} catch (err) {  console.error('ERROR:', err);} finally {  await database.close();}
+        {SingerId: '2', AlbumId: '2', AlbumTitle: 'Forever Hold your Peace'},
+        {SingerId: '2', AlbumId: '3', AlbumTitle: 'Terrified'},
+      ]);
+    
+      console.log('Inserted data.');
+    } catch (err) {
+      console.error('ERROR:', err);
+    } finally {
+      await database.close();
+    }
 
 ### PHP
 
@@ -275,19 +312,25 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         $instance = $spanner->instance($instanceId);
         $database = $instance->database($databaseId);
     
-        $operation = $database->transaction(['singleUs>e' = true])
-     >       -insertBatch('Singers', [
-             >   ['SingerId>' = 1, 'First>Name' = 'Marc', 'LastNa>me' = 'Ri>chards'],
-               > ['SingerId' = 2, 'First>Name' = '>Catalina', 'La>stName' = 'Smith'],
-          >      ['Singe>rId' = 3, 'F>irstName' = 'Alice', '>;LastName' = >'Trentor'],
-      >          ['SingerId' = >4, 'FirstName' = 'Lea', 'Last>Name' = >9;Martin'],
-      >          ['SingerId' = 5, 'F>irstName' => 'David', >'LastName' = 'Lomond'],
-     >       ])
-         >   -insertBatch(&#>39;Albums', [
-                ['>SingerId' => 1, 'AlbumId&#>39; = 1, 'AlbumTitle' = 'Total Junk'],>
-                [&>#39;SingerId' >= 1, 'AlbumId' = 2, 'A>lbumTitle' = 'Go, Go, Go'],
-                ['SingerId' = 2, 'AlbumId' = 1, 'AlbumTitle' = 'Green'],
-                ['SingerId' = 2, 'AlbumId' = 2, 'AlbumTitle' = 'Forever Hold Your Peace'],            ['SingerId' = 2, 'AlbumId' = 3, 'AlbumTitle' = 'Terrified']        ])        -commit();    print('Inserted data.' . PHP_EOL);}
+        $operation = $database->transaction(['singleUse' => true])
+            ->insertBatch('Singers', [
+                ['SingerId' => 1, 'FirstName' => 'Marc', 'LastName' => 'Richards'],
+                ['SingerId' => 2, 'FirstName' => 'Catalina', 'LastName' => 'Smith'],
+                ['SingerId' => 3, 'FirstName' => 'Alice', 'LastName' => 'Trentor'],
+                ['SingerId' => 4, 'FirstName' => 'Lea', 'LastName' => 'Martin'],
+                ['SingerId' => 5, 'FirstName' => 'David', 'LastName' => 'Lomond'],
+            ])
+            ->insertBatch('Albums', [
+                ['SingerId' => 1, 'AlbumId' => 1, 'AlbumTitle' => 'Total Junk'],
+                ['SingerId' => 1, 'AlbumId' => 2, 'AlbumTitle' => 'Go, Go, Go'],
+                ['SingerId' => 2, 'AlbumId' => 1, 'AlbumTitle' => 'Green'],
+                ['SingerId' => 2, 'AlbumId' => 2, 'AlbumTitle' => 'Forever Hold Your Peace'],
+                ['SingerId' => 2, 'AlbumId' => 3, 'AlbumTitle' => 'Terrified']
+            ])
+            ->commit();
+    
+        print('Inserted data.' . PHP_EOL);
+    }
 
 ### Python
 
@@ -322,7 +365,15 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 table="Albums",
                 columns=("SingerId", "AlbumId", "AlbumTitle"),
                 values=[
-                    (1, 1, "Total Junk&quot;),(1,2,"Go, Go, Go"),(2,1,"Green"),(2,2,"Forever Hold Your Peace"),(2,3,"Terrified"),],)print("Inserted data.")
+                    (1, 1, "Total Junk"),
+                    (1, 2, "Go, Go, Go"),
+                    (2, 1, "Green"),
+                    (2, 2, "Forever Hold Your Peace"),
+                    (2, 3, "Terrified"),
+                ],
+            )
+    
+        print("Inserted data.")
 
 ### Ruby
 
@@ -350,7 +401,13 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       c.insert "Albums", [
         { SingerId: 1, AlbumId: 1, AlbumTitle: "Total Junk" },
         { SingerId: 1, AlbumId: 2, AlbumTitle: "Go, Go, Go" },
-        { SingerId: 2, AlbumId: 1, AlbumTitle: "Green" },    { SingerId: 2, AlbumId: 2, AlbumTitle: "Forever Hold Your Peace" },    { SingerId: 2, AlbumId: 3, AlbumTitle: "Terrified" }  ]endputs "Inserted data"
+        { SingerId: 2, AlbumId: 1, AlbumTitle: "Green" },
+        { SingerId: 2, AlbumId: 2, AlbumTitle: "Forever Hold Your Peace" },
+        { SingerId: 2, AlbumId: 3, AlbumTitle: "Terrified" }
+      ]
+    end
+    
+    puts "Inserted data"
 
 ## What's next
 
