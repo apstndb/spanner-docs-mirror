@@ -2555,6 +2555,12 @@ Example:
     FROM Singers
     ORDER BY last;
 
+Invalid:
+
+    SELECT LastName AS last, SingerID
+    FROM Singers
+    WHERE last = "Smith";  // INVALID.
+
 #### Visibility in the `GROUP BY` , `ORDER BY` , and `HAVING` clauses
 
 These three clauses, `GROUP BY` , `ORDER BY` , and `HAVING` , can refer to only the following values:

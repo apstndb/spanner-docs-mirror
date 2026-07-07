@@ -12,6 +12,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## July 06, 2026
+
+Feature
+
+You can use Gemini in Spanner Studio to fix errors in your SQL queries. When you run a query that contains an error, you can click **Fix** to view a line-by-line comparison of your query and a recommended correction, along with an explanation of the change. This feature is available in [Preview](https://docs.cloud.google.com/products#product-launch-stages) .
+
 ## June 23, 2026
 
 Feature

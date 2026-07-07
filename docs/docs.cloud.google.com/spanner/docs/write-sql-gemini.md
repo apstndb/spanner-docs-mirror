@@ -71,7 +71,7 @@ To generate SQL in Spanner with Gemini assistance, follow these steps:
 
 4.  In the navigation pane, click **Spanner Studio** . The **Explorer** pane displays a list of objects in your database.
 
-5.  To query your database, click the add **New SQL editor tab** . Make sure that [SQL generation is enabled](https://docs.cloud.google.com/spanner/docs/write-sql-gemini#before-you-begin) .
+5.  To query your database, click the add **New tab** . Make sure that [SQL generation is enabled](https://docs.cloud.google.com/spanner/docs/write-sql-gemini#before-you-begin) .
 
 6.  To generate SQL, type a comment in the query editor starting with `--` followed by a [single-line comment](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/lexical#comments) , and then press `Return` .
     
@@ -114,6 +114,50 @@ You can use Gemini in Spanner to explain SQL queries in natural language. This e
 7.  Highlight the query that you want Gemini to explain, and then click astrophotography\_mode **Explain this selected query** .
     
     The SQL explanation appears in the Gemini Cloud Assist pane.
+
+## Use Gemini to fix errors in queries
+
+> **Preview — [Gemini Code Assist](https://docs.cloud.google.com/gemini/docs/overview)**
+> 
+> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . You can process personal data for this feature as outlined in the [Cloud Data Processing Addendum](https://docs.cloud.google.com/terms/data-processing-addendum) , subject to the obligations and restrictions described in the agreement under which you access Google Cloud. Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+
+Gemini offers an extended capability that helps you fix errors in your Spanner queries without having to leave the query editor.
+
+Gemini's AI-powered capabilities are integrated within Spanner Studio to provide the following benefits:
+
+  - Provides a line-for-line comparison of the original query next to a new query with recommended changes using the query editor.
+  - Highlights segments of the original query that might be causing the issue and provides a natural-language summary of changes.
+  - References the exact error message and schema information associated with the query to provide accurate, relevant corrections.
+  - Eliminates the need to rely on third-party, general-purpose LLMs that might provide less-nuanced help and might also expose your data to potential security risks.
+  - Provides faster, more efficient troubleshooting for common issues such as syntax, schema, and runtime errors.
+
+### Required permissions
+
+Before you begin, confirm you have the following permissions:
+
+  - The roles outlined in [Required roles](https://docs.cloud.google.com/spanner/docs/write-sql-gemini#required-roles) .
+  - The Gemini for Google Cloud API permission, [`cloudaicompanion.googleapis.com/instances.generateCode`](https://docs.cloud.google.com/iam/docs/roles-permissions/cloudaicompanion#cloudaicompanion.instances.generateCode) .
+
+### Fix your query using Gemini
+
+To use Gemini's capabilities to fix certain errors in a query, complete the following:
+
+1.  In the query editor, run your query.
+    
+    If the query contains an error, an error message is returned in the **Results** tab.
+
+2.  Click **Fix** .
+    
+    In the query window, a differences editor ("diff editor") opens in the tab, showing a line-for-line comparison of the existing query with recommended changes. The query editor also provides a summary of the suggested edits.
+
+3.  Review the suggested changes to the query and update as needed.
+
+4.  To accept the changes and run your new query, click **Accept and run** .
+
+### Limitations
+
+  - This capability is only accessible in Spanner Studio query editor in Google Cloud console.
+  - Current [Gemini context window limits apply](https://ai.google.dev/gemini-api/docs/long-context#getting-started-with-long-context) .
 
 ## What's next
 

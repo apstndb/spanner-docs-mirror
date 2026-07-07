@@ -479,9 +479,9 @@ The following list contains links to more resources related to the client librar
 
   - [API reference](https://cloud.google.com/java/docs/reference/google-cloud-spanner/latest/overview)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
-  - [Issue tracker](https://github.com/googleapis/java-spanner/issues)
+  - [Issue tracker](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner/issues)
   - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bjava%5D)
-  - [Source code](https://github.com/googleapis/java-spanner)
+  - [Source code](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner)
   - [Getting started in Java](https://docs.cloud.google.com/spanner/docs/getting-started/java)
 
 ### Node.js
@@ -490,9 +490,9 @@ The following list contains links to more resources related to the client librar
 
   - [API reference](https://googleapis.dev/nodejs/spanner/latest)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
-  - [Issue tracker](https://github.com/googleapis/nodejs-spanner/issues)
+  - [Issue tracker](https://github.com/googleapis/google-cloud-node/tree/main/packages/spanner/issues)
   - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bnode.js%5D)
-  - [Source code](https://github.com/googleapis/nodejs-spanner)
+  - [Source code](https://github.com/googleapis/google-cloud-node/tree/main/packages/spanner)
   - [Getting started in Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs)
 
 ### PHP
@@ -512,9 +512,9 @@ The following list contains links to more resources related to the client librar
 
   - [API reference](https://docs.cloud.google.com/python/docs/reference/spanner/latest)
   - [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
-  - [Issue tracker](https://github.com/googleapis/python-spanner/issues)
+  - [Issue tracker](https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-spanner/issues)
   - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bpython%5D)
-  - [Source code](https://github.com/googleapis/python-spanner)
+  - [Source code](https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-spanner)
   - [Getting started in Python](https://docs.cloud.google.com/spanner/docs/getting-started/python)
 
 ### Ruby

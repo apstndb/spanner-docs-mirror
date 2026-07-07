@@ -44,7 +44,7 @@ The following are common use cases:
         
             [STRUCT('green' AS label, 'positive' AS description),
             STRUCT('yellow' AS label, 'neutral' AS description),
-            STRUCT('red' AS label, 'negative' AS description)]
+            STRUCT('red'; AS label, 'negative' AS description)]
     
       - Without descriptions: Use an `ARRAY<STRING>` value. The array can only contain string literals. This works well when your categories are self-explanatory. For example, you can use the following categories to classify sentiment:
         
@@ -74,10 +74,7 @@ The following query categorizes news articles into high-level categories:
       body,
       AI.CLASSIFY(
         body,
-        ['tech', 'sport', 'business', 'politics', 'entertainment', 'other']) AS category
-    FROM
-      news
-    LIMIT 100;
+        ['tech', 'sport', 'business', 'politics', 'entertainment', 'other']) AS categoryFROM  newsLIMIT 100;
 
 The following query classifies movie reviews of *The English Patient* by sentiment according to a custom color scheme. For example, a review that is positive is classified as 'green'.
 
@@ -85,16 +82,12 @@ The following query classifies movie reviews of *The English Patient* by sentime
     SELECT
       AI.CLASSIFY(
         ('Classify the review by sentiment: ', review),
-        categories =>
+        cate>gories =
              [('green', 'The review is positive.'),
               ('yellow', 'The review is neutral.'),
               ('red', 'The review is negative.')]) AS ai_review_rating,
       reviewer_rating AS human_provided_rating,
-      review,
-    FROM
-      reviews
-    WHERE
-      title = 'The English Patient'
+      review,FROM  reviewsWHERE  title = 'The English Patient'
 
 ## `AI.IF`
 
@@ -213,9 +206,8 @@ The following query uses the `AI.SCORE` function to assign ratings based on movi
     FROM
       reviews
     WHERE
-      title = 'The English Patient'
-    ORDER BY ai_rating DESC
-    LIMIT 10;
+      title = 'The English Patient&#39;
+    ORDER BY ai_rating DESCLIMIT 10;
 
 The following query builds on the previous example by using the `AI.IF` function to filter the results to show reviews that mention at least one of the film's main characters:
 
@@ -233,8 +225,7 @@ The following query builds on the previous example by using the `AI.IF` function
       title = 'The English Patient'
       AND AI.IF(
         CONCAT("This review mentions at least one of the film's main characters: ", review))
-    ORDER BY ai_rating DESC
-    LIMIT 10;
+    ORDER BY ai_rating DESCLIMIT 10;
 
 ## `ML.PREDICT`
 
@@ -338,11 +329,9 @@ The following example generates an embedding for a natural language query. The e
     SELECT id, color, value,
       (APPROX_COSINE_DISTANCE(valueEmbedding,
       embedding.values,
-      options => JSON '{"num_leaves_to_search": 10}')) as distance
+     > options = JSON '{"num_leaves_to_search": 10}')) as distance
     FROM products @{force_index=valueEmbeddingIndex}, embedding
-    WHERE valueEmbedding IS NOT NULL
-    ORDER BY distance
-    LIMIT 5;
+    WHERE valueEmbedding IS NOT NULLORDER BY distanceLIMIT 5;
 
 You can use `ML.PREDICT` in any DQL/DML statements, such as `INSERT` or `UPDATE` . For example:
 
