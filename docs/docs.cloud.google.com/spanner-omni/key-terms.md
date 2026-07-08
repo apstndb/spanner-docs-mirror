@@ -18,7 +18,7 @@ The following sections provide detailed definitions of the terminologies used th
 
 ### Deployment
 
-A deployment of Spanner Omni, which lets you use the databases in your data centers or your public cloud accounts. You create the deployment according to the parameters specified in deployment configuration. A Spanner Omni deployment is equivalent to a [Spanner| instance](https://docs.cloud.google.com/spanner/docs/instances) in Google Cloud.
+A deployment of Spanner Omni, which lets you use the databases in your data centers or your public cloud accounts. You create the deployment according to the parameters specified in deployment configuration. A Spanner Omni deployment is equivalent to a [Spanner instance](https://docs.cloud.google.com/spanner/docs/instances) in Google Cloud.
 
 ### Deployment configuration
 

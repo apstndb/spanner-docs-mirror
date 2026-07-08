@@ -77,24 +77,9 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
-    )
-    
-    func addStoringIndex(ctx context.Context, w io.Writer, db string) error {
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
-     if err != nil {
-         return err
-     }
-     defer adminClient.Close()
-    
+    func addStoringIndex(ctx context.Context, w io.Writer, adminClient *database.DatabaseAdminClient, database string) error {
      op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
-         Database: db,
+         Database: database,
          Statements: []string{
              "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)",
          },
@@ -140,54 +125,52 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    // "Storing" indexes store copies of the columns they index
-    // This speeds up queries, but takes more space compared to normal indexes
-    // See the link below for more information:
-    // https://cloud.google.com/spanner/docs/secondary-indexes#storing_clause
+    /**
+     * TODO(developer): Uncomment these variables before running the sample.
+     */
+    // const instanceId = 'my-instance';
+    // const databaseId = 'my-database';
+    // const projectId = 'my-project-id';
     
     // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
     
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
+    // creates a client
     const spanner = new Spanner({
       projectId: projectId,
     });
     
     const databaseAdminClient = spanner.getDatabaseAdminClient();
     
-    const request = [
-      'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)',
-    ];
+    async function createStoringIndex() {
+      const request = [
+        'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)',
+      ];
     
-    // Creates a new index in the database
-    try {
-      const [operation] = await databaseAdminClient.updateDatabaseDdl({
-        database: databaseAdminClient.databasePath(
-          projectId,
-          instanceId,
-          databaseId,
-        ),
-        statements: request,
-      });
+      // Creates a new index in the database
+      try {
+        const [operation] = await databaseAdminClient.updateDatabaseDdl({
+          database: databaseAdminClient.databasePath(
+            projectId,
+            instanceId,
+            databaseId
+          ),
+          statements: request,
+        });
     
-      console.log('Waiting for operation to complete...');
-      await operation.promise();
+        console.log('Waiting for operation to complete...');
+        await operation.promise();
     
-      console.log('Added the AlbumsByAlbumTitle2 index.');
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the spanner client when finished.
-      // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
-      spanner.close();
+        console.log('Added the AlbumsByAlbumTitle2 index.');
+      } catch (err) {
+        console.error('Failed to create storing index:', err.message || err);
+      } finally {
+        // Close the spanner client when finished.
+        // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
+        spanner.close();
+      }
     }
+    createStoringIndex();
 
 ### PHP
 
@@ -195,8 +178,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * Adds an storing index to the example database.
@@ -209,25 +191,22 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      *
      * Example:
      * ```
-     * create_storing_index($projectId, $instanceId, $databaseId);
+     * create_storing_index($instanceId, $databaseId);
      * ```
      *
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      */
-    function create_storing_index(string $projectId, string $instanceId, string $databaseId): void
+    function create_storing_index(string $instanceId, string $databaseId): void
     {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
-        $statement = 'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) ' .
-            'STORING (MarketingBudget)';
-        $request = new UpdateDatabaseDdlRequest([
-            'database' => $databaseName,
-            'statements' => [$statement]
-        ]);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
     
-        $operation = $databaseAdminClient->updateDatabaseDdl($request);
+        $operation = $database->updateDdl(
+            'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) ' .
+            'STORING (MarketingBudget)'
+        );
     
         print('Waiting for operation to complete...' . PHP_EOL);
         $operation->pollUntilComplete();
@@ -243,23 +222,16 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     def add_storing_index(instance_id, database_id):
         """Adds an storing index to the example database."""
-    
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
+        database = instance.database(database_id)
     
-        request = spanner_database_admin.UpdateDatabaseDdlRequest(
-            database=database_admin_api.database_path(
-                spanner_client.project, instance_id, database_id
-            ),
-            statements=[
+        operation = database.update_ddl(
+            [
                 "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)"
                 "STORING (MarketingBudget)"
-            ],
+            ]
         )
-    
-        operation = database_admin_api.update_database_ddl(request)
     
         print("Waiting for operation to complete...")
         operation.result(OPERATION_TIMEOUT_SECONDS)
@@ -299,4 +271,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

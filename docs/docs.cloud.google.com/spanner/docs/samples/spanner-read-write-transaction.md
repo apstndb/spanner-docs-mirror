@@ -286,97 +286,82 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       projectId: projectId,
     });
     
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
+    let database;
     const transferAmount = 200000;
     
-    // Note: the `runTransaction()` method is non blocking and returns "void".
-    // For sequential execution of the transaction use `runTransactionAsync()` method which returns a promise.
-    // For example: await database.runTransactionAsync(async (err, transaction) => { ... })
-    database.runTransaction(async (err, transaction) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      let firstBudget, secondBudget;
-      const queryOne = {
-        columns: ['MarketingBudget'],
-        keys: [[2, 2]], // SingerId: 2, AlbumId: 2
-      };
+    try {
+      // Gets a reference to a Cloud Spanner instance and database
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
     
-      const queryTwo = {
-        columns: ['MarketingBudget'],
-        keys: [[1, 1]], // SingerId: 1, AlbumId: 1
-      };
+      await database.runTransactionAsync(async transaction => {
+        let firstBudget, secondBudget;
+        const queryOne = {
+          columns: ['MarketingBudget'],
+          keys: [[2, 2]], // SingerId: 2, AlbumId: 2
+        };
     
-      Promise.all([
+        const queryTwo = {
+          columns: ['MarketingBudget'],
+          keys: [[1, 1]], // SingerId: 1, AlbumId: 1
+        };
+    
         // Reads the second album's budget
-        transaction.read('Albums', queryOne).then(results => {
-          // Gets second album's budget
-          const rows = results[0].map(row => row.toJSON());
-          secondBudget = rows[0].MarketingBudget;
-          console.log(`The second album's marketing budget: ${secondBudget}`);
+        const [resultsOne] = await transaction.read('Albums', queryOne);
+        const rowsOne = resultsOne.map(row => row.toJSON());
+        secondBudget = rowsOne[0].MarketingBudget;
+        console.log(`The second album's marketing budget: ${secondBudget}`);
     
-          // Makes sure the second album's budget is large enough
-          if (secondBudget < transferAmount) {
-            throw new Error(
-              `The second album's budget (${secondBudget}) is less than the transfer amount (${transferAmount}).`,
-            );
-          }
-        }),
+        // Makes sure the second album's budget is large enough
+        if (secondBudget < transferAmount) {
+          throw new Error(
+            `The second album's budget (${secondBudget}) is less than the transfer amount (${transferAmount}).`
+          );
+        }
     
         // Reads the first album's budget
-        transaction.read('Albums', queryTwo).then(results => {
-          // Gets first album's budget
-          const rows = results[0].map(row => row.toJSON());
-          firstBudget = rows[0].MarketingBudget;
-          console.log(`The first album's marketing budget: ${firstBudget}`);
-        }),
-      ])
-        .then(() => {
-          console.log(firstBudget, secondBudget);
-          // Transfers the budgets between the albums
-          firstBudget += transferAmount;
-          secondBudget -= transferAmount;
+        const [resultsTwo] = await transaction.read('Albums', queryTwo);
+        const rowsTwo = resultsTwo.map(row => row.toJSON());
+        firstBudget = rowsTwo[0].MarketingBudget;
+        console.log(`The first album's marketing budget: ${firstBudget}`);
     
-          console.log(firstBudget, secondBudget);
+        console.log(firstBudget, secondBudget);
+        // Transfers the budgets between the albums
+        firstBudget += transferAmount;
+        secondBudget -= transferAmount;
+        console.log(firstBudget, secondBudget);
     
-          // Updates the database
-          // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so they
-          // must be converted (back) to strings before being inserted as INT64s.
-          transaction.update('Albums', [
-            {
-              SingerId: '1',
-              AlbumId: '1',
-              MarketingBudget: firstBudget.toString(),
-            },
-            {
-              SingerId: '2',
-              AlbumId: '2',
-              MarketingBudget: secondBudget.toString(),
-            },
-          ]);
-        })
-        .then(() => {
-          // Commits the transaction and send the changes to the database
-          return transaction.commit();
-        })
-        .then(() => {
-          console.log(
-            `Successfully executed read-write transaction to transfer ${transferAmount} from Album 2 to Album 1.`,
-          );
-        })
-        .catch(err => {
-          console.error('ERROR:', err);
-        })
-        .then(() => {
-          transaction.end();
-          // Closes the database when finished
-          return database.close();
-        });
-    });
+        // Updates the database
+        // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so they
+        // must be converted (back) to strings before being inserted as INT64s.
+        transaction.update('Albums', [
+          {
+            SingerId: '1',
+            AlbumId: '1',
+            MarketingBudget: firstBudget.toString(),
+          },
+          {
+            SingerId: '2',
+            AlbumId: '2',
+            MarketingBudget: secondBudget.toString(),
+          },
+        ]);
+    
+        // Commits the transaction and send the changes to the database
+        await transaction.commit();
+    
+        console.log(
+          `Successfully executed read-write transaction to transfer ${transferAmount} from Album 2 to Album 1.`
+        );
+      });
+    } catch (err) {
+      console.error('ERROR:', err);
+    } finally {
+      // Closes the database when finished
+      if (database) {
+        await database.close();
+      }
+    }
 
 ### PHP
 
@@ -571,4 +556,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

@@ -215,8 +215,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     // Deletes individual rows from the Albums table.
     try {
       const keys = [
-        [2, 1],
-        [2, 3],
+        ['2', '1'],
+        ['2', '3'],
       ];
       await albumsTable.deleteRows(keys);
       console.log('Deleted individual rows in Albums.');
@@ -373,4 +373,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

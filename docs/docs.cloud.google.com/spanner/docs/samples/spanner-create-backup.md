@@ -215,158 +215,55 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       );
     }
 
-### Node.js
-
-To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
-
-To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
-
-    // Imports the Google Cloud client library and precise date library
-    const {Spanner, protos} = require('@google-cloud/spanner');
-    const {PreciseDate} = require('@google-cloud/precise-date');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const backupId = 'my-backup';
-    // const versionTime = Date.now() - 1000 * 60 * 60 * 24; // One day ago
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner Database Admin Client object
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    // Creates a new backup of the database
-    try {
-      console.log(
-        `Creating backup of database ${databaseAdminClient.databasePath(
-          projectId,
-          instanceId,
-          databaseId,
-        )}.`,
-      );
-    
-      // Expire backup 14 days in the future
-      const expireTime = Date.now() + 1000 * 60 * 60 * 24 * 14;
-    
-      // Create a backup of the state of the database at the current time.
-      const [operation] = await databaseAdminClient.createBackup({
-        parent: databaseAdminClient.instancePath(projectId, instanceId),
-        backupId: backupId,
-        backup: (protos.google.spanner.admin.database.v1.Backup = {
-          database: databaseAdminClient.databasePath(
-            projectId,
-            instanceId,
-            databaseId,
-          ),
-          expireTime: Spanner.timestamp(expireTime).toStruct(),
-          versionTime: Spanner.timestamp(versionTime).toStruct(),
-          name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
-        }),
-      });
-    
-      console.log(
-        `Waiting for backup ${databaseAdminClient.backupPath(
-          projectId,
-          instanceId,
-          backupId,
-        )} to complete...`,
-      );
-      await operation.promise();
-    
-      // Verify backup is ready
-      const [backupInfo] = await databaseAdminClient.getBackup({
-        name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
-      });
-      if (backupInfo.state === 'READY') {
-        console.log(
-          `Backup ${backupInfo.name} of size ` +
-            `${backupInfo.sizeBytes} bytes was created at ` +
-            `${new PreciseDate(backupInfo.createTime).toISOString()} ` +
-            'for version of database at ' +
-            `${new PreciseDate(backupInfo.versionTime).toISOString()}`,
-        );
-      } else {
-        console.error('ERROR: Backup is not ready.');
-      }
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the spanner client when finished.
-      // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
-      spanner.close();
-    }
-
 ### PHP
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Backup;
-    use Google\Cloud\Spanner\Admin\Database\V1\GetBackupRequest;
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\CreateBackupRequest;
-    use Google\Protobuf\Timestamp;
+    use Google\Cloud\Spanner\Backup;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * Create a backup.
      * Example:
      * ```
-     * create_backup($projectId, $instanceId, $databaseId, $backupId, $versionTime);
+     * create_backup($instanceId, $databaseId, $backupId, $versionTime);
      * ```
      *
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      * @param string $backupId The Spanner backup ID.
      * @param string $versionTime The version of the database to backup. Read more
      * at https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup.FIELDS.version_time
      */
-    function create_backup(
-        string $projectId,
-        string $instanceId,
-        string $databaseId,
-        string $backupId,
-        string $versionTime = '-1hour'
-    ): void {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $databaseFullName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
-        $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
-        $timestamp = new Timestamp();
-        $timestamp->setSeconds((new \DateTime($versionTime))->getTimestamp());
-        $expireTime = new Timestamp();
-        $expireTime->setSeconds((new \DateTime('+14 days'))->getTimestamp());
-        $request = new CreateBackupRequest([
-            'parent' => $instanceFullName,
-            'backup_id' => $backupId,
-            'backup' => new Backup([
-                'database' => $databaseFullName,
-                'expire_time' => $expireTime,
-                'version_time' => $timestamp
-            ])
-        ]);
+    function create_backup(string $instanceId, string $databaseId, string $backupId, string $versionTime = '-1hour'): void
+    {
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
     
-        $operation = $databaseAdminClient->createBackup($request);
+        $expireTime = new \DateTime('+14 days');
+        $backup = $instance->backup($backupId);
+        $operation = $backup->create($database->name(), $expireTime, [
+            'versionTime' => new \DateTime($versionTime)
+        ]);
     
         print('Waiting for operation to complete...' . PHP_EOL);
         $operation->pollUntilComplete();
     
-        $request = new GetBackupRequest();
-        $request->setName($databaseAdminClient->backupName($projectId, $instanceId, $backupId));
-        $info = $databaseAdminClient->getBackup($request);
-        printf(
-            'Backup %s of size %d bytes was created at %d for version of database at %d' . PHP_EOL,
-            basename($info->getName()),
-            $info->getSizeBytes(),
-            $info->getCreateTime()->getSeconds(),
-            $info->getVersionTime()->getSeconds());
+        $backup->reload();
+        $ready = ($backup->state() == Backup::STATE_READY);
+    
+        if ($ready) {
+            print('Backup is ready!' . PHP_EOL);
+            $info = $backup->info();
+            printf(
+                'Backup %s of size %d bytes was created at %s for version of database at %s' . PHP_EOL,
+                basename($info['name']), $info['sizeBytes'], $info['createTime'], $info['versionTime']);
+        } else {
+            printf('Unexpected state: %s' . PHP_EOL, $backup->state());
+        }
     }
 
 ### Python
@@ -377,35 +274,26 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     def create_backup(instance_id, database_id, backup_id, version_time):
         """Creates a backup for a database."""
-    
-        from google.cloud.spanner_admin_database_v1.types import backup as backup_pb
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
+        database = instance.database(database_id)
     
         # Create a backup
         expire_time = datetime.utcnow() + timedelta(days=14)
-    
-        request = backup_pb.CreateBackupRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            backup_id=backup_id,
-            backup=backup_pb.Backup(
-                database=database_admin_api.database_path(
-                    spanner_client.project, instance_id, database_id
-                ),
-                expire_time=expire_time,
-                version_time=version_time,
-            ),
+        backup = instance.backup(
+            backup_id, database=database, expire_time=expire_time, version_time=version_time
         )
-    
-        operation = database_admin_api.create_backup(request)
+        operation = backup.create()
     
         # Wait for backup operation to complete.
-        backup = operation.result(2100)
+        operation.result(2100)
     
         # Verify that the backup is ready.
-        assert backup.state == backup_pb.Backup.State.READY
+        backup.reload()
+        assert backup.is_ready() is True
     
+        # Get the name, create time and backup size.
+        backup.reload()
         print(
             "Backup {} of size {} bytes was created at {} for version of database at {}".format(
                 backup.name, backup.size_bytes, backup.create_time, backup.version_time
@@ -455,4 +343,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

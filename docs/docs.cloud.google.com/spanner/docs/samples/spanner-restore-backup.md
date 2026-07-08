@@ -196,113 +196,45 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       }
     }
 
-### Node.js
-
-To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
-
-To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
-
-    // Imports the Google Cloud client library and precise date library
-    const {Spanner} = require('@google-cloud/spanner');
-    const {PreciseDate} = require('@google-cloud/precise-date');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const backupId = 'my-backup';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner Database Admin Client object
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    // Restore the database
-    console.log(
-      `Restoring database ${databaseAdminClient.databasePath(
-        projectId,
-        instanceId,
-        databaseId,
-      )} from backup ${backupId}.`,
-    );
-    const [restoreOperation] = await databaseAdminClient.restoreDatabase({
-      parent: databaseAdminClient.instancePath(projectId, instanceId),
-      databaseId: databaseId,
-      backup: databaseAdminClient.backupPath(projectId, instanceId, backupId),
-    });
-    
-    // Wait for restore to complete
-    console.log('Waiting for database restore to complete...');
-    await restoreOperation.promise();
-    
-    console.log('Database restored from backup.');
-    const [metadata] = await databaseAdminClient.getDatabase({
-      name: databaseAdminClient.databasePath(projectId, instanceId, databaseId),
-    });
-    console.log(
-      `Database ${metadata.restoreInfo.backupInfo.sourceDatabase} was restored ` +
-        `to ${databaseId} from backup ${metadata.restoreInfo.backupInfo.backup} ` +
-        'with version time ' +
-        `${new PreciseDate(
-          metadata.restoreInfo.backupInfo.versionTime,
-        ).toISOString()}.`,
-    );
-
 ### PHP
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\RestoreDatabaseRequest;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * Restore a database from a backup.
      * Example:
      * ```
-     * restore_backup($projectId, $instanceId, $databaseId, $backupId);
+     * restore_backup($instanceId, $databaseId, $backupId);
      * ```
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      * @param string $backupId The Spanner backup ID.
      */
-    function restore_backup(
-        string $projectId,
-        string $instanceId,
-        string $databaseId,
-        string $backupId
-    ): void {
-        $databaseAdminClient = new DatabaseAdminClient();
+    function restore_backup(string $instanceId, string $databaseId, string $backupId): void
+    {
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
+        $backup = $instance->backup($backupId);
     
-        $backupName = DatabaseAdminClient::backupName($projectId, $instanceId, $backupId);
-        $instanceName = DatabaseAdminClient::instanceName($projectId, $instanceId);
+        $operation = $database->restore($backup->name());
+        // Wait for restore operation to complete.
+        $operation->pollUntilComplete();
     
-        $request = new RestoreDatabaseRequest([
-            'parent' => $instanceName,
-            'database_id' => $databaseId,
-            'backup' => $backupName
-        ]);
+        // Newly created database has restore information.
+        $database->reload();
+        $restoreInfo = $database->info()['restoreInfo'];
+        $sourceDatabase = $restoreInfo['backupInfo']['sourceDatabase'];
+        $sourceBackup = $restoreInfo['backupInfo']['backup'];
+        $versionTime = $restoreInfo['backupInfo']['versionTime'];
     
-        $operationResponse = $databaseAdminClient->restoreDatabase($request);
-        $operationResponse->pollUntilComplete();
-    
-        $database = $operationResponse->operationSucceeded() ? $operationResponse->getResult() : null;
-        $restoreInfo = $database->getRestoreInfo();
-        $backupInfo = $restoreInfo->getBackupInfo();
-        $sourceDatabase = $backupInfo->getSourceDatabase();
-        $sourceBackup = $backupInfo->getBackup();
-        $versionTime = $backupInfo->getVersionTime()->getSeconds();
         printf(
             'Database %s restored from backup %s with version time %s' . PHP_EOL,
-            $sourceDatabase, $sourceBackup, $versionTime
-        );
+            $sourceDatabase, $sourceBackup, $versionTime);
     }
 
 ### Python
@@ -313,26 +245,21 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     def restore_database(instance_id, new_database_id, backup_id):
         """Restores a database from a backup."""
-        from google.cloud.spanner_admin_database_v1 import RestoreDatabaseRequest
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
+        # Create a backup on database_id.
     
         # Start restoring an existing backup to a new database.
-        request = RestoreDatabaseRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            database_id=new_database_id,
-            backup=database_admin_api.backup_path(
-                spanner_client.project, instance_id, backup_id
-            ),
-        )
-        operation = database_admin_api.restore_database(request)
+        backup = instance.backup(backup_id)
+        new_database = instance.database(new_database_id)
+        operation = new_database.restore(backup)
     
         # Wait for restore operation to complete.
-        db = operation.result(1600)
+        operation.result(1600)
     
         # Newly created database has restore information.
-        restore_info = db.restore_info
+        new_database.reload()
+        restore_info = new_database.restore_info
         print(
             "Database {} restored to {} from backup {} with version time {}.".format(
                 restore_info.backup_info.source_database,
@@ -382,4 +309,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

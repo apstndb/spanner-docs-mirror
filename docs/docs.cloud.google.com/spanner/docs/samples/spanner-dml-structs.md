@@ -179,12 +179,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const instance = spanner.instance(instanceId);
     const database = instance.database(databaseId);
     
-    database.runTransaction(async (err, transaction) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      try {
+    try {
+      await database.runTransactionAsync(async transaction => {
         const [rowCount] = await transaction.runUpdate({
           sql: `UPDATE Singers SET LastName = 'Grant'
           WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) = @name`,
@@ -195,13 +191,13 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
         console.log(`Successfully updated ${rowCount} record.`);
         await transaction.commit();
-      } catch (err) {
-        console.error('ERROR:', err);
-      } finally {
-        // Close the database when finished.
-        database.close();
-      }
-    });
+      });
+    } catch (err) {
+      console.error('ERROR:', err);
+    } finally {
+      // Close the database when finished.
+      await database.close();
+    }
 
 ### PHP
 
@@ -321,4 +317,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

@@ -13,6 +13,7 @@ Write data by using DML.
 For detailed documentation that includes this code sample, see the following:
 
   - [Getting started with Spanner and PGAdapter](https://docs.cloud.google.com/spanner/docs/getting-started/pgadapter)
+  - [Getting started with Spanner in ADO.NET](https://docs.cloud.google.com/spanner/docs/getting-started/ado_net)
   - [Getting started with Spanner in C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
   - [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
   - [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
@@ -59,30 +60,35 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class WriteUsingDmlCoreAsyncSample
+    public static async Task WriteDataWithDml(string connectionString)
     {
-        public async Task<int> WriteUsingDmlCoreAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+        await using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
     
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
+        // Add 4 rows in one statement.
+        // The ADO.NET driver supports positional query parameters.
+        await using var command = connection.CreateCommand();
+        command.CommandText = "INSERT INTO Singers (SingerId, FirstName, LastName) " +
+                              "VALUES (?, ?, ?), (?, ?, ?), " +
+                              "       (?, ?, ?), (?, ?, ?)";
+        command.Parameters.Add(12);
+        command.Parameters.Add("Melissa");
+        command.Parameters.Add("Garcia");
     
-            SpannerCommand cmd = connection.CreateDmlCommand(
-                "INSERT Singers (SingerId, FirstName, LastName) VALUES "
-                   + "(12, 'Melissa', 'Garcia'), "
-                   + "(13, 'Russell', 'Morales'), "
-                   + "(14, 'Jacqueline', 'Long'), "
-                   + "(15, 'Dylan', 'Shaw')");
-            int rowCount = await cmd.ExecuteNonQueryAsync();
+        command.Parameters.Add(13);
+        command.Parameters.Add("Russel");
+        command.Parameters.Add("Morales");
     
-            Console.WriteLine($"{rowCount} row(s) inserted...");
-            return rowCount;
-        }
+        command.Parameters.Add(14);
+        command.Parameters.Add("Jacqueline");
+        command.Parameters.Add("Long");
+    
+        command.Parameters.Add(15);
+        command.Parameters.Add("Dylan");
+        command.Parameters.Add("Shaw");
+    
+        var affected = await command.ExecuteNonQueryAsync();
+        Console.WriteLine($"{affected} record(s) inserted.");
     }
 
 ### Go
@@ -94,35 +100,35 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     import (
      "context"
      "fmt"
-     "io"
     
-     "cloud.google.com/go/spanner"
+     "github.com/jackc/pgx/v5"
     )
     
-    func writeUsingDML(w io.Writer, db string) error {
+    func WriteDataWithDml(host string, port int, database string) error {
      ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
+     connString := fmt.Sprintf(
+         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
+         host, port, database)
+     conn, err := pgx.Connect(ctx, connString)
      if err != nil {
          return err
      }
-     defer client.Close()
+     defer conn.Close(ctx)
     
-     _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{
-             SQL: `INSERT Singers (SingerId, FirstName, LastName) VALUES
-                 (12, 'Melissa', 'Garcia'),
-                 (13, 'Russell', 'Morales'),
-                 (14, 'Jacqueline', 'Long'),
-                 (15, 'Dylan', 'Shaw')`,
-         }
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)
+     tag, err := conn.Exec(ctx,
+         "INSERT INTO singers (singer_id, first_name, last_name) "+
+             "VALUES ($1, $2, $3), ($4, $5, $6), "+
+             "       ($7, $8, $9), ($10, $11, $12)",
+         12, "Melissa", "Garcia",
+         13, "Russel", "Morales",
+         14, "Jacqueline", "Long",
+         15, "Dylan", "Shaw")
+     if err != nil {
          return err
-     })
-     return err
+     }
+     fmt.Printf("%v records inserted\n", tag.RowsAffected())
+    
+     return nil
     }
 
 ### Java
@@ -131,44 +137,57 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void writeDataWithDml(
-        final String project,
-        final String instance,
-        final String database,
-        final Properties properties) throws SQLException {
-      try (Connection connection =
-          DriverManager.getConnection(
-              String.format(
-                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
-                  project, instance, database),
-              properties)) {
-        // Add 4 rows in one statement.
-        // JDBC always uses '?' as a parameter placeholder.
-        try (PreparedStatement preparedStatement =
-            connection.prepareStatement(
-                "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES "
-                    + "(?, ?, ?), "
-                    + "(?, ?, ?), "
-                    + "(?, ?, ?), "
-                    + "(?, ?, ?)")) {
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.PreparedStatement;
+    import java.sql.SQLException;
+    import java.util.Arrays;
+    import java.util.List;
     
-          final ImmutableList<Singer> singers =
-              ImmutableList.of(
-                  new Singer(/* SingerId = */ 12L, "Melissa", "Garcia"),
-                  new Singer(/* SingerId = */ 13L, "Russel", "Morales"),
-                  new Singer(/* SingerId = */ 14L, "Jacqueline", "Long"),
-                  new Singer(/* SingerId = */ 15L, "Dylan", "Shaw"));
+    class WriteDataWithDml {
+      static class Singer {
+        private final long singerId;
+        private final String firstName;
+        private final String lastName;
     
-          // Note that JDBC parameters start at index 1.
-          int paramIndex = 0;
-          for (Singer singer : singers) {
-            preparedStatement.setLong(++paramIndex, singer.singerId);
-            preparedStatement.setString(++paramIndex, singer.firstName);
-            preparedStatement.setString(++paramIndex, singer.lastName);
+        Singer(final long id, final String first, final String last) {
+          this.singerId = id;
+          this.firstName = first;
+          this.lastName = last;
+        }
+      }
+    
+      static void writeDataWithDml(String host, int port, String database) throws SQLException {
+        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+          // Add 4 rows in one statement.
+          // JDBC always uses '?' as a parameter placeholder.
+          try (PreparedStatement preparedStatement =
+              connection.prepareStatement(
+                  "INSERT INTO singers (singer_id, first_name, last_name) VALUES "
+                      + "(?, ?, ?), "
+                      + "(?, ?, ?), "
+                      + "(?, ?, ?), "
+                      + "(?, ?, ?)")) {
+    
+            final List<Singer> singers =
+                Arrays.asList(
+                    new Singer(/* SingerId= */ 12L, "Melissa", "Garcia"),
+                    new Singer(/* SingerId= */ 13L, "Russel", "Morales"),
+                    new Singer(/* SingerId= */ 14L, "Jacqueline", "Long"),
+                    new Singer(/* SingerId= */ 15L, "Dylan", "Shaw"));
+    
+            // Note that JDBC parameters start at index 1.
+            int paramIndex = 0;
+            for (Singer singer : singers) {
+              preparedStatement.setLong(++paramIndex, singer.singerId);
+              preparedStatement.setString(++paramIndex, singer.firstName);
+              preparedStatement.setString(++paramIndex, singer.lastName);
+            }
+    
+            int updateCount = preparedStatement.executeUpdate();
+            System.out.printf("%d records inserted.\n", updateCount);
           }
-    
-          int updateCount = preparedStatement.executeUpdate();
-          System.out.printf("%d records inserted.\n", updateCount);
         }
       }
     }
@@ -198,12 +217,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const instance = spanner.instance(instanceId);
     const database = instance.database(databaseId);
     
-    database.runTransaction(async (err, transaction) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      try {
+    try {
+      await database.runTransactionAsync(async transaction => {
         const [rowCount] = await transaction.runUpdate({
           sql: `INSERT Singers (SingerId, FirstName, LastName) VALUES
           (12, 'Melissa', 'Garcia'),
@@ -213,13 +228,42 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         });
         console.log(`${rowCount} records inserted.`);
         await transaction.commit();
-      } catch (err) {
-        console.error('ERROR:', err);
-      } finally {
-        // Close the database when finished.
-        database.close();
-      }
-    });
+      });
+    } catch (err) {
+      console.error('ERROR:', err);
+    } finally {
+      // Close the database when finished.
+      await database.close();
+    }
+
+### Node.js
+
+To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
+
+To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
+
+    import { Client } from 'pg';
+    
+    async function writeDataWithDml(host: string, port: number, database: string): Promise<void> {
+      const connection = new Client({
+        host: host,
+        port: port,
+        database: database,
+      });
+      await connection.connect();
+    
+      const result = await connection.query("INSERT INTO singers (singer_id, first_name, last_name) " +
+          "VALUES ($1, $2, $3), ($4, $5, $6), " +
+          "       ($7, $8, $9), ($10, $11, $12)",
+           [12, "Melissa", "Garcia",
+            13, "Russel", "Morales",
+            14, "Jacqueline", "Long",
+            15, "Dylan", "Shaw"])
+      console.log(`${result.rowCount} records inserted`);
+    
+      // Close the connection.
+      await connection.end();
+    }
 
 ### PHP
 
@@ -227,38 +271,25 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use Google\Cloud\Spanner\Transaction;
-    
-    /**
-     * Inserts sample data into the given database with a DML statement.
-     *
-     * The database and table must already exist and can be created using
-     * `create_database`.
-     * Example:
-     * ```
-     * insert_data($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function write_data_with_dml(string $instanceId, string $databaseId): void
+    function write_data_with_dml(string $host, string $port, string $database): void
     {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
+        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
+        $connection = new PDO($dsn);
     
-        $database->runTransaction(function (Transaction $t) {
-            $rowCount = $t->executeUpdate(
-                'INSERT Singers (SingerId, FirstName, LastName) VALUES '
-                . "(12, 'Melissa', 'Garcia'), "
-                . "(13, 'Russell', 'Morales'), "
-                . "(14, 'Jacqueline', 'Long'), "
-                . "(15, 'Dylan', 'Shaw')");
-            $t->commit();
-            printf('Inserted %d row(s).' . PHP_EOL, $rowCount);
-        });
+        $sql = "INSERT INTO singers (singer_id, first_name, last_name)"
+                            ." VALUES (?, ?, ?), (?, ?, ?), "
+                            ."        (?, ?, ?), (?, ?, ?)";
+        $statement = $connection->prepare($sql);
+        $statement->execute([
+            12, "Melissa", "Garcia",
+            13, "Russel", "Morales",
+            14, "Jacqueline", "Long",
+            15, "Dylan", "Shaw"
+        ]);
+        printf("%d records inserted\n", $statement->rowCount());
+    
+        $statement = null;
+        $connection = null;
     }
 
 ### Python
@@ -323,6 +354,31 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     puts "#{row_count} records inserted."
 
+### Rust
+
+    use google_cloud_spanner::client::DatabaseClient;
+    use google_cloud_spanner::statement::Statement;
+    
+    pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
+        let runner = client.read_write_transaction().build().await?;
+    
+        runner
+            .run(async |transaction| {
+                let sql = r#"INSERT INTO Singers (SingerId, FirstName, LastName) VALUES
+                           (12, 'Melissa', 'Garcia'),
+                           (13, 'Russell', 'Morales'),
+                           (14, 'Jacqueline', 'Long'),
+                           (15, 'Dylan', 'Shaw')"#;
+                let statement = Statement::builder(sql).build();
+                let row_count = transaction.execute_update(statement).await?;
+                println!("{row_count} records inserted.");
+                Ok(())
+            })
+            .await?;
+    
+        Ok(())
+    }
+
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

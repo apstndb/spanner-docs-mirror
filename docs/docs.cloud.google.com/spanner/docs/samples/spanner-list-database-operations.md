@@ -144,18 +144,23 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     static void listDatabaseOperations(
-        InstanceAdminClient instanceAdminClient,
-        DatabaseAdminClient dbAdminClient,
-        InstanceId instanceId) {
-      Instance instance = instanceAdminClient.getInstance(instanceId.getInstance());
+        DatabaseAdminClient dbAdminClient, String projectId, String instanceId) {
       // Get optimize restored database operations.
-      Timestamp last24Hours = Timestamp.ofTimeSecondsAndNanos(TimeUnit.SECONDS.convert(
-          TimeUnit.HOURS.convert(Timestamp.now().getSeconds(), TimeUnit.SECONDS) - 24,
-          TimeUnit.HOURS), 0);
+      com.google.cloud.Timestamp last24Hours = com.google.cloud.Timestamp.ofTimeSecondsAndNanos(
+          TimeUnit.SECONDS.convert(
+              TimeUnit.HOURS.convert(com.google.cloud.Timestamp.now().getSeconds(), TimeUnit.SECONDS)
+                  - 24,
+              TimeUnit.HOURS), 0);
       String filter = String.format("(metadata.@type:type.googleapis.com/"
-                      + "google.spanner.admin.database.v1.OptimizeRestoredDatabaseMetadata) AND "
-                      + "(metadata.progress.start_time > \"%s\")", last24Hours);
-      for (Operation op : instance.listDatabaseOperations(Options.filter(filter)).iterateAll()) {
+          + "google.spanner.admin.database.v1.OptimizeRestoredDatabaseMetadata) AND "
+          + "(metadata.progress.start_time > \"%s\")", last24Hours);
+      ListDatabaseOperationsRequest listDatabaseOperationsRequest =
+          ListDatabaseOperationsRequest.newBuilder()
+              .setParent(com.google.spanner.admin.instance.v1.InstanceName.of(
+                  projectId, instanceId).toString()).setFilter(filter).build();
+      ListDatabaseOperationsPagedResponse pagedResponse
+          = dbAdminClient.listDatabaseOperations(listDatabaseOperationsRequest);
+      for (Operation op : pagedResponse.iterateAll()) {
         try {
           OptimizeRestoredDatabaseMetadata metadata =
               op.getMetadata().unpack(OptimizeRestoredDatabaseMetadata.class);
@@ -170,61 +175,13 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       }
     }
 
-### Node.js
-
-To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
-
-To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
-
-    // Imports the Google Cloud client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner Database Admin Client object
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    // List database operations
-    try {
-      const [databaseOperations] =
-        await databaseAdminClient.listDatabaseOperations({
-          parent: databaseAdminClient.instancePath(projectId, instanceId),
-          filter:
-            '(metadata.@type:type.googleapis.com/google.spanner.admin.database.v1.OptimizeRestoredDatabaseMetadata)',
-        });
-      console.log('Optimize Database Operations:');
-      databaseOperations.forEach(databaseOperation => {
-        const metadata =
-          protos.google.spanner.admin.database.v1.OptimizeRestoredDatabaseMetadata.decode(
-            databaseOperation.metadata.value,
-          );
-        console.log(
-          `Database ${metadata.name} restored from backup is ` +
-            `${metadata.progress.progressPercent}% optimized.`,
-        );
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
-
 ### PHP
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\ListDatabaseOperationsRequest;
-    use Google\Cloud\Spanner\Admin\Database\V1\OptimizeRestoredDatabaseMetadata;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * List all optimize restored database operations in an instance.
@@ -233,29 +190,26 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      * list_database_operations($instanceId);
      * ```
      *
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      */
-    function list_database_operations(string $projectId, string $instanceId): void
+    function list_database_operations(string $instanceId): void
     {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $parent = DatabaseAdminClient::instanceName($projectId, $instanceId);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
     
+        // List the databases that are being optimized after a restore operation.
         $filter = '(metadata.@type:type.googleapis.com/' .
-                    'google.spanner.admin.database.v1.OptimizeRestoredDatabaseMetadata)';
-        $operations = $databaseAdminClient->listDatabaseOperations(
-            new ListDatabaseOperationsRequest([
-                'parent' => $parent,
-                'filter' => $filter
-            ])
-        );
+                  'google.spanner.admin.database.v1.OptimizeRestoredDatabaseMetadata)';
     
-        foreach ($operations->iterateAllElements() as $operation) {
-            $obj = new OptimizeRestoredDatabaseMetadata();
-            $meta = $operation->getMetadata()->unpack($obj);
-            $progress = $meta->getProgress()->getProgressPercent();
-            $dbName = basename($meta->getName());
-            printf('Database %s restored from backup is %d%% optimized.' . PHP_EOL, $dbName, $progress);
+        $operations = $instance->databaseOperations(['filter' => $filter]);
+    
+        foreach ($operations as $operation) {
+            if (!$operation->done()) {
+                $meta = $operation->info()['metadata'];
+                $dbName = basename($meta['name']);
+                $progress = $meta['progress']['progressPercent'];
+                printf('Database %s restored from backup is %d%% optimized.' . PHP_EOL, $dbName, $progress);
+            }
         }
     }
 
@@ -266,28 +220,19 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     def list_database_operations(instance_id):
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
     
         # List the progress of restore.
         filter_ = (
             "(metadata.@type:type.googleapis.com/"
             "google.spanner.admin.database.v1.OptimizeRestoredDatabaseMetadata)"
         )
-        request = spanner_database_admin.ListDatabaseOperationsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            filter=filter_,
-        )
-        operations = database_admin_api.list_database_operations(request)
+        operations = instance.list_database_operations(filter_=filter_)
         for op in operations:
-            metadata = protobuf_helpers.from_any_pb(
-                spanner_database_admin.OptimizeRestoredDatabaseMetadata, op.metadata
-            )
             print(
                 "Database {} restored from backup is {}% optimized.".format(
-                    metadata.name, metadata.progress.progress_percent
+                    op.metadata.name, op.metadata.progress.progress_percent
                 )
             )
 
@@ -321,4 +266,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

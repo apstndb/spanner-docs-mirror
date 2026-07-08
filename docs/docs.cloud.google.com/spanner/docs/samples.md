@@ -8,4 +8,4 @@ data_source: docs.cloud.google.com
 
 # All Spanner code samples
 
-Java Go Python C++ Node.js Ruby C\# PHP
+Java Go Python C++ Ruby C\# PHP Node.js Rust TypeScript

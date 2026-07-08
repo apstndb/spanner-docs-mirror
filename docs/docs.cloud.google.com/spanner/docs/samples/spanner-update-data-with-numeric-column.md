@@ -199,41 +199,41 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const spanner = new Spanner({
       projectId: projectId,
     });
-    
-    // Gets a reference to a Cloud Spanner instance and database.
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    // Instantiate Spanner table objects.
-    const venuesTable = database.table('Venues');
-    
-    const data = [
-      {
-        VenueId: '4',
-        Revenue: Spanner.numeric('35000'),
-        LastUpdateTime: 'spanner.commit_timestamp()',
-      },
-      {
-        VenueId: '19',
-        Revenue: Spanner.numeric('104500'),
-        LastUpdateTime: 'spanner.commit_timestamp()',
-      },
-      {
-        VenueId: '42',
-        Revenue: Spanner.numeric('99999999999999999999999999999.99'),
-        LastUpdateTime: 'spanner.commit_timestamp()',
-      },
-    ];
-    
-    // Updates rows in the Venues table.
+    let database;
     try {
+      // Gets a reference to a Cloud Spanner instance and database.
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
+    
+      // Instantiate Spanner table objects.
+      const venuesTable = database.table('Venues');
+    
+      const data = [
+        {
+          VenueId: '4',
+          Revenue: Spanner.numeric('35000'),
+          LastUpdateTime: 'spanner.commit_timestamp()',
+        },
+        {
+          VenueId: '19',
+          Revenue: Spanner.numeric('104500'),
+          LastUpdateTime: 'spanner.commit_timestamp()',
+        },
+        {
+          VenueId: '42',
+          Revenue: Spanner.numeric('99999999999999999999999999999.99'),
+          LastUpdateTime: 'spanner.commit_timestamp()',
+        },
+      ];
+    
+      // Updates rows in the Venues table.
       await venuesTable.update(data);
       console.log('Updated data.');
     } catch (err) {
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -337,4 +337,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

@@ -160,18 +160,18 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const spanner = new Spanner({
       projectId: projectId,
     });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    // Instantiates Spanner table objects
-    const singersTable = database.table('Singers');
-    
-    // Inserts rows into the Singers table
-    // Note: Cloud Spanner interprets Javascript numbers as FLOAT64s.
-    // Use strings as shown in this example if you need INT64s.
+    let database;
     try {
+      // Gets a reference to a Cloud Spanner instance and database
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
+    
+      // Instantiates Spanner table objects
+      const singersTable = database.table('Singers');
+    
+      // Inserts rows into the Singers table
+      // Note: Cloud Spanner interprets Javascript numbers as FLOAT64s.
+      // Use strings as shown in this example if you need INT64s.
       const data = [
         {
           SingerId: '6',
@@ -201,7 +201,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -298,4 +298,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

@@ -265,39 +265,40 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     // Gets a reference to a Cloud Spanner instance and database
     const instance = spanner.instance(instanceId);
     const database = instance.database(databaseId);
-    const [transaction] = await database.createBatchTransaction();
     
-    const query = {
-      sql: 'SELECT * FROM Singers',
-      // DataBoost option is an optional parameter which can also be used for partition read
-      // and query to execute the request via spanner independent compute resources.
-      dataBoostEnabled: true,
-    };
+    let transaction;
     
-    // A Partition object is serializable and can be used from a different process.
-    const [partitions] = await transaction.createQueryPartitions(query);
-    console.log(`Successfully created ${partitions.length} query partitions.`);
+    try {
+      [transaction] = await database.createBatchTransaction();
     
-    let row_count = 0;
-    const promises = [];
-    partitions.forEach(partition => {
-      promises.push(
+      const query = {
+        sql: 'SELECT * FROM Singers',
+        // DataBoost option is an optional parameter which can also be used for partition read
+        // and query to execute the request via spanner independent compute resources.
+        dataBoostEnabled: true,
+      };
+    
+      // A Partition object is serializable and can be used from a different process.
+      const [partitions] = await transaction.createQueryPartitions(query);
+      console.log(`Successfully created ${partitions.length} query partitions.`);
+    
+      let rowCount = 0;
+      const promises = partitions.map(partition =>
         transaction.execute(partition).then(results => {
           const rows = results[0].map(row => row.toJSON());
-          row_count += rows.length;
-        }),
+          rowCount += rows.length;
+        })
       );
-    });
-    Promise.all(promises)
-      .then(() => {
-        console.log(
-          `Successfully received ${row_count} from executed partitions.`,
-        );
+      await Promise.all(promises);
+      console.log(`Successfully received ${rowCount} from executed partitions.`);
+    } catch (err) {
+      console.error('Error executing query partitions:', err);
+    } finally {
+      if (transaction) {
         transaction.close();
-      })
-      .then(() => {
-        database.close();
-      });
+      }
+      await database.close();
+    }
 
 ### PHP
 
@@ -465,4 +466,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

@@ -317,9 +317,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     // Instantiate Spanner table objects.
     const venuesTable = database.table('Venues');
-    const exampleBytes1 = new Buffer.from('Hello World 1');
-    const exampleBytes2 = new Buffer.from('Hello World 2');
-    const exampleBytes3 = new Buffer.from('Hello World 3');
+    const exampleBytes1 = Buffer.from('Hello World 1');
+    const exampleBytes2 = Buffer.from('Hello World 2');
+    const exampleBytes3 = Buffer.from('Hello World 3');
     const availableDates1 = ['2020-12-01', '2020-12-02', '2020-12-03'];
     const availableDates2 = ['2020-11-01', '2020-11-05', '2020-11-15'];
     const availableDates3 = ['2020-10-01', '2020-10-07'];
@@ -370,7 +370,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -549,4 +549,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

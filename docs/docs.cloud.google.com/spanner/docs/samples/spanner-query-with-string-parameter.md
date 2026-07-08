@@ -201,7 +201,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -265,7 +265,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     with database.snapshot() as snapshot:
         results = snapshot.execute_sql(
-            "SELECT VenueId, VenueName FROM Venues " "WHERE VenueName = @venue_name",
+            "SELECT VenueId, VenueName FROM Venues WHERE VenueName = @venue_name",
             params=param,
             param_types=param_type,
         )
@@ -300,4 +300,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

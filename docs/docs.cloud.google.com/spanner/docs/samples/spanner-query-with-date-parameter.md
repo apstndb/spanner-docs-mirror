@@ -206,18 +206,17 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       const [rows] = await database.run(query);
     
       rows.forEach(row => {
-        const date = row[2]['value'];
         const json = row.toJSON();
+        const dateStr = JSON.stringify(json.LastContactDate).substring(1, 11);
         console.log(
-          `VenueId: ${json.VenueId}, VenueName: ${json.VenueName},` +
-            ` LastContactDate: ${JSON.stringify(date).substring(1, 11)}`,
+          `VenueId: ${json.VenueId}, VenueName: ${json.VenueName}, LastContactDate: ${dateStr}`
         );
       });
     } catch (err) {
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -317,4 +316,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

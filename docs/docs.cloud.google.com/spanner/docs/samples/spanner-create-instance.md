@@ -232,7 +232,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       projectId: projectId,
     });
     
-    const instanceAdminClient = await spanner.getInstanceAdminClient();
+    const instanceAdminClient = spanner.getInstanceAdminClient();
     /**
      * TODO(developer): Uncomment the following lines before running the sample.
      **/
@@ -241,19 +241,19 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     // Creates a new instance
     try {
-      console.log(
-        `Creating instance ${instanceAdminClient.instancePath(
-          projectId,
-          instanceId,
-        )}.`,
+      const instancePath = instanceAdminClient.instancePath(
+        projectId,
+        instanceId
       );
+      console.log(`Creating instance ${instancePath}.`);
+    
       const [operation] = await instanceAdminClient.createInstance({
         instanceId: instanceId,
         parent: instanceAdminClient.projectPath(projectId),
         instance: {
           config: instanceAdminClient.instanceConfigPath(
             projectId,
-            'regional-us-central1',
+            'regional-us-central1'
           ),
           nodeCount: 1,
           displayName: 'Display name for the instance.',
@@ -272,6 +272,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       console.log(`Created instance ${instanceId}.`);
     } catch (err) {
       console.error('ERROR:', err);
+    } finally {
+      spanner.close();
     }
 
 ### PHP
@@ -280,37 +282,33 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Instance\V1\Client\InstanceAdminClient;
-    use Google\Cloud\Spanner\Admin\Instance\V1\CreateInstanceRequest;
-    use Google\Cloud\Spanner\Admin\Instance\V1\Instance;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * Creates an instance.
      * Example:
      * ```
-     * create_instance($projectId, $instanceId);
+     * create_instance($instanceId);
      * ```
      *
-     * @param string $projectId  The Spanner project ID.
      * @param string $instanceId The Spanner instance ID.
      */
-    function create_instance(string $projectId, string $instanceId): void
+    function create_instance(string $instanceId): void
     {
-        $instanceAdminClient = new InstanceAdminClient();
-        $parent = InstanceAdminClient::projectName($projectId);
-        $instanceName = InstanceAdminClient::instanceName($projectId, $instanceId);
-        $configName = $instanceAdminClient->instanceConfigName($projectId, 'regional-us-central1');
-        $instance = (new Instance())
-            ->setName($instanceName)
-            ->setConfig($configName)
-            ->setDisplayName('dispName')
-            ->setNodeCount(1);
-    
-        $operation = $instanceAdminClient->createInstance(
-            (new CreateInstanceRequest())
-            ->setParent($parent)
-            ->setInstanceId($instanceId)
-            ->setInstance($instance)
+        $spanner = new SpannerClient();
+        $instanceConfig = $spanner->instanceConfiguration(
+            'regional-us-central1'
+        );
+        $operation = $spanner->createInstance(
+            $instanceConfig,
+            $instanceId,
+            [
+                'displayName' => 'This is a display name.',
+                'nodeCount' => 1,
+                'labels' => [
+                    'cloud_spanner_samples' => true,
+                ]
+            ]
         );
     
         print('Waiting for operation to complete...' . PHP_EOL);
@@ -327,29 +325,25 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     def create_instance(instance_id):
         """Creates an instance."""
-        from google.cloud.spanner_admin_instance_v1.types import spanner_instance_admin
-    
         spanner_client = spanner.Client()
     
         config_name = "{}/instanceConfigs/regional-us-central1".format(
             spanner_client.project_name
         )
     
-        operation = spanner_client.instance_admin_api.create_instance(
-            parent=spanner_client.project_name,
-            instance_id=instance_id,
-            instance=spanner_instance_admin.Instance(
-                config=config_name,
-                display_name="This is a display name.",
-                node_count=1,
-                labels={
-                    "cloud_spanner_samples": "true",
-                    "sample_name": "snippets-create_instance-explicit",
-                    "created": str(int(time.time())),
-                },
-                edition=spanner_instance_admin.Instance.Edition.STANDARD,  # Optional
-            ),
+        instance = spanner_client.instance(
+            instance_id,
+            configuration_name=config_name,
+            display_name="This is a display name.",
+            node_count=1,
+            labels={
+                "cloud_spanner_samples": "true",
+                "sample_name": "snippets-create_instance-explicit",
+                "created": str(int(time.time())),
+            },
         )
+    
+        operation = instance.create()
     
         print("Waiting for operation to complete...")
         operation.result(OPERATION_TIMEOUT_SECONDS)
@@ -395,4 +389,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

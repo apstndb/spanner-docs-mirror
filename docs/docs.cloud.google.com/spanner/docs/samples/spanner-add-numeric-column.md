@@ -166,24 +166,27 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const databaseAdminClient = spanner.getDatabaseAdminClient();
     
     const request = ['ALTER TABLE Venues ADD COLUMN Revenue NUMERIC'];
+    try {
+      // Alter existing table to add a column.
+      const [operation] = await databaseAdminClient.updateDatabaseDdl({
+        database: databaseAdminClient.databasePath(
+          projectId,
+          instanceId,
+          databaseId
+        ),
+        statements: request,
+      });
     
-    // Alter existing table to add a column.
-    const [operation] = await databaseAdminClient.updateDatabaseDdl({
-      database: databaseAdminClient.databasePath(
-        projectId,
-        instanceId,
-        databaseId,
-      ),
-      statements: request,
-    });
+      console.log(`Waiting for operation on ${databaseId} to complete...`);
     
-    console.log(`Waiting for operation on ${databaseId} to complete...`);
+      await operation.promise();
     
-    await operation.promise();
-    
-    console.log(
-      `Added Revenue column to Venues table in database ${databaseId}.`,
-    );
+      console.log(
+        `Added Revenue column to Venues table in database ${databaseId}.`
+      );
+    } catch (err) {
+      console.error('ERROR:', err);
+    }
 
 ### PHP
 
@@ -231,20 +234,12 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     def add_numeric_column(instance_id, database_id):
         """Adds a new NUMERIC column to the Venues table in the example database."""
-    
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
     
-        request = spanner_database_admin.UpdateDatabaseDdlRequest(
-            database=database_admin_api.database_path(
-                spanner_client.project, instance_id, database_id
-            ),
-            statements=["ALTER TABLE Venues ADD COLUMN Revenue NUMERIC"],
-        )
+        database = instance.database(database_id)
     
-        operation = database_admin_api.update_database_ddl(request)
+        operation = database.update_ddl(["ALTER TABLE Venues ADD COLUMN Revenue NUMERIC"])
     
         print("Waiting for operation to complete...")
         operation.result(OPERATION_TIMEOUT_SECONDS)
@@ -287,4 +282,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

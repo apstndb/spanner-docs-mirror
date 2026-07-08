@@ -103,18 +103,14 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void addCommitTimestamp(DatabaseAdminClient adminClient, DatabaseId dbId) {
-      OperationFuture<Void, UpdateDatabaseDdlMetadata> op =
-          adminClient.updateDatabaseDdl(
-              dbId.getInstanceId().getInstance(),
-              dbId.getDatabase(),
-              Arrays.asList(
-                  "ALTER TABLE Albums ADD COLUMN LastUpdateTime TIMESTAMP "
-                      + "OPTIONS (allow_commit_timestamp=true)"),
-              null);
+    static void addCommitTimestamp(DatabaseAdminClient adminClient, DatabaseName databaseName) {
       try {
         // Initiate the request which returns an OperationFuture.
-        op.get();
+        adminClient.updateDatabaseDdlAsync(
+            databaseName,
+            Arrays.asList(
+                "ALTER TABLE Albums ADD COLUMN LastUpdateTime TIMESTAMP "
+                    + "OPTIONS (allow_commit_timestamp=true)")).get();
         System.out.println("Added LastUpdateTime as a commit timestamp column in Albums table.");
       } catch (ExecutionException e) {
         // If the operation failed during execution, expose the cause.
@@ -161,7 +157,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         database: databaseAdminClient.databasePath(
           projectId,
           instanceId,
-          databaseId,
+          databaseId
         ),
         statements: request,
       });
@@ -171,7 +167,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       await operation.promise();
     
       console.log(
-        'Added LastUpdateTime as a commit timestamp column in Albums table.',
+        'Added LastUpdateTime as a commit timestamp column in Albums table.'
       );
     } catch (err) {
       console.error('ERROR:', err);
@@ -187,27 +183,31 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
     
     /**
      * Adds a commit timestamp column to a table.
      * Example:
      * ```
-     * add_timestamp_column($instanceId, $databaseId);
+     * add_timestamp_column($projectId, $instanceId, $databaseId);
      * ```
      *
+     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      */
-    function add_timestamp_column(string $instanceId, string $databaseId): void
+    function add_timestamp_column(string $projectId, string $instanceId, string $databaseId): void
     {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
+        $databaseAdminClient = new DatabaseAdminClient();
+        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
+        $statement = 'ALTER TABLE Albums ADD COLUMN LastUpdateTime TIMESTAMP OPTIONS (allow_commit_timestamp=true)';
+        $request = new UpdateDatabaseDdlRequest([
+            'database' => $databaseName,
+            'statements' => [$statement]
+        ]);
     
-        $operation = $database->updateDdl(
-            'ALTER TABLE Albums ADD COLUMN LastUpdateTime TIMESTAMP OPTIONS (allow_commit_timestamp=true)'
-        );
+        $operation = $databaseAdminClient->updateDatabaseDdl($request);
     
         print('Waiting for operation to complete...' . PHP_EOL);
         $operation->pollUntilComplete();
@@ -223,23 +223,17 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     def add_timestamp_column(instance_id, database_id):
         """Adds a new TIMESTAMP column to the Albums table in the example database."""
-    
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
     
-        request = spanner_database_admin.UpdateDatabaseDdlRequest(
-            database=database_admin_api.database_path(
-                spanner_client.project, instance_id, database_id
-            ),
-            statements=[
+        database = instance.database(database_id)
+    
+        operation = database.update_ddl(
+            [
                 "ALTER TABLE Albums ADD COLUMN LastUpdateTime TIMESTAMP "
                 "OPTIONS(allow_commit_timestamp=true)"
-            ],
+            ]
         )
-    
-        operation = database_admin_api.update_database_ddl(request)
     
         print("Waiting for operation to complete...")
         operation.result(OPERATION_TIMEOUT_SECONDS)
@@ -283,4 +277,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

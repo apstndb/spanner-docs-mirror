@@ -199,25 +199,45 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    // Imports the Google Cloud client library
     const {Spanner} = require('@google-cloud/spanner');
+    const {status} = require('@grpc/grpc-js');
     
-    // Creates a client
-    const spanner = new Spanner({projectId});
+    // Creates a client using the ambient project ID or environment configuration
+    const spanner = new Spanner();
     
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
+    /**
+     * Executes a query against a Cloud Spanner database.
+     *
+     * @param {string} projectId The project ID containing the Spanner instance (for example, 'example-project-id').
+     * @param {string} instanceId The ID of the Spanner instance (for example, 'example-instance').
+     * @param {string} databaseId The ID of the Spanner database (for example 'example-database').
+     */
+    async function quickstart(projectId, instanceId, databaseId) {
+      try {
+        // Gets a reference to a Cloud Spanner instance and database
+        const instance = spanner.instance(instanceId);
+        const database = instance.database(databaseId);
     
-    // The query to execute
-    const query = {
-      sql: 'SELECT 1',
-    };
+        const query = {
+          sql: 'SELECT 1',
+        };
     
-    // Execute a simple SQL statement
-    const [rows] = await database.run(query);
-    console.log(`Query: ${rows.length} found.`);
-    rows.forEach(row => console.log(row));
+        const [rows] = await database.run(query);
+    
+        console.log(`Query successfully executed. ${rows.length} row(s) found.`);
+        rows.forEach(row => {
+          console.log(`  Row details: ${JSON.stringify(row)}`);
+        });
+      } catch (err) {
+        if (err.code === status.NOT_FOUND) {
+          console.error(
+            `Resource not found. Please verify that instance '${instanceId}' and database '${databaseId}' exist under project '${projectId}'.`
+          );
+        } else {
+          console.error('An unexpected error occurred during execution:', err);
+        }
+      }
+    }
 
 ### PHP
 
@@ -320,4 +340,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

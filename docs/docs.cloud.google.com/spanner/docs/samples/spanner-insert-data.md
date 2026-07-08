@@ -12,6 +12,7 @@ Insert several rows of data into a table by using mutations.
 
 For detailed documentation that includes this code sample, see the following:
 
+  - [Getting started with Spanner in ADO.NET](https://docs.cloud.google.com/spanner/docs/getting-started/ado_net)
   - [Getting started with Spanner in C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
   - [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
   - [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
@@ -64,82 +65,62 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    
-    public class InsertDataAsyncSample
+    struct Singer
     {
-        public class Singer
+        internal long SingerId;
+        internal string FirstName;
+        internal string LastName;
+    }
+    
+    struct Album
+    {
+        internal long SingerId;
+        internal long AlbumId;
+        internal string Title;
+    }
+    
+    public static async Task WriteDataWithMutations(string connectionString)
+    {
+        await using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+    
+        Singer[] singers =
+        [
+            new() {SingerId=1, FirstName = "Marc", LastName = "Richards"},
+            new() {SingerId=2, FirstName = "Catalina", LastName = "Smith"},
+            new() {SingerId=3, FirstName = "Alice", LastName = "Trentor"},
+            new() {SingerId=4, FirstName = "Lea", LastName = "Martin"},
+            new() {SingerId=5, FirstName = "David", LastName = "Lomond"},
+        ];
+        Album[] albums =
+        [
+            new() {SingerId = 1, AlbumId = 1, Title = "Total Junk"},
+            new() {SingerId = 1, AlbumId = 2, Title = "Go, Go, Go"},
+            new() {SingerId = 2, AlbumId = 1, Title = "Green"},
+            new() {SingerId = 2, AlbumId = 2, Title = "Forever Hold Your Peace"},
+            new() {SingerId = 2, AlbumId = 3, Title = "Terrified"},
+        ];
+        var batch = connection.CreateBatch();
+        foreach (var singer in singers)
         {
-            public int SingerId { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
+            // The name of a parameter must correspond with a column name.
+            var command = batch.CreateInsertCommand("Singers");
+            command.AddParameter("SingerId", singer.SingerId);
+            command.AddParameter("FirstName", singer.FirstName);
+            command.AddParameter("LastName", singer.LastName);
+            batch.BatchCommands.Add(command);
         }
-    
-        public class Album
+        foreach (var album in albums)
         {
-            public int SingerId { get; set; }
-            public int AlbumId { get; set; }
-            public string AlbumTitle { get; set; }
+            // The name of a parameter must correspond with a column name.
+            var command = batch.CreateInsertCommand("Albums");
+            command.AddParameter("SingerId", album.SingerId);
+            command.AddParameter("AlbumId", album.AlbumId);
+            command.AddParameter("AlbumTitle", album.Title);
+            batch.BatchCommands.Add(command);
         }
-    
-        public async Task InsertDataAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            List<Singer> singers = new List<Singer>
-            {
-                new Singer { SingerId = 1, FirstName = "Marc", LastName = "Richards" },
-                new Singer { SingerId = 2, FirstName = "Catalina", LastName = "Smith" },
-                new Singer { SingerId = 3, FirstName = "Alice", LastName = "Trentor" },
-                new Singer { SingerId = 4, FirstName = "Lea", LastName = "Martin" },
-                new Singer { SingerId = 5, FirstName = "David", LastName = "Lomond" },
-            };
-            List<Album> albums = new List<Album>
-            {
-                new Album { SingerId = 1, AlbumId = 1, AlbumTitle = "Total Junk" },
-                new Album { SingerId = 1, AlbumId = 2, AlbumTitle = "Go, Go, Go" },
-                new Album { SingerId = 2, AlbumId = 1, AlbumTitle = "Green" },
-                new Album { SingerId = 2, AlbumId = 2, AlbumTitle = "Forever Hold your Peace" },
-                new Album { SingerId = 2, AlbumId = 3, AlbumTitle = "Terrified" },
-            };
-    
-            // Create connection to Cloud Spanner.
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            await connection.RunWithRetriableTransactionAsync(async transaction =>
-            {
-                await Task.WhenAll(singers.Select(singer =>
-                {
-                    // Insert rows into the Singers table.
-                    using var cmd = connection.CreateInsertCommand("Singers", new SpannerParameterCollection
-                    {
-                            { "SingerId", SpannerDbType.Int64, singer.SingerId },
-                            { "FirstName", SpannerDbType.String, singer.FirstName },
-                            { "LastName", SpannerDbType.String, singer.LastName }
-                    });
-                    cmd.Transaction = transaction;
-                    return cmd.ExecuteNonQueryAsync();
-                }));
-    
-                await Task.WhenAll(albums.Select(album =>
-                {
-                    // Insert rows into the Albums table.
-                    using var cmd = connection.CreateInsertCommand("Albums", new SpannerParameterCollection
-                    {
-                            { "SingerId", SpannerDbType.Int64, album.SingerId },
-                            { "AlbumId", SpannerDbType.Int64, album.AlbumId },
-                            { "AlbumTitle", SpannerDbType.String,album.AlbumTitle }
-                    });
-                    cmd.Transaction = transaction;
-                    return cmd.ExecuteNonQueryAsync();
-                }));
-            });
-            Console.WriteLine("Data inserted.");
-        }
+        var affected = await batch.ExecuteNonQueryAsync();
+        Console.WriteLine($"Inserted {affected} rows.");
     }
 
 ### Go
@@ -148,21 +129,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func write(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
+    func write(ctx context.Context, w io.Writer, client *spanner.Client) error {
      singerColumns := []string{"SingerId", "FirstName", "LastName"}
      albumColumns := []string{"SingerId", "AlbumId", "AlbumTitle"}
      m := []*spanner.Mutation{
@@ -177,7 +144,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 2, "Forever Hold Your Peace"}),
          spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 3, "Terrified"}),
      }
-     _, err = client.Apply(ctx, m)
+     _, err := client.Apply(ctx, m)
      return err
     }
 
@@ -187,6 +154,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
+    /** The list of Singers to insert. */
     static final List<Singer> SINGERS =
         Arrays.asList(
             new Singer(1, "Marc", "Richards"),
@@ -195,6 +163,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             new Singer(4, "Lea", "Martin"),
             new Singer(5, "David", "Lomond"));
     
+    /** The list of Albums to insert. */
     static final List<Album> ALBUMS =
         Arrays.asList(
             new Album(1, 1, "Total Junk"),
@@ -202,31 +171,50 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             new Album(2, 1, "Green"),
             new Album(2, 2, "Forever Hold Your Peace"),
             new Album(2, 3, "Terrified"));
-    static void writeExampleData(DatabaseClient dbClient) {
-      List<Mutation> mutations = new ArrayList<>();
-      for (Singer singer : SINGERS) {
-        mutations.add(
-            Mutation.newInsertBuilder("Singers")
-                .set("SingerId")
-                .to(singer.singerId)
-                .set("FirstName")
-                .to(singer.firstName)
-                .set("LastName")
-                .to(singer.lastName)
-                .build());
+    
+    static void writeDataWithMutations(
+        final String project,
+        final String instance,
+        final String database,
+        final Properties properties) throws SQLException {
+      try (Connection connection =
+          DriverManager.getConnection(
+              String.format(
+                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+                  project, instance, database),
+              properties)) {
+        // Unwrap the CloudSpannerJdbcConnection interface
+        // from the java.sql.Connection.
+        CloudSpannerJdbcConnection cloudSpannerJdbcConnection =
+            connection.unwrap(CloudSpannerJdbcConnection.class);
+    
+        List<Mutation> mutations = new ArrayList<>();
+        for (Singer singer : SINGERS) {
+          mutations.add(
+              Mutation.newInsertBuilder("Singers")
+                  .set("SingerId")
+                  .to(singer.singerId)
+                  .set("FirstName")
+                  .to(singer.firstName)
+                  .set("LastName")
+                  .to(singer.lastName)
+                  .build());
+        }
+        for (Album album : ALBUMS) {
+          mutations.add(
+              Mutation.newInsertBuilder("Albums")
+                  .set("SingerId")
+                  .to(album.singerId)
+                  .set("AlbumId")
+                  .to(album.albumId)
+                  .set("AlbumTitle")
+                  .to(album.albumTitle)
+                  .build());
+        }
+        // Apply the mutations atomically to Spanner.
+        cloudSpannerJdbcConnection.write(mutations);
+        System.out.printf("Inserted %d rows.\n", mutations.size());
       }
-      for (Album album : ALBUMS) {
-        mutations.add(
-            Mutation.newInsertBuilder("Albums")
-                .set("SingerId")
-                .to(album.singerId)
-                .set("AlbumId")
-                .to(album.albumId)
-                .set("AlbumTitle")
-                .to(album.albumTitle)
-                .build());
-      }
-      dbClient.write(mutations);
     }
 
 ### Node.js
@@ -409,6 +397,103 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     puts "Inserted data"
 
+### Rust
+
+    use google_cloud_spanner::client::DatabaseClient;
+    use google_cloud_spanner::mutation::Mutation;
+    
+    pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
+        let mutations = vec![
+            Mutation::new_insert_builder("Singers")
+                .set("SingerId")
+                .to(&1)
+                .set("FirstName")
+                .to(&"Marc")
+                .set("LastName")
+                .to(&"Richards")
+                .build(),
+            Mutation::new_insert_builder("Singers")
+                .set("SingerId")
+                .to(&2)
+                .set("FirstName")
+                .to(&"Catalina")
+                .set("LastName")
+                .to(&"Smith")
+                .build(),
+            Mutation::new_insert_builder("Singers")
+                .set("SingerId")
+                .to(&3)
+                .set("FirstName")
+                .to(&"Alice")
+                .set("LastName")
+                .to(&"Trentor")
+                .build(),
+            Mutation::new_insert_builder("Singers")
+                .set("SingerId")
+                .to(&4)
+                .set("FirstName")
+                .to(&"Lea")
+                .set("LastName")
+                .to(&"Martin")
+                .build(),
+            Mutation::new_insert_builder("Singers")
+                .set("SingerId")
+                .to(&5)
+                .set("FirstName")
+                .to(&"David")
+                .set("LastName")
+                .to(&"Lomond")
+                .build(),
+            Mutation::new_insert_builder("Albums")
+                .set("SingerId")
+                .to(&1)
+                .set("AlbumId")
+                .to(&1)
+                .set("AlbumTitle")
+                .to(&"Total Junk")
+                .build(),
+            Mutation::new_insert_builder("Albums")
+                .set("SingerId")
+                .to(&1)
+                .set("AlbumId")
+                .to(&2)
+                .set("AlbumTitle")
+                .to(&"Go, Go, Go")
+                .build(),
+            Mutation::new_insert_builder("Albums")
+                .set("SingerId")
+                .to(&2)
+                .set("AlbumId")
+                .to(&1)
+                .set("AlbumTitle")
+                .to(&"Green")
+                .build(),
+            Mutation::new_insert_builder("Albums")
+                .set("SingerId")
+                .to(&2)
+                .set("AlbumId")
+                .to(&2)
+                .set("AlbumTitle")
+                .to(&"Forever Hold Your Peace")
+                .build(),
+            Mutation::new_insert_builder("Albums")
+                .set("SingerId")
+                .to(&2)
+                .set("AlbumId")
+                .to(&3)
+                .set("AlbumTitle")
+                .to(&"Terrified")
+                .build(),
+        ];
+    
+        println!("Inserting initial data into Singers & Albums...");
+        let write_transaction = client.write_only_transaction().build();
+        write_transaction.write(mutations).await?;
+        println!("Inserted data successfully.");
+    
+        Ok(())
+    }
+
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

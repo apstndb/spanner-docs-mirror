@@ -176,24 +176,24 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const spanner = new Spanner({
       projectId: projectId,
     });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const nameStruct = Spanner.struct({
-      FirstName: 'Elena',
-      LastName: 'Campbell',
-    });
-    const query = {
-      sql: 'SELECT SingerId FROM Singers WHERE FirstName = @name.FirstName',
-      params: {
-        name: nameStruct,
-      },
-    };
-    
-    // Queries rows from the Singers table
+    let database;
     try {
+      // Gets a reference to a Cloud Spanner instance and database
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
+    
+      const nameStruct = Spanner.struct({
+        FirstName: 'Elena',
+        LastName: 'Campbell',
+      });
+      const query = {
+        sql: 'SELECT SingerId FROM Singers WHERE FirstName = @name.FirstName',
+        params: {
+          name: nameStruct,
+        },
+      };
+    
+      // Queries rows from the Singers table
       const [rows] = await database.run(query);
     
       rows.forEach(row => {
@@ -204,7 +204,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -277,7 +277,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
         with database.snapshot() as snapshot:
             results = snapshot.execute_sql(
-                "SELECT SingerId FROM Singers " "WHERE FirstName = @name.FirstName",
+                "SELECT SingerId FROM Singers WHERE FirstName = @name.FirstName",
                 params={"name": ("Elena", "Campbell")},
                 param_types={"name": name_type},
             )
@@ -310,4 +310,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

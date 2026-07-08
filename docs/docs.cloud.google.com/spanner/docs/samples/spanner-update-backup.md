@@ -213,108 +213,39 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       System.out.println("Updated backup [" + backupId + "]");
     }
 
-### Node.js
-
-To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
-
-To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
-
-    // Imports the Google Cloud client library and precise date library
-    const {Spanner, protos} = require('@google-cloud/spanner');
-    const {PreciseDate} = require('@google-cloud/precise-date');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const backupId = 'my-backup';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner Database Admin Client object
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    // Read backup metadata and update expiry time
-    try {
-      const [metadata] = await databaseAdminClient.getBackup({
-        name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
-      });
-    
-      const currentExpireTime = metadata.expireTime;
-      const maxExpireTime = metadata.maxExpireTime;
-      const wantExpireTime = new PreciseDate(currentExpireTime);
-      wantExpireTime.setDate(wantExpireTime.getDate() + 1);
-    
-      // New expire time should be less than the max expire time
-      const min = (currentExpireTime, maxExpireTime) =>
-        currentExpireTime < maxExpireTime ? currentExpireTime : maxExpireTime;
-      const newExpireTime = new PreciseDate(min(wantExpireTime, maxExpireTime));
-      console.log(
-        `Backup ${backupId} current expire time: ${Spanner.timestamp(
-          currentExpireTime,
-        ).toISOString()}`,
-      );
-      console.log(
-        `Updating expire time to ${Spanner.timestamp(
-          newExpireTime,
-        ).toISOString()}`,
-      );
-    
-      await databaseAdminClient.updateBackup({
-        backup: {
-          name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
-          expireTime: Spanner.timestamp(newExpireTime).toStruct(),
-        },
-        updateMask: (protos.google.protobuf.FieldMask = {
-          paths: ['expire_time'],
-        }),
-      });
-      console.log('Expire time updated.');
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
-
 ### PHP
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Backup;
-    use Google\Cloud\Spanner\Admin\Database\V1\UpdateBackupRequest;
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Protobuf\Timestamp;
+    use Google\Cloud\Spanner\SpannerClient;
+    use DateTime;
     
     /**
      * Update the backup expire time.
      * Example:
      * ```
-     * update_backup($projectId, $instanceId, $backupId);
+     * update_backup($instanceId, $backupId);
      * ```
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $backupId The Spanner backup ID.
      */
-    function update_backup(string $projectId, string $instanceId, string $backupId): void
+    function update_backup(string $instanceId, string $backupId): void
     {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $backupName = DatabaseAdminClient::backupName($projectId, $instanceId, $backupId);
-        $newExpireTime = new Timestamp();
-        $newExpireTime->setSeconds((new \DateTime('+30 days'))->getTimestamp());
-        $request = new UpdateBackupRequest([
-            'backup' => new Backup([
-                'name' => $backupName,
-                'expire_time' => $newExpireTime
-            ]),
-            'update_mask' => new \Google\Protobuf\FieldMask(['paths' => ['expire_time']])
-        ]);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $backup = $instance->backup($backupId);
+        $backup->reload();
     
-        $info = $databaseAdminClient->updateBackup($request);
-        printf('Backup %s new expire time: %d' . PHP_EOL, basename($info->getName()), $info->getExpireTime()->getSeconds());
+        $newExpireTime = new DateTime('+30 days');
+        $maxExpireTime = new DateTime($backup->info()['maxExpireTime']);
+        // The new expire time can't be greater than maxExpireTime for the backup.
+        $newExpireTime = min($newExpireTime, $maxExpireTime);
+    
+        $backup->updateExpireTime($newExpireTime);
+    
+        printf('Backup %s new expire time: %s' . PHP_EOL, $backupId, $backup->info()['expireTime']);
     }
 
 ### Python
@@ -324,29 +255,16 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     def update_backup(instance_id, backup_id):
-        from google.cloud.spanner_admin_database_v1.types import backup as backup_pb
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
-    
-        backup = database_admin_api.get_backup(
-            backup_pb.GetBackupRequest(
-                name=database_admin_api.backup_path(
-                    spanner_client.project, instance_id, backup_id
-                ),
-            )
-        )
+        instance = spanner_client.instance(instance_id)
+        backup = instance.backup(backup_id)
+        backup.reload()
     
         # Expire time must be within 366 days of the create time of the backup.
         old_expire_time = backup.expire_time
         # New expire time should be less than the max expire time
         new_expire_time = min(backup.max_expire_time, old_expire_time + timedelta(days=30))
-        database_admin_api.update_backup(
-            backup_pb.UpdateBackupRequest(
-                backup=backup_pb.Backup(name=backup.name, expire_time=new_expire_time),
-                update_mask={"paths": ["expire_time"]},
-            )
-        )
+        backup.update_expire_time(new_expire_time)
         print(
             "Backup {} expire time was updated from {} to {}.".format(
                 backup.name, old_expire_time, new_expire_time
@@ -380,4 +298,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

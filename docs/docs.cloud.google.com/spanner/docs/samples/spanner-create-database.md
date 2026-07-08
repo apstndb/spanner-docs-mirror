@@ -14,6 +14,7 @@ For detailed documentation that includes this code sample, see the following:
 
   - [Create and manage databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases)
   - [Getting started with Spanner and PGAdapter](https://docs.cloud.google.com/spanner/docs/getting-started/pgadapter)
+  - [Getting started with Spanner in ADO.NET](https://docs.cloud.google.com/spanner/docs/getting-started/ado_net)
   - [Getting started with Spanner in C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
   - [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
   - [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
@@ -70,38 +71,27 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    using Google.Cloud.Spanner.Data;
-    using System.Threading.Tasks;
-    
-    public class CreateDatabaseAsyncSample
+    public static async Task CreateTables(string connectionString)
     {
-        public async Task CreateDatabaseAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}";
+        await using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
     
-            using var connection = new SpannerConnection(connectionString);
-            var createDatabase = $"CREATE DATABASE `{databaseId}`";
-            // Define create table statement for table #1.
-            var createSingersTable =
-                @"CREATE TABLE Singers (
-                    SingerId INT64 NOT NULL,
-                    FirstName STRING(1024),
-                    LastName STRING(1024),
-                    ComposerInfo BYTES(MAX),
-                    FullName STRING(2048) AS (ARRAY_TO_STRING([FirstName, LastName], "" "")) STORED
-                ) PRIMARY KEY (SingerId)";
-            // Define create table statement for table #2.
-            var createAlbumsTable =
-                @"CREATE TABLE Albums (
-                    SingerId INT64 NOT NULL,
-                    AlbumId INT64 NOT NULL,
-                    AlbumTitle STRING(MAX)
-                ) PRIMARY KEY (SingerId, AlbumId),
-                INTERLEAVE IN PARENT Singers ON DELETE CASCADE";
-    
-            using var createDbCommand = connection.CreateDdlCommand(createDatabase, createSingersTable, createAlbumsTable);
-            await createDbCommand.ExecuteNonQueryAsync();
-        }
+        // Create two tables in one batch on Spanner.
+        var batch = connection.CreateBatch();
+        batch.BatchCommands.Add("CREATE TABLE Singers (" +
+                                "  SingerId   INT64 NOT NULL, " +
+                                "  FirstName  STRING(1024), " +
+                                "  LastName   STRING(1024), " +
+                                "  SingerInfo BYTES(MAX) " +
+                                ") PRIMARY KEY (SingerId)");
+        batch.BatchCommands.Add("CREATE TABLE Albums ( " +
+                                "  SingerId     INT64 NOT NULL, " +
+                                "  AlbumId      INT64 NOT NULL, " +
+                                "  AlbumTitle   STRING(MAX)" +
+                                ") PRIMARY KEY (SingerId, AlbumId), " +
+                                "INTERLEAVE IN PARENT Singers ON DELETE CASCADE");
+        await batch.ExecuteNonQueryAsync();
+        Console.WriteLine("Created Singers & Albums tables");
     }
 
 ### Go
@@ -113,53 +103,50 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     import (
      "context"
      "fmt"
-     "io"
-     "regexp"
     
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+     "github.com/jackc/pgx/v5"
     )
     
-    func createDatabase(ctx context.Context, w io.Writer, db string) error {
-     matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
-     if matches == nil || len(matches) != 3 {
-         return fmt.Errorf("Invalid database id %s", db)
-     }
-    
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
+    func CreateTables(host string, port int, database string) error {
+     ctx := context.Background()
+     connString := fmt.Sprintf(
+         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
+         host, port, database)
+     conn, err := pgx.Connect(ctx, connString)
      if err != nil {
          return err
      }
-     defer adminClient.Close()
+     defer conn.Close(ctx)
     
-     op, err := adminClient.CreateDatabase(ctx, &adminpb.CreateDatabaseRequest{
-         Parent:          matches[1],
-         CreateStatement: "CREATE DATABASE `" + matches[2] + "`",
-         ExtraStatements: []string{
-             `CREATE TABLE Singers (
-                 SingerId   INT64 NOT NULL,
-                 FirstName  STRING(1024),
-                 LastName   STRING(1024),
-                 SingerInfo BYTES(MAX),
-                 FullName   STRING(2048) AS (
-                     ARRAY_TO_STRING([FirstName, LastName], " ")
-                 ) STORED
-             ) PRIMARY KEY (SingerId)`,
-             `CREATE TABLE Albums (
-                 SingerId     INT64 NOT NULL,
-                 AlbumId      INT64 NOT NULL,
-                 AlbumTitle   STRING(MAX)
-             ) PRIMARY KEY (SingerId, AlbumId),
-             INTERLEAVE IN PARENT Singers ON DELETE CASCADE`,
-         },
-     })
+     // Create two tables in one batch on Spanner.
+     br := conn.SendBatch(ctx, &pgx.Batch{QueuedQueries: []*pgx.QueuedQuery{
+         {SQL: "create table singers (" +
+             "  singer_id   bigint primary key not null," +
+             "  first_name  character varying(1024)," +
+             "  last_name   character varying(1024)," +
+             "  singer_info bytea," +
+             "  full_name   character varying(2048) generated " +
+             "  always as (first_name || ' ' || last_name) stored" +
+             ")"},
+         {SQL: "create table albums (" +
+             "  singer_id     bigint not null," +
+             "  album_id      bigint not null," +
+             "  album_title   character varying(1024)," +
+             "  primary key (singer_id, album_id)" +
+             ") interleave in parent singers on delete cascade"},
+     }})
+     cmd, err := br.Exec()
      if err != nil {
          return err
      }
-     if _, err := op.Wait(ctx); err != nil {
+     if cmd.String() != "CREATE" {
+         return fmt.Errorf("unexpected command tag: %v", cmd.String())
+     }
+     if err := br.Close(); err != nil {
          return err
      }
-     fmt.Fprintf(w, "Created database [%s]\n", db)
+     fmt.Printf("Created Singers & Albums tables in database: [%s]\n", database)
+    
      return nil
     }
 
@@ -169,39 +156,40 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void createDatabase(DatabaseAdminClient dbAdminClient,
-        InstanceName instanceName, String databaseId) {
-      CreateDatabaseRequest createDatabaseRequest =
-          CreateDatabaseRequest.newBuilder()
-              .setCreateStatement("CREATE DATABASE `" + databaseId + "`")
-              .setParent(instanceName.toString())
-              .addAllExtraStatements(Arrays.asList(
-                  "CREATE TABLE Singers ("
-                      + "  SingerId   INT64 NOT NULL,"
-                      + "  FirstName  STRING(1024),"
-                      + "  LastName   STRING(1024),"
-                      + "  SingerInfo BYTES(MAX),"
-                      + "  FullName STRING(2048) AS "
-                      + "  (ARRAY_TO_STRING([FirstName, LastName], \" \")) STORED"
-                      + ") PRIMARY KEY (SingerId)",
-                  "CREATE TABLE Albums ("
-                      + "  SingerId     INT64 NOT NULL,"
-                      + "  AlbumId      INT64 NOT NULL,"
-                      + "  AlbumTitle   STRING(MAX)"
-                      + ") PRIMARY KEY (SingerId, AlbumId),"
-                      + "  INTERLEAVE IN PARENT Singers ON DELETE CASCADE")).build();
-      try {
-        // Initiate the request which returns an OperationFuture.
-        com.google.spanner.admin.database.v1.Database db =
-            dbAdminClient.createDatabaseAsync(createDatabaseRequest).get();
-        System.out.println("Created database [" + db.getName() + "]");
-      } catch (ExecutionException e) {
-        // If the operation failed during execution, expose the cause.
-        throw (SpannerException) e.getCause();
-      } catch (InterruptedException e) {
-        // Throw when a thread is waiting, sleeping, or otherwise occupied,
-        // and the thread is interrupted, either before or during the activity.
-        throw SpannerExceptionFactory.propagateInterrupt(e);
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.SQLException;
+    import java.sql.Statement;
+    
+    class CreateTables {
+      static void createTables(String host, int port, String database) throws SQLException {
+        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+          try (Statement statement = connection.createStatement()) {
+            // Create two tables in one batch.
+            statement.addBatch(
+                "create table singers ("
+                    + "  singer_id   bigint primary key not null,"
+                    + "  first_name  varchar(1024),"
+                    + "  last_name   varchar(1024),"
+                    + "  singer_info bytea,"
+                    + "  full_name   varchar(2048) generated always as (\n"
+                    + "      case when first_name is null then last_name\n"
+                    + "          when last_name  is null then first_name\n"
+                    + "          else first_name || ' ' || last_name\n"
+                    + "      end) stored"
+                    + ")");
+            statement.addBatch(
+                "create table albums ("
+                    + "  singer_id     bigint not null,"
+                    + "  album_id      bigint not null,"
+                    + "  album_title   varchar,"
+                    + "  primary key (singer_id, album_id)"
+                    + ") interleave in parent singers on delete cascade");
+            statement.executeBatch();
+            System.out.println("Created Singers & Albums tables in database: [" + database + "]");
+          }
+        }
       }
     }
 
@@ -260,7 +248,47 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
       console.log(`Created database ${databaseID} on instance ${instanceID}.`);
     } catch (err) {
-      console.error('ERROR:', err);
+      console.error('Failed to create database:', err.message || err);
+    }
+
+### Node.js
+
+To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
+
+To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
+
+    import { Client } from 'pg';
+    
+    async function createTables(host: string, port: number, database: string): Promise<void> {
+      // Connect to Spanner through PGAdapter.
+      const connection = new Client({
+        host: host,
+        port: port,
+        database: database,
+      });
+      await connection.connect();
+    
+      // Create two tables in one batch.
+      await connection.query("start batch ddl");
+      await connection.query("create table singers (" +
+          "  singer_id   bigint primary key not null," +
+          "  first_name  character varying(1024)," +
+          "  last_name   character varying(1024)," +
+          "  singer_info bytea," +
+          "  full_name   character varying(2048) generated " +
+          "  always as (first_name || ' ' || last_name) stored" +
+          ")");
+      await connection.query("create table albums (" +
+          "  singer_id     bigint not null," +
+          "  album_id      bigint not null," +
+          "  album_title   character varying(1024)," +
+          "  primary key (singer_id, album_id)" +
+          ") interleave in parent singers on delete cascade");
+      await connection.query("run batch");
+      console.log(`Created Singers & Albums tables in database: [${database}]`);
+    
+      // Close the connection.
+      await connection.end();
     }
 
 ### PHP
@@ -269,53 +297,32 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\CreateDatabaseRequest;
-    
-    /**
-     * Creates a database and tables for sample data.
-     * Example:
-     * ```
-     * create_database($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $projectId The Google Cloud project ID.
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function create_database(string $projectId, string $instanceId, string $databaseId): void
+    function create_tables(string $host, string $port, string $database): void
     {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $instance = $databaseAdminClient->instanceName($projectId, $instanceId);
+        // Connect to Spanner through PGAdapter using the PostgreSQL PDO driver.
+        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
+        $connection = new PDO($dsn);
     
-        $operation = $databaseAdminClient->createDatabase(
-            new CreateDatabaseRequest([
-                'parent' => $instance,
-                'create_statement' => sprintf('CREATE DATABASE `%s`', $databaseId),
-                'extra_statements' => [
-                    'CREATE TABLE Singers (' .
-                    'SingerId     INT64 NOT NULL,' .
-                    'FirstName    STRING(1024),' .
-                    'LastName     STRING(1024),' .
-                    'SingerInfo   BYTES(MAX),' .
-                    'FullName     STRING(2048) AS' .
-                    '(ARRAY_TO_STRING([FirstName, LastName], " ")) STORED' .
-                    ') PRIMARY KEY (SingerId)',
-                    'CREATE TABLE Albums (' .
-                        'SingerId     INT64 NOT NULL,' .
-                        'AlbumId      INT64 NOT NULL,' .
-                        'AlbumTitle   STRING(MAX)' .
-                    ') PRIMARY KEY (SingerId, AlbumId),' .
-                    'INTERLEAVE IN PARENT Singers ON DELETE CASCADE'
-                ]
-            ])
-        );
+        // Create two tables in one batch.
+        $connection->exec("start batch ddl");
+        $connection->exec("create table singers ("
+            ."  singer_id   bigint primary key not null,"
+            ."  first_name  character varying(1024),"
+            ."  last_name   character varying(1024),"
+            ."  singer_info bytea,"
+            ."  full_name   character varying(2048) generated "
+            ."  always as (first_name || ' ' || last_name) stored"
+            .")");
+        $connection->exec("create table albums ("
+            ."  singer_id     bigint not null,"
+            ."  album_id      bigint not null,"
+            ."  album_title   character varying(1024),"
+            ."  primary key (singer_id, album_id)"
+            .") interleave in parent singers on delete cascade");
+        $connection->exec("run batch");
+        print("Created Singers & Albums tables in database: [{$database}]\n");
     
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
-    
-        printf('Created database %s on instance %s' . PHP_EOL,
-            $databaseId, $instanceId);
+        $connection = null;
     }
 
 ### Python
@@ -326,15 +333,12 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     def create_database(instance_id, database_id):
         """Creates a database and tables for sample data."""
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
     
-        request = spanner_database_admin.CreateDatabaseRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            create_statement=f"CREATE DATABASE `{database_id}`",
-            extra_statements=[
+        database = instance.database(
+            database_id,
+            ddl_statements=[
                 """CREATE TABLE Singers (
                 SingerId     INT64 NOT NULL,
                 FirstName    STRING(1024),
@@ -353,17 +357,12 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             ],
         )
     
-        operation = database_admin_api.create_database(request=request)
+        operation = database.create()
     
         print("Waiting for operation to complete...")
-        database = operation.result(OPERATION_TIMEOUT_SECONDS)
+        operation.result(OPERATION_TIMEOUT_SECONDS)
     
-        print(
-            "Created database {} on instance {}".format(
-                database.name,
-                database_admin_api.instance_path(spanner_client.project, instance_id),
-            )
-        )
+        print("Created database {} on instance {}".format(database_id, instance_id))
 
 ### Ruby
 
@@ -406,6 +405,49 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     puts "Created database #{database_id} on instance #{instance_id}"
 
+### Rust
+
+    use google_cloud_lro::Poller;
+    use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    
+    pub async fn sample(
+        admin_client: &DatabaseAdmin,
+        instance_name: &str,
+        database_id: &str,
+    ) -> anyhow::Result<()> {
+        let create_statement = format!("CREATE DATABASE `{database_id}`");
+        let extra_statements = vec![
+            r#"CREATE TABLE Singers (
+                SingerId INT64 NOT NULL,
+                FirstName STRING(1024),
+                LastName STRING(1024),
+                SingerInfo BYTES(MAX),
+                FullName STRING(2048) AS (ARRAY_TO_STRING([FirstName, LastName], " ")) STORED
+             ) PRIMARY KEY (SingerId)"#
+                .to_string(),
+            r#"CREATE TABLE Albums (
+                SingerId INT64 NOT NULL,
+                AlbumId INT64 NOT NULL,
+                AlbumTitle STRING(MAX)
+             ) PRIMARY KEY (SingerId, AlbumId),
+             INTERLEAVE IN PARENT Singers ON DELETE CASCADE"#
+                .to_string(),
+        ];
+    
+        println!("Creating database {database_id}...");
+        let database = admin_client
+            .create_database()
+            .set_parent(instance_name.to_string())
+            .set_create_statement(create_statement)
+            .set_extra_statements(extra_statements)
+            .poller()
+            .until_done()
+            .await?;
+    
+        println!("Created database [{}] successfully.", database.name);
+        Ok(())
+    }
+
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

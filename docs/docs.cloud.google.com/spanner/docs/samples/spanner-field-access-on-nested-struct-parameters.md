@@ -244,64 +244,64 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const spanner = new Spanner({
       projectId: projectId,
     });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const nameType = {
-      type: 'struct',
-      fields: [
-        {
-          name: 'FirstName',
-          type: 'string',
-        },
-        {
-          name: 'LastName',
-          type: 'string',
-        },
-      ],
-    };
-    
-    // Creates Song info STRUCT with a nested ArtistNames array
-    const songInfoType = {
-      type: 'struct',
-      fields: [
-        {
-          name: 'SongName',
-          type: 'string',
-        },
-        {
-          name: 'ArtistNames',
-          type: 'array',
-          child: nameType,
-        },
-      ],
-    };
-    
-    const songInfoStruct = Spanner.struct({
-      SongName: 'Imagination',
-      ArtistNames: [
-        Spanner.struct({FirstName: 'Elena', LastName: 'Campbell'}),
-        Spanner.struct({FirstName: 'Hannah', LastName: 'Harris'}),
-      ],
-    });
-    
-    const query = {
-      sql:
-        'SELECT SingerId, @songInfo.SongName FROM Singers ' +
-        'WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) ' +
-        'IN UNNEST(@songInfo.ArtistNames)',
-      params: {
-        songInfo: songInfoStruct,
-      },
-      types: {
-        songInfo: songInfoType,
-      },
-    };
-    
-    // Queries rows from the Singers table
+    let database;
     try {
+      // Gets a reference to a Cloud Spanner instance and database
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
+    
+      const nameType = {
+        type: 'struct',
+        fields: [
+          {
+            name: 'FirstName',
+            type: 'string',
+          },
+          {
+            name: 'LastName',
+            type: 'string',
+          },
+        ],
+      };
+    
+      // Creates Song info STRUCT with a nested ArtistNames array
+      const songInfoType = {
+        type: 'struct',
+        fields: [
+          {
+            name: 'SongName',
+            type: 'string',
+          },
+          {
+            name: 'ArtistNames',
+            type: 'array',
+            child: nameType,
+          },
+        ],
+      };
+    
+      const songInfoStruct = Spanner.struct({
+        SongName: 'Imagination',
+        ArtistNames: [
+          Spanner.struct({FirstName: 'Elena', LastName: 'Campbell'}),
+          Spanner.struct({FirstName: 'Hannah', LastName: 'Harris'}),
+        ],
+      });
+    
+      const query = {
+        sql:
+          'SELECT SingerId, @songInfo.SongName FROM Singers ' +
+          'WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) ' +
+          'IN UNNEST(@songInfo.ArtistNames)',
+        params: {
+          songInfo: songInfoStruct,
+        },
+        types: {
+          songInfo: songInfoType,
+        },
+      };
+    
+      // Queries rows from the Singers table
       const [rows] = await database.run(query);
     
       rows.forEach(row => {
@@ -312,7 +312,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -457,4 +457,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

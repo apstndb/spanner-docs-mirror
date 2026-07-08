@@ -344,264 +344,81 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       }
     }
 
-### Node.js
-
-To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
-
-To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
-
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const backupId = 'my-backup';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner Database Admin Client object
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    try {
-      // Get the parent(instance) of the database
-      const parent = databaseAdminClient.instancePath(projectId, instanceId);
-    
-      // List all backups
-      const [allBackups] = await databaseAdminClient.listBackups({
-        parent: parent,
-      });
-    
-      console.log('All backups:');
-      allBackups.forEach(backups => {
-        if (backups.name) {
-          const backup = backups.name;
-          const delimiter =
-            'projects/' + projectId + '/instances/' + instanceId + '/backups/';
-          const result = backup.substring(delimiter.length);
-          console.log(result);
-        }
-      });
-    
-      // List backups filtered by backup name
-      const [backupsByName] = await databaseAdminClient.listBackups({
-        parent: parent,
-        filter: `Name:${backupId}`,
-      });
-      console.log('Backups matching backup name:');
-      backupsByName.forEach(backup => {
-        if (backup.name) {
-          const backupName = backup.name;
-          const delimiter =
-            'projects/' + projectId + '/instances/' + instanceId + '/backups/';
-          const result = backupName.substring(delimiter.length);
-          console.log(result);
-        }
-      });
-    
-      // List backups expiring within 30 days
-      const expireTime = new Date();
-      expireTime.setDate(expireTime.getDate() + 30);
-      const [backupsByExpiry] = await databaseAdminClient.listBackups({
-        parent: parent,
-        filter: `expire_time < "${expireTime.toISOString()}"`,
-      });
-      console.log('Backups expiring within 30 days:');
-      backupsByExpiry.forEach(backup => {
-        if (backup.name) {
-          const backupName = backup.name;
-          const delimiter =
-            'projects/' + projectId + '/instances/' + instanceId + '/backups/';
-          const result = backupName.substring(delimiter.length);
-          console.log(result);
-        }
-      });
-    
-      // List backups filtered by database name
-      const [backupsByDbName] = await databaseAdminClient.listBackups({
-        parent: parent,
-        filter: `Database:${databaseId}`,
-      });
-      console.log('Backups matching database name:');
-      backupsByDbName.forEach(backup => {
-        if (backup.name) {
-          const backupName = backup.name;
-          const delimiter =
-            'projects/' + projectId + '/instances/' + instanceId + '/backups/';
-          const result = backupName.substring(delimiter.length);
-          console.log(result);
-        }
-      });
-    
-      // List backups filtered by backup size
-      const [backupsBySize] = await databaseAdminClient.listBackups({
-        parent: parent,
-        filter: 'size_bytes > 100',
-      });
-      console.log('Backups filtered by size:');
-      backupsBySize.forEach(backup => {
-        if (backup.name) {
-          const backupName = backup.name;
-          const delimiter =
-            'projects/' + projectId + '/instances/' + instanceId + '/backups/';
-          const result = backupName.substring(delimiter.length);
-          console.log(result);
-        }
-      });
-    
-      // List backups that are ready that were created after a certain time
-      const createTime = new Date();
-      createTime.setDate(createTime.getDate() - 1);
-      const [backupsByCreateTime] = await databaseAdminClient.listBackups({
-        parent: parent,
-        filter: `(state:READY) AND (create_time >= "${createTime.toISOString()}")`,
-      });
-      console.log('Ready backups filtered by create time:');
-      backupsByCreateTime.forEach(backup => {
-        if (backup.name) {
-          const backupName = backup.name;
-          const delimiter =
-            'projects/' + projectId + '/instances/' + instanceId + '/backups/';
-          const result = backupName.substring(delimiter.length);
-          console.log(result);
-        }
-      });
-    
-      // List backups using pagination
-      console.log('Get backups paginated:');
-      const [backups] = await databaseAdminClient.listBackups({
-        parent: parent,
-        pageSize: 3,
-      });
-      backups.forEach(backup => {
-        if (backup.name) {
-          const backupName = backup.name;
-          const delimiter =
-            'projects/' + projectId + '/instances/' + instanceId + '/backups/';
-          const result = backupName.substring(delimiter.length);
-          console.log(result);
-        }
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
-
 ### PHP
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\ListBackupsRequest;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * List backups in an instance.
      * Example:
      * ```
-     * list_backups($projectId, $instanceId);
+     * list_backups($instanceId, $databaseId);
      * ```
      *
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      */
-    function list_backups(string $projectId, string $instanceId): void
+    function list_backups(string $instanceId): void
     {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $parent = DatabaseAdminClient::instanceName($projectId, $instanceId);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
     
         // List all backups.
         print('All backups:' . PHP_EOL);
-        $request = new ListBackupsRequest([
-            'parent' => $parent
-        ]);
-        $backups = $databaseAdminClient->listBackups($request)->iterateAllElements();
-        foreach ($backups as $backup) {
-            print('  ' . basename($backup->getName()) . PHP_EOL);
+        foreach ($instance->backups() as $backup) {
+            print('  ' . basename($backup->name()) . PHP_EOL);
         }
     
         // List all backups that contain a name.
         $backupName = 'backup-test-';
         print("All backups with name containing \"$backupName\":" . PHP_EOL);
         $filter = "name:$backupName";
-        $request = new ListBackupsRequest([
-            'parent' => $parent,
-            'filter' => $filter
-        ]);
-        $backups = $databaseAdminClient->listBackups($request)->iterateAllElements();
-        foreach ($backups as $backup) {
-            print('  ' . basename($backup->getName()) . PHP_EOL);
+        foreach ($instance->backups(['filter' => $filter]) as $backup) {
+            print('  ' . basename($backup->name()) . PHP_EOL);
         }
     
         // List all backups for a database that contains a name.
         $databaseId = 'test-';
         print("All backups for a database which name contains \"$databaseId\":" . PHP_EOL);
         $filter = "database:$databaseId";
-        $request = new ListBackupsRequest([
-            'parent' => $parent,
-            'filter' => $filter
-        ]);
-        $backups = $databaseAdminClient->listBackups($request)->iterateAllElements();
-        foreach ($backups as $backup) {
-            print('  ' . basename($backup->getName()) . PHP_EOL);
+        foreach ($instance->backups(['filter' => $filter]) as $backup) {
+            print('  ' . basename($backup->name()) . PHP_EOL);
         }
     
         // List all backups that expire before a timestamp.
-        $expireTime = (new \DateTime('+30 days'))->format('c');
+        $expireTime = $spanner->timestamp(new \DateTime('+30 days'));
         print("All backups that expire before $expireTime:" . PHP_EOL);
         $filter = "expire_time < \"$expireTime\"";
-        $request = new ListBackupsRequest([
-            'parent' => $parent,
-            'filter' => $filter
-        ]);
-        $backups = $databaseAdminClient->listBackups($request)->iterateAllElements();
-        foreach ($backups as $backup) {
-            print('  ' . basename($backup->getName()) . PHP_EOL);
+        foreach ($instance->backups(['filter' => $filter]) as $backup) {
+            print('  ' . basename($backup->name()) . PHP_EOL);
         }
     
         // List all backups with a size greater than some bytes.
         $size = 500;
         print("All backups with size greater than $size bytes:" . PHP_EOL);
         $filter = "size_bytes > $size";
-        $request = new ListBackupsRequest([
-            'parent' => $parent,
-            'filter' => $filter
-        ]);
-        $backups = $databaseAdminClient->listBackups($request)->iterateAllElements();
-        foreach ($backups as $backup) {
-            print('  ' . basename($backup->getName()) . PHP_EOL);
+        foreach ($instance->backups(['filter' => $filter]) as $backup) {
+            print('  ' . basename($backup->name()) . PHP_EOL);
         }
     
         // List backups that were created after a timestamp that are also ready.
-        $createTime = (new \DateTime('-1 day'))->format('c');
+        $createTime = $spanner->timestamp(new \DateTime('-1 day'));
         print("All backups created after $createTime:" . PHP_EOL);
         $filter = "create_time >= \"$createTime\" AND state:READY";
-        $request = new ListBackupsRequest([
-            'parent' => $parent,
-            'filter' => $filter
-        ]);
-        $backups = $databaseAdminClient->listBackups($request)->iterateAllElements();
-        foreach ($backups as $backup) {
-            print('  ' . basename($backup->getName()) . PHP_EOL);
+        foreach ($instance->backups(['filter' => $filter]) as $backup) {
+            print('  ' . basename($backup->name()) . PHP_EOL);
         }
     
         // List backups with pagination.
         print('All backups with pagination:' . PHP_EOL);
-        $request = new ListBackupsRequest([
-            'parent' => $parent,
-            'page_size' => 2
-        ]);
-        $pages = $databaseAdminClient->listBackups($request)->iteratePages();
+        $pages = $instance->backups(['pageSize' => 2])->iterateByPage();
         foreach ($pages as $pageNumber => $page) {
             print("All backups, page $pageNumber:" . PHP_EOL);
             foreach ($page as $backup) {
-                print('  ' . basename($backup->getName()) . PHP_EOL);
+                print('  ' . basename($backup->name()) . PHP_EOL);
             }
         }
     }
@@ -613,39 +430,22 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     def list_backups(instance_id, database_id, backup_id):
-        from google.cloud.spanner_admin_database_v1.types import backup as backup_pb
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
     
         # List all backups.
         print("All backups:")
-        request = backup_pb.ListBackupsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            filter="",
-        )
-        operations = database_admin_api.list_backups(request)
-        for backup in operations:
+        for backup in instance.list_backups():
             print(backup.name)
     
         # List all backups that contain a name.
         print('All backups with backup name containing "{}":'.format(backup_id))
-        request = backup_pb.ListBackupsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            filter="name:{}".format(backup_id),
-        )
-        operations = database_admin_api.list_backups(request)
-        for backup in operations:
+        for backup in instance.list_backups(filter_="name:{}".format(backup_id)):
             print(backup.name)
     
         # List all backups for a database that contains a name.
         print('All backups with database name containing "{}":'.format(database_id))
-        request = backup_pb.ListBackupsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            filter="database:{}".format(database_id),
-        )
-        operations = database_admin_api.list_backups(request)
-        for backup in operations:
+        for backup in instance.list_backups(filter_="database:{}".format(database_id)):
             print(backup.name)
     
         # List all backups that expire before a timestamp.
@@ -655,22 +455,14 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 *expire_time.timetuple()
             )
         )
-        request = backup_pb.ListBackupsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            filter='expire_time < "{}-{}-{}T{}:{}:{}Z"'.format(*expire_time.timetuple()),
-        )
-        operations = database_admin_api.list_backups(request)
-        for backup in operations:
+        for backup in instance.list_backups(
+            filter_='expire_time < "{}-{}-{}T{}:{}:{}Z"'.format(*expire_time.timetuple())
+        ):
             print(backup.name)
     
         # List all backups with a size greater than some bytes.
         print("All backups with backup size more than 100 bytes:")
-        request = backup_pb.ListBackupsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            filter="size_bytes > 100",
-        )
-        operations = database_admin_api.list_backups(request)
-        for backup in operations:
+        for backup in instance.list_backups(filter_="size_bytes > 100"):
             print(backup.name)
     
         # List backups that were created after a timestamp that are also ready.
@@ -680,26 +472,18 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 *create_time.timetuple()
             )
         )
-        request = backup_pb.ListBackupsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            filter='create_time >= "{}-{}-{}T{}:{}:{}Z" AND state:READY'.format(
+        for backup in instance.list_backups(
+            filter_='create_time >= "{}-{}-{}T{}:{}:{}Z" AND state:READY'.format(
                 *create_time.timetuple()
-            ),
-        )
-        operations = database_admin_api.list_backups(request)
-        for backup in operations:
+            )
+        ):
             print(backup.name)
     
         print("All backups with pagination")
         # If there are multiple pages, additional ``ListBackup``
         # requests will be made as needed while iterating.
         paged_backups = set()
-        request = backup_pb.ListBackupsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            page_size=2,
-        )
-        operations = database_admin_api.list_backups(request)
-        for backup in operations:
+        for backup in instance.list_backups(page_size=2):
             paged_backups.add(backup.name)
         for backup in paged_backups:
             print(backup)
@@ -761,4 +545,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

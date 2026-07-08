@@ -253,149 +253,66 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       }
     }
 
-### Node.js
-
-To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
-
-To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
-
-    // Imports the Google Cloud client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const databaseId = 'my-database';
-    // const backupId = 'my-backup';
-    // const instanceId = 'my-instance';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner Database Admin Client object
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    // List create backup operations
-    try {
-      const [backupOperations] = await databaseAdminClient.listBackupOperations({
-        parent: databaseAdminClient.instancePath(projectId, instanceId),
-        filter:
-          '(metadata.@type:type.googleapis.com/google.spanner.admin.database.v1.CreateBackupMetadata) ' +
-          `AND (metadata.database:${databaseId})`,
-      });
-      console.log('Create Backup Operations:');
-      backupOperations.forEach(backupOperation => {
-        const metadata =
-          protos.google.spanner.admin.database.v1.CreateBackupMetadata.decode(
-            backupOperation.metadata.value,
-          );
-        console.log(
-          `Backup ${metadata.name} on database ${metadata.database} is ` +
-            `${metadata.progress.progressPercent}% complete.`,
-        );
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
-    
-    // List copy backup operations
-    try {
-      console.log(
-        '(metadata.@type:type.googleapis.com/google.spanner.admin.database.v1.CopyBackupMetadata) ' +
-          `AND (metadata.source_backup:${backupId})`,
-      );
-      const [backupOperations] = await databaseAdminClient.listBackupOperations({
-        parent: databaseAdminClient.instancePath(projectId, instanceId),
-        filter:
-          '(metadata.@type:type.googleapis.com/google.spanner.admin.database.v1.CopyBackupMetadata) ' +
-          `AND (metadata.source_backup:${backupId})`,
-      });
-      console.log('Copy Backup Operations:');
-      backupOperations.forEach(backupOperation => {
-        const metadata =
-          protos.google.spanner.admin.database.v1.CopyBackupMetadata.decode(
-            backupOperation.metadata.value,
-          );
-        console.log(
-          `Backup ${metadata.name} copied from source backup ${metadata.sourceBackup} is ` +
-            `${metadata.progress.progressPercent}% complete.`,
-        );
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
-
 ### PHP
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\CreateBackupMetadata;
-    use Google\Cloud\Spanner\Admin\Database\V1\CopyBackupMetadata;
-    use Google\Cloud\Spanner\Admin\Database\V1\ListBackupOperationsRequest;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * List all create backup operations in an instance.
      * Optionally passing the backupId will also list the
      * copy backup operations on the backup.
      *
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      * @param string $backupId The Spanner backup ID whose copy operations need to be listed.
      */
     function list_backup_operations(
-        string $projectId,
         string $instanceId,
         string $databaseId,
-        string $backupId
+        ?string $backupId = null
     ): void {
-        $databaseAdminClient = new DatabaseAdminClient();
-    
-        $parent = DatabaseAdminClient::instanceName($projectId, $instanceId);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
     
         // List the CreateBackup operations.
-        $filterCreateBackup = '(metadata.@type:type.googleapis.com/' .
-            'google.spanner.admin.database.v1.CreateBackupMetadata) AND ' . "(metadata.database:$databaseId)";
+        $filter = '(metadata.@type:type.googleapis.com/' .
+                  'google.spanner.admin.database.v1.CreateBackupMetadata) AND ' . "(metadata.database:$databaseId)";
     
         // See https://cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#listbackupoperationsrequest
         // for the possible filter values
-        $filterCopyBackup = sprintf('(metadata.@type:type.googleapis.com/' .
-            'google.spanner.admin.database.v1.CopyBackupMetadata) AND ' . "(metadata.source_backup:$backupId)");
-        $operations = $databaseAdminClient->listBackupOperations(
-            new ListBackupOperationsRequest([
-                'parent' => $parent,
-                'filter' => $filterCreateBackup
-            ])
-        );
+        $operations = $instance->backupOperations(['filter' => $filter]);
     
-        foreach ($operations->iterateAllElements() as $operation) {
-            $obj = new CreateBackupMetadata();
-            $meta = $operation->getMetadata()->unpack($obj);
-            $backupName = basename($meta->getName());
-            $dbName = basename($meta->getDatabase());
-            $progress = $meta->getProgress()->getProgressPercent();
-            printf('Backup %s on database %s is %d%% complete.' . PHP_EOL, $backupName, $dbName, $progress);
+        foreach ($operations as $operation) {
+            if (!$operation->done()) {
+                $meta = $operation->info()['metadata'];
+                $backupName = basename($meta['name']);
+                $dbName = basename($meta['database']);
+                $progress = $meta['progress']['progressPercent'];
+                printf('Backup %s on database %s is %d%% complete.' . PHP_EOL, $backupName, $dbName, $progress);
+            }
         }
     
-        $operations = $databaseAdminClient->listBackupOperations(
-            new ListBackupOperationsRequest([
-                'parent' => $parent,
-                'filter' => $filterCopyBackup
-            ])
-        );
+        if (is_null($backupId)) {
+            return;
+        }
     
-        foreach ($operations->iterateAllElements() as $operation) {
-            $obj = new CopyBackupMetadata();
-            $meta = $operation->getMetadata()->unpack($obj);
-            $backupName = basename($meta->getName());
-            $progress = $meta->getProgress()->getProgressPercent();
-            printf('Copy Backup %s on source backup %s is %d%% complete.' . PHP_EOL, $backupName, $backupId, $progress);
+        // List copy backup operations
+        $filter = '(metadata.@type:type.googleapis.com/' .
+                  'google.spanner.admin.database.v1.CopyBackupMetadata) AND ' . "(metadata.source_backup:$backupId)";
+    
+        $operations = $instance->backupOperations(['filter' => $filter]);
+    
+        foreach ($operations as $operation) {
+            if (!$operation->done()) {
+                $meta = $operation->info()['metadata'];
+                $backupName = basename($meta['name']);
+                $progress = $meta['progress']['progressPercent'];
+                printf('Copy Backup %s on source backup %s is %d%% complete.' . PHP_EOL, $backupName, $backupId, $progress);
+            }
         }
     }
 
@@ -406,10 +323,8 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     def list_backup_operations(instance_id, database_id, backup_id):
-        from google.cloud.spanner_admin_database_v1.types import backup as backup_pb
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
     
         # List the CreateBackup operations.
         filter_ = (
@@ -417,15 +332,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             "google.spanner.admin.database.v1.CreateBackupMetadata) "
             "AND (metadata.database:{})"
         ).format(database_id)
-        request = backup_pb.ListBackupOperationsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            filter=filter_,
-        )
-        operations = database_admin_api.list_backup_operations(request)
+        operations = instance.list_backup_operations(filter_=filter_)
         for op in operations:
-            metadata = protobuf_helpers.from_any_pb(
-                backup_pb.CreateBackupMetadata, op.metadata
-            )
+            metadata = op.metadata
             print(
                 "Backup {} on database {}: {}% complete.".format(
                     metadata.name, metadata.database, metadata.progress.progress_percent
@@ -437,15 +346,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             "(metadata.@type:type.googleapis.com/google.spanner.admin.database.v1.CopyBackupMetadata) "
             "AND (metadata.source_backup:{})"
         ).format(backup_id)
-        request = backup_pb.ListBackupOperationsRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            filter=filter_,
-        )
-        operations = database_admin_api.list_backup_operations(request)
+        operations = instance.list_backup_operations(filter_=filter_)
         for op in operations:
-            metadata = protobuf_helpers.from_any_pb(
-                backup_pb.CopyBackupMetadata, op.metadata
-            )
+            metadata = op.metadata
             print(
                 "Backup {} on source backup {}: {}% complete.".format(
                     metadata.name,
@@ -482,4 +385,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

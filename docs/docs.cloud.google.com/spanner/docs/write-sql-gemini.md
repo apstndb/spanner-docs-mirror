@@ -144,7 +144,7 @@ To use Gemini's capabilities to fix certain errors in a query, complete the foll
 
 1.  In the query editor, run your query.
     
-    If the query contains an error, an error message is returned in the **Results** tab.
+    If the query contains an error, an error message is returned in an error banner at the bottom of the editor.
 
 2.  Click **Fix** .
     

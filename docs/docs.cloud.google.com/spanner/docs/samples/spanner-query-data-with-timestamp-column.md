@@ -214,18 +214,18 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const spanner = new Spanner({
       projectId: projectId,
     });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const query = {
-      sql: `SELECT SingerId, AlbumId, MarketingBudget, LastUpdateTime
-              FROM Albums ORDER BY LastUpdateTime DESC`,
-    };
-    
-    // Queries rows from the Albums table
+    let database;
     try {
+      // Gets a reference to a Cloud Spanner instance and database
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
+    
+      const query = {
+        sql: `SELECT SingerId, AlbumId, MarketingBudget, LastUpdateTime
+              FROM Albums ORDER BY LastUpdateTime DESC`,
+      };
+    
+      // Queries rows from the Albums table
       const [rows] = await database.run(query);
     
       rows.forEach(row => {
@@ -236,7 +236,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             json.AlbumId
           }, MarketingBudget: ${
             json.MarketingBudget ? json.MarketingBudget : null
-          }, LastUpdateTime: ${json.LastUpdateTime}`,
+          }, LastUpdateTime: ${json.LastUpdateTime}`
         );
       });
     } catch (err) {
@@ -354,4 +354,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

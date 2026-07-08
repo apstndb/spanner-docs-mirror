@@ -206,7 +206,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         const [rowCounts] = await transaction.batchUpdate(dmlStatements);
         await transaction.commit();
         console.log(
-          `Successfully executed ${rowCounts.length} SQL statements using Batch DML.`,
+          `Successfully executed ${rowCounts.length} SQL statements using Batch DML.`
         );
       });
     } catch (err) {
@@ -214,7 +214,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       throw err;
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -346,4 +346,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

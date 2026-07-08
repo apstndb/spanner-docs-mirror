@@ -103,23 +103,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func readUsingIndex(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
+    func readUsingIndex(ctx context.Context, w io.Writer, client *spanner.Client) error {
      iter := client.Single().ReadUsingIndex(ctx, "Albums", "AlbumsByAlbumTitle", spanner.AllKeys(),
          []string{"AlbumId", "AlbumTitle"})
      defer iter.Stop()
@@ -209,7 +193,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         console.error('ERROR:', err);
       } finally {
         // Close the database when finished.
-        database.close();
+        await database.close();
       }
     }
     readDataWithIndex();
@@ -313,6 +297,29 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       puts "#{row[:AlbumId]} #{row[:AlbumTitle]}"
     end
 
+### Rust
+
+    use google_cloud_spanner::client::DatabaseClient;
+    use google_cloud_spanner::key::KeySet;
+    use google_cloud_spanner::read::ReadRequest;
+    
+    pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
+        let read_request = ReadRequest::builder("Albums", ["AlbumId", "AlbumTitle"])
+            .with_index("AlbumsByAlbumTitle", KeySet::all())
+            .build();
+    
+        let transaction = client.single_use().build();
+        let mut result_set = transaction.execute_read(read_request).await?;
+    
+        while let Some(row) = result_set.next().await.transpose()? {
+            let album_id: i64 = row.get(0);
+            let album_title: String = row.get(1);
+            println!("{album_id} {album_title}");
+        }
+    
+        Ok(())
+    }
+
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

@@ -119,77 +119,30 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       }
     }
 
-### Node.js
-
-To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
-
-To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
-
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const backupId = 'my-backup';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner Database Admin Client object
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    // Delete the backup
-    console.log(`Deleting backup ${backupId}.`);
-    await databaseAdminClient.deleteBackup({
-      name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
-    });
-    console.log('Backup deleted.');
-    
-    // Verify backup no longer exists
-    try {
-      await databaseAdminClient.getBackup({
-        name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
-      });
-      console.error('Error: backup still exists.');
-    } catch (err) {
-      console.log('Backup deleted.');
-    }
-
 ### PHP
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\DeleteBackupRequest;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * Delete a backup.
      * Example:
      * ```
-     * delete_backup($projectId, $instanceId, $backupId);
+     * delete_backup($instanceId, $backupId);
      * ```
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $backupId The Spanner backup ID.
      */
-    function delete_backup(string $projectId, string $instanceId, string $backupId): void
+    function delete_backup(string $instanceId, string $backupId): void
     {
-        $databaseAdminClient = new DatabaseAdminClient();
-    
-        $backupName = DatabaseAdminClient::backupName($projectId, $instanceId, $backupId);
-    
-        $request = new DeleteBackupRequest();
-        $request->setName($backupName);
-        $databaseAdminClient->deleteBackup($request);
-    
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $backup = $instance->backup($backupId);
+        $backupName = $backup->name();
+        $backup->delete();
         print("Backup $backupName deleted" . PHP_EOL);
     }
 
@@ -200,40 +153,22 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     def delete_backup(instance_id, backup_id):
-        from google.cloud.spanner_admin_database_v1.types import backup as backup_pb
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
-        backup = database_admin_api.get_backup(
-            backup_pb.GetBackupRequest(
-                name=database_admin_api.backup_path(
-                    spanner_client.project, instance_id, backup_id
-                ),
-            )
-        )
+        instance = spanner_client.instance(instance_id)
+        backup = instance.backup(backup_id)
+        backup.reload()
     
         # Wait for databases that reference this backup to finish optimizing.
         while backup.referencing_databases:
             time.sleep(30)
-            backup = database_admin_api.get_backup(
-                backup_pb.GetBackupRequest(
-                    name=database_admin_api.backup_path(
-                        spanner_client.project, instance_id, backup_id
-                    ),
-                )
-            )
+            backup.reload()
     
         # Delete the backup.
-        database_admin_api.delete_backup(backup_pb.DeleteBackupRequest(name=backup.name))
+        backup.delete()
     
         # Verify that the backup is deleted.
-        try:
-            backup = database_admin_api.get_backup(
-                backup_pb.GetBackupRequest(name=backup.name)
-            )
-        except NotFound:
-            print("Backup {} has been deleted.".format(backup.name))
-            return
+        assert backup.exists() is False
+        print("Backup {} has been deleted.".format(backup.name))
 
 ### Ruby
 
@@ -259,4 +194,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

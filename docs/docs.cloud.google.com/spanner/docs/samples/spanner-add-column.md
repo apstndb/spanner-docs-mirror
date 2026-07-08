@@ -13,6 +13,7 @@ Update a schema by adding a column.
 For detailed documentation that includes this code sample, see the following:
 
   - [Getting started with Spanner and PGAdapter](https://docs.cloud.google.com/spanner/docs/getting-started/pgadapter)
+  - [Getting started with Spanner in ADO.NET](https://docs.cloud.google.com/spanner/docs/getting-started/ado_net)
   - [Getting started with Spanner in C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
   - [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
   - [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
@@ -55,22 +56,16 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class AddColumnAsyncSample
+    public static async Task AddColumn(string connectionString)
     {
-        public async Task AddColumnAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            string alterStatement = "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64";
+        await using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
     
-            using var connection = new SpannerConnection(connectionString);
-            using var updateCmd = connection.CreateDdlCommand(alterStatement);
-            await updateCmd.ExecuteNonQueryAsync();
-            Console.WriteLine("Added the MarketingBudget column.");
-        }
+        await using var command = connection.CreateCommand();
+        command.CommandText = "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64";
+        await command.ExecuteNonQueryAsync();
+    
+        Console.WriteLine("Added MarketingBudget column");
     }
 
 ### Go
@@ -82,32 +77,29 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     import (
      "context"
      "fmt"
-     "io"
     
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+     "github.com/jackc/pgx/v5"
     )
     
-    func addNewColumn(ctx context.Context, w io.Writer, db string) error {
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
+    func AddColumn(host string, port int, database string) error {
+     ctx := context.Background()
+     connString := fmt.Sprintf(
+         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
+         host, port, database)
+     conn, err := pgx.Connect(ctx, connString)
      if err != nil {
          return err
      }
-     defer adminClient.Close()
+     defer conn.Close(ctx)
     
-     op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
-         Database: db,
-         Statements: []string{
-             "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64",
-         },
-     })
+     _, err = conn.Exec(ctx,
+         "ALTER TABLE albums "+
+             "ADD COLUMN marketing_budget bigint")
      if err != nil {
          return err
      }
-     if err := op.Wait(ctx); err != nil {
-         return err
-     }
-     fmt.Fprintf(w, "Added MarketingBudget column\n")
+     fmt.Println("Added marketing_budget column")
+    
      return nil
     }
 
@@ -117,21 +109,17 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void addColumn(
-        final String project,
-        final String instance,
-        final String database,
-        final Properties properties) throws SQLException {
-      try (Connection connection =
-          DriverManager.getConnection(
-              String.format(
-                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
-                  project, instance, database),
-              properties)) {
-        connection
-            .createStatement()
-            .execute("ALTER TABLE Albums ADD COLUMN MarketingBudget INT64");
-        System.out.println("Added MarketingBudget column");
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.SQLException;
+    
+    class AddColumn {
+      static void addColumn(String host, int port, String database) throws SQLException {
+        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+          connection.createStatement().execute("alter table albums add column marketing_budget bigint");
+          System.out.println("Added marketing_budget column");
+        }
       }
     }
 
@@ -164,7 +152,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         database: databaseAdminClient.databasePath(
           projectId,
           instanceId,
-          databaseId,
+          databaseId
         ),
         statements: ['ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'],
       });
@@ -174,11 +162,36 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
       console.log('Added the MarketingBudget column.');
     } catch (err) {
-      console.error('ERROR:', err);
+      console.error('Failed to add column:', err.message || err);
     } finally {
       // Close the spanner client when finished.
       // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
       spanner.close();
+    }
+
+### Node.js
+
+To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
+
+To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
+
+    import { Client } from 'pg';
+    
+    async function addColumn(host: string, port: number, database: string): Promise<void> {
+      const connection = new Client({
+        host: host,
+        port: port,
+        database: database,
+      });
+      await connection.connect();
+    
+      await connection.query(
+          "ALTER TABLE albums " +
+          "ADD COLUMN marketing_budget bigint");
+      console.log("Added marketing_budget column");
+    
+      // Close the connection.
+      await connection.end();
     }
 
 ### PHP
@@ -187,36 +200,15 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
-    
-    /**
-     * Adds a new column to the Albums table in the example database.
-     * Example:
-     * ```
-     * add_column($projectId, $instanceId, $databaseId);
-     * ```
-     *
-     * @param string $projectId The Google Cloud project ID.
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function add_column(string $projectId, string $instanceId, string $databaseId): void
+    function add_column(string $host, string $port, string $database): void
     {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
+        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
+        $connection = new PDO($dsn);
     
-        $request = new UpdateDatabaseDdlRequest([
-            'database' => $databaseName,
-            'statements' => ['ALTER TABLE Albums ADD COLUMN MarketingBudget INT64']
-        ]);
+        $connection->exec("ALTER TABLE albums ADD COLUMN marketing_budget bigint");
+        print("Added marketing_budget column\n");
     
-        $operation = $databaseAdminClient->updateDatabaseDdl($request);
-    
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
-    
-        printf('Added the MarketingBudget column.' . PHP_EOL);
+        $connection = null;
     }
 
 ### Python
@@ -227,25 +219,17 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     def add_column(instance_id, database_id):
         """Adds a new column to the Albums table in the example database."""
-    
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
+        database = instance.database(database_id)
     
-        request = spanner_database_admin.UpdateDatabaseDdlRequest(
-            database=database_admin_api.database_path(
-                spanner_client.project, instance_id, database_id
-            ),
-            statements=[
-                "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64",
-            ],
+        operation = database.update_ddl(
+            ["ALTER TABLE Albums ADD COLUMN MarketingBudget INT64"]
         )
-    
-        operation = database_admin_api.update_database_ddl(request)
     
         print("Waiting for operation to complete...")
         operation.result(OPERATION_TIMEOUT_SECONDS)
+    
         print("Added the MarketingBudget column.")
 
 ### Ruby
@@ -278,6 +262,27 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     puts "Added the MarketingBudget column"
 
+### Rust
+
+    use google_cloud_lro::Poller;
+    use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    
+    pub async fn sample(admin_client: &DatabaseAdmin, database_name: &str) -> anyhow::Result<()> {
+        let statements = vec!["ALTER TABLE Albums ADD COLUMN MarketingBudget INT64"];
+    
+        println!("Adding MarketingBudget column to Albums...");
+        admin_client
+            .update_database_ddl()
+            .set_database(database_name)
+            .set_statements(statements)
+            .poller()
+            .until_done()
+            .await?;
+    
+        println!("Added MarketingBudget column");
+        Ok(())
+    }
+
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

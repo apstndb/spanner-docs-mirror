@@ -164,39 +164,39 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const spanner = new Spanner({
       projectId: projectId,
     });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    // Update a row in the Albums table
-    // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so they
-    // must be converted to strings before being inserted as INT64s
-    const albumsTable = database.table('Albums');
-    
-    const data = [
-      {
-        SingerId: '1',
-        AlbumId: '1',
-        MarketingBudget: '1000000',
-        LastUpdateTime: 'spanner.commit_timestamp()',
-      },
-      {
-        SingerId: '2',
-        AlbumId: '2',
-        MarketingBudget: '750000',
-        LastUpdateTime: 'spanner.commit_timestamp()',
-      },
-    ];
-    
+    let database;
     try {
+      // Gets a reference to a Cloud Spanner instance and database
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
+    
+      // Update a row in the Albums table
+      // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so they
+      // must be converted to strings before being inserted as INT64s
+      const albumsTable = database.table('Albums');
+    
+      const data = [
+        {
+          SingerId: '1',
+          AlbumId: '1',
+          MarketingBudget: '1000000',
+          LastUpdateTime: 'spanner.commit_timestamp()',
+        },
+        {
+          SingerId: '2',
+          AlbumId: '2',
+          MarketingBudget: '750000',
+          LastUpdateTime: 'spanner.commit_timestamp()',
+        },
+      ];
+    
       await albumsTable.update(data);
       console.log('Updated data.');
     } catch (err) {
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -307,4 +307,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

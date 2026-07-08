@@ -175,49 +175,49 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const spanner = new Spanner({
       projectId: projectId,
     });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    // Instantiate Spanner table objects
-    const performancesTable = database.table('Performances');
-    
-    const data = [
-      {
-        SingerId: '1',
-        VenueId: '4',
-        EventDate: '2017-10-05',
-        Revenue: '11000',
-        LastUpdateTime: 'spanner.commit_timestamp()',
-      },
-      {
-        SingerId: '1',
-        VenueId: '19',
-        EventDate: '2017-11-02',
-        Revenue: '15000',
-        LastUpdateTime: 'spanner.commit_timestamp()',
-      },
-      {
-        SingerId: '2',
-        VenueId: '42',
-        EventDate: '2017-12-23',
-        Revenue: '7000',
-        LastUpdateTime: 'spanner.commit_timestamp()',
-      },
-    ];
-    
-    // Inserts rows into the Singers table
-    // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so
-    // they must be converted to strings before being inserted as INT64s
+    let database;
     try {
+      // Gets a reference to a Cloud Spanner instance and database
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
+    
+      // Instantiate Spanner table objects
+      const performancesTable = database.table('Performances');
+    
+      const data = [
+        {
+          SingerId: '1',
+          VenueId: '4',
+          EventDate: '2017-10-05',
+          Revenue: '11000',
+          LastUpdateTime: 'spanner.commit_timestamp()',
+        },
+        {
+          SingerId: '1',
+          VenueId: '19',
+          EventDate: '2017-11-02',
+          Revenue: '15000',
+          LastUpdateTime: 'spanner.commit_timestamp()',
+        },
+        {
+          SingerId: '2',
+          VenueId: '42',
+          EventDate: '2017-12-23',
+          Revenue: '7000',
+          LastUpdateTime: 'spanner.commit_timestamp()',
+        },
+      ];
+    
+      // Inserts rows into the Singers table
+      // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so
+      // they must be converted to strings before being inserted as INT64s
       await performancesTable.insert(data);
       console.log('Inserted data.');
     } catch (err) {
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -315,4 +315,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

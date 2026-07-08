@@ -136,30 +136,26 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void createTableWithDatatypes(DatabaseAdminClient dbAdminClient, DatabaseId id) {
-      OperationFuture<Void, UpdateDatabaseDdlMetadata> op =
-          dbAdminClient.updateDatabaseDdl(
-              id.getInstanceId().getInstance(),
-              id.getDatabase(),
-              Arrays.asList(
-                  "CREATE TABLE Venues ("
-                      + "  VenueId         INT64 NOT NULL,"
-                      + "  VenueName       STRING(100),"
-                      + "  VenueInfo       BYTES(MAX),"
-                      + "  Capacity        INT64,"
-                      + "  AvailableDates  ARRAY<DATE>,"
-                      + "  LastContactDate DATE,"
-                      + "  OutdoorVenue    BOOL, "
-                      + "  PopularityScore FLOAT64, "
-                      + "  Revenue         NUMERIC, "
-                      + "  VenueDetails    JSON, "
-                      + "  LastUpdateTime  TIMESTAMP NOT NULL OPTIONS (allow_commit_timestamp=true)"
-                      + ") PRIMARY KEY (VenueId)"),
-              null);
+    static void createTableWithDatatypes(DatabaseAdminClient dbAdminClient,
+        DatabaseName databaseName) {
       try {
         // Initiate the request which returns an OperationFuture.
-        op.get();
-        System.out.println("Created Venues table in database: [" + id + "]");
+        dbAdminClient.updateDatabaseDdlAsync(databaseName,
+            Arrays.asList(
+                "CREATE TABLE Venues ("
+                    + "  VenueId         INT64 NOT NULL,"
+                    + "  VenueName       STRING(100),"
+                    + "  VenueInfo       BYTES(MAX),"
+                    + "  Capacity        INT64,"
+                    + "  AvailableDates  ARRAY<DATE>,"
+                    + "  LastContactDate DATE,"
+                    + "  OutdoorVenue    BOOL, "
+                    + "  PopularityScore FLOAT64, "
+                    + "  Revenue         NUMERIC, "
+                    + "  VenueDetails    JSON, "
+                    + "  LastUpdateTime  TIMESTAMP NOT NULL OPTIONS (allow_commit_timestamp=true)"
+                    + ") PRIMARY KEY (VenueId)")).get();
+        System.out.println("Created Venues table in database: [" + databaseName.toString() + "]");
       } catch (ExecutionException e) {
         // If the operation failed during execution, expose the cause.
         throw (SpannerException) e.getCause();
@@ -206,22 +202,25 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           LastUpdateTime TIMESTAMP NOT NULL OPTIONS (allow_commit_timestamp=true)
         ) PRIMARY KEY (VenueId)`,
     ];
+    try {
+      // Creates a table in an existing database.
+      const [operation] = await databaseAdminClient.updateDatabaseDdl({
+        database: databaseAdminClient.databasePath(
+          projectId,
+          instanceId,
+          databaseId
+        ),
+        statements: request,
+      });
     
-    // Creates a table in an existing database.
-    const [operation] = await databaseAdminClient.updateDatabaseDdl({
-      database: databaseAdminClient.databasePath(
-        projectId,
-        instanceId,
-        databaseId,
-      ),
-      statements: request,
-    });
+      console.log(`Waiting for operation on ${databaseId} to complete...`);
     
-    console.log(`Waiting for operation on ${databaseId} to complete...`);
+      await operation.promise();
     
-    await operation.promise();
-    
-    console.log(`Created table Venues in database ${databaseId}.`);
+      console.log(`Created table Venues in database ${databaseId}.`);
+    } catch (err) {
+      console.error('ERROR creating Venues table:', err);
+    }
 
 ### PHP
 
@@ -229,41 +228,37 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * Creates a table with suported datatypes.
      * Example:
      * ```
-     * create_table_with_datatypes($projectId, $instanceId, $databaseId);
+     * create_table_with_datatypes($instanceId, $databaseId);
      * ```
      *
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      */
-    function create_table_with_datatypes(string $projectId, string $instanceId, string $databaseId): void
+    function create_table_with_datatypes(string $instanceId, string $databaseId): void
     {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
-        $statement = 'CREATE TABLE Venues (
-            VenueId                 INT64 NOT NULL,
-            VenueName              STRING(100),
-            VenueInfo              BYTES(MAX),
-            Capacity               INT64,
-            AvailableDates         ARRAY<DATE>,
-            LastContactDate        DATE,
-            OutdoorVenue           BOOL,
-            PopularityScore        FLOAT64,
-            LastUpdateTime TIMESTAMP NOT NULL OPTIONS (allow_commit_timestamp=true)
-        ) PRIMARY KEY (VenueId)';
-        $request = new UpdateDatabaseDdlRequest([
-            'database' => $databaseName,
-            'statements' => [$statement]
-        ]);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
     
-        $operation = $databaseAdminClient->updateDatabaseDdl($request);
+        $operation = $database->updateDdl(
+            'CREATE TABLE Venues (
+                VenueId                 INT64 NOT NULL,
+                VenueName              STRING(100),
+                VenueInfo              BYTES(MAX),
+                Capacity               INT64,
+                AvailableDates         ARRAY<DATE>,
+                LastContactDate        DATE,
+                OutdoorVenue           BOOL,
+                PopularityScore        FLOAT64,
+                LastUpdateTime TIMESTAMP NOT NULL OPTIONS (allow_commit_timestamp=true)
+         ) PRIMARY KEY (VenueId)'
+        );
     
         print('Waiting for operation to complete...' . PHP_EOL);
         $operation->pollUntilComplete();
@@ -280,17 +275,12 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     # instance_id = "your-spanner-instance"
     # database_id = "your-spanner-db-id"
-    
-    from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
     spanner_client = spanner.Client()
-    database_admin_api = spanner_client.database_admin_api
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
     
-    request = spanner_database_admin.UpdateDatabaseDdlRequest(
-        database=database_admin_api.database_path(
-            spanner_client.project, instance_id, database_id
-        ),
-        statements=[
+    operation = database.update_ddl(
+        [
             """CREATE TABLE Venues (
             VenueId         INT64 NOT NULL,
             VenueName       STRING(100),
@@ -303,9 +293,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             LastUpdateTime  TIMESTAMP NOT NULL
             OPTIONS(allow_commit_timestamp=true)
         ) PRIMARY KEY (VenueId)"""
-        ],
+        ]
     )
-    operation = database_admin_api.update_database_ddl(request)
     
     print("Waiting for operation to complete...")
     operation.result(OPERATION_TIMEOUT_SECONDS)
@@ -353,4 +342,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

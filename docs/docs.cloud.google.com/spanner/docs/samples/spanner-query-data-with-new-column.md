@@ -13,6 +13,7 @@ Query data from a new column.
 For detailed documentation that includes this code sample, see the following:
 
   - [Getting started with Spanner and PGAdapter](https://docs.cloud.google.com/spanner/docs/getting-started/pgadapter)
+  - [Getting started with Spanner in ADO.NET](https://docs.cloud.google.com/spanner/docs/getting-started/ado_net)
   - [Getting started with Spanner in C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
   - [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
   - [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
@@ -61,37 +62,19 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    using Google.Cloud.Spanner.Data;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class QueryNewColumnAsyncSample
+    public static async Task QueryNewColumn(string connectionString)
     {
-        public class Album
-        {
-            public int SingerId { get; set; }
-            public int AlbumId { get; set; }
-            public long MarketingBudget { get; set; }
-        }
+        await using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
     
-        public async Task<List<Album>> QueryNewColumnAsync(string projectId, string instanceId, string databaseId)
+        await using var command = connection.CreateCommand();
+        command.CommandText = "SELECT SingerId, AlbumId, MarketingBudget " +
+                              "FROM Albums " +
+                              "ORDER BY SingerId, AlbumId";
+        await using var reader = await command.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
         {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            var albums = new List<Album>();
-            using var connection = new SpannerConnection(connectionString);
-            using var cmd = connection.CreateSelectCommand("SELECT * FROM Albums");
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                albums.Add(new Album
-                {
-                    SingerId = reader.GetFieldValue<int>("SingerId"),
-                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                    MarketingBudget = reader.IsDBNull(reader.GetOrdinal("MarketingBudget")) ? 0 : reader.GetFieldValue<long>("MarketingBudget")
-                });
-            }
-            return albums;
+            Console.WriteLine($"{reader["SingerId"]} {reader["AlbumId"]} {reader["MarketingBudget"]}");
         }
     }
 
@@ -103,50 +86,47 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
     import (
      "context"
+     "database/sql"
      "fmt"
-     "io"
-     "strconv"
     
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
+     "github.com/jackc/pgx/v5"
     )
     
-    func queryNewColumn(w io.Writer, db string) error {
+    func QueryDataWithNewColumn(host string, port int, database string) error {
      ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
+     connString := fmt.Sprintf(
+         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
+         host, port, database)
+     conn, err := pgx.Connect(ctx, connString)
      if err != nil {
          return err
      }
-     defer client.Close()
+     defer conn.Close(ctx)
     
-     stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, MarketingBudget FROM Albums`}
-     iter := client.Single().Query(ctx, stmt)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
+     rows, err := conn.Query(ctx, "SELECT singer_id, album_id, marketing_budget "+
+         "FROM albums "+
+         "ORDER BY singer_id, album_id")
+     defer rows.Close()
+     if err != nil {
+         return err
+     }
+     for rows.Next() {
+         var singerId, albumId int64
+         var marketingBudget sql.NullString
+         err = rows.Scan(&singerId, &albumId, &marketingBudget)
          if err != nil {
              return err
          }
-         var singerID, albumID int64
-         var marketingBudget spanner.NullInt64
-         if err := row.ColumnByName("SingerId", &singerID); err != nil {
-             return err
-         }
-         if err := row.ColumnByName("AlbumId", &albumID); err != nil {
-             return err
-         }
-         if err := row.ColumnByName("MarketingBudget", &marketingBudget); err != nil {
-             return err
-         }
-         budget := "NULL"
+         var budget string
          if marketingBudget.Valid {
-             budget = strconv.FormatInt(marketingBudget.Int64, 10)
+             budget = marketingBudget.String
+         } else {
+             budget = "NULL"
          }
-         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, budget)
+         fmt.Printf("%v %v %v\n", singerId, albumId, budget)
      }
+    
+     return rows.Err()
     }
 
 ### Java
@@ -155,33 +135,29 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void queryDataWithNewColumn(
-        final String project,
-        final String instance,
-        final String database,
-        final Properties properties) throws SQLException {
-      try (Connection connection =
-          DriverManager.getConnection(
-              String.format(
-                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
-                  project, instance, database),
-              properties)) {
-        // Rows without an explicit value for MarketingBudget will have a
-        // MarketingBudget equal to null.
-        try (ResultSet resultSet =
-            connection
-                .createStatement()
-                .executeQuery(
-                    "SELECT SingerId, AlbumId, MarketingBudget "
-                    + "FROM Albums")) {
-          while (resultSet.next()) {
-            // Use the ResultSet#getObject(String) method to get data
-            // of any type from the ResultSet.
-            System.out.printf(
-                "%s %s %s\n",
-                resultSet.getObject("SingerId"),
-                resultSet.getObject("AlbumId"),
-                resultSet.getObject("MarketingBudget"));
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
+    
+    class QueryDataWithNewColumn {
+      static void queryDataWithNewColumn(String host, int port, String database) throws SQLException {
+        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+          try (ResultSet resultSet =
+              connection
+                  .createStatement()
+                  .executeQuery(
+                      "SELECT singer_id, album_id, marketing_budget "
+                          + "FROM albums "
+                          + "ORDER BY singer_id, album_id")) {
+            while (resultSet.next()) {
+              System.out.printf(
+                  "%d %d %s\n",
+                  resultSet.getLong("singer_id"),
+                  resultSet.getLong("album_id"),
+                  resultSet.getString("marketing_budget"));
+            }
           }
         }
       }
@@ -225,7 +201,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     try {
       const [rows] = await database.run(query);
     
-      rows.forEach(async row => {
+      rows.forEach(row => {
         const json = row.toJSON();
     
         console.log(
@@ -233,14 +209,43 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             json.AlbumId
           }, MarketingBudget: ${
             json.MarketingBudget ? json.MarketingBudget : null
-          }`,
+          }`
         );
       });
     } catch (err) {
-      console.error('ERROR:', err);
+      console.error('Failed to query data with new column:', err.message || err);
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
+    }
+
+### Node.js
+
+To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
+
+To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
+
+    import { Client } from 'pg';
+    
+    async function queryDataWithNewColumn(host: string, port: number, database: string): Promise<void> {
+      const connection = new Client({
+        host: host,
+        port: port,
+        database: database,
+      });
+      await connection.connect();
+    
+      const result = await connection.query(
+          "SELECT singer_id, album_id, marketing_budget "
+          + "FROM albums "
+          + "ORDER BY singer_id, album_id"
+      );
+      for (const row of result.rows) {
+        console.log(`${row["singer_id"]} ${row["album_id"]} ${row["marketing_budget"]}`);
+      }
+    
+      // Close the connection.
+      await connection.end();
     }
 
 ### PHP
@@ -249,38 +254,25 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Queries sample data from the database using SQL.
-     * This sample uses the `MarketingBudget` column. You can add the column
-     * by running the `add_column` sample or by running this DDL statement against
-     * your database:
-     *
-     *      ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
-     *
-     * Example:
-     * ```
-     * query_data_with_new_column($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function query_data_with_new_column(string $instanceId, string $databaseId): void
+    function query_data_with_new_column(string $host, string $port, string $database): void
     {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
+        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
+        $connection = new PDO($dsn);
     
-        $results = $database->execute(
-            'SELECT SingerId, AlbumId, MarketingBudget FROM Albums'
+        $statement = $connection->query(
+            "SELECT singer_id, album_id, marketing_budget "
+            ."FROM albums "
+            ."ORDER BY singer_id, album_id"
         );
-    
-        foreach ($results as $row) {
-            printf('SingerId: %s, AlbumId: %s, MarketingBudget: %d' . PHP_EOL,
-                $row['SingerId'], $row['AlbumId'], $row['MarketingBudget']);
+        $rows = $statement->fetchAll();
+        foreach ($rows as $album)
+        {
+            printf("%s\t%s\t%s\n", $album["singer_id"], $album["album_id"], $album["marketing_budget"]);
         }
+    
+        $rows = null;
+        $statement = null;
+        $connection = null;
     }
 
 ### Python
@@ -329,6 +321,30 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:MarketingBudget]}"
     end
 
+### Rust
+
+    use google_cloud_spanner::client::DatabaseClient;
+    use google_cloud_spanner::statement::Statement;
+    
+    pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
+        let statement =
+            Statement::builder("SELECT SingerId, AlbumId, MarketingBudget FROM Albums").build();
+        let transaction = client.single_use().build();
+        let mut result_set = transaction.execute_query(statement).await?;
+    
+        while let Some(row) = result_set.next().await.transpose()? {
+            let singer_id: i64 = row.get("SingerId");
+            let album_id: i64 = row.get("AlbumId");
+            let marketing_budget: Option<i64> = row.get("MarketingBudget");
+    
+            match marketing_budget {
+                Some(budget) => println!("{singer_id} {album_id} {budget}"),
+                None => println!("{singer_id} {album_id} NULL"),
+            }
+        }
+        Ok(())
+    }
+
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

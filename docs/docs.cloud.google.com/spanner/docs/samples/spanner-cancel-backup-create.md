@@ -230,132 +230,46 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
       }
     }
 
-### Node.js
-
-To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
-
-To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
-
-    // Imports the Google Cloud client library and precise date library
-    const {Spanner, protos} = require('@google-cloud/spanner');
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const backupId = 'my-backup';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner Database Admin Client object
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    // Creates a new backup of the database
-    try {
-      console.log(
-        `Creating backup of database ${databaseAdminClient.databasePath(
-          projectId,
-          instanceId,
-          databaseId,
-        )}.`,
-      );
-    
-      // Expire backup one day in the future
-      const expireTime = Date.now() + 1000 * 60 * 60 * 24;
-      const [operation] = await databaseAdminClient.createBackup({
-        parent: databaseAdminClient.instancePath(projectId, instanceId),
-        backupId: backupId,
-        backup: (protos.google.spanner.admin.database.v1.Backup = {
-          database: databaseAdminClient.databasePath(
-            projectId,
-            instanceId,
-            databaseId,
-          ),
-          expireTime: Spanner.timestamp(expireTime).toStruct(),
-          name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
-        }),
-      });
-    
-      // Cancel the backup
-      await operation.cancel();
-    
-      console.log('Backup cancelled.');
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Delete backup in case it got created before the cancel operation
-      await databaseAdminClient.deleteBackup({
-        name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
-      });
-      // Close the spanner client when finished.
-      // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
-      spanner.close();
-    }
-
 ### PHP
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\ApiCore\ApiException;
-    use Google\Cloud\Spanner\Admin\Database\V1\Backup;
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\CreateBackupRequest;
-    use Google\Cloud\Spanner\Admin\Database\V1\DeleteBackupRequest;
-    use Google\Cloud\Spanner\Admin\Database\V1\GetBackupRequest;
-    use Google\Protobuf\Timestamp;
+    use Google\Cloud\Spanner\SpannerClient;
     
     /**
      * Cancel a backup operation.
      * Example:
      * ```
-     * cancel_backup($projectId, $instanceId, $databaseId);
+     * cancel_backup($instanceId, $databaseId);
      * ```
      *
-     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      */
-    function cancel_backup(string $projectId, string $instanceId, string $databaseId): void
+    function cancel_backup(string $instanceId, string $databaseId): void
     {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $databaseFullName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
-        $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
-        $expireTime = new Timestamp();
-        $expireTime->setSeconds((new \DateTime('+14 days'))->getTimestamp());
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
         $backupId = uniqid('backup-' . $databaseId . '-cancel');
-        $request = new CreateBackupRequest([
-            'parent' => $instanceFullName,
-            'backup_id' => $backupId,
-            'backup' => new Backup([
-                'database' => $databaseFullName,
-                'expire_time' => $expireTime
-            ])
-        ]);
     
-        $operation = $databaseAdminClient->createBackup($request);
+        $expireTime = new \DateTime('+14 days');
+        $backup = $instance->backup($backupId);
+        $operation = $backup->create($database->name(), $expireTime);
         $operation->cancel();
+        print('Waiting for operation to complete ...' . PHP_EOL);
+        $operation->pollUntilComplete();
     
         // Cancel operations are always successful regardless of whether the operation is
         // still in progress or is complete.
         printf('Cancel backup operation complete.' . PHP_EOL);
     
         // Operation may succeed before cancel() has been called. So we need to clean up created backup.
-        try {
-            $request = new GetBackupRequest();
-            $request->setName($databaseAdminClient->backupName($projectId, $instanceId, $backupId));
-            $info = $databaseAdminClient->getBackup($request);
-        } catch (ApiException $ex) {
-            return;
+        if ($backup->exists()) {
+            $backup->delete();
         }
-        $databaseAdminClient->deleteBackup(new DeleteBackupRequest([
-            'name' => $databaseAdminClient->backupName($projectId, $instanceId, $backupId)
-        ]));
     }
 
 ### Python
@@ -365,54 +279,31 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     def cancel_backup(instance_id, database_id, backup_id):
-        from google.cloud.spanner_admin_database_v1.types import backup as backup_pb
-    
         spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
+        instance = spanner_client.instance(instance_id)
+        database = instance.database(database_id)
     
         expire_time = datetime.utcnow() + timedelta(days=30)
     
         # Create a backup.
-        request = backup_pb.CreateBackupRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            backup_id=backup_id,
-            backup=backup_pb.Backup(
-                database=database_admin_api.database_path(
-                    spanner_client.project, instance_id, database_id
-                ),
-                expire_time=expire_time,
-            ),
-        )
+        backup = instance.backup(backup_id, database=database, expire_time=expire_time)
+        operation = backup.create()
     
-        operation = database_admin_api.create_backup(request)
         # Cancel backup creation.
         operation.cancel()
     
-        # Cancel operations are the best effort so either it will complete or
+        # Cancel operations are best effort so either it will complete or
         # be cancelled.
         while not operation.done():
             time.sleep(300)  # 5 mins
     
-        try:
-            database_admin_api.get_backup(
-                backup_pb.GetBackupRequest(
-                    name=database_admin_api.backup_path(
-                        spanner_client.project, instance_id, backup_id
-                    ),
-                )
-            )
-        except NotFound:
+        # Deal with resource if the operation succeeded.
+        if backup.exists():
+            print("Backup was created before the cancel completed.")
+            backup.delete()
+            print("Backup deleted.")
+        else:
             print("Backup creation was successfully cancelled.")
-            return
-        print("Backup was created before the cancel completed.")
-        database_admin_api.delete_backup(
-            backup_pb.DeleteBackupRequest(
-                name=database_admin_api.backup_path(
-                    spanner_client.project, instance_id, backup_id
-                ),
-            )
-        )
-        print("Backup deleted.")
 
 ### Ruby
 
@@ -464,4 +355,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

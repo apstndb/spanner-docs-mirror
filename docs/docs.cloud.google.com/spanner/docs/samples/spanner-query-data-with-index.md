@@ -243,14 +243,14 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             ? json.MarketingBudget
             : null; // This value is nullable
           console.log(
-            `AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}, MarketingBudget: ${marketingBudget}`,
+            `AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}, MarketingBudget: ${marketingBudget}`
           );
         });
       } catch (err) {
-        console.error('ERROR:', err);
+        console.error('Failed to query data with index:', err.message || err);
       } finally {
         // Close the database when finished.
-        database.close();
+        await database.close();
       }
     }
     queryDataWithIndex();
@@ -354,7 +354,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             )
     
             for row in results:
-                print("AlbumId: {}, AlbumTitle: {}, " "MarketingBudget: {}".format(*row))
+                print("AlbumId: {}, AlbumTitle: {}, MarketingBudget: {}".format(*row))
 
 ### Ruby
 
@@ -386,4 +386,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

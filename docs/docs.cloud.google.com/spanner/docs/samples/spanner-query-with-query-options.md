@@ -188,25 +188,25 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const spanner = new Spanner({
       projectId: projectId,
     });
+    let database;
+    try {
+      // Gets a reference to a Cloud Spanner instance and database
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
     
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const query = {
-      sql: `SELECT AlbumId, AlbumTitle, MarketingBudget
+      const query = {
+        sql: `SELECT AlbumId, AlbumTitle, MarketingBudget
             FROM Albums
             ORDER BY AlbumTitle`,
-      queryOptions: {
-        optimizerVersion: 'latest',
-        // The list of available statistics packages can be found by querying the
-        // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
-        optimizerStatisticsPackage: 'latest',
-      },
-    };
+        queryOptions: {
+          optimizerVersion: 'latest',
+          // The list of available statistics packages can be found by querying the
+          // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
+          optimizerStatisticsPackage: 'latest',
+        },
+      };
     
-    // Queries rows from the Albums table
-    try {
+      // Queries rows from the Albums table
       const [rows] = await database.run(query);
     
       rows.forEach(row => {
@@ -215,14 +215,14 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           ? json.MarketingBudget
           : null; // This value is nullable
         console.log(
-          `AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}, MarketingBudget: ${marketingBudget}`,
+          `AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}, MarketingBudget: ${marketingBudget}`
         );
       });
     } catch (err) {
       console.error('ERROR:', err);
     } finally {
       // Close the database when finished.
-      database.close();
+      await database.close();
     }
 
 ### PHP
@@ -322,4 +322,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

@@ -303,21 +303,27 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         },
       },
     };
+    let database;
+    try {
+      // Gets a reference to a Cloud Spanner instance and database
+      const instance = spanner.instance(instanceId);
+      database = instance.database(databaseId);
+      const table = database.table('Singers');
     
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    const table = database.table('Singers');
+      const row = {
+        SingerId: 16,
+        FirstName: 'Martha',
+        LastName: 'Waller',
+      };
     
-    const row = {
-      SingerId: 16,
-      FirstName: 'Martha',
-      LastName: 'Waller',
-    };
+      await table.insert(row, retryAndTimeoutSettings);
     
-    await table.insert(row, retryAndTimeoutSettings);
-    
-    console.log('record inserted.');
+      console.log('record inserted.');
+    } catch (err) {
+      console.error('ERROR:', err);
+    } finally {
+      await database.close();
+    }
 
 ### Python
 
@@ -400,4 +406,4 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ## What's next
 
-To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=spanner) .
+To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .
