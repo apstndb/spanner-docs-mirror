@@ -114,59 +114,47 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-    
-     "github.com/jackc/pgx/v5"
-    )
-    
-    func ReadOnlyTransaction(host string, port int, database string) error {
-     ctx := context.Background()
-     connString := fmt.Sprintf(
-         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
-         host, port, database)
-     conn, err := pgx.Connect(ctx, connString)
-     if err != nil {
-         return err
-     }
-     defer conn.Close(ctx)
-    
-     // Start a read-only transaction by supplying additional transaction options.
-     tx, err := conn.BeginTx(ctx, pgx.TxOptions{AccessMode: pgx.ReadOnly})
-    
-     albumsOrderedById, err := tx.Query(ctx, "SELECT singer_id, album_id, album_title FROM albums ORDER BY singer_id, album_id")
-     defer albumsOrderedById.Close()
-     if err != nil {
-         return err
-     }
-     for albumsOrderedById.Next() {
-         var singerId, albumId int64
-         var title string
-         err = albumsOrderedById.Scan(&singerId, &albumId, &title)
+    func readOnlyTransaction(ctx context.Context, w io.Writer, client *spanner.Client) error {
+     ro := client.ReadOnlyTransaction()
+     defer ro.Close()
+     stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, AlbumTitle FROM Albums`}
+     iter := ro.Query(ctx, stmt)
+     defer iter.Stop()
+     for {
+         row, err := iter.Next()
+         if err == iterator.Done {
+             break
+         }
          if err != nil {
              return err
          }
-         fmt.Printf("%v %v %v\n", singerId, albumId, title)
+         var singerID int64
+         var albumID int64
+         var albumTitle string
+         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
+             return err
+         }
+         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
      }
     
-     albumsOrderedTitle, err := tx.Query(ctx, "SELECT singer_id, album_id, album_title FROM albums ORDER BY album_title")
-     defer albumsOrderedTitle.Close()
-     if err != nil {
-         return err
-     }
-     for albumsOrderedTitle.Next() {
-         var singerId, albumId int64
-         var title string
-         err = albumsOrderedTitle.Scan(&singerId, &albumId, &title)
+     iter = ro.Read(ctx, "Albums", spanner.AllKeys(), []string{"SingerId", "AlbumId", "AlbumTitle"})
+     defer iter.Stop()
+     for {
+         row, err := iter.Next()
+         if err == iterator.Done {
+             return nil
+         }
          if err != nil {
              return err
          }
-         fmt.Printf("%v %v %v\n", singerId, albumId, title)
+         var singerID int64
+         var albumID int64
+         var albumTitle string
+         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
+             return err
+         }
+         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
      }
-    
-     // End the read-only transaction by calling Commit().
-     return tx.Commit(ctx)
     }
 
 ### Java
@@ -175,54 +163,55 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.ResultSet;
-    import java.sql.SQLException;
+    static void readOnlyTransaction(
+        final String project,
+        final String instance,
+        final String database,
+        final Properties properties) throws SQLException {
+      try (Connection connection =
+          DriverManager.getConnection(
+              String.format(
+                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+                  project, instance, database),
+              properties)) {
+        // Set AutoCommit=false to enable transactions.
+        connection.setAutoCommit(false);
+        // This SQL statement instructs the JDBC driver to use
+        // a read-only transaction.
+        connection.createStatement().execute("SET TRANSACTION READ ONLY");
     
-    class ReadOnlyTransaction {
-      static void readOnlyTransaction(String host, int port, String database) throws SQLException {
-        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
-        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
-          // Set AutoCommit=false to enable transactions.
-          connection.setAutoCommit(false);
-          // This SQL statement instructs the JDBC driver to use
-          // a read-only transaction.
-          connection.createStatement().execute("set transaction read only");
-    
-          try (ResultSet resultSet =
-              connection
-                  .createStatement()
-                  .executeQuery(
-                      "SELECT singer_id, album_id, album_title "
-                          + "FROM albums "
-                          + "ORDER BY singer_id, album_id")) {
-            while (resultSet.next()) {
-              System.out.printf(
-                  "%d %d %s\n",
-                  resultSet.getLong("singer_id"),
-                  resultSet.getLong("album_id"),
-                  resultSet.getString("album_title"));
-            }
+        try (ResultSet resultSet =
+            connection
+                .createStatement()
+                .executeQuery(
+                    "SELECT SingerId, AlbumId, AlbumTitle "
+                        + "FROM Albums "
+                        + "ORDER BY SingerId, AlbumId")) {
+          while (resultSet.next()) {
+            System.out.printf(
+                "%d %d %s\n",
+                resultSet.getLong("SingerId"),
+                resultSet.getLong("AlbumId"),
+                resultSet.getString("AlbumTitle"));
           }
-          try (ResultSet resultSet =
-              connection
-                  .createStatement()
-                  .executeQuery(
-                      "SELECT singer_id, album_id, album_title "
-                          + "FROM albums "
-                          + "ORDER BY album_title")) {
-            while (resultSet.next()) {
-              System.out.printf(
-                  "%d %d %s\n",
-                  resultSet.getLong("singer_id"),
-                  resultSet.getLong("album_id"),
-                  resultSet.getString("album_title"));
-            }
-          }
-          // End the read-only transaction by calling commit().
-          connection.commit();
         }
+        try (ResultSet resultSet =
+            connection
+                .createStatement()
+                .executeQuery(
+                    "SELECT SingerId, AlbumId, AlbumTitle "
+                        + "FROM Albums "
+                        + "ORDER BY AlbumTitle")) {
+          while (resultSet.next()) {
+            System.out.printf(
+                "%d %d %s\n",
+                resultSet.getLong("SingerId"),
+                resultSet.getLong("AlbumId"),
+                resultSet.getString("AlbumTitle"));
+          }
+        }
+        // End the read-only transaction by calling commit().
+        connection.commit();
       }
     }
 
@@ -345,48 +334,52 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    function read_only_transaction(string $host, string $port, string $database): void
+    use Google\Cloud\Spanner\SpannerClient;
+    
+    /**
+     * Reads data inside of a read-only transaction.
+     *
+     * Within the read-only transaction, or "snapshot", the application sees
+     * consistent view of the database at a particular timestamp.
+     * Example:
+     * ```
+     * read_only_transaction($instanceId, $databaseId);
+     * ```
+     *
+     * @param string $instanceId The Spanner instance ID.
+     * @param string $databaseId The Spanner database ID.
+     */
+    function read_only_transaction(string $instanceId, string $databaseId): void
     {
-        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
-        $connection = new PDO($dsn);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
     
-        // Start a transaction.
-        $connection->beginTransaction();
-        // Change the current transaction to a read-only transaction.
-        // This statement can only be executed at the start of a transaction.
-        $connection->exec("set transaction read only");
-    
-        // The following two queries use the same read-only transaction.
-        $statement = $connection->query(
-            "select singer_id, album_id, album_title "
-            ."from albums "
-            ."order by singer_id, album_id"
+        $snapshot = $database->snapshot();
+        $results = $snapshot->execute(
+            'SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
         );
-        $rows = $statement->fetchAll();
-        foreach ($rows as $album)
-        {
-            printf("%s\t%s\t%s\n", $album["singer_id"], $album["album_id"], $album["album_title"]);
+        print('Results from the first read:' . PHP_EOL);
+        foreach ($results as $row) {
+            printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
         }
     
-        $statement = $connection->query(
-            "select singer_id, album_id, album_title "
-            ."from albums "
-            ."order by album_title"
+        // Perform another read using the `read` method. Even if the data
+        // is updated in-between the reads, the snapshot ensures that both
+        // return the same data.
+        $keySet = $spanner->keySet(['all' => true]);
+        $results = $database->read(
+            'Albums',
+            $keySet,
+            ['SingerId', 'AlbumId', 'AlbumTitle']
         );
-        $rows = $statement->fetchAll();
-        foreach ($rows as $album)
-        {
-            printf("%s\t%s\t%s\n", $album["singer_id"], $album["album_id"], $album["album_title"]);
+    
+        print('Results from the second read:' . PHP_EOL);
+        foreach ($results->rows() as $row) {
+            printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
         }
-    
-        # Read-only transactions must also be committed or rolled back to mark
-        # the end of the transaction. There is no semantic difference between
-        # rolling back or committing a read-only transaction.
-        $connection->commit();
-    
-        $rows = null;
-        $statement = null;
-        $connection = null;
     }
 
 ### Python

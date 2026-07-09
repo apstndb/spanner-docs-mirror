@@ -74,32 +74,20 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-    
-     "github.com/jackc/pgx/v5"
-    )
-    
-    func AddColumn(host string, port int, database string) error {
-     ctx := context.Background()
-     connString := fmt.Sprintf(
-         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
-         host, port, database)
-     conn, err := pgx.Connect(ctx, connString)
+    func addNewColumn(ctx context.Context, w io.Writer, adminClient *database.DatabaseAdminClient, database string) error {
+     op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
+         Database: database,
+         Statements: []string{
+             "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64",
+         },
+     })
      if err != nil {
          return err
      }
-     defer conn.Close(ctx)
-    
-     _, err = conn.Exec(ctx,
-         "ALTER TABLE albums "+
-             "ADD COLUMN marketing_budget bigint")
-     if err != nil {
+     if err := op.Wait(ctx); err != nil {
          return err
      }
-     fmt.Println("Added marketing_budget column")
-    
+     fmt.Fprintf(w, "Added MarketingBudget column\n")
      return nil
     }
 
@@ -109,17 +97,21 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
-    
-    class AddColumn {
-      static void addColumn(String host, int port, String database) throws SQLException {
-        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
-        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
-          connection.createStatement().execute("alter table albums add column marketing_budget bigint");
-          System.out.println("Added marketing_budget column");
-        }
+    static void addColumn(
+        final String project,
+        final String instance,
+        final String database,
+        final Properties properties) throws SQLException {
+      try (Connection connection =
+          DriverManager.getConnection(
+              String.format(
+                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+                  project, instance, database),
+              properties)) {
+        connection
+            .createStatement()
+            .execute("ALTER TABLE Albums ADD COLUMN MarketingBudget INT64");
+        System.out.println("Added MarketingBudget column");
       }
     }
 
@@ -200,15 +192,36 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    function add_column(string $host, string $port, string $database): void
+    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
+    
+    /**
+     * Adds a new column to the Albums table in the example database.
+     * Example:
+     * ```
+     * add_column($projectId, $instanceId, $databaseId);
+     * ```
+     *
+     * @param string $projectId The Google Cloud project ID.
+     * @param string $instanceId The Spanner instance ID.
+     * @param string $databaseId The Spanner database ID.
+     */
+    function add_column(string $projectId, string $instanceId, string $databaseId): void
     {
-        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
-        $connection = new PDO($dsn);
+        $databaseAdminClient = new DatabaseAdminClient();
+        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
     
-        $connection->exec("ALTER TABLE albums ADD COLUMN marketing_budget bigint");
-        print("Added marketing_budget column\n");
+        $request = new UpdateDatabaseDdlRequest([
+            'database' => $databaseName,
+            'statements' => ['ALTER TABLE Albums ADD COLUMN MarketingBudget INT64']
+        ]);
     
-        $connection = null;
+        $operation = $databaseAdminClient->updateDatabaseDdl($request);
+    
+        print('Waiting for operation to complete...' . PHP_EOL);
+        $operation->pollUntilComplete();
+    
+        printf('Added the MarketingBudget column.' . PHP_EOL);
     }
 
 ### Python

@@ -84,49 +84,35 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "database/sql"
-     "fmt"
-    
-     "github.com/jackc/pgx/v5"
-    )
-    
-    func QueryDataWithNewColumn(host string, port int, database string) error {
-     ctx := context.Background()
-     connString := fmt.Sprintf(
-         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
-         host, port, database)
-     conn, err := pgx.Connect(ctx, connString)
-     if err != nil {
-         return err
-     }
-     defer conn.Close(ctx)
-    
-     rows, err := conn.Query(ctx, "SELECT singer_id, album_id, marketing_budget "+
-         "FROM albums "+
-         "ORDER BY singer_id, album_id")
-     defer rows.Close()
-     if err != nil {
-         return err
-     }
-     for rows.Next() {
-         var singerId, albumId int64
-         var marketingBudget sql.NullString
-         err = rows.Scan(&singerId, &albumId, &marketingBudget)
+    func queryNewColumn(ctx context.Context, w io.Writer, client *spanner.Client) error {
+     stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, MarketingBudget FROM Albums`}
+     iter := client.Single().Query(ctx, stmt)
+     defer iter.Stop()
+     for {
+         row, err := iter.Next()
+         if err == iterator.Done {
+             return nil
+         }
          if err != nil {
              return err
          }
-         var budget string
-         if marketingBudget.Valid {
-             budget = marketingBudget.String
-         } else {
-             budget = "NULL"
+         var singerID, albumID int64
+         var marketingBudget spanner.NullInt64
+         if err := row.ColumnByName("SingerId", &singerID); err != nil {
+             return err
          }
-         fmt.Printf("%v %v %v\n", singerId, albumId, budget)
+         if err := row.ColumnByName("AlbumId", &albumID); err != nil {
+             return err
+         }
+         if err := row.ColumnByName("MarketingBudget", &marketingBudget); err != nil {
+             return err
+         }
+         budget := "NULL"
+         if marketingBudget.Valid {
+             budget = strconv.FormatInt(marketingBudget.Int64, 10)
+         }
+         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, budget)
      }
-    
-     return rows.Err()
     }
 
 ### Java
@@ -135,29 +121,33 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.ResultSet;
-    import java.sql.SQLException;
-    
-    class QueryDataWithNewColumn {
-      static void queryDataWithNewColumn(String host, int port, String database) throws SQLException {
-        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
-        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
-          try (ResultSet resultSet =
-              connection
-                  .createStatement()
-                  .executeQuery(
-                      "SELECT singer_id, album_id, marketing_budget "
-                          + "FROM albums "
-                          + "ORDER BY singer_id, album_id")) {
-            while (resultSet.next()) {
-              System.out.printf(
-                  "%d %d %s\n",
-                  resultSet.getLong("singer_id"),
-                  resultSet.getLong("album_id"),
-                  resultSet.getString("marketing_budget"));
-            }
+    static void queryDataWithNewColumn(
+        final String project,
+        final String instance,
+        final String database,
+        final Properties properties) throws SQLException {
+      try (Connection connection =
+          DriverManager.getConnection(
+              String.format(
+                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+                  project, instance, database),
+              properties)) {
+        // Rows without an explicit value for MarketingBudget will have a
+        // MarketingBudget equal to null.
+        try (ResultSet resultSet =
+            connection
+                .createStatement()
+                .executeQuery(
+                    "SELECT SingerId, AlbumId, MarketingBudget "
+                    + "FROM Albums")) {
+          while (resultSet.next()) {
+            // Use the ResultSet#getObject(String) method to get data
+            // of any type from the ResultSet.
+            System.out.printf(
+                "%s %s %s\n",
+                resultSet.getObject("SingerId"),
+                resultSet.getObject("AlbumId"),
+                resultSet.getObject("MarketingBudget"));
           }
         }
       }
@@ -254,25 +244,38 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    function query_data_with_new_column(string $host, string $port, string $database): void
+    use Google\Cloud\Spanner\SpannerClient;
+    
+    /**
+     * Queries sample data from the database using SQL.
+     * This sample uses the `MarketingBudget` column. You can add the column
+     * by running the `add_column` sample or by running this DDL statement against
+     * your database:
+     *
+     *      ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
+     *
+     * Example:
+     * ```
+     * query_data_with_new_column($instanceId, $databaseId);
+     * ```
+     *
+     * @param string $instanceId The Spanner instance ID.
+     * @param string $databaseId The Spanner database ID.
+     */
+    function query_data_with_new_column(string $instanceId, string $databaseId): void
     {
-        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
-        $connection = new PDO($dsn);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
     
-        $statement = $connection->query(
-            "SELECT singer_id, album_id, marketing_budget "
-            ."FROM albums "
-            ."ORDER BY singer_id, album_id"
+        $results = $database->execute(
+            'SELECT SingerId, AlbumId, MarketingBudget FROM Albums'
         );
-        $rows = $statement->fetchAll();
-        foreach ($rows as $album)
-        {
-            printf("%s\t%s\t%s\n", $album["singer_id"], $album["album_id"], $album["marketing_budget"]);
-        }
     
-        $rows = null;
-        $statement = null;
-        $connection = null;
+        foreach ($results as $row) {
+            printf('SingerId: %s, AlbumId: %s, MarketingBudget: %d' . PHP_EOL,
+                $row['SingerId'], $row['AlbumId'], $row['MarketingBudget']);
+        }
     }
 
 ### Python

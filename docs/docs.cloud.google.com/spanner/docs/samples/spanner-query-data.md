@@ -77,41 +77,25 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-    
-     "github.com/jackc/pgx/v5"
-    )
-    
-    func QueryData(host string, port int, database string) error {
-     ctx := context.Background()
-     connString := fmt.Sprintf(
-         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
-         host, port, database)
-     conn, err := pgx.Connect(ctx, connString)
-     if err != nil {
-         return err
-     }
-     defer conn.Close(ctx)
-    
-     rows, err := conn.Query(ctx, "SELECT singer_id, album_id, album_title "+
-         "FROM albums")
-     defer rows.Close()
-     if err != nil {
-         return err
-     }
-     for rows.Next() {
-         var singerId, albumId int64
-         var title string
-         err = rows.Scan(&singerId, &albumId, &title)
+    func query(ctx context.Context, w io.Writer, client *spanner.Client) error {
+     stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, AlbumTitle FROM Albums`}
+     iter := client.Single().Query(ctx, stmt)
+     defer iter.Stop()
+     for {
+         row, err := iter.Next()
+         if err == iterator.Done {
+             return nil
+         }
          if err != nil {
              return err
          }
-         fmt.Printf("%v %v %v\n", singerId, albumId, title)
+         var singerID, albumID int64
+         var albumTitle string
+         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
+             return err
+         }
+         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
      }
-    
-     return rows.Err()
     }
 
 ### Java
@@ -120,26 +104,29 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.ResultSet;
-    import java.sql.SQLException;
-    
-    class QueryData {
-      static void queryData(String host, int port, String database) throws SQLException {
-        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
-        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
-          try (ResultSet resultSet =
-              connection
-                  .createStatement()
-                  .executeQuery("SELECT singer_id, album_id, album_title FROM albums")) {
-            while (resultSet.next()) {
-              System.out.printf(
-                  "%d %d %s\n",
-                  resultSet.getLong("singer_id"),
-                  resultSet.getLong("album_id"),
-                  resultSet.getString("album_title"));
-            }
+    static void queryData(
+        final String project,
+        final String instance,
+        final String database,
+        final Properties properties) throws SQLException {
+      try (Connection connection =
+          DriverManager.getConnection(
+              String.format(
+                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+                  project, instance, database),
+              properties)) {
+        try (ResultSet resultSet =
+            connection
+                .createStatement()
+                .executeQuery(
+                    "SELECT SingerId, AlbumId, AlbumTitle "
+                    + "FROM Albums")) {
+          while (resultSet.next()) {
+            System.out.printf(
+                "%d %d %s\n",
+                resultSet.getLong("SingerId"),
+                resultSet.getLong("AlbumId"),
+                resultSet.getString("AlbumTitle"));
           }
         }
       }
@@ -224,24 +211,32 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    function query_data(string $host, string $port, string $database): void
+    use Google\Cloud\Spanner\SpannerClient;
+    
+    /**
+     * Queries sample data from the database using SQL.
+     * Example:
+     * ```
+     * query_data($instanceId, $databaseId);
+     * ```
+     *
+     * @param string $instanceId The Spanner instance ID.
+     * @param string $databaseId The Spanner database ID.
+     */
+    function query_data(string $instanceId, string $databaseId): void
     {
-        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
-        $connection = new PDO($dsn);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
     
-        $statement = $connection->query("SELECT singer_id, album_id, album_title "
-            ."FROM albums "
-            ."ORDER BY singer_id, album_id"
+        $results = $database->execute(
+            'SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
         );
-        $rows = $statement->fetchAll();
-        foreach ($rows as $album)
-        {
-            printf("%s\t%s\t%s\n", $album["singer_id"], $album["album_id"], $album["album_title"]);
-        }
     
-        $rows = null;
-        $statement = null;
-        $connection = null;
+        foreach ($results as $row) {
+            printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
+        }
     }
 
 ### Python

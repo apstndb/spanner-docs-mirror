@@ -81,43 +81,31 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-    
-     "github.com/jackc/pgx/v5"
-    )
-    
-    func QueryDataWithParameter(host string, port int, database string) error {
-     ctx := context.Background()
-     connString := fmt.Sprintf(
-         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
-         host, port, database)
-     conn, err := pgx.Connect(ctx, connString)
-     if err != nil {
-         return err
+    func queryWithParameter(ctx context.Context, w io.Writer, client *spanner.Client) error {
+     stmt := spanner.Statement{
+         SQL: `SELECT SingerId, FirstName, LastName FROM Singers
+             WHERE LastName = @lastName`,
+         Params: map[string]interface{}{
+             "lastName": "Garcia",
+         },
      }
-     defer conn.Close(ctx)
-    
-     rows, err := conn.Query(ctx,
-         "SELECT singer_id, first_name, last_name "+
-             "FROM singers "+
-             "WHERE last_name = $1", "Garcia")
-     defer rows.Close()
-     if err != nil {
-         return err
-     }
-     for rows.Next() {
-         var singerId int64
-         var firstName, lastName string
-         err = rows.Scan(&singerId, &firstName, &lastName)
+     iter := client.Single().Query(ctx, stmt)
+     defer iter.Stop()
+     for {
+         row, err := iter.Next()
+         if err == iterator.Done {
+             return nil
+         }
          if err != nil {
              return err
          }
-         fmt.Printf("%v %v %v\n", singerId, firstName, lastName)
+         var singerID int64
+         var firstName, lastName string
+         if err := row.Columns(&singerID, &firstName, &lastName); err != nil {
+             return err
+         }
+         fmt.Fprintf(w, "%d %s %s\n", singerID, firstName, lastName)
      }
-    
-     return rows.Err()
     }
 
 ### Java
@@ -126,30 +114,30 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.PreparedStatement;
-    import java.sql.ResultSet;
-    import java.sql.SQLException;
-    
-    class QueryDataWithParameter {
-      static void queryDataWithParameter(String host, int port, String database) throws SQLException {
-        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
-        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
-          try (PreparedStatement statement =
-              connection.prepareStatement(
-                  "SELECT singer_id, first_name, last_name "
-                      + "FROM singers "
-                      + "WHERE last_name = ?")) {
-            statement.setString(1, "Garcia");
-            try (ResultSet resultSet = statement.executeQuery()) {
-              while (resultSet.next()) {
-                System.out.printf(
-                    "%d %s %s\n",
-                    resultSet.getLong("singer_id"),
-                    resultSet.getString("first_name"),
-                    resultSet.getString("last_name"));
-              }
+    static void queryWithParameter(
+        final String project,
+        final String instance,
+        final String database,
+        final Properties properties) throws SQLException {
+      try (Connection connection =
+          DriverManager.getConnection(
+              String.format(
+                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+                  project, instance, database),
+              properties)) {
+        try (PreparedStatement statement =
+            connection.prepareStatement(
+                "SELECT SingerId, FirstName, LastName "
+                    + "FROM Singers "
+                    + "WHERE LastName = ?")) {
+          statement.setString(1, "Garcia");
+          try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+              System.out.printf(
+                  "%d %s %s\n",
+                  resultSet.getLong("SingerId"),
+                  resultSet.getString("FirstName"),
+                  resultSet.getString("LastName"));
             }
           }
         }
@@ -241,25 +229,34 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    function query_data_with_parameter(string $host, string $port, string $database): void
+    use Google\Cloud\Spanner\SpannerClient;
+    
+    /**
+     * Queries sample data from the database using SQL with a parameter.
+     * Example:
+     * ```
+     * query_data_with_parameter($instanceId, $databaseId);
+     * ```
+     *
+     * @param string $instanceId The Spanner instance ID.
+     * @param string $databaseId The Spanner database ID.
+     */
+    function query_data_with_parameter(string $instanceId, string $databaseId): void
     {
-        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
-        $connection = new PDO($dsn);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
     
-        $statement = $connection->prepare("SELECT singer_id, first_name, last_name "
-                            ."FROM singers "
-                            ."WHERE last_name = ?"
+        $results = $database->execute(
+            'SELECT SingerId, FirstName, LastName FROM Singers ' .
+            'WHERE LastName = @lastName',
+            ['parameters' => ['lastName' => 'Garcia']]
         );
-        $statement->execute(["Garcia"]);
-        $rows = $statement->fetchAll();
-        foreach ($rows as $singer)
-        {
-            printf("%s\t%s\t%s\n", $singer["singer_id"], $singer["first_name"], $singer["last_name"]);
-        }
     
-        $rows = null;
-        $statement = null;
-        $connection = null;
+        foreach ($results as $row) {
+            printf('SingerId: %s, FirstName: %s, LastName: %s' . PHP_EOL,
+                $row['SingerId'], $row['FirstName'], $row['LastName']);
+        }
     }
 
 ### Python

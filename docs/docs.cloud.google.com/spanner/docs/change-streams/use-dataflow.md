@@ -846,15 +846,20 @@ There are a few known limitations when using Spanner change streams with Dataflo
 
 ### Autoscaling
 
-Autoscaling support for any pipelines that include `SpannerIO.readChangeStream` requires Apache Beam `2.39.0` or higher.
+Autoscaling support for any pipelines that include `SpannerIO.readChangeStream` requires Apache Beam `2.39.0` or later.
 
 If you use an Apache Beam version prior to `2.39.0` , pipelines that include `SpannerIO.readChangeStream` need to explicitly specify the autoscaling algorithm as `NONE` , as described in [Horizontal autoscaling](https://docs.cloud.google.com/dataflow/docs/horizontal-autoscaling) .
 
 To manually scale a Dataflow pipeline instead of using autoscaling, see [Manually scaling a streaming pipeline](https://docs.cloud.google.com/dataflow/docs/horizontal-autoscaling#manually_scaling_a_streaming_pipeline) .
 
-### Runner V2
+### Portable Runner
 
-The Spanner change streams connector requires [Dataflow Runner V2](https://docs.cloud.google.com/dataflow/docs/runner-v2) . This has to be manually specified during the execution or an error will be thrown. You are able to specify `Runner V2` by configuring your job with `--experiments=use_unified_worker,use_runner_v2` .
+The Spanner change streams connector requires the [Dataflow Portable Runner](https://docs.cloud.google.com/dataflow/docs/portable-runner) . This has to be manually specified during the execution or an error will be thrown.
+
+You can specify the `Portable Runner` by configuring your job with the following flag:
+
+  - Beam SDK 2.74 or later: `--experiments=enable_portable_runner` .
+  - Beam SDK 2.73 or earlier: `--experiments=use_runner_v2` .
 
 ### Snapshot
 

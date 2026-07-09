@@ -100,53 +100,36 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-    
-     "github.com/jackc/pgx/v5"
-    )
-    
-    func CreateTables(host string, port int, database string) error {
-     ctx := context.Background()
-     connString := fmt.Sprintf(
-         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
-         host, port, database)
-     conn, err := pgx.Connect(ctx, connString)
+    func createDatabase(ctx context.Context, w io.Writer, adminClient *database.DatabaseAdminClient, db string) error {
+     matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
+     if matches == nil || len(matches) != 3 {
+         return fmt.Errorf("Invalid database id %s", db)
+     }
+     op, err := adminClient.CreateDatabase(ctx, &adminpb.CreateDatabaseRequest{
+         Parent:          matches[1],
+         CreateStatement: "CREATE DATABASE `" + matches[2] + "`",
+         ExtraStatements: []string{
+             `CREATE TABLE Singers (
+                 SingerId   INT64 NOT NULL,
+                 FirstName  STRING(1024),
+                 LastName   STRING(1024),
+                 SingerInfo BYTES(MAX)
+             ) PRIMARY KEY (SingerId)`,
+             `CREATE TABLE Albums (
+                 SingerId     INT64 NOT NULL,
+                 AlbumId      INT64 NOT NULL,
+                 AlbumTitle   STRING(MAX)
+             ) PRIMARY KEY (SingerId, AlbumId),
+             INTERLEAVE IN PARENT Singers ON DELETE CASCADE`,
+         },
+     })
      if err != nil {
          return err
      }
-     defer conn.Close(ctx)
-    
-     // Create two tables in one batch on Spanner.
-     br := conn.SendBatch(ctx, &pgx.Batch{QueuedQueries: []*pgx.QueuedQuery{
-         {SQL: "create table singers (" +
-             "  singer_id   bigint primary key not null," +
-             "  first_name  character varying(1024)," +
-             "  last_name   character varying(1024)," +
-             "  singer_info bytea," +
-             "  full_name   character varying(2048) generated " +
-             "  always as (first_name || ' ' || last_name) stored" +
-             ")"},
-         {SQL: "create table albums (" +
-             "  singer_id     bigint not null," +
-             "  album_id      bigint not null," +
-             "  album_title   character varying(1024)," +
-             "  primary key (singer_id, album_id)" +
-             ") interleave in parent singers on delete cascade"},
-     }})
-     cmd, err := br.Exec()
-     if err != nil {
+     if _, err := op.Wait(ctx); err != nil {
          return err
      }
-     if cmd.String() != "CREATE" {
-         return fmt.Errorf("unexpected command tag: %v", cmd.String())
-     }
-     if err := br.Close(); err != nil {
-         return err
-     }
-     fmt.Printf("Created Singers & Albums tables in database: [%s]\n", database)
-    
+     fmt.Fprintf(w, "Created database [%s]\n", db)
      return nil
     }
 
@@ -156,41 +139,58 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
-    import java.sql.Statement;
+    static void createDatabase(
+        final DatabaseAdminClient dbAdminClient,
+        final InstanceName instanceName,
+        final String databaseId,
+        final Properties properties) throws SQLException {
+      // Use the Spanner admin client to create a database.
+      CreateDatabaseRequest createDatabaseRequest =
+          CreateDatabaseRequest.newBuilder()
+              .setCreateStatement("CREATE DATABASE `" + databaseId + "`")
+              .setParent(instanceName.toString())
+              .build();
+      try {
+        dbAdminClient.createDatabaseAsync(createDatabaseRequest).get();
+      } catch (ExecutionException e) {
+        throw SpannerExceptionFactory.asSpannerException(e.getCause());
+      } catch (InterruptedException e) {
+        throw SpannerExceptionFactory.propagateInterrupt(e);
+      }
     
-    class CreateTables {
-      static void createTables(String host, int port, String database) throws SQLException {
-        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
-        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
-          try (Statement statement = connection.createStatement()) {
-            // Create two tables in one batch.
-            statement.addBatch(
-                "create table singers ("
-                    + "  singer_id   bigint primary key not null,"
-                    + "  first_name  varchar(1024),"
-                    + "  last_name   varchar(1024),"
-                    + "  singer_info bytea,"
-                    + "  full_name   varchar(2048) generated always as (\n"
-                    + "      case when first_name is null then last_name\n"
-                    + "          when last_name  is null then first_name\n"
-                    + "          else first_name || ' ' || last_name\n"
-                    + "      end) stored"
-                    + ")");
-            statement.addBatch(
-                "create table albums ("
-                    + "  singer_id     bigint not null,"
-                    + "  album_id      bigint not null,"
-                    + "  album_title   varchar,"
-                    + "  primary key (singer_id, album_id)"
-                    + ") interleave in parent singers on delete cascade");
-            statement.executeBatch();
-            System.out.println("Created Singers & Albums tables in database: [" + database + "]");
-          }
+      // Connect to the database with the JDBC driver and create two test tables.
+      String projectId = instanceName.getProject();
+      String instanceId = instanceName.getInstance();
+      try (Connection connection =
+          DriverManager.getConnection(
+              String.format(
+                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+                  projectId, instanceId, databaseId),
+              properties)) {
+        try (Statement statement = connection.createStatement()) {
+          // Create the tables in one batch.
+          statement.addBatch(
+              "CREATE TABLE Singers ("
+                  + "  SingerId   INT64 NOT NULL,"
+                  + "  FirstName  STRING(1024),"
+                  + "  LastName   STRING(1024),"
+                  + "  SingerInfo BYTES(MAX),"
+                  + "  FullName STRING(2048) AS "
+                  + "  (ARRAY_TO_STRING([FirstName, LastName], \" \")) STORED"
+                  + ") PRIMARY KEY (SingerId)");
+          statement.addBatch(
+              "CREATE TABLE Albums ("
+                  + "  SingerId     INT64 NOT NULL,"
+                  + "  AlbumId      INT64 NOT NULL,"
+                  + "  AlbumTitle   STRING(MAX)"
+                  + ") PRIMARY KEY (SingerId, AlbumId),"
+                  + "  INTERLEAVE IN PARENT Singers ON DELETE CASCADE");
+          statement.executeBatch();
         }
       }
+      System.out.printf(
+          "Created database [%s]\n",
+          DatabaseName.of(projectId, instanceId, databaseId));
     }
 
 ### Node.js
@@ -297,32 +297,49 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    function create_tables(string $host, string $port, string $database): void
+    use Google\Cloud\Spanner\SpannerClient;
+    
+    /**
+     * Creates a database and tables for sample data.
+     * Example:
+     * ```
+     * create_database($instanceId, $databaseId);
+     * ```
+     *
+     * @param string $instanceId The Spanner instance ID.
+     * @param string $databaseId The Spanner database ID.
+     */
+    function create_database(string $instanceId, string $databaseId): void
     {
-        // Connect to Spanner through PGAdapter using the PostgreSQL PDO driver.
-        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
-        $connection = new PDO($dsn);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
     
-        // Create two tables in one batch.
-        $connection->exec("start batch ddl");
-        $connection->exec("create table singers ("
-            ."  singer_id   bigint primary key not null,"
-            ."  first_name  character varying(1024),"
-            ."  last_name   character varying(1024),"
-            ."  singer_info bytea,"
-            ."  full_name   character varying(2048) generated "
-            ."  always as (first_name || ' ' || last_name) stored"
-            .")");
-        $connection->exec("create table albums ("
-            ."  singer_id     bigint not null,"
-            ."  album_id      bigint not null,"
-            ."  album_title   character varying(1024),"
-            ."  primary key (singer_id, album_id)"
-            .") interleave in parent singers on delete cascade");
-        $connection->exec("run batch");
-        print("Created Singers & Albums tables in database: [{$database}]\n");
+        if (!$instance->exists()) {
+            throw new \LogicException("Instance $instanceId does not exist");
+        }
     
-        $connection = null;
+        $operation = $instance->createDatabase($databaseId, ['statements' => [
+            'CREATE TABLE Singers (
+                SingerId     INT64 NOT NULL,
+                FirstName    STRING(1024),
+                LastName     STRING(1024),
+                SingerInfo   BYTES(MAX),
+                FullName     STRING(2048) AS
+                (ARRAY_TO_STRING([FirstName, LastName], " ")) STORED
+            ) PRIMARY KEY (SingerId)',
+            'CREATE TABLE Albums (
+                SingerId     INT64 NOT NULL,
+                AlbumId      INT64 NOT NULL,
+                AlbumTitle   STRING(MAX)
+            ) PRIMARY KEY (SingerId, AlbumId),
+            INTERLEAVE IN PARENT Singers ON DELETE CASCADE'
+        ]]);
+    
+        print('Waiting for operation to complete...' . PHP_EOL);
+        $operation->pollUntilComplete();
+    
+        printf('Created database %s on instance %s' . PHP_EOL,
+            $databaseId, $instanceId);
     }
 
 ### Python

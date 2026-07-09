@@ -83,59 +83,13 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "github.com/jackc/pgx/v5"
-    )
-    
-    func UpdateDataWithCopy(host string, port int, database string) error {
-     ctx := context.Background()
-     connString := fmt.Sprintf(
-         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
-         host, port, database)
-     conn, err := pgx.Connect(ctx, connString)
-     if err != nil {
-         return err
-     }
-     defer conn.Close(ctx)
-    
-     // Enable non-atomic mode. This makes the COPY operation non-atomic,
-     // and allows it to exceed the Spanner mutation limit.
-     if _, err := conn.Exec(ctx,
-         "set spanner.autocommit_dml_mode='partitioned_non_atomic'"); err != nil {
-         return err
-     }
-     // Instruct PGAdapter to use insert-or-update for COPY statements.
-     // This enables us to use COPY to update data.
-     if _, err := conn.Exec(ctx, "set spanner.copy_upsert=true"); err != nil {
-         return err
-     }
-    
-     // Create a pipe that can be used to write the data manually that we want to copy.
-     reader, writer := io.Pipe()
-     // Write the data to the pipe using a separate goroutine. This allows us to stream the data
-     // to the COPY operation row-by-row.
-     go func() error {
-         for _, record := range []string{"1\t1\t100000\n", "2\t2\t500000\n"} {
-             if _, err := writer.Write([]byte(record)); err != nil {
-                 return err
-             }
-         }
-         if err := writer.Close(); err != nil {
-             return err
-         }
-         return nil
-     }()
-     tag, err := conn.PgConn().CopyFrom(ctx, reader, "COPY albums (singer_id, album_id, marketing_budget) FROM STDIN")
-     if err != nil {
-         return err
-     }
-     fmt.Printf("Updated %v albums\n", tag.RowsAffected())
-    
-     return nil
+    func update(ctx context.Context, w io.Writer, client *spanner.Client) error {
+     cols := []string{"SingerId", "AlbumId", "MarketingBudget"}
+     _, err := client.Apply(ctx, []*spanner.Mutation{
+         spanner.Update("Albums", cols, []interface{}{1, 1, 100000}),
+         spanner.Update("Albums", cols, []interface{}{2, 2, 500000}),
+     })
+     return err
     }
 
 ### Java
@@ -144,42 +98,47 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import java.io.IOException;
-    import java.io.StringReader;
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
-    import org.postgresql.PGConnection;
-    import org.postgresql.copy.CopyManager;
+    static void updateDataWithMutations(
+        final String project,
+        final String instance,
+        final String database,
+        final Properties properties) throws SQLException {
+      try (Connection connection =
+          DriverManager.getConnection(
+              String.format(
+                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+                  project, instance, database),
+              properties)) {
+        // Unwrap the CloudSpannerJdbcConnection interface
+        // from the java.sql.Connection.
+        CloudSpannerJdbcConnection cloudSpannerJdbcConnection =
+            connection.unwrap(CloudSpannerJdbcConnection.class);
     
-    class UpdateDataWithCopy {
-    
-      static void updateDataWithCopy(String host, int port, String database)
-          throws SQLException, IOException {
-        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
-        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
-          // Unwrap the PostgreSQL JDBC connection interface to get access to
-          // a CopyManager.
-          PGConnection pgConnection = connection.unwrap(PGConnection.class);
-          CopyManager copyManager = pgConnection.getCopyAPI();
-    
-          // Enable 'partitioned_non_atomic' mode. This ensures that the COPY operation
-          // will succeed even if it exceeds Spanner's mutation limit per transaction.
-          connection
-              .createStatement()
-              .execute("set spanner.autocommit_dml_mode='partitioned_non_atomic'");
-    
-          // Instruct PGAdapter to use insert-or-update for COPY statements.
-          // This enables us to use COPY to update existing data.
-          connection.createStatement().execute("set spanner.copy_upsert=true");
-    
-          // COPY uses mutations to insert or update existing data in Spanner.
-          long numAlbums =
-              copyManager.copyIn(
-                  "COPY albums (singer_id, album_id, marketing_budget) FROM STDIN",
-                  new StringReader("1\t1\t100000\n" + "2\t2\t500000\n"));
-          System.out.printf("Updated %d albums\n", numAlbums);
-        }
+        final long marketingBudgetAlbum1 = 100000L;
+        final long marketingBudgetAlbum2 = 500000L;
+        // Mutation can be used to update/insert/delete a single row in a table.
+        // Here we use newUpdateBuilder to create update mutations.
+        List<Mutation> mutations =
+            Arrays.asList(
+                Mutation.newUpdateBuilder("Albums")
+                    .set("SingerId")
+                    .to(1)
+                    .set("AlbumId")
+                    .to(1)
+                    .set("MarketingBudget")
+                    .to(marketingBudgetAlbum1)
+                    .build(),
+                Mutation.newUpdateBuilder("Albums")
+                    .set("SingerId")
+                    .to(2)
+                    .set("AlbumId")
+                    .to(2)
+                    .set("MarketingBudget")
+                    .to(marketingBudgetAlbum2)
+                    .build());
+        // This writes all the mutations to Cloud Spanner atomically.
+        cloudSpannerJdbcConnection.write(mutations);
+        System.out.println("Updated albums");
       }
     }
 
@@ -279,26 +238,39 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    function update_data_with_copy(string $host, string $port, string $database): void
+    use Google\Cloud\Spanner\SpannerClient;
+    
+    /**
+     * Updates sample data in the database.
+     *
+     * This updates the `MarketingBudget` column which must be created before
+     * running this sample. You can add the column by running the `add_column`
+     * sample or by running this DDL statement against your database:
+     *
+     *     ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
+     *
+     * Example:
+     * ```
+     * update_data($instanceId, $databaseId);
+     * ```
+     *
+     * @param string $instanceId The Spanner instance ID.
+     * @param string $databaseId The Spanner database ID.
+     */
+    function update_data(string $instanceId, string $databaseId): void
     {
-        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
-        $connection = new PDO($dsn);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
     
-        // Instruct PGAdapter to use insert-or-update for COPY statements.
-        // This enables us to use COPY to update data.
-        $connection->exec("set spanner.copy_upsert=true");
+        $operation = $database->transaction(['singleUse' => true])
+            ->updateBatch('Albums', [
+                ['SingerId' => 1, 'AlbumId' => 1, 'MarketingBudget' => 100000],
+                ['SingerId' => 2, 'AlbumId' => 2, 'MarketingBudget' => 500000],
+            ])
+            ->commit();
     
-        // COPY uses mutations to insert or update existing data in Spanner.
-        $connection->pgsqlCopyFromArray(
-            "albums",
-            ["1\t1\t100000", "2\t2\t500000"],
-            "\t",
-            "\\\\N",
-            "singer_id, album_id, marketing_budget",
-        );
-        print("Updated 2 albums\n");
-    
-        $connection = null;
+        print('Updated data.' . PHP_EOL);
     }
 
 ### Python

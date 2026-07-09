@@ -97,38 +97,23 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-    
-     "github.com/jackc/pgx/v5"
-    )
-    
-    func WriteDataWithDml(host string, port int, database string) error {
-     ctx := context.Background()
-     connString := fmt.Sprintf(
-         "postgres://uid:pwd@%s:%d/%s?sslmode=disable",
-         host, port, database)
-     conn, err := pgx.Connect(ctx, connString)
-     if err != nil {
+    func writeUsingDML(ctx context.Context, w io.Writer, client *spanner.Client) error {
+     _, err := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+         stmt := spanner.Statement{
+             SQL: `INSERT Singers (SingerId, FirstName, LastName) VALUES
+                 (12, 'Melissa', 'Garcia'),
+                 (13, 'Russell', 'Morales'),
+                 (14, 'Jacqueline', 'Long'),
+                 (15, 'Dylan', 'Shaw')`,
+         }
+         rowCount, err := txn.Update(ctx, stmt)
+         if err != nil {
+             return err
+         }
+         fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)
          return err
-     }
-     defer conn.Close(ctx)
-    
-     tag, err := conn.Exec(ctx,
-         "INSERT INTO singers (singer_id, first_name, last_name) "+
-             "VALUES ($1, $2, $3), ($4, $5, $6), "+
-             "       ($7, $8, $9), ($10, $11, $12)",
-         12, "Melissa", "Garcia",
-         13, "Russel", "Morales",
-         14, "Jacqueline", "Long",
-         15, "Dylan", "Shaw")
-     if err != nil {
-         return err
-     }
-     fmt.Printf("%v records inserted\n", tag.RowsAffected())
-    
-     return nil
+     })
+     return err
     }
 
 ### Java
@@ -137,57 +122,44 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.PreparedStatement;
-    import java.sql.SQLException;
-    import java.util.Arrays;
-    import java.util.List;
+    static void writeDataWithDml(
+        final String project,
+        final String instance,
+        final String database,
+        final Properties properties) throws SQLException {
+      try (Connection connection =
+          DriverManager.getConnection(
+              String.format(
+                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+                  project, instance, database),
+              properties)) {
+        // Add 4 rows in one statement.
+        // JDBC always uses '?' as a parameter placeholder.
+        try (PreparedStatement preparedStatement =
+            connection.prepareStatement(
+                "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES "
+                    + "(?, ?, ?), "
+                    + "(?, ?, ?), "
+                    + "(?, ?, ?), "
+                    + "(?, ?, ?)")) {
     
-    class WriteDataWithDml {
-      static class Singer {
-        private final long singerId;
-        private final String firstName;
-        private final String lastName;
+          final ImmutableList<Singer> singers =
+              ImmutableList.of(
+                  new Singer(/* SingerId = */ 12L, "Melissa", "Garcia"),
+                  new Singer(/* SingerId = */ 13L, "Russel", "Morales"),
+                  new Singer(/* SingerId = */ 14L, "Jacqueline", "Long"),
+                  new Singer(/* SingerId = */ 15L, "Dylan", "Shaw"));
     
-        Singer(final long id, final String first, final String last) {
-          this.singerId = id;
-          this.firstName = first;
-          this.lastName = last;
-        }
-      }
-    
-      static void writeDataWithDml(String host, int port, String database) throws SQLException {
-        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
-        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
-          // Add 4 rows in one statement.
-          // JDBC always uses '?' as a parameter placeholder.
-          try (PreparedStatement preparedStatement =
-              connection.prepareStatement(
-                  "INSERT INTO singers (singer_id, first_name, last_name) VALUES "
-                      + "(?, ?, ?), "
-                      + "(?, ?, ?), "
-                      + "(?, ?, ?), "
-                      + "(?, ?, ?)")) {
-    
-            final List<Singer> singers =
-                Arrays.asList(
-                    new Singer(/* SingerId= */ 12L, "Melissa", "Garcia"),
-                    new Singer(/* SingerId= */ 13L, "Russel", "Morales"),
-                    new Singer(/* SingerId= */ 14L, "Jacqueline", "Long"),
-                    new Singer(/* SingerId= */ 15L, "Dylan", "Shaw"));
-    
-            // Note that JDBC parameters start at index 1.
-            int paramIndex = 0;
-            for (Singer singer : singers) {
-              preparedStatement.setLong(++paramIndex, singer.singerId);
-              preparedStatement.setString(++paramIndex, singer.firstName);
-              preparedStatement.setString(++paramIndex, singer.lastName);
-            }
-    
-            int updateCount = preparedStatement.executeUpdate();
-            System.out.printf("%d records inserted.\n", updateCount);
+          // Note that JDBC parameters start at index 1.
+          int paramIndex = 0;
+          for (Singer singer : singers) {
+            preparedStatement.setLong(++paramIndex, singer.singerId);
+            preparedStatement.setString(++paramIndex, singer.firstName);
+            preparedStatement.setString(++paramIndex, singer.lastName);
           }
+    
+          int updateCount = preparedStatement.executeUpdate();
+          System.out.printf("%d records inserted.\n", updateCount);
         }
       }
     }
@@ -271,25 +243,38 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    function write_data_with_dml(string $host, string $port, string $database): void
+    use Google\Cloud\Spanner\SpannerClient;
+    use Google\Cloud\Spanner\Transaction;
+    
+    /**
+     * Inserts sample data into the given database with a DML statement.
+     *
+     * The database and table must already exist and can be created using
+     * `create_database`.
+     * Example:
+     * ```
+     * insert_data($instanceId, $databaseId);
+     * ```
+     *
+     * @param string $instanceId The Spanner instance ID.
+     * @param string $databaseId The Spanner database ID.
+     */
+    function write_data_with_dml(string $instanceId, string $databaseId): void
     {
-        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
-        $connection = new PDO($dsn);
+        $spanner = new SpannerClient();
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
     
-        $sql = "INSERT INTO singers (singer_id, first_name, last_name)"
-                            ." VALUES (?, ?, ?), (?, ?, ?), "
-                            ."        (?, ?, ?), (?, ?, ?)";
-        $statement = $connection->prepare($sql);
-        $statement->execute([
-            12, "Melissa", "Garcia",
-            13, "Russel", "Morales",
-            14, "Jacqueline", "Long",
-            15, "Dylan", "Shaw"
-        ]);
-        printf("%d records inserted\n", $statement->rowCount());
-    
-        $statement = null;
-        $connection = null;
+        $database->runTransaction(function (Transaction $t) {
+            $rowCount = $t->executeUpdate(
+                'INSERT Singers (SingerId, FirstName, LastName) VALUES '
+                . "(12, 'Melissa', 'Garcia'), "
+                . "(13, 'Russell', 'Morales'), "
+                . "(14, 'Jacqueline', 'Long'), "
+                . "(15, 'Dylan', 'Shaw')");
+            $t->commit();
+            printf('Inserted %d row(s).' . PHP_EOL, $rowCount);
+        });
     }
 
 ### Python
