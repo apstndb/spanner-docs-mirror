@@ -52,8 +52,6 @@ To watch a video, click a hyperlinked title or the icon next to a title.
 
 [Video](https://www.youtube.com/watch?v=l91HGuZXouU)
 
-#### Multi-region capabilities of Spanner provide industry-leading availability
-
 ## Customer stories
 
 ### Articles and case studies
@@ -79,18 +77,6 @@ To watch a video, click a hyperlinked title or the icon next to a title.
 #### Spanner & GFT
 
 [Video](https://www.youtube.com/watch?v=0p6MB8_iZr4)
-
-#### Lessons learned at Niantic: how to move live systems to a new database platform
-
-[Video](https://www.youtube.com/watch?v=TaO-GbvBonc)
-
-#### Nest cam services migration to Google Cloud
-
-[Video](https://www.youtube.com/watch?v=W68KMfMT74Q)
-
-#### nexuzhealth: See what's new with Spanner
-
-[Video](https://www.youtube.com/watch?v=dU6ccWrqjpQ)
 
 ### Customer innovations
 
@@ -124,10 +110,6 @@ To watch a video, click a hyperlinked title or the icon next to a title.
 #### Cloud OnAir: Stump the pros: Does Spanner go faster than the speed of light?
 
 [Video](https://www.youtube.com/watch?v=Otpeo5ePw7g)
-
-#### Migrating to Spanner
-
-[Video](https://www.youtube.com/watch?v=bh_8XTb-jy4)
 
 #### Migrating to Spanner: Best practices
 

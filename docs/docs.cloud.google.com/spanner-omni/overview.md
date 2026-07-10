@@ -56,7 +56,7 @@ Spanner Omni uses a hierarchy of regions, zones, and servers to define its deplo
 
   - **Multi-zone (or regional)** - Spanner Omni distributes servers across multiple zones. All the zones are in a single location. For multi-zone deployments, use a minimum of three zones. Each zone must have at least one server. We recommend using three servers in each zone. This deployment configuration offers higher availability than single-zone deployment.
 
-  - **Multi-cluster (or multi-regional)** - Spanner Omni servers reside in multiple zones across multiple clusters. For high availability, use three zones across two or more clusters, and each configure each zone with three or more servers.
+  - **Multi-cluster (or multi-regional)** - Spanner Omni servers reside in multiple zones across multiple clusters. For high availability, use three zones across two or more clusters, and configure each zone with three or more servers.
 
 ## System requirements
 

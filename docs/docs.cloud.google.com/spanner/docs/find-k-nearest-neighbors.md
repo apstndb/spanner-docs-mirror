@@ -8,8 +8,6 @@ data_source: docs.cloud.google.com
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-[Video](https://www.youtube.com/watch?v=TmlC3FejwvU)
-
 This page describes how to perform a vector similarity search in Spanner by using the cosine distance, Euclidean distance, and dot product vector functions to find K-nearest neighbors. This information applies to both GoogleSQL-dialect databases and PostgreSQL-dialect databases. Before you read this page, it's important that you understand the following concepts:
 
   - [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance) : measures the shortest distance between two vectors.

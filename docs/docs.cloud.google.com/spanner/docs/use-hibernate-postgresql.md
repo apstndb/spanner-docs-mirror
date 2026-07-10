@@ -8,43 +8,34 @@ data_source: docs.cloud.google.com
 
 Hibernate is an object-relational mapping tool for the Java programming language. It provides a framework for mapping an object-oriented domain model to a relational database.
 
-You can integrate PostgreSQL-dialect databases with Hibernate using the open source PostgreSQL JDBC Driver. [Hibernate ORM 6.3](https://hibernate.org/orm/) is supported with PostgreSQL-dialect databases.
-
-## Set up PGAdapter
-
-Ensure that PGAdapter is running on the same machine as the application that is using Hibernate.
-
-For more information, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
+You can integrate PostgreSQL-dialect databases with Hibernate using the open source Spanner JDBC driver. [Hibernate ORM 7.4](https://hibernate.org/orm/) is supported with PostgreSQL-dialect databases.
 
 ## Set up Hibernate with PostgreSQL
 
-In your project, add Apache Maven dependencies for the Hibernate ORM core and PostgreSQL JDBC Driver.
+In your Google Cloud project, add Apache Maven dependencies for the Hibernate ORM core and Spanner JDBC driver.
 
     <!-- Hibernate core dependency -->
     <dependency>
       <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>6.3.1.Final</version>
+      <version>7.4.0.Final</version>
     </dependency>
     
-    <!-- Postgresql JDBC driver dependency -->
+    <!-- Spanner JDBC Driver dependency -->
     <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>42.7.1</version>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-spanner-jdbc</artifactId>
+      <version>2.40.0</version>
     </dependency>
 
 ## Set up Hibernate properties
 
-Configure `hibernate.properties` to use the PostgreSQL dialect and PostgreSQL JDBC Driver.
+Configure `hibernate.properties` to use the `SpannerPostgreSQLDialect` , Spanner JDBC driver, and required connection properties in the URL.
 
-    hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-    hibernate.connection.driver_class=org.postgresql.Driver
+    hibernate.dialect=org.hibernate.dialect.SpannerPostgreSQLDialect
+    hibernate.connection.driver_class=com.google.cloud.spanner.jdbc.JdbcDriver
     
-    hibernate.connection.url=jdbc:postgresql://localhost:5432/test-database
-    hibernate.connection.username=pratick
-    
-    hibernate.connection.pool_size=5
+    hibernate.connection.url=jdbc:cloudspanner:/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID?defaultsequencekind=bit_reversed_positive
     
     hibernate.show_sql=true
     hibernate.format_sql=true
@@ -54,13 +45,12 @@ Configure `hibernate.properties` to use the PostgreSQL dialect and PostgreSQL JD
 
 ## Use Hibernate
 
-For more information about the features and recommendations for integrating Hibernate with PostgreSQL-dialect databases, please consult the [reference documentation](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/hibernate/README.md) on GitHub.
+For more information about the features and recommendations for integrating Hibernate with PostgreSQL-dialect databases, please consult the [reference documentation](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/blob/main/README.md) on GitHub.
 
 ## What's next
 
-  - Checkout [code examples](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/hibernate) using Hibernate with PostgreSQL.
-  - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
+  - Learn more about [Spanner JDBC driver](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner-jdbc) .
   - Learn more about [Hibernate ORM](https://hibernate.org/orm/) .
-  - For more information about PostgreSQL JDBC driver connection options, see [PGAdapter - JDBC Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/jdbc.md) in the PGAdapter GitHub repository.
+  - For more information about Spanner JDBC driver connection options, see [JDBC Connection Options](https://github.com/googleapis/google-cloud-java/blob/main/java-spanner-jdbc/documentation/connection_properties.md) in the Google Cloud Java GitHub repository.
   - Learn more about [Integrate Spanner with Hibernate ORM (GoogleSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-hibernate) .
   - See an [overview of drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview) supported for Spanner.

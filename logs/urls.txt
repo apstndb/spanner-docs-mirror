@@ -118,7 +118,7 @@ https://docs.cloud.google.com/spanner-omni/key-terms	2026-07-07T23:41:52Z
 https://docs.cloud.google.com/spanner-omni/maintain-deployment	2026-07-08T04:28:54Z
 https://docs.cloud.google.com/spanner-omni/major-compaction	2026-07-08T04:28:54Z
 https://docs.cloud.google.com/spanner-omni/monitoring-overview	2026-07-08T04:28:54Z
-https://docs.cloud.google.com/spanner-omni/overview	2026-07-08T04:28:54Z
+https://docs.cloud.google.com/spanner-omni/overview	2026-07-09T20:09:24Z
 https://docs.cloud.google.com/spanner-omni/pgadapter	2026-07-08T04:28:54Z
 https://docs.cloud.google.com/spanner-omni/prometheus-alerts	2026-07-08T04:28:54Z
 https://docs.cloud.google.com/spanner-omni/python	2026-07-08T04:28:54Z
@@ -228,7 +228,7 @@ https://docs.cloud.google.com/spanner/docs/emulator	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/encryption-in-transit	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/endpoints	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/error-codes	2026-07-08T04:29:36Z
-https://docs.cloud.google.com/spanner/docs/export	2026-07-09T03:49:50Z
+https://docs.cloud.google.com/spanner/docs/export	2026-07-09T04:55:17Z
 https://docs.cloud.google.com/spanner/docs/fgac-about	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/fgac-change-streams	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/fgac-models	2026-07-08T04:29:36Z
@@ -237,7 +237,7 @@ https://docs.cloud.google.com/spanner/docs/fgac-sequences	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/fgac-system-roles	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database	2026-07-08T04:29:36Z
-https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors	2026-07-08T04:29:36Z
+https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors	2026-07-09T20:09:43Z
 https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/foreign-keys/overview	2026-07-08T04:29:36Z
 https://docs.cloud.google.com/spanner/docs/free-trial-instance	2026-07-08T04:29:36Z
@@ -360,7 +360,7 @@ https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-opera
 https://docs.cloud.google.com/spanner/docs/manage-data-using-console	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/managed-autoscaler	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/manual-data-compaction	2026-07-08T04:28:58Z
-https://docs.cloud.google.com/spanner/docs/media	2026-07-08T04:28:58Z
+https://docs.cloud.google.com/spanner/docs/media	2026-07-09T20:09:02Z
 https://docs.cloud.google.com/spanner/docs/metrics	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/migrate-spanner-pg-to-pg-database	2026-07-08T04:28:58Z
@@ -381,7 +381,7 @@ https://docs.cloud.google.com/spanner/docs/ml-tutorial-generative-ai	2026-07-08T
 https://docs.cloud.google.com/spanner/docs/modify-data	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/modify-gcloud	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/modify-mutation-api	2026-07-08T04:28:58Z
-https://docs.cloud.google.com/spanner/docs/modifying-leader-region	2026-07-09T03:49:50Z
+https://docs.cloud.google.com/spanner/docs/modifying-leader-region	2026-07-09T04:55:17Z
 https://docs.cloud.google.com/spanner/docs/monitor-active-queries	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai	2026-07-08T04:28:58Z
@@ -414,7 +414,7 @@ https://docs.cloud.google.com/spanner/docs/pitr	2026-07-08T04:29:55Z
 https://docs.cloud.google.com/spanner/docs/postgresql-interface	2026-07-08T04:29:55Z
 https://docs.cloud.google.com/spanner/docs/pre-built-tools-with-mcp-toolbox	2026-07-08T04:29:55Z
 https://docs.cloud.google.com/spanner/docs/pre-splitting-overview	2026-07-08T04:29:55Z
-https://docs.cloud.google.com/spanner/docs/prevent-database-deletion	2026-07-09T03:49:50Z
+https://docs.cloud.google.com/spanner/docs/prevent-database-deletion	2026-07-09T04:55:17Z
 https://docs.cloud.google.com/spanner/docs/primary-key-default-value	2026-07-08T04:29:55Z
 https://docs.cloud.google.com/spanner/docs/primary-keys-overview	2026-07-08T04:29:55Z
 https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook	2026-07-08T04:29:55Z
@@ -868,7 +868,7 @@ https://docs.cloud.google.com/spanner/docs/use-golang-database-sql	2026-07-08T04
 https://docs.cloud.google.com/spanner/docs/use-gorm	2026-07-08T04:32:18Z
 https://docs.cloud.google.com/spanner/docs/use-gorm-postgresql	2026-07-08T04:32:18Z
 https://docs.cloud.google.com/spanner/docs/use-hibernate	2026-07-08T04:32:18Z
-https://docs.cloud.google.com/spanner/docs/use-hibernate-postgresql	2026-07-08T04:32:18Z
+https://docs.cloud.google.com/spanner/docs/use-hibernate-postgresql	2026-07-09T17:55:23Z
 https://docs.cloud.google.com/spanner/docs/use-intellij	2026-07-08T04:32:18Z
 https://docs.cloud.google.com/spanner/docs/use-liquibase	2026-07-08T04:32:18Z
 https://docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights	2026-07-08T04:32:18Z
@@ -902,7 +902,7 @@ https://docs.cloud.google.com/spanner/docs/whitepapers	2026-07-08T04:32:18Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query	2026-07-08T04:32:18Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes	2026-07-08T04:32:18Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design	2026-07-08T04:32:18Z
-https://docs.cloud.google.com/spanner/docs/working-with-json	2026-07-09T03:50:19Z
+https://docs.cloud.google.com/spanner/docs/working-with-json	2026-07-09T04:50:48Z
 https://docs.cloud.google.com/spanner/docs/working-with-jsonb	2026-07-09T04:50:48Z
 https://docs.cloud.google.com/spanner/docs/working-with-numerics	2026-07-08T04:32:18Z
 https://docs.cloud.google.com/spanner/docs/write-hibernate-app	2026-07-08T04:32:18Z
