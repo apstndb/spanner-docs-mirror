@@ -75,10 +75,6 @@ Client certificate authentication requires clients to use certificates signed by
 
     spanner databases list --ca-certificate-file PATH_TO_CA_CERT --client-certificate-directory PATH_TO_CLIENT_CERT_DIR
 
-You can also use client certificates to sign in:
-
-    spanner auth login USER_NAME --ca-certificate-file PATH_TO_CA_CERT --client-certificate-directory PATH_TO_CLIENT_CERT_DIR
-
 ## Authorization
 
 Spanner Omni uses most of the same [IAM role and permission names](https://docs.cloud.google.com/spanner/docs/iam) as Spanner. When you create a user, you can assign one or more roles to the user. Each role contains one or more permissions.

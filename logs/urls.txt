@@ -85,7 +85,7 @@ https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run	2026-05-2
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/workload	2026-05-27T16:47:28Z
 https://docs.cloud.google.com/spanner-omni	2026-07-08T04:29:38Z
 https://docs.cloud.google.com/spanner-omni/audit-logs	2026-07-08T04:28:58Z
-https://docs.cloud.google.com/spanner-omni/authentication	2026-07-08T04:28:58Z
+https://docs.cloud.google.com/spanner-omni/authentication	2026-07-10T22:03:17Z
 https://docs.cloud.google.com/spanner-omni/backups	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner-omni/beam	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner-omni/cassandra-proxy	2026-07-08T04:28:58Z
@@ -361,7 +361,7 @@ https://docs.cloud.google.com/spanner/docs/manage-data-using-console	2026-07-08T
 https://docs.cloud.google.com/spanner/docs/managed-autoscaler	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/manual-data-compaction	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/media	2026-07-09T20:09:02Z
-https://docs.cloud.google.com/spanner/docs/metrics	2026-07-08T04:28:58Z
+https://docs.cloud.google.com/spanner/docs/metrics	2026-07-10T18:44:11Z
 https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/migrate-spanner-pg-to-pg-database	2026-07-08T04:28:58Z
 https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner	2026-07-08T04:28:58Z
@@ -837,7 +837,7 @@ https://docs.cloud.google.com/spanner/docs/signal-capture-overview	2026-07-08T04
 https://docs.cloud.google.com/spanner/docs/spanner-ai-overview	2026-07-08T04:29:16Z
 https://docs.cloud.google.com/spanner/docs/spanner-cli	2026-07-08T04:29:16Z
 https://docs.cloud.google.com/spanner/docs/spanner-cli-commands	2026-07-08T04:29:16Z
-https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints	2026-07-07T15:22:58Z
+https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints	2026-07-10T11:10:08Z
 https://docs.cloud.google.com/spanner/docs/sql-best-practices	2026-07-08T04:29:16Z
 https://docs.cloud.google.com/spanner/docs/statement-timeout	2026-07-08T04:29:16Z
 https://docs.cloud.google.com/spanner/docs/storage-utilization	2026-07-08T04:29:16Z
