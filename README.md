@@ -12,6 +12,11 @@ For detailed stats and sync info, see [metadata.yaml](./metadata.yaml).
 - **API Reference**: REST and RPC definitions.
 - **gcloud CLI**: Full command reference for Spanner (including alpha/beta).
 - **Code Samples**: Extensive collection of Spanner code samples across multiple languages.
+- **Product & Pricing**: The separate `cloud.google.com/spanner` product document, including pricing tables exposed by the Developer Knowledge API.
+
+The Developer Knowledge API treats `docs.cloud.google.com` and `cloud.google.com` as distinct corpora. This mirror preserves both hostnames; legacy `cloud.google.com/spanner/docs` links are resolved through their web redirect to `docs.cloud.google.com`.
+
+The product-page seed requires `gcp-docs-mirror-tools` newer than v0.2.9 and becomes active when the workflow's `TOOL_VERSION` is bumped.
 
 This mirror was generated using the [gcp-docs-mirror-tools](https://github.com/apstndb/gcp-docs-mirror-tools).
 
