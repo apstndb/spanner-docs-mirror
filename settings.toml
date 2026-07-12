@@ -2,10 +2,11 @@
 
 # Discovery entry points
 seeds = [
-    "https://cloud.google.com/spanner/docs",
-    "https://cloud.google.com/sdk/gcloud/reference/spanner",
-    "https://cloud.google.com/spanner/docs/samples/spanner-add-column",
-    "https://docs.cloud.google.com/spanner-omni/overview"
+    "https://docs.cloud.google.com/spanner/docs",
+    "https://docs.cloud.google.com/sdk/gcloud/reference/spanner",
+    "https://docs.cloud.google.com/spanner/docs/samples/spanner-add-column",
+    "https://docs.cloud.google.com/spanner-omni/overview",
+    "https://cloud.google.com/spanner",
 ]
 
 # Sitemap URL(s) to discover links
@@ -13,11 +14,16 @@ seeds = [
 
 # Path prefixes to mirror
 prefixes = [
-    "/spanner/",
-    "/spanner-omni/",
-    "/sdk/gcloud/reference/spanner/",
-    "/sdk/gcloud/reference/alpha/spanner/",
-    "/sdk/gcloud/reference/beta/spanner/"
+    "docs.cloud.google.com/spanner/",
+    "docs.cloud.google.com/spanner-omni/",
+    "docs.cloud.google.com/sdk/gcloud/reference/spanner/",
+    "docs.cloud.google.com/sdk/gcloud/reference/alpha/spanner/",
+    "docs.cloud.google.com/sdk/gcloud/reference/beta/spanner/",
+    # Legacy documentation links are retained narrowly for redirect recovery.
+    "cloud.google.com/spanner/docs/",
+    "cloud.google.com/sdk/gcloud/reference/spanner/",
+    "cloud.google.com/sdk/gcloud/reference/alpha/spanner/",
+    "cloud.google.com/sdk/gcloud/reference/beta/spanner/",
 ]
 
 # Recursive discovery from Markdown content
