@@ -91,7 +91,7 @@ If you don't set a leader region, your placement uses the default leader region 
     ### GoogleSQL
     
         CREATE PLACEMENT `nam8placement`
-          OPTIONS (instance_partition="nam8-partition", default_leader="us-west1");
+          OPTIONS (instance_partition="nam8-partition", default_leader=&quot;us-west1");
     
     ### PostgreSQL
     

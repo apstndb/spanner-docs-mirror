@@ -24,6 +24,12 @@ Feature
 
 Spanner supports [direct connectivity](https://docs.cloud.google.com/spanner/docs/latency-points#direct_connectivity) . When enabled, your application traffic is routed directly to Spanner servers, bypassing the Google Front End (GFE) servers. This can reduce your overall latency. Direct connectivity is [generally available (GA)](https://docs.cloud.google.com/products#product-launch-stages) .
 
+## June 15, 2026
+
+Feature
+
+You can publish a [Spanner conversational analytics agent in Gemini Enterprise](https://docs.cloud.google.com/gemini/data-agents/conversational-analytics/spanner/create-data-agents#publish-agent-gemini-enterprise) . This feature is in [Preview](https://cloud.google.com/products/#product-launch-stages) .
+
 ## May 27, 2026
 
 Feature
