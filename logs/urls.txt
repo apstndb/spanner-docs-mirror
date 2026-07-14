@@ -88,14 +88,14 @@ https://docs.cloud.google.com/spanner-omni	2026-07-11T18:43:33Z
 https://docs.cloud.google.com/spanner-omni/audit-logs	2026-07-11T18:43:25Z
 https://docs.cloud.google.com/spanner-omni/authentication	2026-07-10T22:03:17Z
 https://docs.cloud.google.com/spanner-omni/backups	2026-07-11T18:43:25Z
-https://docs.cloud.google.com/spanner-omni/beam	2026-07-11T18:43:25Z
+https://docs.cloud.google.com/spanner-omni/beam	2026-07-13T16:18:52Z
 https://docs.cloud.google.com/spanner-omni/cassandra-proxy	2026-07-11T18:43:25Z
 https://docs.cloud.google.com/spanner-omni/cli-quickstart	2026-07-11T18:43:25Z
 https://docs.cloud.google.com/spanner-omni/client-library-overview	2026-07-11T18:43:25Z
 https://docs.cloud.google.com/spanner-omni/create-helm-configuration	2026-07-11T18:43:25Z
 https://docs.cloud.google.com/spanner-omni/create-split-points	2026-07-11T18:43:25Z
 https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes	2026-07-11T18:43:21Z
-https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms	2026-07-11T18:43:21Z
+https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms	2026-07-13T16:22:32Z
 https://docs.cloud.google.com/spanner-omni/deploy-multi-cluster-on-kubernetes	2026-07-11T18:43:21Z
 https://docs.cloud.google.com/spanner-omni/deploy-on-kubernetes	2026-07-11T18:43:21Z
 https://docs.cloud.google.com/spanner-omni/deploy-on-vms	2026-07-11T18:43:21Z

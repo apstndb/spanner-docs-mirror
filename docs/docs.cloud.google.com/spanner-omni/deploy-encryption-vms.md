@@ -173,9 +173,11 @@ With the servers now running on each machine, you are ready to create the deploy
 
 ## Step 5: Create a deployment with TLS encryption
 
-Run the `spanner deployment create` command from one of the root servers:
+Run the `spanner deployment create` command from one of the root servers to create the deployment. To enable TLS encryption, specify the base directory with the `--base-dir` flag. Ensure that you use the same BASE\_DIR that you specified when starting the root server in the previous step.
 
-    spanner deployment create --config-file=deployment.yaml
+    spanner deployment create \
+        --config-file=deployment.yaml \
+        --base-dir=BASE_DIR
 
 The console for each machine shows messages indicating that the deployment now includes TLS encryption. All servers communicate with each other over an encrypted channel.
 
