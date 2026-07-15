@@ -666,7 +666,7 @@ Defines a new table.
 
 `  vector_length  `
 
-  - `vector_length` sets an array column to a fixed size for use in a vector search. The value must be an integer greater than or equal to zero. You can only use this parameter with an array that uses the `FLOAT32` or `FLOAT64` data types. That is, `ARRAY<FLOAT32> (vector_length=>INT)` or `ARRAY<FLOAT64> (vector_length=>INT)` . It isn't supported for a `DEFAULT` or generated column.
+  - `vector_length` sets an array column to a fixed size for use in a vector search. The value must be an integer greater than or equal to zero. You can only use this parameter with an array that uses the `FLOAT32` or `FLOAT64` data types. That is, `ARRAY<FLOAT32> (vector_length=>INT)` or `ARRAY<FLOAT64> (vector_length=>INT)` . It isn't supported for non-stored generated columns.
 
 `  timestamp_column  `
 
@@ -1086,7 +1086,7 @@ Changes the definition of a table.
     
       - The `AS` clause is used to [Modify a generated column expression](https://docs.cloud.google.com/spanner/docs/generated-column/how-to#modify-generated-column) .
     
-      - `ARRAY (vector_length=> vector_length_value )` : You can use this clause to update the vector length of an array column for vector embeddings. The value of the vector length annotation indicates the dimension of the vectors in the column. The value must be an integer greater than or equal to zero. You can only use this parameter with an array that uses the `FLOAT32` or `FLOAT64` data types. That is, `ARRAY<FLOAT32> (vector_length=>INT)` or `ARRAY<FLOAT64> (vector_length=>INT)` . All values in the column must have the same array dimensions as defined by `vector_length` . It isn't supported for a `DEFAULT` or generated column.
+      - `ARRAY (vector_length=> vector_length_value )` : You can use this clause to update the vector length of an array column for vector embeddings. The value of the vector length annotation indicates the dimension of the vectors in the column. The value must be an integer greater than or equal to zero. You can only use this parameter with an array that uses the `FLOAT32` or `FLOAT64` data types. That is, `ARRAY<FLOAT32> (vector_length=>INT)` or `ARRAY<FLOAT64> (vector_length=>INT)` . All values in the column must have the same array dimensions as defined by `vector_length` . It isn't supported for non-stored generated columns.
 
   - `SET OPTIONS` `( column_options_def )`
     
