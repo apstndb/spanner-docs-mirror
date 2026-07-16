@@ -501,3 +501,15 @@ Replace the following:
   - `  INSTANCE_NAME  ` : your Spanner instance name.
   - `  DATABASE_NAME  ` : your Spanner database name.
   - `  DIALECT_NAME  ` : your Spanner SQL dialect. Accepts `googlesql` or `postgresql` . If you don't specify a dialect, the default is `googlesql` .
+
+## Connect to Spanner in VS Code using the Data Agent Kit extension
+
+> **Preview**
+> 
+> This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
+
+The Google Cloud Data Agent Kit extension lets you manage your Spanner database and execute queries against your Spanner data in your preferred IDE. Visual Studio Code and all IDEs that are based on VS Code are supported.
+
+This extension provides data discovery and exploration capabilities, letting you ask questions about your Spanner data in natural language. It helps eliminate context switching between Spanner command-line tools and your development environment. Data Agent Kit also provides CLI plugins to use with your Google Cloud resources.
+
+For more information, see [Data Agent Kit extension for VS Code overview](https://docs.cloud.google.com/data-cloud-extension/vs-code/overview) .
