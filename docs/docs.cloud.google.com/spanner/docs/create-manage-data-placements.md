@@ -6,19 +6,52 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-> **Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
-> 
-> This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
-
 > **Note:** This feature is available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 This page describes how to create and manage data placements in Spanner.
 
 For more information about how geo-partitioning works, see the [Geo-partitioning overview](https://docs.cloud.google.com/spanner/docs/geo-partitioning) .
 
+## Manage routing metadata
+
+When your application needs to read or write data, Spanner uses routing metadata to find which servers hold the specific rows needed.
+
+Choosing where routing metadata resides depends on whether most client requests are for data within the same region or outside the region, and whether you use a multi-region configuration. Routing metadata settings affect latency and can't be changed after you create placements.
+
+The `per_placement_routing_metadata` option determines where routing metadata resides according to the following settings:
+
+  - `TRUE` : If set to `TRUE` , then routing metadata resides in the same instance partition as the data. Routing metadata is sharded by region. This reduces latency for in-region data requests (that is, the client and the user data requested are in the same region) so that Spanner doesn't have to make out-of-region calls for routing metadata. However, this setting might increase latency for out-of-region requests, for negative lookups where placement rows don't exist, and for queries that need a [global index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#global-index) .
+    
+    We recommend this setting if you expect most requests to be made for user data within the same region as the client, and your default partition does not have read-write or read-only regions that are colocated with all your instance partitions.
+
+  - `FALSE` : Routing metadata is centralized in the default partition.
+    
+    We recommend this setting if you expect clients to frequently look up out-of-region data; for example, a client in the EU region looking up data for users in the US.
+    
+    Also consider this setting if your default instance partition uses a multi-region configuration that provides read-write or read-only regions that are colocated with all your instance partitions. With this setting, a replica of the full routing metadata is stored with every replica of the default instance partition. Therefore all regions with instance partitions have a replica of the routing metadata. This lets both in-region and out-of-region requests look up routing metadata locally.
+
+> **Note:** Prior to July 2026, the default value was `FALSE` . As of July 2026, the default is `TRUE` . You might see different latency results between databases created before and after the default value change. We recommend that you set this option explicitly to avoid unexpected changes.
+
+### Set the `per_placement_routing_metadata` option
+
+> **Note:** Setting this option fails if there are already existing data placements.
+
+To set `per_placement_routing_metadata` in the Google Cloud console, update this option in your database schema. For information about how to update a schema, see [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+
+The `per_placement_routing_metadata` option accepts boolean values. If this option is `TRUE` , then routing metadata resides in the same instance partition as the data. If `FALSE` , then routing metadata resides in the default instance partition.
+
+The following example shows a GoogleSQL `ALTER DATABASE` command to set this option:
+
+    ALTER DATABASE DATABASE_NAME SET OPTIONS ( per_placement_routing_metadata = METADATA_BOOLEAN)
+
+Replace the following:
+
+  - `  DATABASE_NAME  ` : the name of your database.
+  - `  METADATA_BOOLEAN  ` : the `per_placement_routing_metadata` value. If `TRUE` , then routing metadata resides in the same instance partition as the data. If `FALSE` , then routing metadata resides in the default instance partition.
+
 ## Create a data placement
 
-After you [create your Spanner instance partitions](https://docs.cloud.google.com/spanner/docs/create-manage-partitions) and [databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases) , create your placement.
+After you [create your Spanner instance partitions](https://docs.cloud.google.com/spanner/docs/create-manage-partitions) and [databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases) and set the `per_placement_routing_metadata` option, create your placement.
 
 ### Console
 
@@ -68,9 +101,9 @@ For example, create a placement in the instance partition `europe-partition` :
 
 ### Set the default leader for a placement
 
-You can set the default leader region of a placement if its location is in a dual-region or multi-region. The new leader region must be one of the two read-write regions within the dual-region or multi-region placement location. For more information, see the [Dual-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) and [Multi-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) tables.
+You can set the default leader region of a placement if its location is in a multi-region. The new leader region must be one of the two read-write regions within the multi-region placement location. For more information, [Multi-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) tables.
 
-If you don't set a leader region, your placement uses the default leader region as specified by its location. For a list of the leader region for each dual-region or multi-region location, see the [Dual-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) and [Multi-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) tables. The default leader region is denoted with an *L* . For example, the default leader region of `nam8` is in Los Angeles( `us-west2` ). The following instructions explain how to set it to Oregon( `us-west1` ).
+If you don't set a leader region, your placement uses the default leader region as specified by its location. For a list of the leader region for each multi-region location, see the [Multi-region available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) tables. The default leader region is denoted with an *L* . For example, the default leader region of `nam8` is in Los Angeles( `us-west2` ). The following instructions explain how to set it to Oregon( `us-west1` ).
 
 ### Console
 
@@ -91,7 +124,7 @@ If you don't set a leader region, your placement uses the default leader region 
     ### GoogleSQL
     
         CREATE PLACEMENT `nam8placement`
-          OPTIONS (instance_partition="nam8-partition", default_leader=&quot;us-west1");
+          OPTIONS (instance_partition="nam8-partition", default_leader="us-west1");
     
     ### PostgreSQL
     
@@ -154,7 +187,7 @@ For example, drop placement `europeplacement` :
 
 ### Drop placement errors
 
-If the placement is in use, then the `DROP PLACEMENT` operation fails with an error message such as: "Statement failed: Placement PLACEMENT\_NAME cannot be dropped because it is in use by placement table PLACEMENT\_TABLE\_NAME .". If you encounter this error, do the following:
+If the placement is in use, then the `DROP PLACEMENT` operation fails with an error message such as: "Statement failed: Placement PLACEMENT\_NAME can't be dropped because it is in use by placement table PLACEMENT\_TABLE\_NAME .". If you encounter this error, complete the following steps:
 
 1.  Modify your application to stop inserting or updating rows with the placement you want to drop.
 
