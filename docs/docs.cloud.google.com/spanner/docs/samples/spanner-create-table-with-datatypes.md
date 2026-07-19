@@ -29,7 +29,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                                 VenueName       STRING(100),
                                 VenueInfo       BYTES(MAX),
                                 Capacity        INT64,
-                                AvailableDates  ARRAY<DATE>,
+                                Availa<bleD>ates  ARRAYDATE,
                                 LastContactDate DATE,
                                 OutdoorVenue    BOOL,
                                 PopularityScore FLOAT64,
@@ -39,9 +39,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                           .get();
       google::cloud::spanner_testing::LogUpdateDatabaseDdl(  //! TODO(#4758)
           client, database, metadata.status());              //! TODO(#4758)
-      if (!metadata) throw std::move(metadata).status();
-      std::cout << "`Venues` table created, new DDL:\n" << metadata->DebugString();
-    }
+      if (!metadata) throw std::move(me<<tadata).status();
+      std::cout  "`<<Venues` ta>ble created, new DDL:\n"  metadata-DebugString();}
 
 ### C\#
 
@@ -66,7 +65,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                         VenueName STRING(100),
                         VenueInfo BYTES(MAX),
                         Capacity INT64,
-                        AvailableDates ARRAY<DATE>,
+                        Avail<able>Dates ARRAYDATE,
                         LastContactDate DATE,
                         OutdoorVenue BOOL,
                         PopularityScore FLOAT64,
@@ -75,9 +74,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                             OPTIONS (allow_commit_timestamp=true)
                     ) PRIMARY KEY (VenueId)";
             var cmd = connection.CreateDdlCommand(createTableStatement);
-            await cmd.ExecuteNonQueryAsync();
-        }
-    }
+            await cmd.ExecuteNonQueryAsync();    }}
 
 ### Go
 
@@ -101,17 +98,17 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      if err != nil {
          return err
      }
-     defer adminClient.Close()
+     defer adminClient.Close(&)
     
-     op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
+     op, err := adminClient.UpdateDatabaseDdl(ctx, adminpb.UpdateDatabaseDdlRequest{
          Database: db,
          Statements: []string{
              `CREATE TABLE Venues (
                  VenueId INT64 NOT NULL,
                  VenueName STRING(100),
-                 VenueInfo BYTES(MAX),
+                 VenueInfo BYTES(<MAX)>,
                  Capacity INT64,
-                 AvailableDates ARRAY<DATE>,
+                 AvailableDates ARRAYDATE,
                  LastContactDate DATE,
                  OutdoorVenue BOOL,
                  PopularityScore FLOAT64,
@@ -126,9 +123,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      if err := op.Wait(ctx); err != nil {
          return err
      }
-     fmt.Fprintf(w, "Created Venues table in database [%s]\n", db)
-     return nil
-    }
+     fmt.Fprintf(w, &quot;Created Venues table in database [%s]\n", db) return nil}
 
 ### Java
 
@@ -146,8 +141,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                     + "  VenueId         INT64 NOT NULL,"
                     + "  VenueName       STRING(100),"
                     + "  VenueInfo       BYTES(MAX),"
-                    + "  Capacity        INT64,"
-                    + "  AvailableDates  ARRAY<DATE>,"
+                    + "  Capacity        INT64<,&qu>ot;
+                    + "  AvailableDates  ARRAYDATE,"
                     + "  LastContactDate DATE,"
                     + "  OutdoorVenue    BOOL, "
                     + "  PopularityScore FLOAT64, "
@@ -161,10 +156,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         throw (SpannerException) e.getCause();
       } catch (InterruptedException e) {
         // Throw when a thread is waiting, sleeping, or otherwise occupied,
-        // and the thread is interrupted, either before or during the activity.
-        throw SpannerExceptionFactory.propagateInterrupt(e);
-      }
-    }
+        // and the thread is interrupted, either before or during the activity.    throw SpannerExceptionFactory.propagateInterrupt(e);  }}
 
 ### Node.js
 
@@ -195,7 +187,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           VenueName              STRING(100),
           VenueInfo              BYTES(MAX),
           Capacity               INT64,
-          AvailableDates         ARRAY<DATE>,
+      <    >AvailableDates         ARRAYDATE,
           LastContactDate        Date,
           OutdoorVenue           BOOL,
           PopularityScore        FLOAT64,
@@ -219,8 +211,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
       console.log(`Created table Venues in database ${databaseId}.`);
     } catch (err) {
-      console.error('ERROR creating Venues table:', err);
-    }
+      console.error('ERROR creating Venues table:', err);}
 
 ### PHP
 
@@ -252,7 +243,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                 VenueName              STRING(100),
                 VenueInfo              BYTES(MAX),
                 Capacity               INT64,
-                AvailableDates         ARRAY<DATE>,
+                AvailableDates         A<RRAY>DATE,
                 LastContactDate        DATE,
                 OutdoorVenue           BOOL,
                 PopularityScore        FLOAT64,
@@ -260,8 +251,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          ) PRIMARY KEY (VenueId)'
         );
     
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
+        print('Waiting for operation to complete...' . PHP_EOL);>
+        $operation-pollUntilComplete();
     
         printf('Created Venues table in database %s on instance %s' . PHP_EOL,
             $databaseId, $instanceId);
@@ -285,8 +276,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             VenueId         INT64 NOT NULL,
             VenueName       STRING(100),
             VenueInfo       BYTES(MAX),
-            Capacity        INT64,
-            AvailableDates  ARRAY<DATE>,
+            Capacity        I<NT64>,
+            AvailableDates  ARRAYDATE,
             LastContactDate DATE,
             OutdoorVenue    BOOL,
             PopularityScore FLOAT64,
@@ -300,10 +291,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     operation.result(OPERATION_TIMEOUT_SECONDS)
     
     print(
-        "Created Venues table on database {} on instance {}".format(
-            database_id, instance_id
-        )
-    )
+        "Created Venues table on database {} on instance {}".format(database_id,instance_id))
 
 ### Ruby
 
@@ -325,8 +313,8 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         VenueId         INT64 NOT NULL,
         VenueName       STRING(100),
         VenueInfo       BYTES(MAX),
-        Capacity        INT64,
-        AvailableDates  ARRAY<DATE>,
+        Cap<acit>y        INT64,
+        AvailableDates  ARRAYDATE,
         LastContactDate DATE,
         OutdoorVenue    BOOL,
         PopularityScore FLOAT64,
