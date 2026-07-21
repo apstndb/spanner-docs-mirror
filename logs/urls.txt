@@ -863,12 +863,12 @@ https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer	2026-07-19
 https://docs.cloud.google.com/spanner/docs/use-active-record	2026-07-19T09:43:44Z
 https://docs.cloud.google.com/spanner/docs/use-ado-net	2026-07-19T09:43:44Z
 https://docs.cloud.google.com/spanner/docs/use-cmek	2026-07-19T09:43:44Z
-https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp	2026-07-19T09:43:44Z
+https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp	2026-07-20T20:10:48Z
 https://docs.cloud.google.com/spanner/docs/use-entity-framework	2026-07-19T09:43:49Z
 https://docs.cloud.google.com/spanner/docs/use-golang-database-sql	2026-07-19T09:43:49Z
 https://docs.cloud.google.com/spanner/docs/use-gorm	2026-07-19T09:43:49Z
 https://docs.cloud.google.com/spanner/docs/use-gorm-postgresql	2026-07-19T09:43:49Z
-https://docs.cloud.google.com/spanner/docs/use-hibernate	2026-07-19T09:43:49Z
+https://docs.cloud.google.com/spanner/docs/use-hibernate	2026-07-21T06:50:52Z
 https://docs.cloud.google.com/spanner/docs/use-hibernate-postgresql	2026-07-19T09:43:49Z
 https://docs.cloud.google.com/spanner/docs/use-intellij	2026-07-19T09:43:49Z
 https://docs.cloud.google.com/spanner/docs/use-liquibase	2026-07-19T09:43:49Z
@@ -882,7 +882,7 @@ https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation	2026-07
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read	2026-07-19T09:43:49Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable	2026-07-19T09:43:49Z
 https://docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema	2026-07-19T09:43:49Z
-https://docs.cloud.google.com/spanner/docs/use-spanner-mcp	2026-07-19T09:43:49Z
+https://docs.cloud.google.com/spanner/docs/use-spanner-mcp	2026-07-20T20:10:48Z
 https://docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-googlesql	2026-07-19T09:43:49Z
 https://docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-postgresql	2026-07-19T09:43:49Z
 https://docs.cloud.google.com/spanner/docs/use-spring-data-jpa	2026-07-19T09:43:49Z
