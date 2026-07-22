@@ -115,7 +115,7 @@ Changes the definition of a database.
     
         {
             spanner.default_leader { TO | = } { 'region' | DEFAULT }
-            | spanner.optimizer_version { TO | = } { 1 ... 8 | DEFAULT }
+            | spanner.optimizer_version { TO | = } { 1 ... 9 | DEFAULT }
             | spanner.optimizer_statistics_package { TO | = } { 'package_name' | DEFAULT }
             | spanner.version_retention_period { TO | = } { 'duration' | DEFAULT }
             | spanner.default_sequence_kind { TO | = } { 'bit_reversed_positive' | DEFAULT }
@@ -143,7 +143,7 @@ Changes the definition of a database.
 
   - This configuration parameter lets you specify the leader for your database. The only regions eligible to become the leader region for your database are the read-write regions in the [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) configuration. Use `DEFAULT` to choose the default leader region of the base instance configuration. For more information about leader regions and voting replicas, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
 
-`spanner.optimizer_version { TO | = } { 1 ... 8 | DEFAULT }`
+`spanner.optimizer_version { TO | = } { 1 ... 9 | DEFAULT }`
 
   - This configuration parameter lets you specify the query optimizer version to use. Use `DEFAULT` for the current default version, as listed in [Query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) .
 

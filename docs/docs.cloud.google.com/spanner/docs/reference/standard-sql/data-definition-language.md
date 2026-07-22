@@ -339,7 +339,7 @@ Changes the definition of a database.
     
     and options_def is:
         { default_leader = { 'region' | null } |
-          optimizer_version = { 1 ... 8 | null } |
+          optimizer_version = { 1 ... 9 | null } |
           optimizer_statistics_package = { 'package_name' | null } |
           version_retention_period = { 'duration' | null } |
           default_sequence_kind = { 'bit_reversed_positive' | null } |
@@ -363,7 +363,7 @@ Changes the definition of a database.
 
 `  options_def  `
 
-  - The `optimizer_version = { 1 ... 8 | null }` option lets you specify the query optimizer version to use. Setting this option to `null` is equivalent to setting it to the default version. For more information, see [Query Optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) .
+  - The `optimizer_version = { 1 ... 9 | null }` option lets you specify the query optimizer version to use. Setting this option to `null` is equivalent to setting it to the default version. For more information, see [Query Optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) .
 
   - The `optimizer_statistics_package = { ' package_name ' | null }` option lets you specify the query optimizer statistics package name to use. By default, this is the latest collected statistics package, but you can specify any available statistics package version. Setting this option to `null` is equivalent to setting it to the latest version. For more information, see [Query statistics package versioning](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer) .
 

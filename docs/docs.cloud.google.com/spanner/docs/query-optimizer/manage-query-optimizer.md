@@ -30,7 +30,7 @@ Spanner stores information about the available optimizer versions and statistics
 
 ### Optimizer versions
 
-The query optimizer version is an integer value, incremented by 1 with each update. The latest version of the query optimizer is **8** .
+The query optimizer version is an integer value, incremented by 1 with each update. The latest version of the query optimizer is **9** .
 
 Execute the following SQL statement to return a list of all supported optimizer versions, along with their corresponding release dates and whether that version is the default. The largest version number returned is the latest supported version of the optimizer.
 
@@ -91,7 +91,7 @@ To set the default optimizer version on a database, use the following [`ALTER DA
 ### GoogleSQL
 
     ALTER DATABASE MyDatabase
-    SET OPTIONS (optimizer_version =  8);
+    SET OPTIONS (optimizer_version =  9);
 
 ### PostgreSQL
 
@@ -114,7 +114,7 @@ You can also set more than one option at the same time, as shown in the followin
 ### GoogleSQL
 
     ALTER DATABASE MyDatabase
-    SET OPTIONS (optimizer_version = 8,
+    SET OPTIONS (optimizer_version = 9,
                 optimizer_statistics_package = "auto_20191128_14_47_22UTC");
 
 You can run `ALTER DATABASE` in gcloud CLI with the [`gcloud CLI databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command as follows.
@@ -122,12 +122,12 @@ You can run `ALTER DATABASE` in gcloud CLI with the [`gcloud CLI databases ddl u
 ### GoogleSQL
 
     gcloud spanner databases ddl update MyDatabase --instance=test-instance \
-        --ddl='ALTER DATABASE MyDatabase SET OPTIONS ( optimizer_version = 8 )'
+        --ddl='ALTER DATABASE MyDatabase SET OPTIONS ( optimizer_version = 9 )'
 
 ### PostgreSQL
 
     gcloud spanner databases ddl update MyDatabase --instance=test-instance \
-      --ddl='ALTER DATABASE MyDatabase SET spanner.optimizer_version = 8'
+      --ddl='ALTER DATABASE MyDatabase SET spanner.optimizer_version = 9'
 
 Setting a database option to `NULL` (in GoogleSQL) or `DEFAULT` (in PostgreSQL) clears it so that the default value is used.
 
@@ -166,11 +166,11 @@ The `OPTIMIZER_VERSION` hint has the highest optimizer version precedence. If th
 
 ### GoogleSQL
 
-    @{OPTIMIZER_VERSION=8} SELECT * FROM MyTable;
+    @{OPTIMIZER_VERSION=9} SELECT * FROM MyTable;
 
 ### PostgreSQL
 
-    /*@OPTIMIZER_VERSION=8*/ SELECT * FROM MyTable;
+    /*@OPTIMIZER_VERSION=9*/ SELECT * FROM MyTable;
 
 You can also use the **latest\_version** literal to set the optimizer version for a query to the latest version as shown here.
 
@@ -505,12 +505,12 @@ To make it easier to try different optimizer settings without having to recompil
 
 ### Linux / macOS
 
-    export SPANNER_OPTIMIZER_VERSION="8"
+    export SPANNER_OPTIMIZER_VERSION="9"
     export SPANNER_OPTIMIZER_STATISTICS_PACKAGE="auto_20191128_14_47_22UTC"
 
 ### Windows
 
-    set SPANNER_OPTIMIZER_VERSION="8"
+    set SPANNER_OPTIMIZER_VERSION="9"
       set SPANNER_OPTIMIZER_STATISTICS_PACKAGE="auto_20191128_14_47_22UTC"
 
 The specified query optimizer options values are read and stored in the client instance at client initialization time and apply to all queries run throughout the lifetime of the client.
@@ -890,9 +890,9 @@ For more details on using the open source driver, see [Using the open source JDB
 
 ## How invalid optimizer versions are handled
 
-Spanner supports a [range](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-optimizer-versions) of optimizer versions. This range changes over time when the query optimizer is updated. If the version you specify is out of range, the query fails. For example, if you attempt to run a query with the statement hint `@{OPTIMIZER_VERSION=9}` , but the most recent optimizer version number is only `8` , Spanner responds with this error message:
+Spanner supports a [range](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-optimizer-versions) of optimizer versions. This range changes over time when the query optimizer is updated. If the version you specify is out of range, the query fails. For example, if you attempt to run a query with the statement hint `@{OPTIMIZER_VERSION=10}` , but the most recent optimizer version number is only `9` , Spanner responds with this error message:
 
-`Query optimizer version: 9 is not supported`
+`Query optimizer version: 10 is not supported`
 
 ### Handle an invalid optimizer statistics package setting
 
@@ -909,7 +909,7 @@ The optimizer version used for a query is visible through the Google Cloud conso
 
 To view the optimizer version used for a query, run your query in the **Spanner Studio** page of the Google Cloud console, and then select the **Explanation** tab. You should see a message similar to the following:
 
-Query optimizer version: 8
+Query optimizer version: 9
 
 ### gcloud CLI
 

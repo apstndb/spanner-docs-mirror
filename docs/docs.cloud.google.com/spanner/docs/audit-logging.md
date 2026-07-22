@@ -907,12 +907,20 @@ For example, the following is an audit log that contains `processingDurationSeco
           "session": "projects/example-project/instances/example-instance/databases/example-database/sessions/example-session"
         },
         "response": {
-          "@type": "type.googleapis.com/google.spanner.v1.CommitResponse&quot;,
+          "@type": "type.googleapis.com/google.spanner.v1.CommitResponse",
           "commitTimestamp": "2023-02-13T17:11:10.106602Z"
         },
         "metadata": {
           "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata",
           "processingDurationSeconds": 0.1932541
-        }  },  "insertId": "p9ju4gdi7j0",  "resource": {...},  "timestamp": "2023-02-13T17:11:10.000093953Z",  "severity": "INFO",  "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",  "receiveTimestamp": "2023-02-13T17:11:11.170517524Z"}
+        }
+      },
+      "insertId": "p9ju4gdi7j0",
+      "resource": {...},
+      "timestamp": "2023-02-13T17:11:10.000093953Z",
+      "severity": "INFO",
+      "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
+      "receiveTimestamp": "2023-02-13T17:11:11.170517524Z"
+    }
 
 For `ExecuteStreamingSql` , `StreamingRead` , `PartitionRead` or `PartitionQuery` requests, the `processingDurationSeconds` field is not set. To calculate the streaming and partition request latency, see [Calculate streaming and partition request latency](https://docs.cloud.google.com/spanner/docs/audit-logging-request-latency-guide) .

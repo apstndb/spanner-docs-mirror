@@ -16,7 +16,41 @@ You can manage the query optimizer version that your queries use for GoogleSQL-d
 
 The following is a summary of the updates made to the query optimizer in each release.
 
-### Version 8: October 28th, 2024 (default and latest)
+### Version 9: July 21st, 2026 (latest)
+
+  - Improves the efficiency of [distributed apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-apply) (DA) joins by only sending required columns from the input to the map side of the join.
+
+  - Automatically selects the indexes on computed columns, when the same computed expression is a filter or join condition in a query.
+    
+    Example, enables selection of the index on `Singers((LOWER(FirstName)))` if present for the following query:
+    
+    ### GoogleSQL
+    
+        SELECT s.SingerId, s.FirstName, s.LastName
+        FROM Singers s
+        WHERE LOWER(s.FirstName) > 'k'
+        LIMIT 10;
+    
+    ### PostgreSQL
+    
+        SELECT s.singerid, s.firstname, s.lastname
+        FROM singers s
+        WHERE LOWER(s.firstname) > 'k'
+        LIMIT 10;
+
+  - Improves interleaved index lookup performance by batching and sorting keys for efficient sequential seeks into storage.
+
+  - Minor improvements to cardinality estimation.
+
+  - Heuristically prefer plans with [distributed apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-apply) over [apply](https://docs.cloud.google.com/spanner/docs/query-operators-binary#apply-join) with [distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) on the map side if there is no `LIMIT` above the apply.
+
+  - Chooses index union plans more aggressively.
+
+  - Improves `GROUP BY` performance by expanding scan-based aggregation to support filter predicates where the aggregation key is compared to functions involving constants and parameters.
+
+  - Enables cost-based plan optimization for queries involving tables with named schemas.
+
+### Version 8: October 28th, 2024 (default)
 
   - `WITH` clauses are considered when making cost-based plan choices.
 
