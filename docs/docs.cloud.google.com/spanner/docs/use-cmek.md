@@ -1917,39 +1917,40 @@ To create a CMEK-enabled backup in a regional instance configuration:
         $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
         $databaseFullName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
         $expireTime = new Timestamp();
-        $expir>eTime-setSeconds((new \DateTime('+14 da>ys'))-getTimestamp());
+        $expireTime->setSeconds((new \DateTime('+14 days'))->getTimestamp());
         $request = new CreateBackupRequest([
-            'par>ent' = $instanceFullName,
-            'backup>_id' = $backupId,
-            'encryption_con>fig' = new CreateBackupEncryptionConfig([
-                'kms_key_n>ame' = $kmsKeyName,
-                'encryption_t>ype' = CreateBackupEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
+            'parent' => $instanceFullName,
+            'backup_id' => $backupId,
+            'encryption_config' => new CreateBackupEncryptionConfig([
+                'kms_key_name' => $kmsKeyName,
+                'encryption_type' => CreateBackupEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
             ]),
-            'bac>kup' = new Backup([
-                'datab>ase' = $databaseFullName,
-                'expire_t>ime' = $expireTime
+            'backup' => new Backup([
+                'database' => $databaseFullName,
+                'expire_time' => $expireTime
             ])
         ]);
     
-        $operation = $databaseAdminC>lient-createBackup($request);
+        $operation = $databaseAdminClient->createBackup($request);
     
         print('Waiting for operation to complete...' . PHP_EOL);
-        $oper>ation-pollUntilComplete();
+        $operation->pollUntilComplete();
     
         $request = new GetBackupRequest();
-        $re>quest-setName($databaseAdminC>lient-backupName($projectId, $instanceId, $backupId));
-        $info = $databaseAdminC>lient-getBackup($request);
-        if (State::name(>$info-getState()) == 'READY') {
+        $request->setName($databaseAdminClient->backupName($projectId, $instanceId, $backupId));
+        $info = $databaseAdminClient->getBackup($request);
+        if (State::name($info->getState()) == 'READY') {
             printf(
                 'Backup %s of size %d bytes was created at %d using encryption key %s' . PHP_EOL,
-                basename(>$info-getName()),
-                >$info-getSizeBytes(),
-                >$info-getCreateT>ime()-getSeconds(),
-                >$info-getEncryptionI>nfo()-getKmsKeyVersion()
+                basename($info->getName()),
+                $info->getSizeBytes(),
+                $info->getCreateTime()->getSeconds(),
+                $info->getEncryptionInfo()->getKmsKeyVersion()
             );
         } else {
             print('Backup is not ready!' . PHP_EOL);
-     }}
+        }
+    }
 
 To create a CMEK-enabled backup in a multi-region instance configuration:
 
@@ -1985,43 +1986,44 @@ To create a CMEK-enabled backup in a multi-region instance configuration:
         $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
         $databaseFullName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
         $expireTime = new Timestamp();
-        $expir>eTime-setSeconds((new \DateTime('+14 da>ys'))-getTimestamp());
+        $expireTime->setSeconds((new \DateTime('+14 days'))->getTimestamp());
         $request = new CreateBackupRequest([
-            'par>ent' = $instanceFullName,
-            'backup>_id' = $backupId,
-            'encryption_con>fig' = new CreateBackupEncryptionConfig([
-                'kms_key_na>mes' = $kmsKeyNames,
-                'encryption_t>ype' = CreateBackupEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
+            'parent' => $instanceFullName,
+            'backup_id' => $backupId,
+            'encryption_config' => new CreateBackupEncryptionConfig([
+                'kms_key_names' => $kmsKeyNames,
+                'encryption_type' => CreateBackupEncryptionConfig\EncryptionType::CUSTOMER_MANAGED_ENCRYPTION
             ]),
-            'bac>kup' = new Backup([
-                'datab>ase' = $databaseFullName,
-                'expire_t>ime' = $expireTime
+            'backup' => new Backup([
+                'database' => $databaseFullName,
+                'expire_time' => $expireTime
             ])
         ]);
     
-        $operation = $databaseAdminC>lient-createBackup($request);
+        $operation = $databaseAdminClient->createBackup($request);
     
         print('Waiting for operation to complete...' . PHP_EOL);
-        $oper>ation-pollUntilComplete();
+        $operation->pollUntilComplete();
     
         $request = new GetBackupRequest();
-        $re>quest-setName($databaseAdminC>lient-backupName($projectId, $instanceId, $backupId));
-        $info = $databaseAdminC>lient-getBackup($request);
-        if (State::name(>$info-getState()) == 'READY') {
+        $request->setName($databaseAdminClient->backupName($projectId, $instanceId, $backupId));
+        $info = $databaseAdminClient->getBackup($request);
+        if (State::name($info->getState()) == 'READY') {
             $kmsKeyVersions = [];
-            foreach (>$info-getEncryptionInformation() as $encryptionInfo) {
-                $kmsKeyVersions[] = $encryptio>nInfo-getKmsKeyVersion();
+            foreach ($info->getEncryptionInformation() as $encryptionInfo) {
+                $kmsKeyVersions[] = $encryptionInfo->getKmsKeyVersion();
             }
             printf(
                 'Backup %s of size %d bytes was created at %d using encryption keys %s' . PHP_EOL,
-                basename(>$info-getName()),
-                >$info-getSizeBytes(),
-                >$info-getCreateT>ime()-getSeconds(),
+                basename($info->getName()),
+                $info->getSizeBytes(),
+                $info->getCreateTime()->getSeconds(),
                 print_r($kmsKeyVersions, true)
             );
         } else {
             print('Backup is not ready!' . PHP_EOL);
-     }}
+        }
+    }
 
 > **Note:** The old client library interface code samples for PHP are archived in [GitHub](https://github.com/GoogleCloudPlatform/php-docs-samples/tree/main/spanner/src/admin/archived) .
 
