@@ -124,7 +124,7 @@ https://docs.cloud.google.com/spanner-omni/pgadapter	2026-07-22T10:29:07Z
 https://docs.cloud.google.com/spanner-omni/prometheus-alerts	2026-07-22T10:29:27Z
 https://docs.cloud.google.com/spanner-omni/python	2026-07-22T10:29:27Z
 https://docs.cloud.google.com/spanner-omni/quickstart	2026-07-22T10:29:27Z
-https://docs.cloud.google.com/spanner-omni/release-notes	2026-07-22T10:30:19Z
+https://docs.cloud.google.com/spanner-omni/release-notes	2026-07-27T03:40:16Z
 https://docs.cloud.google.com/spanner-omni/restores	2026-07-22T10:29:27Z
 https://docs.cloud.google.com/spanner-omni/scale-kubernetes-deployment	2026-07-22T10:29:27Z
 https://docs.cloud.google.com/spanner-omni/scale-vm-deployment	2026-07-22T10:29:27Z
@@ -719,7 +719,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries	202
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions	2026-07-22T10:29:51Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions	2026-07-22T10:29:51Z
 https://docs.cloud.google.com/spanner/docs/region-types	2026-07-22T10:29:02Z
-https://docs.cloud.google.com/spanner/docs/release-notes	2026-07-22T10:30:19Z
+https://docs.cloud.google.com/spanner/docs/release-notes	2026-07-27T03:39:59Z
 https://docs.cloud.google.com/spanner/docs/replication	2026-07-22T10:29:51Z
 https://docs.cloud.google.com/spanner/docs/resources	2026-07-22T10:29:51Z
 https://docs.cloud.google.com/spanner/docs/rest-endpoints	2026-07-22T10:29:51Z
