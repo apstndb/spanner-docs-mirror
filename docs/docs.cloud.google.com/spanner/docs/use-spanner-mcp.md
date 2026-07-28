@@ -429,15 +429,16 @@ Replace `  PROJECT_ID  ` with the Google Cloud project ID. Model Armor doesn't a
 
 Model Armor floor settings and general configuration can impact more than just MCP. Because Model Armor integrates with services like Vertex AI, any changes you make to floor settings can affect traffic scanning and safety behaviors across all integrated services, not just MCP.
 
-### Control MCP use with IAM deny policies
+### Control MCP use with IAM policies
 
-[Identity and Access Management (IAM) deny policies](https://docs.cloud.google.com/iam/docs/deny-overview) help you secure Google Cloud remote MCP servers. Configure these policies to block unwanted MCP tool access.
+Identity and Access Management (IAM) [deny policies](https://docs.cloud.google.com/iam/docs/deny-overview) and [allow policies](https://docs.cloud.google.com/iam/docs/allow-policies) help you secure Google Cloud and Google MCP servers.
 
-For example, you can deny or allow access based on:
+You can combine multiple criteria to build customized security and governance policies by allowing or denying access based on the following:
 
-  - The principal
-  - Tool properties like read-only
-  - The application's OAuth client ID
+  - The principal.
+  - Tool properties like the read-only attribute.
+  - The service name or tool name.
+  - The application's OAuth client ID.
 
 For more information, see [Control MCP use with Identity and Access Management](https://docs.cloud.google.com/mcp/control-mcp-use-iam) .
 
