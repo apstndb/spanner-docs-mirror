@@ -8,6 +8,8 @@ data_source: docs.cloud.google.com
 
 This page describes how to migrate primary keys from your source database tables to Spanner GoogleSQL-dialect databases and PostgreSQL-dialect databases. Before performing the procedures on the page, review the [Primary key migration overview](https://docs.cloud.google.com/spanner/docs/primary-keys-overview) .
 
+If your source database has tables without user-defined primary keys, then you can migrate those tables to Spanner without defining new primary keys. For more information, see [Create a table without defining a primary key](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#tables-without-primary-keys) .
+
 ## Before you begin
 
   - To get the permissions that you need to migrate primary keys to Spanner, ask your administrator to grant you the [Cloud Spanner Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` ) IAM role on your instance.

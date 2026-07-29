@@ -12,6 +12,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## July 28, 2026
+
+Feature
+
+Spanner supports creating tables without defining primary keys. When you create a table without a primary key, Spanner creates a hidden `rowid` column that serves as the primary key. For more information, see [Create a table without defining a primary key](https://docs.cloud.google.com/spanner/docs/primary-key-default-value#tables-without-primary-keys) .
+
 ## July 06, 2026
 
 Feature

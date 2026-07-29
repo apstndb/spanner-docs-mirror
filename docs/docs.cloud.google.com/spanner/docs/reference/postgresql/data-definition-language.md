@@ -706,7 +706,7 @@ Defines a new table.
             [ column_constraint [ ... ] ] | table_constraint
             | synonym_definition
           } [, ... ],
-          PRIMARY KEY (column_name)
+          [ PRIMARY KEY (column_name) ]
         )
         [ WITH ( table_options ) ]
         [ LOCALITY GROUP locality_group_name ]
