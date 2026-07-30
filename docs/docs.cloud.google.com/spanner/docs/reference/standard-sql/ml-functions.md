@@ -102,9 +102,9 @@ The following query classifies movie reviews of *The English Patient* by sentime
 
 **Description**
 
-Evaluates a condition described in natural language and returns a `BOOL` .
+Evaluates whether a condition described in natural language is `TRUE` or `FALSE` .
 
-You can use the `AI.IF` function to filter and join data based on conditions described in natural language or multimodal input. The following are common use cases:
+You can use the `AI.IF` function to filter or join data based on conditions described in natural language or multimodal input. The following are example use cases:
 
   - **Sentiment analysis** : Find customer reviews with negative sentiment.
   - **Topic analysis** : Identify news articles related to a specific subject.
@@ -113,15 +113,15 @@ You can use the `AI.IF` function to filter and join data based on conditions des
 
 **Definitions**
 
-  - `prompt` : A `STRING` value that specified the prompt to send to the model. For example, `'Is Seattle a US city?'` .
+  - `prompt` : A `STRING` value that specifies the prompt to send to the model, for example, `'Is Seattle a US city?'` .
 
 **Details**
 
-The prompt value is evaluated using [Gemini Enterprise Agent Platform Gemini LLM](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/google-models) in the same project as the database. Enable the Agent Platform API before calling this function. [Agent Platform pricing](https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing) applies.
+  - If any argument passed to `AI.IF` evaluates to `NULL` , the function returns `NULL` . If `prompt` is an empty string ( `''` ), the function returns `NULL` .
+  - The prompt value is evaluated using [Gemini Enterprise Agent Platform Gemini LLM](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/google-models) in the same project as the database. Enable the Agent Platform API before calling this function. [Agent Platform pricing](https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing) applies. If the call to Agent Platform is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
+  - This function is non-deterministic ( `VOLATILE` ). Different invocations or executions over time might return different results depending on the underlying model.
 
-If the call to Agent Platform is unsuccessful for any reason, such as exceeding quota or model unavailability, then the function produces an error. In safe mode, the function returns `NULL` instead.
-
-**Return Type**
+**Return type**
 
 `BOOL`
 
@@ -129,7 +129,7 @@ If the call to Agent Platform is unsuccessful for any reason, such as exceeding 
 
 The following query uses the `AI.IF` function to filter news stories to those that cover a natural disaster:
 
-    -- Filter text by topic
+    -- Filter text by topic.
     SELECT
       title, body
     FROM
@@ -140,7 +140,7 @@ The following query uses the `AI.IF` function to filter news stories to those th
 
 The following query first filters by the equality operator, and then filters using the `AI.IF` function:
 
-    -- Combine filters
+    -- Combine filters.
     SELECT
       title, body
     FROM
