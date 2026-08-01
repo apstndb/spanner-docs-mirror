@@ -67,8 +67,8 @@ The query uses `UNNEST(ARRAY(...) WITH OFFSET` ) to assign a rank to the top 100
         FROM UNNEST(ARRAY(
           SELECT key
           FROM hybrid_search
-          WHERE SEARCH_NGRAMS(text_tokens_ngrams, 'foo')
-          ORDER BY SCORE_NGRAMS(text_tokens_ngrams, 'foo') DESC
+          WHERE SEARCH_NGRAMS(text_tokens_ngrams, 'Green')
+          ORDER BY SCORE_NGRAMS(text_tokens_ngrams, 'Green') DESC
           LIMIT 100)) AS x WITH OFFSET AS rank
       )
     )

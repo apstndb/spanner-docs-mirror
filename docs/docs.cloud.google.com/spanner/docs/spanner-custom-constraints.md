@@ -171,7 +171,7 @@ To create a custom constraint, create a YAML file using the following format:
     methodTypes:
       - CREATE
       - UPDATE 
-    condition: &quot;CONDITION"
+    condition: "CONDITION"
     actionType: ACTION
     displayName: DISPLAY_NAME
     description: DESCRIPTION
@@ -273,7 +273,7 @@ Before you begin, you must know the following:
       condition: "resource.name.contains('denied-database-name')"
       actionType: DENY
       displayName: spannerDatabaseConstraint
-      description: Database resource name contains ";denied-database-name"
+      description: Database resource name contains "denied-database-name"
     ```
     
     This defines a constraint where for every new database, if the database name contains "denied-database-name", the operation is denied.

@@ -58,6 +58,27 @@ API requests
 `status` : Request call result, ok=success.  
 `method` : Cloud Spanner API method.
 
+`api/mcp_request_count` <sup>GA</sup> ***(project)***  
+MCP request rate
+
+`DELTA` , `INT64` , `1`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Rate of Cloud Spanner MCP requests. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
+`status` : Request call result, ok=success.  
+`tool` : The name of the MCP tool.  
+`database` : Target database.
+
+`api/mcp_request_latencies` <sup>GA</sup> ***(project)***  
+MCP request latencies
+
+`DELTA` , `DISTRIBUTION` , `s`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Distribution of MCP request latencies. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
+`tool` : The name of the MCP tool.  
+`database` : Target database.
+
 `api/read_request_count_by_serving_location` <sup>BETA</sup> ***(project)***  
 Read API request by serving location
 
@@ -117,6 +138,21 @@ API request rate
 `status` : Request call result, ok=success.  
 `method` : Cloud Spanner API method.
 
+`api/request_count_per_protocol` <sup>GA</sup> ***(project)***  
+API request rate per protocol
+
+`DELTA` , `INT64` , `1`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Rate of Cloud Spanner API requests per protocol. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
+`status` : Request call result, ok=success.  
+`region` : The region where the request was served.  
+`protocol` : Protocl used for this request.  
+`method` : Cloud Spanner API method.  
+`response_code` : (INT64) HTTP response code received, such as 200 or 500.  
+`op_type` : Operation type.  
+`database` : Target database.
+
 `api/request_count_per_transaction_options` <sup>GA</sup> ***(project)***  
 API requests by transaction options
 
@@ -155,6 +191,19 @@ Request latencies by transaction type
 `method` : Cloud Spanner API method.  
 `transaction_type` : Transaction type ("READ\_ONLY" or "READ\_WRITE").  
 `is_leader_involved` : (BOOL) TRUE if the leader roundtrip call is issued.
+
+`api/request_latencies_per_protocol` <sup>GA</sup> ***(project)***  
+Request latencies per protocol
+
+`DELTA` , `DISTRIBUTION` , `s`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Distribution of server request latencies for a database per protocol. Sampled every 60 seconds. After sampling, data is not visible for up to 120 seconds.*  
+`region` : The region where the request was served.  
+`protocol` : Protocl used for this request.  
+`method` : Cloud Spanner API method.  
+`op_type` : Operation type.  
+`database` : Target database.
 
 `api/request_latencies_per_transaction_options` <sup>GA</sup> ***(project)***  
 Request latencies by transaction options
@@ -1183,7 +1232,7 @@ Transaction latencies
 *Distribution of total seconds takenfrom the first operation of the transaction to commit or abort. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `database` : Target database.
 
-<span class="small">Table generated at 2026-07-22 13:14:35 UTC.</span>
+<span class="small">Table generated at 2026-07-30 20:23:33 UTC.</span>
 
 ## What's next
 
