@@ -669,7 +669,7 @@ https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.in
 https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1	2026-03-06T22:34:24Z
 https://docs.cloud.google.com/spanner/docs/reference/rpc/google.type	2025-10-17T23:52:19Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls	2026-07-22T10:29:13Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions	2026-07-22T10:29:13Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions	2026-08-03T15:56:50Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions	2026-07-22T10:29:13Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays	2026-07-22T10:29:13Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions	2026-07-22T10:29:13Z

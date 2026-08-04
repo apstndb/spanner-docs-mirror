@@ -188,7 +188,7 @@ Matches the input data type.
 
 **Description**
 
-Returns an ARRAY of `expression` values.
+Returns an ARRAY of `expression` values. The order of elements in the returned array is arbitrary. To order the array elements, use an `ORDER BY` clause within the function call.
 
 To learn more about the optional aggregate clauses that you can pass into this function, see [Aggregate function calls](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls) .
 
