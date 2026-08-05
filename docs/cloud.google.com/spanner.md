@@ -318,7 +318,7 @@ Common Uses
 
 Modernize your sharded MySQL and Cassandra workloads to superpower your development teams and scale for the next phase of growth. Take advantage of open-source [Spanner migration tool](https://github.com/GoogleCloudPlatform/spanner-migration-tool) and a network of qualified services and technology partners that can streamline your migration.
 
-[Spanner migration architecture](https://cloud.google.com/spanner)
+[Spanner migration architecture](https://cloud.google.com/spanner#)
 
   - [](https://cloud.google.com/spanner/docs/migration-overview)
     
@@ -340,7 +340,7 @@ Modernize your sharded MySQL and Cassandra workloads to superpower your developm
 
 Modernize your sharded MySQL and Cassandra workloads to superpower your development teams and scale for the next phase of growth. Take advantage of open-source [Spanner migration tool](https://github.com/GoogleCloudPlatform/spanner-migration-tool) and a network of qualified services and technology partners that can streamline your migration.
 
-[Spanner migration architecture](https://cloud.google.com/spanner)
+[Spanner migration architecture](https://cloud.google.com/spanner#)
 
   - [](https://cloud.google.com/spanner/docs/migration-overview)
     
@@ -360,7 +360,7 @@ Modernize your sharded MySQL and Cassandra workloads to superpower your developm
 
 Build truly resilient, high-availability architectures that extend beyond the boundaries of a single cloud provider. By deploying [Spanner Omni](https://cloud.google.com/products/spanner/omni) in a secondary cloud or on-premises data center as a "hot/cold" failover site for your primary Spanner managed service in Google Cloud, you create a critical safety net. This "primary/secondary" architecture reduces vulnerability to service disruptions and helps meet strict "stressed exit" regulatory requirements for financial services.
 
-[Architecture diagram](https://cloud.google.com/spanner)
+[Architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://docs.cloud.google.com/spanner-omni/download)
     
@@ -382,7 +382,7 @@ Build truly resilient, high-availability architectures that extend beyond the bo
 
 Build truly resilient, high-availability architectures that extend beyond the boundaries of a single cloud provider. By deploying [Spanner Omni](https://cloud.google.com/products/spanner/omni) in a secondary cloud or on-premises data center as a "hot/cold" failover site for your primary Spanner managed service in Google Cloud, you create a critical safety net. This "primary/secondary" architecture reduces vulnerability to service disruptions and helps meet strict "stressed exit" regulatory requirements for financial services.
 
-[Architecture diagram](https://cloud.google.com/spanner)
+[Architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://docs.cloud.google.com/spanner-omni/download)
     
@@ -402,7 +402,7 @@ Build truly resilient, high-availability architectures that extend beyond the bo
 
 User profile management is a critical function that requires Spanner's scalability, availability, and global consistency. It is the entry point for players across games, platforms, and regions. Similarly financial services companies manage customer information and product offerings using Spanner.
 
-[User Profile and Entitlements architecture diagram](https://cloud.google.com/spanner)
+[User Profile and Entitlements architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://youtu.be/cKWJhGPbuRE)
     
@@ -424,7 +424,7 @@ User profile management is a critical function that requires Spanner's scalabili
 
 User profile management is a critical function that requires Spanner's scalability, availability, and global consistency. It is the entry point for players across games, platforms, and regions. Similarly financial services companies manage customer information and product offerings using Spanner.
 
-[User Profile and Entitlements architecture diagram](https://cloud.google.com/spanner)
+[User Profile and Entitlements architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://youtu.be/cKWJhGPbuRE)
     
@@ -444,7 +444,7 @@ User profile management is a critical function that requires Spanner's scalabili
 
 Unify financial transactions, trades, settlements, and positions across the globe into a consolidated trade ledger built on Spanner that guarantees external consistency and scalability. Consolidation of data helps in quickly adapting to changing market conditions and regulatory requirements. Similarly retail/ecommerce businesses use Spanner for inventory ledger.
 
-[Financial Ledger architecture diagram](https://cloud.google.com/spanner)
+[Financial Ledger architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://youtu.be/8RXnNgcEp3o?t=851)
     
@@ -466,7 +466,7 @@ Unify financial transactions, trades, settlements, and positions across the glob
 
 Unify financial transactions, trades, settlements, and positions across the globe into a consolidated trade ledger built on Spanner that guarantees external consistency and scalability. Consolidation of data helps in quickly adapting to changing market conditions and regulatory requirements. Similarly retail/ecommerce businesses use Spanner for inventory ledger.
 
-[Financial Ledger architecture diagram](https://cloud.google.com/spanner)
+[Financial Ledger architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://youtu.be/8RXnNgcEp3o?t=851)
     
@@ -486,7 +486,7 @@ Unify financial transactions, trades, settlements, and positions across the glob
 
 Consumers expect access to their critical financial data on their devices outside of regular banking hours. Allow your developers to focus on new experiences rather than operational overhead, such as manual sharding or eventual consistency. Reduce risk and downtime with 99.999% availability and zero maintenance.
 
-[Online Banking architecture diagram](https://cloud.google.com/spanner)
+[Online Banking architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://codelabs.developers.google.com/spanner-online-banking-app#0)
     
@@ -508,7 +508,7 @@ Consumers expect access to their critical financial data on their devices outsid
 
 Consumers expect access to their critical financial data on their devices outside of regular banking hours. Allow your developers to focus on new experiences rather than operational overhead, such as manual sharding or eventual consistency. Reduce risk and downtime with 99.999% availability and zero maintenance.
 
-[Online Banking architecture diagram](https://cloud.google.com/spanner)
+[Online Banking architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://codelabs.developers.google.com/spanner-online-banking-app#0)
     
@@ -528,11 +528,11 @@ Consumers expect access to their critical financial data on their devices outsid
 
 Track customer participation and preferences in a loyalty program to analyze trends and improve customer satisfaction. Similarly, game companies use Spanner for building personalized leaderboards in games.
 
-[Loyalty programs and promotions architecture diagram](https://cloud.google.com/spanner)
+[Loyalty programs and promotions architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance)
+  - [](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
     
-    Learn how REWE Group uses Spanner to optimize for [speed and performance](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance)
+    Learn how REWE Group uses Spanner to optimize for [speed and performance](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
 
 ![{msg desc="Alternative text for a build icon"}build{/msg}](https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/build/wght100fill1/20px.svg)
 
@@ -542,11 +542,11 @@ Track customer participation and preferences in a loyalty program to analyze tre
 
 Track customer participation and preferences in a loyalty program to analyze trends and improve customer satisfaction. Similarly, game companies use Spanner for building personalized leaderboards in games.
 
-[Loyalty programs and promotions architecture diagram](https://cloud.google.com/spanner)
+[Loyalty programs and promotions architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance)
+  - [](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
     
-    Learn how REWE Group uses Spanner to optimize for [speed and performance](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance)
+    Learn how REWE Group uses Spanner to optimize for [speed and performance](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
 
 ### Omni-channel inventory management
 
@@ -554,7 +554,7 @@ Track customer participation and preferences in a loyalty program to analyze tre
 
 Spanner provides a high-performance, single source of truth for retail inventory and orders across online, in-store, distribution centers, and shipping to match inventory with demand, improving customer experience and profitability. Game companies similarly use Spanner to store in-game inventory data.
 
-[Omni-channel inventory management architecture diagram](https://cloud.google.com/spanner)
+[Omni-channel inventory management architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://www.youtube.com/watch?v=8kj_uA5vJfo)
     
@@ -576,7 +576,7 @@ Spanner provides a high-performance, single source of truth for retail inventory
 
 Spanner provides a high-performance, single source of truth for retail inventory and orders across online, in-store, distribution centers, and shipping to match inventory with demand, improving customer experience and profitability. Game companies similarly use Spanner to store in-game inventory data.
 
-[Omni-channel inventory management architecture diagram](https://cloud.google.com/spanner)
+[Omni-channel inventory management architecture diagram](https://cloud.google.com/spanner#)
 
   - [](https://www.youtube.com/watch?v=8kj_uA5vJfo)
     

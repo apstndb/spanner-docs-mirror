@@ -319,7 +319,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
              FROM Singers \
              WHERE LastName = @lastName",
         )
-        .add_param("lastName", &"Garcia")
+        .add_param("lastName", "Garcia")
         .build();
     
         let transaction = client.single_use().build();
