@@ -60,7 +60,7 @@ For example, to download the Helm chart for version 0.2.0, run the following com
 
 ## Standalone binaries
 
-The following Google Cloud bucket contains standalone binaries for the Spanner Omni and Spanner Omni CLI as TAR files: `https://storage.googleapis.com/spanner-omni/` .
+The following Google Cloud bucket contains standalone binaries for the Spanner Omni CLI as TAR files: `https://storage.googleapis.com/spanner-omni/` .
 
 Each release is in a folder named after the version tag.
 

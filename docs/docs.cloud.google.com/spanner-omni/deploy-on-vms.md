@@ -265,9 +265,9 @@ Collect distributed tracing information in OTLP format and visualize it with too
     
     Ensure the OTLP port allows network traffic between Spanner Omni and the collector.
 
-2.  Set the `SPANNER_BOX_OTLP_TRACE_EXPORTER_ENDPOINT` environment variable and start the Spanner Omni servers:
+2.  Set the `SPANNER_TRACE_EXPORTER_ENDPOINT` environment variable and start the Spanner Omni servers:
     
-        export SPANNER_BOX_OTLP_TRACE_EXPORTER_ENDPOINT=COLLECTOR_HOST:COLLECTOR_PORT
+        export SPANNER_TRACE_EXPORTER_ENDPOINT=COLLECTOR_HOST:COLLECTOR_PORT
         spanner start --root --server-address=RESOLVABLE_HOSTNAME --zone=ZONE_NAME --base-dir=SPANNER_BASE_DIR
 
 ## What's next

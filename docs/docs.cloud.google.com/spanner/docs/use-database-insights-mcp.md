@@ -146,7 +146,9 @@ For more information about MCP security and governance, see [AI security and saf
 
 When Model Armor is enabled with [logging enabled](https://docs.cloud.google.com/model-armor/configure-logging) , Model Armor logs the entire payload. This might expose sensitive information in your logs.
 
-> **Caution:** Model Armor is available in [certain regions](https://docs.cloud.google.com/model-armor/locations) . When Model Armor is enabled and you use an MCP server in a jurisdiction that Model Armor doesn't support, the routing behavior of the call might be different for different MCP servers. For more information about the behavior of individual MCP servers, see [Model Armor supported products](https://docs.cloud.google.com/mcp/model-armor-supported-products) .
+#### MCP request routing to Model Armor
+
+Model Armor is available in [certain regions](https://docs.cloud.google.com/model-armor/locations) . When Model Armor is enabled and you use an MCP server in a jurisdiction that Model Armor doesn't support, the routing behavior of the call might be different for different MCP servers and might break data residency compliance for in-use and in-transit data. For more information about the behavior of individual MCP servers, see [Model Armor supported products](https://docs.cloud.google.com/mcp/model-armor-supported-products) .
 
 #### Enable Model Armor
 

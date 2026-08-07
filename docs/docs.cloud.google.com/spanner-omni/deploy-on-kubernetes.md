@@ -44,7 +44,7 @@ To run Spanner Omni on a single server on GKE with the monitoring stack, run the
 
 ``` 
   kubectl create ns monitoring
-  helm upgrade --install spanner-omni oci://us-central1-docker.pkg.dev/spanner-omni/helm-charts/spanner-omni --version 0.2.0 \
+  helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.2.0 \
     --set global.platform=gke \
     --set deployment.singleServer=true \
     --set monitoring.enabled=true \
@@ -60,7 +60,7 @@ To run Spanner Omni on multiple servers in a single zone ( `us-central1-a` ) in 
 
 ``` 
   kubectl create ns monitoring
-  helm upgrade --install spanner-omni oci://us-central1-docker.pkg.dev/spanner-omni/helm-charts/spanner-omni --version 0.2.0 \
+  helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.2.0 \
     --set global.platform=gke \
     --set deployment.replicasPerZone=5 \
     --set deployment.rootServersPerZone=3 \
@@ -80,7 +80,7 @@ This deployment keeps three copies of data, allowing Spanner Omni to continue wo
 
 ``` 
   kubectl create ns monitoring
-  helm upgrade --install spanner-omni oci://us-central1-docker.pkg.dev/spanner-omni/helm-charts/spanner-omni --version 0.2.0 \
+  helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.2.0 \
     --set global.platform=gke \
     --set-json 'locations=[{"name":"us-central1","zones":[{"name":"us-central1-a","shortName":"a"},{"name":"us-central1-c","shortName":"b"},{"name":"us-central1-d","shortName":"c"}]}]' \
     --set monitoring.enabled=true \
@@ -135,16 +135,16 @@ After the pods are running, you can connect to your deployment and interact with
     
     To create and interact with a GoogleSQL database, run the following:
     
-        spanner databases create DATABASE_NAME --deployment_endpoint DEPLOYMENT_ENDPOINT
-        spanner sql --database=DATABASE_NAME --deployment_endpoint DEPLOYMENT_ENDPOINT
+        spanner databases create DATABASE_NAME --deployment-endpoint DEPLOYMENT_ENDPOINT
+        spanner sql --database=DATABASE_NAME --deployment-endpoint DEPLOYMENT_ENDPOINT
     
     ### PostgreSQL
     
     To create and interact with a PostgreSQL database, run the following:
     
     ```` 
-     spanner databases create POSTGRESQL_DATABASE_NAME --database_dialect POSTGRESQL --deployment_endpoint DEPLOYMENT_ENDPOINT
-     spanner sql --database=POSTGRESQL_DATABASE_NAME --deployment_endpoint DEPLOYMENT_ENDPOINT
+     spanner databases create POSTGRESQL_DATABASE_NAME --database_dialect POSTGRESQL --deployment-endpoint DEPLOYMENT_ENDPOINT
+     spanner sql --database=POSTGRESQL_DATABASE_NAME --deployment-endpoint DEPLOYMENT_ENDPOINT
      ```
     
     You can also interact with a PostgreSQL database by following

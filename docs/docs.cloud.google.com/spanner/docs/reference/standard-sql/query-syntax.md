@@ -700,7 +700,7 @@ To learn more about this operator, see [`GRAPH_TABLE` operator](https://docs.clo
     using_clause:
       USING ( column_list )
 
-The `JOIN` operation merges two `from_item` s so that the `SELECT` clause can query them as one source. The join operator and join condition specify how to combine and discard rows from the two `from_item` s to form a single source.
+The `JOIN` operation combines two `from_item` s so that the `SELECT` clause can query them as one source. The join operation pairs rows from the two `from_item` s, and a join condition filters those pairs to determine which rows appear in the output.
 
 ### `[INNER] JOIN`
 
@@ -1014,9 +1014,11 @@ This query performs a `RIGHT JOIN` on the [`Roster`](https://docs.cloud.google.c
 
 ### Join conditions
 
-In a [join operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join_types) , a join condition helps specify how to combine rows in two `from_items` to form a single source.
+A [join operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join_types) pairs rows from two `from_item` s, and a join condition filters those pairs to determine which rows appear in the output.
 
-The two types of join conditions are the [`ON` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#on_clause) and [`USING` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#using_clause) . You must use a join condition when you perform a conditional join operation. You can't use a join condition when you perform a cross join operation.
+The two types of join conditions are the [`ON` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#on_clause) and [`USING` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#using_clause) .
+
+When you use the `JOIN` keyword, you typically need an `ON` or `USING` clause to specify the join condition. An exception is the [`CROSS JOIN` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#cross_join) , which doesn't support an `ON` or `USING` clause.
 
 #### `ON` clause
 
@@ -1024,7 +1026,7 @@ The two types of join conditions are the [`ON` clause](https://docs.cloud.google
 
 **Description**
 
-Given a row from each table, if the `ON` clause evaluates to `TRUE` , the query generates a consolidated row with the result of combining the given rows.
+The `ON` clause determines which rows from a join operation appear in the output. Given a row from the Cartesian product of two `from_item` s, if `bool_expression` evaluates to `TRUE` , the join includes that row in the output.
 
 Definitions:
 
@@ -1118,7 +1120,7 @@ The following examples show how to use the `ON` clause:
 
 **Description**
 
-When you are joining two tables, `USING` performs an [equality comparison operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#comparison_operators) on the columns named in `column_name_list` . Each column name in `column_name_list` must appear in both input tables. For each pair of rows from the input tables, if the equality comparisons all evaluate to `TRUE` , one row is added to the resulting column.
+The `USING` clause determines which rows from a join operation appear in the output. The `USING` clause performs an [equality comparison operation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#comparison_operators) on the columns named in `column_name_list` . Each column name in `column_name_list` must appear in both input tables. Given a row from the Cartesian product of two `from_item` s, if the equality comparisons all evaluate to `TRUE` , the join includes that row in the output.
 
 Definitions:
 
