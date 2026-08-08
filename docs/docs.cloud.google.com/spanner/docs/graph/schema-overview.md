@@ -169,6 +169,8 @@ In the following example, you create a property graph `FinGraph` with the follow
           DESTINATION KEY (account_id) REFERENCES Account (id)
       );
 
+> **Note:** In the preceding DDL, the edge table `PersonOwnAccount` uses the `INTERLEAVE IN PARENT` clause. Table interleaving is a storage optimization in Spanner that colocates child table rows (edges) with parent rows (source nodes). This colocation is critical for graph query performance during edge traversal. For more information, see [Optimize edge traversal](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#optimize-edge-traversal) .
+
 An edge definition defines the source and destination node reference by using the `SOURCE KEY` , `DESTINATION KEY` , and `REFERENCES` clauses. The following example uses the edge definition of `PersonOwnAccount` to illustrate this concept:
 
     EDGE TABLES (
@@ -311,3 +313,5 @@ Spanner Graph also supports schemaless data management that is helpful when you 
   - [Create a Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#create-property-graph-schema) .
   - [Update or delete a Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-property-graph-schema) .
   - [Manage schemaless data with Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data) .
+  - [Learn about best practices for Spanner Graph schema design](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema) .
+  - [Learn about best practices for tuning Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries) .

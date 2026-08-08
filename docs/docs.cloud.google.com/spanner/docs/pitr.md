@@ -14,9 +14,11 @@ By default, your database retains all versions of its data and schema for one ho
 
 ## Ways to recover data
 
-There are two ways to recover data:
+There are three ways to recover data:
 
   - To **recover a portion of the database** , perform a [stale read](https://docs.cloud.google.com/spanner/docs/reads#perform-stale-read) specifying a query-condition and timestamp in the past, and then write the results back into the live database. This is typically used for surgical operations on a live database. For example, if you accidentally delete a particular row or incorrectly update a subset of data, you can recover it with this method. For instructions, see [recovering a portion of your database](https://docs.cloud.google.com/spanner/docs/use-pitr#recover-portion) .
+
+  - To **recover a specific table** , export the table from an earlier timestamp within the same database and then import it back. For instructions, see [recovering a specific table](https://docs.cloud.google.com/spanner/docs/use-pitr#recover-table) .
 
   - To **recover the entire database** , [backup](https://docs.cloud.google.com/spanner/docs/backup) or [export](https://docs.cloud.google.com/spanner/docs/export) the database specifying a timestamp in the past and then restore or import it to a new database. This is typically used to recover from data corruption issues when you have to revert the database to a point-in-time before the corruption occurred. Note that backing up or exporting a database could take several hours and that you cannot restore or import to an existing database. For instructions, see [recovering the entire database](https://docs.cloud.google.com/spanner/docs/use-pitr#recover-entire) .
 

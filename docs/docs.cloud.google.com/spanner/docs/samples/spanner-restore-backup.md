@@ -202,39 +202,50 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\RestoreDatabaseRequest;
     
     /**
      * Restore a database from a backup.
      * Example:
      * ```
-     * restore_backup($instanceId, $databaseId, $backupId);
+     * restore_backup($projectId, $instanceId, $databaseId, $backupId);
      * ```
+     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      * @param string $backupId The Spanner backup ID.
      */
-    function restore_backup(string $instanceId, string $databaseId, string $backupId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-        $backup = $instance->backup($backupId);
+    function restore_backup(
+        string $projectId,
+        string $instanceId,
+        string $databaseId,
+        string $backupId
+    ): void {
+        $databaseAdminClient = new DatabaseAdminClient();
     
-        $operation = $database->restore($backup->name());
-        // Wait for restore operation to complete.
-        $operation->pollUntilComplete();
+        $backupName = DatabaseAdminClient::backupName($projectId, $instanceId, $backupId);
+        $instanceName = DatabaseAdminClient::instanceName($projectId, $instanceId);
     
-        // Newly created database has restore information.
-        $database->reload();
-        $restoreInfo = $database->info()['restoreInfo'];
-        $sourceDatabase = $restoreInfo['backupInfo']['sourceDatabase'];
-        $sourceBackup = $restoreInfo['backupInfo']['backup'];
-        $versionTime = $restoreInfo['backupInfo']['versionTime'];
+        $request = new RestoreDatabaseRequest([
+            'parent' => $instanceName,
+            'database_id' => $databaseId,
+            'backup' => $backupName
+        ]);
     
+        $operationResponse = $databaseAdminClient->restoreDatabase($request);
+        $operationResponse->pollUntilComplete();
+    
+        $database = $operationResponse->operationSucceeded() ? $operationResponse->getResult() : null;
+        $restoreInfo = $database->getRestoreInfo();
+        $backupInfo = $restoreInfo->getBackupInfo();
+        $sourceDatabase = $backupInfo->getSourceDatabase();
+        $sourceBackup = $backupInfo->getBackup();
+        $versionTime = $backupInfo->getVersionTime()->getSeconds();
         printf(
             'Database %s restored from backup %s with version time %s' . PHP_EOL,
-            $sourceDatabase, $sourceBackup, $versionTime);
+            $sourceDatabase, $sourceBackup, $versionTime
+        );
     }
 
 ### Python

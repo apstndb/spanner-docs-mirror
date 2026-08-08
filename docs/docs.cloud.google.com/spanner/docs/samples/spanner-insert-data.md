@@ -65,62 +65,82 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    struct Singer
-    {
-        internal long SingerId;
-        internal string FirstName;
-        internal string LastName;
-    }
+    using Google.Cloud.Spanner.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     
-    struct Album
+    public class InsertDataAsyncSample
     {
-        internal long SingerId;
-        internal long AlbumId;
-        internal string Title;
-    }
-    
-    public static async Task WriteDataWithMutations(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        Singer[] singers =
-        [
-            new() {SingerId=1, FirstName = "Marc", LastName = "Richards"},
-            new() {SingerId=2, FirstName = "Catalina", LastName = "Smith"},
-            new() {SingerId=3, FirstName = "Alice", LastName = "Trentor"},
-            new() {SingerId=4, FirstName = "Lea", LastName = "Martin"},
-            new() {SingerId=5, FirstName = "David", LastName = "Lomond"},
-        ];
-        Album[] albums =
-        [
-            new() {SingerId = 1, AlbumId = 1, Title = "Total Junk"},
-            new() {SingerId = 1, AlbumId = 2, Title = "Go, Go, Go"},
-            new() {SingerId = 2, AlbumId = 1, Title = "Green"},
-            new() {SingerId = 2, AlbumId = 2, Title = "Forever Hold Your Peace"},
-            new() {SingerId = 2, AlbumId = 3, Title = "Terrified"},
-        ];
-        var batch = connection.CreateBatch();
-        foreach (var singer in singers)
+        public class Singer
         {
-            // The name of a parameter must correspond with a column name.
-            var command = batch.CreateInsertCommand("Singers");
-            command.AddParameter("SingerId", singer.SingerId);
-            command.AddParameter("FirstName", singer.FirstName);
-            command.AddParameter("LastName", singer.LastName);
-            batch.BatchCommands.Add(command);
+            public int SingerId { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
         }
-        foreach (var album in albums)
+    
+        public class Album
         {
-            // The name of a parameter must correspond with a column name.
-            var command = batch.CreateInsertCommand("Albums");
-            command.AddParameter("SingerId", album.SingerId);
-            command.AddParameter("AlbumId", album.AlbumId);
-            command.AddParameter("AlbumTitle", album.Title);
-            batch.BatchCommands.Add(command);
+            public int SingerId { get; set; }
+            public int AlbumId { get; set; }
+            public string AlbumTitle { get; set; }
         }
-        var affected = await batch.ExecuteNonQueryAsync();
-        Console.WriteLine($"Inserted {affected} rows.");
+    
+        public async Task InsertDataAsync(string projectId, string instanceId, string databaseId)
+        {
+            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+            List<Singer> singers = new List<Singer>
+            {
+                new Singer { SingerId = 1, FirstName = "Marc", LastName = "Richards" },
+                new Singer { SingerId = 2, FirstName = "Catalina", LastName = "Smith" },
+                new Singer { SingerId = 3, FirstName = "Alice", LastName = "Trentor" },
+                new Singer { SingerId = 4, FirstName = "Lea", LastName = "Martin" },
+                new Singer { SingerId = 5, FirstName = "David", LastName = "Lomond" },
+            };
+            List<Album> albums = new List<Album>
+            {
+                new Album { SingerId = 1, AlbumId = 1, AlbumTitle = "Total Junk" },
+                new Album { SingerId = 1, AlbumId = 2, AlbumTitle = "Go, Go, Go" },
+                new Album { SingerId = 2, AlbumId = 1, AlbumTitle = "Green" },
+                new Album { SingerId = 2, AlbumId = 2, AlbumTitle = "Forever Hold your Peace" },
+                new Album { SingerId = 2, AlbumId = 3, AlbumTitle = "Terrified" },
+            };
+    
+            // Create connection to Cloud Spanner.
+            using var connection = new SpannerConnection(connectionString);
+            await connection.OpenAsync();
+    
+            await connection.RunWithRetriableTransactionAsync(async transaction =>
+            {
+                await Task.WhenAll(singers.Select(singer =>
+                {
+                    // Insert rows into the Singers table.
+                    using var cmd = connection.CreateInsertCommand("Singers", new SpannerParameterCollection
+                    {
+                            { "SingerId", SpannerDbType.Int64, singer.SingerId },
+                            { "FirstName", SpannerDbType.String, singer.FirstName },
+                            { "LastName", SpannerDbType.String, singer.LastName }
+                    });
+                    cmd.Transaction = transaction;
+                    return cmd.ExecuteNonQueryAsync();
+                }));
+    
+                await Task.WhenAll(albums.Select(album =>
+                {
+                    // Insert rows into the Albums table.
+                    using var cmd = connection.CreateInsertCommand("Albums", new SpannerParameterCollection
+                    {
+                            { "SingerId", SpannerDbType.Int64, album.SingerId },
+                            { "AlbumId", SpannerDbType.Int64, album.AlbumId },
+                            { "AlbumTitle", SpannerDbType.String,album.AlbumTitle }
+                    });
+                    cmd.Transaction = transaction;
+                    return cmd.ExecuteNonQueryAsync();
+                }));
+            });
+            Console.WriteLine("Data inserted.");
+        }
     }
 
 ### Go
@@ -129,7 +149,21 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    func write(ctx context.Context, w io.Writer, client *spanner.Client) error {
+    import (
+     "context"
+     "io"
+    
+     "cloud.google.com/go/spanner"
+    )
+    
+    func write(w io.Writer, db string) error {
+     ctx := context.Background()
+     client, err := spanner.NewClient(ctx, db)
+     if err != nil {
+         return err
+     }
+     defer client.Close()
+    
      singerColumns := []string{"SingerId", "FirstName", "LastName"}
      albumColumns := []string{"SingerId", "AlbumId", "AlbumTitle"}
      m := []*spanner.Mutation{
@@ -144,7 +178,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
          spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 2, "Forever Hold Your Peace"}),
          spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 3, "Terrified"}),
      }
-     _, err := client.Apply(ctx, m)
+     _, err = client.Apply(ctx, m)
      return err
     }
 

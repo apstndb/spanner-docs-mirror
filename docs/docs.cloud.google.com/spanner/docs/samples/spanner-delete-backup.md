@@ -125,24 +125,29 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\DeleteBackupRequest;
     
     /**
      * Delete a backup.
      * Example:
      * ```
-     * delete_backup($instanceId, $backupId);
+     * delete_backup($projectId, $instanceId, $backupId);
      * ```
+     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $backupId The Spanner backup ID.
      */
-    function delete_backup(string $instanceId, string $backupId): void
+    function delete_backup(string $projectId, string $instanceId, string $backupId): void
     {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $backup = $instance->backup($backupId);
-        $backupName = $backup->name();
-        $backup->delete();
+        $databaseAdminClient = new DatabaseAdminClient();
+    
+        $backupName = DatabaseAdminClient::backupName($projectId, $instanceId, $backupId);
+    
+        $request = new DeleteBackupRequest();
+        $request->setName($backupName);
+        $databaseAdminClient->deleteBackup($request);
+    
         print("Backup $backupName deleted" . PHP_EOL);
     }
 

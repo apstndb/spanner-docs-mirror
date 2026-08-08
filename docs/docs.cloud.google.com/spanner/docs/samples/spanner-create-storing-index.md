@@ -77,9 +77,24 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    func addStoringIndex(ctx context.Context, w io.Writer, adminClient *database.DatabaseAdminClient, database string) error {
+    import (
+     "context"
+     "fmt"
+     "io"
+    
+     database "cloud.google.com/go/spanner/admin/database/apiv1"
+     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+    )
+    
+    func addStoringIndex(ctx context.Context, w io.Writer, db string) error {
+     adminClient, err := database.NewDatabaseAdminClient(ctx)
+     if err != nil {
+         return err
+     }
+     defer adminClient.Close()
+    
      op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
-         Database: database,
+         Database: db,
          Statements: []string{
              "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)",
          },
@@ -178,7 +193,8 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
     
     /**
      * Adds an storing index to the example database.
@@ -191,22 +207,25 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      *
      * Example:
      * ```
-     * create_storing_index($instanceId, $databaseId);
+     * create_storing_index($projectId, $instanceId, $databaseId);
      * ```
      *
+     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      */
-    function create_storing_index(string $instanceId, string $databaseId): void
+    function create_storing_index(string $projectId, string $instanceId, string $databaseId): void
     {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
+        $databaseAdminClient = new DatabaseAdminClient();
+        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
+        $statement = 'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) ' .
+            'STORING (MarketingBudget)';
+        $request = new UpdateDatabaseDdlRequest([
+            'database' => $databaseName,
+            'statements' => [$statement]
+        ]);
     
-        $operation = $database->updateDdl(
-            'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) ' .
-            'STORING (MarketingBudget)'
-        );
+        $operation = $databaseAdminClient->updateDatabaseDdl($request);
     
         print('Waiting for operation to complete...' . PHP_EOL);
         $operation->pollUntilComplete();

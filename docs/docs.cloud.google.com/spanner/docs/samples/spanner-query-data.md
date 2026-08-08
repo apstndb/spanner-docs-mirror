@@ -55,19 +55,38 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    public static async Task QueryData(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
+    using Google.Cloud.Spanner.Data;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
-                              "FROM Albums " +
-                              "ORDER BY SingerId, AlbumId";
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
+    public class QuerySampleDataAsyncSample
+    {
+        public class Album
         {
-            Console.WriteLine($"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
+            public int SingerId { get; set; }
+            public int AlbumId { get; set; }
+            public string AlbumTitle { get; set; }
+        }
+    
+        public async Task<List<Album>> QuerySampleDataAsync(string projectId, string instanceId, string databaseId)
+        {
+            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+    
+            var albums = new List<Album>();
+            using var connection = new SpannerConnection(connectionString);
+            using var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
+    
+            using var reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                albums.Add(new Album
+                {
+                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                    SingerId = reader.GetFieldValue<int>("SingerId"),
+                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
+                });
+            }
+            return albums;
         }
     }
 
@@ -77,7 +96,23 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    func query(ctx context.Context, w io.Writer, client *spanner.Client) error {
+    import (
+     "context"
+     "fmt"
+     "io"
+    
+     "cloud.google.com/go/spanner"
+     "google.golang.org/api/iterator"
+    )
+    
+    func query(w io.Writer, db string) error {
+     ctx := context.Background()
+     client, err := spanner.NewClient(ctx, db)
+     if err != nil {
+         return err
+     }
+     defer client.Close()
+    
      stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, AlbumTitle FROM Albums`}
      iter := client.Single().Query(ctx, stmt)
      defer iter.Stop()
@@ -104,29 +139,26 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void queryData(
-        final String project,
-        final String instance,
-        final String database,
-        final Properties properties) throws SQLException {
-      try (Connection connection =
-          DriverManager.getConnection(
-              String.format(
-                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
-                  project, instance, database),
-              properties)) {
-        try (ResultSet resultSet =
-            connection
-                .createStatement()
-                .executeQuery(
-                    "SELECT SingerId, AlbumId, AlbumTitle "
-                    + "FROM Albums")) {
-          while (resultSet.next()) {
-            System.out.printf(
-                "%d %d %s\n",
-                resultSet.getLong("SingerId"),
-                resultSet.getLong("AlbumId"),
-                resultSet.getString("AlbumTitle"));
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
+    
+    class QueryData {
+      static void queryData(String host, int port, String database) throws SQLException {
+        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+          try (ResultSet resultSet =
+              connection
+                  .createStatement()
+                  .executeQuery("SELECT singer_id, album_id, album_title FROM albums")) {
+            while (resultSet.next()) {
+              System.out.printf(
+                  "%d %d %s\n",
+                  resultSet.getLong("singer_id"),
+                  resultSet.getLong("album_id"),
+                  resultSet.getString("album_title"));
+            }
           }
         }
       }
@@ -245,19 +277,21 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    def query_data(instance_id, database_id):
-        """Queries sample data from the database using SQL."""
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
+    import string
+    import psycopg
     
-        with database.snapshot() as snapshot:
-            results = snapshot.execute_sql(
-                "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
-            )
     
-            for row in results:
-                print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+    def query_data(host: string, port: int, database: string):
+        with psycopg.connect("host={host} port={port} dbname={database} "
+                             "sslmode=disable".format(host=host,
+                                                      port=port,
+                                                      database=database)) as conn:
+            conn.autocommit = True
+            with conn.cursor() as cur:
+                cur.execute("SELECT singer_id, album_id, album_title "
+                            "FROM albums")
+                for album in cur:
+                    print(album)
 
 ### Ruby
 

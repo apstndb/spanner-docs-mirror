@@ -53,28 +53,34 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    public static async Task UpdateDataWithMutations(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
+    using Google.Cloud.Spanner.Data;
+    using System;
+    using System.Threading.Tasks;
     
-        (long SingerId, long AlbumId, long MarketingBudget)[] albums = [
-            (1L, 1L, 100000L),
-            (2L, 2L, 500000L),
-        ];
-        // Use a batch to update two rows in one round-trip.
-        var batch = connection.CreateBatch();
-        foreach (var album in albums)
+    public class UpdateDataAsyncSample
+    {
+        public async Task<int> UpdateDataAsync(string projectId, string instanceId, string databaseId)
         {
-            // This creates a command that will use a mutation to update the row.
-            var command = batch.CreateUpdateCommand("Albums");
-            command.AddParameter("SingerId", album.SingerId);
-            command.AddParameter("AlbumId", album.AlbumId);
-            command.AddParameter("MarketingBudget", album.MarketingBudget);
-            batch.BatchCommands.Add(command);
+            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+    
+            using var connection = new SpannerConnection(connectionString);
+    
+            var rowCount = 0;
+            SpannerCommand cmd = connection.CreateDmlCommand(
+                "UPDATE Albums SET MarketingBudget = @MarketingBudget "
+                + "WHERE SingerId = 1 and AlbumId = 1");
+            cmd.Parameters.Add("MarketingBudget", SpannerDbType.Int64, 100000);
+            rowCount += await cmd.ExecuteNonQueryAsync();
+    
+            cmd = connection.CreateDmlCommand(
+                "UPDATE Albums SET MarketingBudget = @MarketingBudget "
+                + "WHERE SingerId = 2 and AlbumId = 2");
+            cmd.Parameters.Add("MarketingBudget", SpannerDbType.Int64, 500000);
+            rowCount += await cmd.ExecuteNonQueryAsync();
+    
+            Console.WriteLine("Data Updated.");
+            return rowCount;
         }
-        var affected = await batch.ExecuteNonQueryAsync();
-        Console.WriteLine($"Updated {affected} albums.");
     }
 
 ### Go
@@ -83,13 +89,50 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    func update(ctx context.Context, w io.Writer, client *spanner.Client) error {
+    import (
+     "context"
+     "database/sql"
+     "fmt"
+     "io"
+    
+     "cloud.google.com/go/spanner"
+     spannerdriver "github.com/googleapis/go-sql-spanner"
+    )
+    
+    func UpdateDataWithMutations(ctx context.Context, w io.Writer, databaseName string) error {
+     db, err := sql.Open("spanner", databaseName)
+     if err != nil {
+         return err
+     }
+     defer db.Close()
+    
+     // Get a connection so that we can get access to the Spanner specific
+     // connection interface SpannerConn.
+     conn, err := db.Conn(ctx)
+     if err != nil {
+         return err
+     }
+     defer conn.Close()
+    
      cols := []string{"SingerId", "AlbumId", "MarketingBudget"}
-     _, err := client.Apply(ctx, []*spanner.Mutation{
+     mutations := []*spanner.Mutation{
          spanner.Update("Albums", cols, []interface{}{1, 1, 100000}),
          spanner.Update("Albums", cols, []interface{}{2, 2, 500000}),
-     })
-     return err
+     }
+     if err := conn.Raw(func(driverConn interface{}) error {
+         spannerConn, ok := driverConn.(spannerdriver.SpannerConn)
+         if !ok {
+             return fmt.Errorf("unexpected driver connection %v, "+
+                 "expected SpannerConn", driverConn)
+         }
+         _, err = spannerConn.Apply(ctx, mutations)
+         return err
+     }); err != nil {
+         return err
+     }
+     fmt.Fprintf(w, "Updated %v albums\n", len(mutations))
+    
+     return nil
     }
 
 ### Java
@@ -98,47 +141,42 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void updateDataWithMutations(
-        final String project,
-        final String instance,
-        final String database,
-        final Properties properties) throws SQLException {
-      try (Connection connection =
-          DriverManager.getConnection(
-              String.format(
-                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
-                  project, instance, database),
-              properties)) {
-        // Unwrap the CloudSpannerJdbcConnection interface
-        // from the java.sql.Connection.
-        CloudSpannerJdbcConnection cloudSpannerJdbcConnection =
-            connection.unwrap(CloudSpannerJdbcConnection.class);
+    import java.io.IOException;
+    import java.io.StringReader;
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.SQLException;
+    import org.postgresql.PGConnection;
+    import org.postgresql.copy.CopyManager;
     
-        final long marketingBudgetAlbum1 = 100000L;
-        final long marketingBudgetAlbum2 = 500000L;
-        // Mutation can be used to update/insert/delete a single row in a table.
-        // Here we use newUpdateBuilder to create update mutations.
-        List<Mutation> mutations =
-            Arrays.asList(
-                Mutation.newUpdateBuilder("Albums")
-                    .set("SingerId")
-                    .to(1)
-                    .set("AlbumId")
-                    .to(1)
-                    .set("MarketingBudget")
-                    .to(marketingBudgetAlbum1)
-                    .build(),
-                Mutation.newUpdateBuilder("Albums")
-                    .set("SingerId")
-                    .to(2)
-                    .set("AlbumId")
-                    .to(2)
-                    .set("MarketingBudget")
-                    .to(marketingBudgetAlbum2)
-                    .build());
-        // This writes all the mutations to Cloud Spanner atomically.
-        cloudSpannerJdbcConnection.write(mutations);
-        System.out.println("Updated albums");
+    class UpdateDataWithCopy {
+    
+      static void updateDataWithCopy(String host, int port, String database)
+          throws SQLException, IOException {
+        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+          // Unwrap the PostgreSQL JDBC connection interface to get access to
+          // a CopyManager.
+          PGConnection pgConnection = connection.unwrap(PGConnection.class);
+          CopyManager copyManager = pgConnection.getCopyAPI();
+    
+          // Enable 'partitioned_non_atomic' mode. This ensures that the COPY operation
+          // will succeed even if it exceeds Spanner's mutation limit per transaction.
+          connection
+              .createStatement()
+              .execute("set spanner.autocommit_dml_mode='partitioned_non_atomic'");
+    
+          // Instruct PGAdapter to use insert-or-update for COPY statements.
+          // This enables us to use COPY to update existing data.
+          connection.createStatement().execute("set spanner.copy_upsert=true");
+    
+          // COPY uses mutations to insert or update existing data in Spanner.
+          long numAlbums =
+              copyManager.copyIn(
+                  "COPY albums (singer_id, album_id, marketing_budget) FROM STDIN",
+                  new StringReader("1\t1\t100000\n" + "2\t2\t500000\n"));
+          System.out.printf("Updated %d albums\n", numAlbums);
+        }
       }
     }
 
@@ -238,39 +276,26 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Updates sample data in the database.
-     *
-     * This updates the `MarketingBudget` column which must be created before
-     * running this sample. You can add the column by running the `add_column`
-     * sample or by running this DDL statement against your database:
-     *
-     *     ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
-     *
-     * Example:
-     * ```
-     * update_data($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function update_data(string $instanceId, string $databaseId): void
+    function update_data_with_copy(string $host, string $port, string $database): void
     {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
+        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
+        $connection = new PDO($dsn);
     
-        $operation = $database->transaction(['singleUse' => true])
-            ->updateBatch('Albums', [
-                ['SingerId' => 1, 'AlbumId' => 1, 'MarketingBudget' => 100000],
-                ['SingerId' => 2, 'AlbumId' => 2, 'MarketingBudget' => 500000],
-            ])
-            ->commit();
+        // Instruct PGAdapter to use insert-or-update for COPY statements.
+        // This enables us to use COPY to update data.
+        $connection->exec("set spanner.copy_upsert=true");
     
-        print('Updated data.' . PHP_EOL);
+        // COPY uses mutations to insert or update existing data in Spanner.
+        $connection->pgsqlCopyFromArray(
+            "albums",
+            ["1\t1\t100000", "2\t2\t500000"],
+            "\t",
+            "\\\\N",
+            "singer_id, album_id, marketing_budget",
+        );
+        print("Updated 2 albums\n");
+    
+        $connection = null;
     }
 
 ### Python
@@ -279,28 +304,27 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    def update_data(instance_id, database_id):
-        """Updates sample data in the database.
+    import string
+    import psycopg
     
-        This updates the `MarketingBudget` column which must be created before
-        running this sample. You can add the column by running the `add_column`
-        sample or by running this DDL statement against your database:
     
-            ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
+    def update_data_with_copy(host: string, port: int, database: string):
+        with psycopg.connect("host={host} port={port} dbname={database} "
+                             "sslmode=disable".format(host=host,
+                                                      port=port,
+                                                      database=database)) as conn:
+            conn.autocommit = True
+            with conn.cursor() as cur:
+                # Instruct PGAdapter to use insert-or-update for COPY statements.
+                # This enables us to use COPY to update data.
+                cur.execute("set spanner.copy_upsert=true")
     
-        """
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.batch() as batch:
-            batch.update(
-                table="Albums",
-                columns=("SingerId", "AlbumId", "MarketingBudget"),
-                values=[(1, 1, 100000), (2, 2, 500000)],
-            )
-    
-        print("Updated data.")
+                # COPY uses mutations to insert or update existing data in Spanner.
+                with cur.copy("COPY albums (singer_id, album_id, marketing_budget) "
+                              "FROM STDIN") as copy:
+                    copy.write_row((1, 1, 100000))
+                    copy.write_row((2, 2, 500000))
+                print("Updated %d albums" % cur.rowcount)
 
 ### Ruby
 

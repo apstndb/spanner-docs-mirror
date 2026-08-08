@@ -259,60 +259,68 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\CreateBackupMetadata;
+    use Google\Cloud\Spanner\Admin\Database\V1\CopyBackupMetadata;
+    use Google\Cloud\Spanner\Admin\Database\V1\ListBackupOperationsRequest;
     
     /**
      * List all create backup operations in an instance.
      * Optionally passing the backupId will also list the
      * copy backup operations on the backup.
      *
+     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      * @param string $backupId The Spanner backup ID whose copy operations need to be listed.
      */
     function list_backup_operations(
+        string $projectId,
         string $instanceId,
         string $databaseId,
-        ?string $backupId = null
+        string $backupId
     ): void {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
+        $databaseAdminClient = new DatabaseAdminClient();
+    
+        $parent = DatabaseAdminClient::instanceName($projectId, $instanceId);
     
         // List the CreateBackup operations.
-        $filter = '(metadata.@type:type.googleapis.com/' .
-                  'google.spanner.admin.database.v1.CreateBackupMetadata) AND ' . "(metadata.database:$databaseId)";
+        $filterCreateBackup = '(metadata.@type:type.googleapis.com/' .
+            'google.spanner.admin.database.v1.CreateBackupMetadata) AND ' . "(metadata.database:$databaseId)";
     
         // See https://cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#listbackupoperationsrequest
         // for the possible filter values
-        $operations = $instance->backupOperations(['filter' => $filter]);
+        $filterCopyBackup = sprintf('(metadata.@type:type.googleapis.com/' .
+            'google.spanner.admin.database.v1.CopyBackupMetadata) AND ' . "(metadata.source_backup:$backupId)");
+        $operations = $databaseAdminClient->listBackupOperations(
+            new ListBackupOperationsRequest([
+                'parent' => $parent,
+                'filter' => $filterCreateBackup
+            ])
+        );
     
-        foreach ($operations as $operation) {
-            if (!$operation->done()) {
-                $meta = $operation->info()['metadata'];
-                $backupName = basename($meta['name']);
-                $dbName = basename($meta['database']);
-                $progress = $meta['progress']['progressPercent'];
-                printf('Backup %s on database %s is %d%% complete.' . PHP_EOL, $backupName, $dbName, $progress);
-            }
+        foreach ($operations->iterateAllElements() as $operation) {
+            $obj = new CreateBackupMetadata();
+            $meta = $operation->getMetadata()->unpack($obj);
+            $backupName = basename($meta->getName());
+            $dbName = basename($meta->getDatabase());
+            $progress = $meta->getProgress()->getProgressPercent();
+            printf('Backup %s on database %s is %d%% complete.' . PHP_EOL, $backupName, $dbName, $progress);
         }
     
-        if (is_null($backupId)) {
-            return;
-        }
+        $operations = $databaseAdminClient->listBackupOperations(
+            new ListBackupOperationsRequest([
+                'parent' => $parent,
+                'filter' => $filterCopyBackup
+            ])
+        );
     
-        // List copy backup operations
-        $filter = '(metadata.@type:type.googleapis.com/' .
-                  'google.spanner.admin.database.v1.CopyBackupMetadata) AND ' . "(metadata.source_backup:$backupId)";
-    
-        $operations = $instance->backupOperations(['filter' => $filter]);
-    
-        foreach ($operations as $operation) {
-            if (!$operation->done()) {
-                $meta = $operation->info()['metadata'];
-                $backupName = basename($meta['name']);
-                $progress = $meta['progress']['progressPercent'];
-                printf('Copy Backup %s on source backup %s is %d%% complete.' . PHP_EOL, $backupName, $backupId, $progress);
-            }
+        foreach ($operations->iterateAllElements() as $operation) {
+            $obj = new CopyBackupMetadata();
+            $meta = $operation->getMetadata()->unpack($obj);
+            $backupName = basename($meta->getName());
+            $progress = $meta->getProgress()->getProgressPercent();
+            printf('Copy Backup %s on source backup %s is %d%% complete.' . PHP_EOL, $backupName, $backupId, $progress);
         }
     }
 

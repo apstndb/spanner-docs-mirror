@@ -145,6 +145,8 @@ This section shows you how to create a Spanner Graph database using a Spanner Gr
               DESTINATION KEY (to_id) REFERENCES Account (id)
               LABEL Transfers
           );
+    
+    > **Note:** In the preceding DDL, the edge tables `PersonOwnAccount` and `AccountTransferAccount` use the `INTERLEAVE IN PARENT` clause. Table interleaving is a storage colocation optimization in Spanner that is critical for graph query performance. For details on how interleaving optimizes graph edge traversal, see [Optimize edge traversal](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#optimize-edge-traversal) .
 
 7.  Keep the default settings in **Show encryption options** .
 
@@ -1052,3 +1054,5 @@ This section shows you how to clean up the resources that you created to avoid i
   - [Insert, update, or delete Spanner Graph data](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data) .
   - [Spanner Graph queries overview](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
   - [Migrate to Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/migrate) .
+  - [Learn about best practices for Spanner Graph schema design](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema) .
+  - [Learn about best practices for tuning Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries) .

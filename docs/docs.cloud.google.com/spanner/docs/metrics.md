@@ -1232,7 +1232,7 @@ Transaction latencies
 *Distribution of total seconds takenfrom the first operation of the transaction to commit or abort. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `database` : Target database.
 
-<span class="small">Table generated at 2026-07-30 20:23:33 UTC.</span>
+<span class="small">Table generated at 2026-08-07 00:14:10 UTC.</span>
 
 ## What's next
 

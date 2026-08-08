@@ -58,20 +58,40 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    public static async Task QueryDataWithParameter(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
+    using Google.Cloud.Spanner.Data;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT SingerId, FirstName, LastName " +
-                              "FROM Singers " +
-                              "WHERE LastName = ?";
-        command.Parameters.Add("Garcia");
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
+    public class QueryWithParameterAsyncSample
+    {
+        public class Singer
         {
-            Console.WriteLine($"{reader["SingerId"]} {reader["FirstName"]} {reader["LastName"]}");
+            public int SingerId { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+    
+        public async Task<List<Singer>> QueryWithParameterAsync(string projectId, string instanceId, string databaseId)
+        {
+            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+    
+            using var connection = new SpannerConnection(connectionString);
+            using var cmd = connection.CreateSelectCommand(
+                $"SELECT SingerId, FirstName, LastName FROM Singers WHERE LastName = @lastName",
+                new SpannerParameterCollection { { "lastName", SpannerDbType.String, "Garcia" } });
+    
+            var singers = new List<Singer>();
+            using var reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                singers.Add(new Singer
+                {
+                    SingerId = reader.GetFieldValue<int>("SingerId"),
+                    FirstName = reader.GetFieldValue<string>("FirstName"),
+                    LastName = reader.GetFieldValue<string>("LastName")
+                });
+            }
+            return singers;
         }
     }
 
@@ -81,31 +101,43 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    func queryWithParameter(ctx context.Context, w io.Writer, client *spanner.Client) error {
-     stmt := spanner.Statement{
-         SQL: `SELECT SingerId, FirstName, LastName FROM Singers
-             WHERE LastName = @lastName`,
-         Params: map[string]interface{}{
-             "lastName": "Garcia",
-         },
+    import (
+     "context"
+     "database/sql"
+     "fmt"
+     "io"
+    
+     _ "github.com/googleapis/go-sql-spanner"
+    )
+    
+    func QueryDataWithParameter(ctx context.Context, w io.Writer, databaseName string) error {
+     db, err := sql.Open("spanner", databaseName)
+     if err != nil {
+         return err
      }
-     iter := client.Single().Query(ctx, stmt)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
+     defer db.Close()
+    
+     rows, err := db.QueryContext(ctx,
+         `SELECT SingerId, FirstName, LastName
+         FROM Singers
+         WHERE LastName = ?`, "Garcia")
+     defer rows.Close()
+     if err != nil {
+         return err
+     }
+     for rows.Next() {
+         var singerId int64
+         var firstName, lastName string
+         err = rows.Scan(&singerId, &firstName, &lastName)
          if err != nil {
              return err
          }
-         var singerID int64
-         var firstName, lastName string
-         if err := row.Columns(&singerID, &firstName, &lastName); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %s %s\n", singerID, firstName, lastName)
+         fmt.Fprintf(w, "%v %v %v\n", singerId, firstName, lastName)
      }
+     if rows.Err() != nil {
+         return rows.Err()
+     }
+     return rows.Close()
     }
 
 ### Java
@@ -114,30 +146,30 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void queryWithParameter(
-        final String project,
-        final String instance,
-        final String database,
-        final Properties properties) throws SQLException {
-      try (Connection connection =
-          DriverManager.getConnection(
-              String.format(
-                  "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
-                  project, instance, database),
-              properties)) {
-        try (PreparedStatement statement =
-            connection.prepareStatement(
-                "SELECT SingerId, FirstName, LastName "
-                    + "FROM Singers "
-                    + "WHERE LastName = ?")) {
-          statement.setString(1, "Garcia");
-          try (ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-              System.out.printf(
-                  "%d %s %s\n",
-                  resultSet.getLong("SingerId"),
-                  resultSet.getString("FirstName"),
-                  resultSet.getString("LastName"));
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.PreparedStatement;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
+    
+    class QueryDataWithParameter {
+      static void queryDataWithParameter(String host, int port, String database) throws SQLException {
+        String connectionUrl = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
+        try (Connection connection = DriverManager.getConnection(connectionUrl)) {
+          try (PreparedStatement statement =
+              connection.prepareStatement(
+                  "SELECT singer_id, first_name, last_name "
+                      + "FROM singers "
+                      + "WHERE last_name = ?")) {
+            statement.setString(1, "Garcia");
+            try (ResultSet resultSet = statement.executeQuery()) {
+              while (resultSet.next()) {
+                System.out.printf(
+                    "%d %s %s\n",
+                    resultSet.getLong("singer_id"),
+                    resultSet.getString("first_name"),
+                    resultSet.getString("last_name"));
+              }
             }
           }
         }
@@ -229,34 +261,25 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Queries sample data from the database using SQL with a parameter.
-     * Example:
-     * ```
-     * query_data_with_parameter($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function query_data_with_parameter(string $instanceId, string $databaseId): void
+    function query_data_with_parameter(string $host, string $port, string $database): void
     {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
+        $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s", $host, $port, $database);
+        $connection = new PDO($dsn);
     
-        $results = $database->execute(
-            'SELECT SingerId, FirstName, LastName FROM Singers ' .
-            'WHERE LastName = @lastName',
-            ['parameters' => ['lastName' => 'Garcia']]
+        $statement = $connection->prepare("SELECT singer_id, first_name, last_name "
+                            ."FROM singers "
+                            ."WHERE last_name = ?"
         );
-    
-        foreach ($results as $row) {
-            printf('SingerId: %s, FirstName: %s, LastName: %s' . PHP_EOL,
-                $row['SingerId'], $row['FirstName'], $row['LastName']);
+        $statement->execute(["Garcia"]);
+        $rows = $statement->fetchAll();
+        foreach ($rows as $singer)
+        {
+            printf("%s\t%s\t%s\n", $singer["singer_id"], $singer["first_name"], $singer["last_name"]);
         }
+    
+        $rows = null;
+        $statement = null;
+        $connection = null;
     }
 
 ### Python
@@ -265,22 +288,22 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    spanner_client = spanner.Client()
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
+    import string
+    import psycopg
     
-    with database.snapshot() as snapshot:
-        results = snapshot.execute_sql(
-            "SELECT SingerId, FirstName, LastName FROM Singers "
-            "WHERE LastName = @lastName",
-            params={"lastName": "Garcia"},
-            param_types={"lastName": spanner.param_types.STRING},
-        )
     
-        for row in results:
-            print("SingerId: {}, FirstName: {}, LastName: {}".format(*row))
+    def query_data_with_parameter(host: string, port: int, database: string):
+        with psycopg.connect("host={host} port={port} dbname={database} "
+                             "sslmode=disable".format(host=host,
+                                                      port=port,
+                                                      database=database)) as conn:
+            conn.autocommit = True
+            with conn.cursor() as cur:
+                cur.execute("SELECT singer_id, first_name, last_name "
+                            "FROM singers "
+                            "WHERE last_name = %s", ("Garcia",))
+                for singer in cur:
+                    print(singer)
 
 ### Ruby
 

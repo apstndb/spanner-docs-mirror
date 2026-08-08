@@ -103,7 +103,23 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    func readUsingIndex(ctx context.Context, w io.Writer, client *spanner.Client) error {
+    import (
+     "context"
+     "fmt"
+     "io"
+    
+     "cloud.google.com/go/spanner"
+     "google.golang.org/api/iterator"
+    )
+    
+    func readUsingIndex(w io.Writer, db string) error {
+     ctx := context.Background()
+     client, err := spanner.NewClient(ctx, db)
+     if err != nil {
+         return err
+     }
+     defer client.Close()
+    
      iter := client.Single().ReadUsingIndex(ctx, "Albums", "AlbumsByAlbumTitle", spanner.AllKeys(),
          []string{"AlbumId", "AlbumTitle"})
      defer iter.Stop()

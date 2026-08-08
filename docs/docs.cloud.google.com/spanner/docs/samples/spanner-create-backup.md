@@ -221,49 +221,64 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\Backup;
-    use Google\Cloud\Spanner\SpannerClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\Backup;
+    use Google\Cloud\Spanner\Admin\Database\V1\GetBackupRequest;
+    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+    use Google\Cloud\Spanner\Admin\Database\V1\CreateBackupRequest;
+    use Google\Protobuf\Timestamp;
     
     /**
      * Create a backup.
      * Example:
      * ```
-     * create_backup($instanceId, $databaseId, $backupId, $versionTime);
+     * create_backup($projectId, $instanceId, $databaseId, $backupId, $versionTime);
      * ```
      *
+     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $databaseId The Spanner database ID.
      * @param string $backupId The Spanner backup ID.
      * @param string $versionTime The version of the database to backup. Read more
      * at https://cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup.FIELDS.version_time
      */
-    function create_backup(string $instanceId, string $databaseId, string $backupId, string $versionTime = '-1hour'): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $expireTime = new \DateTime('+14 days');
-        $backup = $instance->backup($backupId);
-        $operation = $backup->create($database->name(), $expireTime, [
-            'versionTime' => new \DateTime($versionTime)
+    function create_backup(
+        string $projectId,
+        string $instanceId,
+        string $databaseId,
+        string $backupId,
+        string $versionTime = '-1hour'
+    ): void {
+        $databaseAdminClient = new DatabaseAdminClient();
+        $databaseFullName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
+        $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
+        $timestamp = new Timestamp();
+        $timestamp->setSeconds((new \DateTime($versionTime))->getTimestamp());
+        $expireTime = new Timestamp();
+        $expireTime->setSeconds((new \DateTime('+14 days'))->getTimestamp());
+        $request = new CreateBackupRequest([
+            'parent' => $instanceFullName,
+            'backup_id' => $backupId,
+            'backup' => new Backup([
+                'database' => $databaseFullName,
+                'expire_time' => $expireTime,
+                'version_time' => $timestamp
+            ])
         ]);
+    
+        $operation = $databaseAdminClient->createBackup($request);
     
         print('Waiting for operation to complete...' . PHP_EOL);
         $operation->pollUntilComplete();
     
-        $backup->reload();
-        $ready = ($backup->state() == Backup::STATE_READY);
-    
-        if ($ready) {
-            print('Backup is ready!' . PHP_EOL);
-            $info = $backup->info();
-            printf(
-                'Backup %s of size %d bytes was created at %s for version of database at %s' . PHP_EOL,
-                basename($info['name']), $info['sizeBytes'], $info['createTime'], $info['versionTime']);
-        } else {
-            printf('Unexpected state: %s' . PHP_EOL, $backup->state());
-        }
+        $request = new GetBackupRequest();
+        $request->setName($databaseAdminClient->backupName($projectId, $instanceId, $backupId));
+        $info = $databaseAdminClient->getBackup($request);
+        printf(
+            'Backup %s of size %d bytes was created at %d for version of database at %d' . PHP_EOL,
+            basename($info->getName()),
+            $info->getSizeBytes(),
+            $info->getCreateTime()->getSeconds(),
+            $info->getVersionTime()->getSeconds());
     }
 
 ### Python

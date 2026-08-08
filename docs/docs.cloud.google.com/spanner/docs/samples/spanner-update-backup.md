@@ -219,33 +219,37 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use DateTime;
+    use Google\Cloud\Spanner\Admin\Database\V1\Backup;
+    use Google\Cloud\Spanner\Admin\Database\V1\UpdateBackupRequest;
+    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+    use Google\Protobuf\Timestamp;
     
     /**
      * Update the backup expire time.
      * Example:
      * ```
-     * update_backup($instanceId, $backupId);
+     * update_backup($projectId, $instanceId, $backupId);
      * ```
+     * @param string $projectId The Google Cloud project ID.
      * @param string $instanceId The Spanner instance ID.
      * @param string $backupId The Spanner backup ID.
      */
-    function update_backup(string $instanceId, string $backupId): void
+    function update_backup(string $projectId, string $instanceId, string $backupId): void
     {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $backup = $instance->backup($backupId);
-        $backup->reload();
+        $databaseAdminClient = new DatabaseAdminClient();
+        $backupName = DatabaseAdminClient::backupName($projectId, $instanceId, $backupId);
+        $newExpireTime = new Timestamp();
+        $newExpireTime->setSeconds((new \DateTime('+30 days'))->getTimestamp());
+        $request = new UpdateBackupRequest([
+            'backup' => new Backup([
+                'name' => $backupName,
+                'expire_time' => $newExpireTime
+            ]),
+            'update_mask' => new \Google\Protobuf\FieldMask(['paths' => ['expire_time']])
+        ]);
     
-        $newExpireTime = new DateTime('+30 days');
-        $maxExpireTime = new DateTime($backup->info()['maxExpireTime']);
-        // The new expire time can't be greater than maxExpireTime for the backup.
-        $newExpireTime = min($newExpireTime, $maxExpireTime);
-    
-        $backup->updateExpireTime($newExpireTime);
-    
-        printf('Backup %s new expire time: %s' . PHP_EOL, $backupId, $backup->info()['expireTime']);
+        $info = $databaseAdminClient->updateBackup($request);
+        printf('Backup %s new expire time: %d' . PHP_EOL, basename($info->getName()), $info->getExpireTime()->getSeconds());
     }
 
 ### Python

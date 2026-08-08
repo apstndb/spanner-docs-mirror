@@ -552,6 +552,15 @@ The following shows the output:
     
     Optionally, if you want to do some analysis on the recovered data before writing back, you can manually create a temporay table in the same database, write the recovered data to this temporary table first, do the analysis, and then read the data you want to recover from this temporary table and write it to the table that needs to be recovered.
 
+## Recover a specific table
+
+If you need to recover a specific table and the chosen recovery point is more recent than the database's `earliest_version_time` , you can export the table from an earlier timestamp within the same database and then import it back.
+
+The import process doesn't automatically delete rows that were added after the backup was created. Therefore, if you want the recovered table to exactly match its state at the chosen restore timestamp, you must manually delete the rows that were created after the restore timestamp.
+
+1.  Export the specific table from the database specifying the `snapshotTime` parameter to the needed recovery timestamp. You can use the [Spanner to Avro](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#cloud_spanner_to_gcs_avro) Dataflow template. For more information, see [Exporting data](https://docs.cloud.google.com/spanner/docs/export) .
+2.  Import the exported table back into the database using the [Cloud Storage Avro to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcs_avro_to_cloud_spanner) Dataflow template. For more information, see [Importing data](https://docs.cloud.google.com/spanner/docs/import) .
+
 ## Recover an entire database
 
 You can recover the entire database using either [Backup and Restore](https://docs.cloud.google.com/spanner/docs/backup) or [Import and Export](https://docs.cloud.google.com/spanner/docs/export) and specifying a recovery timestamp.

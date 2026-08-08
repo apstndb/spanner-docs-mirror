@@ -29,9 +29,11 @@ These effects stem from Spanner's support for *multi-version storage* . Multi-ve
 
 Spanner guarantees the continued availability of deleted or overwritten data for the interval defined by the [`version_retention_period`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.version_retention_period) option (one hour, by default). It automatically runs a background process every several days that permanently removes all obsolete data older than this version-retention interval. To permanently remove obsolete data faster, you can [manually trigger a major compaction](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) .
 
-### Effects of splitting
+### Effects of splitting and merging
 
-During periods of high load or hotspots, Spanner uses splitting as one technique to more evenly distribute your CPU utilization across your provisioned compute resources. One side effect of splitting is a temporary increase in storage utilization. For data being split, over the course of the weekly compaction cycle, there might be up to two copies of the original split range retained at a given time until the cycle has had a chance to shrink down the splits and discard the extra copies of data. You can [manually trigger a major compaction](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) to discard extra copies immediately.
+During periods of high load or hotspots, Spanner uses splitting and merging to distribute your CPU utilization across your provisioned compute resources. These background data movement operations can happen even if you aren't inserting or modifying data.
+
+One side effect of this optimization is a temporary increase in storage utilization. For data being moved, there might be up to two copies of the original data retained at a given time. This overhead doesn't grow indefinitely. Over the course of the compaction cycle, Spanner shrinks down the splits and discards the extra copies of data. You can expect this storage overhead to stabilize, typically within two weeks. You can also [manually trigger a major compaction](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) to discard extra copies immediately.
 
 ### Storage statistics
 

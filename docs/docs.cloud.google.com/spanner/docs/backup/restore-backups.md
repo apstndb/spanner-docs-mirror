@@ -426,3 +426,17 @@ The following code sample restores a database from a given backup and waits for 
     database = database_admin_client.get_database name: db_path
     restore_info = database.restore_info
     puts "Database #{restore_info.backup_info.source_database} was restored to #{database_id} from backup #{restore_info.backup_info.backup} with version time #{restore_info.backup_info.version_time}"
+
+## Recover a specific table from a backup
+
+If you need to recover a specific table from a backup, you can restore the backup to a new database, export that single table from the new database, and then import that table into your original database. This approach minimizes the load on the original database during the export process.
+
+1.  [Restore the backup](https://docs.cloud.google.com/spanner/docs/backup/restore-backups#restore-database-backup) to a *new* , separate database.
+
+2.  Optional: Delete rows that were created after the recovery timestamp.
+    
+    The import process does not automatically delete rows that were added to the table after the backup was created. Therefore, if you want the recovered table to exactly match the state of the backup, you must manually delete the rows that were created after the backup's timestamp.
+
+3.  Export the specific table from the *new* database using the [Spanner to Avro](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#cloud_spanner_to_gcs_avro) Dataflow template. For more information, see [Export a subset of tables](https://docs.cloud.google.com/spanner/docs/export#export-subset-tables) .
+
+4.  Import the exported table into your *original* database using the [Cloud Storage Avro to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcs_avro_to_cloud_spanner) Dataflow template. For more information, see [Importing data](https://docs.cloud.google.com/spanner/docs/import) .

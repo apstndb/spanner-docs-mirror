@@ -282,33 +282,37 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
+    use Google\Cloud\Spanner\Admin\Instance\V1\Client\InstanceAdminClient;
+    use Google\Cloud\Spanner\Admin\Instance\V1\CreateInstanceRequest;
+    use Google\Cloud\Spanner\Admin\Instance\V1\Instance;
     
     /**
      * Creates an instance.
      * Example:
      * ```
-     * create_instance($instanceId);
+     * create_instance($projectId, $instanceId);
      * ```
      *
+     * @param string $projectId  The Spanner project ID.
      * @param string $instanceId The Spanner instance ID.
      */
-    function create_instance(string $instanceId): void
+    function create_instance(string $projectId, string $instanceId): void
     {
-        $spanner = new SpannerClient();
-        $instanceConfig = $spanner->instanceConfiguration(
-            'regional-us-central1'
-        );
-        $operation = $spanner->createInstance(
-            $instanceConfig,
-            $instanceId,
-            [
-                'displayName' => 'This is a display name.',
-                'nodeCount' => 1,
-                'labels' => [
-                    'cloud_spanner_samples' => true,
-                ]
-            ]
+        $instanceAdminClient = new InstanceAdminClient();
+        $parent = InstanceAdminClient::projectName($projectId);
+        $instanceName = InstanceAdminClient::instanceName($projectId, $instanceId);
+        $configName = $instanceAdminClient->instanceConfigName($projectId, 'regional-us-central1');
+        $instance = (new Instance())
+            ->setName($instanceName)
+            ->setConfig($configName)
+            ->setDisplayName('dispName')
+            ->setNodeCount(1);
+    
+        $operation = $instanceAdminClient->createInstance(
+            (new CreateInstanceRequest())
+            ->setParent($parent)
+            ->setInstanceId($instanceId)
+            ->setInstance($instance)
         );
     
         print('Waiting for operation to complete...' . PHP_EOL);
