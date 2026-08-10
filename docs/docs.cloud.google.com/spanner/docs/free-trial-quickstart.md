@@ -150,8 +150,8 @@ If you choose to use a CSV file, you also need to upload a separate JSON file th
       - (Optional) If you choose to use a CSV file, you also need to upload a separate JSON file that contains the database schema. The JSON file must use the following structure to define the schema:
         
             {
-              "name": "COLUMN_NAME",
-              "type": "TYPE",
+              "name": &quot;COLUMN_NAME&quot;,
+              "type": ";TYPE",
               "notNull": NOT_NULL_VALUE,
               "primaryKeyOrder": PRIMARY_KEY_ORDER
             }
