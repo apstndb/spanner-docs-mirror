@@ -1,1 +1,2 @@
-
+200 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax
+200 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax-guide
