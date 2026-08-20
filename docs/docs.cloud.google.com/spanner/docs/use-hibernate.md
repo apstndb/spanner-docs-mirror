@@ -8,13 +8,13 @@ data_source: docs.cloud.google.com
 
 Hibernate is an object-relational mapping tool for the Java programming language. It provides a framework for mapping an object-oriented domain model to a relational database.
 
-You can integrate GoogleSQL-dialect databases with Hibernate. Spanner is compatible with [Hibernate ORM 6.x and 7.x](https://hibernate.org/orm/) . Both the built-in dialect and the open-source dialect produce SQL, DML, and DDL statements for most common entity types and relationships using standard Hibernate and Java Persistence annotations.
+You can integrate GoogleSQL-dialect databases with Hibernate. Spanner is compatible with [Hibernate ORM 6.x and 7.x](https://hibernate.org/orm/) . Hibernate ORM has a built-in Spanner dialect, and there is also a Google-maintained Hibernate dialect available [on GitHub](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) . Both dialects produce SQL, DML, and DDL statements for most common entity types and relationships using standard Hibernate and Java Persistence annotations.
 
 ## Use built-in Hibernate integration (Hibernate ORM 7.4+)
 
 Starting with Hibernate ORM 7.4, Hibernate includes a built-in dialect for Spanner ( `org.hibernate.dialect.SpannerDialect` ).
 
-We recommend that new projects use this built-in dialect, as it does not require adding the external `google-cloud-spanner-hibernate-dialect` dependency. The built-in dialect lacks some features and optimizations that are available in the [open-source Spanner dialect](https://docs.cloud.google.com/spanner/docs/use-hibernate#setup-external) .
+We recommend that new projects use this built-in dialect, as it does not require adding the external `google-cloud-spanner-hibernate-dialect` dependency. The built-in dialect supports standard Hibernate features. If your application requires [advanced Spanner-specific features](https://docs.cloud.google.com/spanner/docs/use-hibernate#setup-external) , we recommend using the Google-maintained external dialect instead.
 
 To use the built-in dialect, add the Maven dependencies for Hibernate ORM core and the Spanner JDBC driver to your project's `pom.xml` file. To find the latest versions of these dependencies, see the [Hibernate ORM releases](https://github.com/hibernate/hibernate-orm) and the [Spanner JDBC driver releases](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner-jdbc) :
 
@@ -42,11 +42,19 @@ Configure your project's `hibernate.properties` file (typically located in the `
 
 To authenticate with Spanner, the JDBC driver requires credentials. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the path of your [service account JSON credentials file](https://docs.cloud.google.com/docs/authentication/getting-started) . Otherwise, the driver uses the default credentials set in the Google Cloud CLI `gcloud` application.
 
-## Use open-source Spanner dialect
+## Use Google-maintained Spanner dialect
 
-For projects using earlier versions of Hibernate (6.x or 7.x prior to 7.4), or if you need features and optimizations that are not yet supported by the built-in dialect, you can use the open-source [Spanner Dialect](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) .
+For projects using earlier versions of Hibernate (6.x or 7.x prior to 7.4), or if you need advanced Spanner-specific features that are not yet supported by the built-in dialect, you can use the [Google-maintained Spanner Dialect](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) .
 
-To use the open-source dialect, add the Maven dependencies to your project's `pom.xml` file:
+Advanced features supported by the Google-maintained dialect include:
+
+  - Interleaved table hierarchies ( `@Interleaved` )
+  - Query, index, and scan hints
+  - DDL schema batching
+  - Transaction tagging ( `@TransactionTag` )
+  - Pooled sequences ( `@PooledBitReversedSequenceGenerator` )
+
+To use the Google-maintained dialect, add the Maven dependencies to your project's `pom.xml` file:
 
     <dependencies>
       <!-- The Spanner JDBC driver dependency -->
@@ -63,7 +71,7 @@ To use the open-source dialect, add the Maven dependencies to your project's `po
       </dependency>
     </dependencies>
 
-Configure your project's `hibernate.properties` file to use the open-source Spanner Dialect and JDBC Driver:
+Configure your project's `hibernate.properties` file to use the Google-maintained Spanner Dialect and JDBC Driver:
 
     hibernate.dialect=com.google.cloud.spanner.hibernate.SpannerDialect
     hibernate.connection.driver_class=com.google.cloud.spanner.jdbc.JdbcDriver

@@ -238,9 +238,10 @@ GoogleSQL supports [casting](https://docs.cloud.google.com/spanner/docs/referenc
 
 **Conversion rules**
 
-| From    | To      | Rule(s) when casting `x`           |
-| ------- | ------- | ---------------------------------- |
-| `ARRAY` | `ARRAY` | Must be the exact same array type. |
+| From    | To      | Rule(s) when casting `x`                                                                                                                          |
+| ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ARRAY` | `ARRAY` | Must be the exact same array type.                                                                                                                |
+| `NULL`  | `ARRAY` | Casts a `NULL` value to a specific type of array. For example, `CAST(NULL AS ARRAY<FLOAT64>)` returns a `NULL` literal of type `ARRAY<FLOAT64>` . |
 
 ### CAST AS BOOL
 

@@ -98,7 +98,7 @@ You can back up and restore your data using [Spanner backups](https://docs.cloud
 
 ## Data Boost
 
-You can use [Spanner Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) to access data on SSD or HDD storage. Querying data on HDD uses the instance's [HDD disk load capacity](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#spanner/instance/disk_load) , which is part of your compute capacity.
+You can use [Spanner Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) to access data on SSD or HDD storage. Querying data on HDD storage uses separate HDD disk load capacity from your instance, similar to how it uses separate compute.
 
 ## Search indexes
 

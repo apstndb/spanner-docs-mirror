@@ -288,6 +288,27 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     puts "Added the AlbumsByAlbumTitle2 storing index"
 
+### Rust
+
+    use google_cloud_lro::Poller;
+    use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    
+    pub async fn sample(admin_client: &DatabaseAdmin, database_name: &str) -> anyhow::Result<()> {
+        let statements =
+            vec!["CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)"];
+    
+        admin_client
+            .update_database_ddl()
+            .set_database(database_name)
+            .set_statements(statements)
+            .poller()
+            .until_done()
+            .await?;
+    
+        println!("Added AlbumsByAlbumTitle2 index");
+        Ok(())
+    }
+
 ## What's next
 
 To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

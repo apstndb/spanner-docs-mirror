@@ -8,15 +8,31 @@ data_source: docs.cloud.google.com
 
 This page describes the advanced concept of sessions in Spanner, including best practices for sessions when creating a client library, using the REST or RPC APIs, or using the Google client libraries.
 
-A session represents a communication channel with the Spanner database service. A session is used to perform transactions that read, write, or modify data in a Spanner database. Each session applies to a single database.
+A session provides a context for database operations with the Spanner database service. A session is used to execute transactions that read, write, or modify data in a Spanner database. Each session applies to a single database.
 
 Sessions can execute a single or multiple [transactions](https://docs.cloud.google.com/spanner/docs/transactions) at a time. When performing multiple transactions, the session is called a [multiplexed session](https://docs.cloud.google.com/spanner/docs/sessions#multiplexed_sessions) . Standalone reads, writes, and queries use one transaction internally.
 
-## Performance benefits of a session pool
+## Manage session performance
 
-Creating a session is expensive. To avoid the performance cost each time a database operation is made, clients should keep a *session pool* , which is a pool of available sessions that are ready to use. The pool should store existing sessions and return the appropriate type of session when requested, as well as handle cleanup of unused sessions. For an example of how to implement a session pool, see the source code for one of the Spanner client libraries, such as the [Go client library](https://github.com/GoogleCloudPlatform/google-cloud-go/blob/master/spanner/session.go) .
+Sessions are the context for a database operation, so how you manage them directly affects your application's latency and resource usage. You can manage session performance in the following three ways:
+
+  - [Use a session pool](https://docs.cloud.google.com/spanner/docs/sessions#use_a_session_pool) .
+  - [Use multiplexed sessions](https://docs.cloud.google.com/spanner/docs/sessions#use_multiplexed_sessions) .
+  - [Optimize the gRPC channel configuration](https://docs.cloud.google.com/spanner/docs/sessions#optimize_grpc_channel_configuration) .
+
+### Use a session pool
+
+Creating a session adds latency because each new session requires a round trip to the Spanner database service. To reduce this latency, use a *session pool* : a collection of available sessions that are ready to use. Rather than creating a session for every operation, the pool returns an existing session and reclaims it for reuse afterward. This spreads the session-creation latency across many operations rather than eliminating it entirely. The pool stores existing sessions, returns the appropriate type of session when requested, and cleans up unused sessions.
 
 Sessions are intended to be long-lived, so after a session is used for a database operation, the client should return the session to the pool for reuse.
+
+### Use multiplexed sessions
+
+Multiplexed sessions let you make multiple concurrent requests on a single session, which reduces backend overhead and resource consumption. For more information, see [Multiplexed sessions](https://docs.cloud.google.com/spanner/docs/sessions#multiplexed_sessions) .
+
+### Optimize the gRPC channel configuration
+
+Reduce high tail latency (p95/p99) caused by [gRPC channel](https://docs.cloud.google.com/spanner/docs/sessions#overview_of_grpc_channels) congestion during high traffic by tuning the gRPC channel pool. In supported client libraries, [dynamic channel pooling](https://docs.cloud.google.com/spanner/docs/sessions#configure_the_number_of_sessions_and_grpc_channels_in_the_pools) automatically resizes the channel pool as load changes. This helps reduce congestion-related tail latency and helps avoid under-provisioning or over-provisioning channels.
 
 ## Overview of gRPC channels
 
@@ -30,7 +46,7 @@ The following describes best practices when using the Google [client libraries](
 
 ### Configure the number of sessions and gRPC channels in the pools
 
-The client libraries have a default number of sessions in the session pool and a default number of gRPC channels in the channel pool. Both defaults are adequate for most cases. The following are the default minimum and maximum sessions and the default number of gRPC channels for each programming language.
+How you manage sessions and gRPC channels depends on the client library. Client libraries that support multiplexed sessions, such as the Go and Java client libraries, don't require you to configure a session pool and can manage the gRPC channel pool for you through dynamic channel pooling. The other client libraries use a session pool with a default minimum and maximum number of sessions, and a default number of gRPC channels. The defaults are adequate for most cases. The following sections describe the defaults and configuration options for each programming language.
 
 ### C++
 
@@ -46,15 +62,91 @@ The client libraries have a default number of sessions in the session pool and a
 
 ### Go
 
-    MinSessions: 100
-    MaxSessions: 400
-    NumChannels: 4
+Multiplexed sessions are enabled by default and require no configuration.
+
+Dynamic channel pooling is an opt-in feature. If you don't enable it, the client uses four gRPC channels. To use a different fixed number of gRPC channels, use the `option.WithGRPCConnectionPool` option when you create the client:
+
+    // Use 16 gRPC channels instead of the default of four.
+    client, err := spanner.NewClient(ctx,
+        "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
+        option.WithGRPCConnectionPool(16),
+    )
+
+This example requires the `google.golang.org/api/option` package.
+
+To enable dynamic channel pooling, set the `DCPEnabled` option to `true` in `DynamicChannelPoolConfig` :
+
+    client, err := spanner.NewClientWithConfig(ctx,
+        "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
+        spanner.ClientConfig{
+            DynamicChannelPoolConfig: spanner.DynamicChannelPoolConfig{
+                DCPEnabled: true,
+            },
+        })
+
+When you enable dynamic channel pooling without setting custom options, the Go client library applies the following defaults:
+
+  - Initial pool size: 4 channels
+  - Minimum pool size: 2 channels
+  - Maximum pool size: 10 channels
+  - Scale-up threshold: 25 concurrent RPCs per channel
+  - Scale-down threshold: 15 concurrent RPCs per channel
+  - Scale-down check interval: 3 minutes
+
+To customize the pool, set the fields of the `DynamicChannelPoolConfig` struct, such as `DCPInitialChannels` , `DCPMinChannels` , `DCPMaxChannels` , `DCPMaxRPCPerChannel` , and `DCPMinRPCPerChannel` .
 
 ### Java
 
-    MinSessions: 100
-    MaxSessions: 400
-    NumChannels: 4
+Multiplexed sessions are enabled by default in version 6.98.0 or later of the Java client library and require no configuration. For more information, see [Multiplexed sessions](https://docs.cloud.google.com/spanner/docs/sessions#multiplexed_sessions) .
+
+Dynamic channel pooling is disabled by default for the Java client library and must be enabled using [`SpannerOptions`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.SpannerOptions) . If dynamic channel pooling isn't enabled, the Java client library uses 4 gRPC channels (8 channels when the gRPC-GCP extension is enabled). When dynamic channel pooling is enabled, the client library resizes the gRPC channel pool to adapt to changing workloads, which helps prevent performance issues from under-provisioned or over-provisioned channels.
+
+To enable dynamic channel pooling, include `enableDynamicChannelPool` in `SpannerOptions` :
+
+    SpannerOptions options =
+        SpannerOptions.newBuilder()
+            .setProjectId("PROJECT_ID")
+            .enableDynamicChannelPool()
+            .build();
+
+If you configure the number of channels using `setNumChannels` , then Spanner disables dynamic channel pooling and uses a static number of channels.
+
+When you enable dynamic channel pooling without setting custom options through `setGcpChannelPoolOptions` , the Java client library applies the following defaults, which are optimized for typical workloads:
+
+  - Initial pool size: 4 channels
+  - Minimum pool size: 2 channels
+  - Maximum pool size: 10 channels (hard cap: 256 channels)
+  - Scale-up threshold: 25 concurrent RPCs per channel
+  - Scale-down threshold: 15 concurrent RPCs per channel
+  - Scale-down interval: 3 minutes
+
+To customize dynamic channel pooling, use `setGcpChannelPoolOptions` . For example:
+
+    SpannerOptions options =
+        SpannerOptions.newBuilder()
+            .setProjectId("PROJECT_ID")
+            .enableDynamicChannelPool()
+            .setGcpChannelPoolOptions(
+                GcpChannelPoolOptions.newBuilder()
+                    .setMaxSize(15)
+                    .setMinSize(3)
+                    .setInitSize(5)
+                    // setDynamicScaling(minRpcPerChannel, maxRpcPerChannel,
+                    // scaleDownInterval): scale up as soon as a channel's load
+                    // exceeds 30 concurrent RPCs. Scale-up is event-driven, so
+                    // the pool grows immediately as load rises. Scale-down is
+                    // periodic: a channel is removed only after it stays under
+                    // 10 concurrent RPCs across the check that runs every 5
+                    // minutes.
+                    .setDynamicScaling(10, 30, Duration.ofMinutes(5))
+                    .build())
+            .build();
+
+Consider the following tradeoffs of dynamic channel pooling:
+
+  - **Scaling overhead** : Scaling the pool involves overhead from creating and destroying gRPC channels and TCP connections. For latency sensitive workloads with sharp bursts, a large static pool might be a better choice to avoid scaling latency.
+  - **Configuration overrides** : Setting the base number of channels disables dynamic channel pooling. For more information, see [`setNumChannels`](https://javadoc.io/doc/com.google.cloud/google-cloud-spanner/latest/com/google/cloud/spanner/SpannerOptions.Builder.html#setNumChannels\(int\))
+  - **Resource usage** : A static channel pool uses a fixed amount of memory and connections, whereas a dynamic pool's resource usage varies with load.
 
 ### Node.js
 
@@ -80,6 +172,8 @@ The Ruby client does not support multiple gRPC channels. It is therefore recomme
 
     MinSessions: 10
     MaxSessions: 100
+
+Use multiplexed sessions if the client library for your programming language supports them. Multiplexed sessions don't require any configuration, and a single multiplexed session can execute any number of concurrent transactions.
 
 The number of sessions that your application uses is equal to the number of concurrent transactions that your application executes. You should modify the default session pool settings only if you expect a single application instance to execute more concurrent transactions than the default session pool can handle.
 
@@ -329,7 +423,7 @@ You must set `GOOGLE_CLOUD_SPANNER_MULTIPLEXED_SESSIONS` to `TRUE` as a prerequi
 
 ### View traffic for regular and multiplexed sessions
 
-OpenTelemetry has the `is_multiplexed` filter to show the traffic for multiplexed sessions. You set this filter to `true to view multiplexed sessions and` false\` to view regular sessions.
+OpenTelemetry includes the `is_multiplexed` filter to show traffic for multiplexed sessions. Set this filter to `true` to view multiplexed sessions or `false` to view regular sessions.
 
 1.  Set up OpenTelemetry for Spanner using the procedures in the Spanner OpenTelemetry [Before you begin](https://docs.cloud.google.com/spanner/docs/capture-visualize-latency#before_you_begin) section.
 

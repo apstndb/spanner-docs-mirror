@@ -46,7 +46,7 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 
 4.  Create an isolated Python environment, and install dependencies:
     
-        virtualenv -m venv env
+        python3 -m venv env
         source env/bin/activate
         pip install -r requirements.txt
 
@@ -314,10 +314,17 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
+### GoogleSQL
+
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
 
-> **Note:** For the GoogleSQL reference, see [Query syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) and for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
+### GoogleSQL Pipe syntax
+
+    gcloud spanner databases execute-sql example-db --instance=test-instance \
+        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+
+> **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
@@ -407,7 +414,13 @@ Here is an example of using a parameter in the `WHERE` clause to query records c
 
 Run the sample using the query\_data\_with\_parameter argument.
 
-    python snippets.py test-instance --database-id example-db query_data_with_parameter
+### GoogleSQL
+
+python snippets.py test-instance --database-id example-db query\_data\_with\_parameter
+
+### PostgreSQL
+
+python pg\_snippets.py test-instance --database-id example-db query\_data\_with\_parameter
 
 You should see the following result:
 
@@ -528,7 +541,13 @@ Use the [`update_ddl()`](https://docs.cloud.google.com/python/docs/reference/spa
 
 Run the sample using the `add_column` argument.
 
-    python snippets.py test-instance --database-id example-db add_column
+### GoogleSQL
+
+python snippets.py test-instance --database-id example-db add\_column
+
+### PostgreSQL
+
+python pg\_snippets.py test-instance --database-id example-db add\_column
 
 You should see:
 

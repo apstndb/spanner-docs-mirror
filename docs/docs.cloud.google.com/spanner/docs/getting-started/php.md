@@ -372,10 +372,17 @@ Spanner supports a SQL interface for reading data, which you can access on the c
 
 Execute the following SQL statement to read the values of all columns from the `Albums` table:
 
+### GoogleSQL
+
     gcloud spanner databases execute-sql example-db --instance=test-instance \
         --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
 
-> **Note:** For the GoogleSQL reference, see [Query syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) and for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
+### GoogleSQL Pipe syntax
+
+    gcloud spanner databases execute-sql example-db --instance=test-instance \
+        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+
+> **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 

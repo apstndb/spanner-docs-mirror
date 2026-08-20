@@ -6,30 +6,78 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-This page explains how to get the PGAdapter binary. PGAdapter is used with PostgreSQL-dialect databases.
+This document explains how to get the PGAdapter binary. Use PGAdapter with PostgreSQL-dialect databases.
 
-  - To run the PGAdapter standalone in the JVM, download the latest `jar` file and a new `lib` directory that contains the required dependencies.
-    
-        wget https://storage.googleapis.com/pgadapter-jar-releases/pgadapter.tar.gz \
-          && tar -xzvf pgadapter.tar.gz
+Run PGAdapter in a Docker container, as a standalone process, or in-process with a Java application.
 
-  - To run PGAdapter in a Docker container, get the latest version by executing the following command:
-    
-        docker pull gcr.io/cloud-spanner-pg-adapter/pgadapter
-    
-    Get a previous version by appending the version as a tag.
-    
-        docker pull gcr.io/cloud-spanner-pg-adapter/pgadapter:v<version-number>
+## Run in a Docker container
 
-  - To use PGAdapter in a process:
+Run PGAdapter in a Docker container using one of the following options:
+
+### Standard image
+
+To get the latest version of the standard image, run the following command:
+
+    docker pull gcr.io/cloud-spanner-pg-adapter/pgadapter
+
+To get a previous version, append the version as a tag:
+
+    docker pull gcr.io/cloud-spanner-pg-adapter/pgadapter:vVERSION_NUMBER
+
+### Distroless image
+
+We also publish a [distroless Docker image](https://github.com/GoogleContainerTools/distroless) under the tag `gcr.io/cloud-spanner-pg-adapter/pgadapter-distroless` . This image runs PGAdapter as a non-root user.
+
+To pull the distroless image, run the following command:
+
+    docker pull gcr.io/cloud-spanner-pg-adapter/pgadapter-distroless
+
+## Run as a standalone process
+
+Run PGAdapter as a standalone process in the JVM by getting the JAR file using one of the following options:
+
+### Prebuilt JAR (latest version)
+
+To download the latest JAR file and dependencies, run the following command:
+
+    wget https://storage.googleapis.com/pgadapter-jar-releases/pgadapter.tar.gz \
+      && tar -xzvf pgadapter.tar.gz
+
+### Prebuilt JAR (specific version)
+
+To download a specific version of the JAR file, set the version when you download it.
+
+    VERSION=VERSION_NUMBER
+    wget https://storage.googleapis.com/pgadapter-jar-releases/pgadapter-${VERSION}.tar.gz \
+      && tar -xzvf pgadapter-${VERSION}.tar.gz
+
+### Locally built JAR (from source)
+
+To build the JAR file and assemble dependencies from source, run the following commands:
+
+1.  Clone the repository:
     
-    Add `google-cloud-spanner-pgadapter` as a dependency to your project by adding the following code to your `pom.xml` file:
+        git clone https://github.com/GoogleCloudPlatform/pgadapter.git
+
+2.  Build the package:
     
-        <dependency>
-          <groupId>com.google.cloud</groupId>
-          <artifactId>google-cloud-spanner-pgadapter</artifactId>
-          <version>0.55.1</version>
-        </dependency>
+        mvn package -P assembly
+
+The build process creates the binaries in the `target/pgadapter` folder.
+
+## Use in a Java process
+
+Add `google-cloud-spanner-pgadapter` as a dependency to your project.
+
+### Maven
+
+If you use Maven, add the following dependency to your `pom.xml` file:
+
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-spanner-pgadapter</artifactId>
+      <version>0.55.2</version>
+    </dependency>
 
 ## What's next
 

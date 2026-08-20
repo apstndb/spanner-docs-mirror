@@ -275,7 +275,6 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     pub async fn sample(admin_client: &DatabaseAdmin, database_name: &str) -> anyhow::Result<()> {
         let statements = vec!["ALTER TABLE Albums ADD COLUMN MarketingBudget INT64"];
     
-        println!("Adding MarketingBudget column to Albums...");
         admin_client
             .update_database_ddl()
             .set_database(database_name)

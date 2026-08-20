@@ -62,11 +62,13 @@ Spanner sequentially executes all the SQL statements ( `SELECT` , `INSERT` , `UP
 
 A transaction that includes DML statements has the [same limits](https://docs.cloud.google.com/spanner/quotas#limits_for_creating_reading_updating_and_deleting_data) as any other transaction. If you have large-scale changes, consider using [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
 
-  - If the DML statements in a transaction result in more than 80,000 mutations, the DML statement that pushes the transaction over the limit returns a `BadUsage` error with a message about too many mutations.
+The mutation limit is applied differently depending on whether you use DML statements or the Mutation API:
 
-  - If the DML statements in a transaction result in a transaction that is larger than 100 MiB, the DML statement that pushes the transaction over the limit returns a `BadUsage` error with a message about the transaction exceeding the size limit.
+  - **DML statements** : The limit of 80,000 mutations (including indexes) is applied per statement and is reset at the end of each statement. If a single DML statement exceeds this limit, it fails and returns a `BadUsage` error. However, a *transaction* can exceed 80,000 mutations by containing multiple DML statements, as long as each individual statement stays under that limit.
 
-Mutations performed using DML are not returned to the client. They are merged into the commit request when it is committed, and they count towards the maximum size limits. Even if the size of the commit request that you send is small, the transaction might still exceed the allowed size limit.
+  - **Mutation API** : Mutations using the Mutation API can only be applied as part of the commit operation, not in the middle of a transaction, unlike DML. The limit of 80,000 mutations (including indexes) is cumulative across all mutations in the commit. If a transaction uses mutations (either alone or mixed with DML), this cumulative limit applies to all mutations in the commit.
+
+  - **Transaction size** : All transactions are subject to a size limit of 100 MiB. For DML, if the statements in a transaction result in a transaction larger than 100 MiB, the statement that pushes it over the limit fails with a `BadUsage` error. Mutations performed using DML don't count towards the 80,000 limit across statements, but they do count towards this transaction size limit when committed.
 
 ### Run statements in the Google Cloud console
 

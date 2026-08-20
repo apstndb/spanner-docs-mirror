@@ -66,14 +66,14 @@ The following DDL statement creates a `Documents` table with an embedding column
       PRIMARY KEY (doc_id)
     );
 
-After you populate your `Documents` table, you can create a vector index with a two-level tree and 1000 leaf nodes on the `Documents` table with an embedding column `DocEmbedding` using the cosine distance:
+After you populate your `Documents` table, you can create a vector index on the `Documents` table with an embedding column `DocEmbedding` using the cosine distance:
 
 ### GoogleSQL
 
     CREATE VECTOR INDEX DocEmbeddingIndex
       ON Documents(DocEmbedding)
       STORING (WordCount)
-      OPTIONS (distance_type = 'COSINE', tree_depth = 2, num_leaves = 1000);
+      OPTIONS (distance_type = 'COSINE');
 
 ### PostgreSQL
 
@@ -81,10 +81,10 @@ After you populate your `Documents` table, you can create a vector index with a 
       ON documents
       USING scann(doc_embedding)
       INCLUDE (word_count)
-      WITH (distance_type = 'COSINE', num_leaves = 1000)
+      WITH (distance_type = 'COSINE')
       WHERE doc_embedding IS NOT NULL;
 
-If your embedding column isn't marked as `NOT NULL` in the table definition, you must declare it with a `WHERE COLUMN_NAME IS NOT NULL` clause in the vector index definition, where `COLUMN_NAME` is the name of your embedding column. To create a vector index with a three-level tree and 1000000 leaf nodes on the nullable embedding column `NullableDocEmbedding` using the cosine distance:
+If your embedding column isn't marked as `NOT NULL` in the table definition, you must declare it with a `WHERE COLUMN_NAME IS NOT NULL` clause in the vector index definition, where `COLUMN_NAME` is the name of your embedding column. To create a vector index nullable embedding column `NullableDocEmbedding` using the cosine distance:
 
 ### GoogleSQL
 
@@ -92,7 +92,7 @@ If your embedding column isn't marked as `NOT NULL` in the table definition, you
       ON Documents(NullableDocEmbedding)
       STORING (WordCount)
       WHERE NullableDocEmbedding IS NOT NULL
-      OPTIONS (distance_type = 'COSINE', tree_depth = 3, num_branches=1000, num_leaves = 1000000);
+      OPTIONS (distance_type = 'COSINE');
 
 ### PostgreSQL
 
@@ -100,8 +100,10 @@ If your embedding column isn't marked as `NOT NULL` in the table definition, you
       ON documents
       USING scann(nullable_doc_embedding)
       INCLUDE (word_count)
-      WITH (distance_type = 'COSINE', tree_depth = 3, num_branches = 1000, num_leaves = 1000000)
+      WITH (distance_type = 'COSINE')
       WHERE nullable_doc_embedding IS NOT NULL;
+
+Spanner now automatically chooses optimized index parameters ( `tree_depth` , `num_leaves` , and `num_branches` ) for your index based on the dataset size, and it is no longer required to explicitly configure these parameters. If you need to explicitly configure the index structure, you can specify these parameters in the `SET OPTIONS` clause (see the [Vector indexing best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) ).
 
 ### Filter a vector index
 
@@ -152,7 +154,7 @@ Then, we create a vector index with a filter. The `TechDocEmbeddingIndex` vector
       ON documents2
       USING scann(doc_embedding)
       INCLUDE (null_if_filtered)
-      WITH (distance_type = 'COSINE', num_leaves = 1000)
+      WITH (distance_type = 'COSINE')
       WHERE doc_embedding IS NOT NULL AND null_if_filtered IS NOT NULL;
 
 When Spanner runs the following query, which has filters that match the `TechDocEmbeddingIndex` , it automatically picks and is accelerated by `TechDocEmbeddingIndex` . The query only searches documents in the "Tech" category. You can also use the `FORCE_INDEX` hint ( `@{FORCE_INDEX=TechDocEmbeddingIndex}` for GoogleSQL or `/*@ FORCE_INDEX = tech_doc_embedding_index */` for PostgreSQL) to force Spanner to use the index explicitly.
@@ -193,7 +195,7 @@ In the index creation statement, you must list these additional key columns afte
       ON documents2
       USING scann(doc_embedding, doc_name, author)
       INCLUDE (null_if_filtered)
-      WITH (distance_type = 'COSINE', num_leaves = 1000)
+      WITH (distance_type = 'COSINE')
       WHERE doc_embedding IS NOT NULL AND null_if_filtered IS NOT NULL;
 
 ## What's next

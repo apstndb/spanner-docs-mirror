@@ -12,6 +12,16 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## August 10, 2026
+
+Feature
+
+Dynamic channel pooling (DCP) for gRPC channels in the Spanner Go and Java client libraries is generally available ( [GA](https://cloud.google.com/products#product-launch-stages) ).
+
+DCP prevents performance issues from under-provisioned or over-provisioned channels and reduces configuration overhead. DCP is disabled by default.
+
+For more information, see [Configure the number of sessions and gRPC channels in the pools](https://docs.cloud.google.com/spanner/docs/sessions#configure_the_number_of_sessions_and_grpc_channels_in_the_pools) .
+
 ## July 28, 2026
 
 Feature

@@ -336,13 +336,14 @@ A [Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-
 
 ## Limits for creating, reading, updating, and deleting data
 
-| Value                                                                                                                                                                              | Limit   |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| Commit size (including indexes and change streams)                                                                                                                                 | 100 MiB |
-| Concurrent reads per session                                                                                                                                                       | 100     |
-| Mutations per commit (including indexes) <sup>[3](https://docs.cloud.google.com/spanner/quotas#note3) ,</sup> <sup>[10](https://docs.cloud.google.com/spanner/quotas#note10)</sup> | 80,000  |
-| Mutations per mutation group in a [batch write](https://docs.cloud.google.com/spanner/docs/batch-write) request                                                                    | 80,000  |
-| Concurrent [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statements per database                                                                   | 20,000  |
+| Value                                                                                                                                                                                                 | Limit   |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| Commit size (including indexes and change streams)                                                                                                                                                    | 100 MiB |
+| Concurrent reads per session                                                                                                                                                                          | 100     |
+| Mutations per commit (for Mutation API) (including indexes) <sup>[3](https://docs.cloud.google.com/spanner/quotas#note3) ,</sup> <sup>[10](https://docs.cloud.google.com/spanner/quotas#note10)</sup> | 80,000  |
+| Mutations per DML statement (including indexes) <sup>[3](https://docs.cloud.google.com/spanner/quotas#note3) ,</sup> <sup>[10](https://docs.cloud.google.com/spanner/quotas#note10)</sup>             | 80,000  |
+| Mutations per mutation group in a [batch write](https://docs.cloud.google.com/spanner/docs/batch-write) request                                                                                       | 80,000  |
+| Concurrent [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statements per database                                                                                      | 20,000  |
 
 ## Administrative limits
 

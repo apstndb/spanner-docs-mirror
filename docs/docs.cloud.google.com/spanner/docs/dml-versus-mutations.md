@@ -38,22 +38,25 @@ For more information, including code samples, see [Inserting, updating, and dele
 
 The following table summarizes DML and mutation support of common database operation and features.
 
-| Operations                     |          DML          |   Mutations    |
-| ------------------------------ | :-------------------: | :------------: |
-| Insert Data                    |       Supported       |   Supported    |
-| Delete Data                    |       Supported       |   Supported    |
-| Update Data                    |       Supported       |   Supported    |
-| Insert or Ignore Data          |       Supported       |  Unsupported   |
-| Read Your Writes (RYW)         |       Supported       |  Unsupported   |
-| Insert or Update Data (Upsert) |       Supported       |   Supported    |
-| SQL Syntax                     |       Supported       |  Unsupported   |
-| Constraint checking            | After every statement | At commit time |
+| Operations                                     |                  DML                   |        Mutations        |
+| ---------------------------------------------- | :------------------------------------: | :---------------------: |
+| Insert Data                                    |               Supported                |        Supported        |
+| Delete Data                                    |               Supported                |        Supported        |
+| Update Data                                    |               Supported                |        Supported        |
+| Insert or Ignore Data                          |               Supported                |       Unsupported       |
+| Read Your Writes (RYW)                         |               Supported                |       Unsupported       |
+| Insert or Update Data (Upsert)                 |               Supported                |        Supported        |
+| SQL Syntax                                     |               Supported                |       Unsupported       |
+| Constraint checking                            |         After every statement          |     At commit time      |
+| Mutation limit enforcement (including indexes) | Per statement (resets after execution) | Per commit (cumulative) |
 
 DML and mutations diverge in their support for the following features:
 
   - **Read Your Writes** : Reading uncommitted results within an active transaction. Changes you make using DML statements are visible to subsequent statements in the same transaction. This is different from using mutations, where changes are not visible in any reads (including reads done in the same transaction) until the transaction commits. This is because mutations in a transaction are buffered client-side (locally) and sent to the server as part of the commit operation. As a result, mutations in the commit request are not visible to SQL or DML statements within the same transaction.
 
   - **Constraint Checking** : Spanner checks constraints after every DML statement. This is different from using mutations, where Spanner buffers mutations in the client until commit and checks constraints at commit time. Evaluating constraints after each DML statement allows Spanner to guarantee that the data returned by a subsequent query in the same transaction returns data that is consistent with the schema.
+
+  - **Mutation Limit Enforcement** : For DML, the mutation limit of 80,000 (including indexes) is applied per statement and resets after the statement executes. This allows a single transaction to execute multiple DML statements that collectively exceed 80,000 mutations, as long as no single statement exceeds the limit. For the Mutation API, which can only be used as part of the commit operation, the limit of 80,000 mutations (including indexes) is cumulative across all mutations in the commit. Both methods are subject to the 100 MiB transaction size limit.
 
   - **SQL Syntax** : DML provides a conventional way to manipulate data. You can reuse SQL skills to alter the data using the DML API.
 

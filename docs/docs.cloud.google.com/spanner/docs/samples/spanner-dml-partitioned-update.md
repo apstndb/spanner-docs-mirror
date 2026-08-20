@@ -219,6 +219,21 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     puts "#{row_count} records updated."
 
+### Rust
+
+    use google_cloud_spanner::client::DatabaseClient;
+    use google_cloud_spanner::statement::Statement;
+    
+    pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
+        let transaction = client.partitioned_dml_transaction().build().await?;
+        let statement =
+            Statement::builder("UPDATE Albums SET MarketingBudget = 100000 WHERE SingerId > 1").build();
+    
+        let row_count = transaction.execute_update(statement).await?;
+        println!("{row_count} records updated.");
+        Ok(())
+    }
+
 ## What's next
 
 To search and filter code samples for other Google Cloud products, see the [Google Cloud sample browser](https://docs.cloud.google.com/docs/samples?product=cloudspanner) .

@@ -14,6 +14,10 @@ GoogleSQL feature
 
 PostgreSQL dialect recommendation
 
+[Pipe syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax)
+
+No recommendation available, Pipe syntax is GoogleSQL-only.
+
 [BigQuery external datasets](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets)
 
 Use [Spanner federated queries](https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries) . When you run a federated query against a PostgreSQL-dialect database using the [`EXTERNAL_QUERY`](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/federated_query_functions#external_query) function, you must write the query in PostgreSQL syntax.

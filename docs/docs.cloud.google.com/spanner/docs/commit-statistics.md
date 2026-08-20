@@ -18,6 +18,8 @@ To help improve the performance of your application you can reduce the number of
 
 To determine how many rows you can commit per transaction while staying under the limit, first commit one row in a transaction. This gives you a baseline of the mutation count per row. Then divide the system limit by your baseline to get a rows-per-transaction number. For more information on how mutations are counted, refer to this [note](https://docs.cloud.google.com/spanner/quotas#note2) .
 
+When using DML, the 80,000 limit (including indexes) applies per statement, not per transaction. You can execute multiple DML statements in a single transaction to commit more than 80,000 mutations, subject to the transaction size limit of 100 MiB. In this case, the returned `mutation_count` in commit statistics reflects the total cumulative mutations (including indexes) across all statements, and can exceed 80,000.
+
 Note that optimizing for round trips is not always beneficial, particularly if it results in more lock contentions. You can troubleshoot lock conflicts in your database using [lock statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) .
 
 ### Monitor your transactions to avoid hitting system limits
@@ -26,7 +28,7 @@ As application usage increases, it's possible that the number of mutations in yo
 
 ## How to access commit statistics
 
-Commit statistics are not returned by default. Instead, you need to set the `return_commit_stats` flag to true on each [CommitRequest](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#commitrequest) . If your commit attempt exceeds the maximum allowable number of mutations for a transaction, the commit fails and an [INVALID\_ARGUMENT](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Code#ENUM_VALUES.INVALID_ARGUMENT) error is returned.
+Commit statistics are not returned by default. Instead, you need to set the `return_commit_stats` flag to true on each [CommitRequest](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#commitrequest) . If you use the Mutation API and your commit attempt exceeds the maximum allowable number of mutations (including indexes), the commit fails and an [INVALID\_ARGUMENT](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Code#ENUM_VALUES.INVALID_ARGUMENT) error is returned. For DML, exceeding the mutation limit (including indexes) causes the individual DML statement to fail during execution with a `BadUsage` error, rather than failing at commit time.
 
 Here's an example of how to return commit statistics using the Spanner client libraries.
 

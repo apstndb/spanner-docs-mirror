@@ -600,6 +600,7 @@ Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https
 <td>None</td>
 <td>Iowa: <code dir="ltr" translate="no">us-central1</code></td>
 <td>Read-only:<br />
+<code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
 <code dir="ltr" translate="no">us-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 <tr class="even">
@@ -631,10 +632,10 @@ Las Vegas: <code dir="ltr" translate="no">us-west4</code> <a href="https://docs.
 <td>None</td>
 <td>Dallas: <code dir="ltr" translate="no">us-south1</code></td>
 <td>Read-only:<br />
-<code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">asia-northeast</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">australia-southeast2</code></td>
+<code dir="ltr" translate="no">asia-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">australia-southeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
+<code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
 </tr>
 </tbody>
 </table>

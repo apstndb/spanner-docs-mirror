@@ -10,6 +10,8 @@ data_source: docs.cloud.google.com
 > 
 > This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
+[Video](https://www.youtube.com/watch?v=qSofdwoow2c)
+
 Spanner Omni is a downloadable version of Spanner that lets you deploy Google's distributed database technology across on-premises data centers, public clouds, and on your laptop. It delivers core Spanner capabilities, including horizontal scalability, high availability, ACID compliance, and strong external consistency, by using Paxos-based replication, automatic sharding, and the software-defined TrueTime API.
 
 Spanner Omni integrates relational, graph, vector, and key-value data models with full-text and operational analytics capabilities. Like Spanner, Spanner Omni supports [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview) , and [Spanner Graph Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro) . You can achieve cross environment resilience, application portability, and a consistent development stack across various environments. Spanner Omni supports deployment options that include:
