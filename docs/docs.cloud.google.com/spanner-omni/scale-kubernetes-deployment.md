@@ -46,7 +46,7 @@ To adjust the CPU or memory resources for your servers, update your configuratio
 Replace the following:
 
   - `  HELM_CHART_PATH  ` : The path to your Helm chart, for example, `oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni` .
-  - `  VERSION  ` : The version of the Helm chart, for example, `0.2.0` .
+  - `  VERSION  ` : The version of the Helm chart, for example, `0.3.0` .
   - `  CPU_CORES  ` : The number of vCPU cores to assign to each server pod, for example, `8` .
   - `  MEMORY_LIMIT  ` : The RAM limit for each server pod, for example, `32Gi` .
   - `  NAMESPACE  ` : The Kubernetes namespace of the deployment, for example, `spanner-ns` .
@@ -72,7 +72,7 @@ To scale each zone in the deployment to 15 servers, run the following command:
 Replace the following:
 
   - `  HELM_CHART_PATH  ` : The path to your Helm chart—for example, `oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni` .
-  - `  VERSION  ` : The version of the Helm chart—for example, `0.2.0` .
+  - `  VERSION  ` : The version of the Helm chart—for example, `0.3.0` .
   - `  REPLICAS  ` : The target number of server replicas per zone—for example, `15` .
   - `  NAMESPACE  ` : The Kubernetes namespace—for example, `spanner-ns` .
 
@@ -234,7 +234,7 @@ To expand your disk storage, perform the following steps:
       - `  NAMESPACE  ` : The Kubernetes namespace—for example, `spanner-ns` .
       - `  STATEFULSET_NAME_1  ` , `  STATEFULSET_NAME_2  ` , ...: The names of the [StatefulSets](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/statefulset) in your deployment, typically corresponding to the short names of your zones (for example, `spanner-east-b spanner-east-c` ).
       - `  HELM_CHART_PATH  ` : The path to your Helm chart—for example, `oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni` .
-      - `  VERSION  ` : The version of the Helm chart—for example, `0.2.0` .
+      - `  VERSION  ` : The version of the Helm chart—for example, `0.3.0` .
 
 2.  Run the commands to patch the PVCs, delete the StatefulSets (leaving the backend pods intact), and upgrade the Helm deployment:
     

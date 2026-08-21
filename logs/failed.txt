@@ -1,2 +1,1 @@
-200 https://docs.cloud.google.com/spanner-omni/editions-overview
-200 https://docs.cloud.google.com/spanner-omni/install-manage-license
+

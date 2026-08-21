@@ -32,13 +32,13 @@ Specify the exact version tag when pulling a container image.
 
 The following table lists the available container image versions.
 
-| Version tag      | Release date   |
-| ---------------- | -------------- |
-| `2026.r1-beta.2` | April 22, 2026 |
+| Version tag      | Release date    |
+| ---------------- | --------------- |
+| `2026.r2.1-beta` | August 20, 2026 |
 
-For example, to download the `spanner-omni` image for the 2026.r1-beta.2 release, run the following command:
+For example, to download the `spanner-omni` image for the 2026.r2.1-beta release, run the following command:
 
-    docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r1-beta.2
+    docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r2.1-beta
 
 ## Helm charts
 
@@ -50,19 +50,29 @@ Specify the exact version tag when you download a chart.
 
 The following table lists the available Helm chart versions.
 
-| Version tag | Release date   |
-| ----------- | -------------- |
-| `0.2.0`     | April 22, 2026 |
+| Version tag | Release date    |
+| ----------- | --------------- |
+| `0.3.0`     | August 20, 2026 |
 
-For example, to download the Helm chart for version 0.2.0, run the following command:
+For example, to download the Helm chart for version 0.3.0, run the following command:
 
-    helm pull oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.2.0
+    helm pull oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.3.0
 
 ## Standalone binaries
 
-The following Google Cloud bucket contains standalone binaries for the Spanner Omni CLI as TAR files: `https://storage.googleapis.com/spanner-omni/` .
+The following Google Cloud bucket contains standalone binaries: `https://storage.googleapis.com/spanner-omni/` .
 
 Each release is in a folder named after the version tag.
+
+### Spanner Omni packages
+
+The following table lists the available Spanner Omni server and component packages.
+
+| Filename                                                 | Description                                                                     |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `spanner-omni-2026.r2.1-beta-linux-x86_64.tar.gz`        | Spanner Omni server, Spanner Omni CLI, and Spanner Omni console for Linux (x86) |
+| `spanner-omni-server-2026.r2.1-beta-linux-x86_64.tar.gz` | Spanner Omni server and Spanner Omni CLI for Linux (x86)                        |
+| `spanner-omni-ui-2026.r2.1-beta-linux-x86_64.tar.gz`     | Spanner Omni console for Linux (x86)                                            |
 
 ### Spanner Omni CLI binaries
 
@@ -70,12 +80,12 @@ The following table lists the available Spanner Omni CLI binaries.
 
 | Filename                                               | Description                           |
 | ------------------------------------------------------ | ------------------------------------- |
-| `spanner-omni-cli-2026.r1-beta.2-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
-| `spanner-omni-cli-2026.r1-beta.2-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
-| `spanner-omni-cli-2026.r1-beta.2-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
-| `spanner-omni-cli-2026.r1-beta.2-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
+| `spanner-omni-cli-2026.r2.1-beta-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
+| `spanner-omni-cli-2026.r2.1-beta-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
+| `spanner-omni-cli-2026.r2.1-beta-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
+| `spanner-omni-cli-2026.r2.1-beta-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
 
 For example, to download the current version of the Spanner Omni CLI for Linux (x86), run the following command:
 
     # Download CLI for Linux (x86)
-    curl -O https://storage.googleapis.com/spanner-omni/2026.r1-beta.2/spanner-omni-cli-2026.r1-beta.2-linux-x86_64.tar.gz
+    curl -O https://storage.googleapis.com/spanner-omni/2026.r2.1-beta/spanner-omni-cli-2026.r2.1-beta-linux-x86_64.tar.gz

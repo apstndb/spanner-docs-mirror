@@ -1386,7 +1386,7 @@ Example with `IN` and an `UNNEST` operation:
 Example with `IN` and a struct:
 
     SELECT
-      (SELECT AS STRUCT Items.info) as item
+      Items.info as item
     FROM
       Items
     WHERE (info.shape, info.color) IN (('round', 'blue'));

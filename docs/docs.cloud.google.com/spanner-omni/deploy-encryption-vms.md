@@ -127,26 +127,29 @@ After you generate the certificates and copy them to all servers in your deploym
 
 ### Single server deployment
 
-For single server deployments, run the following command:
+For single server deployments, run the following command to configure your server with TLS:
 
     nohup spanner start-single-server \
         --base-dir=BASE_DIR \
-        --certificate-directory=${HOME}/.spanner/certs \
-        --insecure-mode=false &
+        --certificate-directory=${HOME}/.spanner/certs &
 
-The server starts. See [Step 7: Interact with the deployment](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#interact-deployment) to interact with the deployment.
+Next, run the following command to start and configure the server with your supported authentication methods.
+
+    spanner deployment update --secure-mode=true \
+        --auth-methods=password,client-certificate --password-protocol=opaque
+
+For information about interacting with your deployment, see [Step 7: Interact with the deployment](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#interact-deployment) .
 
 ### Scale-out deployment
 
-For scale-out deployments, start the server on each machine. The values for `server_address` and `zone` must match those in the deployment configuration. The network must resolve `server_address` . Servers use this for internal communication. Run the following to start the root server:
+For scale-out deployments, start the server on each machine. The values for `server-address` and `zone` must match the values in the deployment configuration. The network must resolve `server-address` . Servers use `server-address` for internal communication. Run the following to start the root server:
 
     nohup spanner start \
         --root \
         --server-address=HOST_NAME \
         --zone=ZONE_NAME \
         --base-dir=BASE_DIR \
-        --certificate-directory=${HOME}/.spanner/certs \
-        --insecure-mode=false &
+        --certificate-directory=${HOME}/.spanner/certs &
 
 The following command shows an example with specific values:
 
@@ -155,19 +158,7 @@ The following command shows an example with specific values:
         --server-address=rootserver1 \
         --zone=us-central-1a \
         --base-dir=./spanbasedir \
-        --certificate-directory=${HOME}/.spanner/certs \
-        --insecure-mode=false &
-
-To enable mTLS for clients, use the `--enable-client-certificate-authentication=true` flag when starting the server.
-
-    nohup spanner start \
-        --root \
-        --server-address=HOST_NAME \
-        --zone=ZONE_NAME \
-        --base-dir=BASE_DIR \
-        --certificate-directory=${HOME}/.spanner/certs \
-        --insecure-mode=false \
-        --enable-client-certificate-authentication=true &
+        --certificate-directory=${HOME}/.spanner/certs &
 
 With the servers now running on each machine, you are ready to create the deployment.
 
@@ -178,6 +169,31 @@ Run the `spanner deployment create` command from one of the root servers to crea
     spanner deployment create \
         --config-file=deployment.yaml \
         --base-dir=BASE_DIR
+
+To specify the default password for the `admin` user, set the `--admin-password-file` flag to the path for a file with permissions 600 that contains a valid password. A valid password must be between 8-32 characters and include at least one of each of the following:
+
+  - An uppercase character
+  - A lowercase character
+  - A number
+  - A special character (not any of the above)
+
+The `deployment.yaml` file must include your selected authentication methods and your password protocol:
+
+    deployment_settings:
+      security_settings:
+        authentication_methods:
+          - AUTHENTICATION_METHOD_PASSWORD
+          - AUTHENTICATION_METHOD_CLIENT_CERTIFICATE
+        password_authentication_protocol: PASSWORD_AUTHENTICATION_PROTOCOL_OPAQUE
+
+You can specify one or more of the following authentication methods:
+
+  - `AUTHENTICATION_METHOD_PASSWORD` : password authentication
+  - `AUTHENTICATION_METHOD_CLIENT_CERTIFICATE` : client certificate authentication
+
+You can specify the following password protocol:
+
+  - `PASSWORD_AUTHENTICATION_PROTOCOL_OPAQUE` : OPAQUE protocol
 
 The console for each machine shows messages indicating that the deployment now includes TLS encryption. All servers communicate with each other over an encrypted channel.
 
@@ -307,8 +323,7 @@ You can add non-root servers to a zone to scale the capacity of the zone. To do 
         --join-servers=ROOT_SERVER1,ROOT_SERVER2,ROOT_SERVER3 \
         --zone=us-central1-a \
         --base-dir=./spandir \
-        --certificate-directory=${HOME}/.spanner/certs \
-        --insecure-mode=false
+        --certificate-directory=${HOME}/.spanner/certs
 
 ## Next steps
 
