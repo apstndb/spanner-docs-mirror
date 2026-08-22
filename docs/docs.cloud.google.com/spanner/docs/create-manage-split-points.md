@@ -37,16 +37,17 @@ If you want to create split points using the Google Cloud CLI, you need to creat
 The file must use the following format to specify the split points:
 
 ``` 
-  ObjectType ObjectName (SplitValue1)
-  ObjectType ObjectName (SplitValue2)
-  ObjectType ObjectName (SplitValueN)
+  ObjectType ObjectName (SplitValue1, SplitValue2, ...)
+  ObjectType ObjectName (IndexSplitValue1, ...) TableKey (TableSplitValue1, ...)
 ```
 
 Replace the following variables when creating the file:
 
   - ObjectType : the object type you want to add splits in. Valid values are `TABLE` and `INDEX` .
   - ObjectName : the name of the database table or index.
-  - SplitValue1..N : the split point values where you want to introduce the splits.
+  - SplitValue1..N : the split point key values where you want to introduce the splits.
+  - IndexSplitValue1..N : the index key values for an index split point.
+  - TableSplitValue1..N : the table key values for an index split point.
 
 Use the following rules when creating the split point values in the file:
 
@@ -69,10 +70,9 @@ The following is a sample file that shows how split points are specified:
   INDEX Order ('5b8bac71-0cb2-95e9-e1b0-89a027525460')
   TABLE Payment ('6cf41f21-2d77-318f-c504-816f0068db8b')
   INDEX Indx_A (2152120141932780000)
-  TABLE TableD  (0,'7ef9d̦b22-d0e5-6041-8937-4bc6a7ef9db2')
+  TABLE TableD (0,'7ef9db22-d0e5-6041-8937-4bc6a7ef9db2')
   INDEX IndexXYZ ('8762203435012030000',NULL,NULL)
-  INDEX IndexABC  (0, '2020-06-18T17:24:53Z', '2020-06-18T17:24:53Z') TableKey
-  (123,'ab\,c')
+  INDEX IndexABC (0, '2020-06-18T17:24:53Z', '2020-06-18T17:24:53Z') TableKey (123,'ab\,c')
 ```
 
 Before using any of the command data below, make the following replacements:
@@ -695,16 +695,17 @@ If you want to expire split points the Google Cloud CLI, you need to create a fi
 The file must use the following format to specify the split points:
 
 ``` 
-  ObjectType ObjectName (SplitValue)
-  ObjectType ObjectName (SplitValue)
-  ObjectType ObjectName (SplitValue)
+  ObjectType ObjectName (SplitValue1, SplitValue2, ...)
+  ObjectType ObjectName (IndexSplitValue1, ...) TableKey (TableSplitValue1, ...)
 ```
 
 Replace the following variables when creating the file:
 
   - ObjectType : the object type of the split you want to expire. Valid values are `TABLE` and `INDEX` .
   - ObjectName : the name of the database table or index.
-  - SplitValue : the split point value you want to expire.
+  - SplitValue1..N : the split point key values you want to expire.
+  - IndexSplitValue1..N : the index key values for an index split point.
+  - TableSplitValue1..N : the table key values for an index split point.
 
 Use the following rules when creating the split point values in the file:
 
@@ -727,10 +728,9 @@ The following is a sample file that shows how split points are specified:
   INDEX Order ('5b8bac71-0cb2-95e9-e1b0-89a027525460')
   TABLE Payment ('6cf41f21-2d77-318f-c504-816f0068db8b')
   INDEX Indx_A (2152120141932780000)
-  TABLE TableD  (0,'7ef9db22-d0e5-6041-8937-4bc6a7ef9db2')
+  TABLE TableD (0,'7ef9db22-d0e5-6041-8937-4bc6a7ef9db2')
   INDEX IndexXYZ ('8762203435012030000',NULL,NULL)
-  INDEX IndexABC  (0, '2020-06-18T17:24:53Z', '2020-06-18T17:24:53Z') TableKey
-  (123,'ab\,c')
+  INDEX IndexABC (0, '2020-06-18T17:24:53Z', '2020-06-18T17:24:53Z') TableKey (123,'ab\,c')
 ```
 
 Before using any of the command data below, make the following replacements:
