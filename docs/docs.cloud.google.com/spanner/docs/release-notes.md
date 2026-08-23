@@ -12,6 +12,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## August 11, 2026
+
+Feature
+
+For DML statements, Spanner now enforces the 80,000 mutation limit (including indexes) per statement rather than cumulatively across the transaction. This allows a transaction to execute multiple DML statements that collectively exceed the limit, as long as each individual statement remains under it. For the Mutation API, the 80,000 limit applies to all mutations in the commit. All transactions are still subject to the 100 MiB commit size limit.
+
 ## August 10, 2026
 
 Feature
