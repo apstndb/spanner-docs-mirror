@@ -19,7 +19,7 @@ A context set is a collection of database-specific information that enables Quer
 To learn more, see :
 
   - [Context sets overview](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/context-sets-overview)
-  - [Build context sets using Gemini CLI](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/build-context-gemini-cli)
+  - [Build context sets using the context engineering agent](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/build-context-sets)
   - [Manage context sets in Spanner Studio](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/manage-data-agents)
 
 ## QueryData

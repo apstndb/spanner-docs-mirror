@@ -156,6 +156,60 @@ Spanner applies an exact match boost when all of the previous rules are true, an
 | Bridge "Over Troubled" Water                  | exact boost   |
 | Bridge ("Over Troubled" OR missingterm) Water | exact boost   |
 
+## Scorer versions
+
+The scorer algorithm is updated periodically. Each release bundles a set of scoring algorithm improvements. For a detailed list of differences between versions, see [Scorer Versions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score) .
+
+You can set the default scorer version for your database, or you can specify a version for a specific query.
+
+### Set the database's default scorer version
+
+You can set the default version of the scorer algorithm for your database. This option determines which version of the scoring algorithm Spanner uses when the `SCORE` function is called without an explicit `version` score option.
+
+### GoogleSQL
+
+Set the `score_version` database option:
+
+    ALTER DATABASE database_name SET OPTIONS (score_version = 2)
+
+### PostgreSQL
+
+Set the `spanner.score_version` database option:
+
+    ALTER DATABASE database_name SET "spanner.score_version" = 2
+
+The valid values for the database option are `1` or `2` . If the `version` parameter is present in a request, it overrides the database's default version.
+
+### Override the scorer version per query
+
+You can override the default scorer version for a specific query using the `version` parameter in the `SCORE` function's `options` argument. If a query defines a scorer version, it overrides the database's default version.
+
+The following example overrides the default scorer version by specifying `version` in the `options` parameter:
+
+### GoogleSQL
+
+    SELECT AlbumId
+    FROM Albums
+    WHERE SEARCH(AlbumTitle_Tokens, @query)
+    ORDER BY SCORE(
+      AlbumTitle_Tokens,
+      @query,
+      options=>JSON '{"version": 2}'
+    ) DESC
+
+### PostgreSQL
+
+This example uses query parameter `$1` which is bound to the query string.
+
+    SELECT albumid
+    FROM albums
+    WHERE spanner.search(albumtitle_tokens, $1)
+    ORDER BY spanner.score(
+      albumtitle_tokens,
+      $1,
+      options => '{"version": 2}'::jsonb
+    ) DESC
+
 ## Limit retrieval depth
 
 Search indexes often contain millions of documents. For queries where the predicates have low selectivity, it's impractical to rank all the results. Scoring queries usually have two limits:

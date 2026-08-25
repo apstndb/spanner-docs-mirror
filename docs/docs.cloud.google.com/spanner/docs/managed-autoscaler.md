@@ -56,7 +56,6 @@ The following limitations apply when you enable or change the managed autoscalin
   - You must set the minimum limit on the autoscaling instance to 1000 processing units or greater, or 1 node or greater.
   - When you enable autoscaling on an existing instance, the existing instance capacity can be lower than the minimum limit value you [configure on the managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#configure_the_managed_autoscaler) . However, the instance automatically scales up to the configured minimum value when you start it. For example, if your instance has one node but you set the minimum value to two nodes, when you start your instance, it automatically scales up to two nodes.
   - You can't asymmetrically autoscale instance partitions.
-  - If the number of placement rows in your partition is greater than 100 million, don't enable autoscaling. This is a geo-partitioning [limit](https://docs.cloud.google.com/spanner/quotas#geo-partitioning_limits) .
 
 ## Managed autoscaler parameters
 
