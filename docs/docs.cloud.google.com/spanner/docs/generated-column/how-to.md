@@ -126,6 +126,30 @@ To help with lookups on our `FullName` generated column, we can create a seconda
 
     CREATE INDEX UserByFullName ON users (fullname);
 
+## Create an index on a scalar expression
+
+You can also create a secondary index on a scalar expression without creating a corresponding generated column in your table.
+
+Instead of adding a `VenueCity` generated column to the table and then creating an index on the column, you can create an `  Expression Index  ` .
+
+### GoogleSQL
+
+    CREATE TABLE Venues (
+      Id INT64 NOT NULL,
+      VenueData JSON
+    ) PRIMARY KEY (Id);
+    
+    CREATE INDEX VenuesByCity ON Venues((JSON_VALUE(VenueData.address.city)));
+
+### PostgreSQL
+
+    CREATE TABLE Venues (
+      Id BIGINT NOT NULL PRIMARY KEY,
+      VenueData JSONB
+    );
+    
+    CREATE INDEX VenuesByCity ON Venues((VenueData -> 'address' ->> 'city'));
+
 ## Add a generated column to an existing table
 
 Using the following `ALTER TABLE` statement, we can add a generated column to the `Users` table to generate and store the user's initials.

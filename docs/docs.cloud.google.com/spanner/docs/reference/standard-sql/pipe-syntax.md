@@ -112,7 +112,7 @@ When you use these operators after an [`ORDER BY` operator](https://docs.cloud.g
 
 In pipe syntax, a query can start with a standard [`FROM` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#from_clause) and use any standard `FROM` syntax, including tables, joins, subqueries, `UNNEST` operations, and table-valued functions (TVFs). Table aliases can be assigned to each input item using the [`AS alias` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#using_aliases) .
 
-A query with only a `FROM` clause, like `FROM table_name` , is allowed in pipe syntax and returns all rows from the table. For tables with columns, `FROM table_name` in pipe syntax is similar to [`SELECT * FROM table_name`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#select_) in standard syntax.
+A query with only a `FROM` clause, like `FROM table_name` , is allowed in pipe syntax and returns all rows from the table. For tables with columns, `FROM table_name` in pipe syntax is similar to [`SELECT * FROM table_name`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#select_star) in standard syntax.
 
 **Examples**
 
@@ -175,7 +175,7 @@ GoogleSQL supports the following pipe operators. For operators that correspond o
 
 Produces a new table with the listed columns, similar to the outermost [`SELECT` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#select_list) in a table subquery in standard syntax. The `SELECT` operator supports standard output modifiers like `SELECT AS STRUCT` and `SELECT DISTINCT` . The `SELECT` operator doesn't support aggregations or anonymization.
 
-In pipe syntax, the `SELECT` operator in a query is optional. The `SELECT` operator can be used near the end of a query to specify the list of output columns. The final query result contains the columns returned from the last pipe operator. If the `SELECT` operator isn't used to select specific columns, the output includes the full row, similar to what the [`SELECT *` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#select_) in standard syntax produces.
+In pipe syntax, the `SELECT` operator in a query is optional. The `SELECT` operator can be used near the end of a query to specify the list of output columns. The final query result contains the columns returned from the last pipe operator. If the `SELECT` operator isn't used to select specific columns, the output includes the full row, similar to what the [`SELECT *` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#select_star) in standard syntax produces.
 
 In pipe syntax, the `SELECT` clause doesn't perform aggregation. Use the [`AGGREGATE` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#aggregate_pipe_operator) instead.
 
@@ -203,7 +203,7 @@ For cases where `SELECT` would be used in standard syntax to rearrange columns, 
 
 **Description**
 
-Propagates the existing table and adds computed columns, similar to [`SELECT *, new_column`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#select_) in standard syntax.
+Propagates the existing table and adds computed columns, similar to [`SELECT *, new_column`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#select_star) in standard syntax.
 
 **Examples**
 

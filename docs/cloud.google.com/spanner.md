@@ -1083,10 +1083,6 @@ Frequently asked questions
 
 ### Other resources and support
 
-Frequently asked questions
-
-FAQ
-
 #### Is Spanner a relational or non-relational database?
 
 Spanner simplifies your data architecture by bringing together relational, key-value, graph, and vector search workloads—all on the same database. It is a highly scalable database that combines unlimited scalability with relational semantics, such as secondary indexes, strong consistency, schemas, and SQL providing 99.999% availability in one easy solution. Hence, it’s suitable for both relational and non-relational workloads.

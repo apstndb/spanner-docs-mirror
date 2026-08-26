@@ -310,7 +310,7 @@ This section has information about `INDEX` statements.
 ### CREATE INDEX
 
     CREATE [ UNIQUE ] INDEX [ IF NOT EXISTS ] name ] ON table_name
-        ( { column_name } [ ASC | DESC ] [ NULLS { FIRST | LAST } ] [, ...] )
+        ( key_part [, ...] )
         [ USING method ( column_name [, ...] ) ]
         [ INCLUDE ( column_name [, ...] ) ]
         [ WITH ( index_option_list) ]
@@ -319,7 +319,10 @@ This section has information about `INDEX` statements.
         [ INTERLEAVE IN parent_table_name ]
         [ WHERE predicate ]
     
-    where predicate is:
+    where key_part is:
+        { column_name | ( expression )  } [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+    
+    and predicate is:
     
         column_name IS NOT NULL
             [ AND column_name IS NOT NULL ] [ ... ]

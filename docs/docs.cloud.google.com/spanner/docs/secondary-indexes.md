@@ -222,7 +222,7 @@ Use a global index when one or more of the following are true:
 
 2.  Find the backfill operation in the list. If it's still running, the progress indicator in the **End time** column shows the percentage of the operation that is complete, as shown in the following image:
     
-    ![Screenshot of progress indicator showing 98%](https://docs.cloud.google.com/static/spanner/docs/images/ddl-operation-progress.png)
+    ![Progress indicator showing progress is at 98%](https://docs.cloud.google.com/static/spanner/docs/images/ddl-operation-progress.png)
 
 ### gcloud
 
@@ -1664,6 +1664,100 @@ The following two rows in `ExampleTable` have the same values for the secondary 
 Because `Key2` is `NULL` and the index is null-filtered, the rows won't be present in the index `ExampleIndex` . Because they are not inserted into the index, the index won't reject them for violating uniqueness on `(Key1, Key2, Col1)` .
 
 If you want the index to enforce the uniqueness of values of the tuple ( `Key1` , `Key2` , `Col1` ), then you must annotate `Key2` with `NOT NULL` in the table definition or create the index without filtering nulls.
+
+<span id="expression_indexes"></span>
+
+## Create an index based on a scalar expression
+
+An expression index lets you create an index based on a scalar expression that applies to one or more table columns. This is beneficial because it eliminates the need to create and maintain a dedicated generated column in your table just for indexing purposes.
+
+Indexes on generated columns and expression indexes can be useful for indexing specific fields within a JSON column. You can create an index on a value extracted from a JSON object, which lets the query optimizer efficiently perform lookups based on that value.
+
+In this example, a generated column named `VenueCity` , which is based on the `city` field within the JSON, is created solely for the purpose of placing it in an index:
+
+### GoogleSQL
+
+    CREATE TABLE Venues (
+      Id INT64 NOT NULL,
+      VenueData JSON,
+      VenueCity STRING AS (JSON_VALUE(VenueData.address.city))
+    ) PRIMARY KEY (Id);
+    
+    CREATE INDEX VenuesByCity ON Venues(VenueCity);
+
+### PostgreSQL
+
+    CREATE TABLE Venues (
+      Id BIGINT NOT NULL PRIMARY KEY,
+      VenueData JSONB,
+      VenueCity VARCHAR GENERATED ALWAYS AS (VenueData -> 'address' ->> 'city')
+    );
+    
+    CREATE INDEX VenuesByCity ON Venues(VenueCity);
+
+To achieve this more efficiently, you can define the index directly, and Spanner handles the underlying mechanism implicitly:
+
+### GoogleSQL
+
+    CREATE TABLE Venues (
+      Id INT64 NOT NULL,
+      VenueData JSON
+    ) PRIMARY KEY (Id);
+    
+    CREATE INDEX VenuesByCity ON Venues((JSON_VALUE(VenueData.address.city)));
+
+### PostgreSQL
+
+    CREATE TABLE Venues (
+      Id BIGINT NOT NULL PRIMARY KEY,
+      VenueData JSONB
+    );
+    
+    CREATE INDEX VenuesByCity ON Venues((VenueData -> 'address' ->> 'city'));
+
+In both cases, your query can use the `VenuesByCity` index for faster execution:
+
+### GoogleSQL
+
+    SELECT Id
+    FROM Venues
+    WHERE JSON_VALUE(VenueData.address.city) = 'Seattle';
+
+### PostgreSQL
+
+    SELECT Id
+    FROM Venues
+    WHERE VenueData -> 'address' ->> 'city' = 'Seattle';
+
+Expression Indexes can have columns that are a mix of expressions and direct column references. This allows more queries to use the index for faster execution.
+
+### GoogleSQL
+
+    CREATE TABLE Venues (
+      Id INT64 NOT NULL,
+      VenueName STRING(MAX),
+      VenueData JSON
+    ) PRIMARY KEY (Id);
+    
+    CREATE INDEX VenuesByCity ON Venues(
+      VenueName,
+      (JSON_VALUE(VenueData.address.city)),
+      (JSON_VALUE(VenueData.address.state))
+    );
+
+### PostgreSQL
+
+    CREATE TABLE Venues (
+      Id BIGINT NOT NULL PRIMARY KEY,
+      VenueName VARCHAR,
+      VenueData JSONB
+    );
+    
+    CREATE INDEX VenuesIdx ON Venues(
+      VenueName,
+      (VenueData -> 'address' ->> 'city'),
+      (VenueData -> 'address' ->> 'state'),
+    );
 
 <span id="dropping_an_index"></span>
 

@@ -1268,7 +1268,7 @@ Use the `CREATE INDEX` statement to define [secondary indexes](https://docs.clou
         {a—z|A—Z}[{a—z|A—Z|0—9|_}+]
     
     and key_part is:
-        column_name [ { ASC | DESC } ]
+        { column_name | ( expression ) } [ { ASC | DESC } ]
     
     and storing_clause is:
         STORING ( column_name [, ...] )
@@ -1287,9 +1287,9 @@ Use the `CREATE INDEX` statement to define [secondary indexes](https://docs.clou
 
 Spanner automatically indexes the primary key columns of each table.
 
-You can use `CREATE INDEX` to create secondary indexes for other columns. Adding a secondary index on a column makes it more efficient to look up data in that column. For more details, see [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
+You can use `CREATE INDEX` to create secondary indexes for other columns or expressions on other columns. Adding a secondary index on a column or expression makes it more efficient to look up that data. For more details, see [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
 
-> **Note:** Spanner has a hard size limit of 8 KB for the total size of a table key or an index key. To work around this limitation, you can create a stored [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) with expressions and an index column.
+> **Note:** Spanner has a hard size limit of 8 KB for the total size of a table key or an index key. To work around this limitation, you can create an [expression index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#expression-index) or you can create a stored [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) with expressions and an index column.
 
 #### Parameters
 
@@ -1326,6 +1326,10 @@ You can use `CREATE INDEX` to create secondary indexes for other columns. Adding
     For example, if you want to index all rows of `Songs` for a particular row of `Singers` , your index keys would contain `SingerId` and `SongName` and your index would be a good candidate for interleaving in `Singers` if you frequently fetch information about a singer as you fetch that singer's songs from the index. The definition of `SongsBySingerSongName` in [Creating a Secondary Index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#creating_a_secondary_index) is an example of creating such an interleaved index.
     
     Like interleaved tables, entries in interleaved indexes are stored with the corresponding row of the parent table. See [database splits](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) for more details.
+
+`  expression  `
+
+  - Defines an expression as the index column. These scalar expressions have the same restrictions as [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) that are indexed.
 
 `DESC`
 
