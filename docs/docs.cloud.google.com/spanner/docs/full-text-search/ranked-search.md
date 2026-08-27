@@ -221,30 +221,32 @@ Queries can limit retrieval depth with SQL subqueries:
 
 ### GoogleSQL
 
-    SELECT *
-    FROM (
-      SELECT AlbumId, Title_Tokens
-      FROM Albums
-      WHERE SEARCH(Title_Tokens, @p1)
-      ORDER BY ReleaseTimestamp DESC
-      LIMIT @retrieval_limit
-    )
-    ORDER BY SCORE(Title_Tokens, @p1)
+    SELECT AlbumId
+    FROM
+      (
+        SELECT AlbumId, SCORE(Title_Tokens, @p1) AS score
+        FROM Albums
+        WHERE SEARCH(Title_Tokens, @p1)
+        ORDER BY ReleaseTimestamp DESC
+        LIMIT @retrieval_limit
+      )
+    ORDER BY score DESC
     LIMIT @page_size
 
 ### PostgreSQL
 
 This example uses query parameters `$1` , `$2` , and `$3` which are bound to values specified for `title_query` , `retrieval_limit` , and `page_size` , respectively.
 
-    SELECT *
-    FROM (
-      SELECT albumid, title_tokens
-      FROM albums
-      WHERE spanner.search(title_tokens, $1)
-      ORDER BY releasetimestamp DESC
-      LIMIT $2
-    ) AS subquery
-    ORDER BY spanner.score(subquery.title_tokens, $1)
+    SELECT albumid
+    FROM
+      (
+        SELECT albumid, spanner.score(title_tokens, $1) AS score
+        FROM albums
+        WHERE spanner.search(title_tokens, $1)
+        ORDER BY releasetimestamp DESC
+        LIMIT $2
+      ) AS subquery
+    ORDER BY score DESC
     LIMIT $3
 
 This works particularly well if Spanner uses the most important ranking signal to sort the index.

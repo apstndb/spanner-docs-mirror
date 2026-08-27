@@ -256,7 +256,7 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-resu
 https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index	2026-08-15T02:52:50Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration	2026-08-15T02:52:50Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview	2026-08-15T02:52:50Z
-https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search	2026-08-24T19:48:30Z
+https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search	2026-08-26T21:11:49Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes	2026-08-15T02:52:50Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns	2026-08-15T02:52:50Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement	2026-08-15T02:52:50Z
@@ -714,7 +714,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-lan
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers	2026-08-15T02:43:58Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions	2026-08-15T02:43:58Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-08-25T20:29:14Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-08-24T19:48:30Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-08-26T05:52:13Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions	2026-08-15T02:43:58Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions	2026-08-15T02:43:58Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures	2026-08-15T02:43:58Z
