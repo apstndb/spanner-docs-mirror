@@ -12,7 +12,7 @@ data_source: docs.cloud.google.com
 
 This page describes how saved queries work in Spanner .
 
-You can use Spanner Studio to create, save, and manage SQL scripts as saved queries. The saved queries capability is available only in the Google Cloud console.
+You can use Spanner Studio to create, save, and manage SQL scripts as saved queries. The saved queries capability is available only in the console; you cannot run or manage saved queries through an API or other means.
 
 Saved queries have the following characteristics:
 
@@ -20,7 +20,7 @@ Saved queries have the following characteristics:
   - A saved query is a child of a project.
   - Saved queries are deleted when the project is deleted. If you delete the instance or database, you can still access saved queries in the project using the [**Saved queries** page](https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries) in the Google Cloud console.
   - You must have the correct [Identity and Access Management (IAM) role or permissions](https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries#required-roles) to view and manage saved queries.
-  - You can only access saved queries using the Spanner Studio or by navigating to the **Saved queries** page in the Google Cloud console. Saved queries aren't accessible through the API.
+  - You can only access saved queries using Spanner Studio or by navigating to the **Saved queries** page in the Google Cloud console. Saved queries aren't accessible through the API.
 
 ## Storage location
 

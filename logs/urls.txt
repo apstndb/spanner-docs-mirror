@@ -198,7 +198,7 @@ https://docs.cloud.google.com/spanner/docs/create-manage-databases	2026-08-25T07
 https://docs.cloud.google.com/spanner/docs/create-manage-instances	2026-08-25T07:23:35Z
 https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups	2026-08-15T02:44:07Z
 https://docs.cloud.google.com/spanner/docs/create-manage-partitions	2026-08-25T07:23:35Z
-https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries	2026-08-15T02:44:07Z
+https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries	2026-08-27T21:12:15Z
 https://docs.cloud.google.com/spanner/docs/create-manage-split-points	2026-08-25T07:23:35Z
 https://docs.cloud.google.com/spanner/docs/create-manage-views	2026-08-15T02:44:07Z
 https://docs.cloud.google.com/spanner/docs/create-query-database-console	2026-08-15T02:44:07Z
@@ -820,7 +820,7 @@ https://docs.cloud.google.com/spanner/docs/samples/spanner-update-data-with-time
 https://docs.cloud.google.com/spanner/docs/samples/spanner-update-graph-data-with-dml	2026-08-15T02:44:13Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-update-graph-data-with-graph-query-in-dml	2026-08-15T02:44:13Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-write-data-for-struct-queries	2026-08-23T00:43:34Z
-https://docs.cloud.google.com/spanner/docs/saved-queries	2026-08-15T02:44:12Z
+https://docs.cloud.google.com/spanner/docs/saved-queries	2026-08-27T21:12:15Z
 https://docs.cloud.google.com/spanner/docs/schema-and-data-model	2026-08-15T02:44:12Z
 https://docs.cloud.google.com/spanner/docs/schema-design	2026-08-15T02:44:12Z
 https://docs.cloud.google.com/spanner/docs/schema-drop-protection	2026-08-15T02:44:12Z
