@@ -88,6 +88,8 @@ Northern Virginia
 
 Columbus
 
+Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
+
 `regional-us-south1`
 
 Dallas ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
