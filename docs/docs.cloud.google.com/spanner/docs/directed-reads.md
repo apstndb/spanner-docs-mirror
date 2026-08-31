@@ -91,23 +91,24 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
     
       spanner::SqlStatement select(
           "SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
-      using <RowType = std::tuplestd::int64_t, std::>int64_t, std::string;
+      using RowType = std::tuple<std::int64_t, std::int64_t, std::string>;
     
       // A DirectedReadOption on the operation will override the option set
       // at the client level.
       auto rows = client.ExecuteQuery(
           std::move(select),
-          google::<cloud::Options{}.setspanner>::DirectedReadOption(
+          google::cloud::Options{}.set<spanner::DirectedReadOption>(
               spanner::IncludeReplicas(
                   {spanner::ReplicaSelection(spanner::ReplicaType::kReadWrite)},
-                  /*auto_failover_disabled=*/&true)));
-      for (auto row< : span>ner::StreamOfRowType(rows)) {
-        if (!row) throw std::move(row).stat<<us();
-        std:<<:cout  &q<u>ot;SingerId: "  <<std::get0(*row<<)
-           < >       " AlbumId<<: "  std::ge<<t1(*row)
-    < >       <<       " AlbumTitl<<e: "  std::get2(*row)  "\n";
+                  /*auto_failover_disabled=*/true)));
+      for (auto& row : spanner::StreamOf<RowType>(rows)) {
+        if (!row) throw std::move(row).status();
+        std::cout << "SingerId: " << std::get<0>(*row)
+                  << " AlbumId: " << std::get<1>(*row)
+                  << " AlbumTitle: " << std::get<2>(*row) << "\n";
       }
-      std::cout  "Read completed for [spanner_directed_read]\n";}
+      std::cout << "Read completed for [spanner_directed_read]\n";
+    }
 
 ### C\#
 
@@ -147,16 +148,21 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
                     }
                 }
             };
-    <
-        >    var albums = new ListAlbum();
+    
+            var albums = new List<Album>();
             using var reader = await cmd.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
                 albums.Add(new Album
                 {
-                    <Alb>umId = reader.GetFieldValueint("AlbumId"),
-           <   >      SingerId = reader.GetFieldValueint("SingerId"),<
-         >           AlbumTitle = reader.GetFieldValuestring("AlbumTitle&quot;)            });        }        return albums;    }}
+                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                    SingerId = reader.GetFieldValue<int>("SingerId"),
+                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
+                });
+            }
+            return albums;
+        }
+    }
 
 ### Go
 
@@ -176,25 +182,25 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
     //  * `location` - The location must be one of the regions within the
     //  multi-region configuration of your database.
     //  * `type` - The type of the replica
-    //  Some examples> of using replica_selectors are:
-    //  * `location:us-east1` -- The "us-east1" replica(s) of any available typ>e
+    //  Some examples of using replica_selectors are:
+    //  * `location:us-east1` --> The "us-east1" replica(s) of any available type
     //      will be used to process the request.
-    //  * `type:READ_ONLY`    -- The "READ_ONLY" type replica(s) in nearest
-    //  available location wi>ll be used to process the
+    //  * `type:READ_ONLY`    --> The "READ_ONLY" type replica(s) in nearest
+    //  available location will be used to process the
     //  request.
-    //  * `location:us-east1 type:READ_ONLY` -- The "READ_ONLY" type replica(s)
+    //  * `location:us-east1 type:READ_ONLY` --> The "READ_ONLY" type replica(s)
     //  in location "us-east1" will be used to process the request.
     //      IncludeReplicas also contains an option for AutoFailoverDisabled which when set
     //  Spanner will not route requests to a replica outside the
     //  IncludeReplicas list when all the specified replicas are unavailable
-    //  or unhealthy. The de<fault v>alue is `fa<lse`
+    //  or unhealthy. The default value is `false`
     
-    func >directedRe<adOptions(w> io.Writer, db string) error {
-     // db = `projects/project/instan&ces/instance-id/database/database-id`
-    &    ctx := context.Background()
-     directedReadOptionsForClient := s&ppb.DirectedReadOptions{
-         Replicas: sppb.DirectedReadOptions_ExcludeReplicas_{
-             ExcludeReplicas: sppb.DirectedReadOptions_ExcludeReplicas{
+    func directedReadOptions(w io.Writer, db string) error {
+     // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
+     ctx := context.Background()
+     directedReadOptionsForClient := &sppb.DirectedReadOptions{
+         Replicas: &sppb.DirectedReadOptions_ExcludeReplicas_{
+             ExcludeReplicas: &sppb.DirectedReadOptions_ExcludeReplicas{
                  ReplicaSelections: []*sppb.DirectedReadOptions_ReplicaSelection{
                      {
                          Location: "us-east4",
@@ -210,10 +216,10 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
      }
      defer client.Close()
     
-     // DirectedRead&Options set at Request level will over&ride the options set at Client level.
-     directedReadOptionsForRe&quest := sppb.DirectedReadOptions{
-         Replicas: sppb.DirectedReadOptions_IncludeReplicas_{
-             IncludeReplicas: sppb.DirectedReadOptions_IncludeReplicas{
+     // DirectedReadOptions set at Request level will override the options set at Client level.
+     directedReadOptionsForRequest := &sppb.DirectedReadOptions{
+         Replicas: &sppb.DirectedReadOptions_IncludeReplicas_{
+             IncludeReplicas: &sppb.DirectedReadOptions_IncludeReplicas{
                  ReplicaSelections: []*sppb.DirectedReadOptions_ReplicaSelection{
                      {
                          Type: sppb.DirectedReadOptions_ReplicaSelection_READ_ONLY,
@@ -232,13 +238,18 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
          row, err := iter.Next()
          if err == iterator.Done {
              return nil
-          }
-         if& err != ni&l {
-             re&turn err
+         }
+         if err != nil {
+             return err
          }
          var singerID, albumID int64
          var albumTitle string
-         if err := row.Columns(singerID, albumID, albumTitle); err != nil {         return err     }       fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle) }}
+         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
+             return err
+         }
+         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
+     }
+    }
 
 ### Java
 
@@ -270,12 +281,12 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
         //      multi-region configuration of your database.
         //   * `type` - The type of the replica
         // Some examples of using replicaSelectors are:
-       > //   * `location:us-east1` -- The "us-east1" replica(s) of any available type
-        //                             will be used to process the re>quest.
-        //   * `type:READ_ONLY`    -- The "READ_ONLY" type replica(s) in nearest
+        //   * `location:us-east1` --> The "us-east1" replica(s) of any available type
+        //                             will be used to process the request.
+        //   * `type:READ_ONLY`    --> The "READ_ONLY" type replica(s) in nearest
         // .                            available location will be used to process the
-        //                             request>.
-        //   * `location:us-east1 type:READ_ONLY` -- The "READ_ONLY" type replica(s)
+        //                             request.
+        //   * `location:us-east1 type:READ_ONLY` --> The "READ_ONLY" type replica(s)
         //                          in location "us-east1" will be used to process
         //                          the request.
         //  includeReplicas also contains an option called autoFailoverDisabled, which when set to true
@@ -331,12 +342,16 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
                   "SingerId: %d, AlbumId: %d, AlbumTitle: %s\n",
                   rs.getLong(0), rs.getLong(1), rs.getString(2));
             }
-            System.out.println("Successfully executed read-only transaction with directedReadOptions");      }    }  }}
+            System.out.println("Successfully executed read-only transaction with directedReadOptions");
+          }
+        }
+      }
+    }
 
 ### Node.js
 
     // Imports the Google Cloud Spanner client library
-    const {Spanner, protos} = require(&#39;@google-cloud/spanner');
+    const {Spanner, protos} = require('@google-cloud/spanner');
     
     // Only one of excludeReplicas or includeReplicas can be set
     // Each accepts a list of replicaSelections which contains location and type
@@ -344,12 +359,12 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
     //      multi-region configuration of your database.
     //   * `type` - The type of the replica
     // Some examples of using replicaSelectors are:
-    //   * `location:us-e>ast1` -- The "us-east1" replica(s) of any available type
+    //   * `location:us-east1` --> The "us-east1" replica(s) of any available type
     //                             will be used to process the request.
-    //   * `typ>e:READ_ONLY`    -- The "READ_ONLY" type replica(s) in nearest
+    //   * `type:READ_ONLY`    --> The "READ_ONLY" type replica(s) in nearest
     //.                            available location will be used to process the
     //                             request.
-    //   * `location>:us-east1 type:READ_ONLY` -- The "READ_ONLY" type replica(s)
+    //   * `location:us-east1 type:READ_ONLY` --> The "READ_ONLY" type replica(s)
     //                          in location "us-east1" will be used to process
     //                          the request.
     //  includeReplicas also contains an option for autoFailover which when set
@@ -387,8 +402,8 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
           autoFailoverDisabled: true,
         },
       };
-    >
-      await database.getSnapshot(async (err, transaction) = {
+    
+      await database.getSnapshot(async (err, transaction) => {
         if (err) {
           console.error(err);
           return;
@@ -398,9 +413,9 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
           // These will override the options passed at Client level.
           const [rows] = await transaction.run({
             sql: 'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
-            directedReadOptions: d>irectedReadOptionsForRequest,
+            directedReadOptions: directedReadOptionsForRequest,
           });
-          rows.forEach(row = {
+          rows.forEach(row => {
             const json = row.toJSON();
             console.log(
               `SingerId: ${json.SingerId}, AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`,
@@ -414,7 +429,11 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
         } finally {
           transaction.end();
           // Close the database when finished.
-          await database.close();    }  });}spannerDirectedReads();
+          await database.close();
+        }
+      });
+    }
+    spannerDirectedReads();
 
 ### PHP
 
@@ -434,45 +453,47 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
     function directed_read(string $instanceId, string $databaseId): void
     {
         $directedReadOptionsForClient = [
-            'directedReadOption>s' = [
-                'exclud>eReplicas' = [
-                    '>replicaSelections' = [
+            'directedReadOptions' => [
+                'excludeReplicas' => [
+                    'replicaSelections' => [
                         [
-                >            'location' = 'us-east4'
+                            'location' => 'us-east4'
                         ]
                     ]
                 ]
             ]
         ];
     
-        $directedReadOptionsForReq>uest = [
-            'directedRead>Options' = [
-                'includ>eReplicas' = [
-                    'replicaSelections>' = [
+        $directedReadOptionsForRequest = [
+            'directedReadOptions' => [
+                'includeReplicas' => [
+                    'replicaSelections' => [
                         [
-                            'type' = ReplicaType::READ_WRITE
-             >           ]
+                            'type' => ReplicaType::READ_WRITE
+                        ]
                     ],
-                    'autoFailoverDisabled' = true
+                    'autoFailoverDisabled' => true
                 ]
             ]
         ];
     
-        $spann>er = new SpannerClient($directedReadOptionsForCli>ent);
-        $instance = $spanner-instance($instance>Id);
-        $database = $instance-database($databaseId);
-        $snapshot = $database-snapshot();
+        $spanner = new SpannerClient($directedReadOptionsForClient);
+        $instance = $spanner->instance($instanceId);
+        $database = $instance->database($databaseId);
+        $snapshot = $database->snapshot();
     
-        // directedReadOptions at Request leve>l will override the options set at
+        // directedReadOptions at Request level will override the options set at
         // Client level
-        $results = $snapshot-execute(
+        $results = $snapshot->execute(
             'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
             $directedReadOptionsForRequest
         );
     
         foreach ($results as $row) {
             printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
-                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);    }}
+                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
+        }
+    }
 
 ### Python
 
@@ -513,7 +534,11 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
         # These will override the options passed at Client level.
         results = snapshot.execute_sql(
             "SELECT SingerId, AlbumId, AlbumTitle FROM Albums",
-            directed_read_options=directed_read_options_for_request,)forrowinresults:print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+            directed_read_options=directed_read_options_for_request,
+        )
+    
+        for row in results:
+            print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
 
 ### Ruby
 
@@ -533,12 +558,12 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
       #      multi-region configuration of your database.
       #   * `type` - The type of the replica
       # Some examples of using replicaSelectors are:
-      #   * `location:us>-east1` -- The "us-east1" replica(s) of any available type
+      #   * `location:us-east1` --> The "us-east1" replica(s) of any available type
       #                             will be used to process the request.
-      #   * `t>ype:READ_ONLY`    -- The "READ_ONLY" type replica(s) in the nearest
+      #   * `type:READ_ONLY`    --> The "READ_ONLY" type replica(s) in the nearest
       # .                            available location will be used to process the
       #                             request.
-      #   * `locati>on:us-east1 type:READ_ONLY` -- The "READ_ONLY" type replica(s)
+      #   * `location:us-east1 type:READ_ONLY` --> The "READ_ONLY" type replica(s)
       #                          in location "us-east1" will be used to process
       #                          the request.
       #  include_replicas also contains an option for auto_failover_disabled. If set
@@ -566,7 +591,10 @@ You can use the Spanner client libraries and REST and RPC APIs to perform direct
       result.rows.each do |row|
         puts "SingerId: #{row[:SingerId]}"
         puts "AlbumId: #{row[:AlbumId]}"
-        puts "AlbumTitle: #{row[:AlbumTitle]}"  end  puts "Successfully executed read-only transaction with directed_read_options"end
+        puts "AlbumTitle: #{row[:AlbumTitle]}"
+      end
+      puts "Successfully executed read-only transaction with directed_read_options"
+    end
 
 ### REST
 
@@ -604,7 +632,7 @@ For example, to perform directed reads in `us-central1` using `executeSQL` :
               ]
             }
           },
-          "sql&quot;: "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
+          "sql": "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
         }
 
 4.  Click **Execute** . The response shows the query results.
