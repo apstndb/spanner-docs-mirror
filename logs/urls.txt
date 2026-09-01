@@ -389,7 +389,7 @@ https://docs.cloud.google.com/spanner/docs/monitor-active-queries	2026-08-28T09:
 https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/monitoring-cloud	2026-08-28T09:28:29Z
-https://docs.cloud.google.com/spanner/docs/monitoring-console	2026-08-28T09:28:29Z
+https://docs.cloud.google.com/spanner/docs/monitoring-console	2026-08-31T14:03:57Z
 https://docs.cloud.google.com/spanner/docs/move-instance	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-08-28T09:28:29Z
@@ -694,7 +694,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-func
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns	2026-08-28T09:27:57Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements	2026-08-28T09:27:57Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements	2026-08-31T22:10:36Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-queries	2026-08-28T09:27:57Z
@@ -713,7 +713,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax-gu
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language	2026-08-28T09:28:23Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers	2026-08-28T09:28:13Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions	2026-08-28T09:28:13Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-08-28T09:28:32Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-08-31T20:23:26Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-08-28T09:28:23Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions	2026-08-28T09:28:13Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions	2026-08-28T09:28:23Z

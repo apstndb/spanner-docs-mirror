@@ -2965,30 +2965,31 @@ To execute a hash join between two tables, Spanner first scans rows from the bui
 
 ### Group hints
 
-The following group hints are supported:
+The following group hints specify the implementation method for the `GROUP BY` operator:
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Group hint key</th>
-<th>Group hint values</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">GROUP_METHOD</code></td>
-<td><code dir="ltr" translate="no">HASH_GROUP</code><br />
-<code dir="ltr" translate="no">STREAM_GROUP</code></td>
-<td>Specifies an alternative to choose when implementing a <code dir="ltr" translate="no">GROUP BY</code> operator.</td>
-</tr>
-</tbody>
-</table>
+Hint key
+
+Possible values
+
+Description
+
+`GROUP_METHOD`
+
+`HASH_GROUP`
+
+Uses hash-based aggregation. Spanner builds an in-memory hash table to compute aggregates across input rows.
+
+`STREAM_GROUP`
+
+Uses stream-based aggregation. Spanner reads from pre-sorted input and computes aggregates without buffering entire groups in memory. This is faster and uses less memory than hash-based aggregation, but requires the input to be sorted on the grouping keys (for example, by using an index).
+
+**Example**
+
+The following example forces stream-based aggregation for a `GROUP BY` clause:
+
+    SELECT SingerId, COUNT(*) AS SongCount
+    FROM Songs
+    GROUP @{GROUP_METHOD=STREAM_GROUP} BY SingerId;
 
 ### Graph hints
 

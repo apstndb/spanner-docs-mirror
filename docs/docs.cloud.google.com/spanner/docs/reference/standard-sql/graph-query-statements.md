@@ -183,15 +183,13 @@ The following example calls a named TVF and uses the `YIELD` clause to rename a 
 
 **Example: Call an inline subquery**
 
-The following example calls an inline subquery to find accounts owned by each matched person `p` . Multiple accounts for the same person are ordered by account ID.
+The following example calls an inline subquery to find accounts owned by each matched person `p` :
 
     GRAPH FinGraph
     MATCH (p:Person)
     CALL (p) {
       MATCH (p)-[:Owns]->(a:Account)
       RETURN a.Id AS account_Id
-      ORDER BY account_Id
-      LIMIT 2
     }
     RETURN p.name AS person_name, account_Id
     ORDER BY person_name, account_Id;
@@ -199,10 +197,9 @@ The following example calls an inline subquery to find accounts owned by each ma
     /*--------------------------+
      | person_name | account_Id |
      +--------------------------+
-     | Alex        | 16         |
-     | Dana        | 17         |
+     | Alex        | 7          |
      | Dana        | 20         |
-     | Lee         | 7          |
+     | Lee         | 16         |
      +--------------------------*/
 
 Notice that the example declares the outer-scoped node variable `p` ( `CALL (p)` ) from the `MATCH (p:Person)` clause. This declaration enables the node variable to be redeclared or *multiply-declared* in a path pattern of the subquery. If the `CALL` statement doesn't declare the node variable `p` , then the redeclared variable `p` in the subquery is treated as a new variable, independent of the outer-scoped variable (not multiply-declared), and returns different results.
@@ -212,8 +209,6 @@ Notice that the example declares the outer-scoped node variable `p` ( `CALL (p)`
     CALL () {  -- `p` not declared
       MATCH (p)-[:Owns]->(a:Account)  -- Inner-scoped variable `p`, independent of outer-scoped `p`
       RETURN a.Id AS account_Id
-      ORDER BY account_Id
-      LIMIT 2
     }
     RETURN p.name AS person_name, account_Id
     ORDER BY person_name, account_Id;
@@ -222,12 +217,15 @@ Notice that the example declares the outer-scoped node variable `p` ( `CALL (p)`
     /*--------------------------+
      | person_name | account_Id |
      +--------------------------+
-     | Alex        |          7 |
-     | Alex        |         16 |
-     | Dana        |          7 |
-     | Dana        |         16 |
-     | Lee         |          7 |
-     | Lee         |         16 |
+     | Alex        | 7          |
+     | Alex        | 16         |
+     | Alex        | 20         |
+     | Dana        | 7          |
+     | Dana        | 16         |
+     | Dana        | 20         |
+     | Lee         | 7          |
+     | Lee         | 16         |
+     | Lee         | 20         |
      +--------------------------*/
 
 Additionally, the following version of the query fails because the declared variable `Id` isn't a node or an edge variable. You can redeclare only node or edge variables in subqueries.
@@ -238,13 +236,11 @@ Additionally, the following version of the query fails because the declared vari
     CALL (Id) {  -- Non-node, non-edge variable `Id` declared
       MATCH (p)-[:Owns]->(a:Account)
       RETURN a.Id  -- Not allowed, outer-scoped `Id` isn't a node or edge variable, so you can't redeclare it.
-      ORDER BY a.Id
-      LIMIT 2
     }
     RETURN p.name AS person_name, Id;
     
     /*
-    ERROR: generic::invalid_argument: Variable name: Id already exists [at 7:3]
+    ERROR: generic::invalid_argument: Variable name: Id already exists [at 6:3]
       RETURN a.Id
     */
 
@@ -264,22 +260,20 @@ The following query calls an inline subquery that aggregates the number of accou
     /*-----------------------+
      | name   | num_accounts |
      +-----------------------+
-     | Dana   | 2            |
+     | Dana   | 1            |
      | Alex   | 1            |
      | Lee    | 1            |
      +-----------------------*/
 
 **Example: Use `OPTIONAL` to include `NULL` row values**
 
-The following query finds the two most recent account transfers `t` for each person `p` . The `OPTIONAL` clause includes rows for which the TVF or subquery produces no output. Rows with no output return `NULL` values. Without the `OPTIONAL` clause, rows with no output are excluded from the results.
+The following query finds account transfers `t` for each person `p` . The `OPTIONAL` clause includes rows for which the TVF or subquery produces no output. Rows with no output return `NULL` values. Without the `OPTIONAL` clause, rows with no output are excluded from the results.
 
     GRAPH FinGraph
     MATCH (p:Person)
     OPTIONAL CALL (p) {
       MATCH (p)-[:Owns]->(a:Account)-[t:Transfers]->()
       RETURN a.Id AS account_id, t.amount AS transfer_amount, DATE(t.create_time) AS transfer_date
-      ORDER BY transfer_date DESC
-      LIMIT 2
     }
     RETURN p.name, account_id, transfer_amount, transfer_date
     ORDER BY p.name, transfer_date DESC;
@@ -287,7 +281,7 @@ The following query finds the two most recent account transfers `t` for each per
     /*-------------------------------------------------------+
      | name   | account_id | transfer_amount | transfer_date |
      +-------------------------------------------------------+
-     | Alex   | NULL       | NULL            | NULL          |
+     | Alex   | 7          | 100             | 2020-10-04    |
      | Alex   | 7          | 300             | 2020-08-29    |
      | Dana   | 20         | 200             | 2020-10-17    |
      | Dana   | 20         | 500             | 2020-10-04    |
@@ -320,12 +314,12 @@ The following query uses the `RETURN` alias in the subquery to avoid conflicting
     /*------------------------+
      | person_Id | account_Id |
      +------------------------+
-     | 1         | 16         |
+     | 1         | 7          |
      +------------------------*/
 
-**Example: Filter, order, and limit subquery results**
+**Example: Filter subquery results**
 
-The following query finds the top three largest transfers over 50 dollar amounts for each person.
+The following query finds transfers over 50 dollar amounts for each person:
 
     GRAPH FinGraph
     MATCH (p:Person)
@@ -333,8 +327,6 @@ The following query finds the top three largest transfers over 50 dollar amounts
       MATCH (p)-[:Owns]->(a:Account)-[t:Transfers]->()
       WHERE t.amount > 50
       RETURN a.Id AS account_id, t.amount
-      ORDER BY t.amount DESC
-      LIMIT 3
     }
     RETURN p.name, account_id, amount
     ORDER BY p.name, amount DESC;
@@ -342,12 +334,11 @@ The following query finds the top three largest transfers over 50 dollar amounts
     /*------------------------------+
      | name   | account_id | amount |
      +------------------------------+
-     | Alex   | NULL       | NULL   |
-     | Dana   | 17         | 80     |
-     | Dana   | 20         | 100    |
-     | Dana   | 17         | 60     |
-     | Lee    | 7          | 200    |
-     | Lee    | 7          | 150    |
+     | Alex   | 7          | 300    |
+     | Alex   | 7          | 100    |
+     | Dana   | 20         | 500    |
+     | Dana   | 20         | 200    |
+     | Lee    | 16         | 300    |
      +------------------------------*/
 
 **Example: Use an empty scope list in a subquery**
