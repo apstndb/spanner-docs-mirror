@@ -178,7 +178,7 @@ https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres	2026-08-
 https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function	2026-08-28T09:27:51Z
 https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions	2026-08-28T09:27:51Z
 https://docs.cloud.google.com/spanner/docs/cloud-run-remote-function	2026-08-28T09:27:51Z
-https://docs.cloud.google.com/spanner/docs/cmek	2026-08-28T09:27:51Z
+https://docs.cloud.google.com/spanner/docs/cmek	2026-09-01T20:28:50Z
 https://docs.cloud.google.com/spanner/docs/code-example-syntax	2026-08-28T09:27:51Z
 https://docs.cloud.google.com/spanner/docs/columnar-engine	2026-08-28T09:27:51Z
 https://docs.cloud.google.com/spanner/docs/commit-statistics	2026-08-31T03:32:05Z
@@ -265,7 +265,7 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search	202
 https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization	2026-08-28T09:27:34Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/top-k-pattern-matching	2026-08-28T09:27:34Z
 https://docs.cloud.google.com/spanner/docs/generated-column/how-to	2026-08-28T09:27:34Z
-https://docs.cloud.google.com/spanner/docs/geo-partitioning	2026-08-28T09:27:51Z
+https://docs.cloud.google.com/spanner/docs/geo-partitioning	2026-09-01T23:59:55Z
 https://docs.cloud.google.com/spanner/docs/getting-started/ado_net	2026-08-28T09:28:26Z
 https://docs.cloud.google.com/spanner/docs/getting-started/cpp	2026-08-28T09:28:26Z
 https://docs.cloud.google.com/spanner/docs/getting-started/csharp	2026-08-28T09:28:26Z
@@ -390,7 +390,7 @@ https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine	2026-08-28T09
 https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/monitoring-cloud	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/monitoring-console	2026-08-31T14:03:57Z
-https://docs.cloud.google.com/spanner/docs/move-instance	2026-08-28T09:28:29Z
+https://docs.cloud.google.com/spanner/docs/move-instance	2026-09-01T23:59:55Z
 https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/named-schemas	2026-08-28T09:28:29Z
@@ -831,7 +831,7 @@ https://docs.cloud.google.com/spanner/docs/secondary-indexes	2026-08-28T09:27:42
 https://docs.cloud.google.com/spanner/docs/secure-agent-interactions-mcp	2026-08-28T09:27:42Z
 https://docs.cloud.google.com/spanner/docs/security-privacy-compliance	2026-08-28T09:27:42Z
 https://docs.cloud.google.com/spanner/docs/sequence-tasks	2026-08-31T03:31:44Z
-https://docs.cloud.google.com/spanner/docs/sessions	2026-08-28T09:27:42Z
+https://docs.cloud.google.com/spanner/docs/sessions	2026-09-02T03:21:25Z
 https://docs.cloud.google.com/spanner/docs/set-default-time-zone	2026-08-28T09:37:52Z
 https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run	2026-08-28T09:37:52Z
 https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke	2026-08-28T09:37:52Z

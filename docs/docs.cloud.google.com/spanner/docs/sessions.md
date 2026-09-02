@@ -150,10 +150,43 @@ Consider the following tradeoffs of dynamic channel pooling:
 
 ### Node.js
 
-The Node.js client does not support multiple gRPC channels. It is therefore recommended to create multiple clients instead of increasing the size of the session pool beyond 100 sessions for a single client.
+#### Regular sessions
+
+Multiplexed sessions are enabled by default in version 8.3.0 or later and require no configuration. Earlier versions use regular sessions by default, with the following settings:
 
     MinSessions: 25
     MaxSessions: 100
+
+#### Channel pooling
+
+Dynamic channel pooling is enabled by default with the following settings:
+
+    MaxChannels: 10
+    ConcurrentRequestsPerChannel: 25
+
+You can override configurations programmatically when you create a Spanner client instance.
+
+**If you use multiplexed sessions (default)**
+
+Copy the `channelPool` configuration from the [Spanner gRPC configuration](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/spanner/src/spanner_grpc_config.json#L1-#L5) to your application. You don't need to copy method definitions and affinity settings because multiplexed sessions don't require session-to-channel binding.
+
+For example:
+
+    const {Spanner} = require('@google-cloud/spanner');
+        // Note: Ensure grpcGcp is initialized
+    const customGcpApiConfig = {
+      channelPool: {
+        maxSize: 20, // Overriding default 10
+        maxConcurrentStreamsLowWatermark: 50 // Overriding default 25
+      }
+    };
+    const spanner = new Spanner({
+      'grpc.gcpApiConfig': grpcGcp.createGcpApiConfig(customGcpApiConfig)
+    });
+
+**If you use regular sessions**
+
+Copy the full configuration (both `channelPool` and method affinities) from the [Spanner gRPC configuration](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/spanner/src/spanner_grpc_config.json) to the application. Omitting the method affinities can degrade performance because requests lose their session-to-channel binding.
 
 ### PHP
 

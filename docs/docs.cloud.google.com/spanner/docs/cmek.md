@@ -361,7 +361,7 @@ All backups created by [backup schedules](https://docs.cloud.google.com/spanner/
 
 ## Geo-partitioning
 
-You can use CMEK or Google-owned and Google-managed encryption keys to protect Spanner databases that use [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) . When using geo-partitioning, you must use a regional Cloud KMS key for each instance replica locatoin, including those in the instance partition configuration. Multi-region keys aren't supported. Each regional Cloud KMS key must be located in the same region as the corresponding Spanner instance replica or instance partition location.
+You can use CMEK or Google-owned and Google-managed encryption keys to protect Spanner databases that use [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) . When using geo-partitioning, you must use a regional Cloud KMS key for each instance replica location, including those in the instance partition configuration. Multi-region keys aren't supported. Each regional Cloud KMS key must be located in the same region as the corresponding Spanner instance replica or instance partition location.
 
 For example, if your Spanner database is in the multi-region instance configuration `nam3` , with instance partitions located in `europe-west1` and `europe-west2` , then you must create Cloud KMS keys in the following regions:
 

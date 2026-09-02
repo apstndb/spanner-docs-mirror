@@ -69,6 +69,7 @@ Consider the following before creating your instance partitions, placements, and
 The following limitations apply during the [Preview](https://cloud.google.com/products#product-launch-stages) release and are subject to change or removal upon the GA release or after:
 
   - Your default instance partition must be a multi-region configuration.
+  - Your additional instance partition must be a multi-region configuration.
   - You can't create an instance partition using a [dual-region configuration](https://docs.cloud.google.com/spanner/docs/geo-partitioning#limitations) .
   - For each instance partition, the compute capacity must be at least one node (1000 processing units).
   - For a given instance, you can't create more than one instance partition that uses the same base instance configuration. For example, within `test-instance` , you can't create two partitions, `partition-1` and `partition-2` that both use `us-central1` as the instance partition configuration.
@@ -77,8 +78,7 @@ The following limitations apply during the [Preview](https://cloud.google.com/pr
   - You can't create [incremental backups](https://docs.cloud.google.com/spanner/docs/backup#incremental-backups) or [copy the backup](https://docs.cloud.google.com/spanner/docs/backup#how-backup-copy-works) .
   - You can't enable [asymmetric read-only autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) on non-default instance partitions.
   - You can't move the instance partition to a different instance configuration.
-  - You can't move an instance that has instance partitions. (You can move individual rows into different instance partitions so you don't need to move the instance.)
-  - Using instance partitions doesn't guarantee compliance and regulatory requirements.
+  - You can't move an instance that has databases using additional placements pointing to the default instance partition.
   - [Change streams](https://docs.cloud.google.com/spanner/docs/change-streams) don't support partitioned data.
   - If you use an `INSERT` or `DELETE` DML statement for a placement table, that statement must be the only statement in the [transaction](https://docs.cloud.google.com/spanner/docs/transactions) .
   - The read-write transaction mode lets you reference only the primary keys of a placement table in the `WHERE` clause. If you need to reference a non-primary key column of a placement table in the `WHERE` clause, then you can use one of the following alternatives:
