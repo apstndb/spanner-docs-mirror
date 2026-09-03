@@ -760,7 +760,7 @@ For information on filtering syntax, see the `filter` parameter in [`backupOpera
       for (auto& operation : client.ListBackupOperations(request)) {
         if (!operation) throw std::move(operation).status();
         google::spanner::admin::database::v1::CreateBackupMetadata metadata;
-        operation->metadata().UnpackTo(&metadata);
+        (void)operation->metadata().UnpackTo(&metadata);
         std::cout << "Backup " << metadata.name() << " of database "
                   << metadata.database() << " is "
                   << metadata.progress().progress_percent() << "% complete.\n";
@@ -772,7 +772,7 @@ For information on filtering syntax, see the `filter` parameter in [`backupOpera
       for (auto& operation : client.ListBackupOperations(request)) {
         if (!operation) throw std::move(operation).status();
         google::spanner::admin::database::v1::CopyBackupMetadata metadata;
-        operation->metadata().UnpackTo(&metadata);
+        (void)operation->metadata().UnpackTo(&metadata);
         std::cout << "Copy " << metadata.name() << " of backup "
                   << metadata.source_backup() << " is "
                   << metadata.progress().progress_percent() << "% complete.\n";

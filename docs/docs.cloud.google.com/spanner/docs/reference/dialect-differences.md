@@ -131,46 +131,6 @@ We recommend using the following JSON-compatible string representation columns i
   - [Query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) : `LATENCY_DISTRIBUTION_JSON_STRING`
   - [Lock Statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) : `SAMPLE_LOCK_REQUESTS_JSON_STRING`
 
-[`TABLESAMPLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#tablesample_operator)
-
-We recommend that you apply a custom function `F` , which converts a row to `TEXT` or `BYTEA` . You can then use `spanner.farm_fingerprint` to sample your data.  
-  
-In the following example, we use `CONCAT` as our function `F` :
-
-```sql
--- Given the following schema
-
-CREATE TABLE singers (
- singer_id BIGINT PRIMARY KEY,
- first_name VARCHAR(1024),
- last_name VARCHAR(1024),
- singer_info BYTEA
-);
-
--- Create a hash for each row (using all columns)
-WITH hashed_rows AS (
-  SELECT
-    *,
-    ABS(MOD(spanner.farm_fingerprint(
-      CONCAT(
-        singer_id::text,
-        first_name,
-        last_name,
-        singer_info::text
-      )
-    ), 100)) AS hash_value
-  FROM singers
-)
-
--- Sample data
-
-SELECT *
-FROM hashed_rows
-WHERE hash_value < 10 -- sample roughly 10%
-LIMIT 10; /* Optional: LIMIT to a max of 10 rows
-             to be returned */
-```
-
 [`VALUE IN UNNEST(ARRAY(...))`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#in_subquery_concepts)
 
 Use the equality operator with the `ANY` function, as shown in the following example:

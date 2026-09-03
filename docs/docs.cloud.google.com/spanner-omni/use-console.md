@@ -28,7 +28,7 @@ To start the Spanner Omni console with a single-server deployment:
 
 3.  Start the Spanner Omni console. If you are using containers, run the following command:
     
-        docker exec -it spanneromni /app/bin/spanner-console
+        docker exec -it spanneromni /google/spanner/bin/omni-jre/bin/java -jar /google/spanner/bin/spanner-console
 
 4.  In your browser, go to `http://localhost:15026` to access the Spanner Omni console.
 

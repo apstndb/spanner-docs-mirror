@@ -29,7 +29,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
         if (!operation) throw std::move(operation).status();
         google::spanner::admin::database::v1::OptimizeRestoredDatabaseMetadata
             metadata;
-        operation->metadata().UnpackTo(&metadata);
+        (void)operation->metadata().UnpackTo(&metadata);
         std::cout << "Database " << metadata.name() << " restored from backup is "
                   << metadata.progress().progress_percent() << "% optimized.\n";
       }

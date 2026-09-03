@@ -64,7 +64,7 @@ To set up and run a Spanner Omni container, follow these steps:
     
         SHOW TABLES;
 
-## Execute queries to explore the dataset
+## Run queries to explore the dataset
 
 The sample database includes data for products, users, orders, and payments. Use the following queries to explore the multi-model capabilities of Spanner Omni. The following are sample queries that demonstrate some of the functionality in Spanner Omni.
 
@@ -194,7 +194,7 @@ Replace `  PRODUCT_ID  ` with the target product ID:
 
 Spanner Omni includes a web-based Spanner Omni console for monitoring and management. To start the Spanner Omni console, run the following command:
 
-    docker exec -it spanneromni /app/bin/spanner-console
+    docker exec -it spanneromni /google/spanner/bin/omni-jre/bin/java -jar /google/spanner/bin/spanner-console
 
 To access the Spanner Omni console, navigate to `http://localhost:15026` in your browser. The Spanner Omni console provides the following information:
 

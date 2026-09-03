@@ -70,6 +70,7 @@ Use the `SELECT` statement to retrieve data from a database.
     
         table_name [ /*@ table_hint_expression [, ...] */ ]
              [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+             [ tablesample_operator ]
         ( select ) [ AS ] alias [ ( column_alias [, ...] ) ]
         from_item join_type [ /*@ join_hint_expression [, ...] */ ]
             from_item [ ON join_condition | USING ( join_column [, ...] ) ]
@@ -219,7 +220,7 @@ In [serializable isolation](https://docs.cloud.google.com/spanner/docs/isolation
 
 Unlike in serializable isolation, `FOR UPDATE` doesn't acquire locks under repeatable read isolation. For more information, see [Use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
 
-To be consistent with other PostgreSQL-dialect databases, you can't use the `FOR UPDATE` clause with set operators `UNION` , `INTERSECT` and `EXCEPT` , combined with `GROUP BY` , `HAVING` and `DISTINCT` clauses, and aggregate functions like `array_agg()` .
+To be consistent with other PostgreSQL-dialect databases, you can't use the `FOR UPDATE` clause with set operators `UNION` , `INTERSECT` , and `EXCEPT` , combined with `GROUP BY` , `HAVING` , and `DISTINCT` clauses, and aggregate functions like `array_agg()` .
 
 Example:
 
@@ -275,12 +276,12 @@ Spanner supports the following statement hints as extensions to open source Post
 <td><code dir="ltr" translate="no">TRUE</code> |<br />
 <code dir="ltr" translate="no">FALSE</code> (default)</td>
 <td>If <code dir="ltr" translate="no">TRUE</code> , the execution engine favors using more parallelism when possible.
-<p>Because this can reduce resources available to other operations, you may want to avoid this hint if you run latency-sensitive operations on the same instance.</p></td>
+<p>Because this can reduce resources available to other operations, you might want to avoid this hint if you run latency-sensitive operations on the same instance.</p></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">OPTIMIZER_VERSION</code></td>
 <td>Integer or <code dir="ltr" translate="no">"latest"</code></td>
-<td>Specifies the query optimizer version to use. This lets you test new optimizer versions or pin to a specific version. See <a href="https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer">Manage the query optimizer</a> . Example: <code dir="ltr" translate="no">/*@ OPTIMIZER_VERSION = 7 */ SELECT ...</code></td>
+<td>Specifies the query optimizer version to use. This lets you test new optimizer versions or pin to a specific version. See <a href="https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer">Manage the query optimizer</a> . Example: <code dir="ltr" translate="no">/*@ OPTIMIZER_VERSION = 8 */ SELECT ...</code></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">OPTIMIZER_STATISTICS_PACKAGE</code></td>
@@ -292,12 +293,12 @@ Spanner supports the following statement hints as extensions to open source Post
 <td><code dir="ltr" translate="no">exclusive</code> |<br />
 <code dir="ltr" translate="no">shared</code> (default)</td>
 <td>Use this hint to request an exclusive lock on a set of ranges scanned by a transaction. Acquiring an exclusive lock helps in scenarios when you observe high write contention, that is, you notice that multiple transactions are concurrently trying to read and write to the same data, resulting in a large number of aborts.
-<p>Without the hint, it's possible that multiple simultaneous transactions will acquire shared locks, and then try to upgrade to exclusive locks. This will cause a deadlock, because each transaction's shared lock is preventing the other transaction(s) from upgrading to exclusive. Spanner aborts all but one of the transactions.</p>
+<p>Without the hint, it's possible that multiple simultaneous transactions will acquire shared locks, and then try to upgrade to exclusive locks. This scenario will cause a deadlock, because each transaction's shared lock is preventing the other transactions from upgrading to exclusive. Spanner aborts all but one of the transactions.</p>
 <p>When requesting an exclusive lock using this hint, one transaction acquires the lock and proceeds to execute, while other transactions wait their turn for the lock. Throughput is still limited because the conflicting transactions can only be performed one at a time, but in this case Spanner is always making progress on one transaction, saving time that would otherwise be spent aborting and retrying transactions.</p>
 <p>This hint is supported on all statement types, both query and DML.</p>
 <p>Spanner always enforces <a href="https://docs.cloud.google.com/spanner/docs/transactions#serializability_and_external_consistency">serializability</a> . Lock mode hints can affect which transactions wait or abort in contended workloads, but don't change the isolation level.</p>
-<p>Because this is just a hint, it shouldn't be considered equivalent to a mutex. In other words, you shouldn't use Spanner exclusive locks as a mutual exclusion mechanism for the execution of code outside of Spanner. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/transactions#locking">Locking</a> .</p>
-<p>You can't use both the <code dir="ltr" translate="no">FOR UPDATE</code> clause and the <code dir="ltr" translate="no">LOCK_SCANNED_RANGES</code> hint in the same query. An error is returned. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/use-select-for-update#unsupported-use-cases">Use SELECT FOR UPDATE</a> .</p></td>
+<p>Because this lock mode is only a hint, it shouldn't be considered equivalent to a mutex. In other words, you shouldn't use Spanner exclusive locks as a mutual exclusion mechanism for the execution of code outside of Spanner. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/transactions#locking">Locking</a> .</p>
+<p>You can't use both the <code dir="ltr" translate="no">FOR UPDATE</code> clause and the <code dir="ltr" translate="no">LOCK_SCANNED_RANGES</code> hint in the same query. The query returns an error. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/use-select-for-update#unsupported-use-cases">Use SELECT FOR UPDATE</a> .</p></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">SCAN_METHOD</code></td>
@@ -357,14 +358,14 @@ Spanner supports the following table hints as extensions to open source PostgreS
 <li>If set to the name of an index, use that index instead of the base table. If the index cannot provide all needed columns, perform a back join with the base table.</li>
 <li>If set to the string <code dir="ltr" translate="no">_BASE_TABLE</code> , use the base table for the index strategy instead of an index. Note that this is the only valid value when <code dir="ltr" translate="no">FORCE_INDEX</code> is used in a statement hint expression.</li>
 </ul>
-<p>Note: <code dir="ltr" translate="no">FORCE_INDEX</code> is actually a directive, not a hint, which means an error is raised if the index does not exist.</p></td>
+<p>Note: <code dir="ltr" translate="no">FORCE_INDEX</code> is actually a directive, not a hint, which means Spanner raises an error if the index doesn't exist.</p></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">GROUPBY_SCAN_OPTIMIZATION</code></td>
 <td><code dir="ltr" translate="no">TRUE</code> |<br />
 <code dir="ltr" translate="no">FALSE</code></td>
 <td><p>The group by scan optimization can make queries faster if they use <code dir="ltr" translate="no">GROUP BY</code> . It can be applied if the grouping keys can form a prefix of the underlying table or index key, and if the query requires only the first row from each group.</p>
-<p>The optimization is applied if the optimizer estimates that it will make the query more efficient. The hint overrides that decision. If the hint is set to <code dir="ltr" translate="no">FALSE</code> , the optimization is not considered. If the hint is set to <code dir="ltr" translate="no">TRUE</code> , the optimization will be applied as long as it is legal to do so.</p></td>
+<p>The optimizer applies the optimization if it estimates that it will make the query more efficient. The hint overrides that decision. If the hint is set to <code dir="ltr" translate="no">FALSE</code> , the optimizer doesn't consider the optimization. If the hint is set to <code dir="ltr" translate="no">TRUE</code> , the optimizer applies the optimization as long as it is legal to do so.</p></td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">SCAN_METHOD</code></td>
@@ -415,7 +416,7 @@ Spanner supports the following join hints as extensions to open source PostgreSQ
 <code dir="ltr" translate="no">APPLY_JOIN</code> |<br />
 <code dir="ltr" translate="no">MERGE_JOIN</code> |<br />
 <code dir="ltr" translate="no">PUSH_BROADCAST_HASH_JOIN</code></td>
-<td>When implementing a logical join, choose a specific alternative to use for the underlying join method. Learn more in <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#join-methods">Join methods.</a></td>
+<td>When implementing a logical join, choose a specific alternative to use for the underlying join method. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#join-methods">Join methods</a> .</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">HASH_JOIN_BUILD_SIDE</code></td>
@@ -460,7 +461,7 @@ Spanner supports the following function hints as extensions to open source Postg
 <td><code dir="ltr" translate="no">DISABLE_INLINE</code></td>
 <td><code dir="ltr" translate="no">TRUE</code> |<br />
 <code dir="ltr" translate="no">FALSE</code> (default)</td>
-<td><p>If set to true, the function is computed once instead of each time another part of a query references it.</p>
+<td><p>If you set this hint to true, the query computes the function once instead of each time another part of a query references it.</p>
 <p><code dir="ltr" translate="no">DISABLE_INLINE</code> works with top-level functions.</p>
 <p>You can't use <code dir="ltr" translate="no">DISABLE_INLINE</code> with a few functions, including those that don't produce a scalar value and casting. Although you can't use <code dir="ltr" translate="no">DISABLE_INLINE</code> with a casting function, you can use it with the first expression inside the function.</p></td>
 </tr>
@@ -469,14 +470,14 @@ Spanner supports the following function hints as extensions to open source Postg
 
 **Examples**
 
-In the following example, inline expressions are enabled by default for `x` . `x` is computed twice, once by each reference:
+In the following example, inline expressions are enabled by default for `x` . The query computes `x` twice, once by each reference:
 
     SELECT
       SUBSTRING(x, 2, 5) AS w,
       SUBSTRING(x, 3, 7) AS y
     FROM (SELECT SHA512(z) AS x FROM t) AS subquery
 
-In the following example, inline expressions are disabled for `x` . `x` is computed once, and the result is used by each reference:
+In the following example, inline expressions are disabled for `x` . The query computes `x` once, and each reference uses the result:
 
     SELECT
       SUBSTRING(x, 2, 5) AS w,
@@ -487,12 +488,90 @@ In the following example, inline expressions are disabled for `x` . `x` is compu
 
 Join methods are specific implementations of the various logical join types. Some join methods are available only for certain join types. The choice of which join method to use depends on the specifics of your query and of the data being queried. The best way to figure out if a particular join method helps with the performance of your query is to try the method and view the resulting [query execution plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) . See [Query Execution Operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators) for more details.
 
-| Join Method                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Operands                                                                                                                                                                                                                                                                                                                                                           |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `HASH_JOIN`                | The hash join operator builds a hash table out of one side (the build side), and probes in the hash table for all the elements in the other side (the probe side).                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Different variants are used for various join types. View the query execution plan for your query to see which variant is used. Read more about the [Hash join operator](https://docs.cloud.google.com/spanner/docs/query-execution-operators#hash_join) .                                                                                                          |
-| `APPLY_JOIN`               | The apply join operator gets each item from one side (the input side), and evaluates the subquery on other side (the map side) using the values of the item from the input side.                                                                                                                                                                                                                                                                                                                                                                                                                                              | Different variants are used for various join types. Cross apply is used for inner join, and outer apply is used for left joins. Read more about the [Cross apply](https://docs.cloud.google.com/spanner/docs/query-execution-operators#cross_apply) and [Outer apply](https://docs.cloud.google.com/spanner/docs/query-execution-operators#outer_apply) operators. |
-| `MERGE_JOIN`               | The merge join operator joins two streams of sorted data. The optimizer will add Sort operators to the plan if the data is not already providing the required sort property for the given join condition. The engine provides a distributed merge sort by default, which when coupled with merge join may allow for larger joins, potentially avoiding disk spilling and improving scale and latency.                                                                                                                                                                                                                         | Different variants are used for various join types. View the query execution plan for your query to see which variant is used. Read more about the [Merge join operator](https://docs.cloud.google.com/spanner/docs/query-execution-operators#merge_join) .                                                                                                        |
-| `PUSH_BROADCAST_HASH_JOIN` | The push broadcast hash join operator builds a batch of data from the build side of the join. The batch is then sent in parallel to all the local splits of the probe side of the join. On each of the local servers, a hash join is executed between the batch and the local data. This join is most likely to be beneficial when the input can fit within one batch, but is not strict. Another potential area of benefit is when operations can be distributed to the local servers, such as an aggregation that occurs after a join. A push broadcast hash join can distribute some aggregation where a hash join cannot. | Different variants are used for various join types. View the query execution plan for your query to see which variant is used. Read more about the [Push broadcast hash join operator](https://docs.cloud.google.com/spanner/docs/query-execution-operators#push_broadcast_hash_join) .                                                                            |
+| Join method                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Operands                                                                                                                                                                                                                                                                                                                                                      |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `HASH_JOIN`                | The hash join operator builds a hash table out of one side (the build side), and probes in the hash table for all the elements in the other side (the probe side).                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Spanner uses different variants for various join types. View the query execution plan for your query to see which variant is used. For more information, see [Hash join operator](https://docs.cloud.google.com/spanner/docs/query-execution-operators#hash_join) .                                                                                           |
+| `APPLY_JOIN`               | The apply join operator gets each item from one side (the input side), and evaluates the subquery on other side (the map side) using the values of the item from the input side.                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Spanner uses different variants for various join types. Inner joins use cross apply, and left joins use outer apply. For more information, see [Cross apply](https://docs.cloud.google.com/spanner/docs/query-execution-operators#cross_apply) and [Outer apply](https://docs.cloud.google.com/spanner/docs/query-execution-operators#outer_apply) operators. |
+| `MERGE_JOIN`               | The merge join operator joins two streams of sorted data. The optimizer will add Sort operators to the plan if the data is not already providing the required sort property for the given join condition. The engine provides a distributed merge sort by default, which when coupled with merge join might allow for larger joins, potentially avoiding disk spilling and improving scale and latency.                                                                                                                                                                                                                                  | Spanner uses different variants for various join types. View the query execution plan for your query to see which variant is used. For more information, see [Merge join operator](https://docs.cloud.google.com/spanner/docs/query-execution-operators#merge_join) .                                                                                         |
+| `PUSH_BROADCAST_HASH_JOIN` | The push broadcast hash join operator builds a batch of data from the build side of the join. Spanner then sends the batch in parallel to all the local splits of the probe side of the join. On each of the local servers, Spanner executes a hash join between the batch and the local data. This join is most likely to be beneficial when the input can fit within one batch, but is not strict. Another potential area of benefit is when operations can be distributed to the local servers, such as an aggregation that occurs after a join. A push broadcast hash join can distribute some aggregation where a hash join cannot. | Spanner uses different variants for various join types. View the query execution plan for your query to see which variant is used. For more information, see [Push broadcast hash join operator](https://docs.cloud.google.com/spanner/docs/query-execution-operators#push_broadcast_hash_join) .                                                             |
+
+## `TABLESAMPLE` operator
+
+    tablesample_operator:
+      {
+        TABLESAMPLE sample_method (sample_size)
+      }
+    
+    where sample_method is one of:
+      BERNOULLI | SPANNER.RESERVOIR
+    
+    and sample_size is one of:
+      { numeric_literal | numeric_parameter }
+
+You can use the `TABLESAMPLE` operator to select a random sample of a dataset. This operator is useful when you're working with tables that have large amounts of data and you don't need precise answers. The `TABLESAMPLE` operator uses the following parameters:
+
+  - `sample_method` : You must specify the sampling algorithm that the `TABLESAMPLE` operator uses:
+      - `BERNOULLI` : The algorithm independently selects each row with the probability given in the `sample_size` clause. As a result, you get approximately `N * sample_size/100` rows.
+      - `SPANNER.RESERVOIR` : The algorithm takes an actual sample size K (expressed as a number of rows) as a parameter. If the input is smaller than K, the algorithm outputs the entire input relation. If the input is larger than K, SPANNER.RESERVOIR sampling outputs a sample of size exactly K, where any sample of size K is equally likely.
+  - `sample_size` : The size of the sample. If you choose the `BERNOULLI` sampling algorithm, the value must be between 0 and 100, inclusive. If you choose the `SPANNER.RESERVOIR` sampling algorithm, the value must be greater than or equal to 0.
+
+**Examples**
+
+The following examples illustrate the use of the `TABLESAMPLE` operator.
+
+Select from a table using the `SPANNER.RESERVOIR` sampling method with a sample size of 100 rows:
+
+    SELECT MessageId
+    FROM Messages TABLESAMPLE SPANNER.RESERVOIR (100);
+
+Select from a table using the `BERNOULLI` sampling method with a sample size of approximately 0.1%:
+
+    SELECT MessageId
+    FROM Messages TABLESAMPLE BERNOULLI (0.1);
+
+Use a `TABLESAMPLE` operation with a join to another table:
+
+    SELECT T.Subject, M.MessageId
+    FROM Threads AS T TABLESAMPLE SPANNER.RESERVOIR(10),
+         Messages AS M TABLESAMPLE BERNOULLI(50)
+    WHERE T.ServerId='test' AND T.ThreadId = M.ThreadId;
+
+Casting a literal to a numeric literal is supported:
+
+    SELECT MessageId
+    FROM Messages TABLESAMPLE SPANNER.RESERVOIR (CAST(45.56 AS BIGINT));
+    
+    SELECT MessageId
+    FROM Messages TABLESAMPLE BERNOULLI ('50'::DOUBLE PRECISION);
+
+Implicit coercion of a literal to a numeric literal is supported:
+
+    SELECT MessageId FROM Messages TABLESAMPLE BERNOULLI ('50');
+
+**Operator limitations**
+
+The `TABLESAMPLE` operator doesn't support the following operations:
+
+  - Nested casting of sample size literals.
+  - Casting of sample size parameters.
+  - Sampling on temporary tables derived from a subquery. This limitation is in contrast with the GoogleSQL dialect.
+
+`TABLESAMPLE` can be applied to a base table or a view inside subqueries:
+
+    SELECT Subject
+    FROM (SELECT MessageId, Subject
+          FROM Messages TABLESAMPLE BERNOULLI(50) WHERE ServerId = 'test') Messages2
+    WHERE MessageId > 3;
+    
+    SELECT MessageId
+    FROM Messages
+    WHERE Subject IN (SELECT Messages.Subject
+                      FROM Messages TABLESAMPLE SPANNER.RESERVOIR(3));
+    
+    SELECT Roster.LastName, TM.Mascot
+    FROM Roster TABLESAMPLE SPANNER.RESERVOIR(5)
+         JOIN (SELECT Mascot, SchoolID
+               FROM TeamMascot TABLESAMPLE BERNOULLI(50)) TM ON Roster.SchoolID = TM.SchoolID;
 
 ## `UNNEST` operator
 
@@ -510,24 +589,24 @@ Join methods are specific implementations of the various logical join types. Som
 
 The `UNNEST` operator takes an array and returns a table, with one row for each element in the array. For input arrays of most element types, the output of `UNNEST` generally has one column.
 
-Input values:
+The `UNNEST` operator takes the following input values:
 
   - `array_expression` : an expression that produces an array.
 
-  - `table_name` : The name of a table.
+  - `table_name` : the name of a table.
 
-  - `array_path` : The path to an `ARRAY` type.
+  - `array_path` : the path to an `ARRAY` type.
     
     Example:
     
         SELECT * FROM UNNEST (ARRAY[10,20,30]) as numbers;
         
         /*---------*
-         | numbers |
-         +---------+
-         | 10      |
-         | 20      |
-         | 30      |
-         *---------*/
+        | numbers |
+        +---------+
+        | 10      |
+        | 20      |
+        | 30      |
+        *---------*/
 
   - `alias` : An alias for a value table. An input array that produces a single column can have an optional alias, which you can use to refer to the column elsewhere in the query.

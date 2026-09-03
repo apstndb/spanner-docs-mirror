@@ -12,6 +12,20 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## September 02, 2026
+
+Feature
+
+Spanner supports using the `TABLESAMPLE` operator in PostgreSQL-dialect databases to select a random sample of a dataset.
+
+For more information, see [`TABLESAMPLE` operator](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#tablesample_operator) .
+
+## August 28, 2026
+
+Feature
+
+Spanner supports creating secondary indexes based on scalar expressions that apply to one or more table columns. Expression indexes eliminate the need to create and maintain a dedicated generated column in your table for indexing purposes. For more information, see [Create an index based on a scalar expression](https://docs.cloud.google.com/spanner/docs/secondary-indexes#expression-index) .
+
 ## August 11, 2026
 
 Feature
