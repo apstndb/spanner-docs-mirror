@@ -30,22 +30,22 @@ The following table shows the precedence and associativity of the operators in P
 
 **Operator Precedence (highest to lowest)**
 
-| Operator/Element           | Associativity | Description                                                        |
-| -------------------------- | ------------- | ------------------------------------------------------------------ |
-| `.`                        | left          | table/column name separator                                        |
-| `::`                       | left          | PostgreSQL -style typecast                                         |
-| `[` `]`                    | left          | array element selection                                            |
-| `+` `-`                    | right         | unary plus, unary minus                                            |
-| `^`                        | left          | exponentiation                                                     |
-| `*` `/` `%`                | left          | multiplication, division, modulo                                   |
-| `+` `-`                    | left          | addition, subtraction                                              |
-| (any other operator)       | left          | all other PostgreSQL and user-defined operators                    |
-| `BETWEEN` `LIKE` `IN`      |               | range containment, string matching, set membership                 |
-| `<` `>` `=` `<=` `>=` `<>` |               | comparison operators                                               |
-| `IS` `ISNULL` `NOTNULL`    |               | `IS TRUE` , `IS FALSE` , `IS NULL` , `IS DISTINCT FROM` , and more |
-| `NOT`                      | right         | logical negation                                                   |
-| `AND`                      | left          | logical conjunction                                                |
-| `OR`                       | left          | logical disjunction                                                |
+| Operator/Element              | Associativity | Description                                                        |
+| ----------------------------- | ------------- | ------------------------------------------------------------------ |
+| `.`                           | left          | table/column name separator                                        |
+| `::`                          | left          | PostgreSQL -style typecast                                         |
+| `[` `]`                       | left          | array element selection                                            |
+| `+` `-`                       | right         | unary plus, unary minus                                            |
+| `^`                           | left          | exponentiation                                                     |
+| `*` `/` `%`                   | left          | multiplication, division, modulo                                   |
+| `+` `-`                       | left          | addition, subtraction                                              |
+| (any other operator)          | left          | all other PostgreSQL and user-defined operators                    |
+| `BETWEEN` `LIKE` `ILIKE` `IN` |               | range containment, string matching, set membership                 |
+| `<` `>` `=` `<=` `>=` `<>`    |               | comparison operators                                               |
+| `IS` `ISNULL` `NOTNULL`       |               | `IS TRUE` , `IS FALSE` , `IS NULL` , `IS DISTINCT FROM` , and more |
+| `NOT`                         | right         | logical negation                                                   |
+| `AND`                         | left          | logical conjunction                                                |
+| `OR`                          | left          | logical disjunction                                                |
 
 ## Array operators
 
@@ -58,7 +58,7 @@ The following table shows the precedence and associativity of the operators in P
 
 ## Date and time operators
 
-| Operator         | Example / Notes                             | Description                                                      |
+| Operator         | Examples and notes                          | Description                                                      |
 | ---------------- | ------------------------------------------- | ---------------------------------------------------------------- |
 | `date - date`    | `date '2001-10-01' - date '2001-09-28' → 3` | Subtracts dates, returning the number of days that have elapsed. |
 | `date - integer` | `date '2001-10-01' - 7 → 2001-09-24`        | Subtracts a number of days from a date, returning the new date.  |
@@ -75,7 +75,7 @@ The following table shows the precedence and associativity of the operators in P
 <thead>
 <tr class="header">
 <th>Operator</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -157,6 +157,71 @@ The following table shows the precedence and associativity of the operators in P
 
 ## Pattern matching operators
 
-| Operator                                                      | Example / Notes               | Description                                                                      |
-| ------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------------------------------- |
-| `         string        text !~         pattern        text ` | `'thomas' !~ 't.*max' → true` | Tests whether a string text does not match a regular expression. Case sensitive. |
+The following table describes the pattern matching and regular expression operators supported in Spanner.
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Examples and notes</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code dir="ltr" translate="no">        string        LIKE         pattern       </code></td>
+<td><code dir="ltr" translate="no">'Apple' LIKE 'Ap%' → true</code><br />
+<code dir="ltr" translate="no">'Apple' LIKE 'ap%' → false</code></td>
+<td>Returns <code dir="ltr" translate="no">TRUE</code> if the string in the first operand <code dir="ltr" translate="no">string</code> matches a pattern specified by the second operand <code dir="ltr" translate="no">pattern</code> , otherwise returns <code dir="ltr" translate="no">FALSE</code> . This operator is case sensitive.</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">        string        NOT LIKE         pattern       </code></td>
+<td><code dir="ltr" translate="no">'Apple' NOT LIKE 'ap%' → true</code></td>
+<td>Returns <code dir="ltr" translate="no">TRUE</code> if the string in the first operand <code dir="ltr" translate="no">string</code> doesn't match a pattern specified by the second operand <code dir="ltr" translate="no">pattern</code> , otherwise returns <code dir="ltr" translate="no">FALSE</code> . This operator is case sensitive.</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">        string        ILIKE         pattern       </code></td>
+<td><code dir="ltr" translate="no">'Apple' ILIKE 'ap%' → true</code><br />
+<code dir="ltr" translate="no">'Apple' ILIKE 'APpLe' → true</code></td>
+<td><p>Returns <code dir="ltr" translate="no">TRUE</code> if the string in the first operand <code dir="ltr" translate="no">string</code> matches a pattern specified by the second operand <code dir="ltr" translate="no">pattern</code> , otherwise returns <code dir="ltr" translate="no">FALSE</code> . This operator is case insensitive.</p>
+<p>To optimize queries with the <code dir="ltr" translate="no">ILIKE</code> operator, you can create a case-folding expression index on the target column, such as <code dir="ltr" translate="no">LOWER(column)</code> or <code dir="ltr" translate="no">UPPER(column)</code> . The query optimizer can rewrite the <code dir="ltr" translate="no">ILIKE</code> operator to perform an index scan instead of a full table scan.</p></td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">        string        NOT ILIKE         pattern       </code></td>
+<td><code dir="ltr" translate="no">'Apple' NOT ILIKE 'banana%' → true</code></td>
+<td>Returns <code dir="ltr" translate="no">TRUE</code> if the string in the first operand <code dir="ltr" translate="no">string</code> doesn't match a pattern specified by the second operand <code dir="ltr" translate="no">pattern</code> , otherwise returns <code dir="ltr" translate="no">FALSE</code> . This operator is case insensitive.</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">        string        ~~         pattern       </code></td>
+<td><code dir="ltr" translate="no">'Apple' ~~ 'Ap%' → true</code></td>
+<td>Equivalent to the <code dir="ltr" translate="no">LIKE</code> operator.</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">        string        !~~         pattern       </code></td>
+<td><code dir="ltr" translate="no">'Apple' !~~ 'ap%' → true</code></td>
+<td>Equivalent to the <code dir="ltr" translate="no">NOT LIKE</code> operator.</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">        string        ~~*         pattern       </code></td>
+<td><code dir="ltr" translate="no">'Apple' ~~* 'ap%' → true</code></td>
+<td>Equivalent to the <code dir="ltr" translate="no">ILIKE</code> operator.</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">        string        !~~*         pattern       </code></td>
+<td><code dir="ltr" translate="no">'Apple' !~~* 'banana%' → true</code></td>
+<td>Equivalent to the <code dir="ltr" translate="no">NOT ILIKE</code> operator.</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">        string        text !~         pattern        text</code></td>
+<td><code dir="ltr" translate="no">'thomas' !~ 't.*max' → true</code></td>
+<td>Tests whether a string text doesn't match a regular expression. Case sensitive.</td>
+</tr>
+</tbody>
+</table>
+
+The `LIKE` , `NOT LIKE` , `ILIKE` , and `NOT ILIKE` operators support an optional `ESCAPE` clause (for example, `string LIKE pattern ESCAPE escape_character` ). The optional `ESCAPE` character defaults to a backslash ( `\` ). If specified, only a backslash ( `\` ) is supported as an escape character.

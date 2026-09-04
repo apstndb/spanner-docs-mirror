@@ -12,6 +12,22 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## September 03, 2026
+
+Feature
+
+Spanner supports the following PostgreSQL-dialect database operators:
+
+  - `ILIKE` ( `~~*` )
+  - `NOT ILIKE` ( `!~~*` )
+
+Spanner supports the following PostgreSQL-dialect database functions:
+
+  - `pg.ilike`
+  - `pg.not_ilike`
+
+For more information, see [Pattern matching operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/operators#pattern-matching-operators) and [Functions](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions) .
+
 ## September 02, 2026
 
 Feature

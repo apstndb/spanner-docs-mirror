@@ -256,7 +256,7 @@ This option specifies the approximate nearest neighbors (ANN) algorithm configur
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -285,7 +285,7 @@ This option specifies the approximate nearest neighbors (ANN) algorithm configur
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -375,7 +375,7 @@ If you pass NULL for either the <em>delimiter</em> argument or the <em>null_stri
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -551,7 +551,7 @@ If you pass NULL for either the <em>delimiter</em> argument or the <em>null_stri
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -592,7 +592,7 @@ If you pass NULL for either the <em>delimiter</em> argument or the <em>null_stri
 
 ## Hash functions
 
-| Function                                                        | Example / Notes                                         | Description                                                                     |
+| Function                                                        | Examples and notes                                      | Description                                                                     |
 | --------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | `spanner.farm_fingerprint(         value        bytea \| text)` | `spanner.farm_fingerprint('abc') → 2640714258260161385` | Computes the fingerprint of *value* using the FarmHash Fingerprint64 algorithm. |
 
@@ -602,7 +602,7 @@ This section describes the date and time functions that are available in Spanner
 
 ### Date and time functions
 
-| Function                              | Example / Notes                                                                                         | Description                                                                                                                                                                                                                                                                                                                                                                                             |
+| Function                              | Examples and notes                                                                                      | Description                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `current_date`                        | `SELECT CURRENT_DATE;  Result: 2022-05-13`                                                              | Returns current `date` .                                                                                                                                                                                                                                                                                                                                                                                |
 | `current_timestamp`                   | `SELECT CURRENT_TIMESTAMP;  Result: 2022-05-13T16:30:29.880850967Z`                                     | Returns current date and time in `timestamptz` format. `current_timestamp` is a *stable* function. This behavior means that the function returns the same timestamp value throughout the execution of a single SQL statement. Subsequent statements return an updated value. For more information, see [Function volatility](https://docs.cloud.google.com/spanner/docs/concepts/function-volatility) . |
@@ -626,7 +626,7 @@ Spanner has several functions that perform date or time math that accept `INTERV
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -679,7 +679,7 @@ Functions that you can use to create search indexes.
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -739,7 +739,7 @@ Functions that you can use to create search indexes.
 
 Functions that you can use to search for data, score the search result, or format the search result.
 
-| Function                                                                                                                                                                                      | Example / Notes      | Description                                                                                                               |
+| Function                                                                                                                                                                                      | Examples and notes   | Description                                                                                                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | ` spanner.score(  tokens spanner.tokenlist,  query text  [, dialect text]  [, language_tag text]  [, enhance_query bool]  [, dictionary text]  [, options jsonb])  `                          | Returns a `float8` . | Calculates a relevance score of a `tokenlist` for a full-text search query. The higher the score, the stronger the match. |
 | ` spanner.score_ngrams(  tokens spanner.tokenlist,  ngrams_query text  [, language_tag text]  [, algorithm text])  `                                                                          |                      | Calculates the relevance score of a `tokenlist` for a fuzzy search. The higher the score, the stronger the match.         |
@@ -752,9 +752,9 @@ Functions that you can use to search for data, score the search result, or forma
 
 Functions that you can use for debugging.
 
-| Function                                          | Example / Notes  | Description                                                                                                 |
-| ------------------------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------- |
-| ` spanner.debug_tokenlist(  spanner.tokenlist)  ` | Returns `text` . | Displays a human-readable representation of tokens present in the `tokenlist` value for debugging purposes. |
+| Function                                          | Examples and notes | Description                                                                                                 |
+| ------------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| ` spanner.debug_tokenlist(  spanner.tokenlist)  ` | Returns `text` .   | Displays a human-readable representation of tokens present in the `tokenlist` value for debugging purposes. |
 
 ## JSONB functions
 
@@ -773,7 +773,7 @@ For more information, see the [PostgreSQL `JSONB` documentation](https://www.pos
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -865,7 +865,7 @@ Spanner has several JSONB functions that are not available in open source Postgr
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -924,7 +924,7 @@ Spanner has several JSONB functions that are not available in open source Postgr
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -1002,7 +1002,7 @@ Spanner has several JSONB functions that are not available in open source Postgr
 
 ## Aggregate functions
 
-| Function                                                                                              | Example / Notes                       | Description                                                                                                                                                                                                                                                                       |
+| Function                                                                                              | Examples and notes                    | Description                                                                                                                                                                                                                                                                       |
 | ----------------------------------------------------------------------------------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `array_agg(anynonarray [ORDER BY input_sort_columns])`                                                | `  `                                  | Inserts the given values, including nulls, into an array. `input_sort_columns` , if specified, must have the same syntax as a query-level ORDER BY clause and is used to sort the inputs.                                                                                         |
 | `avg(float4 \| float8 \| interval \| int8 \| numeric)`                                                | `  `                                  | Computes the average (arithmetic mean) of all the non-null input values.                                                                                                                                                                                                          |
@@ -1030,7 +1030,7 @@ Spanner has several JSONB functions that are not available in open source Postgr
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -1104,8 +1104,6 @@ Spanner has several JSONB functions that are not available in open source Postgr
 
 This section describes the pattern matching functions that are available in Spanner.
 
-### Pattern matching functions
-
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -1115,7 +1113,7 @@ This section describes the pattern matching functions that are available in Span
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Example / Notes</th>
+<th>Examples and notes</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -1124,13 +1122,25 @@ This section describes the pattern matching functions that are available in Span
 <td><code dir="ltr" translate="no">like(         string        bytea,         pattern        bytea)</code></td>
 <td>Returns Boolean.<br />
 <code dir="ltr" translate="no"></code></td>
-<td>Returns <code dir="ltr" translate="no">true</code> if the string matches the supplied pattern. For more information about the <code dir="ltr" translate="no">LIKE</code> expression, see the <a href="https://www.postgresql.org/docs/13/functions-matching.html#FUNCTIONS-LIKE">postgresql.org documentation</a> .</td>
+<td>Returns <code dir="ltr" translate="no">true</code> if the string matches the supplied pattern. For more information about the <code dir="ltr" translate="no">LIKE</code> expression, see the <a href="https://www.postgresql.org/docs/13/functions-matching.html#FUNCTIONS-LIKE">PostgreSQL pattern matching documentation</a> .</td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">like(         string        text,         pattern        text)</code></td>
 <td>Returns Boolean.<br />
 <code dir="ltr" translate="no"></code></td>
-<td>Returns <code dir="ltr" translate="no">true</code> if the string matches the supplied pattern. For more information about the <code dir="ltr" translate="no">LIKE</code> expression, see the <a href="https://www.postgresql.org/docs/13/functions-matching.html#FUNCTIONS-LIKE">postgresql.org documentation</a> .</td>
+<td>Returns <code dir="ltr" translate="no">true</code> if the string matches the supplied pattern. For more information about the <code dir="ltr" translate="no">LIKE</code> expression, see the <a href="https://www.postgresql.org/docs/13/functions-matching.html#FUNCTIONS-LIKE">PostgreSQL pattern matching documentation</a> .</td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">pg.ilike(         string        text,         pattern        text)</code></td>
+<td>Returns Boolean.<br />
+<code dir="ltr" translate="no">pg.ilike('Apple', 'aPp%') → true</code></td>
+<td>Returns <code dir="ltr" translate="no">true</code> if the string matches the supplied pattern. This function is case insensitive. For more information about case insensitive pattern matching, see the <a href="https://www.postgresql.org/docs/13/functions-matching.html#FUNCTIONS-LIKE">PostgreSQL pattern matching documentation</a> .</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">pg.not_ilike(         string        text,         pattern        text)</code></td>
+<td>Returns Boolean.<br />
+<code dir="ltr" translate="no">pg.not_ilike('Apple', 'aPp%') → false</code></td>
+<td>Returns <code dir="ltr" translate="no">true</code> if the string does not match the supplied pattern. This function is case insensitive. For more information about case-insensitive pattern matching, see the <a href="https://www.postgresql.org/docs/13/functions-matching.html#FUNCTIONS-LIKE">PostgreSQL pattern matching documentation</a> .</td>
 </tr>
 <tr class="odd">
 <td><code dir="ltr" translate="no">regexp_match(         string        text,         pattern        text)</code></td>
@@ -1161,7 +1171,7 @@ This section describes the pattern matching functions that are available in Span
 
 ## Formatting functions
 
-| Function                                                                          | Example / Notes                                                                                                                   | Description                                                                                                                                                                            |
+| Function                                                                          | Examples and notes                                                                                                                | Description                                                                                                                                                                            |
 | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `to_char(         interval_value        interval,         format        text)`    | `SELECT to_char(INTERVAL '1 year 2 months 15 days 10 hours 30 minutes 15 seconds 100 milliseconds', 'YYYY-MM-DD HH24:MI:SS.MS');` | Converts interval to string according to the given date format. [<sup>\[1\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote1)                |
 | `to_char(         number        int8,         format        text)`                | `to_char(125, '999') → 125`                                                                                                       | Converts int8 to string according to the given format. [<sup>\[2\]</sup>](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#footnote2)                         |
@@ -1181,7 +1191,7 @@ This section describes the pattern matching functions that are available in Span
 
 ## Sequence functions
 
-| Function                                       | Example / Notes                                     | Description                                                                                                                                                                                                                                                                                            |
+| Function                                       | Examples and notes                                  | Description                                                                                                                                                                                                                                                                                            |
 | ---------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `nextval (varchar) → bigint`                   | `nextval ('MySequence')`                            | Takes a sequence name string and returns the next sequence value in the `bigint` data type. This function is only allowed in read-write transactions                                                                                                                                                   |
 | `spanner.get_internal_sequence_state(varchar)` | `spanner.get_internal_sequence_state('MySequence')` | Gets the current sequence internal counter before bit reversal. As the sequence generates values, its internal counter changes. This function is useful when using import or export, and for migrations. If `nextval ('MySequence')` is never called on the sequence, then this function returns NULL. |
@@ -1226,7 +1236,7 @@ This section describes functions that possibly return more than one row.
 
 ## Utility functions
 
-| Function                  | Example / Notes                                                                 | Description                                                                                                                                                                                                                                                                                                                                                                                  |
+| Function                  | Examples and notes                                                              | Description                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `spanner.generate_uuid()` | `SELECT spanner.generate_uuid() AS uuid → 4192bff0-e1e0-43ce-a4db-912808c32493` | Returns a random universally unique identifier (UUID) (Version 4) as a string. that Spanner can use for primary key columns. The returned string consists of 32 hexadecimal digits in five groups separated by hyphens in the form 8-4-4-4-12. The hexadecimal digits represent 122 random bits and 6 fixed bits, in compliance with RFC 4122 section 4.4. The returned string is lowercase. |
 | `gen_random_uuid()`       | `gen_random_uuid() -> uuid`                                                     | Returns a random universally unique identifier (UUID) (Version 4).                                                                                                                                                                                                                                                                                                                           |
