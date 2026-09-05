@@ -364,7 +364,7 @@ https://docs.cloud.google.com/spanner/docs/manage-data-using-console	2026-08-28T
 https://docs.cloud.google.com/spanner/docs/managed-autoscaler	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/manual-data-compaction	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/media	2026-08-28T09:28:29Z
-https://docs.cloud.google.com/spanner/docs/metrics	2026-08-28T09:28:29Z
+https://docs.cloud.google.com/spanner/docs/metrics	2026-09-04T15:37:45Z
 https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/migrate-spanner-pg-to-pg-database	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner	2026-08-28T09:28:29Z
@@ -796,7 +796,6 @@ https://docs.cloud.google.com/spanner/docs/samples/spanner-query-graph-data	2026
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-graph-data-with-parameter	2026-08-28T09:27:48Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-array-parameter	2026-09-02T15:02:34Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-bool-parameter	2026-09-02T15:02:34Z
-https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-bytes-parameter	2026-09-02T15:02:34Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-date-parameter	2026-09-02T15:02:34Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-float-parameter	2026-09-02T15:02:34Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-query-with-int-parameter	2026-09-02T15:02:34Z
