@@ -335,7 +335,7 @@ https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics	20
 https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization	2026-08-28T09:28:59Z
 https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics	2026-08-28T09:28:59Z
 https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries	2026-08-28T09:28:59Z
-https://docs.cloud.google.com/spanner/docs/introspection/query-statistics	2026-08-28T09:28:59Z
+https://docs.cloud.google.com/spanner/docs/introspection/query-statistics	2026-09-07T05:07:36Z
 https://docs.cloud.google.com/spanner/docs/introspection/read-statistics	2026-08-28T09:28:59Z
 https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics	2026-08-28T09:28:59Z
 https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics	2026-08-28T09:28:59Z

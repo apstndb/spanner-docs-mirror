@@ -272,6 +272,16 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <p>To calculate the percentile latency from the distribution, use the <code dir="ltr" translate="no">SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#example-percentile-latency">Find the 99th percentile latency for queries using the <code dir="ltr" translate="no">LATENCY_DISTRIBUTION_JSON_STRING</code> column</a> .</p>
 <p>For more information, see <a href="https://docs.cloud.google.com/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
 </tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">QUERY_OPTIMIZER_VERSIONS</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;INT64&gt;</code></td>
+<td><p>The versions of the query optimizer used for the queries in this time window.</p></td>
+</tr>
+<tr class="odd">
+<td><code dir="ltr" translate="no">STATISTICS_PACKAGE_NAMES</code></td>
+<td><code dir="ltr" translate="no">ARRAY&lt;STRING&gt;</code></td>
+<td><p>The names of the statistics packages used for the queries in this time window.</p></td>
+</tr>
 </tbody>
 </table>
 
