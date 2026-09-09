@@ -30,7 +30,7 @@ If you're moving your instance to a new regional, dual-region, or multi-region i
 ## Limitations
 
   - To move your instance, it must have a minimum of [1 node (1000 processing units)](https://docs.cloud.google.com/spanner/docs/compute-capacity) .
-  - You can't move your instance across projects and Google Cloud accounts.
+  - You can't move your instance across projects or Google Cloud accounts.
   - You can't move an instance that is using the Standard edition directly from a regional instance configuration to a dual-region or multi-region instance configuration. You must [upgrade the edition](https://docs.cloud.google.com/spanner/docs/create-manage-instances#update-edition) of your instance to the Enterprise Plus edition first, and then move the instance.
   - If you have active requests using a [regional service endpoint](https://docs.cloud.google.com/spanner/docs/endpoints) on any of the instance resources, the instance move impacts all the requests that are using the regional endpoint because regional enforcement blocks access to cross region instances. Requests that use a global endpoint are unaffected.
   - Spanner [backups](https://docs.cloud.google.com/spanner/docs/backup) are specific to an instance configuration and are not included when moving an instance. For more information, see [Backups](https://docs.cloud.google.com/spanner/docs/move-instance#move-backups) .

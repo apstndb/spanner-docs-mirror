@@ -292,8 +292,8 @@ https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema	2026-
 https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema-visually	2026-08-28T09:27:34Z
 https://docs.cloud.google.com/spanner/docs/graph/full-text-search-and-graph	2026-08-28T09:27:34Z
 https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview	2026-08-28T09:27:34Z
-https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to	2026-08-28T09:27:34Z
-https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview	2026-08-28T09:27:34Z
+https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to	2026-09-08T22:54:05Z
+https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview	2026-09-08T22:54:05Z
 https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data	2026-08-28T09:27:34Z
 https://docs.cloud.google.com/spanner/docs/graph/iso-standards	2026-08-28T09:27:34Z
 https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data	2026-08-28T09:27:34Z
@@ -390,7 +390,7 @@ https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine	2026-08-28T09
 https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/monitoring-cloud	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/monitoring-console	2026-09-02T13:03:18Z
-https://docs.cloud.google.com/spanner/docs/move-instance	2026-09-01T23:59:55Z
+https://docs.cloud.google.com/spanner/docs/move-instance	2026-09-08T23:08:34Z
 https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-08-28T09:28:29Z
 https://docs.cloud.google.com/spanner/docs/named-schemas	2026-08-28T09:28:29Z
@@ -485,7 +485,7 @@ https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions	2
 https://docs.cloud.google.com/spanner/docs/reference/mysql/user_defined_functions_all	2026-08-28T09:28:59Z
 https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions	2026-08-28T09:28:59Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays	2026-08-28T09:28:59Z
-https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language	2026-08-28T09:28:59Z
+https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language	2026-09-08T17:57:56Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions	2026-09-03T22:15:11Z
@@ -680,7 +680,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-fu
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules	2026-08-28T09:27:57Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language	2026-08-28T09:27:57Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language	2026-09-08T17:57:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions	2026-08-28T09:27:57Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/debugging_functions	2026-08-28T09:27:57Z
@@ -820,7 +820,7 @@ https://docs.cloud.google.com/spanner/docs/samples/spanner-update-data-with-time
 https://docs.cloud.google.com/spanner/docs/samples/spanner-update-graph-data-with-dml	2026-08-28T09:27:48Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-update-graph-data-with-graph-query-in-dml	2026-08-28T09:27:48Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-write-data-for-struct-queries	2026-09-02T15:02:34Z
-https://docs.cloud.google.com/spanner/docs/saved-queries	2026-08-27T21:12:15Z
+https://docs.cloud.google.com/spanner/docs/saved-queries	2026-09-08T17:53:30Z
 https://docs.cloud.google.com/spanner/docs/schema-and-data-model	2026-08-28T09:27:42Z
 https://docs.cloud.google.com/spanner/docs/schema-design	2026-08-28T09:27:42Z
 https://docs.cloud.google.com/spanner/docs/schema-drop-protection	2026-08-28T09:27:42Z

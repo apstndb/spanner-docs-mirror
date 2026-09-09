@@ -30,6 +30,7 @@ Spanner attempts to store queries in the same location as the database. However,
 
 Saved queries has the following limitations:
 
+  - There is a rate limit of 20 queries per second (QPS) per user per project, including both read and write. This quota is not trackable or overridable.
   - You can't create more than 10,000 saved queries in a project—including saved queries for other Google Cloud products. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas) .
   - You can't use [customer-managed encryption keys](https://docs.cloud.google.com/spanner/docs/cmek) for instances with saved queries.
 

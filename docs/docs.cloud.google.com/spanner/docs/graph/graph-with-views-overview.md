@@ -30,15 +30,22 @@ You must follow these requirements when you use views to create graph elements:
 
   - [Use the `KEY` clause when you specify a graph element](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#use-key-clause) .
 
-  - [Use views that ensure nodes and edges are unique](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#graph-view-requirements) .
+  - [Ensure node and edge key uniqueness](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#graph-view-requirements) .
 
 ### Use the `KEY` clause when you specify a graph element
 
 You must explicitly define the columns that uniquely identify the graph element when you use views to create a node or an edge element. To do this, use the `KEY` clause in the node or edge element definition. To learn how to use the `KEY` clause when creating a graph element, see the code examples in this document and in [Create a Spanner Graph from a SQL view](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to) .
 
-### Use views that ensure nodes and edges are unique
+### Ensure node and edge key uniqueness
 
-Views that define node or edge tables must follow one of the following patterns to ensure the nodes and edges are unique:
+Every node and edge in a property graph must have a unique key. When you define graph elements using views, you can choose how element key uniqueness is verified:
+
+  - [Strict key validation (default)](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#strict-key-validation) : Spanner verifies that views follow supported query patterns to ensure key uniqueness.
+  - [Disabled key validation (any SQL query)](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#disabled-key-validation) : You can use any SQL query if you set the `validate_element_key_uniqueness = false` graph option. In this mode, you are responsible for ensuring that element keys are unique.
+
+#### Strict key validation (default)
+
+By default, Spanner verifies that views defining node or edge tables follow one of the following patterns to ensure that each node or edge is unique:
 
   - [Pattern 1](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#pattern-1-view-pk) : The view uses a single table's primary key.
 
@@ -46,7 +53,7 @@ Views that define node or edge tables must follow one of the following patterns 
 
 You can use other SQL operators such as `WHERE` , `HAVING` , `ORDER BY` , `LIMIT` , and `TABLESAMPLE` in combination with these patterns. These operators filter or order the results, but they don't change the underlying uniqueness guarantee that the patterns provide.
 
-#### Pattern 1: Use a single table's primary key
+**Pattern 1: Use a single table's primary key**
 
 In this pattern, the view selects from a single table, and the `KEY` clause in the graph definition matches the base table's primary key columns. Because of this, each node or edge row produced by the view is unique.
 
@@ -73,7 +80,7 @@ For example, the following selects a subset of rows from the `Account` table. Th
         SavingAccount KEY(account_id)
       );
 
-#### Pattern 2: Use `GROUP BY` or `SELECT DISTINCT` clause
+**Pattern 2: Use `GROUP BY` or `SELECT DISTINCT` clause**
 
 In this pattern, the view's query uses a `GROUP BY` or a `SELECT DISTINCT` clause. The columns in the `KEY` clause must match the columns that these clauses use to define uniqueness:
 
@@ -127,6 +134,38 @@ Example with `SELECT DISTINCT` :
         -- The KEY(customer_id, amount) matches the DISTINCT columns.
         KeyCustomer KEY(customer_id, amount)
       );
+
+#### Disabled key validation (any SQL query)
+
+If your view uses a query that doesn't follow [Pattern 1](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#pattern-1-view-pk) or [Pattern 2](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#pattern-2-group-by-distinct) —such as a query that joins tables without a `GROUP BY` or `SELECT DISTINCT` clause—you can disable element key validation by setting the graph option `validate_element_key_uniqueness = false` .
+
+By default, `validate_element_key_uniqueness` is `true` . When set to `false` , Spanner does not validate the view's query definition at schema creation time. You can use any SQL query in the view, but you must ensure that the columns specified in the `KEY` clause contain unique values for every node or edge row.
+
+> **Caution:** If you set `validate_element_key_uniqueness = false` and the view's data contains duplicate keys, graph pattern matching might return duplicate elements or unexpected query results.
+
+The following example defines a view named `CustomerOrderTrusted` that joins the `Customer` and `SaleOrder` tables without a `GROUP BY` clause. Because each sale order is unique, joining `SaleOrder` with `Customer` preserves the uniqueness of `order_id` in the view results. However, because the query uses a `JOIN` and does not follow [Pattern 1](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#pattern-1-view-pk) or [Pattern 2](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#pattern-2-group-by-distinct) , Spanner cannot verify uniqueness syntactically.
+
+By specifying `KEY(order_id)` and setting `validate_element_key_uniqueness = false` in the `OPTIONS` clause, you can define the property graph without modifying the view query:
+
+    -- View uses a JOIN without GROUP BY or DISTINCT.
+    CREATE VIEW CustomerOrderTrusted
+      SQL SECURITY INVOKER AS
+        SELECT
+          s.order_id,
+          c.customer_id,
+          c.name AS customer_name
+        FROM Customer c JOIN SaleOrder s ON c.customer_id = s.customer_id;
+    
+    -- Property graph disables element key uniqueness validation.
+    CREATE PROPERTY GRAPH OrderGraphTrusted
+      NODE TABLES (
+        CustomerOrderTrusted
+          KEY(order_id)
+          LABEL CustomerOrder PROPERTIES(
+            order_id,
+            customer_id,
+            customer_name)
+      ) OPTIONS (validate_element_key_uniqueness = false);
 
 ## Considerations when using views
 

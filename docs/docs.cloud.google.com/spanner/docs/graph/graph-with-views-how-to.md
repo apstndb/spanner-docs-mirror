@@ -22,11 +22,20 @@ To create a graph, you must:
 
 To create a graph using views:
 
-1.  Define views for your graph. Make sure your views follow one of the [required view patterns](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#graph-view-requirements) . For more information, see [Create a view](https://docs.cloud.google.com/spanner/docs/create-manage-views#create_a_view) .
+1.  Define views for your graph. By default, your views must follow one of the [supported view patterns](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#graph-view-requirements) to ensure element uniqueness. If your views use queries that don't follow these patterns, you can disable key uniqueness validation in step 4. For more information, see [Create a view](https://docs.cloud.google.com/spanner/docs/create-manage-views#create_a_view) .
 
 2.  Use your views in the `NODE TABLES` and `EDGE TABLES` clauses of the [`CREATE PROPERTY GRAPH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#property_graph_definition) statement to create a graph.
 
 3.  Include the `KEY` clause in the `CREATE PROPERTY GRAPH` statement. The `KEY` clause specifies the columns from the source view that uniquely identify each graph element.
+
+4.  Optional: If your views use arbitrary SQL queries that don't follow the supported uniqueness patterns, add the `OPTIONS (validate_element_key_uniqueness = false)` clause to the `CREATE PROPERTY GRAPH` statement. Ensure that the `KEY` clause columns produce unique values for every node or edge row:
+    
+        CREATE PROPERTY GRAPH MyGraph
+          NODE TABLES (
+            CustomerViewTrusted KEY(id)
+          ) OPTIONS (validate_element_key_uniqueness = false);
+    
+    For more information, see [Disabled key validation (any SQL query)](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#disabled-key-validation) .
 
 ## Example: Create a graph using views
 
@@ -63,7 +72,7 @@ First, create the data tables. The following code creates the `Customer` and `Ac
 
 ### Step 2: Create the views
 
-Next, create views to transform or filter data from the tables. These views filter the tables to include only customers and accounts in Asia. Views used to create graph elements must [ensure that rows in the view are unique](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#graph-view-requirements) .
+Next, create views to transform or filter data from the tables. These views filter the tables to include only customers and accounts in Asia. Unless `validate_element_key_uniqueness` is set to `false` , views used to create graph elements must [follow supported patterns to ensure that rows in the view are unique](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#graph-view-requirements) .
 
     -- View for 'Customer' nodes, filtered for Asia
     CREATE VIEW AsiaCustomer
@@ -258,6 +267,8 @@ The following example demonstrates the workflow for transitioning from a schemal
       );
 
 ## What's next
+
+  - Learn more about [element key uniqueness requirements](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#graph-view-requirements) .
 
   - Learn about the [Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) .
 

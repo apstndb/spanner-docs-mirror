@@ -1670,7 +1670,7 @@ Defines a new [change stream](https://docs.cloud.google.com/spanner/docs/change-
 
 `OPTIONS (` `  change_stream_option  ` `[, ... ] )`
 
-  - The `retention_period = 'duration'` option lets you specify how long a change stream retains its data. The duration must be in the range `[1d, 7d]` and can be specified in days, hours, minutes, or seconds. For example, the values `1d` , `24h` , `1440m` , and `86400s` are equivalent. The default is 1 day. For more information, see [Data retention](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) .
+  - The `retention_period = 'duration'` option lets you specify how long a change stream retains its data. The duration must be in the range `[1d, 30d]` and can be specified in days, hours, minutes, or seconds. For example, the values `1d` , `24h` , `1440m` , and `86400s` are equivalent. The default is 7 day. For more information, see [Data retention](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) .
 
   - The `value_capture_type` option controls which values are captured for a changed row. It can be `OLD_AND_NEW_VALUES` (default), `NEW_VALUES` , `NEW_ROW` , or `NEW_ROW_AND_OLD_VALUES` . For more information, see [Value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) .
 
