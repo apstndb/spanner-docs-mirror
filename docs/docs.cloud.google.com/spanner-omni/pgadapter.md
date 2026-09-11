@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner-omni/pgadapter
 uri: https://docs.cloud.google.com/spanner-omni/pgadapter
 title: Connect using PGAdapter
-description: Learn how to connect to Spanner Omni using PGAdapter in plain text, TLS, and mTLS security modes.
+description: Learn how to connect to Spanner Omni using PGAdapter with plain text, TLS, and mTLS.
 data_source: docs.cloud.google.com
 ---
 
@@ -10,7 +10,7 @@ data_source: docs.cloud.google.com
 > 
 > This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
-This document describes how to connect to Spanner Omni using PGAdapter. You configure PGAdapter to establish secure connections. PGAdapter supports plain text, [Transport Layer Security (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) , and [mutual TLS (mTLS)](https://docs.cloud.google.com/load-balancing/docs/mtls) security modes. These modes protect your data during transmission by providing varying levels of encryption and authentication. Each security mode requires specific client configurations to ensure data integrity and confidentiality.
+This document describes how to connect to Spanner Omni using PGAdapter. You configure PGAdapter to establish secure connections. PGAdapter supports plain text, [Transport Layer Security (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) , TLS with credentials, and [mutual TLS (mTLS)](https://docs.cloud.google.com/load-balancing/docs/mtls) connections. These security configurations protect your data during transmission by providing varying levels of encryption and authentication. Each configuration requires specific client settings to ensure data integrity and confidentiality.
 
 You can run PGAdapter as a standalone process or integrate it directly into your application. For interactive management and manual query execution, connect to your database using standard PostgreSQL tools like `psql` . For building automated applications, use PostgreSQL-compatible drivers like the following:
 
@@ -26,28 +26,41 @@ You can run PGAdapter as a standalone process or integrate it directly into your
 
 For code samples using some of these drivers, see [sample code](https://docs.cloud.google.com/spanner-omni/pgadapter#sample-code) in this document.
 
-## Security modes
+## Before you begin
 
-Spanner Omni PGAdapter supports three security modes, which define how communication is encrypted and authenticated between PGAdapter and the database. To use these modes, configure the client options as described in the following table:
+To use PGAdapter with Spanner Omni, use PGAdapter version 0.55.2 or later.
 
-| Security mode | Description                                                                                                                                                      |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Plain text    | Communication is not encrypted.                                                                                                                                  |
-| TLS           | Communication is encrypted using Transport Layer Security (TLS). This mode requires that you add the Spanner Omni CA certificate to the default Java truststore. |
-| mTLS          | Communication is encrypted using mutual TLS (mTLS). This mode requires you to provide both a client certificate and a client private key.                        |
+If you use Maven without the Bill of Materials (BOM), add the following to the `pom.xml` file dependencies:
+
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-spanner-pgadapter</artifactId>
+      <version>0.55.2</version>
+    </dependency>
+
+## Security configurations
+
+Spanner Omni PGAdapter supports four security configurations, which define how communication is encrypted and authenticated between PGAdapter and the database. To use these configurations, set the client options described in the following table:
+
+| Security configuration | Description                                                                                                                                                                                                                                                                               |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Plain text             | Communication is not encrypted.                                                                                                                                                                                                                                                           |
+| TLS                    | Communication is encrypted using Transport Layer Security (TLS). This configuration requires that you add the Spanner Omni CA certificate to the Java truststore, as described in [Configure the Java truststore](https://docs.cloud.google.com/spanner-omni/java#configure-truststore) . |
+| TLS with credentials   | Communication is encrypted using TLS, and authentication is performed using a username and password.                                                                                                                                                                                      |
+| mTLS                   | Communication is encrypted using mutual TLS (mTLS). This configuration requires you to provide both a client certificate and a client private key.                                                                                                                                        |
 
 ## Run as a standalone process
 
-Run PGAdapter as a standalone process for non-Java applications and for standard PostgreSQL tools, for example, `psql` , when you need manual database interaction. This approach decouples the proxy from your application lifecycle, which lets you manage and update it independently. To start PGAdapter as a standalone process, use the following configuration methods based on your selected security mode.
+Run PGAdapter as a standalone process for non-Java applications and for standard PostgreSQL tools, for example, `psql` , when you need manual database interaction. This approach decouples the proxy from your application lifecycle, which lets you manage and update it independently. To start PGAdapter as a standalone process, use the following configuration methods based on your selected security configuration:
 
-### Use plain text mode
+### Plain text
 
-To start PGAdapter in plain text communication mode, run the following command:
+To start PGAdapter with plain text communication, run the following command:
 
     java -jar pgadapter.jar \
          -d DATABASE_ID \
          -e ENDPOINT \
-         -r "isExperimentalHost=true;usePlainText=true"
+         -r "type=omni;usePlainText=true"
 
 Replace the following:
 
@@ -55,37 +68,52 @@ Replace the following:
 
   - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance, for example, `localhost:15000` .
 
-### Use TLS mode
+### TLS
 
-Before you can start PGAdapter in-process in TLS mode with your Java application, you must add your Spanner Omni CA certificate to the default Java truststore. To add an existing CA certificate to the Java truststore, run the following command:
+To configure a PGAdapter connection using TLS, you must add your Spanner Omni CA certificate to the Java truststore, as described in [Configure the Java truststore](https://docs.cloud.google.com/spanner-omni/java#configure-truststore) .
 
-    sudo keytool -import -trustcacerts -file ~/.spanner/certs/ca.crt -alias spanner-ca -keystore $JAVA_HOME/lib/security/cacerts
-
-To start PGAdapter in TLS mode, run the following command:
+To start PGAdapter using TLS, run the following command:
 
     java -Djavax.net.ssl.trustStore=$JAVA_HOME/lib/security/cacerts \
          -Djavax.net.ssl.trustStoreType=JKS \
          -jar pgadapter.jar \
          -d DATABASE_ID \
          -e ENDPOINT \
-         -r "isExperimentalHost=true"
+         -r "type=omni"
 
-### Use mTLS mode
+### TLS with credentials
 
-Before you can start PGAdapter in mTLS mode, you must ensure that your client key is in the in PKCS\#8 format. To convert an existing key in your keystore into a PKCS\#8 format, run the following command:
+To establish a TLS connection with username and password authentication, use the `-r` parameter to specify the `username` and `password` :
+
+    java -Djavax.net.ssl.trustStore=$JAVA_HOME/lib/security/cacerts \
+         -Djavax.net.ssl.trustStoreType=JKS \
+         -jar pgadapter.jar \
+         -d DATABASE_ID \
+         -e ENDPOINT \
+         -r "type=omni;username=USERNAME;password=PASSWORD"
+
+Replace the following:
+
+  - `  USERNAME  ` : the username for your Spanner Omni user.
+
+  - `  PASSWORD  ` : the password for your Spanner Omni user.
+
+### mTLS
+
+Before you can start PGAdapter using mTLS, you must ensure that your client key is in PKCS\#8 format. To convert an existing key to PKCS\#8 format, run the following command:
 
     openssl pkcs8 -topk8 -in ~/.spanner/certs/client.key -out ~/.spanner/certs/java-client.key -nocrypt
 
 Alternatively, when you create your client certificate and key using the Spanner Omni CLI, provide the `--generate-pkcs8-key` parameter to generate the key in PKCS\#8 format.
 
-To start PGAdapter in mTLS mode, run the following command:
+To start PGAdapter using mTLS, run the following command:
 
     java -Djavax.net.ssl.trustStore=$JAVA_HOME/lib/security/cacerts \
         -Djavax.net.ssl.trustStoreType=JKS \
         -jar pgadapter.jar \
         -d DATABASE_ID \
         -e ENDPOINT \
-        -r "isExperimentalHost=true;clientCertificate=PATH_TO_CLIENT_CERT;clientKey=PATH_TO_CLIENT_KEY"
+        -r "type=omni;clientCertificate=PATH_TO_CLIENT_CERT;clientKey=PATH_TO_CLIENT_KEY"
 
 Replace the following:
 
@@ -109,51 +137,65 @@ Replace the following:
 
 ## Run in-process with your application
 
-You can also start PGAdapter in-process with your application. To establish security, configure the `OptionsMetadata` object.
+You can also start PGAdapter in-process with your application. To establish security, configure the `OptionsMetadata` object for each supported security configuration:
 
-### Use plain text mode
+### Plain text
 
 For plain text communication in environments such as local development or testing, use the following configuration:
 
     OptionsMetadata.Builder builder =
         OptionsMetadata.newBuilder()
-        .setEndpoint("ENDPOINT")
-        .setUsePlainText();
+            .setEndpoint("ENDPOINT")
+            .setType("omni")
+            .setUsePlainText();
     
     ProxyServer server = new ProxyServer(builder.build());
     server.startServer();
     server.awaitRunning();
 
-### Use TLS mode
+### TLS
 
-For plain text communication for use in environments such as local development or testing, use the following configuration:
-
-    sudo keytool -import -trustcacerts -file /.spanner/certs/ca.crt -alias spanner-ca -keystore $JAVA_HOME/lib/security/cacerts
-
-To establish a TLS connection in-process, use the following configuration:
+To establish a TLS connection, add the CA certificate to your Java truststore as described in [Configure the Java truststore](https://docs.cloud.google.com/spanner-omni/java#configure-truststore) , and use the following configuration:
 
     OptionsMetadata.Builder builder =
         OptionsMetadata.newBuilder()
-        .setEndpoint("ENDPOINT");
+            .setEndpoint("ENDPOINT")
+            .setType("omni");
     
     ProxyServer server = new ProxyServer(builder.build());
     server.startServer();
     server.awaitRunning();
 
-### Use mTLS mode
+### TLS with credentials
 
-Before you can start PGAdapter in-process mode with your Java application, you must ensure that your client key is in the PKCS\#8 format. To convert an existing key in your keystore into a PKCS\#8 format, run the following command:
+To establish a TLS connection with username and password authentication, use `setProperties()` to specify the username and password:
 
-    openssl pkcs8 -topk8 -in ~/.spanner/certs/client.key -out ~/.spanner/certs/java-client.key -nocrypt
+    OptionsMetadata.Builder builder =
+        OptionsMetadata.newBuilder()
+            .setEndpoint("ENDPOINT")
+            .setType("omni")
+            .setProperties(
+                Map.of(
+                    "username", "USERNAME",
+                    "password", "PASSWORD"));
+    
+    ProxyServer server = new ProxyServer(builder.build());
+    server.startServer();
+    server.awaitRunning();
 
-Alternatively, when you create your client certificate and key using the Spanner Omni CLI, provide the `--generate-pkcs8-key` parameter to generate the key in PKCS\#8 format.
+### mTLS
+
+To start PGAdapter in-process with your Java application using mTLS, your client key must use the PKCS\#8 format.
 
 To establish an mTLS connection in-process, use this configuration:
 
     OptionsMetadata.Builder builder =
         OptionsMetadata.newBuilder()
-        .setEndpoint("ENDPOINT")
-        .useClientCert("PATH_TO_CLIENT_CERT", "PATH_TO_CLIENT_KEY");
+            .setEndpoint("ENDPOINT")
+            .setType("omni")
+            .useClientCert(
+                "PATH_TO_CLIENT_CERT",
+                "PATH_TO_CLIENT_KEY");
     
     ProxyServer server = new ProxyServer(builder.build());
     server.startServer();

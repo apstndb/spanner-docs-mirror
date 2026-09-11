@@ -76,7 +76,7 @@ If you use Maven, add the following dependency to your `pom.xml` file:
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-spanner-pgadapter</artifactId>
-      <version>0.55.2</version>
+      <version>0.55.3</version>
     </dependency>
 
 ## What's next
