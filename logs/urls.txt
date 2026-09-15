@@ -229,7 +229,7 @@ https://docs.cloud.google.com/spanner/docs/drivers-overview	2026-09-10T20:04:51Z
 https://docs.cloud.google.com/spanner/docs/editions-overview	2026-09-10T20:04:51Z
 https://docs.cloud.google.com/spanner/docs/emulator	2026-09-10T20:04:51Z
 https://docs.cloud.google.com/spanner/docs/encryption-in-transit	2026-09-10T20:04:51Z
-https://docs.cloud.google.com/spanner/docs/endpoints	2026-09-10T20:04:51Z
+https://docs.cloud.google.com/spanner/docs/endpoints	2026-09-14T21:23:46Z
 https://docs.cloud.google.com/spanner/docs/error-codes	2026-09-10T20:04:51Z
 https://docs.cloud.google.com/spanner/docs/export	2026-09-10T20:04:51Z
 https://docs.cloud.google.com/spanner/docs/fgac-about	2026-09-10T20:04:51Z
@@ -681,7 +681,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_ex
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions	2026-09-10T19:54:11Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules	2026-09-10T19:54:11Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language	2026-09-10T19:54:11Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types	2026-09-10T19:54:11Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types	2026-09-14T17:57:10Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions	2026-09-10T19:54:11Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/debugging_functions	2026-09-10T19:54:11Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax	2026-09-10T19:54:11Z
@@ -719,7 +719,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_funct
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions	2026-09-10T20:21:48Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures	2026-09-10T20:21:48Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions	2026-09-10T20:21:48Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries	2026-09-10T20:21:48Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries	2026-09-14T17:57:10Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions	2026-09-10T20:21:48Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions	2026-09-10T20:21:48Z
 https://docs.cloud.google.com/spanner/docs/region-types	2026-09-10T20:26:13Z
@@ -867,7 +867,7 @@ https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer	2026-09-10
 https://docs.cloud.google.com/spanner/docs/use-active-record	2026-09-10T20:19:36Z
 https://docs.cloud.google.com/spanner/docs/use-ado-net	2026-09-10T20:19:36Z
 https://docs.cloud.google.com/spanner/docs/use-cmek	2026-09-10T20:19:36Z
-https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp	2026-09-10T20:19:36Z
+https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp	2026-09-14T19:29:19Z
 https://docs.cloud.google.com/spanner/docs/use-entity-framework	2026-09-10T20:19:36Z
 https://docs.cloud.google.com/spanner/docs/use-golang-database-sql	2026-09-10T20:19:36Z
 https://docs.cloud.google.com/spanner/docs/use-gorm	2026-09-10T20:19:36Z
@@ -886,7 +886,7 @@ https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation	2026-08
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read	2026-08-28T09:36:25Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable	2026-08-28T09:36:25Z
 https://docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema	2026-08-28T09:36:25Z
-https://docs.cloud.google.com/spanner/docs/use-spanner-mcp	2026-08-28T09:36:25Z
+https://docs.cloud.google.com/spanner/docs/use-spanner-mcp	2026-09-14T19:29:19Z
 https://docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-googlesql	2026-08-28T09:36:25Z
 https://docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-postgresql	2026-08-28T09:36:25Z
 https://docs.cloud.google.com/spanner/docs/use-spring-data-jpa	2026-08-28T09:36:25Z

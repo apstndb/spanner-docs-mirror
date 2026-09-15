@@ -17,6 +17,17 @@ This document shows you how to use the Spanner remote Model Context Protocol (MC
   - Remote MCP servers  
     Run on the service's infrastructure and offer an HTTP endpoint to AI applications for communication between the AI MCP client and the MCP server. For more information about MCP architecture, see [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) .
 
+## Stateless core
+
+With [MCP version 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28) , MCP changes from a bidirectional, stateful protocol to a stateless protocol. Each MCP request is self-describing and can be routed using headers. There isn't a need for the `initialize` / `initialized` handshake or `Mcp-Session-Id` because each request includes all the information needed in HTTP headers or the `_meta` parameter. MCP servers can request additional information required by a tool through [multi-round-trip requests (MRTR)](https://modelcontextprotocol.io/specification/latest/basic/patterns/mrtr) .
+
+To help route and process requests without parsing the request body, some MCP headers are required, including the following:
+
+  - Headers that are required by the MCP specification such as the [protocol version header](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#protocol-version-header) and [standard request headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#standard-request-headers) .
+  - [Custom headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#custom-headers-from-tool-parameters) that are defined by the MCP server. These headers are mirrored into HTTP headers from the tool's input schema using the `x-mcp-header` property. For example, an MCP server might define a custom header to specify the Google Cloud region or project ID.
+
+For more information about MCP architecture, see the MCP version 2026-07-28 [specification](https://modelcontextprotocol.io/specification/2026-07-28) and [key changes](https://modelcontextprotocol.io/specification/2026-07-28/changelog) .
+
 For information on the Spanner local MCP server, see [MCP Toolbox for Databases](https://mcp-toolbox.dev/documentation/introduction/) .
 
 ## Google and Google Cloud remote MCP servers
@@ -267,7 +278,7 @@ For the Spanner remote MCP server, enter the following information:
 
   - **Server name** : Spanner MCP server
   - **Server URL** or **Endpoint** : `https://spanner.googleapis.com/mcp`
-  - **Transport** : HTTP
+  - **Transport** : [Streamable HTTP](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http)
   - **Authentication details** : Depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials.
 
 ### Redirect URIs

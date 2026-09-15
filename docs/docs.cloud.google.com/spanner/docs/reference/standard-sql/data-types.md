@@ -935,6 +935,8 @@ Struct types are declared using the angle brackets ( `<` and `>` ). The type of 
 
 ### Constructing a struct
 
+You can construct a struct using tuple syntax, typeless struct syntax, or typed struct syntax.
+
 #### Tuple syntax
 
     (expr1, expr2 [, ... ])

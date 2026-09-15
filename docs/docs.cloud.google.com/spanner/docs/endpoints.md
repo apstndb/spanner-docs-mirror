@@ -10,9 +10,9 @@ This page describes Spanner global and regional service endpoints and how to use
 
 A [**service endpoint**](https://docs.cloud.google.com/apis/design/glossary#api_service_endpoint) is a base URL that specifies the network address of an API service. Spanner has both global and regional endpoints. You can use a global or regional service endpoint to make requests to Spanner.
 
-Use the **global endpoint** if you don't have strict regional restriction requirements. Although the data is stored within the selected region, the data might be processed outside the region. The global endpoint for Spanner is `spanner.googleapis.com` . The default API endpoint accesses the global endpoint.
+Use the **global endpoint** if you don't have any regulatory compliance requirements related to data location or processing. The global endpoint for Spanner is `spanner.googleapis.com` . The default API endpoint accesses the global endpoint.
 
-A **regional endpoint** enforces regional restrictions. Data is stored and processed within the same region. Regional endpoints for Spanner ensure and guarantee that the data stored and processed is restricted to the Spanner regional [instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations) where the database resides. Use regional endpoints if your data location must be restricted and controlled to comply with regulatory requirements. You can't use a regional endpoint to access resources belonging to a different instance configuration. You must first create an instance in the regional instance configuration before you can use the regional endpoint for that instance configuration.
+A **regional endpoint** enforces regional restrictions. Data is stored and processed within the same region. Regional endpoints for Spanner ensure that the data stored and processed is restricted to the Spanner regional [instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations) where the instance resides. Regional endpoints are mandatory if your workloads need to comply with residency or jurisdictional regulatory requirements. You can't use a regional endpoint to access resources belonging to a different instance configuration. You must first create an instance in the regional instance configuration before you can use the regional endpoint for that instance configuration.
 
 To learn which regions you can use, see [Regions available for regional endpoints](https://docs.cloud.google.com/spanner/docs/endpoints#available-regional-endpoints) . The underlying Spanner storage policies don't change regardless of which endpoint you use.
 
@@ -20,7 +20,7 @@ To learn which regions you can use, see [Regions available for regional endpoint
 
 The benefit of using a Spanner regional endpoint over a global endpoint is that the regional endpoint provides regional isolation and protection to meet security, compliance, and regulatory requirements.
 
-You can only use regional endpoints that belong to that regional instance configuration. For example, you can't use `spanner.me-central2.rep.googleapis.com` to serve requests if the instance you are accessing belongs to the `us-central1` regional instance configuration. The request will be rejected with an `InvalidRegionalRequest` error.
+You can only use regional endpoints that match the configuration of the instance you are accessing. For example, you can't use `spanner.me-central2.rep.googleapis.com` to serve requests if the instance is configured with the `us-central1` regional endpoint. The request is rejected with an `InvalidRegionalRequest` error.
 
 ## Limitations of regional endpoints
 

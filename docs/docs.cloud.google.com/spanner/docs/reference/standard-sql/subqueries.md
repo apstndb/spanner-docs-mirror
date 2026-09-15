@@ -20,6 +20,59 @@ The `WITH` clause isn't supported on a subquery. This returns an error:
       SELECT *
       FROM result);
 
+## Common tables used in examples
+
+Some examples reference a table called `Players` :
+
+    /*-----------------------------+
+     | username  | level   | team  |
+     +-----------------------------+
+     | gorbie    | 29      | red   |
+     | junelyn   | 2       | blue  |
+     | corba     | 43      | green |
+     +-----------------------------*/
+
+Some examples reference a table called `NPCs` :
+
+    /*-------------------+
+     | username  | team  |
+     +-------------------+
+     | niles     | red   |
+     | jujul     | red   |
+     | effren    | blue  |
+     +-------------------*/
+
+Some examples reference a table called `Mascots` :
+
+    /*-------------------+
+     | mascot   | team   |
+     +-------------------+
+     | cardinal | red    |
+     | parrot   | green  |
+     | finch    | blue   |
+     | sparrow  | yellow |
+     +-------------------*/
+
+You can use this `WITH` clause to emulate temporary table names for `Players` and `NPCs` in subqueries that support the `WITH` clause.:
+
+    WITH
+      Players AS (
+        SELECT 'gorbie' AS username, 29 AS level, 'red' AS team UNION ALL
+        SELECT 'junelyn', 2 , 'blue' UNION ALL
+        SELECT 'corba', 43, 'green'),
+      NPCs AS (
+        SELECT 'niles' AS username, 'red' AS team UNION ALL
+        SELECT 'jujul', 'red' UNION ALL
+        SELECT 'effren', 'blue'),
+      Mascots AS (
+        SELECT 'cardinal' AS mascot , 'red' AS team UNION ALL
+        SELECT 'parrot', 'green' UNION ALL
+        SELECT 'finch', 'blue' UNION ALL
+        SELECT 'sparrow', 'yellow')
+    SELECT * FROM (
+      SELECT username, team FROM Players UNION ALL
+      SELECT username, team FROM NPCs);
+
 ## Expression subqueries
 
 Expression subqueries are used in a query wherever expressions are valid. They return a single value, as opposed to a column or table. Expression subqueries can be [correlated](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries#correlated_subquery_concepts) .
@@ -235,56 +288,3 @@ Some subqueries are evaluated once, others more often.
   - A non-correlated, volatile subquery may be re-evaluated once per row, depending on your [query plan](https://en.wikipedia.org/wiki/Query_plan) .
   - A correlated subquery must be logically re-evaluated for every distinct set of parameter values. Depending on your query plan, a correlated subquery may be re-evaluated once per row, even if multiple rows have the same parameter values.
   - A subquery assigned to a temporary table by `WITH` is evaluated "as-if" once. A query plan may only re-evaluate the subquery if re-evaluating it's guaranteed to produce the same table each time.
-
-## Common tables used in examples
-
-Some examples reference a table called `Players` :
-
-    /*-----------------------------+
-     | username  | level   | team  |
-     +-----------------------------+
-     | gorbie    | 29      | red   |
-     | junelyn   | 2       | blue  |
-     | corba     | 43      | green |
-     +-----------------------------*/
-
-Some examples reference a table called `NPCs` :
-
-    /*-------------------+
-     | username  | team  |
-     +-------------------+
-     | niles     | red   |
-     | jujul     | red   |
-     | effren    | blue  |
-     +-------------------*/
-
-Some examples reference a table called `Mascots` :
-
-    /*-------------------+
-     | mascot   | team   |
-     +-------------------+
-     | cardinal | red    |
-     | parrot   | green  |
-     | finch    | blue   |
-     | sparrow  | yellow |
-     +-------------------*/
-
-You can use this `WITH` clause to emulate temporary table names for `Players` and `NPCs` in subqueries that support the `WITH` clause.:
-
-    WITH
-      Players AS (
-        SELECT 'gorbie' AS username, 29 AS level, 'red' AS team UNION ALL
-        SELECT 'junelyn', 2 , 'blue' UNION ALL
-        SELECT 'corba', 43, 'green'),
-      NPCs AS (
-        SELECT 'niles' AS username, 'red' AS team UNION ALL
-        SELECT 'jujul', 'red' UNION ALL
-        SELECT 'effren', 'blue'),
-      Mascots AS (
-        SELECT 'cardinal' AS mascot , 'red' AS team UNION ALL
-        SELECT 'parrot', 'green' UNION ALL
-        SELECT 'finch', 'blue' UNION ALL
-        SELECT 'sparrow', 'yellow')
-    SELECT * FROM (
-      SELECT username, team FROM Players UNION ALL
-      SELECT username, team FROM NPCs);
