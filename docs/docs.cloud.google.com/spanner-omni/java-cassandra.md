@@ -36,11 +36,17 @@ Integrating the Spanner Cassandra Java client as an in-process dependency is the
 
 To use the client as an in-process dependency, do the following:
 
-1.  Modify your `CqlSession` creation code and add the Spanner Omni communication-specific options.
-
-2.  Add the Spanner Cassandra Java client as a dependency to your project.
+1.  Add the Spanner Cassandra Java client as a dependency to your project:
     
-    ### Plain-text communication
+        <dependency>
+          <groupId>com.google.cloud</groupId>
+          <artifactId>google-cloud-spanner-cassandra</artifactId>
+          <version>1.2.0</version>
+        </dependency>
+
+2.  Modify your `CqlSession` creation code and add the Spanner Omni communication-specific options:
+    
+    ### Plain text
     
     The following example shows how to establish a plain-text connection to Spanner Omni:
     
@@ -54,17 +60,18 @@ To use the client as an in-process dependency, do the following:
                             DefaultDriverOption.CONNECTION_INIT_QUERY_TIMEOUT,
                             Duration.ofSeconds(5))
                         .build())
-            .setExperimentalHostEndpoint("ENDPOINT")
-          .setUsePlainText(true)
+                .setHost("ENDPOINT")
+                .setInstanceType(SpannerCqlSessionBuilder.InstanceType.OMNI)
+                .setUsePlainText(true)
                 .build();
         
         // Rest of your business logic such as session.Query(SELECT * FROM ...)
         
         session.close();
     
-    ### TLS connection
+    ### TLS
     
-    To use a TLS connection, ensure the CA certificate is added to the truststore used by the application as mentioned in the [Java SDK TLS instructions](https://docs.cloud.google.com/spanner-omni/java#configure-options) :
+    To use a TLS connection, ensure the CA certificate is added to the truststore used by the application, as described in [Configure the Java truststore](https://docs.cloud.google.com/spanner-omni/java#configure-truststore) :
     
         CqlSession session =
             SpannerCqlSession.builder() // `SpannerCqlSession` instead of `CqlSession`
@@ -76,17 +83,18 @@ To use the client as an in-process dependency, do the following:
                             DefaultDriverOption.CONNECTION_INIT_QUERY_TIMEOUT,
                             Duration.ofSeconds(5))
                         .build())
-            .setExperimentalHostEndpoint("ENDPOINT")
-          .setUsePlainText(false)
+                .setHost("ENDPOINT")
+                .setInstanceType(SpannerCqlSessionBuilder.InstanceType.OMNI)
+                .setUsePlainText(false)
                 .build();
         
         // Rest of your business logic such as session.Query(SELECT * FROM ...)
         
         session.close();
     
-    ### mTLS connection
+    ### mTLS
     
-    To use an mTLS connection, ensure the CA certificate is added to the truststore used by the application and the client key is in PKCS\#8 format as mentioned in the [Java SDK mTLS instructions](https://docs.cloud.google.com/spanner-omni/java#configure-options) :
+    To use an mTLS connection, ensure the CA certificate is added to the truststore used by the application and the client key is in PKCS\#8 format. For more information, see the [Java SDK mTLS instructions](https://docs.cloud.google.com/spanner-omni/java#mtls) .
     
         CqlSession session =
             SpannerCqlSession.builder() // `SpannerCqlSession` instead of `CqlSession`
@@ -98,16 +106,27 @@ To use the client as an in-process dependency, do the following:
                             DefaultDriverOption.CONNECTION_INIT_QUERY_TIMEOUT,
                             Duration.ofSeconds(5))
                         .build())
-            .setExperimentalHostEndpoint("ENDPOINT")
-          .setUsePlainText(false)
-          .useClientCert("PATH_TO_CLIENT_CERT",
-                  "PATH_TO_CLIENT_KEY_PKCS8")
-        
+                .setHost("ENDPOINT")
+                .setInstanceType(SpannerCqlSessionBuilder.InstanceType.OMNI)
+                .setUsePlainText(false)
+                .setClientCertPathAndKey(
+                    "PATH_TO_CLIENT_CERT",
+                    "PATH_TO_CLIENT_KEY_PKCS8")
                 .build();
         
         // Rest of your business logic such as session.Query(SELECT * FROM ...)
         
-        session.close();
+          session.close();
+    
+    Replace the following:
+    
+      - `  DATABASE_ID  ` : the ID of your Spanner Omni database, for example, `test-db` .
+    
+      - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance, for example, `localhost:15000` .
+    
+      - `  PATH_TO_CLIENT_CERT  ` : the path to your client certificate file.
+    
+      - `  PATH_TO_CLIENT_KEY_PKCS8  ` : the path to your client private key file in PKCS\#8 format.
 
 ## Sidecar proxy or standalone process
 
@@ -126,7 +145,8 @@ Example `config.yaml` :
     globalClientConfigs:
       enableBuiltInMetrics: false
       healthCheckEndpoint: "127.0.0.1:8080"
-      experimentalHostEndpoint: "ENDPOINT"
+      spannerEndpoint: "ENDPOINT"
+      instanceType: "omni"
       clientCertPath: "PATH_TO_CLIENT_CERT"
       clientKeyPath: "PATH_TO_CLIENT_KEY_PKCS8"
       usePlainText: "false"
@@ -150,43 +170,58 @@ Example `config.yaml` :
 
 For a single listener or simpler deployments, you can run the sidecar proxy as a standalone process and configure its settings using Java system properties.
 
-For a single listener, you can use system properties. The following examples show how to run the sidecar proxy as a standalone process for each supported security mode:
+The following examples show how to run the sidecar proxy as a standalone process for each supported security configuration:
 
-### Plain-text communication
+### Plain text
 
-For plain-text communication, run the following:
+To run with plain-text communication, run the following command:
 
     java -DdatabaseUri=DATABASE_ID \
     -Dhost=127.0.0.1 \
     -Dport=9042 \
     -DnumGrpcChannels=4 \
     -DhealthCheckPort=8080 \
-    -DexperimentalHostEndpoint=ENDPOINT \
+    -DspannerEndpoint=ENDPOINT \
+    -DinstanceType=omni \
     -DusePlainText=true \
     -jar PATH_TO_ADAPTER_JAR
 
-### TLS connection
+### TLS
 
-For a TLS connection, run the following:
+To run with a TLS connection, run the following command:
 
     java -DdatabaseUri=DATABASE_ID \
     -Dhost=127.0.0.1 \
     -Dport=9042 \
     -DnumGrpcChannels=4 \
     -DhealthCheckPort=8080 \
-    -DexperimentalHostEndpoint=ENDPOINT \
+    -DspannerEndpoint=ENDPOINT \
+    -DinstanceType=omni \
     -jar PATH_TO_ADAPTER_JAR
 
-### mTLS connection
+### mTLS
 
-For an mTLS connection, run the following:
+To run with an mTLS connection, run the following command:
 
     java -DdatabaseUri=DATABASE_ID \
     -Dhost=127.0.0.1 \
     -Dport=9042 \
     -DnumGrpcChannels=4 \
     -DhealthCheckPort=8080 \
-    -DexperimentalHostEndpoint=ENDPOINT \
+    -DspannerEndpoint=ENDPOINT \
+    -DinstanceType=omni \
     -DclientCertPath=PATH_TO_CLIENT_CERT \
     -DclientKeyPath=PATH_TO_CLIENT_KEY_PKCS8 \
     -jar PATH_TO_ADAPTER_JAR
+
+Replace the following:
+
+  - `  DATABASE_ID  ` : the ID of your Spanner Omni database, for example, `test-db` .
+
+  - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance, for example, `localhost:15000` .
+
+  - `  PATH_TO_ADAPTER_JAR  ` : the path to your Cassandra adapter JAR file.
+
+  - `  PATH_TO_CLIENT_CERT  ` : the path to your client certificate file.
+
+  - `  PATH_TO_CLIENT_KEY_PKCS8  ` : the path to your client private key file in PKCS\#8 format.

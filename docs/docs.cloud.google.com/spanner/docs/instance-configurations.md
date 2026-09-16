@@ -100,7 +100,7 @@ Oregon ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.
 
 `regional-us-west2`
 
-Los Angeles
+Los Angeles ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `regional-us-west3`
 
@@ -114,7 +114,7 @@ Las Vegas
 
 `regional-europe-central2`
 
-Warsaw
+Warsaw ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `regional-europe-north1`
 
@@ -153,7 +153,7 @@ Zürich ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf
 
 `regional-europe-west8`
 
-Milan
+Milan ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 `regional-europe-west9`
 
@@ -165,7 +165,7 @@ Berlin
 
 `regional-europe-west12`
 
-Turin
+Turin ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
 
 **Asia Pacific**
 

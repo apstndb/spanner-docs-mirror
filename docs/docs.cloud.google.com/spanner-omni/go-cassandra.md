@@ -42,7 +42,7 @@ To use the client as an in-process dependency, do the following:
 
   - Modify your cluster creation code. Instead of using `gocql.NewCluster` , use `spanner.NewCluster` and provide the following Spanner Omni specific options:
     
-    ### Plain-text communication
+    ### Plain text
     
     The following example shows how to establish a plain-text connection to Spanner Omni:
     
@@ -52,14 +52,15 @@ To use the client as an in-process dependency, do the following:
               DatabaseUri: "DATABASE_ID",
           }
           // Optional: Configure Spanner Omni cluster settings as needed
-          opts.ExperimentalHost = true
+          opts.SpannerEndpoint = "ENDPOINT"
+          opts.InstanceType = spanner.Omni
           opts.UsePlainText = true
         
           cluster := spanner.NewCluster(opts)
           // ...
         }
     
-    ### TLS connection
+    ### TLS
     
     The following example shows how to establish a TLS connection to Spanner Omni:
     
@@ -69,14 +70,15 @@ To use the client as an in-process dependency, do the following:
               DatabaseUri: "DATABASE_ID",
           }
           // Optional: Configure Spanner Omni cluster settings as needed
-          opts.ExperimentalHost = true
+          opts.SpannerEndpoint = "ENDPOINT"
+          opts.InstanceType = spanner.Omni
           opts.CaCertificate = "PATH_TO_CA_CRT"
         
           cluster := spanner.NewCluster(opts)
           // ...
         }
     
-    ### mTLS connection
+    ### mTLS
     
     The following example shows how to establish an mTLS connection to Spanner Omni:
     
@@ -86,7 +88,8 @@ To use the client as an in-process dependency, do the following:
               DatabaseUri: "DATABASE_ID",
           }
           // Optional: Configure Spanner Omni cluster settings as needed
-          opts.ExperimentalHost = true
+          opts.SpannerEndpoint = "ENDPOINT"
+          opts.InstanceType = spanner.Omni
           opts.CaCertificate = "PATH_TO_CA_CRT"
           opts.ClientCertificate = "PATH_TO_CLIENT_CERT"
           opts.ClientKey = "PATH_TO_CLIENT_KEY"
@@ -94,6 +97,18 @@ To use the client as an in-process dependency, do the following:
           cluster := spanner.NewCluster(opts)
           // ...
         }
+    
+    Replace the following:
+    
+      - `  DATABASE_ID  ` : the ID of your Spanner Omni database, for example, `test-db` .
+    
+      - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance, for example, `localhost:15000` .
+    
+      - `  PATH_TO_CA_CRT  ` : the path to your CA certificate file.
+    
+      - `  PATH_TO_CLIENT_CERT  ` : the path to your client certificate file.
+    
+      - `  PATH_TO_CLIENT_KEY  ` : the path to your client key file.
 
 ## Deploy the client as a sidecar proxy
 
@@ -105,7 +120,7 @@ You can run the sidecar proxy in the following ways:
 
   - [Run locally with the Go `run` command](https://docs.cloud.google.com/spanner-omni/go-cassandra#go-run-locally)
 
-  - [Run with a pre-built Docker image](https://docs.cloud.google.com/spanner-omni/go-cassandra#docker-run)
+  - [Run with a prebuilt Docker image](https://docs.cloud.google.com/spanner-omni/go-cassandra#docker-run)
 
 ### Run locally with the Go `run` command
 
@@ -119,27 +134,25 @@ Running the sidecar proxy as a local process from source code is useful for deve
     
     `cd go-spanner-cassandra`
 
-3.  Run `cassandra_launcher.go` with the required `-db` flag and the following Spanner Omni specific flags. Replace the value of `-db` with your Spanner Omni database name:
-
-<!-- end list -->
-
-  - For plain-text communication, run the following:
-
-<!-- end list -->
-
-    go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -experimentalHost -usePlainText
-
-  - For a TLS connection, run the following:
-
-<!-- end list -->
-
-    go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -experimentalHost -caCertificate PATH_TO_CA_CRT
-
-  - For an mTLS connection, run the following:
-
-<!-- end list -->
-
-    go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -experimentalHost -caCertificate PATH_TO_CA_CRT -clientCertificate PATH_TO_CLIENT_CERT -clientKey PATH_TO_CLIENT_KEY
+3.  Run `cassandra_launcher.go` with the required `-db` flag and the following Spanner Omni specific flags:
+    
+    ### Plain text
+    
+    To run with plain-text communication, run the following command:
+    
+        go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -usePlainText
+    
+    ### TLS
+    
+    To run with a TLS connection, run the following command:
+    
+        go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT
+    
+    ### mTLS
+    
+    To run with an mTLS connection, run the following command:
+    
+        go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT -clientCertificate PATH_TO_CLIENT_CERT -clientKey PATH_TO_CLIENT_KEY
 
 ### Run with a prebuilt Docker image
 
@@ -151,20 +164,20 @@ We recommend running the sidecar proxy as a containerized application using a pr
 
 2.  Run the image with the required flags:
     
-    ### Plain-text communication
+    ### Plain text
     
-    For plain-text communication, run the following command:
+    To run with plain-text communication, run the following command:
     
-        docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -experimentalHost -usePlainText
+        docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -usePlainText
     
-    ### TLS connection
+    ### TLS
     
-    For a TLS connection, run the following command:
+    To run with a TLS connection, run the following command:
     
-        docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -experimentalHost -caCertificate PATH_TO_CA_CRT
+        docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT
     
-    ### mTLS connection
+    ### mTLS
     
-    For an mTLS connection, run the following command:
+    To run with an mTLS connection, run the following command:
     
-        docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -experimentalHost -caCertificate PATH_TO_CA_CRT -clientCertificate PATH_TO_CLIENT_CERT -clientKey PATH_TO_CLIENT_KEY
+        docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT -clientCertificate PATH_TO_CLIENT_CERT -clientKey PATH_TO_CLIENT_KEY

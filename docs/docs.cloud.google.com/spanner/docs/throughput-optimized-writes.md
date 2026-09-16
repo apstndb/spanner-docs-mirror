@@ -38,6 +38,25 @@ You can set a commit delay time between 0 and 500 ms. Setting commit delays high
 
 The max commit delay parameter is part of the `CommitRequest` method. You can access this method with the [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#commitrequest) , [REST API](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit) , or using the Cloud Spanner client library.
 
+### C++
+
+    void SetMaxCommitDelay(google::cloud::spanner::Client client) {
+      namespace spanner = ::google::cloud::spanner;
+    
+      auto update_albums = spanner::UpdateMutationBuilder(
+                               "Albums", {"SingerId", "AlbumId", "MarketingBudget"})
+                               .EmplaceRow(1, 1, 200000)
+                               .EmplaceRow(2, 2, 400000)
+                               .Build();
+      google::cloud::StatusOr<spanner::CommitResult> commit =
+          client.Commit(spanner::Mutations{update_albums},
+                        google::cloud::Options{}.set<spanner::MaxCommitDelayOption>(
+                            std::chrono::milliseconds(100)));
+    
+      if (!commit) throw std::move(commit).status();
+      std::cout << "Update was successful [spanner_set_max_commit_delay]\n";
+    }
+
 ### C\#
 
     using Google.Cloud.Spanner.Data;

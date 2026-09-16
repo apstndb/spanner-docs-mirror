@@ -24,8 +24,8 @@ Graph Query Language (GQL) supports all GoogleSQL schema statements, including t
       PROPERTY GRAPH
       [ IF NOT EXISTS ]
       property_graph_name
-      [ OPTIONS (key=value, ...) ]
-      property_graph_content;
+      property_graph_content
+      [ OPTIONS (key=value, ...) ];
     
     property_graph_content:
       node_tables
@@ -51,8 +51,6 @@ Creates a property graph.
   - `OR REPLACE` : Replaces any property graph with the same name if it exists. If the property graph doesn't exist, creates the property graph. Can't appear with `IF NOT EXISTS` .
 
   - `IF NOT EXISTS` : If any property graph exists with the same name, the `CREATE` statement has no effect. Can't appear with `OR REPLACE` .
-
-  - `OPTIONS` : If you have schema options, you can add them when you create the property graph. These options are system-specific and follow the Spanner [`HINT` syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#hints)
 
   - `property_graph_name` : The name of the property graph. This name can be a path expression. This name must not conflict with the name of an existing table, view, or property graph.
 
@@ -90,6 +88,20 @@ Creates a property graph.
   - `element_list` : A list of element (node or edge) definitions.
 
   - `element` : Refer to [Element definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#element_definition) for details.
+
+  - `OPTIONS` : A list of options for the property graph.
+    
+    For example, you can set the `validate_element_key_uniqueness` option to validate that the property graph's element keys are unique at schema creation time. Set this option to either `true` or `false` :
+    
+      - `true` (default): Spanner validates at schema creation time that the element keys for each node or edge table are unique. The `KEY` clause columns must satisfy one of the following requirements:
+    
+      - **Tables** : Backed by a primary key or a unique index on the underlying table.
+    
+      - **Views** : The view query conforms to supported view query patterns to guarantee key uniqueness.
+    
+    If uniqueness can't be verified, schema creation fails with an error.
+    
+      - `false` : Spanner doesn't validate element key uniqueness at schema creation time. This lets you define property graphs using columns that don't have an underlying uniqueness constraint. In this mode, you're responsible for ensuring that the `KEY` clause columns produce unique values for every node or edge row. If duplicate keys exist, queries might produce unexpected results or duplicate graph paths.
 
 ### Element definition
 
@@ -215,8 +227,14 @@ In a graph, labels and properties are uniquely identified by their names. Labels
     element_label:
       {
         LABEL label_name |
-        DEFAULT LABEL
+        DEFAULT LABEL [ options_clause ]
       }
+    
+    options_clause:
+      OPTIONS (
+        [ description = description_string ]
+        [, synonyms = synonym_array ]
+      )
 
 **Description**
 
@@ -240,6 +258,10 @@ Adds a list of labels and properties to an element.
 
   - `element_properties` : The properties associated with a label. A property can't be used more than once for a specific label. For more information, see [Element properties definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#element_table_property_definition) .
 
+  - `description_string` : A string literal that describes the label to provide context and improve discoverability for natural language querying interfaces.
+
+  - `synonym_array` : An array of string literals that provides alternative names for the label to improve accuracy for natural language querying interfaces.
+
 ### Element properties definition
 
     element_properties:
@@ -259,7 +281,13 @@ Adds a list of labels and properties to an element.
       PROPERTIES (derived_property[, ...])
     
     derived_property:
-      value_expression [ AS property_name ]
+      value_expression [ AS property_name ] [ options_clause ]
+    
+    options_clause:
+      OPTIONS (
+        [ description = description_string ]
+        [, synonyms = synonym_array ]
+      )
 
 **Description**
 
@@ -306,6 +334,10 @@ Adds properties associated with a label.
     If `derived_property` has any column reference in `value_expression` , that column reference must refer to a column of the underlying table.
     
     If `derived_property` doesn't define `property_name` , `value_expression` must be a column reference and the implicit `property_name` is the column name.
+
+  - `description_string` : A string literal that describes the property to provide context and improve discoverability for natural language querying interfaces.
+
+  - `synonym_array` : An array of string literals that provides alternative names for the property to improve accuracy for natural language querying interfaces.
 
 ### Dynamic label definition
 
