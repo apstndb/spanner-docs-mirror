@@ -12,21 +12,30 @@ Spanner Omni is a self-managed version of Spanner that you can run in your own e
 
 [Go to the Spanner Omni product page for more.](https://cloud.google.com/products/spanner/omni)
 
-format\_list\_numbered
+follow\_the\_signs
 
-### Guides
+### Get started
+
+  - [Spanner Omni overview](https://docs.cloud.google.com/spanner-omni/overview)
+
+  - [Download Spanner Omni](https://docs.cloud.google.com/spanner-omni/download)
+
+  - [Install and manage a Spanner Omni license](https://docs.cloud.google.com/spanner-omni/install-manage-license)
 
   - [Quickstart](https://docs.cloud.google.com/spanner-omni/quickstart)
 
-  - [Overview](https://docs.cloud.google.com/spanner-omni/overview)
+  - [Use the Spanner Omni console](https://docs.cloud.google.com/spanner-omni/use-console)
 
-  - [Create a deployment on VMs](https://docs.cloud.google.com/spanner-omni/deploy-on-vms)
+  - [CLI quickstart](https://docs.cloud.google.com/spanner-omni/cli-quickstart)
 
-  - [Create a deployment on Kubernetes](https://docs.cloud.google.com/spanner-omni/deploy-on-kubernetes)
+  - [Create a secure deployment on VMs](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms)
 
-  - 
+  - [Create a secure deployment on Kubernetes](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes)
+
 info
 
 ### Resources
 
   - [Release notes](https://docs.cloud.google.com/spanner-omni/release-notes)
+
+  - [Pricing](https://cloud.google.com/products/spanner/omni?e=48754805#pricing)

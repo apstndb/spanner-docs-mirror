@@ -374,6 +374,20 @@ Adds or removes a non-key column from an index.
         { LOCALITY GROUP 'locality_group_name'
         | COLUMNAR POLICY { 'columnar_policy' | NULL } }
 
+<span id="reindex_index"></span>
+
+### REINDEX INDEX
+
+Performs an in-place reindex of a vector index.
+
+    REINDEX INDEX CONCURRENTLY index_name
+
+#### Description
+
+Performs an in-place reindex of a vector index with the same options to refresh its tree structure. Reindexing occurs in the background and allows read and write operations on the index to continue. You must specify `CONCURRENTLY` .
+
+> **Note:** `REINDEX` is supported only for vector indexes.
+
 <span id="drop_index"></span>
 
 ### DROP INDEX

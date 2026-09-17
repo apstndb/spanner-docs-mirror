@@ -59,23 +59,39 @@ If the `num_leaves_to_search` value is too small, you might find it more challen
 
 The tree structure of the vector index is optimized for the dataset at the time of creation, and is static thereafter. Therefore, if significantly different vectors are added after creating the initial vector index, then the tree structure might be sub-optimal, leading to poorer recall.
 
-To rebuild your vector index without downtime:
+To refresh your vector index without downtime, choose one of the following options:
 
-1.  Create a new vector index on the same embedding column as the current vector index, updating parameters (for example, `OPTIONS` ) as appropriate. After the index creation completes, you might consider evaluating which of your two indexes performs better. If so, then proceed to the next step. Otherwise, proceed to dropping the outdated vector index.
+  - **Option 1: In-place reindex with the same options (by using DDL)**
+    
+    If you want to perform an in-place reindex of your vector index with the same index options, you can issue the following DDL statement depending on your database dialect. Reindexing occurs in the background and allows read and write operations on the index to continue.
+    
+    ### GoogleSQL
+    
+        ALTER VECTOR INDEX IncidentVectorIndex REBUILD;
+    
+    ### PostgreSQL
+    
+        REINDEX INDEX CONCURRENTLY incidentvectorindex;
 
-2.  Spanner automatically decides which index to use in the query's execution. Spanner provides two ways that let you specify the index to be used. Choose one of the following methods to evaluate and compare your indexes:
+  - **Option 2: Manually reindex with modified options**
     
-    a. Change your application: You can update some subset of your queries so that they use the [`FORCE_INDEX` hint](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) to point at the new index to update the vector search query. This ensures that the query uses the new vector index. Using this method, you might need to retune `num_leaves_to_search` in your new query.
+    If you need to change index options (such as `num_leaves` , `tree_depth` , etc.), complete the following steps:
     
-    b. Change your schema: You can set the `disable_search` option on one of your vector indexes. When set to `true` , Spanner disables the vector index. You can do this by running the `ALTER VECTOR INDEX` schema change statement:
+    1.  Create a new vector index on the same embedding column as the current vector index, updating parameters (for example, `OPTIONS` ) as appropriate. After the index creation completes, evaluate which index performs better.
     
-    ``` 
-      ALTER VECTOR INDEX IncidentVectorIndex SET OPTIONS (disable_search=true);
-    ```
+    2.  Spanner automatically decides which index to use in the query execution. Choose one of the following methods to evaluate and compare your indexes:
+        
+        a. Change your application: You can update a subset of your queries so that they use the [`FORCE_INDEX` hint](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) to point at the new index to update the vector search query. This ensures that the query uses the new vector index. Using this method, you might need to retune `num_leaves_to_search` in your new query.
+        
+        b. Change your schema: You can set the `disable_search` option on one of your vector indexes. When set to `true` , Spanner disables the vector index. You can do this by running the `ALTER VECTOR INDEX` schema change statement:
+        
+        ``` 
+           ALTER VECTOR INDEX IncidentVectorIndex SET OPTIONS (disable_search=true);
+        ```
+        
+        This method prevents Spanner from using this vector index in your database. If you have two indexes and set this option on the older index, all queries use the new index after the schema change applies. If you use the `FORCE_INDEX` hint to specify a vector index that has the `disable_search` option set to `true` , the query fails.
     
-    This method prevents Spanner from using this vector index in your database. If you have two indexes and set this option on the older index, all queries use the new index after the schema change applies. If you use the `FORCE_INDEX` hint to specify a vector index which has the `disable_search` option set to `true` , the query fails.
-
-3.  Drop the outdated vector index.
+    3.  Drop the outdated vector index.
 
 ## What's next
 

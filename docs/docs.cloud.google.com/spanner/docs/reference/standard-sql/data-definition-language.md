@@ -2552,10 +2552,29 @@ Use the `ALTER VECTOR INDEX` statement to add additional stored columns or remov
     where action is:
         { ADD STORED COLUMN column_name |
           DROP STORED COLUMN column_name |
-          SET OPTIONS ( options_def ) }
+          SET OPTIONS ( options_def ) |
+          REBUILD }
     
     and options_def is:
         { disable_search = { true | false | null } }
+
+#### Description
+
+`ADD STORED COLUMN`
+
+  - Adds a stored column to a vector index.
+
+`DROP STORED COLUMN`
+
+  - Removes a stored column from the vector index.
+
+`SET OPTIONS`
+
+  - Sets options for the vector index.
+
+`REBUILD`
+
+  - Performs an in-place reindex of the vector index with the same options to refresh its tree structure. Reindexing occurs in the background and allows read and write operations on the index to continue.
 
 #### Parameters
 
@@ -2570,10 +2589,6 @@ Use the `ALTER VECTOR INDEX` statement to add additional stored columns or remov
 `  options_def  `
 
   - The `disable_search = true` option prevents Spanner from using a vector index in your database. If you use the `FORCE_INDEX` hint to specify a vector index which has the `disable_search` option set to `true` , the query fails.
-
-#### Description
-
-Add an additional stored column into a vector index or remove a stored column from the index.
 
 #### Examples
 
