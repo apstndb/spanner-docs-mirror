@@ -725,7 +725,7 @@ The primary use case for `HIDDEN` columns is to omit `TOKENLIST` columns from a 
 
   - To use the `ON UPDATE` clause, the column must satisfy these conditions:
     
-      - Must not be part of the table’s `PRIMARY KEY` .
+      - Must not be part of the table's `PRIMARY KEY` .
     
       - Must have a `DEFAULT` expression that is identical to the `ON UPDATE` expression.
     
@@ -1611,6 +1611,235 @@ Use the `DROP VIEW` statement to remove a view from the database. Unless the `IF
 `  view_name  `
 
   - The name of the view to drop.
+
+## QUEUE statements
+
+This section has information about the `CREATE QUEUE` , `ALTER QUEUE` , and `DROP QUEUE` statements.
+
+### CREATE QUEUE
+
+Defines a new [queue](https://docs.cloud.google.com/spanner/docs/queues/queues-overview) .
+
+#### Syntax
+
+    CREATE QUEUE [ IF NOT EXISTS ] queue_name (
+       { key_column_name data_type [ NOT NULL ]
+         [ AS ( expression ) STORED ]
+         [ HIDDEN ]
+         [ OPTIONS ( column_options_def [, ... ] ) ] } [, ... ],
+       Payload payload_type NOT NULL
+         [ HIDDEN ]
+         [ OPTIONS ( column_options_def [, ... ] ) ]
+    ) PRIMARY KEY ( key_column_name [ { ASC | DESC } ] [, ...] )
+    [, INTERLEAVE IN [PARENT] table_name [ ON DELETE { CASCADE | NO ACTION } ] ]
+    [, ROW DELETION POLICY ( OLDER_THAN ( timestamp_column, INTERVAL num_days DAY ) ) ]
+    [, OPTIONS ( queue_option [, ... ] ) ]
+    
+    where data_type is:
+        { scalar_type | array_type | proto_type_name }
+    
+    and payload_type is:
+        { BYTES(length)
+        | STRING( length )
+        | JSON
+        | proto_type_name }
+    
+    and column_options_def is:
+        { allow_commit_timestamp = { true | null }}
+    
+    and queue_option is:
+        { receive_mode = { 'PULL' }
+        | disable_send = { true | false }
+        | disable_delivery = { true | false }
+        | locality_group = 'locality_group_name' }
+
+#### Description
+
+`CREATE QUEUE` defines a new queue table for managing transactional messaging. Every queue must define a primary key composed of one or more key columns, and exactly one `Payload` column. All user-defined columns other than `Payload` must be part of the primary key. For more information, see [Spanner queues overview](https://docs.cloud.google.com/spanner/docs/queues/queues-overview) .
+
+#### Parameters
+
+`IF NOT EXISTS`
+
+  - If a queue exists with the same name, the `CREATE` statement has no effect and no error is generated.
+
+`  queue_name  `
+
+  - The name of the queue to be created. For naming rules, see [Names](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#names) .
+
+`  key_column_name  `
+
+  - The name of a primary key column to be created. A queue can have multiple primary key columns. All columns in a queue other than `Payload` must be part of the primary key. For naming rules, see [Names](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#names) .
+
+`  data_type  `
+
+  - The data type of the primary key column, which can be a [***Scalar***](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#scalars) , an [***Array***](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#arrays) , or a Protocol Buffer message type.
+
+`Payload`
+
+  - The required payload column containing the message content. The column must be named `Payload` (case-insensitive) and defined as `NOT NULL` . The `Payload` column cannot be part of the primary key.
+
+`  payload_type  `
+
+  - The data type of the `Payload` column. Supported data types are `BYTES(length)` , `STRING(length)` , `JSON` , or a protocol buffer message ( `proto_type_name` ).
+
+`NOT NULL`
+
+  - This optional column annotation specifies that the column is required for all mutations that insert a new row.
+  - You cannot add a `NOT NULL` column to an existing queue.
+
+`AS (` `  expression  ` `) STORED`
+
+  - This clause creates a column as a *stored generated column* , which is a column whose value is defined as a function of other columns in the same row. In queues, generated columns can only be defined on primary key columns and must specify `STORED` .
+
+`OPTIONS (` `  column_options_def  ` `[, ... ] )`
+
+  - Key-value pairs to configure options for an individual column.
+  - `allow_commit_timestamp = { true | null }` : Enables or disables the commit timestamp on the column. For more information, see [Commit timestamps in GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/commit-timestamp) .
+
+`PRIMARY KEY (` `  key_column_name  ` `[ { ASC | DESC } ] [, ...] )`
+
+  - Every queue must have a primary key composed of one or more columns of that queue. All columns defined in the queue other than `Payload` must be part of the primary key.
+  - A primary key for a queue must be defined at the table level with the `PRIMARY KEY (` `  key_column_name  ` `[ { ASC | DESC } ] [, ...] )` syntax.
+  - Adding the `DESC` annotation on a primary key column name changes the physical layout of data from ascending order (default) to descending order.
+
+`[, INTERLEAVE IN PARENT` `  table_name  ` `[ ON DELETE { CASCADE | NO ACTION } ] ]`
+
+  - `INTERLEAVE IN PARENT` defines a child-to-parent table relationship, which results in a physical interleaving of parent and child rows. The primary-key columns of a parent must positionally match, both in name and type, a prefix of the primary-key columns of any child.
+  - The optional `ON DELETE` clause defines the behavior of rows in the child queue when a mutation attempts to delete the parent row. The supported options are `CASCADE` (child rows are deleted) and `NO ACTION` (child rows are not deleted).
+
+`[, ROW DELETION POLICY ( OLDER_THAN (` `  timestamp_column  ` `, INTERVAL` `  num_days  ` `DAY ) ) ]`
+
+  - Use this clause to set a row deletion policy for this queue. For more information, see [Time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl) .
+
+`  timestamp_column  `
+
+  - The name of a column of type `TIMESTAMP` , that is also specified in the CREATE QUEUE statement.
+
+`  num_days  `
+
+  - The number of days after the date in the specified `timestamp_column` , after which the row is marked for deletion. Valid values are non-negative integers.
+
+`OPTIONS (` `  queue_option  ` `[, ... ] )`
+
+  - A list of key value pairs to configure the queue.
+  - `receive_mode` : Optional. Specifies how messages are retrieved from the queue. The default and only valid value is `'PULL'` (messages are retrieved using the queue `RECEIVE_queue_name()` TVF).
+  - `disable_send` : When set to true, transactions that attempt to send messages to this queue will fail with an `INVALID_ARGUMENT` error. This is useful when you want to temporarily halt incoming message traffic or drain a queue before dropping it.
+  - `disable_delivery` : When set to true, message delivery to consumers is suspended. `RECEIVE_queue_name()` TVF calls are still allowed and won't fail, but no new messages will arrive. This is useful for pausing processing for remediation if you suspect queue consumers are causing downstream problems.
+  - `locality_group` : Optional. Stores the queue in a specific locality group. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) .
+
+### ALTER QUEUE
+
+Changes the definition of a queue.
+
+#### Syntax
+
+    ALTER QUEUE queue_name
+        action
+    
+    where action is:
+        SET OPTIONS ( queue_option [, ... ] )
+        SET ON DELETE { CASCADE | NO ACTION }
+        SET INTERLEAVE IN [ PARENT ] parent_table_name [ ON DELETE { CASCADE | NO ACTION } ]
+        ADD ROW DELETION POLICY ( OLDER_THAN ( timestamp_column, INTERVAL num_days DAY ))
+        DROP ROW DELETION POLICY
+        REPLACE ROW DELETION POLICY ( OLDER_THAN ( timestamp_column, INTERVAL num_days DAY ))
+    
+    and queue_option is:
+        { receive_mode = { 'PULL' }
+        | disable_send = { true | false | null }
+        | disable_delivery = { true | false | null }
+        | locality_group = { 'locality_group_name' | null } }
+
+#### Description
+
+`ALTER QUEUE` changes the definition of an existing queue.
+
+`SET OPTIONS (` `  queue_option  ` `[, ... ] )`
+
+  - A list of key-value pairs to configure the queue.
+  - `receive_mode` : Optional. Specifies how messages are retrieved from the queue. The default and only valid value is `'PULL'` (messages are retrieved using the queue `RECEIVE_queue_name()` TVF).
+  - `disable_send` : When set to true, transactions that attempt to send messages to this queue will fail with an `INVALID_ARGUMENT` error. This is useful when you want to temporarily halt incoming message traffic or drain a queue before dropping it. Set to `null` to reset to the default ( `false` ).
+  - `disable_delivery` : When set to true, message delivery to consumers is suspended. `RECEIVE_queue_name()` TVF calls are still allowed and won't fail, but no new messages will arrive. This is useful for pausing processing for remediation if you suspect queue consumers are causing downstream problems. Set to `null` to reset to the default ( `false` ).
+  - `locality_group` : Stores the queue in a specific locality group. Set to `null` to remove the queue from a locality group. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) .
+
+`SET ON DELETE { CASCADE | NO ACTION }`
+
+  - This alteration can be applied only on child queues of parent-child, interleaved relationships. For more information, see [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
+
+  - The `ON DELETE CASCADE` clause signifies that when a row from the parent table is deleted, its child rows in this queue will automatically be deleted as well. Child rows are all rows that start with the same primary key. If a child queue does not have this annotation, or the annotation is `ON DELETE NO ACTION` , then you must delete the child rows before you can delete the parent row.
+
+`SET INTERLEAVE IN [ PARENT ] parent_table_name [ ON DELETE { CASCADE | NO ACTION } ]`
+
+  - `SET INTERLEAVE IN PARENT` migrates an interleaved queue to use `IN PARENT` semantics, which require that the parent row exist for each child row. While executing this schema change, the child rows are validated to ensure there are no referential integrity violations. If there are, the schema change fails. If no `ON DELETE` clause is specified, `NO ACTION` is the default. Note that directly migrating from an `INTERLEAVE IN` queue to `IN PARENT ON DELETE CASCADE` is not supported. This must be done in two steps. The first step is to migrate `INTERLEAVE IN` to `INTERLEAVE IN PARENT T [ON DELETE NO ACTION]` and the second step is to migrate to `INTERLEAVE IN PARENT T ON DELETE CASCADE` . If referential integrity validation fails, use a query like the following to identify missing parent rows:
+    
+    ``` 
+        SELECT pk1, pk2 FROM child
+        EXCEPT DISTINCT
+        SELECT pk1, pk2 FROM parent;
+    ```
+    
+      - `SET INTERLEAVE IN` , like `SET INTERLEAVE IN PARENT` , migrates an `INTERLEAVE IN PARENT` interleaved queue to `INTERLEAVE IN` , thus removing the parent-child enforcement between the two tables.
+    
+      - The `ON DELETE` clause is only supported when migrating to `INTERLEAVE IN PARENT` .
+
+`ADD ROW DELETION POLICY ( OLDER_THAN (` `  timestamp_column  ` `, INTERVAL` `  num_days  ` `DAY ) )`
+
+  - Adds a row deletion policy to the queue defining the amount of time after a specific date after which to delete a row. See [Time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl) . Only one row deletion policy can exist on a queue at a time.
+
+`DROP ROW DELETION POLICY`
+
+  - Drops the row deletion policy on a queue.
+
+`REPLACE ROW DELETION POLICY ( OLDER_THAN (` `  timestamp_column  ` `, INTERVAL` `  num_days  ` `DAY ) )`
+
+  - Replaces the existing row deletion policy with a new policy.
+
+#### Parameters
+
+`  queue_name  `
+
+  - The name of an existing queue to alter.
+
+`  parent_table_name  `
+
+  - The name of the parent table or queue.
+
+`  timestamp_column  `
+
+  - The name of a column of type `TIMESTAMP` , that is also specified in the queue.
+
+`  num_days  `
+
+  - The number of days after the date in the specified `timestamp_column` , after which the row is marked for deletion. Valid values are non-negative integers.
+
+`  queue_option  `
+
+  - A key-value pair to configure the queue.
+
+<span id="drop_queue"></span>
+
+### DROP QUEUE
+
+Removes a queue.
+
+#### Syntax
+
+    DROP QUEUE [ IF EXISTS ] queue_name
+
+#### Description
+
+Use the `DROP QUEUE` statement to remove a queue from the database. Unless the `IF EXISTS` clause is specified, the statement fails if the queue doesn't exist.
+
+#### Parameters
+
+`  IF EXISTS  `
+
+  - If the queue doesn't exist, the `DROP` statement has no effect and doesn't generate an error.
+
+`  queue_name  `
+
+  - The name of the queue to drop.
 
 ## CHANGE STREAM statements
 

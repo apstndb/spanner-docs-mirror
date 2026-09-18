@@ -393,6 +393,13 @@ A [Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-
 | Concurrent Data Boost requests per project per region in other regions    | 400 <sup>[9](https://docs.cloud.google.com/spanner/quotas#note9)</sup>     |
 | Concurrent Data Boost requests in milli-operations per project per region | 1000000 <sup>[9](https://docs.cloud.google.com/spanner/quotas#note9)</sup> |
 
+## Queue limits
+
+| Value                                                                                                                      | Limit                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Queues per instance                                                                                                        | 10 queues per 100 processing units, up to 100 queues |
+| Concurrent [queue](https://docs.cloud.google.com/spanner/docs/queues/queues-overview) receiver TVFs per project per region | 2,000                                                |
+
 ## Pre-splitting API limits
 
 | Value                                                             | Limit |

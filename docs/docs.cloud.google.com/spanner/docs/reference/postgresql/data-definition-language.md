@@ -814,7 +814,7 @@ The primary use case for `HIDDEN` columns is to omit `TOKENLIST` columns from a 
 
   - To use the `ON UPDATE` clause, the column must satisfy these conditions:
     
-      - Must not be part of the table’s `PRIMARY KEY` .
+      - Must not be part of the table's `PRIMARY KEY` .
       - Must have a `DEFAULT` expression that is identical to the `ON UPDATE` expression.
       - Must be a commit timestamp column, and the expression must be `SPANNER.PENDING_COMMIT_TIMESTAMP()` .
 
@@ -1073,6 +1073,232 @@ Defines a new view or replaces an existing view. If `CREATE VIEW` is used and th
 Removes a view. Only the view is dropped; the objects that it references are not.
 
     DROP VIEW name
+
+## QUEUE statements
+
+This section has information about the `CREATE QUEUE` , `ALTER QUEUE` , and `DROP QUEUE` statements.
+
+### CREATE QUEUE
+
+Defines a new [queue](https://docs.cloud.google.com/spanner/docs/queues/queues-overview) .
+
+#### Syntax
+
+    CREATE QUEUE [ IF NOT EXISTS ] queue_name (
+          {
+            key_column_name data_type [ key_column_constraint [ ... ] ]
+            | payload payload_type NOT NULL [ HIDDEN ]
+            | table_constraint
+          } [, ... ]
+        )
+        [ INTERLEAVE IN [ PARENT ] parent_table_name
+        [ ON DELETE { CASCADE | NO ACTION } ] ]
+        [ TTL INTERVAL interval_spec ON timestamp_column_name ]
+        [ WITH ( queue_option [, ... ] ) ]
+    
+    where key_column_constraint is:
+    
+        NOT NULL
+        | PRIMARY KEY
+        | GENERATED ALWAYS AS ( expression ) STORED
+        | HIDDEN
+    
+    and table_constraint is:
+    
+        PRIMARY KEY ( key_column_name [, ... ] )
+    
+    and payload_type is:
+    
+        { bytea | text | varchar [ ( length ) ] | jsonb }
+    
+    and queue_option is:
+        { receive_mode = { 'PULL' }
+        | disable_send = { true | false }
+        | disable_delivery = { true | false }
+        | locality_group = 'locality_group_name' }
+
+#### Description
+
+`CREATE QUEUE` defines a new queue for managing transactional messaging.
+
+Every queue must define a primary key composed of one or more key columns, and exactly one `payload` column. All columns in the queue other than `payload` must be part of the primary key.
+
+For more information, see [Spanner queues overview](https://docs.cloud.google.com/spanner/docs/queues/queues-overview) .
+
+#### Parameters
+
+`IF NOT EXISTS`
+
+  - If a queue exists with the same name, the `CREATE` statement has no effect and no error is generated.
+
+`  queue_name  `
+
+  - The name of the queue to be created. For naming rules, see [Names](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#names) .
+  - Queues can't be created in a named schema.
+
+`  key_column_name  `
+
+  - The name of a primary key column to be created. A queue can have multiple primary key columns. All columns in a queue other than `payload` must be part of the primary key. For naming rules, see [Names](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#names) .
+  - Column names can't begin with the `spanner_` prefix, which is reserved.
+
+`  data_type  `
+
+  - The data type of the primary key column. For supported types, see [PostgreSQL data types](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) . Serial types ( `serial` , `bigserial` , `smallserial` ) are not supported for queues.
+
+`payload`
+
+  - The required column that holds the message content. Every queue must have exactly one.
+  - Because PostgreSQL folds unquoted identifiers to lowercase, write the column as `payload` . If you quote the name, it must be either `"payload"` or `"Payload"` . Any other spelling, such as `"PAYLOAD"` , is rejected.
+  - The `payload` column must be declared `NOT NULL` , and it can't be part of the primary key.
+
+`  payload_type  `
+
+  - The data type of the `payload` column. The supported types are `bytea` , `text` , `varchar` , and `jsonb` .
+
+`NOT NULL`
+
+  - This column annotation specifies that the column is required for all mutations that insert a new row. It is required on the `payload` column.
+  - You cannot add a `NOT NULL` column to an existing queue.
+
+`HIDDEN`
+
+  - This column annotation hides a column so that it doesn't appear in `SELECT *` statements. You can still select a hidden column by naming it explicitly.
+  - `HIDDEN` can be applied to primary key columns and to the `payload` column.
+  - You can't mark every column in a queue as `HIDDEN` .
+
+`GENERATED ALWAYS AS ( expression ) STORED`
+
+  - This clause creates a column as a *stored generated column* , which is a column whose value is defined as a function of other columns in the same row. In queues, generated columns can only be defined on primary key columns, and must specify `STORED` .
+
+`PRIMARY KEY`
+
+  - Every queue must have a primary key, composed of one or more columns of that queue.
+  - The primary key can be defined at the column level with `PRIMARY KEY` , or at the table level with `PRIMARY KEY ( key_column_name [, ... ] )` .
+  - Unlike GoogleSQL, the primary key is declared *inside* the parentheses of the column list. There is no trailing `PRIMARY KEY` clause after the closing parenthesis.
+
+`INTERLEAVE IN [ PARENT ] parent_table_name [ ON DELETE { CASCADE | NO ACTION } ]`
+
+  - `INTERLEAVE IN PARENT` defines a child-to-parent table relationship, which results in a physical interleaving of parent and child rows. The primary-key columns of a parent must positionally match, both in name and type, a prefix of the primary-key columns of any child.
+  - The optional `ON DELETE` clause defines the behavior of rows in the child queue when a mutation attempts to delete the parent row. The supported options are `CASCADE` (child rows are deleted) and `NO ACTION` (child rows are not deleted).
+
+` TTL INTERVAL interval_spec ON timestamp_column_name  `
+
+  - Use this clause to set a [time to live (TTL)](https://docs.cloud.google.com/spanner/docs/ttl) policy for this queue. Only one TTL policy can exist on a queue at a time.
+
+`  timestamp_column_name  `
+
+  - The name of a `timestamptz` column that is also specified in the `CREATE QUEUE` statement. Because every column other than `payload` must be part of the primary key, this is a primary key column.
+  - Naming a column of any other type returns an error.
+
+`  interval_spec  `
+
+  - An interval literal that specifies how long after the timestamp in `timestamp_column_name` Spanner marks the row for deletion. For example, `'3 days'` .
+  - The interval must be non-negative. A negative interval returns the error `TTL interval must be greater than or equal to zero` .
+
+`WITH ( queue_option [, ... ] )`
+
+  - A list of key-value pairs to configure the queue.
+  - `receive_mode` : Optional. Specifies how messages are retrieved from the queue. The default and only valid value is `'PULL'` (messages are retrieved using the queue `spanner.receive_queue_name()` TVF). This option can only be set at creation time.
+  - `disable_send` : When set to true, transactions that attempt to send messages to this queue will fail with an `INVALID_ARGUMENT` error. This is useful when you want to temporarily halt incoming message traffic or drain a queue before dropping it.
+  - `disable_delivery` : When set to true, message delivery to consumers is suspended. `spanner.receive_queue_name()` TVF calls are still allowed and won't fail, but no new messages will arrive. This is useful for pausing processing for remediation if you suspect queue consumers are causing downstream problems.
+  - `locality_group` : Stores the queue in the specified locality group. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) .
+
+#### Examples
+
+Create a queue interleaved in a parent table:
+
+    CREATE QUEUE usertasks (
+      userid     bigint NOT NULL,
+      messageid  varchar(36) NOT NULL,
+      payload    bytea NOT NULL,
+      PRIMARY KEY (userid, messageid)
+    ) INTERLEAVE IN PARENT users ON DELETE CASCADE;
+
+Create a queue in a locality group, with sends disabled:
+
+    CREATE QUEUE auditqueue (
+      eventid varchar(36) NOT NULL PRIMARY KEY,
+      payload jsonb NOT NULL
+    ) WITH (locality_group = 'archive', disable_send = true);
+
+Create a queue with a TTL policy:
+
+    CREATE QUEUE eventqueue (
+      eventid    varchar(36) NOT NULL,
+      created_at timestamptz NOT NULL,
+      payload    text NOT NULL,
+      PRIMARY KEY (eventid, created_at)
+    ) TTL INTERVAL '3 days' ON created_at;
+
+### ALTER QUEUE
+
+Changes the definition of a queue.
+
+#### Syntax
+
+    ALTER QUEUE queue_name
+        action
+    
+    where action is:
+        SET OPTIONS ( queue_option [, ... ] )
+    
+    and queue_option is:
+        { disable_send = { true | false | null }
+        | disable_delivery = { true | false | null }
+        | locality_group = { 'locality_group_name' | null } }
+
+#### Description
+
+`ALTER QUEUE` changes the definition of an existing queue. `SET OPTIONS` is the only supported action.
+
+`SET OPTIONS ( queue_option [, ... ] )`
+
+  - A list of key-value pairs to configure the queue.
+  - `disable_send` : When set to true, transactions that attempt to send messages to this queue will fail with an `INVALID_ARGUMENT` error. This is useful when you want to temporarily halt incoming message traffic or drain a queue before dropping it. Set to `null` to reset the option to its default value ( `false` ).
+  - `disable_delivery` : When set to true, message delivery to consumers is suspended. `spanner.receive_queue_name()` TVF calls are still allowed and won't fail, but no new messages will arrive. This is useful for pausing processing for remediation if you suspect queue consumers are causing downstream problems. Set to `null` to reset the option to its default value ( `false` ).
+  - `locality_group` : Moves the queue to the specified locality group. Set to `null` to remove the queue from its locality group. For more information, see [Locality groups](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) .
+
+> **Note:** `receive_mode` can only be set when the queue is created. Attempting to change it returns the error `Queue option 'receive_mode' cannot be altered.`
+
+In PostgreSQL-dialect databases, `ALTER QUEUE` can't add or remove columns, change the primary key, change the interleaving of a queue, or add, replace, or drop a TTL policy.
+
+#### Parameters
+
+`  queue_name  `
+
+  - The name of an existing queue to alter.
+
+`  queue_option  `
+
+  - A key-value pair to configure the queue.
+
+#### Example
+
+    ALTER QUEUE usertasks SET OPTIONS (disable_send = true);
+
+<span id="drop_queue"></span>
+
+### DROP QUEUE
+
+Removes a queue.
+
+#### Syntax
+
+    DROP QUEUE [ IF EXISTS ] queue_name
+
+#### Description
+
+Use the `DROP QUEUE` statement to remove a queue from the database. Unless the `IF EXISTS` clause is specified, the statement fails if the queue doesn't exist.
+
+#### Parameters
+
+`IF EXISTS`
+
+  - If the queue doesn't exist, the `DROP` statement has no effect and doesn't generate an error.
+
+`  queue_name  `
+
+  - The name of the queue to drop.
 
 ## CHANGE STREAM statements
 
