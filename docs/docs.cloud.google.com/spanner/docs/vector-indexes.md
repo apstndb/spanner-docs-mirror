@@ -121,7 +121,7 @@ In the following example, the table `Documents2` has a column called `Category` 
       DocContents Bytes(MAX),
       Category STRING(MAX),
       NullIfFiltered BOOL AS (IF(Category = 'Tech', TRUE, NULL)) HIDDEN,
-      DocEmbeddi<ng ARRA>YFLOAT32(vector>_length=128)
+      DocEmbedding ARRAY<FLOAT32>(vector_length=>128)
     ) PRIMARY KEY (DocId);
 
 ### PostgreSQL
@@ -135,7 +135,8 @@ In the following example, the table `Documents2` has a column called `Category` 
       category varchar,
       null_if_filtered boolean GENERATED ALWAYS AS (CASE WHEN category = 'Tech' THEN true END) VIRTUAL HIDDEN,
       doc_embedding float4[] VECTOR LENGTH 128,
-      PRIMARY KEY (doc_id));
+      PRIMARY KEY (doc_id)
+    );
 
 Then, we create a vector index with a filter. The `TechDocEmbeddingIndex` vector index only indexes documents in the "Tech" category.
 

@@ -45,7 +45,7 @@ To enable pattern-matching expressions acceleration, tokenize a lower-cased `STR
 
 ## Automatic acceleration of queries with pattern-matching predicates
 
-The query optimizer might choose to accelerate the following queries using `AlbumsIndex` with `AlbumTitle_Ngram_Tokens` . Optionally, the query can provide `@{force_index = AlbumsIndex}` to force the optimizer to use `AlbumsIndex` .
+The query optimizer might choose to accelerate the following queries using `AlbumsIndex` with `AlbumTitle_Ngram_Tokens` .
 
 ### GoogleSQL
 
@@ -90,6 +90,10 @@ In PostgreSQL, we accelerate [`LIKE`](https://docs.cloud.google.com/spanner/docs
         SELECT albumid
         FROM albums /*@ FORCE_INDEX = albumsidx */
         WHERE starts_with(album_title, 'apple')
+
+The query optimizer uses different default selectivity estimates depending on the pattern-matching predicate. As a result, the optimizer might select a full table scan or a secondary index scan with a residual filter instead of the search index.
+
+If your query is unexpectedly slow, check the execution plan. If the optimizer doesn't select the search index, try using `@{FORCE_INDEX = AlbumsIndex}` in GoogleSQL or `/*@ FORCE_INDEX = albumsidx */` in PostgreSQL.
 
 ## Prerequisites on acceleration
 

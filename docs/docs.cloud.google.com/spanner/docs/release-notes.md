@@ -12,6 +12,12 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## September 17, 2026
+
+Feature
+
+Spanner queues are [generally available (GA)](https://cloud.google.com/products/#product-launch-stages) . Spanner queues provide transactional messaging to help you manage asynchronous work. The feature pairs this capability with the scalability and reliability of Spanner, letting you build event-driven applications. For more information, see the [Spanner queues overview](https://docs.cloud.google.com/spanner/docs/queues/queues-overview) .
+
 ## September 11, 2026
 
 Feature

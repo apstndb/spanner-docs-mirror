@@ -65,6 +65,10 @@ In summary, query parameters support query execution in the following ways:
   - Simplified query composition: You don't need to escape string values when providing them in query parameters. Query parameters also reduce the risk of syntax errors.
   - Security: Query parameters make your queries more secure by protecting you from various SQL injection attacks. This protection is especially important for queries that you construct from user input.
 
+To improve performance, Spanner converts literal values hardcoded in SQL into parameters if the optimal query execution plan doesn't depend on the specific literal values. This lets Spanner reduce latency and CPU costs by caching and reusing the query plan. However, this doesn't offer the same SQL injection protections and simpler query composition benefits. Using query parameters in the application code is the best practice.
+
+> **Note:** Queries where the optimal query plan might depend on the values of literals are not automatically converted to parameterized SQL. To force the conversion of literals into parameters, use the [auto\_parameter hint](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints) .
+
 ## Understand how Spanner executes queries
 
 > **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
@@ -445,7 +449,7 @@ Join operations can be expensive because they can significantly increase the num
         SELECT s.FirstName, a.ReleaseDate
         FROM Singers AS s JOIN Albums AS a ON s.SingerId = a.SingerId;
     
-    The rows in the interleaved table `Albums` are guaranteed to be physically stored in the same splits as the parent row in `Singers` , as discussed in [Schema and Data Model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) . Therefore, joins can be completed locally without sending lots of data across the network.
+    The rows in the interleaved table `Albums` are physically stored in the same splits as the parent row in `Singers` , as discussed in [Schema and Data Model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) . Therefore, joins can be completed locally without sending lots of data across the network.
 
   - Use the join directive if you want to force the order of the join. For example:
     

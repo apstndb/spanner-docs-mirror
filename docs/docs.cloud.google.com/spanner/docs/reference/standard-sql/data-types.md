@@ -501,7 +501,7 @@ You can construct an interval with an interval literal that supports a [single d
 
 #### Construct an interval with a single datetime part
 
-    INTERVAL int64_expression datetime_part
+    INTERVAL step_size step_unit
 
 You can construct an `INTERVAL` object with an `INT64` expression and one [interval-supported datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) . For example:
 

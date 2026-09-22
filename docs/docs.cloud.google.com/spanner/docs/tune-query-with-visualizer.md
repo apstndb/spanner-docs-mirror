@@ -163,7 +163,7 @@ The data flow in the following diagram is bottom-up, that is, all the tables and
 5.  The information panel shows detailed contextual information about the selected node in the query plan diagram. The information is organized into the following categories.
     
       - **Iterator information** provides details, as well as runtime statistics, for the iterator card you selected in the graph.
-      - **Query summary** provides details about the number of rows returned and the time it took to run the query. Prominent operators are those that exhibit significant latency, consume significant CPU relative to other operators, and return significant numbers of data rows.
+      - **Query summary** provides details about the number of rows returned and the time it took to run the query. Prominent operators are those that exhibit significant latency, consume significant CPU relative to other operators, and return significant numbers of data rows. If present, automatic parameters are SQL literals converted into auto-generated parameter names during query compilation.
       - **Query execution timeline** is a time-based graph that shows how long each machine group was running its portion of the query. A machine group might not necessarily be running for the entire duration of the query's running time. It's also possible that a machine group ran multiple times during the course of running the query, but the timeline here only represents the start of the first time it ran and the end of the last time it ran.
 
 ## Tune a query that exhibits poor performance

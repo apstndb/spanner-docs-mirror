@@ -108,7 +108,7 @@ Use the `SELECT` statement to retrieve data from a database.
     
         USE_ADDITIONAL_PARALLELISM | LOCK_SCANNED_RANGES | SCAN_METHOD |
         EXECUTION_METHOD | ALLOW_TIMESTAMP_PREDICATE_PUSHDOWN |
-        OPTIMIZER_VERSION | OPTIMIZER_STATISTICS_PACKAGE
+        OPTIMIZER_VERSION | OPTIMIZER_STATISTICS_PACKAGE | AUTO_PARAMETER
     
     and table_hint_key is:
     
@@ -253,7 +253,7 @@ Spanner has extensions for [statement hints](https://docs.cloud.google.com/spann
     
         USE_ADDITIONAL_PARALLELISM | LOCK_SCANNED_RANGES | SCAN_METHOD |
         EXECUTION_METHOD | ALLOW_TIMESTAMP_PREDICATE_PUSHDOWN |
-        OPTIMIZER_VERSION | OPTIMIZER_STATISTICS_PACKAGE
+        OPTIMIZER_VERSION | OPTIMIZER_STATISTICS_PACKAGE | AUTO_PARAMETER
 
 Spanner supports the following statement hints as extensions to open source PostgreSQL.
 
@@ -323,6 +323,15 @@ Spanner supports the following statement hints as extensions to open source Post
 <td><code dir="ltr" translate="no">TRUE</code> |<br />
 <code dir="ltr" translate="no">FALSE</code> (default)</td>
 <td>If set to <code dir="ltr" translate="no">TRUE</code> , the query execution engine uses the timestamp predicate pushdown optimization technique. This technique improves the efficiency of queries that use timestamps and data with an age-based tiered storage policy. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-timestamp-predicate-pushdown">Optimize queries with timestamp predicate pushdown</a> .</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">AUTO_PARAMETER</code></td>
+<td><code dir="ltr" translate="no">"ON"</code><br />
+| <code dir="ltr" translate="no">"OFF"</code><br />
+| <code dir="ltr" translate="no">"AUTO"</code> (default)</td>
+<td><p>If <code dir="ltr" translate="no">AUTO</code> (default), let Spanner decide when to automatically convert SQL literals into parameters.</p>
+<p>Setting it to <code dir="ltr" translate="no">ON</code> forces all literals in the SQL statement to be converted to parameters.</p>
+<p>Setting it to <code dir="ltr" translate="no">OFF</code> preserves all SQL literals and doesn't convert them into parameters. The query is compiled separately for each distinct set of literal values.</p></td>
 </tr>
 </tbody>
 </table>

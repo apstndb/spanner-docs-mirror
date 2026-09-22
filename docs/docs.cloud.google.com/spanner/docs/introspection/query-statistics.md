@@ -60,7 +60,7 @@ These tables have the following properties:
       - **10 minute** : 11:40:00–11:49:59 AM
       - **1 hour** : 10:00:00–10:59:59 AM
 
-  - Spanner groups the statistics by the text of the SQL query. If a query uses [query parameters](https://docs.cloud.google.com/spanner/docs/sql-best-practices#use_query_parameters_to_speed_up_frequently_executed_queries) , Spanner groups all executions of that query into one row. If the query uses string literals, Spanner only groups the statistics if the full query text is identical; when any text differs, each query appears as a separate row. For batch DML, Spanner normalizes the batch by deduplicating consecutive identical statements prior to generating the fingerprint.
+  - Spanner groups the statistics by the text of the SQL query. If a query uses [query parameters](https://docs.cloud.google.com/spanner/docs/sql-best-practices#use_query_parameters_to_speed_up_frequently_executed_queries) , or if Spanner [automatically converts literal values into parameters](https://docs.cloud.google.com/spanner/docs/sql-best-practices#query-parameters) , Spanner groups all executions of that query into one row. If the query uses string literals that can't be automatically converted into parameters, Spanner only groups the statistics if the full query text is identical; when any text differs, each query appears as a separate row. For batch DML, Spanner normalizes the batch by deduplicating consecutive identical statements prior to generating the fingerprint.
 
   - If a request tag is present, **TEXT\_FINGERPRINT** is the hash of the request tag. Otherwise, it is the hash of the `TEXT` value. For partitioned DMLs, **TEXT\_FINGERPRINT** is always the hash of the `TEXT` value.
 

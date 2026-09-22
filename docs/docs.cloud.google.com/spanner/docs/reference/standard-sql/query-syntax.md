@@ -2765,8 +2765,7 @@ The following query statement hints are supported:
 <p>This hint is supported on all statement types, both query and DML.</p>
 <p>Spanner always enforces <a href="https://docs.cloud.google.com/spanner/docs/transactions#serializability_and_external_consistency">serializability</a> Lock mode hints can affect which transactions wait or abort in contended workloads, but don't change the isolation level.</p>
 <p>Because this is just a hint, it shouldn't be considered equivalent to a mutex. In other words, you shouldn't use Spanner exclusive locks as a mutual exclusion mechanism for the execution of code outside of Spanner. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/transactions#locking">Locking</a> .</p>
-<p>You can't use both the <code dir="ltr" translate="no">FOR UPDATE</code> clause and the <code dir="ltr" translate="no">LOCK_SCANNED_RANGES</code> hint in the same query. An error is returned. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/use-select-for-update">.</a></p>
-<a href="https://docs.cloud.google.com/spanner/docs/use-select-for-update"></a></td>
+<p>You can't use both the <code dir="ltr" translate="no">FOR UPDATE</code> clause and the <code dir="ltr" translate="no">LOCK_SCANNED_RANGES</code> hint in the same query. An error is returned. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/use-select-for-update">SELECT FOR UPDATE</a> .</p></td>
 </tr>
 <tr class="even">
 <td><code dir="ltr" translate="no">SCAN_METHOD</code></td>
@@ -2799,6 +2798,15 @@ The following query statement hints are supported:
 <td><code dir="ltr" translate="no">TRUE</code><br />
 | <code dir="ltr" translate="no">FALSE</code> (default)</td>
 <td>If set to <code dir="ltr" translate="no">TRUE</code> , the query execution engine uses the timestamp predicate pushdown optimization technique. This technique improves the efficiency of queries that use timestamps and data with an age-based tiered storage policy. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-timestamp-predicate-pushdown">Optimize queries with timestamp predicate pushdown</a> .</td>
+</tr>
+<tr class="even">
+<td><code dir="ltr" translate="no">AUTO_PARAMETER</code></td>
+<td><code dir="ltr" translate="no">"ON"</code><br />
+| <code dir="ltr" translate="no">"OFF"</code><br />
+| <code dir="ltr" translate="no">"AUTO"</code> (default)</td>
+<td><p>If <code dir="ltr" translate="no">AUTO</code> (default), determines when to automatically convert SQL literals into parameters.</p>
+<p>Setting this hint to <code dir="ltr" translate="no">ON</code> converts all literals in the SQL statement to parameters.</p>
+<p>Setting this hint to <code dir="ltr" translate="no">OFF</code> preserves all SQL literals and doesn't convert them into parameters. The query is compiled separately for each distinct set of literal values.</p></td>
 </tr>
 </tbody>
 </table>

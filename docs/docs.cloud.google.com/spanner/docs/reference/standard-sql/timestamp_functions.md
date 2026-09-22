@@ -444,13 +444,13 @@ This function supports an optional parameter to [specify a time zone](https://do
 
 ## `TIMESTAMP_ADD`
 
-    TIMESTAMP_ADD(timestamp_expression, INTERVAL int64_expression date_part)
+    TIMESTAMP_ADD(timestamp_expression, INTERVAL step_size step_unit)
 
 **Description**
 
-Adds `int64_expression` units of `date_part` to the timestamp, independent of any time zone.
+Adds `step_size` units of `step_unit` to the `TIMESTAMP` object, independent of any time zone.
 
-`TIMESTAMP_ADD` supports the following values for `date_part` :
+`TIMESTAMP_ADD` supports the following values for `step_unit` :
 
   - `NANOSECOND`
   - `MICROSECOND`
@@ -614,13 +614,13 @@ Interprets `int64_expression` as the number of seconds since 1970-01-01 00:00:00
 
 ## `TIMESTAMP_SUB`
 
-    TIMESTAMP_SUB(timestamp_expression, INTERVAL int64_expression date_part)
+    TIMESTAMP_SUB(timestamp_expression, INTERVAL step_size step_unit)
 
 **Description**
 
-Subtracts `int64_expression` units of `date_part` from the timestamp, independent of any time zone.
+Subtracts `step_size` units of `step_unit` from the `TIMESTAMP` object, independent of any time zone.
 
-`TIMESTAMP_SUB` supports the following values for `date_part` :
+`TIMESTAMP_SUB` supports the following values for `step_unit` :
 
   - `NANOSECOND`
   - `MICROSECOND`
