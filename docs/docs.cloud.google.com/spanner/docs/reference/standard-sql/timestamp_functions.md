@@ -503,13 +503,15 @@ Gets the number of unit boundaries between two `TIMESTAMP` values ( `end_timesta
 
 **Details**
 
-If `end_timestamp` is earlier than `start_timestamp` , the output is negative. Produces an error if the computation overflows, such as if the difference in nanoseconds between the two `TIMESTAMP` values overflows.
+If `end_timestamp` is earlier than `start_timestamp` , the output is 0 or negative. Decimals are always truncated rather than rounded. For example, both 3.9 and 3.1 become 3, while -3.9 and -3.1 become -3 (instead of -4).
+
+Produces an error if the computation overflows, such as if the difference in nanoseconds between the two `TIMESTAMP` values overflows.
 
 **Return Data Type**
 
 `INT64`
 
-**Example**
+**Examples**
 
     SELECT
       TIMESTAMP("2010-07-07 10:20:00+00") AS later_timestamp,
@@ -542,6 +544,24 @@ In this example, the result is 0 because only the number of whole specified `HOU
      +---------------+
      | 0             |
      +---------------*/
+
+In the following example, `TIMESTAMP_DIFF` truncates the output rather than rounding it. Both 3 hours 54 minutes (3.9 hours) and 3 hours 6 minutes (3.1 hours) truncate to 3 hours, and their negative counterparts truncate to -3 hours:
+
+    SELECT
+      TIMESTAMP_DIFF(TIMESTAMP '2021-05-01 04:54:00+00',
+        TIMESTAMP '2021-05-01 01:00:00+00', HOUR) AS diff_3_9,
+      TIMESTAMP_DIFF(TIMESTAMP '2021-05-01 04:06:00+00',
+        TIMESTAMP '2021-05-01 01:00:00+00', HOUR) AS diff_3_1,
+      TIMESTAMP_DIFF(TIMESTAMP '2021-05-01 01:00:00+00',
+        TIMESTAMP '2021-05-01 04:54:00+00', HOUR) AS diff_negative_3_9,
+      TIMESTAMP_DIFF(TIMESTAMP '2021-05-01 01:00:00+00',
+        TIMESTAMP '2021-05-01 04:06:00+00', HOUR) AS diff_negative_3_1;
+    
+    /*----------+----------+-------------------+-------------------+
+     | diff_3_9 | diff_3_1 | diff_negative_3_9 | diff_negative_3_1 |
+     +----------+----------+-------------------+-------------------+
+     | 3        | 3        | -3                | -3                |
+     +----------+----------+-------------------+-------------------*/
 
 ## `TIMESTAMP_MICROS`
 

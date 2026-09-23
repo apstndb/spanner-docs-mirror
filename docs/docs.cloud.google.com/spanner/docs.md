@@ -92,7 +92,7 @@ Training and tutorials
 
 This course features a combination of lectures, design activities, and hands-on labs to show you how to use proven design patterns on Google Cloud to build highly reliable and efficient solutions and operate deployments that are highly available and cost-effective.
 
-Training
+Tutorial
 
 Training and tutorials
 
@@ -100,7 +100,7 @@ Training and tutorials
 
 Learn how to connect to Cloud SQL from Cloud Run
 
-Use case
+Architecture
 
 Use cases
 
@@ -120,7 +120,7 @@ Demonstrates migrating a MySQL database to Spanner using Striim.
 
 Replication Migration
 
-Use case
+Architecture
 
 Use cases
 
@@ -140,7 +140,7 @@ Shows how to use the commit timestamp feature to track the date and time when ch
 
 Java Changes
 
-Use case
+Best practice
 
 Use cases
 

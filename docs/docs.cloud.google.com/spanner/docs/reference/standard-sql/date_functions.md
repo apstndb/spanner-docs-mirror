@@ -244,13 +244,13 @@ Gets the number of unit boundaries between two `DATE` values ( `end_date` - `sta
 
 **Details**
 
-If `end_date` is earlier than `start_date` , the output is negative.
+If `end_date` is earlier than `start_date` , the output is 0 or negative. Decimals are always truncated rather than rounded. For example, both 3.9 and 3.1 become 3, while -3.9 and -3.1 become -3 (instead of -4).
 
 **Return Data Type**
 
 `INT64`
 
-**Example**
+**Examples**
 
     SELECT DATE_DIFF(DATE '2010-07-07', DATE '2008-12-25', DAY) AS days_diff;
     
@@ -259,6 +259,20 @@ If `end_date` is earlier than `start_date` , the output is negative.
      +-----------+
      | 559       |
      +-----------*/
+
+In the following example, `DATE_DIFF` truncates the output rather than rounding it. Both 3 years 11 months (3.9 years) and 3 years 1 month (3.1 years) truncate to 3 years, and their negative counterparts truncate to -3 years:
+
+    SELECT
+      DATE_DIFF(DATE '2023-11-30', DATE '2020-01-01', YEAR) AS diff_3_9,
+      DATE_DIFF(DATE '2023-02-01', DATE '2020-01-01', YEAR) AS diff_3_1,
+      DATE_DIFF(DATE '2020-01-01', DATE '2023-11-30', YEAR) AS diff_negative_3_9,
+      DATE_DIFF(DATE '2020-01-01', DATE '2023-02-01', YEAR) AS diff_negative_3_1;
+    
+    /*----------+----------+-------------------+-------------------+
+     | diff_3_9 | diff_3_1 | diff_negative_3_9 | diff_negative_3_1 |
+     +----------+----------+-------------------+-------------------+
+     | 3        | 3        | -3                | -3                |
+     +----------+----------+-------------------+-------------------*/
 
     SELECT
       DATE_DIFF(DATE '2017-10-15', DATE '2017-10-14', DAY) AS days_diff,

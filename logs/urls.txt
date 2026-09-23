@@ -84,7 +84,7 @@ https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/init	2026-05-
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/list	2026-05-27T16:47:16Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run	2026-05-27T16:48:47Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/workload	2026-05-27T16:47:28Z
-https://docs.cloud.google.com/spanner-omni	2026-09-19T08:29:06Z
+https://docs.cloud.google.com/spanner-omni	2026-09-21T20:29:41Z
 https://docs.cloud.google.com/spanner-omni/audit-logs	2026-09-19T08:28:22Z
 https://docs.cloud.google.com/spanner-omni/authentication	2026-09-19T08:28:22Z
 https://docs.cloud.google.com/spanner-omni/backups	2026-09-19T08:28:22Z
@@ -141,7 +141,7 @@ https://docs.cloud.google.com/spanner-omni/transaction-latency	2026-09-19T08:28:
 https://docs.cloud.google.com/spanner-omni/true-time-external-consistency	2026-09-19T08:28:52Z
 https://docs.cloud.google.com/spanner-omni/use-console	2026-09-19T08:28:52Z
 https://docs.cloud.google.com/spanner-omni/vector-search-overview	2026-09-19T08:28:52Z
-https://docs.cloud.google.com/spanner/docs	2026-09-19T08:28:27Z
+https://docs.cloud.google.com/spanner/docs	2026-09-21T20:29:48Z
 https://docs.cloud.google.com/spanner/docs/access-with-fgac	2026-09-20T04:53:50Z
 https://docs.cloud.google.com/spanner/docs/adding-spring	2026-09-20T04:53:50Z
 https://docs.cloud.google.com/spanner/docs/api-libraries-overview	2026-09-19T08:28:46Z
@@ -678,7 +678,7 @@ https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1	2026-
 https://docs.cloud.google.com/spanner/docs/reference/rpc/google.type	2025-10-17T23:52:19Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls	2026-09-19T08:28:15Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions	2026-09-19T08:28:15Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions	2026-09-19T08:28:15Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions	2026-09-21T16:51:22Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays	2026-09-19T08:28:15Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions	2026-09-19T08:28:15Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts	2026-09-19T08:28:15Z
@@ -688,7 +688,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_fun
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules	2026-09-19T08:28:15Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language	2026-09-19T08:28:15Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types	2026-09-21T16:51:22Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions	2026-09-21T16:51:22Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions	2026-09-21T18:18:21Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/debugging_functions	2026-09-19T08:28:15Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax	2026-09-19T08:28:15Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/format-elements	2026-09-19T08:28:15Z
@@ -726,10 +726,10 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_ag
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures	2026-09-19T08:28:30Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions	2026-09-19T08:28:30Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries	2026-09-19T08:28:30Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions	2026-09-21T16:51:22Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions	2026-09-21T18:18:21Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions	2026-09-19T08:28:30Z
 https://docs.cloud.google.com/spanner/docs/region-types	2026-09-19T08:28:30Z
-https://docs.cloud.google.com/spanner/docs/release-notes	2026-09-19T08:29:06Z
+https://docs.cloud.google.com/spanner/docs/release-notes	2026-09-21T23:29:33Z
 https://docs.cloud.google.com/spanner/docs/replication	2026-09-19T08:28:30Z
 https://docs.cloud.google.com/spanner/docs/resources	2026-09-19T08:28:30Z
 https://docs.cloud.google.com/spanner/docs/rest-endpoints	2026-09-19T08:28:30Z
