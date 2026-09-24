@@ -49,14 +49,16 @@ To use the client as an in-process dependency, do the following:
         func main() {
           opts := &spanner.Options{
               // Required: Specify the Spanner database URI
-              DatabaseUri: &quot;DATABASE_ID",
+              DatabaseUri: "DATABASE_ID",
           }
           // Optional: Configure Spanner Omni cluster settings as needed
           opts.SpannerEndpoint = "ENDPOINT"
           opts.InstanceType = spanner.Omni
           opts.UsePlainText = true
         
-          cluster := spanner.NewCluster(opts)  // ...}
+          cluster := spanner.NewCluster(opts)
+          // ...
+        }
     
     ### TLS
     
@@ -65,14 +67,16 @@ To use the client as an in-process dependency, do the following:
         func main() {
           opts := &spanner.Options{
               // Required: Specify the Spanner database URI
-              DatabaseUri: &quot;DATABASE_ID",
+              DatabaseUri: "DATABASE_ID",
           }
           // Optional: Configure Spanner Omni cluster settings as needed
           opts.SpannerEndpoint = "ENDPOINT"
           opts.InstanceType = spanner.Omni
           opts.CaCertificate = "PATH_TO_CA_CRT"
         
-          cluster := spanner.NewCluster(opts)  // ...}
+          cluster := spanner.NewCluster(opts)
+          // ...
+        }
     
     ### mTLS
     
@@ -81,15 +85,18 @@ To use the client as an in-process dependency, do the following:
         func main() {
           opts := &spanner.Options{
               // Required: Specify the Spanner database URI
-              DatabaseUri: &quot;DATABASE_ID",
+              DatabaseUri: "DATABASE_ID",
           }
           // Optional: Configure Spanner Omni cluster settings as needed
           opts.SpannerEndpoint = "ENDPOINT"
           opts.InstanceType = spanner.Omni
-          opts.CaCertificate = "PATH_TO_CA_CRT";
-          opts.ClientCertificate = "PATH_TO_CLIENT_CERT";
+          opts.CaCertificate = "PATH_TO_CA_CRT"
+          opts.ClientCertificate = "PATH_TO_CLIENT_CERT"
           opts.ClientKey = "PATH_TO_CLIENT_KEY"
-          cluster := spanner.NewCluster(opts)  // ...}
+        
+          cluster := spanner.NewCluster(opts)
+          // ...
+        }
     
     Replace the following:
     
