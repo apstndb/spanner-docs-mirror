@@ -192,16 +192,16 @@ Spanner with **PostgreSQL** dialect:
 
 ### Codex
 
-1.  Install the Data Agent Kit marketplace:
+1.  Install the Data Cloud Plugins marketplace:
     
     ```sh
-    codex plugin marketplace add GoogleCloudPlatform/data-agent-kit
+    codex plugin marketplace add GoogleCloudPlatform/data-cloud-plugins
     ```
 
 2.  Install the Spanner plugin:
     
     ```sh
-    codex plugin install spanner@data-agent-kit
+    codex plugin install spanner@data-cloud-plugins
     ```
 
 3.  Configure the environment variables to connect to your Spanner instance:
@@ -223,7 +223,7 @@ Spanner with **PostgreSQL** dialect:
 4.  Optional. Update the marketplace:
     
     ```sh
-    codex plugin marketplace upgrade data-agent-kit
+    codex plugin marketplace upgrade data-cloud-plugins
     ```
 
 ### Claude for Desktop

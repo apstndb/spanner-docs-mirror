@@ -12,6 +12,8 @@ data_source: docs.cloud.google.com
 
 This document explains how create a Spanner Omni deployment on Kubernetes. This deployment isn't encrypted. If you want to quickly set up a test or proof-of-concept environment to evaluate Spanner Omni, then creating a deployment without encryption is the fastest way to get started because it doesn't require you to configure mTLS or other security measures. However, because of security risks, such as unencrypted network traffic and open access, this configuration isn't recommended for production environments. You can choose between a single-server or a regional deployment across multiple zones.
 
+> **Caution:** Unencrypted deployments are intended for testing only. In production environments, use encrypted deployments. For more information, see [Add TLS encryption to your Kubernetes deployment](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes) .
+
 The [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni doesn't support TLS encryption and stops writing data 90 days after you create a deployment. For early access to the edition with full features, [contact Google](https://cloud.google.com/consulting/spanner-omni) .
 
 ## Before you begin
