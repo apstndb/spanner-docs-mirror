@@ -33,7 +33,7 @@ If you don't have a Spanner instance and database, follow the steps in [Create a
 
 The BigQuery connection API lets you manage BigQuery connections to external data sources such as a Spanner database.
 
-  - Enable the BigQuery connection API.
+  - Enable the BigQuery connection API, if it is not already enabled.
     
     **Roles required to enable APIs**
     

@@ -68,7 +68,14 @@ Consider a `Documents` table that has a `DocEmbedding` column of precomputed tex
       PRIMARY KEY (user_id, doc_id)
     );
 
-To search for the nearest 100 vectors to `[1.0, 2.0, 3.0]` :
+To search for the nearest 100 vectors to `[1.0, 2.0, 3.0]` , specify one of the following search options in the approximate distance function:
+
+  - `num_leaves_to_search` : The number of leaves to search. The value must be a positive integer.
+  - `pct_leaves_to_search` : The percentage of leaves to search. The value must be a double between `0.0` and `100.0` with an explicit decimal point (for example, `10.0` ). **Vector indexes created before Nov, 2025 may not support this search option.**
+
+You cannot specify both options in the same approximate distance function.
+
+**Option 1. Use search option `num_leaves_to_search`**
 
 ### GoogleSQL
 
@@ -88,6 +95,29 @@ To search for the nearest 100 vectors to `[1.0, 2.0, 3.0]` :
     ORDER BY spanner.approx_euclidean_distance(
       ARRAY[1.0, 2.0, 3.0]::float4[], doc_embedding,
       options=>jsonb'{"num_leaves_to_search": 10}'
+    )
+    LIMIT 100;
+
+**Option 2. Use search option `pct_leaves_to_search`**
+
+### GoogleSQL
+
+    SELECT DocId
+    FROM Documents
+    WHERE WordCount > 1000
+    ORDER BY APPROX_EUCLIDEAN_DISTANCE(
+      ARRAY<FLOAT32>[1.0, 2.0, 3.0], DocEmbedding,
+      options => JSON '{"pct_leaves_to_search": 10.0}')
+    LIMIT 100
+
+### PostgreSQL
+
+    SELECT doc_id
+    FROM documents
+    WHERE word_count > 1000
+    ORDER BY spanner.approx_euclidean_distance(
+      ARRAY[1.0, 2.0, 3.0]::float4[], doc_embedding,
+      options=>jsonb'{"pct_leaves_to_search": 10.0}'
     )
     LIMIT 100;
 

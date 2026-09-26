@@ -114,9 +114,9 @@ To create an alerting policy, do the following:
 
 7.  Optional: To add notifications to your alerting policy, click **Notification channels** . In the dialog, select one or more notification channels from the menu, and then click **OK** .
     
-    To be notified when incidents are openend and closed, check **Notify on incident closure** . By default, notifications are sent only when incidents are openend.
+    To be notified when alerts are opened and closed, check **Notify on alert closure** . By default, notifications are sent only when alerts are opened.
 
-8.  Optional: Update the **Incident autoclose duration** . This field determines when Monitoring closes incidents in the absence of metric data.
+8.  Optional: Update the **Alert autoclose duration** . This field determines when Monitoring closes alerts in the absence of metric data.
 
 9.  Optional: Click **Documentation** , and then add any information that you want included in a notification message.
 

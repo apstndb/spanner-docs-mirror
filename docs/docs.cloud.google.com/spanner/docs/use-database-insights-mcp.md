@@ -94,7 +94,7 @@ In your AI application, look for a way to add or connect to a remote MCP server.
   - **Server name** : Database Insights MCP server
   - **Server URL** or **Endpoint** : `https://databaseinsights.googleapis.com/mcp`
   - **Transport** : [Streamable HTTP](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http)
-  - **Authentication details** : Depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information about authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
+  - **Authentication details** : depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information about authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
   - **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Database Insights MCP server.
 
 ### Redirect URIs
@@ -116,14 +116,33 @@ To view details of available MCP tools and their descriptions for the Database I
 
 Use the [MCP inspector](https://modelcontextprotocol.io/docs/tools/inspector) to list tools, or send a `tools/list` HTTP request directly to the Database Insights remote MCP server. The `tools/list` method doesn't require authentication.
 
-    POST /mcp HTTP/1.1
-    Host: databaseinsights.googleapis.com
-    Content-Type: application/json
-    
-    {
-      "jsonrpc": "2.0",
-      "method": "tools/list",
-    }
+    curl -X POST https://databaseinsights.googleapis.com/TOOLSET_ENDPOINT \
+        -H 'Content-Type: application/json' \
+        -H 'Accept: application/json' \
+        -H 'MCP-Protocol-Version: MCP_PROTOCOL_VERSION' \
+        -H 'Mcp-Method: tools/list' \
+        -d '{
+          "jsonrpc": "2.0",
+          "id": 1,
+          "method": "tools/list",
+          "params": {
+            "_meta": {
+              "io.modelcontextprotocol/protocolVersion": "MCP_PROTOCOL_VERSION",
+              "io.modelcontextprotocol/clientCapabilities": {
+                "extensions": {
+                  "io.modelcontextprotocol/ui": {
+                    "mimeTypes": ["text/html;profile=mcp-app"]
+                  }
+                }
+              }
+            }
+          }
+        }'
+
+Replace the following:
+
+  - `TOOLSET_ENDPOINT` : the remainder of the MCP endpoint after the service name. For example, for Database Insights, this might be `mcp/toolset-name` .
+  - `MCP_PROTOCOL_VERSION` : the MCP protocol version. For example, `2026-07-28` .
 
 ## Sample use cases
 
@@ -139,11 +158,11 @@ You can monitor the resource utilization of your Spanner instances to ensure the
 
 **Workflow** : The workflow for a system health check includes the following steps:
 
-  - **Metric retrieval** : The agent uses the `get_system_metrics` tool to fetch `spanner.googleapis.com/instance/cpu/utilization` for the specified instance.
+  - **Metric retrieval** : the agent uses the `get_system_metrics` tool to fetch `spanner.googleapis.com/instance/cpu/utilization` for the specified instance.
 
-  - **Summarization** : The agent aggregates the data over the 24-hour period.
+  - **Summarization** : the agent aggregates the data over the 24-hour period.
 
-  - **Reporting** : The agent provides a summary of the CPU and memory trends, alerting you if utilization peaked near the limits.
+  - **Reporting** : the agent provides a summary of the CPU and memory trends, alerting you if utilization peaked near the limits.
 
 ## Optional security and safety configurations
 
@@ -167,7 +186,7 @@ You must enable Model Armor APIs before you can use Model Armor.
 
 ### Console
 
-1.  Enable the Model Armor API.
+1.  Enable the Model Armor API, if it is not already enabled.
     
     **Roles required to enable APIs**
     

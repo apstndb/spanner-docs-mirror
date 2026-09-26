@@ -32,18 +32,19 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
                             -> google::cloud::StatusOr<spanner::Mutations> {
             auto singer_info = std::make_tuple("Marc", "Richards");
             auto sql = spanner::SqlStatement(
-                "UPDATE Singers SET FirstName = 'Keith<' WHERE "
-                &q>uot;STRUCTFirstName String, LastName String(FirstName, Last{{"name", spanner::Value(std::move(singer_info))}Name) "
+                "UPDATE Singers SET FirstName = 'Keith' WHERE "
+                "STRUCT<FirstName String, LastName String>(FirstName, LastName) "
                 "= @name",
-                });
+                {{"name", spanner::Value(std::move(singer_info))}});
             auto dml_result = client.ExecuteDml(txn, std::move(sql));
-            if (!dml_result) return std::move>(dml_result).status();
-            rows_modified = dml_result-RowsModified();
+            if (!dml_result) return std::move(dml_result).status();
+            rows_modified = dml_result->RowsModified();
             return spanner::Mutations{};
           });
-      if (!commit_res<<ult) throw std::move(commit<<_result).status();
-      std::cout  rows_modified
-          " update was successful [spanner_dml_structs]\n";}
+      if (!commit_result) throw std::move(commit_result).status();
+      std::cout << rows_modified
+                << " update was successful [spanner_dml_structs]\n";
+    }
 
 ### C\#
 
@@ -62,18 +63,21 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
             var nameStruct = new SpannerStruct
             {
                 { "FirstName", SpannerDbType.String, "Timothy" },
-                { ";LastName", SpannerDbType.String, "Campbell" }
+                { "LastName", SpannerDbType.String, "Campbell" }
             };
             string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
     
             using var connection = new SpannerConnection(connectionString);
             await connection.OpenAsync();
     
-            using var cmd = connection.CreateDmlCommand(&<quot;UPDATE Singers SET LastName >= 'Grant' WHERE STRUCTFirstName STRING, LastName STRING(FirstName, LastName) = @name&quot;);
+            using var cmd = connection.CreateDmlCommand("UPDATE Singers SET LastName = 'Grant' WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) = @name");
             cmd.Parameters.Add("name", nameStruct.GetSpannerDbType(), nameStruct);
             int rowCount = await cmd.ExecuteNonQueryAsync();
     
-            Console.WriteLine($"{rowCount} row(s) updated...");        return rowCount;    }}
+            Console.WriteLine($"{rowCount} row(s) updated...");
+            return rowCount;
+        }
+    }
 
 ### Go
 
@@ -102,18 +106,22 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
              FirstName string
              LastName  string
          }
-         var singerInfo = name{&quot;Timothy", "Campbell"}
+         var singerInfo = name{"Timothy", "Campbell"}
     
          stmt := spanner.Statement{
-             <SQL: `Update Singers Set LastName> = 'Grant'
-                 WHERE STRUCTFirstName String, LastName String(Firstname, LastName) = @name`,
+             SQL: `Update Singers Set LastName = 'Grant'
+                 WHERE STRUCT<FirstName String, LastName String>(Firstname, LastName) = @name`,
              Params: map[string]interface{}{"name": singerInfo},
          }
          rowCount, err := txn.Update(ctx, stmt)
          if err != nil {
              return err
          }
-         fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)       return nil })  return err}
+         fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)
+         return nil
+     })
+     return err
+    }
 
 ### Java
 
@@ -126,17 +134,20 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
           Struct.newBuilder().set("FirstName").to("Timothy").set("LastName").to("Campbell").build();
       Statement s =
           Statement.newBuilder(
-                  "UPDATE Singers SET LastName <= 'Grant' "
-            >          + "WHERE STRUCTFirstName STRING, LastName STRING(FirstName, LastName) "
+                  "UPDATE Singers SET LastName = 'Grant' "
+                      + "WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) "
                       + "= @name")
               .bind("name")
-              .to(nam>e)
+              .to(name)
               .build();
       dbClient
           .readWriteTransaction()
-          .run(transaction - {
+          .run(transaction -> {
             long rowCount = transaction.executeUpdate(s);
-         System.out.printf("%d record updated.\n", rowCount);        return null;      });}
+            System.out.printf("%d record updated.\n", rowCount);
+            return null;
+          });
+    }
 
 ### Node.js
 
@@ -145,7 +156,7 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
     // Imports the Google Cloud client library
-    const {Spanner} = require(&#39;@google-cloud/spanner');
+    const {Spanner} = require('@google-cloud/spanner');
     
     const nameStruct = Spanner.struct({
       FirstName: 'Timothy',
@@ -157,7 +168,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
      */
     // const projectId = 'my-project-id';
     // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';</span>
+    // const databaseId = 'my-database';
     
     // Creates a client
     const spanner = new Spanner({
@@ -169,10 +180,10 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     const database = instance.database(databaseId);
     
     try {
-      await >database.runTransactionAsync(async transaction = {
+      await database.runTransactionAsync(async transaction => {
         const [rowCount] = await transaction.runUpdate({
-          sql: `UPDATE S<ingers SET LastName = 'Grant&>#39;
-          WHERE STRUCTFirstName STRING, LastName STRING(FirstName, LastName) = @name`,
+          sql: `UPDATE Singers SET LastName = 'Grant'
+          WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) = @name`,
           params: {
             name: nameStruct,
           },
@@ -184,7 +195,9 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     } catch (err) {
       console.error('ERROR:', err);
     } finally {
-      // Close the database when finished.  await database.close();}
+      // Close the database when finished.
+      await database.close();
+    }
 
 ### PHP
 
@@ -219,24 +232,28 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
         $database->runTransaction(function (Transaction $t) {
             $nameValue = (new StructValue)
-                ->add('FirstName', 'Timothy'>;)
-                -add('LastName', 'Campbell');
-            $nameType >= (new StructType)
-                -add('FirstName>9;, Database::TYPE_STRING)
-                -add('LastName', >Database::TYPE_STRING);
+                ->add('FirstName', 'Timothy')
+                ->add('LastName', 'Campbell');
+            $nameType = (new StructType)
+                ->add('FirstName', Database::TYPE_STRING)
+                ->add('LastName', Database::TYPE_STRING);
     
-            $rowCount = $t-executeUpdate(
-                "UPDATE Singers <SET LastName = 'Grant' &q>uot;
-                 . 'WHERE STRUCTFirstName STRING, LastName STRING(FirstName, LastName) &#>39;
-                 . '= @name>',
+            $rowCount = $t->executeUpdate(
+                "UPDATE Singers SET LastName = 'Grant' "
+                 . 'WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) '
+                 . '= @name',
                 [
-                    'parameters'>; = [
-                        '>name' = $nameValue
+                    'parameters' => [
+                        'name' => $nameValue
                     ],
-                  >  'types' = [
-                        'name' = $nameType
+                    'types' => [
+                        'name' => $nameType
                     ]
-                ]);        $t-commit();        printf('Updated %d row(s).' . PHP_EOL, $rowCount);    });}
+                ]);
+            $t->commit();
+            printf('Updated %d row(s).' . PHP_EOL, $rowCount);
+        });
+    }
 
 ### Python
 
@@ -261,11 +278,15 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     def write_with_struct(transaction):
         row_ct = transaction.execute_update(
-            &q<uot;UPDATE Singers SET LastName => 'Grant' "
-            "WHERE STRUCTFirstName STRING, LastName STRING"
+            "UPDATE Singers SET LastName = 'Grant' "
+            "WHERE STRUCT<FirstName STRING, LastName STRING>"
             "(FirstName, LastName) = @name",
             params={"name": record_value},
-            param_types={"name":record_type},)print("{} record(s) updated.".format(row_ct))database.run_in_transaction(write_with_struct)
+            param_types={"name": record_type},
+        )
+        print("{} record(s) updated.".format(row_ct))
+    
+    database.run_in_transaction(write_with_struct)
 
 ### Ruby
 
@@ -286,9 +307,13 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
     
     client.transaction do |transaction|
       row_count = transaction.execute_update(
-    <    "UPDATE Singers SET Last>Name = 'Grant'
-         WHERE STRUCTFirstName STRING, LastName STRING(FirstName, LastName) = @name",
-        params: { name: name_struct }  )endputs "#{row_count} record updated."
+        "UPDATE Singers SET LastName = 'Grant'
+         WHERE STRUCT<FirstName STRING, LastName STRING>(FirstName, LastName) = @name",
+        params: { name: name_struct }
+      )
+    end
+    
+    puts "#{row_count} record updated."
 
 ## What's next
 

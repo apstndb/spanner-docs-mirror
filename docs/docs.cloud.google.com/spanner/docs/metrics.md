@@ -991,13 +991,33 @@ Rows scanned count
 *Number of rows that the queries scanned excluding deleted values. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `database` : Target database.
 
-`queue/buffered_ready_message` <sup>BETA</sup> ***(project)***  
+`queue/active_receive_tvf_queries` <sup>BETA</sup> ***(project)***  
+Active receive Table-Valued Function (TVF) queries
+
+`GAUGE` , `INT64` , `1`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Count of active receive table-valued function (TVF) queries in the queue. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
+`database` : Target database.  
+`queue` : Target queue.
+
+`queue/buffered_in_flight_messages` <sup>BETA</sup> ***(project)***  
+Buffered in-flight messages
+
+`GAUGE` , `INT64` , `1`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Count of in-flight messages in the queue that are currently leased and buffered in memory. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
+`database` : Target database.  
+`queue` : Target queue.
+
+`queue/buffered_ready_messages` <sup>BETA</sup> ***(project)***  
 Buffered ready messages
 
 `GAUGE` , `INT64` , `1`  
 **[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
-*Number of buffered ready messages in the queue. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
+*Count of ready messages in the queue that are buffered in memory and available for delivery. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
 `database` : Target database.  
 `queue` : Target queue.
 
@@ -1018,6 +1038,16 @@ Messages acknowledged
 **[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
 
 *Count of messages acknowledged. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
+`database` : Target database.  
+`queue` : Target queue.
+
+`queue/message_payload_sizes` <sup>BETA</sup> ***(project)***  
+Message payload sizes
+
+`DELTA` , `DISTRIBUTION` , `By`  
+**[spanner\_instance](https://docs.cloud.google.com/monitoring/api/resources#tag_spanner_instance)**
+
+*Distribution of message payload sizes in bytes. Sampled every 60 seconds. After sampling, data is not visible for up to 240 seconds.*  
 `database` : Target database.  
 `queue` : Target queue.
 
@@ -1232,7 +1262,7 @@ Transaction latencies
 *Distribution of total seconds takenfrom the first operation of the transaction to commit or abort. Sampled every 60 seconds. After sampling, data is not visible for up to 150 seconds.*  
 `database` : Target database.
 
-<span class="small">Table generated at 2026-09-17 19:38:45 UTC.</span>
+<span class="small">Table generated at 2026-09-25 02:24:56 UTC.</span>
 
 ## What's next
 

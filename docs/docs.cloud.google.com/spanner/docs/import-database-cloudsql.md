@@ -44,7 +44,7 @@ Before you import your database, complete the following prerequisites:
 
 5.  Ensure that Spanner and Cloud SQL are in the same Google Cloud project.
 
-6.  Enable the Dataflow, Cloud Storage, Spanner, Cloud SQL, and Secret Manager APIs.
+6.  Enable the Dataflow, Cloud Storage, Spanner, Cloud SQL, and Secret Manager APIs, if any are not already enabled.
     
     **Roles required to enable APIs**
     

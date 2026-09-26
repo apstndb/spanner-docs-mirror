@@ -14,6 +14,16 @@ This page documents production updates to Spanner Omni. Check this page for anno
 
 You can see the latest product updates for all of Google Cloud on the [Google Cloud](https://docs.cloud.google.com/release-notes) page, browse and filter all release notes in the [Google Cloud console](https://console.cloud.google.com/release-notes) , or programmatically access release notes in [BigQuery](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=google_cloud_release_notes&t=release_notes&page=table) .
 
+## September 17, 2026
+
+Feature
+
+Spanner Omni patch release `2026.r3-beta` is available.
+
+  - This release includes all the Spanner changes up to the [September 3, 2026 release](https://docs.cloud.google.com/spanner/docs/release-notes#September_03_2026) .
+
+  - You must [upgrade to this release](https://docs.cloud.google.com/spanner-omni/upgrade-deployment) before you upgrade to future releases.
+
 ## August 20, 2026
 
 Feature

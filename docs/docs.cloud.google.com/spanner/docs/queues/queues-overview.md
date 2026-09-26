@@ -89,7 +89,7 @@ A typical workflow for Spanner queues follows these steps:
 Additionally, keep in mind these core behaviors of Spanner queues:
 
   - **At-least-once delivery:** common to most cloud-based queue systems, Spanner promises at-least-once delivery. Redeliveries can be mitigated by extending leases.
-  - **At-most-once acknowledgment:** because acknowledging a message happens over a transaction, Spanner [ACID semantics](https://en.wikipedia.org/wiki/ACID) ensure that a message is only acknowledged once. Following the methods on the [Exactly-once processing and at-most-once acknowledgment](https://docs.cloud.google.com/spanner/docs/queues/queues-exactly-once-processing) page to properly implement at-most-once acknowledgment.
+  - **At-most-once acknowledgment:** because acknowledging a message happens over a transaction, Spanner [ACID semantics](https://en.wikipedia.org/wiki/ACID) ensure that a message is only acknowledged once. Following the methods on the [Exactly-once processing and at-most-once acknowledgment](https://docs.cloud.google.com/spanner/docs/queues/queues-at-most-once) page to properly implement at-most-once acknowledgment.
 
 ## Limitations
 
