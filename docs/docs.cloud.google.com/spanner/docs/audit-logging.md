@@ -223,6 +223,7 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Permissions** :
       - `spanner.databases.adapt - DATA_WRITE`
       - `spanner.databases.select - DATA_READ`
+      - `spanner.databases.write - DATA_WRITE`
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.adapter.v1.Adapter.AdaptMessage"`  
 
@@ -376,6 +377,7 @@ The following audit logs are associated with methods belonging to `google.spanne
   - **Method** : `google.spanner.admin.database.v1.DatabaseAdmin.InternalUpdateGraphOperation`  
   - **Audit log type** : [Admin activity](https://docs.cloud.google.com/logging/docs/audit#admin-activity)  
   - **Permissions** :
+      - `spanner.databases.update - PERMISSION_TYPE_UNSPECIFIED`
   - **Method is a long-running or streaming operation** : No.  
   - **Filter for this method** : `protoPayload.methodName="google.spanner.admin.database.v1.DatabaseAdmin.InternalUpdateGraphOperation"`  
 
