@@ -94,6 +94,7 @@ https://docs.cloud.google.com/spanner-omni/cli-quickstart	2026-09-26T09:41:40Z
 https://docs.cloud.google.com/spanner-omni/client-library-overview	2026-09-26T09:41:40Z
 https://docs.cloud.google.com/spanner-omni/create-helm-configuration	2026-09-26T09:41:40Z
 https://docs.cloud.google.com/spanner-omni/create-split-points	2026-09-26T09:41:40Z
+https://docs.cloud.google.com/spanner-omni/debezium	2026-09-28T19:34:40Z
 https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes	2026-09-26T09:41:40Z
 https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms	2026-09-26T09:41:40Z
 https://docs.cloud.google.com/spanner-omni/deploy-multi-cluster-on-kubernetes	2026-09-26T09:41:40Z
@@ -110,7 +111,7 @@ https://docs.cloud.google.com/spanner-omni/go-cassandra	2026-09-26T09:41:40Z
 https://docs.cloud.google.com/spanner-omni/go-sql	2026-09-26T09:41:40Z
 https://docs.cloud.google.com/spanner-omni/gorm	2026-09-26T09:41:20Z
 https://docs.cloud.google.com/spanner-omni/grafana-dashboards	2026-09-26T09:41:20Z
-https://docs.cloud.google.com/spanner-omni/graph-notebook	2026-09-26T09:41:20Z
+https://docs.cloud.google.com/spanner-omni/graph-notebook	2026-09-28T19:34:40Z
 https://docs.cloud.google.com/spanner-omni/hibernate	2026-09-26T09:41:20Z
 https://docs.cloud.google.com/spanner-omni/iam	2026-09-26T09:41:20Z
 https://docs.cloud.google.com/spanner-omni/import-export-data	2026-09-26T09:41:20Z

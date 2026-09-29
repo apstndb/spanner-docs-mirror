@@ -10,43 +10,111 @@ data_source: docs.cloud.google.com
 > 
 > This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
-The Spanner Graph notebook lets you explore your data visually. Using [Graph Query Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro) (GQL) query syntax, you can extract graph insights and relationship patterns, including node and edge properties and neighbor expansion analysis. The tool also provides graph schema metadata visualization, tabular results inspection, and diverse layout topologies.
+The Spanner Graph notebook lets you explore your data visually in a notebook environment (such as Jupyter Notebook or JupyterLab). Using [Graph Query Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro) (GQL) query syntax, you can extract graph insights and relationship patterns, including node and edge properties and neighbor expansion analysis. The tool also provides graph schema metadata visualization, tabular results inspection, and diverse layout topologies.
 
-You can use the notebook to connect to a Spanner Omni deployment. The Spanner Graph notebook supports three security configurations:
+The Spanner Graph notebook supports plain text, TLS, and mutual TLS (mTLS) connections.
 
-  - [Plain text](https://docs.cloud.google.com/spanner-omni/graph-notebook#plain-text)
+## Install the Spanner Graph notebook
 
-  - [Transport Layer Security (TLS)](https://docs.cloud.google.com/spanner-omni/graph-notebook#tls)
+To install the [Spanner Graph notebook](https://github.com/cloudspannerecosystem/spanner-graph-notebook) package (version 1.1.11 or later) in your Python or Jupyter environment, run the following `pip` command:
 
-  - [Mutual TLS (mTLS)](https://docs.cloud.google.com/spanner-omni/graph-notebook#mtls)
+    pip install "spanner-graph-notebook>=1.1.11"
 
-The Preview version of Spanner Omni supports unencrypted deployments. To get the features that let you create deployments with encryption, [contact Google](https://cloud.google.com/consulting/spanner-omni) to request early access to the full version of Spanner Omni.
+## Load the Spanner Graph extension
 
-## Before you begin
+To load the Spanner Graph extension in your Jupyter notebook, use the following command:
 
-Use the [Spanner Graph notebook](https://github.com/cloudspannerecosystem/spanner-graph-notebook) version 1.1.10 or later.
+    %load_ext spanner_graphs
 
-## Initialize a Spanner Graph notebook connection
+## Connect to your database
 
-To initialize a connection to the Spanner Graph notebook, run the `%%spanner_graph --database` command with the parameters for the security configuration you're using.
+To connect to your Spanner Omni database, make sure you've loaded the extension, then use the `%%spanner_graph` cell command:
 
-### Use plain text
+### Plain text
 
-To initialize a connection using plain text communication, run the following command:
+To establish a plain-text connection, run the following:
 
-    %%spanner_graph --database DATABASE_NAME --experimental_host OMNI_ENDPOINT:PORT --use_plain_text
+    %%spanner_graph --instance_type omni --endpoint OMNI_ENDPOINT:PORT --database DATABASE_NAME --use_plain_text
 
-### Use TLS
+Replace the following:
 
-To establish a TLS connection, run the following command:
+  - `  OMNI_ENDPOINT  ` : the hostname or IP address of your Spanner Omni instance.
 
-    %%spanner_graph --database DATABASE_NAME --experimental_host OMNI_ENDPOINT:PORT --ca_certificate PATH_TO_CA_CERT
+  - `  PORT  ` : the port number of your Spanner Omni instance.
 
-### Use mTLS
+  - `  DATABASE_NAME  ` : the name of your Spanner Omni database.
 
-To configure a mutual TLS (mTLS) connection, run the following command:
+### TLS
 
-    %%spanner_graph --database DATABASE_NAME --experimental_host OMNI_ENDPOINT:PORT --ca_certificate PATH_TO_CA_CERT --client_certificate PATH_TO_CLIENT_CERT --client_key PATH_TO_CLIENT_KEY
+To establish a TLS connection, specify the path to the CA certificate:
+
+    %%spanner_graph --instance_type omni --endpoint OMNI_ENDPOINT:PORT --database DATABASE_NAME --ca_certificate PATH_TO_CA_CERT
+
+Replace the following:
+
+  - `  OMNI_ENDPOINT  ` : the hostname or IP address of your Spanner Omni instance.
+
+  - `  PORT  ` : the port number of your Spanner Omni instance.
+
+  - `  DATABASE_NAME  ` : the name of your Spanner Omni database.
+
+  - `  PATH_TO_CA_CERT  ` : the path to your CA certificate file.
+
+### mTLS
+
+To establish an mTLS connection, specify the CA certificate, client certificate, and private client key:
+
+    %%spanner_graph --instance_type omni --endpoint OMNI_ENDPOINT:PORT --database DATABASE_NAME --ca_certificate PATH_TO_CA_CERT --client_certificate PATH_TO_CLIENT_CERT --client_key PATH_TO_CLIENT_KEY
+
+Replace the following:
+
+  - `  OMNI_ENDPOINT  ` : the hostname or IP address of your Spanner Omni instance.
+
+  - `  PORT  ` : the port number of your Spanner Omni instance.
+
+  - `  DATABASE_NAME  ` : the name of your Spanner Omni database.
+
+  - `  PATH_TO_CA_CERT  ` : the path to your CA certificate file.
+
+  - `  PATH_TO_CLIENT_CERT  ` : the path to your client certificate file.
+
+  - `  PATH_TO_CLIENT_KEY  ` : the path to your client private key file.
+
+## Visualize a query
+
+To visualize graph query results in the notebook, your queries must return graph elements in JSON format using the `SAFE_TO_JSON` or `TO_JSON` function. Full graph paths are recommended for data completeness and ease of visualization.
+
+### Example: Return a path as JSON
+
+The following example visualizes the path connecting a person to the accounts they own:
+
+    %%spanner_graph --instance_type omni --endpoint OMNI_ENDPOINT:PORT --database DATABASE_NAME --use_plain_text
+    
+    GRAPH FinGraph
+    MATCH query_path = (person:Person {id: 5})-[owns:Owns]->(accnt:Account)
+    RETURN SAFE_TO_JSON(query_path) AS path_json
+
+### Example: Multi-hop graph query
+
+The following example visualizes a variable-length path (1 to 3 hops) of transfers between accounts:
+
+    %%spanner_graph --instance_type omni --endpoint OMNI_ENDPOINT:PORT --database DATABASE_NAME --use_plain_text
+    
+    GRAPH FinGraph
+    MATCH query_path = (src:Account {id: 9})-[edge:Transfers]->{1,3}(dst:Account)
+    RETURN SAFE_TO_JSON(query_path) AS path_json
+
+### Example: Return multiple paths
+
+The following example returns and visualizes multiple graph paths in a single query:
+
+    %%spanner_graph --instance_type omni --endpoint OMNI_ENDPOINT:PORT --database DATABASE_NAME --use_plain_text
+    
+    GRAPH FinGraph
+    MATCH path_1 = (person:Person {id: 5})-[:Owns]->(accnt:Account),
+          path_2 = (src:Account {id: 9})-[:Transfers]->(dst:Account)
+    RETURN SAFE_TO_JSON(path_1) AS path_1,
+            SAFE_TO_JSON(path_2) AS path_2
 
 ## What's next
 
