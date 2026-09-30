@@ -1,1 +1,5 @@
-
+200 https://docs.cloud.google.com/spanner-omni/deployment-configuration
+200 https://docs.cloud.google.com/spanner-omni/faq
+200 https://docs.cloud.google.com/spanner-omni/manage-workers
+200 https://docs.cloud.google.com/spanner-omni/resources
+200 https://docs.cloud.google.com/spanner-omni/upgrade-deployment

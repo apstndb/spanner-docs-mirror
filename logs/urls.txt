@@ -443,7 +443,7 @@ https://docs.cloud.google.com/spanner/docs/query-optimizer/version-statistics	20
 https://docs.cloud.google.com/spanner/docs/query-optimizer/versions	2026-09-26T09:41:20Z
 https://docs.cloud.google.com/spanner/docs/querydata	2026-09-26T09:41:13Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-at-most-once	2026-09-26T09:41:20Z
-https://docs.cloud.google.com/spanner/docs/queues/queues-examples	2026-09-26T09:41:20Z
+https://docs.cloud.google.com/spanner/docs/queues/queues-examples	2026-09-29T20:36:03Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-overview	2026-09-25T20:50:28Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-using	2026-09-26T09:42:00Z
 https://docs.cloud.google.com/spanner/docs/read-lease	2026-09-26T09:41:13Z

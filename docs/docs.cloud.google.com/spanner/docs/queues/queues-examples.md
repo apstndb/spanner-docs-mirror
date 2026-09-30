@@ -329,6 +329,249 @@ Alternatively, use the client library `Ack` and `Send` mutations. These examples
       });
     }
 
+## Batch messages using temporal batching
+
+Spanner queues deliver messages with minimal latency. However, when high volumes of messages arrive continuously from independent clients, processing each message individually can create high transaction overhead. Trying to query or scan the queue table manually to batch messages can introduce range-locking contention, elevated abort rates, and extra read costs.
+
+To achieve high-throughput batching without contention, apply the **temporal batching** pattern. Senders align the `DeliverTime` of messages to a discrete time window in the future (for example, rounding up to the nearest 10-second boundary). Because independent senders compute an identical future timestamp, Spanner tends to group the messages from the same split together and delivers them in a single batch if `max_batch_size` in the `RECEIVE_ QUEUE_NAME ()` table-valued function allows, or multiple batches if `max_batch_size` is smaller than the number of messages to be delivered.
+
+The delivery timestamp can be calculated with this formula:
+
+$$ \\text{DeliverTime} = \\text{RoundDown}(\\text{CurrentTime}, \\text{FixedDelay}) + \\text{FixedDelay} $$
+
+For example, with a 10-second window, messages enqueued between 09:05:00 and 09:05:09.999 all receive a `DeliverTime` of 09:05:10:
+
+### GoogleSQL
+
+    -- Calculate delivery time rounded to the next 10-second interval.
+    -- Use DIV(..., 10) * 10 to perform the RoundDown in SQL:
+    INSERT INTO OrderProcessingQueue (OrderId, DeliverTime, Payload)
+    VALUES (
+      'order-101',
+      TIMESTAMP_SECONDS(DIV(UNIX_SECONDS(CURRENT_TIMESTAMP()), 10) * 10 + 10),
+      b'{"item": "book", "qty": 1}'
+    );
+
+### PostgreSQL
+
+    -- Calculate delivery time rounded to the next 10-second interval:
+    INSERT INTO orderprocessingqueue (orderid, deliver_time, payload)
+    VALUES (
+      'order-101',
+      to_timestamp((floor(extract(epoch from CURRENT_TIMESTAMP) / 10) * 10) + 10),
+      CAST('{"item": "book", "qty": 1}' AS bytea)
+    );
+
+Receivers then pull these co-timed messages in batches using `max_batch_size` :
+
+### GoogleSQL
+
+    SELECT OrderId, Payload, DeliverTime, SpannerLeaseToken
+    FROM RECEIVE_OrderProcessingQueue(max_duration=>'20m', max_batch_size=>50);
+
+### PostgreSQL
+
+    SELECT orderid, payload, deliver_time, spanner_lease_token
+    FROM spanner.receive_orderprocessingqueue(
+        max_batch_size=>50, priority=>NULL, max_duration=>'20m');
+
+If you send millions of messages at the same time, aligning all messages to the exact same second can cause sudden processing spikes. To distribute the work evenly and still batch messages by entity, add an offset to the calculation based on a unique identifier (such as `TIMESTAMP_ADD(deliver_time, INTERVAL MOD(ABS(FARM_FINGERPRINT(CAST(UserId AS STRING))), 10) SECOND)` ).
+
+## Decouple data modification from processing (dirty flag pattern)
+
+In high-throughput transactional applications, executing complex recomputation, search indexing, or cache invalidation directly inside user-facing transactions can slow down the user experience by increasing latency and causing lock contention on shared rows.
+
+The **dirty flag pattern** decouples data modifications from asynchronous processing. When a transaction modifies a table, it writes a lightweight "dirty bit" message into a queue within the same transaction. A background worker subsequently consumes the message and performs the expensive processing asynchronously.
+
+For example, when a customer makes a profile or settings change:
+
+### GoogleSQL
+
+    -- Inside user profile update transaction:
+    -- 1. Update the primary entity table
+    UPDATE UserProfiles
+    SET FullName = 'Jane Doe', UpdatedAt = CURRENT_TIMESTAMP()
+    WHERE UserId = 456;
+    
+    -- 2. Send lightweight dirty flag message to the queue.
+    -- It is recommended to interleave the queue in the primary UserProfiles
+    -- table for better transaction performance.
+    INSERT INTO UserDirtyQueue (UserId, TaskType, CommitTimestamp, Payload)
+    VALUES (456, 'reindex-user-profile', CURRENT_TIMESTAMP(), b'');
+
+### PostgreSQL
+
+    -- Inside user profile update transaction:
+    -- 1. Update the primary entity table
+    UPDATE userprofiles
+    SET fullname = 'Jane Doe', updatedat = CURRENT_TIMESTAMP
+    WHERE userid = 456;
+    
+    -- 2. Send lightweight dirty flag message to the queue
+    INSERT INTO userdirtyqueue (userid, tasktype, committimestamp, payload)
+    VALUES (456, 'reindex-user-profile', CURRENT_TIMESTAMP, CAST('' AS bytea));
+
+The background receiver for `UserDirtyQueue` receives the `UserId` , reads the fresh profile row outside the user's critical path, and recomputes the search index or updates external caches. Batching can be applied to this pattern as well if multiple updates against the same user are sent to the queue within a short period of time. In that case, the receiver TVF can specify a `max_batch_size` greater than 1 to receive multiple messages from the same batch.
+
+## Monitor worker health and detect timeouts
+
+You can use scheduled queue messages to build a fault-tolerant heartbeat and health-monitoring system for fleets of worker nodes or microservice instances.
+
+To implement health checking:
+
+1.  **Register worker on startup:** When a worker initializes, it inserts a heartbeat message into a health-check queue with a future `DeliverTime` set to its failure deadline (for example, 60 seconds).
+2.  **Send periodic heartbeats:** While healthy, the worker periodically (for example, every 10 seconds) refreshes its heartbeat message by advancing the `DeliverTime` another 60 seconds into the future.
+3.  **Detect failures:** If the worker crashes or loses network connectivity, heartbeat refreshes stop. After 60 seconds, the delivery timestamp matures ( `DeliverTime <= CURRENT_TIMESTAMP()` ), and Spanner delivers the message to an alerting receiver, which initiates failover or task reassignment.
+
+**Important:** Spanner queues do not support `UPDATE` DML statements. Therefore, to refresh the heartbeat timestamp, you must delete the existing message and insert a replacement with the new `DeliverTime` within a single transaction, or apply client library `Ack` and `Send` mutations. Ensure that the queue's primary key is `WorkerId` alone (rather than `(WorkerId, MessageId)` ) so that only one heartbeat message exists per worker at any given time.
+
+### GoogleSQL
+
+    -- Inside the worker heartbeat transaction (executed every 10 seconds):
+    -- 1. Acknowledge the existing heartbeat message
+    DELETE FROM WorkerHealthQueue
+    WHERE WorkerId = 'worker-node-42' ASSERT_ROWS_MODIFIED 1;
+    
+    -- 2. Send replacement heartbeat with refreshed 60-second deadline
+    INSERT INTO WorkerHealthQueue (WorkerId, DeliverTime, Payload)
+    VALUES (
+      'worker-node-42',
+      TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL 60 SECOND),
+      b'{"status": "healthy", "active_jobs": 3}'
+    );
+
+### PostgreSQL
+
+    -- Inside the worker heartbeat transaction (executed every 10 seconds):
+    -- 1. Acknowledge the existing heartbeat message
+    DELETE FROM workerhealthqueue
+    WHERE workerid = 'worker-node-42' ASSERT_ROWS_MODIFIED 1;
+    
+    -- 2. Send replacement heartbeat with refreshed 60-second deadline
+    INSERT INTO workerhealthqueue (workerid, deliver_time, payload)
+    VALUES (
+      'worker-node-42',
+      CURRENT_TIMESTAMP + INTERVAL '60 SECOND',
+      CAST('{"status": "healthy", "active_jobs": 3}' AS bytea)
+    );
+
+When using client library mutations, ensure `Ack` precedes `Send` in the mutation slice, as in this Go example:
+
+    // Worker heartbeat loop
+    func sendHeartbeat(ctx context.Context, client *spanner.Client, workerID string) error {
+        newDeadline := time.Now().Add(60 * time.Second)
+        _, err := client.Apply(ctx, []*spanner.Mutation{
+            spanner.Ack("WorkerHealthQueue", spanner.Key{workerID}),
+            spanner.Send(
+                "WorkerHealthQueue",
+                spanner.Key{workerID},
+                []byte(`{"status":"healthy"}`),
+                spanner.WithDeliveryTime(newDeadline),
+            ),
+        })
+        return err
+    }
+
+When a worker shuts down gracefully, it explicitly deletes its heartbeat message so no false alert is triggered:
+
+    DELETE FROM WorkerHealthQueue WHERE WorkerId = 'worker-node-42' ASSERT_ROWS_MODIFIED 1;
+
+## Handle multiple task types in a single queue
+
+Spanner instances have [limits](https://docs.cloud.google.com/spanner/quotas#queue-limits) on the total number of queues. Creating a separate queue for every small asynchronous operation can quickly hit this limit and requires managing many concurrent receiver queries.
+
+To consolidate operations, combine different task types into a single queue, which is called a **polymorphic queue** . There are two strategies used to create a polymorphic queue.
+
+### Strategy 1: Include a type column in the primary key
+
+### GoogleSQL
+
+    CREATE QUEUE ApplicationTasks (
+      TaskType   STRING(50) NOT NULL,
+      TaskId     STRING(36) NOT NULL,
+      Payload    BYTES(MAX) NOT NULL,
+    ) PRIMARY KEY (TaskType, TaskId);
+    
+    -- Enqueue an email task
+    INSERT INTO ApplicationTasks (TaskType, TaskId, Payload)
+    VALUES ('SEND_EMAIL', 'task-uuid-1', b'{"to": "user@example.com", "template": "welcome"}');
+    
+    -- Enqueue an image thumbnail task
+    INSERT INTO ApplicationTasks (TaskType, TaskId, Payload)
+    VALUES ('GENERATE_THUMBNAIL', 'task-uuid-2', b'{"image_id": "img-789", "size": "small"}');
+
+### PostgreSQL
+
+    CREATE QUEUE applicationtasks (
+      tasktype   varchar(50) NOT NULL,
+      taskid     varchar(36) NOT NULL,
+      payload    bytea NOT NULL,
+      PRIMARY KEY (tasktype, taskid)
+    );
+    
+    -- Enqueue an email task
+    INSERT INTO applicationtasks (tasktype, taskid, payload)
+    VALUES ('SEND_EMAIL', 'task-uuid-1', CAST('{"to": "user@example.com", "template": "welcome"}' AS bytea));
+    
+    -- Enqueue an image thumbnail task
+    INSERT INTO applicationtasks (tasktype, taskid, payload)
+    VALUES ('GENERATE_THUMBNAIL', 'task-uuid-2', CAST('{"image_id": "img-789", "size": "small"}' AS bytea));
+
+The receiver inspects `TaskType` and dispatches the payload to the corresponding handler.
+
+### Strategy 2: Polymorphic payload structure
+
+Alternatively, use a JSON payload containing an action or type discriminator field:
+
+    {
+      "action": "SYNC_INVENTORY",
+      "data": { "item_id": 987, "delta": -1 }
+    }
+
+> **Caution:** avoid combining ultra-fast, latency-sensitive tasks with slow, long-running jobs in the same queue. If long-running tasks occupy receiver workers, they can starve fast tasks and introduce processing latency.
+
+## Implement custom retry delays
+
+Spanner queues automatically retry failed or unacknowledged messages with built-in exponential backoff. However, in scenarios where a message fails due to a known reason with a known duration, or an external rate limit (such as an HTTP 429 response specifying a `Retry-After` header), relying on automatic backoff can cause premature retry attempts that waste CPU resources.
+
+To implement a custom retry delay:
+
+1.  Catch the specific transient failure in your message processor.
+2.  Acknowledge the current message to satisfy the current delivery attempt.
+3.  In the same transaction, send a replacement message with an explicit `DeliverTime` set to the chosen future retry time (in the following example, 5 minutes later).
+
+### GoogleSQL
+
+    -- Inside failure-handling transaction:
+    -- 1. Acknowledge the failed message
+    DELETE FROM OutboundNotificationQueue
+    WHERE NotificationId = 'notif-555' ASSERT_ROWS_MODIFIED 1;
+    
+    -- 2. Reschedule delivery 5 minutes in the future
+    INSERT INTO OutboundNotificationQueue (NotificationId, DeliverTime, Payload)
+    VALUES (
+      'notif-555',
+      TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL 5 MINUTE),
+      b'{"recipient": "user@example.com", "retry_count": 2}'
+    );
+
+### PostgreSQL
+
+    -- Inside failure-handling transaction:
+    -- 1. Acknowledge the failed message
+    DELETE FROM outboundnotificationqueue
+    WHERE notificationid = 'notif-555' ASSERT_ROWS_MODIFIED 1;
+    
+    -- 2. Reschedule delivery 5 minutes in the future
+    INSERT INTO outboundnotificationqueue (notificationid, deliver_time, payload)
+    VALUES (
+      'notif-555',
+      CURRENT_TIMESTAMP + INTERVAL '5 MINUTE',
+      CAST('{"recipient": "user@example.com", "retry_count": 2}' AS bytea)
+    );
+
+This approach allows your application to precisely manage backoff schedules and avoid saturating external APIs during downstream recovery periods.
+
 ## What's next
 
   - Learn how to [use Spanner queues, including best practices and monitoring](https://docs.cloud.google.com/spanner/docs/queues/queues-using) .
