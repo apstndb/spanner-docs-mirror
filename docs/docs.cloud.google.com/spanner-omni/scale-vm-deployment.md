@@ -6,10 +6,6 @@ description: Learn how to scale Spanner Omni VM deployments, including adding ro
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 To handle shifting database traffic or store more partitions, you can adjust the number of server nodes in your virtual machine environment. Use these procedures to manage VM deployments.
 
 ## Before you begin

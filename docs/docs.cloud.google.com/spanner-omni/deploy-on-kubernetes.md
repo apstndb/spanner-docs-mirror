@@ -6,15 +6,9 @@ description: Deploy Spanner Omni on Kubernetes. Configure single-server or regio
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 This document explains how create a Spanner Omni deployment on Kubernetes. This deployment isn't encrypted. If you want to quickly set up a test or proof-of-concept environment to evaluate Spanner Omni, then creating a deployment without encryption is the fastest way to get started because it doesn't require you to configure mTLS or other security measures. However, because of security risks, such as unencrypted network traffic and open access, this configuration isn't recommended for production environments. You can choose between a single-server or a regional deployment across multiple zones.
 
 > **Caution:** Unencrypted deployments are intended for testing only. In production environments, use encrypted deployments. For more information, see [Add TLS encryption to your Kubernetes deployment](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes) .
-
-The [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni doesn't support TLS encryption and stops writing data 90 days after you create a deployment. For early access to the edition with full features, [contact Google](https://cloud.google.com/consulting/spanner-omni) .
 
 ## Before you begin
 
@@ -46,7 +40,7 @@ To run Spanner Omni on a single server on GKE with the monitoring stack, run the
 
 ``` 
   kubectl create ns monitoring
-  helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.4.0 \
+  helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0 \
     --set global.platform=gke \
     --set deployment.singleServer=true \
     --set monitoring.enabled=true \
@@ -62,7 +56,7 @@ To run Spanner Omni on multiple servers in a single zone ( `us-central1-a` ) in 
 
 ``` 
   kubectl create ns monitoring
-  helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.4.0 \
+  helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0 \
     --set global.platform=gke \
     --set deployment.replicasPerZone=5 \
     --set deployment.rootServersPerZone=3 \
@@ -82,7 +76,7 @@ This deployment keeps three copies of data, allowing Spanner Omni to continue wo
 
 ``` 
   kubectl create ns monitoring
-  helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.4.0 \
+  helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0 \
     --set global.platform=gke \
     --set-json 'locations=[{"name":"us-central1","zones":[{"name":"us-central1-a","shortName":"a"},{"name":"us-central1-c","shortName":"b"},{"name":"us-central1-d","shortName":"c"}]}]' \
     --set monitoring.enabled=true \

@@ -2,13 +2,9 @@
 name: documents/docs.cloud.google.com/spanner-omni/differences
 uri: https://docs.cloud.google.com/spanner-omni/differences
 title: Differences between Spanner and Spanner Omni
-description: A downloadable, self-managed version of Spanner. {% setvar launch_stage %}preview{% endsetvar %} {% include "cloud/_shared/_info_launch_stage_disclaimer.html" %}
+description: A downloadable, self-managed version of Spanner.
 data_source: docs.cloud.google.com
 ---
-
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
 Use this document to learn about the key differences between the cloud-based, managed Spanner service and the self-managed, downloadable Spanner Omni database.
 
@@ -56,6 +52,7 @@ Google strives for feature parity between Spanner and Spanner Omni. However, the
 <ul>
 <li>BigQuery integration (for example, <a href="https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries">federation</a> , <a href="https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets">external schema</a> , and exporting data to Spanner Omni using <a href="https://docs.cloud.google.com/bigquery/docs/export-to-spanner">reverse ETL</a> )</li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/write-sql-gemini">Gemini Enterprise Agent Platform in Databases</a> integration</li>
+<li><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#model_statements"><code dir="ltr" translate="no">MODEL</code> DDL statements</a> and <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions">machine learning and AI functions</a></li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview">Data Boost</a></li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/dc-integration">Knowledge Catalog integration</a></li>
 <li><a href="https://docs.cloud.google.com/spanner/docs/geo-partitioning">Geo-partitioning</a></li>

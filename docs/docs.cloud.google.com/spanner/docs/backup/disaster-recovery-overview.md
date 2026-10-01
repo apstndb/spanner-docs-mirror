@@ -6,7 +6,7 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-This document provides information about disaster recovery tools and techniques that help you protect your data from loss and downtime.
+Spanner provides disaster recovery features that help you protect your data against loss, corruption, and regional outages. These tools let you restore databases and maintain business continuity during unexpected disruptions.
 
 ## Spanner disaster recovery features
 

@@ -6,9 +6,7 @@ description: Get started with Spanner Omni by running a single-server container.
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
+> [Download Spanner Omni](https://docs.cloud.google.com/spanner-omni/download) to try it out at no charge. If you decide you want to use Spanner Omni for production use, [contact Google](https://cloud.google.com/consulting/spanner-omni) to learn about acquiring a license for the [commercial edition](https://docs.cloud.google.com/spanner-omni/editions-overview#commercial-edition) .
 
 This quickstart explains how to get started with Spanner Omni and explore some of its features by running a single-server container.
 
@@ -22,7 +20,7 @@ To set up and run a Spanner Omni container, follow these steps:
 
 2.  Start the Spanner Omni server:
     
-        docker run -d --network host --name spanneromni -v "spanner:/spanner" us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r3-beta start-single-server
+        docker run -d --network host --name spanneromni -v "spanner:/spanner" us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r4-lts start-single-server
     
     The `--network host` flag opens the ports for Spanner Omni on the host machine. The following table describes the ports used by Spanner Omni:
     

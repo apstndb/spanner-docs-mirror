@@ -74,7 +74,8 @@ After the transaction commits, the receiver for `UserTasks` streams the message,
       deliver_time,
       spanner_lease_expiration_timestamp,
       spanner_lease_token
-    FROM spanner.receive_usertasks(NULL, NULL, '20m');
+    FROM spanner.receive_usertasks(
+        max_batch_size=>NULL, priority=>NULL, max_duration=>'20m');
     
     -- 2. After sending the welcome email, acknowledge the message
     DELETE FROM usertasks

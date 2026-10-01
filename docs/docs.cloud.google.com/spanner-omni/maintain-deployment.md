@@ -6,10 +6,6 @@ description: Learn how to perform maintenance on Spanner Omni deployments, inclu
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 This document explains how you can maintain a Spanner Omni deployment. Maintaining a Spanner Omni deployment includes routine health checks, decommissioning unhealthy elements, and replacing server nodes or faulty disks to ensure cluster stability and consistency. Managing database health protects your databases from unplanned outages and maintains the redundancy of the underlying Paxos consensus group.
 
 Performing maintenance helps you:

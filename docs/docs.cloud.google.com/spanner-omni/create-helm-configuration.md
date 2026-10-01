@@ -6,10 +6,6 @@ description: Configure Helm for Spanner Omni insecure deployments on Kubernetes.
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 This document explains how to create a Helm configuration for Spanner Omni on Kubernetes.
 
 ## Overview
@@ -28,7 +24,7 @@ To create a Helm chart configuration, do the following:
 
 1.  Use the `helm show values` command to review the configuration options available for creating a deployment:
     
-        helm show values oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.4.0
+        helm show values oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0
     
     The documentation for creating a deployment uses the `--set` flag to specify various options. You can also specify these options in a YAML file and use the `-f` flag in the `helm` command. For ease of deployment, the Helm template includes the `global.platform` property, which determines the default values for the `StorageClass` , service annotations, and other settings based on the platform.
 

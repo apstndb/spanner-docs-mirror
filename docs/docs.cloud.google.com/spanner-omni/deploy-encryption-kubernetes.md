@@ -2,17 +2,11 @@
 name: documents/docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes
 uri: https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes
 title: Create a deployment with TLS encryption on Kubernetes
-description: A downloadable, self-managed version of Spanner. {% setvar launch_stage %}preview{% endsetvar %} {% include "cloud/_shared/_info_launch_stage_disclaimer.html" %}
+description: A downloadable, self-managed version of Spanner.
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 Spanner Omni uses TLS 1.3 to encrypt data that flows between the client and server, and between Spanner Omni servers. Spanner Omni provides mTLS for enhanced security where both parties establish the authenticity of each other before exchanging any data. If you use encryption, then your servers must communicate over mTLS. You can choose whether your client and server also use mTLS.
-
-The [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni doesn't support TLS encryption and stops writing data 90 days after you create a deployment. For early access to the edition with full features, [contact Google](https://cloud.google.com/consulting/spanner-omni) .
 
 ## Before you begin
 
@@ -103,20 +97,43 @@ If you plan to use client certificates with the Java client library, you must ge
     USERNAME=admin
     ./google/spanner/bin/spanner certificates create-client $USERNAME --output-directory clientcerts --ca-certificate-directory certs --generate-pkcs8-key
 
-## Step 2: Push the certificates to the Kubernetes cluster
+## Step 2: Push the certificates and admin password to the Kubernetes cluster
 
-Run the following commands to push the certificates to your Kubernetes cluster:
+Run the following commands to create the namespace and push the certificates and admin password to your Kubernetes cluster:
 
-    kubectl create namespace NAMESPACE
+1.  Create the namespace:
     
-    kubectl create secret generic tls-certs \
-      --from-file=ca.crt="certs/ca.crt" \
-      --from-file=ca-api.crt="certs/ca-api.crt" \
-      --from-file=server.crt="certs/server.crt" \
-      --from-file=server.key="certs/server.key" \
-      --from-file=api.crt="certs/api.crt" \
-      --from-file=api.key="certs/api.key" \
-      -n NAMESPACE
+        kubectl create namespace NAMESPACE
+
+2.  Push the TLS certificates to a secret:
+    
+        kubectl create secret generic tls-certs \
+          --from-file=ca.crt="certs/ca.crt" \
+          --from-file=ca-api.crt="certs/ca-api.crt" \
+          --from-file=server.crt="certs/server.crt" \
+          --from-file=server.key="certs/server.key" \
+          --from-file=api.crt="certs/api.crt" \
+          --from-file=api.key="certs/api.key" \
+          -n NAMESPACE
+
+3.  Create a password file containing the password for the default `admin` user, with restricted permissions (readable only by its owner, permissions 600):
+    
+        printf '%s' 'PASSWORD' > admin_password.txt
+        chmod 600 admin_password.txt
+    
+    The password must meet the following requirements:
+    
+      - Between 8 and 32 characters in length.
+      - At least one uppercase character.
+      - At least one lowercase character.
+      - At least one number.
+      - At least one special character.
+
+4.  Create a secret for the administrator password:
+    
+        kubectl create secret generic spanner-admin-password \
+          --from-file=password=admin_password.txt \
+          -n NAMESPACE
 
 ## Step 3: Create the deployment with TLS encryption
 
@@ -126,7 +143,7 @@ Follow these steps to create your deployment with TLS encryption.
 
 Refer to [Create a Helm chart configuration](https://docs.cloud.google.com/spanner-omni/create-helm-configuration) and create the deployment configuration for your environment.
 
-To enable TLS, set the following values in your Helm chart configuration:
+To enable TLS and configure the administrator password, set the following values in your Helm chart configuration:
 
     # Enables TLS
     global:
@@ -135,6 +152,8 @@ To enable TLS, set the following values in your Helm chart configuration:
     # Enables client certificate authentication (mTLS)
     deployment:
       enableClientCertificateAuthentication: true
+      # Name of the secret containing the administrator password
+      adminPasswordSecret: spanner-admin-password
 
 ### 2\. Create the deployment
 
@@ -147,6 +166,7 @@ Run the following command to create the deployment:
       --set global.platform=gke \
       --set global.insecureMode=false \
       --set deployment.enableClientCertificateAuthentication=true \
+      --set deployment.adminPasswordSecret=spanner-admin-password \
       --namespace NAMESPACE \
       --set monitoring.enabled=true
 
@@ -174,7 +194,11 @@ This step is required if you want clients to connect from outside the Kubernetes
     # The EXTERNAL-IP:PORT is the API or deployment endpoint for your deployment.
     # Update the API certificate with these details.
     OMNI_ENDPOINT=EXTERNAL_IP,spanner.NAMESPACE.svc
-    ./google/spanner/bin/spanner certificates update --filename_prefix=api --hostnames=${OMNI_ENDPOINT} --ca_certificate_directory certs --output_directory certs --overwrite
+    ./google/spanner/bin/spanner certificates update \
+        --certificate-file=certs/api.crt \
+        --certificate-key-file=certs/api.key \
+        --hostnames=${OMNI_ENDPOINT} \
+        --ca-certificate-directory=certs
     
     # Update the secrets in Kubernetes
     kubectl patch secret tls-certs -n NAMESPACE -p "{\"data\":{\"api.crt\":\"$(base64 -w 0 certs/api.crt)\"}}"
@@ -189,14 +213,15 @@ If you enabled mTLS for clients, use the following flags with each command:
 
   - ` --ca-certificate-file= API_CA_CERT_FILE_PATH  `
 
-### 1\. Log in to Spanner Omni
+### 1\. Log in to Spanner Omni (optional)
 
-Run the following command to log in:
+Log in to Spanner Omni (this step is optional if you use client certificates):
 
-    ./google/spanner/bin/spanner auth login admin --ca-certificate-file=certs/ca-api.crt \
-    --client-certificate_directory=clientcerts --deployment-endpoint=DEPLOYMENT_ENDPOINT
+    ./google/spanner/bin/spanner auth login admin \
+        --ca-certificate-file=certs/ca-api.crt \
+        --deployment-endpoint=DEPLOYMENT_ENDPOINT
 
-The default password is `admin` .
+When prompted, enter the password configured in `admin_password.txt` .
 
     Successfully logged in as "admin"
 

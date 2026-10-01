@@ -2,13 +2,9 @@
 name: documents/docs.cloud.google.com/spanner-omni/iam
 uri: https://docs.cloud.google.com/spanner-omni/iam
 title: IAM overview
-description: A downloadable, self-managed version of Spanner. {% setvar launch_stage %}preview{% endsetvar %} {% include "cloud/_shared/_info_launch_stage_disclaimer.html" %}
+description: A downloadable, self-managed version of Spanner.
 data_source: docs.cloud.google.com
 ---
-
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
 [Identity and Access Management (IAM)](https://docs.cloud.google.com/iam/docs/overview) lets you control user access to Spanner Omni resources. For example, a user can have full control of a specific database, but cannot create or modify other databases in your deployment. Using IAM lets you grant a permission to a user without having to modify each Spanner Omni database permission individually.
 

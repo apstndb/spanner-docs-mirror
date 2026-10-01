@@ -6,10 +6,6 @@ description: Understand how Spanner Omni achieves external consistency using sof
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 Spanner Omni achieves external consistency in self-managed environments by implementing a software-based version of the TrueTime API. This system relies on a cluster-based architecture to provide authoritative timestamps, ensuring that transactions reflect a strict serial order across your infrastructure.
 
 To maintain accurate and consistent timestamps and serializability, configure a primary time server and host-based clients that calculate time intervals based on network latency and clock drift. Monitor your deployment's performance through specific metrics and verify that your underlying hardware meets the required specifications for clock rate error and timestamp synchronization.

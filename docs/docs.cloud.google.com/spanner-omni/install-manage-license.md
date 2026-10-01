@@ -6,15 +6,13 @@ description: Learn how to store, install, update, and verify a Spanner Omni lice
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
+> [Download Spanner Omni](https://docs.cloud.google.com/spanner-omni/download) to try it out at no charge. If you decide you want to use Spanner Omni for production use, [contact Google](https://cloud.google.com/consulting/spanner-omni) to learn about acquiring a license for the [commercial edition](https://docs.cloud.google.com/spanner-omni/editions-overview#commercial-edition) .
 
 This document explains how you store and handle your license key, install it in your deployment, update expiring keys, and verify the installation across all nodes.
 
-To use advanced features in Spanner Omni—such as TLS/mTLS encryption, audit logging, and backup and restore—or to run a production environment, you must install a Spanner Omni license key.
+To run a production environment, you must install a commercial Spanner Omni license key. In a non-production environment, you can use backup and restore features by deploying Spanner Omni in a single-server configuration of four vCPUs or fewer without a license key. The workers feature isn't supported under the Default or Developer license, regardless of how many servers or vCPUs are used. To purchase a commercial license to use workers, [contact Google](https://cloud.google.com/consulting/spanner-omni) .
 
-To learn about available license types, editions, and features, see [Spanner Omni editions overview](https://docs.cloud.google.com/spanner-omni/editions-overview#editions-comparison) .
+To learn about available license types, editions, and features, see [Spanner Omni editions overview](https://docs.cloud.google.com/spanner-omni/editions-overview#compare-editions-licenses) .
 
 ## Store your license key
 
@@ -40,13 +38,13 @@ Use the following techniques to deliver the license key to database processes wi
 
 #### VM-based deployments (cloud or on-premises)
 
-  - **IAM-based injection:** Associate your database VMs with a managed service account or IAM role. During startup or provisioning (for example, with Ansible), use this identity to retrieve the license key from your secret manager into memory or a directory with restricted access.
+  - **Identity and Access Management (IAM)-based injection:** Associate your database VMs with a managed service account or IAM role. During startup or provisioning (for example, with Ansible), use this identity to retrieve the license key from your secret manager into memory or a directory with restricted access.
   - **Operating system permissions:** If you write the key to disk, restrict file access so only the user running the Spanner Omni process can view the file (for example, `chmod 400 /path/to/license` ). Severely restrict SSH access to the host machines.
 
 #### Kubernetes deployments
 
   - **Use the Secrets Store CSI Driver:** Use the standard [Secrets Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/) to mount your license key directly from your external secret manager into Spanner Omni pods as a temporary memory volume ( `tmpfs` ). The credential exists only in memory and disappears when the pod terminates.
-  - **Avoid built-in Kubernetes Secrets:** Do not use built-in Kubernetes Secrets, which only use base64 encoding and persist in etcd.
+  - **Avoid built-in Kubernetes Secrets:** Don't use built-in Kubernetes Secrets, which only use base64 encoding and persist in etcd.
 
 ## Install the license key
 
@@ -57,10 +55,10 @@ To pass the path of the license key to the server, use the `--license-file-path`
 For example:
 
     spanner start --root \
+      --license-file-path=LICENSE_KEY_FILE_PATH \
       --server-address=RESOLVABLE_HOSTNAME \
       --zone=ZONE_NAME \
-      --base-dir=SPANNER_BASE_DIR \
-      --license-file-path=LICENSE_KEY_FILE_PATH
+      --base-dir=SPANNER_BASE_DIR
 
 Or, use the environment variable to supply the license path:
 
@@ -72,16 +70,16 @@ Or, use the environment variable to supply the license path:
 
 Replace the following:
 
+  - `  LICENSE_KEY_FILE_PATH  ` : The local path to your license key file.
   - `  RESOLVABLE_HOSTNAME  ` : The resolvable hostname or IP address of the node server.
   - `  ZONE_NAME  ` : The zone name for the deployment.
   - `  SPANNER_BASE_DIR  ` : The base directory where the server files are stored.
-  - `  LICENSE_KEY_FILE_PATH  ` : The local path to your license key file.
 
 Alternatively, you can place the license key in the path where the server expects it: `BASE_DIR/license/license` . For Kubernetes deployments, `BASE_DIR` defaults to `/spanner` .
 
 ### Update an expiring license
 
-To update or replace an expiring license across an active deployment, supply the path to the new license and initiate a *rolling restart* of your Spanner Omni servers:
+To update, extend, or renew an expiring Developer edition license across an active deployment, [request a perpetual license](https://forms.gle/Ex9NcszwJFuHbtnB9) . To extend an expiring proof-of-concept license or purchase a commercial license, [contact Google](https://cloud.google.com/consulting/spanner-omni) . After you receive the new license, supply its path and initiate a *rolling restart* of your Spanner Omni servers:
 
 1.  Make the new license file accessible to each node.
 2.  Perform a rolling restart by restarting one server node at a time.
@@ -109,6 +107,35 @@ Because you install the license key on every active server node in a cluster, yo
 Replace the following:
 
   - `  SERVER_ADDRESS  ` : The address of the server node.
+
+### Run a cluster-wide audit
+
+To verify that all nodes across your VM cluster or Kubernetes StatefulSet have the correct license key installed, run the cluster-wide audit command:
+
+    spanner admin license check
+
+A cluster-wide audit inspects every server in the database topology. Because of this, ensure that all node servers are online and network-accessible before you run this command.
+
+#### Interpret the audit results
+
+Use the following table to understand the results of the cluster-wide audit:
+
+| Cluster state               | Output type                             | Description and action required                                                                                                                                                          |
+| --------------------------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Uniform (expected)**      | Single license identifier               | All nodes are using the same license key and type. No further action is required.                                                                                                        |
+| **Mixed (action required)** | List of license identifiers and servers | Different license keys are detected across nodes (for example, during a stalled rolling update). Investigate the listed nodes to ensure the new license file has been correctly applied. |
+
+## Maintain Commercial license compliance
+
+If you use a Spanner Omni [commercial license](https://docs.cloud.google.com/spanner-omni/editions-overview#commercial-license) , you must maintain compliance with your license agreement. Maintaining compliance helps prevent billing disputes and tracks and reports your cluster resource usage to Google. Complete the following steps to maintain compliance with a Spanner Omni Commercial license agreement:
+
+1.  Run the Spanner Omni Usage Tool at the end of each billing cycle to collect cluster vCPU usage metrics:
+    
+        spanner admin license report --row-format=CSV
+
+2.  Work with your Technical Account Manager (TAM) or Google account team to confirm your organization's preferred submission channel.
+
+3.  Submit the resulting payload to Google by the 5th of the following month.
 
 ## What's next
 

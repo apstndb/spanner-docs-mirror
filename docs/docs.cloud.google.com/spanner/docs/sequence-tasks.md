@@ -59,8 +59,7 @@ The following code example creates a sequence `Seq` , uses it in the primary key
       if (!metadata) throw std::move(metadata).status();
       std::cout << "Created `Seq` sequence and `Customers` table,"
                 << " where the key column `CustomerId`"
-                << " uses the sequence as a default value,"
-                << " new DDL:\n"
+                << " uses the sequence as a default value," << " new DDL:\n"
                 << metadata->DebugString();
       auto commit = client.Commit(
           [&client](google::cloud::spanner::Transaction txn)
@@ -568,8 +567,7 @@ The following code example creates a sequence `Seq` , uses it in the primary key
       if (!metadata) throw std::move(metadata).status();
       std::cout << "Created `Seq` sequence and `Customers` table,"
                 << " where the key column `CustomerId`"
-                << " uses the sequence as a default value,"
-                << " new DDL:\n"
+                << " uses the sequence as a default value," << " new DDL:\n"
                 << metadata->DebugString();
       auto commit = client.Commit(
           [&client](google::cloud::spanner::Transaction txn)
@@ -2040,8 +2038,7 @@ The following code example alters the table `Customers` to remove the sequence `
       if (!metadata) throw std::move(metadata).status();
       std::cout << "Altered `Customers` table to"
                 << " drop DEFAULT from `CustomerId` column,"
-                << " and dropped the `Seq` sequence,"
-                << " new DDL:\n"
+                << " and dropped the `Seq` sequence," << " new DDL:\n"
                 << metadata->DebugString();
     }
 
@@ -2350,8 +2347,7 @@ The following code example alters the table `Customers` to remove the sequence `
       if (!metadata) throw std::move(metadata).status();
       std::cout << "Altered `Customers` table to"
                 << " drop DEFAULT from `CustomerId` column,"
-                << " and dropped the `Seq` sequence,"
-                << " new DDL:\n"
+                << " and dropped the `Seq` sequence," << " new DDL:\n"
                 << metadata->DebugString();
     }
 

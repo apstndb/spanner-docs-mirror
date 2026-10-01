@@ -2,17 +2,13 @@
 name: documents/docs.cloud.google.com/spanner-omni/download
 uri: https://docs.cloud.google.com/spanner-omni/download
 title: Download Spanner Omni
-description: A downloadable, self-managed version of Spanner. {% setvar launch_stage %}preview{% endsetvar %} {% include "cloud/_shared/_info_launch_stage_disclaimer.html" %}
+description: A downloadable, self-managed version of Spanner.
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
+> [Download Spanner Omni](https://docs.cloud.google.com/spanner-omni/download) to try it out at no charge. If you decide you want to use Spanner Omni for production use, [contact Google](https://cloud.google.com/consulting/spanner-omni) to learn about acquiring a license for the [commercial edition](https://docs.cloud.google.com/spanner-omni/editions-overview#commercial-edition) .
 
 This document provides links and instructions to download Spanner Omni components, including container images, Helm charts, and standalone binaries.
-
-The [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni doesn't support TLS encryption. To get the features that let you create deployments with TLS encryption, [contact Google](https://cloud.google.com/consulting/spanner-omni) to request early access to the full version of Spanner Omni.
 
 ## Container images
 
@@ -32,17 +28,17 @@ Specify the exact version tag when pulling a container image.
 
 The following table lists the available container image versions.
 
-| Version tag    | Release date       |
-| -------------- | ------------------ |
-| `2026.r3-beta` | September 17, 2026 |
+| Version tag   | Release date       |
+| ------------- | ------------------ |
+| `2026.r4-lts` | September 30, 2026 |
 
-For example, to download the `spanner-omni` image for the 2026.r3-beta release, run the following command:
+For example, to download the `spanner-omni` image for the 2026.r4-lts release, run the following command:
 
-    docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r3-beta
+    docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r4-lts
 
 ## Helm charts
 
-Artifact Registry hosts Helm charts for Spanner Omni deployments at `us-docker.pkg.dev/spanner-omni/charts` . These charts support various deployment topologies, from single-server to multi-cluster. For more information, see [Create a Helm chart configuration for Spanner Omni](https://docs.cloud.google.com/spanner-omni/create-helm-configuration) .
+Helm charts for Spanner Omni deployments are hosted in Artifact Registry at `us-docker.pkg.dev/spanner-omni/charts` and are available as open source in the [Spanner Omni GitHub repository](https://github.com/GoogleCloudPlatform/spanner-omni) . These charts support various deployment topologies, from single-server to multi-cluster. For more information, see [Create a Helm chart configuration for Spanner Omni](https://docs.cloud.google.com/spanner-omni/create-helm-configuration) .
 
 Specify the exact version tag when you download a chart.
 
@@ -52,11 +48,15 @@ The following table lists the available Helm chart versions.
 
 | Version tag | Release date    |
 | ----------- | --------------- |
-| `0.4.0`     | August 20, 2026 |
+| `1.0.0`     | August 20, 2026 |
 
-For example, to download the Helm chart for version 0.4.0, run the following command:
+For example, to download the Helm chart for version 1.0.0 from Artifact Registry, run the following command:
 
-    helm pull oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.4.0
+    helm pull oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0
+
+To clone the open-source Helm charts from GitHub, run the following command:
+
+    git clone https://github.com/GoogleCloudPlatform/spanner-omni.git
 
 ## Standalone binaries
 
@@ -68,24 +68,24 @@ Each release is in a folder named after the version tag.
 
 The following table lists the available Spanner Omni server and component packages.
 
-| Filename                                               | Description                                                                     |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| `spanner-omni-2026.r3-beta-linux-x86_64.tar.gz`        | Spanner Omni server, Spanner Omni CLI, and Spanner Omni console for Linux (x86) |
-| `spanner-omni-server-2026.r3-beta-linux-x86_64.tar.gz` | Spanner Omni server and Spanner Omni CLI for Linux (x86)                        |
-| `spanner-omni-ui-2026.r3-beta-linux-x86_64.tar.gz`     | Spanner Omni console for Linux (x86)                                            |
+| Filename                                              | Description                                                                     |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `spanner-omni-2026.r4-lts-linux-x86_64.tar.gz`        | Spanner Omni server, Spanner Omni CLI, and Spanner Omni console for Linux (x86) |
+| `spanner-omni-server-2026.r4-lts-linux-x86_64.tar.gz` | Spanner Omni server and Spanner Omni CLI for Linux (x86)                        |
+| `spanner-omni-ui-2026.r4-lts-linux-x86_64.tar.gz`     | Spanner Omni console for Linux (x86)                                            |
 
 ### Spanner Omni CLI binaries
 
 The following table lists the available Spanner Omni CLI binaries.
 
-| Filename                                             | Description                           |
-| ---------------------------------------------------- | ------------------------------------- |
-| `spanner-omni-cli-2026.r3-beta-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
-| `spanner-omni-cli-2026.r3-beta-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
-| `spanner-omni-cli-2026.r3-beta-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
-| `spanner-omni-cli-2026.r3-beta-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
+| Filename                                            | Description                           |
+| --------------------------------------------------- | ------------------------------------- |
+| `spanner-omni-cli-2026.r4-lts-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
+| `spanner-omni-cli-2026.r4-lts-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
+| `spanner-omni-cli-2026.r4-lts-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
+| `spanner-omni-cli-2026.r4-lts-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
 
 For example, to download the current version of the Spanner Omni CLI for Linux (x86), run the following command:
 
     # Download CLI for Linux (x86)
-    curl -O https://storage.googleapis.com/spanner-omni/2026.r3-beta/spanner-omni-cli-2026.r3-beta-linux-x86_64.tar.gz
+    curl -O https://storage.googleapis.com/spanner-omni/2026.r4-lts/spanner-omni-cli-2026.r4-lts-linux-x86_64.tar.gz

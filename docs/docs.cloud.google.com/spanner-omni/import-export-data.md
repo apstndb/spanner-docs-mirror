@@ -6,10 +6,6 @@ description: Learn how to import and export data in Spanner Omni using Avro and 
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 This document describes how to migrate, back up, and transfer data in Spanner Omni using Avro and CSV formats. Use the Spanner Omni CLI to move database content between Spanner Omni and storage solutions such as Cloud Storage, Amazon Simple Storage Service (Amazon S3), S3-compatible local storage, or local file systems (NFS). The import and export data flows in Spanner Omni don't support models, locality groups, or placements.
 
 Import and export operations run on Spanner Omni servers and share available system resources. Importing is resource-intensive and can cause high RAM, CPU, and disk usage, which might affect active workloads. While these tasks usually run at a lower priority than regular traffic, you should monitor your deployment for potential performance impacts.

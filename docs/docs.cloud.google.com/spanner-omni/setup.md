@@ -6,9 +6,7 @@ description: Learn how to set up Spanner Omni using a TAR file or a Docker conta
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
+> [Download Spanner Omni](https://docs.cloud.google.com/spanner-omni/download) to try it out at no charge. If you decide you want to use Spanner Omni for production use, [contact Google](https://cloud.google.com/consulting/spanner-omni) to learn about acquiring a license for the [commercial edition](https://docs.cloud.google.com/spanner-omni/editions-overview#commercial-edition) .
 
 This page describes how to start Spanner Omni in single-server mode. You can either install it using a TAR file or run it as a container using Docker.
 
@@ -30,7 +28,7 @@ We recommend storing Spanner data in a [Docker volume](https://docs.docker.com/s
     
         docker volume create spanner
 
-2.  Start the Spanner Omni server container. Replace VERSION\_TAG with the Spanner Omni version you want to use. The current version is `2026.r3-beta` .
+2.  Start the Spanner Omni server container. Replace VERSION\_TAG with the Spanner Omni version you want to use. The current version is `2026.r4-lts` .
     
         docker run -d --network host \
             --name spanneromni \

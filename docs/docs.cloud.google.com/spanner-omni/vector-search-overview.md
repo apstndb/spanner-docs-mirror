@@ -2,19 +2,15 @@
 name: documents/docs.cloud.google.com/spanner-omni/vector-search-overview
 uri: https://docs.cloud.google.com/spanner-omni/vector-search-overview
 title: Spanner Omni vector search overview
-description: A downloadable, self-managed version of Spanner. {% setvar launch_stage %}preview{% endsetvar %} {% include "cloud/_shared/_info_launch_stage_disclaimer.html" %}
+description: A downloadable, self-managed version of Spanner.
 data_source: docs.cloud.google.com
 ---
-
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
 Vector search in Spanner Omni is a high-performance, built-in feature that enables semantic search and similarity matching on high-dimensional vector data. By storing and indexing vector embeddings directly within your transactional database, Spanner Omni eliminates separate vector databases and complex extract, transform, load (ETL) pipelines.
 
 The topics in this document apply to Spanner Omni in the same way they apply to Spanner.
 
-## Vector search overview
+## How vector search works
 
 Vector search lets you find semantically similar items by representing data as numerical vectors (embeddings). Spanner Omni supports two primary search methods:
 
@@ -30,7 +26,7 @@ Vector search is especially powerful when combined with other features:
 | Vector search + full-text search | Combine semantic similarity with keyword precision using reciprocal rank fusion (RRF) for improved search relevance.           |
 | Vector + graph                   | Use vector search to find relevant entry points (nodes) in a property graph and then traverse complex relationships.           |
 
-For more information, see the [Spanner vector search overview](https://docs.cloud.google.com/spanner/docs/vector-search-overview) in the Spanner documentation.
+For more information, see [Spanner vector search overview](https://docs.cloud.google.com/spanner/docs/vector-search-overview) in the Spanner documentation.
 
 ## Perform K-nearest neighbors search
 
@@ -64,11 +60,11 @@ For more information, see [Choose among vector distance functions](https://docs.
 
 ANN search is designed for very large datasets where exact KNN search becomes too slow or expensive. It uses a vector index to provide fast results with a small tradeoff in recall.
 
-Approximate nearest neighbor (ANN) search in Spanner Omni supports datasets of up to 1 million vectors for vectors up to 128 dimensions in length. If your vectors have more dimensions, then the supported number of vectors decreases proportionately.
+Without dedicated compute workers, ANN search in Spanner Omni supports datasets of up to 1 million vectors for vectors up to 128 dimensions in length. If your vectors have more dimensions, then the supported number of vectors decreases proportionally. Spanner Omni supports larger tables when you deploy workers to build your vector indexes. For more information, see [Create and manage vector indexes](https://docs.cloud.google.com/spanner-omni/vector-search-overview#create-manage-vector-indexes) .
 
 ### Perform ANN search with vector indexes
 
-To perform an ANN search, you use approximate distance functions such as `APPROX_COSINE_DISTANCE()` , `APPROX_EUCLIDEAN_DISTANCE()` , or `APPROX_DOT_PRODUCT()` . These functions require:
+To perform an ANN search, use approximate distance functions such as `APPROX_COSINE_DISTANCE()` , `APPROX_EUCLIDEAN_DISTANCE()` , or `APPROX_DOT_PRODUCT()` . These functions require:
 
   - An existing vector index on the embedding column.
 
@@ -80,7 +76,7 @@ For more information, see [Find approximate nearest neighbors (ANN) and query ve
 
 ### Create and manage vector indexes
 
-When creating a vector index, you must specify the `vector_length` of your embedding column and can use the `STORING` clause to include additional columns for faster filtering.
+When creating a vector index, specify the `vector_length` of your embedding column and use the `STORING` clause to include additional columns for faster filtering.
 
 The following is an example of how to create a vector index:
 
@@ -89,6 +85,32 @@ The following is an example of how to create a vector index:
       OPTIONS (distance_type = 'DISTANCE_TYPE', tree_depth = 2, num_leaves = 1000);
 
 For more information, see [Create and manage vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) in the Spanner documentation.
+
+Building vector indexes on large tables that exceed the limits in [Approximate nearest neighbors (ANN)](https://docs.cloud.google.com/spanner-omni/vector-search-overview#ann) requires dedicated compute workers to offload processing from your Spanner Omni servers. For more information, see [Deploy and manage workers](https://docs.cloud.google.com/spanner-omni/manage-workers) .
+
+> **Note:** If you create a vector index on a large table without an active worker, the index creation operation pauses without progress until a worker is available. Spanner Omni lets you create an index without an active worker so that you can deploy workers only when required and decommission them immediately after index creation completes.
+
+### Use sampling when creating a vector index
+
+For large datasets—such as tables with tens of millions of rows or more—you can reduce vector index creation time by specifying a sampling percentage. Use the `clustering_sampling_percentage` option in the `CREATE VECTOR INDEX` statement to sample a subset of the dataset when you build the initial index tree.
+
+As a general guideline, aim for at least 50 sampled rows per leaf. For example, for a 10-million-row dataset with 10,000 leaves, a 5% sampling rate ( `clustering_sampling_percentage = 5` ) samples 500,000 rows, or 50 rows per leaf, as the following example shows:
+
+    CREATE VECTOR INDEX VectorIndex
+      ON BaseTable(Embedding)
+      WHERE Embedding IS NOT NULL
+      OPTIONS (
+        tree_depth = 3,
+        num_leaves = 10000,
+        num_branches = 100,
+        leaf_scatter_factor = 32,
+        distance_type = 'COSINE',
+        min_branch_splits = 10,
+        min_leaf_splits = 10,
+        clustering_sampling_percentage = 5
+      );
+
+Compared to building an index on the full dataset without sampling, sampling increases query latency and CPU usage per query for the same target recall. Increasing the sampling percentage increases index creation time, but reduces query latency and CPU cost per query. Choose a sampling percentage that balances index creation time and query performance based on the compute resources that are available for index creation.
 
 ### Vector indexing best practices
 

@@ -2,17 +2,33 @@
 name: documents/docs.cloud.google.com/spanner-omni/release-notes
 uri: https://docs.cloud.google.com/spanner-omni/release-notes
 title: Spanner Omni release notes
-description: A downloadable, self-managed version of Spanner. {% setvar launch_stage %}preview{% endsetvar %} {% include "cloud/_shared/_info_launch_stage_disclaimer.html" %}
+description: A downloadable, self-managed version of Spanner.
 data_source: docs.cloud.google.com
 ---
-
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
 This page documents production updates to Spanner Omni. Check this page for announcements about new or updated features, bug fixes, known issues, and deprecated functionality.
 
 You can see the latest product updates for all of Google Cloud on the [Google Cloud](https://docs.cloud.google.com/release-notes) page, browse and filter all release notes in the [Google Cloud console](https://console.cloud.google.com/release-notes) , or programmatically access release notes in [BigQuery](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=google_cloud_release_notes&t=release_notes&page=table) .
+
+## September 30, 2026
+
+Feature
+
+Spanner Omni is generally available ( [GA](https://cloud.google.com/products#product-launch-stages) ) with long-term support (LTS) release `2026.r4-lts` . For more information, see the [Spanner Omni overview](https://docs.cloud.google.com/spanner-omni/overview) .
+
+Release `2026.r4-lts` includes the following updates:
+
+  - Includes all Spanner changes up to the [September 18, 2026 release](https://docs.cloud.google.com/spanner/docs/release-notes#September_18_2026) , including [Spanner queues](https://docs.cloud.google.com/spanner/docs/queues/queues-overview) .
+
+  - Release `2026.r4-lts` is a long-term support (LTS) release, and Google supports this release with security fixes for up to one year. For information about upgrading from release `2026.r3-beta` , see [Upgrade a deployment](https://docs.cloud.google.com/spanner-omni/upgrade-deployment) .
+
+  - Supports approximate nearest neighbor (ANN) vector search for datasets of up to 1 billion vectors using dedicated, stateless compute workers in the [Commercial edition](https://docs.cloud.google.com/spanner-omni/editions-overview#commercial-edition) . For more information, see [Vector search overview](https://docs.cloud.google.com/spanner-omni/vector-search-overview#ann) and [Create and manage workers](https://docs.cloud.google.com/spanner-omni/manage-workers) .
+
+  - Supports security configurations, including TLS and mutual TLS (mTLS) encryption and authentication, in the [Developer edition](https://docs.cloud.google.com/spanner-omni/editions-overview#developer-edition) . For more information, see [Spanner Omni editions overview](https://docs.cloud.google.com/spanner-omni/editions-overview) , [Create a deployment with TLS encryption on VMs](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms) , and [Create a deployment with TLS encryption on Kubernetes](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes) .
+
+  - Updates the [Helm chart](https://docs.cloud.google.com/spanner-omni/create-helm-configuration) to use separate `StatefulSet` configurations for root and non-root servers. For more information, see [Create a deployment on Kubernetes](https://docs.cloud.google.com/spanner-omni/deploy-on-kubernetes) and [Scale a Kubernetes deployment](https://docs.cloud.google.com/spanner-omni/scale-kubernetes-deployment) .
+
+  - Supports username and password login authentication over TLS in the [Java](https://docs.cloud.google.com/spanner-omni/java) (version 6.119.0 or later), [Go](https://docs.cloud.google.com/spanner-omni/go) (version v1.94.0 or later), and [Python](https://docs.cloud.google.com/spanner-omni/python) (version 3.72.0 or later) client libraries.
 
 ## September 17, 2026
 

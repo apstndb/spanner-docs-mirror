@@ -6,10 +6,6 @@ description: List and describe all supported SQL shell commands
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 > **PostgreSQL interface note:** For PostgreSQL-dialect databases, you can use the [psql command-line tool](https://docs.cloud.google.com/spanner/docs/psql-commands) . The examples in this document are intended for GoogleSQL-dialect databases.
 
 This document summarizes SQL shell commands supported by Spanner Omni. Spanner Omni and Spanner support the same SQL shell commands.

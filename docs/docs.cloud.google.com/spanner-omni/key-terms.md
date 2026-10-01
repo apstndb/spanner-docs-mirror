@@ -2,13 +2,9 @@
 name: documents/docs.cloud.google.com/spanner-omni/key-terms
 uri: https://docs.cloud.google.com/spanner-omni/key-terms
 title: Spanner Omni key terms
-description: Understand Spanner Omni key terms and concepts.
+description: A downloadable, self-managed version of Spanner.
 data_source: docs.cloud.google.com
 ---
-
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
 This document defines the core concepts and deployment topologies for Spanner Omni. It covers the hierarchical relationship between regions, zones, and servers, and explains how these components relate to data replication and storage within a deployment.
 
@@ -22,7 +18,7 @@ A deployment of Spanner Omni, which lets you use the databases in your data cent
 
 ### Deployment configuration
 
-Provides the placement and specification of regions, zones, and servers for your Spanner Omni deployment. You can choose a single server, single region, or multi-region deployment configuration.
+Provides the placement and specification of regions, zones, and servers for your Spanner Omni deployment. You can choose a single server, single region, or multi-region deployment configuration. For more information, see [Deployment configurations](https://docs.cloud.google.com/spanner-omni/deployment-configuration) .
 
 ### Location
 
@@ -46,7 +42,7 @@ Root servers store critical metadata to support the zone. For example, the root 
 
 The number of root servers per zone must be an odd number between one and nine, inclusive, to ensure quorum for consistency. If the number of servers is an even number, deployments might fail. When configuring your zones, designate servers as root servers. We recommend that you use one for development or testing and three for highly available production zones.
 
-Consider the number of root servers carefully while planning the deployment. While you can change the number of root servers in the deployment after you create it, we don't recommend it.
+Consider the number of root servers carefully while planning the deployment. While you can change the number of root servers in the deployment after you create it, we don't recommend doing so.
 
 #### Non-root servers
 
@@ -63,3 +59,7 @@ The permanent storage attached to the server.
 ### Zone
 
 A group of one or more servers. For data replication, you should create one zone per replica. For on-premises deployments, we recommend minimizing infrastructure sharing (VMs, disks) between zones. For cloud deployments, align zones to the availability zones in AWS, or zones in Google Cloud.
+
+### Worker
+
+A dedicated, stateless compute node designed to offload background and resource-intensive operations, such as building vector indexes on large tables. Workers are available in the Commercial edition of Spanner Omni and are billed at the same compute rate as servers in the deployment. The Developer edition doesn't support workers. Unlike servers, workers don't host user data, serve user traffic, participate in leader elections, or belong to a specific zone; instead, they register with a location. For more information, see [Deploy and manage workers](https://docs.cloud.google.com/spanner-omni/manage-workers) .

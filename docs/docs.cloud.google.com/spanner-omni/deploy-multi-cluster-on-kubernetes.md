@@ -6,10 +6,6 @@ description: Learn how to create a Spanner Omni deployment across multiple Kuber
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 This document describes how to set up a Spanner Omni deployment across multiple Kubernetes clusters. You can deploy Spanner Omni with or without TLS encryption. If you use encryption, then Spanner Omni uses Transport Layer Security (TLS) 1.3 to encrypt and authenticate communication within the deployment and with its clients.
 
 A deployment without TLS encryption has the following security risks:
@@ -18,8 +14,6 @@ A deployment without TLS encryption has the following security risks:
   - There is no network encryption between the client and the server or between the pods.
 
 Because of these risks, avoid a deployment that's not configured with TLS encryption for production environments.
-
-The [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni doesn't support TLS encryption and stops writing data 90 days after you create a deployment. For early access to the edition with full features, [contact Google](https://cloud.google.com/consulting/spanner-omni) .
 
 ## Before you begin
 
@@ -153,7 +147,7 @@ The following commands install a Helm chart on clusters. In each command, PATH\_
 
 #### Install a chart in `us-west1` with monitoring enabled
 
-    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.4.0 \
+    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0 \
       -f PATH_TO_HELM_CONFIG_FILE \
       --namespace spanner-ns-usw1 \
       --set currentLocation=us-west1 \
@@ -163,7 +157,7 @@ The following commands install a Helm chart on clusters. In each command, PATH\_
 
 #### Install a chart in `us-west2` without monitoring
 
-    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.4.0 \
+    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0 \
       -f  PATH_TO_HELM_CONFIG_FILE \
       --namespace spanner-ns-usw2 \
       --set currentLocation=us-west2 \
@@ -172,7 +166,7 @@ The following commands install a Helm chart on clusters. In each command, PATH\_
 
 #### Install a chart in `us-west3` without monitoring
 
-    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 0.4.0 \
+    helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0 \
       -f  PATH_TO_HELM_CONFIG_FILE \
       --namespace spanner-ns-usw3 \
       --set currentLocation=us-west3 \

@@ -2,13 +2,9 @@
 name: documents/docs.cloud.google.com/spanner-omni/graph-notebook
 uri: https://docs.cloud.google.com/spanner-omni/graph-notebook
 title: Explore graph data with the Spanner Graph notebook
-description: A downloadable, self-managed version of Spanner. {% setvar launch_stage %}preview{% endsetvar %} {% include "cloud/_shared/_info_launch_stage_disclaimer.html" %}
+description: A downloadable, self-managed version of Spanner.
 data_source: docs.cloud.google.com
 ---
-
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
 The Spanner Graph notebook lets you explore your data visually in a notebook environment (such as Jupyter Notebook or JupyterLab). Using [Graph Query Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro) (GQL) query syntax, you can extract graph insights and relationship patterns, including node and edge properties and neighbor expansion analysis. The tool also provides graph schema metadata visualization, tabular results inspection, and diverse layout topologies.
 

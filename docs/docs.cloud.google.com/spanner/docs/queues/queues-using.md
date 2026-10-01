@@ -124,7 +124,8 @@ Use the `RECEIVE_ QUEUE_NAME ()` table-valued function (TVF) with `ExecuteStream
       deliver_time,
       spanner_lease_expiration_timestamp,
       spanner_lease_token
-    FROM spanner.receive_usertasks(NULL, NULL, '20m');
+    FROM spanner.receive_usertasks(
+        max_batch_size=>NULL, priority=>NULL, max_duration=>'20m');
 
 Your client code should iterate through the results using a streaming query. Each returned row is a message.
 
@@ -158,7 +159,8 @@ To increase throughput by processing multiple messages together, you can receive
       spanner_lease_token,
       spanner_last_batch_message -- Special boolean column returns TRUE if the
                                  -- last message is in a batch.
-    FROM spanner.receive_usertasks(20, NULL, '20m');
+    FROM spanner.receive_usertasks(
+        max_batch_size=>20, priority=>NULL, max_duration=>'20m');
 
 Alternatively, use the client library. This Go example demonstrates how to stream messages from a queue, verify lease expiration, and acknowledge messages asynchronously:
 

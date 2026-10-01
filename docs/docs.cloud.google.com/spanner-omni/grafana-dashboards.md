@@ -6,10 +6,6 @@ description: Learn about the Grafana dashboards and charts available to monitor 
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 Monitor the health and performance of your Spanner Omni deployments with Grafana dashboards. These dashboards visualize Spanner Omni metrics ingested into Prometheus, providing comprehensive insights into your deployment's operational state. You gain visibility into overall system health, resource consumption, and critical internal processes.
 
 ## Dashboard inventory

@@ -10,7 +10,7 @@ data_source: docs.cloud.google.com
 > 
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-This document describes how you can use [Gemini Code Assist](https://docs.cloud.google.com/gemini/docs/databases/overview) to get AI-powered assistance with the following in Spanner:
+This document describes how you can get AI-powered assistance with the following in Spanner:
 
   - [Generate SQL queries using natural language prompts.](https://docs.cloud.google.com/spanner/docs/write-sql-gemini#generate-sql-queries-using-natural-language-prompts)
   - [Explain SQL queries in the query editor.](https://docs.cloud.google.com/spanner/docs/write-sql-gemini#explain-sql-in-query-editor)
@@ -18,8 +18,6 @@ This document describes how you can use [Gemini Code Assist](https://docs.cloud.
 Learn [how and when Gemini for Google Cloud uses your data](https://docs.cloud.google.com/gemini/docs/discover/data-governance) .
 
 This document is intended for database administrators and data engineers who are familiar with Spanner, SQL, and data analysis. If you're new to Spanner, see [Create and query a database by using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console) .
-
-> **Note** : Coding assistance is part of Gemini Code Assist and is available at no charge until it's included in Gemini Code Assist Standard edition. This change will be communicated at a later date. At that time, you will need to acquire a [Gemini Code Assist Standard edition license](https://docs.cloud.google.com/gemini/docs/codeassist/set-up-gemini#purchase-subscription) to continue to use coding assistance in Spanner Studio.
 
 ## Before you begin
 
@@ -117,7 +115,7 @@ You can use Gemini in Spanner to explain SQL queries in natural language. This e
 
 ## Use Gemini to fix errors in queries
 
-> **Preview — [Gemini Code Assist](https://docs.cloud.google.com/gemini/docs/overview)**
+> **Preview — [Gemini](https://docs.cloud.google.com/gemini/docs/overview) in Spanner**
 > 
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . You can process personal data for this feature as outlined in the [Cloud Data Processing Addendum](https://docs.cloud.google.com/terms/data-processing-addendum) , subject to the obligations and restrictions described in the agreement under which you access Google Cloud. Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 

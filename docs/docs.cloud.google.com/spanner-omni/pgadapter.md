@@ -6,10 +6,6 @@ description: Learn how to connect to Spanner Omni using PGAdapter with plain tex
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 This document describes how to connect to Spanner Omni using PGAdapter. You configure PGAdapter to establish secure connections. PGAdapter supports plain text, [Transport Layer Security (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) , TLS with credentials, and [mutual TLS (mTLS)](https://docs.cloud.google.com/load-balancing/docs/mtls) connections. These security configurations protect your data during transmission by providing varying levels of encryption and authentication. Each configuration requires specific client settings to ensure data integrity and confidentiality.
 
 You can run PGAdapter as a standalone process or integrate it directly into your application. For interactive management and manual query execution, connect to your database using standard PostgreSQL tools like `psql` . For building automated applications, use PostgreSQL-compatible drivers like the following:

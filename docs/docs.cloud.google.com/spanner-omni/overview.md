@@ -6,31 +6,17 @@ description: Learn about the features, topologies, and system requirements for S
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
+> [Download Spanner Omni](https://docs.cloud.google.com/spanner-omni/download) to try it out at no charge. If you decide you want to use Spanner Omni for production use, [contact Google](https://cloud.google.com/consulting/spanner-omni) to learn about acquiring a license for the [commercial edition](https://docs.cloud.google.com/spanner-omni/editions-overview#commercial-edition) .
 
 [Video](https://www.youtube.com/watch?v=qSofdwoow2c)
 
-Spanner Omni is a downloadable version of Spanner that lets you deploy Google's distributed database technology across on-premises data centers, public clouds, and on your laptop. It delivers core Spanner capabilities, including horizontal scalability, high availability, ACID compliance, and strong external consistency, by using Paxos-based replication, automatic sharding, and the software-defined TrueTime API.
+Spanner Omni is a deploy-anywhere version of Spanner that lets you run Google's distributed database technology across on-premises data centers, public clouds, such as Google Cloud, Amazon Web Services (AWS), and on your laptop. It delivers core Spanner capabilities, including horizontal scalability, high availability, ACID compliance, and strong external consistency, by using Paxos-based replication, automatic sharding, and the software-defined TrueTime API.
 
 Spanner Omni integrates relational, graph, vector, and key-value data models with full-text and operational analytics capabilities. Like Spanner, Spanner Omni supports [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview) , and [Spanner Graph Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro) . You can achieve cross environment resilience, application portability, and a consistent development stack across various environments. Spanner Omni supports deployment options that include:
 
   - Virtual machines
   - Linux containers
   - Kubernetes clusters
-
-## Spanner Omni Preview version limitations
-
-The [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni includes the core functionality in Spanner with the following notable exceptions:
-
-  - Enterprise security features and TLS encryption aren't supported.
-
-  - Spanner Omni stops writing data 90 days after you create a deployment.
-
-  - [Backups](https://docs.cloud.google.com/spanner-omni/backups) and [restores](https://docs.cloud.google.com/spanner-omni/restores) aren't supported.
-
-For early access to the edition with full features, [contact Google](https://cloud.google.com/consulting/spanner-omni) .
 
 ## Key features
 
@@ -52,7 +38,7 @@ Spanner Omni provides the following features:
 
 Spanner Omni uses a hierarchy of regions, zones, and servers to define its deployment configuration. Spanner Omni offers the following deployment configurations:
 
-  - **Single server** - Spanner Omni runs on a single machine. This topology is a good option for local development because it runs on a single machine. Upgrades to this topology cause downtime.
+  - **Single server** - Spanner Omni runs on a single machine. This topology is a good option for local development. Spanner Omni lets you use the [backup and restore](https://docs.cloud.google.com/spanner-omni/backup-restore) feature without restrictions if deployed in a single server configuration with four vCPUs or fewer. Upgrades to this topology cause downtime.
 
   - **Single-zone (or zonal)** - All Spanner Omni servers are part of one zone. Use a minimum of three servers for this deployment configuration. For optimal uptime, this topology has lower availability targets because a single-zone failure can cause an outage.
 

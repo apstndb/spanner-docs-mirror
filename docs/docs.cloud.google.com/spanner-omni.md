@@ -8,7 +8,7 @@ data_source: docs.cloud.google.com
 
 # Spanner Omni documentation
 
-Spanner Omni is a self-managed version of Spanner that you can run in your own environment—on-premises or on other clouds. It provides the same industry-leading consistency and scalability as the Google Cloud service.
+Spanner Omni is a self-managed version of Spanner that you can run in your own environment—on-premises or on other clouds. It provides the same industry-leading consistency and scalability as the Google Cloud service. [Download Spanner Omni](https://docs.cloud.google.com/spanner-omni/download) to try it out at no charge. If you decide you want to use Spanner Omni for production use, [contact Google](https://cloud.google.com/consulting/spanner-omni) to learn about acquiring a license for the [commercial edition](https://docs.cloud.google.com/spanner-omni/editions-overview#commercial-edition) .
 
 [Go to the Spanner Omni product page for more.](https://cloud.google.com/products/spanner/omni)
 
@@ -39,3 +39,5 @@ info
   - [Release notes](https://docs.cloud.google.com/spanner-omni/release-notes)
 
   - [Pricing](https://cloud.google.com/products/spanner/omni?e=48754805#pricing)
+
+  - [Frequently asked questions](https://docs.cloud.google.com/spanner-omni/faq)

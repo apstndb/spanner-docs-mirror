@@ -2,13 +2,9 @@
 name: documents/docs.cloud.google.com/spanner-omni/restores
 uri: https://docs.cloud.google.com/spanner-omni/restores
 title: Restore a Spanner Omni backup
-description: A downloadable, self-managed version of Spanner. {% setvar launch_stage %}preview{% endsetvar %} {% include "cloud/_shared/_info_launch_stage_disclaimer.html" %}
+description: A downloadable, self-managed version of Spanner.
 data_source: docs.cloud.google.com
 ---
-
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
 
 You can restore a backup of a Spanner Omni database into a new database. The restored database has all the data and schema information from the original database at the `versionTime` of the backup, including all database options you set with the `ALTER DATABASE SET OPTIONS` command.
 
@@ -21,8 +17,6 @@ The following items aren't included in a restored database:
   - Time to live (TTL) defined by a row deletion policy. You must reconfigure these policies after the restore completes.
 
   - Split points you create when pre-splitting a database.
-
-The [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni doesn't support [backups](https://docs.cloud.google.com/spanner-omni/backups) or restores. To get the features that let you create backups and restore from backups, [contact Google](https://cloud.google.com/consulting/spanner-omni) to request early access to the full version of Spanner Omni.
 
 ## How restoration works
 

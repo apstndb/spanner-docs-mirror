@@ -6,10 +6,6 @@ description: Learn about authentication and authorization for secure deployments
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 This document describes how secure Spanner Omni deployments control access through authentication and authorization. You create and manage users, and assign them roles that define their permissions. Users can authenticate using one of the following methods:
 
   - **Password authentication** : Uses the [OPAQUE](https://datatracker.ietf.org/doc/html/rfc9807) password protocol. This protocol enhances security by providing signed access tokens for subsequent requests.

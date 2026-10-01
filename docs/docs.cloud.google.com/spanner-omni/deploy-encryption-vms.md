@@ -6,21 +6,15 @@ description: Describes how to add TLS encryption to a deployment of Spanner Omni
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 This document describes how to add TLS encryption to a Spanner Omni deployment on virtual machines (VMs). A deployment with network security features uses Transport Layer Security (TLS) 1.3 to encrypt and authenticate communication within the deployment and with its clients. Spanner Omni provides mutual TLS (mTLS) for enhanced security, where both parties establish authenticity before exchanging data. mTLS is optional between the client and the server, but Spanner Omni servers communicate with each other over mTLS.
-
-The [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni doesn't support TLS encryption and stops writing data 90 days after you create a deployment. For early access to the edition with full features, [contact Google](https://cloud.google.com/consulting/spanner-omni) .
 
 ## Before you begin
 
 Before you begin, ensure your environment meets the following requirements:
 
-  - Ensure you have SSH access to each machine in the deployment. This access lets you download and run the Spanner Omni binary.
+  - Make sure you have SSH access to each machine in the deployment. This access lets you download and run the Spanner Omni binary.
 
-  - Your network must allow TCP communication on ports 15000 through 15025.
+  - Your network must allow TCP communication on ports 15000 through 15030.
 
   - Each machine must have sufficient storage to host the data the deployment handles.
 
@@ -121,22 +115,37 @@ If you plan to use the client certificates with the Java client library, you mus
         --ca-certificate-directory certs \
         --generate-pkcs8-key
 
-## Step 4: Restart the servers
+## Step 4: Start the servers
 
-After you generate the certificates and copy them to all servers in your deployment, restart each server.
+After you generate the certificates and copy them to all servers in your deployment, start each server. Create a base directory on each server to store data, metadata, and logs. If a server needs to restart, specify the same directory for continuity.
 
 ### Single server deployment
 
-For single server deployments, run the following command to configure your server with TLS:
+To start a single-server deployment with encryption, create a password file for the initial `admin` user and start the server with your supported authentication methods and certificates.
 
-    nohup spanner start-single-server \
-        --base-dir=BASE_DIR \
-        --certificate-directory=${HOME}/.spanner/certs &
+1.  Create the password file with permissions set to 600 so that it's readable by only its owner:
+    
+        printf '%s' 'PASSWORD' > admin_password.txt
+        chmod 600 admin_password.txt
+    
+    The password must meet the following requirements:
+    
+      - Between 8 and 32 characters in length.
+      - At least one uppercase character.
+      - At least one lowercase character.
+      - At least one number.
+      - At least one special character.
 
-Next, run the following command to start and configure the server with your supported authentication methods.
-
-    spanner deployment update --secure-mode=true \
-        --auth-methods=password,client-certificate --password-protocol=opaque
+2.  Start the single server with TLS and authentication configured:
+    
+        nohup spanner start-single-server \
+            --base-dir=BASE_DIR \
+            --certificate-directory=${HOME}/.spanner/certs \
+            --auth-methods=password,client-certificate \
+            --password-protocol=opaque \
+            --initial-admin-password-file=admin_password.txt &
+    
+    On initial startup, `spanner start-single-server` sets the supported authentication methods and password protocol, and creates the initial admin `user with the` roles/spanner.admin\` role using the specified password file.
 
 For information about interacting with your deployment, see [Step 7: Interact with the deployment](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#interact-deployment) .
 
@@ -164,36 +173,45 @@ With the servers now running on each machine, you are ready to create the deploy
 
 ## Step 5: Create a deployment with TLS encryption
 
-Run the `spanner deployment create` command from one of the root servers to create the deployment. To enable TLS encryption, specify the base directory with the `--base-dir` flag. Ensure that you use the same BASE\_DIR that you specified when starting the root server in the previous step.
+To create the deployment, follow these steps:
 
-    spanner deployment create \
-        --config-file=deployment.yaml \
-        --base-dir=BASE_DIR
+1.  Create a password file containing the password for the default `admin` user with its permissions set to 600 (readable by only its owner):
+    
+        printf '%s' 'PASSWORD' > admin_password.txt
+        chmod 600 admin_password.txt
+    
+    The password must meet the following requirements:
+    
+      - Between 8 and 32 characters in length.
+      - At least one uppercase character.
+      - At least one lowercase character.
+      - At least one number.
+      - At least one special character.
 
-To specify the default password for the `admin` user, set the `--admin-password-file` flag to the path for a file with permissions 600 that contains a valid password. A valid password must be between 8-32 characters and include at least one of each of the following:
+2.  Ensure that `deployment.yaml` includes your selected authentication methods and password protocol:
+    
+        deployment_settings:
+          security_settings:
+            authentication_methods:
+              - AUTHENTICATION_METHOD_PASSWORD
+              - AUTHENTICATION_METHOD_CLIENT_CERTIFICATE
+            password_authentication_protocol: PASSWORD_AUTHENTICATION_PROTOCOL_OPAQUE
+    
+    You can specify one or more of the following authentication methods:
+    
+      - `AUTHENTICATION_METHOD_PASSWORD` : password authentication
+      - `AUTHENTICATION_METHOD_CLIENT_CERTIFICATE` : client certificate authentication
+    
+    You can specify the following password protocol:
+    
+      - `PASSWORD_AUTHENTICATION_PROTOCOL_OPAQUE` : OPAQUE protocol
 
-  - An uppercase character
-  - A lowercase character
-  - A number
-  - A special character (not any of the above)
-
-The `deployment.yaml` file must include your selected authentication methods and your password protocol:
-
-    deployment_settings:
-      security_settings:
-        authentication_methods:
-          - AUTHENTICATION_METHOD_PASSWORD
-          - AUTHENTICATION_METHOD_CLIENT_CERTIFICATE
-        password_authentication_protocol: PASSWORD_AUTHENTICATION_PROTOCOL_OPAQUE
-
-You can specify one or more of the following authentication methods:
-
-  - `AUTHENTICATION_METHOD_PASSWORD` : password authentication
-  - `AUTHENTICATION_METHOD_CLIENT_CERTIFICATE` : client certificate authentication
-
-You can specify the following password protocol:
-
-  - `PASSWORD_AUTHENTICATION_PROTOCOL_OPAQUE` : OPAQUE protocol
+3.  Run the `spanner deployment create` command from one of the root servers to create the deployment. Specify the base directory with the `--base-dir` flag (using the same BASE\_DIR specified when starting the root server), and provide the administrator password file with the `--admin-password-file` flag:
+    
+        spanner deployment create \
+            --config-file=deployment.yaml \
+            --base-dir=BASE_DIR \
+            --admin-password-file=admin_password.txt
 
 The console for each machine shows messages indicating that the deployment now includes TLS encryption. All servers communicate with each other over an encrypted channel.
 
@@ -233,7 +251,7 @@ To sign in and interact with your deployment, follow these steps:
             --ca-certificate-file=certs/ca-api.crt \
             --deployment-endpoint=ENDPOINT
     
-    The default password is `admin` .
+    When prompted, enter the password configured in `admin_password.txt` .
     
         Successfully logged in as "admin"
     

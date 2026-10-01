@@ -6,15 +6,9 @@ description: Set up an insecure Spanner Omni deployment on VMs. Understand risks
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 This document explains how to deploy Spanner Omni on virtual machines (VMs). This deployment doesn't have encryption. If you want to quickly set up a test or proof-of-concept environment to evaluate Spanner Omni, then creating an insecure deployment is the fastest way to get started because it doesn't require you to configure mTLS or other security measures. However, because of security risks, such as unencrypted network traffic and open access, we don't recommend this configuration for production environments. You can choose between a single-server or a regional deployment across multiple zones.
 
 > **Caution:** Unencrypted deployments are intended for testing only. In production environments, use encrypted deployments. For more information, see [Create a deployment with TLS encryption on VMs](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms) .
-
-The [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni doesn't support TLS encryption and stops writing data 90 days after you create a deployment. For early access to the edition with full features, [contact Google](https://cloud.google.com/consulting/spanner-omni) .
 
 ## Before you begin
 
@@ -44,7 +38,7 @@ Spanner Omni uses a hierarchy of locations, zones, and servers to define its dep
 
   - **Multiple Locations, Multiple Zones** : The deployment runs on multiple servers distributed across multiple locations and multiple zones.
 
-For more information, see [Spanner Omni key terms](https://docs.cloud.google.com/spanner-omni/key-terms) and [Spanner Omni deployment configurations](https://docs.cloud.google.com/spanner-omni/overview#deployment-topologies) .
+For more information, see [Spanner Omni key terms](https://docs.cloud.google.com/spanner-omni/key-terms) and [Spanner Omni deployment configurations](https://docs.cloud.google.com/spanner-omni/deployment-configuration) .
 
 For any deployment other than a single server, create a YAML configuration file named `deployment.yaml` that defines the topology. Only specify the root servers in this file. Add non-root servers later.
 

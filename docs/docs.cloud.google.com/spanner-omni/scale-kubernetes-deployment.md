@@ -6,10 +6,6 @@ description: Learn how to scale Spanner Omni deployments on Kubernetes, includin
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 Kubernetes environments let you scale your database resources dynamically as workload demands change. Use these scaling procedures if you deployed Spanner Omni using the Helm chart.
 
 ## Before you begin
@@ -46,7 +42,7 @@ To adjust the CPU or memory resources for your servers, update your configuratio
 Replace the following:
 
   - `  HELM_CHART_PATH  ` : The path to your Helm chart, for example, `oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni` .
-  - `  VERSION  ` : The version of the Helm chart, for example, `0.4.0` .
+  - `  VERSION  ` : The version of the Helm chart, for example, `1.0.0` .
   - `  CPU_CORES  ` : The number of vCPU cores to assign to each server pod, for example, `8` .
   - `  MEMORY_LIMIT  ` : The RAM limit for each server pod, for example, `32Gi` .
   - `  NAMESPACE  ` : The Kubernetes namespace of the deployment, for example, `spanner-ns` .
@@ -72,7 +68,7 @@ To scale each zone in the deployment to 15 servers, run the following command:
 Replace the following:
 
   - `  HELM_CHART_PATH  ` : The path to your Helm chart—for example, `oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni` .
-  - `  VERSION  ` : The version of the Helm chart—for example, `0.4.0` .
+  - `  VERSION  ` : The version of the Helm chart—for example, `1.0.0` .
   - `  REPLICAS  ` : The target number of server replicas per zone—for example, `15` .
   - `  NAMESPACE  ` : The Kubernetes namespace—for example, `spanner-ns` .
 
@@ -234,7 +230,7 @@ To expand your disk storage, perform the following steps:
       - `  NAMESPACE  ` : The Kubernetes namespace—for example, `spanner-ns` .
       - `  STATEFULSET_NAME_1  ` , `  STATEFULSET_NAME_2  ` , ...: The names of the [StatefulSets](https://docs.cloud.google.com/kubernetes-engine/docs/concepts/statefulset) in your deployment, typically corresponding to the short names of your zones (for example, `spanner-east-b spanner-east-c` ).
       - `  HELM_CHART_PATH  ` : The path to your Helm chart—for example, `oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni` .
-      - `  VERSION  ` : The version of the Helm chart—for example, `0.4.0` .
+      - `  VERSION  ` : The version of the Helm chart—for example, `1.0.0` .
 
 2.  Run the commands to patch the PVCs, delete the StatefulSets (leaving the backend pods intact), and upgrade the Helm deployment:
     

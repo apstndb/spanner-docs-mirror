@@ -6,13 +6,7 @@ description: Learn how to use the Spanner Omni console to monitor the health and
 data_source: docs.cloud.google.com
 ---
 
-> **Preview**
-> 
-> This product or feature is a preview offering subject to the "Pre-GA Offerings Terms" in the [General Service Terms](https://cloud.google.com/terms/service-terms) section of the Service Specific Terms, and can only be used for the purposes of developing, testing, prototyping, and demonstrating software programs. It cannot be used for any data processing or commercial purposes. Pre-GA products and features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products#product-launch-stages) .
-
 Spanner Omni includes the Spanner Omni console that shows the health and other important information about your deployments.
-
-The Spanner Omni console supports unencrypted deployments running the [Preview](https://cloud.google.com/products#product-launch-stages) version of Spanner Omni. To get the features that let you create deployments with TLS encryption, [contact Google](https://cloud.google.com/consulting/spanner-omni) to request early access to the full version of Spanner Omni. For deployments that use TLS encryption, use [Prometheus alerts](https://docs.cloud.google.com/spanner-omni/prometheus-alerts) and [Grafana](https://docs.cloud.google.com/spanner-omni/grafana-dashboards) dashboards to monitor your deployments.
 
 ## Start the Spanner Omni console
 
@@ -29,6 +23,26 @@ To start the Spanner Omni console with a single-server deployment:
 3.  Start the Spanner Omni console. If you are using containers, run the following command:
     
         docker exec -it spanneromni /google/spanner/bin/omni-jre/bin/java -jar /google/spanner/bin/spanner-console
+    
+    The Spanner Omni console uses the same flags that the Spanner Omni CLI uses.
+    
+      - To run with TLS, use:
+        
+            docker exec -it spanneromni /google/spanner/bin/omni-jre/bin/java -jar \
+                /google/spanner/bin/spanner-console \
+                --ca-certificate-file=PATH_TO_CA_FILE
+    
+      - To run with mTLS, use:
+        
+            docker exec -it spanneromni /google/spanner/bin/omni-jre/bin/java -jar \
+                /google/spanner/bin/spanner-console \
+                --ca-certificate-file=PATH_TO_CA_FILE \
+                --client-certificate-directory=PATH_TO_CLIENT_CERT_DIR
+    
+    Replace the following:
+    
+      - `  PATH_TO_CA_FILE  ` : the path to the Certificate Authority (CA) certificate file.
+      - `  PATH_TO_CLIENT_CERT_DIR  ` : the path to the client certificate directory.
 
 4.  In your browser, go to `http://localhost:15026` to access the Spanner Omni console.
 
@@ -50,11 +64,17 @@ The **Overview** page is the central dashboard for your Spanner Omni deployment.
 
 #### Deployment information
 
-This section lists the key identifiers for your deployment:
+This section lists details for your deployment:
 
   - **Deployment ID** : A unique identifier for your current Spanner Omni deployment. You specify this ID when you create the deployment.
 
-  - **Database Version** : The specific version of the Spanner Omni software that you are running (for example, `2026.r1-beta` ).
+  - **Database version** : The specific version of the Spanner Omni software that you are running (for example, `2026.r4-lts` ).
+
+  - **Edition** : The edition of Spanner Omni license installed on the deployment.
+
+  - **License type** : The type of license installed on the deployment. For more information about Spanner Omni editions and license types, see [Spanner Omni editions overview](https://docs.cloud.google.com/spanner-omni/editions-overview#compare-editions-licenses) .
+
+  - **License expiration** : The date when the deployment's license expires.
 
 #### Deployment configuration
 
