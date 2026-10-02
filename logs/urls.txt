@@ -103,7 +103,7 @@ https://docs.cloud.google.com/spanner-omni/deploy-on-vms	2026-09-30T22:02:19Z
 https://docs.cloud.google.com/spanner-omni/deployment-configuration	2026-09-30T18:24:26Z
 https://docs.cloud.google.com/spanner-omni/develop	2026-09-30T15:56:38Z
 https://docs.cloud.google.com/spanner-omni/differences	2026-09-30T18:24:26Z
-https://docs.cloud.google.com/spanner-omni/download	2026-09-30T22:02:19Z
+https://docs.cloud.google.com/spanner-omni/download	2026-10-01T14:26:53Z
 https://docs.cloud.google.com/spanner-omni/editions-overview	2026-10-01T00:27:02Z
 https://docs.cloud.google.com/spanner-omni/execution-plans	2026-09-30T18:24:26Z
 https://docs.cloud.google.com/spanner-omni/faq	2026-09-30T22:02:19Z

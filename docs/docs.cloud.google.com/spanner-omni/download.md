@@ -46,9 +46,9 @@ Specify the exact version tag when you download a chart.
 
 The following table lists the available Helm chart versions.
 
-| Version tag | Release date    |
-| ----------- | --------------- |
-| `1.0.0`     | August 20, 2026 |
+| Version tag | Release date       |
+| ----------- | ------------------ |
+| `1.0.0`     | September 30, 2026 |
 
 For example, to download the Helm chart for version 1.0.0 from Artifact Registry, run the following command:
 
